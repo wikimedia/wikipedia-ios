@@ -43,6 +43,7 @@ public enum WMFFont {
     case mediumFootnote
     case mediumSubheadline
     case semiboldHeadline
+    case semiboldItalicHeadline
     case semiboldSubheadline
     case semiboldTitle3
     case semiboldCaption1
@@ -247,6 +248,13 @@ public enum WMFFont {
         case .helveticaCaption1:
             return UIFontMetrics(forTextStyle: .caption1)
                    .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "HelveticaNeue", size: 12), size: 0), compatibleWith: traitCollection)
+        case .semiboldItalicHeadline:
+            let base = UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)
+            let semibold = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
+            guard let descriptor = semibold.fontDescriptor.withSymbolicTraits([.traitBold, .traitItalic]) else {
+                fatalError()
+            }
+            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont(descriptor: descriptor, size: 0), compatibleWith: traitCollection)
         }
     }
 }

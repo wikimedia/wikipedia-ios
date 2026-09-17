@@ -111,6 +111,11 @@ public enum ArticleDescriptionSource: String {
     }
     
     public struct WikidataAPIPublishResult: Decodable {
+        struct Entity: Decodable {
+            let lastrevid: UInt64?
+        }
+
+        let entity: Entity?
         let errors: [MediaWikiAPIError]?
         let success: Int?
         
@@ -136,11 +141,17 @@ public enum ArticleDescriptionSource: String {
     ///   - source: description source; none, central or local.
     ///   - wikidataID: id for the Wikidata entity including the prefix
     ///   - languageCode: language code of the page's wiki, e.g., "en".
-    ///   - completion: completion block called when operation is completed.
-
-    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, editTags: [WMFEditTag]?, completion: @escaping (Error?) -> Void) {
+    ///   - completion: completion block called when operation is completed. On success, contains the ID of the new revision on wikidatawiki, or nil if the response does not contain one.
+    public func publish(
+        newWikidataDescription: String,
+        from source: ArticleDescriptionSource,
+        forWikidataID wikidataID: String,
+        languageCode: String,
+        editTags: [WMFEditTag]?,
+        completion: @escaping (Result<UInt64?, Error>) -> Void
+    ) {
         guard source != .local else {
-            completion(WikidataPublishingError.notEditable)
+            completion(.failure(WikidataPublishingError.notEditable))
             return
         }
         
@@ -167,7 +178,7 @@ public enum ArticleDescriptionSource: String {
             self.requestMediaWikiAPIAuthToken(for: wikidataURL, type: .csrf) { (result) in
                 switch result {
                 case .failure(let error):
-                    completion(error)
+                    completion(.failure(error))
                 case .success(let token):
                     let bodyParameters = ["language": normalizedLanguage,
                                           "uselang": normalizedLanguage,
@@ -183,15 +194,22 @@ public enum ArticleDescriptionSource: String {
         }
     }
     
-    private func processResponse(result: WikidataAPIPublishResult?, response: URLResponse?, isAuthorized: Bool?, networkError: Error?, siteURL: URL?, completion: @escaping (Error?) -> Void) {
-        
+    private func processResponse(
+        result: WikidataAPIPublishResult?,
+        response: URLResponse?,
+        isAuthorized: Bool?,
+        networkError: Error?,
+        siteURL: URL?,
+        completion: @escaping (Result<UInt64?, Error>) -> Void
+    ) {
+
         if let networkError = networkError {
-            completion(networkError)
+            completion(.failure(networkError))
             return
         }
 
         guard let result = result else {
-            completion(WikidataPublishingError.apiResultNotParsedCorrectly)
+            completion(.failure(WikidataPublishingError.apiResultNotParsedCorrectly))
             return
         }
 
@@ -202,25 +220,24 @@ public enum ArticleDescriptionSource: String {
                 
                 guard let displayError else {
                     if let firstError = errors.first {
-                        
-                        completion(WikidataPublishingError.apiOther(error: firstError))
+                        completion(.failure(WikidataPublishingError.apiOther(error: firstError)))
                     } else {
-                        completion(WikidataPublishingError.unknown)
+                        completion(.failure(WikidataPublishingError.unknown))
                     }
                     
                     return
                 }
                 
                 if displayError.code.contains("block") {
-                    completion(WikidataPublishingError.apiBlocked(error: displayError))
+                    completion(.failure(WikidataPublishingError.apiBlocked(error: displayError)))
                 } else if displayError.code.contains("abusefilter") {
                     switch displayError.code {
                     case "abusefilter-disallowed":
-                        completion(WikidataPublishingError.apiAbuseFilterDisallow(error: displayError))
+                        completion(.failure(WikidataPublishingError.apiAbuseFilterDisallow(error: displayError)))
                     case "abusefilter-warning":
-                        completion(WikidataPublishingError.apiAbuseFilterWarn(error: displayError))
+                        completion(.failure(WikidataPublishingError.apiAbuseFilterWarn(error: displayError)))
                     default:
-                        completion(WikidataPublishingError.apiAbuseFilterOther(error: displayError))
+                        completion(.failure(WikidataPublishingError.apiAbuseFilterOther(error: displayError)))
                     }
                 }
             }
@@ -228,7 +245,7 @@ public enum ArticleDescriptionSource: String {
             return
         }
         
-        completion(nil)
+        completion(.success(result.entity?.lastrevid))
         
         if isAuthorized ?? false, (result.errors ?? []).count == 0 {
             DispatchQueue.main.async {

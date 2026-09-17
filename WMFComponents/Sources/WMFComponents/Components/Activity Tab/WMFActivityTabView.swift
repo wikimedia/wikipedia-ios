@@ -10,14 +10,37 @@ public struct WMFActivityTabView: View {
     @State private var animatedGlobalEditCount: Int = 0
     @State private var hasShownGlobalEditsCard: Bool = false
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var theme: WMFTheme {
         return appEnvironment.theme
+    }
+
+    /// Where the Year in Review card belongs, or `.none` when it should not render at all.
+    ///
+    /// Logged in, the card sits at the top of the content. Logged out it is pinned above the tab
+    /// bar — except at accessibility text sizes, where it is taller than the space an inset can
+    /// give it, so it moves inline and scrolls with the content instead of squeezing everything
+    /// above it.
+    private enum YearInReviewCardPlacement {
+        case none, top, inlineBottom, pinnedBottom
+    }
+
+    /// The absence of a card is folded in here rather than checked at each site: `yearInReviewCard`
+    /// resolves to an empty view when there is no view model, but a padding modifier wrapped around
+    /// it still reserves its insets. The loading check is here for the same reason — the pinned
+    /// placement is attached outside the branch that swaps in the progress view.
+    private var yearInReviewCardPlacement: YearInReviewCardPlacement {
+        guard !viewModel.isLoading,
+              viewModel.yearInReviewViewModel != nil else { return .none }
+        if viewModel.authenticationState == .loggedIn { return .top }
+        return dynamicTypeSize.isAccessibilitySize ? .inlineBottom : .pinnedBottom
     }
 
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
     }
-
+    
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.isLoading {
@@ -36,13 +59,36 @@ public struct WMFActivityTabView: View {
                 }
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            if yearInReviewCardPlacement == .pinnedBottom {
+                yearInReviewCard
+                    .padding(.bottom, 16)
+            }
+        }
         .onAppear {
             viewModel.fetchData(fromAppearance: true)
         }
     }
 
+    @ViewBuilder
+    private var yearInReviewCard: some View {
+        if let yearInReviewViewModel = viewModel.yearInReviewViewModel {
+            WMFActivityTabYearInReviewCardView(viewModel: yearInReviewViewModel)
+        }
+    }
+
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
+            if yearInReviewCardPlacement == .top {
+                Section {
+                    yearInReviewCard
+                        .padding(.top, 16)
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color(uiColor: theme.paperBackground))
+                }
+                .listRowSeparator(.hidden)
+            }
+
             if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
                 Section {
                     VStack(spacing: 16) {
@@ -180,26 +226,36 @@ public struct WMFActivityTabView: View {
     @ViewBuilder
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
-            VStack {
-                Section {
-                    loggedOutView
-                        .accessibilityElement(children: .contain)
-                        .listRowInsets(EdgeInsets())
-                }
-                .listRowSeparator(.hidden)
+            // A ScrollView rather than a fixed-height stack: at accessibility text sizes the
+            // logged-out box, the empty view, and the Year in Review card are together taller than
+            // the screen, and without scrolling the content is clipped.
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(spacing: 0) {
+                        loggedOutView
+                            .accessibilityElement(children: .contain)
 
-                HStack {
-                    Spacer()
-                    WMFEmptyView(
-                        appEnvironment: appEnvironment,
-                        viewModel: viewModel.emptyViewModel,
-                        type: .noItems,
-                        isScrollable: false)
-                    Spacer()
+                        Spacer(minLength: 16)
+
+                        WMFEmptyView(
+                            appEnvironment: appEnvironment,
+                            viewModel: viewModel.emptyViewModel,
+                            type: .noItems,
+                            isScrollable: false)
+                            .frame(maxWidth: .infinity)
+
+                        Spacer(minLength: 16)
+
+                        if yearInReviewCardPlacement == .inlineBottom {
+                            yearInReviewCard
+                                .padding(.bottom, 16)
+                        }
+                    }
+                    // Keeps the normal-size layout centered the way the fixed-height stack did,
+                    // while still letting the content grow past the screen and scroll.
+                    .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                 }
             }
-            .frame(maxHeight: .infinity)
-            .listRowSeparator(.hidden)
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
@@ -209,6 +265,16 @@ public struct WMFActivityTabView: View {
                         .listRowInsets(EdgeInsets())
                 }
                 .listRowSeparator(.hidden)
+
+                if yearInReviewCardPlacement == .inlineBottom {
+                    Section {
+                        yearInReviewCard
+                            .padding(.top, 16)
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color(uiColor: theme.paperBackground))
+                    }
+                    .listRowSeparator(.hidden)
+                }
             }
             .scrollContentBackground(.hidden)
             .listStyle(.grouped)
@@ -236,10 +302,12 @@ public struct WMFActivityTabView: View {
         )
 
         let formattedAmount = amountAccessibilityLabel(for: amount)
-        let accessibilityLabel: String = [viewModel.localizedStrings.totalEditsAcrossProjects, formattedAmount].joined(separator: ",")
 
+        // Expose the amount as the accessibility value (separate from the label) so VoiceOver
+        // pauses naturally between the card's title and its numeric value
         return cardView.accessibilityElement(children: .ignore)
-            .accessibilityLabel(accessibilityLabel)
+            .accessibilityLabel(viewModel.localizedStrings.totalEditsAcrossProjects)
+            .accessibilityValue(formattedAmount)
             .accessibilityAddTraits(.isButton)
 
     }
@@ -356,11 +424,16 @@ public struct WMFActivityTabView: View {
         )
 
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
-        let accessibilityLabel: String = [viewModel.localizedStrings.totalArticlesRead, viewModel.articlesReadViewModel.dateTimeLastRead, formattedAmount].joined(separator: ",")
+        // Combine title + accessibility-friendly date rendering as the accessibility label
+        // (the "context" of the card). Expose the amount as the accessibility value so
+        // VoiceOver naturally pauses between the contextual label and the numeric value,
+        // matching the standard iOS control pattern (e.g. sliders, steppers).
+        let accessibilityLabel: String = [viewModel.localizedStrings.totalArticlesRead, viewModel.articlesReadViewModel.dateTimeLastReadAccessibilityLabel].joined(separator: ". ")
 
         return cardView
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
+            .accessibilityValue(formattedAmount)
             .accessibilityAddTraits(.isButton)
     }
 
@@ -391,11 +464,12 @@ public struct WMFActivityTabView: View {
         )
 
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
-        let accessibilityLabel: String = [viewModel.localizedStrings.articlesSavedTitle, viewModel.articlesSavedViewModel.dateTimeLastSaved, formattedAmount].joined(separator: ",")
+        let accessibilityLabel: String = [viewModel.localizedStrings.articlesSavedTitle, viewModel.articlesSavedViewModel.dateTimeLastSavedAccessibilityLabel].joined(separator: ". ")
 
         return cardView
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
+            .accessibilityValue(formattedAmount)
             .accessibilityAddTraits(.isButton)
     }
 
@@ -514,8 +588,27 @@ public struct WMFActivityTabView: View {
         return numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
 
+    /// Logged in with every module turned off. The Year in Review card still belongs here, so it
+    /// keeps the same top placement it has in `loggedInList` and the empty state fills what is left.
+    ///
+    /// Scrollable for the same reason as the logged-out state: at accessibility text sizes the card
+    /// and the empty view together exceed the screen.
     private func customizedEmptyState() -> some View {
-        WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
-            .frame(maxWidth: .infinity)
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 0) {
+                    if yearInReviewCardPlacement == .top {
+                        yearInReviewCard
+                            .padding(.top, 16)
+                            .padding(.bottom, 16)
+                    }
+
+                    WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
+                        .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity, minHeight: geometry.size.height)
+            }
+        }
+        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
     }
 }

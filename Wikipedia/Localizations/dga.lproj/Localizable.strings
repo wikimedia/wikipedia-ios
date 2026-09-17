@@ -282,7 +282,6 @@
 "explore-because-you-read-footer" = "Aatekle mine naŋ poɔŋ";
 "explore-continue-reading-heading" = "Kyoge kanna gɛrɛ";
 "explore-detail-back-button-title" = "Leɛ woŋ tɔ";
-"explore-enable-location-title" = "De Aatekle yineŋ ka peɔle zie na fo naŋ be";
 "explore-featured-article-heading" = "Aatekle naŋ waana a puoriŋ";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "A yi $1 Wikipiideɛ";
 "explore-featured-article-sub-heading-from-wikipedia" = "A yi Wikipiideɛ";
@@ -418,7 +417,6 @@
 "home-nearby-footer" = "Mine naŋ peɛlefi zie";
 "home-nearby-location-footer" = "Mine naŋ peɛle $1";
 "home-news-footer" = "Pampana yɛlɛ mine";
-"home-reading-list-prompt" = "Fo Aatekel na fo naŋ biŋ pampana be la a kannoo die kyɛ be a taŋgamie zaa. Kpɛ a vɛŋ ka a yɛlɛ na fo naŋ e biŋ ka a be lɛ fo boɔrɔ";
 "home-themes-action-title" = "Maale taa fo boɔbɔ";
 "home-themes-prompt" = "Eŋ faŋa fo kannoo a pãã de a ŋmaaroo ane a yelzu a yi a Aatekel bie";
 "home-title" = "E ka a yi";
@@ -713,11 +711,7 @@
 "reading-list-list-limit-exceeded-message" = "A kannoo Aatekel gama na boŋ koŋ baŋ e, sɔrɔɔ la segree fo namba te ta $1 a leɛ see a gama.";
 "reading-list-list-limit-exceeded-title" = "Fo naŋ la zie naŋ ba naŋ yeli ka fo tɛg {{PLURAL:$1|$1 reading list|$1 reading lists}} toŋ bone kaŋa zaa.";
 "reading-list-list-limit-reached" = "Fo ta la a tɛgoo zie $1 kanne a gama na be a toŋ tone bone";
-"reading-list-login-button-title" = "Kpɛ a tõɔ nyɛ fo Aatekel na biŋ";
 "reading-list-login-or-create-account-button-title" = "Kpɛ bee kuri toŋ toŋ zie";
-"reading-list-login-or-create-account-title" = "Kpɛ kyɛ eŋ Aatekel";
-"reading-list-login-subtitle" = "Kpɛ bee kuri toŋ toŋ bone a vɛŋ Aatekel na fo naŋ baŋ ane a kannoo gama na be a taŋgaraa zaa kyɛ de onaŋ fo boɔrɔ.";
-"reading-list-login-title" = "Nyɛ fo Aatekel?";
 "reading-list-name-user-created-annotation" = "_[toŋ tons kuri la]";
 "reading-list-new-list-description-placeholder" = "Boɔbu ŋmaa bigruu";
 "reading-list-new-list-name-placeholder" = "Yelzu kannoo";
@@ -731,7 +725,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Maale ziiri a fo taŋgaraa zu kyɛ leɛ e nyɛ";
 "reading-lists-articles-not-synced-limit-exceeded" = "Aatekel mine ba tõɔ gaa, gaŋ la";
 "reading-lists-conflicting-reading-list-name-updated" = "Fo gama '$1' ko a la yoe '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Aatekel Gama ba tõɔ biŋ soŋ";
 "reading-lists-default-list-title" = "Biŋ";
 "reading-lists-delete-reading-list-alert-message" = "A toma ŋa koŋ baŋ leɛ tõɔ leɛ-eŋ. Aatekel kaŋa zaa naŋ baŋ {{PLURAL:$1|this list|these lists}} koŋ leɛ biŋ.";
@@ -763,7 +756,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";
 "return-button-title" = "Leɛ wa";
 "return-to-article" = "Leɛ gaa Aatekel zie";
-"reverted-edit-title" = "Leɛre maaloo";
 "saved-all-articles-title" = "Aatekel zaa";
 "saved-default-reading-list-tag" = "A gane ŋa koŋ baŋ iri bare";
 "saved-pages-image-download-error" = "Ba tõɔ iri a enfuomo a gampɛle zu.";
@@ -845,10 +837,6 @@
 "talk-page-expand-thread-button" = "Kyaare mie";
 "talk-page-find-in-page-button" = "Bɔ gampɛle";
 "talk-page-menu-open-all" = "Yuo a mid zaa";
-"talk-page-new-banner-subtitle" = "Teɛre, te zaa eɛɛ nensaalba a kyɛ";
-"talk-page-new-banner-title" = "Sɔrɔɔ la nyoge fo meŋɛ";
-"talk-page-new-reply-success-text" = "Fo yɛlɛ tõɔ gaaɛ la velaa";
-"talk-page-new-topic-success-text" = "Fo yɛlɛ tõɔ gaaɛ la velaa";
 "talk-page-onboarding-button-accessibility-label" = "Neɛ gbɛrebo a yi kyɛ yeli tere";
 "talk-page-overflow-menu-accessibility" = "Yelle yaga gampɛle iruu";
 "talk-page-page-info" = "Duoro gampɛle";

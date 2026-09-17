@@ -2,6 +2,7 @@
 #import <WMF/MWKDataStore.h>
 #import <WMF/MWKSearchResult.h>
 #import <WMF/WMF-Swift.h>
+@import WMFData;
 
 static const NSInteger WMFMaximumSavedOrReadDaysAgoForRelatedPages = 3;
 
@@ -56,6 +57,16 @@ NS_ASSUME_NONNULL_BEGIN
         if (completion) {
             completion();
         }
+        return;
+    }
+
+    if (WMFHomeDataController.shared.isHomeTabGroupB) {
+        [moc performBlock:^{
+            [self removeAllContentInManagedObjectContext:moc];
+            if (completion) {
+                completion();
+            }
+        }];
         return;
     }
 

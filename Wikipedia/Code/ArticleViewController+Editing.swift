@@ -18,8 +18,6 @@ extension ArticleViewController {
         if let project = WikimediaProject(siteURL: articleURL) {
             EditInteractionFunnel.shared.logArticleDidTapEditSectionButton(project: project)
         }
-
-        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
     func showEditorForFullSource() {
@@ -33,31 +31,37 @@ extension ArticleViewController {
     }
 
     private func presentEditingFlow(with sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
-        guard WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney, let navigationController else {
+        guard WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled, let navigationController else {
             presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
             return
         }
 
         let settingsDataController = WMFSettingsDataController.shared
+        let preferredMode = settingsDataController.defaultEditMode()
 
-        // User previously chose a default via "Don't show this again" — skip the sheet
-        if let defaultMode = settingsDataController.defaultEditMode() {
-            startEditing(mode: defaultMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        if settingsDataController.skipChooseEditorSheet() {
+            startEditing(mode: preferredMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
             return
         }
 
         let coordinator = ChooseEditorSheetCoordinator(
             navigationController: navigationController,
-            theme: theme
-        ) { [weak self] mode, dontShowAgain in
-            guard let self else { return }
+            theme: theme,
+            initialMode: preferredMode,
+            didChoose: { [weak self] mode, dontShowAgain in
+                guard let self else { return }
 
-            let editMode: WMFEditMode = (mode == .visual) ? .visual : .source
-            if dontShowAgain {
-                settingsDataController.setDefaultEditMode(editMode)
+                settingsDataController.setDefaultEditMode(mode)
+                if dontShowAgain {
+                    settingsDataController.setSkipChooseEditorSheet(true)
+                }
+                self.startEditing(mode: mode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+            },
+            didClose: { [weak self] in
+                guard let self else { return }
+                EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
             }
-            self.startEditing(mode: editMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
-        }
+        )
         coordinator.start()
     }
 
@@ -90,13 +94,19 @@ extension ArticleViewController {
         var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
 
         var queryItems = [
-            URLQueryItem(name: "veaction", value: "edit"),
-            URLQueryItem(name: "returntoapp", value: "1")
+            URLQueryItem(name: "useformat", value: "mobile"),
+            URLQueryItem(name: "veaction", value: "edit")
+            // TODO: Restore URLQueryItem(name: "returntoapp", value: "1") once the web's tap-to-return
+            // banner replaces the automatic redirect it currently triggers
         ]
 
         if let sectionID {
             queryItems.append(URLQueryItem(name: "section", value: String(sectionID)))
         }
+        if let appInstallId: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue), !appInstallId.isEmpty {
+            queryItems.append(URLQueryItem(name: "appinstallid", value: appInstallId))
+        }
+        
         components?.queryItems = queryItems
         navigate(to: components?.url, useSafari: true)
     }
@@ -105,6 +115,7 @@ extension ArticleViewController {
         let editTag: WMFEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
 
         presentEditingFlow(with: id, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {

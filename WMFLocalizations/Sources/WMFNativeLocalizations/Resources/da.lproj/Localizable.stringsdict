@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du redigerede %#@v1@ i denne uge.</string>
+		<string>Du redigerede %1$#@v1@ i denne uge.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -53,7 +53,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du læste %#@v1@ i denne uge.</string>
+		<string>Du læste %1$#@v1@ i denne uge.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -69,7 +69,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du gemte %#@v1@ i denne uge.</string>
+		<string>Du gemte %1$#@v1@ i denne uge.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -85,7 +85,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tilføj %#@v1@ til læselisten</string>
+		<string>Tilføj %1$#@v1@ til læselisten</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -101,7 +101,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ slettet</string>
+		<string>%1$#@v1@ slettet</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -114,10 +114,58 @@
 			<string>artikler</string>
 		</dict>
 	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vil du lukke %1$#@v1@? Denne handling kan ikke fortrydes.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d fane</string>
+			<key>other</key>
+			<string>%1$d faner</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Luk %1$#@v1@?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d fane</string>
+			<key>other</key>
+			<string>%1$d faner</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ lukket.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d fane</string>
+			<key>other</key>
+			<string>%1$d faner</string>
+		</dict>
+	</dict>
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Afsnit flyttet %#@v1@ ned. Gå til ny placering.</string>
+		<string>Afsnit flyttet %1$#@v1@ ned. Gå til ny placering.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -135,7 +183,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Afsnit flyttet %#@v1@ op. Gå til ny placering.</string>
+		<string>Afsnit flyttet %1$#@v1@ op. Gå til ny placering.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -153,7 +201,7 @@
 	<key>diff-change-paragraph-sections-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Afsnit flyttet %#@v1@ ned. Gå til ny placering.</string>
+		<string>Afsnit flyttet %1$#@v1@ ned. Gå til ny placering.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -171,7 +219,7 @@
 	<key>diff-change-paragraph-sections-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Afsnit flyttet %#@v1@ op. Gå til ny placering.</string>
+		<string>Afsnit flyttet %1$#@v1@ op. Gå til ny placering.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -189,7 +237,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -205,7 +253,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -221,7 +269,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -237,7 +285,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -253,7 +301,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -269,7 +317,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -282,10 +330,122 @@
 			<string> %1$d linjer uredigeret</string>
 		</dict>
 	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Den %1$@ bad du os om at minde dig om at donere efter at have læst %2$#@v2@. Hvis Wikipedia har givet dig %3$@ i viden, så bliv en del af de 2%% af læsere, der giver og fuldfører dit ønske i dag.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d artikel</string>
+			<key>other</key>
+			<string>%2$d artikler</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du har læst %1$#@v1@ siden du gav tilsagn om %2$@!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel</string>
+			<key>other</key>
+			<string>%1$d artikler</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du har læst endnu en %1$#@v1@!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel</string>
+			<key>other</key>
+			<string>%1$d artikler</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-activity-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Gense dine %1$#@v1@ med Aktivitet</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d seneste læsning</string>
+			<key>other</key>
+			<string> %1$d seneste læsninger</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-saved-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Synkronisér %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d din gemte artikel</string>
+			<key>other</key>
+			<string>%1$d dine gemte artikler</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Se dine %1$#@v1@ blive samlet i Året i tilbageblik</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d læsedag</string>
+			<key>other</key>
+			<string> %1$d læsedage</string>
+		</dict>
+	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d valgt</string>
+			<key>other</key>
+			<string>%1$d valgte</string>
+		</dict>
+	</dict>
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ tilføjet</string>
+		<string>%1$#@v1@ tilføjet</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -301,7 +461,7 @@
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bidragere lavede %#@v1@ dette år</string>
+		<string>Bidragere lavede %1$#@v1@ dette år</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -317,7 +477,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Det anslås at folk har brugt %#@v1@ – over %#@v2@! – på at læse engelsk Wikipedia i %3$@. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.</string>
+		<string>Det anslås at folk har brugt %1$#@v1@ – over %2$#@v2@! – på at læse engelsk Wikipedia i %3$@. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -342,7 +502,7 @@
 	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vi brugte %#@v1@ på at læse</string>
+		<string>Vi brugte %1$#@v1@ på at læse</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -358,7 +518,7 @@
 	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Aktive iOS App-brugere havde over %#@v1@. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.</string>
+		<string>Aktive iOS App-brugere havde over %1$#@v1@. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -374,7 +534,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vi havde over %#@v1@</string>
+		<string>Vi havde over %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -390,7 +550,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tilføj %#@v1@ til læselisten</string>
+		<string>Tilføj %1$#@v1@ til læselisten</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -406,7 +566,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -420,7 +580,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -433,10 +593,26 @@
 			<string>%1$d filtre</string>
 		</dict>
 	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d besked</string>
+			<key>other</key>
+			<string>%1$d beskeder</string>
+		</dict>
+	</dict>
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -452,7 +628,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -468,7 +644,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -482,7 +658,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ på %2$@</string>
+		<string>%1$#@v1@ på %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -498,7 +674,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -514,7 +690,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -530,7 +706,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ på denne dag</string>
+		<string>%1$#@v1@ på denne dag</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -546,7 +722,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tilføjede %#@v1@</string>
+		<string>Tilføjede %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -562,7 +738,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Fjernede %#@v1@</string>
+		<string>Fjernede %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -578,7 +754,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ siden %2$@</string>
+		<string>%1$#@v1@ siden %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -594,7 +770,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -610,7 +786,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ kan ikke tilføjes til denne liste. Du har nået grænsen på %2$d artikler pr. læseliste til %3$@</string>
+		<string>%1$#@v1@ kan ikke tilføjes til denne liste. Du har nået grænsen på %2$d artikler pr. læseliste til %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -623,26 +799,10 @@
 			<string>Artikler</string>
 		</dict>
 	</dict>
-	<key>reading-lists-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d læseliste</string>
-			<key>other</key>
-			<string>%1$d læselister</string>
-		</dict>
-	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Denne handling kan ikke fortrydes. Enhver artikel gemt kun i %#@v1@ vil ikke blive gemt.</string>
+		<string>Denne handling kan ikke fortrydes. Enhver artikel gemt kun i %1$#@v1@ vil ikke blive gemt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -658,7 +818,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Slet %#@v1@?</string>
+		<string>Slet %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -674,7 +834,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ og %#@v2@ synkroniseret fra din konto</string>
+		<string>%1$#@v1@ og %2$#@v2@ synkroniseret fra din konto</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -701,7 +861,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -719,7 +879,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -737,7 +897,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -755,7 +915,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -773,7 +933,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -791,7 +951,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -809,7 +969,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -827,7 +987,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Fjernelse %#@v1@ fra alle associerede læselister</string>
+		<string>Fjernelse %1$#@v1@ fra alle associerede læselister</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -843,7 +1003,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Fjern %#@v1@?</string>
+		<string>Fjern %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -859,7 +1019,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -875,7 +1035,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -891,7 +1051,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -905,7 +1065,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -921,7 +1081,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Redaktører på iOS-appen foretog mere end %#@v1@</string>
+		<string>Redaktører på iOS-appen foretog mere end %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -937,7 +1097,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipedia blev redigeret %#@v1@ i minuttet</string>
+		<string>Wikipedia blev redigeret %1$#@v1@ i minuttet</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -953,7 +1113,7 @@
 	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipedia havde %#@v1@ på tværs af over %#@v2@. Du sluttede dig til millioner af andre i at udvide din viden og udforske forskellige emner.</string>
+		<string>Wikipedia havde %1$#@v1@ på tværs af over %2$#@v2@. Du sluttede dig til millioner af andre i at udvide din viden og udforske forskellige emner.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -980,7 +1140,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipedia var tilgængelig på mere end %#@v1@</string>
+		<string>Wikipedia var tilgængelig på mere end %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -994,7 +1154,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Brugere af appen havde mere end%#@v1@</string>
+		<string>Brugere af appen havde mere end%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1010,7 +1170,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>App-brugere har set Wikipedia-artikler %#@v1@</string>
+		<string>App-brugere har set Wikipedia-artikler %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1026,7 +1186,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ i minuttet</string>
+		<string>%1$#@v1@ i minuttet</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1042,7 +1202,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, modtaget %#@v1@. Takket være redaktører som dig er Wikipedia en stadigt forbedret, faktabaseret og pålidelig vidensressource for verden.</string>
+		<string>Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, modtaget %1$#@v1@. Takket være redaktører som dig er Wikipedia en stadigt forbedret, faktabaseret og pålidelig vidensressource for verden.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1058,7 +1218,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dine redigeringer er blevet vist mere end %#@v1@ for nylig</string>
+		<string>Dine redigeringer er blevet vist mere end %1$#@v1@ for nylig</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1074,7 +1234,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Frivillige som dig har lavet %#@v1@ på tværs af %#@v2@ af Wikipedia.</string>
+		<string>Frivillige som dig har lavet %1$#@v1@ på tværs af %2$#@v2@ af Wikipedia.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1101,7 +1261,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du redigerede %#@v1@ i denne uge.</string>
+		<string>Du redigerede %1$#@v1@ i denne uge.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1117,7 +1277,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vi anslår, at det placerer dig i den øverste **PROCENT** af Wikipedia-læsere globalt. Den gennemsnitlige person læser %#@v1@ om året.</string>
+		<string>Vi anslår, at det placerer dig i den øverste **PROCENT** af Wikipedia-læsere globalt. Den gennemsnitlige person læser %1$#@v1@ om året.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1133,7 +1293,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du brugte %#@v1@ på at læse %#@v2@ i %3$@</string>
+		<string>Du brugte %1$#@v1@ på at læse %2$#@v2@ i %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1162,7 +1322,7 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Disse artikler omfattede %1$@, %2$@ og %3$@ . Hver gemt artikel afspejler dine interesser og hjælper med at opbygge en personlig vidensbase på Wikipedia.
 
-Aktive app-brugere havde %#@v4@ i år.</string>
+Aktive app-brugere havde %4$#@v4@ i år.</string>
 		<key>v4</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1178,7 +1338,7 @@ Aktive app-brugere havde %#@v4@ i år.</string>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du har gemt %#@v1@</string>
+		<string>Du har gemt %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

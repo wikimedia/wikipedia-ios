@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 
 public struct WMFChooseEditorView: View {
 
@@ -38,54 +39,9 @@ public struct WMFChooseEditorView: View {
     }
 
     private var optionsCard: some View {
-        VStack(spacing: 0) {
-            optionRow(mode: .visual, title: viewModel.visualEditingTitle, subtitle: viewModel.visualEditingSubtitle, showsExternalLinkIcon: true)
-            Divider()
-                .padding(.horizontal, 16)
-            optionRow(mode: .source, title: viewModel.sourceEditingTitle, subtitle: viewModel.sourceEditingSubtitle, showsExternalLinkIcon: false)
-        }
-        .background(
-            RoundedRectangle(cornerRadius: 32)
-                .fill(Color(uiColor: theme.chromeBackground))
-        )
-    }
-
-    private func optionRow(mode: WMFChooseEditorViewModel.EditMode, title: String, subtitle: String, showsExternalLinkIcon: Bool) -> some View {
-        Button {
+        WMFEditModeOptionsCard(selectedMode: viewModel.selectedMode) { mode in
             viewModel.selectedMode = mode
-        } label: {
-            HStack(alignment: .top, spacing: 12) {
-                VStack(alignment: .leading) {
-                    HStack(spacing: 8) {
-                        Text(title)
-                            .font(Font(WMFFont.for(.headline)))
-                            .accessibilityAddTraits(viewModel.selectedMode == mode ? [.isSelected] : [])
-
-                        if showsExternalLinkIcon, let uiImage = WMFSFSymbolIcon.for(symbol: .arrowUpForward, font: .subheadline) {
-                            Image(uiImage: uiImage)
-                        }
-                    }
-                    .foregroundColor(Color(uiColor: theme.text))
-
-                    HStack(alignment: .top, spacing: 8) {
-                        Text(subtitle)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        Spacer(minLength: 8)
-
-                        WMFCheckmarkView(isSelected: true, configuration: .init(style: .default))
-                            .opacity(viewModel.selectedMode == mode ? 1 : 0)
-                            .accessibilityHidden(true)
-                    }
-                    .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-                }
-            }
-            .padding(16)
-            .contentShape(Rectangle())
         }
-        .buttonStyle(ChooseEditorRowButtonStyle())
-        .accessibilityElement(children: .combine)
     }
 
     private var dontShowAgainRow: some View {
@@ -105,12 +61,6 @@ public struct WMFChooseEditorView: View {
             viewModel.dontShowAgain.toggle()
         }
         .padding(.horizontal, 4)
-    }
-}
-
-private struct ChooseEditorRowButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
     }
 }
 

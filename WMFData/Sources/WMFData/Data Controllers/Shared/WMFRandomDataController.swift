@@ -97,21 +97,53 @@ struct WMFRandomArticlesQuery: Decodable, Sendable {
 public struct WMFRandomArticle: Decodable, Sendable {
     public let pageid: Int
     public let title: String
+    public let index: Int?
     public let displayTitle: String?
     public let variantTitles: WMFRandomArticleVariantTitles?
     public let description: String?
     public let extract: String?
     public let thumbnail: WMFRandomArticleThumbnail?
+    public let pageprops: WMFRandomArticlePageProps?
+
+    public init(
+        pageid: Int,
+        title: String,
+        index: Int? = nil,
+        displayTitle: String? = nil,
+        variantTitles: WMFRandomArticleVariantTitles? = nil,
+        description: String? = nil,
+        extract: String? = nil,
+        thumbnail: WMFRandomArticleThumbnail? = nil,
+        pageprops: WMFRandomArticlePageProps? = nil
+    ) {
+        self.pageid = pageid
+        self.title = title
+        self.index = index
+        self.displayTitle = displayTitle
+        self.variantTitles = variantTitles
+        self.description = description
+        self.extract = extract
+        self.thumbnail = thumbnail
+        self.pageprops = pageprops
+    }
 
     enum CodingKeys: String, CodingKey {
         case pageid
         case title
+        case index
         case displayTitle = "displaytitle"
         case variantTitles = "varianttitles"
         case description
         case extract
         case thumbnail
+        case pageprops
     }
+}
+
+/// The API sends a key with an empty value when the page has that property, and no key when it does not.
+public struct WMFRandomArticlePageProps: Decodable, Sendable {
+    public let mainpage: String?
+    public let disambiguation: String?
 }
 
 public struct WMFRandomArticleVariantTitles: Decodable, Sendable {

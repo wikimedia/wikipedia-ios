@@ -15,7 +15,7 @@ struct WMFInterestArticleGridView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var columnCount: Int {
-        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize)
+        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize, idiom: UIDevice.current.userInterfaceIdiom)
     }
 
     /// Distributes cards into `columnCount` masonry columns, each card going to the currently
@@ -39,7 +39,7 @@ struct WMFInterestArticleGridView: View {
 
     private func estimatedHeight(for vm: WMFInterestArticleCardViewModel) -> CGFloat {
         let imageHeight: CGFloat = vm.thumbnailURL != nil ? 100 : 0
-        let titleLines = max(1, Int(ceil(Double(vm.title.count) / 18.0)))
+        let titleLines = max(1, Int(ceil(Double(vm.displayTitle.removingHTML.count) / 18.0)))
         let titleHeight = CGFloat(titleLines) * 20
         let descriptionHeight: CGFloat
         if let desc = vm.description {
@@ -83,6 +83,10 @@ private struct WMFInterestArticleCardView: View {
 
     @ObservedObject var viewModel: WMFInterestArticleCardViewModel
     let theme: WMFTheme
+    
+    private var subheadlineStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.boldSubheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.boldItalicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: theme.text, linkColor: theme.link, lineSpacing: 1)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -103,7 +107,7 @@ private struct WMFInterestArticleCardView: View {
             // text rather than below its descender space.
             HStack(alignment: .lastTextBaseline, spacing: 4) {
                 VStack(alignment: .leading, spacing: 4) {
-                    WMFHtmlText(html: viewModel.title, styles: HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
+                    WMFHtmlText(html: viewModel.displayTitle, styles: subheadlineStyles)
                     if let description = viewModel.description {
                         Text(description)
                             .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
@@ -145,7 +149,7 @@ private struct WMFInterestArticleCardView: View {
     }
 
     private var accessibilityLabel: String {
-        [viewModel.title.wmf_strippingHTMLForAccessibility, viewModel.description]
+        [viewModel.displayTitle.removingHTML, viewModel.description]
             .compactMap { $0 }
             .filter { !$0.isEmpty }
             .joined(separator: ", ")

@@ -108,6 +108,15 @@ import CocoaLumberjackSwift
         )
     }
 
+    // MARK: - PageData helpers
+
+    public static func getPageData(title: String, project: WMFProject) -> PageData {
+        return PageData(
+            title: title.replacingOccurrences(of: " ", with: "_"),
+            contentLanguage: project.languageVariantCode ?? project.languageCode
+        )
+    }
+
     // MARK: - EventSender
 
     public func sendEvents(_ events: [Event]) {

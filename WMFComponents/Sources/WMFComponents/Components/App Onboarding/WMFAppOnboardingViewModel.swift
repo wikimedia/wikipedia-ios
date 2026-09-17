@@ -87,6 +87,10 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
     let didTapTermsOfUse: () -> Void
     let didTapAddLanguages: () -> Void
     let onCompletion: () -> Void
+    
+    let logImpression: (Step) -> Void
+    let logSkip: (Step) -> Void
+    let logNext: (Step) -> Void
 
     public init(languages: [LanguageItem],
                 interestsViewModel: WMFHomeFeedInterestsSettingsViewModel,
@@ -95,7 +99,10 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
                 didTapPrivacyPolicy: @escaping () -> Void,
                 didTapTermsOfUse: @escaping () -> Void,
                 didTapAddLanguages: @escaping () -> Void,
-                onCompletion: @escaping () -> Void) {
+                onCompletion: @escaping () -> Void,
+                logImpression: @escaping (Step) -> Void,
+                logSkip: @escaping (Step) -> Void,
+                logNext: @escaping (Step) -> Void) {
         self.languages = languages
         self.interestsViewModel = interestsViewModel
         self.feedPreferenceViewModel = feedPreferenceViewModel
@@ -104,6 +111,13 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         self.didTapTermsOfUse = didTapTermsOfUse
         self.didTapAddLanguages = didTapAddLanguages
         self.onCompletion = onCompletion
+        self.logImpression = logImpression
+        self.logSkip = logSkip
+        self.logNext = logNext
+
+        interestsViewModel.onSelectionChanged = { [weak feedPreferenceViewModel] topics, selectedArticleTitles in
+            feedPreferenceViewModel?.interestsDidChange(topics: topics, selectedArticleTitles: selectedArticleTitles)
+        }
     }
 
     public var currentStep: Step {
@@ -136,6 +150,8 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
 
     /// Advances to the next step, or completes onboarding when on the last step.
     public func advance() {
+        
+        logNext(currentStep)
         // Interests are final once the user leaves the interests step — start fetching the
         // feed preference previews now for a head start over the step's onAppear.
         if currentStep == .interests {
@@ -148,10 +164,17 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
             onCompletion()
         }
     }
+    
+    /// Sets the initial step without side effects. Only valid to call before the view appears.
+    public func jumpToStep(_ step: Step) {
+        guard let index = steps.firstIndex(of: step) else { return }
+        currentStepIndex = index
+    }
 
     /// Skips the remaining steps and completes onboarding. Skipping applies the default
     /// feed preference regardless of any selection made on the feed preference step.
     public func skip() {
+        logSkip(currentStep)
         feedPreferenceViewModel.resetSelectionToDefault()
         onCompletion()
     }

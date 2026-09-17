@@ -160,8 +160,21 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
     var needsFocusOnSearch: Bool
-    
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, needsFocusOnSearch: Bool = false) {
+    private let revisionID: UInt64?
+
+    init(
+        navigationController: UINavigationController,
+        articleURL: URL,
+        dataStore: MWKDataStore,
+        theme: Theme,
+        needsAnimation: Bool = true,
+        source: ArticleSource,
+        isRestoringState: Bool = false,
+        previousPageViewObjectID: NSManagedObjectID? = nil,
+        tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab,
+        needsFocusOnSearch: Bool = false,
+        revisionID: UInt64? = nil
+    ) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -172,6 +185,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
         self.needsFocusOnSearch = needsFocusOnSearch
+        self.revisionID = revisionID
         super.init()
     }
     
@@ -191,6 +205,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
+        articleVC.initialLoadRevisionID = revisionID
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         
         Task {

@@ -188,6 +188,8 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     // MARK: - Topic chips
 
+    private static let chipsLeadingAnchorID = "interestTopicChipsLeadingAnchor"
+
     private var topicChips: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
@@ -202,10 +204,8 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                             let isSelecting = !viewModel.selectedTopics.contains(topic)
                             viewModel.toggleTopic(topic)
                             if isSelecting {
-                                // Selection moves the chip into the selected group, which can
-                                // land off-screen — follow it, instantly (see below).
                                 Task { @MainActor in
-                                    proxy.scrollTo(topic)
+                                    proxy.scrollTo(Self.chipsLeadingAnchorID, anchor: .leading)
                                 }
                             }
                         }
@@ -213,8 +213,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                // Deliberately unanimated: animating the reorder made chips swap places and
-                // the +/checkmark icon slide. Selection should apply instantly (per design).
+                .id(Self.chipsLeadingAnchorID)
             }
         }
     }
@@ -255,7 +254,7 @@ private struct WMFInterestSearchResultRow: View {
             .clipShape(RoundedRectangle(cornerRadius: 6))
 
             VStack(alignment: .leading, spacing: 2) {
-                WMFHtmlText(html: card.title, styles: HtmlUtils.Styles(font: WMFFont.for(.subheadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldSubheadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
+                WMFHtmlText(html: card.displayTitle, styles: HtmlUtils.Styles(font: WMFFont.for(.subheadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldSubheadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
                 if let description = card.description {
                     Text(description)
                         .font(Font(WMFFont.for(.caption1, sized: dynamicTypeSize)))
@@ -287,7 +286,7 @@ private struct WMFInterestSearchResultRow: View {
     }
 
     private var accessibilityLabel: String {
-        [card.title.wmf_strippingHTMLForAccessibility, card.description]
+        [card.displayTitle.removingHTML, card.description]
             .compactMap { $0 }
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
@@ -353,9 +352,3 @@ private struct LanguageChipView: View {
     }
 }
 
-extension String {
-    /// Strips simple HTML tags so display titles (which may contain markup) read cleanly in VoiceOver.
-    var wmf_strippingHTMLForAccessibility: String {
-        replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-    }
-}

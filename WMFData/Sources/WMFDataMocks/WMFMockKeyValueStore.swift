@@ -19,7 +19,17 @@ public final class WMFMockKeyValueStore: WMFKeyValueStore {
     }
 
     public func remove(key: String...) throws {
-        savedObjects = [:]
+        let defaultsKey = key.joined(separator: ".")
+        savedObjects.removeValue(forKey: defaultsKey)
+    }
+
+    public func keys(inDirectory directory: String) throws -> [String] {
+        let prefix = directory + "."
+        return savedObjects
+            .keys
+            .filter { $0.hasPrefix(prefix) }
+            .map { String($0.dropFirst(prefix.count)) }
+            .sorted()
     }
 
 }

@@ -405,16 +405,16 @@ WMFData:
 xcodebuild \
       -scheme WMFData \
       -project Wikipedia.xcodeproj \
-       -destination "platform=iOS Simulator,name=iPhone 16,OS=18.6" \
+       -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=latest" \
       build | xcbeautify
 ```
 
 WMFComponents:
 ```
 xcodebuild \
-      -scheme WMFData \
+      -scheme WMFComponents \
       -project Wikipedia.xcodeproj \
-       -destination "platform=iOS Simulator,name=iPhone 16,OS=18.6" \
+       -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=latest" \
       build | xcbeautify
 ```
 
@@ -424,9 +424,11 @@ App-side:
 xcodebuild \
       -scheme Wikipedia \
       -project Wikipedia.xcodeproj \
-      -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.6' \
+      -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest' \
       build | xcbeautify
 ```
+
+Note: `OS=latest` resolves to whatever iOS Simulator runtime is installed on the build machine. If `iPhone 17 Pro` isn't available, check installed devices/runtimes with `xcrun simctl list devices available` and substitute an available device name.
 
 To run unit tests, use the same commands but add "test" after xcodebuild, e.g. `xcodebuild test \` Each scheme should run to fully confirm unit tests work (WMFData, WMFComponents, App-side).
 

@@ -8,6 +8,7 @@ public final class EditAttemptFunnel {
     private struct EventContainer: EventInterface {
         static let schema: EventPlatformClient.Schema = .editAttempt
         let event: Event
+        let wiki: String?
     }
 
     private struct Event: Codable {
@@ -26,7 +27,6 @@ public final class EditAttemptFunnel {
         let page_title: String?
         let page_ns: Int?
         let revision_id: Int?
-        let wiki_id: String?
         let dt: Date
     }
 
@@ -55,13 +55,37 @@ public final class EditAttemptFunnel {
         let integrationID = "app-ios"
         let platform = UIDevice.current.userInterfaceIdiom == .pad ? "tablet" : "phone"
 
-        let userId = getUserID(pageURL: pageURL)
-        
+        let resolvedProject = project ?? WikimediaProject(siteURL: pageURL)
+        let authenticationManager = MWKDataStore.shared().authenticationManager
+        let currentUser = authenticationManager.permanentUser(siteURL: pageURL)
+        if currentUser == nil {
+            authenticationManager.hydrateUserCacheIfNeeded(siteURL: pageURL)
+        }
+        let userId = currentUser?.userID ?? 0
+        let editCount = Int(currentUser?.editCount ?? 0)
+
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
-        let event = Event(action: action, editing_session_id: "", app_install_id: appInstallID, editor_interface: editorInterface, integration: integrationID, is_anon: isAnon, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, user_is_temp: isTemp, version: 1, page_title: pageURL.wmf_title, page_ns: pageURL.namespace?.rawValue, revision_id: revisionId, wiki_id: project?.notificationsApiWikiIdentifier, dt: Date())
+        let event = Event(
+            action: action,
+            editing_session_id: "",
+            app_install_id: appInstallID,
+            editor_interface: editorInterface,
+            integration: integrationID,
+            is_anon: isAnon,
+            mw_version: "",
+            platform: platform,
+            user_editcount: editCount,
+            user_id: userId,
+            user_is_temp: isTemp,
+            version: 1,
+            page_title: pageURL.wmf_title,
+            page_ns: pageURL.namespace?.rawValue,
+            revision_id: revisionId,
+            dt: Date()
+        )
 
-        let container = EventContainer(event: event)
+        let container = EventContainer(event: event, wiki: resolvedProject?.notificationsApiWikiIdentifier)
         EventPlatformClient.shared.submit(stream: .editAttempt, event: container, needsMinimal: true)
     }
 
@@ -88,9 +112,4 @@ public final class EditAttemptFunnel {
     func logAbort(pageURL: URL) {
         logEvent(pageURL: pageURL, action: .abort)
     }
-
-    fileprivate func getUserID(pageURL: URL) -> Int {
-        MWKDataStore.shared().authenticationManager.permanentUser(siteURL: pageURL)?.userID ?? 0
-    }
-
 }

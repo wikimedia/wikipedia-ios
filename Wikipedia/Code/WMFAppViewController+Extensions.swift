@@ -59,7 +59,44 @@ extension WMFAppViewController {
             articleSource = .external_link
         }
 
+        if let returnJourney = VisualEditorReturnJourney(url: linkURL) {
+            return processVisualEditorReturnJourney(returnJourney, navigationController: navigationController, articleSource: articleSource)
+        }
+
+        // Any other article deep link (e.g. Safari's native app banner): if the linked article
+        // is already on screen, bring the app to the foreground instead of pushing a duplicate
+        if LinkCoordinator.destination(for: linkURL) == .article,
+           let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = linkURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if let fragment = linkURL.fragment?.removingPercentEncoding, !fragment.isEmpty {
+                articleViewController.scroll(to: fragment, animated: true)
+            }
+            return true
+        }
+
         let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        return linkCoordinator.start()
+    }
+
+    /// Handles the redirect back into the app after a web Visual Editor session (T434236).
+    /// If the same article is already on screen, refreshes it in place instead of pushing a duplicate.
+    private func processVisualEditorReturnJourney(_ returnJourney: VisualEditorReturnJourney, navigationController: UINavigationController, articleSource: ArticleSource) -> Bool {
+
+        if let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = returnJourney.articleURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if returnJourney.saved {
+                articleViewController.waitForNewContentAndRefresh(returnJourney.revisionID)
+            }
+            // saved == false: the edit was abandoned, leave the article as-is
+            return true
+        }
+
+        // The user is continuing their journey, so append to the current tab rather than opening a new one
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: returnJourney.articleURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignCurrentTab, revisionID: returnJourney.revisionID)
         return linkCoordinator.start()
     }
 
@@ -369,13 +406,15 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             let performThanks = {
                 let diffThanker = DiffThanker()
                 diffThanker.thank(siteURL: siteURL, rev: Int(revisionID), completion: { result in
-                    switch result {
-                    case .success:
-                        let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
-                        let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                        WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
-                    case .failure(let failure):
-                        WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
+                    Task { @MainActor in
+                        switch result {
+                        case .success:
+                            let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
+                            let successMessage = String.localizedStringWithFormat(successfulThanks, username)
+                            WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
+                        case .failure(let failure):
+                            WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
+                        }
                     }
                 })
             }
@@ -791,7 +830,15 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
 
         evaluateAppInstallAndSessionIDs()
-        
+
+        // Warn level on purpose: the default log threshold (WMFLogging.h) is
+        // warning, and this line must reach the log file that ships with the
+        // "Export user data" package so errors in Logstash can be correlated
+        // with an exported log through the same install ID.
+        if let appInstallID: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue) {
+            DDLogWarn("App install ID: \(appInstallID)")
+        }
+
         #if TEST || UITEST
             TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
         #endif
@@ -811,7 +858,7 @@ extension WMFAppViewController {
         
         let store = WMFDataEnvironment.current.crossProcessUserDefaultsStore
         let appInstallID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
-        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
         
         if legacyAppInstallID == nil && appInstallID == nil {
             // This is likely a fresh install! Generate a new app install ID
@@ -839,12 +886,24 @@ extension WMFAppViewController {
     }
 
     @objc func performWMFDataHousekeeping() {
+        WMFExperimentsDataController.pruneRetiredExperiments()
+
         let coreDataStore = WMFDataEnvironment.current.coreDataStore
         Task {
             do {
                 try await coreDataStore?.performDatabaseHousekeeping()
             } catch {
                 DDLogError("Error pruning WMFData database: \(error)")
+            }
+
+            do {
+                let pageViewsDataController = try WMFPageViewsDataController()
+                let clampedCount = try await pageViewsDataController.clampInflatedPageViewSecondsIfNeeded()
+                if clampedCount > 0 {
+                    DDLogInfo("Clamped inflated reading time on \(clampedCount) page views.")
+                }
+            } catch {
+                DDLogError("Error clamping inflated page view seconds: \(error)")
             }
         }
     }
@@ -1304,7 +1363,6 @@ extension WMFAppViewController {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
             safetyTitle: CommonStrings.legalAndSafety
         )
 
@@ -1329,5 +1387,85 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+}
+
+// MARK: - Evergreen Account Creation
+
+extension WMFAppViewController {
+
+    /// Starts the prompt's session, then records the app open the session was launched by.
+    ///
+    /// `startSession` only weighs days before today, so it does not matter that the open being
+    /// recorded here belongs to the session it is deciding about.
+    @objc func startEvergreenAccountCreationSession() {
+        Task {
+            let dataController = WMFEvergreenAccountCreationDataController.shared
+            await dataController.startSession()
+
+            // Ordered deliberately: this session's app open has to be recorded before eligibility is
+            // weighed, or a reader crossing the "two more app open days" line is passed over until
+            // their next launch. Prompts presented synchronously by the resume have already taken the
+            // screen by the time these awaits resolve, so this one still yields to them.
+            if isViewingEligibleMainTab {
+                await dataController.recordAppOpen()
+            }
+
+            presentEvergreenAccountCreationPromptIfNeeded()
+        }
+    }
+
+    /// App opens are proxied by an impression of one of the main tabs, or of an article view.
+    @objc func recordEvergreenAccountCreationAppOpenIfNeeded() {
+        guard isViewingEligibleMainTab else { return }
+
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.recordAppOpen()
+        }
+    }
+
+    /// Attempts the prompt on Home or Saved, from the currently selected tab.
+    ///
+    /// Deliberately last in the app's prompt chain — after the logged out panel and the one time
+    /// Home onboarding — and it bails if any of them took the screen.
+    @objc func presentEvergreenAccountCreationPromptIfNeeded() {
+        guard presentedViewController == nil,
+              let navigationController = currentTabNavigationController,
+              let context = evergreenAccountCreationContextForSelectedTab else {
+            return
+        }
+
+        let coordinator = EvergreenAccountCreationCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, context: context)
+        evergreenAccountCreationCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private var evergreenAccountCreationContextForSelectedTab: WMFEvergreenAccountCreationDataController.PresentationContext? {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first,
+              currentTabNavigationController?.viewControllers.count == 1 else {
+            return nil
+        }
+
+        if rootViewController is HomeViewController || rootViewController is ExploreViewController {
+            return .home
+        }
+
+        if rootViewController is SavedViewController {
+            return .saved
+        }
+
+        return nil
+    }
+
+    /// Settings can take the first tab's place for some readers, and is not one of the main tabs.
+    private var isViewingEligibleMainTab: Bool {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first else { return false }
+
+        return rootViewController is HomeViewController
+            || rootViewController is ExploreViewController
+            || rootViewController is PlacesViewController
+            || rootViewController is SavedViewController
+            || rootViewController is WMFActivityTabViewController
+            || rootViewController is SearchViewController
     }
 }

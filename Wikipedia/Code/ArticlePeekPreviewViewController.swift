@@ -189,15 +189,14 @@ class ArticlePeekPreviewViewController: UIViewController {
             }
             ReadingListsFunnel.shared.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
         }
-        if articleURL.namespace == .main,
-        let article {
+        if let article, let articleURL = article.url, articleURL.namespace == .main {
             let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
             let saveAction = UIAction(title: saveActionTitle, image: WMFSFSymbolIcon.for(symbol: article.isAnyVariantSaved ? .bookmarkFill : .bookmark), handler: { (action) in
                 ArticleTabsFunnel.shared.logLongPressSave()
-                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
+                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: articleURL)
                 let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
                 UIAccessibility.post(notification: .announcement, argument: notification)
-                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
+                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: articleURL)
             })
             actions.append(saveAction)
         }

@@ -23,7 +23,6 @@ extension ArticleViewController {
             if let project = WikimediaProject(siteURL: articleURL) {
                 EditInteractionFunnel.shared.logArticleSelectDidTapEditContextMenu(project: project)
             }
-            EditAttemptFunnel.shared.logInit(pageURL: self.articleURL)
         }
     }
 }

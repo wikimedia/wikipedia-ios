@@ -34,7 +34,7 @@ public enum WMFIcon {
     public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
     public static let settingsPreferences = UIImage(named: "settings-preferences", in: .module, with: nil)
     public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
-    public static let settingsPrivacy = UIImage(named: "settings-privacy.pdf", in: .module, with: nil)
+    public static let settingsPrivacy = UIImage(named: "settings-privacy", in: .module, with: nil)
 
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
@@ -58,6 +58,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkCircleFill
     case checkmarkSquareFill
     case square
+    case squareSplit
     case star
     case starSquare
     case starFill
@@ -135,6 +136,9 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
+    case booksVertical
+    case creditCard
+    case flask
     case gearShape
     case calendar
     case calendarExclamation
@@ -174,6 +178,14 @@ public enum WMFSFSymbolIcon {
     case house
     case sliderHorizontal3
     case clockArrowCounterclockwise
+    case sparkles
+    case xmarkCircle
+    case docText
+    case docOnDoc
+    case chevronUpChevronDown
+    case globe
+    case newspaper
+    case person2Fill
 
     public var name: String? {
         switch self {
@@ -356,6 +368,12 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .booksVertical:
+            image = UIImage(systemName: "books.vertical", withConfiguration: configuration)
+        case .creditCard:
+            image = UIImage(systemName: "creditcard", withConfiguration: configuration)
+        case .flask:
+            image = UIImage(systemName: "flask", withConfiguration: configuration)
         case .gearShape:
             image = UIImage(systemName: "gearshape", withConfiguration: configuration)
         case .heartFilled:
@@ -440,6 +458,24 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90", withConfiguration: configuration)
         case .starSquare:
             image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
+        case .sparkles:
+            image = UIImage(systemName: "sparkles", withConfiguration: configuration)
+        case .xmarkCircle:
+            image = UIImage(systemName: "xmark.circle", withConfiguration: configuration)
+        case .docText:
+            image = UIImage(systemName: "doc.text", withConfiguration: configuration)
+        case .docOnDoc:
+            image = UIImage(systemName: "doc.on.doc", withConfiguration: configuration)
+        case .chevronUpChevronDown:
+            image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
+        case .globe:
+            image = UIImage(systemName: "globe", withConfiguration: configuration)
+        case .squareSplit:
+            image = UIImage(systemName: "square.split.2x1", withConfiguration: configuration)
+        case .newspaper:
+            image = UIImage(systemName: "newspaper", withConfiguration: configuration)
+        case .person2Fill:
+            image = UIImage(systemName: "person.2.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

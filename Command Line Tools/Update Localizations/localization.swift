@@ -201,7 +201,10 @@ extension String {
             // include the dictionary of possible replacements for the plural token
             mutableDictionary[key] = keyDictionary
             // append the variable name to the format string where the plural token used to be
-            format += "%#@\(key)@"
+            // The positional index is required: without it, Foundation binds the plural's
+            // argument incorrectly when another positional specifier comes before it in the
+            // sentence, which corrupts the substitution or crashes at format time.
+            format += "%\(tokenInt)$#@\(key)@"
         }
         // append the final part of the string after the last match
         format += nsSelf.substring(with: NSRange(location: location, length: nsSelf.length - location)).iOSNativeLocalization(tokens: tokens)

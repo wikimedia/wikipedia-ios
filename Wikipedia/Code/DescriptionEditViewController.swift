@@ -30,6 +30,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     var wikiHasTempAccounts: Bool?
 
     private var articleDescriptionController: ArticleDescriptionControlling!
+
+    // Edit analytics identify the page where the edit creates its revision. For Wikidata descriptions that is the entity page on wikidatawiki, not the article.
+    private var loggingPageURL: URL? {
+        return articleDescriptionController.loggingPageURL ?? articleDescriptionController.article.url
+    }
     private var toastView: UIView?
 
     var tempAccountsMediaWikiURL: String {
@@ -55,6 +60,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let pageURL = loggingPageURL {
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
+        }
 
         lengthWarningLabel.text = WMFLocalizedString("description-edit-warning", value:"Try to keep descriptions short so users can understand the article's subject at a glance", comment:"Title text for label reminding users to keep descriptions concise")
         casingWarningLabel.text = WMFLocalizedString("description-edit-warning-casing", value:"Only proper nouns should be capitalized, even at the start of the sentence.", comment:"Title text for label reminding users to begin article descriptions with a lowercase letter for non-EN wikis.")
@@ -313,15 +322,15 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        if let articleURL = articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logSaveIntent(pageURL: articleURL)
+        if let pageURL = loggingPageURL {
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
         }
         save()
     }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
-        if let articleURL = articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logAbort(pageURL: articleURL)
+        if let pageURL = loggingPageURL {
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -344,8 +353,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 return
         }
 
-        if let articleURL = self.articleDescriptionController.article.url {
-            EditAttemptFunnel.shared.logSaveAttempt(pageURL: articleURL)
+        if let pageURL = loggingPageURL {
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
         articleDescriptionController.publishDescription(descriptionToSave, editType: editType) { [weak self] (result) in
@@ -361,14 +370,14 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 case .success(let result):
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self, result: result)
 
-                    if let articleURL = self.articleDescriptionController.article.url {
+                    if let pageURL = self.loggingPageURL {
 
                         var revisionID: Int?
                         if let uintRevisionID = result.newRevisionID {
                             revisionID = Int(uintRevisionID)
                         }
 
-                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID, project: WikimediaProject(siteURL: articleURL))
+                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: revisionID, project: WikimediaProject(siteURL: pageURL))
                     }
                     var needsNewTempAccountToast = false
                     guard let dataStore = self.dataStore else { return }
@@ -430,8 +439,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
                 case .failure(let error):
                     let nsError = error as NSError
-                    if let articleURL = self.articleDescriptionController.article.url {
-                        EditAttemptFunnel.shared.logSaveFailure(pageURL: articleURL)
+                    if let pageURL = self.loggingPageURL {
+                        EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
                     }
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {

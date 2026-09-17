@@ -15,7 +15,7 @@ public extension ArticleCollectionViewCell {
             isImageViewHidden = false
             if !layoutOnly {
                 group.enter()
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in group.leave() }, success: { group.leave() })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, failure: { (error) in group.leave() }, success: { group.leave() })
             }
         } else {
             isImageViewHidden = true

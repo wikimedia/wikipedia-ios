@@ -19,6 +19,7 @@
 // Author: Rapiteanu
 // Author: SZ475
 // Author: Strainu
+// Author: TiberiuFr25
 // Author: Valentin JJ.
 // Author: WebSourceContentRO
 
@@ -87,6 +88,8 @@
 "action-unsave" = "Nu salva";
 "action-unsaved-accessibility-notification" = "Articol nesalvat";
 "action-update" = "Actualizați";
+"activity-tab-customize-footer" = "Informațiile despre lectură se bazează pe limbile aplicației din setări, iar informațiile despre editare sunt limitate la limba principală a aplicației. Informațiile utilizează date locale, cu excepția editărilor, care sunt publice.";
+"activity-tab-customize-reading-insights" = "Informații despre lectură";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
 "announcements-dismiss" = "Respinge";
 "app-onboarding-data-privacy-policy-link" = "politica de confidențialitate";
@@ -278,7 +281,6 @@
 "explore-because-you-read-footer" = "Articole conexe suplimentare";
 "explore-continue-reading-heading" = "Reluare lectură";
 "explore-detail-back-button-title" = "Înapoi la fluxul Explore";
-"explore-enable-location-title" = "Explorați articole în apropierea locației dvs. actuale";
 "explore-featured-article-heading" = "Articol de calitate";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De la $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "De la Wikipedia";
@@ -325,6 +327,7 @@
 "explore-feed-preferences-show-related-pages-title" = "Arată cardul Pentru că ai citit";
 "explore-feed-preferences-show-top-read-footer-text" = "Dezactivarea cardului Cele mai citite va opri cardul în toate limbile disponibile.";
 "explore-feed-preferences-show-top-read-title" = "Afișează cardul Cele mai citite";
+"explore-feed-preferences-suggested-edits-title" = "Arată cardul Modificări sugerate";
 "explore-feed-preferences-top-read-description" = "Cele mai citite articole zilnic";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Dezactivați fluxul Explorează";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ascunderea tuturor cardurilor de fluxuri Explore va dezactiva fila Explore și o va înlocui cu o filă Setări";
@@ -413,7 +416,6 @@
 "home-nearby-footer" = "Mai multe articole din aproMai multe locuri lângă locația dvs.pierea dumneavoastră";
 "home-nearby-location-footer" = "Mai multe locuri de lângă $1";
 "home-news-footer" = "Mai multe evenimente actuale";
-"home-reading-list-prompt" = "Articolele dvs. salvate pot fi acum organizate în liste de citire și sincronizate pe dispozitive. Conectați-vă pentru a permite salvarea listelor dvs. de citire în preferințele utilizatorului.";
 "home-themes-action-title" = "Administrează preferințele";
 "home-themes-prompt" = "Ajustați preferințele dvs. de lectură, inclusiv dimensiunea textului și tema din bara de instrumente a articolului sau în setările utilizatorului pentru o experiență de citire mai confortabilă.";
 "home-title" = "Explorare";
@@ -422,6 +424,8 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
+"image-rec-onboarding-learn-more-button" = "Află mai multe despre modificările sugerate";
+"image-recommendations-email-first-line" = "Am întâmpinat o problemă cu funcția Modificări sugerate când adăugam o imagine:";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -501,7 +505,6 @@
 "notifications-center-alert" = "Alerte";
 "notifications-center-applied-filters-accessibility-label" = "Filtru de notificări - are filtre aplicate";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtrul de proiecte - are filtre aplicate";
-"notifications-center-badge-button-accessibility-label" = "Notificări cu insigna necitită";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notificare";
 "notifications-center-change-password" = "Schimbare parolă";
 "notifications-center-checking-for-notifications" = "Se verifică notificările...";
@@ -732,11 +735,7 @@
 "reading-list-list-limit-exceeded-message" = "Această listă de citire și articolele salvate în ea nu vor fi sincronizate, vă rugăm să reduceți numărul de liste la $1 pentru a relua sincronizarea acestei liste.";
 "reading-list-list-limit-exceeded-title" = "Ați depășit limita de {{PLURAL:$1|$1 listă de citit|$1 liste de citire}} per cont.";
 "reading-list-list-limit-reached" = "Ați atins limita de $1 liste de citire pe cont";
-"reading-list-login-button-title" = "Conectați-vă pentru a sincroniza articolele salvate";
 "reading-list-login-or-create-account-button-title" = "Autentificare sau creați un cont";
-"reading-list-login-or-create-account-title" = "Conectați-vă pentru a sincroniza articolele salvate";
-"reading-list-login-subtitle" = "Conectați-vă sau creați un cont pentru a permite sincronizarea articolelor și listelor de citire salvate pe dispozitive și salvate la preferințele utilizatorului.";
-"reading-list-login-title" = "Sincronizați articolele salvate?";
 "reading-list-name-user-created-annotation" = "_[utilizator creat]";
 "reading-list-new-list-description-placeholder" = "descriere scurtă opțională";
 "reading-list-new-list-name-placeholder" = "titlu listă de citire";
@@ -763,7 +762,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Ștergeți puțin spațiu pe dispozitiv și încercați din nou";
 "reading-lists-articles-not-synced-limit-exceeded" = "Unele articole nu sunt sincronizate, limita depășită";
 "reading-lists-conflicting-reading-list-name-updated" = "Lista dvs. '$1' a fost redenumită la '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 lista de citire|$1 liste de citire}}";
 "reading-lists-default-list-description" = "Lista implicită pentru articolele salvate";
 "reading-lists-default-list-title" = "Salvat";
 "reading-lists-delete-reading-list-alert-message" = "Această acțiune nu poate fi anulată. Orice articole salvate doar în {{PLURAL:$ 1|această listă|aceste liste}} nu vor fi salvate.";
@@ -796,7 +794,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s în urmă";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Anul acesta|1=Anul trecut|$1 ani în urmă}}";
-"reverted-edit-title" = "Modificare anulată";
 "saved-all-articles-title" = "Toate articolele";
 "saved-default-reading-list-tag" = "Această listă nu poate fi ștearsă";
 "saved-pages-image-download-error" = "Nu se pot descărca imaginile pentru această pagină salvată.";
@@ -861,6 +858,7 @@
 "share-social-mention-format" = "“$1” via Wikipedia: $2";
 "sort-by-recently-added-action" = "Adaugat recent";
 "sort-by-title-action" = "Titlu";
+"suggested-edits-title" = "Modificări sugerate";
 "table-of-contents-button-label" = "Cuprins";
 "table-of-contents-close-accessibility-hint" = "Închide";
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";
@@ -875,10 +873,6 @@
 "talk-page-discussion-read-accessibility-label" = "Citește";
 "talk-page-discussion-unread-accessibility-label" = "Necitit";
 "talk-page-find-in-page-button" = "Găsește în pagină";
-"talk-page-new-banner-subtitle" = "Amintiți-vă, suntem toți oameni aici";
-"talk-page-new-banner-title" = "Vă rugăm să fiți amabili";
-"talk-page-new-reply-success-text" = "Răspunsul dvs. a fost publicat cu succes";
-"talk-page-new-topic-success-text" = "Discuția dvs. a fost publicată cu succes";
 "talk-page-share-button" = "Distribuie pagină de discuție";
 "talk-page-subscribed-alert-subtitle" = "Veți primi notificări despre noi comentarii din acest subiect.";
 "talk-page-title-article-talk" = "Discuție articol";
@@ -971,6 +965,45 @@
 "widget-onthisday-description" = "Explorează ce s-a întâmplat în această zi din istorie.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedie online gratuită pe care oricine o poate modifica";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, o enciclopedie gratuită de conținut wiki, intră online.";
+"wikimedia-articletopics-topic-africa" = "Africa";
+"wikimedia-articletopics-topic-architecture" = "Arhitectură";
+"wikimedia-articletopics-topic-art" = "Artă";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-biography" = "Biografie (tot)";
+"wikimedia-articletopics-topic-biology" = "Biologie";
+"wikimedia-articletopics-topic-business-and-economics" = "Afaceri și economie";
+"wikimedia-articletopics-topic-central-america" = "America Centrală";
+"wikimedia-articletopics-topic-chemistry" = "Chimie";
+"wikimedia-articletopics-topic-comics-and-anime" = "Benzi desenate și anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Computere și internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Pământ și mediu";
+"wikimedia-articletopics-topic-education" = "Educație";
+"wikimedia-articletopics-topic-engineering" = "Inginerie";
+"wikimedia-articletopics-topic-entertainment" = "Divertisment";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Modă";
+"wikimedia-articletopics-topic-food-and-drink" = "Mâncare și băutură";
+"wikimedia-articletopics-topic-general-science" = "Știință generală";
+"wikimedia-articletopics-topic-history" = "Istorie";
+"wikimedia-articletopics-topic-literature" = "Literatură";
+"wikimedia-articletopics-topic-mathematics" = "Matematică";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicină și sănătate";
+"wikimedia-articletopics-topic-military-and-warfare" = "Militărie și război";
+"wikimedia-articletopics-topic-music" = "Muzică";
+"wikimedia-articletopics-topic-north-america" = "America de Nord";
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+"wikimedia-articletopics-topic-performing-arts" = "Artele spectacolului";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofie și religie";
+"wikimedia-articletopics-topic-physics" = "Fizică";
+"wikimedia-articletopics-topic-politics-and-government" = "Politică și guvernare";
+"wikimedia-articletopics-topic-society" = "Societate";
+"wikimedia-articletopics-topic-south-america" = "America de Sud";
+"wikimedia-articletopics-topic-sports" = "Sport";
+"wikimedia-articletopics-topic-technology" = "Tehnologie";
+"wikimedia-articletopics-topic-transportation" = "Transport";
+"wikimedia-articletopics-topic-tv-and-film" = "TV și film";
+"wikimedia-articletopics-topic-video-games" = "Jocuri video";
+"wikimedia-articletopics-topic-women" = "Biografie (femei)";
 "wikitext-preview-changes" = "Se obține previzualizarea modificărilor dumneavoastră...";
 "wikitext-preview-link-external-preview-description" = "Această legătură duce la un site web extern: $1";
 "wikitext-preview-link-external-preview-title" = "Legătură externă";
@@ -987,3 +1020,4 @@
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
 "year-in-review-donate-now" = "Donați acum";
+"year-in-review-feature-explore-footer-v3" = "Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind datele stocate local pe dispozitivul tău.";

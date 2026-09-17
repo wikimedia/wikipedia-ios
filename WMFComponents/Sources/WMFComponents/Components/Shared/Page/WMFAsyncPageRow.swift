@@ -84,7 +84,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
             return nil
         }
         
-        return WMFArticlePreviewViewModel(url: nil, titleHtml: self.title, description: self.articleDescription, image: self.uiImage, backgroundImage: nil, isSaved: false, snippet: summary.extract)
+        return WMFArticlePreviewViewModel(url: nil, titleHtml: self.title.normalizedForDisplay, description: self.articleDescription, image: self.uiImage, backgroundImage: nil, isSaved: false, snippet: summary.extract)
     }
     
     var accessibilityLabelParts: String {
@@ -95,7 +95,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         }
         
         if !title.isEmpty {
-            accessibilityLabel.append(title + ", ")
+            accessibilityLabel.append(title.normalizedForDisplay + ", ")
         }
         
         if !articleDescription.isEmpty {
@@ -177,7 +177,7 @@ struct WMFAsyncPageRow: View {
     @ViewBuilder
     var regularTextView: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(viewModel.title)
+            Text(viewModel.title.normalizedForDisplay)
                 .font(WMFSwiftUIFont.font(.callout))
                 .foregroundColor(Color(theme.text))
                 .lineLimit(1)

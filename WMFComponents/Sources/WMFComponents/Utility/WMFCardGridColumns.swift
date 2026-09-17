@@ -9,11 +9,13 @@ enum WMFCardGridColumns {
     ///   - size: the *viewport* size, not the grid's content size — portrait/landscape is
     ///     derived from it.
     ///   - isAccessibilitySize: scaled-up text needs the full width, so it collapses to one column.
-    ///   - idiom: injectable for testing.
+    ///   - idiom: injectable for testing. Has no default because `UIDevice.current` is main actor
+    ///     isolated, and a main actor default value in a nonisolated function is an error in the
+    ///     Swift 6 language mode.
     static func count(
         for size: CGSize,
         isAccessibilitySize: Bool,
-        idiom: UIUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom
+        idiom: UIUserInterfaceIdiom
     ) -> Int {
         if isAccessibilitySize {
             return 1

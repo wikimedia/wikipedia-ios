@@ -25,7 +25,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         public let betterLuckMessage: String
         public let errorTitle: String
         public let retryButton: String
-        public let footera11y: () -> String
+        // @MainActor because implementations read view-model state (e.g. currentIndex);
+        // @Sendable because LocalizedStrings values cross concurrency boundaries.
+        public let footera11y: @MainActor @Sendable () -> String
         public let correctAnswerA11y: String
         public let incorrectAnswerA11y: String
 
@@ -43,7 +45,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             betterLuckMessage: String,
             errorTitle: String,
             retryButton: String,
-            footerA11y: @escaping () -> String,
+            footerA11y: @escaping @MainActor @Sendable () -> String,
             correctAnswerA11y: String,
             incorrectAnswerA11y: String
         ) {
@@ -107,7 +109,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         betterLuckMessage: WMFLocalizedString("which-came-first-better-luck", value: "Better luck tomorrow!", comment: "Message shown when the user scores half or below in the Which Came First game"),
         errorTitle: WMFLocalizedString("which-came-first-error-title", value: "Something went wrong", comment: "Title shown on the error screen in the Which Came First game"),
         retryButton: WMFLocalizedString("which-came-first-retry-button", value: "Retry", comment: "Button label to retry loading the Which Came First game after an error"),
-        footerA11y: footera11y,
+        footerA11y: { [weak self] in self?.footera11y() ?? "" },
         correctAnswerA11y: WMFLocalizedString("which-came-first-correct-answer-a11y", value: "Correct answer", comment: "Accessibility label indicating the correct answer on a card in the Which Came First game"),
         incorrectAnswerA11y: WMFLocalizedString("which-came-first-incorrect-answer-a11y", value: "Incorrect answer", comment: "Accessibility label indicating an incorrect answer on a card in the Which Came First game")
     )

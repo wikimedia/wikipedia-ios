@@ -1,32 +1,62 @@
 import UIKit
 import SwiftUI
 import WMFComponents
+import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
-final class ChooseEditorSheetCoordinator: Coordinator {
+final class ChooseEditorSheetCoordinator: NSObject, Coordinator {
 
     var navigationController: UINavigationController
     private let theme: Theme
-    private let didChoose: (WMFChooseEditorViewModel.EditMode, _ dontShowAgain: Bool) -> Void
+    private let initialMode: WMFEditMode
+    private let didChoose: (WMFEditMode, _ dontShowAgain: Bool) -> Void
+    private let didClose: () -> Void
 
     private weak var sheetNavigationController: WMFComponentNavigationController?
+    private let editingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-editing")
 
-    init(navigationController: UINavigationController, theme: Theme, didChoose: @escaping (WMFChooseEditorViewModel.EditMode, Bool) -> Void) {
+    init(
+        navigationController: UINavigationController,
+        theme: Theme,
+        initialMode: WMFEditMode,
+        didChoose: @escaping (WMFEditMode, Bool) -> Void,
+        didClose: @escaping () -> Void
+    ) {
         self.navigationController = navigationController
         self.theme = theme
+        self.initialMode = initialMode
         self.didChoose = didChoose
+        self.didClose = didClose
     }
 
     @discardableResult
     func start() -> Bool {
         let viewModel = WMFChooseEditorViewModel(
+            initialMode: initialMode,
             didTapContinue: { mode, dontShowAgain in
+                self.editingInstrument.submitInteraction(
+                    action: "click",
+                    actionSource: "edit_choice_select",
+                    elementId: "edit_choice_submit",
+                    actionContext: [
+                        "edit_choice": mode.rawValue,
+                        "is_default": dontShowAgain
+                    ]
+                )
                 self.sheetNavigationController?.dismiss(animated: true) {
                     self.didChoose(mode, dontShowAgain)
                 }
             },
             didTapClose: {
-                self.sheetNavigationController?.dismiss(animated: true)
+                self.editingInstrument.submitInteraction(
+                    action: "click",
+                    actionSource: "edit_choice_select",
+                    elementId: "edit_choice_cancel"
+                )
+                self.sheetNavigationController?.dismiss(animated: true) {
+                    self.didClose()
+                }
             }
         )
 
@@ -59,8 +89,22 @@ final class ChooseEditorSheetCoordinator: Coordinator {
         }
 
         self.sheetNavigationController = sheetNavigationController
+        sheetNavigationController.presentationController?.delegate = self
         let presenter = navigationController.visibleViewController ?? navigationController
-        presenter.present(sheetNavigationController, animated: true)
+        presenter.present(sheetNavigationController, animated: true) {
+            self.editingInstrument.submitInteraction(action: "impression", actionSource: "edit_choice_select")
+        }
         return true
+    }
+}
+
+extension ChooseEditorSheetCoordinator: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        editingInstrument.submitInteraction(
+            action: "click",
+            actionSource: "edit_choice_select",
+            elementId: "edit_choice_cancel"
+        )
+        didClose()
     }
 }

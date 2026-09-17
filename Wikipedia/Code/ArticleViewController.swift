@@ -47,6 +47,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
 
+    /// When set before the initial load, article content is fetched at this specific revision
+    /// (e.g. displaying a freshly published edit when returning from the web Visual Editor)
+    var initialLoadRevisionID: UInt64?
+
     /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
 
@@ -168,6 +172,15 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
 
+    // Coordinator used to navigate a user to the donation reminder setup screen from campaign modal
+    var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
+
+    var isShowingDonateFlowFromDonationReminderCard = false
+
+    var shownWrapUpCard: WMFDonationReminderDataController.WrapUpCard?
+
+    var localDonationCountBeforeDonateFlow = 0
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
@@ -175,10 +188,15 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     internal var articleViewSource: ArticleSource
 
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
+
     // Properties related to tracking number of seconds this article is viewed.
     var pageViewObjectID: NSManagedObjectID?
     let previousPageViewObjectID: NSManagedObjectID?
-    var beganViewingDate: Date?
+
+    /// Owns the rules for when this article is accumulating reading time. See WMFReadingIntervalTracker — in particular, multiple ArticleViewControllers stay alive at once (navigation stack, other tab bar stacks, article tabs) and all observe the app-wide active notification, so only the on-screen one may resume.
+    var readingIntervalTracker = WMFReadingIntervalTracker()
 
     // Article Tabs-related properties
     var coordinator: ArticleTabCoordinating?
@@ -291,7 +309,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
-        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, failure: { (error) in
             DDLogWarn("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
@@ -473,6 +491,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isFirstAppearance = true
     var needsTabsIconImpressonOnCancel = false
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -481,7 +500,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
-        trackBeganViewingDate()
+        removeDonationReminderCardIfNeeded()
+        trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
 
@@ -541,7 +561,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         Task { [weak self] in
             guard let self else { return }
-            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else {
+                // Nothing else wanted the screen, so the lowest priority prompt gets its turn.
+                self.presentEvergreenAccountCreationPromptIfNeeded()
+                return
+            }
             // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
@@ -608,8 +632,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
-        listenForTooltips()
-        
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
+            listenForTooltips()
+        }
+
         if needsYearInReviewAnnouncement() {
             willDisplayYearInReviewModal = true
             updateProfileButton()
@@ -642,7 +668,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         wTipObservationTask = nil
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        persistPageViewedSecondsForWikipediaInReview()
+        trackArticleWillDisappear()
 
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad else {
@@ -650,6 +676,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
 
         self.tabBarController?.setTabBarHidden(false, animated: true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        removeDonationReminderCardAfterNavigationAway()
     }
 
     // MARK: Article load
@@ -668,7 +699,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         setupPageContentServiceJavaScriptInterface {
             let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
-            self.loadPage(cachePolicy: cachePolicy, revisionID: nil)
+            self.loadPage(cachePolicy: cachePolicy, revisionID: self.initialLoadRevisionID)
         }
     }
 
@@ -717,7 +748,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
 
         let needsCategories = !isMainPage
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
+        let authenticationManager = self.dataStore.authenticationManager
+        let isPermanent = authenticationManager.authStateIsPermanent
+        let needsUserInfo = isPermanent && authenticationManager.permanentUser(siteURL: siteURL) == nil
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: isPermanent, needsRollbackRights: false, needsCategories: needsCategories, needsUserInfo: needsUserInfo) else {
             self.needsWatchButton = false
             self.needsUnwatchHalfButton = false
             self.needsUnwatchFullButton = false
@@ -733,6 +767,22 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             case .success(let info):
 
                 DispatchQueue.main.async {
+                    // Seed the user cache with this wiki's user info, so EditAttemptStep events carry the correct per-wiki user_id and edit count without an extra fetch.
+                    if let userInfo = info.userInfo {
+                        let user = WMFCurrentUser(
+                            userID: userInfo.userID,
+                            globalUserID: userInfo.globalUserID ?? 0,
+                            name: userInfo.name,
+                            groups: userInfo.groups,
+                            editCount: userInfo.editCount,
+                            isBlocked: userInfo.isBlocked,
+                            isIP: userInfo.isIP,
+                            isTemp: userInfo.isTemp,
+                            registrationDateString: userInfo.registrationDateString
+                        )
+                        self.dataStore.authenticationManager.seedUserCacheIfNeeded(user: user, siteURL: siteURL)
+                    }
+
                     self.needsWatchButton = !info.watched
                     self.needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
                     self.needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
@@ -1237,6 +1287,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // MARK: Overrideable functionality
 
     internal func handleLink(with href: String) {
+        guard !handleDonationReminderLinkIfNeeded(href: href) else { return }
 
         guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()
@@ -1421,12 +1472,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        persistPageViewedSecondsForWikipediaInReview()
+        trackAppWillResignActive()
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
-        trackBeganViewingDate()
+        trackAppDidBecomeActive()
     }
 
     @objc func coreDataStoreSetup(_ notification: Notification) {

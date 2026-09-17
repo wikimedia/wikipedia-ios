@@ -32,8 +32,11 @@ public protocol WMFLegacySavedArticlesDataControllerDelegate: AnyObject {
     func deleteSavedArticles(articles: [WMFSavedArticle], fromLongPress: Bool, completion: @escaping (Bool) -> Void)
 }
 
-public final class WMFLegacySavedArticlesDataController {
-    
+// @unchecked: the only mutable state is the weak delegate reference, assigned once
+// during app-side wiring (the CLAUDE.md "legacy persistence" bridge pattern) and read
+// afterward. All other behavior just forwards to the delegate.
+public final class WMFLegacySavedArticlesDataController: @unchecked Sendable {
+
     public weak var delegate: WMFLegacySavedArticlesDataControllerDelegate?
     
     public init(delegate: WMFLegacySavedArticlesDataControllerDelegate? = nil) {

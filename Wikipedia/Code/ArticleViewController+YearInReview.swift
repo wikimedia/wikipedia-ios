@@ -4,9 +4,8 @@ import CocoaLumberjackSwift
 import WidgetKit
 
 extension ArticleViewController {
-    
+
     /// Persists CDPageView values in WMFData database. This will allow us to detect repeat article views, so we can display their most-viewed article in Year in Review
-    /// Also begins tracking a viewed date. This is so that we can later save the number of viewed seconds when the user leaves the article view or backgrounds
     func persistPageViewsForWikipediaInReview() {
         if let title = self.articleURL.wmf_title,
            title != "Main Page",
@@ -20,7 +19,6 @@ extension ArticleViewController {
                     let pageViewsDataController = try WMFPageViewsDataController()
                     let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID, timestamp: timestamp)
                     self.pageViewObjectID = objectID
-                    self.trackBeganViewingDate()
                 } catch let error {
                     DDLogError("Error saving viewed page: \(error)")
                 }
@@ -28,44 +26,73 @@ extension ArticleViewController {
         }
     }
     
-    /// Persists number of seconds viewed in CDPageView in WMFData database. This will allow us to display the total time spent reading a particular article in Year in Review. Called when the user leaves the article view or backgrounds.
-    func persistPageViewedSecondsForWikipediaInReview() {
-        
-        guard articleURL.wmf_title != "Main Page" else {
+    /// An article view is one of the app open proxies the evergreen account creation prompt counts.
+    func recordEvergreenAccountCreationAppOpen() {
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.recordAppOpen()
+        }
+    }
+
+    /// The prompt is suppressed on an article reached from a deep link, which the modal chain
+    /// already screens out before it reaches here.
+    func presentEvergreenAccountCreationPromptIfNeeded() {
+        guard let navigationController else { return }
+
+        let coordinator = EvergreenAccountCreationCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            dataStore: dataStore,
+            context: .article(isFromDeepLink: articleViewSource == .external_link)
+        )
+        evergreenAccountCreationCoordinator = coordinator
+        coordinator.start()
+    }
+
+    // MARK: - Reading time
+
+    /// The rules for when reading time accumulates live in WMFReadingIntervalTracker, so they can be
+    /// unit tested. These methods are the adapter: forward the lifecycle event, persist whatever
+    /// seconds come back.
+
+    func trackArticleDidAppear() {
+        guard isTrackableArticle else { return }
+        readingIntervalTracker.viewDidAppear(at: Date())
+    }
+
+    func trackArticleWillDisappear() {
+        guard isTrackableArticle else { return }
+        persistPageViewedSeconds(readingIntervalTracker.viewWillDisappear(at: Date()))
+    }
+
+    func trackAppDidBecomeActive() {
+        guard isTrackableArticle else { return }
+        readingIntervalTracker.appDidBecomeActive(at: Date())
+    }
+
+    func trackAppWillResignActive() {
+        guard isTrackableArticle else { return }
+        persistPageViewedSeconds(readingIntervalTracker.appWillResignActive(at: Date()))
+    }
+
+    private var isTrackableArticle: Bool {
+        return articleURL.wmf_title != "Main Page"
+    }
+
+    /// Persists number of seconds viewed in CDPageView in WMFData database. This will allow us to display the total time spent reading a particular article in Year in Review.
+    private func persistPageViewedSeconds(_ numberOfSeconds: TimeInterval?) {
+
+        guard let numberOfSeconds,
+              let pageViewObjectID else {
             return
         }
-        
-        guard let pageViewObjectID,
-              let beganViewingDate else {
-            return
-        }
-        
-        let numberOfSeconds = Date().timeIntervalSince(beganViewingDate)
-        
+
         Task {
             do {
                 let pageViewsDataController = try WMFPageViewsDataController()
                 try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: pageViewObjectID, numberOfSeconds: numberOfSeconds)
-                
-                self.beganViewingDate = nil
             } catch let error {
                 DDLogError("Error appending viewed seconds: \(error)")
             }
         }
-    }
-    
-    /// Begins tracking a viewed date. This is so that we can later save the number of viewed seconds when the user leaves the article view or backgrounds
-    func trackBeganViewingDate() {
-        
-        guard articleURL.wmf_title != "Main Page" else {
-            return
-        }
-        
-        guard pageViewObjectID != nil,
-              beganViewingDate == nil else {
-            return
-        }
-        
-        self.beganViewingDate = Date()
     }
 }

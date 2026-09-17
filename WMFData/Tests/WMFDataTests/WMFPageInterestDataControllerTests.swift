@@ -25,6 +25,59 @@ final class WMFPageInterestDataControllerTests: XCTestCase {
         return try WMFPageInterestDataController(coreDataStore: store)
     }
 
+    // MARK: - fetchAllPageInterests
+
+    func testFetchAllPageInterestsReturnsEveryProject() async throws {
+        let controller = try makeController()
+        try await controller.addPageInterest(title: "Cat", project: enProject)
+        try await controller.addPageInterest(title: "Gato", project: esProject)
+
+        let all = try await controller.fetchAllPageInterests()
+
+        XCTAssertEqual(Set(all.map { $0.title }), ["Cat", "Gato"], "The interests screen shows what the user picked in any language")
+    }
+
+    func testFetchAllPageInterestsReportsTheProjectEachOneCameFrom() async throws {
+        let controller = try makeController()
+        try await controller.addPageInterest(title: "Cat", project: enProject)
+        try await controller.addPageInterest(title: "Gato", project: esProject)
+
+        let all = try await controller.fetchAllPageInterests()
+        let projectsByTitle = Dictionary(uniqueKeysWithValues: all.map { ($0.title, $0.project?.id) })
+
+        XCTAssertEqual(projectsByTitle["Cat"], enProject.id, "Needed so saving and removing hit the right wiki")
+        XCTAssertEqual(projectsByTitle["Gato"], esProject.id)
+    }
+
+    func testFetchAllPageInterestsIsNewestFirst() async throws {
+        let controller = try makeController()
+        try await controller.addPageInterest(title: "First", project: enProject)
+        try await controller.addPageInterest(title: "Second", project: esProject)
+
+        let all = try await controller.fetchAllPageInterests()
+
+        XCTAssertEqual(all.map { $0.title }, ["Second", "First"])
+    }
+
+    func testFetchAllPageInterestsIsEmptyWhenNothingIsSaved() async throws {
+        let controller = try makeController()
+
+        let all = try await controller.fetchAllPageInterests()
+
+        XCTAssertTrue(all.isEmpty)
+    }
+
+    func testRemovedInterestsDoNotComeBackFromFetchAll() async throws {
+        let controller = try makeController()
+        try await controller.addPageInterest(title: "Cat", project: enProject)
+        try await controller.addPageInterest(title: "Gato", project: esProject)
+
+        try await controller.removePageInterest(title: "Cat", project: enProject)
+        let all = try await controller.fetchAllPageInterests()
+
+        XCTAssertEqual(all.map { $0.title }, ["Gato"])
+    }
+
     // MARK: - fetchPageInterests
 
     func testFetchPageInterestsOnlyReturnsMatchingProject() async throws {

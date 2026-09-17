@@ -26,6 +26,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private let dataController: WMFSettingsDataController
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    private var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private weak var storageAndSyncingViewModel: WMFStorageAndSyncingSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
@@ -104,7 +105,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
             safetyTitle: CommonStrings.legalAndSafety)
     }
 
@@ -161,6 +161,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             showReadingPreferences()
         case .articleSyncing:
             showArticleSyncing()
+        case .editingPreferences:
+            showEditingPreferences()
         case .databasePopulation:
             tappedDatabasePopulation()
         case .clearCachedData:
@@ -177,6 +179,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             tappedAbout()
         case .deleteDonationHistory:
             clearDonationHistory()
+        case .donationReminders:
+            showDonationReminderSetup()
         case .legalAndSafety:
             tappedExternalLink(with: CommonStrings.legalAndSafetyContactUsURLString)
         }
@@ -354,9 +358,30 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         settingsNav.pushViewController(vc, animated: true)
     }
 
+    // MARK: - Donation Reminders
+
+    private func showDonationReminderSetup() {
+        DonateFunnel.shared.logSettingsDidTapDonationReminders()
+
+        guard let settingsNav = settingsNavigationController,
+              let currencyCode = WMFDonationReminderDataController.shared.reminderSetupCurrencyCode
+        else { return }
+
+        let coordinator = DonationReminderSetupCoordinator(
+            navigationController: settingsNav,
+            currencyCode: currencyCode,
+            theme: theme,
+            origin: .settings
+        )
+        donationReminderSetupCoordinator = coordinator
+        coordinator.start()
+    }
+
     // MARK: - Donation History
 
     private func clearDonationHistory() {
+        DonateFunnel.shared.logSettingsDidTapClearDonationHistory()
+
         let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubtitle, preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { _ in
             Task {
@@ -589,6 +614,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     private func showHomeFeedSettings() {
+        
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter", experimentData: WMFHomeDataController.shared.experimentData)
+        
         guard let settingsNav = settingsNavigationController else {
             return
         }
@@ -715,6 +743,22 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         settingsNav.pushViewController(appearanceSettingsVC, animated: true)
     }
 
+    private func showEditingPreferences() {
+        guard let settingsNavigation = settingsNavigationController else { return }
+
+        let editingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-editing")
+        editingInstrument.submitInteraction(action: "click", actionSource: "settings", elementId: "editing_method")
+
+        let viewController = WMFEditingPreferencesSettingsViewController(didSelectMode: { mode in
+            editingInstrument.submitInteraction(
+                action: "click",
+                actionSource: "settings",
+                elementId: mode == .visual ? "visual_editing" : "source_editing"
+            )
+        })
+        settingsNavigation.pushViewController(viewController, animated: true)
+    }
+
     // MARK: - Article Syncing
 
     private func showArticleSyncing() {
@@ -775,7 +819,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 SettingsFunnel.shared.logSyncEnabledInSettings()
             }
 
-            settingsNav.wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
+            settingsNav.wmf_showLoginViewController(category: .setting, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
         } else if isPermanent {
             if isOn {
                 dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
@@ -832,7 +876,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 self.dataStore.readingListsController.fullSync({})
                 self.showSyncAlert()
             }
-            settingsNav.wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
+
+            settingsNav.wmf_showLoginViewController(category: .setting, theme: theme, loginSuccessCompletion: loginSuccessCompletion)
         } else {
             // Logged in but sync not enabled
             settingsNav.wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {

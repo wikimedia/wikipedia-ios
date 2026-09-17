@@ -6,9 +6,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
-    case developerSettingsEnableHomeTab = "dev-settings-enable-home-tab"
     case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
-    case developerSettingsAlwaysShowNewOnboarding = "dev-settings-always-show-new-onboarding"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
@@ -23,7 +21,6 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
-    case developerSettingsMoreDynamicTabsV2GroupC = "more-dynamic-tabs-group-c-v2"
     case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
     case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
@@ -38,15 +35,24 @@ public enum WMFUserDefaultsKey: String {
     case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
     case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
     case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
+    case didClampInflatedPageViewSeconds = "did-clamp-inflated-page-view-seconds"
     case autoSignTalkPageDiscussions = "auto-sign-talk-page-discussions"
     case didMigrateAutoSignTalkPageDiscussions = "did-migrate-auto-sign-talk-page-discussions"
     case showSearchLanguageBar = "show-search-language-bar"
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    case developerSettingsFundraisingOverriddenCurrentDate = "dev-settings-fundraising-overridden-current-date"
+    case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
+    case developerSettingsUseTestWikiDonateConfigs = "dev-settings-use-test-wiki-donate-configs"
+    case developerSettingsUseHardcodedPaymentMethods = "dev-settings-use-hardcoded-payment-methods"
+    case developerSettingsForceDonationReminderExperimentAssignment = "dev-settings-force-donation-reminder-experiment-assignment"
+    case developerSettingsBypassDonationReminderDailyLimit = "dev-settings-bypass-donation-reminder-daily-limit"
+    case donationReminder = "donation-reminder"
+    case donationReminderExperimentCurrency = "donation-reminder-experiment-currency"
+    case donationReminderWrapUpCardSeen = "donation-reminder-wrap-up-card-seen"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
-
     // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)
     case completedReadingChallenge2026 = "completed-reading-challenge-2026"
     case didRecoverReadingChallenge2026Completion = "did-recover-reading-challenge-2026-completion"
@@ -85,14 +91,32 @@ public enum WMFUserDefaultsKey: String {
 
     // Home feed: hidden cards (shared across Community and For You tabs)
     case homeFeedHiddenCardKeys = "home-feed-hidden-card-keys"
+    case homeFeedSeenArticles = "home-feed-seen-articles"
     
     case randomWidgetDailyIndex = "random-widget-daily-index"
     case randomWidgetDailyDate = "random-widget-daily-date"
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
+    case hasSeenOneTimeOnboardingHome = "has-seen-one-time-home-onboarding"
+    case hasSeenUpdatedHomeOnboarding = "has-seen-updated-home-onboarding"
+    
+    // Onboarding: For You swipe-up hint
+    case hasSeenForYouSwipeOnboarding = "has-seen-for-you-swipe-onboarding"
 
-    // Article View Controller: Enable visual editor
-    case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
+    // Visual editor journey
     case defaultEditMode = "default-edit-mode"
+    case skipChooseEditorSheet = "skip-choose-editor-sheet"
+
+    // Evergreen account creation prompt
+    case evergreenAccountCreationState = "evergreen-account-creation-state"
+    
+    // yir 2026
+    case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
+    
+    case developerSettingsForceYiREntryPoint2026 = "dev-settings-force-yir-entry-point-2026"
+
+    // Semantic search
+    case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
+    case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"
 }

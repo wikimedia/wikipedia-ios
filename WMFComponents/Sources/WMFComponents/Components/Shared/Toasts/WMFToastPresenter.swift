@@ -246,7 +246,9 @@ public final class WMFToastPresenter {
         }
     }
 
-    public func dismissCurrentToast(completion: (() -> Void)? = nil) {
+    // completion is @Sendable to match the presenter's dismissAction convention
+    // (it is folded into that @Sendable closure below).
+    public func dismissCurrentToast(completion: (@Sendable () -> Void)? = nil) {
         guard let toast = currentToast else {
             completion?()
             return
