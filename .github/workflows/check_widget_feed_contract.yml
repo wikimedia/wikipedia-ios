@@ -1,0 +1,24 @@
+name: Check Widget Feed Contract
+
+# Decodes the live feed/featured payload with the widget models every morning, after the most-read
+# data is usually published, so a feed change shows up here before it shows up on people's home screens.
+on:
+  schedule:
+    - cron: "30 6 * * *" # 06:30 UTC daily
+  workflow_dispatch:
+    inputs:
+      languages:
+        description: "Space-separated language codes to check"
+        required: false
+        default: "en de ja ar zh"
+
+jobs:
+  check-feed-contract:
+    runs-on: macos-26
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Decode today's feeds with the widget models
+        run: scripts/check-widget-feed-contract.sh ${{ github.event.inputs.languages }}
