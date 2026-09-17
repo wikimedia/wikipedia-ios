@@ -4,7 +4,7 @@ import WMFData
 #if DEBUG
 
 final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
-
+    var forceYiREntryPoint2026: Bool { return false }
     var enableYearInReview: Bool { return true }
     var enableActivityTabs: Bool { return true }
     var enableArticleTabs: Bool { return true }

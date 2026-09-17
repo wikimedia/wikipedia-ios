@@ -90,13 +90,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         )
 
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-        var yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies? = nil
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let primaryAppLanguageProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
-           let yearInReviewDataController = try? WMFYearInReviewDataController(),
-           let countryCode = Locale.current.region?.identifier {
-            yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: yearInReviewDataController, countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject)
-        }
 
         let primaryWikiHasTempAccountsOn = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled
 
@@ -105,9 +98,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             isTemporaryAccount: dataStore.authenticationManager.authStateIsTemporary && primaryWikiHasTempAccountsOn,
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
-            coordinatorDelegate: self,
-            yearInReviewDependencies: yearInReviewDependencies,
-            badgeDelegate: badgeDelegate
+            coordinatorDelegate: self
         )
 
         let profileView = WMFProfileView(viewModel: viewModel)
