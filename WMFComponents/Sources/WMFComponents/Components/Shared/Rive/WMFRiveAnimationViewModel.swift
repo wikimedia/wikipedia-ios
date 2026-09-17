@@ -104,20 +104,31 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private func validatePathsInDebug() {
         #if DEBUG
         guard let rive, !text.isEmpty || !numbers.isEmpty else { return }
-        let paths = text.keys.map(\.path) + numbers.keys.map(\.path)
+        let stringPaths = text.keys.map(\.path)
+        let numberPaths = numbers.keys.map(\.path)
         Task { [animation] in
             guard let instance = rive.viewModelInstance else { return }
-            for path in paths {
-                let stringValue = try? await instance.value(of: StringProperty(path: path))
-                let numberValue = try? await instance.value(of: NumberProperty(path: path))
-                if stringValue == nil && numberValue == nil {
-                    let failure = WMFRiveFailure(animation: animation, stage: .binding,
-                                                 reason: "No data binding property at path \"\(path)\".")
-                    WMFRiveLogger.log(failure)
-                    assertionFailure(failure.reason)
-                }
+
+            for path in stringPaths where (try? await instance.value(of: StringProperty(path: path))) == nil {
+                report(path: path, type: "string", animation: animation)
+            }
+
+            for path in numberPaths where (try? await instance.value(of: NumberProperty(path: path))) == nil {
+                report(path: path, type: "number", animation: animation)
             }
         }
         #endif
     }
+
+    #if DEBUG
+    private func report(path: String, type: String, animation: WMFRiveAnimation) {
+        let failure = WMFRiveFailure(
+            animation: animation,
+            stage: .binding,
+            reason: "No \(type) data binding property at path \"\(path)\"."
+        )
+        WMFRiveLogger.log(failure)
+        assertionFailure(failure.reason)
+    }
+    #endif
 }
