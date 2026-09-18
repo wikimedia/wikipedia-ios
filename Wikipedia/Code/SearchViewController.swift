@@ -263,8 +263,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private func share(item: HistoryItem, frame: CGRect?) {
         guard let dataStore, let url = item.url else { return }
         let article = dataStore.fetchArticle(with: url)
-        let dummyView = UIView(frame: frame ?? .zero)
-        _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: dummyView)
+        let sourceRect = frame.map { view.convert($0, from: nil) }
+        _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: view, sourceRect: sourceRect)
     }
 
     lazy var historyViewController: WMFHistoryHostingController = {
