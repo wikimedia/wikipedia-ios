@@ -10,7 +10,6 @@ extension SearchResultsViewController {
     typealias SearchResult = WMFSearchResultsViewModel.SearchResult
 
     private static let noSearchResultsMessage = WMFLocalizedString("empty-no-search-results-message", value: "No results found", comment: "Shown when there are no search results")
-    private static let viewOnMapActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
 
     func makeResultsViewModel() -> WMFSearchResultsViewModel {
         let localizedStrings = WMFSearchResultsViewModel.LocalizedStrings(
@@ -20,7 +19,7 @@ extension SearchResultsViewController {
             saveActionTitle: CommonStrings.saveTitle,
             unsaveActionTitle: CommonStrings.unsaveTitle,
             shareActionTitle: CommonStrings.shareMenuTitle,
-            viewOnMapActionTitle: Self.viewOnMapActionTitle,
+            viewOnMapActionTitle: CommonStrings.viewOnMapTitle,
             noResultsMessage: Self.noSearchResultsMessage,
             noInternetConnectionTitle: CommonStrings.noInternetConnection)
 
@@ -167,7 +166,7 @@ extension SearchResultsViewController {
     // MARK: - Share
 
     private func share(_ result: SearchResult, frame: CGRect?) {
-        let sourceView = UIView(frame: frame ?? .zero)
-        _ = share(article: article(for: result), articleURL: result.articleURL, dataStore: dataStore, theme: theme, eventLoggingCategory: .search, eventLoggingLabel: nil, sourceView: sourceView)
+        let sourceRect = frame.map { view.convert($0, from: nil) }
+        _ = share(article: article(for: result), articleURL: result.articleURL, dataStore: dataStore, theme: theme, eventLoggingCategory: .search, eventLoggingLabel: nil, sourceView: view, sourceRect: sourceRect)
     }
 }
