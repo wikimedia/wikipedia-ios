@@ -304,7 +304,7 @@ extension ArticleViewController {
     }
 
     private static func wrapUpCardHTML(heading: String, body: String, primaryActionAnchor: String, primaryActionTitle: String) -> String {
-        let betaPillText = CommonStrings.betaLabel
+        let betaPillText = CommonStrings.betaLabel()
         let learnMoreText = CommonStrings.learnMoreTitle()
         let noThanksTitle = CommonStrings.noThanksTitle
 

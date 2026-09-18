@@ -46,6 +46,14 @@ public struct WMFSearchResultsView: View {
 
     private var resultsList: some View {
         List {
+            if let entryPointViewModel = viewModel.entryPointViewModel {
+                WMFSemanticSearchEntryPointView(viewModel: entryPointViewModel, horizontalPadding: viewModel.horizontalPadding)
+                    .environment(\.layoutDirection, viewModel.isRightToLeft ? .rightToLeft : .leftToRight)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color(theme.paperBackground))
+                    .listRowSeparator(.hidden)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchEntryPoint)
+            }
             ForEach(viewModel.results) { result in
                 WMFSearchResultRow(viewModel: viewModel, result: result)
             }

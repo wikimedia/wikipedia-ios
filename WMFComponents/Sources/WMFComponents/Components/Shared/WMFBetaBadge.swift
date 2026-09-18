@@ -5,7 +5,11 @@ public struct WMFBetaBadge: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    public init() {}
+    let label: String
+
+    public init(label: String = CommonStrings.betaLabel()) {
+        self.label = label
+    }
 
     public var body: some View {
         HStack(spacing: 4) {
@@ -13,12 +17,14 @@ public struct WMFBetaBadge: View {
                 Image(uiImage: betaImage)
                     .foregroundColor(Color(appEnvironment.theme.secondaryText))
             }
-            Text(CommonStrings.betaLabel)
+            Text(label)
                 .font(Font(WMFFont.for(.caption1)))
                 .foregroundColor(Color(appEnvironment.theme.text))
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .background(Capsule().stroke(Color(appEnvironment.theme.newBorder), lineWidth: 1))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label)
     }
 }

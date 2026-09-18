@@ -104,6 +104,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published private(set) var emptyState: EmptyState?
     @Published private(set) var project: WMFProject?
     @Published private(set) var isRightToLeft: Bool = false
+    @Published public private(set) var entryPointViewModel: WMFSemanticSearchEntryPointViewModel?
     @Published public var topPadding: CGFloat = 0
     @Published public var horizontalPadding: CGFloat = 16
 
@@ -172,6 +173,14 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         results = []
         searchTerm = nil
         emptyState = nil
+    }
+
+    public func showEntryPoint(_ viewModel: WMFSemanticSearchEntryPointViewModel) {
+        entryPointViewModel = viewModel
+    }
+
+    public func hideEntryPoint() {
+        entryPointViewModel = nil
     }
 
     public func refreshSavedStates() {

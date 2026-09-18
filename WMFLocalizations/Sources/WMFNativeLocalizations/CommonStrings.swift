@@ -694,7 +694,11 @@ public class CommonStrings: NSObject {
     public static let joinLoginTitle = WMFLocalizedString("profile-page-join-title", value: "Log in / Join Wikipedia", comment: "Link to sign up or sign in")
 
     public static let noThanksTitle = WMFLocalizedString("variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about variant support.")
-    public static let betaLabel = WMFLocalizedString("beta-badge-label", value: "Beta", comment: "Label indicating a feature is in beta.")
+    /// Pass `languageCode` when the label sits next to content in a specific wiki language. Without
+    /// it, the label follows the app language like every other string.
+    public static func betaLabel(languageCode: String? = nil) -> String {
+        WMFLocalizedString("beta-badge-label", languageCode: languageCode, value: "Beta", comment: "Label indicating a feature is in beta.")
+    }
     public static let donationRemindersTitle = WMFLocalizedString("settings-donation-reminders-title", value: "Donation reminders", comment: "Title of the donation reminders row on the settings screen.")
     public static let continueWithoutLoggingIn = WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title")
 

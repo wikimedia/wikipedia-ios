@@ -108,6 +108,28 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.emptyState, .noInternetConnection)
     }
 
+    func testEntryPointSurvivesResetUntilItIsHidden() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        let entryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+            query: "cat",
+            languageCode: "en",
+            showsTryItNow: true,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { _ in })
+        viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)
+
+        viewModel.showEntryPoint(entryPointViewModel)
+        XCTAssertTrue(viewModel.entryPointViewModel === entryPointViewModel)
+
+        viewModel.hideEntryPoint()
+        XCTAssertNil(viewModel.entryPointViewModel)
+
+        viewModel.showEntryPoint(entryPointViewModel)
+        viewModel.reset()
+        XCTAssertTrue(viewModel.entryPointViewModel === entryPointViewModel)
+    }
+
     func testResetClearsEverything() {
         let viewModel = makeViewModel(recorder: Recorder())
         viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)
