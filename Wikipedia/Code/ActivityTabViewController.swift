@@ -129,7 +129,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
             yirViewModel.onTap = { [weak self] in
-                self?.yirCoordinator?.start()
+                self?.yir2026Coordinator?.start()
             }
             viewModel.yearInReviewViewModel = yirViewModel
         }
@@ -292,6 +292,23 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     // MARK: - Profile button dependencies
+
+    private var _yir2026Coordinator: YearInReview2026TestCoordinator?
+
+    var yir2026Coordinator: YearInReview2026TestCoordinator? {
+        guard let navigationController,
+              let dataStore else {
+            return nil
+        }
+
+        if let existing = _yir2026Coordinator {
+            return existing
+        }
+
+        let coordinator = YearInReview2026TestCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        _yir2026Coordinator = coordinator
+        return coordinator
+    }
 
     private var _yirCoordinator: YearInReviewCoordinator?
     var yirCoordinator: YearInReviewCoordinator? {
