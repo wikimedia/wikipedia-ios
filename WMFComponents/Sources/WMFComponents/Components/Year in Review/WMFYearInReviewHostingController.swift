@@ -88,11 +88,23 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     }
 
     private func makeMoreButton() -> UIBarButtonItem {
+        let learnMore = UIAction(
+            title: viewModel.localizedStrings.learnMoreButtonTitle,
+            image: WMFSFSymbolIcon.for(symbol: .infoCircle)
+        ) { [weak self] _ in
+            self?.viewModel.tappedLearnMore()
+        }
+
+        let shareFeedback = UIAction(
+            title: viewModel.localizedStrings.shareFeedbackButtonTitle,
+            image: WMFSFSymbolIcon.for(symbol: .ellipsisBubble)
+        ) { [weak self] _ in
+            self?.viewModel.tappedShareFeedback()
+        }
+
         let item = UIBarButtonItem(
             image: WMFSFSymbolIcon.for(symbol: .ellipsis),
-            style: .plain,
-            target: self,
-            action: #selector(tappedMore)
+            menu: UIMenu(children: [learnMore, shareFeedback])
         )
         item.accessibilityLabel = viewModel.localizedStrings.moreButtonAccessibilityLabel
         item.tintColor = viewModel.currentSlide?.contentColor ?? theme.text
@@ -103,7 +115,4 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         viewModel.tappedClose()
     }
 
-    @objc private func tappedMore() {
-        viewModel.tappedMore()
-    }
 }

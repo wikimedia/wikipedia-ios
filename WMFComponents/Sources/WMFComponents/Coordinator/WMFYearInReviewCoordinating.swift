@@ -7,7 +7,8 @@ public protocol WMFYearInReviewCoordinating: AnyObject {
 
 public enum WMFYearInReviewAction {
     case close
-    case showMoreMenu
+    case learnMore(slideLoggingID: String)
+    case shareFeedback(slideLoggingID: String)
     case share(slideID: String)
     case donate(getSourceRect: @MainActor () -> CGRect, slideLoggingID: String)
 }

@@ -17,6 +17,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         public let moreButtonAccessibilityLabel: String
         public let shareButtonTitle: String
         public let donateButtonTitle: String
+        public let learnMoreButtonTitle: String
+        public let shareFeedbackButtonTitle: String
         public let slidePositionAccessibilityValue: (Int, Int) -> String
 
         public init(
@@ -25,6 +27,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             moreButtonAccessibilityLabel: String,
             shareButtonTitle: String,
             donateButtonTitle: String,
+            learnMoreButtonTitle: String,
+            shareFeedbackButtonTitle: String,
             slidePositionAccessibilityValue: @escaping (Int, Int) -> String
         ) {
             self.wIconAccessibilityLabel = wIconAccessibilityLabel
@@ -32,6 +36,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.shareButtonTitle = shareButtonTitle
             self.donateButtonTitle = donateButtonTitle
+            self.learnMoreButtonTitle = learnMoreButtonTitle
+            self.shareFeedbackButtonTitle = shareFeedbackButtonTitle
             self.slidePositionAccessibilityValue = slidePositionAccessibilityValue
         }
     }
@@ -101,8 +107,12 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         coordinatorDelegate?.handleYearInReviewAction(.close)
     }
 
-    func tappedMore() {
-        coordinatorDelegate?.handleYearInReviewAction(.showMoreMenu)
+    func tappedLearnMore() {
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(slideLoggingID: currentSlide?.loggingID ?? ""))
+    }
+
+    func tappedShareFeedback() {
+        coordinatorDelegate?.handleYearInReviewAction(.shareFeedback(slideLoggingID: currentSlide?.loggingID ?? ""))
     }
 
     func tappedShare() {

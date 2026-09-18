@@ -695,6 +695,7 @@ public class CommonStrings: NSObject {
     public static let noThanksTitle = WMFLocalizedString("variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about variant support.")
     public static let betaLabel = WMFLocalizedString("beta-badge-label", value: "Beta", comment: "Label indicating a feature is in beta.")
     public static let donationRemindersTitle = WMFLocalizedString("settings-donation-reminders-title", value: "Donation reminders", comment: "Title of the donation reminders row on the settings screen.")
+    public static let shareFeedbackTitle = WMFLocalizedString("donation-reminder-wrap-up-card-share-feedback", value: "Share feedback", comment: "Title of the button that opens the feedback survey, on the in-article card shown at the end of the donation reminder experiment.")
     public static let continueWithoutLoggingIn = WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title")
 
     public static func takeSurveyTitle(languageCode: String?) -> String {

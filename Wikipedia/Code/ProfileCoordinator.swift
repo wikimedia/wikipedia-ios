@@ -400,13 +400,64 @@ final class YearInReview2026TestCoordinator: NSObject, WMFYearInReviewCoordinati
         switch action {
         case .close:
             navigationController.presentedViewController?.dismiss(animated: true)
-        case .showMoreMenu:
-            break
+        case .learnMore:
+            showLearnMore()
+        case .shareFeedback:
+            shareFeedback()
         case .share:
             break
         case .donate:
             break
         }
+    }
+
+    /// The FAQ page is translated per app language, so the URL is built rather than hardcoded.
+    private var featureFAQURL: URL? {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return nil
+        }
+
+        return WMFProject.mediawiki.translatedHelpURL(
+            pathComponents: ["Wikimedia Apps", "Team", "Wikipedia Year in Review", "Frequently Asked Questions"],
+            section: "Frequently asked questions",
+            language: appLanguage
+        )
+    }
+
+    private func showLearnMore() {
+        guard let presentedViewController = navigationController.presentedViewController,
+              let featureFAQURL else {
+            return
+        }
+
+        let config = SinglePageWebViewController.StandardConfig(url: featureFAQURL, useSimpleNavigationBar: true)
+        let webViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
+        presentedViewController.present(webNavigationController, animated: true)
+    }
+
+    private func shareFeedback() {
+        let address = "ios-support@wikimedia.org"
+        let subject = WMFLocalizedString("year-in-review-2026-feedback-email-subject", value: "Year in Review Feedback", comment: "Subject line of the pre-filled feedback email for the Year in Review feature.")
+        let firstLine = WMFLocalizedString("year-in-review-2026-feedback-email-first-line", value: "I have feedback about Year in Review:", comment: "Opening line of the pre-filled feedback email body for the Year in Review feature.")
+        let body = [
+            firstLine,
+            CommonStrings.issueReportEmailBodyDescribeProblem,
+            CommonStrings.issueReportEmailBodyBehavior,
+            CommonStrings.issueReportEmailBodyProposedSolution,
+            CommonStrings.issueReportEmailBodyScreenshotsOrLinks
+        ].joined(separator: "\n\n")
+
+        let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        guard let encodedMailto = mailto,
+              let mailtoURL = URL(string: encodedMailto),
+              UIApplication.shared.canOpenURL(mailtoURL) else {
+            WMFToastManager.sharedInstance.showToast(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
+            return
+        }
+
+        UIApplication.shared.open(mailtoURL)
     }
 
     private static func localizedStrings() -> WMFYearInReviewViewModel.LocalizedStrings {
@@ -416,6 +467,8 @@ final class YearInReview2026TestCoordinator: NSObject, WMFYearInReviewCoordinati
             moreButtonAccessibilityLabel: "More",
             shareButtonTitle: CommonStrings.shortShareTitle,
             donateButtonTitle: CommonStrings.donateTitle,
+            learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
+            shareFeedbackButtonTitle:CommonStrings.shareFeedbackTitle,
             slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
         )
     }
