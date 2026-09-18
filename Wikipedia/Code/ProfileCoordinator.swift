@@ -195,7 +195,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     private func showYearInReview2026Test() {
         MainActor.assumeIsolated {
-            let testCoordinator = YearInReview2026TestCoordinator(navigationController: navigationController, theme: theme)
+            let testCoordinator = YearInReview2026TestCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
             self.yearInReview2026TestCoordinator = testCoordinator
             testCoordinator.start()
         }
@@ -376,10 +376,15 @@ final class YearInReview2026TestCoordinator: NSObject, WMFYearInReviewCoordinati
 
     private let navigationController: UINavigationController
     private let theme: Theme
+    private let dataStore: MWKDataStore
+    private weak var viewModel: WMFYearInReviewViewModel?
+    
+    private var donateCoordinator: DonateCoordinator?
 
-    init(navigationController: UINavigationController, theme: Theme) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         self.navigationController = navigationController
         self.theme = theme
+        self.dataStore = dataStore
         super.init()
     }
 
@@ -390,6 +395,8 @@ final class YearInReview2026TestCoordinator: NSObject, WMFYearInReviewCoordinati
             coordinatorDelegate: self,
             loggingDelegate: nil
         )
+
+        self.viewModel = viewModel
 
         let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
@@ -406,9 +413,30 @@ final class YearInReview2026TestCoordinator: NSObject, WMFYearInReviewCoordinati
             shareFeedback()
         case .share:
             break
-        case .donate:
-            break
+        case .donate(let getSourceRect, let slideLoggingID):
+            donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }
+    }
+
+    private func donate(getSourceRect: @escaping @MainActor () -> CGRect, slideLoggingID: String) {
+        let donateCoordinator = DonateCoordinator(
+            navigationController: navigationController,
+            source: .yearInReview(slideLoggingID: slideLoggingID),
+            dataStore: dataStore,
+            theme: theme,
+            navigationStyle: .present,
+            setLoadingBlock: { [weak self] loading in
+                MainActor.assumeIsolated {
+                    self?.viewModel?.isLoadingDonate = loading
+                }
+            },
+            getDonateButtonGlobalRect: {
+                MainActor.assumeIsolated { getSourceRect() }
+            }
+        )
+
+        self.donateCoordinator = donateCoordinator
+        donateCoordinator.start()
     }
 
     /// The FAQ page is translated per app language, so the URL is built rather than hardcoded.
