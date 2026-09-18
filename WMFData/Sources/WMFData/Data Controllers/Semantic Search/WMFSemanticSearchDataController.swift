@@ -9,6 +9,7 @@ public final class WMFSemanticSearchDataController {
 
     public enum ExperimentError: Error {
         case missingExperimentStore
+        case missingUserDefaultsStore
         case unexpectedBucketValue
     }
 
@@ -20,6 +21,7 @@ public final class WMFSemanticSearchDataController {
     private static let experimentControlPercentage = 50
 
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
+    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
 
     private let stateLock = NSLock()
 
@@ -28,23 +30,55 @@ public final class WMFSemanticSearchDataController {
     // MARK: - Availability
 
     /// True when the semantic search entry point can render for a search in `languageCode`.
-    /// The developer toggle, the target language gate and the experiment bucket must all pass.
     public func isEntryPointAvailable(languageCode: String) -> Bool {
-        guard isEligible(languageCode: languageCode) else {
+        guard isEligible(languageCode: languageCode), !isEntryPointHidden else {
             return false
         }
 
         return experimentAssignment == .groupB
     }
 
+    public var isEntryPointHidden: Bool {
+        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.semanticSearchEntryPointHidden.rawValue)) ?? false
+    }
+
+    public func setEntryPointHidden(_ isHidden: Bool) throws {
+        guard let userDefaultsStore else {
+            throw ExperimentError.missingUserDefaultsStore
+        }
+
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.semanticSearchEntryPointHidden.rawValue, value: isHidden)
+    }
+
+    /// True after the reader opened semantic search from the entry point at least once. The entry
+    /// point shows its call to action only before that.
+    public var hasUsedEntryPoint: Bool {
+        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.semanticSearchEntryPointUsed.rawValue)) ?? false
+    }
+
+    public func markEntryPointUsed() throws {
+        guard let userDefaultsStore else {
+            throw ExperimentError.missingUserDefaultsStore
+        }
+
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.semanticSearchEntryPointUsed.rawValue, value: true)
+    }
+
+    /// Debugging convenience: forgets the hidden state and the first use, so the entry point shows
+    /// again with its call to action.
+    public func resetEntryPointState() throws {
+        guard let userDefaultsStore else {
+            throw ExperimentError.missingUserDefaultsStore
+        }
+
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.semanticSearchEntryPointHidden.rawValue, value: false)
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.semanticSearchEntryPointUsed.rawValue, value: false)
+    }
+
     /// True when a search in `languageCode` can enroll the reader in the experiment.
     public func isEligible(languageCode: String) -> Bool {
         guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
             return false
-        }
-
-        if developerSettingsForcedAssignment != nil {
-            return true
         }
 
         return isTargetLanguage(languageCode: languageCode)

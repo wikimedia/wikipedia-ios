@@ -119,4 +119,6 @@ public enum WMFUserDefaultsKey: String {
     // Semantic search
     case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
     case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"
+    case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
+    case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
 }

@@ -83,6 +83,71 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
+        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
+    }
+
+    // MARK: - Semantic search entry point
+
+    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?) {
+        guard let query, !query.isEmpty, let languageCode else {
+            resultsViewModel.hideSemanticSearchEntryPoint()
+            return
+        }
+        let dataController = WMFSemanticSearchDataController.shared
+
+        do {
+            try dataController.assignExperimentIfNeeded(languageCode: languageCode)
+        } catch {
+            DDLogError("Semantic search experiment assignment failed: \(error)")
+        }
+        guard dataController.isEntryPointAvailable(languageCode: languageCode) else {
+            resultsViewModel.hideSemanticSearchEntryPoint()
+            return
+        }
+        if let semanticSearchEntryPointViewModel = resultsViewModel.semanticSearchEntryPointViewModel, semanticSearchEntryPointViewModel.languageCode == languageCode {
+            semanticSearchEntryPointViewModel.update(query: query)
+        } else {
+            resultsViewModel.showSemanticSearchEntryPoint(makeSemanticSearchEntryPointViewModel(query: query, languageCode: languageCode))
+        }
+    }
+
+    func hideSemanticSearchEntryPointIfLanguageChanged(for siteURL: URL) {
+        guard let semanticSearchEntryPointViewModel = resultsViewModel.semanticSearchEntryPointViewModel,
+              semanticSearchEntryPointViewModel.languageCode != siteURL.wmf_languageCode else {
+            return
+        }
+        resultsViewModel.hideSemanticSearchEntryPoint()
+    }
+
+    private func makeSemanticSearchEntryPointViewModel(query: String, languageCode: String) -> WMFSemanticSearchEntryPointViewModel {
+        let dataController = WMFSemanticSearchDataController.shared
+        let showsTryItNow = !dataController.hasUsedEntryPoint
+        if showsTryItNow {
+            do {
+                try dataController.markEntryPointUsed()
+            } catch {
+                DDLogError("Marking the semantic search entry point as used failed: \(error)")
+            }
+        }
+        return WMFSemanticSearchEntryPointViewModel(
+            query: query,
+            languageCode: languageCode,
+            showsTryItNow: showsTryItNow,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { [weak self] _ in
+                self?.hideSemanticSearchEntryPoint()
+            }
+        )
+    }
+
+    private func hideSemanticSearchEntryPoint() {
+        do {
+            try WMFSemanticSearchDataController.shared.setEntryPointHidden(true)
+        } catch {
+            DDLogError("Hiding the semantic search entry point failed: \(error)")
+        }
+        resultsViewModel.hideSemanticSearchEntryPoint()
     }
 
     private func openInBackgroundTab(_ result: SearchResult) {
@@ -114,6 +179,7 @@ extension SearchResultsViewController {
         searchResultsByArticleURL = [:]
         let error = error as NSError
         if error.wmf_isNetworkConnectionError() {
+            resultsViewModel.hideSemanticSearchEntryPoint()
             resultsViewModel.showEmptyState(.noInternetConnection)
         } else if error.wmf_isCancelledError() {
             resultsViewModel.reset()
@@ -123,6 +189,14 @@ extension SearchResultsViewController {
     }
 
     // MARK: - Saved state
+
+    // VoiceOver lands on the result closest to the search field when the keyboard goes away after the
+    // search key. The flag limits the focus change to that case.
+    @objc func keyboardDidHide(_ notification: Notification) {
+        guard focusesFirstResultWhenKeyboardHides else { return }
+        focusesFirstResultWhenKeyboardHides = false
+        resultsViewModel.requestAccessibilityFocusOnFirstElement()
+    }
 
     @objc func articleWasUpdated(_ notification: Notification) {
         guard let updatedArticle = notification.object as? WMFArticle,
@@ -168,5 +242,13 @@ extension SearchResultsViewController {
     private func share(_ result: SearchResult, frame: CGRect?) {
         let sourceRect = frame.map { view.convert($0, from: nil) }
         _ = share(article: article(for: result), articleURL: result.articleURL, dataStore: dataStore, theme: theme, eventLoggingCategory: .search, eventLoggingLabel: nil, sourceView: view, sourceRect: sourceRect)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SearchResultsViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        focusesFirstResultWhenKeyboardHides = UIAccessibility.isVoiceOverRunning
     }
 }

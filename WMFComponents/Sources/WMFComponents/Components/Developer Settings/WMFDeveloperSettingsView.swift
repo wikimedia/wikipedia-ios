@@ -106,7 +106,7 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Keeps the semantic search entry point hidden in production. Without this, no gate below is evaluated.") {
                     Toggle("Enable Semantic Search", isOn: $viewModel.enableSemanticSearch)
                 }
-                captionedRow(caption: "Overrides the persisted A/B bucket at read time and bypasses the target language gate; switching it back to Off restores the persisted bucket.") {
+                captionedRow(caption: "Overrides the persisted A/B bucket at read time; the target language gate still applies. Switching it back to Off restores the persisted bucket.") {
                     Picker("Force Experiment Group", selection: $viewModel.forceSemanticSearchExperimentAssignment) {
                         Text("Off").tag(WMFSemanticSearchDataController.ExperimentAssignment?.none)
                         Text("Control (A)").tag(WMFSemanticSearchDataController.ExperimentAssignment?.some(.control))
@@ -119,6 +119,14 @@ struct WMFDeveloperSettingsView: View {
                         viewModel.clearSemanticSearchExperimentAssignment()
                     } label: {
                         Text("Clear experiment assignment")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+                captionedRow(caption: "Forgets the hidden state and the first use, so the entry point shows again with Try it now.") {
+                    Button {
+                        viewModel.resetSemanticSearchEntryPoint()
+                    } label: {
+                        Text("Reset entry point")
                             .foregroundStyle(Color(theme.link))
                     }
                 }

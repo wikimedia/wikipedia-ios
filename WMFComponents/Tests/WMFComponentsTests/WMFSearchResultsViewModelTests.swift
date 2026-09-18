@@ -108,6 +108,81 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.emptyState, .noInternetConnection)
     }
 
+    func testEntryPointSurvivesResetUntilItIsHidden() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        let semanticSearchEntryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+            query: "cat",
+            languageCode: "en",
+            showsTryItNow: true,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { _ in })
+        viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)
+
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
+        XCTAssertTrue(viewModel.semanticSearchEntryPointViewModel === semanticSearchEntryPointViewModel)
+
+        viewModel.hideSemanticSearchEntryPoint()
+        XCTAssertNil(viewModel.semanticSearchEntryPointViewModel)
+
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
+        viewModel.reset()
+        XCTAssertTrue(viewModel.semanticSearchEntryPointViewModel === semanticSearchEntryPointViewModel)
+    }
+
+    func testAccessibilityFocusTargetsTheEntryPointThenTheFirstResult() {
+        let viewModel = makeViewModel(recorder: Recorder())
+
+        viewModel.requestAccessibilityFocusOnFirstElement()
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 0)
+        XCTAssertNil(viewModel.firstAccessibilityElementID)
+
+        let cat = makeResult("Cat")
+        viewModel.showResults([cat, makeResult("Dog")], searchTerm: "c", project: englishProject)
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 1, "a request made before the results arrive is fulfilled when they do")
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, cat.id)
+
+        viewModel.showResults([cat], searchTerm: "ca", project: englishProject)
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 1, "results without a pending request do not move the focus")
+
+        viewModel.requestAccessibilityFocusOnFirstElement()
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 2)
+
+        let semanticSearchEntryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+            query: "c",
+            languageCode: "en",
+            showsTryItNow: false,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { _ in })
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
+        viewModel.requestAccessibilityFocusOnFirstElement()
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 3)
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
+    }
+
+    func testEntryPointReplacesTheNoResultsStateButNotTheNoInternetState() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        let semanticSearchEntryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+            query: "zzqx",
+            languageCode: "fr",
+            showsTryItNow: true,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { _ in })
+
+        viewModel.showResults([], searchTerm: "zzqx", project: englishProject)
+        XCTAssertEqual(viewModel.emptyState, .noResults)
+        XCTAssertFalse(viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState)
+
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
+        XCTAssertTrue(viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState)
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
+
+        viewModel.showEmptyState(.noInternetConnection)
+        XCTAssertFalse(viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState)
+    }
+
     func testResetClearsEverything() {
         let viewModel = makeViewModel(recorder: Recorder())
         viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)

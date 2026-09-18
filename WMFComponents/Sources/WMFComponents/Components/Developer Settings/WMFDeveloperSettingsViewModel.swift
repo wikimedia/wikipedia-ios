@@ -224,6 +224,19 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Widget cache cleared and timelines reloaded. Reopen this screen to see the new fetch.")))
     }
 
+    public func resetSemanticSearchEntryPoint() {
+        let title: String
+        do {
+            try WMFSemanticSearchDataController.shared.resetEntryPointState()
+            title = "Semantic search entry point reset. It shows again with Try it now on the next search."
+        } catch {
+            title = "Could not reset the semantic search entry point: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
     public func clearGamesPersistence() {
         Task {
             try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()

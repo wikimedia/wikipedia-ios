@@ -376,7 +376,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             searchResultsController: searchResultsVC,
             searchControllerDelegate: searchResultsVC,
             searchResultsUpdater: searchResultsVC,
-            searchBarDelegate: nil,
+            searchBarDelegate: searchResultsVC,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false,
             scopeButtonTitles: nil

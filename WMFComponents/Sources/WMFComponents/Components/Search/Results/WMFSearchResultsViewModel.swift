@@ -104,6 +104,11 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published private(set) var emptyState: EmptyState?
     @Published private(set) var project: WMFProject?
     @Published private(set) var isRightToLeft: Bool = false
+    @Published public private(set) var semanticSearchEntryPointViewModel: WMFSemanticSearchEntryPointViewModel?
+    @Published private(set) var accessibilityFocusRequestID = 0
+    private var hasPendingAccessibilityFocusRequest = false
+
+    static let semanticSearchEntryPointAccessibilityID = "semantic-search-entry-point"
     @Published public var topPadding: CGFloat = 0
     @Published public var horizontalPadding: CGFloat = 16
 
@@ -161,17 +166,56 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             return result
         }
         emptyState = results.isEmpty ? .noResults : nil
+        fulfillPendingAccessibilityFocusRequest()
     }
 
     public func showEmptyState(_ state: EmptyState) {
         results = []
         emptyState = state
+        hasPendingAccessibilityFocusRequest = false
     }
 
     public func reset() {
         results = []
         searchTerm = nil
         emptyState = nil
+    }
+
+    public func showSemanticSearchEntryPoint(_ viewModel: WMFSemanticSearchEntryPointViewModel) {
+        semanticSearchEntryPointViewModel = viewModel
+        fulfillPendingAccessibilityFocusRequest()
+    }
+
+    public func hideSemanticSearchEntryPoint() {
+        semanticSearchEntryPointViewModel = nil
+    }
+
+    /// A search with no lexical results still offers the semantic search entry point, so the list
+    /// shows the card alone instead of the no results message.
+    var showsSemanticSearchEntryPointInsteadOfEmptyState: Bool {
+        emptyState == .noResults && semanticSearchEntryPointViewModel != nil
+    }
+
+    var firstAccessibilityElementID: String? {
+        semanticSearchEntryPointViewModel != nil ? Self.semanticSearchEntryPointAccessibilityID : results.first?.id
+    }
+
+    /// Moves VoiceOver to the first element of the list on the next layout pass. Used when the
+    /// keyboard goes away, so the reader lands on the first result instead of the one closest to the
+    /// search field.
+    public func requestAccessibilityFocusOnFirstElement() {
+        guard firstAccessibilityElementID != nil else {
+            hasPendingAccessibilityFocusRequest = true
+            return
+        }
+        hasPendingAccessibilityFocusRequest = false
+        accessibilityFocusRequestID += 1
+    }
+
+    private func fulfillPendingAccessibilityFocusRequest() {
+        guard hasPendingAccessibilityFocusRequest, firstAccessibilityElementID != nil else { return }
+        hasPendingAccessibilityFocusRequest = false
+        accessibilityFocusRequestID += 1
     }
 
     public func refreshSavedStates() {

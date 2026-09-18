@@ -86,6 +86,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private var lastSearchSiteURL: URL?
     private var _siteURL: URL?
     private var searchTask: Task<Void, Never>?
+
+    var focusesFirstResultWhenKeyboardHides = false
     var displayedSearchTerm: String?
     var displayedSiteURL: URL?
     var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
@@ -134,6 +136,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         reloadRecentSearches()
         showRecentSearches(animated: false)
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: .WMFArticleUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -221,6 +224,16 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - Language bar
 
+    // VoiceOver orders sibling views by frame origin. The content container starts at the top edge
+    // and covers the language bar, so without an explicit order the bar comes after the last result.
+    private func updateAccessibilityElements() {
+        guard let languageBarView = searchLanguageBarViewController?.view else {
+            view.accessibilityElements = nil
+            return
+        }
+        view.accessibilityElements = [languageBarView, contentContainerView]
+    }
+
     private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
         if let vc = self.searchLanguageBarViewController { return vc }
         let vc = SearchLanguagesBarViewController()
@@ -251,6 +264,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             vc.moveScrollViewToStart()
             vc.view.isHidden = false
             applyScrollEdgeEffect(isLanguageBarVisible: true, to: contentScrollViews)
+            updateAccessibilityElements()
 
         } else if !shouldShow, let vc = searchLanguageBarViewController {
             vc.willMove(toParent: nil)
@@ -259,6 +273,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             self.searchLanguageBarViewController = nil
             self.searchLanguageBarTopConstraint = nil
             applyScrollEdgeEffect(isLanguageBarVisible: false, to: contentScrollViews)
+            updateAccessibilityElements()
         }
 
         view.setNeedsLayout()
@@ -302,6 +317,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else { return }
 
         resetSearchResults()
+        hideSemanticSearchEntryPointIfLanguageChanged(for: siteURL)
         searchTask = Task { [weak self] in
             await self?.performSearch(for: searchTerm, siteURL: siteURL, suggested: suggested)
         }
@@ -341,6 +357,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     func didCancelSearch() {
         resetSearchResults()
+        resultsViewModel.hideSemanticSearchEntryPoint()
     }
 
     /// Programmatically trigger a search for `term` and show results — used when the caller
@@ -484,6 +501,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
                 return
             }
             searchTerm = text
+            resultsViewModel.semanticSearchEntryPointViewModel?.update(query: text)
 
             searchTask?.cancel()
             searchTask = Task { @MainActor [weak self] in
@@ -495,6 +513,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
         } else {
             searchTerm = nil
             resetSearchResults()
+            resultsViewModel.hideSemanticSearchEntryPoint()
             showRecentSearches(animated: true)
         }
 
