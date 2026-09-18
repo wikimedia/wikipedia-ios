@@ -26,7 +26,7 @@ struct WMFYearInReviewToolbarView: View {
 
             Spacer()
 
-            if viewModel.currentSlide?.showsDonateButton ?? false {
+            if viewModel.showsDonateButton {
                 Button {
                     viewModel.tappedDonate(sourceRect: donateSourceRect)
                 } label: {

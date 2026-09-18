@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 @MainActor
 public final class WMFYearInReviewViewModel: ObservableObject {
@@ -105,6 +106,19 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     func tappedClose() {
         loggingDelegate?.logYearInReviewDidTapDone(slideLoggingID: currentSlide?.loggingID ?? "")
         coordinatorDelegate?.handleYearInReviewAction(.close)
+    }
+
+    /// Matches 2025 behavior
+    var showsDonateButton: Bool {
+        guard currentSlide?.showsDonateButton ?? false else {
+            return false
+        }
+
+        guard let dataController = try? WMFYearInReviewDataController() else {
+            return true
+        }
+
+        return !dataController.shouldHideDonateButton()
     }
 
     func tappedLearnMore() {
