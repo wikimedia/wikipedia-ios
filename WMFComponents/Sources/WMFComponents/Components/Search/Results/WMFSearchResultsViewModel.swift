@@ -11,6 +11,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         let saveActionTitle: String
         let unsaveActionTitle: String
         let shareActionTitle: String
+        let viewOnMapActionTitle: String
         let noResultsMessage: String
         let noInternetConnectionTitle: String
 
@@ -21,6 +22,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             saveActionTitle: String,
             unsaveActionTitle: String,
             shareActionTitle: String,
+            viewOnMapActionTitle: String,
             noResultsMessage: String,
             noInternetConnectionTitle: String
         ) {
@@ -30,6 +32,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             self.saveActionTitle = saveActionTitle
             self.unsaveActionTitle = unsaveActionTitle
             self.shareActionTitle = shareActionTitle
+            self.viewOnMapActionTitle = viewOnMapActionTitle
             self.noResultsMessage = noResultsMessage
             self.noInternetConnectionTitle = noInternetConnectionTitle
         }
@@ -37,10 +40,13 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
     public struct SearchResult: Identifiable, Equatable, Sendable {
         public let articleURL: URL
+        public let pageTitle: String
         public let title: String
         public let titleHTML: String
         public let description: String?
         public let thumbnailURL: URL?
+        public let isArticle: Bool
+        public let hasLocation: Bool
         public let isSavable: Bool
         public var isSaved: Bool
 
@@ -54,18 +60,24 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
         public init(
             articleURL: URL,
+            pageTitle: String,
             title: String,
             titleHTML: String,
             description: String?,
             thumbnailURL: URL?,
+            isArticle: Bool = true,
+            hasLocation: Bool = false,
             isSavable: Bool = true,
             isSaved: Bool = false
         ) {
             self.articleURL = articleURL
+            self.pageTitle = pageTitle
             self.title = title
             self.titleHTML = titleHTML
             self.description = description
             self.thumbnailURL = thumbnailURL
+            self.isArticle = isArticle
+            self.hasLocation = hasLocation
             self.isSavable = isSavable
             self.isSaved = isSaved
         }
@@ -76,8 +88,14 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         case noInternetConnection
     }
 
+    public enum ActionSource: Sendable {
+        case swipe
+        case contextMenu
+    }
+
     public typealias ResultAction = @MainActor @Sendable (SearchResult, Int) -> Void
-    public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?) -> Void
+    public typealias SaveAction = @MainActor @Sendable (SearchResult, Int, ActionSource) -> Void
+    public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?, ActionSource) -> Void
     public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
     public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
 
@@ -98,7 +116,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     private let openAction: ResultAction
     private let openInNewTabAction: ResultAction
     private let openInBackgroundTabAction: ResultAction
-    private let saveOrUnsaveAction: ResultAction
+    private let openOnMapAction: ResultAction
+    private let saveOrUnsaveAction: SaveAction
     private let shareAction: ShareAction
     private let summaryProvider: SummaryProvider
 
@@ -110,7 +129,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         openAction: @escaping ResultAction,
         openInNewTabAction: @escaping ResultAction,
         openInBackgroundTabAction: @escaping ResultAction,
-        saveOrUnsaveAction: @escaping ResultAction,
+        openOnMapAction: @escaping ResultAction,
+        saveOrUnsaveAction: @escaping SaveAction,
         shareAction: @escaping ShareAction,
         summaryProvider: SummaryProvider? = nil
     ) {
@@ -121,6 +141,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.openAction = openAction
         self.openInNewTabAction = openInNewTabAction
         self.openInBackgroundTabAction = openInBackgroundTabAction
+        self.openOnMapAction = openOnMapAction
         self.saveOrUnsaveAction = saveOrUnsaveAction
         self.shareAction = shareAction
         self.summaryProvider = summaryProvider ?? { project, title in
@@ -205,7 +226,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     }
 
     func loadPreviewViewModel(for result: SearchResult) async -> WMFArticlePreviewViewModel {
-        guard let project, let summary = try? await summaryProvider(project, result.title) else {
+        guard let project, let summary = try? await summaryProvider(project, result.pageTitle) else {
             return previewViewModel(for: result)
         }
 
@@ -279,16 +300,22 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         openInBackgroundTabAction(result, index)
     }
 
-    func saveOrUnsave(_ result: SearchResult) {
+    func openOnMap(_ result: SearchResult) {
         guard let index = index(of: result) else { return }
 
-        saveOrUnsaveAction(result, index)
+        openOnMapAction(result, index)
     }
 
-    func share(_ result: SearchResult) {
+    func saveOrUnsave(_ result: SearchResult, source: ActionSource) {
         guard let index = index(of: result) else { return }
-        
-        shareAction(result, index, geometryFrames[result.id])
+
+        saveOrUnsaveAction(result, index, source)
+    }
+
+    func share(_ result: SearchResult, source: ActionSource) {
+        guard let index = index(of: result) else { return }
+
+        shareAction(result, index, geometryFrames[result.id], source)
     }
 
     private func index(of result: SearchResult) -> Int? {

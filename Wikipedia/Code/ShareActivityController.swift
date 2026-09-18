@@ -35,22 +35,39 @@ protocol ShareableArticlesProvider: NSObjectProtocol {
 }
 
 extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProviding {
-    func share(article: WMFArticle?, articleURL: URL?, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventCategoryMEP? = nil, eventLoggingLabel: EventLabelMEP? = nil, sourceView: UIView?) -> Bool {
+    func share(
+        article: WMFArticle?,
+        articleURL: URL?,
+        dataStore: MWKDataStore,
+        theme: Theme,
+        eventLoggingCategory: EventCategoryMEP? = nil,
+        eventLoggingLabel: EventLabelMEP? = nil,
+        sourceView: UIView?,
+        sourceRect: CGRect? = nil
+    ) -> Bool {
         if let article = article {
-            return createAndPresentShareActivityController(for: article, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
+            return createAndPresentShareActivityController(for: article, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView, sourceRect: sourceRect)
         } else if let articleURL = articleURL, let key = articleURL.wmf_inMemoryKey {
             dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in
                 guard let article = article else {
                     return
                 }
-                _ = self.createAndPresentShareActivityController(for: article, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
+                _ = self.createAndPresentShareActivityController(for: article, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView, sourceRect: sourceRect)
             }
             return true
         }
         return false
     }
     
-    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventCategoryMEP?, eventLoggingLabel: EventLabelMEP?, sourceView: UIView?) -> Bool {
+    fileprivate func createAndPresentShareActivityController(
+        for article: WMFArticle,
+        dataStore: MWKDataStore,
+        theme: Theme,
+        eventLoggingCategory: EventCategoryMEP?,
+        eventLoggingLabel: EventLabelMEP?,
+        sourceView: UIView?,
+        sourceRect: CGRect?
+    ) -> Bool {
         var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
@@ -74,7 +91,7 @@ extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProv
         let shareActivityController = ShareActivityController(article: article, customActivities: customActivities)
         if UIDevice.current.userInterfaceIdiom == .pad {
             shareActivityController.popoverPresentationController?.sourceView = sourceView ?? view
-            shareActivityController.popoverPresentationController?.sourceRect = sourceView?.bounds ?? view.bounds
+            shareActivityController.popoverPresentationController?.sourceRect = sourceRect ?? sourceView?.bounds ?? view.bounds
         }
         present(shareActivityController, animated: true, completion: nil)
         return true
