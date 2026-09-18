@@ -23,6 +23,29 @@ import CoreData
 
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+    
+    /// Which Year in Review experience to force, regardless of how much personalized data the
+    /// account actually has. Nil means no override and the real data decides.
+    public enum YiRUserDataState: String {
+        case dataRich = "data-rich"
+        case lowData = "low-data"
+    }
+
+    public var forceYiRUserDataState: YiRUserDataState? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
+                return nil
+            }
+            return YiRUserDataState(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
+            }
+        }
+    }
 
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
@@ -81,6 +104,17 @@ import CoreData
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedActivityTabYIR.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedActivityTabYIR.rawValue, value: newValue)
+        }
+    }
+    
+    public func shouldUseDataRichExperience(hasPersonalizedData: Bool) -> Bool {
+        switch forceYiRUserDataState {
+        case .dataRich:
+            return true
+        case .lowData:
+            return false
+        case nil:
+            return hasPersonalizedData
         }
     }
 

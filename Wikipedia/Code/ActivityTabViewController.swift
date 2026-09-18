@@ -134,7 +134,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        viewModel.yearInReviewViewModel?.isDataRich = viewModel.authenticationState == .loggedIn
+        // Login state is the current stand-in for "has enough personalized data". The data
+        // controller applies the developer settings override on top of it, so a forced state wins
+        // over whatever this resolves to.
+        viewModel.yearInReviewViewModel?.isDataRich = yirDataController.shouldUseDataRichExperience(
+            hasPersonalizedData: viewModel.authenticationState == .loggedIn
+        )
     }
 
     private func embedHostingController() {
