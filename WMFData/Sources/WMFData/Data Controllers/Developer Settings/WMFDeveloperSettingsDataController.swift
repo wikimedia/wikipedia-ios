@@ -7,9 +7,32 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
+    var forceYiRUserDataState: WMFDeveloperSettingsDataController.YiRUserDataState? { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
+    /// Which Year in Review experience to force, regardless of how much personalized data the
+    /// account actually has. Nil means no override and the real data decides.
+    public enum YiRUserDataState: String {
+        case dataRich = "data-rich"
+        case lowData = "low-data"
+    }
+
+    public var forceYiRUserDataState: YiRUserDataState? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
+                return nil
+            }
+            return YiRUserDataState(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
+            }
+        }
+    }
 
     @objc public static let shared = WMFDeveloperSettingsDataController()
 

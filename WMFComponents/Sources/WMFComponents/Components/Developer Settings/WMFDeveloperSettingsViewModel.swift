@@ -119,6 +119,8 @@ import WMFData
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
         let forceYiREntryPoint2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026)
+        let forceYiRDataRichUser = WMFFormItemSelectViewModel(title: "Force Year in Review data-rich user", isSelected: WMFDeveloperSettingsDataController.shared.forceYiRUserDataState == .dataRich)
+        let forceYiRLowDataUser = WMFFormItemSelectViewModel(title: "Force Year in Review low-data user", isSelected: WMFDeveloperSettingsDataController.shared.forceYiRUserDataState == .lowData)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -126,6 +128,8 @@ import WMFData
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 forceYiREntryPoint2026,
+                forceYiRDataRichUser,
+                forceYiRLowDataUser,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 showYiR2025,
@@ -136,6 +140,31 @@ import WMFData
         
         forceYiREntryPoint2026.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = isSelected }
+            .store(in: &subscribers)
+
+        // The two Year in Review data-state items are mutually exclusive. Selecting one clears the
+        // other, and the guard on the clear path keeps that programmatic deselection from wiping the
+        // state that was just written.
+        forceYiRDataRichUser.$isSelected
+            .sink { isSelected in
+                if isSelected {
+                    WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = .dataRich
+                    forceYiRLowDataUser.isSelected = false
+                } else if WMFDeveloperSettingsDataController.shared.forceYiRUserDataState == .dataRich {
+                    WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = nil
+                }
+            }
+            .store(in: &subscribers)
+
+        forceYiRLowDataUser.$isSelected
+            .sink { isSelected in
+                if isSelected {
+                    WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = .lowData
+                    forceYiRDataRichUser.isSelected = false
+                } else if WMFDeveloperSettingsDataController.shared.forceYiRUserDataState == .lowData {
+                    WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = nil
+                }
+            }
             .store(in: &subscribers)
 
         doNotPostImageRecommendationsEditItem.$isSelected
