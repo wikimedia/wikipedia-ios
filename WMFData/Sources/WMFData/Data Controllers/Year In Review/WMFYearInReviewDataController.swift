@@ -246,14 +246,6 @@ import CoreData
     private var assignmentCache: YiRLoginExperimentAssignment?
 
     public func needsLoginExperimentAssignment() -> Bool {
-        if developerSettingsDataController.enableYiRLoginExperimentB {
-            return false
-        }
-
-        if developerSettingsDataController.enableYiRLoginExperimentControl {
-            return false
-        }
-
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return false
         }
@@ -297,14 +289,6 @@ import CoreData
     }
 
     public var bypassLoginForPersonalizedFlow: Bool {
-        if developerSettingsDataController.enableYiRLoginExperimentB {
-            return true
-        }
-
-        if developerSettingsDataController.enableYiRLoginExperimentControl {
-            return false
-        }
-
         let assignment = getLoginExperimentAssignment()
         if let assignment {
             switch assignment {
