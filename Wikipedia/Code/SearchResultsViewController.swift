@@ -302,56 +302,39 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else { return }
 
         resetSearchResults()
+        searchTask = Task { [weak self] in
+            await self?.performSearch(for: searchTerm, siteURL: siteURL, suggested: suggested)
+        }
+    }
+
+    private func performSearch(for searchTerm: String, siteURL: URL, suggested: Bool) async {
+        guard !Task.isCancelled else { return }
+        
         let start = Date()
-
-        let failure = { (error: Error, type: WMFSearchType) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self,
-                      searchTerm == self.searchTerm else { return }
-                self.displaySearchError(error)
-                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
-            }
+        do {
+            let (results, type) = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
+            guard !Task.isCancelled else { return }
+            NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+            displaySearchResults(results, siteURL: siteURL)
+            guard !suggested else { return }
+            SearchFunnel.shared.logSearchResults(with: type, resultCount: results.results?.count ?? 0, elapsedTime: Date().timeIntervalSince(start), source: source.stringValue)
+        } catch is CancellationError {
+            return
+        } catch let SearchResultsLoader.Failure.fetch(error, type) {
+            guard !Task.isCancelled, !(error as NSError).wmf_isCancelledError() else { return }
+            displaySearchError(error)
+            SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: source.stringValue)
+        } catch {
+            assertionFailure("Unexpected search error: \(error)")
         }
-
-        let success = { (results: WMFSearchResults, type: WMFSearchType) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
-                let resultsArray = results.results ?? []
-                self.displaySearchResults(results, siteURL: siteURL)
-                guard !suggested else { return }
-                SearchFunnel.shared.logSearchResults(with: type, resultCount: resultsArray.count, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
-            }
-        }
-
-        fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { error in
-            failure(error, .prefix)
-        }, success: { [weak self] results in
-
-            guard let self,
-                  let resultsArray = results.results, resultsArray.count < 12 else {
-                success(results, .prefix)
-                return
-            }
-
-            self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { error in
-
-                if !resultsArray.isEmpty {
-                    success(results, .prefix)
-                } else {
-                    failure(error, .full)
-                }
-
-            }, success: { [weak self] fullTextResults in
-                guard self != nil else { return }
-                success(fullTextResults, .full)
-            })
-        })
     }
 
     private lazy var fetcher = WMFSearchFetcher()
+    private lazy var resultsLoader = SearchResultsLoader(fetcher: fetcher)
 
     func resetSearchResults() {
+        searchTask?.cancel()
+        searchTask = nil
         fetcher.cancelAllFetches()
         resultsViewModel.reset()
     }
@@ -510,8 +493,6 @@ extension SearchResultsViewController: UISearchResultsUpdating {
                 search(for: text, suggested: false)
             }
         } else {
-            searchTask?.cancel()
-            searchTask = nil
             searchTerm = nil
             resetSearchResults()
             showRecentSearches(animated: true)
