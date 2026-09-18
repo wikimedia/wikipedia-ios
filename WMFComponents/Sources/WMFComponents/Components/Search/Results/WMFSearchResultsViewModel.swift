@@ -105,6 +105,9 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published private(set) var project: WMFProject?
     @Published private(set) var isRightToLeft: Bool = false
     @Published public private(set) var entryPointViewModel: WMFSemanticSearchEntryPointViewModel?
+    @Published private(set) var accessibilityFocusRequestID = 0
+
+    static let entryPointAccessibilityID = "semantic-search-entry-point"
     @Published public var topPadding: CGFloat = 0
     @Published public var horizontalPadding: CGFloat = 16
 
@@ -181,6 +184,18 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
     public func hideEntryPoint() {
         entryPointViewModel = nil
+    }
+
+    var firstAccessibilityElementID: String? {
+        entryPointViewModel != nil ? Self.entryPointAccessibilityID : results.first?.id
+    }
+
+    /// Moves VoiceOver to the first element of the list on the next layout pass. Used when the
+    /// keyboard goes away, so the reader lands on the first result instead of the one closest to the
+    /// search field.
+    public func requestAccessibilityFocusOnFirstElement() {
+        guard firstAccessibilityElementID != nil else { return }
+        accessibilityFocusRequestID += 1
     }
 
     public func refreshSavedStates() {

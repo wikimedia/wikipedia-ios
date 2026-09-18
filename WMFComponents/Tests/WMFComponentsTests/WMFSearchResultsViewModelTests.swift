@@ -130,6 +130,32 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.entryPointViewModel === entryPointViewModel)
     }
 
+    func testAccessibilityFocusTargetsTheEntryPointThenTheFirstResult() {
+        let viewModel = makeViewModel(recorder: Recorder())
+
+        viewModel.requestAccessibilityFocusOnFirstElement()
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 0)
+        XCTAssertNil(viewModel.firstAccessibilityElementID)
+
+        let cat = makeResult("Cat")
+        viewModel.showResults([cat, makeResult("Dog")], searchTerm: "c", project: englishProject)
+        viewModel.requestAccessibilityFocusOnFirstElement()
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 1)
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, cat.id)
+
+        let entryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+            query: "c",
+            languageCode: "en",
+            showsTryItNow: false,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { _ in })
+        viewModel.showEntryPoint(entryPointViewModel)
+        viewModel.requestAccessibilityFocusOnFirstElement()
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 2)
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.entryPointAccessibilityID)
+    }
+
     func testResetClearsEverything() {
         let viewModel = makeViewModel(recorder: Recorder())
         viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)

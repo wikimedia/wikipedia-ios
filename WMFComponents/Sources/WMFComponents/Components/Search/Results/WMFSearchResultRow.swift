@@ -5,6 +5,7 @@ struct WMFSearchResultRow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSearchResultsViewModel
     let result: WMFSearchResultsViewModel.SearchResult
+    @AccessibilityFocusState.Binding var focusedElementID: String?
 
     @State private var thumbnail: UIImage?
     @Environment(\.displayScale) private var displayScale
@@ -37,6 +38,7 @@ struct WMFSearchResultRow: View {
         .listRowSeparator(.hidden)
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(AccessibilityIdentifiers.Search.result(result.title))
+        .accessibilityFocused($focusedElementID, equals: result.id)
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button {
                 viewModel.share(result, source: .swipe)

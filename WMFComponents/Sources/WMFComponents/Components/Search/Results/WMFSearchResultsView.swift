@@ -4,6 +4,7 @@ public struct WMFSearchResultsView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSearchResultsViewModel
+    @AccessibilityFocusState private var focusedElementID: String?
 
     private var theme: WMFTheme {
         appEnvironment.theme
@@ -53,12 +54,16 @@ public struct WMFSearchResultsView: View {
                     .listRowBackground(Color(theme.paperBackground))
                     .listRowSeparator(.hidden)
                     .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchEntryPoint)
+                    .accessibilityFocused($focusedElementID, equals: WMFSearchResultsViewModel.entryPointAccessibilityID)
             }
             ForEach(viewModel.results) { result in
-                WMFSearchResultRow(viewModel: viewModel, result: result)
+                WMFSearchResultRow(viewModel: viewModel, result: result, focusedElementID: $focusedElementID)
             }
         }
         .listStyle(.plain)
+        .onChange(of: viewModel.accessibilityFocusRequestID) { _, _ in
+            focusedElementID = viewModel.firstAccessibilityElementID
+        }
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.never)
         .contentMargins(.top, viewModel.topPadding, for: .scrollContent)

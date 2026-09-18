@@ -189,6 +189,14 @@ extension SearchResultsViewController {
 
     // MARK: - Saved state
 
+    // VoiceOver lands on the result closest to the search field when the keyboard goes away after the
+    // search key. The flag limits the focus change to that case.
+    @objc func keyboardDidHide(_ notification: Notification) {
+        guard focusesFirstResultWhenKeyboardHides else { return }
+        focusesFirstResultWhenKeyboardHides = false
+        resultsViewModel.requestAccessibilityFocusOnFirstElement()
+    }
+
     @objc func articleWasUpdated(_ notification: Notification) {
         guard let updatedArticle = notification.object as? WMFArticle,
               updatedArticle.hasChangedValuesForCurrentEventThatAffectSavedState else {
@@ -233,5 +241,13 @@ extension SearchResultsViewController {
     private func share(_ result: SearchResult, frame: CGRect?) {
         let sourceRect = frame.map { view.convert($0, from: nil) }
         _ = share(article: article(for: result), articleURL: result.articleURL, dataStore: dataStore, theme: theme, eventLoggingCategory: .search, eventLoggingLabel: nil, sourceView: view, sourceRect: sourceRect)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SearchResultsViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        focusesFirstResultWhenKeyboardHides = UIAccessibility.isVoiceOverRunning
     }
 }
