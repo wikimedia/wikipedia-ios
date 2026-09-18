@@ -4,9 +4,10 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var showYiR2025: Bool { get }
+    var forceYiR2026: Bool { get }
+    var forceYiR2026Announcement: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
-    var forceYiREntryPoint2026: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -70,24 +71,32 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue) }
     }
 
+    /// Debugging convenience: forces the 2025 Year in Review config active outside its date window.
+    /// Kept so last year's feature can still be exercised; it has no effect on the 2026 config.
     public var showYiR2025: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
     }
     
     // 2026 YIR
-    /// Debugging convenience: when true, the Year in Review entry point ignores the settings
-    /// toggle, the remote config's active window, and the suppressed-country list, so it presents
-    /// before the year's config exists remotely.
-    public var forceYiREntryPoint2026: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint2026.rawValue)) ?? false }
-        set {
-            let oldValue = forceYiREntryPoint2026
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint2026.rawValue, value: newValue)
-            if oldValue != newValue {
-                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
-            }
-        }
+    /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
+    /// as active outside its date window, and the entry point presents even with no 2026 config
+    /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
+    /// entry point and date window flags, so nothing below it is respected.
+    /// Takes effect the next time the entry point is evaluated; relaunch to refresh the Activity tab badge.
+    public var forceYiR2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiR2026.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiR2026.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: while on, the 2026 Year in Review announcement ignores every gate —
+    /// the remote config, its active window, the opt-out toggle, suppressed countries and the
+    /// once-per-user state — so it presents before a 2026 config exists remotely and can be
+    /// retriggered without reinstalling. Named `force` for the same reason as `forceYiR2026`:
+    /// nothing below it is respected.
+    public var forceYiR2026Announcement: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiR2026Announcement.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiR2026Announcement.rawValue, value: newValue) }
     }
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community

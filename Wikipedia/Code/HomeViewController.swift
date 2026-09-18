@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     let viewModel: WMFHomeViewModel
     private let hostingController: WMFHomeHostingController
 
-    private var yirDataController: WMFYearInReviewDataController? {
+    var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
 
@@ -106,6 +106,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.significantTimeChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
 
         apply(theme: theme)
     }
@@ -195,6 +196,34 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         super.viewDidAppear(animated)
         updateChromeAppearance(for: viewModel.selectedTab)
         apply(theme: theme)
+        presentYearInReviewAnnouncementIfNeeded()
+    }
+
+    @objc private func applicationDidBecomeActive() {
+        // The Home tab stays alive in the tab bar while another tab is on screen, so only run on
+        // foreground when it is actually visible. `needsYearInReviewAnnouncement()` checks the window
+        // too; this keeps the work off the other tabs entirely.
+        guard viewIfLoaded?.window != nil else { return }
+        presentYearInReviewAnnouncementIfNeeded()
+    }
+
+    /// The Home tab's half of the Year in Review announcement.
+    ///
+    /// While the embedded Explore feed is on screen it runs its own modal chain (Year in Review,
+    /// then the games announcement), so this defers to it. That leaves two cases for the Home tab:
+    /// the For You segment, where the embedded feed exists but is off screen, and home phase 2,
+    /// where it is never created. Without this the announcement would never present in either.
+    private func presentYearInReviewAnnouncementIfNeeded() {
+        guard _embeddedExploreViewController?.viewIfLoaded?.window == nil else {
+            return
+        }
+
+        guard needsYearInReviewAnnouncement() else {
+            return
+        }
+
+        updateProfileButton()
+        presentYearInReviewAnnouncement()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -459,6 +488,14 @@ extension HomeViewController: LogoutCoordinatorDelegate {
             self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
+}
+
+extension HomeViewController: YearInReviewAnnouncementPresenting {
+    // TODO: confirm with the data team whether the Home tab needs its own value here. Sending
+    // `explore_prompt` keeps the funnel to values it already knows, but it under-reports the
+    // For You and home phase 2 surfaces.
+    var yirAnnouncementCoordinator: YearInReviewCoordinator? { yirCoordinator }
+    var yirAnnouncementLoggingID: String { "explore_prompt" }
 }
 
 extension HomeViewController: YearInReviewBadgeDelegate {

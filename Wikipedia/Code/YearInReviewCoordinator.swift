@@ -954,7 +954,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
-            WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIR, sticky: false, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
         }
         resetFromFeatureAnnouncement()
     }
@@ -1008,8 +1008,15 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             }
         case .dismiss(let hasSeenTwoSlides):
             (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
+
+            let needsExitToast = needsExitFromIntroToast && (viewModel?.isShowingIntro ?? false)
+
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
+
+                if needsExitToast {
+                    WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
+                }
 
                 self.resetFromFeatureAnnouncement()
                 guard hasSeenTwoSlides else { return }
@@ -1175,7 +1182,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             navigationController.dismiss(animated: true) { [weak self] in
                 guard let self else { return }
                 if needsExitFromIntroToast {
-                    WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIR, sticky: false, dismissPreviousToasts: true)
+                    WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
                 }
                 resetFromFeatureAnnouncement()
             }

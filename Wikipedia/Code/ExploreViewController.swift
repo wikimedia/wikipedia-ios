@@ -54,7 +54,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
-    private var yirDataController: WMFYearInReviewDataController? {
+    var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
     
@@ -1081,29 +1081,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 extension ExploreViewController {
     
     /// Modal presentation priority chain for the Explore view:
-    ///   1. Reading challenge  →  if shown, stop.
-    ///   2. Year in Review     →  if shown, stop.
-    ///   3. Games announcement →  shown only when both of the above decline.
+    ///   1. Year in Review     →  if shown, stop.
+    ///   2. Games announcement →  shown only when Year in Review declines.
     ///
-    /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
+    /// If Year in Review is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        guard let navigationController, let dataStore else {
-            presentYearInReviewAnnouncementOrTooltipsIfNeeded()
-            return
-        }
+        presentYearInReviewAnnouncementOrTooltipsIfNeeded()
     }
 
-    /// Called at the tail of the modal chain (after RC and YIR have both declined).
+    /// Called at the tail of the modal chain (after Year in Review has declined).
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
-#if !TEST
-        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
+        guard !didOpenAppFromExternalLink else {
             return
         }
-#endif
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
@@ -1194,31 +1187,6 @@ extension ExploreViewController {
         }
     }
 
-    private func needsYearInReviewAnnouncement() -> Bool {
-
-        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
-            return false
-        }
-
-        guard let yirDataController else {
-                  return false
-        }
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
-            return false
-        }
-
-        guard presentedViewController == nil else {
-            return false
-        }
-
-        guard self.isViewLoaded && self.view.window != nil else {
-            return false
-        }
-
-        return true
-    }
-
     private func displayURLWebView(url: URL) {
         guard let presentedViewController = navigationController?.presentedViewController else {
             DDLogError("Unexpected navigation controller state. Skipping Learn About Tabs presentation.")
@@ -1233,16 +1201,6 @@ extension ExploreViewController {
         let newNavigationVC =
         WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
         presentedViewController.present(newNavigationVC, animated: true, completion: { })
-    }
-
-    // TODO: Remove after expiry date (1 March 2025)
-    private func presentYearInReviewAnnouncement() {
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
-        }
-        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
-        self.yirCoordinator?.start()
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
 
     private func shouldShowSearchWidgetAnnouncement() -> Bool {
@@ -1986,6 +1944,11 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
             self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
+}
+
+extension ExploreViewController: YearInReviewAnnouncementPresenting {
+    var yirAnnouncementCoordinator: YearInReviewCoordinator? { yirCoordinator }
+    var yirAnnouncementLoggingID: String { "explore_prompt" }
 }
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
