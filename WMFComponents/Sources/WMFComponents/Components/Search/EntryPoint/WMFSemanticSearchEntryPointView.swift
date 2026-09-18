@@ -8,6 +8,9 @@ public struct WMFSemanticSearchEntryPointView: View {
 
     let horizontalPadding: CGFloat
 
+    private static let minimumTouchTarget: CGFloat = 44
+    private static let touchTargetInset: CGFloat = 12
+
     private var theme: WMFTheme {
         appEnvironment.theme
     }
@@ -34,10 +37,6 @@ public struct WMFSemanticSearchEntryPointView: View {
                 .frame(height: max(1.0 / displayScale, 0.5))
         }
         .background(Color(theme.paperBackground))
-        .contentShape(Rectangle())
-        .onTapGesture {
-            viewModel.tap()
-        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityHint(viewModel.accessibilityHint)
@@ -69,8 +68,11 @@ public struct WMFSemanticSearchEntryPointView: View {
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .infoCircle) ?? UIImage())
                     .foregroundStyle(Color(theme.secondaryText))
+                    .frame(width: Self.minimumTouchTarget, height: Self.minimumTouchTarget)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
+            .padding(-Self.touchTargetInset)
             .accessibilityLabel(viewModel.infoAccessibilityLabel)
             .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchEntryPointInfoButton)
             Spacer(minLength: 0)
@@ -79,8 +81,11 @@ public struct WMFSemanticSearchEntryPointView: View {
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
                     .foregroundStyle(Color(theme.link))
+                    .frame(width: Self.minimumTouchTarget, height: Self.minimumTouchTarget)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
+            .padding(-Self.touchTargetInset)
             .accessibilityLabel(viewModel.hideAccessibilityLabel)
             .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchEntryPointHideButton)
         }
