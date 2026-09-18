@@ -39,15 +39,15 @@ public struct WMFSemanticSearchEntryPointView: View {
         .background(Color(theme.paperBackground))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
-        .accessibilityHint(viewModel.accessibilityHint)
+        .accessibilityHint(accessibilityText(viewModel.accessibilityHint))
         .accessibilityAddTraits(.isButton)
         .accessibilityAction {
             viewModel.tap()
         }
-        .accessibilityAction(named: Text(viewModel.infoAccessibilityLabel)) {
+        .accessibilityAction(named: accessibilityText(viewModel.infoAccessibilityLabel)) {
             viewModel.showInfo()
         }
-        .accessibilityAction(named: Text(viewModel.hideAccessibilityLabel)) {
+        .accessibilityAction(named: accessibilityText(viewModel.hideAccessibilityLabel)) {
             viewModel.hide()
         }
     }
@@ -57,7 +57,13 @@ public struct WMFSemanticSearchEntryPointView: View {
         if viewModel.showsTryItNow {
             parts.append(viewModel.tryItNowTitle)
         }
-        return Text(parts.joined(separator: ", "))
+        return accessibilityText(parts.joined(separator: ", "))
+    }
+
+    private func accessibilityText(_ string: String) -> Text {
+        var attributedString = AttributedString(string)
+        attributedString.languageIdentifier = viewModel.languageCode
+        return Text(attributedString)
     }
 
     private var headerRow: some View {

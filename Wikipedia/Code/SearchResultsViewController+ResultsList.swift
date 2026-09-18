@@ -83,7 +83,11 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
-        updateEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
+        if results.isEmpty {
+            resultsViewModel.hideEntryPoint()
+        } else {
+            updateEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
+        }
     }
 
     // MARK: - Semantic search entry point

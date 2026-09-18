@@ -106,6 +106,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published private(set) var isRightToLeft: Bool = false
     @Published public private(set) var entryPointViewModel: WMFSemanticSearchEntryPointViewModel?
     @Published private(set) var accessibilityFocusRequestID = 0
+    private var hasPendingAccessibilityFocusRequest = false
 
     static let entryPointAccessibilityID = "semantic-search-entry-point"
     @Published public var topPadding: CGFloat = 0
@@ -165,11 +166,13 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             return result
         }
         emptyState = results.isEmpty ? .noResults : nil
+        fulfillPendingAccessibilityFocusRequest()
     }
 
     public func showEmptyState(_ state: EmptyState) {
         results = []
         emptyState = state
+        hasPendingAccessibilityFocusRequest = false
     }
 
     public func reset() {
@@ -180,6 +183,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
     public func showEntryPoint(_ viewModel: WMFSemanticSearchEntryPointViewModel) {
         entryPointViewModel = viewModel
+        fulfillPendingAccessibilityFocusRequest()
     }
 
     public func hideEntryPoint() {
@@ -194,7 +198,17 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     /// keyboard goes away, so the reader lands on the first result instead of the one closest to the
     /// search field.
     public func requestAccessibilityFocusOnFirstElement() {
-        guard firstAccessibilityElementID != nil else { return }
+        guard firstAccessibilityElementID != nil else {
+            hasPendingAccessibilityFocusRequest = true
+            return
+        }
+        hasPendingAccessibilityFocusRequest = false
+        accessibilityFocusRequestID += 1
+    }
+
+    private func fulfillPendingAccessibilityFocusRequest() {
+        guard hasPendingAccessibilityFocusRequest, firstAccessibilityElementID != nil else { return }
+        hasPendingAccessibilityFocusRequest = false
         accessibilityFocusRequestID += 1
     }
 

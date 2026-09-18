@@ -139,9 +139,14 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
         let cat = makeResult("Cat")
         viewModel.showResults([cat, makeResult("Dog")], searchTerm: "c", project: englishProject)
-        viewModel.requestAccessibilityFocusOnFirstElement()
-        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 1)
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 1, "a request made before the results arrive is fulfilled when they do")
         XCTAssertEqual(viewModel.firstAccessibilityElementID, cat.id)
+
+        viewModel.showResults([cat], searchTerm: "ca", project: englishProject)
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 1, "results without a pending request do not move the focus")
+
+        viewModel.requestAccessibilityFocusOnFirstElement()
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 2)
 
         let entryPointViewModel = WMFSemanticSearchEntryPointViewModel(
             query: "c",
@@ -152,7 +157,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
             hideAction: { _ in })
         viewModel.showEntryPoint(entryPointViewModel)
         viewModel.requestAccessibilityFocusOnFirstElement()
-        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 2)
+        XCTAssertEqual(viewModel.accessibilityFocusRequestID, 3)
         XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.entryPointAccessibilityID)
     }
 

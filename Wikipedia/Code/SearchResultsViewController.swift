@@ -501,6 +501,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
                 return
             }
             searchTerm = text
+            resultsViewModel.entryPointViewModel?.update(query: text)
 
             searchTask?.cancel()
             searchTask = Task { @MainActor [weak self] in
