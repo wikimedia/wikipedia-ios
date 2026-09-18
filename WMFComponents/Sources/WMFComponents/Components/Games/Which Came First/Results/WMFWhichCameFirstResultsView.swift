@@ -8,6 +8,7 @@ public struct WMFWhichCameFirstResultsView: View {
     @ObservedObject var viewModel: WMFWhichCameFirstResultsViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     public init(viewModel: WMFWhichCameFirstResultsViewModel) {
         self.viewModel = viewModel
@@ -55,8 +56,10 @@ public struct WMFWhichCameFirstResultsView: View {
                             .padding(.horizontal, 16)
                         WMFWhichCameFirstArticlesView(viewModel: viewModel.articlesViewModel)
                     }
+                    .frame(maxWidth: horizontalSizeClass == .regular ? 750 : .infinity)
                     .padding(.top, headerHeight(for: height) - 123)
                     .padding(.bottom, 24)
+                    .frame(maxWidth: .infinity)
                 }
                 .zIndex(1)
             }
@@ -108,7 +111,7 @@ public struct WMFWhichCameFirstResultsView: View {
     private var scoreCard: some View {
         VStack(alignment: .center, spacing: 12) {
             Text(viewModel.scoreLabel(viewModel.score, of: viewModel.totalQuestions))
-                .font(Font(WMFFont.for(.georgiaTitle1)))
+                .font(horizontalSizeClass == .regular ? Font.custom("Georgia", size: 44) : Font(WMFFont.for(.georgiaTitle1)))
             // Specifically left as hardcoded color
                 .foregroundStyle(Color.black)
                 .multilineTextAlignment(.center)
@@ -116,14 +119,14 @@ public struct WMFWhichCameFirstResultsView: View {
                 .fixedSize(horizontal: false, vertical: true)
             
             HStack(spacing: 6) {
-                if let image = WMFSFSymbolIcon.for(symbol: .clock, font: .body) {
+                if let image = WMFSFSymbolIcon.for(symbol: .clock, font: horizontalSizeClass == .regular ? .title3 : .body) {
                     Image(uiImage: image)
                     // Specifically left as hardcoded color
                         .foregroundStyle(Color.black)
                         .accessibilityHidden(true)
                 }
                 Text(viewModel.countdownLabel(from: viewModel.nextGameCountdownString))
-                    .font(Font(WMFFont.for(.callout)).monospacedDigit())
+                    .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .title3 : .callout)).monospacedDigit())
                 // Specifically left as hardcoded color
                     .foregroundStyle(Color.black)
                     .minimumScaleFactor(0.8)
@@ -134,12 +137,12 @@ public struct WMFWhichCameFirstResultsView: View {
                 viewModel.shareScore?()
             } label: {
                 HStack(alignment: .center, spacing: 4) {
-                    if let image = WMFSFSymbolIcon.for(symbol: .squareAndArrowUp, font: .semiboldSubheadline) {
+                    if let image = WMFSFSymbolIcon.for(symbol: .squareAndArrowUp, font: horizontalSizeClass == .regular ? .semiboldHeadline : .semiboldSubheadline) {
                         Image(uiImage: image)
                             .accessibilityHidden(true)
                     }
                     Text(viewModel.shareScoreButton)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .semiboldHeadline : .semiboldSubheadline)))
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 // Specifically left as hardcoded color
@@ -167,7 +170,7 @@ public struct WMFWhichCameFirstResultsView: View {
     private var statsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(viewModel.yourStatsTitle)
-                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .semiboldTitle3 : .semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, 16)
@@ -253,11 +256,11 @@ public struct WMFWhichCameFirstResultsView: View {
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(value)
-                    .font(Font(WMFFont.for(.boldCallout)))
+                    .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .boldTitle1 : .boldCallout)))
                     .foregroundColor(Color(uiColor: theme.text))
                     .minimumScaleFactor(0.8)
                 Text(label)
-                    .font(Font(WMFFont.for(.caption1)))
+                    .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .body : .caption1)))
                     .foregroundColor(Color(uiColor: theme.text))
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -270,13 +273,13 @@ public struct WMFWhichCameFirstResultsView: View {
     private var loggedOutStats: some View {
         VStack(spacing: 8) {
             Text(viewModel.logInToViewStatsTitle)
-                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .semiboldTitle3 : .semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             
             Text(viewModel.logInToViewStatsBody)
-                .font(Font(WMFFont.for(.subheadline)))
+                .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .title3 : .subheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
@@ -285,12 +288,12 @@ public struct WMFWhichCameFirstResultsView: View {
                 viewModel.onLogIn?()
             } label: {
                 HStack(spacing: 4) {
-                    if let image = WMFSFSymbolIcon.for(symbol: .personFilled, font: .semiboldSubheadline) {
+                    if let image = WMFSFSymbolIcon.for(symbol: .personFilled, font: horizontalSizeClass == .regular ? .semiboldTitle3 : .semiboldSubheadline) {
                         Image(uiImage: image)
                             .accessibilityHidden(true)
                     }
                     Text(viewModel.logInButton)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .semiboldTitle3 : .semiboldSubheadline)))
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .foregroundColor(Color(uiColor: theme.paperBackground))
