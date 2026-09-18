@@ -317,7 +317,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else { return }
 
         resetSearchResults()
-        hideEntryPointIfLanguageChanged(for: siteURL)
+        hideSemanticSearchEntryPointIfLanguageChanged(for: siteURL)
         searchTask = Task { [weak self] in
             await self?.performSearch(for: searchTerm, siteURL: siteURL, suggested: suggested)
         }
@@ -357,7 +357,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     func didCancelSearch() {
         resetSearchResults()
-        resultsViewModel.hideEntryPoint()
+        resultsViewModel.hideSemanticSearchEntryPoint()
     }
 
     /// Programmatically trigger a search for `term` and show results — used when the caller
@@ -501,7 +501,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
                 return
             }
             searchTerm = text
-            resultsViewModel.entryPointViewModel?.update(query: text)
+            resultsViewModel.semanticSearchEntryPointViewModel?.update(query: text)
 
             searchTask?.cancel()
             searchTask = Task { @MainActor [weak self] in
@@ -513,7 +513,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
         } else {
             searchTerm = nil
             resetSearchResults()
-            resultsViewModel.hideEntryPoint()
+            resultsViewModel.hideSemanticSearchEntryPoint()
             showRecentSearches(animated: true)
         }
 

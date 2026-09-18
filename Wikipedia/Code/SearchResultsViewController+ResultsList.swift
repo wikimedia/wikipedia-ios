@@ -83,14 +83,14 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
-        updateEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
+        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
     }
 
     // MARK: - Semantic search entry point
 
-    private func updateEntryPoint(query: String?, languageCode: String?) {
+    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?) {
         guard let query, !query.isEmpty, let languageCode else {
-            resultsViewModel.hideEntryPoint()
+            resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
         let dataController = WMFSemanticSearchDataController.shared
@@ -101,25 +101,25 @@ extension SearchResultsViewController {
             DDLogError("Semantic search experiment assignment failed: \(error)")
         }
         guard dataController.isEntryPointAvailable(languageCode: languageCode) else {
-            resultsViewModel.hideEntryPoint()
+            resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
-        if let entryPointViewModel = resultsViewModel.entryPointViewModel, entryPointViewModel.languageCode == languageCode {
-            entryPointViewModel.update(query: query)
+        if let semanticSearchEntryPointViewModel = resultsViewModel.semanticSearchEntryPointViewModel, semanticSearchEntryPointViewModel.languageCode == languageCode {
+            semanticSearchEntryPointViewModel.update(query: query)
         } else {
-            resultsViewModel.showEntryPoint(makeEntryPointViewModel(query: query, languageCode: languageCode))
+            resultsViewModel.showSemanticSearchEntryPoint(makeSemanticSearchEntryPointViewModel(query: query, languageCode: languageCode))
         }
     }
 
-    func hideEntryPointIfLanguageChanged(for siteURL: URL) {
-        guard let entryPointViewModel = resultsViewModel.entryPointViewModel,
-              entryPointViewModel.languageCode != siteURL.wmf_languageCode else {
+    func hideSemanticSearchEntryPointIfLanguageChanged(for siteURL: URL) {
+        guard let semanticSearchEntryPointViewModel = resultsViewModel.semanticSearchEntryPointViewModel,
+              semanticSearchEntryPointViewModel.languageCode != siteURL.wmf_languageCode else {
             return
         }
-        resultsViewModel.hideEntryPoint()
+        resultsViewModel.hideSemanticSearchEntryPoint()
     }
 
-    private func makeEntryPointViewModel(query: String, languageCode: String) -> WMFSemanticSearchEntryPointViewModel {
+    private func makeSemanticSearchEntryPointViewModel(query: String, languageCode: String) -> WMFSemanticSearchEntryPointViewModel {
         let dataController = WMFSemanticSearchDataController.shared
         let showsTryItNow = !dataController.hasUsedEntryPoint
         if showsTryItNow {
@@ -136,18 +136,18 @@ extension SearchResultsViewController {
             tapAction: { _ in },
             infoAction: { _ in },
             hideAction: { [weak self] _ in
-                self?.hideEntryPoint()
+                self?.hideSemanticSearchEntryPoint()
             }
         )
     }
 
-    private func hideEntryPoint() {
+    private func hideSemanticSearchEntryPoint() {
         do {
             try WMFSemanticSearchDataController.shared.setEntryPointHidden(true)
         } catch {
             DDLogError("Hiding the semantic search entry point failed: \(error)")
         }
-        resultsViewModel.hideEntryPoint()
+        resultsViewModel.hideSemanticSearchEntryPoint()
     }
 
     private func openInBackgroundTab(_ result: SearchResult) {
@@ -179,7 +179,7 @@ extension SearchResultsViewController {
         searchResultsByArticleURL = [:]
         let error = error as NSError
         if error.wmf_isNetworkConnectionError() {
-            resultsViewModel.hideEntryPoint()
+            resultsViewModel.hideSemanticSearchEntryPoint()
             resultsViewModel.showEmptyState(.noInternetConnection)
         } else if error.wmf_isCancelledError() {
             resultsViewModel.reset()

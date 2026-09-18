@@ -110,7 +110,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
     func testEntryPointSurvivesResetUntilItIsHidden() {
         let viewModel = makeViewModel(recorder: Recorder())
-        let entryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+        let semanticSearchEntryPointViewModel = WMFSemanticSearchEntryPointViewModel(
             query: "cat",
             languageCode: "en",
             showsTryItNow: true,
@@ -119,15 +119,15 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
             hideAction: { _ in })
         viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)
 
-        viewModel.showEntryPoint(entryPointViewModel)
-        XCTAssertTrue(viewModel.entryPointViewModel === entryPointViewModel)
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
+        XCTAssertTrue(viewModel.semanticSearchEntryPointViewModel === semanticSearchEntryPointViewModel)
 
-        viewModel.hideEntryPoint()
-        XCTAssertNil(viewModel.entryPointViewModel)
+        viewModel.hideSemanticSearchEntryPoint()
+        XCTAssertNil(viewModel.semanticSearchEntryPointViewModel)
 
-        viewModel.showEntryPoint(entryPointViewModel)
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
         viewModel.reset()
-        XCTAssertTrue(viewModel.entryPointViewModel === entryPointViewModel)
+        XCTAssertTrue(viewModel.semanticSearchEntryPointViewModel === semanticSearchEntryPointViewModel)
     }
 
     func testAccessibilityFocusTargetsTheEntryPointThenTheFirstResult() {
@@ -148,22 +148,22 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         viewModel.requestAccessibilityFocusOnFirstElement()
         XCTAssertEqual(viewModel.accessibilityFocusRequestID, 2)
 
-        let entryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+        let semanticSearchEntryPointViewModel = WMFSemanticSearchEntryPointViewModel(
             query: "c",
             languageCode: "en",
             showsTryItNow: false,
             tapAction: { _ in },
             infoAction: { _ in },
             hideAction: { _ in })
-        viewModel.showEntryPoint(entryPointViewModel)
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
         viewModel.requestAccessibilityFocusOnFirstElement()
         XCTAssertEqual(viewModel.accessibilityFocusRequestID, 3)
-        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.entryPointAccessibilityID)
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
     }
 
     func testEntryPointReplacesTheNoResultsStateButNotTheNoInternetState() {
         let viewModel = makeViewModel(recorder: Recorder())
-        let entryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+        let semanticSearchEntryPointViewModel = WMFSemanticSearchEntryPointViewModel(
             query: "zzqx",
             languageCode: "fr",
             showsTryItNow: true,
@@ -173,14 +173,14 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
         viewModel.showResults([], searchTerm: "zzqx", project: englishProject)
         XCTAssertEqual(viewModel.emptyState, .noResults)
-        XCTAssertFalse(viewModel.showsEntryPointInsteadOfEmptyState)
+        XCTAssertFalse(viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState)
 
-        viewModel.showEntryPoint(entryPointViewModel)
-        XCTAssertTrue(viewModel.showsEntryPointInsteadOfEmptyState)
-        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.entryPointAccessibilityID)
+        viewModel.showSemanticSearchEntryPoint(semanticSearchEntryPointViewModel)
+        XCTAssertTrue(viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState)
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
 
         viewModel.showEmptyState(.noInternetConnection)
-        XCTAssertFalse(viewModel.showsEntryPointInsteadOfEmptyState)
+        XCTAssertFalse(viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState)
     }
 
     func testResetClearsEverything() {

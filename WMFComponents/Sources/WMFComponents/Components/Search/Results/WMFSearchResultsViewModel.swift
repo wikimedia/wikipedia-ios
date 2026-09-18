@@ -104,11 +104,11 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published private(set) var emptyState: EmptyState?
     @Published private(set) var project: WMFProject?
     @Published private(set) var isRightToLeft: Bool = false
-    @Published public private(set) var entryPointViewModel: WMFSemanticSearchEntryPointViewModel?
+    @Published public private(set) var semanticSearchEntryPointViewModel: WMFSemanticSearchEntryPointViewModel?
     @Published private(set) var accessibilityFocusRequestID = 0
     private var hasPendingAccessibilityFocusRequest = false
 
-    static let entryPointAccessibilityID = "semantic-search-entry-point"
+    static let semanticSearchEntryPointAccessibilityID = "semantic-search-entry-point"
     @Published public var topPadding: CGFloat = 0
     @Published public var horizontalPadding: CGFloat = 16
 
@@ -181,23 +181,23 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         emptyState = nil
     }
 
-    public func showEntryPoint(_ viewModel: WMFSemanticSearchEntryPointViewModel) {
-        entryPointViewModel = viewModel
+    public func showSemanticSearchEntryPoint(_ viewModel: WMFSemanticSearchEntryPointViewModel) {
+        semanticSearchEntryPointViewModel = viewModel
         fulfillPendingAccessibilityFocusRequest()
     }
 
-    public func hideEntryPoint() {
-        entryPointViewModel = nil
+    public func hideSemanticSearchEntryPoint() {
+        semanticSearchEntryPointViewModel = nil
     }
 
     /// A search with no lexical results still offers the semantic search entry point, so the list
     /// shows the card alone instead of the no results message.
-    var showsEntryPointInsteadOfEmptyState: Bool {
-        emptyState == .noResults && entryPointViewModel != nil
+    var showsSemanticSearchEntryPointInsteadOfEmptyState: Bool {
+        emptyState == .noResults && semanticSearchEntryPointViewModel != nil
     }
 
     var firstAccessibilityElementID: String? {
-        entryPointViewModel != nil ? Self.entryPointAccessibilityID : results.first?.id
+        semanticSearchEntryPointViewModel != nil ? Self.semanticSearchEntryPointAccessibilityID : results.first?.id
     }
 
     /// Moves VoiceOver to the first element of the list on the next layout pass. Used when the

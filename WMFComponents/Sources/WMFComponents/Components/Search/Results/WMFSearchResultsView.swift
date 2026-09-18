@@ -18,7 +18,7 @@ public struct WMFSearchResultsView: View {
         ZStack {
             Color(theme.paperBackground)
                 .ignoresSafeArea()
-            if let emptyState = viewModel.emptyState, !viewModel.showsEntryPointInsteadOfEmptyState {
+            if let emptyState = viewModel.emptyState, !viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState {
                 WMFEmptyView(viewModel: emptyViewModel(for: emptyState), type: .noItems, isScrollable: true)
                     .padding(.top, viewModel.topPadding)
             } else {
@@ -47,14 +47,14 @@ public struct WMFSearchResultsView: View {
 
     private var resultsList: some View {
         List {
-            if let entryPointViewModel = viewModel.entryPointViewModel {
-                WMFSemanticSearchEntryPointView(viewModel: entryPointViewModel, horizontalPadding: viewModel.horizontalPadding)
+            if let semanticSearchEntryPointViewModel = viewModel.semanticSearchEntryPointViewModel {
+                WMFSemanticSearchEntryPointView(viewModel: semanticSearchEntryPointViewModel, horizontalPadding: viewModel.horizontalPadding)
                     .environment(\.layoutDirection, viewModel.isRightToLeft ? .rightToLeft : .leftToRight)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color(theme.paperBackground))
                     .listRowSeparator(.hidden)
                     .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchEntryPoint)
-                    .accessibilityFocused($focusedElementID, equals: WMFSearchResultsViewModel.entryPointAccessibilityID)
+                    .accessibilityFocused($focusedElementID, equals: WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
             }
             ForEach(viewModel.results) { result in
                 WMFSearchResultRow(viewModel: viewModel, result: result, focusedElementID: $focusedElementID)
