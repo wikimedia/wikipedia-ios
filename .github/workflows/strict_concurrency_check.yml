@@ -75,6 +75,7 @@ jobs:
           xcodebuild build \
             -scheme "${SCHEME}" \
             -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -destination "${{ steps.simulator.outputs.destination }}" \
             SWIFT_STRICT_CONCURRENCY=complete \
             2>&1 | tee "${SCHEME}_strict.log"

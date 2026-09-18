@@ -80,13 +80,7 @@ public struct WMFFeatureConfigResponse: Codable {
             }
             
             func isActive(for date: Date) -> Bool {
-                
-                // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
-                let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                if developerSettingsDataController.showYiR2025 {
-                    return true
-                }
-                
+
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
                     return false 
                 }

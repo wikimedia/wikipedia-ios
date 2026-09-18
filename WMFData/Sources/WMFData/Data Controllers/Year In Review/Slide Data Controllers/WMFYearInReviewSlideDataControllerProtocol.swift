@@ -42,4 +42,15 @@ struct YearInReviewSlideDataControllerDependencies {
     let userID: Int?
     let globalUserID: Int?
     let languageCode: String?
+    let userImpactDataProvider: (any YearInReviewUserImpactDataProviding)?
+}
+
+protocol YearInReviewUserImpactDataProviding: Sendable {
+    func fetchTotalPageviewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int?
+}
+
+extension WMFUserImpactDataController: YearInReviewUserImpactDataProviding {
+    func fetchTotalPageviewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
+        try await fetch(userID: userID, project: project, language: language).totalPageviewsCount
+    }
 }

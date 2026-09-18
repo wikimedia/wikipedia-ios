@@ -472,15 +472,3 @@
 "wikitext-upload-save" = "প্রকাশ করা হচ্ছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
-// Fuzzy
-"year-in-review-base-reading-title-updated" = "পড়া আমাদের একত্রিত করেছে";
-"year-in-review-day-friday" = "শুক্রবার";
-"year-in-review-day-monday" = "সোমবার";
-"year-in-review-day-saturday" = "শনিবার";
-"year-in-review-day-sunday" = "রবিবার";
-"year-in-review-day-thursday" = "বৃহস্পতিবার";
-"year-in-review-day-tuesday" = "মঙ্গলবার";
-"year-in-review-day-wednesday" = "বুধবার";
-"year-in-review-donate" = "অনুদান";
-"year-in-review-time-evening" = "সন্ধ্যা";
-"year-in-review-time-morning" = "সকাল";

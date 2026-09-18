@@ -17,13 +17,14 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     private let languageCode: String?
     private let project: WMFProject?
     
-    private let dataController = WMFUserImpactDataController.shared
+    private let userImpactDataProvider: any YearInReviewUserImpactDataProviding
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.userID = dependencies.userID
         self.languageCode = dependencies.languageCode
         self.project = dependencies.project
+        self.userImpactDataProvider = dependencies.userImpactDataProvider ?? WMFUserImpactDataController.shared
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
@@ -50,7 +51,6 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
             throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
         
-        let response = try await dataController.fetch(userID: userId, project: project, language: language)
-        return response.totalPageviewsCount
+        return try await userImpactDataProvider.fetchTotalPageviewsCount(userID: userId, project: project, language: language)
     }
 }

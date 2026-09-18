@@ -1,0 +1,7 @@
+{
+  "items": [
+    { "timestamp": "2025-01-01", "edit_count": 12 },
+    { "timestamp": "2025-02-01", "edit_count": 30 },
+    { "timestamp": "2025-03-01", "edit_count": 5 }
+  ]
+}
