@@ -5,7 +5,6 @@ import WMFData
 
 final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
     var forceYiREntryPoint2026: Bool { return false }
-    var forceYiRUserDataState: WMFDeveloperSettingsDataController.YiRUserDataState? { return nil }
     var enableYearInReview: Bool { return true }
     var enableActivityTabs: Bool { return true }
     var enableArticleTabs: Bool { return true }
