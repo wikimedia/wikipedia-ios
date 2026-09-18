@@ -190,6 +190,12 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         entryPointViewModel = nil
     }
 
+    /// A search with no lexical results still offers the semantic search entry point, so the list
+    /// shows the card alone instead of the no results message.
+    var showsEntryPointInsteadOfEmptyState: Bool {
+        emptyState == .noResults && entryPointViewModel != nil
+    }
+
     var firstAccessibilityElementID: String? {
         entryPointViewModel != nil ? Self.entryPointAccessibilityID : results.first?.id
     }

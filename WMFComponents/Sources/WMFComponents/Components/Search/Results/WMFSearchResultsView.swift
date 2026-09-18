@@ -18,7 +18,7 @@ public struct WMFSearchResultsView: View {
         ZStack {
             Color(theme.paperBackground)
                 .ignoresSafeArea()
-            if let emptyState = viewModel.emptyState {
+            if let emptyState = viewModel.emptyState, !viewModel.showsEntryPointInsteadOfEmptyState {
                 WMFEmptyView(viewModel: emptyViewModel(for: emptyState), type: .noItems, isScrollable: true)
                     .padding(.top, viewModel.topPadding)
             } else {

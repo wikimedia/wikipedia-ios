@@ -161,6 +161,28 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.entryPointAccessibilityID)
     }
 
+    func testEntryPointReplacesTheNoResultsStateButNotTheNoInternetState() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        let entryPointViewModel = WMFSemanticSearchEntryPointViewModel(
+            query: "zzqx",
+            languageCode: "fr",
+            showsTryItNow: true,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { _ in })
+
+        viewModel.showResults([], searchTerm: "zzqx", project: englishProject)
+        XCTAssertEqual(viewModel.emptyState, .noResults)
+        XCTAssertFalse(viewModel.showsEntryPointInsteadOfEmptyState)
+
+        viewModel.showEntryPoint(entryPointViewModel)
+        XCTAssertTrue(viewModel.showsEntryPointInsteadOfEmptyState)
+        XCTAssertEqual(viewModel.firstAccessibilityElementID, WMFSearchResultsViewModel.entryPointAccessibilityID)
+
+        viewModel.showEmptyState(.noInternetConnection)
+        XCTAssertFalse(viewModel.showsEntryPointInsteadOfEmptyState)
+    }
+
     func testResetClearsEverything() {
         let viewModel = makeViewModel(recorder: Recorder())
         viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)

@@ -83,11 +83,7 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
-        if results.isEmpty {
-            resultsViewModel.hideEntryPoint()
-        } else {
-            updateEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
-        }
+        updateEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
     }
 
     // MARK: - Semantic search entry point
@@ -183,6 +179,7 @@ extension SearchResultsViewController {
         searchResultsByArticleURL = [:]
         let error = error as NSError
         if error.wmf_isNetworkConnectionError() {
+            resultsViewModel.hideEntryPoint()
             resultsViewModel.showEmptyState(.noInternetConnection)
         } else if error.wmf_isCancelledError() {
             resultsViewModel.reset()
