@@ -16,6 +16,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
