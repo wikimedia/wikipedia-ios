@@ -127,6 +127,40 @@ struct WMFDeveloperSettingsView: View {
             }
             .listRowBackground(rowBackground)
 
+            if let widgetDiagnostics = viewModel.widgetDiagnostics {
+                Section {
+                    ForEach(Array(widgetDiagnostics.cacheSummaryLines.enumerated()), id: \.offset) { _, line in
+                        diagnosticLine(line)
+                    }
+                    Button {
+                        viewModel.clearWidgetCacheAndReloadWidgets()
+                    } label: {
+                        Text("Clear cache and reload widgets")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                } header: {
+                    sectionHeader("Widgets")
+                } footer: {
+                    sectionFooter("Cached feed content shared by the Featured Article, Top Read and Picture of the Day widgets.")
+                }
+                .listRowBackground(rowBackground)
+
+                Section {
+                    if widgetDiagnostics.lastFetchLines.isEmpty {
+                        diagnosticLine("No widget fetch recorded yet.")
+                    } else {
+                        ForEach(Array(widgetDiagnostics.lastFetchLines.enumerated()), id: \.offset) { _, line in
+                            diagnosticLine(line)
+                        }
+                    }
+                } header: {
+                    sectionHeader("Last widget fetch")
+                } footer: {
+                    sectionFooter("A section that failed to decode is listed with the JSON path that broke. Dropped elements are articles or events skipped inside a section.")
+                }
+                .listRowBackground(rowBackground)
+            }
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
@@ -154,6 +188,13 @@ struct WMFDeveloperSettingsView: View {
         Text(text)
             .font(Font(WMFFont.for(.caption1)))
             .foregroundStyle(Color(theme.secondaryText))
+    }
+
+    private func diagnosticLine(_ line: String) -> some View {
+        Text(line)
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundStyle(Color(theme.text))
+            .textSelection(.enabled)
     }
 
     private func captionedRow(caption: String, @ViewBuilder control: () -> some View) -> some View {

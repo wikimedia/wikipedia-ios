@@ -19,11 +19,28 @@ import WMFData
     }
 }
 
+/// Read-only lines and actions the app provides for the Widgets section. WMFComponents cannot
+/// see the widget cache (it lives in the WMF framework), so the app fills this in.
+public struct WMFDeveloperSettingsWidgetDiagnostics {
+    public let cacheSummaryLines: [String]
+    public let lastFetchLines: [String]
+    public let clearWidgetCacheAndReloadWidgets: () -> Void
+
+    public init(cacheSummaryLines: [String], lastFetchLines: [String], clearWidgetCacheAndReloadWidgets: @escaping () -> Void) {
+        self.cacheSummaryLines = cacheSummaryLines
+        self.lastFetchLines = lastFetchLines
+        self.clearWidgetCacheAndReloadWidgets = clearWidgetCacheAndReloadWidgets
+    }
+}
+
 @MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
     let formViewModel: WMFFormViewModel
+
+    /// Set by the app after init. Nil hides the Widgets section.
+    @Published public var widgetDiagnostics: WMFDeveloperSettingsWidgetDiagnostics?
 
     private var subscribers: Set<AnyCancellable> = []
 
@@ -200,6 +217,11 @@ import WMFData
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
         }
+    }
+
+    public func clearWidgetCacheAndReloadWidgets() {
+        widgetDiagnostics?.clearWidgetCacheAndReloadWidgets()
+        WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Widget cache cleared and timelines reloaded. Reopen this screen to see the new fetch.")))
     }
 
     public func clearGamesPersistence() {
