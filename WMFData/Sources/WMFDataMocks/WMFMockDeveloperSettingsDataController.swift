@@ -10,9 +10,6 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var enableArticleTabs: Bool { return true }
     var forceMaxArticleTabsTo5: Bool { return false }
     var enableHomeTab: Bool { return false }
-    var showYiR2025: Bool { return true }
-    var enableYiRLoginExperimentControl: Bool { return false }
-    var enableYiRLoginExperimentB: Bool { return false }
     var enableHomeTabExperimentControl: Bool { return false }
     var enableHomeTabExperimentGroupB: Bool { return false }
     func transitionToEnrolledStateIfForced() {}

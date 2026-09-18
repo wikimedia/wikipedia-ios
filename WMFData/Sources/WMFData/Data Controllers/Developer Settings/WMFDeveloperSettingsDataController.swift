@@ -3,9 +3,6 @@ import Foundation
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
-    var showYiR2025: Bool { get }
-    var enableYiRLoginExperimentControl: Bool { get }
-    var enableYiRLoginExperimentB: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
 }
 
@@ -70,11 +67,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue) }
     }
 
-    public var showYiR2025: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
-    }
-    
     // 2026 YIR
     /// Debugging convenience: when true, the Year in Review entry point ignores the settings
     /// toggle, the remote config's active window, and the suppressed-country list, so it presents
@@ -112,16 +104,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding
     /// presents on every launch, ignoring the persisted "did show onboarding" flag.
-
-    public var enableYiRLoginExperimentControl: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue) }
-    }
-
-    public var enableYiRLoginExperimentB: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue) }
-    }
 
     /// Debugging convenience: when true, the fundraising campaign banner ignores country,
     /// date window, prompt state (maybe later / hidden), opt-out, and donation history gates,
