@@ -83,6 +83,71 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
+        updateEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
+    }
+
+    // MARK: - Semantic search entry point
+
+    private func updateEntryPoint(query: String?, languageCode: String?) {
+        guard let query, !query.isEmpty, let languageCode else {
+            resultsViewModel.hideEntryPoint()
+            return
+        }
+        let dataController = WMFSemanticSearchDataController.shared
+
+        do {
+            try dataController.assignExperimentIfNeeded(languageCode: languageCode)
+        } catch {
+            DDLogError("Semantic search experiment assignment failed: \(error)")
+        }
+        guard dataController.isEntryPointAvailable(languageCode: languageCode) else {
+            resultsViewModel.hideEntryPoint()
+            return
+        }
+        if let entryPointViewModel = resultsViewModel.entryPointViewModel, entryPointViewModel.languageCode == languageCode {
+            entryPointViewModel.update(query: query)
+        } else {
+            resultsViewModel.showEntryPoint(makeEntryPointViewModel(query: query, languageCode: languageCode))
+        }
+    }
+
+    func hideEntryPointIfLanguageChanged(for siteURL: URL) {
+        guard let entryPointViewModel = resultsViewModel.entryPointViewModel,
+              entryPointViewModel.languageCode != siteURL.wmf_languageCode else {
+            return
+        }
+        resultsViewModel.hideEntryPoint()
+    }
+
+    private func makeEntryPointViewModel(query: String, languageCode: String) -> WMFSemanticSearchEntryPointViewModel {
+        let dataController = WMFSemanticSearchDataController.shared
+        let showsTryItNow = !dataController.hasUsedEntryPoint
+        if showsTryItNow {
+            do {
+                try dataController.markEntryPointUsed()
+            } catch {
+                DDLogError("Marking the semantic search entry point as used failed: \(error)")
+            }
+        }
+        return WMFSemanticSearchEntryPointViewModel(
+            query: query,
+            languageCode: languageCode,
+            showsTryItNow: showsTryItNow,
+            tapAction: { _ in },
+            infoAction: { _ in },
+            hideAction: { [weak self] _ in
+                self?.hideEntryPoint()
+            }
+        )
+    }
+
+    private func hideEntryPoint() {
+        do {
+            try WMFSemanticSearchDataController.shared.setEntryPointHidden(true)
+        } catch {
+            DDLogError("Hiding the semantic search entry point failed: \(error)")
+        }
+        resultsViewModel.hideEntryPoint()
     }
 
     private func openInBackgroundTab(_ result: SearchResult) {

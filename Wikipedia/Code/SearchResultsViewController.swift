@@ -302,6 +302,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else { return }
 
         resetSearchResults()
+        hideEntryPointIfLanguageChanged(for: siteURL)
         searchTask = Task { [weak self] in
             await self?.performSearch(for: searchTerm, siteURL: siteURL, suggested: suggested)
         }
@@ -341,6 +342,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     func didCancelSearch() {
         resetSearchResults()
+        resultsViewModel.hideEntryPoint()
     }
 
     /// Programmatically trigger a search for `term` and show results — used when the caller
@@ -495,6 +497,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
         } else {
             searchTerm = nil
             resetSearchResults()
+            resultsViewModel.hideEntryPoint()
             showRecentSearches(animated: true)
         }
 
