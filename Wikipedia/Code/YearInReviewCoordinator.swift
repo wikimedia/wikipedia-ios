@@ -142,55 +142,110 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     private static func placeholderSlides() -> [WMFYearInReviewSlideViewModel] {
-        // TEMPORARY: three slides driven from the one sample .riv, to prove injection.
+        // TEMPORARY: mock slides driven from the one sample .riv. The sentences are hardcoded
+        // stand-ins for WMFLocalizedString, including the Arabic and Chinese ones, so the split
+        // can be seen working in a right-to-left script and in one with no spaces.
         let frame1 = "frame1"
         let frame2 = "frame2"
         let stateMachine = "insightFrame-stateMachine"
 
+        let headline1 = WMFRiveText(path: "headline1")
+        let headline2 = WMFRiveText(path: "headline2")
+        let bodyCopy = WMFRiveText(path: "bodyCopy")
+        let readDays = WMFRiveText(path: "readDays")
+        let streakNumber = WMFRiveText(path: "streakNumber")
+
         let cream = UIColor(red: 0.98, green: 0.976, blue: 0.961, alpha: 1)
         let mint = UIColor(red: 0.839, green: 0.937, blue: 0.898, alpha: 1)
         let tan = UIColor(red: 0.929, green: 0.890, blue: 0.784, alpha: 1)
+        let sand = UIColor(red: 0.941, green: 0.925, blue: 0.882, alpha: 1)
+        let sky = UIColor(red: 0.886, green: 0.929, blue: 0.960, alpha: 1)
+
+        /// One sentence, one variable, spread across the three runs that draw it.
+        func slide(
+            id: String,
+            artboard: String,
+            sentence: String,
+            value: String,
+            numberPath: WMFRiveText,
+            body: String,
+            backgroundColor: UIColor,
+            accessibilityLabel: String,
+            showsShareButton: Bool = true
+        ) -> WMFYearInReviewSlideViewModel {
+            var text = WMFRiveSentence(
+                format: sentence,
+                value: value,
+                leading: headline1,
+                middle: numberPath,
+                trailing: headline2
+            ).text
+            text[bodyCopy] = body
+
+            return WMFYearInReviewSlideViewModel(
+                id: id,
+                loggingID: id,
+                animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: artboard, stateMachineName: stateMachine),
+                text: text,
+                backgroundColor: backgroundColor,
+                localizedStrings: .init(accessibilityLabel: accessibilityLabel),
+                showsShareButton: showsShareButton
+            )
+        }
 
         return [
-            WMFYearInReviewSlideViewModel(
+            slide(
                 id: "readCount",
-                loggingID: "readCount",
-                animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: frame1, stateMachineName: stateMachine),
-                text: [
-                    WMFRiveText(path: "headline1"): "YOU READ",
-                    WMFRiveText(path: "headline2"): "350 ARTICLES",
-                    WMFRiveText(path: "bodyCopy"): "That puts you in the top 5% of readers on English Wikipedia this year.",
-                    WMFRiveText(path: "readDays"): "47"
-                ],
+                artboard: frame1,
+                sentence: "In 2026, you read Wikipedia on %1$@ days.",
+                value: "47",
+                numberPath: readDays,
+                body: "That puts you in the top 5% of readers on English Wikipedia this year.",
                 backgroundColor: cream,
-                localizedStrings: .init(accessibilityLabel: "You read 350 articles across 47 days."),
+                accessibilityLabel: "In 2026, you read Wikipedia on 47 days.",
                 showsShareButton: false
             ),
-            WMFYearInReviewSlideViewModel(
+            slide(
                 id: "streak",
-                loggingID: "streak",
-                animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: frame2, stateMachineName: stateMachine),
-                text: [
-                    WMFRiveText(path: "headline1"): "YOUR LONGEST",
-                    WMFRiveText(path: "headline2"): "STREAK",
-                    WMFRiveText(path: "bodyCopy"): "Thirty-one days in a row, from 4 to 14 March.",
-                    WMFRiveText(path: "streakNumber"): "31"
-                ],
+                artboard: frame2,
+                sentence: "Your longest streak was %1$@ days in a row.",
+                value: "31",
+                numberPath: streakNumber,
+                body: "From 4 to 14 March.",
                 backgroundColor: mint,
-                localizedStrings: .init(accessibilityLabel: "Your longest streak was 31 days.")
+                accessibilityLabel: "Your longest streak was 31 days in a row."
             ),
-            WMFYearInReviewSlideViewModel(
+            slide(
                 id: "minutesRead",
-                loggingID: "minutesRead",
-                animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: frame1, stateMachineName: stateMachine),
-                text: [
-                    WMFRiveText(path: "headline1"): "924 MINUTES",
-                    WMFRiveText(path: "headline2"): "OF READING",
-                    WMFRiveText(path: "bodyCopy"): "Mostly on Wednesday evenings, going by your reading history.",
-                    WMFRiveText(path: "readDays"): "128"
-                ],
+                artboard: frame1,
+                sentence: "You spent %1$@ minutes reading this year.",
+                value: "924",
+                numberPath: readDays,
+                body: "Mostly on Wednesday evenings, going by your reading history.",
                 backgroundColor: tan,
-                localizedStrings: .init(accessibilityLabel: "You read for 924 minutes.")
+                accessibilityLabel: "You spent 924 minutes reading this year."
+            ),
+            // The placeholder sits late in the sentence and the script runs right to left.
+            slide(
+                id: "arabicSample",
+                artboard: frame1,
+                sentence: "في عام 2026، ستطالع ويكيبيديا على مدار %1$@ يوماً.",
+                value: "47",
+                numberPath: readDays,
+                body: "نص تجريبي للتحقق من عرض النص العربي داخل الرسوم المتحركة.",
+                backgroundColor: sand,
+                accessibilityLabel: "Arabic sample slide."
+            ),
+            // The placeholder sits mid-sentence and the script has no spaces to trim.
+            slide(
+                id: "chineseSample",
+                artboard: frame1,
+                sentence: "2026年，你在%1$@天里阅读了维基百科。",
+                value: "47",
+                numberPath: readDays,
+                body: "这是一段用于检查中文排版的示例文字。",
+                backgroundColor: sky,
+                accessibilityLabel: "Chinese sample slide."
             )
         ]
     }
