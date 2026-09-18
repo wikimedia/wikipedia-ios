@@ -728,8 +728,6 @@
 "for-you-empty-feed-subtitle" = "Seu feed \"Para você\" será preenchido com artigos personalizados à medida que você for navegando.";
 "for-you-empty-feed-title" = "Seu feed está vazio no momento";
 "for-you-empty-feed-ways-to-get-started" = "Formas de começar:";
-"for-you-empty-subtitle-interests-or-modules" = "Adicione interesses ou ative módulos para receber recomendações personalizadas de artigos";
-"for-you-empty-title" = "Nada aqui no momento";
 "for-you-end-of-feed-add-interests-format" = "Adicionar $1";
 "for-you-end-of-feed-add-interests-link" = "novos interesses";
 "for-you-end-of-feed-community-link" = "comunidade";
@@ -768,11 +766,9 @@
 "home-button-home-accessibility-label" = "Wikipédia, voltar ao Início";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
 "home-card-more-options-accessibility-label" = "Mais opções";
-"home-community-empty-feed-turn-on-modules-message" = "Ative os módulos para ver o conteúdo da comunidade";
 "home-community-see-past-content" = "Veja conteúdos anteriores da comunidade";
 "home-community-tab-title" = "Comunidade";
 "home-edit-languages-title" = "Acrescentar ou editar idiomas";
-"home-empty-go-to-settings-button" = "Ir para as configurações";
 "home-feed-for-you-based-on-interests-subtitle" = "Artigos personalizados de acordo com os temas que você escolheu.";
 "home-feed-for-you-based-on-interests-title" = "Com base nos seus interesses";
 "home-feed-for-you-because-you-read-subtitle" = "Sugestões com base em um artigo recente do seu histórico";

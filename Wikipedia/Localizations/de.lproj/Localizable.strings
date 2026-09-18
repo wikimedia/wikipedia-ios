@@ -722,8 +722,6 @@
 "find-replace-header" = "Suchen und ersetzen";
 "find-replace-header-close-accessibility" = "Suchen und ersetzen schließen";
 "find-textfield-accessibility" = "Suchen";
-"for-you-empty-subtitle-interests-or-modules" = "Füge Interessen hinzu oder aktiviere Module, um personalisierte Artikelempfehlungen zu erhalten";
-"for-you-empty-title" = "Hier ist noch nichts";
 "for-you-end-of-feed-title" = "Das war’s für heute!";
 "for-you-error-retry" = "Erneut versuchen";
 "for-you-error-subtitle" = "Stelle eine Internetverbindung her und versuche es erneut.";
@@ -757,11 +755,9 @@
 "home-button-home-accessibility-label" = "Wikipedia, zurück zu Start";
 "home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
 "home-card-more-options-accessibility-label" = "Weitere Optionen";
-"home-community-empty-feed-turn-on-modules-message" = "Aktiviere Module, um Community-Inhalte zu sehen";
 "home-community-see-past-content" = "Frühere Community-Inhalte ansehen";
 "home-community-tab-title" = "Gemeinschaft";
 "home-edit-languages-title" = "Sprachen hinzufügen oder bearbeiten";
-"home-empty-go-to-settings-button" = "Zu den Einstellungen";
 "home-feed-for-you-based-on-interests-subtitle" = "Artikel, zugeschnitten auf die von dir gewählten Themen.";
 "home-feed-for-you-based-on-interests-title" = "Basierend auf deinen Interessen";
 "home-feed-for-you-because-you-read-subtitle" = "Vorschläge basierend auf einem kürzlich gelesenen Artikel aus deinem Verlauf";

@@ -749,8 +749,6 @@
 "find-replace-header" = "查找和替换";
 "find-replace-header-close-accessibility" = "关闭查找和更换";
 "find-textfield-accessibility" = "查找";
-"for-you-empty-subtitle-interests-or-modules" = "添加兴趣或启用模块，即可获得个性化条目推荐";
-"for-you-empty-title" = "这里还没有东西";
 "for-you-error-retry" = "重试";
 "for-you-error-subtitle" = "连接到互联网后再试一次。";
 "for-you-error-title" = "无互联网连接";
@@ -783,11 +781,9 @@
 "home-button-home-accessibility-label" = "维基百科，返回首页";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
 "home-card-more-options-accessibility-label" = "更多选项";
-"home-community-empty-feed-turn-on-modules-message" = "启用模块即可查看社群内容";
 "home-community-see-past-content" = "查看以往的社群内容";
 "home-community-tab-title" = "社群";
 "home-edit-languages-title" = "添加或编辑语言";
-"home-empty-go-to-settings-button" = "前往设置";
 "home-feed-for-you-based-on-interests-subtitle" = "根据您选择的主题量身定制的条目。";
 "home-feed-for-you-based-on-interests-title" = "根据你的兴趣";
 "home-feed-for-you-because-you-read-subtitle" = "根据您历史记录中的一篇近期条目提出的建议";
