@@ -12,6 +12,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     public static let toolbarMinimumHeight: CGFloat = 64
 
+    public static let progressBarEdgeInset: CGFloat = 12
+
+    /// The space between the navigation bar and the progress bar.
+    public static let progressBarTopGap: CGFloat = 12
+
     public struct LocalizedStrings {
         public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
@@ -56,6 +61,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
     @Published public var isLoadingDonate: Bool = false
 
+    @Published public var topSafeAreaInset: CGFloat = 0
+
     public let localizedStrings: LocalizedStrings
 
     private weak var coordinatorDelegate: WMFYearInReviewCoordinating?
@@ -91,6 +98,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     var slidePositionAccessibilityValue: String {
         localizedStrings.slidePositionAccessibilityValue(currentSlideIndex + 1, slides.count)
+    }
+
+    var progressBarTopInset: CGFloat {
+        topSafeAreaInset + Self.progressBarTopGap
     }
 
     public func onAppear() {

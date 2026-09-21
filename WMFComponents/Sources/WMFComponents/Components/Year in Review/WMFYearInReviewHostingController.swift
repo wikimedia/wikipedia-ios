@@ -37,6 +37,11 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             .store(in: &cancellables)
     }
 
+    public override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        viewModel.topSafeAreaInset = view.safeAreaInsets.top
+    }
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()

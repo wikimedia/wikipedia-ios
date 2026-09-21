@@ -21,6 +21,15 @@ public struct WMFYearInReviewView: View {
                         )
                     )
                 )
+                .overlay(alignment: .topTrailing) {
+                    WMFYearInReviewProgressView(
+                        slideCount: viewModel.slides.count,
+                        currentIndex: viewModel.currentSlideIndex,
+                        color: Color(uiColor: viewModel.currentSlide?.contentColor ?? WMFColor.white)
+                    )
+                    .padding(.trailing, WMFYearInReviewViewModel.progressBarEdgeInset)
+                    .padding(.top, viewModel.progressBarTopInset)
+                }
 
             WMFYearInReviewToolbarView(
                 viewModel: viewModel,
@@ -60,7 +69,12 @@ public struct WMFYearInReviewView: View {
                 }
                 .scrollTargetLayout()
             }
-            .modifier(WMFYearInReviewPagingModifier(currentSlideID: $viewModel.currentSlideID))
+            .modifier(
+                WMFYearInReviewPagingModifier(
+                    currentSlideID: $viewModel.currentSlideID,
+                    positionAccessibilityValue: viewModel.slidePositionAccessibilityValue
+                )
+            )
         } else {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
@@ -68,7 +82,12 @@ public struct WMFYearInReviewView: View {
                 }
                 .scrollTargetLayout()
             }
-            .modifier(WMFYearInReviewPagingModifier(currentSlideID: $viewModel.currentSlideID))
+            .modifier(
+                WMFYearInReviewPagingModifier(
+                    currentSlideID: $viewModel.currentSlideID,
+                    positionAccessibilityValue: viewModel.slidePositionAccessibilityValue
+                )
+            )
         }
     }
 
@@ -88,6 +107,9 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
 
     @Binding var currentSlideID: String?
 
+    /// Carries the position to VoiceOver, which cannot read it off the progress bar.
+    let positionAccessibilityValue: String
+
     @ViewBuilder
     func body(content: Content) -> some View {
         let paged = content
@@ -95,6 +117,7 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
             .scrollPosition(id: $currentSlideID)
             .scrollIndicators(.hidden)
             .accessibilityElement(children: .contain)
+            .accessibilityValue(positionAccessibilityValue)
 
         if #available(iOS 26.0, *) {
             paged.scrollEdgeEffectHidden(true, for: .all)
