@@ -53,7 +53,6 @@ struct WMFYearInReviewViewModelTests {
             WMFYearInReviewSlideViewModel(
                 id: "slide\(index)",
                 loggingID: "logging\(index)",
-                backgroundColor: .white
             )
         }
     }
@@ -294,7 +293,6 @@ struct WMFYearInReviewViewModelTests {
                 WMFYearInReviewSlideViewModel(
                     id: "intro",
                     loggingID: "intro",
-                    backgroundColor: .white,
                     showsDonateButton: false
                 )
             ],

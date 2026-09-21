@@ -10,9 +10,12 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         }
     }
 
+    /// Which color the app draws its own controls in above the animation.
+
     public enum ContentStyle {
-        case automatic
+        /// Light controls, for dark artwork.
         case light
+        /// Dark controls, for light artwork.
         case dark
     }
 
@@ -21,7 +24,6 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     public let animation: WMFRiveAnimation?
     public let text: [WMFRiveText: String]
     public let numbers: [WMFRiveNumber: Double]
-    public let backgroundColor: UIColor
     public let localizedStrings: LocalizedStrings
     public let showsShareButton: Bool
     public let showsDonateButton: Bool
@@ -33,18 +35,16 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         animation: WMFRiveAnimation? = nil,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
-        backgroundColor: UIColor,
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         showsShareButton: Bool = true,
         showsDonateButton: Bool = true,
-        contentStyle: ContentStyle = .automatic
+        contentStyle: ContentStyle = .light
     ) {
         self.id = id
         self.loggingID = loggingID
         self.animation = animation
         self.text = text
         self.numbers = numbers
-        self.backgroundColor = backgroundColor
         self.localizedStrings = localizedStrings
         self.showsShareButton = showsShareButton
         self.showsDonateButton = showsDonateButton
@@ -52,29 +52,10 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     }
 
     public var prefersLightContent: Bool {
-        switch contentStyle {
-        case .light:
-            return true
-        case .dark:
-            return false
-        case .automatic:
-            return backgroundColor.wmfIsDark
-        }
+        contentStyle == .light
     }
 
     public var contentColor: UIColor {
         prefersLightContent ? WMFColor.white : WMFColor.gray700
-    }
-}
-
-extension UIColor {
-    var wmfIsDark: Bool {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        let luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue
-        return luminance < 0.5
     }
 }

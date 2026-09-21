@@ -155,12 +155,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let readDays = WMFRiveText(path: "readDays")
         let streakNumber = WMFRiveText(path: "streakNumber")
 
-        let cream = UIColor(red: 0.98, green: 0.976, blue: 0.961, alpha: 1)
-        let mint = UIColor(red: 0.839, green: 0.937, blue: 0.898, alpha: 1)
-        let tan = UIColor(red: 0.929, green: 0.890, blue: 0.784, alpha: 1)
-        let sand = UIColor(red: 0.941, green: 0.925, blue: 0.882, alpha: 1)
-        let sky = UIColor(red: 0.886, green: 0.929, blue: 0.960, alpha: 1)
-
         /// One sentence, one variable, spread across the three runs that draw it.
         func slide(
             id: String,
@@ -169,7 +163,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             value: String,
             numberPath: WMFRiveText,
             body: String,
-            backgroundColor: UIColor,
             accessibilityLabel: String,
             showsShareButton: Bool = true
         ) -> WMFYearInReviewSlideViewModel {
@@ -187,9 +180,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 loggingID: id,
                 animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: artboard, stateMachineName: stateMachine),
                 text: text,
-                backgroundColor: backgroundColor,
                 localizedStrings: .init(accessibilityLabel: accessibilityLabel),
-                showsShareButton: showsShareButton
+                showsShareButton: showsShareButton,
+                contentStyle: .dark
             )
         }
 
@@ -198,11 +191,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 id: "readCount",
                 artboard: frame1,
                 sentence: "In 2026, you read Wikipedia on %1$@ days.",
-                value: "47",
+                value: "47", // this will be a variable from user data cast as string
                 numberPath: readDays,
                 body: "That puts you in the top 5% of readers on English Wikipedia this year.",
-                backgroundColor: cream,
-                accessibilityLabel: "In 2026, you read Wikipedia on 47 days.",
+                accessibilityLabel: "In 2026, you read Wikipedia on 47 days.", // this will have the value from the user data interpolated
                 showsShareButton: false
             ),
             slide(
@@ -212,7 +204,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 value: "31",
                 numberPath: streakNumber,
                 body: "From 4 to 14 March.",
-                backgroundColor: mint,
                 accessibilityLabel: "Your longest streak was 31 days in a row."
             ),
             slide(
@@ -222,7 +213,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 value: "924",
                 numberPath: readDays,
                 body: "Mostly on Wednesday evenings, going by your reading history.",
-                backgroundColor: tan,
                 accessibilityLabel: "You spent 924 minutes reading this year."
             ),
             // The placeholder sits late in the sentence and the script runs right to left.
@@ -233,7 +223,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 value: "47",
                 numberPath: readDays,
                 body: "نص تجريبي للتحقق من عرض النص العربي داخل الرسوم المتحركة.",
-                backgroundColor: sand,
                 accessibilityLabel: "Arabic sample slide."
             ),
             // The placeholder sits mid-sentence and the script has no spaces to trim.
@@ -244,7 +233,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 value: "47",
                 numberPath: readDays,
                 body: "这是一段用于检查中文排版的示例文字。",
-                backgroundColor: sky,
                 accessibilityLabel: "Chinese sample slide."
             )
         ]

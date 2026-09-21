@@ -6,8 +6,8 @@ struct WMFYearInReviewSlideView: View {
 
     var body: some View {
         ZStack {
-            Color(uiColor: slide.backgroundColor)
-
+            // This shows only until the Rive content loads.
+            Color(uiColor: WMFYearInReviewViewModel.chromeBackgroundColor)
             content
         }
     }
