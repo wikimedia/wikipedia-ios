@@ -178,14 +178,15 @@ extension SearchResultsViewController {
     func displaySearchError(_ error: Error) {
         searchResultsByArticleURL = [:]
         let error = error as NSError
-        if error.wmf_isNetworkConnectionError() {
-            resultsViewModel.hideSemanticSearchEntryPoint()
-            resultsViewModel.showEmptyState(.noInternetConnection)
-        } else if error.wmf_isCancelledError() {
+
+        if error.wmf_isCancelledError() {
             resultsViewModel.reset()
-        } else {
-            resultsViewModel.showEmptyState(.noResults)
+            return
         }
+
+        // A failed lexical search is not a search with no results, so it does not offer semantic search.
+        resultsViewModel.hideSemanticSearchEntryPoint()
+        resultsViewModel.showEmptyState(error.wmf_isNetworkConnectionError() ? .noInternetConnection : .noResults)
     }
 
     // MARK: - Saved state
