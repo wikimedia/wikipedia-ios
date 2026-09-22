@@ -1315,6 +1315,11 @@
 "search-recent-empty" = "No recent searches yet";
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
+"search-semantic-entry-point-accessibility-hint" = "Searches within articles for your query";
+"search-semantic-entry-point-description" = "Search within articles and jump straight to the relevant passage";
+"search-semantic-entry-point-hide-accessibility-label" = "Hide searching within articles";
+"search-semantic-entry-point-info-accessibility-label" = "About searching within articles";
+"search-semantic-entry-point-try-it-now" = "Try it now";
 "search-title" = "Search";
 "search-widget-announcement-body" = "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.";
 "search-widget-announcement-title" = "New Search widget available";
