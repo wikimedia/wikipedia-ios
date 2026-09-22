@@ -25,10 +25,10 @@
 <circle id="Ellipse 4" cx="25.4764" cy="40.2094" r="13.0272" fill="#C9D8EF" stroke="#314A88" stroke-width="2"/>
 </g>
 <g id="Mask group">
-<mask id="mask0_5848_9615" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="13" y="28" width="25" height="25">
-<circle id="Ellipse 6" cx="25.4764" cy="40.2095" r="11.024" fill="#C9D8EF" stroke="#314A88" stroke-width="2"/>
-</mask>
-<g mask="url(#mask0_5848_9615)">
+<clipPath id="lens-clip">
+<circle cx="25.4764" cy="40.2094" r="12.0272"/>
+</clipPath>
+<g clip-path="url(#lens-clip)">
 <g id="Group 2">
 <rect id="Rectangle 11" x="9.20996" y="34.9363" width="23.1486" height="4.08631" rx="2.04315" fill="#F97F26" stroke="#F97F26" stroke-width="0.5"/>
 <rect id="Rectangle 12" x="9.20996" y="41.1226" width="23.1486" height="4.08631" rx="2.04315" fill="#F97F26" stroke="#F97F26" stroke-width="0.5"/>
