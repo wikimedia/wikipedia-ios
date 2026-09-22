@@ -4,53 +4,36 @@ public struct WMFYearInReviewView: View {
 
     @ObservedObject var viewModel: WMFYearInReviewViewModel
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
-    @State private var donateButtonFrame: CGRect = .zero
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-            pager
-                .clipShape(
-                    UnevenRoundedRectangle(
-                        cornerRadii: RectangleCornerRadii(
-                            bottomLeading: WMFYearInReviewViewModel.slideCornerRadius,
-                            bottomTrailing: WMFYearInReviewViewModel.slideCornerRadius
-                        )
+        pager
+            .clipShape(
+                UnevenRoundedRectangle(
+                    cornerRadii: RectangleCornerRadii(
+                        bottomLeading: WMFYearInReviewViewModel.slideCornerRadius,
+                        bottomTrailing: WMFYearInReviewViewModel.slideCornerRadius
                     )
                 )
-                .overlay(alignment: .topTrailing) {
-                    WMFYearInReviewProgressView(
-                        slideCount: viewModel.slides.count,
-                        currentIndex: viewModel.currentSlideIndex,
-                        color: Color(uiColor: viewModel.currentSlide?.contentColor ?? WMFColor.white)
-                    )
-                    .padding(.trailing, WMFYearInReviewViewModel.progressBarEdgeInset)
-                    .padding(.top, viewModel.progressBarTopInset)
-                }
-
-            WMFYearInReviewToolbarView(
-                viewModel: viewModel,
-                contentColor: Color(uiColor: WMFColor.white),
-                donateSourceRect: { donateButtonFrame }
             )
-            .frame(minHeight: WMFYearInReviewViewModel.toolbarMinimumHeight)
-            .background {
-                GeometryReader { proxy in
-                    Color.clear
-                        .onAppear { donateButtonFrame = proxy.frame(in: .global) }
-                        .onChange(of: proxy.frame(in: .global)) { donateButtonFrame = $1 }
-                }
+            .overlay(alignment: .topTrailing) {
+                WMFYearInReviewProgressView(
+                    slideCount: viewModel.slides.count,
+                    currentIndex: viewModel.currentSlideIndex,
+                    color: Color(uiColor: viewModel.currentSlide?.contentColor ?? WMFColor.white)
+                )
+                .padding(.trailing, WMFYearInReviewViewModel.progressBarEdgeInset)
+                .padding(.top, viewModel.progressBarTopInset)
             }
-        }
-        .ignoresSafeArea(edges: .top)
-        .background(Color(uiColor: WMFYearInReviewViewModel.chromeBackgroundColor))
-        .animation(.easeInOut(duration: 0.2), value: viewModel.currentSlideID)
-        .onAppear {
-            viewModel.onAppear()
-        }
+            .ignoresSafeArea(edges: .top)
+            .background(Color(uiColor: WMFYearInReviewViewModel.chromeBackgroundColor))
+            .animation(.easeInOut(duration: 0.2), value: viewModel.currentSlideID)
+            .onAppear {
+                viewModel.onAppear()
+            }
     }
 
     /// Each branch is a whole ScrollView. A conditional placed between the ScrollView and the
