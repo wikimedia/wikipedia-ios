@@ -127,6 +127,11 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 
+        // Year in Review owns the forced data state, so these two items read and write it through
+        // WMFYearInReviewDataController rather than developer settings. It has no shared instance
+        // and its init throws, so one is held for the lifetime of the sinks below.
+        let yirDataController = try? WMFYearInReviewDataController()
+
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
@@ -136,6 +141,8 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
         let forceYiREntryPoint2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026)
+        let forceYiRDataRichUser = WMFFormItemSelectViewModel(title: "Force Year in Review data-rich user", isSelected: yirDataController?.forceYiRUserDataState == .dataRich)
+        let forceYiRLowDataUser = WMFFormItemSelectViewModel(title: "Force Year in Review low-data user", isSelected: yirDataController?.forceYiRUserDataState == .lowData)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -143,6 +150,8 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 forceYiREntryPoint2026,
+                forceYiRDataRichUser,
+                forceYiRLowDataUser,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 showYiR2025,
@@ -153,6 +162,31 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         
         forceYiREntryPoint2026.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = isSelected }
+            .store(in: &subscribers)
+
+        // The two Year in Review data-state items are mutually exclusive. Selecting one clears the
+        // other, and the guard on the clear path keeps that programmatic deselection from wiping the
+        // state that was just written.
+        forceYiRDataRichUser.$isSelected
+            .sink { isSelected in
+                if isSelected {
+                    yirDataController?.forceYiRUserDataState = .dataRich
+                    forceYiRLowDataUser.isSelected = false
+                } else if yirDataController?.forceYiRUserDataState == .dataRich {
+                    yirDataController?.forceYiRUserDataState = nil
+                }
+            }
+            .store(in: &subscribers)
+
+        forceYiRLowDataUser.$isSelected
+            .sink { isSelected in
+                if isSelected {
+                    yirDataController?.forceYiRUserDataState = .lowData
+                    forceYiRDataRichUser.isSelected = false
+                } else if yirDataController?.forceYiRUserDataState == .lowData {
+                    yirDataController?.forceYiRUserDataState = nil
+                }
+            }
             .store(in: &subscribers)
 
         doNotPostImageRecommendationsEditItem.$isSelected
