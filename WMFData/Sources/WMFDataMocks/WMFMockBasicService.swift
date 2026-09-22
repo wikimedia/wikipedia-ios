@@ -116,6 +116,24 @@ fileprivate extension WMFData.WMFServiceRequest {
         return true
     }
 
+    var isSemanticSearchGet: Bool {
+        guard let url,
+              url.path == "/w/api.php",
+              let parameters
+        else { return false }
+
+        return method == .GET && parameters["cirrusSemanticSearch"] != nil
+    }
+
+    var isAttributionSignalsGet: Bool {
+        guard let url,
+              url.path.contains("/attribution/"),
+              url.path.hasSuffix("/signals")
+        else { return false }
+
+        return method == .GET
+    }
+
 }
 
 public class WMFMockBasicService: WMFService {
@@ -247,6 +265,24 @@ public class WMFMockBasicService: WMFService {
                 return nil
             }
             
+            return jsonData
+        } else if request.isSemanticSearchGet {
+            let resourceName = "semantic-search-get"
+
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+
+            return jsonData
+        } else if request.isAttributionSignalsGet {
+            let resourceName = "attribution-signals-get"
+
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+
             return jsonData
         } else if request.isOnThisDayEventsGet {
             let resourceName = "onthisday-events-02-21-get"
