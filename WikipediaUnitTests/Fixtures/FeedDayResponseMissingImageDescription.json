@@ -1,0 +1,211 @@
+{
+  "tfa": {
+    "title": "Eternal_Blue_(album)",
+    "displaytitle": "<i>Eternal Blue</i> (album)",
+    "description": "2021 studio album by Spiritbox",
+    "lang": "en",
+    "dir": "ltr",
+    "content_urls": {
+      "desktop": {
+        "page": "https://en.wikipedia.org/wiki/Eternal_Blue_(album)"
+      }
+    },
+    "thumbnail": {
+      "source": "https://upload.wikimedia.org/wikipedia/en/9/94/Spiritbox_EternalBlue.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "width": 316,
+      "height": 316
+    },
+    "extract": "Eternal Blue is the debut studio album by the Canadian heavy metal band Spiritbox. It was released on September 17, 2021"
+  },
+  "image": {
+    "title": "File:প্রবারণা পূর্ণিমায় আলোকরশ্মি শান্তির প্রার্থনায় মগ্ন শ্রমণগণ (00001957).jpg",
+    "thumbnail": {
+      "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%AC%E0%A6%BE%E0%A6%B0%E0%A6%A3%E0%A6%BE_%E0%A6%AA%E0%A7%82%E0%A6%B0%E0%A7%8D%E0%A6%A3%E0%A6%BF%E0%A6%AE%E0%A6%BE%E0%A6%AF%E0%A6%BC_%E0%A6%86%E0%A6%B2%E0%A7%8B%E0%A6%95%E0%A6%B0%E0%A6%B6%E0%A7%8D%E0%A6%AE%E0%A6%BF_%E0%A6%B6%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A6%BF%E0%A6%B0_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%A5%E0%A6%A8%E0%A6%BE%E0%A6%AF%E0%A6%BC_%E0%A6%AE%E0%A6%97%E0%A7%8D%E0%A6%A8_%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A6%AE%E0%A6%A3%E0%A6%97%E0%A6%A3_%2800001957%29.jpg/960px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "width": 640,
+      "height": 419
+    },
+    "image": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/4/44/%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%AC%E0%A6%BE%E0%A6%B0%E0%A6%A3%E0%A6%BE_%E0%A6%AA%E0%A7%82%E0%A6%B0%E0%A7%8D%E0%A6%A3%E0%A6%BF%E0%A6%AE%E0%A6%BE%E0%A6%AF%E0%A6%BC_%E0%A6%86%E0%A6%B2%E0%A7%8B%E0%A6%95%E0%A6%B0%E0%A6%B6%E0%A7%8D%E0%A6%AE%E0%A6%BF_%E0%A6%B6%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A6%BF%E0%A6%B0_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%A5%E0%A6%A8%E0%A6%BE%E0%A6%AF%E0%A6%BC_%E0%A6%AE%E0%A6%97%E0%A7%8D%E0%A6%A8_%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A6%AE%E0%A6%A3%E0%A6%97%E0%A6%A3_%2800001957%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 7952,
+      "height": 5209
+    },
+    "file_page": "https://commons.wikimedia.org/wiki/File:%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%AC%E0%A6%BE%E0%A6%B0%E0%A6%A3%E0%A6%BE_%E0%A6%AA%E0%A7%82%E0%A6%B0%E0%A7%8D%E0%A6%A3%E0%A6%BF%E0%A6%AE%E0%A6%BE%E0%A6%AF%E0%A6%BC_%E0%A6%86%E0%A6%B2%E0%A7%8B%E0%A6%95%E0%A6%B0%E0%A6%B6%E0%A7%8D%E0%A6%AE%E0%A6%BF_%E0%A6%B6%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A6%BF%E0%A6%B0_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%A5%E0%A6%A8%E0%A6%BE%E0%A6%AF%E0%A6%BC_%E0%A6%AE%E0%A6%97%E0%A7%8D%E0%A6%A8_%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A6%AE%E0%A6%A3%E0%A6%97%E0%A6%A3_(00001957).jpg",
+    "license": {
+      "type": "CC BY-SA 4.0",
+      "code": "cc-by-sa-4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "structured": {
+      "captions": {
+        "en": "Buddhist śramaṇas performing the traditional lamp-lighting ritual on Prabarana Purnima"
+      }
+    }
+  },
+  "mostread": {
+    "date": "2026-09-16Z",
+    "articles": [
+      {
+        "views": 213767,
+        "titles": {
+          "canonical": "Macklemore",
+          "normalized": "Macklemore",
+          "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Macklemore</span></span>"
+        },
+        "title": "Macklemore",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Macklemore</span></span>",
+        "normalizedtitle": "Macklemore",
+        "description": "American rapper (born 1983)",
+        "timestamp": "2026-09-17T16:56:52Z",
+        "view_history": [
+          {
+            "date": "2026-09-12Z",
+            "views": 8027
+          },
+          {
+            "date": "2026-09-13Z",
+            "views": 5511
+          },
+          {
+            "date": "2026-09-14Z",
+            "views": 72247
+          }
+        ],
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/P2N2022Macklemore_1.jpg/330px-P2N2022Macklemore_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 413
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Macklemore"
+          }
+        },
+        "extract": "Benjamin Hammond Haggerty, better known by his stage name Macklemore, is an American rapper. A native of Seattle, Washin"
+      },
+      {
+        "views": 196796,
+        "titles": {
+          "canonical": "Robert_Kraft",
+          "normalized": "Robert Kraft",
+          "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Robert Kraft</span></span>"
+        },
+        "title": "Robert_Kraft",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Robert Kraft</span></span>",
+        "normalizedtitle": "Robert Kraft",
+        "description": "American businessman (born 1941)",
+        "timestamp": "2026-09-17T18:20:50Z",
+        "view_history": [
+          {
+            "date": "2026-09-12Z",
+            "views": 905
+          },
+          {
+            "date": "2026-09-13Z",
+            "views": 1191
+          },
+          {
+            "date": "2026-09-14Z",
+            "views": 75754
+          }
+        ],
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/RobertKraftPatriots_%28cropped%29.jpg/330px-RobertKraftPatriots_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 413
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Robert_Kraft"
+          }
+        },
+        "extract": "Robert Hearth Kenneth Kraft is an American businessman. He is the chairman and chief executive officer (CEO) of the Kraf"
+      },
+      {
+        "views": 164540,
+        "titles": {
+          "canonical": "Lizzie_Borden",
+          "normalized": "Lizzie Borden",
+          "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lizzie Borden</span></span>"
+        },
+        "title": "Lizzie_Borden",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lizzie Borden</span></span>",
+        "normalizedtitle": "Lizzie Borden",
+        "description": "American acquitted murder suspect (1860–1927)",
+        "timestamp": "2026-09-17T18:37:20Z",
+        "view_history": [
+          {
+            "date": "2026-09-12Z",
+            "views": 17130
+          },
+          {
+            "date": "2026-09-13Z",
+            "views": 20116
+          },
+          {
+            "date": "2026-09-14Z",
+            "views": 22575
+          }
+        ],
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Lizzie_Borden_1890.jpg/330px-Lizzie_Borden_1890.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 386
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Lizzie_Borden"
+          }
+        },
+        "extract": "Lizzie Andrew Borden was an American woman who was tried and acquitted of the August 4, 1892, axe murders of her father "
+      }
+    ]
+  },
+  "onthisday": [
+    {
+      "text": "The Israeli Air Force conducted missile strikes that hit multiple targets in western Syria; Syrian air defences responding to the strikes accidentally downed a Russian plane.",
+      "year": 2018,
+      "pages": [
+        {
+          "title": "Israeli_Air_Force",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Israeli Air Force</span></span>",
+          "normalizedtitle": "Israeli Air Force",
+          "description": "Aerial and space service branch of the Israel Defense Forces",
+          "lang": "en",
+          "dir": "ltr",
+          "extract": "The Israeli Air Force operates as the aerial and space warfare branch of the Israel Defense Forces (",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Israeli_Air_Force"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "Adbusters, a Canadian anti-consumerist publication, organized a protest against corporate influence on democracy at Zuccotti Park in New York City that became known as Occupy Wall Street.",
+      "year": 2011,
+      "pages": [
+        {
+          "title": "Adbusters",
+          "displaytitle": "<i>Adbusters</i>",
+          "normalizedtitle": "Adbusters",
+          "description": "Canadian nonprofit organization",
+          "lang": "en",
+          "dir": "ltr",
+          "extract": "The Adbusters Media Foundation is a Canadian-based not-for-profit, pro-environment organization foun",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Adbusters"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

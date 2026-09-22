@@ -262,7 +262,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     /// Debugging convenience: overrides the persisted semantic search experiment bucket at read
-    /// time without re-rolling it, and bypasses the target language gate. Nil means no override.
+    /// time without re-rolling it. The target language gate still applies. Nil means no override.
     public var forceSemanticSearchExperimentAssignment: WMFSemanticSearchDataController.ExperimentAssignment? {
         get {
             guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue) else {
