@@ -5,6 +5,7 @@ struct WMFSearchResultRow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSearchResultsViewModel
     let result: WMFSearchResultsViewModel.SearchResult
+    @AccessibilityFocusState.Binding var focusedElementID: String?
 
     @State private var thumbnail: UIImage?
     @Environment(\.displayScale) private var displayScale
@@ -37,9 +38,10 @@ struct WMFSearchResultRow: View {
         .listRowSeparator(.hidden)
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(AccessibilityIdentifiers.Search.result(result.title))
+        .accessibilityFocused($focusedElementID, equals: result.id)
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button {
-                viewModel.share(result)
+                viewModel.share(result, source: .swipe)
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
                     .accessibilityLabel(viewModel.localizedStrings.shareActionTitle)
@@ -48,7 +50,7 @@ struct WMFSearchResultRow: View {
             .labelStyle(.iconOnly)
             if result.isSavable {
                 Button {
-                    viewModel.saveOrUnsave(result)
+                    viewModel.saveOrUnsave(result, source: .swipe)
                 } label: {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: result.isSaved ? .bookmarkFill : .bookmark) ?? UIImage())
                         .accessibilityLabel(result.isSaved ? viewModel.localizedStrings.unsaveActionTitle : viewModel.localizedStrings.saveActionTitle)
@@ -64,28 +66,38 @@ struct WMFSearchResultRow: View {
                 Text(viewModel.localizedStrings.openActionTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
             }
-            Button {
-                viewModel.openInNewTab(result)
-            } label: {
-                Text(viewModel.localizedStrings.openInNewTabActionTitle)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
-            }
-            Button {
-                viewModel.openInBackgroundTab(result)
-            } label: {
-                Text(viewModel.localizedStrings.openInBackgroundTabActionTitle)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
+            if result.isArticle {
+                Button {
+                    viewModel.openInNewTab(result)
+                } label: {
+                    Text(viewModel.localizedStrings.openInNewTabActionTitle)
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
+                }
+                Button {
+                    viewModel.openInBackgroundTab(result)
+                } label: {
+                    Text(viewModel.localizedStrings.openInBackgroundTabActionTitle)
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
+                }
             }
             if result.isSavable {
                 Button {
-                    viewModel.saveOrUnsave(result)
+                    viewModel.saveOrUnsave(result, source: .contextMenu)
                 } label: {
                     Text(result.isSaved ? viewModel.localizedStrings.unsaveActionTitle : viewModel.localizedStrings.saveActionTitle)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: result.isSaved ? .bookmarkFill : .bookmark) ?? UIImage())
                 }
             }
+            if result.hasLocation {
+                Button {
+                    viewModel.openOnMap(result)
+                } label: {
+                    Text(viewModel.localizedStrings.viewOnMapActionTitle)
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .map) ?? UIImage())
+                }
+            }
             Button {
-                viewModel.share(result)
+                viewModel.share(result, source: .contextMenu)
             } label: {
                 Text(viewModel.localizedStrings.shareActionTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())

@@ -19,11 +19,28 @@ import WMFData
     }
 }
 
+/// Read-only lines and actions the app provides for the Widgets section. WMFComponents cannot
+/// see the widget cache (it lives in the WMF framework), so the app fills this in.
+public struct WMFDeveloperSettingsWidgetDiagnostics {
+    public let cacheSummaryLines: [String]
+    public let lastFetchLines: [String]
+    public let clearWidgetCacheAndReloadWidgets: () -> Void
+
+    public init(cacheSummaryLines: [String], lastFetchLines: [String], clearWidgetCacheAndReloadWidgets: @escaping () -> Void) {
+        self.cacheSummaryLines = cacheSummaryLines
+        self.lastFetchLines = lastFetchLines
+        self.clearWidgetCacheAndReloadWidgets = clearWidgetCacheAndReloadWidgets
+    }
+}
+
 @MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
     let formViewModel: WMFFormViewModel
+
+    /// Set by the app after init. Nil hides the Widgets section.
+    @Published public var widgetDiagnostics: WMFDeveloperSettingsWidgetDiagnostics?
 
     private var subscribers: Set<AnyCancellable> = []
 
@@ -110,6 +127,11 @@ import WMFData
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 
+        // Year in Review owns the forced data state, so these two items read and write it through
+        // WMFYearInReviewDataController rather than developer settings. It has no shared instance
+        // and its init throws, so one is held for the lifetime of the sinks below.
+        let yirDataController = try? WMFYearInReviewDataController()
+
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
@@ -118,6 +140,8 @@ import WMFData
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
         let forceYiREntryPoint2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026)
+        let forceYiRDataRichUser = WMFFormItemSelectViewModel(title: "Force Year in Review data-rich user", isSelected: yirDataController?.forceYiRUserDataState == .dataRich)
+        let forceYiRLowDataUser = WMFFormItemSelectViewModel(title: "Force Year in Review low-data user", isSelected: yirDataController?.forceYiRUserDataState == .lowData)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -125,6 +149,8 @@ import WMFData
                 enableHomePhase2,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
+                forceYiRDataRichUser,
+                forceYiRLowDataUser,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 forceHcaptchaChallenge,
@@ -134,6 +160,31 @@ import WMFData
         
         forceYiREntryPoint2026.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = isSelected }
+            .store(in: &subscribers)
+
+        // The two Year in Review data-state items are mutually exclusive. Selecting one clears the
+        // other, and the guard on the clear path keeps that programmatic deselection from wiping the
+        // state that was just written.
+        forceYiRDataRichUser.$isSelected
+            .sink { isSelected in
+                if isSelected {
+                    yirDataController?.forceYiRUserDataState = .dataRich
+                    forceYiRLowDataUser.isSelected = false
+                } else if yirDataController?.forceYiRUserDataState == .dataRich {
+                    yirDataController?.forceYiRUserDataState = nil
+                }
+            }
+            .store(in: &subscribers)
+
+        forceYiRLowDataUser.$isSelected
+            .sink { isSelected in
+                if isSelected {
+                    yirDataController?.forceYiRUserDataState = .lowData
+                    forceYiRDataRichUser.isSelected = false
+                } else if yirDataController?.forceYiRUserDataState == .lowData {
+                    yirDataController?.forceYiRUserDataState = nil
+                }
+            }
             .store(in: &subscribers)
 
         doNotPostImageRecommendationsEditItem.$isSelected
@@ -190,6 +241,24 @@ import WMFData
             title = "Semantic search bucket cleared. The next eligible search re-rolls the assignment."
         } catch {
             title = "Could not clear the semantic search bucket: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    public func clearWidgetCacheAndReloadWidgets() {
+        widgetDiagnostics?.clearWidgetCacheAndReloadWidgets()
+        WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Widget cache cleared and timelines reloaded. Reopen this screen to see the new fetch.")))
+    }
+
+    public func resetSemanticSearchEntryPoint() {
+        let title: String
+        do {
+            try WMFSemanticSearchDataController.shared.resetEntryPointState()
+            title = "Semantic search entry point reset. It shows again with Try it now on the next search."
+        } catch {
+            title = "Could not reset the semantic search entry point: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))

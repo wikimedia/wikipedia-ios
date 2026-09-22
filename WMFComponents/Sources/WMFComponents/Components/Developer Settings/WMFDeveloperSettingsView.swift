@@ -106,7 +106,7 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Keeps the semantic search entry point hidden in production. Without this, no gate below is evaluated.") {
                     Toggle("Enable Semantic Search", isOn: $viewModel.enableSemanticSearch)
                 }
-                captionedRow(caption: "Overrides the persisted A/B bucket at read time and bypasses the target language gate; switching it back to Off restores the persisted bucket.") {
+                captionedRow(caption: "Overrides the persisted A/B bucket at read time; the target language gate still applies. Switching it back to Off restores the persisted bucket.") {
                     Picker("Force Experiment Group", selection: $viewModel.forceSemanticSearchExperimentAssignment) {
                         Text("Off").tag(WMFSemanticSearchDataController.ExperimentAssignment?.none)
                         Text("Control (A)").tag(WMFSemanticSearchDataController.ExperimentAssignment?.some(.control))
@@ -122,10 +122,52 @@ struct WMFDeveloperSettingsView: View {
                             .foregroundStyle(Color(theme.link))
                     }
                 }
+                captionedRow(caption: "Forgets the hidden state and the first use, so the entry point shows again with Try it now.") {
+                    Button {
+                        viewModel.resetSemanticSearchEntryPoint()
+                    } label: {
+                        Text("Reset entry point")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
             } header: {
                 sectionHeader("Semantic Search")
             }
             .listRowBackground(rowBackground)
+
+            if let widgetDiagnostics = viewModel.widgetDiagnostics {
+                Section {
+                    ForEach(Array(widgetDiagnostics.cacheSummaryLines.enumerated()), id: \.offset) { _, line in
+                        diagnosticLine(line)
+                    }
+                    Button {
+                        viewModel.clearWidgetCacheAndReloadWidgets()
+                    } label: {
+                        Text("Clear cache and reload widgets")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                } header: {
+                    sectionHeader("Widgets")
+                } footer: {
+                    sectionFooter("Cached feed content shared by the Featured Article, Top Read and Picture of the Day widgets.")
+                }
+                .listRowBackground(rowBackground)
+
+                Section {
+                    if widgetDiagnostics.lastFetchLines.isEmpty {
+                        diagnosticLine("No widget fetch recorded yet.")
+                    } else {
+                        ForEach(Array(widgetDiagnostics.lastFetchLines.enumerated()), id: \.offset) { _, line in
+                            diagnosticLine(line)
+                        }
+                    }
+                } header: {
+                    sectionHeader("Last widget fetch")
+                } footer: {
+                    sectionFooter("A section that failed to decode is listed with the JSON path that broke. Dropped elements are articles or events skipped inside a section.")
+                }
+                .listRowBackground(rowBackground)
+            }
 
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
@@ -154,6 +196,13 @@ struct WMFDeveloperSettingsView: View {
         Text(text)
             .font(Font(WMFFont.for(.caption1)))
             .foregroundStyle(Color(theme.secondaryText))
+    }
+
+    private func diagnosticLine(_ line: String) -> some View {
+        Text(line)
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundStyle(Color(theme.text))
+            .textSelection(.enabled)
     }
 
     private func captionedRow(caption: String, @ViewBuilder control: () -> some View) -> some View {
