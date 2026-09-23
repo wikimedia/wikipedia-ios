@@ -6,13 +6,16 @@ import UIKit
 /// The bar reads the size of a custom view when the item is set. A bare hosting view reports
 /// no intrinsic size until SwiftUI lays it out, so the bar collapses the item. This view
 /// measures the content synchronously and keeps the frame in sync with that size.
-@MainActor
-public final class WMFBarButtonHostingView<Content: View>: UIView {
+///
+/// The content is type-erased on purpose: a generic `UIView` subclass makes the Swift 6.3
+/// optimizer crash on the class deinit (EarlyPerfInliner), which breaks the release builds
+/// of the UI tests.
+public final class WMFBarButtonHostingView: UIView {
 
-    private let hostingController: UIHostingController<Content>
+    private let hostingController: UIHostingController<AnyView>
 
-    public init(rootView: Content) {
-        hostingController = UIHostingController(rootView: rootView)
+    public init<Content: View>(rootView: Content) {
+        hostingController = UIHostingController(rootView: AnyView(rootView))
         super.init(frame: .zero)
 
         backgroundColor = .clear
@@ -37,13 +40,10 @@ public final class WMFBarButtonHostingView<Content: View>: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public var rootView: Content {
-        get { hostingController.rootView }
-        set {
-            hostingController.rootView = newValue
-            invalidateIntrinsicContentSize()
-            frame.size = intrinsicContentSize
-        }
+    public func setRootView<Content: View>(_ rootView: Content) {
+        hostingController.rootView = AnyView(rootView)
+        invalidateIntrinsicContentSize()
+        frame.size = intrinsicContentSize
     }
 
     public override var intrinsicContentSize: CGSize {
