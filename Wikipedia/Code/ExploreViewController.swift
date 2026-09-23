@@ -54,7 +54,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
-    var yirDataController: WMFYearInReviewDataController? {
+    private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
     

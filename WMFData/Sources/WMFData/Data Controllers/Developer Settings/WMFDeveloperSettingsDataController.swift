@@ -115,10 +115,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// as active outside its date window, and the entry point presents even with no 2026 config
     /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
     /// entry point and date window flags, so nothing below it is respected.
-    /// Takes effect the next time the entry point is evaluated; relaunch to refresh the Activity tab badge.
     public var forceYiR2026: Bool {
         get { loadFlag(.developerSettingsForceYiR2026) }
-        set { saveFlag(.developerSettingsForceYiR2026, newValue) }
+        set {
+            let oldValue = forceYiR2026
+            saveFlag(.developerSettingsForceYiR2026, newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+            }
+        }
     }
 
     /// Debugging convenience: while on, the 2026 Year in Review announcement ignores every gate —

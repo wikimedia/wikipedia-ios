@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     let viewModel: WMFHomeViewModel
     private let hostingController: WMFHomeHostingController
 
-    var yirDataController: WMFYearInReviewDataController? {
+    private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
 
