@@ -111,6 +111,10 @@ private extension SchemeHandler {
         var mutableRequest = originalRequest
         mutableRequest.url = newURL
         
+        if mutableRequest.value(forHTTPHeaderField: "User-Agent") == nil {
+            mutableRequest.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
+        }
+        
         // set persistentCacheItemType in header if it doesn't already exist
         // set If-None-Match in header if it doesn't already exist
         

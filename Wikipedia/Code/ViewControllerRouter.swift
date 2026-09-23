@@ -121,7 +121,8 @@ class ViewControllerRouter: NSObject {
         case .audio(let audioURL):
             try? AVAudioSession.sharedInstance().setCategory(.playback)
             let vc = AVPlayerViewController()
-            let player = AVPlayer(url: audioURL)
+            let asset = AVURLAsset(url: audioURL, options: [AVURLAssetHTTPUserAgentKey: WikipediaAppUtils.versionedUserAgent()])
+            let player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
             vc.player = player
             return presentOrPush(vc, with: completion)
         case .talk(let linkURL):

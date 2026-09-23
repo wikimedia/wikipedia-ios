@@ -416,7 +416,7 @@ private final class WMFDailyGameEventRowView: UIView {
     let textLabel = UILabel()
     // let sizingTextLabel = UILabel()
     private let thumbnailView = UIImageView()
-    private var imageLoadTask: URLSessionDataTask?
+    private var imageLoadTask: Task<Void, Never>?
 
     private static let imageSize = CGSize(width: 40, height: 40)
     private static let imageTextSpacing: CGFloat = 16
@@ -458,12 +458,12 @@ private final class WMFDailyGameEventRowView: UIView {
         imageLoadTask = nil
 
         if let url = thumbnailURL {
-            let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-                guard let data, let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async { self?.thumbnailView.image = image }
+            imageLoadTask = Task { [weak self] in
+                guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url),
+                      !Task.isCancelled,
+                      let image = UIImage(data: data) else { return }
+                self?.thumbnailView.image = image
             }
-            imageLoadTask = task
-            task.resume()
         }
     }
 

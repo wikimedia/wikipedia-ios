@@ -324,4 +324,34 @@ final class WMFBasicServiceTests: XCTestCase {
 
         service.perform(request: request, completion: completion)
     }
+
+    // MARK: - Common Header Tests
+
+    func testGetSetsUserAgent() {
+        let previousUserAgentUtility = WMFDataEnvironment.current.userAgentUtility
+        WMFDataEnvironment.current.userAgentUtility = { "WikipediaApp/Test" }
+        defer { WMFDataEnvironment.current.userAgentUtility = previousUserAgentUtility }
+
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let completion: (Result<Data, Error>) -> Void = { _ in }
+
+        service.perform(request: request, completion: completion)
+
+        XCTAssertEqual(mockSuccessSession.request?.value(forHTTPHeaderField: "User-Agent"), "WikipediaApp/Test")
+    }
+
+    func testPostWithoutContentTypeSetsUserAgent() {
+        let previousUserAgentUtility = WMFDataEnvironment.current.userAgentUtility
+        WMFDataEnvironment.current.userAgentUtility = { "WikipediaApp/Test" }
+        defer { WMFDataEnvironment.current.userAgentUtility = previousUserAgentUtility }
+
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, parameters: ["one": "1"], acceptType: .json)
+        let completion: (Result<Data, Error>) -> Void = { _ in }
+
+        service.perform(request: request, completion: completion)
+
+        XCTAssertEqual(mockSuccessSession.request?.value(forHTTPHeaderField: "User-Agent"), "WikipediaApp/Test")
+    }
 }

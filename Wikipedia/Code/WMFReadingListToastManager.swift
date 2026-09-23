@@ -235,7 +235,7 @@ import WMFNativeLocalizations
             }.value
         } else {
             do {
-                let (data, _) = try await URLSession.shared.data(from: url)
+                let data = try await WMFImageDataController.shared.fetchImageData(url: url)
                 return UIImage(data: data)
             } catch {
                 return nil

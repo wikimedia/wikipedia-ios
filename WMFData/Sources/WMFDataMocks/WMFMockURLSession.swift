@@ -15,9 +15,11 @@ struct WMFMockData: Codable {
 final class WMFMockSuccessURLSession: WMFURLSession {
     
     var url: URL?
+    var request: URLRequest?
     
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
         self.url = request.url
+        self.request = request
         
         let encoder = JSONEncoder()
 

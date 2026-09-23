@@ -88,7 +88,6 @@ public final class WMFBasicService: WMFService {
                 }
                 
                 urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                urlRequest.populateCommonHeaders(request: basicRequest)
             case .json:
                 
                 do {
@@ -102,9 +101,10 @@ public final class WMFBasicService: WMFService {
                 }
                 
                 urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                urlRequest.populateCommonHeaders(request: basicRequest)
             }
         }
+
+        urlRequest.populateCommonHeaders(request: basicRequest)
 
         let attemptedURLString = urlRequest.url?.absoluteString
         let attemptedMethod = request.method.rawValue
