@@ -307,7 +307,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
             self.error = error
         }
 
-        func fetchTotalPageviewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
+        func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
             if let error { throw error }
             return totalPageviewsCount
         }

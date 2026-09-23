@@ -51,6 +51,6 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
             throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
         
-        return try await userImpactDataProvider.fetchTotalPageviewsCount(userID: userId, project: project, language: language)
+        return try await userImpactDataProvider.fetchTotalPageViewsCount(userID: userId, project: project, language: language)
     }
 }
