@@ -18,8 +18,22 @@ public struct HtmlUtils {
         let lineSpacing: CGFloat
         let listIndent: String
         let lineBreakMode: NSLineBreakMode
+        let customTags: [CustomTag]
 
-        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, linkFont: UIFont? = nil, color: UIColor, linkColor: UIColor?, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent, lineBreakMode: NSLineBreakMode = .byWordWrapping) {
+        public init(
+            font: UIFont,
+            boldFont: UIFont,
+            italicsFont: UIFont,
+            boldItalicsFont: UIFont,
+            linkFont: UIFont? = nil,
+            color: UIColor,
+            linkColor: UIColor?,
+            strongColor: UIColor? = nil,
+            lineSpacing: CGFloat,
+            listIndent: String = HtmlUtils.defaultListIndent,
+            lineBreakMode: NSLineBreakMode = .byWordWrapping,
+            customTags: [CustomTag] = []
+        ) {
             self.font = font
             self.boldFont = boldFont
             self.italicsFont = italicsFont
@@ -31,6 +45,25 @@ public struct HtmlUtils {
             self.lineSpacing = lineSpacing
             self.listIndent = listIndent
             self.lineBreakMode = lineBreakMode
+            self.customTags = customTags
+        }
+    }
+
+    /// A tag the caller wants styled on top of the standard ones, for markup that is not
+    /// HTML semantics: for example the `<span class="searchmatch">` of search snippets.
+    /// When `attributeName` is set, only tags carrying that attribute with `attributeValue`
+    /// match; other tags with the same name are stripped like any unknown tag.
+    public struct CustomTag {
+        let tagName: String
+        let attributeName: String?
+        let attributeValue: String?
+        let attributes: [NSAttributedString.Key: Any]
+
+        public init(tagName: String, attributeName: String? = nil, attributeValue: String? = nil, attributes: [NSAttributedString.Key: Any]) {
+            self.tagName = tagName
+            self.attributeName = attributeName
+            self.attributeValue = attributeValue
+            self.attributes = attributes
         }
     }
     
@@ -41,6 +74,8 @@ public struct HtmlUtils {
     
     private struct StyleData {
         var openNSRanges: [NSRange] = []
+        /// One entry per open range: false when the tag has the right name but not the required attribute.
+        var openMatches: [Bool] = []
         var completeNSRanges: [NSRange] = []
         var targetAttributeValues: [String] = []
     }
@@ -54,6 +89,8 @@ public struct HtmlUtils {
         let strikethrough: StyleData
         let underline: StyleData
         let strong: StyleData
+        /// Parallel to `Styles.customTags`.
+        let custom: [StyleData]
     }
     
     private struct ListInsertData {
@@ -96,7 +133,7 @@ public struct HtmlUtils {
         let listInsertData = try listInsertData(html: html, styles: styles)
         insertListData(into: attributedString, listInsertData: listInsertData, styles: styles)
         
-        let allStyleData = try allStyleData(html: attributedString.string)
+        let allStyleData = try allStyleData(html: attributedString.string, styles: styles)
         addStyling(to: attributedString, allStyleData: allStyleData, styles: styles)
         
         let tagAndContentRemoveData = try tagAndContentRemoveData(html: attributedString.string)
@@ -203,6 +240,13 @@ public struct HtmlUtils {
                 nsAttributedString.addAttribute(.foregroundColor, value: strongColor, range: strongRange)
             }
         }
+
+        // Style Custom Tags
+        for (customTag, styleData) in zip(styles.customTags, allStyleData.custom) {
+            for customRange in styleData.completeNSRanges {
+                nsAttributedString.addAttributes(customTag.attributes, range: customRange)
+            }
+        }
     }
     
     private static func removeHtmlTagAndContent(from nsAttributedString: NSMutableAttributedString, tagAndContentRemoveData: [TagAndContentRemoveData]) {
@@ -239,7 +283,7 @@ public struct HtmlUtils {
         let listInsertData = try listInsertData(html: html, styles: styles)
         insertListData(into: &attributedString, listInsertData: listInsertData, styles: styles)
         
-        let allStyleData = try allStyleData(html: String(attributedString.characters))
+        let allStyleData = try allStyleData(html: String(attributedString.characters), styles: styles)
         addStyling(to: &attributedString, allStyleData: allStyleData, styles: styles)
 
         let tagAndContentRemoveData = try tagAndContentRemoveData(html: String(attributedString.characters))
@@ -365,6 +409,16 @@ public struct HtmlUtils {
             for strongNSRange in allStyleData.strong.completeNSRanges {
                 if let strongRange  = Range(strongNSRange, in: attributedString) {
                     attributedString[strongRange].foregroundColor = strongColor
+                }
+            }
+        }
+
+        // Style Custom Tags
+        for (customTag, styleData) in zip(styles.customTags, allStyleData.custom) {
+            guard let container = try? AttributeContainer(customTag.attributes, including: \.uiKit) else { continue }
+            for customNSRange in styleData.completeNSRanges {
+                if let customRange = Range(customNSRange, in: attributedString) {
+                    attributedString[customRange].mergeAttributes(container)
                 }
             }
         }
@@ -536,7 +590,7 @@ public struct HtmlUtils {
         return inserts
     }
     
-    private static func allStyleData(html: String) throws -> AllStyleData {
+    private static func allStyleData(html: String, styles: Styles) throws -> AllStyleData {
         
         let htmlTagRegex = try htmlTagRegex()
         
@@ -548,6 +602,7 @@ public struct HtmlUtils {
         var strikethroughStyleData = StyleData()
         var underlineStyleData = StyleData()
         var strongStyleData = StyleData()
+        var customStyleData = styles.customTags.map { _ in StyleData() }
 
         htmlTagRegex.enumerateMatches(in: html, range: html.fullNSRange) { match, flags, stop in
             
@@ -564,12 +619,15 @@ public struct HtmlUtils {
             updateStyleData(styleData: &strikethroughStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "s", targetAttributeName: nil)
             updateStyleData(styleData: &underlineStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "u", targetAttributeName: nil)
             updateStyleData(styleData: &strongStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "strong", targetAttributeName: nil)
+            for (index, customTag) in styles.customTags.enumerated() {
+                updateStyleData(styleData: &customStyleData[index], html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: customTag.tagName, targetAttributeName: nil, requiredAttribute: customTag.attributeName.map { ($0, customTag.attributeValue ?? "") })
+            }
         }
         
-        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethrough: strikethroughStyleData, underline: underlineStyleData, strong: strongStyleData)
+        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethrough: strikethroughStyleData, underline: underlineStyleData, strong: strongStyleData, custom: customStyleData)
     }
     
-    private static func updateStyleData(styleData: inout StyleData, html: String, tagNSRange: NSRange, tagNameNSRange: NSRange, targetTagName: String, targetAttributeName: String?) {
+    private static func updateStyleData(styleData: inout StyleData, html: String, tagNSRange: NSRange, tagNameNSRange: NSRange, targetTagName: String, targetAttributeName: String?, requiredAttribute: (name: String, value: String)? = nil) {
         
         guard let tagNameRange = Range(tagNameNSRange, in: html),
         let tagRange = Range(tagNSRange, in: html) else {
@@ -579,9 +637,12 @@ public struct HtmlUtils {
         let tagNameString = html[tagNameRange]
         let tagString = String(html[tagRange])
         
-        // Check for open tag, append to open tag ranges
+        // Check for open tag, append to open tag ranges. A tag with the right name but without the
+        // required attribute is pushed too, so that its close tag does not close an outer match.
         if tagNameString == targetTagName {
             styleData.openNSRanges.append(tagNSRange)
+            let matches = requiredAttribute.map { attributeValue(in: tagString, attributeName: $0.name) == $0.value } ?? true
+            styleData.openMatches.append(matches)
             
             // If needed, determine and append target attribute value
             updateStyleAttributeDataIfNeeded(styleData: &styleData, tagString: tagString, targetAttributeName: targetAttributeName)
@@ -589,6 +650,8 @@ public struct HtmlUtils {
         // Check for close tag, then grab associated open tag range and create completed range with open and close ranges. Append to ranges.
         } else if tagNameString == "/\(targetTagName)",
                   let lastOpenNSRange = styleData.openNSRanges.popLast() {
+            let matches = styleData.openMatches.popLast() ?? true
+            guard matches else { return }
             let completeNSRange = NSRange(location: lastOpenNSRange.location, length: (tagNSRange.location + tagNSRange.length) - lastOpenNSRange.location)
             styleData.completeNSRanges.append(completeNSRange)
         }
@@ -602,22 +665,26 @@ public struct HtmlUtils {
         // href="./New_Year's_Eve" with a literal apostrophe; the old pattern stopped at the apostrophe and produced
         // "./New_Year", sending the user to the wrong page (T308268, T395708).
         guard let targetAttributeName,
-              let attributeValueRegex = try? NSRegularExpression(pattern: "\(targetAttributeName)[\\s]*=[\\s]*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))") else {
+              let value = attributeValue(in: tagString, attributeName: targetAttributeName) else {
             return
         }
+        styleData.targetAttributeValues.append(value)
+    }
 
-        guard let attrMatch = attributeValueRegex.firstMatch(in: tagString, range: tagString.fullNSRange) else {
-            return
+    private static func attributeValue(in tagString: String, attributeName: String) -> String? {
+        guard let attributeValueRegex = try? NSRegularExpression(pattern: "\(attributeName)[\\s]*=[\\s]*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))"),
+              let attrMatch = attributeValueRegex.firstMatch(in: tagString, range: tagString.fullNSRange) else {
+            return nil
         }
 
         for groupIndex in 1...3 {
             let groupNSRange = attrMatch.range(at: groupIndex)
             if groupNSRange.location != NSNotFound,
                let groupRange = Range(groupNSRange, in: tagString) {
-                styleData.targetAttributeValues.append(String(tagString[groupRange]))
-                return
+                return String(tagString[groupRange])
             }
         }
+        return nil
     }
     
     private static func tagAndContentRemoveData(html: String) throws -> [TagAndContentRemoveData] {
