@@ -111,6 +111,96 @@ final class HtmlUtilsTests: XCTestCase {
         XCTAssertTrue(linkString?.contains("8") ?? false, "Href value was truncated at the apostrophe.")
         XCTAssertFalse(linkString == "./Ocean", "Href value was truncated at the apostrophe, sending the user to the wrong page.")
     }
+
+    // MARK: - Custom tags
+
+    private var highlightStyle: HtmlUtils.Styles {
+        HtmlUtils.Styles(
+            font: HtmlUtils.Styles.testStyle.font,
+            boldFont: HtmlUtils.Styles.testStyle.boldFont,
+            italicsFont: HtmlUtils.Styles.testStyle.italicsFont,
+            boldItalicsFont: HtmlUtils.Styles.testStyle.boldItalicsFont,
+            color: WMFTheme.light.text,
+            linkColor: WMFTheme.light.link,
+            lineSpacing: 0,
+            customTags: [
+                HtmlUtils.CustomTag(tagName: "span", attributeName: "class", attributeValue: "searchmatch", attributes: [.backgroundColor: UIColor.yellow])
+            ]
+        )
+    }
+
+    private func backgroundRanges(in attributedString: NSAttributedString) -> [(text: String, color: UIColor)] {
+        var ranges: [(String, UIColor)] = []
+        attributedString.enumerateAttribute(.backgroundColor, in: NSRange(location: 0, length: attributedString.length)) { value, range, _ in
+            if let color = value as? UIColor {
+                ranges.append((attributedString.attributedSubstring(from: range).string, color))
+            }
+        }
+        return ranges
+    }
+
+    func testCustomTagStylesOnlyTheTagWithTheAttribute() throws {
+        let html = "il est <span class=\"searchmatch\">incapable de voir</span> dans le <span class=\"nowrap\">noir</span>."
+        let attributedString = try HtmlUtils.nsAttributedStringFromHtml(html, styles: highlightStyle)
+
+        XCTAssertEqual(attributedString.string, "il est incapable de voir dans le noir.")
+        XCTAssertEqual(backgroundRanges(in: attributedString).map(\.text), ["incapable de voir"])
+    }
+
+    func testCustomTagIsNotClosedByANestedPlainTag() throws {
+        let html = "<span class=\"searchmatch\">un <span class=\"nowrap\">deux</span> trois</span> quatre"
+        let attributedString = try HtmlUtils.nsAttributedStringFromHtml(html, styles: highlightStyle)
+
+        XCTAssertEqual(attributedString.string, "un deux trois quatre")
+        XCTAssertEqual(backgroundRanges(in: attributedString).map(\.text), ["un deux trois"])
+    }
+
+    func testCustomTagKeepsTheLinkAndTheSuperscriptInsideIt() throws {
+        let html = "<span class=\"searchmatch\"><a href=\"/wiki/Transmission\">transmission</a> of information</span>.<sup>[3]</sup>"
+        let attributedString = try HtmlUtils.nsAttributedStringFromHtml(html, styles: highlightStyle)
+
+        XCTAssertEqual(attributedString.string, "transmission of information.[3]")
+        XCTAssertEqual(backgroundRanges(in: attributedString).map(\.text), ["transmission of information"])
+        let link = attributedString.attribute(.link, at: 0, effectiveRange: nil) as? URL
+        XCTAssertEqual(link?.absoluteString, "/wiki/Transmission")
+        let superscriptFont = attributedString.attribute(.font, at: 28, effectiveRange: nil) as? UIFont
+        XCTAssertLessThan(superscriptFont?.pointSize ?? 100, highlightStyle.font.pointSize)
+    }
+
+    func testCustomTagOverridesTheLinkColorInsideIt() throws {
+        let highlightText = UIColor.black
+        let styles = HtmlUtils.Styles(
+            font: HtmlUtils.Styles.testStyle.font,
+            boldFont: HtmlUtils.Styles.testStyle.boldFont,
+            italicsFont: HtmlUtils.Styles.testStyle.italicsFont,
+            boldItalicsFont: HtmlUtils.Styles.testStyle.boldItalicsFont,
+            color: WMFTheme.light.text,
+            linkColor: WMFTheme.light.link,
+            lineSpacing: 0,
+            customTags: [HtmlUtils.CustomTag(tagName: "span", attributeName: "class", attributeValue: "searchmatch", attributes: [.backgroundColor: UIColor.yellow, .foregroundColor: highlightText])])
+        let html = "the <span class=\"searchmatch\"><a href=\"/wiki/Transmission\">transmission</a> of information</span>: a <a href=\"/wiki/Message\">message</a>"
+
+        let nsAttributedString = try HtmlUtils.nsAttributedStringFromHtml(html, styles: styles)
+        XCTAssertEqual(nsAttributedString.string, "the transmission of information: a message")
+        XCTAssertEqual(nsAttributedString.attribute(.foregroundColor, at: 4, effectiveRange: nil) as? UIColor, highlightText, "The link inside the highlight is not blue.")
+        XCTAssertNotNil(nsAttributedString.attribute(.link, at: 4, effectiveRange: nil), "The link inside the highlight is still a link.")
+        XCTAssertEqual(nsAttributedString.attribute(.foregroundColor, at: 35, effectiveRange: nil) as? UIColor, WMFTheme.light.link, "The link outside the highlight keeps the link color.")
+
+        let attributedString = try HtmlUtils.attributedStringFromHtml(html, styles: styles)
+        let insideRun = attributedString.runs.first { $0.link != nil && $0.uiKit.backgroundColor != nil }
+        XCTAssertEqual(insideRun?.uiKit.foregroundColor, highlightText)
+        let outsideRun = attributedString.runs.first { $0.link != nil && $0.uiKit.backgroundColor == nil }
+        XCTAssertEqual(outsideRun?.uiKit.foregroundColor, WMFTheme.light.link)
+    }
+
+    func testCustomTagWorksWithAttributedString() throws {
+        let html = "a <span class=\"searchmatch\">b</span> c"
+        let attributedString = try HtmlUtils.attributedStringFromHtml(html, styles: highlightStyle)
+
+        XCTAssertEqual(String(attributedString.characters), "a b c")
+        let highlighted = attributedString.runs.filter { $0.uiKit.backgroundColor != nil }.map { String(attributedString[$0.range].characters) }
+        XCTAssertEqual(highlighted, ["b"])
+    }
 }
 
 fileprivate extension HtmlUtils.Styles {
