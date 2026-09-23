@@ -1320,6 +1320,17 @@
 "search-semantic-entry-point-hide-accessibility-label" = "Hide searching within articles";
 "search-semantic-entry-point-info-accessibility-label" = "About searching within articles";
 "search-semantic-entry-point-try-it-now" = "Try it now";
+"search-semantic-results-contributors" = "{{PLURAL:$1|$1 contributor|$1 contributors}}";
+"search-semantic-results-empty-title" = "No results for this search";
+"search-semantic-results-error-subtitle" = "Please try again.";
+"search-semantic-results-error-title" = "Something went wrong";
+"search-semantic-results-last-updated" = "Last update $1";
+"search-semantic-results-rate-limited-subtitle" = "Wait a moment and try again.";
+"search-semantic-results-rate-limited-title" = "Too many searches";
+"search-semantic-results-read-in-article" = "Read in article";
+"search-semantic-results-references" = "{{PLURAL:$1|$1 reference|$1 references}}";
+"search-semantic-results-unavailable-subtitle" = "Please try again later.";
+"search-semantic-results-unavailable-title" = "Search is not available right now";
 "search-title" = "Search";
 "search-widget-announcement-body" = "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.";
 "search-widget-announcement-title" = "New Search widget available";
