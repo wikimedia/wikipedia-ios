@@ -1480,6 +1480,10 @@ private extension ArticleViewController {
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
+        // The Year in Review announcement defers to the fundraising banner for the rest of the
+        // session. Coming back from the background is the next app open, so clear it here.
+        Self.didShowFundraisingBannerThisSession = false
+
         startSignificantlyViewedTimer()
         trackAppDidBecomeActive()
     }

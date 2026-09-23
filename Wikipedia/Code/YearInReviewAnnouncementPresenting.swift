@@ -20,8 +20,6 @@ protocol YearInReviewAnnouncementPresenting: UIViewController {
 
     /// Identifies the surface in the intro slide's logging.
     var yirAnnouncementLoggingID: String { get }
-
-    func updateProfileButton()
 }
 
 extension YearInReviewAnnouncementPresenting {
