@@ -83,13 +83,13 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
-        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
+        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
     }
 
     // MARK: - Semantic search entry point
 
-    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?) {
-        guard let query, !query.isEmpty, let languageCode else {
+    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
+        guard let query, !query.isEmpty, let languageCode, let project else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
@@ -107,7 +107,9 @@ extension SearchResultsViewController {
         if let semanticSearchEntryPointViewModel = resultsViewModel.semanticSearchEntryPointViewModel, semanticSearchEntryPointViewModel.languageCode == languageCode {
             semanticSearchEntryPointViewModel.update(query: query)
         } else {
-            resultsViewModel.showSemanticSearchEntryPoint(makeSemanticSearchEntryPointViewModel(query: query, languageCode: languageCode))
+            resultsViewModel.showSemanticSearchEntryPoint(
+                makeSemanticSearchEntryPointViewModel(query: query, languageCode: languageCode, project: project)
+            )
         }
     }
 
@@ -119,7 +121,11 @@ extension SearchResultsViewController {
         resultsViewModel.hideSemanticSearchEntryPoint()
     }
 
-    private func makeSemanticSearchEntryPointViewModel(query: String, languageCode: String) -> WMFSemanticSearchEntryPointViewModel {
+    private func makeSemanticSearchEntryPointViewModel(
+        query: String,
+        languageCode: String,
+        project: WMFProject
+    ) -> WMFSemanticSearchEntryPointViewModel {
         let dataController = WMFSemanticSearchDataController.shared
         let showsTryItNow = !dataController.hasUsedEntryPoint
         if showsTryItNow {
@@ -133,7 +139,11 @@ extension SearchResultsViewController {
             query: query,
             languageCode: languageCode,
             showsTryItNow: showsTryItNow,
-            tapAction: { _ in },
+            tapAction: { [weak self] query in
+                guard let self else { return }
+                saveLastSearch()
+                semanticSearchTappedAction?(query, project)
+            },
             infoAction: { _ in },
             hideAction: { [weak self] _ in
                 self?.hideSemanticSearchEntryPoint()

@@ -44,6 +44,10 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// for navigating to the given URL.
     var articleTappedAction: ((URL, NeedsNewTab) -> Void)?
 
+    /// Called with the query and the project of the search when the reader taps the semantic
+    /// search entry point.
+    var semanticSearchTappedAction: ((String, WMFProject) -> Void)?
+
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
     var populateSearchBarAction: ((String) -> Void)?
