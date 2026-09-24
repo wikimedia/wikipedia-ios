@@ -1,79 +1,85 @@
-import XCTest
+import Foundation
+import Testing
 @testable import WMFData
 
-final class WMFSharedContainerCacheTests: XCTestCase {
+/// Swift Testing makes a new instance for each test. Thus each test gets its own temporary container.
+@Suite
+final class WMFSharedContainerCacheTests {
 
     private struct MockObject: Codable, Equatable {
         let title: String
         let count: Int
     }
 
-    private var containerURL: URL!
+    private let containerURL: URL
 
-    override func setUpWithError() throws {
-        try super.setUpWithError()
+    init() throws {
         containerURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         try FileManager.default.createDirectory(at: containerURL, withIntermediateDirectories: true)
     }
 
-    override func tearDownWithError() throws {
+    deinit {
         try? FileManager.default.removeItem(at: containerURL)
-        containerURL = nil
-        try super.tearDownWithError()
     }
 
     // MARK: - WMFSharedContainerCache
 
-    func testSaveAndLoadInContainerRoot() {
+    @Test
+    func saveAndLoadInContainerRoot() {
         let cache = WMFSharedContainerCache(fileName: "Root File", containerURL: containerURL)
         let object = MockObject(title: "Root", count: 1)
 
         cache.saveCache(object)
 
         let loaded: MockObject? = cache.loadCache()
-        XCTAssertEqual(loaded, object)
-        XCTAssertTrue(FileManager.default.fileExists(atPath: containerURL.appendingPathComponent("Root File.json").path))
+        #expect(loaded == object)
+        #expect(FileManager.default.fileExists(atPath: containerURL.appendingPathComponent("Root File.json").path))
     }
 
-    func testSaveCreatesSubdirectory() {
+    @Test
+    func saveCreatesSubdirectory() {
         let cache = WMFSharedContainerCache(fileName: "Nested File", subdirectoryPathComponent: "Nested", containerURL: containerURL)
         let object = MockObject(title: "Nested", count: 2)
 
         cache.saveCache(object)
 
         let loaded: MockObject? = cache.loadCache()
-        XCTAssertEqual(loaded, object)
-        XCTAssertTrue(FileManager.default.fileExists(atPath: containerURL.appendingPathComponent("Nested/Nested File.json").path))
+        #expect(loaded == object)
+        #expect(FileManager.default.fileExists(atPath: containerURL.appendingPathComponent("Nested/Nested File.json").path))
     }
 
-    func testLoadMissingFileReturnsNil() {
+    @Test
+    func loadMissingFileReturnsNil() {
         let cache = WMFSharedContainerCache(fileName: "Missing", containerURL: containerURL)
         let loaded: MockObject? = cache.loadCache()
-        XCTAssertNil(loaded)
+        #expect(loaded == nil)
     }
 
-    func testRemoveCache() throws {
+    @Test
+    func removeCache() throws {
         let cache = WMFSharedContainerCache(fileName: "Removed", containerURL: containerURL)
         cache.saveCache(MockObject(title: "Removed", count: 3))
 
         try cache.removeCache()
 
         let loaded: MockObject? = cache.loadCache()
-        XCTAssertNil(loaded)
+        #expect(loaded == nil)
     }
 
-    func testNilContainerURLDoesNothing() {
+    @Test
+    func nilContainerURLDoesNothing() {
         let cache = WMFSharedContainerCache(fileName: "No Container", containerURL: nil)
 
         cache.saveCache(MockObject(title: "No Container", count: 4))
 
         let loaded: MockObject? = cache.loadCache()
-        XCTAssertNil(loaded)
-        XCTAssertThrowsError(try cache.removeCache())
-        XCTAssertEqual(WMFSharedContainerCache.fileNames(inSubdirectory: "Any", containerURL: nil), [])
+        #expect(loaded == nil)
+        #expect(throws: WMFSharedContainerCacheError.self) { try cache.removeCache() }
+        #expect(WMFSharedContainerCache.fileNames(inSubdirectory: "Any", containerURL: nil).isEmpty)
     }
 
-    func testFileNamesInSubdirectory() {
+    @Test
+    func fileNamesInSubdirectory() {
         for name in ["First", "Second"] {
             WMFSharedContainerCache(fileName: name, subdirectoryPathComponent: "Listed", containerURL: containerURL)
                 .saveCache(MockObject(title: name, count: 0))
@@ -83,10 +89,11 @@ final class WMFSharedContainerCacheTests: XCTestCase {
 
         let fileNames = WMFSharedContainerCache.fileNames(inSubdirectory: "Listed", containerURL: containerURL)
 
-        XCTAssertEqual(Set(fileNames), ["First", "Second"])
+        #expect(Set(fileNames) == ["First", "Second"])
     }
 
-    func testDeleteStaleCachedItemsKeepsMostRecent() throws {
+    @Test
+    func deleteStaleCachedItemsKeepsMostRecent() throws {
         let now = Date()
         for index in 0..<5 {
             let name = "Item \(index)"
@@ -100,10 +107,11 @@ final class WMFSharedContainerCacheTests: XCTestCase {
         WMFSharedContainerCache.deleteStaleCachedItems(in: "Stale", keepingMostRecent: 2, containerURL: containerURL)
 
         let remaining = WMFSharedContainerCache.fileNames(inSubdirectory: "Stale", containerURL: containerURL)
-        XCTAssertEqual(Set(remaining), ["Item 3", "Item 4"])
+        #expect(Set(remaining) == ["Item 3", "Item 4"])
     }
 
-    func testDeleteStaleCachedItemsWithZeroDeletesAll() {
+    @Test
+    func deleteStaleCachedItemsWithZeroDeletesAll() {
         for index in 0..<3 {
             WMFSharedContainerCache(fileName: "Item \(index)", subdirectoryPathComponent: "Stale", containerURL: containerURL)
                 .saveCache(MockObject(title: "Item", count: index))
@@ -111,51 +119,65 @@ final class WMFSharedContainerCacheTests: XCTestCase {
 
         WMFSharedContainerCache.deleteStaleCachedItems(in: "Stale", keepingMostRecent: 0, containerURL: containerURL)
 
-        XCTAssertEqual(WMFSharedContainerCache.fileNames(inSubdirectory: "Stale", containerURL: containerURL), [])
+        #expect(WMFSharedContainerCache.fileNames(inSubdirectory: "Stale", containerURL: containerURL).isEmpty)
     }
 
     // MARK: - WMFSharedContainerCacheStore
 
-    func testStoreSingleKeyUsesContainerRoot() throws {
+    @Test
+    func storeSingleKeyUsesContainerRoot() throws {
         let store = WMFSharedContainerCacheStore(containerURL: containerURL)
         let object = MockObject(title: "Single", count: 5)
 
         try store.save(key: "Single Key", value: object)
 
         let loaded: MockObject? = try store.load(key: "Single Key")
-        XCTAssertEqual(loaded, object)
-        XCTAssertTrue(FileManager.default.fileExists(atPath: containerURL.appendingPathComponent("Single Key.json").path))
+        #expect(loaded == object)
+        #expect(FileManager.default.fileExists(atPath: containerURL.appendingPathComponent("Single Key.json").path))
     }
 
-    func testStoreTwoPartKeyUsesSubdirectory() throws {
+    @Test
+    func storeTwoPartKeyUsesSubdirectory() throws {
         let store = WMFSharedContainerCacheStore(containerURL: containerURL)
         let object = MockObject(title: "Double", count: 6)
 
         try store.save(key: "Directory", "File", value: object)
 
         let loaded: MockObject? = try store.load(key: "Directory", "File")
-        XCTAssertEqual(loaded, object)
-        XCTAssertEqual(try store.keys(inDirectory: "Directory"), ["File"])
+        #expect(loaded == object)
+        #expect(try store.keys(inDirectory: "Directory") == ["File"])
     }
 
-    func testStoreRemove() throws {
+    @Test
+    func storeRemove() throws {
         let store = WMFSharedContainerCacheStore(containerURL: containerURL)
         try store.save(key: "Directory", "File", value: MockObject(title: "Removed", count: 7))
 
         try store.remove(key: "Directory", "File")
 
         let loaded: MockObject? = try store.load(key: "Directory", "File")
-        XCTAssertNil(loaded)
-        XCTAssertNoThrow(try store.remove(key: "Directory", "File"), "Removing a missing file must not throw")
+        #expect(loaded == nil)
+        #expect(throws: Never.self, "Removing a missing file must not throw") {
+            try store.remove(key: "Directory", "File")
+        }
     }
 
-    func testStoreRejectsUnexpectedKeyCount() {
+    @Test
+    func storeRejectsUnexpectedKeyCount() {
         let store = WMFSharedContainerCacheStore(containerURL: containerURL)
         let object = MockObject(title: "Bad", count: 8)
 
-        XCTAssertThrowsError(try store.save(key: "A", "B", "C", value: object))
-        XCTAssertThrowsError(try { let _: MockObject? = try store.load(key: "A", "B", "C") }())
-        XCTAssertThrowsError(try store.remove(key: "A", "B", "C"))
-        XCTAssertThrowsError(try store.remove())
+        #expect(throws: WMFSharedContainerCacheStoreError.unexpectedKeyCount) {
+            try store.save(key: "A", "B", "C", value: object)
+        }
+        #expect(throws: WMFSharedContainerCacheStoreError.unexpectedKeyCount) {
+            let _: MockObject? = try store.load(key: "A", "B", "C")
+        }
+        #expect(throws: WMFSharedContainerCacheStoreError.unexpectedKeyCount) {
+            try store.remove(key: "A", "B", "C")
+        }
+        #expect(throws: WMFSharedContainerCacheStoreError.unexpectedKeyCount) {
+            try store.remove()
+        }
     }
 }
