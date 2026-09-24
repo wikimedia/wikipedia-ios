@@ -177,18 +177,13 @@ import CoreData
 
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
 
-        guard let config = self.config else {
-            return false
+        // Developer settings override: skip every other check, so the announcement shows on every
+        // app open while the toggle is on.
+        if developerSettingsDataController.forceYiREntryPoint2026 {
+            return true
         }
 
-        guard config.isActive(for: Date()) else {
-            return false
-        }
-
-        guard yearInReviewSettingsIsEnabled else {
-            return false
-        }
-
+        // Checks the remote config, the active date range, the Settings toggle, and the hidden countries.
         guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
             return false
         }
@@ -198,6 +193,11 @@ import CoreData
         }
 
         guard !hasSeenYiRIntroSlide else {
+            return false
+        }
+
+        // Fundraising goes first. If the campaign banner showed this session, wait for the next app open.
+        guard !WMFFundraisingCampaignDataController.shared.hasPresentedCampaignThisSession else {
             return false
         }
 

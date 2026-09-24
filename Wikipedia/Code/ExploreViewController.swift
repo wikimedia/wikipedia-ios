@@ -1080,20 +1080,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 extension ExploreViewController {
     
     /// Modal presentation priority chain for the Explore view:
-    ///   1. Reading challenge  →  if shown, stop.
+    ///   1. Fundraising        →  never shown on Explore. If the reader qualifies for the campaign banner,
+    ///                            Year in Review waits for a later app open so the banner goes first.
     ///   2. Year in Review     →  if shown, stop.
-    ///   3. Games announcement →  shown only when both of the above decline.
+    ///   3. Games announcement →  shown only when Year in Review declines.
     ///
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        guard let navigationController, let dataStore else {
-            presentYearInReviewAnnouncementOrTooltipsIfNeeded()
-            return
-        }
+        presentYearInReviewAnnouncementOrTooltipsIfNeeded()
     }
 
-    /// Called at the tail of the modal chain (after RC and YIR have both declined).
+    /// Called at the tail of the modal chain (after YIR has declined).
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
@@ -1177,14 +1175,53 @@ extension ExploreViewController {
     }
 
     private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
-            presentGamesAnnouncementIfNeeded()
+        guard needsYearInReviewAnnouncement() else {
+            presentTooltipsAndGamesAnnouncementIfNeeded()
+            return
         }
+
+        Task { [weak self] in
+            guard let self else { return }
+
+            // Fundraising goes first. If the reader qualifies for the campaign banner, skip Year in
+            // Review now. It shows on a later app open, after the banner is shown or hidden.
+            // The developer settings override skips this check.
+            let isEligibleForCampaign: Bool
+            if WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
+                isEligibleForCampaign = false
+            } else {
+                isEligibleForCampaign = await self.isEligibleForFundraisingCampaign()
+            }
+
+            // Check again after the wait, since something may have been presented in the meantime.
+            guard !isEligibleForCampaign, self.needsYearInReviewAnnouncement() else {
+                self.presentTooltipsAndGamesAnnouncementIfNeeded()
+                return
+            }
+
+            self.updateProfileButton()
+            self.presentYearInReviewAnnouncement()
+            // YIR showed — games deferred to next launch.
+        }
+    }
+
+    private func presentTooltipsAndGamesAnnouncementIfNeeded() {
+        perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+        presentGamesAnnouncementIfNeeded()
+    }
+
+    /// True if the reader qualifies for the fundraising campaign banner right now. Explore has no
+    /// article, so this checks the app's primary language project.
+    private func isEligibleForFundraisingCampaign() async -> Bool {
+        guard let countryCode = Locale.current.region?.identifier,
+              let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            return false
+        }
+
+        let isFirstAppSession = UserDefaults.standard.wmf_appResignActiveDate() == nil
+
+        return await WMFFundraisingCampaignDataController.shared.shouldShowCampaign(countryCode: countryCode, wmfProject: wmfProject, isFirstAppSession: isFirstAppSession)
     }
     
     @objc func listenForTooltips() {
@@ -1234,7 +1271,6 @@ extension ExploreViewController {
         presentedViewController.present(newNavigationVC, animated: true, completion: { })
     }
 
-    // TODO: Remove after expiry date (1 March 2025)
     private func presentYearInReviewAnnouncement() {
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
