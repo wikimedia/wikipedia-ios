@@ -50,9 +50,21 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
     }
 
-    @Published public var showGamesV2: Bool = WMFDeveloperSettingsDataController.shared.showGamesV2 {
+    @Published public var forceYiREntryPoint2026: Bool = WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
         didSet {
-            WMFDeveloperSettingsDataController.shared.showGamesV2 = showGamesV2
+            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = forceYiREntryPoint2026
+        }
+    }
+
+    @Published public var forceYiR2026Announcement: Bool = WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement = forceYiR2026Announcement
+        }
+    }
+
+    @Published public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? = WMFDeveloperSettingsDataController.shared.forceYiRUserDataState {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = forceYiRUserDataState
         }
     }
 
@@ -127,43 +139,25 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 
-        // Year in Review owns the forced data state, so the two data-state items read and write it
-        // through WMFYearInReviewDataController rather than developer settings. It has no shared
-        // instance and its init throws, so one is held for the lifetime of the sinks below.
-        let yirDataController = try? WMFYearInReviewDataController()
-
-        let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
-
-        let forceYiREntryPoint2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026)
-        let forceYiR2026Announcement = WMFFormItemSelectViewModel(title: "Force Year in Review 2026 Announcement", isSelected: WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement)
-        let forceYiRDataRichUser = WMFFormItemSelectViewModel(title: "Force Year in Review data-rich user", isSelected: yirDataController?.forceYiRUserDataState == .dataRich)
-        let forceYiRLowDataUser = WMFFormItemSelectViewModel(title: "Force Year in Review low-data user", isSelected: yirDataController?.forceYiRUserDataState == .lowData)
+        let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
-                forceYiREntryPoint2026,
                 enableHomePhase2,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 forceHcaptchaChallenge,
-                allowGestureZoomArticleWebview,
-                forceYiR2026Announcement,
-                forceYiRDataRichUser,
-                forceYiRLowDataUser
+                allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
-
-        enableHomePhase2.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomePhase2 = isSelected }
-            .store(in: &subscribers)
 
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }
@@ -189,42 +183,8 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview = isSelected }
             .store(in: &subscribers)
 
-        // While on, 2026 Year in Review overrides every gate: the remote config and its active
-        // window, the Year in Review settings toggle and suppressed countries.
-        forceYiREntryPoint2026.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = isSelected }
-            .store(in: &subscribers)
-
-        // While on, the announcement ignores every gate: the remote config and its active window,
-        // the Year in Review settings toggle, suppressed countries and the "already seen" state. It
-        // therefore presents on every eligible app open until it is turned back off.
-        forceYiR2026Announcement.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement = isSelected }
-            .store(in: &subscribers)
-
-        // The two Year in Review data-state items are mutually exclusive. Selecting one clears the
-        // other, and the guard on the clear path keeps that programmatic deselection from wiping the
-        // state that was just written.
-        forceYiRDataRichUser.$isSelected
-            .sink { isSelected in
-                if isSelected {
-                    yirDataController?.forceYiRUserDataState = .dataRich
-                    forceYiRLowDataUser.isSelected = false
-                } else if yirDataController?.forceYiRUserDataState == .dataRich {
-                    yirDataController?.forceYiRUserDataState = nil
-                }
-            }
-            .store(in: &subscribers)
-
-        forceYiRLowDataUser.$isSelected
-            .sink { isSelected in
-                if isSelected {
-                    yirDataController?.forceYiRUserDataState = .lowData
-                    forceYiRDataRichUser.isSelected = false
-                } else if yirDataController?.forceYiRUserDataState == .lowData {
-                    yirDataController?.forceYiRUserDataState = nil
-                }
-            }
+        enableHomePhase2.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomePhase2 = isSelected }
             .store(in: &subscribers)
     }
 
@@ -276,10 +236,5 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
         }
     }
-
-    public func clearGamesPersistence() {
-        Task {
-            try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
-        }
-    }
 }
+

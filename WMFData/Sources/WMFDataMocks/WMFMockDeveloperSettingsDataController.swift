@@ -4,6 +4,7 @@ import WMFData
 #if DEBUG
 
 final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
+    var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? { return nil }
     var enableYearInReview: Bool { return true }
     var enableActivityTabs: Bool { return true }
     var enableArticleTabs: Bool { return true }

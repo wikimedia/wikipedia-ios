@@ -26,25 +26,9 @@ import CoreData
     
     /// Which Year in Review experience to force, regardless of how much personalized data the
     /// account actually has. Nil means no override and the real data decides.
-    public enum YiRUserDataState: String {
+    public enum YiRUserDataState: String, Sendable {
         case dataRich = "data-rich"
         case lowData = "low-data"
-    }
-
-    public var forceYiRUserDataState: YiRUserDataState? {
-        get {
-            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
-                return nil
-            }
-            return YiRUserDataState(rawValue: rawValue)
-        }
-        set {
-            if let newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
-            } else {
-                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
-            }
-        }
     }
 
     /// Shape of the 2025 announcement value still on disk under
@@ -104,15 +88,41 @@ import CoreData
         }
     }
     
-    public func shouldUseDataRichExperience(hasPersonalizedData: Bool) -> Bool {
-        switch forceYiRUserDataState {
-        case .dataRich:
-            return true
-        case .lowData:
-            return false
-        case nil:
-            return hasPersonalizedData
+    // MARK: - User Data State
+
+    // Temporary proxy until each slide reports its own status: a user is data rich when they read
+    // at least this many distinct articles in the data window.
+    static let dataRichDistinctArticleThreshold = 11
+
+    // The proxy measures 2026 reading. targetYear stays 2025 until the whole feature moves to 2026.
+    static let userDataStateYear = 2026
+
+    /// Temporary data window: January 1 through November 30 of `year`, in the given calendar.
+    /// Replace with the remote config `dataStartDate` and `dataEndDate` when the slides are wired.
+    static func userDataStateWindow(year: Int, calendar: Calendar = .current) -> (start: Date, end: Date)? {
+        guard let start = calendar.date(from: DateComponents(year: year, month: 1, day: 1)),
+              let decemberFirst = calendar.date(from: DateComponents(year: year, month: 12, day: 1)) else {
+            return nil
         }
+        return (start, decemberFirst.addingTimeInterval(-1))
+    }
+
+    /// Which Year in Review experience to show. The developer settings override wins, but only when
+    /// `forceYiREntryPoint2026` is on. Otherwise the distinct articles in History decide.
+    public func fetchUserDataState() async throws -> YiRUserDataState {
+        if developerSettingsDataController.forceYiREntryPoint2026,
+           let forcedState = developerSettingsDataController.forceYiRUserDataState {
+            return forcedState
+        }
+
+        guard let window = Self.userDataStateWindow(year: Self.userDataStateYear) else {
+            return .lowData
+        }
+
+        // fetchPageViewCounts groups by page, so the count is distinct articles, not views.
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let distinctArticleCount = try await pageViewsDataController.fetchPageViewCounts(startDate: window.start, endDate: window.end).count
+        return distinctArticleCount >= Self.dataRichDistinctArticleThreshold ? .dataRich : .lowData
     }
 
     /// The badge shows for logged-in and logged-out users alike, so this gates only on availability.
@@ -174,7 +184,10 @@ import CoreData
         // This only gets the announcement on screen. Everything behind it that needs `config` —
         // report population and every personalized slide — still has nothing to work with until a
         // 2026 config is published.
-        if developerSettingsDataController.forceYiR2026Announcement {
+        //
+        // The flag is a sub-setting of forceYiREntryPoint2026 and has no effect without it.
+        if developerSettingsDataController.forceYiREntryPoint2026,
+           developerSettingsDataController.forceYiR2026Announcement {
             return true
         }
 

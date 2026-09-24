@@ -77,9 +77,6 @@ public enum WMFUserDefaultsKey: String {
     case hasSeenGamesAnnouncement = "has-seen-games-announcement"
     case needsDailyGameFeedRefresh = "needs-daily-game-feed-refresh"
 
-    // Games dev settings
-    case developerSettingsShowGamesV2 = "dev-settings-show-games-v2"
-
     // Logging
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"

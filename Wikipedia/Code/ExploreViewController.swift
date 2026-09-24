@@ -130,7 +130,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -1482,14 +1481,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
     }
     
-    @objc func gamesAllSessionsCleared() {
-        DispatchQueue.main.async {
-            self.layoutCache.reset()
-            self.collectionView.collectionViewLayout.invalidateLayout()
-            self.dataStore.feedContentController.resetDailyGameContentGroups()
-        }
-    }
-
     @objc func articleDeleted(_ note: Notification) {
         guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? WMFInMemoryURLKey else {
             return

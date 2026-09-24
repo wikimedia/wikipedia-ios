@@ -4,6 +4,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
+    var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? { get }
     var forceYiR2026Announcement: Bool { get }
 }
 
@@ -88,19 +89,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { saveFlag(.allowGestureZoomArticleWebview, newValue) }
     }
 
-    public var showGamesV2: Bool {
-        get { loadFlag(.developerSettingsShowGamesV2) }
-        set { saveFlag(.developerSettingsShowGamesV2, newValue) }
-    }
-
-    public func clearGamesPersistence() async throws {
-        let gamesDataController = WMFGamesDataController()
-        try await gamesDataController.clearAllSessions()
-        gamesDataController.resetAnnouncementSeen()
-    }
-
     // MARK: - Year in Review
-
 
     /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
     /// as active outside its date window, and the entry point presents even with no 2026 config
@@ -113,6 +102,25 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             saveFlag(.developerSettingsForceYiREntryPoint2026, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+            }
+        }
+    }
+
+    /// Debugging convenience: which Year in Review experience to force, regardless of how much
+    /// personalized data the account has. Nil means no override. Has an effect only when
+    /// `forceYiREntryPoint2026` is also true.
+    public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
+                return nil
+            }
+            return WMFYearInReviewDataController.YiRUserDataState(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
             }
         }
     }
