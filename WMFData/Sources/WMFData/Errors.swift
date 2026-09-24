@@ -48,11 +48,6 @@ public enum WMFDonateDataControllerError: LocalizedError {
     }
 }
 
-public enum WMFYearInReviewDataControllerError: Error {
-    case missingRemoteConfig
-    case missingDonateDataController
-}
-
 extension WMFDataControllerError: Equatable {
     public static func == (lhs: WMFDataControllerError, rhs: WMFDataControllerError) -> Bool {
         switch (lhs, rhs) {
