@@ -708,8 +708,6 @@ public class CommonStrings: NSObject {
 
     public static let notNowTitle = WMFLocalizedString("not-now-title", value: "Not now", comment: "Text for the dismiss button across various features.")
 
-    public static let youCanAccessYIR = WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide.")
-
     public static let logoCaption = WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
 
     public static let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
@@ -856,6 +854,8 @@ public class CommonStrings: NSObject {
     
     // Games
     public static let playTodaysGameTitle = WMFLocalizedString("games-wcf-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.")
+    
+    public static let youCanAccessYIRInActivity = WMFLocalizedString("year-in-review-2026-announcement-exit-toast-title", value: "You can access your Year in Review later in Activity.", comment: "Toast displayed after the user dismisses the Year in Review announcement, telling them where to find the feature later.")
 }
 
 // Language variant strings
