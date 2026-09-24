@@ -9,7 +9,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
 
     private let query: String
     private let project: WMFProject
-    private let didSelectResult: (URL) -> Void
+    private let didSelectResult: (WMFSemanticSearchResult) -> Void
 
     private var viewModel: WMFSemanticSearchResultsViewModel?
     private weak var sheetNavigationController: UINavigationController?
@@ -18,7 +18,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         navigationController: UINavigationController,
         query: String,
         project: WMFProject,
-        didSelectResult: @escaping (URL) -> Void
+        didSelectResult: @escaping (WMFSemanticSearchResult) -> Void
     ) {
         self.navigationController = navigationController
         self.query = query
@@ -62,15 +62,9 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
     }
 
     private func open(_ result: WMFSemanticSearchResult) {
-        guard let siteURL = project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: result.title)
-        else { return }
-
-        articleURL.wmf_languageVariantCode = project.languageVariantCode
-
         viewModel?.cancel()
         sheetNavigationController?.dismiss(animated: true) { [weak self] in
-            self?.didSelectResult(articleURL)
+            self?.didSelectResult(result)
         }
     }
 

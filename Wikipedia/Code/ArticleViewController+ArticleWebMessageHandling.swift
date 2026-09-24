@@ -86,6 +86,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         syncCachedResourcesIfNeeded()
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
         showDonationReminderCardIfNeeded()
+        highlightSemanticSearchPassages()
         showWebViewIfStillHiddenForSection()
     }
 

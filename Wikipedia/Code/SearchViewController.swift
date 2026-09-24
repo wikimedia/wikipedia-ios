@@ -159,13 +159,40 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             navigationController: navigationController,
             query: query,
             project: project,
-            didSelectResult: { [weak self] articleURL in
-                self?.searchResultsVC.articleTappedAction?(articleURL, false)
+            didSelectResult: { [weak self] result in
+                self?.openSemanticSearchResult(result, project: project)
             }
         )
 
         semanticSearchResultsCoordinator = coordinator
         coordinator.start()
+    }
+
+    /// Opens the article at the section of the passage and highlights the passage in it.
+    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject) {
+        guard let dataStore, let navigationController,
+              let siteURL = project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: result.title)?.wmf_URL(withOptionalFragment: result.sectionTitle.map(Self.sectionAnchor))
+        else { return }
+
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
+
+        let coordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: dataStore,
+            theme: theme,
+            source: .search,
+            semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML)
+        )
+        if !coordinator.start() {
+            navigate(to: articleURL)
+        }
+    }
+
+    /// The id MediaWiki gives the heading of a section: the title with underscores for spaces.
+    private static func sectionAnchor(for sectionTitle: String) -> String {
+        sectionTitle.replacingOccurrences(of: " ", with: "_")
     }
 
     // MARK: - History

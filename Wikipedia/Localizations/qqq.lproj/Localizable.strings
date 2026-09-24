@@ -1336,6 +1336,7 @@
 "search-widget-announcement-title" = "Title for the search widget feature announcement";
 "search-widget-description" = "Text for description of Search widget displayed when adding to home screen.";
 "search-widget-wikipedia-title" = "Wikipedia title text displayed in the search widget.";
+"semantic-search-passage-not-found" = "Message shown after opening an article from a passage found by the search, when the passage is not in the article anymore.";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
 "serbian-variants-alert-title" = "Title of alert used to inform users about Serbian variant support.";
 "settings-account" = "Title for button and page letting user view their account page.";
