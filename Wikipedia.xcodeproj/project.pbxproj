@@ -703,9 +703,6 @@
 		679BC84D2C3329D600704A9A /* PageHistoryCountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */; };
 		679BC84E2C3329D600704A9A /* PageHistoryCountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */; };
 		679BC84F2C3329D600704A9A /* PageHistoryCountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */; };
-		679BC8512C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
-		679BC8522C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
-		679BC8532C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
 		679DEF022F621D8E00B21570 /* TestKitchenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */; };
 		679E6FA62C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
 		679E6FA72C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
@@ -3318,7 +3315,6 @@
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFHCaptchaViewController.swift; sourceTree = "<group>"; };
 		679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsView.xib; sourceTree = "<group>"; };
-		679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsViewController.xib; sourceTree = "<group>"; };
 		679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenAdapter.swift; sourceTree = "<group>"; };
 		679DEF002F621D8E00B21570 /* TestKitchenLogAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenLogAdapter.swift; sourceTree = "<group>"; };
 		679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFBarButtonItemPopoverMessageViewController+Extensions.swift"; sourceTree = "<group>"; };
@@ -6166,7 +6162,6 @@
 				7AC19E432301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift */,
 				7AC19E442301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.xib */,
 				679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */,
-				679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */,
 			);
 			name = Counts;
 			sourceTree = "<group>";
@@ -8905,7 +8900,6 @@
 				D8D92B661DF22E1700B95311 /* NotificationBackgroundWarningIcon.png in Resources */,
 				830C0DDA23D9C218006471C4 /* Properties.js in Resources */,
 				67CEF2612350C29D00D5CA6C /* DiffListUneditedCell.xib in Resources */,
-				679BC8512C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */,
 				B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */,
 				B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */,
 				7ABE17292239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
@@ -9046,7 +9040,6 @@
 				D8CE267B1E698E2400DAE2E0 /* TableOfContentsHeader.xib in Resources */,
 				0042811725E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				6780D5B5237A1F490087A5D1 /* DiffResponse.json in Resources */,
-				679BC8532C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */,
 				7A2432C41FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D8CE26801E698E2400DAE2E0 /* TSMessagesDefaultDesign.json in Resources */,
 				D8CE26811E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
@@ -9153,7 +9146,6 @@
 				D8EC3F7B1E9BDA35006712EB /* TableOfContentsHeader.xib in Resources */,
 				0042811625E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				6780D5B6237A1F490087A5D1 /* DiffResponse.json in Resources */,
-				679BC8522C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */,
 				7A2432C51FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D8EC3F801E9BDA35006712EB /* TSMessagesDefaultDesign.json in Resources */,
 				D8EC3F811E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.xib in Resources */,
