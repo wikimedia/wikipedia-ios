@@ -351,6 +351,134 @@ const useFocusStyleForHighlightedSearchTermWithId = id => {
 
 //*****END: findInPage.js
 
+//*****BEGIN: passageHighlight.js
+
+// Highlights the passages of a semantic search result inside the article with the find-in-page
+// token. A passage can span links and other inline elements, so the text of the section is
+// matched as one string across its text nodes, not node by node as find-in-page does.
+
+const passageCharacterFolds = { ' ': ' ', '‑': '-', '‘': "'", '’': "'", '“': '"', '”': '"' }
+
+const foldPassageCharacter = character => {
+  const folded = passageCharacterFolds[character] || character
+  const lowercased = folded.toLowerCase()
+  return lowercased.length === 1 ? lowercased : folded
+}
+
+const isPassageWhitespace = character => /\s/.test(character)
+
+// Soft hyphen, zero-width space, joiners, direction marks and byte order mark: they take no room
+// on screen, and the search index and the rendered article do not agree on them.
+const isPassageInvisible = character => /[\u00AD\u200B-\u200F\uFEFF]/.test(character)
+
+// Reference markers and edit links are not part of the passage text.
+const passageExcludedElements = 'sup.mw-ref, .mw-ref, .reference, .mw-editsection, style, script'
+
+const passageTextNodes = container => {
+  const filter = node => {
+    const parent = node.parentElement
+    if (!parent || tagsToIgnore.has(parent.tagName) || parent.closest(passageExcludedElements)) {
+      return NodeFilter.FILTER_SKIP
+    }
+    return NodeFilter.FILTER_ACCEPT
+  }
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, filter, false)
+  const nodes = []
+  let node
+  while (node = walker.nextNode()) nodes.push(node)
+  return nodes
+}
+
+// The passage folded like the haystack: one space per whitespace run, trimmed.
+const foldPassageText = text => {
+  let folded = ''
+  for (let index = 0; index < text.length; index++) {
+    const character = foldPassageCharacter(text[index])
+    if (isPassageInvisible(character)) continue
+    if (isPassageWhitespace(character)) {
+      if (folded.length > 0 && !folded.endsWith(' ')) folded += ' '
+    } else {
+      folded += character
+    }
+  }
+  return folded.trim()
+}
+
+// The folded text of the nodes, with the node and offset behind every character of it.
+const passageHaystack = nodes => {
+  let text = ''
+  const positions = []
+  nodes.forEach(node => {
+    const value = node.nodeValue
+    for (let offset = 0; offset < value.length; offset++) {
+      const character = foldPassageCharacter(value[offset])
+      if (isPassageInvisible(character)) continue
+      if (isPassageWhitespace(character)) {
+        if (text.length === 0 || text.endsWith(' ')) continue
+        text += ' '
+      } else {
+        text += character
+      }
+      positions.push({ node, offset })
+    }
+  })
+  return { text, positions }
+}
+
+const wrapPassageTextNode = textNode => {
+  const span = document.createElement('span')
+  span.setAttribute('class', 'findInPageMatch')
+  span.setAttribute('data-passage', '')
+  span.setAttribute('id', `passage|${ Math.random().toString(36).substring(2, 9) }`)
+  textNode.parentNode.insertBefore(span, textNode)
+  span.appendChild(textNode)
+  return span.id
+}
+
+// Wraps the characters of the haystack from `start` to `end` (inclusive), one span per text node.
+const wrapPassageRange = (positions, start, end) => {
+  const ids = []
+  let index = start
+  while (index <= end) {
+    const { node, offset } = positions[index]
+    let last = index
+    while (last < end && positions[last + 1].node === node) last++
+    const from = offset
+    const to = positions[last].offset + 1
+    let target = from > 0 ? node.splitText(from) : node
+    if (to - from < target.length) target.splitText(to - from)
+    ids.push(wrapPassageTextNode(target))
+    index = last + 1
+  }
+  return ids
+}
+
+const highlightPassageIn = (container, needle) => {
+  const { text, positions } = passageHaystack(passageTextNodes(container))
+  const start = text.indexOf(needle)
+  if (start < 0) return []
+  return wrapPassageRange(positions, start, start + needle.length - 1)
+}
+
+// Highlights every passage inside the section of `anchor`, or in the whole article when the
+// section is not there or does not contain the passage. Returns the ids of the spans.
+const highlightPassages = (passages, anchor) => {
+  removeSearchTermHighlights()
+  const heading = anchor ? document.getElementById(anchor) : null
+  const section = heading ? heading.closest('section') : null
+  const ids = []
+  passages.forEach(passage => {
+    const needle = foldPassageText(passage)
+    if (needle.length === 0) return
+    let found = section ? highlightPassageIn(section, needle) : []
+    if (found.length === 0) found = highlightPassageIn(document.body, needle)
+    ids.push(...found)
+  })
+  return ids
+}
+
+//*****END: passageHighlight.js
+
 //set window.wmf for calls outside the web view
 
 window.wmf.elementLocation.getFirstOnScreenSection = getFirstOnScreenSection
@@ -359,5 +487,6 @@ window.wmf.utilities.accessibilityCursorToFragment = accessibilityCursorToFragme
 window.wmf.findInPage.removeSearchTermHighlights = removeSearchTermHighlights
 window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm
+window.wmf.findInPage.highlightPassages = highlightPassages
 window.wmf.findInPage.removeSearchTermHighlights = removeSearchTermHighlights
 window.wmf.editTextSelection.getSelectedTextEditInfo = getSelectedTextEditInfo
