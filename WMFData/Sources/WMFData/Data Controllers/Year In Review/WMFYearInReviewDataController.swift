@@ -31,13 +31,6 @@ import CoreData
         case lowData = "low-data"
     }
 
-    struct FeatureAnnouncementStatus: Codable {
-        var hasPresentedYiRFeatureAnnouncementModal: Bool
-        static var `default`: FeatureAnnouncementStatus {
-            return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
-        }
-    }
-
     struct YiRNotificationAnnouncementStatus: Codable {
         var hasSeenYiRIntroSlide: Bool
         static var `default`: YiRNotificationAnnouncementStatus {
@@ -75,8 +68,8 @@ import CoreData
 
     // MARK: - Feature Announcement
 
-    private var featureAnnouncementStatus: FeatureAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
+    private var featureAnnouncementStatus: Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? false
     }
 
     private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {

@@ -9,10 +9,10 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
-    case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
+    case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v4" // 2026, updating as used
     case yearInReviewSurveyPresented = "year-in-review-survey-presented-v3"
     case bypassDonation = "bypass-donation"
-    case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
+    case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v4" // 2026
     case tappedYIR = "tapped-yir"
     case forceEmailAuth = "force-email-auth"
     case articleTabRestoration = "article-tab-restoration"
