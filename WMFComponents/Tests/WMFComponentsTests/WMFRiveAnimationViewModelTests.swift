@@ -68,27 +68,6 @@ struct WMFRiveAnimationViewModelTests {
         #expect(viewModel.loadState.isLoaded == false)
     }
 
-    /// `loadIfNeeded` starts a task and returns, so a test has to wait for the work to land.
-    /// The wait is on the view model's own state. `WMFRiveLogger.failureHandler` is a shared
-    /// global and this suite runs in parallel, so one test's teardown clears another's handler.
-    private func waitForFailure(
-        of viewModel: WMFRiveAnimationViewModel,
-        timeout: TimeInterval = 5
-    ) async {
-        func hasFailed() -> Bool {
-            if case .failed = viewModel.loadState { return true }
-            return false
-        }
-
-        let deadline = Date().addingTimeInterval(timeout)
-        while !hasFailed() && Date() < deadline {
-            try? await Task.sleep(nanoseconds: 10_000_000)
-        }
-        if !hasFailed() {
-            Issue.record("timed out waiting for the load to fail")
-        }
-    }
-
     /// A load that fails must release its task handle. Before this was fixed, `loadIfNeeded`
     /// saw a non-nil handle and returned early for the rest of the view model's life, so a
     /// slide that lost the race to build the Metal worker stayed blank even though
@@ -104,13 +83,13 @@ struct WMFRiveAnimationViewModelTests {
             }
         )
 
-        viewModel.loadIfNeeded()
-        await waitForFailure(of: viewModel)
+        await viewModel.loadIfNeeded()?.value
         #expect(attempts == 1)
 
-        viewModel.loadIfNeeded()
-        await waitForFailure(of: viewModel)
-        #expect(attempts == 2, "a failed load must not block the next attempt")
+        let retry = viewModel.loadIfNeeded()
+        #expect(retry != nil, "a failed load must not block the next attempt")
+        await retry?.value
+        #expect(attempts == 2)
     }
 
     /// The opposite guard: a load already in flight must not be started twice.
@@ -126,11 +105,11 @@ struct WMFRiveAnimationViewModelTests {
             }
         )
 
-        viewModel.loadIfNeeded()
-        viewModel.loadIfNeeded()
-        viewModel.loadIfNeeded()
+        let inFlight = viewModel.loadIfNeeded()
+        #expect(viewModel.loadIfNeeded() == nil, "a load in flight must not start another")
+        #expect(viewModel.loadIfNeeded() == nil)
 
-        await waitForFailure(of: viewModel)
+        await inFlight?.value
         #expect(attempts == 1, "three calls while one load is in flight must start one load")
     }
 

@@ -42,11 +42,15 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         loadTask?.cancel()
     }
 
-    func loadIfNeeded() {
-        guard loadTask == nil, !loadState.isLoaded else { return }
-        loadTask = Task { [weak self] in
-            await self?.load()
+    @discardableResult
+    func loadIfNeeded() -> Task<Void, Never>? {
+        guard loadTask == nil, !loadState.isLoaded else { return nil }
+        let task = Task { [weak self] in
+            guard let self else { return }
+            await self.load()
         }
+        loadTask = task
+        return task
     }
 
     func load() async {
