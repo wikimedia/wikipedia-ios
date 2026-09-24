@@ -666,7 +666,6 @@
 "find-replace-header" = "Пошук та заміна";
 "find-replace-header-close-accessibility" = "Закрити діалог пошуку та заміни";
 "find-textfield-accessibility" = "Пошук";
-"for-you-empty-title" = "Тут ще нічого немає";
 "for-you-error-retry" = "Спробуйте ще раз";
 "for-you-error-subtitle" = "Підключіться до інтернету та спробуйте ще раз.";
 "for-you-error-title" = "Немає з'єднання з інтернетом";
@@ -1647,7 +1646,6 @@
 "year-in-review-feature-explore-body-v3" = "Перегляньте аналітику статей, які ви читали у застосунку Вікіпедії, та внесених вами змін.";
 "year-in-review-feature-explore-footer-v3" = "Ваша історія читання захищена. Статистика читання розраховується на основі даних, що зберігаються локально на вашому пристрої.";
 "year-in-review-highlights-share-logo-caption" = "Логотип Вікіпедії";
-"year-in-review-intro-exit-toast-title" = "Ви можете переглянути свій огляд року пізніше в розділі «Профіль».";
 "year-in-review-intro-login-title" = "Увійдіть для персоналізації";
 "yesterday-title" = "Учора";
 "zero-edits-to-articles" = "0 нещодавніх редагувань статей";

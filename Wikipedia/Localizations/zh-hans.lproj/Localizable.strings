@@ -749,8 +749,6 @@
 "find-replace-header" = "查找和替换";
 "find-replace-header-close-accessibility" = "关闭查找和更换";
 "find-textfield-accessibility" = "查找";
-"for-you-empty-subtitle-interests-or-modules" = "添加兴趣或启用模块，即可获得个性化条目推荐";
-"for-you-empty-title" = "这里还没有东西";
 "for-you-error-retry" = "重试";
 "for-you-error-subtitle" = "连接到互联网后再试一次。";
 "for-you-error-title" = "无互联网连接";
@@ -783,11 +781,9 @@
 "home-button-home-accessibility-label" = "维基百科，返回首页";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
 "home-card-more-options-accessibility-label" = "更多选项";
-"home-community-empty-feed-turn-on-modules-message" = "启用模块即可查看社群内容";
 "home-community-see-past-content" = "查看以往的社群内容";
 "home-community-tab-title" = "社群";
 "home-edit-languages-title" = "添加或编辑语言";
-"home-empty-go-to-settings-button" = "前往设置";
 "home-feed-for-you-based-on-interests-subtitle" = "根据您选择的主题量身定制的条目。";
 "home-feed-for-you-based-on-interests-title" = "根据你的兴趣";
 "home-feed-for-you-because-you-read-subtitle" = "根据您历史记录中的一篇近期条目提出的建议";
@@ -1742,7 +1738,6 @@
 "year-in-review-feature-explore-body-v3" = "查看有关您在维基百科应用程序上所阅读的条目和所作编辑的深入分析。";
 "year-in-review-feature-explore-footer-v3" = "您的阅读历史记录受到保护。阅读分析数据基于您设备本地存储的数据计算得出。";
 "year-in-review-highlights-share-logo-caption" = "维基百科标志";
-"year-in-review-intro-exit-toast-title" = "您稍后可以在个人资料中查看您的年度回顾。";
 "year-in-review-intro-login-title" = "登录以进行个性化";
 "yesterday-title" = "昨日";
 "zero-edits-to-articles" = "最近对条目进行了 0 次编辑";

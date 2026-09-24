@@ -705,8 +705,6 @@
 "for-you-empty-feed-subtitle" = "သင်စူးစမ်းလိလာစွာနန့်တတူ သင့် \"သင့်အတွက်\" ဖိဒ်မာ စိတ်ကြိုက်ပြင်ဆင်ထားရေ ဆောင်းပါးတိနန်ပ ပြည့်နှက်နီပါဖို့။";
 "for-you-empty-feed-title" = "သင့် feed စွာ ယခုအချိန်အတွက် ဗလာဖြစ်နီပါရေ";
 "for-you-empty-feed-ways-to-get-started" = "စတင်ဖို့ နည်းလမ်းတိ-";
-"for-you-empty-subtitle-interests-or-modules" = "စိတ်ကြိုက်ဆောင်းပါးအကြံပြုချက်တိရဟိဖို့ စိတ်ဝင်စားမှုတိကိုထည့်ပါ သို့မဟုတ် မော်ဂျူးတိကိုဖွင့်ပါ";
-"for-you-empty-title" = "တခုမှ မဟိသိမ့်ပါ";
 "for-you-end-of-feed-add-interests-format" = "$1 ထည့်ပါ";
 "for-you-end-of-feed-add-interests-link" = "စိတ်ဝင်စားမှုအသစ်တိ";
 "for-you-end-of-feed-community-format" = "$1 မာ ဇာတိဖြစ်နိန်လဲဆိုစွာ ကြေ့ပါ";
@@ -746,11 +744,9 @@
 "home-button-home-accessibility-label" = "ဝီကီးပီးဒီးယား၊ မူလစာမျက်နှာသို့ ပြန်လားပါ";
 "home-button-saved-accessibility-label" = "ဝီကီးပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်လားဖို့";
 "home-card-more-options-accessibility-label" = "နောက်ထပ် ရွီးချယ်စရာတိ";
-"home-community-empty-feed-turn-on-modules-message" = "အသိုင်းအဝိုင်းအကြောင်းအရာကိုကြေ့ဖို့ မော်ဂျူးတိကိုဖွင့်ပါ";
 "home-community-see-past-content" = "အယင်က ကွန်မြူနတီ အကြောင်းအရာတိကို ‌‌ကြေ့ပါ";
 "home-community-tab-title" = "ကွန်မြူနတီ";
 "home-edit-languages-title" = "ဘာသာစကားတိ ပေါင်းထည့်/တီးဖြတ်";
-"home-empty-go-to-settings-button" = "ဆက်တင်တိသို့ လားပါ";
 "home-feed-for-you-based-on-interests-subtitle" = "သင်ရွီးချယ်ထားသော အကြောင်းအရာတိနန့် ကိုက်ညီသော ဆောင်းပါးတိ။";
 "home-feed-for-you-based-on-interests-title" = "သင့်ဧ့ စိတ်ဝင်စားမှုတိပေါ်မာ အခြီခံပြီး";
 "home-feed-for-you-because-you-read-subtitle" = "သင့်သမိုင်းမှ မကြာသိခင်က ဆောင်းပါးတပုဒ်အပေါ် အခြီခံရေ အကြံပြုချက်တိ";
