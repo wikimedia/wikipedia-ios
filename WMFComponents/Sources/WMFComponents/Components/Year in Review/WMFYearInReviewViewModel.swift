@@ -6,16 +6,15 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     public static let chromeBackgroundColor = UIColor(0x161616)
 
-    /// Design could not read the value off the Figma frame, so this is a judgement call.
-    /// Change it here and both bottom corners follow.
-    public static let slideCornerRadius: CGFloat = 24
+    /// Both bottom corners follow this.
+    public static let slideCornerRadius = WMFCornerRadius.xxLarge
 
     public static let toolbarMinimumHeight: CGFloat = 64
 
-    public static let progressBarEdgeInset: CGFloat = 12
+    public static let progressBarEdgeInset = WMFSpacing.medium
 
     /// The space between the navigation bar and the progress bar.
-    public static let progressBarTopGap: CGFloat = 12
+    public static let progressBarTopGap = WMFSpacing.medium
 
     public struct LocalizedStrings {
         public let wIconAccessibilityLabel: String

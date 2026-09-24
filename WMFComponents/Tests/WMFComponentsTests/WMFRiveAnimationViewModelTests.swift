@@ -69,19 +69,23 @@ struct WMFRiveAnimationViewModelTests {
     }
 
     /// `loadIfNeeded` starts a task and returns, so a test has to wait for the work to land.
-    /// Every wait here is on the failure handler, which the load calls last, so everything
-    /// before it in the catch has already run.
-    private func waitFor(
-        _ description: String,
-        timeout: TimeInterval = 5,
-        until condition: @MainActor () -> Bool
+    /// The wait is on the view model's own state. `WMFRiveLogger.failureHandler` is a shared
+    /// global and this suite runs in parallel, so one test's teardown clears another's handler.
+    private func waitForFailure(
+        of viewModel: WMFRiveAnimationViewModel,
+        timeout: TimeInterval = 5
     ) async {
+        func hasFailed() -> Bool {
+            if case .failed = viewModel.loadState { return true }
+            return false
+        }
+
         let deadline = Date().addingTimeInterval(timeout)
-        while !condition() && Date() < deadline {
+        while !hasFailed() && Date() < deadline {
             try? await Task.sleep(nanoseconds: 10_000_000)
         }
-        if !condition() {
-            Issue.record("timed out waiting for \(description)")
+        if !hasFailed() {
+            Issue.record("timed out waiting for the load to fail")
         }
     }
 
@@ -92,10 +96,6 @@ struct WMFRiveAnimationViewModelTests {
     @Test
     func aFailedLoadDoesNotBlockTheNextAttempt() async {
         var attempts = 0
-        var failures = 0
-        WMFRiveLogger.failureHandler = { _ in failures += 1 }
-        defer { WMFRiveLogger.failureHandler = nil }
-
         let viewModel = WMFRiveAnimationViewModel(
             animation: animation,
             loader: { _ in
@@ -105,11 +105,11 @@ struct WMFRiveAnimationViewModelTests {
         )
 
         viewModel.loadIfNeeded()
-        await waitFor("the first load to fail") { failures == 1 }
+        await waitForFailure(of: viewModel)
         #expect(attempts == 1)
 
         viewModel.loadIfNeeded()
-        await waitFor("the second load to run") { failures == 2 }
+        await waitForFailure(of: viewModel)
         #expect(attempts == 2, "a failed load must not block the next attempt")
     }
 
@@ -117,10 +117,6 @@ struct WMFRiveAnimationViewModelTests {
     @Test
     func aLoadInFlightIsNotStartedTwice() async {
         var attempts = 0
-        var failures = 0
-        WMFRiveLogger.failureHandler = { _ in failures += 1 }
-        defer { WMFRiveLogger.failureHandler = nil }
-
         let viewModel = WMFRiveAnimationViewModel(
             animation: animation,
             loader: { _ in
@@ -134,7 +130,7 @@ struct WMFRiveAnimationViewModelTests {
         viewModel.loadIfNeeded()
         viewModel.loadIfNeeded()
 
-        await waitFor("the load to finish") { failures == 1 }
+        await waitForFailure(of: viewModel)
         #expect(attempts == 1, "three calls while one load is in flight must start one load")
     }
 

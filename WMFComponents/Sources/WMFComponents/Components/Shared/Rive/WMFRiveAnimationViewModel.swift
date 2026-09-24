@@ -63,8 +63,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         } catch {
             guard !Task.isCancelled else { return }
             self.rive = nil
-            self.loadState = .failed
             self.loadTask = nil
+            self.loadState = .failed
             WMFRiveLogger.log(
                 WMFRiveFailure(animation: animation, stage: stage(for: error), reason: error.localizedDescription)
             )
