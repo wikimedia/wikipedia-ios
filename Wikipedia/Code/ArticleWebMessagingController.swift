@@ -190,6 +190,25 @@ class ArticleWebMessagingController: NSObject {
         }
     }
 
+    /// Highlights `passages` inside the section of `anchor`, or in the whole article when the
+    /// section does not have them. Reports how many highlight spans were added.
+    func highlightPassages(_ passages: [String], anchor: String?, completion: @escaping (Int) -> Void) {
+        guard let webView,
+              let passagesData = try? JSONEncoder().encode(passages),
+              let passagesJSON = String(data: passagesData, encoding: .utf8) else {
+            completion(0)
+            return
+        }
+
+        let anchorJS = anchor.map { "`\($0.sanitizedForJavaScriptTemplateLiterals)`" } ?? "null"
+        webView.evaluateJavaScript("window.wmf.findInPage.highlightPassages(\(passagesJSON), \(anchorJS))") { result, error in
+            if let error {
+                DDLogWarn("Error highlighting passages: \(error)")
+            }
+            completion((result as? [String])?.count ?? 0)
+        }
+    }
+
     func removeElementHighlights() {
         webView?.evaluateJavaScript("pcs.c1.Page.removeHighlightsFromHighlightedElements()")
     }

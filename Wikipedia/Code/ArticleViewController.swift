@@ -1030,7 +1030,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
         case .scrollToAnchor(let anchor, let attempt, let maxAttempts, let completion):
             scrollRestorationState = .none
-            self.scroll(to: anchor, animated: true) { [weak self] (success) in
+            self.scroll(to: anchor, animated: false) { [weak self] (success) in
                 guard !success, attempt < maxAttempts else {
                     completion?(success, attempt >= maxAttempts)
                     return
@@ -1065,7 +1065,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         guard let fragment = response.url?.fragment else {
             return
         }
-        scrollRestorationState = .scrollToAnchor(fragment, attempt: 1)
+        // The fragment is percent-encoded in the URL. Element ids are not.
+        scrollRestorationState = .scrollToAnchor(fragment.removingPercentEncoding ?? fragment, attempt: 1, completion: { [weak self] success, maxedAttempts in
+            if success || maxedAttempts {
+                self?.setWebViewHidden(false, animated: true)
+            }
+        })
     }
 
     // MARK: Article State Restoration
@@ -1080,12 +1085,17 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
-    /// Perform any necessary initial configuration for state restoration
+    /// Perform any necessary initial configuration for state restoration, or for a URL with a
+    /// section: the article shows up already at the section, not scrolling from the top.
     func setupForStateRestorationIfNecessary() {
-        guard isRestoringState else {
+        guard isRestoringState || opensAtSection else {
             return
         }
         setWebViewHidden(true, animated: false)
+    }
+
+    var opensAtSection: Bool {
+        articleURL.fragment != nil
     }
 
     /// Translates an article's viewedScrollPosition or viewedFragment values to a scrollRestorationState. These values are saved to the article object when the ArticleVC disappears,the app is backgrounded, or an edit is made and the article is reloaded.
