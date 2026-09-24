@@ -31,22 +31,6 @@ import CoreData
         case lowData = "low-data"
     }
 
-    public var forceYiRUserDataState: YiRUserDataState? {
-        get {
-            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
-                return nil
-            }
-            return YiRUserDataState(rawValue: rawValue)
-        }
-        set {
-            if let newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
-            } else {
-                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
-            }
-        }
-    }
-
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
         static var `default`: FeatureAnnouncementStatus {
@@ -108,7 +92,11 @@ import CoreData
     }
     
     public func shouldUseDataRichExperience(hasPersonalizedData: Bool) -> Bool {
-        switch forceYiRUserDataState {
+        // The forced experience is a sub-setting of forceYiREntryPoint2026 and has no effect without it.
+        guard developerSettingsDataController.forceYiREntryPoint2026 else {
+            return hasPersonalizedData
+        }
+        switch developerSettingsDataController.forceYiRUserDataState {
         case .dataRich:
             return true
         case .lowData:

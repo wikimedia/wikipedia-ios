@@ -53,6 +53,24 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
+                captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
+                    Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
+                }
+                captionedRow(caption: "Overrides the experience the personalized data selects. Switching it back to Off lets the user data dictate the experience.") {
+                    Picker("Force Experience", selection: $viewModel.forceYiRUserDataState) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRUserDataState?.none)
+                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.dataRich))
+                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.lowData))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
+            } header: {
+                sectionHeader("Year in Review")
+            }
+            .listRowBackground(rowBackground)
+
+            Section {
                 captionedRow(caption: "Fakes a successful donation without a real charge. The native form skips the payment submission, and the web form goes straight to the thank you page.") {
                     Toggle(viewModel.localizedStrings.bypassDonation, isOn: $viewModel.bypassDonation)
                 }
