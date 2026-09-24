@@ -66,7 +66,7 @@ public struct WMFWhichCameFirstResultsView: View {
     private var archiveButton: some View {
         WMFLargeButton(
             style: .neutral,
-            title: viewModel.localizedStrings.playTheArchiveButton,
+            title: viewModel.playTheArchiveButton,
             icon: .calendarBadgeClock,
             action: {
                 viewModel.onPlayArchive?()
@@ -107,7 +107,7 @@ public struct WMFWhichCameFirstResultsView: View {
     
     private var scoreCard: some View {
         VStack(alignment: .center, spacing: 12) {
-            Text(viewModel.localizedStrings.scoreLabel(viewModel.score, of: viewModel.totalQuestions))
+            Text(viewModel.scoreLabel(viewModel.score, of: viewModel.totalQuestions))
                 .font(Font(WMFFont.for(.georgiaTitle1)))
             // Specifically left as hardcoded color
                 .foregroundStyle(Color.black)
@@ -122,7 +122,7 @@ public struct WMFWhichCameFirstResultsView: View {
                         .foregroundStyle(Color.black)
                         .accessibilityHidden(true)
                 }
-                Text(viewModel.localizedStrings.countdownLabel(from: viewModel.nextGameCountdownString))
+                Text(viewModel.countdownLabel(from: viewModel.nextGameCountdownString))
                     .font(Font(WMFFont.for(.callout)).monospacedDigit())
                 // Specifically left as hardcoded color
                     .foregroundStyle(Color.black)
@@ -138,7 +138,7 @@ public struct WMFWhichCameFirstResultsView: View {
                         Image(uiImage: image)
                             .accessibilityHidden(true)
                     }
-                    Text(viewModel.localizedStrings.shareScoreButton)
+                    Text(viewModel.shareScoreButton)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -166,7 +166,7 @@ public struct WMFWhichCameFirstResultsView: View {
     
     private var statsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(viewModel.localizedStrings.yourStatsTitle)
+            Text(viewModel.yourStatsTitle)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .fixedSize(horizontal: false, vertical: true)
@@ -191,25 +191,25 @@ public struct WMFWhichCameFirstResultsView: View {
                     statCell(
                         symbol: .gameControllerFill,
                         value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
-                        label: viewModel.localizedStrings.gamesPlayedLabel
+                        label: viewModel.gamesPlayedLabel
                     )
                     Divider()
                     statCell(
                         symbol: .starSquare,
                         value: viewModel.currentStreak.map { "\($0)" } ?? "–",
-                        label: viewModel.localizedStrings.currentStreakLabel
+                        label: viewModel.currentStreakLabel
                     )
                     Divider()
                     statCell(
                         symbol: .medalStar,
                         value: viewModel.bestStreak.map { "\($0)" } ?? "–",
-                        label: viewModel.localizedStrings.bestStreakLabel
+                        label: viewModel.bestStreakLabel
                     )
                     Divider()
                     statCell(
                         symbol: .flagPatternCheckered,
                         value: viewModel.averageScore.map { formattedAverageScore($0) } ?? "–",
-                        label: viewModel.localizedStrings.averageScoreLabel
+                        label: viewModel.averageScoreLabel
                     )
                 }
             } else {
@@ -218,24 +218,24 @@ public struct WMFWhichCameFirstResultsView: View {
                         statCell(
                             symbol: .gameControllerFill,
                             value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
-                            label: viewModel.localizedStrings.gamesPlayedLabel
+                            label: viewModel.gamesPlayedLabel
                         )
                         statCell(
                             symbol: .starSquare,
                             value: viewModel.currentStreak.map { "\($0)" } ?? "–",
-                            label: viewModel.localizedStrings.currentStreakLabel
+                            label: viewModel.currentStreakLabel
                         )
                     }
                     HStack(spacing: 0) {
                         statCell(
                             symbol: .medalStar,
                             value: viewModel.bestStreak.map { "\($0)" } ?? "–",
-                            label: viewModel.localizedStrings.bestStreakLabel
+                            label: viewModel.bestStreakLabel
                         )
                         statCell(
                             symbol: .flagPatternCheckered,
                             value: viewModel.averageScore.map { "\($0)" } ?? "–",
-                            label: viewModel.localizedStrings.averageScoreLabel
+                            label: viewModel.averageScoreLabel
                         )
                     }
                 }
@@ -269,13 +269,13 @@ public struct WMFWhichCameFirstResultsView: View {
     
     private var loggedOutStats: some View {
         VStack(spacing: 8) {
-            Text(viewModel.localizedStrings.logInToViewStatsTitle)
+            Text(viewModel.logInToViewStatsTitle)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             
-            Text(viewModel.localizedStrings.logInToViewStatsBody)
+            Text(viewModel.logInToViewStatsBody)
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
@@ -289,7 +289,7 @@ public struct WMFWhichCameFirstResultsView: View {
                         Image(uiImage: image)
                             .accessibilityHidden(true)
                     }
-                    Text(viewModel.localizedStrings.logInButton)
+                    Text(viewModel.logInButton)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .fixedSize(horizontal: false, vertical: true)
                 }

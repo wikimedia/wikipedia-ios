@@ -187,15 +187,28 @@ public final class WMFCoreDataStore: @unchecked Sendable {
                 let emptyArticleTabItemsPredicate = NSPredicate(format: "articleTabItems.@count == 0")
                 let savedPageInfoPredicate = NSPredicate(format: "savedInfo == nil")
 
-                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate, savedPageInfoPredicate])
+                // An interest is an explicit user pick, and CDPageInterest requires its page, so pruning one both loses the interest and fails this save
+                let pageInterestPredicate = NSPredicate(format: "interest == nil")
 
-                // Delete CDPages that have no page views, no article tab items, and were added > one year ago
+                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate, savedPageInfoPredicate, pageInterestPredicate])
+
+                // Delete CDPages that have no page views, no article tab items, no saved info, no interest, and were added > one year ago
                 guard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: 2000, in: backgroundContext) else {
                     return
                 }
 
                 for page in pagesToDelete {
                     backgroundContext.delete(page)
+                }
+
+                // Delete CDPageInterests that lost their page. These are unreachable to callers, and leaving one behind would fail every future save
+                let orphanedPagePredicate = NSPredicate(format: "page == nil")
+                guard let interestsToDelete = try self.fetch(entityType: CDPageInterest.self, predicate: orphanedPagePredicate, fetchLimit: nil, in: backgroundContext) else {
+                    return
+                }
+
+                for interest in interestsToDelete {
+                    backgroundContext.delete(interest)
                 }
 
                 // Delete CDCategorys that have empty pages

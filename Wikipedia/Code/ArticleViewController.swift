@@ -172,12 +172,24 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
 
+    // Coordinator used to navigate a user to the donation reminder setup screen from campaign modal
+    var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
+
+    var isShowingDonateFlowFromDonationReminderCard = false
+
+    var shownWrapUpCard: WMFDonationReminderDataController.WrapUpCard?
+
+    var localDonationCountBeforeDonateFlow = 0
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
     private var tocStackViewTopConstraint: NSLayoutConstraint?
 
     internal var articleViewSource: ArticleSource
+
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
 
     // Properties related to tracking number of seconds this article is viewed.
     var pageViewObjectID: NSManagedObjectID?
@@ -297,7 +309,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
-        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, failure: { (error) in
             DDLogWarn("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
@@ -479,6 +491,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isFirstAppearance = true
     var needsTabsIconImpressonOnCancel = false
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -487,6 +500,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
+        removeDonationReminderCardIfNeeded()
         trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
@@ -523,17 +537,17 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     /// Modal presentation priority chain for the Article view:
+    ///   1. Fundraising        →  if shown, stop. Also defers Year in Review to the next app open.
     ///   2. Year in Review     →  if shown, stop.
-    ///   3. Fundraising        →  if shown, stop.
-    ///   4. Games announcement →  shown only when all of the above decline.
+    ///   3. Games announcement →  shown only when both of the above decline.
     ///
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded()
+        presentFundraisingOrYearInReviewOrGamesIfNeeded()
     }
 
-    /// Called at the tail of the modal chain (after RC, YIR, and fundraising have all declined).
+    /// Called at the tail of the modal chain (after fundraising and YIR have both declined).
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
@@ -547,7 +561,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         Task { [weak self] in
             guard let self else { return }
-            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else {
+                // Nothing else wanted the screen, so the lowest priority prompt gets its turn.
+                self.presentEvergreenAccountCreationPromptIfNeeded()
+                return
+            }
             // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
@@ -613,22 +631,26 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         return formatter.string(from: Date())
     }
 
-    private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
-        if !WMFDeveloperSettingsDataController.shared.enableHomeTab {
+    private func presentFundraisingOrYearInReviewOrGamesIfNeeded() {
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
             listenForTooltips()
         }
 
-        if needsYearInReviewAnnouncement() {
-            willDisplayYearInReviewModal = true
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        } else {
-            willDisplayYearInReviewModal = false
-            showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
-                self?.presentGamesAnnouncementIfNeeded()
-            })
-        }
+        // Fundraising outranks Year in Review, and resolves asynchronously, so the rest of the
+        // chain runs from its callback.
+        showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
+            guard let self else { return }
+
+            if self.needsYearInReviewAnnouncement() {
+                self.willDisplayYearInReviewModal = true
+                self.updateProfileButton()
+                self.presentYearInReviewAnnouncement()
+                // YIR showed — games deferred to next launch.
+            } else {
+                self.willDisplayYearInReviewModal = false
+                self.presentGamesAnnouncementIfNeeded()
+            }
+        })
     }
 
     @objc private func wButtonTapped(_ sender: UIButton) {
@@ -658,6 +680,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
 
         self.tabBarController?.setTabBarHidden(false, animated: true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        removeDonationReminderCardAfterNavigationAway()
     }
 
     // MARK: Article load
@@ -1264,6 +1291,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // MARK: Overrideable functionality
 
     internal func handleLink(with href: String) {
+        guard !handleDonationReminderLinkIfNeeded(href: href) else { return }
 
         guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()
@@ -1452,6 +1480,10 @@ private extension ArticleViewController {
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
+        // The Year in Review announcement defers to the fundraising banner for the rest of the
+        // session. Coming back from the background is the next app open, so clear it here.
+        Self.didShowFundraisingBannerThisSession = false
+
         startSignificantlyViewedTimer()
         trackAppDidBecomeActive()
     }

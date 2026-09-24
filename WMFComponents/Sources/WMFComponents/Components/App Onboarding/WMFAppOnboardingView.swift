@@ -47,15 +47,30 @@ public struct WMFAppOnboardingView: View {
         switch viewModel.currentStep {
         case .intro:
             WMFAppOnboardingIntroView(viewModel: viewModel)
+                .onAppear {
+                    viewModel.logImpression(.intro)
+                }
         case .dataPrivacy:
             WMFAppOnboardingDataPrivacyView(viewModel: viewModel, theme: theme)
+                .onAppear {
+                    viewModel.logImpression(.dataPrivacy)
+                }
         case .languages:
             WMFAppOnboardingLanguagesView(viewModel: viewModel, theme: theme)
+                .onAppear {
+                    viewModel.logImpression(.languages)
+                }
         case .personalizationIntro:
             WMFAppOnboardingPersonalizationIntroView(viewModel: viewModel, theme: theme)
+                .onAppear {
+                    viewModel.logImpression(.personalizationIntro)
+                }
         case .interests:
             VStack(spacing: 0) {
                 WMFHomeFeedInterestsSettingsView(viewModel: viewModel.interestsViewModel, topContentInset: Self.interestsTopContentInset, bottomContentInset: Self.toolbarContentInset)
+                    .onAppear {
+                        viewModel.logImpression(.interests)
+                    }
             }
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier(AccessibilityIdentifiers.Interests.view)
@@ -63,9 +78,13 @@ public struct WMFAppOnboardingView: View {
             WMFAppOnboardingFeedPreferenceView(viewModel: viewModel.feedPreferenceViewModel, theme: theme)
                 .onAppear {
                     viewModel.feedPreferenceViewModel.loadIfNeeded()
+                    viewModel.logImpression(.feedPreference)
                 }
         case .loading:
             WMFAppOnboardingLoadingView(viewModel: viewModel, theme: theme)
+                .onAppear {
+                    viewModel.logImpression(.loading)
+                }
         }
     }
 }

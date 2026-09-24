@@ -310,7 +310,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             ? AccessibilityIdentifiers.Explore.pictureOfTheDayCell
             : nil
         if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore, viewSize: view.bounds.size)?.first {
-            cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+            cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         if !imageInfo.imageDescription.isEmpty {
             cell.captionIsRTL = imageInfo.imageDescriptionIsRTL
@@ -336,7 +336,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             if let imageURL = announcement.imageURL {
                 cell.isImageViewHidden = false
                 if !layoutOnly {
-                    cell.imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: false, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+                    cell.imageView.wmf_setImage(with: imageURL, detectFaces: false, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
                 }
             } else {
                 cell.isImageViewHidden = true
@@ -362,12 +362,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
             cell.messageHTML = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.")
             cell.actionButton.setTitle(WMFLocalizedString("home-themes-action-title", value: "Manage preferences", comment: "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences."), for:.normal)
-        case .readingList:
-            cell.isImageViewHidden = false
-            cell.imageView.image = UIImage(named: "feed-card-reading-list")
-            cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageHTML = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.")
-            cell.actionButton.setTitle(CommonStrings.readingListLoginButtonTitle, for:.normal)
         default:
             break
         }

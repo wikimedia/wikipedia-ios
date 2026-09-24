@@ -15,7 +15,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
                                searchLanguages: [WMFLanguage] = []) -> WMFHomeFeedInterestsSettingsViewModel {
         let dataController = WMFHomeDataController(userDefaultsStore: store)
         let searchDataController = WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get"))
-        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, searchDataController: searchDataController, project: project, searchLanguages: searchLanguages)
+        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, searchDataController: searchDataController, project: project, searchLanguages: searchLanguages, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
     }
 
     private func makeArticle(pageid: Int, title: String) -> WMFRandomArticle {
@@ -345,7 +345,10 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
             pageInterestDataController: interests,
             searchDataController: WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get")),
             project: project,
-            searchLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)]
+            searchLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)],
+            logDidTapTopic: {},
+            logDidTapArticle: {},
+            logDidTapDeselectAll: {}
         )
 
         let deadline = ContinuousClock.now.advanced(by: .seconds(10))
@@ -372,7 +375,10 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
             pageInterestDataController: interests,
             searchDataController: WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get")),
             project: project,
-            searchLanguages: []
+            searchLanguages: [],
+            logDidTapTopic: {},
+            logDidTapArticle: {},
+            logDidTapDeselectAll: {}
         )
 
         let deadline = ContinuousClock.now.advanced(by: .seconds(10))
@@ -409,7 +415,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         try? store.save(key: "home-feed-interest-topics", value: ["architecture", "not-a-real-topic"])
 
         let dataController = WMFHomeDataController(userDefaultsStore: store)
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project)
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
         #expect(viewModel.selectedTopics == [.architecture])
     }
 }

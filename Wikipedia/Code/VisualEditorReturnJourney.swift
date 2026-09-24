@@ -1,7 +1,7 @@
 import Foundation
 
 /// Parses the URL the web Visual Editor uses to hand the user back to the app after publishing or abandoning an edit, e.g.
-/// `wikipedia://en.wikipedia.org/wiki/Cat?saved=true&revision=12345`.
+/// `wikipedia://en.wikipedia.org/wiki/Cat?saved=true&revision=12345&appinstallid=6789`.
 /// Also recognizes a return mid-edit through Safari's native app banner, where the
 /// incoming URL is the editing URL itself (`?veaction=edit&returntoapp=1`).
 struct VisualEditorReturnJourney {
@@ -21,6 +21,7 @@ struct VisualEditorReturnJourney {
     private static let returnToAppQueryItemName = "returntoapp"
     private static let sectionQueryItemName = "section"
     private static let useFormatQueryItemName = "useformat"
+    private static let appInstallIDQueryItemName = "appinstallid"
 
     init?(url: URL) {
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -60,7 +61,8 @@ struct VisualEditorReturnJourney {
             Self.visualEditorActionQueryItemName,
             Self.returnToAppQueryItemName,
             Self.sectionQueryItemName,
-            Self.useFormatQueryItemName
+            Self.useFormatQueryItemName,
+            Self.appInstallIDQueryItemName
         ]
 
         let remainingQueryItems = queryItems.filter { !visualEditorQueryItemNames.contains($0.name) }

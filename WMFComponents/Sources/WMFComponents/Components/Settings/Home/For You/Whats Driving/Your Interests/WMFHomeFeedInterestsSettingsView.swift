@@ -188,6 +188,8 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     // MARK: - Topic chips
 
+    private static let chipsLeadingAnchorID = "interestTopicChipsLeadingAnchor"
+
     private var topicChips: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
@@ -202,10 +204,8 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                             let isSelecting = !viewModel.selectedTopics.contains(topic)
                             viewModel.toggleTopic(topic)
                             if isSelecting {
-                                // Selection moves the chip into the selected group, which can
-                                // land off-screen — follow it, instantly (see below).
                                 Task { @MainActor in
-                                    proxy.scrollTo(topic)
+                                    proxy.scrollTo(Self.chipsLeadingAnchorID, anchor: .leading)
                                 }
                             }
                         }
@@ -213,8 +213,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                // Deliberately unanimated: animating the reorder made chips swap places and
-                // the +/checkmark icon slide. Selection should apply instantly (per design).
+                .id(Self.chipsLeadingAnchorID)
             }
         }
     }

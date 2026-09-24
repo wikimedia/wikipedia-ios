@@ -15,6 +15,8 @@ public enum WMFNSNotification {
     public static let communityModuleVisibilityDidChange = Notification.Name(WMFNotificationName.communityModuleVisibilityDidChange.rawValue)
     public static let forYouModuleVisibilityDidChange = Notification.Name(WMFNotificationName.forYouModuleVisibilityDidChange.rawValue)
     public static let forYouInterestsDidChange = Notification.Name(WMFNotificationName.forYouInterestsDidChange.rawValue)
+    public static let pageViewHistoryDidChange = Notification.Name(WMFNotificationName.pageViwHistoryDidChange.rawValue)
+    public static let yearInReviewActivityTabBadgeNeedsUpdate = Notification.Name(WMFNotificationName.yirActivity2026.rawValue)
 
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -37,4 +39,6 @@ private enum WMFNotificationName: String {
     case communityModuleVisibilityDidChange = "WMFDataCommunityModuleVisibilityDidChange"
     case forYouModuleVisibilityDidChange = "WMFDataForYouModuleVisibilityDidChange"
     case forYouInterestsDidChange = "WMFDataForYouInterestsDidChange"
+    case pageViwHistoryDidChange = "WMFPageViewHistoryDidChange"
+    case yirActivity2026 = "WMFYearInReviewActivityTabBadgeNeedsUpdate"
 }

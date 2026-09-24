@@ -45,4 +45,9 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
     @objc private func close() {
         closeButtonHandler?()
     }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.logImpressionIfNeeded?()
+    }
 }

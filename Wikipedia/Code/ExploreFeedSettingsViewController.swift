@@ -234,12 +234,11 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
         if isCommunityMode {
-            feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay]
+            feedCards = WMFContentGroupKind.communityFeedCardKinds.map { FeedCard(contentGroupKind: $0, displayType: displayType) }
         } else {
             feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+            feedCards.insert(dailyGame, at: 3)
         }
-        
-        feedCards.insert(dailyGame, at: 3)
   
         let suggestedEditsOption = suggestedEdits
 

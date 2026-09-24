@@ -214,4 +214,87 @@ final class WMFCoreDataStoreTests: XCTestCase {
             XCTAssertEqual(newPageViews.count, 2)
         }
     }
+
+    // CDPageInterest.page is required and nullified on page delete, so pruning a page with an interest fails the whole housekeeping save
+    func testPageInterestRequiresItsPage() async throws {
+
+        guard let store else {
+            throw TestsError.missingStore
+        }
+
+        let backgroundContext = try store.newBackgroundContext
+        try backgroundContext.performAndWait {
+            let catPage = try store.create(entityType: CDPage.self, in: backgroundContext)
+            catPage.title = "Cat"
+            catPage.namespaceID = 0
+            catPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
+            catPage.timestamp = Date()
+
+            let catInterest = try store.create(entityType: CDPageInterest.self, in: backgroundContext)
+            catInterest.timestamp = Date()
+            catInterest.page = catPage
+
+            try store.saveIfNeeded(moc: backgroundContext)
+
+            backgroundContext.delete(catPage)
+
+            XCTAssertThrowsError(try store.saveIfNeeded(moc: backgroundContext)) { error in
+                XCTAssertEqual((error as NSError).code, NSValidationMissingMandatoryPropertyError)
+            }
+        }
+    }
+
+    func testDatabaseHousekeepingPreservesPagesWithInterests() async throws {
+
+        guard let store else {
+            throw TestsError.missingStore
+        }
+
+        let overTwoYearsAgo = Date(timeIntervalSinceNow: -TimeInterval(60 * 60 * 24 * 800))
+
+        let backgroundContext = try store.newBackgroundContext
+        try backgroundContext.performAndWait {
+
+            // Old page the user saved as an interest - must survive housekeeping
+            let catPage = try store.create(entityType: CDPage.self, in: backgroundContext)
+            catPage.title = "Cat"
+            catPage.namespaceID = 0
+            catPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
+            catPage.timestamp = overTwoYearsAgo
+
+            let catInterest = try store.create(entityType: CDPageInterest.self, in: backgroundContext)
+            catInterest.timestamp = overTwoYearsAgo
+            catInterest.page = catPage
+
+            // Old page with nothing attached - should be pruned
+            let dogPage = try store.create(entityType: CDPage.self, in: backgroundContext)
+            dogPage.title = "Dog"
+            dogPage.namespaceID = 0
+            dogPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
+            dogPage.timestamp = overTwoYearsAgo
+
+            try store.saveIfNeeded(moc: backgroundContext)
+        }
+
+        try await store.performDatabaseHousekeeping()
+
+        try await backgroundContext.perform {
+            backgroundContext.refreshAllObjects()
+
+            guard let pages = try store.fetch(entityType: CDPage.self, predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+                throw TestsError.empty
+            }
+
+            XCTAssertEqual(pages.count, 1)
+            XCTAssertEqual(pages.first?.title, "Cat")
+            XCTAssertNotNil(pages.first?.interest)
+
+            guard let interests = try store.fetch(entityType: CDPageInterest.self, predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+                throw TestsError.empty
+            }
+
+            XCTAssertEqual(interests.count, 1)
+            XCTAssertEqual(interests.first?.page?.title, "Cat")
+        }
+    }
 }

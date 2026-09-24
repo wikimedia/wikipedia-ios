@@ -27,7 +27,7 @@ public struct WMFWhichCameFirstArticlesView: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(viewModel.localizedStrings.sectionTitle)
+            Text(viewModel.sectionTitle)
                 .font(Font(WMFFont.for(.semiboldHeadline)))
                 .foregroundStyle(Color(uiColor: theme.text))
 
@@ -73,7 +73,7 @@ private struct ArticleCardMenuWrapper: View {
     private var cardAccessibilityLabel: String {
         var parts = [item.title]
         if let snippet = item.snippetText { parts.append(snippet) }
-        if item.isSaved { parts.append(viewModel.localizedStrings.articleSavedAccessibility) }
+        if item.isSaved { parts.append(viewModel.articleSavedAccessibility) }
         return parts.joined(separator: ", ")
     }
 
@@ -84,7 +84,7 @@ private struct ArticleCardMenuWrapper: View {
                 Button {
                     if let url = item.articleURL { viewModel.didTapArticle?(url) }
                 } label: {
-                    Text(viewModel.localizedStrings.openArticleTitle)
+                    Text(viewModel.openArticleTitle)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
                 }
                 .labelStyle(.titleAndIcon)
@@ -92,7 +92,7 @@ private struct ArticleCardMenuWrapper: View {
                 Button {
                     if let url = item.articleURL { viewModel.didTapOpenInNewTab?(url) }
                 } label: {
-                    Text(viewModel.localizedStrings.openInNewTabTitle)
+                    Text(viewModel.openInNewTabTitle)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
                 }
                 .labelStyle(.titleAndIcon)
@@ -100,7 +100,7 @@ private struct ArticleCardMenuWrapper: View {
                 Button {
                     if let url = item.articleURL { viewModel.didTapOpenInBackgroundTab?(url) }
                 } label: {
-                    Text(viewModel.localizedStrings.openInBackgroundTabTitle)
+                    Text(viewModel.openInBackgroundTabTitle)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
                 }
                 .labelStyle(.titleAndIcon)
@@ -108,7 +108,7 @@ private struct ArticleCardMenuWrapper: View {
                 Button {
                     viewModel.toggleSave(for: item)
                 } label: {
-                    Text(item.isSaved ? viewModel.localizedStrings.unsaveTitle : viewModel.localizedStrings.saveForLaterTitle)
+                    Text(item.isSaved ? viewModel.unsaveTitle : viewModel.saveForLaterTitle)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: item.isSaved ? .bookmarkFill : .bookmark) ?? UIImage())
                 }
                 .labelStyle(.titleAndIcon)
@@ -116,7 +116,7 @@ private struct ArticleCardMenuWrapper: View {
                 Button {
                     if let url = item.articleURL { viewModel.didShareArticle?(url) }
                 } label: {
-                    Text(viewModel.localizedStrings.shareArticleTitle)
+                    Text(viewModel.shareArticleTitle)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
                 }
                 .labelStyle(.titleAndIcon)
@@ -124,20 +124,20 @@ private struct ArticleCardMenuWrapper: View {
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(.isButton)
             .accessibilityLabel(cardAccessibilityLabel)
-            .accessibilityHint(viewModel.localizedStrings.openArticleRelatedEventHint)
-            .accessibilityAction(named: Text(viewModel.localizedStrings.openArticleTitle)) {
+            .accessibilityHint(viewModel.openArticleHint)
+            .accessibilityAction(named: Text(viewModel.openArticleTitle)) {
                 if let url = item.articleURL { viewModel.didTapArticle?(url) }
             }
-            .accessibilityAction(named: Text(viewModel.localizedStrings.openInNewTabTitle)) {
+            .accessibilityAction(named: Text(viewModel.openInNewTabTitle)) {
                 if let url = item.articleURL { viewModel.didTapOpenInNewTab?(url) }
             }
-            .accessibilityAction(named: Text(viewModel.localizedStrings.openInBackgroundTabTitle)) {
+            .accessibilityAction(named: Text(viewModel.openInBackgroundTabTitle)) {
                 if let url = item.articleURL { viewModel.didTapOpenInBackgroundTab?(url) }
             }
-            .accessibilityAction(named: Text(item.isSaved ? viewModel.localizedStrings.unsaveTitle : viewModel.localizedStrings.saveForLaterTitle)) {
+            .accessibilityAction(named: Text(item.isSaved ? viewModel.unsaveTitle : viewModel.saveForLaterTitle)) {
                 viewModel.toggleSave(for: item)
             }
-            .accessibilityAction(named: Text(viewModel.localizedStrings.shareArticleTitle)) {
+            .accessibilityAction(named: Text(viewModel.shareArticleTitle)) {
                 if let url = item.articleURL { viewModel.didShareArticle?(url) }
             }
             .onTapGesture {
@@ -222,57 +222,3 @@ private struct WMFWhichCameFirstArticleCardView: View {
         }
     }
 }
-// MARK: - Preview
-
-#Preview {
-    let strings = WMFWhichCameFirstArticlesViewModel.LocalizedStrings(
-        sectionTitle: "Articles from today's game",
-        openArticleTitle: "Open article",
-        shareArticleTitle: "Share",
-        articleTapAccessibility: "Open article"
-    )
-
-    let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
-    let items: [WMFWhichCameFirstArticleItemViewModel] = [
-        WMFWhichCameFirstArticleItemViewModel(
-            title: "Moon landing",
-            apiTitle: "Moon_landing",
-            project: project,
-            articleURL: nil,
-            thumbnailURL: nil
-        ),
-        WMFWhichCameFirstArticleItemViewModel(
-            title: "World Wide Web",
-            apiTitle: "World_Wide_Web",
-            project: project,
-            articleURL: nil,
-            thumbnailURL: nil
-        ),
-        WMFWhichCameFirstArticleItemViewModel(
-            title: "Berlin Wall",
-            apiTitle: "Berlin_Wall",
-            project: project,
-            articleURL: nil,
-            thumbnailURL: nil
-        ),
-        WMFWhichCameFirstArticleItemViewModel(
-            title: "DNA double helix",
-            apiTitle: "DNA",
-            project: project,
-            articleURL: nil,
-            thumbnailURL: nil
-        )
-    ]
-
-    let viewModel = WMFWhichCameFirstArticlesViewModel(
-        articleItems: items,
-        localizedStrings: strings
-    )
-
-    ScrollView {
-        WMFWhichCameFirstArticlesView(viewModel: viewModel)
-            .padding(.vertical, 16)
-    }
-    .background(Color(.systemGroupedBackground))
-}
-

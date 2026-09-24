@@ -243,7 +243,6 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         descriptionLabel.backgroundColor = backgroundView?.backgroundColor
         styles = HtmlUtils.Styles(font: WMFFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle = .footnote
-        boldFont = .boldFootnote
         imageViewDimension = 40
         layoutMargins = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil
@@ -256,7 +255,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         if let imageURL = cellArticle.imageURL {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, failure: { (error) in }, success: { })
             }
         } else {
             isImageViewHidden = true

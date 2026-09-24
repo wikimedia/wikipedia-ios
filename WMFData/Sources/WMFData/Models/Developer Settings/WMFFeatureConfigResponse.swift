@@ -80,15 +80,26 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             }
             
             func isActive(for date: Date) -> Bool {
-                
-                // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
+
+                // Overwrite date check if the developer settings flag for this config's year is on.
+                // This allows us to test outside of active date range. Each year has its own flag so
+                // that leaving the 2025 flag on does not force the 2026 config active.
                 let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                if developerSettingsDataController.showYiR2025 {
-                    return true
+                switch year {
+                case 2026:
+                    if developerSettingsDataController.forceYiR2026 {
+                        return true
+                    }
+                case 2025:
+                    if developerSettingsDataController.showYiR2025 {
+                        return true
+                    }
+                default:
+                    break
                 }
-                
+
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
-                    return false 
+                    return false
                 }
                 return date >= activeStartDate && date <= activeEndDate
             }
@@ -105,6 +116,8 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
     
     public struct IOS: Codable, Sendable {
         public let hCaptcha: HCaptcha?
+        public let visualEditorEnabled: Bool?
+        public let semanticSearchLanguages: [String]
         
         public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
@@ -115,6 +128,25 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let reportapi: String
             public let sentry: Bool
             public let apiKey: String
+        }
+
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = []) {
+            self.hCaptcha = hCaptcha
+            self.visualEditorEnabled = visualEditorEnabled
+            self.semanticSearchLanguages = semanticSearchLanguages
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case hCaptcha
+            case visualEditorEnabled
+            case semanticSearchLanguages
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            hCaptcha = try container.decodeIfPresent(HCaptcha.self, forKey: .hCaptcha)
+            visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
+            semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
         }
     }
     

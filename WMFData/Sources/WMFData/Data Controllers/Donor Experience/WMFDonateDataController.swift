@@ -106,7 +106,8 @@ import Contacts
         let group = DispatchGroup()
         
         guard let paymentMethodsURL = URL.paymentMethodsAPIURL(),
-              let donateConfigURL = URL.donateConfigURL() else {
+              let donateConfigURL = URL.donateConfigURL(environment: WMFDeveloperSettingsDataController.shared.donateConfigsServiceEnvironment)
+        else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
@@ -126,17 +127,22 @@ import Contacts
         let fetchState = WMFLockIsolated<(donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?, errors: [Error])>((nil, nil, []))
 
         group.enter()
-        let paymentMethodsRequest = WMFBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
-        service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
-            defer {
-                group.leave()
-            }
+        if let paymentMethodsOverride = WMFDeveloperSettingsDataController.shared.hardcodedPaymentMethodsOverride {
+            fetchState.withLock { $0.paymentMethods = paymentMethodsOverride }
+            group.leave()
+        } else {
+            let paymentMethodsRequest = WMFBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
+            service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
+                defer {
+                    group.leave()
+                }
 
-            switch result {
-            case .success(let response):
-                fetchState.withLock { $0.paymentMethods = response }
-            case .failure(let error):
-                fetchState.withLock { $0.errors.append(error) }
+                switch result {
+                case .success(let response):
+                    fetchState.withLock { $0.paymentMethods = response }
+                case .failure(let error):
+                    fetchState.withLock { $0.errors.append(error) }
+                }
             }
         }
 
@@ -188,6 +194,13 @@ import Contacts
         }
     }
     
+    public func clearConfigCache() {
+        donateConfig = nil
+        paymentMethods = nil
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cacheDonateConfigContainerFileName)
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cachePaymentMethodsResponseFileName)
+    }
+
     public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, appInstallID: String?, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
 
         guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
@@ -292,6 +305,9 @@ import Contacts
         }
 
         hasLocallySavedDonations = true
+
+        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
+
         return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
 
     }

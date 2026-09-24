@@ -82,7 +82,6 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     public var didUpdateEditingMode: ((Bool) -> Void)?
     public var didTapArticleAlert: ((WMFSavedArticle) -> Void)?
     public var didTapReadingListTag: ((WMFSavedArticle, String?) -> Void)?
-    public var didShowDataStateOnAppearance: (() -> Void)?
     
     // MARK: - Initialization
     

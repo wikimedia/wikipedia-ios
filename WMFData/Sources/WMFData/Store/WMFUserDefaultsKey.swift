@@ -6,16 +6,38 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
-    case developerSettingsEnableHomeTab = "dev-settings-enable-home-tab"
     case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
-    case developerSettingsAlwaysShowNewOnboarding = "dev-settings-always-show-new-onboarding"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
+
+    // Year in Review: shared across years.
+    // The opt-out toggle is deliberately NOT year scoped — a user who turned Year in Review off in
+    // 2025 stays opted out in 2026 rather than being silently opted back in.
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
+
+    // Year in Review 2025 (kept so 2025 state is never lost; no longer read by the 2026 feature)
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
     case yearInReviewSurveyPresented = "year-in-review-survey-presented-v3"
-    case bypassDonation = "bypass-donation"
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
     case tappedYIR = "tapped-yir"
+    case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
+    case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
+    case qualifiesForIcon2025 = "qualifies-for-icon-2025"
+
+    // Year in Review 2026
+    // Separate keys from 2025 so that anyone who saw the 2025 announcement, intro slide, survey or
+    // profile badge is still eligible for the 2026 ones.
+    case seenYearInReview2026FeatureAnnouncement = "year-in-review-feature-announcement-2026"
+    case seenYearInReview2026IntroSlide = "seen-year-in-review-intro-slide-2026"
+    case yearInReview2026SurveyPresented = "year-in-review-survey-presented-2026"
+    case tappedYIR2026 = "tapped-yir-2026"
+
+    // Year in Review 2026 dev settings
+    case developerSettingsForceYiR2026 = "dev-settings-yir-show-2026"
+    case developerSettingsForceYiR2026Announcement = "dev-settings-yir-announcement-2026"
+
+    case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
+    case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
+    case bypassDonation = "bypass-donation"
     case forceEmailAuth = "force-email-auth"
     case articleTabRestoration = "article-tab-restoration"
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
@@ -23,12 +45,6 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
-    case developerSettingsMoreDynamicTabsV2GroupC = "more-dynamic-tabs-group-c-v2"
-    case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
-    case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
-    case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
-    case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
-    case qualifiesForIcon2025 = "qualifies-for-icon-2025"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
     case hasSeenActivityTab = "has-seen-activity-tab"
     case hasSeenActivityTabNewOnboarding = "has-seen-activity-tab-new-onboarding"
@@ -45,6 +61,15 @@ public enum WMFUserDefaultsKey: String {
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    case developerSettingsFundraisingOverriddenCurrentDate = "dev-settings-fundraising-overridden-current-date"
+    case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
+    case developerSettingsUseTestWikiDonateConfigs = "dev-settings-use-test-wiki-donate-configs"
+    case developerSettingsUseHardcodedPaymentMethods = "dev-settings-use-hardcoded-payment-methods"
+    case developerSettingsForceDonationReminderExperimentAssignment = "dev-settings-force-donation-reminder-experiment-assignment"
+    case developerSettingsBypassDonationReminderDailyLimit = "dev-settings-bypass-donation-reminder-daily-limit"
+    case donationReminder = "donation-reminder"
+    case donationReminderExperimentCurrency = "donation-reminder-experiment-currency"
+    case donationReminderWrapUpCardSeen = "donation-reminder-wrap-up-card-seen"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
     // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)
@@ -92,10 +117,27 @@ public enum WMFUserDefaultsKey: String {
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
-    case hasSeenNewHomeOnboarding = "has-seen-new-home-onboarding"
+    case hasSeenOneTimeOnboardingHome = "has-seen-one-time-home-onboarding"
+    case hasSeenUpdatedHomeOnboarding = "has-seen-updated-home-onboarding"
+    
+    // Onboarding: For You swipe-up hint
+    case hasSeenForYouSwipeOnboarding = "has-seen-for-you-swipe-onboarding"
 
-    // Article View Controller: Enable visual editor
-    case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
+    // Visual editor journey
     case defaultEditMode = "default-edit-mode"
     case skipChooseEditorSheet = "skip-choose-editor-sheet"
+
+    // Evergreen account creation prompt
+    case evergreenAccountCreationState = "evergreen-account-creation-state"
+    
+    // yir 2026
+    case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
+    
+
+    // Semantic search
+    case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
+    case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"
+    case developerSettingsForceYiRUserDataState = "dev-settings-force-yir-user-data-state"
+    case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
+    case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
 }

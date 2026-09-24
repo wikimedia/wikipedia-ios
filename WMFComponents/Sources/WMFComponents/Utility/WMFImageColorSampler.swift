@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import ImageIO
 
 /// Picks a background colour from a photograph that white text stays readable on.
 actor WMFImageColorSampler {
@@ -17,22 +18,57 @@ actor WMFImageColorSampler {
     /// Read one pixel in every `samplingStride` x `samplingStride` block rather than all of them.
     private static let samplingStride = 2
 
-    private static let darkeningStep: CGFloat = 0.95
-    private static let maxDarkeningSteps = 200
+    /// The maximum length of the longest side of the decoded image.
+    private static let samplingMaxPixelSize = 128
+
+    private static let colorCacheLimit = 24
+    private var colorCache: [Data: Color] = [:]
+    private var colorCacheInsertionOrder: [Data] = []
 
     // MARK: - Public
 
     /// Takes image `Data` rather than a `UIImage` because `UIImage` is not `Sendable` and so cannot
     /// be handed to another concurrency domain. The image is decoded here instead.
     func sampledColor(from imageData: Data) -> Color? {
-        guard let image = UIImage(data: imageData) else { return nil }
-        return Self.sampledColor(from: image)
+        if let cachedColor = colorCache[imageData] {
+            return cachedColor
+        }
+
+        guard let cgImage = Self.downsampledCGImage(from: imageData) else { return nil }
+        guard let color = Self.sampledColor(from: cgImage) else { return nil }
+
+        colorCache[imageData] = color
+        colorCacheInsertionOrder.append(imageData)
+        if colorCacheInsertionOrder.count > Self.colorCacheLimit {
+            let oldestKey = colorCacheInsertionOrder.removeFirst()
+            colorCache[oldestKey] = nil
+        }
+
+        return color
+    }
+
+    private static func downsampledCGImage(from imageData: Data) -> CGImage? {
+        let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let source = CGImageSourceCreateWithData(imageData as CFData, sourceOptions) else {
+            return nil
+        }
+        let thumbnailOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: samplingMaxPixelSize
+        ] as [CFString: Any] as CFDictionary
+        return CGImageSourceCreateThumbnailAtIndex(source, 0, thumbnailOptions)
     }
 
     // MARK: - Image sampling algorithm
 
     static func sampledColor(from image: UIImage) -> Color? {
-        guard let cgImage = image.cgImage, let totals = pixelTotals(of: cgImage), totals.count > 0 else {
+        guard let cgImage = image.cgImage else { return nil }
+        return sampledColor(from: cgImage)
+    }
+
+    static func sampledColor(from cgImage: CGImage) -> Color? {
+        guard let totals = pixelTotals(of: cgImage), totals.count > 0 else {
             return nil
         }
 
@@ -143,16 +179,8 @@ actor WMFImageColorSampler {
     ///
     /// The cap only ever scales down, so it cannot undo rule 1.
     static func darkenToMeetContrast(r: CGFloat, g: CGFloat, b: CGFloat, targetRatio: CGFloat) -> (CGFloat, CGFloat, CGFloat) {
-        var r = r, g = g, b = b
-
-        // Bounded: darkening always raises contrast towards its 21:1 ceiling, so this terminates
-        // for any reachable target. The limit only guards against a target above that ceiling.
-        var iterations = 0
-        while contrastAgainstWhite(r: r, g: g, b: b) < targetRatio && iterations < maxDarkeningSteps {
-            r *= darkeningStep
-            g *= darkeningStep
-            b *= darkeningStep
-            iterations += 1
+        var (r, g, b) = WMFContrast.darkened(red: r, green: g, blue: b) { red, green, blue in
+            WMFContrast.ratioAgainstWhite(red: red, green: green, blue: blue) >= targetRatio
         }
 
         let maxComponent = max(r, g, b)
@@ -166,16 +194,8 @@ actor WMFImageColorSampler {
         return (r, g, b)
     }
 
-    /// WCAG contrast ratio of a colour against white.
+    /// WCAG contrast ratio of a colour against white. See `WMFContrast`.
     static func contrastAgainstWhite(r: CGFloat, g: CGFloat, b: CGFloat) -> CGFloat {
-        1.05 / (relativeLuminance(r: r, g: g, b: b) + 0.05)
-    }
-
-    /// WCAG relative luminance.
-    private static func relativeLuminance(r: CGFloat, g: CGFloat, b: CGFloat) -> CGFloat {
-        func linearize(_ c: CGFloat) -> CGFloat {
-            c <= 0.03928 ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4)
-        }
-        return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
+        WMFContrast.ratioAgainstWhite(red: r, green: g, blue: b)
     }
 }

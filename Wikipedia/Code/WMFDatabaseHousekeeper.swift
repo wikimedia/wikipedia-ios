@@ -80,7 +80,9 @@ import WMF
             }
 
             guard let content = fullContent.object as? [Any] else {
-                assertionFailure("Unknown Content Type")
+                if group.contentType != .dailyGame {
+                    assertionFailure("Unknown Content Type")
+                }
                 continue
             }
             

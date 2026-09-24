@@ -74,11 +74,9 @@
 "action-unsave" = "Dad-gadw";
 "action-unsaved-accessibility-notification" = "Dad-gadwyd yr erthygl";
 "action-update" = "Diweddaru";
-"activity-tab-add-images-title" = "Ychwanegu delweddau";
 "activity-tab-additional-thoughts" = "Unrhyw feddyliau ychwanegol?";
 "activity-tab-articles-read" = "Erthyglau a ddarllenwyd y mis hwn";
 "activity-tab-articles-read-graph-label" = "Erthyglau";
-"activity-tab-generic-no-edits" = "Nid ydych wedi golygu yr wythnos hon. Dechreuwch nawr i olrhain eich cyfraniadau.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "AR WICIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Mewngofnodwch neu crëwch gyfrif i weld eich gweithgaredd ar ap Wicipedia.";
@@ -674,7 +672,6 @@
 "talk-page-expand-thread-button" = "Agor edefyn";
 "talk-page-find-in-page-button" = "Chwilio yn y dudalen";
 "talk-page-menu-open-all" = "Agor pob edefyn";
-"talk-page-new-banner-title" = "Byddwch yn gyfeillgar";
 "talk-page-page-info" = "Gwybodaeth am y dudalen";
 "talk-page-permanent-link" = "Dolen barhaol";
 "talk-page-read-in-web" = "Darllen yn y porwr";
@@ -718,7 +715,6 @@
 "theme-sepia-display-name" = "Sepia";
 "top-read-widget-readers-count" = "$1 o ddarllenwyr";
 "top-read-widget-title" = "Poblogaidd";
-"try-now-title" = "Ceisiwch nawr";
 "tutorial-title" = "Tiwtorial";
 "two-factor-login-continue" = "Parhau i fewngofnodi";
 "two-factor-login-instructions" = "Rhowch god dilysu dau ffactor";
@@ -730,7 +726,6 @@
 "unwatch" = "Dad-wylio";
 "user-title" = "Defnyddiwr";
 "vanish-account-continue-button-title" = "Parhau";
-"vanish-account-username-field" = "Enw defnyddiwr a thudalen defnyddiwr";
 "vanish-account-warning-title" = "Rhybudd";
 "variants-alert-dismiss-button" = "Dim diolch";
 "variants-alert-preferences-button" = "Adolygu eich dewisiadau";
@@ -782,6 +777,20 @@
 "welcome-languages-search-title" = "Chwilio mewn dros 300 iaith";
 "widget-onthisday-placeholder-article-snippet" = "Gwyddoniadur rhydd ar-lein y gall unrhyw un olygu";
 "widget-onthisday-placeholder-event-snippet" = "Mae Wicipedia, y gwyddoniadur rhydd, yn mynd ar-lein.";
+"wikimedia-articletopics-topic-africa" = "Affrica";
+"wikimedia-articletopics-topic-art" = "Celf";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-central-america" = "Canolbarth America";
+"wikimedia-articletopics-topic-education" = "Addysg";
+"wikimedia-articletopics-topic-europe" = "Ewrop";
+"wikimedia-articletopics-topic-food-and-drink" = "Bwyd a diod";
+"wikimedia-articletopics-topic-general-science" = "Gwyddoniaeth gyffredinol";
+"wikimedia-articletopics-topic-history" = "Hanes";
+"wikimedia-articletopics-topic-literature" = "Llenyddiaeth";
+"wikimedia-articletopics-topic-music" = "Cerddoriaeth";
+"wikimedia-articletopics-topic-north-america" = "Gogledd America";
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+"wikimedia-articletopics-topic-tv-and-film" = "Teledu a ffilm";
 "wikitext-preview-link-external-preview-title" = "Dolen allanol";
 "wikitext-preview-link-not-found-preview-title" = "Dim dolen mewnol";
 "wikitext-preview-link-preview-description" = "Mae'r ddolen hon yn arwain at '$1'";

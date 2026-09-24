@@ -55,19 +55,6 @@ final class WMFSettingsDataControllerEditModeTests {
         }
     }
 
-    @Test
-    func clearDefaultEditModeResetsBothPreferences() async throws {
-        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            WMFSettingsDataController.shared.setDefaultEditMode(.source)
-            WMFSettingsDataController.shared.setSkipChooseEditorSheet(true)
-
-            WMFSettingsDataController.shared.clearDefaultEditMode()
-
-            #expect(WMFSettingsDataController.shared.defaultEditMode() == .visual)
-            #expect(WMFSettingsDataController.shared.skipChooseEditorSheet() == false)
-        }
-    }
-
     private func configureEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }

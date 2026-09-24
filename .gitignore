@@ -80,4 +80,5 @@ fastlane/snapshot_derived_data/
 WikipediaUITests/Snapshots/
 OpenSourceDebug.xcconfig
 
-.claude/
+.claude/*
+!.claude/skills/

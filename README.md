@@ -26,7 +26,7 @@ If you'd rather install the development prerequisites yourself without our scrip
 * [**ClangFormat**](https://clang.llvm.org/docs/ClangFormat.html) - We use this for linting Objective-C code.
 
 ## Contributing
-Covered in our [contributing documentation](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS#Contribute_to_development) on MediaWiki.
+Covered in our [contributing documentation](https://www.mediawiki.org/wiki/Wikimedia_Apps/Developing_for_the_apps#Contribute_to_iOS) on MediaWiki.
 
 ## Development Guidelines
 These are general guidelines rather than hard rules.

@@ -5,7 +5,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Sinorê yew hesabi ra %#@v1@ ra.</string>
+		<string>Sinorê yew hesabi ra %1$#@v1@ ra.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Sinorê yew hesabi ra %#@v1@ ra.</string>
+		<string>Sinorê yew hesabi ra %1$#@v1@ ra.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -55,7 +55,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

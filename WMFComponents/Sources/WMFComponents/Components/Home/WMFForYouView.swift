@@ -27,12 +27,20 @@ private enum WMFForYouCardVariant {
 // MARK: - Card Metrics
 
 /// Where the page dots sit, and how much room a card must leave clear beneath its content.
-private enum WMFForYouCardMetrics {
+public enum WMFForYouCardMetrics {
 
     static let tabBarHeight: CGFloat = 49
     static let dotsBottomGap: CGFloat = 12
     static let dotsVerticalPadding: CGFloat = 20
     static let dotDiameter: CGFloat = 8
+    static let miniCardImageSide: CGFloat = 56
+
+    /// How far above the text the gradient starts to appear. The rise finishes at the first line,
+    /// thus every line of text sits on the full strength of the gradient.
+    static let gradientFadeHeight: CGFloat = 25
+
+    /// The smallest space between the header bar and the content of a card.
+    static let contentTopGap: CGFloat = 24
 
     static func dotsBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
         safeAreaBottom + tabBarHeight + dotsBottomGap
@@ -51,6 +59,54 @@ private enum WMFForYouCardMetrics {
             .first(where: \.isKeyWindow)?
             .safeAreaInsets.bottom ?? 0
     }
+
+    static func contentTopInset(headerBottom: CGFloat, cardTop: CGFloat) -> CGFloat {
+        max(contentTopGap, headerBottom - cardTop + contentTopGap)
+    }
+}
+
+// MARK: - Swipe Onboarding
+
+/// How long the swipe-up hint stays on screen, and how long its fade out takes.
+private enum WMFForYouSwipeOnboardingMetrics {
+    static let displayDuration: Duration = .seconds(2)
+    static let fadeOutDuration: TimeInterval = 0.3
+}
+
+// MARK: - Feed visibility
+
+extension WMFForYouViewModel {
+
+    /// The modules the feed can show, each with the cards the user has not hidden. A module whose
+    /// cards are all hidden does not appear.
+    ///
+    /// This is the one definition of what the feed shows. `WMFForYouView` builds its pages from
+    /// it, and `WMFHomeView` reads `isFeedHiddenBySettings` to decide between the feed chrome and
+    /// the settings empty state, so the two can never disagree about whether the feed is empty.
+    var visibleArticlesByPage: [(page: WMFForYouPageViewModel, articles: [WMFForYouArticleCardViewModel])] {
+        pages.compactMap { page in
+            guard moduleVisibility.isVisible(page.module) else { return nil }
+            let articles = page.articleViewModels.filter { !hiddenCardKeys.contains($0.cardUniqueKey) }
+            guard !articles.isEmpty else { return nil }
+            return (page, articles)
+        }
+    }
+
+    /// True when the feed has nothing to show: every module is off, hidden, or fully hidden
+    /// card by card.
+    var isFeedEmpty: Bool {
+        visibleArticlesByPage.isEmpty
+    }
+
+    /// True only when content exists but the reader has turned it all off or hidden it. This is the
+    /// case the settings empty state belongs to.
+    ///
+    /// A reader with no personalized content yet also has no visible pages, but wants different
+    /// copy: `WMFForYouView` shows the end of feed card's `.emptyFeed` variant for that. So that
+    /// case must reach the feed rather than be caught by the empty state above it.
+    var isFeedHiddenBySettings: Bool {
+        !pages.isEmpty && isFeedEmpty
+    }
 }
 
 // MARK: - For You Feed View
@@ -67,7 +123,30 @@ public struct WMFForYouView: View {
     /// The module on screen. Mirrored to the view model, which outlives this view.
     @State private var currentModuleID: UUID?
 
+    /// Whether the one-time swipe-up hint is on screen.
+    @State private var isShowingSwipeOnboarding = false
+
+    /// Set to +1 or -1 when the swipe that dismissed the hint was horizontal. The module on screen
+    /// watches it and moves its carousel one card, so a horizontal first swipe browses cards the
+    /// way it would without the hint. It changes at most once: the hint is shown at most once.
+    @State private var swipeOnboardingCardStep = 0
+
+    /// The card VoiceOver is reading. Set when a module action moves the feed, so focus follows the
+    /// scroll instead of staying on the card the user left behind.
+    @AccessibilityFocusState private var focusedCardKey: String?
+
+    @Environment(\.accessibilityVoiceOverEnabled) private var isVoiceOverRunning
+
+    /// Decides which horizontal direction is "next card". The carousels follow the app's layout
+    /// direction (the per-card layout direction is applied inside each card, not to the scroll),
+    /// so in a right-to-left app the next card is revealed by a swipe to the right.
+    @Environment(\.layoutDirection) private var layoutDirection
+
     let scrollToTopRequestID: Int
+
+    /// Identifies the copy of the first module that sits after the end of feed card. A swipe up
+    /// from the end lands here, and the feed then hands over to the real first module.
+    private static let loopPageID = UUID()
 
     public init(viewModel: WMFForYouViewModel, scrollToTopRequestID: Int = 0) {
         self.viewModel = viewModel
@@ -81,18 +160,22 @@ public struct WMFForYouView: View {
     }
     
     private var visiblePages: [VisiblePage] {
-        viewModel.pages.compactMap { page in
-            guard viewModel.moduleVisibility.isVisible(page.module) else { return nil }
-            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.cardUniqueKey) }
-            guard !articles.isEmpty else { return nil }
-            return VisiblePage(page: page, articles: articles)
-        }
+        viewModel.visibleArticlesByPage.map { VisiblePage(page: $0.page, articles: $0.articles) }
+    }
+
+    /// Every stop of the vertical paging stack, in order: the module pages, then the end of feed card.
+    private var scrollableIDs: [UUID] {
+        visiblePages.map(\.id) + [viewModel.endOfFeedViewModel.id]
     }
 
     /// The module that fills the screen. A lazy stack also builds the modules near it, thus only the scroll gives the correct answer.
+    ///
+    /// Nil while the end of feed card is on screen: falling back to the first page there would mark
+    /// it `isOnScreen` and log a false impression for a card the user is not looking at.
     private var moduleOnScreen: VisiblePage? {
-        if let currentModuleID, let page = visiblePages.first(where: { $0.id == currentModuleID }) {
-            return page
+        if let currentModuleID {
+            if currentModuleID == viewModel.endOfFeedViewModel.id { return nil }
+            if let page = visiblePages.first(where: { $0.id == currentModuleID }) { return page }
         }
         return visiblePages.first
     }
@@ -100,12 +183,42 @@ public struct WMFForYouView: View {
     /// Puts the user back on the module they looked at last.
     ///
     /// The module must still be in the feed: the user can hide a module, or hide all the cards of a
-    /// module, while the view is away.
+    /// module, while the view is away. The end of feed card is always in the feed, so it always
+    /// restores.
     private func restoreModulePosition() {
         guard let lastViewedModuleID = viewModel.lastViewedModuleID,
-              visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
+              lastViewedModuleID == viewModel.endOfFeedViewModel.id || visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
 
         currentModuleID = lastViewedModuleID
+    }
+
+    /// Moves the feed one page up or down, the way a vertical swipe does for a sighted user. The
+    /// end of feed card counts as the last page, so VoiceOver can reach it and leave it.
+    ///
+    /// VoiceOver spends its left/right flicks on the cards inside a module, so without this there is
+    /// no gesture left to reach the next module.
+    private func moveModule(by offset: Int) {
+        let ids = scrollableIDs
+        guard let currentID = currentModuleID ?? ids.first,
+              let index = ids.firstIndex(of: currentID) else { return }
+
+        let targetIndex = index + offset
+        guard ids.indices.contains(targetIndex) else { return }
+
+        let targetID = ids[targetIndex]
+        withAnimation {
+            currentModuleID = targetID
+        }
+
+        // The stack builds modules lazily, so the target's cards cannot take focus until the scroll
+        // has settled. Without this hop VoiceOver keeps reading the card the user just left. The
+        // end of feed card has no carousel, so it needs no hop.
+        guard let targetPage = visiblePages.first(where: { $0.id == targetID }),
+              let firstCardKey = targetPage.articles.first?.cardUniqueKey else { return }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(400))
+            focusedCardKey = firstCardKey
+        }
     }
 
     private func scrollToFirstModule() {
@@ -116,9 +229,105 @@ public struct WMFForYouView: View {
         }
     }
 
+    // MARK: - Swipe Onboarding
+
+    /// Shows the swipe-up hint once, over the first module of a first-time reader.
+    ///
+    /// The seen flag is written the moment the hint appears, so the reader never sees it a second
+    /// time, not even when the app dies while the hint is up.
+    private func presentSwipeOnboardingIfNeeded() {
+        // A VoiceOver reader moves between modules with the accessibility actions and the
+        // three-finger swipe, so a swipe-up hint would point them at the wrong gesture. Skip
+        // without writing the seen flag: a reader who later turns VoiceOver off still gets the hint.
+        guard !isVoiceOverRunning,
+              visiblePages.count > 1,
+              !WMFHomeDataController.shared.hasSeenForYouSwipeOnboarding() else { return }
+
+        WMFHomeDataController.shared.setHasSeenForYouSwipeOnboarding(true)
+        isShowingSwipeOnboarding = true
+
+        Task { @MainActor in
+            try? await Task.sleep(for: WMFForYouSwipeOnboardingMetrics.displayDuration)
+            dismissSwipeOnboarding()
+        }
+    }
+
+    /// A no-op once the hint is gone, so the two-second timer and a swipe cannot both act.
+    private func dismissSwipeOnboarding() {
+        guard isShowingSwipeOnboarding else { return }
+        withAnimation(.easeOut(duration: WMFForYouSwipeOnboardingMetrics.fadeOutDuration)) {
+            isShowingSwipeOnboarding = false
+        }
+    }
+
+    /// Sits over the whole feed and takes the first touch itself. A swipe up fades the hint out and
+    /// moves the feed to the next module, so the reader's first swipe does what the image promised.
+    ///
+    /// Taking the touch instead of letting it through also keeps the scroll view from paging at
+    /// the same time, which would move the feed two modules for one swipe.
+    ///
+    /// The background is a full-screen dimming layer: black at partial opacity over the card, the
+    /// way the system dims content behind an alert. No blur, so the card stays recognisable.
+    private var swipeOnboardingOverlay: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color(uiColor: WMFColor.black).opacity(0.42))
+                .ignoresSafeArea()
+            Image("swipe_gestures", bundle: .module)
+        }
+        .contentShape(Rectangle())
+        .gesture(
+            DragGesture(minimumDistance: 8)
+                .onChanged { value in
+                    // `onChanged` fires for every movement of the finger; the guard makes
+                    // the dismissal and the navigation happen once.
+                    guard isShowingSwipeOnboarding else { return }
+                    let translation = value.translation
+                    dismissSwipeOnboarding()
+
+                    // The dominant axis decides what the swipe meant. Without this, a card
+                    // swipe with a few points of upward drift would move the feed a module.
+                    if abs(translation.height) >= abs(translation.width) {
+                        if translation.height < 0 {
+                            moveModule(by: 1)
+                        }
+                        // A downward swipe only dismisses: above the first module there is nothing.
+                    } else {
+                        let isNextCard = layoutDirection == .rightToLeft
+                            ? translation.width > 0
+                            : translation.width < 0
+                        swipeOnboardingCardStep = isNextCard ? 1 : -1
+                    }
+                }
+        )
+        .onTapGesture { dismissSwipeOnboarding() }
+        .transition(.opacity)
+        .accessibilityHidden(true)
+    }
+
     public var body: some View {
         if visiblePages.isEmpty {
-            emptyState
+            if viewModel.pages.isEmpty {
+                // No personalized content is available at all (no interests, no reading history):
+                // the end of feed card doubles as the empty state until the Random article module
+                // ships. When content exists but every module is off or every card is hidden,
+                // `WMFHomeView` shows the settings empty state instead and this view is not built;
+                // the branch below remains as a fallback for any other caller.
+                GeometryReader { geometry in
+                    ScrollView {
+                        endOfFeedPage
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    }
+                    .scrollBounceBehavior(.basedOnSize)
+                    .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
+                }
+                .ignoresSafeArea()
+            } else {
+                emptyState
+                    .onAppear {
+                        viewModel.onEmptyViewAppearance?()
+                    }
+            }
         } else {
             GeometryReader { geometry in
                 scrollView(geometry: geometry)
@@ -127,40 +336,92 @@ public struct WMFForYouView: View {
         }
     }
 
+    /// One page of the vertical stack.
+    ///
+    /// `isCopy` marks the duplicate of the first module that follows the end of feed card. It is on
+    /// screen only for the length of one swipe, so it remembers nothing and logs nothing: the real
+    /// module it hands over to does both.
+    private func modulePage(_ visiblePage: VisiblePage, index: Int, geometry: GeometryProxy, isCopy: Bool = false) -> some View {
+        WMFForYouPageView(
+            articleViewModels: visiblePage.articles,
+            theme: theme,
+            onHideModule: { viewModel.onHideModule?($0) },
+            onHideCard: { viewModel.onHideCard?($0) },
+            onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
+            onTapCard: { viewModel.onTapCard?($0) },
+            onSaveCard: { viewModel.onSaveCard?($0) },
+            onShareCard: { viewModel.onShareCard?($0) },
+            onUnsaveCard: { viewModel.onUnsaveCard?($0) },
+            lastViewedCardKey: isCopy ? nil : viewModel.lastViewedCardKey,
+            isOnScreen: isCopy ? false : visiblePage.id == moduleOnScreen?.id,
+            onViewCard: { if !isCopy { viewModel.rememberViewedCard($0) } },
+            onShowCard: { if !isCopy { viewModel.onShowCard?($0) } },
+            focusedCardKey: $focusedCardKey,
+            canGoToPreviousModule: index > 0,
+            onGoToPreviousModule: { moveModule(by: -1) },
+            onGoToNextModule: { moveModule(by: 1) },
+            swipeOnboardingCardStep: swipeOnboardingCardStep
+        )
+        .frame(width: geometry.size.width, height: geometry.size.height)
+    }
+
     @ViewBuilder
     private func scrollView(geometry: GeometryProxy) -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 0) {
-                ForEach(visiblePages) { visiblePage in
-                    WMFForYouPageView(
-                        articleViewModels: visiblePage.articles,
-                        theme: theme,
-                        onHideModule: { viewModel.onHideModule?(visiblePage.page.module) },
-                        onHideCard: { viewModel.onHideCard?($0) },
-                        onCustomizeInterests: { viewModel.onCustomizeInterests?() },
-                        onTapCard: { viewModel.onTapCard?($0) },
-                        onSaveCard: { viewModel.onSaveCard?($0) },
-                        onShareCard: { viewModel.onShareCard?($0) },
-                        onUnsaveCard: { viewModel.onUnsaveCard?($0) },
-                        lastViewedCardKey: viewModel.lastViewedCardKey,
-                        isOnScreen: visiblePage.id == moduleOnScreen?.id,
-                        onViewCard: { viewModel.rememberViewedCard($0) },
-                        onShowCard: { viewModel.onShowCard?($0) }
-                    )
+                ForEach(Array(visiblePages.enumerated()), id: \.element.id) { index, visiblePage in
+                    modulePage(visiblePage, index: index, geometry: geometry)
+                }
+                endOfFeedPage
                     .frame(width: geometry.size.width, height: geometry.size.height)
+                    .id(viewModel.endOfFeedViewModel.id)
+                if let firstPage = visiblePages.first {
+                    // Swiping up from the end of feed card carries on forwards into this, rather
+                    // than scrolling back up through the whole feed.
+                    modulePage(firstPage, index: 0, geometry: geometry, isCopy: true)
+                        .id(Self.loopPageID)
+                        // VoiceOver reaches the modules through moveModule, which does not know
+                        // about the copy, so it must not find duplicate cards here.
+                        .accessibilityHidden(true)
                 }
             }
             .scrollTargetLayout()
         }
         .scrollPosition(id: $currentModuleID)
-        .onAppear { restoreModulePosition() }
+        .onAppear {
+            restoreModulePosition()
+            presentSwipeOnboardingIfNeeded()
+        }
         .onChange(of: currentModuleID) { _, moduleID in
+            // The copy and the real first module look the same, so moving between them with no
+            // animation is invisible, and the feed is back at the top ready to scroll down again.
+            if moduleID == Self.loopPageID {
+                if let firstID = visiblePages.first?.id {
+                    currentModuleID = firstID
+                }
+                return
+            }
             viewModel.rememberViewedModule(moduleID)
+            if moduleID == viewModel.endOfFeedViewModel.id {
+                viewModel.endOfFeedViewModel.reportShownIfNeeded()
+            }
         }
         .onChange(of: scrollToTopRequestID) { _, _ in
             scrollToFirstModule()
         }
         .scrollTargetBehavior(.paging)
+        // VoiceOver's three-finger swipe. It only reaches the vertical scroll view when focus is not
+        // inside a card's carousel, so the per-card actions below remain the dependable route.
+        .accessibilityScrollAction { edge in
+            switch edge {
+            case .bottom:
+                moveModule(by: 1)
+            case .top:
+                moveModule(by: -1)
+            case .leading, .trailing:
+                break
+            }
+        }
         .refreshable { await viewModel.onRefresh?() }
         .scrollBounceBehavior(.basedOnSize)
         // Observe so we can dismiss the reading list toast
@@ -171,39 +432,29 @@ public struct WMFForYouView: View {
                     hasReportedCurrentDrag = true
                     viewModel.onUserInteraction?()
                 }
-                .onEnded { _ in hasReportedCurrentDrag = false }
+                .onEnded { _ in
+                    hasReportedCurrentDrag = false
+                }
         )
+        .overlay {
+            if isShowingSwipeOnboarding {
+                swipeOnboardingOverlay
+            }
+        }
+    }
+
+    private var endOfFeedPage: some View {
+        WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, theme: .forYou)
     }
 
     // MARK: - Empty State
 
     private var emptyState: some View {
-        // The shared empty state component, given the For You palette so it stays dark while the
-        // app is on a light theme, and a nil image size so the SF Symbol keeps its own size.
-        let emptyViewModel = WMFEmptyViewModel(
-            localizedStrings: WMFEmptyViewModel.LocalizedStrings(
-                title: viewModel.emptyTitle,
-                subtitle: viewModel.emptySubtitle,
-                titleFilter: nil,
-                buttonTitle: viewModel.emptyButtonTitle,
-                attributedFilterString: nil
-            ),
-            image: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold),
-            imageColor: WMFTheme.forYou.secondaryText,
-            numberOfFilters: nil,
-            imageSize: nil
-        )
-
-        return WMFEmptyView(
-            viewModel: emptyViewModel,
-            type: .noItems,
-            isScrollable: false,
+        WMFHomeEmptyStateView(
+            subtitle: viewModel.emptySubtitle,
             theme: .forYou,
-            mainAction: { viewModel.onCustomizeInterests?() },
-            usesCompactButton: true
+            action: { viewModel.onCustomizeInterests?(.emptyFeed) }
         )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: WMFTheme.forYou.paperBackground))
     }
 }
 
@@ -249,9 +500,9 @@ private struct WMFForYouPageView: View {
 
     let articleViewModels: [WMFForYouArticleCardViewModel]
     let theme: WMFTheme
-    let onHideModule: () -> Void
+    let onHideModule: (WMFForYouArticleCardViewModel) -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
-    let onCustomizeInterests: () -> Void
+    let onCustomizeInterests: (WMFForYouArticleCardViewModel) -> Void
     let onTapCard: (WMFForYouArticleCardViewModel) -> Void
     let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
@@ -269,9 +520,25 @@ private struct WMFForYouPageView: View {
     /// Reports a card that the user really sees.
     let onShowCard: (WMFForYouArticleCardViewModel) -> Void
 
+    /// Owned by the feed, so a module action can move VoiceOver onto the module it scrolled to.
+    @AccessibilityFocusState.Binding var focusedCardKey: String?
+
+    /// Offered only where there is somewhere to go, so the rotor does not list a dead action on the
+    /// first and last modules. Last module will always allow for going up to the start again.
+    let canGoToPreviousModule: Bool
+    let onGoToPreviousModule: () -> Void
+    let onGoToNextModule: () -> Void
+
+    /// +1 or -1 when a horizontal swipe dismissed the swipe-up onboarding hint, so the module on
+    /// screen moves its carousel one card. The hint's overlay takes the touch itself, thus the
+    /// carousel never sees that swipe.
+    let swipeOnboardingCardStep: Int
+
     /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
     @State private var currentPage: String?
+
+    @Environment(\.accessibilityVoiceOverEnabled) private var isVoiceOverRunning
 
     /// `scrollPosition` only writes to `currentPage` once the user scrolls, so fall back to the
     /// first card to keep the page dots correct on first appearance.
@@ -287,28 +554,89 @@ private struct WMFForYouPageView: View {
         onShowCard(card)
     }
 
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
-                ForEach(articleViewModels, id: \.cardUniqueKey) { article in
-                    let variant = WMFForYouCardVariant.variant(for: article.cardIndex)
-                    WMFForYouArticleCardView(
-                        viewModel: article,
-                        variant: variant,
-                        variantIndex: article.cardIndex,
-                        theme: theme,
-                        onHideModule: onHideModule,
-                        onHideCard: { onHideCard(article) },
-                        onCustomizeInterests: onCustomizeInterests,
-                        onTapCard: { onTapCard(article) },
-                        onSaveCard: { onSaveCard(article) },
-                        onUnsaveCard: { onUnsaveCard(article) },
-                        onShareCard: { onShareCard(article) }
-                    )
-                    .containerRelativeFrame(.horizontal)
+    /// Moves the carousel one card forward or back, the way a horizontal swipe does.
+    private func moveCard(by offset: Int) {
+        guard let currentKey = currentPageKey,
+              let index = articleViewModels.firstIndex(where: { $0.cardUniqueKey == currentKey }) else { return }
+
+        let targetIndex = index + offset
+        guard articleViewModels.indices.contains(targetIndex) else { return }
+
+        withAnimation {
+            currentPage = articleViewModels[targetIndex].cardUniqueKey
+        }
+    }
+
+    /// Read after the card's title, so someone swiping through a module knows where they are.
+    ///
+    /// Derived here rather than from `ForEach(Array(...enumerated()))`: enumerating makes each
+    /// element a tuple, `scrollPosition` then fails to track the carousel, and the page dots stay
+    /// on the first card. Counting the filtered array also keeps the total right when a card is
+    /// hidden, which `cardIndex` does not.
+    private func positionValue(for article: WMFForYouArticleCardViewModel) -> String {
+        let position = (articleViewModels.firstIndex { $0.cardUniqueKey == article.cardUniqueKey } ?? 0) + 1
+        return WMFHomeLocalizedStrings.cardPosition(position, of: articleViewModels.count)
+    }
+
+    @ViewBuilder
+    private var cards: some View {
+        ForEach(articleViewModels, id: \.cardUniqueKey) { article in
+            let variant = WMFForYouCardVariant.variant(for: article.cardIndex)
+            WMFForYouArticleCardView(
+                viewModel: article,
+                variant: variant,
+                variantIndex: article.cardIndex,
+                theme: theme,
+                onHideModule: { onHideModule(article) },
+                onHideCard: { onHideCard(article) },
+                onCustomizeInterests: { onCustomizeInterests(article) },
+                onTapCard: { onTapCard(article) },
+                onSaveCard: { onSaveCard(article) },
+                onUnsaveCard: { onUnsaveCard(article) },
+                onShareCard: { onShareCard(article) }
+            )
+            .containerRelativeFrame(.horizontal)
+            .accessibilityFocused($focusedCardKey, equals: article.cardUniqueKey)
+            .accessibilityValue(Text(positionValue(for: article)))
+            .accessibilityActions {
+                Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
+                if canGoToPreviousModule {
+                    Button(WMFHomeLocalizedStrings.previousModule) { onGoToPreviousModule() }
                 }
             }
-            .scrollTargetLayout()
+        }
+    }
+
+    var body: some View {
+        // Two whole carousels rather than one carousel with a conditional stack inside it:
+        // `scrollPosition` reads the layout marked by `scrollTargetLayout`, and it stops reporting
+        // when a conditional sits between the scroll view and that layout, which leaves the page
+        // dots stuck on the first card.
+        if isVoiceOverRunning {
+            // A lazy stack keeps only the card on screen and its neighbour, and VoiceOver can only
+            // move to a card that exists: from the third card of four the flick finds nothing built
+            // and leaves the module. Modules hold a handful of cards, so building them all while
+            // VoiceOver runs costs little and makes every card reachable.
+            carousel {
+                HStack(spacing: 0) {
+                    cards
+                }
+                .scrollTargetLayout()
+            }
+        } else {
+            carousel {
+                LazyHStack(spacing: 0) {
+                    cards
+                }
+                .scrollTargetLayout()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func carousel<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            content()
         }
         .scrollTargetBehavior(.paging)
         .scrollPosition(id: $currentPage)
@@ -324,8 +652,26 @@ private struct WMFForYouPageView: View {
             onViewCard(cardKey)
             reportCardOnScreen()
         }
+        // A VoiceOver flick moves focus, which is not the same as the carousel settling on a page.
+        // Drive the scroll from focus so the dots, the resume-here card, and the impression logging
+        // all describe the card actually being read.
+        .onChange(of: focusedCardKey) { _, cardKey in
+            guard let cardKey,
+                  currentPage != cardKey,
+                  articleViewModels.contains(where: { $0.cardUniqueKey == cardKey }) else { return }
+
+            withAnimation {
+                currentPage = cardKey
+            }
+        }
         .onChange(of: isOnScreen) { _, _ in
             reportCardOnScreen()
+        }
+        // The horizontal swipe that dismissed the onboarding hint. Only the module on screen may
+        // act: a lazy stack also builds the neighbouring modules, and each of them sees the change.
+        .onChange(of: swipeOnboardingCardStep) { _, step in
+            guard isOnScreen, step != 0 else { return }
+            moveCard(by: step)
         }
         .onAppear {
             reportCardOnScreen()
@@ -356,6 +702,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
     let title: String
     let description: String?
     let uiImage: UIImage?
+    let imageAvailability: WMFForYouArticleCardViewModel.ImageAvailability
     @ViewBuilder let menu: () -> Menu
 
     var body: some View {
@@ -378,16 +725,18 @@ private struct WMFForYouMiniCard<Menu: View>: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 56, height: 56)
+                    .frame(width: WMFForYouCardMetrics.miniCardImageSide, height: WMFForYouCardMetrics.miniCardImageSide)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else {
+            } else if imageAvailability != .unavailable {
+
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(uiColor: WMFColor.white).opacity(0.15))
-                    .frame(width: 56, height: 56)
+                    .frame(width: WMFForYouCardMetrics.miniCardImageSide, height: WMFForYouCardMetrics.miniCardImageSide)
             }
 
             menu()
         }
+        .frame(minHeight: WMFForYouCardMetrics.miniCardImageSide)
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
     }
@@ -398,6 +747,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
 private struct WMFForYouArticleCardView: View {
 
     @ObservedObject var viewModel: WMFForYouArticleCardViewModel
+    @Environment(\.forYouHeaderBottom) private var headerBottom: CGFloat
     let variant: WMFForYouCardVariant
     let variantIndex: Int
     let theme: WMFTheme
@@ -419,6 +769,33 @@ private struct WMFForYouArticleCardView: View {
             return .textFocused
         }
         return variant
+    }
+
+    /// The gradient behind the text of an image-backed card.
+    ///
+    /// The rise from clear to full strength happens above the first line of text, not across it.
+    /// Before, the rise took the first eighth of the block, thus the photograph showed through the
+    /// title and white text could fall below the AA contrast ratio - the more text, the longer the
+    /// rise, and the worse the result.
+    private var textGradient: some View {
+        GeometryReader { block in
+            let fadeHeight = WMFForYouCardMetrics.gradientFadeHeight
+            let totalHeight = block.size.height + fadeHeight
+            let stop = WMFContrast.stop(for: cardColor)
+
+            LinearGradient(
+                stops: [
+                    .init(color: stop.color.opacity(0), location: 0),
+                    .init(color: stop.color.opacity(stop.opacity), location: fadeHeight / totalHeight),
+                    .init(color: Color(uiColor: WMFColor.black), location: 1)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(width: block.size.width, height: totalHeight)
+            .offset(y: -fadeHeight)
+        }
+        .allowsHitTesting(false)
     }
 
     private var cardColor: Color {
@@ -528,6 +905,7 @@ private struct WMFForYouArticleCardView: View {
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
                 case .textFocused:
                     VStack(alignment: .leading, spacing: 0) {
+                        Spacer(minLength: 0)
                         Text(viewModel.extract ?? viewModel.title)
                             .font(Font(WMFFont.for(.georgiaTitle1)))
                             .foregroundStyle(Color(uiColor: WMFColor.white))
@@ -540,6 +918,7 @@ private struct WMFForYouArticleCardView: View {
                             title: viewModel.title,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,
+                            imageAvailability: viewModel.imageAvailability,
                             menu: { miniCardMenu }
                         )
 
@@ -549,8 +928,12 @@ private struct WMFForYouArticleCardView: View {
                         }
                     }
                     .padding(.horizontal, 20)
+                    .padding(.top, WMFForYouCardMetrics.contentTopInset(
+                        headerBottom: headerBottom,
+                        cardTop: geometry.frame(in: .global).minY
+                    ))
                     .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
-                    .frame(width: geometry.size.width, alignment: .leading)
+                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
 
                 // MARK: Variant 1 & 2: Image-backed
                 default:
@@ -592,17 +975,7 @@ private struct WMFForYouArticleCardView: View {
                     .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
                     .frame(width: geometry.size.width, alignment: .leading)
                     .background {
-                        LinearGradient(
-                            stops: [
-                                .init(color: cardColor.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.75), location: 0.12),
-                                .init(color: Color(uiColor: WMFColor.black), location: 1)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .padding(.top, -25)
-                        .allowsHitTesting(false)
+                        textGradient
                     }
                 }
             }
@@ -632,5 +1005,28 @@ private struct WMFForYouArticleCardView: View {
             // Fades the photograph and its sampled colour in when the card finishes loading.
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
+    }
+}
+
+// MARK: - Where the header bar ends
+
+/// The lowest point of the header bar, in the coordinates of the window.
+/// so `WMFHomeView` knows if it needs to limit the text in text-based cards in smaller iPhones
+struct WMFForYouHeaderBottomKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private struct WMFForYouHeaderBottomEnvironmentKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 0
+}
+
+extension EnvironmentValues {
+    var forYouHeaderBottom: CGFloat {
+        get { self[WMFForYouHeaderBottomEnvironmentKey.self] }
+        set { self[WMFForYouHeaderBottomEnvironmentKey.self] = newValue }
     }
 }

@@ -6,13 +6,28 @@ import WMFNativeLocalizations
 
 // MARK: - Module types and visibility
 
+public enum WMFForYouCustomizeInterestsSource {
+    case card(WMFForYouArticleCardViewModel)
+    case emptyFeed
+}
+
 public enum WMFForYouModule {
     case basedOnInterests
     case becauseYouRead
     case continueReading
+    
+    public var loggingId: String {
+        switch self {
+        case .basedOnInterests: return "BasedOnInterestCard"
+        case .becauseYouRead: return "BecauseYouReadCard"
+        case .continueReading: return "ContinueReadingCard"
+        }
+    }
 }
 
-public struct WMFForYouModuleVisibility {
+/// A default argument runs in the context of the caller, which is not the main actor. This type
+/// only carries three flags, thus it needs no isolation.
+public nonisolated struct WMFForYouModuleVisibility {
     public var basedOnInterests: Bool
     public var becauseYouRead: Bool
     public var continueReading: Bool
@@ -60,21 +75,24 @@ public final class WMFForYouViewModel: ObservableObject {
     @Published public var hiddenCardKeys: Set<String>
 
     public var onRefresh: (() async -> Void)?
-    public var onHideModule: ((WMFForYouModule) -> Void)?
+    public var onHideModule: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onHideCard: ((WMFForYouArticleCardViewModel) -> Void)?
-    public var onCustomizeInterests: (() -> Void)?
+    public var onCustomizeInterests: ((WMFForYouCustomizeInterestsSource) -> Void)?
     public var onTapCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onSaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onShareCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUserInteraction: (() -> Void)?
+    public var onEmptyViewAppearance: (() -> Void)?
+    public let endOfFeedViewModel = WMFForYouEndOfFeedCardViewModel()
 
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
 
-    public let emptyTitle = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the For You tab when there is no content to display.")
-    public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
-    public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
+    var emptySubtitle: String {
+        let format = WMFLocalizedString("home-empty-for-you-feed-subtitle", value: "Turn on the %1$@“For you”%2$@ modules to start seeing content based on your preferences.", comment: "Message shown on the Home tab's For You segment when the reader has turned off every For You module in settings. “For you” matches the segment name. %1$@ and %2$@ are opening and closing bold.")
+        return String.localizedStringWithFormat(format, "<b>", "</b>")
+    }
 
     // MARK: - Position in the feed
     private(set) var lastViewedModuleID: UUID?
@@ -82,20 +100,37 @@ public final class WMFForYouViewModel: ObservableObject {
 
     func rememberViewedModule(_ moduleID: UUID?) {
         lastViewedModuleID = moduleID
+        preloader.preloadModule(after: moduleID, in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     func rememberViewedCard(_ cardKey: String?) {
         lastViewedCardKey = cardKey
     }
 
+    private let preloader: WMFForYouModulePreloader
+
+    private var preloadablePages: [WMFForYouPageViewModel] {
+        pages.filter { page in
+            guard moduleVisibility.isVisible(page.module) else { return false }
+            return page.articleViewModels.contains { !hiddenCardKeys.contains($0.cardUniqueKey) }
+        }
+    }
+
+    /// The preloader starts network requests when the feed is built, so tests must give a mocked
+    /// `summaryDataController`.
     public init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
-        hiddenCardKeys: Set<String> = []
+        hiddenCardKeys: Set<String> = [],
+        summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared
     ) {
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
+        self.preloader = WMFForYouModulePreloader(summaryDataController: summaryDataController)
         self.pages = Self.makePages(from: response)
+
+        preloader.preloadInitialModules(in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
+        endOfFeedViewModel.variant = pages.isEmpty ? .emptyFeed : .endOfFeed
     }
 
     // MARK: - Building the feed
@@ -175,14 +210,14 @@ public final class WMFForYouViewModel: ObservableObject {
                 format: CommonStrings.continueReadingTitle,
                 highlight: continueReadingArticle.title.normalizedForDisplay
             )
-            cards.append(WMFForYouArticleCardViewModel(article: continueReadingArticle, headerLabel: continueHeader))
+            cards.append(WMFForYouArticleCardViewModel(article: continueReadingArticle, headerLabel: continueHeader, module: .continueReading))
             deduplicator.markUsed(continueReadingArticle)
         }
 
         let savedFormat = WMFLocalizedString("for-you-header-saved-article", value: "From your reading list", comment: "Header on a For You feed card showing an article from the user's reading list.")
         let savedCards = deduplicator.removingDuplicates(from: continueReading.fromReadingListArticles).map { article in
             let header = WMFForYouHeaderLabel(symbol: .bookmarkFill, format: savedFormat, highlight: article.title.normalizedForDisplay)
-            return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+            return WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .continueReading)
         }
         cards.append(contentsOf: savedCards)
 
@@ -219,7 +254,7 @@ public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
     public init(module: WMFForYouModule, headerLabel: WMFForYouHeaderLabel, articles: [WMFForYouArticle]) {
         self.module = module
         self.articleViewModels = articles.map {
-            WMFForYouArticleCardViewModel(article: $0, headerLabel: headerLabel)
+            WMFForYouArticleCardViewModel(article: $0, headerLabel: headerLabel, module: module)
         }
         Self.assignCardIndexes(to: articleViewModels)
     }
@@ -246,6 +281,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     public let headerLabel: WMFForYouHeaderLabel
     public let title: String
     public let project: WMFProject
+    public let module: WMFForYouModule
     @Published public var description: String?
     @Published public var extract: String?
     @Published public var uiImage: UIImage?
@@ -320,11 +356,12 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     public let customizeInterestsTitle = WMFLocalizedString("for-you-menu-customize-interests", value: "Customize interests", comment: "Menu action to open the interests customization screen from a For You feed card.")
 
-    public init(article: WMFForYouArticle, headerLabel: WMFForYouHeaderLabel) {
+    public init(article: WMFForYouArticle, headerLabel: WMFForYouHeaderLabel, module: WMFForYouModule) {
         self.headerLabel = headerLabel
         self.title = article.title.normalizedForDisplay
         self.project = article.project
         self.cardUniqueKey = "for_you_\(article.project.id)_\(article.title)"
+        self.module = module
     }
 
     /// Rewrites a Commons thumbnail URL to ask for a wider rendering.
@@ -332,7 +369,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     /// Thumbnail URLs carry their width as a path component - `.../640px-Example.jpg` - so the size
     /// is changed by swapping that number. Returns nil when the URL has no such component, which
     /// means it is already the original file and cannot be scaled up.
-    private static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
+    static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
         var urlString = thumbnailURL.absoluteString
         guard let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) else {
             return nil

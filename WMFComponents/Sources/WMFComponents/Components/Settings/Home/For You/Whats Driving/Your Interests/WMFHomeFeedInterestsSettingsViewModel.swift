@@ -22,6 +22,14 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     let topics: [WMFArticleTopic] = WMFArticleTopic.allCases
     @Published var selectedTopics: [WMFArticleTopic] = []
     public private(set) var hasChanges: Bool = false
+
+    var onSelectionChanged: ((_ topics: [WMFArticleTopic], _ selectedArticleTitles: [String]) -> Void)?
+
+    private func noteChanges() {
+        hasChanges = true
+        let titles = gridViewModels.filter { $0.isSelected }.map { $0.title.normalizedForCoreData }
+        onSelectionChanged?(selectedTopics, titles)
+    }
     @Published var gridViewModels: [WMFInterestArticleCardViewModel] = []
     @Published var isFetchingArticles: Bool = false
     @Published private(set) var selectedArticleCount: Int = 0
@@ -62,12 +70,22 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         resolvedPageInterestDataController = controller
         return controller
     }
+    
+    // MARK: - App-side actions
+    let logImpressionIfNeeded: (() -> Void)?
+    let logDidTapTopic: () -> Void
+    let logDidTapArticle: () -> Void
+    let logDidTapDeselectAll: () -> Void
 
     public init(dataController: WMFHomeDataController = WMFHomeDataController.shared,
                 pageInterestDataController: WMFPageInterestDataController? = nil,
                 searchDataController: WMFArticleSearchDataController = WMFArticleSearchDataController.shared,
                 project: WMFProject,
-                searchLanguages: [WMFLanguage] = []) {
+                searchLanguages: [WMFLanguage] = [],
+                logImpressionIfNeeded: (() -> Void)? = nil,
+                logDidTapTopic: @escaping () -> Void,
+                logDidTapArticle: @escaping () -> Void,
+                logDidTapDeselectAll: @escaping () -> Void) {
         self.dataController = dataController
         self.injectedPageInterestDataController = pageInterestDataController
         self.searchDataController = searchDataController
@@ -83,6 +101,11 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         self.searchLanguage = resolvedSearchLanguages.first(where: { $0 == projectLanguage }) ?? resolvedSearchLanguages[0]
 
         self.selectedTopics = dataController.interestTopics()
+        
+        self.logImpressionIfNeeded = logImpressionIfNeeded
+        self.logDidTapTopic = logDidTapTopic
+        self.logDidTapArticle = logDidTapArticle
+        self.logDidTapDeselectAll = logDidTapDeselectAll
 
         Task { [weak self] in
             guard let self else { return }
@@ -116,13 +139,14 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     }
 
     func toggleTopic(_ topic: WMFArticleTopic) {
+        logDidTapTopic()
         if let index = selectedTopics.firstIndex(of: topic) {
             selectedTopics.remove(at: index)
         } else {
             selectedTopics.append(topic)
         }
         dataController.setInterestTopics(selectedTopics)
-        hasChanges = true
+        noteChanges()
 
         if selectedTopics.isEmpty {
             fetchRandomArticles()
@@ -134,6 +158,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     /// Toggles the saved state of an article card in-place (no grid reorder).
     /// Saved articles float to the top only when the article list next reloads.
     func toggleArticleSelection(_ vm: WMFInterestArticleCardViewModel) {
+        logDidTapArticle()
         let cardProject = vm.project
         if vm.isSelected {
             vm.isSelected = false
@@ -143,13 +168,14 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.addPageInterest(title: vm.title, project: cardProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
     }
 
     /// Clears all selected topics and articles, unchecking the cards in place. Deliberately
     /// does not refetch: reloading the grid here read as the whole screen changing under the
     /// user. The articles on screen stay until the list next reloads (e.g. a topic is tapped).
     func deselectAll() {
+        logDidTapDeselectAll()
         selectedTopics = []
         dataController.setInterestTopics([])
 
@@ -160,7 +186,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.removePageInterest(title: cardTitle, project: cardProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
     }
 
     // MARK: - Search
@@ -221,7 +247,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.addPageInterest(title: cardTitle, project: resultProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
         clearSearch()
         return true
     }

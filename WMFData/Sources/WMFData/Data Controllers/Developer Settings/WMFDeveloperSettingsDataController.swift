@@ -2,10 +2,10 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
-    var enableHomeTab: Bool { get }
     var showYiR2025: Bool { get }
+    var forceYiR2026: Bool { get }
+    var forceYiR2026Announcement: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
 }
@@ -29,7 +29,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { _featureConfig.value = newValue }
     }
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
-    
+
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
@@ -51,66 +51,122 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     // MARK: - Local Settings
 
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
-    
+
+    /// Shared read and write for the plain on/off settings below. Each one lives in user defaults
+    /// and is off when nothing has been stored yet.
+    private func loadFlag(_ key: WMFUserDefaultsKey) -> Bool {
+        (try? userDefaultsStore?.load(key: key.rawValue)) ?? false
+    }
+
+    private func saveFlag(_ key: WMFUserDefaultsKey, _ value: Bool) {
+        try? userDefaultsStore?.save(key: key.rawValue, value: value)
+    }
+
     public var developerSettingsEnableDeveloperMode: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDeveloperMode.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDeveloperMode.rawValue, value: newValue) }
+        get { loadFlag(.developerSettingsEnableDeveloperMode) }
+        set { saveFlag(.developerSettingsEnableDeveloperMode, newValue) }
     }
 
     public var doNotPostImageRecommendationsEdit: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue, value: newValue) }
+        get { loadFlag(.developerSettingsDoNotPostImageRecommendationsEdit) }
+        set { saveFlag(.developerSettingsDoNotPostImageRecommendationsEdit, newValue) }
     }
 
     @objc public var sendAnalyticsToWMFLabs: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue, value: newValue) }
+        get { loadFlag(.developerSettingsSendAnalyticsToWMFLabs) }
+        set { saveFlag(.developerSettingsSendAnalyticsToWMFLabs, newValue) }
     }
 
     public var bypassDonation: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue) }
+        get { loadFlag(.bypassDonation) }
+        set { saveFlag(.bypassDonation, newValue) }
     }
 
     public var forceEmailAuth: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue) }
+        get { loadFlag(.forceEmailAuth) }
+        set { saveFlag(.forceEmailAuth, newValue) }
     }
 
     public var forceMaxArticleTabsTo5: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue) }
+        get { loadFlag(.developerSettingsForceMaxArticleTabsTo5) }
+        set { saveFlag(.developerSettingsForceMaxArticleTabsTo5, newValue) }
     }
 
-    public var enableMoreDynamicTabsV2GroupC: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue) }
+    public var forceHCaptchaChallenge: Bool {
+        get { loadFlag(.forceHCaptchaChallenge) }
+        set { saveFlag(.forceHCaptchaChallenge, newValue) }
     }
 
+    public var allowGestureZoomArticleWebview: Bool {
+        get { loadFlag(.allowGestureZoomArticleWebview) }
+        set { saveFlag(.allowGestureZoomArticleWebview, newValue) }
+    }
+
+    public var showGamesV2: Bool {
+        get { loadFlag(.developerSettingsShowGamesV2) }
+        set { saveFlag(.developerSettingsShowGamesV2, newValue) }
+    }
+
+    public func clearGamesPersistence() async throws {
+        let gamesDataController = WMFGamesDataController()
+        try await gamesDataController.clearAllSessions()
+        gamesDataController.resetAnnouncementSeen()
+    }
+
+    // MARK: - Year in Review
+
+    /// Debugging convenience: forces the 2025 Year in Review config active outside its date window.
+    /// Kept so last year's feature can still be exercised; it has no effect on the 2026 config.
     public var showYiR2025: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
+        get { loadFlag(.developerSettingsShowYiR2025) }
+        set { saveFlag(.developerSettingsShowYiR2025, newValue) }
     }
 
-    @objc public var enableHomeTab: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue)) ?? false }
+    /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
+    /// as active outside its date window, and the entry point presents even with no 2026 config
+    /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
+    /// entry point and date window flags, so nothing below it is respected.
+    public var forceYiR2026: Bool {
+        get { loadFlag(.developerSettingsForceYiR2026) }
         set {
-            let oldValue = enableHomeTab
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue, value: newValue)
+            let oldValue = forceYiR2026
+            saveFlag(.developerSettingsForceYiR2026, newValue)
             if oldValue != newValue {
-                NotificationCenter.default.post(name: WMFNSNotification.enableHomeTabDidChange, object: nil)
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
             }
         }
     }
+
+    /// Debugging convenience: while on, the 2026 Year in Review announcement ignores every gate —
+    /// the remote config, its active window, the opt-out toggle, suppressed countries and the
+    /// once-per-user state — so it presents before a 2026 config exists remotely and can be
+    /// retriggered without reinstalling. Named `force` for the same reason as `forceYiR2026`:
+    /// nothing below it is respected.
+    public var forceYiR2026Announcement: Bool {
+        get { loadFlag(.developerSettingsForceYiR2026Announcement) }
+        set { saveFlag(.developerSettingsForceYiR2026Announcement, newValue) }
+    }
+
+    public var enableYiRLoginExperimentControl: Bool {
+        get { loadFlag(.developerSettingsYiRV3LoginExperimentControl) }
+        set { saveFlag(.developerSettingsYiRV3LoginExperimentControl, newValue) }
+    }
+
+    public var enableYiRLoginExperimentB: Bool {
+        get { loadFlag(.developerSettingsYiRV3LoginExperimentB) }
+        set { saveFlag(.developerSettingsYiRV3LoginExperimentB, newValue) }
+    }
+
+    // MARK: - Home
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
     /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
     /// `enableHomeTab` is also true.
     @objc public var enableHomePhase2: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomePhase2.rawValue)) ?? false }
+        get { loadFlag(.developerSettingsEnableHomePhase2) }
         set {
             let oldValue = enableHomePhase2
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomePhase2.rawValue, value: newValue)
+            saveFlag(.developerSettingsEnableHomePhase2, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.enableHomePhase2DidChange, object: nil)
             }
@@ -120,63 +176,152 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
     /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        enableHomeTab && !enableHomePhase2
+        WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB && !enableHomePhase2
     }
 
-    /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding
-    /// presents on every launch, ignoring the persisted "did show onboarding" flag.
-    public var alwaysShowNewOnboarding: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue, value: newValue) }
+    // MARK: - Fundraising
+
+    /// Debugging convenience: when true, the fundraising campaign banner ignores country,
+    /// date window, prompt state (maybe later / hidden), opt-out, and donation history gates,
+    /// so it presents on every article view as long as any campaign config exists remotely.
+    public var forceFundraisingCampaignBanner: Bool {
+        get { loadFlag(.developerSettingsForceFundraisingCampaignBanner) }
+        set { saveFlag(.developerSettingsForceFundraisingCampaignBanner, newValue) }
     }
 
-    public var enableYiRLoginExperimentControl: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue) }
+    /// Debugging convenience: fetches the donate and fundraising campaign configs from Test Wiki
+    /// instead of Donate wiki, so unpublished campaigns can be tested without the Staging scheme.
+    public var useTestWikiDonateConfigs: Bool {
+        get { loadFlag(.developerSettingsUseTestWikiDonateConfigs) }
+        set {
+            let oldValue = useTestWikiDonateConfigs
+            saveFlag(.developerSettingsUseTestWikiDonateConfigs, newValue)
+            if oldValue != newValue {
+                refetchDonateConfigs()
+            }
+        }
     }
 
-    public var enableYiRLoginExperimentB: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue) }
+    /// Debugging convenience: skips the getPaymentMethods API call and uses a hardcoded
+    /// Apple Pay response, so the native donate form works when the payments API rate limits the device.
+    public var useHardcodedPaymentMethods: Bool {
+        get { loadFlag(.developerSettingsUseHardcodedPaymentMethods) }
+        set {
+            let oldValue = useHardcodedPaymentMethods
+            saveFlag(.developerSettingsUseHardcodedPaymentMethods, newValue)
+            if oldValue != newValue {
+                refetchDonateConfigs()
+            }
+        }
     }
 
-    public var forceHCaptchaChallenge: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }
+    public var hardcodedPaymentMethodsOverride: WMFPaymentMethods? {
+        guard useHardcodedPaymentMethods,
+              let fileURL = Bundle.module.url(forResource: "donate-hardcoded-payment-methods", withExtension: "json"),
+              let data = try? Data(contentsOf: fileURL) else {
+            return nil
+        }
+
+        return try? JSONDecoder().decode(WMFPaymentMethods.self, from: data)
     }
 
-    public var allowGestureZoomArticleWebview: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.allowGestureZoomArticleWebview.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.allowGestureZoomArticleWebview.rawValue, value: newValue) }
+    private func refetchDonateConfigs() {
+        WMFDonateDataController.shared.clearConfigCache()
+        WMFFundraisingCampaignDataController.shared.clearConfigCache()
+        guard let countryCode = Locale.current.region?.identifier else {
+            return
+        }
+        WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: countryCode, currentDate: Date())
     }
 
-    public var showGamesV2: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowGamesV2.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowGamesV2.rawValue, value: newValue) }
+    public var donateConfigsServiceEnvironment: WMFServiceEnvironment {
+        useTestWikiDonateConfigs ? .staging : WMFDataEnvironment.current.serviceEnvironment
     }
 
-    public func clearGamesPersistence() async throws {
-        let gamesDataController = WMFGamesDataController()
-        try await gamesDataController.clearAllSessions()
-        gamesDataController.resetAnnouncementSeen()
+    /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
+    /// permanently hidden prompt state, the local donation history, the saved donation reminder, the persisted donation
+    /// reminder experiment bucket, and the wrap-up card seen state.
+    public func clearFundraisingCampaignPersistence() {
+        WMFFundraisingCampaignDataController.shared.clearPromptState()
+        WMFDonateDataController.shared.deleteLocalDonationHistory()
+        WMFDonationReminderDataController.shared.clearReminder()
+        WMFDonationReminderDataController.shared.clearExperimentAssignment()
+        WMFDonationReminderDataController.shared.clearWrapUpCardSeen()
     }
 
-    public var enableVisualEditingJourney: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
+    /// Debugging convenience: overrides the persisted donation reminder experiment bucket at read
+    /// time without re-rolling it. Nil means no override.
+    public var forceDonationReminderExperimentAssignment: WMFDonationReminderDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFDonationReminderDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue)
+            }
+        }
     }
 
-    // MARK: - Reading Challenge Forced States
-
-    private var sharedDefaults: UserDefaults? { UserDefaults(suiteName: "group.org.wikimedia.wikipedia") }
-
-    private func loadSharedStore(_ key: WMFUserDefaultsKey) -> Any? {
-        sharedDefaults?.value(forKey: key.rawValue)
+    /// Debugging convenience: skips the follow-up reminder's once-per-day limit so we can see
+    /// repeat impressions without changing the device date.
+    public var bypassDonationReminderDailyLimit: Bool {
+        get { loadFlag(.developerSettingsBypassDonationReminderDailyLimit) }
+        set { saveFlag(.developerSettingsBypassDonationReminderDailyLimit, newValue) }
     }
 
-    private func saveSharedStore(_ key: WMFUserDefaultsKey, _ value: Any?) {
-        sharedDefaults?.set(value, forKey: key.rawValue)
-        sharedDefaults?.synchronize()
+    /// Debugging convenience: overrides the date that the fundraising features treat as today, so we
+    /// can test the campaign and reminder date windows.
+    public var fundraisingOverriddenCurrentDate: Date? {
+        get { try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue) }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue, value: newValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue)
+            }
+        }
+    }
+
+    public var fundraisingCurrentDate: Date {
+        fundraisingOverriddenCurrentDate ?? Date()
+    }
+
+    // MARK: - Semantic Search
+
+    public var enableSemanticSearch: Bool {
+        get { loadFlag(.developerSettingsEnableSemanticSearch) }
+        set { saveFlag(.developerSettingsEnableSemanticSearch, newValue) }
+    }
+
+    /// Debugging convenience: overrides the persisted semantic search experiment bucket at read
+    /// time without re-rolling it. The target language gate still applies. Nil means no override.
+    public var forceSemanticSearchExperimentAssignment: WMFSemanticSearchDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFSemanticSearchDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue)
+            }
+        }
+    }
+
+    // MARK: - Remote Feature Flags
+
+    /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
+    /// missing config keeps the legacy source editor flow.
+    public var isVisualEditorEnabled: Bool {
+        loadFeatureConfig()?.ios.visualEditorEnabled ?? false
     }
 
     // MARK: - Remote Settings

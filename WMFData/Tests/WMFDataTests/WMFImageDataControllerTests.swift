@@ -92,6 +92,56 @@ struct WMFImageDataControllerTests {
         #expect(service.dataCallCount == 2)
     }
 
+    @Test
+    func concurrentFetchesForTheSameURLShareOneServiceRequest() async throws {
+        let service = GatedImageService()
+        let controller = WMFImageDataController(basicService: service, mediaWikiService: nil)
+
+        // Start two fetches for the same URL while the service holds the first request open.
+        async let first = controller.fetchImageData(url: Self.imageURL)
+        async let second = controller.fetchImageData(url: Self.imageURL)
+
+        // Wait until the download starts. Give the second caller time to attach. Then send the result.
+        while service.heldRequestCount == 0 {
+            await Task.yield()
+        }
+        for _ in 0..<20 {
+            await Task.yield()
+        }
+        service.releaseHeldRequests(with: .success(Self.imageBytes))
+
+        let firstData = try await first
+        let secondData = try await second
+
+        #expect(firstData == Self.imageBytes)
+        #expect(secondData == Self.imageBytes)
+        #expect(service.dataCallCount == 1)
+
+        // A later call comes from the cache.
+        let third = try await controller.fetchImageData(url: Self.imageURL)
+        #expect(third == Self.imageBytes)
+        #expect(service.dataCallCount == 1)
+    }
+
+    @Test
+    func aFailedFetchIsNotLeftInFlightAndCanBeRetried() async throws {
+        let service = MockImageService()
+        service.dataResult = .failure(WMFServiceError.missingData)
+        let controller = WMFImageDataController(basicService: service, mediaWikiService: nil)
+
+        _ = await capturedError {
+            _ = try await controller.fetchImageData(url: Self.imageURL)
+        }
+
+        // The failed request must not stay in the in-flight list. If it stays there, the retry
+        // gets the old failure and does not reach the service.
+        service.dataResult = .success(Self.imageBytes)
+        let data = try await controller.fetchImageData(url: Self.imageURL)
+
+        #expect(data == Self.imageBytes)
+        #expect(service.dataCallCount == 2)
+    }
+
     // MARK: - fetchImageInfo
 
     @Test
@@ -228,6 +278,53 @@ private final class MockImageService: WMFService {
         case .failure(let error):
             completion(.failure(error))
         }
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        completion(.failure(WMFServiceError.missingData))
+    }
+
+    func clearCachedData() {}
+}
+
+/// A `WMFService` mock that holds each `perform` completion until the test releases it. Two
+/// requests can then overlap. The controller actor calls the mock while the test polls it, so a
+/// lock protects the mutable state.
+private final class GatedImageService: WMFService, @unchecked Sendable {
+    private let lock = NSLock()
+    private var heldCompletions: [(Result<Data, Error>) -> Void] = []
+    private var _dataCallCount = 0
+
+    var dataCallCount: Int {
+        lock.withLock { _dataCallCount }
+    }
+
+    var heldRequestCount: Int {
+        lock.withLock { heldCompletions.count }
+    }
+
+    func releaseHeldRequests(with result: Result<Data, Error>) {
+        let completions = lock.withLock {
+            let held = heldCompletions
+            heldCompletions = []
+            return held
+        }
+        completions.forEach { $0(result) }
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        lock.withLock {
+            _dataCallCount += 1
+            heldCompletions.append(completion)
+        }
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        completion(.success(nil))
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        completion(.failure(WMFServiceError.missingData))
     }
 
     func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {

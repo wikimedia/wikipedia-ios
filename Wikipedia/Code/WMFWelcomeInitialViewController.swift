@@ -63,6 +63,10 @@ class WMFWelcomeInitialViewController: ThemeableViewController {
 
         TestKitchenAdapter.shared.client.getInstrument(name: "apps-open")
             .submitInteraction(action: "app_open", actionSource: "new_install_onboarding_start")
+        
+        // Second event for the same action - it is confirmed that both are needed
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-onboarding")
+            .submitInteraction(action: "impression", actionSource: "onboarding_welcome_legacy", experimentData: WMFHomeDataController.shared.experimentData)
 
         try? store.save(key: key, value: true)
     }

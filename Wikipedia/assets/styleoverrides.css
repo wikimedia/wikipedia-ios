@@ -108,3 +108,145 @@ body {
 .pcs-theme-black .reference-highlight a {
     color: #ffffff !important
 }
+
+/* DONATION REMINDER CARD STYLES */
+
+#wmf-donation-reminder-card-container {
+    padding: 8px 0 0 0 !important;
+    margin: 0 !important;
+}
+
+#wmf-donation-reminder-card {
+    margin: 0 0 16px 0 !important;
+    padding: 16px;
+    border: 1px solid #eaecf0;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+}
+
+.pcs-theme-sepia #wmf-donation-reminder-card {
+    border-color: #cbc8c1;
+    background-color: #f0e6d6;
+}
+
+.pcs-theme-dark #wmf-donation-reminder-card {
+    border-color: #72777d;
+    background-color: #27292d;
+}
+
+.pcs-theme-black #wmf-donation-reminder-card {
+    border-color: #72777d;
+    background-color: #202122;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-heading {
+    margin: 0 0 8px 0 !important;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-body {
+    margin: 0 0 12px 0 !important;
+    line-height: 1.4;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 !important;
+}
+
+a.wmf-donation-reminder-card-donate {
+    display: inline-block;
+    padding: 14px 20px;
+    border-radius: 1000px;
+    background-color: #36c;
+    color: #ffffff !important;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.43px;
+    text-decoration: none !important;
+}
+
+.pcs-theme-dark a.wmf-donation-reminder-card-donate,
+.pcs-theme-black a.wmf-donation-reminder-card-donate {
+    background-color: #6699ff;
+    color: #202122 !important;
+}
+
+a.wmf-donation-reminder-card-not-now {
+    display: inline-block;
+    padding: 14px 20px;
+    color: #36c !important;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.43px;
+    text-decoration: none !important;
+}
+
+.pcs-theme-dark a.wmf-donation-reminder-card-not-now,
+.pcs-theme-black a.wmf-donation-reminder-card-not-now {
+    color: #6699ff !important;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 12px 0 !important;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border: 1px solid #eaecf0;
+    border-radius: 14px;
+    color: #202122;
+    font-size: 0.75em;
+    font-weight: 400;
+}
+
+.pcs-theme-sepia #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill {
+    border-color: #cbc8c1;
+}
+
+.pcs-theme-dark #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill,
+.pcs-theme-black #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill {
+    border-color: #72777d;
+    color: #f8f9fa;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon {
+    display: inline-block;
+    flex-shrink: 0;
+    background-color: #72777d;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.pcs-theme-sepia #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon {
+    background-color: #646059;
+}
+
+.pcs-theme-dark #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon,
+.pcs-theme-black #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon {
+    background-color: #c8ccd1;
+}
+
+#wmf-donation-reminder-card a.wmf-donation-reminder-card-learn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.875em;
+    font-weight: 600;
+    text-decoration: none !important;
+}

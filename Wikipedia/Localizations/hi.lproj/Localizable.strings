@@ -122,8 +122,6 @@
 "article-save-error-not-enough-space" = "इस लेख को सहेजने के लिए आपके डिवाइस पर पर्याप्त जगह नहीं है";
 "article-share" = "साझा करें";
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
-"article-topic-entertainment" = "मनोरंजन";
-"article-topic-sports" = "खेल";
 "back-button-accessibility-label" = "पीछे";
 "back-button-popover-title" = "वापस जाने के लिए टैप करें";
 "button-go-back" = "वापस जाएँ";
@@ -226,7 +224,6 @@
 "explore-another-random" = "दूसरा बेतरतीब लेख";
 "explore-because-you-read" = "क्योंकि आपने पढ़ा";
 "explore-continue-reading-heading" = "पढ़ना जारी रखें";
-"explore-enable-location-title" = "अपने वर्तमान स्थान के पास आलेख खोजें";
 "explore-featured-article-heading" = "निर्वाचित लेख";
 "explore-main-page-description" = "विकिमीडिया परियोजनाओं का मुख्यपृष्ठ";
 "explore-main-page-heading" = "विकिपीडिया पर आज";
@@ -275,6 +272,7 @@
 "home-button-explore-accessibility-label" = "विकिपीडिया, खोज पर लौटें";
 "home-button-saved-accessibility-label" = "विकिपीडिया, सहेजे गए पर लौटें";
 "home-card-more-options-accessibility-label" = "अधिक विकल्प";
+"home-empty-go-to-settings-button" = "सेटिंग्स में जाएँ";
 "home-more-like-footer" = "$1 के समान";
 "home-nearby-footer" = "आपके स्थान के आस-पास के और स्थान";
 "home-nearby-location-footer" = "$1 के निकट और अधिक";
@@ -393,7 +391,6 @@
 "reading-list-keep-button-title" = "हाँ, डिवाइस पर आलेख रखें";
 "reading-list-keep-title" = "डिवाइस पर सहेजे गए लेखों को रखें?";
 "reading-list-login-or-create-account-button-title" = "लॉग इन करें या खाता बनाएं";
-"reading-list-login-or-create-account-title" = "सहेजे गए लेख समन्वयित करने के लिए लॉग इन करें";
 "reading-list-sync-enable-button-title" = "समन्वयन सक्षम करें";
 "reading-list-sync-enable-subtitle" = "आपके सहेजे गए लेख और पठन सूचियों को अब आपके विकिपीडिया खाते में सहेजा जा सकता है और विकिपीडिया एप्स में समन्वयित किया जा सकता है।";
 "reading-list-sync-enable-title" = "पठन सूची को सिंक करना चालू करें?";
@@ -454,10 +451,7 @@
 "share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
-"survey-instructions" = "एक या अधिक विकल्प चुनें";
-"survey-other-placeholder" = "अन्य";
 "survey-submit" = "जमा करें";
-"survey-title" = "कारण";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
@@ -471,7 +465,6 @@
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
 "theme-sepia-display-name" = "लाल-भूरा रंग";
-"try-now-title" = "अब कोशिश करें";
 "tutorial-title" = "अनुशिक्षण";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
@@ -500,6 +493,25 @@
 "welcome-languages-add-or-edit-button" = "पसंदीदा भाषाओं को जोड़ें या संपादित करें";
 "welcome-languages-description" = "हमें आपकी डिवाइस पर निम्न भाषाएँ मिली हैं:";
 "welcome-languages-search-title" = "300 से अधिक भाषाओं में खोजें";
+"wikimedia-articletopics-topic-africa" = "अफ्रीका";
+"wikimedia-articletopics-topic-art" = "कला";
+"wikimedia-articletopics-topic-asia" = "एशिया";
+"wikimedia-articletopics-topic-central-america" = "केंद्रीय अमेरिका";
+"wikimedia-articletopics-topic-education" = "शिक्षा";
+"wikimedia-articletopics-topic-entertainment" = "मनोरंजन";
+"wikimedia-articletopics-topic-europe" = "यूरोप";
+"wikimedia-articletopics-topic-fashion" = "फैशन";
+"wikimedia-articletopics-topic-food-and-drink" = "खान-पान";
+"wikimedia-articletopics-topic-history" = "इतिहास";
+"wikimedia-articletopics-topic-music" = "संगीत";
+"wikimedia-articletopics-topic-north-america" = "उत्तरी अमेरिका";
+"wikimedia-articletopics-topic-politics-and-government" = "राजनीति और सरकार";
+"wikimedia-articletopics-topic-society" = "समाज";
+"wikimedia-articletopics-topic-south-america" = "दक्षिणी अमरीका";
+"wikimedia-articletopics-topic-sports" = "खेल";
+"wikimedia-articletopics-topic-technology" = "प्रौद्योगिकी";
+"wikimedia-articletopics-topic-tv-and-film" = "टीवी और फिल्म";
+"wikimedia-articletopics-topic-video-games" = "वीडियो गेम";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
 "wikitext-preview-link-preview-description" = "यह लिंक $1 पर ले जाता है";
 "wikitext-preview-link-preview-title" = "लिंक प्रीव्यू";

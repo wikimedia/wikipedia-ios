@@ -128,7 +128,12 @@ class HelpViewController: SinglePageWebViewController {
     @objc func sendEmail() {
         let address = HelpViewController.emailAddress
         let subject = HelpViewController.emailSubject
-        let body = "\n\n\n\nVersion: \(WikipediaAppUtils.versionedUserAgent())"
+        var body = "\n\n\n\nVersion: \(WikipediaAppUtils.versionedUserAgent())"
+
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        if let appInstallID {
+            body += "\nApp install ID: \(appInstallID)"
+        }
         let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {

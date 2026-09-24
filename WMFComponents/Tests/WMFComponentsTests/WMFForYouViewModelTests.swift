@@ -42,7 +42,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("C1"), fromReadingListArticles: [])
         )
 
-        let viewModel = WMFForYouViewModel(response: response)
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(viewModel.pages.map { $0.module }, [
             .basedOnInterests, .basedOnInterests, .basedOnInterests,
@@ -68,7 +68,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response)
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
         let highlights = viewModel.pages.compactMap { $0.articleViewModels.first?.headerLabel.highlight }
 
         XCTAssertEqual(highlights.count, 4)
@@ -87,7 +87,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response)
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(viewModel.pages.count, topics.count)
     }
@@ -101,7 +101,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response)
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(viewModel.pages.map { $0.module }, [.basedOnInterests])
     }
@@ -117,7 +117,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response)
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(titles(of: viewModel.pages[0]), ["Shared", "OnlyInterest"])
         XCTAssertEqual(titles(of: viewModel.pages[1]), ["OnlyBecauseYouRead"], "The interest page is built first, so it keeps the shared article")
@@ -132,7 +132,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response)
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(titles(of: viewModel.pages[0]), ["Dup", "Other"])
     }
@@ -149,7 +149,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             )
         )
 
-        let viewModel = WMFForYouViewModel(response: response)
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(titles(of: viewModel.pages[0]), ["Current", "Saved"])
     }
@@ -167,7 +167,7 @@ final class WMFForYouViewModelTests: XCTestCase {
     func testCardAccessibilityLabelReadsWhyThenWhat() {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Because of your interest: %1$@", highlight: "Biology")
-        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
         card.extract = "An octopus is a soft-bodied mollusc."
 
         XCTAssertEqual(card.accessibilityLabel, "Because of your interest: Biology, Octopus, An octopus is a soft-bodied mollusc.")
@@ -177,11 +177,31 @@ final class WMFForYouViewModelTests: XCTestCase {
     func testCardAccessibilityLabelFallsBackToTheDescription() {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Squid")
-        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .becauseYouRead)
         card.description = "Marine animal"
         card.extract = nil
 
         XCTAssertEqual(card.accessibilityLabel, "Because you read: Squid, Octopus, Marine animal")
+    }
+
+    @MainActor
+    func testCardTitleShownToTheReaderHasNoUnderscores() {
+        let article = WMFForYouArticle(title: "Giant_squid", project: project)
+        let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Octopus")
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
+
+        XCTAssertEqual(card.title, "Giant squid", "A reader must never see the database form of a title")
+        XCTAssertTrue(card.cardUniqueKey.hasSuffix("Giant_squid"), "The card key keeps the database form, thus a hidden card stays matched")
+    }
+
+    @MainActor
+    func testCardAccessibilityLabelReadsTheTitleWithNoUnderscores() {
+        let article = WMFForYouArticle(title: "Giant_squid", project: project)
+        let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Octopus")
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
+        card.description = "Marine animal"
+
+        XCTAssertEqual(card.accessibilityLabel, "Because you read: Octopus, Giant squid, Marine animal")
     }
 
     // MARK: - Position in the feed
@@ -196,7 +216,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             interestPageRelatedArticles: [],
             becauseYouReadArticles: nil,
             continueReadingArticles: nil
-        ))
+        ), summaryDataController: MockArticleSummaryDataController())
     }
 
     @MainActor
@@ -247,7 +267,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Continue"), fromReadingListArticles: [article("Shared"), article("D1")])
         )
 
-        let keys = cardKeys(of: WMFForYouViewModel(response: response))
+        let keys = cardKeys(of: WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController()))
 
         XCTAssertEqual(keys.count, Set(keys).count)
     }
@@ -265,7 +285,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Shared"), fromReadingListArticles: [])
         )
 
-        let keys = cardKeys(of: WMFForYouViewModel(response: response))
+        let keys = cardKeys(of: WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController()))
 
         XCTAssertEqual(keys.count - Set(keys).count, 1)
     }
@@ -279,5 +299,109 @@ final class WMFForYouViewModelTests: XCTestCase {
         let newViewModel = twoModuleViewModel()
 
         XCTAssertNil(newViewModel.lastViewedModuleID)
+    }
+
+    // MARK: - Module logging IDs
+
+    func testModuleLoggingIds() {
+        XCTAssertEqual(WMFForYouModule.basedOnInterests.loggingId, "BasedOnInterestCard")
+        XCTAssertEqual(WMFForYouModule.becauseYouRead.loggingId, "BecauseYouReadCard")
+        XCTAssertEqual(WMFForYouModule.continueReading.loggingId, "ContinueReadingCard")
+    }
+
+    // MARK: - Feed emptiness
+
+    /// `WMFHomeView` swaps the feed for the empty state on `isFeedEmpty`, so these pin down the
+    /// three ways a feed with data can still have nothing to show: no pages, every module turned
+    /// off, and every card hidden.
+
+    @MainActor
+    func testFeedWithVisibleModulesIsNotEmpty() {
+        let viewModel = twoModuleViewModel()
+
+        XCTAssertFalse(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testFeedWithNoPagesIsEmpty() {
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: [],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        )
+
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
+
+        XCTAssertTrue(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testFeedIsEmptyWhenEveryModuleIsTurnedOff() {
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: [interestPage(.architecture, ["A1"])],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: WMFForYouBecauseYouReadArticles(recentlyRead: article("Read"), articles: [article("B1")]),
+            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("C1"), fromReadingListArticles: [])
+        )
+
+        let viewModel = WMFForYouViewModel(
+            response: response,
+            moduleVisibility: WMFForYouModuleVisibility(basedOnInterests: false, becauseYouRead: false, continueReading: false),
+            summaryDataController: MockArticleSummaryDataController()
+        )
+
+        XCTAssertTrue(viewModel.isFeedEmpty, "The pages exist, but none of them may be shown")
+    }
+
+    @MainActor
+    func testFeedIsEmptyWhenEveryCardIsHidden() {
+        let viewModel = twoModuleViewModel()
+
+        viewModel.hiddenCardKeys = Set(cardKeys(of: viewModel))
+
+        XCTAssertTrue(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testTurningOffOneModuleKeepsTheOthers() {
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: [interestPage(.architecture, ["A1"])],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: WMFForYouBecauseYouReadArticles(recentlyRead: article("Read"), articles: [article("B1")]),
+            continueReadingArticles: nil
+        )
+
+        let viewModel = WMFForYouViewModel(
+            response: response,
+            moduleVisibility: WMFForYouModuleVisibility(basedOnInterests: false, becauseYouRead: true, continueReading: true),
+            summaryDataController: MockArticleSummaryDataController()
+        )
+
+        XCTAssertEqual(viewModel.visibleArticlesByPage.map { $0.page.module }, [.becauseYouRead])
+        XCTAssertFalse(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testAModuleWithEveryCardHiddenLeavesTheFeed() {
+        let viewModel = twoModuleViewModel()
+        let firstPage = viewModel.pages[0]
+
+        viewModel.hiddenCardKeys = Set(firstPage.articleViewModels.map { $0.cardUniqueKey })
+
+        XCTAssertEqual(viewModel.visibleArticlesByPage.map { $0.page.id }, [viewModel.pages[1].id])
+        XCTAssertFalse(viewModel.isFeedEmpty, "One whole module is gone, but the other still shows")
+    }
+
+    @MainActor
+    func testAHiddenCardIsLeftOutButItsModuleStays() {
+        let viewModel = twoModuleViewModel()
+        let hiddenKey = viewModel.pages[0].articleViewModels[0].cardUniqueKey
+
+        viewModel.hiddenCardKeys = [hiddenKey]
+
+        let visible = viewModel.visibleArticlesByPage
+        XCTAssertEqual(visible.count, 2)
+        XCTAssertEqual(visible[0].articles.map { $0.cardUniqueKey }, [viewModel.pages[0].articleViewModels[1].cardUniqueKey])
     }
 }
