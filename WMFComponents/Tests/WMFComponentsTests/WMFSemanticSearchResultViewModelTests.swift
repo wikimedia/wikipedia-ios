@@ -153,8 +153,9 @@ final class WMFSemanticSearchResultViewModelTests: XCTestCase {
 
         XCTAssertNil(viewModel.contributorsText)
         XCTAssertNil(viewModel.referencesText)
-        XCTAssertEqual(viewModel.lastUpdatedText, "Last update \(DateFormatter.lastEditedDateFormatter.string(from: date))")
-        XCTAssertEqual(viewModel.lastUpdatedAccessibilityText, "Last update \(DateFormatter.wmfMonthDayYearDateFormatter.string(from: date))")
+        XCTAssertEqual(viewModel.lastUpdatedText, "Last update \(DateFormatter.monthYearNumericFormatter.string(from: date))")
+        XCTAssertFalse(viewModel.lastUpdatedText?.contains("03") ?? true, "Only the month and the year show, not the day.")
+        XCTAssertEqual(viewModel.lastUpdatedAccessibilityText, "Last update \(DateFormatter.monthYearSpelledOutFormatter.string(from: date))")
         XCTAssertNil(viewModel.thumbnail, "No thumbnail URL, no request.")
     }
 
