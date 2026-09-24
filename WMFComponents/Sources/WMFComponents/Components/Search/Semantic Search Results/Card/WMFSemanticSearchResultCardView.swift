@@ -42,6 +42,7 @@ struct WMFSemanticSearchResultCardView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .environment(\.layoutDirection, viewModel.isRightToLeft ? .rightToLeft : .leftToRight)
         .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchResultCard)
         .onAppear {
             viewModel.loadDetailsIfNeeded()
