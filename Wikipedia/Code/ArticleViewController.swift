@@ -1612,7 +1612,7 @@ private extension ArticleViewController {
     }
 
     var isWidgetCachedFeaturedArticle: Bool {
-        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
+        let sharedCache = WMFSharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
 
         let cache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         guard let widgetFeaturedArticleURLString = cache.featuredContent?.featuredArticle?.contentURL.desktop.page,

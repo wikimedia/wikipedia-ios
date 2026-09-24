@@ -25,7 +25,7 @@ public final class WidgetController: NSObject {
     // MARK: Properties
 
     @objc public static let shared = WidgetController()
-    private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
+    private let sharedCache = WMFSharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
     
     var widgetCache: WidgetCache {
         return sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
