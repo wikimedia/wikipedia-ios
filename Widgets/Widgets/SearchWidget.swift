@@ -66,8 +66,11 @@ struct SearchProvider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<SearchEntry>) -> Void) {
         let entry = SearchEntry()
-        let timeline = Timeline(entries: [entry], policy: .never)
-        completion(timeline)
+        let timeline = Timeline(entries: [entry], policy: .after(WidgetController.searchWidgetNextReloadDate))
+        Task {
+            await WidgetController.submitSearchWidgetHeartbeat(actionSource: "widget_search")
+            completion(timeline)
+        }
     }
 }
 

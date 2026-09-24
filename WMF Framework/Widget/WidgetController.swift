@@ -2,6 +2,7 @@ import Foundation
 import WidgetKit
 import CocoaLumberjackSwift
 import WMFData
+import WMFTestKitchen
 
 @objc(WMFWidgetController)
 public final class WidgetController: NSObject {
@@ -625,4 +626,33 @@ public extension WidgetController {
         }
     }
 
+}
+
+// MARK: - Search widget instrumentation
+
+public extension WidgetController {
+
+    /// TestKitchen instrument for the search widgets. It follows the reading challenge widget pattern (`apps-widgetchallenge`).
+    static func searchWidgetInstrument() -> InstrumentImpl {
+        TestKitchenAdapter.shared.client
+            .getInstrument(name: "apps-widgetsearch")
+            .startFunnel(name: "widget_search")
+    }
+
+    /// Sends a heartbeat that shows the widget is installed, then flushes the stored events.
+    /// Call it from `getTimeline` before `completion`, because the system can suspend the widget extension after `completion` returns.
+    /// - Parameter actionSource: The same value as the `source` query item in the widget URL.
+    static func submitSearchWidgetHeartbeat(actionSource: String) async {
+        searchWidgetInstrument().submitInteraction(action: "heartbeat", actionSource: actionSource)
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            EventPlatformClient.shared.flushStoredEvents {
+                continuation.resume()
+            }
+        }
+    }
+
+    /// The start of the next day. Search widgets reload then, so the heartbeat is sent one time each day.
+    static var searchWidgetNextReloadDate: Date {
+        Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date())
+    }
 }

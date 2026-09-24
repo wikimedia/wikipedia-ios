@@ -271,6 +271,40 @@ If needed you can pass in a particular WMFFont, to have the symbol take on those
 
     let uiImage = WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1)
 
+#### Spacing and Corner Radius
+
+All padding, spacing, and corner radius values should flow through the `WMFSpacing` and `WMFCornerRadius` enums. Do not hardcode numeric values like `16` or `8` in new components.
+
+`WMFSpacing` follows the Codex spacing tokens:
+
+| Token | Value | Codex | Typical use |
+|---|---|---|---|
+| `xxSmall` | 2pt | `spacing-12` | Hairline gaps |
+| `xSmall` | 4pt | `spacing-25` | Gap between an icon and its label |
+| `small` | 8pt | `spacing-50` | Gap between rows inside a card |
+| `medium` | 12pt | `spacing-75` | Padding of compact controls |
+| `large` | 16pt | `spacing-100` | Card padding and list margins |
+| `xLarge` | 24pt | `spacing-150` | Space between sections |
+| `xxLarge` | 32pt | `spacing-200` | Bottom padding of floating sheets |
+
+`WMFCornerRadius` is specific to the iOS app (Codex has no matching scale):
+
+| Token | Value | Typical use |
+|---|---|---|
+| `small` | 4pt | Small thumbnails and tags |
+| `medium` | 8pt | Thumbnails inside cards |
+| `large` | 12pt | Buttons and callouts |
+| `xLarge` | 16pt | Cards |
+
+    VStack(spacing: WMFSpacing.small) {
+        ...
+    }
+    .padding(WMFSpacing.large)
+    .background(Color(uiColor: appEnvironment.theme.paperBackground))
+    .clipShape(RoundedRectangle(cornerRadius: WMFCornerRadius.xLarge))
+
+If a design uses a value that is not in the scale, round it to the nearest token when the difference is small (1–2pt). For example, use `WMFSpacing.large` (16pt) for a 15pt padding, or `WMFCornerRadius.medium` (8pt) for a 9pt radius. If the value is exactly between two tokens, round up (for example, use 12pt for a 10pt value). If the value is far from every token, check with design before you add a one-off value. If the new value is needed again, add it to the enum.
+
 ### Utilities
 `Sources > WMFComponents > Utility`
 

@@ -15,7 +15,7 @@ struct LockscreenSearchWidget: Widget {
         })
         .configurationDisplayName(CommonStrings.searchTitle)
         .description(CommonStrings.lockscreenSearchWidgetDescription)
-        .supportedFamilies([.accessoryCircular, .accessoryRectangular])
+        .supportedFamilies([.accessoryCircular])
     }
 }
 
@@ -64,55 +64,31 @@ struct LockscreenSearchProvider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<LockscreenSearchEntry>) -> Void) {
         let entry = LockscreenSearchEntry()
-        let timeline = Timeline(entries: [entry], policy: .never)
-        completion(timeline)
+        let timeline = Timeline(entries: [entry], policy: .after(WidgetController.searchWidgetNextReloadDate))
+        Task {
+            await WidgetController.submitSearchWidgetHeartbeat(actionSource: "widget_lockscreen_search")
+            completion(timeline)
+        }
     }
 }
 
 // MARK: - View
 
 struct LockscreenSearchWidgetView: View {
-    @Environment(\.widgetFamily) private var widgetFamily
-    
     var entry: LockscreenSearchEntry
     
     var body: some View {
-        switch widgetFamily {
-        case .accessoryCircular:
-            accessoryCircularView
-        case .accessoryRectangular:
-            accessoryRectangularView
-        default:
-            accessoryCircularView
-        }
-    }
-    
-    // MARK: - Widget Family Views
-    
-    var accessoryCircularView: some View {
-        Image("W")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 28, height: 28)
-            .widgetURL(entry.url)
-            .modifier(ContainerBackgroundModifier())
-    }
-    
-   var accessoryRectangularView: some View {
-        HStack(spacing: 8) {
+        ZStack {
+            AccessoryWidgetBackground()
             Image("W")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 25, height: 25)
-            
-            Text(CommonStrings.searchButtonAccessibilityLabel)
-                .font(.system(size: 13, weight: .medium))
-                .lineLimit(1)
+                .frame(width: 28, height: 28)
         }
         .widgetURL(entry.url)
         .modifier(ContainerBackgroundModifier())
     }
-    
+
 }
 
 // MARK: - Container Background Modifier
