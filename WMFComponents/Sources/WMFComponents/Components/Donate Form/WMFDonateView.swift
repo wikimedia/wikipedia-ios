@@ -1,14 +1,6 @@
 import SwiftUI
 import _PassKit_SwiftUI
 
-@objc public protocol WMFDonateDelegate: AnyObject {
-    func donateDidTapProblemsDonatingLink()
-    func donateDidTapOtherWaysToGive()
-    func donateDidTapFrequentlyAskedQuestions()
-    func donateDidTapTaxDeductibilityInformation()
-    func donateDidSuccessfullySubmitPayment()
-}
-
 struct WMFDonateView: View {
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
