@@ -2939,7 +2939,6 @@
 		0042804125E6E395004945B3 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		0042804225E6E395004945B3 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
 		0042804325E6E395004945B3 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
-		0042804425E6E395004945B3 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		0042804625E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+MTLPredefinedTransformerAdditions.m"; sourceTree = "<group>"; };
 		0042804725E6E395004945B3 /* NSError+MTLModelException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MTLModelException.m"; sourceTree = "<group>"; };
 		0042804825E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MTLJSONKeyPath.h"; sourceTree = "<group>"; };
@@ -3316,7 +3315,6 @@
 		679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFHCaptchaViewController.swift; sourceTree = "<group>"; };
 		679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsView.xib; sourceTree = "<group>"; };
 		679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenAdapter.swift; sourceTree = "<group>"; };
-		679DEF002F621D8E00B21570 /* TestKitchenLogAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenLogAdapter.swift; sourceTree = "<group>"; };
 		679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFBarButtonItemPopoverMessageViewController+Extensions.swift"; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679F0AAE24574AD400EF4A6A /* MockSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSchemeHandler.swift; sourceTree = "<group>"; };
@@ -4588,7 +4586,6 @@
 			isa = PBXGroup;
 			children = (
 				0042803F25E6E395004945B3 /* FLAnimatedImage */,
-				0042804425E6E395004945B3 /* .gitignore */,
 			);
 			path = FLAnimatedImage;
 			sourceTree = "<group>";
@@ -7649,7 +7646,6 @@
 			isa = PBXGroup;
 			children = (
 				679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */,
-				679DEF002F621D8E00B21570 /* TestKitchenLogAdapter.swift */,
 				67BE16252A9927E1009486A6 /* DeprecatedButton.swift */,
 				0E28C4611D74AA55000C5919 /* Article Content */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
