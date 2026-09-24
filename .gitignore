@@ -23,6 +23,7 @@ Carthage Cache
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
+Wikipedia.xcodeproj/xcshareddata/xcodecloud/
 *.xccheckout
 *.moved-aside
 DerivedData
