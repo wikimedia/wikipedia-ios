@@ -192,17 +192,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.allowGestureZoomArticleWebview.rawValue, value: newValue) }
     }
 
-    public var showGamesV2: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowGamesV2.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowGamesV2.rawValue, value: newValue) }
-    }
-
-    public func clearGamesPersistence() async throws {
-        let gamesDataController = WMFGamesDataController()
-        try await gamesDataController.clearAllSessions()
-        gamesDataController.resetAnnouncementSeen()
-    }
-
     /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
     /// permanently hidden prompt state, the local donation history, the saved donation reminder, the persisted donation
     /// reminder experiment bucket, and the wrap-up card seen state.

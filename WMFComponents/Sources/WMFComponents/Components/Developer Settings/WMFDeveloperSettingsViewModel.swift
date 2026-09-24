@@ -50,12 +50,6 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
     }
 
-    @Published public var showGamesV2: Bool = WMFDeveloperSettingsDataController.shared.showGamesV2 {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.showGamesV2 = showGamesV2
-        }
-    }
-
     @Published public var forceYiREntryPoint2026: Bool = WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = forceYiREntryPoint2026
@@ -234,12 +228,6 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
-        }
-    }
-
-    public func clearGamesPersistence() {
-        Task {
-            try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
         }
     }
 }

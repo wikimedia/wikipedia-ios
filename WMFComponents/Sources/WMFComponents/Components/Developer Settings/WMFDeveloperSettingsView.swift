@@ -40,19 +40,6 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
-                Toggle("Show Games Version 2", isOn: $viewModel.showGamesV2)
-                Button {
-                    viewModel.clearGamesPersistence()
-                } label: {
-                    Text("Clear games persistence")
-                        .foregroundStyle(Color(theme.link))
-                }
-            } header: {
-                sectionHeader("Games")
-            }
-            .listRowBackground(rowBackground)
-
-            Section {
                 captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
                     Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
                 }
