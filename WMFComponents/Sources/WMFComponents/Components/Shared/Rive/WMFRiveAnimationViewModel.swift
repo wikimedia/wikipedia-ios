@@ -42,11 +42,15 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         loadTask?.cancel()
     }
 
-    func loadIfNeeded() {
-        guard loadTask == nil, !loadState.isLoaded else { return }
-        loadTask = Task { [weak self] in
-            await self?.load()
+    @discardableResult
+    func loadIfNeeded() -> Task<Void, Never>? {
+        guard loadTask == nil, !loadState.isLoaded else { return nil }
+        let task = Task { [weak self] in
+            guard let self else { return }
+            await self.load()
         }
+        loadTask = task
+        return task
     }
 
     func load() async {
@@ -63,6 +67,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         } catch {
             guard !Task.isCancelled else { return }
             self.rive = nil
+            self.loadTask = nil
             self.loadState = .failed
             WMFRiveLogger.log(
                 WMFRiveFailure(animation: animation, stage: stage(for: error), reason: error.localizedDescription)

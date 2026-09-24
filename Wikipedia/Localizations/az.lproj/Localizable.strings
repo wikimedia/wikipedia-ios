@@ -709,8 +709,6 @@
 "for-you-empty-feed-subtitle" = "Oxumağa davam etdikdə \"Sizin üçün\" lentiniz fərdiləşdirilmiş məqalələrlə doldurulacaq.";
 "for-you-empty-feed-title" = "Sizin lentiniz hələlik boşdur";
 "for-you-empty-feed-ways-to-get-started" = "Başlamaq üçün yollar:";
-"for-you-empty-subtitle-interests-or-modules" = "Fərdiləşdirilmiş məqalə tövsiyələri almaq üçün maraqlarınızı əlavə edin və ya modulları aktivləşdirin";
-"for-you-empty-title" = "Hələlik burada heç nə yoxdur";
 "for-you-end-of-feed-add-interests-format" = "$1 əlavə et";
 "for-you-end-of-feed-add-interests-link" = "Yeni maraqlar";
 "for-you-end-of-feed-community-format" = "$1 nələrin baş verdiyinə baxın";
@@ -750,11 +748,9 @@
 "home-button-home-accessibility-label" = "Vikipediya, Ana səhifəyə qayıt";
 "home-button-saved-accessibility-label" = "Vikipediya, Saxlanmışlara qayıt";
 "home-card-more-options-accessibility-label" = "Daha çox seçim";
-"home-community-empty-feed-turn-on-modules-message" = "İcma məzmununu görmək üçün modulları aktivləşdirin";
 "home-community-see-past-content" = "Keçmiş icma məzmununa bax";
 "home-community-tab-title" = "İcma";
 "home-edit-languages-title" = "Dil əlavə et və ya redaktə et";
-"home-empty-go-to-settings-button" = "Parametrlərə get";
 "home-feed-for-you-based-on-interests-subtitle" = "Seçdiyiniz mövzulara uyğun məqalələr.";
 "home-feed-for-you-based-on-interests-title" = "Maraqlarınıza əsasən";
 "home-feed-for-you-because-you-read-subtitle" = "Tarixçənizdəki son məqaləyə əsaslanan təkliflər";
@@ -1704,7 +1700,6 @@
 "year-in-review-feature-explore-body-v3" = "Vikipediya proqramında oxuduğunuz məqalələr və etdiyiniz redaktələr haqqında məlumatlara baxın.";
 "year-in-review-feature-explore-footer-v3" = "Oxuma tarixçəniz qorunur. Oxuma məlumatları cihazınızda lokal olaraq saxlanılan datadan istifadə etməklə hesablanır.";
 "year-in-review-highlights-share-logo-caption" = "Vikipediya loqosu";
-"year-in-review-intro-exit-toast-title" = "Daha sonra profildən İlin İcmalına baxa bilərsiniz.";
 "year-in-review-intro-login-title" = "Fərdiləşdirmə üçün daxil ol";
 "yesterday-title" = "Dünən";
 "zero-edits-to-articles" = "Bu yaxınlarda məqalələrə 0 düzəliş";

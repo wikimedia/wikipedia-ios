@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 @testable import WMFComponents
 
 @MainActor
@@ -65,6 +66,51 @@ struct WMFRiveAnimationViewModelTests {
 
         #expect(viewModel.rive == nil)
         #expect(viewModel.loadState.isLoaded == false)
+    }
+
+    /// A load that fails must release its task handle. Before this was fixed, `loadIfNeeded`
+    /// saw a non-nil handle and returned early for the rest of the view model's life, so a
+    /// slide that lost the race to build the Metal worker stayed blank even though
+    /// `WMFRiveWorkerProvider.sharedWorker()` would have built one on the next attempt.
+    @Test
+    func aFailedLoadDoesNotBlockTheNextAttempt() async {
+        var attempts = 0
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: animation,
+            loader: { _ in
+                attempts += 1
+                throw StubError.cannotLoad
+            }
+        )
+
+        await viewModel.loadIfNeeded()?.value
+        #expect(attempts == 1)
+
+        let retry = viewModel.loadIfNeeded()
+        #expect(retry != nil, "a failed load must not block the next attempt")
+        await retry?.value
+        #expect(attempts == 2)
+    }
+
+    /// The opposite guard: a load already in flight must not be started twice.
+    @Test
+    func aLoadInFlightIsNotStartedTwice() async {
+        var attempts = 0
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: animation,
+            loader: { _ in
+                attempts += 1
+                try? await Task.sleep(nanoseconds: 50_000_000)
+                throw StubError.cannotLoad
+            }
+        )
+
+        let inFlight = viewModel.loadIfNeeded()
+        #expect(viewModel.loadIfNeeded() == nil, "a load in flight must not start another")
+        #expect(viewModel.loadIfNeeded() == nil)
+
+        await inFlight?.value
+        #expect(attempts == 1, "three calls while one load is in flight must start one load")
     }
 
     @Test

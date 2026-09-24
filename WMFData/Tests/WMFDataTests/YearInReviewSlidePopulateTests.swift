@@ -11,7 +11,7 @@ import WMFDataTestSupport
 /// most-read-date slide shipped the user's least-read hour, day and month.
 final class YearInReviewSlidePopulateTests: XCTestCase {
 
-    private let year = 2025
+    private let year = 2026
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let fixture = WMFDataTestFixture()
     private var store: WMFCoreDataStore?
@@ -57,10 +57,10 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         )
     }
 
-    /// A date inside `testConfig`'s data window (2025-01-01 to 2025-12-01).
+    /// A date inside `testConfig`'s data window (2026-01-01 to 2026-12-01).
     private func date(month: Int, day: Int, hour: Int) throws -> Date {
         var components = DateComponents()
-        components.year = 2025
+        components.year = 2026
         components.month = month
         components.day = day
         components.hour = hour
