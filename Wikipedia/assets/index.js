@@ -425,13 +425,13 @@ const passageHaystack = nodes => {
   return { text, positions }
 }
 
-const wrapPassageTextNode = textNode => {
+const wrapPassageNode = node => {
   const span = document.createElement('span')
   span.setAttribute('class', 'findInPageMatch')
   span.setAttribute('data-passage', '')
   span.setAttribute('id', `passage|${ Math.random().toString(36).substring(2, 9) }`)
-  textNode.parentNode.insertBefore(span, textNode)
-  span.appendChild(textNode)
+  node.parentNode.insertBefore(span, node)
+  span.appendChild(node)
   return span.id
 }
 
@@ -447,17 +447,40 @@ const wrapPassageRange = (positions, start, end) => {
     const to = positions[last].offset + 1
     let target = from > 0 ? node.splitText(from) : node
     if (to - from < target.length) target.splitText(to - from)
-    ids.push(wrapPassageTextNode(target))
+    ids.push(wrapPassageNode(target))
     index = last + 1
   }
   return ids
+}
+
+// A reference marker is not part of the passage text, but one that sits between two highlighted
+// runs of the same passage takes the highlight too, so the passage reads as one run.
+const passageMarkerElements = 'sup.mw-ref, .mw-ref, .reference'
+
+const isBetween = (node, first, last) =>
+  (first.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0 &&
+  (node.compareDocumentPosition(last) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0
+
+const wrapPassageMarkers = (container, ids) => {
+  const markers = [...container.querySelectorAll(passageMarkerElements)]
+    .filter(marker => !marker.parentElement.closest(passageMarkerElements))
+  const markerIds = []
+  for (let index = 0; index + 1 < ids.length; index++) {
+    const first = document.getElementById(ids[index])
+    const last = document.getElementById(ids[index + 1])
+    markers
+      .filter(marker => isBetween(marker, first, last))
+      .forEach(marker => markerIds.push(wrapPassageNode(marker)))
+  }
+  return markerIds
 }
 
 const highlightPassageIn = (container, needle) => {
   const { text, positions } = passageHaystack(passageTextNodes(container))
   const start = text.indexOf(needle)
   if (start < 0) return []
-  return wrapPassageRange(positions, start, start + needle.length - 1)
+  const ids = wrapPassageRange(positions, start, start + needle.length - 1)
+  return ids.concat(wrapPassageMarkers(container, ids))
 }
 
 // Highlights every passage inside the section of `anchor`, or in the whole article when the
