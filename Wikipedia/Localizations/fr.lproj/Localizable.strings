@@ -1128,7 +1128,6 @@
 "potd-sample-entry-description" = "Deux taureaux en course lors du pacu jawi (du minangkabau, « course de taureaux »), course traditionnelle pratiquée à Tanah Datar, dans l’ouest de Sumatra (Indonésie). 2015, Final-45.";
 "potd-widget-description" = "Profiter d’une jolie photo quotidienne sélectionnée par notre communauté.";
 "potd-widget-title" = "Image du jour";
-"preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
 "privacy-policy-title" = "Politique de confidentialité";
 "problem-with-feature-title" = "Problème avec la fonctionnalité";
 "profile-button-accessibility-hint" = "Accède à la vue du profil.";
@@ -1276,7 +1275,6 @@
 "settings-clear-cache" = "Effacer les données en cache";
 "settings-clear-cache-are-you-sure-message" = "L’effacement des données en cache libérera environ $1 d’espace. Cela ne supprimera pas vos pages sauvegardées.";
 "settings-clear-cache-are-you-sure-title" = "Effacer les données en cache ?";
-"settings-clear-cache-cancel" = "Annuler";
 "settings-clear-cache-ok" = "Vider le cache";
 "settings-donate" = "Faire un don";
 "settings-explore-games-subtitle" = "Jeux quotidiens basés sur le contenu de Wikipédia";

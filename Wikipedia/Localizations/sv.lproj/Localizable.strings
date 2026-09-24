@@ -1084,7 +1084,6 @@
 "potd-sample-entry-description" = "En jockey håller i springande två tjurar i pacu jawi (från Minangkabau, \"tjurlopp\"), ett traditionellt tjurlopp i Tanah Datar, Sumatera Barat, Indonesien. 2015, Final-45.";
 "potd-widget-description" = "Njut av dagens vackra foto som väljs ut av vår gemenskap.";
 "potd-widget-title" = "Dagens bild";
-"preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "privacy-policy-title" = "Integritetspolicy";
 "problem-with-feature-title" = "Problem med funktion";
 "profile-button-accessibility-hint" = "Navigerar till profilvyn.";
@@ -1233,7 +1232,6 @@
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
-"settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Rensa cachen";
 "settings-community-feed-title" = "Gemenskap";
 "settings-donate" = "Donera";

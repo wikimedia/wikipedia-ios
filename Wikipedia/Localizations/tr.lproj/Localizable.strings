@@ -1076,7 +1076,6 @@
 "potd-sample-entry-description" = "Endonezya'nın Batı Sumatra ilinde yer alan Tanah Datar'da gerçekleştirilen geleneksel boğa yarışı pacu jawi'de (boğa yarışı) bir jokey, koşan iki boğaya tutunurken, 2015, Final-45.";
 "potd-widget-description" = "Topluluğumuz tarafından seçilen güzel günlük fotoğrafın keyfini çıkarın.";
 "potd-widget-title" = "Günün resmi";
-"preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "privacy-policy-title" = "Gizlilik ilkesi";
 "problem-with-feature-title" = "Özellikle ilgili sorun";
 "profile-button-accessibility-hint" = "Profil görünümüne gider.";
@@ -1224,7 +1223,6 @@
 "settings-clear-cache" = "Önbellekteki verileri temizle";
 "settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
 "settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
-"settings-clear-cache-cancel" = "İptal";
 "settings-clear-cache-ok" = "Önbelleği temizle";
 "settings-donate" = "Bağış yap";
 "settings-explore-games-subtitle" = "Vikipedi içeriğine dayalı günlük oyunlar";

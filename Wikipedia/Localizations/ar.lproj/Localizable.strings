@@ -1069,7 +1069,6 @@
 "potd-sample-entry-description" = "ثيران يركضان بينما يتشبث الفارس بهما في باكو جاوي (من مينانجكابو ، \"سباق الثيران\") ، وهو سباق ثيران تقليدي في تاناه داتار ، غرب سومطرة ، إندونيسيا. 2015 ، نهائي 45.";
 "potd-widget-description" = "شاهد صورة يومية اختارها مجتمعنا";
 "potd-widget-title" = "صورة اليوم";
-"preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "privacy-policy-title" = "سياسة الخصوصية";
 "problem-with-feature-title" = "مشكلة مع الميزة";
 "profile-button-accessibility-hint" = "ينتقل إلى عرض الملف الشخصي.";
@@ -1218,7 +1217,6 @@
 "settings-clear-cache" = "مسح المحتوى المخزن";
 "settings-clear-cache-are-you-sure-message" = "مسح المحتوى المخزن سيتيح حوالي مساحة $1. هذا لن يحذف المقالات المحفوظة.";
 "settings-clear-cache-are-you-sure-title" = "مسح المحتوى المخزن؟";
-"settings-clear-cache-cancel" = "إلغاء";
 "settings-clear-cache-ok" = "مسح المخزون";
 "settings-community-feed-title" = "المجتمع";
 "settings-donate" = "تبرع";

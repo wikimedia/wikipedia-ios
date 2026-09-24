@@ -695,7 +695,6 @@
 "potd-sample-entry-description" = "Doi tauri galopând în timp ce jockey-ul stă deasupra lor în pacu jawi (de la Minangkabau, „cursă de tauri”), un taur tradițional alergat în Tanah Datar, Sumatra de Vest, Indonezia. 2015, Final-45.";
 "potd-widget-description" = "Bucurați-vă de o fotografie zilnică frumoasă selectată de comunitatea noastră.";
 "potd-widget-title" = "Imaginea zilei";
-"preference-summary-eventlogging-opt-in" = "Permiteți Fundației Wikimedia să colecteze informații despre modul în care utilizați aplicația pentru a îmbunătăți aplicația";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikimanuale";
 "project-name-wikidata" = "Wikidata";
@@ -820,7 +819,6 @@
 "settings-clear-cache" = "Ștergeți datele din cache";
 "settings-clear-cache-are-you-sure-message" = "Ștergerea datelor din cache va elibera aproximativ $1 din spațiul. Nu va va șterge paginile salvate.";
 "settings-clear-cache-are-you-sure-title" = "Ștergeți datele din cache?";
-"settings-clear-cache-cancel" = "Anulează";
 "settings-clear-cache-ok" = "Ștergeți memoria cache";
 "settings-help-and-feedback" = "Asistență și comentarii";
 "settings-language-bar" = "Arată limbile la căutări";

@@ -883,7 +883,6 @@
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-widget-title" = "Bild vum Dag";
-"preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
 "privacy-policy-title" = "Dateschutzrichtlinnen";
 "problem-with-feature-title" = "Problem mat der Funktioun";
 "profile-button-accessibility-label" = "Profil";
@@ -994,7 +993,6 @@
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
 "settings-clear-cache-are-you-sure-message" = "D'Läsche vun tëschegespäicherten Donnéeën mécht ongeféier $1 Plaz fräi. Är gespäichert Säite ginn net geläscht.";
 "settings-clear-cache-are-you-sure-title" = "Tëschegespäichert Date läschen?";
-"settings-clear-cache-cancel" = "Ofbriechen";
 "settings-clear-cache-ok" = "Tëschespäicher eidelmaachen";
 "settings-clear-donation-history" = "Donhistorique läschen";
 "settings-community-feed-title" = "Communautéit";

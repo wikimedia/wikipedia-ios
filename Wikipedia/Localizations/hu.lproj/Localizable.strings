@@ -684,7 +684,6 @@
 "potd-description-prefix" = "A $1 nap képe";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
 "potd-widget-title" = "A nap képe";
-"preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az alkalmazást, hogy még jobbá tehessük.";
 "privacy-policy-title" = "Adatvédelmi irányelvek";
 "profile-page-join-title" = "Bejelentkezés / Regisztrálás a Wikipédiába";
 "project-name-mediawiki" = "MediaWiki";
@@ -774,7 +773,6 @@
 "settings-clear-cache" = "Gyorsítótárazott adatok törlése";
 "settings-clear-cache-are-you-sure-message" = "A gyorsítótárazott adatok törlése körülbelül $1 helyet fog felszabadítani, az elmentett lapokat nem érinti.";
 "settings-clear-cache-are-you-sure-title" = "Törlöd a gyorsítótárazott adatokat?";
-"settings-clear-cache-cancel" = "Mégse";
 "settings-clear-cache-ok" = "Gyorsítótár törlése";
 "settings-donate" = "Adományozás";
 "settings-help-and-feedback" = "Súgó és visszajelzés";

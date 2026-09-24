@@ -1180,7 +1180,6 @@
 "potd-sample-entry-description" = "Dois touros correm enquanto o jóquei os segura no pacu jawi (de Minangkabau, \"corrida de touros\"), uma corrida de touros tradicional em Tanah Datar, Sumatra Ocidental, Indonésia. 2015, Final-45.";
 "potd-widget-description" = "Desfrute de uma bela foto diária selecionada por nossa comunidade.";
 "potd-widget-title" = "Imagem do dia";
-"preference-summary-eventlogging-opt-in" = "Permitir que a Fundação Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
 "privacy-policy-title" = "Politica de privacidade";
 "problem-with-feature-title" = "Problema com a funcionalidade";
 "profile-button-accessibility-hint" = "Navega até a visualização do perfil.";
@@ -1329,7 +1328,6 @@
 "settings-clear-cache" = "Limpar dados em cache";
 "settings-clear-cache-are-you-sure-message" = "A limpeza dos dados armazenados em cache $1 de espaço. Ele não excluirá suas páginas salvas.";
 "settings-clear-cache-are-you-sure-title" = "Limpar dados em cache?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-clear-donation-history" = "Limpar histórico de doações";
 "settings-community-feed-title" = "Comunidade";

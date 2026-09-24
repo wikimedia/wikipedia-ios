@@ -1132,7 +1132,6 @@
 "potd-sample-entry-description" = "Два быка бегут, пока жокей держится за них в pacu jawi (в переводе с языка минангкабау — «бычья гонка»), традиционной гонке на быках в Танах-Датаре (Западная Суматра, Индонезия). 2015, Финал-45.";
 "potd-widget-description" = "Наслаждайтесь красивыми фотографиями, ежедневно выбираемыми нашим сообществом.";
 "potd-widget-title" = "Изображение дня";
-"preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это помогает нам улучшать его.";
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Сообщить о проблеме";
 "profile-button-accessibility-hint" = "Переход к просмотру профиля.";
@@ -1273,7 +1272,6 @@
 "settings-clear-cache" = "Очистить кэш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
 "settings-clear-cache-are-you-sure-title" = "Очистить кэш?";
-"settings-clear-cache-cancel" = "Отмена";
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-community-feed-title" = "Сообщество";
 "settings-donate" = "Пожертвовать";

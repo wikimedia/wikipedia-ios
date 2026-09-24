@@ -319,7 +319,6 @@
 "places-unknown-distance" = "distantzia ezezaguna";
 "potd-description-prefix" = "Gaurko argazkia $1(e)ngatik";
 "potd-empty-error-description" = "Ezin izan da berreskuratu gaurko argazkia $1(e)ngatik";
-"preference-summary-eventlogging-opt-in" = "Baimendu Wikimediari zure aplikazioaren erabileraren inguruko informazioa jasotzen, aplikazioa hobetzeko.";
 "reading-list-add-generic-hint-title" = "Artikulu hau gehitu irakurtze zerrendara?";
 "reading-list-add-hint-title" = "Gehitu $1 irakurketa zerrendara?";
 "reading-list-add-saved-button-title" = "Bai, gehitu itzazu nire irakurketa zerrendetara";
@@ -419,7 +418,6 @@
 "settings-clear-cache" = "Garbitu katxeratutako datuak";
 "settings-clear-cache-are-you-sure-message" = "Cached datuen ezabaketak $1 inguruko espazioa libratuko du. Ez dira gordetako orrialdeak ezabatuko.";
 "settings-clear-cache-are-you-sure-title" = "Garbitu katxeratutako datuak?";
-"settings-clear-cache-cancel" = "Utzi";
 "settings-clear-cache-ok" = "Garbitu katxea";
 "settings-help-and-feedback" = "Laguntza eta iritziak";
 "settings-language-bar" = "Bilaketan hizkuntzak erakutsi";

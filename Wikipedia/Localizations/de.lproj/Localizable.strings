@@ -1169,7 +1169,6 @@
 "potd-sample-entry-description" = "Zwei Stiere laufen, während der Jockey sich an ihnen festhält beim Pacu Jawi (aus dem Minangkabau, \"Stierrennen\"), einem traditionellen Stierrennen in Tanah Datar, West-Sumatra, Indonesien. 2015, Final-45.";
 "potd-widget-description" = "Genieße täglich ein schönes Foto, das von unserer Gemeinschaft ausgewählt wurde.";
 "potd-widget-title" = "Bild des Tages";
-"preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
 "privacy-policy-title" = "Datenschutzrichtlinie";
 "problem-with-feature-title" = "Problem mit der Funktion";
 "profile-button-accessibility-hint" = "Navigiert zur Profilansicht.";
@@ -1318,7 +1317,6 @@
 "settings-clear-cache" = "Gecachte Daten löschen";
 "settings-clear-cache-are-you-sure-message" = "Das Löschen gecachter Daten gibt etwa $1 Speicherplatz frei. Es löscht nicht deine gespeicherten Artikel.";
 "settings-clear-cache-are-you-sure-title" = "Gecachte Daten löschen?";
-"settings-clear-cache-cancel" = "Abbrechen";
 "settings-clear-cache-ok" = "Cache löschen";
 "settings-clear-donation-history" = "Spendenverlauf löschen";
 "settings-community-feed-title" = "Community";

@@ -1157,7 +1157,6 @@
 "potd-sample-entry-description" = "Tanah Datar, Qərbi Sumatra, İndoneziyada ənənəvi öküz yarışı olan pacu jawi (Minanqkabaudan \"öküz yarışı\") yarışında jokey onları tutarkən qaçan iki öküz. 2015, Final-45.";
 "potd-widget-description" = "Cəmiyyətimiz tərəfindən seçilmiş gözəl gündəlik fotoşəkildən həzz alın.";
 "potd-widget-title" = "Günün şəkli";
-"preference-summary-eventlogging-opt-in" = "Proqramı daha yaxşı etmək üçün proqramdan necə istifadə etdiyiniz barədə məlumat toplamaq üçün Vikimedia Fonduna icazə verin";
 "privacy-policy-title" = "Məxfilik siyasəti";
 "problem-with-feature-title" = "Funksiya ilə bağlı problem";
 "profile-button-accessibility-hint" = "Profil görünüşünə keçir.";
@@ -1306,7 +1305,6 @@
 "settings-clear-cache" = "Keşdəki datanı sil";
 "settings-clear-cache-are-you-sure-message" = "Keşdəki datanın təmizlənməsi təxminən $1 yer boşaldacaq. O, saxladığınız səhifələri silməyəcək.";
 "settings-clear-cache-are-you-sure-title" = "Keşdəki data silinsin?";
-"settings-clear-cache-cancel" = "İmtina";
 "settings-clear-cache-ok" = "Keşi təmizlə";
 "settings-clear-donation-history" = "İanə tarixçəsini təmizlə";
 "settings-community-feed-title" = "İcma";

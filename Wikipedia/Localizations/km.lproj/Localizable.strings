@@ -567,7 +567,6 @@
 "potd-empty-error-description" = "យកមើលរូបភាពថ្ងៃនេះសម្រាប់$1 មិនបានសម្រេច";
 "potd-widget-description" = "រីករាយជាមួយរូបភាពស្អាតៗប្រចាំថ្ងៃដែលសហគមយើងខ្ញុំបានសម្រាំង។";
 "potd-widget-title" = "រូបភាពប្រចាំថ្ងៃ";
-"preference-summary-eventlogging-opt-in" = "អនុញ្ញាតអោយមូលនិធិវិគីមេឌាប្រមូលព័ត៌មានអំពីរបៀបប្រើប្រាស់កម្មវិធីរបស់អ្នក ដើម្បីជួយកែច្នៃកម្មវិធីនេះអោយកាន់តែប្រសើរ";
 "project-name-mediawiki" = "មេឌាវិគី";
 "project-name-wikibooks" = "វិគីសៀវភៅ";
 "project-name-wikidata" = "វិគីទិន្នន័យ";
@@ -638,7 +637,6 @@
 "settings-account" = "គណនី";
 // Fuzzy
 "settings-appearance" = "ចំណង់ចំណូលចិត្តអំណាន";
-"settings-clear-cache-cancel" = "បោះបង់";
 "settings-help-and-feedback" = "ជំនួយនិងមតិយោបល់";
 "settings-language-bar" = "បង្ហាញភាសាក្នុងផ្ទាំងស្វែងរក";
 "settings-my-languages" = "ភាសារបស់ខ្ញុំ";

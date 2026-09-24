@@ -1015,7 +1015,6 @@
 "potd-sample-entry-description" = "Dos toros corriendo mientras el jockey se les agarra a en pacu jawi (del minangkabau, \"carrera de toros\"), una carrera de toros tradicional en Tanah Datar, Sumatra Occidental, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "Disfruta una hermosa foto diaria seleccionada por nuestra comunidad.";
 "potd-widget-title" = "Imagen del día";
-"preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
 "privacy-policy-title" = "Política de privacidad";
 "problem-with-feature-title" = "Problema con función";
 "profile-button-accessibility-hint" = "Navega a la vista de perfil.";
@@ -1161,7 +1160,6 @@
 "settings-clear-cache" = "Borrar datos en antememoria";
 "settings-clear-cache-are-you-sure-message" = "El borrado de los datos almacenados en caché liberará alrededor de $1 de espacio. No eliminará tus páginas guardadas.";
 "settings-clear-cache-are-you-sure-title" = "\n¿Quieres borrar los datos en la caché?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Vaciar antememoria";
 "settings-donate" = "Donar";
 "settings-help-and-feedback" = "Ayuda y comentarios";

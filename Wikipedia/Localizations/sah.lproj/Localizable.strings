@@ -275,7 +275,6 @@
 "places-unknown-distance" = "кээмэйэ биллибэт";
 "potd-description-prefix" = "Күннээҕи ойуу $1";
 "potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
-"preference-summary-eventlogging-opt-in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ыстатыйалары наардаа";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Наардамматах ыстатыйа ахсаана 5000-ттан таҕыстаҕына мэнэйдэммэт. Бука диэн наардаа, оччоҕо мэнэйдээһин салҕаныа.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Наардамматах ыстатыйалар хааччахтанар ахсааннара";
@@ -292,7 +291,6 @@
 "settings-clear-cache" = "Кээһи ыраастаа.";
 "settings-clear-cache-are-you-sure-message" = "Кээһи ыраастаатаххына $1 миэстэ тахсыа. Харайбыт сирэйдэриҥ сотуллубаттар.";
 "settings-clear-cache-are-you-sure-title" = "Кээһи ыраастыыгын дуо?";
-"settings-clear-cache-cancel" = "Салҕаама";
 "settings-clear-cache-ok" = "Кээскин ыраастаа";
 "settings-help-and-feedback" = "Көмө уонна ситим";
 "settings-language-bar" = "Көрдүүргэ омугун тылын көрдөрөр буол";

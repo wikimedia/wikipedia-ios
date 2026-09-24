@@ -614,7 +614,6 @@
 "places-unknown-distance" = "neznámá vzdálenost";
 "potd-description-prefix" = "Obrázek dne $1";
 "potd-empty-error-description" = "Nepodařilo se načíst obrázek dne pro $1";
-"preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "problem-with-feature-title" = "Problém s funkcí";
 "reading-list-add-generic-hint-title" = "Přidat tento článek do seznamu k přečtení?";
 "reading-list-add-hint-title" = "Přidat „$1“ do seznamu k přečtení?";
@@ -726,7 +725,6 @@
 "settings-clear-cache" = "Vymažte data uložená v cache";
 "settings-clear-cache-are-you-sure-message" = "Vymazání dat uložených v mezipaměti (cache) uvolní přibližně $1 místa. Vaše uložené články nebudou smazány.";
 "settings-clear-cache-are-you-sure-title" = "Vymazat data v mezipaměti?";
-"settings-clear-cache-cancel" = "Storno";
 "settings-clear-cache-ok" = "Vyprázdnit cache";
 "settings-help-and-feedback" = "Pomoc a zpětná vazba";
 "settings-language-bar" = "Ukazovat jazyky při vyhledávání";

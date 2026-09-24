@@ -515,7 +515,6 @@
 "potd-description-prefix" = " $1 өсөн көн һүрәте";
 "potd-empty-error-description" = "$1 өсөн көн һүрәтен алып булманы";
 // Fuzzy
-"preference-summary-eventlogging-opt-in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
 "saved-pages-image-download-error" = "Был һаҡланған биттең һүрәтен күсереп булманы";
 "saved-title" = "Һаҡланған";
 "search-field-placeholder-text" = "Википедияла эҙләү";

@@ -796,7 +796,6 @@
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-widget-description" = "コミュニティで選定された美しい今日の写真を楽しみましょう。";
 "potd-widget-title" = "今日の一枚";
-"preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
 "profile-page-join-title" = "ウィキペディアにログインまたは登録";
 "profile-year-in-review-login-subtitle" = "ログインまたはアカウントを作成すると、「一年の振り返り」を見て、よりパーソナライズされた洞察を得ることができます。";
 "project-name-mediawiki" = "MediaWiki";
@@ -924,7 +923,6 @@
 "settings-clear-cache" = "キャッシュを消去";
 "settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約$1の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
 "settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか?";
-"settings-clear-cache-cancel" = "キャンセル";
 "settings-clear-cache-ok" = "消去";
 "settings-donate" = "寄付";
 "settings-help-and-feedback" = "ヘルプとフィードバック";

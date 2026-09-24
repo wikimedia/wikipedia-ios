@@ -847,7 +847,6 @@
 "potd-sample-entry-description" = "Dva bika tečeta, medtem ko ju džokej drži v pacu jawi (iz Minangkabau, »tekma bikov«), tradicionalna tekma bikov v Tanah Datar, Zahodna Sumatra, Indonezija. 2015, finale-45.";
 "potd-widget-description" = "Uživajte v čudoviti dnevni fotografiji, ki jo je izbrala naša skupnost.";
 "potd-widget-title" = "Slika dneva";
-"preference-summary-eventlogging-opt-in" = "Omogočite Fundaciji Wikimedia zbiranje podatkov o tem, kako uporabljate aplikacijo, da bo ta postala še boljša.";
 "privacy-policy-title" = "Pravilnik o zasebnosti";
 "problem-with-feature-title" = "Problem z možnostjo";
 "profile-button-accessibility-hint" = "Pomakne se na pogled profila.";
@@ -981,7 +980,6 @@
 "settings-clear-cache" = "Počisti predpomnjene podatke";
 "settings-clear-cache-are-you-sure-message" = "Počiščenje predpomnjenih podatkov bo sprostilo približno $1 prostora. Vaše shranjene strani ne bodo izbrisane.";
 "settings-clear-cache-are-you-sure-title" = "Počistim predpomnjene podatke?";
-"settings-clear-cache-cancel" = "Prekliči";
 "settings-clear-cache-ok" = "Počisti predpomnenje";
 "settings-donate" = "Donirajte";
 "settings-help-and-feedback" = "Pomoč in odziv";

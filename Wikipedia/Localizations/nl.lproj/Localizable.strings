@@ -1198,7 +1198,6 @@
 "potd-sample-entry-description" = "Twee stieren rennen terwijl de jockey ze vasthoudt in pacu jawi (van Minangkabau, \"stierrace\"), een traditionele stierenrace in Tanah Datar, West-Sumatra, Indonesië. 2015, Finale-45.";
 "potd-widget-description" = "Geniet van een prachtige dagelijkse foto, uitgekozen door onze gemeenschap.";
 "potd-widget-title" = "Afbeelding van de dag";
-"preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "privacy-policy-title" = "Privacybeleid";
 "problem-with-feature-title" = "Probleem met functie";
 "profile-button-accessibility-hint" = "Naar de profielweergave.";
@@ -1347,7 +1346,6 @@
 "settings-clear-cache" = "Cache legen";
 "settings-clear-cache-are-you-sure-message" = "Door het legen van de cache wordt er ongeveer $1 aan ruimte vrijgemaakt. Uw opgeslagen pagina's worden niet verwijderd.";
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
-"settings-clear-cache-cancel" = "Annuleren";
 "settings-clear-cache-ok" = "Cache wissen";
 "settings-clear-donation-history" = "Donatiegeschiedenis wissen";
 "settings-community-feed-title" = "Gemeenschap";

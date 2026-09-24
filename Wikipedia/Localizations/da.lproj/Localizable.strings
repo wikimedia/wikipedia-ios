@@ -1130,7 +1130,6 @@
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
 "potd-widget-description" = "Nyd et smukt dagligt foto udvalgt af vores fællesskab.";
 "potd-widget-title" = "Dagens billede";
-"preference-summary-eventlogging-opt-in" = "Tillad Wikimedia Foundation at indsamle oplysninger om, hvordan du bruger appen, for at gøre appen bedre.";
 "privacy-policy-title" = "Privatlivspolitik";
 "problem-with-feature-title" = "Problem med funktionen";
 "profile-button-accessibility-hint" = "Navigerer til profilvisningen.";
@@ -1260,7 +1259,6 @@
 "settings-clear-cache" = "Ryd cachede data";
 "settings-clear-cache-are-you-sure-message" = "Rydning af cachede data vil frigøre omkring $1 plads. Det vil ikke slette dine gemte sider.";
 "settings-clear-cache-are-you-sure-title" = "Ryd cachede data?";
-"settings-clear-cache-cancel" = "Annuller";
 "settings-clear-cache-ok" = "Ryd cache";
 "settings-community-feed-title" = "Fællesskab";
 "settings-donate" = "Donér";

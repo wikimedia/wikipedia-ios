@@ -874,7 +874,6 @@
 "potd-empty-error-description" = "Добављање слике дана за $1 није успело";
 "potd-widget-description" = "Уживајте у дивној дневној слици коју је одабрала наша заједница.";
 "potd-widget-title" = "Слика дана";
-"preference-summary-eventlogging-opt-in" = "Дозволите Задужбини Викимедија да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
 "privacy-policy-title" = "Политика приватности";
 "problem-with-feature-title" = "Проблем са функцијом";
 "profile-button-accessibility-label" = "Профил";
@@ -1007,7 +1006,6 @@
 "settings-clear-cache" = "Брисање кешираних података";
 "settings-clear-cache-are-you-sure-message" = "Чишћењем кешираних података ослободићете око $1 простора. Ваше сачуване странице се неће избрисати.";
 "settings-clear-cache-are-you-sure-title" = "Обрисати кеширане податке?";
-"settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Обриши кеш";
 "settings-donate" = "Донација";
 "settings-help-and-feedback" = "Помоћ и повратне информације";

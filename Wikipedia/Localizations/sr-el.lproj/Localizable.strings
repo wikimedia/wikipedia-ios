@@ -694,7 +694,6 @@
 "potd-empty-error-description" = "Dobavljanje slike dana za $1 nije uspelo";
 "potd-widget-description" = "Uživajte u divnoj dnevnoj slici koju je odabrala naša zajednica.";
 "potd-widget-title" = "Slika dana";
-"preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Vikimedija da prikuplja informacije o tome kako koristite aplikaciju u cilju njenog poboljšanja.";
 "project-name-mediawiki" = "Medijaviki";
 "project-name-wikibooks" = "Vikiknjige";
 "project-name-wikidata" = "Vikipodaci";
@@ -822,7 +821,6 @@
 "settings-clear-cache" = "Brisanje keširanih podataka";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodićete oko $1 prostora. Vaše sačuvane stranice se neće izbrisati.";
 "settings-clear-cache-are-you-sure-title" = "Obrisati keširane podatke?";
-"settings-clear-cache-cancel" = "Otkaži";
 "settings-clear-cache-ok" = "Obriši keš";
 // Fuzzy
 "settings-donate" = "Donacija";

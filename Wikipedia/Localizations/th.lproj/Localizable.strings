@@ -785,7 +785,6 @@
 "potd-description-prefix" = "รูปภาพประจำวันที่ $1";
 "potd-empty-error-description" = "ไม่สามารถดึงข้อมูลรูปภาพประจำวันที่ $1 ได้";
 "potd-widget-title" = "รูปภาพประจำวัน";
-"preference-summary-eventlogging-opt-in" = "อนุญาตให้มูลนิธิวิกิมีเดียเก็บข้อมูลการใช้แอปของคุณเพื่อพัฒนาแอปให้ดีขึ้น";
 "problem-with-feature-title" = "ปัญหาเกี่ยวกับคุณสมบัติ";
 "project-name-mediawiki" = "มีเดียวิกิ";
 "project-name-wikibooks" = "วิกิตำรา";
@@ -894,7 +893,6 @@
 "settings-clear-cache" = "ล้างข้อมูลที่แคชไว้";
 "settings-clear-cache-are-you-sure-message" = "การล้างข้อมูลที่แคชจะเพิ่มเนื้อที่ประมาณ $1 แต่จะไม่ลบหน้าที่บันทึกไว้ของคุณ";
 "settings-clear-cache-are-you-sure-title" = "ล้างข้อมูลที่แคชไว้หรือไม่?";
-"settings-clear-cache-cancel" = "ยกเลิก";
 "settings-clear-cache-ok" = "ล้างแคช";
 "settings-donate" = "บริจาค";
 "settings-help-and-feedback" = "วิธีใช้และคำติชม";

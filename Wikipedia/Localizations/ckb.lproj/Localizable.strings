@@ -405,7 +405,6 @@
 "places-unknown-distance" = "دوورییەکی نەزانراوە";
 "potd-description-prefix" = "وێنەی ڕۆژ بۆ $1";
 "potd-empty-error-description" = "ھێنانی وێنەی ڕۆژ بۆ $1 شکستی ھێنا";
-"preference-summary-eventlogging-opt-in" = "ڕێگەدان بە دامەزراوەی ویکیمیدیا بۆ کۆکردنەوەی زانیاری لەبارەی چۆنیەتی بەکارھێنانی بەرنامەکە لەلایەن تۆوە، بە مەبەستی باشترکردنی بەرنامەکە";
 "reading-lists-conflicting-reading-list-name-updated" = "پێڕستی '$1' ناوی گۆڕدرا بۆ '$2'.";
 "reading-lists-default-list-title" = "پاشەکەوت کرا";
 "reading-themes-controls-accessibility-black-theme-button" = "ڕووکاری ڕەش";
@@ -434,7 +433,6 @@
 "settings-clear-cache" = "کاشی دراوە پاک بکەرەوە";
 "settings-clear-cache-are-you-sure-message" = "پاککردنەوەی دراوەی کاش $1 لە مێمۆریت بۆ دەگەڕێنێتەوە. پەڕە پاشەکەوتکراوەکانت ناسڕێتەوە.";
 "settings-clear-cache-are-you-sure-title" = "پاککردنەوەی دراوەی کاش؟";
-"settings-clear-cache-cancel" = "ھەڵوەشاندنەوە";
 "settings-clear-cache-ok" = "پاککردنەوەی کاش";
 "settings-help-and-feedback" = "یارمەتی و فیدباک";
 "settings-language-bar" = "زمانەکان نیشان بدە لە گەڕان";

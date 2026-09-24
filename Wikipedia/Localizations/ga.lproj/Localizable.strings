@@ -1090,7 +1090,6 @@
 "potd-sample-entry-description" = "Dhá tharbh ag rith agus an marcach ag coinneáil greim orthu i pacu jawi (ó Minangkabau, \"rás tarbh\"), rás tarbh traidisiúnta i Tanah Datar, Sumatra Thiar, an Indinéis. 2015, Deireadh Fómhair-45.";
 "potd-widget-description" = "Bain sult as grianghraf álainn laethúil arna roghnú ag ár bpobal.";
 "potd-widget-title" = "Pictiúr an lae";
-"preference-summary-eventlogging-opt-in" = "Lig don Wikimedia Foundation faisnéis a bhailiú faoin gcaoi a n-úsáideann tú an aip chun an aip a fheabhsú";
 "privacy-policy-title" = "Polasaí príobháideachta";
 "problem-with-feature-title" = "Fadhb leis an ngné";
 "profile-button-accessibility-hint" = "Nascleanúint chuig an radharc próifíle.";
@@ -1239,7 +1238,6 @@
 "settings-clear-cache" = "Glan sonraí taiscthe";
 "settings-clear-cache-are-you-sure-message" = "Scaoilfidh glanadh sonraí taisceáilte thart ar $1 de spás. Ní scriosfaidh sé do leathanaigh shábháilte.";
 "settings-clear-cache-are-you-sure-title" = "Glan sonraí taiscthe?";
-"settings-clear-cache-cancel" = "Cealaigh";
 "settings-clear-cache-ok" = "Glan taisce";
 "settings-community-feed-title" = "Pobal";
 "settings-donate" = "Tabhair Síntiús";

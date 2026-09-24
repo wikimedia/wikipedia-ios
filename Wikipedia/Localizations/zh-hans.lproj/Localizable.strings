@@ -1195,7 +1195,6 @@
 "potd-sample-entry-description" = "在2015年的Pacu Jawi活动决赛上（源于米南加保的“奔牛赛”），一名骑师驾驭两只奔跑的公牛。这是印度尼西亚西苏门答腊岛丹那达塔尔的传统奔牛比赛。";
 "potd-widget-description" = "尽享由我们社群每日挑选的精美图片。";
 "potd-widget-title" = "今日图片";
-"preference-summary-eventlogging-opt-in" = "允许维基媒体基金会收集有关您使用本应用的信息，从而改善应用";
 "privacy-policy-title" = "隐私政策";
 "problem-with-feature-title" = "功能问题";
 "profile-button-accessibility-hint" = "导航到个人资料视图。";
@@ -1344,7 +1343,6 @@
 "settings-clear-cache" = "清空缓存数据";
 "settings-clear-cache-are-you-sure-message" = "清空缓存数据将腾出约$1空间。这将不会删除您保存的页面。";
 "settings-clear-cache-are-you-sure-title" = "清空缓存数据？";
-"settings-clear-cache-cancel" = "取消";
 "settings-clear-cache-ok" = "清空缓存";
 "settings-clear-donation-history" = "清除捐赠记录";
 "settings-community-feed-title" = "社群";

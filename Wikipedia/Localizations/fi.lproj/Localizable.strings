@@ -972,7 +972,6 @@
 "potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";
 "potd-widget-description" = "Nauti kauniista päivän kuvasta, jonka yhteisömme on valinnut.";
 "potd-widget-title" = "Päivän kuva";
-"preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "privacy-policy-title" = "Tietosuojakäytäntö";
 "problem-with-feature-title" = "Ongelma ominaisuudessa";
 "profile-button-accessibility-hint" = "Siirtyy profiilinäkymään.";
@@ -1115,7 +1114,6 @@
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
 "settings-clear-cache-are-you-sure-title" = "Tyhjennetäänkö välimuisti?";
-"settings-clear-cache-cancel" = "Peruuta";
 "settings-clear-cache-ok" = "Tyhjennä välimuisti";
 "settings-donate" = "Lahjoita";
 "settings-help-and-feedback" = "Ohje ja palaute";

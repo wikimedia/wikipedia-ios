@@ -730,7 +730,6 @@
 "places-unknown-distance" = "မသိရသော အကွာအဝေး";
 "potd-description-prefix" = "$1 အတွက် တစ်နေ့တာဓါတ်ပုံ";
 "potd-widget-title" = "ယနေ့အတွက် ဓာတ်ပုံ";
-"preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "privacy-policy-title" = "ကိုယ်ရေးကိုယ်တာ မူဝါဒ";
 "profile-page-join-subtext" = "သင့်ရဲ့ ပံ့ပိုးကူညီမှုတွေကို ခြေရာခံဖို့၊ ဆောင်းပါးတွေကို အော့ဖ်လိုင်းမှာ သိမ်းဆည်းဖို့နဲ့ စက်ပစ္စည်းတွေမှာ ထပ်တူပြုဖို့ ဝီကီပီးဒီးယားအကောင့်တစ်ခု စာရင်းသွင်းလိုက်ပါ။";
 "profile-page-join-title" = "ဝီကီပီးဒီးယားသို့ လော့ဂ်အင် / ပါဝင်ရန်";
@@ -834,7 +833,6 @@
 "settings-account" = "အကောင့်";
 // Fuzzy
 "settings-appearance" = "စာဖတ် အပြင်အဆင်များ";
-"settings-clear-cache-cancel" = "မလုပ်တော့ပါ";
 "settings-donate" = "လှူဒါန်း​ရန်";
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";
 "settings-language-bar" = "ရှာဖွေမှုတွင် ဘာသာစကားများ ပြရန်";

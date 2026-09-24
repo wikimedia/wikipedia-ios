@@ -935,7 +935,6 @@
 "potd-sample-entry-description" = "שני שוורים רצים בזמן שהרוכב מחזיק בהם בפאצ'ו ג'אווי (משפת מיננגקפבאו, \"מרוץ שוורים\"), מרוץ שוורים מסורתי בטנה דטר, מערב סומטרה, אינדונזיה. 2015, Final-45";
 "potd-widget-description" = "תיהנו מצילום יומי יפה שנבחר על־ידי הקהילה.";
 "potd-widget-title" = "תמונת היום";
-"preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "privacy-policy-title" = "מדיניות פרטיות";
 "problem-with-feature-title" = "בעיה עם אפשרות";
 "profile-button-accessibility-hint" = "ניווט לתצוגת פרופיל.";
@@ -1077,7 +1076,6 @@
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
 "settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
-"settings-clear-cache-cancel" = "ביטול";
 "settings-clear-cache-ok" = "ניקוי מטמון";
 "settings-donate" = "לתרום";
 "settings-help-and-feedback" = "עזרה ומשוב";

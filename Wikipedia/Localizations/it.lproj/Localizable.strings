@@ -779,7 +779,6 @@
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
 "potd-sample-entry-description" = "Due tori che corrono mentre il fantino li tiene in pacu jawi (da Minangkabau, \"corsa dei tori\"), una tradizionale corsa di tori a Tanah Datar, Sumatra occidentale, in Indonesia. 2015, Finale-45.";
 "potd-widget-title" = "Immagine del giorno";
-"preference-summary-eventlogging-opt-in" = "Consenti alla Wikimedia Foundation di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "privacy-policy-title" = "Informativa sulla privacy";
 "profile-button-accessibility-label" = "Profilo";
 "profile-page-join-title" = "Entra / unisciti a Wikipedia";
@@ -871,7 +870,6 @@
 "settings-clear-cache" = "Cancella i dati nella cache";
 "settings-clear-cache-are-you-sure-message" = "Cancellando i dati della cache libererai circa $1 di spazio. Questo non cancellerà gli elenchi di lettura.";
 "settings-clear-cache-are-you-sure-title" = "Vuoi cancellare i dati nella cache?";
-"settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
 "settings-donate" = "Dona";
 "settings-explore-games-subtitle" = "Giochi giornalieri basati sui contenuti di Wikipedia";

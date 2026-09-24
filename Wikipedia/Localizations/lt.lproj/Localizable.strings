@@ -657,7 +657,6 @@
 "potd-empty-error-description" = "Nepavyko gauti $1 dienos nuotraukos";
 "potd-widget-description" = "Mėgaukitės gražia nuotrauka, kurią kiekvieną dieną parenka mūsų bendruomenė.";
 "potd-widget-title" = "Dienos nuotrauka";
-"preference-summary-eventlogging-opt-in" = "Leisti Vikimedijos fondui rinkti informaciją apie tai, kaip naudojate programėlę, taip ją tobulinant";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Vikiknygos";
 "project-name-wikidata" = "Vikiduomenys";
@@ -774,7 +773,6 @@
 "settings-account" = "Paskyra";
 // Fuzzy
 "settings-appearance" = "Skaitymo nustatymai";
-"settings-clear-cache-cancel" = "Atšaukti";
 "settings-help-and-feedback" = "Pagalba ir atsiliepimai";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
 "settings-languages-feed-customization" = "Galite valdyti kokios kalbos rodomos jūsų Tyrinėjimo sraute pritaikant savo Tyrinėjimo srauto nustatymus.";

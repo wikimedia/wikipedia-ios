@@ -505,7 +505,6 @@
 "places-unknown-distance" = "ဟွံတီ ဇမ္ၚောဲတရဴ";
 "potd-description-prefix" = "ဗီုရုပ် တ္ၚဲဂှ် သွက် $1";
 "potd-empty-error-description" = "ကလေင်ကေတ် ဗီုရုပ် တ္ၚဲဂှ် သွက် $1 ဂှ် ဟွံအံင်ဇၞး";
-"preference-summary-eventlogging-opt-in" = "ကဵုအခေါင် ကု Wikimedia Foundation သွက်ဂွံပကောံတင်ဂၞင် ပရူဗီုလဵုမၞး မသုင်စောဲ app သွက်ဂွံပခိုဟ်ပတိုန် app";
 "reading-list-add-generic-hint-title" = "စုတ် လိက်ပရေင်ဏအ် ပ္ဍဲ စရင်လိက်ဗွဟ်？";
 "reading-list-add-hint-title" = "စုတ် ＂$1＂ပ္ဍဲစရင်လိက်ဗွဟ်";
 "reading-list-add-saved-button-title" = "ယွံ၊ စုတ် လိက်တအ် ပ္ဍဲ စရင် လိက်ဗွဟ် အဲညိ၊၊";
@@ -615,7 +614,6 @@
 "settings-clear-cache" = "တင်ဂၞင် မပၞုက်ဒၟံင်တအ်ဂှ် ဖအးထောအ်ညိ";
 "settings-clear-cache-are-you-sure-message" = "ပွမဖအးထောအ် တင်ဂၞင် မပၞုက်ဒၟံင်ဂှ် ပကဵုဒၞာဲ $1 ဂွံသၠးအာ၊၊ မုက်လိက် မၞးမဂိုင်သိပ်လဝ်ဂှ် ဍေဟ်ဟွံဇိုတ်ပထောအ်ပုဟ်၊၊";
 "settings-clear-cache-are-you-sure-title" = "ဖအး တင်ဂၞင် မပၞုက်ဒၟံင်တအ်ဟာ？";
-"settings-clear-cache-cancel" = "တးပဲါ";
 "settings-clear-cache-ok" = "ဖ္အး တင်ဂၞင်ပၞုက်";
 "settings-help-and-feedback" = "ရီုဗင် ကေုာံ ကဵုfeedback";
 "settings-language-bar" = "ထ္ၜး အရေဝ်ဘာသာဂမၠိုင် ပ္ဍဲ ဒၞာဲမဂၠာဲ";

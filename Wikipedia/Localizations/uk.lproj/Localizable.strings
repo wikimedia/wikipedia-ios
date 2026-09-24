@@ -1107,7 +1107,6 @@
 "potd-sample-entry-description" = "Два бики біжать, а жокей за них тримається, під час паку-яві (мовою мінангкабау «перегони биків»), традиційних бичачих перегонів у Танах-Датарі в Західній Суматрі (Індонезія). 2015 рік, фінал-45.";
 "potd-widget-description" = "Насолоджуйтеся чудовою щоденною світлиною, обраною нашою спільнотою.";
 "potd-widget-title" = "Зображення дня";
-"preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся додатком, аби вдосконалити його";
 "privacy-policy-title" = "Політика конфіденційності";
 "problem-with-feature-title" = "Проблема з функцією";
 "profile-button-accessibility-hint" = "Переходить до перегляду профілю.";
@@ -1256,7 +1255,6 @@
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кешу вивільнить близько $1 місця. Вона не призведе до вилучення ваших збережених статей.";
 "settings-clear-cache-are-you-sure-title" = "Очистити кеш?";
-"settings-clear-cache-cancel" = "Скасувати";
 "settings-clear-cache-ok" = "Очистити кеш";
 "settings-community-feed-title" = "Спільнота";
 "settings-donate" = "Пожертвувати";

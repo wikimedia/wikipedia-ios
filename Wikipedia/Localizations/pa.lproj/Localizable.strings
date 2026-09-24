@@ -655,7 +655,6 @@
 "potd-description-prefix" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "potd-empty-error-description" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ";
 "potd-widget-title" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
-"preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
 "privacy-policy-title" = "ਨਿੱਜਤਾ ਨੀਤੀ";
 "problem-with-feature-title" = "ਵਿਸ਼ੇਸ਼ਤਾ ਨਾਲ ਸਮੱਸਿਆ";
 "profile-button-accessibility-label" = "ਪ੍ਰੋਫਾਈਲ";
@@ -751,7 +750,6 @@
 "settings-appearance" = "ਐਪ ਥੀਮ";
 "settings-clear-cache" = "ਕੈਸ਼ ਡਾਟਾ ਸਾਫ਼ ਕਰੋ";
 "settings-clear-cache-are-you-sure-title" = "ਕੀ ਕੈਸ਼ ਡਾਟਾ ਸਾਫ਼ ਕਰਨਾ ਹੈ?";
-"settings-clear-cache-cancel" = "ਰੱਦ ਕਰੋ";
 "settings-clear-cache-ok" = "ਕੈਸ਼ ਸਾਫ਼ ਕਰੋ";
 "settings-donate" = "ਦਾਨ ਕਰੋ";
 "settings-help-and-feedback" = "ਮਦਦ ਅਤੇ ਸੁਝਾਅ";

@@ -1164,7 +1164,6 @@
 "potd-sample-entry-description" = "Трка со впрегнати бикови во рало. Западна Суматра, Индонезија. 2015, Финалист-45.";
 "potd-widget-description" = "Уживајте во убава дневна слика избрана од нашата заедница.";
 "potd-widget-title" = "Слика на денот";
-"preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "privacy-policy-title" = "Правила за лични податоци";
 "problem-with-feature-title" = "Проблем со функцијата";
 "profile-button-accessibility-hint" = "Води до поглед на профилот.";
@@ -1313,7 +1312,6 @@
 "settings-clear-cache" = "Исчисти меѓускладирани податоци";
 "settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
 "settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
-"settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Исчисти";
 "settings-clear-donation-history" = "Исчисти историја на дарување";
 "settings-community-feed-title" = "Заедница";
