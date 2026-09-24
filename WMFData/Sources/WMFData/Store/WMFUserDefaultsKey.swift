@@ -19,7 +19,6 @@ public enum WMFUserDefaultsKey: String {
     case yearInReviewSurveyPresented = "year-in-review-survey-presented-v3"
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
     case tappedYIR = "tapped-yir"
-    case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
     case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
     case qualifiesForIcon2025 = "qualifies-for-icon-2025"
 
@@ -32,11 +31,9 @@ public enum WMFUserDefaultsKey: String {
     case tappedYIR2026 = "tapped-yir-2026"
 
     // Year in Review 2026 dev settings
-    case developerSettingsForceYiR2026 = "dev-settings-yir-show-2026"
+    case developerSettingsForceYiREntryPoint2026 = "dev-settings-force-yir-entry-point-2026"
     case developerSettingsForceYiR2026Announcement = "dev-settings-yir-announcement-2026"
 
-    case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
-    case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
     case bypassDonation = "bypass-donation"
     case forceEmailAuth = "force-email-auth"
     case articleTabRestoration = "article-tab-restoration"

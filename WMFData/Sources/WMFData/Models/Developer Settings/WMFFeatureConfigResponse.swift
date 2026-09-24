@@ -85,17 +85,9 @@ public struct WMFFeatureConfigResponse: Codable {
                 // This allows us to test outside of active date range. Each year has its own flag so
                 // that leaving the 2025 flag on does not force the 2026 config active.
                 let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                switch year {
-                case 2026:
-                    if developerSettingsDataController.forceYiR2026 {
-                        return true
-                    }
-                case 2025:
-                    if developerSettingsDataController.showYiR2025 {
-                        return true
-                    }
-                default:
-                    break
+                // The 2025 force flag went with the 2025 UI, so only 2026 has one.
+                if year == 2026, developerSettingsDataController.forceYiREntryPoint2026 {
+                    return true
                 }
 
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {

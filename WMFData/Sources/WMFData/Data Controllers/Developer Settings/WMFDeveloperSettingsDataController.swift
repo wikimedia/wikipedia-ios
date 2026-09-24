@@ -3,11 +3,8 @@ import Foundation
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
-    var showYiR2025: Bool { get }
-    var forceYiR2026: Bool { get }
+    var forceYiREntryPoint2026: Bool { get }
     var forceYiR2026Announcement: Bool { get }
-    var enableYiRLoginExperimentControl: Bool { get }
-    var enableYiRLoginExperimentB: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -104,22 +101,16 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Year in Review
 
-    /// Debugging convenience: forces the 2025 Year in Review config active outside its date window.
-    /// Kept so last year's feature can still be exercised; it has no effect on the 2026 config.
-    public var showYiR2025: Bool {
-        get { loadFlag(.developerSettingsShowYiR2025) }
-        set { saveFlag(.developerSettingsShowYiR2025, newValue) }
-    }
 
     /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
     /// as active outside its date window, and the entry point presents even with no 2026 config
     /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
     /// entry point and date window flags, so nothing below it is respected.
-    public var forceYiR2026: Bool {
-        get { loadFlag(.developerSettingsForceYiR2026) }
+    public var forceYiREntryPoint2026: Bool {
+        get { loadFlag(.developerSettingsForceYiREntryPoint2026) }
         set {
-            let oldValue = forceYiR2026
-            saveFlag(.developerSettingsForceYiR2026, newValue)
+            let oldValue = forceYiREntryPoint2026
+            saveFlag(.developerSettingsForceYiREntryPoint2026, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
             }
@@ -129,21 +120,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// Debugging convenience: while on, the 2026 Year in Review announcement ignores every gate —
     /// the remote config, its active window, the opt-out toggle, suppressed countries and the
     /// once-per-user state — so it presents before a 2026 config exists remotely and can be
-    /// retriggered without reinstalling. Named `force` for the same reason as `forceYiR2026`:
+    /// retriggered without reinstalling. Named `force` for the same reason as
+    /// `forceYiREntryPoint2026`:
     /// nothing below it is respected.
     public var forceYiR2026Announcement: Bool {
         get { loadFlag(.developerSettingsForceYiR2026Announcement) }
         set { saveFlag(.developerSettingsForceYiR2026Announcement, newValue) }
-    }
-
-    public var enableYiRLoginExperimentControl: Bool {
-        get { loadFlag(.developerSettingsYiRV3LoginExperimentControl) }
-        set { saveFlag(.developerSettingsYiRV3LoginExperimentControl, newValue) }
-    }
-
-    public var enableYiRLoginExperimentB: Bool {
-        get { loadFlag(.developerSettingsYiRV3LoginExperimentB) }
-        set { saveFlag(.developerSettingsYiRV3LoginExperimentB, newValue) }
     }
 
     // MARK: - Home

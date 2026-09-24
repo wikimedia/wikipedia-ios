@@ -140,14 +140,14 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
 
-        let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
-        let forceYiR2026 = WMFFormItemSelectViewModel(title: "Force Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiR2026)
+        let forceYiREntryPoint2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026)
         let forceYiR2026Announcement = WMFFormItemSelectViewModel(title: "Force Year in Review 2026 Announcement", isSelected: WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement)
         let forceYiRDataRichUser = WMFFormItemSelectViewModel(title: "Force Year in Review data-rich user", isSelected: yirDataController?.forceYiRUserDataState == .dataRich)
         let forceYiRLowDataUser = WMFFormItemSelectViewModel(title: "Force Year in Review low-data user", isSelected: yirDataController?.forceYiRUserDataState == .lowData)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
+                forceYiREntryPoint2026,
                 enableHomePhase2,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
@@ -155,8 +155,6 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
                 forceMaxArticleTabsTo5,
                 forceHcaptchaChallenge,
                 allowGestureZoomArticleWebview,
-                showYiR2025,
-                forceYiR2026,
                 forceYiR2026Announcement,
                 forceYiRDataRichUser,
                 forceYiRLowDataUser
@@ -191,14 +189,10 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview = isSelected }
             .store(in: &subscribers)
 
-        showYiR2025.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2025 = isSelected }
-            .store(in: &subscribers)
-
         // While on, 2026 Year in Review overrides every gate: the remote config and its active
         // window, the Year in Review settings toggle and suppressed countries.
-        forceYiR2026.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiR2026 = isSelected }
+        forceYiREntryPoint2026.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = isSelected }
             .store(in: &subscribers)
 
         // While on, the announcement ignores every gate: the remote config and its active window,

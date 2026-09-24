@@ -18,8 +18,7 @@ import CoreData
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let experimentsDataController: WMFExperimentsDataController?
 
-    // TODO - flip to 2026 when we have everything set up
-    @objc public static let targetYear = 2025
+    @objc public static let targetYear = 2026
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2026_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
@@ -210,7 +209,7 @@ import CoreData
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
-        if developerSettingsDataController.forceYiR2026 {
+        if developerSettingsDataController.forceYiREntryPoint2026 {
             return true
         }
 
@@ -293,14 +292,6 @@ import CoreData
     private var assignmentCache: YiRLoginExperimentAssignment?
 
     public func needsLoginExperimentAssignment() -> Bool {
-        if developerSettingsDataController.enableYiRLoginExperimentB {
-            return false
-        }
-
-        if developerSettingsDataController.enableYiRLoginExperimentControl {
-            return false
-        }
-
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return false
         }
@@ -344,14 +335,6 @@ import CoreData
     }
 
     public var bypassLoginForPersonalizedFlow: Bool {
-        if developerSettingsDataController.enableYiRLoginExperimentB {
-            return true
-        }
-
-        if developerSettingsDataController.enableYiRLoginExperimentControl {
-            return false
-        }
-
         let assignment = getLoginExperimentAssignment()
         if let assignment {
             switch assignment {
