@@ -615,10 +615,6 @@ extension Session {
 
 // MARK: PermanentlyPersistableURLCache Passthroughs
 
-enum SessionPermanentCacheError: Error {
-    case unexpectedURLCacheType
-}
-
 extension Session {
     
     @objc func imageInfoURLRequestFromPersistence(with url: URL) -> URLRequest? {

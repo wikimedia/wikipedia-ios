@@ -1,10 +1,5 @@
 import Foundation
 
-internal struct ImageControllerPermanentCacheCompletion {
-    let success: () -> Void
-    let failure: (Error) -> Void
-}
-
 internal struct ImageControllerDataCompletion {
     let success: (Data, URLResponse) -> Void
     let failure: (Error) -> Void

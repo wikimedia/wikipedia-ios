@@ -24,14 +24,6 @@ enum ArticleFetcherError: LocalizedError {
 @objc(WMFArticleFetcher)
 final public class ArticleFetcher: Fetcher, CacheFetching {    
     
-    public enum EndpointType: String {
-        case summary
-        case mediaList = "media-list"
-        case mobileHtmlOfflineResources = "mobile-html-offline-resources"
-        case mobileHTML = "mobile-html"
-        case references = "references"
-    }
-
     public enum MobileHTMLType: String {
         case contentAndReferences = "contentAndReferences"
         case content = "content"

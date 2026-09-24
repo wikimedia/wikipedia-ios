@@ -5,13 +5,6 @@ import WMFData
 import WMFComponents
 import WMFNativeLocalizations
 
-struct StubRevisionModel {
-    let revisionId: Int
-    let summary: String
-    let username: String
-    let timestamp: Date
-}
-
 protocol DiffRevisionRetrieving: AnyObject {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?

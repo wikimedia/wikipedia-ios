@@ -24,14 +24,6 @@ extension Notification.Name {
     public static let dismissReadingListToast = Notification.Name.dismissReadingListToast
 }
 
-@objc public enum AppTab: Int {
-    case main = 0
-    case places = 1
-    case saved = 2
-    case activity = 3
-    case search = 4
-}
-
 extension WMFAppViewController {
 
     @objc func shouldOpenAppOnSearchTab() -> Bool {
