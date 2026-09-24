@@ -746,8 +746,6 @@
 "for-you-empty-feed-subtitle" = "Uw 'Voor u'-feed wordt automatisch aangevuld met gepersonaliseerde pagina's naarmate u verder verkent.";
 "for-you-empty-feed-title" = "Uw feed is momenteel leeg";
 "for-you-empty-feed-ways-to-get-started" = "Manieren om te beginnen:";
-"for-you-empty-subtitle-interests-or-modules" = "Voeg interesses toe of activeer modules om persoonlijke pagina-aanbevelingen te krijgen";
-"for-you-empty-title" = "Hier is nog niets";
 "for-you-end-of-feed-add-interests-format" = "$1 toevoegen";
 "for-you-end-of-feed-add-interests-link" = "nieuwe interesses";
 "for-you-end-of-feed-community-format" = "Bekijk wat er gebeurt in de $1";
@@ -787,11 +785,9 @@
 "home-button-home-accessibility-label" = "Wikipedia, terug naar de startpagina";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
 "home-card-more-options-accessibility-label" = "Meer opties";
-"home-community-empty-feed-turn-on-modules-message" = "Schakel modules in om gemeenschapsinhoud te zien";
 "home-community-see-past-content" = "Eerdere gemeenschapsinhoud bekijken";
 "home-community-tab-title" = "Gemeenschap";
 "home-edit-languages-title" = "Talen toevoegen of bewerken";
-"home-empty-go-to-settings-button" = "Naar de instellingen";
 "home-feed-for-you-based-on-interests-subtitle" = "Pagina's die zijn afgestemd op de onderwerpen die u hebt gekozen.";
 "home-feed-for-you-based-on-interests-title" = "Op basis van uw interesses";
 "home-feed-for-you-because-you-read-subtitle" = "Suggesties gebaseerd op een recente pagina uit uw geschiedenis";
