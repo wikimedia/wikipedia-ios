@@ -1030,7 +1030,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
         case .scrollToAnchor(let anchor, let attempt, let maxAttempts, let completion):
             scrollRestorationState = .none
-            self.scroll(to: anchor, animated: false) { [weak self] (success) in
+            // An early attempt can run before the page script exists. Only the last attempt reports the error.
+            self.scroll(to: anchor, animated: false, reportsErrors: attempt >= maxAttempts) { [weak self] (success) in
                 guard !success, attempt < maxAttempts else {
                     completion?(success, attempt >= maxAttempts)
                     return
