@@ -121,6 +121,6 @@ struct SearchResultsMapperTests {
     }
 
     private func makeResult(title: String?, displayTitle: String? = nil, displayTitleHTML: String? = nil, wikidataDescription: String? = nil, thumbnailURL: URL? = nil, location: CLLocation? = nil) -> MWKSearchResult {
-        MWKSearchResult(articleID: 1, revID: 1, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: wikidataDescription, extract: nil, thumbnailURL: thumbnailURL, index: nil, titleNamespace: nil, location: location)!
+        MWKSearchResult(articleID: 1, revID: 1, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: wikidataDescription, extract: nil, thumbnailURL: thumbnailURL, index: nil, titleNamespace: nil, location: location)
     }
 }

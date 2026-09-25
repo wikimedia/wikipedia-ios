@@ -70,10 +70,10 @@ extension SearchResultsViewController {
     func displaySearchResults(_ searchResults: WMFSearchResults, siteURL: URL) {
         displayedSearchTerm = searchResults.searchTerm
         displayedSiteURL = siteURL
-        let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: searchResults.redirectMappings ?? [])
+        let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: searchResults.redirectMappings)
 
         var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
-        let results = (searchResults.results ?? []).compactMap { mwkResult -> SearchResult? in
+        let results = searchResults.results.compactMap { mwkResult -> SearchResult? in
             guard let result = mapper.searchResult(from: mwkResult) else {
                 return nil
             }

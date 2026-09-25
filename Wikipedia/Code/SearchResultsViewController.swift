@@ -333,7 +333,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
             displaySearchResults(results, siteURL: siteURL)
             guard !suggested else { return }
-            SearchFunnel.shared.logSearchResults(with: type, resultCount: results.results?.count ?? 0, elapsedTime: Date().timeIntervalSince(start), source: source.stringValue)
+            SearchFunnel.shared.logSearchResults(with: type, resultCount: results.results.count, elapsedTime: Date().timeIntervalSince(start), source: source.stringValue)
         } catch is CancellationError {
             return
         } catch let SearchResultsLoader.Failure.fetch(error, type) {

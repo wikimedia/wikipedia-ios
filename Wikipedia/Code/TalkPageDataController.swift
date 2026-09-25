@@ -11,7 +11,6 @@ class TalkPageDataController {
     private(set) var siteURL: URL
     private let talkPageFetcher = TalkPageFetcher()
     let articleSummaryController: ArticleSummaryController
-    private let articleRevisionFetcher = WMFArticleRevisionFetcher()
 
     init(pageType: TalkPageType, pageTitle: String, siteURL: URL, articleSummaryController: ArticleSummaryController) {
         self.pageType = pageType
@@ -203,37 +202,21 @@ class TalkPageDataController {
     }
     
     func fetchLatestRevisionID(dispatchGroup: DispatchGroup, completion: @escaping (Int?) -> Void) {
-        
-        guard let mediaWikiURL = Configuration.current.mediaWikiAPIURLForURL(siteURL, with: nil),
-              let revisionURL = mediaWikiURL.wmf_URL(withTitle: pageTitle) else {
+
+        guard let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
             completion(nil)
             return
         }
-        
-        let failureBlock: (Error) -> Void = { error in
-            dispatchGroup.leave()
-            completion(nil)
-        }
-        
-        let successBlock: (Any) -> Void = { object in
-            
+
+        let title = pageTitle
+        dispatchGroup.enter()
+        Task {
             defer {
                 dispatchGroup.leave()
             }
-            
-            let queryResults = (object as? [WMFRevisionQueryResults])?.first ?? (object as? WMFRevisionQueryResults)
-            
-            guard let lastRevisionId = queryResults?.revisions.first?.revisionId.intValue else {
-                completion(nil)
-                return
-            }
-            
-            completion(lastRevisionId)
+            let revisionID = try? await WMFPageHistoryDataController.shared.fetchLatestRevisionID(project: project, title: title)
+            completion(revisionID)
         }
-        
-        dispatchGroup.enter()
-        articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, startingWithRevision: nil, endingWithRevision: nil, failure: failureBlock, success: successBlock)
-
     }
 }
 

@@ -20,7 +20,7 @@ struct SearchResultsLoader {
             throw Failure.fetch(error, .prefix)
         }
 
-        let prefixCount = prefixResults.results?.count ?? 0
+        let prefixCount = prefixResults.results.count
         guard prefixCount < Self.fullTextSearchThreshold else {
             return (prefixResults, .prefix)
         }
