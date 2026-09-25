@@ -1,6 +1,8 @@
 import Foundation
 
-public final class WMFSemanticSearchDataController {
+// Sendable: the only stored property is the immutable `stateLock`. All other state
+// is read through the environment stores.
+public final class WMFSemanticSearchDataController: Sendable {
 
     public enum ExperimentAssignment: String, Sendable {
         case control

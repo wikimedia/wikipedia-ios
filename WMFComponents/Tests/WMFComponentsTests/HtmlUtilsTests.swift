@@ -147,6 +147,15 @@ final class HtmlUtilsTests: XCTestCase {
         XCTAssertEqual(backgroundRanges(in: attributedString).map(\.text), ["incapable de voir"])
     }
 
+    func testCustomTagIgnoresAttributesThatOnlyEndWithTheName() throws {
+        let html = "<span data-class=\"searchmatch\">pas</span> <span class=\"searchmatch\">oui</span> <a data-href=\"/wiki/Non\" href=\"/wiki/Oui\">lien</a>"
+        let attributedString = try HtmlUtils.nsAttributedStringFromHtml(html, styles: highlightStyle)
+
+        XCTAssertEqual(attributedString.string, "pas oui lien")
+        XCTAssertEqual(backgroundRanges(in: attributedString).map(\.text), ["oui"])
+        XCTAssertEqual((attributedString.attribute(.link, at: 8, effectiveRange: nil) as? URL)?.path, "/wiki/Oui")
+    }
+
     func testCustomTagIsNotClosedByANestedPlainTag() throws {
         let html = "<span class=\"searchmatch\">un <span class=\"nowrap\">deux</span> trois</span> quatre"
         let attributedString = try HtmlUtils.nsAttributedStringFromHtml(html, styles: highlightStyle)
