@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WMFDonateConfigResponse: Codable {
+public struct WMFDonateConfigResponse: Codable, Sendable {
     
     static let currentVersion = 1
     var config: WMFDonateConfig

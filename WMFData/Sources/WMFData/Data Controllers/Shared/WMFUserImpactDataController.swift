@@ -23,7 +23,7 @@ public actor WMFUserImpactDataController {
         }
     }
     
-    func fetch(userID: Int, project: WMFProject, language: String, completion: @escaping (Result<WMFUserImpactData, Error>) -> Void) {
+    func fetch(userID: Int, project: WMFProject, language: String, completion: @escaping @Sendable (Result<WMFUserImpactData, Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
@@ -46,7 +46,7 @@ public actor WMFUserImpactDataController {
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
 
-        let completionHandler: (Result<[String: Any]?, Error>) -> Void = { result in
+        let completionHandler: @Sendable (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
             case .success(let data):
                 guard let jsonData = data else {

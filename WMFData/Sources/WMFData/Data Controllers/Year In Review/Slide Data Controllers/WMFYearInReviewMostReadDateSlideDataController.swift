@@ -30,9 +30,9 @@ final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataCo
         
         let dates = try await WMFPageViewsDataController().fetchPageViewDates(startDate: startDate, endDate: endDate)
         
-        if let mostReadHour = dates?.times.sorted(by: { $0.viewCount < $1.viewCount }).first,
-           let mostReadDay = dates?.days.sorted(by: { $0.viewCount < $1.viewCount }).first,
-           let mostReadMonth = dates?.months.sorted(by: { $0.viewCount < $1.viewCount }).first {
+        if let mostReadHour = dates?.times.max(by: { $0.viewCount < $1.viewCount }),
+           let mostReadDay = dates?.days.max(by: { $0.viewCount < $1.viewCount }),
+           let mostReadMonth = dates?.months.max(by: { $0.viewCount < $1.viewCount }) {
                 self.mostReadDate = WMFPageViewDates(days: [mostReadDay], times: [mostReadHour], months: [mostReadMonth])
                 isEvaluated = true
             }

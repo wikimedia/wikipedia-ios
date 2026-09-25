@@ -1,13 +1,13 @@
 import Foundation
 
-public struct WMFFeatureConfigResponse: Codable {
+public struct WMFFeatureConfigResponse: Codable, Sendable {
     
-    public struct Common: Codable {
+    public struct Common: Codable, Sendable {
         public let yir: [YearInReview]
         
-        public struct YearInReview: Codable {
+        public struct YearInReview: Codable, Sendable {
             
-            public struct TopReadPercentage: Codable {
+            public struct TopReadPercentage: Codable, Sendable {
                 public let identifier: String
                 public let min: Int
                 public let max: Int?
@@ -80,15 +80,18 @@ public struct WMFFeatureConfigResponse: Codable {
             }
             
             func isActive(for date: Date) -> Bool {
-                
-                // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
+
+                // Overwrite date check if the developer settings flag for this config's year is on.
+                // This allows us to test outside of active date range. Each year has its own flag so
+                // that leaving the 2025 flag on does not force the 2026 config active.
                 let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                if developerSettingsDataController.showYiR2025 {
+                // The 2025 force flag went with the 2025 UI, so only 2026 has one.
+                if year == 2026, developerSettingsDataController.forceYiREntryPoint2026 {
                     return true
                 }
-                
+
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
-                    return false 
+                    return false
                 }
                 return date >= activeStartDate && date <= activeEndDate
             }
@@ -103,12 +106,12 @@ public struct WMFFeatureConfigResponse: Codable {
         }
     }
     
-    public struct IOS: Codable {
+    public struct IOS: Codable, Sendable {
         public let hCaptcha: HCaptcha?
         public let visualEditorEnabled: Bool?
         public let semanticSearchLanguages: [String]
         
-        public struct HCaptcha: Codable {
+        public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
             public let jsSrc: String
             public let endpoint: String

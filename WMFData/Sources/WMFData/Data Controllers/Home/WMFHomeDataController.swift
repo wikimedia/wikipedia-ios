@@ -53,8 +53,10 @@ import WMFTestKitchen
             queue: nil
         ) { [weak self] notification in
             guard let self else { return }
+            // Notification is not Sendable. Read the Sendable project value before the task starts.
+            let project = notification.object as? WMFProject
             Task {
-                await self.invalidateForYouCache(project: notification.object as? WMFProject)
+                await self.invalidateForYouCache(project: project)
             }
         }
     }

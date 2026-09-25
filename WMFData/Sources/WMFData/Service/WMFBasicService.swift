@@ -9,9 +9,9 @@ public final class WMFBasicService: WMFService {
         self.urlSession = urlSession
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         
-        let completion: ((Data?, URLResponse?, Error?) -> Void) = { data, response, error in
+        let completion: (@Sendable (Data?, URLResponse?, Error?) -> Void) = { data, response, error in
             if let error {
                 completion(.failure(error))
                 return
@@ -36,9 +36,9 @@ public final class WMFBasicService: WMFService {
         }
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         
-        let completion: ((Result<Data, any Error>) -> Void) = { result in
+        let completion: (@Sendable (Result<Data, any Error>) -> Void) = { result in
             switch result {
             case .success(let data):
                 
@@ -56,7 +56,7 @@ public final class WMFBasicService: WMFService {
         perform(request: request, completion: completion)
     }
     
-    private func performPOST<R: WMFServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    private func performPOST<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) {
         
         guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
@@ -145,7 +145,7 @@ public final class WMFBasicService: WMFService {
         task.resume()
     }
     
-    private func performGET<R: WMFServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    private func performGET<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) {
          
         guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
@@ -219,7 +219,7 @@ public final class WMFBasicService: WMFService {
         task.resume()
     }
     
-    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         
         performGET(request: request) { data, response, error in
             
@@ -243,7 +243,7 @@ public final class WMFBasicService: WMFService {
         }
     }
     
-    public func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         
         performPOST(request: request) { data, response, error in
             

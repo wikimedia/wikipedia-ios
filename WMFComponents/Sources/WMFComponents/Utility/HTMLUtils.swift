@@ -53,6 +53,8 @@ public struct HtmlUtils {
     /// HTML semantics: for example the `<span class="searchmatch">` of search snippets.
     /// When `attributeName` is set, only tags carrying that attribute with `attributeValue`
     /// match; other tags with the same name are stripped like any unknown tag.
+    /// Use UIKit keys in `attributes`: `attributedStringFromHtml` keeps only the UIKit scope,
+    /// while `nsAttributedStringFromHtml` applies every key.
     public struct CustomTag {
         let tagName: String
         let attributeName: String?
@@ -672,7 +674,9 @@ public struct HtmlUtils {
     }
 
     private static func attributeValue(in tagString: String, attributeName: String) -> String? {
-        guard let attributeValueRegex = try? NSRegularExpression(pattern: "\(attributeName)[\\s]*=[\\s]*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))"),
+        // The name must start an attribute: `data-href` is not `href`.
+        let escapedAttributeName = NSRegularExpression.escapedPattern(for: attributeName)
+        guard let attributeValueRegex = try? NSRegularExpression(pattern: "(?<![\\w-])\(escapedAttributeName)[\\s]*=[\\s]*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))"),
               let attrMatch = attributeValueRegex.firstMatch(in: tagString, range: tagString.fullNSRange) else {
             return nil
         }
