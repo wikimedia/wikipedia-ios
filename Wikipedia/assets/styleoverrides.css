@@ -14,6 +14,17 @@
     border-radius: 2px !important
 }
 
+/* A link inside a semantic search passage keeps the highlight text color and shows an underline instead. */
+a .findInPageMatch[data-passage] {
+    text-decoration: underline !important
+}
+
+/* A reference marker wrapped by a passage highlight takes the highlight text color and an underline. */
+.findInPageMatch[data-passage] a {
+    color: inherit !important;
+    text-decoration: underline !important
+}
+
 .findInPageMatch_Focus {
     background-color: #fc3 !important
 }
