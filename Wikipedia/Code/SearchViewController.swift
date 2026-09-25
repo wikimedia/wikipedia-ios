@@ -62,6 +62,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Coordinators
 
+    private var semanticSearchResultsCoordinator: SemanticSearchResultsCoordinator?
     private var _yirCoordinator: YearInReviewCoordinator?
     private var yirCoordinator: YearInReviewCoordinator? {
         guard let navigationController, let yirDataController, let dataStore else { return nil }
@@ -121,6 +122,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
+        vc.semanticSearchTappedAction = { [weak self] query, project in
+            self?.showSemanticSearchResults(query: query, project: project)
+        }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             
@@ -143,6 +147,26 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         return vc
     }()
+
+    // MARK: - Semantic search results
+
+    private func showSemanticSearchResults(query: String, project: WMFProject) {
+        guard let navigationController else { return }
+
+        navigationItem.searchController?.searchBar.resignFirstResponder()
+
+        let coordinator = SemanticSearchResultsCoordinator(
+            navigationController: navigationController,
+            query: query,
+            project: project,
+            didSelectResult: { [weak self] articleURL in
+                self?.searchResultsVC.articleTappedAction?(articleURL, false)
+            }
+        )
+
+        semanticSearchResultsCoordinator = coordinator
+        coordinator.start()
+    }
 
     // MARK: - History
 
