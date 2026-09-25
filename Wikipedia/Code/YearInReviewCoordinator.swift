@@ -85,9 +85,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             guard navigationController.presentedViewController == nil else { return }
 
             let viewModel = WMFYearInReviewAnnouncementViewModel(
-                // TODO: Add the announcement .riv file and its WMFRiveAnimation here.
-                animation: nil,
+                animation: announcementAnimation,
                 localizedStrings: announcementLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount),
+                // TEMPORARY: the sample artwork is light, so the close button uses the dark style.
+                // Remove this line with the real file to get the default light style (20% white).
+                contentStyle: .dark,
                 delegate: self
             )
 
@@ -126,6 +128,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             gotItButtonTitle: CommonStrings.gotItButtonTitle
         )
     }
+
+    // TEMPORARY: the same sample export the slides use. Replace the resource, artboard and state
+    // machine names when design delivers the announcement file.
+    private let announcementAnimation = WMFRiveAnimation(
+        resourceName: "autolayout_multiple_instances_test",
+        artboardName: "frame1",
+        stateMachineName: "insightFrame-stateMachine"
+    )
 
     private var announcementInfoTitle: String {
         WMFLocalizedString("year-in-review-2026-announcement-info-title", value: "Your reading history is kept protected", comment: "Title of the info card on the Year in Review announcement, shown when the reader taps the info icon.")
