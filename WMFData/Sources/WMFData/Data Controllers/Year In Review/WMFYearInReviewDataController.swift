@@ -133,6 +133,18 @@ import CoreData
         return distinctArticleCount >= Self.dataRichDistinctArticleThreshold ? .dataRich : .lowData
     }
 
+    /// How many distinct days the reader opened at least one article, in the same data window as
+    /// `fetchUserDataState()`. The announcement copy shows this number.
+    public func fetchReadingDayCount(calendar: Calendar = .current) async throws -> Int {
+        guard let window = Self.userDataStateWindow(year: Self.userDataStateYear, calendar: calendar) else {
+            return 0
+        }
+
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let days = try await pageViewsDataController.fetchDistinctPageViewDays(calendar: calendar)
+        return days.filter { $0 >= window.start && $0 <= window.end }.count
+    }
+
     /// The badge shows for logged-in and logged-out users alike, so this gates only on availability.
     public func shouldShowActivityTabBadge(countryCode: String?) -> Bool {
         guard shouldShowYearInReviewEntryPoint(countryCode: countryCode) else {

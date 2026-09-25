@@ -77,7 +77,7 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
     }
 
     var closeButtonColor: UIColor {
-        contentStyle == .light ? WMFColor.white : WMFColor.gray700
+        contentStyle == .light ? WMFColor.whiteAlpha20 : WMFColor.gray700
     }
 
     func tappedExplore() {

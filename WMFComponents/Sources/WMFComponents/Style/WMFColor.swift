@@ -6,6 +6,7 @@ public enum WMFColor {
 
     public static let black = UIColor.black
     public static let white = UIColor.white
+    public static let whiteAlpha20 = UIColor(0xFFFFFF, alpha: 0.2)
 
     public static let gray800 = UIColor(0x101418)
     public static let gray700 = UIColor(0x202122)
