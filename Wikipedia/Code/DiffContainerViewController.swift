@@ -826,10 +826,9 @@ private extension DiffContainerViewController {
             return
         }
 
-        scrollingEmptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
+        scrollingEmptyViewController = EmptyViewController()
         if let emptyViewController = scrollingEmptyViewController,
            let emptyView = emptyViewController.view {
-            emptyViewController.canRefresh = false
             emptyViewController.theme = theme
 
             setupSafeAreaBottomAlignView()
@@ -846,7 +845,6 @@ private extension DiffContainerViewController {
             emptyViewController.didMove(toParent: self)
 
             emptyViewController.view.isHidden = true
-            emptyViewController.delegate = self
 
         }
     }
@@ -1042,15 +1040,6 @@ private extension DiffContainerViewController {
     }
 }
 
-extension DiffContainerViewController: EmptyViewControllerDelegate {
-    func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
-        // no refreshing
-    }
-
-    func emptyViewScrollViewDidScroll(_ scrollView: UIScrollView) {
-       // no-op
-    }
-}
 extension DiffContainerViewController: ThanksGiving {
     var url: URL? {
         return siteURL
