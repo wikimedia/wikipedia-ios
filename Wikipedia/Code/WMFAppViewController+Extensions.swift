@@ -822,7 +822,7 @@ extension WMFAppViewController {
             ClientErrorFunnel.shared.logHTTPError(info: info)
         }
 
-        WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFSharedContainerCacheStore()
 
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)

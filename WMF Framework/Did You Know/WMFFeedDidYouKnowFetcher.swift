@@ -5,7 +5,7 @@ public final class WMFFeedDidYouKnowFetcher: Fetcher {
 
     public func fetchDidYouKnow(withSiteURL siteURL: URL, completion: @escaping (Error?, [WMFDidYouKnow]?) -> Void) {
 
-        let sharedCache = SharedContainerCache.init(fileName: self.cachedFileName(for: siteURL), subdirectoryPathComponent: SharedContainerCacheCommonNames.didYouKnowCache)
+        let sharedCache = WMFSharedContainerCache(fileName: self.cachedFileName(for: siteURL), subdirectoryPathComponent: SharedContainerCacheCommonNames.didYouKnowCache)
         var cache = sharedCache.loadCache() ?? DidYouKnowCache(didYouKnowItems: [])
 
         let calendar = Calendar.current
