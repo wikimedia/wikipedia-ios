@@ -1,8 +1,8 @@
 import Foundation
 
-public struct WMFWatchlist {
+public struct WMFWatchlist: Sendable {
     
-    public struct Item {
+    public struct Item: Sendable {
         public let title: String
         public let revisionID: UInt
         public let oldRevisionID: UInt
