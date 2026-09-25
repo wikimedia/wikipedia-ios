@@ -1301,6 +1301,17 @@
 "search-semantic-entry-point-hide-accessibility-label" = "Accessibility label of the button that hides the semantic search entry point shown above the search suggestions.";
 "search-semantic-entry-point-info-accessibility-label" = "Accessibility label of the info button in the semantic search entry point shown above the search suggestions.";
 "search-semantic-entry-point-try-it-now" = "Call to action shown in the semantic search entry point above the search suggestions until the reader uses it for the first time.";
+"search-semantic-results-contributors" = "Number of people who edited the article a passage comes from. $1 is replaced with the number of contributors.";
+"search-semantic-results-empty-title" = "Shown in the sheet of passages found inside articles when the search returns nothing.";
+"search-semantic-results-error-subtitle" = "Subtitle shown in the sheet of passages found inside articles when the search fails.";
+"search-semantic-results-error-title" = "Title shown in the sheet of passages found inside articles when the search fails.";
+"search-semantic-results-last-updated" = "Date of the last edit of the article a passage comes from, shown where the reference count is not available. $1 is replaced with the date in the short numeric style of the device, e.g. 9/26/26.";
+"search-semantic-results-rate-limited-subtitle" = "Subtitle shown in the sheet of passages found inside articles when the reader searched too often.";
+"search-semantic-results-rate-limited-title" = "Title shown in the sheet of passages found inside articles when the reader searched too often.";
+"search-semantic-results-read-in-article" = "Call to action at the end of a passage found inside an article. Opens the article at that passage.";
+"search-semantic-results-references" = "Number of references of the article a passage comes from. $1 is replaced with the number of references.";
+"search-semantic-results-unavailable-subtitle" = "Subtitle shown in the sheet of passages found inside articles when the search service is down.";
+"search-semantic-results-unavailable-title" = "Title shown in the sheet of passages found inside articles when the search service is down.";
 "search-title" = "Title for search interface. {{Identical|Search}}";
 "search-widget-announcement-body" = "Body text for the search widget feature announcement";
 "search-widget-announcement-title" = "Title for the search widget feature announcement";
