@@ -88,10 +88,19 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         let config = WKWebViewConfiguration()
         let controller = WKUserContentController()
         // hide mobile frontend header chrome
+        // match theme to the app's one
         let script = """
             let style = document.createElement('style')
             style.innerHTML = '.header-chrome { display: none; }'
             document.head.appendChild(style)
+
+            const root = document.documentElement;
+            root.classList.remove(
+                'skin-theme-clientpref-day',
+                'skin-theme-clientpref-night',
+                'skin-theme-clientpref-os'
+            );
+            root.classList.add('skin-theme-clientpref-os');
         """
         controller.addUserScript(PageUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         config.userContentController = controller
@@ -104,6 +113,9 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: webViewConfiguration)
         webView.navigationDelegate = self
         webView.uiDelegate = self
+        
+        // prevent the webView flashing white on the unstyled content in the dark mode
+        webView.isOpaque = false
         
 #if WMF_STAGING || WMF_EXPERIMENTAL
         webView.isInspectable = true
