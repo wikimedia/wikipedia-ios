@@ -111,6 +111,13 @@ private extension SchemeHandler {
         var mutableRequest = originalRequest
         mutableRequest.url = newURL
         
+        if newURL.host == "maps.wikimedia.org" {
+            mutableRequest.setValue(
+                "https://maps.wikimedia.org/",
+                forHTTPHeaderField: "Referer"
+            )
+        }
+
         // set persistentCacheItemType in header if it doesn't already exist
         // set If-None-Match in header if it doesn't already exist
         
