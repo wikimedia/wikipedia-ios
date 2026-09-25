@@ -23,24 +23,48 @@ public final class WidgetContentFetcher {
 
     // MARK: - Public - Featured Content
 
-    public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult) -> Void) {
+    /// Fetches the day's feed. The diagnostics describe what happened whether or not the result
+    /// is a success, so the controller can persist them for the developer settings screen.
+    public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult, WidgetFetchDiagnostics) -> Void) {
+        // The Swift feed content fetcher returns an optional URL.
         guard var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current) else {
-            completion(.failure(.urlFailure))
+            completion(.failure(.urlFailure), WidgetFetchDiagnostics(date: Date(), url: "", outcome: .networkFailure, errorDescription: "Could not build the feed URL"))
             return
         }
         featuredURL.wmf_languageVariantCode = languageVariantCode
+        let urlString = featuredURL.absoluteString
 
-        let task = session.dataTask(with: featuredURL) { data, _, error in
-            if let data = data, var decoded = try? JSONDecoder().decode(WidgetFeaturedContent.self, from: data) {
+        let task = session.dataTask(with: featuredURL) { data, response, error in
+            let httpStatusCode = (response as? HTTPURLResponse)?.statusCode
+
+            if let error = error {
+                completion(.failure(.contentFailure), WidgetFetchDiagnostics(date: Date(), url: urlString, outcome: .networkFailure, httpStatusCode: httpStatusCode, errorDescription: error.localizedDescription))
+                return
+            }
+
+            if let httpStatusCode = httpStatusCode, !(200..<300).contains(httpStatusCode) {
+                completion(.failure(.contentFailure), WidgetFetchDiagnostics(date: Date(), url: urlString, outcome: .networkFailure, httpStatusCode: httpStatusCode, errorDescription: "HTTP \(httpStatusCode)"))
+                return
+            }
+
+            guard let data = data, !data.isEmpty else {
+                completion(.failure(.contentFailure), WidgetFetchDiagnostics(date: Date(), url: urlString, outcome: .networkFailure, httpStatusCode: httpStatusCode, errorDescription: "Empty response"))
+                return
+            }
+
+            do {
+                var decoded = try JSONDecoder().decode(WidgetFeaturedContent.self, from: data)
                 decoded.fetchDate = Date()
-                completion(.success(decoded))
-            } else {
-                completion(.failure(.contentFailure))
+                completion(.success(decoded), WidgetFetchDiagnostics(date: Date(), url: urlString, httpStatusCode: httpStatusCode, content: decoded))
+            } catch {
+                // Only reachable when the payload is not a JSON object at all: the sections
+                // themselves are decoded independently and never throw out of the model.
+                completion(.failure(.contentFailure), WidgetFetchDiagnostics(date: Date(), url: urlString, outcome: .decodeFailure, httpStatusCode: httpStatusCode, errorDescription: WidgetDecodingErrorDescription.describe(error)))
             }
         }
 
         guard let dataTask = task else {
-            completion(.failure(.urlFailure))
+            completion(.failure(.urlFailure), WidgetFetchDiagnostics(date: Date(), url: urlString, outcome: .networkFailure, errorDescription: "Could not create the request"))
             return
         }
 

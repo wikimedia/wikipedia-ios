@@ -23,6 +23,44 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
+    func hiddenEntryPointDoesNotRenderUntilItIsShownAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+
+            #expect(controller.isEntryPointHidden == false)
+            #expect(controller.isEntryPointAvailable(languageCode: "fr"))
+
+            try controller.setEntryPointHidden(true)
+
+            #expect(controller.isEntryPointHidden)
+            #expect(controller.isEntryPointAvailable(languageCode: "fr") == false)
+            #expect(controller.isEligible(languageCode: "fr"))
+
+            try controller.setEntryPointHidden(false)
+
+            #expect(controller.isEntryPointAvailable(languageCode: "fr"))
+        }
+    }
+
+    @Test
+    func entryPointUseIsRemembered() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.hasUsedEntryPoint == false)
+
+            try controller.markEntryPointUsed()
+
+            #expect(controller.hasUsedEntryPoint)
+
+            try controller.setEntryPointHidden(true)
+            try controller.resetEntryPointState()
+
+            #expect(controller.hasUsedEntryPoint == false)
+            #expect(controller.isEntryPointHidden == false)
+        }
+    }
+
+    @Test
     func defaultTargetLanguagesApplyWithoutRemoteTargetLanguages() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
@@ -87,7 +125,7 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
-    func forcedAssignmentBypassesTheLanguageGateAndOverridesTheBucket() async throws {
+    func forcedAssignmentOverridesTheBucketButKeepsTheLanguageGate() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
             try saveRemoteTargetLanguages(["fr"])
@@ -98,11 +136,14 @@ final class WMFSemanticSearchDataControllerTests {
 
             WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
 
-            #expect(controller.isEligible(languageCode: "en"))
             #expect(controller.experimentAssignment == .groupB)
-            #expect(controller.isEntryPointAvailable(languageCode: "en"))
-            let forcedAssignment = try controller.assignExperimentIfNeeded(languageCode: "en")
+            #expect(controller.isEligible(languageCode: "fr"))
+            #expect(controller.isEntryPointAvailable(languageCode: "fr"))
+            let forcedAssignment = try controller.assignExperimentIfNeeded(languageCode: "fr")
             #expect(forcedAssignment == .groupB)
+            #expect(controller.isEligible(languageCode: "en") == false)
+            #expect(controller.isEntryPointAvailable(languageCode: "en") == false)
+            #expect(try controller.assignExperimentIfNeeded(languageCode: "en") == nil)
 
             WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil
 

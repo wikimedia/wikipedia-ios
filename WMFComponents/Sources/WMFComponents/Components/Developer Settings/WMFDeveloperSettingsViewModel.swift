@@ -19,11 +19,28 @@ import WMFData
     }
 }
 
+/// Read-only lines and actions the app provides for the Widgets section. WMFComponents cannot
+/// see the widget cache (it lives in the WMF framework), so the app fills this in.
+public struct WMFDeveloperSettingsWidgetDiagnostics {
+    public let cacheSummaryLines: [String]
+    public let lastFetchLines: [String]
+    public let clearWidgetCacheAndReloadWidgets: () -> Void
+
+    public init(cacheSummaryLines: [String], lastFetchLines: [String], clearWidgetCacheAndReloadWidgets: @escaping () -> Void) {
+        self.cacheSummaryLines = cacheSummaryLines
+        self.lastFetchLines = lastFetchLines
+        self.clearWidgetCacheAndReloadWidgets = clearWidgetCacheAndReloadWidgets
+    }
+}
+
 @MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
     let formViewModel: WMFFormViewModel
+
+    /// Set by the app after init. Nil hides the Widgets section.
+    @Published public var widgetDiagnostics: WMFDeveloperSettingsWidgetDiagnostics?
 
     private var subscribers: Set<AnyCancellable> = []
 
@@ -33,9 +50,21 @@ import WMFData
         }
     }
 
-    @Published public var showGamesV2: Bool = WMFDeveloperSettingsDataController.shared.showGamesV2 {
+    @Published public var forceYiREntryPoint2026: Bool = WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
         didSet {
-            WMFDeveloperSettingsDataController.shared.showGamesV2 = showGamesV2
+            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = forceYiREntryPoint2026
+        }
+    }
+
+    @Published public var forceYiR2026Announcement: Bool = WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement = forceYiR2026Announcement
+        }
+    }
+
+    @Published public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? = WMFDeveloperSettingsDataController.shared.forceYiRUserDataState {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = forceYiRUserDataState
         }
     }
 
@@ -114,7 +143,6 @@ import WMFData
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
-        let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
@@ -126,7 +154,6 @@ import WMFData
                 sendAnalyticsToWMFLabsItem,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
-                showYiR2025,
                 forceHcaptchaChallenge,
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
@@ -146,10 +173,6 @@ import WMFData
 
         forceMaxArticleTabsTo5.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
-            .store(in: &subscribers)
-
-        showYiR2025.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2025 = isSelected }
             .store(in: &subscribers)
 
         forceHcaptchaChallenge.$isSelected
@@ -196,24 +219,22 @@ import WMFData
         }
     }
 
-    public func clearGamesPersistence() {
-        Task {
-            try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
+    public func clearWidgetCacheAndReloadWidgets() {
+        widgetDiagnostics?.clearWidgetCacheAndReloadWidgets()
+        WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Widget cache cleared and timelines reloaded. Reopen this screen to see the new fetch.")))
+    }
+
+    public func resetSemanticSearchEntryPoint() {
+        let title: String
+        do {
+            try WMFSemanticSearchDataController.shared.resetEntryPointState()
+            title = "Semantic search entry point reset. It shows again with Try it now on the next search."
+        } catch {
+            title = "Could not reset the semantic search entry point: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
         }
     }
 }
 
-private final class YirLoginExperimentBindingCoordinator {
-    private var subscribers: Set<AnyCancellable> = []
-
-    init(control: WMFFormItemSelectViewModel, b: WMFFormItemSelectViewModel) {
-        control.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl = isSelected
-            if isSelected { b.isSelected = false }
-        }.store(in: &subscribers)
-        b.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected
-            if isSelected { control.isSelected = false }
-        }.store(in: &subscribers)
-    }
-}

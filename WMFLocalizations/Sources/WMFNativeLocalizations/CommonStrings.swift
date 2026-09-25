@@ -186,6 +186,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let shareActionTitle = WMFLocalizedString("article-share", value: "Share", comment: "Text of the article list row action shown on swipe which allows the user to choose the sharing option")
     public static let shareMenuTitle = WMFLocalizedString("share-menu-item", value: "Share…", comment:"'Share…' menu item with ellipsis to indicate further actions are required.")
+    public static let viewOnMapTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
     public static let editArticleWarning = WMFLocalizedString("description-article-introduction-warning-message", value: "The ordering of elements will be different in the editing view than article view.", comment: "Description of alert dialouge to show ordering is different")
     @objc public static let updateActionTitle = WMFLocalizedString("action-update", value: "Update", comment: "Title of the update action.")
     @objc public static let cancelActionTitle = WMFLocalizedString("action-cancel", value: "Cancel", comment: "Title of the cancel action.")
@@ -693,8 +694,13 @@ public class CommonStrings: NSObject {
     public static let joinLoginTitle = WMFLocalizedString("profile-page-join-title", value: "Log in / Join Wikipedia", comment: "Link to sign up or sign in")
 
     public static let noThanksTitle = WMFLocalizedString("variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about variant support.")
-    public static let betaLabel = WMFLocalizedString("beta-badge-label", value: "Beta", comment: "Label indicating a feature is in beta.")
+    /// Pass `languageCode` when the label sits next to content in a specific wiki language. Without
+    /// it, the label follows the app language like every other string.
+    public static func betaLabel(languageCode: String? = nil) -> String {
+        WMFLocalizedString("beta-badge-label", languageCode: languageCode, value: "Beta", comment: "Label indicating a feature is in beta.")
+    }
     public static let donationRemindersTitle = WMFLocalizedString("settings-donation-reminders-title", value: "Donation reminders", comment: "Title of the donation reminders row on the settings screen.")
+    public static let shareFeedbackTitle = WMFLocalizedString("donation-reminder-wrap-up-card-share-feedback", value: "Share feedback", comment: "Title of the button that opens the feedback survey, on the in-article card shown at the end of the donation reminder experiment.")
     public static let continueWithoutLoggingIn = WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title")
 
     public static func takeSurveyTitle(languageCode: String?) -> String {
@@ -702,8 +708,6 @@ public class CommonStrings: NSObject {
     }
 
     public static let notNowTitle = WMFLocalizedString("not-now-title", value: "Not now", comment: "Text for the dismiss button across various features.")
-
-    public static let youCanAccessYIR = WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide.")
 
     public static let logoCaption = WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
 
@@ -851,6 +855,8 @@ public class CommonStrings: NSObject {
     
     // Games
     public static let playTodaysGameTitle = WMFLocalizedString("games-wcf-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.")
+    
+    public static let youCanAccessYIRInActivity = WMFLocalizedString("year-in-review-2026-announcement-exit-toast-title", value: "You can access your Year in Review later in Activity.", comment: "Toast displayed after the user dismisses the Year in Review announcement, telling them where to find the feature later.")
 }
 
 // Language variant strings

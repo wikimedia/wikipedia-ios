@@ -6,7 +6,7 @@ import WMFData
 ///
 /// The fetcher uses `WMFArticleSearchDataController` and converts the result into `WMFSearchResults`.
 /// Remove this class when the legacy search screens move to WMFComponents.
-final class WMFSearchFetcher {
+class WMFSearchFetcher {
 
     private let dataController: WMFArticleSearchDataController
     private let lock = NSLock()

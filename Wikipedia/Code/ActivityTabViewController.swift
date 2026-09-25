@@ -15,6 +15,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         return try? WMFYearInReviewDataController()
     }
     private let dataStore: MWKDataStore?
+    private var yirUserDataStateTask: Task<Void, Never>?
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
@@ -118,6 +119,30 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
+    
+    private func configureYearInReviewEntryPoint() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+            viewModel.yearInReviewViewModel = nil
+            return
+        }
+
+        if viewModel.yearInReviewViewModel == nil {
+            let yirViewModel = WMFActivityTabYearInReviewViewModel()
+            yirViewModel.onTap = { [weak self] in
+                self?.yirCoordinator?.start()
+            }
+            viewModel.yearInReviewViewModel = yirViewModel
+        }
+
+        // The data controller applies the developer settings override using a reading history of 10+ articles, until we can fullfil the original requirements.
+        yirUserDataStateTask?.cancel()
+        yirUserDataStateTask = Task { [weak self] in
+            let userDataState = (try? await yirDataController.fetchUserDataState()) ?? .lowData
+            guard !Task.isCancelled else { return }
+            self?.viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
+        }
+    }
 
     private func embedHostingController() {
         addChild(hostingController)
@@ -163,6 +188,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        markYearInReviewAsSeen()
+
         reachabilityNotifier.start()
 
         if !reachabilityNotifier.isReachable {
@@ -208,6 +236,18 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         } else {
             viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
         }
+    }
+
+    /// Clears the Activity tab's Year in Review badge. Called on every appearance; writes once, so
+    /// repeat calls are cheap.
+    private func markYearInReviewAsSeen() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
+              !yirDataController.hasTappedActivityTabAfterYiRReady else {
+            return
+        }
+        yirDataController.hasTappedActivityTabAfterYiRReady = true
+        NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
     }
 
     @objc private func updateLoginState() {
@@ -318,6 +358,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
+        
+        configureYearInReviewEntryPoint()
 
         configureNavigationBar()
     }

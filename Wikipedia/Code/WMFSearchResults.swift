@@ -10,6 +10,11 @@ struct MWKSearchRedirectMapping: Hashable {
     let redirectFromTitle: String
     let redirectToTitle: String
 
+    init(fromTitle: String, toTitle: String) {
+        redirectFromTitle = fromTitle
+        redirectToTitle = toTitle
+    }
+
     init(redirect: WMFArticleSearchRedirect) {
         redirectFromTitle = redirect.from
         redirectToTitle = redirect.to

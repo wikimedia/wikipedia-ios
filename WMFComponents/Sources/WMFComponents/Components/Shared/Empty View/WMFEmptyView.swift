@@ -14,6 +14,10 @@ public struct WMFEmptyView: View {
     var type: WMFEmptyViewStateType
     let isScrollable: Bool
 
+    /// The reader's text size setting, read before this view's own cap below, so it reflects what
+    /// the reader asked for rather than what the view granted.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     /// Overrides the app theme. The For You feed is always dark whatever theme the app is set to,
     /// so it passes its own palette rather than following `WMFAppEnvironment`.
     var theme: WMFTheme?
@@ -43,6 +47,17 @@ public struct WMFEmptyView: View {
     public var body: some View {
         if isScrollable {
             scrollableContent
+        } else if dynamicTypeSize.isAccessibilitySize {
+            // Even with the size cap below, long copy can outgrow a small screen at accessibility
+            // sizes. Scrolling keeps every line and the button reachable instead of clipping them
+            // behind the tab bar. Unlike `scrollableContent`, this adds no background and no
+            // horizontal padding, so non-scrollable callers keep the appearance they designed for.
+            GeometryReader { geometry in
+                ScrollView {
+                    content
+                        .frame(minHeight: geometry.size.height)
+                }
+            }
         } else {
             content
         }
@@ -83,14 +98,16 @@ public struct WMFEmptyView: View {
                 .padding([.top], 12)
                 .padding([.bottom], 8)
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.5)
             if let attributedString = viewModel.filterString(localizedStrings: viewModel.localizedStrings),
                type == .filter {
                 WMFEmptyViewFilterView(delegate: delegate, attributedString: attributedString)
             } else {
-                Text(viewModel.localizedStrings.subtitle)
+                WMFHtmlText(html: viewModel.localizedStrings.subtitle, styles: subheadlineStyles)
                     .font(Font(WMFFont.for(.subheadline)))
                     .foregroundColor(Color(resolvedTheme.secondaryText))
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.5)
             }
             if let buttonTitle = viewModel.localizedStrings.buttonTitle,
                type == .noItems {
@@ -98,18 +115,28 @@ public struct WMFEmptyView: View {
                 if usesCompactButton {
                     WMFSmallButton(configuration: .init(style: .primary), title: buttonTitle, action: buttonAction)
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
+                        .minimumScaleFactor(0.5)
                 } else {
                     WMFLargeButton(style: .primary, title: buttonTitle, action: buttonAction)
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
+                        .minimumScaleFactor(0.5)
                 }
             }
             Spacer()
         }
+        // The empty states are a short message and a button, not reading content, so the largest
+        // accessibility sizes gain nothing over a bounded large size - while a title at those
+        // sizes breaks mid-word and pushes the message off the screen. The cap keeps the text
+        // growing into the accessibility range, but stops it while a sentence still fits a screen.
+        .dynamicTypeSize(.xSmall ... .accessibility2)
         .onAppear {
             delegate?.emptyViewDidShow(type: type)
         }
     }
 
+    private var subheadlineStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.subheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.italicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: resolvedTheme.text, linkColor: resolvedTheme.link, lineSpacing: 1)
+    }
 }
 
 struct WMFEmptyViewFilterView: View {
