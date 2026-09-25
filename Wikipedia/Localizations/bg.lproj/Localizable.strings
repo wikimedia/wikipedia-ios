@@ -487,7 +487,6 @@
 "settings-clear-cache" = "Изчистване на кешираните данни";
 "settings-clear-cache-are-you-sure-message" = "Изчистването на кешираните данни ще освободи около $1 от пространството. Съхранените Ви страници няма да бъдат изтрити.";
 "settings-clear-cache-are-you-sure-title" = "Изчистване на кешираните данни?";
-"settings-clear-cache-cancel" = "Отказ";
 "settings-clear-cache-ok" = "Изчистване на кеша";
 "settings-donate" = "Направете дарение";
 "settings-help-and-feedback" = "Помощ и обратна връзка";

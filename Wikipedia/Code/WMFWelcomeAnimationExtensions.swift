@@ -4,9 +4,6 @@ extension CGFloat {
     func wmf_denormalizeUsingReference (_ reference: CGFloat) -> CGFloat {
         return self * reference
     }
-    func wmf_normalizeUsingReference (_ reference: CGFloat) -> CGFloat {
-        return self / (reference == 0 ? 0.0000001 : reference)
-    }
     func wmf_radiansFromDegrees() -> CGFloat {
         return ((self) / 180.0 * CGFloat(Double.pi))
     }
@@ -19,21 +16,9 @@ extension CGPoint {
             y: self.y.wmf_denormalizeUsingReference(size.height)
         )
     }
-    func wmf_normalizeUsingSize (_ size: CGSize) -> CGPoint {
-        return CGPoint(
-            x: self.x.wmf_normalizeUsingReference(size.width),
-            y: self.y.wmf_normalizeUsingReference(size.height)
-        )
-    }
 }
 
 extension CGSize {
-    func wmf_denormalizeUsingSize (_ size: CGSize) -> CGSize {
-        return CGSize(
-            width: self.width.wmf_denormalizeUsingReference(size.width),
-            height: self.height.wmf_denormalizeUsingReference(size.height)
-        )
-    }
     // For denormalization which preserved aspect ratio
     func wmf_denormalizeUsingReference (_ reference: CGFloat) -> CGSize {
         return CGSize(
@@ -44,16 +29,6 @@ extension CGSize {
 }
 
 extension CGRect {
-    func wmf_denormalizeUsingSize (_ size: CGSize) -> CGRect {
-        let point = self.origin.wmf_denormalizeUsingSize(size)
-        let size = self.size.wmf_denormalizeUsingSize(size)
-        return CGRect(
-            x: point.x,
-            y: point.y,
-            width: size.width,
-            height: size.height
-        )
-    }
 }
 
 extension CALayer {

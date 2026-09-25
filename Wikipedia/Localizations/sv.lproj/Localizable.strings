@@ -169,9 +169,6 @@
 "activity-tab-very-satisfied" = "Mycket nöjd";
 "activity-tab-very-unsatisfied" = "Mycket missnöjd";
 "activity-tab-week-graph-label" = "Vecka";
-"activity-tab-you-edited" = "Du redigerade {{PLURAL:$1|$1 gång|$1 gånger}} denna vecka.";
-"activity-tab-you-read" = "Du läste {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
-"activity-tab-you-saved" = "Du sparade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "activity-tab-your-impact" = "Din påverkan";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
 "advanced-settings-title" = "Avancerade inställningar";
@@ -262,8 +259,6 @@
 "clearing-cache-error" = "Fel när cacheminnet skulle rensas.";
 "clearing-cache-in-progress" = "Cacheminnet rensas.";
 "close-all-tabs" = "Stäng alla flikar";
-"close-all-tabs-confirmation" = "Vill du stänga alla $1 flikar? Den här åtgärden kan inte ångras.";
-"close-all-tabs-confirmation-number" = "Stäng alla $1 flikar?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Vill du stänga {{PLURAL:$1|$1 flik|$1 flikar}}? Detta kan inte ångras.";
 "close-all-tabs-confirmation-title-with-value" = "Stänga {{PLURAL:$1|$1 flik|$1 flikar}}?";
 "close-button-accessibility-label" = "Stäng";
@@ -1084,7 +1079,6 @@
 "potd-sample-entry-description" = "En jockey håller i springande två tjurar i pacu jawi (från Minangkabau, \"tjurlopp\"), ett traditionellt tjurlopp i Tanah Datar, Sumatera Barat, Indonesien. 2015, Final-45.";
 "potd-widget-description" = "Njut av dagens vackra foto som väljs ut av vår gemenskap.";
 "potd-widget-title" = "Dagens bild";
-"preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "privacy-policy-title" = "Integritetspolicy";
 "problem-with-feature-title" = "Problem med funktion";
 "profile-button-accessibility-hint" = "Navigerar till profilvyn.";
@@ -1233,7 +1227,6 @@
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
-"settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Rensa cachen";
 "settings-community-feed-title" = "Gemenskap";
 "settings-donate" = "Donera";

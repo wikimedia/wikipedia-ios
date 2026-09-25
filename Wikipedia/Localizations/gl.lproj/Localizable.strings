@@ -452,7 +452,6 @@
 "places-unknown-distance" = "distancia descoñecida";
 "potd-description-prefix" = "Imaxe do día para $1";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
-"preference-summary-eventlogging-opt-in" = "Permitir que a Fundación Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
 "reading-list-add-generic-hint-title" = "Engadir este artigo a unha lista de lectura?";
 "reading-list-add-hint-title" = "Engdir \"$1\" á lista de lectura?";
 "reading-list-add-saved-button-title" = "Si, engadilos ás miñas listas de lectura";
@@ -557,7 +556,6 @@
 "settings-clear-cache" = "Borrar os datos da caché";
 "settings-clear-cache-are-you-sure-message" = "Se se borran os datos da caché liberaranse preto de $1 de espazo. Non borrará as súas páxinas gardadas.";
 "settings-clear-cache-are-you-sure-title" = "Borrar os datos da caché?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Axuda e comentarios";
 "settings-language-bar" = "Amosar as linguas ó procurar";

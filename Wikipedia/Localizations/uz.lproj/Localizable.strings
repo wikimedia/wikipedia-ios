@@ -236,7 +236,6 @@
 "places-search-top-articles-that-match-scope" = "Yonida";
 "places-search-your-current-location" = "Joriy joylashuvingiz";
 "places-title" = "Joylar";
-"preference-summary-eventlogging-opt-in" = "Dasturni yaxshilash maqsadida sizning dasturni ishlatishingiz haqida maʼlumotlarni yig‘ishga Vikimediyaga ruxsat bering";
 "reading-list-create-new-list-description" = "Tavsif";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Maqolalarni saralash";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugun|1=Kecha|$1 kun avval}}";
@@ -253,7 +252,6 @@
 "search-recent-clear-delete-all" = "Barchasini oʻchirish";
 "search-recent-title" = "Soʻnggi qidirishlar";
 "search-title" = "Qidirish";
-"settings-clear-cache-cancel" = "Bekor qilish";
 "settings-clear-cache-ok" = "Keshni tozalash";
 "settings-title" = "Sozlamalar";
 "table-of-contents-heading" = "Mundarija";

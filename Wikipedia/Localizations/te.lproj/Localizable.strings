@@ -575,7 +575,6 @@
 "potd-sample-entry-description" = "రెండు ఎద్దులు పరుగెడుతున్న దృశ్యం. 2015 లో ఇండోనేషియా, పశ్చిమ సుమత్రా లోని టానా దాతర్ లో జరిగే ఎద్దుల పందేల్లో (వారి భాషలో పాకు జావీ అంటారు) తీసిన ఫొటో.";
 "potd-widget-description" = "మా సముదాయం ఎంచిపెట్టిన అందమైన ఫొటోలను చూసి ఆనందించండి";
 "potd-widget-title" = "నేటి విశేష చిత్రం";
-"preference-summary-eventlogging-opt-in" = "ఈ యాప్‌ను మెరుగు పరచడం కోసం, మీరు దీన్ని ఎలా వాడుతున్నారనే సమాచారం సేకరించటానికి వికీపీడియాకి అనుమతి ఇవ్వండి";
 "reading-list-add-generic-hint-title" = "ఈ వ్యాసాన్ని ఏదైనా చదివే జాబితా లోకి చేర్చమంటారా?";
 "reading-list-add-hint-title" = "“$1” ను ఏదైనా చదివే జాబితా లోకి చేర్చమంటారా?";
 "reading-list-add-saved-button-title" = "సరే, నా చదివే జాబితాల్లోకి చేర్చు";
@@ -668,7 +667,6 @@
 "settings-account" = "ఖాతా";
 // Fuzzy
 "settings-appearance" = "చదువుటకు అభిరుచులు";
-"settings-clear-cache-cancel" = "రద్దుచేయి";
 "settings-help-and-feedback" = "సహాయమూ, ప్రతిస్పందనా";
 "settings-my-languages" = "నా భాషలు";
 "settings-notifications" = "పంపించే గమనింపులు";

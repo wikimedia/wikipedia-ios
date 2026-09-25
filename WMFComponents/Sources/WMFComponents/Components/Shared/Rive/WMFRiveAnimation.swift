@@ -25,8 +25,4 @@ public nonisolated struct WMFRiveText: Sendable, Hashable {
 public nonisolated struct WMFRiveNumber: Sendable, Hashable {
 
     public let path: String
-
-    public init(path: String) {
-        self.path = path
-    }
 }

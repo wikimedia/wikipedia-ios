@@ -127,7 +127,6 @@
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Wuprózdnić";
 "close-all-tabs" = "Wšě rajtarki začinić";
-"close-all-tabs-confirmation-number" = "Ma so slědowaca ličba rajtarkow začinić? $1";
 "close-all-tabs-confirmation-subtitle-with-value" = "Chceš {{PLURAL:$1|$1 rajtark|$1 rajtarkaj|$1 rajtarki|$1 rajtarkow}} začinić? To njeda so cofnyć.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 rajtark|$1 rajtarkaj|$1 rajtarki|$1 rajtarkow}} začinić?";
 "close-button-accessibility-label" = "Začinić";
@@ -556,7 +555,6 @@
 "search-title" = "Pytać";
 "search-widget-wikipedia-title" = "Wikipedija";
 "settings-account" = "Konto";
-"settings-clear-cache-cancel" = "Přetorhnyć";
 "settings-donate" = "Darić";
 "settings-language-bar" = "Rěče při pytanju pokazać";
 "settings-my-languages" = "Moje rěče";

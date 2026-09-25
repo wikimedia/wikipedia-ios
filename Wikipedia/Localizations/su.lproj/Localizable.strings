@@ -235,7 +235,6 @@
 "places-unknown-distance" = "jarak teu dipikanyaho";
 "potd-description-prefix" = "Gambar poé ieu pikeun $1";
 "potd-empty-error-description" = "Gagal pikeun nampa gambar poé ieu dina $1";
-"preference-summary-eventlogging-opt-in" = "Heugbaékeun Wikimédia pikeun ngumpulkeun info ngeunaan cara anjeun migunakeun aplikasi nu leuwih hadé";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Runtuykeun artikel";
 "reading-list-sync-enable-button-title" = "Hurungkeun singkronan";
 "reading-lists-sort-saved-articles" = "Runtuykeun artikel kasimpen";
@@ -267,7 +266,6 @@
 "settings-clear-cache" = "Bersihkeun data telih";
 "settings-clear-cache-are-you-sure-message" = "Mersihan data telih bakal ngosongkeun kirana $1 tina rohangan. Ieu moal bakalan ngahapus kaca kasimpen anjeun.";
 "settings-clear-cache-are-you-sure-title" = "Bersihkeun data telih?";
-"settings-clear-cache-cancel" = "Bolay";
 "settings-clear-cache-ok" = "Bersihkeun telih";
 "settings-help-and-feedback" = "Pitulung jeung eupan balik";
 "settings-language-bar" = "Témbongkeun basa dina pamaluruhan";

@@ -153,9 +153,6 @@
 "activity-tab-very-satisfied" = "Meget tilfreds";
 "activity-tab-very-unsatisfied" = "Meget utilfreds";
 "activity-tab-week-graph-label" = "Uge";
-"activity-tab-you-edited" = "Du redigerede {{PLURAL:$1|$1 gang|$1 gange}} i denne uge.";
-"activity-tab-you-read" = "Du læste {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
-"activity-tab-you-saved" = "Du gemte {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
 "activity-tab-your-impact" = "Din indflydelse";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "advanced-settings-title" = "Avancerede indstillinger";
@@ -254,8 +251,6 @@
 "clearing-cache-error" = "Fejl under rydning af cache.";
 "clearing-cache-in-progress" = "Rydning af cache i gang.";
 "close-all-tabs" = "Luk alle faner";
-"close-all-tabs-confirmation" = "Vil du lukke alle $1 faner? Denne handling kan ikke fortrydes.";
-"close-all-tabs-confirmation-number" = "Luk alle $1 faner?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Vil du lukke {{PLURAL:$1|$1 fane|$1 faner}}? Denne handling kan ikke fortrydes.";
 "close-all-tabs-confirmation-title-with-value" = "Luk {{PLURAL:$1|$1 fane|$1 faner}}?";
 "close-button-accessibility-label" = "Luk";
@@ -1130,7 +1125,6 @@
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
 "potd-widget-description" = "Nyd et smukt dagligt foto udvalgt af vores fællesskab.";
 "potd-widget-title" = "Dagens billede";
-"preference-summary-eventlogging-opt-in" = "Tillad Wikimedia Foundation at indsamle oplysninger om, hvordan du bruger appen, for at gøre appen bedre.";
 "privacy-policy-title" = "Privatlivspolitik";
 "problem-with-feature-title" = "Problem med funktionen";
 "profile-button-accessibility-hint" = "Navigerer til profilvisningen.";
@@ -1260,7 +1254,6 @@
 "settings-clear-cache" = "Ryd cachede data";
 "settings-clear-cache-are-you-sure-message" = "Rydning af cachede data vil frigøre omkring $1 plads. Det vil ikke slette dine gemte sider.";
 "settings-clear-cache-are-you-sure-title" = "Ryd cachede data?";
-"settings-clear-cache-cancel" = "Annuller";
 "settings-clear-cache-ok" = "Ryd cache";
 "settings-community-feed-title" = "Fællesskab";
 "settings-donate" = "Donér";

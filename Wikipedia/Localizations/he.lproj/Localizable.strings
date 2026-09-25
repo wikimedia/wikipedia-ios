@@ -127,9 +127,6 @@
 "activity-tab-top-categories" = "הקטגוריות המובילות החודש";
 "activity-tab-total-edits" = "סך כל העריכות בכל המיזמים";
 "activity-tab-week-graph-label" = "שבוע";
-"activity-tab-you-edited" = "ערכת {{PLURAL:$1|one=פעם אחת|two=פעמיים|many=$1 פעמים|$1 פעמים}} השבוע.";
-"activity-tab-you-read" = "קראת {{PLURAL:$1|one=ערך אחד|two=שני ערכים|many=$1 ערכים|$1 ערכים}} השבוע.";
-"activity-tab-you-saved" = "שמרת {{PLURAL:$1|one=ערך אחד|two=שני ערכים|many=$1 ערכים|$1 ערכים}} השבוע.";
 "activity-tab-your-impact" = "ההשפעה שלך";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|ערך אחד|$1 ערכים}} לרשימת הקריאה";
 "advanced-settings-title" = "הגדרות מתקדמות";
@@ -191,8 +188,6 @@
 "clearing-cache-complete" = "ניקוי המטמון הושלם.";
 "clearing-cache-in-progress" = "ניקוי המטמון מתבצע.";
 "close-all-tabs" = "סגירת כל הלשוניות";
-"close-all-tabs-confirmation" = "לסגור את כל $1 הלשוניות? זאת פעולה בלתי־הפיכה.";
-"close-all-tabs-confirmation-number" = "לסגור את כל $1 הלשוניות?";
 "close-button-accessibility-label" = "סגירה";
 "close-tabs" = "סגירת לשניות";
 "compass-direction" = "בשעה $1";
@@ -935,7 +930,6 @@
 "potd-sample-entry-description" = "שני שוורים רצים בזמן שהרוכב מחזיק בהם בפאצ'ו ג'אווי (משפת מיננגקפבאו, \"מרוץ שוורים\"), מרוץ שוורים מסורתי בטנה דטר, מערב סומטרה, אינדונזיה. 2015, Final-45";
 "potd-widget-description" = "תיהנו מצילום יומי יפה שנבחר על־ידי הקהילה.";
 "potd-widget-title" = "תמונת היום";
-"preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "privacy-policy-title" = "מדיניות פרטיות";
 "problem-with-feature-title" = "בעיה עם אפשרות";
 "profile-button-accessibility-hint" = "ניווט לתצוגת פרופיל.";
@@ -1077,7 +1071,6 @@
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
 "settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
-"settings-clear-cache-cancel" = "ביטול";
 "settings-clear-cache-ok" = "ניקוי מטמון";
 "settings-donate" = "לתרום";
 "settings-help-and-feedback" = "עזרה ומשוב";

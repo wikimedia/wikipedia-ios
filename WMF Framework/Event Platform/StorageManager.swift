@@ -193,9 +193,6 @@ struct PersistedEvent: Codable {
 
 extension StorageManager {
     var managedObjectContextToTest: NSManagedObjectContext { return managedObjectContext }
-    func testSave(_ moc: NSManagedObjectContext) {
-        save(moc)
-    }
 }
 
 #endif

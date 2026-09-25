@@ -141,9 +141,6 @@
 "activity-tab-very-satisfied" = "တ၀ ကျေနပ်တေ";
 "activity-tab-very-unsatisfied" = "တ၀ မကျေနပ်";
 "activity-tab-week-graph-label" = "တပတ်";
-"activity-tab-you-edited" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ကြိမ်|$1 ကြိမ်တိ}} ကို တီးဖြတ်ခရေ။";
-"activity-tab-you-read" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ဆောင်းပါး|$1 ဆောင်းပါးတိ}} ကို ဖတ်ခ‌ရေ။";
-"activity-tab-you-saved" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ‌ေဆောင်းပါး|$1 ဆောင်းပါးတိ}} ကို သိမ်းခရေ။";
 "activity-tab-your-impact" = "သင်ဧ့ အကျိုးသက်ရောက်မှု";
 "add-articles-to-reading-list" = "စာဖတ်စာရင်းပသို့ {{PLURAL:$1|$1 ဆောင်းပါး|$1 ဆောင်းပါးတိ}} ပေါင်းထည့်ရန်";
 "advanced-settings-title" = "အဆင့်မြင့် ဆက်တင်တိ";
@@ -242,8 +239,6 @@
 "clearing-cache-error" = "ကက်ရှ်ကို ရှင်းလင်းရာမာ အမှားအယွင်းဟိနီပါရေ။";
 "clearing-cache-in-progress" = "ကက်ရှ် ရှင်းလင်းခြင်းကို လုပ်ဆောင်နီပါရေ။";
 "close-all-tabs" = "tab အားနုန်းကို ပိတ်ပါ";
-"close-all-tabs-confirmation" = "$1 တက်ဘ်တိအားနုန်းကို ပိတ်ချင်ပါလား။  ‌ေဒေလုပ်ဆောင်ချက်ကို ပြန်ပြင်လို့မရပါ။";
-"close-all-tabs-confirmation-number" = "$1 tab အားနုန်းကို ပိတ်ပါ";
 "close-all-tabs-confirmation-subtitle-with-value" = "{{PLURAL:$1|$1 တဘ်|$1 တဘ်တိ}} ကို ပိတ်ချင်ပါသလား။ ‌ဒေလုပ်ဆောင်ချက်ကို ပြန်ပြင်လို့မရပါ။";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} ကို ပိတ်ဖို့လား။";
 "close-button-accessibility-label" = "ပိတ်ပါ";
@@ -1157,7 +1152,6 @@
 "potd-sample-entry-description" = "အင်ဒိုနီးရှားနိုင်ငံ၊ အနောက်ဆူမတြား၊ Tanah Datar က ရိုးရာနွားအပြီးပြိုင်ပွဲ (Minangkabau က \"နွားပြိုင်ပွဲ\") မှာ ဂျော်ကီက ယင်းတိကို ကိုင်ဆောင်ထားစိုင် နွားနှစ်ကောင် ပြီးနီရေ။  2015၊ နောက်ဆုံး-45။";
 "potd-widget-description" = "အကျွန်ရို့ဧ့ အသိုင်းအဝိုင်းမှ ရွီးချယ်ထားရေ လှပရေနိန့်စိုင် ဓာတ်ပုံကို ခံစားလိုက်ပါ။";
 "potd-widget-title" = "ဒေနိန့်အတွက် ဓာတ်ပုံ";
-"preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစီ‌ဖို့ သင်အသုံးပြုပုံ အချက်အလက်တိ ရယူစုဆောင်းနိုင်ဖို့ ဝီကီးမီဒီယာကို ခွင့်ပြုပါ";
 "privacy-policy-title" = "ကိုယ်ရီးကိုယ်တာ မူဝါဒ";
 "problem-with-feature-title" = "အင်္ဂါရပ်ပြဿနာ";
 "profile-button-accessibility-hint" = "ပရိုဖိုင်မြင်ကွင်းပသို့ လမ်းညွှန်ရေ";
@@ -1306,7 +1300,6 @@
 "settings-clear-cache" = "သိမ်းဆည်းထားရေ ဒေတာတိကို ရှင်းလင်းပါ";
 "settings-clear-cache-are-you-sure-message" = "ကက်ရှ်ဒေတာကို ရှင်းပစ်ခြင်းနန့် နီရာလွတ် $1 ခန့် လွတ်လားပါဖို့။  သင်ဧ့သိမ်းဆည်းထားရေ စာမျက်နှာတိကို ဖျက်ဖို့မဟုတ်ပါ။";
 "settings-clear-cache-are-you-sure-title" = "သိမ်းဆည်းထားရေ ဒေတာတိကို ရှင်းလင်းပါ";
-"settings-clear-cache-cancel" = "မလုပ်ယာ";
 "settings-clear-cache-ok" = "ကက်ရှ်ကို ရှင်းလင်းပါ။";
 "settings-clear-donation-history" = "လှူဒါန်းမှုမှတ်တမ်းကို ဖျက်ပါ";
 "settings-community-feed-title" = "ကွန်မြူနတီ";

@@ -153,9 +153,6 @@
 "activity-tab-very-satisfied" = "Erittäin tyytyväinen";
 "activity-tab-very-unsatisfied" = "Erittäin tyytymätön";
 "activity-tab-week-graph-label" = "Viikko";
-"activity-tab-you-edited" = "Muokkasit {{PLURAL:$1|$1 kerran|$1 kertaa}} tällä viikolla.";
-"activity-tab-you-read" = "Olet lukenut {{PLURAL:$1|$1 artikkelin|$1 artikkelia}} tällä viikolla.";
-"activity-tab-you-saved" = "Olet tallentanut {{PLURAL:$1|$1 artikkelin|$1 artikkelia}} tällä viikolla.";
 "activity-tab-your-impact" = "Vaikutuksesi";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "advanced-settings-title" = "Lisäasetukset";
@@ -222,8 +219,6 @@
 "clearing-cache-error" = "Virhe välimuistia tyhjennettäessä.";
 "clearing-cache-in-progress" = "Väliuistin tyhjennys on käynnissä.";
 "close-all-tabs" = "Sulje kaikki välilehdet";
-"close-all-tabs-confirmation" = "Haluatko sulkea kaikki $1 välilehteä? Tätä toimintoa ei voi perua.";
-"close-all-tabs-confirmation-number" = "Suljetaanko kaikki $1 välilehteä?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Haluatko sulkea {{PLURAL:$1|$1 välilehden|$1 välilehteä}}? Tätä toimintoa ei voi perua.";
 "close-all-tabs-confirmation-title-with-value" = "Suljetaanko {{PLURAL:$1|$1 välilehti|$1 välilehteä}}?";
 "close-button-accessibility-label" = "Sulje";
@@ -972,7 +967,6 @@
 "potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";
 "potd-widget-description" = "Nauti kauniista päivän kuvasta, jonka yhteisömme on valinnut.";
 "potd-widget-title" = "Päivän kuva";
-"preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "privacy-policy-title" = "Tietosuojakäytäntö";
 "problem-with-feature-title" = "Ongelma ominaisuudessa";
 "profile-button-accessibility-hint" = "Siirtyy profiilinäkymään.";
@@ -1115,7 +1109,6 @@
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
 "settings-clear-cache-are-you-sure-title" = "Tyhjennetäänkö välimuisti?";
-"settings-clear-cache-cancel" = "Peruuta";
 "settings-clear-cache-ok" = "Tyhjennä välimuisti";
 "settings-donate" = "Lahjoita";
 "settings-help-and-feedback" = "Ohje ja palaute";

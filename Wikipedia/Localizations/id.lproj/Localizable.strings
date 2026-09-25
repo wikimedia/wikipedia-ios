@@ -115,7 +115,6 @@
 "activity-tab-customize-empty-state" = "Modul aktivitas dimatikan. $1Nyalakan$2 untuk melihat pembaruan di tab ini.";
 "activity-tab-menu-clear-history" = "Hapus riwayat bacaan";
 "activity-tab-title" = "Aktivitas";
-"activity-tab-you-edited" = "Anda menyunting {{PLURAL:$1|$1 kali}} minggu ini.";
 "activity-tab-your-impact" = "Dampak Anda";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "advanced-settings-title" = "Pengaturan lanjutan";
@@ -819,7 +818,6 @@
 "potd-sample-entry-description" = "Dua ekor sapi jantan sedang berlari, sementara sang joki berpegangan pada mereka pada pacu jawi (dari bahasa Minangkabau, \"adu banteng\"), sebuah adu banteng tradisional di Tanah Datar, Sumatera Barat, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "Nikmati gambar yang indah setiap hari yang dipilih oleh komunitas kami.";
 "potd-widget-title" = "Gambar pilihan";
-"preference-summary-eventlogging-opt-in" = "Izinkan Wikimedia Foundation untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi untuk membuat aplikasi yang lebih baik";
 "privacy-policy-title" = "Kebijakan privasi";
 "profile-button-accessibility-label" = "Profil";
 "profile-page-logged-out-year-in-review-subtext" = "Masuk log atau buat akun untuk mendapatkan tinjauan tahunan yang lebih baik tahun depan.";
@@ -953,7 +951,6 @@
 "settings-clear-cache" = "Hapus data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Menghapus data cache akan membebaskan sekitar $1 ruang. Ini tidak akan menghapus halaman tersimpan Anda.";
 "settings-clear-cache-are-you-sure-title" = "Hapus data dalam cache?";
-"settings-clear-cache-cancel" = "Batal";
 "settings-clear-cache-ok" = "Hapus cache";
 "settings-donate" = "Menyumbang";
 "settings-help-and-feedback" = "Bantuan dan masukan";

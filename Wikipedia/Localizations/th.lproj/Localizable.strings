@@ -119,9 +119,6 @@
 "activity-tab-very-satisfied" = "พึงพอใจมาก";
 "activity-tab-very-unsatisfied" = "ไม่พึงพอใจมาก";
 "activity-tab-week-graph-label" = "สัปดาห์";
-"activity-tab-you-edited" = "คุณได้แก้ไข {{PLURAL:$1|$1 ครั้ง}}ในสัปดาห์นี้";
-"activity-tab-you-read" = "คุณอ่านไป {{PLURAL:$1|$1 บทความ}}ในสัปดาห์นี้";
-"activity-tab-you-saved" = "คุณบันทึก {{PLURAL:$1|$1 บทความ}}ไว้ในสัปดาห์นี้";
 "add-articles-to-reading-list" = "เพิ่ม {{PLURAL:$1|$1 บทความ}} ลงในรายการอ่าน";
 "advanced-settings-title" = "การตั้งค่าขั้นสูง";
 "alert-temporary-account" = "คุณกำลังใช้บัญชีชั่วคราว บัญชีนี้จะหมดอายุใน 90 วัน";
@@ -185,8 +182,6 @@
 "clearing-cache-complete" = "การล้างแคชเสร็จสมบูรณ์";
 "clearing-cache-in-progress" = "อยู่ระหว่างการล้างแคช";
 "close-all-tabs" = "ปิดแท็บทั้งหมด";
-"close-all-tabs-confirmation" = "คุณต้องการปิด $1 แท็บหรือไม่ คุณไม่สามารถเรียกคืนได้";
-"close-all-tabs-confirmation-number" = "ปิด $1 แท็บหรือไม่";
 "close-all-tabs-confirmation-subtitle-with-value" = "คุณต้องการปิด {{PLURAL:$1|$1 แท็บ}}หรือไม่? การดำเนินการนี้ไม่สามารถย้อนกลับได้";
 "close-all-tabs-confirmation-title-with-value" = "ปิด {{PLURAL:$1|$1 แท็บ}}หรือไม่?";
 "close-button-accessibility-label" = "ปิด";
@@ -785,7 +780,6 @@
 "potd-description-prefix" = "รูปภาพประจำวันที่ $1";
 "potd-empty-error-description" = "ไม่สามารถดึงข้อมูลรูปภาพประจำวันที่ $1 ได้";
 "potd-widget-title" = "รูปภาพประจำวัน";
-"preference-summary-eventlogging-opt-in" = "อนุญาตให้มูลนิธิวิกิมีเดียเก็บข้อมูลการใช้แอปของคุณเพื่อพัฒนาแอปให้ดีขึ้น";
 "problem-with-feature-title" = "ปัญหาเกี่ยวกับคุณสมบัติ";
 "project-name-mediawiki" = "มีเดียวิกิ";
 "project-name-wikibooks" = "วิกิตำรา";
@@ -894,7 +888,6 @@
 "settings-clear-cache" = "ล้างข้อมูลที่แคชไว้";
 "settings-clear-cache-are-you-sure-message" = "การล้างข้อมูลที่แคชจะเพิ่มเนื้อที่ประมาณ $1 แต่จะไม่ลบหน้าที่บันทึกไว้ของคุณ";
 "settings-clear-cache-are-you-sure-title" = "ล้างข้อมูลที่แคชไว้หรือไม่?";
-"settings-clear-cache-cancel" = "ยกเลิก";
 "settings-clear-cache-ok" = "ล้างแคช";
 "settings-donate" = "บริจาค";
 "settings-help-and-feedback" = "วิธีใช้และคำติชม";

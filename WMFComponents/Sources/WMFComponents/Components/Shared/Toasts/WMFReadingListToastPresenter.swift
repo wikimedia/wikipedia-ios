@@ -70,19 +70,6 @@ final public class WMFReadingListToastPresenter {
         setToastHidden(true, config: nil)
     }
 
-    /// Dismisses the toast immediately without animation.
-    public func dismissToastImmediately() {
-        guard !isToastHidden else { return }
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
-        currentHostingController?.view.removeFromSuperview()
-        currentToastContainer?.removeFromSuperview()
-        currentHostingController = nil
-        currentToastContainer = nil
-        currentModel = nil
-        tearDownWindow()
-    }
-
     public func resetToast() {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil

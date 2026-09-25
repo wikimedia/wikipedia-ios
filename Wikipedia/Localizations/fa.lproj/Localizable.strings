@@ -180,9 +180,6 @@
 "activity-tab-very-satisfied" = "خیلی راضی";
 "activity-tab-very-unsatisfied" = "خیلی ناراضی";
 "activity-tab-week-graph-label" = "هفته";
-"activity-tab-you-edited" = "شما این هفته {{PLURAL:$1|بار}} ویرایش انجام داده‌اید";
-"activity-tab-you-read" = "شما این هفته {{PLURAL:$1|مقاله}} را خواندید.";
-"activity-tab-you-saved" = "شما این هفته {{PLURAL:$1|مقاله}} را ذخیره کردید.";
 "activity-tab-your-impact" = "اثرگذاری شما";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "advanced-settings-title" = "تنظیمات پیشرفته";
@@ -260,8 +257,6 @@
 "clearing-cache-error" = "خطای پاکسازی حافظهٔ نهان.";
 "clearing-cache-in-progress" = "در حال پاکسازی کاشه.";
 "close-all-tabs" = "بستن همهٔ زبانه‌ها";
-"close-all-tabs-confirmation" = "آیا می‌خواهید همهٔ $1 زبانه را ببندید؟ این اقدام قابل بازگشت نیست.";
-"close-all-tabs-confirmation-number" = "همهٔ $1 زبانه بسته شوند؟";
 "close-all-tabs-confirmation-subtitle-with-value" = "آیا می‌خواهید {{PLURAL:$1|زبانه}} را ببندید؟ این اقدام قابل بازگشت نیست.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|زبانه}} بسته شود؟";
 "close-button-accessibility-label" = "بستن";
@@ -1078,7 +1073,6 @@
 "potd-sample-entry-description" = "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "از مشاهدهٔ یک تصویر روزانهٔ زیبا، که توسط احتماع ما انتخاب شده، لذت ببرید.";
 "potd-widget-title" = "نگارهٔ روز";
-"preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این نرم‌افزار جهت بهتر ساختن نرم‌افزار اجازه دهید";
 "privacy-policy-title" = "سیاست محرمانگی";
 "problem-with-feature-title" = "مشکل با ویژگی";
 "profile-button-accessibility-hint" = "به نمایه هدایت می‌شود.";
@@ -1223,7 +1217,6 @@
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
 "settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته‌شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما حذف نخواهند شد.";
 "settings-clear-cache-are-you-sure-title" = "داده‌‌های گرفته‌شده پاک‌شوند؟";
-"settings-clear-cache-cancel" = "لغو";
 "settings-clear-cache-ok" = "پاک‌سازی حافظهٔ نهان";
 "settings-community-feed-title" = "جامعه";
 "settings-donate" = "کمک مالی";

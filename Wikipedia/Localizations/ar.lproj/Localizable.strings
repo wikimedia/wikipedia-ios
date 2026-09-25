@@ -190,9 +190,6 @@
 "activity-tab-very-satisfied" = "راضٍ جدًا";
 "activity-tab-very-unsatisfied" = "غير راضٍ للغاية";
 "activity-tab-week-graph-label" = "أسبوع";
-"activity-tab-you-edited" = "لقد قمت بالتعديل {{PLURAL:$1|$1 مرة| $1 مرات}} هذا الأسبوع.";
-"activity-tab-you-read" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالات}} هذا الأسبوع.";
-"activity-tab-you-saved" = "لقد وفرت {{PLURAL:$1|$1 مقال|$1 مقالات}} هذا الأسبوع.";
 "activity-tab-your-impact" = "تأثيرك";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "advanced-settings-title" = "إعدادات متقدمة";
@@ -263,8 +260,6 @@
 "clearing-cache-error" = "حدث خطأ أثناء مسح ذاكرة التخزين المؤقت.";
 "clearing-cache-in-progress" = "جاري مسح ذاكرة التخزين المؤقت.";
 "close-all-tabs" = "إغلاق جميع علامات التبويب";
-"close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
-"close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
 "close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-all-tabs-confirmation-title-with-value" = "إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
 "close-button-accessibility-label" = "أغلق";
@@ -1069,7 +1064,6 @@
 "potd-sample-entry-description" = "ثيران يركضان بينما يتشبث الفارس بهما في باكو جاوي (من مينانجكابو ، \"سباق الثيران\") ، وهو سباق ثيران تقليدي في تاناه داتار ، غرب سومطرة ، إندونيسيا. 2015 ، نهائي 45.";
 "potd-widget-description" = "شاهد صورة يومية اختارها مجتمعنا";
 "potd-widget-title" = "صورة اليوم";
-"preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "privacy-policy-title" = "سياسة الخصوصية";
 "problem-with-feature-title" = "مشكلة مع الميزة";
 "profile-button-accessibility-hint" = "ينتقل إلى عرض الملف الشخصي.";
@@ -1218,7 +1212,6 @@
 "settings-clear-cache" = "مسح المحتوى المخزن";
 "settings-clear-cache-are-you-sure-message" = "مسح المحتوى المخزن سيتيح حوالي مساحة $1. هذا لن يحذف المقالات المحفوظة.";
 "settings-clear-cache-are-you-sure-title" = "مسح المحتوى المخزن؟";
-"settings-clear-cache-cancel" = "إلغاء";
 "settings-clear-cache-ok" = "مسح المخزون";
 "settings-community-feed-title" = "المجتمع";
 "settings-donate" = "تبرع";

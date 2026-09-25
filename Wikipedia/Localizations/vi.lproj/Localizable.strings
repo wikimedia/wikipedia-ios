@@ -109,9 +109,6 @@
 "activity-tab-very-satisfied" = "Rất hài lòng";
 "activity-tab-very-unsatisfied" = "Rất không hài lòng";
 "activity-tab-week-graph-label" = "Tuần";
-"activity-tab-you-edited" = "Bạn đã sửa đổi {{PLURAL:$1|$1 lần}} trong tuần này.";
-"activity-tab-you-read" = "Bạn đã đọc {{PLURAL:$1|$1 bài viết}} trong tuần này.";
-"activity-tab-you-saved" = "Bạn đã lưu {{PLURAL:$1|$1 bài viết}} trong tuần này.";
 "activity-tab-your-impact" = "Hoạt động của bạn";
 "add-articles-to-reading-list" = "Thêm $1 bài viết vào danh sách đọc";
 "advanced-settings-title" = "Tùy chọn nâng cao";
@@ -753,7 +750,6 @@
 "potd-sample-entry-description" = "Hai con bò đực đang chạy trong khi người đua ngựa giữ chúng trong pacu Jawi (từ Minangkabau, \"cuộc đua bò\"), một cuộc đua bò truyền thống ở Tanah Datar, Tây Sumatra, Indonesia. 2015, Chung kết-45.";
 "potd-widget-description" = "Thưởng thức một bức ảnh đẹp hàng ngày được cộng đồng của chúng tôi lựa chọn.";
 "potd-widget-title" = "Hình ảnh trong ngày";
-"preference-summary-eventlogging-opt-in" = "Cho phép Quỹ Wikimedia thu thập thông tin về cách bạn sử dụng ứng dụng để giúp làm ứng dụng tốt hơn";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -880,7 +876,6 @@
 "settings-clear-cache" = "Xóa dữ liệu đệm";
 "settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
-"settings-clear-cache-cancel" = "Hủy bỏ";
 "settings-clear-cache-ok" = "Xóa bộ nhớ đệm";
 "settings-donate" = "Quyên góp";
 "settings-explore-games-title" = "Trò chơi Wikipedia";

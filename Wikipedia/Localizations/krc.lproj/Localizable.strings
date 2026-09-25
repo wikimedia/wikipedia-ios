@@ -122,8 +122,6 @@
 "clearing-cache-complete" = "Кэш тазалау тамамланды.";
 "clearing-cache-in-progress" = "Кэш тазалана турады.";
 "close-all-tabs" = "Бютеу салгъычланы джаб";
-"close-all-tabs-confirmation" = "Бютеу $1 салгъынчы джабаргъа излеймисиз? Бу этиу кери алыналлыкъ тюлдю.";
-"close-all-tabs-confirmation-number" = "Бютеу $1 салгъыч джабылсынмы?";
 "close-button-accessibility-label" = "Джаб";
 "close-tabs" = "Салгъычланы джаб";
 "compass-direction" = "сагъат $1 табада";
@@ -833,7 +831,6 @@
 "potd-sample-entry-description" = "Индонезияны Кюнбатыш Суматрасындагъы Танах Датарда бардырылгъан эртдеден келген бугъа чабышдырыу pacu jawi (минангкабау тилден -\"бугъа чабышдырыу\"), бир чаришчи, чабхан эки бугъаны тутуб, 2015, Финал-45";
 "potd-widget-description" = "Джамагъатыбыз сайлагъан ариу кюнлюк фотосуратлагъа къараб зауукъ этигиз.";
 "potd-widget-title" = "Кюнню сураты";
-"preference-summary-eventlogging-opt-in" = "Викимедиа Фондну къошакъны маджаллашдырыр ючюн къошакъны къалай хайырланнганыгъызны юсюнден информация джыяргъа эркинлик беригиз";
 "privacy-policy-title" = "Ташалыкъ политика";
 "problem-with-feature-title" = "Функция бла проблема";
 "project-name-mediawiki" = "MediaWiki";
@@ -963,7 +960,6 @@
 "settings-clear-cache" = "Кэш этилген билгилени тазала";
 "settings-clear-cache-are-you-sure-message" = "Кэшни этилген билгилени тазалау $1 чакълы бир джер бош этерикди. Сакъланнган бетлеригиз кетериллик тюлдюле.";
 "settings-clear-cache-are-you-sure-title" = "Кэш этилген билгилени тазалансынмы?";
-"settings-clear-cache-cancel" = "Ызына ал";
 "settings-clear-cache-ok" = "Кэшни тазала";
 "settings-donate" = "Багъышла";
 "settings-help-and-feedback" = "Болушлукъ эмда кери билдириу";

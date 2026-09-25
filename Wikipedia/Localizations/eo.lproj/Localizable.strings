@@ -461,7 +461,6 @@
 "potd-description-prefix" = "Bildo de la tago por $1";
 "potd-empty-error-description" = "Malsukcesis ricevi bildon de la tago por $1";
 "potd-widget-title" = "Bildo de la tago";
-"preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informojn pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
 "reading-list-add-generic-hint-title" = "Ĉu aldoni ĉi tiun artikolon al legolisto?";
 "reading-list-add-hint-title" = "Ĉu aldoni \"$1\" al legolisto?";
 "reading-list-add-saved-button-title" = "Jes, aldonu ilin al miaj legolistoj";
@@ -565,7 +564,6 @@
 "settings-clear-cache" = "Malplenigi la kaŝmemorigitajn datumojn";
 "settings-clear-cache-are-you-sure-message" = "Malplenigi la kaŝmemorigitajn datumojn liberigos ĉirkaŭ $1 da spaco. Tio ne forigos viajn konservitajn paĝojn.";
 "settings-clear-cache-are-you-sure-title" = "Ĉu malplenigi la datumojn?";
-"settings-clear-cache-cancel" = "Nuligi";
 "settings-clear-cache-ok" = "Malplenigi la kaŝmemoron";
 "settings-help-and-feedback" = "Helpo kaj prikomentado";
 "settings-language-bar" = "Montri lingvojn dum serĉado";

@@ -651,7 +651,6 @@
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "potd-widget-description" = "Ciesz się pięknym codziennym zdjęciem wybranym przez naszą społeczność.";
 "potd-widget-title" = "Grafika dnia";
-"preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 // Fuzzy
 "profile-year-in-review-login-subtitle" = "Zaloguj się lub utwórz konto, aby ponownie zobaczyć Podsumowanie roku i uzyskać dostęp do bardziej spersonalizowanych informacji.";
 "project-name-mediawiki" = "MediaWiki";
@@ -766,7 +765,6 @@
 "settings-clear-cache" = "Wyczyść dane z pamięci podręcznej";
 "settings-clear-cache-are-you-sure-message" = "Wyczyszczenie danych z pamięci podręcznej zwolni około $1 miejsca. Nie spowoduje to usunięcia zapisanych stron.";
 "settings-clear-cache-are-you-sure-title" = "Czy wyczyścić dane z pamięci podręcznej?";
-"settings-clear-cache-cancel" = "Anuluj";
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-language-bar" = "Pokaż języki w wyszukiwarce";

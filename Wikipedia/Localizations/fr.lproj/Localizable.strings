@@ -201,9 +201,6 @@
 "activity-tab-very-satisfied" = "Très satisfait";
 "activity-tab-very-unsatisfied" = "Très insatisfait";
 "activity-tab-week-graph-label" = "Semaine";
-"activity-tab-you-edited" = "Vous avez édité {{PLURAL:$1|$1 fois}} cette semaine.";
-"activity-tab-you-read" = "Vous avez lu {{PLURAL:$1|$1 article|$1 articles}} cette semaine.";
-"activity-tab-you-saved" = "Vous avez enregistré $1 article{{PLURAL:$1||s}}";
 "activity-tab-your-impact" = "Votre impact";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
 "advanced-settings-title" = "Paramètres avancés";
@@ -301,8 +298,6 @@
 "clearing-cache-error" = "Erreur lors de la suppression du cache.";
 "clearing-cache-in-progress" = "Nettoyage du cache en cours.";
 "close-all-tabs" = "Fermer tous les onglets";
-"close-all-tabs-confirmation" = "Voulez-vous fermer l'ensemble des $1 onglets ? Cette action est irréversible.";
-"close-all-tabs-confirmation-number" = "Fermer les $1 onglets ?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Voulez-vous fermer {{PLURAL:$1|$1 onglet|$1 onglets}} ? Cette action est irréversible.";
 "close-all-tabs-confirmation-title-with-value" = "Fermer {{PLURAL:$1|$1 onglet|$1 onglets}} ?";
 "close-button-accessibility-label" = "Fermer";
@@ -1128,7 +1123,6 @@
 "potd-sample-entry-description" = "Deux taureaux en course lors du pacu jawi (du minangkabau, « course de taureaux »), course traditionnelle pratiquée à Tanah Datar, dans l’ouest de Sumatra (Indonésie). 2015, Final-45.";
 "potd-widget-description" = "Profiter d’une jolie photo quotidienne sélectionnée par notre communauté.";
 "potd-widget-title" = "Image du jour";
-"preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
 "privacy-policy-title" = "Politique de confidentialité";
 "problem-with-feature-title" = "Problème avec la fonctionnalité";
 "profile-button-accessibility-hint" = "Accède à la vue du profil.";
@@ -1276,7 +1270,6 @@
 "settings-clear-cache" = "Effacer les données en cache";
 "settings-clear-cache-are-you-sure-message" = "L’effacement des données en cache libérera environ $1 d’espace. Cela ne supprimera pas vos pages sauvegardées.";
 "settings-clear-cache-are-you-sure-title" = "Effacer les données en cache ?";
-"settings-clear-cache-cancel" = "Annuler";
 "settings-clear-cache-ok" = "Vider le cache";
 "settings-donate" = "Faire un don";
 "settings-explore-games-subtitle" = "Jeux quotidiens basés sur le contenu de Wikipédia";

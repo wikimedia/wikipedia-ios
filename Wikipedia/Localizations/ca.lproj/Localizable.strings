@@ -770,7 +770,6 @@
 "potd-sample-entry-description" = "Dos braus galopen mentre el genet els condueix en pacu jawi (de Minangkabau, «cursa de braus»), una cursa de braus tradicional a Tanah Datar, a Sumatra Occidental, Indonèsia. 2015, Final-45.";
 "potd-widget-description" = "Gaudiu d'una maca foto cada dia, seleccionada per la nostra comunitat.";
 "potd-widget-title" = "Imatge del dia";
-"preference-summary-eventlogging-opt-in" = "Permeteu a la Fundació Wikimedia recollir informació sobre com utilitzeu l'aplicació per poder-la millorar";
 "privacy-policy-title" = "Política de privadesa";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Viquillibres";
@@ -899,7 +898,6 @@
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
-"settings-clear-cache-cancel" = "Cancel·la";
 "settings-clear-cache-ok" = "Neteja la memòria cau";
 "settings-donate" = "Feu un donatiu";
 "settings-help-and-feedback" = "Ajuda i comentaris";

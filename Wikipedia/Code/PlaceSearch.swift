@@ -102,42 +102,6 @@ struct PlaceSearch {
         return dictionary
     }
     
-    init?(dictionary: [String: Any]) {
-        guard let filterNumber = dictionary["filter"] as? NSNumber,
-            let filter = PlaceFilterType(rawValue: filterNumber.uintValue),
-            let typeNumber = dictionary["type"] as? NSNumber,
-            let type = PlaceSearchType(rawValue: typeNumber.uintValue),
-            let originNumber = dictionary["origin"] as? NSNumber,
-            let origin = PlaceSearchOrigin(rawValue: originNumber.uintValue),
-            let sortStyleNumber = dictionary["sortStyle"] as? NSNumber else {
-                return nil
-        }
-        self.filter = filter
-        self.type = type
-        self.origin = origin
-        let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue) ?? .none
-        self.sortStyle = sortStyle
-        
-        self.string = dictionary["string"] as? String
-        if let lat = dictionary["lat"] as? NSNumber,
-            let lon = dictionary["lon"] as? NSNumber,
-            let latd = dictionary["latd"] as? NSNumber,
-            let lond = dictionary["lond"] as? NSNumber {
-            let coordinate = CLLocationCoordinate2D(latitude: lat.doubleValue, longitude: lon.doubleValue)
-            let span = MKCoordinateSpan(latitudeDelta: latd.doubleValue, longitudeDelta: lond.doubleValue)
-            self.region = MKCoordinateRegion(center: coordinate, span: span)
-        } else {
-            self.region = nil
-        }
-        self.searchResult = dictionary["searchResult"] as? MWKSearchResult
-        self.localizedDescription = dictionary["localizedDescription"] as? String
-        if let siteURLString = dictionary["siteURL"] as? String {
-            self.siteURL = URL(string: siteURLString)
-        } else {
-            self.siteURL = nil
-        }
-    }
-    
     init?(object: NSCoding?) {
         guard let object = object as? NSObject,
             let filterNumber = object.value(forKey: "filter") as? NSNumber,

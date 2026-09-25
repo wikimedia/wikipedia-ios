@@ -162,9 +162,6 @@
 "activity-tab-very-satisfied" = "Дуже задоволений/а";
 "activity-tab-very-unsatisfied" = "Дуже незадоволений/а";
 "activity-tab-week-graph-label" = "Тиждень";
-"activity-tab-you-edited" = "Цього тижня ви редагували {{PLURAL:$1|$1 раз|$1 рази|$1 разів}}.";
-"activity-tab-you-read" = "Цього тижня ви прочитали {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
-"activity-tab-you-saved" = "Цього тижня ви зберегли {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
 "activity-tab-your-impact" = "Ваш вплив";
 "add-articles-to-reading-list" = "Додати {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "advanced-settings-title" = "Розширені налаштування";
@@ -262,8 +259,6 @@
 "clearing-cache-error" = "Помилка очищення кешу.";
 "clearing-cache-in-progress" = "Виконується очищення кешу.";
 "close-all-tabs" = "Закрити всі вкладки";
-"close-all-tabs-confirmation" = "Хочете закрити всі вкладки ($1)? Цю дію не можна скасувати.";
-"close-all-tabs-confirmation-number" = "Закрити всі вкладки ($1)?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Бажаєте закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}? Цю дію не можна скасувати.";
 "close-all-tabs-confirmation-title-with-value" = "Закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}?";
 "close-button-accessibility-label" = "Закрити";
@@ -1107,7 +1102,6 @@
 "potd-sample-entry-description" = "Два бики біжать, а жокей за них тримається, під час паку-яві (мовою мінангкабау «перегони биків»), традиційних бичачих перегонів у Танах-Датарі в Західній Суматрі (Індонезія). 2015 рік, фінал-45.";
 "potd-widget-description" = "Насолоджуйтеся чудовою щоденною світлиною, обраною нашою спільнотою.";
 "potd-widget-title" = "Зображення дня";
-"preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся додатком, аби вдосконалити його";
 "privacy-policy-title" = "Політика конфіденційності";
 "problem-with-feature-title" = "Проблема з функцією";
 "profile-button-accessibility-hint" = "Переходить до перегляду профілю.";
@@ -1256,7 +1250,6 @@
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кешу вивільнить близько $1 місця. Вона не призведе до вилучення ваших збережених статей.";
 "settings-clear-cache-are-you-sure-title" = "Очистити кеш?";
-"settings-clear-cache-cancel" = "Скасувати";
 "settings-clear-cache-ok" = "Очистити кеш";
 "settings-community-feed-title" = "Спільнота";
 "settings-donate" = "Пожертвувати";

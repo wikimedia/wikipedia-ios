@@ -475,7 +475,6 @@
 "potd-description-prefix" = "Skeudenn an deiz evit $1";
 "potd-empty-error-description" = "N'eus ket bet gallet adtapout skeudenn an deiz evit an $1";
 "potd-widget-title" = "Skeudenn an deiz";
-"preference-summary-eventlogging-opt-in" = "Aotren Diazezadur Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilevrioù";
 "project-name-wikidata" = "Wikidata";
@@ -547,7 +546,6 @@
 "settings-clear-cache" = "Diverkañ ar roadennoù krubuilhet";
 "settings-clear-cache-are-you-sure-message" = "Diverkañ roadennoù krubuilhet a ziac'hubo war-dro $1 a blas. Ne ziverko ket ho pajennoù enrollet.";
 "settings-clear-cache-are-you-sure-title" = "Diverkañ ar roadennoù krubuilhet ?";
-"settings-clear-cache-cancel" = "Nullañ";
 "settings-clear-cache-ok" = "Goullonderiñ ar c'hrubuilh";
 "settings-donate" = "Ober un donezon";
 "settings-help-and-feedback" = "Skoazell hag evezhiadennoù";

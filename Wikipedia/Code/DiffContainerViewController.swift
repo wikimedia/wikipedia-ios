@@ -5,13 +5,6 @@ import WMFData
 import WMFComponents
 import WMFNativeLocalizations
 
-struct StubRevisionModel {
-    let revisionId: Int
-    let summary: String
-    let username: String
-    let timestamp: Date
-}
-
 protocol DiffRevisionRetrieving: AnyObject {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
@@ -710,22 +703,6 @@ private extension DiffContainerViewController {
         headerViewModel.imageURL = leadImageURL
 
         diffListViewController?.collectionView.reloadData()
-    }
-
-    func updateHeaderWithIntermediateCounts(_ editCounts: EditCountsGroupedByType) {
-        switch type {
-        case .compare:
-            guard let headerViewModel = containerViewModel.headerViewModel,
-                  let articleTitle = articleTitle else {
-                return
-            }
-
-            let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, byteDifference: byteDifference)
-            headerViewModel.title = newTitleViewModel
-            diffListViewController?.collectionView.reloadData()
-        case .single:
-            assertionFailure("Should not call this method for the compare type.")
-        }
     }
 
     func updateHeaderWithEditCount(_ editCount: Int) {

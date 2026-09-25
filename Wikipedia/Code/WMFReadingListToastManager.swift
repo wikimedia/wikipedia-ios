@@ -48,12 +48,6 @@ import WMFNativeLocalizations
         }
     }
 
-    /// Dismisses toast immediately without animation - use when keyboard is about to appear to prevent freezing
-    @MainActor
-    func dismissToastImmediately() {
-        toastPresenter?.dismissToastImmediately()
-    }
-
     @objc func toggle(presenter: UIViewController, article: WMFArticle, theme: Theme) {
         self.presenter = presenter
         self.theme = theme

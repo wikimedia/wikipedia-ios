@@ -157,9 +157,6 @@
 "activity-tab-very-satisfied" = "Veľmi spokojný";
 "activity-tab-very-unsatisfied" = "Veľmi nespokojný";
 "activity-tab-week-graph-label" = "Týždeň";
-"activity-tab-you-edited" = "Tento týždeň ste urobili {{PLURAL:$1|$1 úpravu|$1 úpravy|$1 úprav}}.";
-"activity-tab-you-read" = "Tento týždeň ste prečítali {{PLURAL:$1|$1 článok|$1 články|$1 článkov}}.";
-"activity-tab-you-saved" = "Tento týždeň ste uložili {{PLURAL:$1|$1 článok|$1 články|$1 článkov}}.";
 "activity-tab-your-impact" = "Váš prínos";
 "add-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články}} k zoznamu na prečítanie";
 "advanced-settings-title" = "Rozšírené nastavenia";
@@ -257,8 +254,6 @@
 "clearing-cache-error" = "Chyba pri mazaní vyrovnávacej pamäte.";
 "clearing-cache-in-progress" = "Čistenie cache sa deje.";
 "close-all-tabs" = "Zavrieť všetky karty";
-"close-all-tabs-confirmation" = "Chcete zatvoriť všetky karty ($1)? Túto akciu nie je možné vrátiť späť.";
-"close-all-tabs-confirmation-number" = "Zatvoriť všetky karty ($1)?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Chcete zatvoriť {{PLURAL:$1|$1 kartu|$1 karty|$1 kariet}}? Túto akciu nie je možné vrátiť späť.";
 "close-all-tabs-confirmation-title-with-value" = "Zatvoriť {{PLURAL:$1|$1 kartu|$1 karty|$1 kariet}}?";
 "close-button-accessibility-label" = "Zavrieť";
@@ -1104,7 +1099,6 @@
 "potd-sample-entry-description" = "Pacu jawi sú tradičné býčie dostihy v Tanah Datar na západnej Sumatre v Indonézii. V pretekoch stojí džokej na drevenom pluhu voľne priviazanom k ​​páru býkov a drží ich za chvosty, zatiaľ čo býky pokrývajú asi 60–250 metrov rozbahnenej stopy v ryžovom poli.";
 "potd-widget-description" = "Vychutnajte si dnešnú krásnu fotografiu vybranú našou komunitou.";
 "potd-widget-title" = "Obrázok dňa";
-"preference-summary-eventlogging-opt-in" = "Povoliť Nadácii Wikimedia zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu";
 "privacy-policy-title" = "Zásady ochrany súkromia";
 "problem-with-feature-title" = "Problém s funkciou";
 "profile-button-accessibility-hint" = "Prejde na zobrazenie profilu.";
@@ -1253,7 +1247,6 @@
 "settings-clear-cache" = "Vyčistiť údaje vo vyrovnávacej pamäti";
 "settings-clear-cache-are-you-sure-message" = "Vyčistenie údajov vo vyrovnávacej pamäti uvoľní $1 miesta. Vaše uložené stránky sa neodstránia.";
 "settings-clear-cache-are-you-sure-title" = "Naozaj chcete vyčistiť údaje vo vyrovnávacej pamäti?";
-"settings-clear-cache-cancel" = "Zrušiť";
 "settings-clear-cache-ok" = "Vyčistiť vyrovnávaciu pamäť";
 "settings-community-feed-title" = "Komunita";
 "settings-donate" = "Darovať";

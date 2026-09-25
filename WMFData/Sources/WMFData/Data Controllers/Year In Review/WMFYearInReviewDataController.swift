@@ -304,26 +304,6 @@ import CoreData
 
     private var assignmentCache: YiRLoginExperimentAssignment?
 
-    public func needsLoginExperimentAssignment() -> Bool {
-        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
-            return false
-        }
-
-        guard primaryAppLanguage.qualifiesForExperiment else {
-            return false
-        }
-
-        guard let experimentsDataController else {
-            return false
-        }
-
-        guard experimentsDataController.bucketForExperiment(.yirLoginPrompt) == nil else {
-            return false
-        }
-
-        return true
-    }
-
     public func assignLoginExperimentIfNeeded() throws -> YiRLoginExperimentAssignment {
 
         guard let experimentsDataController else {

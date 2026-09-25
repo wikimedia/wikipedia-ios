@@ -185,9 +185,6 @@
 "activity-tab-very-satisfied" = "Muito satisfeito";
 "activity-tab-very-unsatisfied" = "Muito insatisfeito";
 "activity-tab-week-graph-label" = "Semana";
-"activity-tab-you-edited" = "Você editou {{PLURAL:$1|$1 vez|$1 vezes}} esta semana.";
-"activity-tab-you-read" = "Você leu {{PLURAL:$1|artigo de $1|artigos de $1}} esta semana.";
-"activity-tab-you-saved" = "Você salvou {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
 "activity-tab-your-impact" = "Seu impacto";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
@@ -286,8 +283,6 @@
 "clearing-cache-error" = "Erro ao limpar o cache.";
 "clearing-cache-in-progress" = "Limpeza de cache em andamento.";
 "close-all-tabs" = "Fechar todas as guias";
-"close-all-tabs-confirmation" = "Deseja fechar todas as $1 guias? Esta ação não pode ser desfeita.";
-"close-all-tabs-confirmation-number" = "Fechar todas as guias de $1?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Deseja fechar {{PLURAL:$1|$1 guia|$1 guias}}? Esta ação não pode ser desfeita.";
 "close-all-tabs-confirmation-title-with-value" = "Fechar {{PLURAL:$1|$1 guia|$1 guias}}?";
 "close-button-accessibility-label" = "Fechar";
@@ -1180,7 +1175,6 @@
 "potd-sample-entry-description" = "Dois touros correm enquanto o jóquei os segura no pacu jawi (de Minangkabau, \"corrida de touros\"), uma corrida de touros tradicional em Tanah Datar, Sumatra Ocidental, Indonésia. 2015, Final-45.";
 "potd-widget-description" = "Desfrute de uma bela foto diária selecionada por nossa comunidade.";
 "potd-widget-title" = "Imagem do dia";
-"preference-summary-eventlogging-opt-in" = "Permitir que a Fundação Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
 "privacy-policy-title" = "Politica de privacidade";
 "problem-with-feature-title" = "Problema com a funcionalidade";
 "profile-button-accessibility-hint" = "Navega até a visualização do perfil.";
@@ -1329,7 +1323,6 @@
 "settings-clear-cache" = "Limpar dados em cache";
 "settings-clear-cache-are-you-sure-message" = "A limpeza dos dados armazenados em cache $1 de espaço. Ele não excluirá suas páginas salvas.";
 "settings-clear-cache-are-you-sure-title" = "Limpar dados em cache?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-clear-donation-history" = "Limpar histórico de doações";
 "settings-community-feed-title" = "Comunidade";

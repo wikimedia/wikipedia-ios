@@ -287,10 +287,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         watchlistCoordinator.start()
     }
 
-    private func dismissProfile() {
-        navigationController.dismiss(animated: true, completion: nil)
-    }
-
     private func login() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme, loggingCategory: .setting)
         loginCoordinator.start()

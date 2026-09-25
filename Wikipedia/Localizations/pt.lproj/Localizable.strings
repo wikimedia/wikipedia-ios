@@ -121,9 +121,6 @@
 "activity-tab-very-satisfied" = "Muito satisfeito(a)";
 "activity-tab-very-unsatisfied" = "Muito insatisfeito(a)";
 "activity-tab-week-graph-label" = "Semana";
-"activity-tab-you-edited" = "Você editou {{PLURAL:$1|$1 vez|$1 vezes}} esta semana.";
-"activity-tab-you-read" = "Você leu {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
-"activity-tab-you-saved" = "Você guardou {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
 "alert-temporary-account" = "Está a utilizar uma conta temporária. A conta expirará em 90 dias.";
@@ -183,8 +180,6 @@
 "clearing-cache-complete" = "Limpeza da cache concluída.";
 "clearing-cache-in-progress" = "Limpeza da cache em andamento.";
 "close-all-tabs" = "Fechar todos os separadores";
-"close-all-tabs-confirmation" = "Deseja fechar todos os $1 separadores? Esta ação não pode ser anulada.";
-"close-all-tabs-confirmation-number" = "Fechar todos os $1 separadores?";
 "close-all-tabs-confirmation-title-with-value" = "Fechar {{PLURAL:$1|$1 separador|$1 separadores}}?";
 "close-button-accessibility-label" = "Fechar";
 "close-tabs" = "Fechar separadores";
@@ -878,7 +873,6 @@
 "potd-sample-entry-description" = "Dois touros em corrida enquanto o jóquei se segura a eles numa ''pacu jawi'' (\"corrida de touros\", em menancabo), uma corrida de touros tradicional em Tanah Datar, Sumatra Ocidental, Indonésia. 2015, Final-45.";
 "potd-widget-description" = "Desfrute de uma linda foto diária selecionada pela nossa comunidade.";
 "potd-widget-title" = "Imagem do dia";
-"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia Foundation recolha informações sobre o seu uso da aplicação para melhorá-la";
 "privacy-policy-title" = "Política de privacidade";
 "problem-with-feature-title" = "Problema com a funcionalidade";
 "profile-button-accessibility-hint" = "Navegue para a visualização do perfil.";
@@ -1021,7 +1015,6 @@
 "settings-clear-cache" = "Limpar dados da cache";
 "settings-clear-cache-are-you-sure-message" = "Limpar os dados da cache libertará cerca de $1 de espaço. Não apaga as suas páginas guardadas.";
 "settings-clear-cache-are-you-sure-title" = "Limpar dados da cache?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-donate" = "Fazer donativo";
 "settings-help-and-feedback" = "Ajuda e comentários";

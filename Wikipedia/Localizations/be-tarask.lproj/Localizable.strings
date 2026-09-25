@@ -128,7 +128,6 @@
 "places-map-title" = "Мапа";
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
-"preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
 "privacy-policy-title" = "Палітыка прыватнасьці";
 "reading-list-login-or-create-account-button-title" = "Увайсьці або стварыць рахунак";
 "reading-list-sync-enabled-panel-title" = "Сынхранізацыя ўключана на гэтым рахунку";
@@ -144,7 +143,6 @@
 "search-title" = "Пошук";
 "settings-account" = "Уліковы запіс";
 "settings-appearance" = "Тэма праграмы";
-"settings-clear-cache-cancel" = "Скасаваць";
 "settings-title" = "Налады";
 "share-article-name-on-wikipedia" = "«$1» у Вікіпэдыі:";
 "table-of-contents-button-label" = "Зьмест";

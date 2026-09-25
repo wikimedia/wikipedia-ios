@@ -387,7 +387,6 @@
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Imaxe del día pal $1";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
-"preference-summary-eventlogging-opt-in" = "Permite a la Fundación Wikimedia collechar información tocante a cómo uses la app p'ameyorala";
 "reading-list-add-generic-hint-title" = "¿Amestar esti artículu a una llista de llectura?";
 "reading-list-add-hint-title" = "¿Añadir «$1» a una llista de llectura?";
 "reading-list-add-saved-button-title" = "Si, amestalos a les mios llistes de llectura";
@@ -487,7 +486,6 @@
 "settings-clear-cache" = "Borrar los datos de la caché";
 "settings-clear-cache-are-you-sure-message" = "Si se borren los datos de la caché lliberaránse cerca de $1 d'espaciu. Nun se borrarán les páxines guardaes.";
 "settings-clear-cache-are-you-sure-title" = "¿Borrar los datos de la caché?";
-"settings-clear-cache-cancel" = "Zarrar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Amosar les llingües na gueta";

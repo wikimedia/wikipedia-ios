@@ -632,31 +632,9 @@ final class WMFHomeDataControllerTests: XCTestCase {
     }
 
     // MARK: - Helpers
-
-    private func makeRandomArticle(title: String, index: Int, hasThumbnail: Bool) -> WMFRandomArticle {
-        WMFRandomArticle(
-            pageid: index,
-            title: title,
-            index: index,
-            thumbnail: hasThumbnail ? WMFRandomArticleThumbnail(source: "https://en.wikipedia.org/\(title).jpg", width: nil, height: nil) : nil
-        )
-    }
-
-    private func makeRelatedPage(title: String, hasThumbnail: Bool) -> WMFRelatedPagesDataController.WMFRelatedPage {
-        WMFRelatedPagesDataController.WMFRelatedPage(
-            pageid: title.hashValue,
-            title: title,
-            description: nil,
-            thumbnailURL: hasThumbnail ? URL(string: "https://example.com/\(title).jpg") : nil,
-            extract: nil
-        )
-    }
 }
 
 private extension Array {
-    subscript(safe index: Int) -> Element? {
-        indices.contains(index) ? self[index] : nil
-    }
 }
 
 /// Counts the requests that reach the service. The responses come from the standard mock.

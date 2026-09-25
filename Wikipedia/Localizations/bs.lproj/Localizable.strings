@@ -690,7 +690,6 @@
 "potd-sample-entry-description" = "Dva bika trče dok ih džokej drži u pacu jawi (iz Minangkabaua, \"trka bikova\"), tradicionalnoj trci bikova u Tanah Dataru, Zapadna Sumatra, Indonezija. 2015, Final-45.";
 "potd-widget-description" = "Uživajte u prekrasnoj dnevnoj fotografiji koju je odabrala naša zajednica.";
 "potd-widget-title" = "Slika dana";
-"preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Wikimedia da prikupi informacije o tom kako koristite aplikaciju da bismo je poboljšali";
 "project-name-mediawiki" = "MediaWiki";
 "reading-list-add-generic-hint-title" = "Dodaj ovaj članak na spisak za čitanje?";
 "reading-list-add-hint-title" = "Dodaj \"$1\" na spisak za čitanje?";
@@ -806,7 +805,6 @@
 "settings-clear-cache" = "Očisti keširane podatke";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodit ćete otprilike $1 prostora. Ovim se neće izbrisati sačuvane stranice.";
 "settings-clear-cache-are-you-sure-title" = "Da očistim keširane podatke?";
-"settings-clear-cache-cancel" = "Otkaži";
 "settings-clear-cache-ok" = "Očisti keš";
 "settings-help-and-feedback" = "Pomoć i povratne informacije";
 "settings-language-bar" = "Prikaži jezike pri pretrazi";

@@ -148,9 +148,6 @@
 "activity-tab-very-satisfied" = "Многу задоволен";
 "activity-tab-very-unsatisfied" = "Многу незадоволен";
 "activity-tab-week-graph-label" = "Недела";
-"activity-tab-you-edited" = "Неделава уредивте {{PLURAL:$1|еднаш|$1 пати}}.";
-"activity-tab-you-read" = "Неделава прочитавте {{PLURAL:$1|$1 статија|$1 статии}}.";
-"activity-tab-you-saved" = "Неделава зачувавте {{PLURAL:$1|$1 статија|$1 статии}}.";
 "activity-tab-your-impact" = "Ваше влијание";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "advanced-settings-title" = "Напредни нагодувања";
@@ -249,8 +246,6 @@
 "clearing-cache-error" = "Грешка при бришењето на меѓускладот.";
 "clearing-cache-in-progress" = "Чистењето на меѓускладот е во тек.";
 "close-all-tabs" = "Затвори ги сите јазичиња";
-"close-all-tabs-confirmation" = "Дали сакате да ги затворите сите $1 јазичиња? Ова дејство е неповратно.";
-"close-all-tabs-confirmation-number" = "Да ги затворам сите $1 јазичиња?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Дали сакате да {{PLURAL:$1|го затворите јазичето|затворите $1 јазичиња}}? Ова дејство е неповратно.";
 "close-all-tabs-confirmation-title-with-value" = "Да {{PLURAL:$1|го затворам јазичето|затворам $1 јазичиња}}?";
 "close-button-accessibility-label" = "Затвори";
@@ -1164,7 +1159,6 @@
 "potd-sample-entry-description" = "Трка со впрегнати бикови во рало. Западна Суматра, Индонезија. 2015, Финалист-45.";
 "potd-widget-description" = "Уживајте во убава дневна слика избрана од нашата заедница.";
 "potd-widget-title" = "Слика на денот";
-"preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "privacy-policy-title" = "Правила за лични податоци";
 "problem-with-feature-title" = "Проблем со функцијата";
 "profile-button-accessibility-hint" = "Води до поглед на профилот.";
@@ -1313,7 +1307,6 @@
 "settings-clear-cache" = "Исчисти меѓускладирани податоци";
 "settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
 "settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
-"settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Исчисти";
 "settings-clear-donation-history" = "Исчисти историја на дарување";
 "settings-community-feed-title" = "Заедница";

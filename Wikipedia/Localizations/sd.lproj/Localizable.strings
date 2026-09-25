@@ -745,7 +745,6 @@
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "potd-widget-title" = "اڄ جي تصوير";
-"preference-summary-eventlogging-opt-in" = "وڪيميڊيا فائونڊيشن کي اجازت ڏيو تہ توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري تہ جيئن هن ايپ کي وڌيڪ بھتر بڻائي سگهجي";
 "privacy-policy-title" = "نويڪلائي نِيَمَ";
 "problem-with-feature-title" = "خاصيت ۾ مسئلو آھي";
 "project-name-mediawiki" = "ميڊياوڪي";
@@ -844,7 +843,6 @@
 "settings-clear-cache" = "ڪيچڊ ڊيٽا صاف ڪريو";
 "settings-clear-cache-are-you-sure-message" = "ڪيچڊ ڊيٽا صاف ڪرڻ سان توھان $1 جڳھ بچندي. ان سان توھان جا سانڍيل صفحا نہ ڊھندا.";
 "settings-clear-cache-are-you-sure-title" = "ڪيچڊ ڊيٽا صاف ڪريون؟";
-"settings-clear-cache-cancel" = "رد";
 "settings-clear-cache-ok" = "ڪيچي صاف ڪريو";
 "settings-donate" = "امداد ڏيو";
 "settings-help-and-feedback" = "مدد ۽ موٽ";

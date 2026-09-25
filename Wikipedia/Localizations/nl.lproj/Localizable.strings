@@ -182,9 +182,6 @@
 "activity-tab-very-satisfied" = "Zeer tevreden";
 "activity-tab-very-unsatisfied" = "Zeer ontevreden";
 "activity-tab-week-graph-label" = "Week";
-"activity-tab-you-edited" = "U hebt deze week {{PLURAL:$1|één keer|$1 keer}} een pagina bewerkt.";
-"activity-tab-you-read" = "U hebt deze week {{PLURAL:$1|één pagina|$1 pagina's}} gelezen.";
-"activity-tab-you-saved" = "U hebt deze week {{PLURAL:$1|één pagina|$1 pagina's}} opgeslagen.";
 "activity-tab-your-impact" = "Uw bijdrage";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
 "advanced-settings-title" = "Geavanceerde instellingen";
@@ -283,8 +280,6 @@
 "clearing-cache-error" = "Fout bij het wissen van de cache.";
 "clearing-cache-in-progress" = "Bezig met wissen van cache.";
 "close-all-tabs" = "Alle tabbladen sluiten";
-"close-all-tabs-confirmation" = "Wilt u alle $1 tabbladen sluiten? Dit kan niet ongedaan worden gemaakt.";
-"close-all-tabs-confirmation-number" = "Alle $1 tabbladen sluiten?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Wilt u {{PLURAL:$1|één tabblad|$1 tabbladen}} sluiten? Dit kan niet ongedaan worden gemaakt.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|Eén tabblad|$1 tabbladen}} sluiten?";
 "close-button-accessibility-label" = "Sluiten";
@@ -1198,7 +1193,6 @@
 "potd-sample-entry-description" = "Twee stieren rennen terwijl de jockey ze vasthoudt in pacu jawi (van Minangkabau, \"stierrace\"), een traditionele stierenrace in Tanah Datar, West-Sumatra, Indonesië. 2015, Finale-45.";
 "potd-widget-description" = "Geniet van een prachtige dagelijkse foto, uitgekozen door onze gemeenschap.";
 "potd-widget-title" = "Afbeelding van de dag";
-"preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "privacy-policy-title" = "Privacybeleid";
 "problem-with-feature-title" = "Probleem met functie";
 "profile-button-accessibility-hint" = "Naar de profielweergave.";
@@ -1347,7 +1341,6 @@
 "settings-clear-cache" = "Cache legen";
 "settings-clear-cache-are-you-sure-message" = "Door het legen van de cache wordt er ongeveer $1 aan ruimte vrijgemaakt. Uw opgeslagen pagina's worden niet verwijderd.";
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
-"settings-clear-cache-cancel" = "Annuleren";
 "settings-clear-cache-ok" = "Cache wissen";
 "settings-clear-donation-history" = "Donatiegeschiedenis wissen";
 "settings-community-feed-title" = "Gemeenschap";

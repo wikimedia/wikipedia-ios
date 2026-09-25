@@ -856,7 +856,6 @@
 "potd-sample-entry-description" = "To okser løper mens jockeyen holder seg fast i dem i pacu jawi (fra minangkabau, «okseløp»), et tradisjonelt okseløp i Tanah Datar på Vest-Sumatra i Indonesia. 2015, siste 45.";
 "potd-widget-description" = "Beundre et vakkert daglig bilde valgt av samfunnet vårt.";
 "potd-widget-title" = "Dagens bilde";
-"preference-summary-eventlogging-opt-in" = "Tillatt at Wikimedia Foundation samler informasjon om hvordan du bruker appen for å gjøre den bedre";
 "privacy-policy-title" = "Personvernspolitikk";
 "problem-with-feature-title" = "Problem med funksjonen";
 "project-name-mediawiki" = "MediaWiki";
@@ -985,7 +984,6 @@
 "settings-clear-cache" = "Tøm mellomlager";
 "settings-clear-cache-are-you-sure-message" = "Ved å tømme mellomlageret frigjør du rundt $1 med plass. Eventuelle lagrede sider vil ikke bli fjernet.";
 "settings-clear-cache-are-you-sure-title" = "Tøm mellomlager?";
-"settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Tøm mellomlager";
 "settings-donate" = "Doner";
 "settings-help-and-feedback" = "Hjelp og tilbakemelding";

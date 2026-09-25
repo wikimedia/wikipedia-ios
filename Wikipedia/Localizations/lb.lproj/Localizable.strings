@@ -129,9 +129,6 @@
 "activity-tab-very-satisfied" = "Ganz zefridden";
 "activity-tab-very-unsatisfied" = "Ganz onzefridden";
 "activity-tab-week-graph-label" = "Woch";
-"activity-tab-you-edited" = "Dir hutt dës Woch {{PLURAL:$1|$1 Ännerung|$1 Ännerunge}} gemaach.";
-"activity-tab-you-read" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies.";
-"activity-tab-you-saved" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert.";
 "activity-tab-your-impact" = "Ären Impakt";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
 "advanced-settings-title" = "Erweidert Astellungen";
@@ -201,8 +198,6 @@
 "clear-title-accessibility-label" = "Eidel maachen";
 "clearing-cache-error" = "Feeler beim eidel Maache vum Cache.";
 "close-all-tabs" = "All Tabs zoumaachen";
-"close-all-tabs-confirmation" = "Wëllt Dir all $1 Tabs zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.";
-"close-all-tabs-confirmation-number" = "All $1 Tabs zoumaachen?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Wëllt Dir {{PLURAL:$1|$1 Tab|$1 Tabs}} zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} zoumaachen?";
 "close-button-accessibility-label" = "Zoumaachen";
@@ -883,7 +878,6 @@
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-widget-title" = "Bild vum Dag";
-"preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
 "privacy-policy-title" = "Dateschutzrichtlinnen";
 "problem-with-feature-title" = "Problem mat der Funktioun";
 "profile-button-accessibility-label" = "Profil";
@@ -994,7 +988,6 @@
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
 "settings-clear-cache-are-you-sure-message" = "D'Läsche vun tëschegespäicherten Donnéeën mécht ongeféier $1 Plaz fräi. Är gespäichert Säite ginn net geläscht.";
 "settings-clear-cache-are-you-sure-title" = "Tëschegespäichert Date läschen?";
-"settings-clear-cache-cancel" = "Ofbriechen";
 "settings-clear-cache-ok" = "Tëschespäicher eidelmaachen";
 "settings-clear-donation-history" = "Donhistorique läschen";
 "settings-community-feed-title" = "Communautéit";

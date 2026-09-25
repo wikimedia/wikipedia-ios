@@ -693,7 +693,6 @@
 "potd-empty-error-description" = "Mistókst að ná í mynd dagsins fyrir $1";
 "potd-widget-description" = "Uppgötvaðu fallegar myndir fyrir hvern dag, valdar af þátttakendunum okkar.";
 "potd-widget-title" = "Mynd dagsins";
-"preference-summary-eventlogging-opt-in" = "Leyfa Wikimedia til að safna upplýsingum um hvernig þú notar appið til að geta gert það betra";
 "privacy-policy-title" = "Meðferð persónuupplýsinga";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
@@ -821,7 +820,6 @@
 "settings-clear-cache" = "Hreinsa gögn úr skyndiminni";
 "settings-clear-cache-are-you-sure-message" = "Hreinsun gagna úr skyndiminni losar um það bil $1 af plássi. Það eyðir ekki vistuðu síðunum þínum.";
 "settings-clear-cache-are-you-sure-title" = "Hreinsa gögn úr skyndiminni?";
-"settings-clear-cache-cancel" = "Hætta við";
 "settings-clear-cache-ok" = "Hreinsa skyndiminni";
 "settings-help-and-feedback" = "Aðstoð og umsagnir";
 "settings-language-bar" = "Sýna tungumál við leit";

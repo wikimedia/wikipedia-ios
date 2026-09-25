@@ -342,7 +342,6 @@
 "places-search-your-current-location" = "तपाईंको हालको स्थान";
 "places-title" = "स्थानहरू";
 "places-unknown-distance" = "अज्ञात दूरी";
-"preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
 "privacy-policy-title" = "गोपनीयता नीति";
 "project-name-mediawiki" = "मिडियाविकि";
 "project-name-wikibooks" = "विकिपुस्तक";
@@ -380,7 +379,6 @@
 "settings-account" = "खाता";
 // Fuzzy
 "settings-appearance" = "अध्ययन अभिरूचिहरू";
-"settings-clear-cache-cancel" = "रद्द गर्नुहोस्";
 "settings-my-languages" = "मेरा भाषाहरू";
 // Fuzzy
 "settings-notifications" = "सूचनाहरू";

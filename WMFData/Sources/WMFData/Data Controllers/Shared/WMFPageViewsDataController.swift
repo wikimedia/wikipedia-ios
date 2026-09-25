@@ -422,33 +422,6 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return results
     }
 
-    public func fetchLinkedPageViews() async throws -> [[CDPageView]] {
-        let context = try coreDataStore.viewContext
-
-        let result: [[CDPageView]] = try await context.perform {
-            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
-            let allPageViews = try context.fetch(fetchRequest)
-            let roots = allPageViews.filter { $0.previousPageView == nil }
-            var result: [[CDPageView]] = []
-
-            func walk(current: CDPageView, path: [CDPageView]) {
-                let newPath = path + [current]
-                let nextViews = (current.nextPageViews as? Set<CDPageView>) ?? []
-                if nextViews.isEmpty {
-                    let sortedPath = newPath.sorted(by: { $0.timestamp ?? .distantPast < $1.timestamp ?? .distantPast })
-                    result.append(sortedPath)
-                } else {
-                    for next in nextViews { walk(current: next, path: newPath) }
-                }
-            }
-
-            for root in roots { walk(current: root, path: []) }
-            return result
-        }
-
-        return result
-    }
-
     public func fetchMostRecentTime() async throws -> Date? {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
