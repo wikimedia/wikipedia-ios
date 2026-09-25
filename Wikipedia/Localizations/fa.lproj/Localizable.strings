@@ -180,9 +180,6 @@
 "activity-tab-very-satisfied" = "خیلی راضی";
 "activity-tab-very-unsatisfied" = "خیلی ناراضی";
 "activity-tab-week-graph-label" = "هفته";
-"activity-tab-you-edited" = "شما این هفته {{PLURAL:$1|بار}} ویرایش انجام داده‌اید";
-"activity-tab-you-read" = "شما این هفته {{PLURAL:$1|مقاله}} را خواندید.";
-"activity-tab-you-saved" = "شما این هفته {{PLURAL:$1|مقاله}} را ذخیره کردید.";
 "activity-tab-your-impact" = "اثرگذاری شما";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "advanced-settings-title" = "تنظیمات پیشرفته";
@@ -260,8 +257,6 @@
 "clearing-cache-error" = "خطای پاکسازی حافظهٔ نهان.";
 "clearing-cache-in-progress" = "در حال پاکسازی کاشه.";
 "close-all-tabs" = "بستن همهٔ زبانه‌ها";
-"close-all-tabs-confirmation" = "آیا می‌خواهید همهٔ $1 زبانه را ببندید؟ این اقدام قابل بازگشت نیست.";
-"close-all-tabs-confirmation-number" = "همهٔ $1 زبانه بسته شوند؟";
 "close-all-tabs-confirmation-subtitle-with-value" = "آیا می‌خواهید {{PLURAL:$1|زبانه}} را ببندید؟ این اقدام قابل بازگشت نیست.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|زبانه}} بسته شود؟";
 "close-button-accessibility-label" = "بستن";

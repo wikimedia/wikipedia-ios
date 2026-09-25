@@ -221,9 +221,6 @@
 "activity-tab-very-satisfied" = "非常满意";
 "activity-tab-very-unsatisfied" = "非常不满意";
 "activity-tab-week-graph-label" = "周";
-"activity-tab-you-edited" = "您本周已编辑{{PLURAL:$1|$1}}次。";
-"activity-tab-you-read" = "您本周已阅读{{PLURAL:$1|$1}}篇条目。";
-"activity-tab-you-saved" = "您本周已保存{{PLURAL:$1|$1}}篇条目。";
 "activity-tab-your-impact" = "您的影响";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
 "advanced-settings-title" = "高级设置";
@@ -322,8 +319,6 @@
 "clearing-cache-error" = "清除缓存时出错。";
 "clearing-cache-in-progress" = "正在清空缓存。";
 "close-all-tabs" = "关闭所有标签页";
-"close-all-tabs-confirmation" = "您是否要关闭所有 $1 个标签页？此操作无法取消。";
-"close-all-tabs-confirmation-number" = "关闭所有 $1 个标签页？";
 "close-all-tabs-confirmation-subtitle-with-value" = "您是否要关闭 {{PLURAL:$1|$1}} 个标签页？此操作无法取消。";
 "close-all-tabs-confirmation-title-with-value" = "关闭 {{PLURAL:$1|$1}} 个标签页？";
 "close-button-accessibility-label" = "关闭";

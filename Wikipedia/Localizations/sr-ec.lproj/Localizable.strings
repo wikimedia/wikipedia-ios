@@ -106,9 +106,6 @@
 "activity-tab-unsatisfied" = "Незадовољан";
 "activity-tab-very-satisfied" = "Веома задовољан";
 "activity-tab-very-unsatisfied" = "Веома незадовољан";
-"activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 пут|$1 пута}} ове недеље.";
-"activity-tab-you-read" = "Прочитали сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
-"activity-tab-you-saved" = "Сачували сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "advanced-settings-title" = "Напредна подешавања";
 "alert-temporary-account" = "Користите привремени налог. Привремени налог ће истећи за 90 дана.";
@@ -166,7 +163,6 @@
 "clearing-cache-error" = "Грешка при чишћењеу кеша.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-all-tabs" = "Затвори све картице";
-"close-all-tabs-confirmation-number" = "Затвори свих $1 картица?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Желите ли да затворите {{PLURAL:$1|$1 картицу|$1 картице}}? Ово је неповратна радња.";
 "close-all-tabs-confirmation-title-with-value" = "Затвори {{PLURAL:$1|$1 картицу|$1 картица}}?";
 "close-button-accessibility-label" = "Затвори";

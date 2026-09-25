@@ -140,9 +140,6 @@
 "activity-tab-very-satisfied" = "Multo satisfacite";
 "activity-tab-very-unsatisfied" = "Multo insatisfacite";
 "activity-tab-week-graph-label" = "Septimana";
-"activity-tab-you-edited" = "Tu ha modificate $1 vice{{PLURAL:$1||s}} iste septimana.";
-"activity-tab-you-read" = "Tu ha legite $1 articulo{{PLURAL:$1||s}} iste septimana.";
-"activity-tab-you-saved" = "Tu ha salveguardate $1 articulo{{PLURAL:$1||s}} iste septimana.";
 "activity-tab-your-impact" = "Tu impacto";
 "add-articles-to-reading-list" = "Adder {{PLURAL:$1|$1 articulo|$1 articulos}} al lista de lectura";
 "advanced-settings-title" = "Parametros avantiate";
@@ -210,8 +207,6 @@
 "clearing-cache-error" = "Error de vacuation del cache.";
 "clearing-cache-in-progress" = "Radimento del cache in progresso.";
 "close-all-tabs" = "Clauder tote le schedas";
-"close-all-tabs-confirmation" = "Vole tu clauder tote le $1 schedas? Isto es irreversibile.";
-"close-all-tabs-confirmation-number" = "Clauder tote le $1 schedas?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Vole tu clauder $1 scheda{{PLURAL:$1||s}}? Isto es irreversibile.";
 "close-all-tabs-confirmation-title-with-value" = "Clauder $1 scheda{{PLURAL:$1||s}}?";
 "close-button-accessibility-label" = "Clauder";

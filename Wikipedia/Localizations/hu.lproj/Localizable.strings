@@ -161,8 +161,6 @@
 "clearing-cache-complete" = "A gyorsítótár törlése befejeződött.";
 "clearing-cache-in-progress" = "A gyorsítótár törlése folyamatban van.";
 "close-all-tabs" = "Az összes lap bezárása";
-"close-all-tabs-confirmation" = "Be akarod zárni mind a(z) $1 lapot? Ezt a lépést nem lehet visszavonni.";
-"close-all-tabs-confirmation-number" = "Bezárod mind a(z) $1 lapot?";
 "close-button-accessibility-label" = "Bezárás";
 "close-tabs" = "Lapok bezárása";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1| $1 lap}} bezárva.";

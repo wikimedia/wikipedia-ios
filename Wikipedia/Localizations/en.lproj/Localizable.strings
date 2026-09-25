@@ -139,9 +139,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Your Year in Review is here";
 "activity-tab-year-in-review-low-data-subtitle" = "Rediscover the year on Wikipedia.";
 "activity-tab-year-in-review-low-data-title" = "Our Year in Review is here";
-"activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
-"activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
-"activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "activity-tab-your-impact" = "Your impact";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
@@ -240,8 +237,6 @@
 "clearing-cache-error" = "Error clearing cache.";
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-all-tabs" = "Close all tabs";
-"close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";
-"close-all-tabs-confirmation-number" = "Close all $1 tabs?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Do you want to close {{PLURAL:$1|$1 tab|$1 tabs}}? This action can’t be undone.";
 "close-all-tabs-confirmation-title-with-value" = "Close {{PLURAL:$1|$1 tab|$1 tabs}}?";
 "close-button-accessibility-label" = "Close";

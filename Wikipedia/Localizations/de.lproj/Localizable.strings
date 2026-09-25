@@ -179,9 +179,6 @@
 "activity-tab-very-satisfied" = "Sehr zufrieden";
 "activity-tab-very-unsatisfied" = "Sehr unzufrieden";
 "activity-tab-week-graph-label" = "Woche";
-"activity-tab-you-edited" = "Du hast {{PLURAL:$1|$1 Mal}} diese Woche bearbeitet.";
-"activity-tab-you-read" = "Du hast {{PLURAL:$1|$1 Artikel}} diese Woche gelesen.";
-"activity-tab-you-saved" = "Du hast {{PLURAL:$1|$1 Artikel}} diese Woche gespeichert.";
 "activity-tab-your-impact" = "Deine Wirkung";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Einen|$1}} Artikel zu einer Sammlung hinzufügen";
 "advanced-settings-title" = "Erweiterte Einstellungen";
@@ -280,8 +277,6 @@
 "clearing-cache-error" = "Fehler beim Leeren des Caches.";
 "clearing-cache-in-progress" = "Cache wird geleert.";
 "close-all-tabs" = "Alle Tabs schließen";
-"close-all-tabs-confirmation" = "Möchtest du alle $1 Tabs schließen? Dies kann nicht rückgängig gemacht werden.";
-"close-all-tabs-confirmation-number" = "Alle $1 Tabs schließen?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Möchtest du {{PLURAL:$1|$1 Tab|$1 Tabs}} schließen? Diese Aktion kann nicht rückgängig gemacht werden.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} schließen?";
 "close-button-accessibility-label" = "Schließen";

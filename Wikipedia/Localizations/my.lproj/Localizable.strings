@@ -123,9 +123,6 @@
 "activity-tab-very-satisfied" = "အလွန်ကျေနပ်ပါသည်";
 "activity-tab-very-unsatisfied" = "အလွန်မကျေနပ်ပါ";
 "activity-tab-week-graph-label" = "အပတ်";
-"activity-tab-you-edited" = "သင် ဒီအပတ်မှာ {{PLURAL:$1| $1 ကြိမ်|$1 ကြိမ်}}ကို တည်းဖြတ်ခဲ့သည်။";
-"activity-tab-you-read" = "ဒီအပတ်မှာ {{PLURAL:$1| $1 ဆောင်းပါး| $1 ဆောင်းပါးများ}}ကို သင်ဖတ်ပြီးပါပြီ။";
-"activity-tab-you-saved" = "သင် ဒီအပတ်မှာ {{PLURAL:$1| $1 ကြိမ်|$1 ကြိမ်}}ကို သိမ်းဆည်းခဲ့သည်။";
 "activity-tab-your-impact" = "သင်၏ အကျိုးသက်ရောက်မှု";
 "add-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါး {{PLURAL:$1|$၁ ခု|$1 ခု}} ပေါင်းထည့်ရန်";
 "advanced-settings-title" = "အဆင့်မြင့် အပြင်အဆင်များ";

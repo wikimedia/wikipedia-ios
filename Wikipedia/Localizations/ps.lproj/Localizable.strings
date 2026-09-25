@@ -138,9 +138,6 @@
 "activity-tab-very-satisfied" = "ډېره خوښ‌";
 "activity-tab-very-unsatisfied" = "ډېر ناخوښ";
 "activity-tab-week-graph-label" = "اوونۍ";
-"activity-tab-you-edited" = "تاسو په دې اوونۍ کې {{PLURAL:$1|$1 ځل|$1 ځله}} سم کړی.";
-"activity-tab-you-read" = "تاسو دې اوونۍ کې {{PLURAL:$1|$1 ليکنه ولوسته|$1ليکنې ولوستې}}.";
-"activity-tab-you-saved" = "تاسو دې اوونۍ کې {{PLURAL:$1|$1 ليکنه خوندي کړې ده|$1ليکنې خوندي کړې دي}}.";
 "activity-tab-your-impact" = "ستاسو اغېز";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1ليکنه|$1 ليکنې}} لوستلړ ته ورگډول";
 "advanced-settings-title" = "پرمختللې اوڼنې";
@@ -195,7 +192,6 @@
 "clearing-cache-complete" = "نيونگه سپاکول بشپړ شول.";
 "clearing-cache-in-progress" = "نيونگه سپاکول دوام لري.";
 "close-all-tabs" = "ټولې کړکۍ وتړئ";
-"close-all-tabs-confirmation-number" = "ټولې  $1 ريښکې وتړي؟";
 "close-button-accessibility-label" = "تړل";
 "close-tabs" = "ريښکې تړل";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 ريښکه تړل‌شوې ده|$1 ريښکې تړل‌شوې دي}}.";

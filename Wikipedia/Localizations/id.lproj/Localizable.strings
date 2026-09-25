@@ -115,7 +115,6 @@
 "activity-tab-customize-empty-state" = "Modul aktivitas dimatikan. $1Nyalakan$2 untuk melihat pembaruan di tab ini.";
 "activity-tab-menu-clear-history" = "Hapus riwayat bacaan";
 "activity-tab-title" = "Aktivitas";
-"activity-tab-you-edited" = "Anda menyunting {{PLURAL:$1|$1 kali}} minggu ini.";
 "activity-tab-your-impact" = "Dampak Anda";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "advanced-settings-title" = "Pengaturan lanjutan";

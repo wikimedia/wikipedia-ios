@@ -109,9 +109,6 @@
 "activity-tab-very-satisfied" = "Rất hài lòng";
 "activity-tab-very-unsatisfied" = "Rất không hài lòng";
 "activity-tab-week-graph-label" = "Tuần";
-"activity-tab-you-edited" = "Bạn đã sửa đổi {{PLURAL:$1|$1 lần}} trong tuần này.";
-"activity-tab-you-read" = "Bạn đã đọc {{PLURAL:$1|$1 bài viết}} trong tuần này.";
-"activity-tab-you-saved" = "Bạn đã lưu {{PLURAL:$1|$1 bài viết}} trong tuần này.";
 "activity-tab-your-impact" = "Hoạt động của bạn";
 "add-articles-to-reading-list" = "Thêm $1 bài viết vào danh sách đọc";
 "advanced-settings-title" = "Tùy chọn nâng cao";

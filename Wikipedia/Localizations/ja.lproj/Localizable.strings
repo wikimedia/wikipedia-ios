@@ -191,8 +191,6 @@
 "clearing-cache-complete" = "キャッシュのクリアが完了しました。";
 "clearing-cache-in-progress" = "キャッシュをクリア中です。";
 "close-all-tabs" = "すべてのタブを閉じる";
-"close-all-tabs-confirmation" = "$1個のタブをすべて閉じますか？この操作は元に戻せません。";
-"close-all-tabs-confirmation-number" = "$1個のタブをすべて閉じますか?";
 "close-button-accessibility-label" = "閉じる";
 "close-tabs" = "タブを閉じる";
 "compass-direction" = "$1時の位置";

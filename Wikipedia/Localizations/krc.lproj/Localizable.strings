@@ -122,8 +122,6 @@
 "clearing-cache-complete" = "Кэш тазалау тамамланды.";
 "clearing-cache-in-progress" = "Кэш тазалана турады.";
 "close-all-tabs" = "Бютеу салгъычланы джаб";
-"close-all-tabs-confirmation" = "Бютеу $1 салгъынчы джабаргъа излеймисиз? Бу этиу кери алыналлыкъ тюлдю.";
-"close-all-tabs-confirmation-number" = "Бютеу $1 салгъыч джабылсынмы?";
 "close-button-accessibility-label" = "Джаб";
 "close-tabs" = "Салгъычланы джаб";
 "compass-direction" = "сагъат $1 табада";

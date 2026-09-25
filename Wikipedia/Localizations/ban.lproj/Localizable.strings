@@ -80,9 +80,6 @@
 "activity-tab-logged-out-title" = "Ngranjing utawi karyanin akun anggén nyingakin parilaksana nguahin lan ngawacén.";
 "activity-tab-neutral" = "Nétral";
 "activity-tab-title" = "Parilaksana";
-"activity-tab-you-edited" = "Ragané kauah {{PLURAL:$1|kaping $1}} ring wuku niki.";
-"activity-tab-you-read" = "Ragané ngwacén {{PLURAL:$1|$1 suratan}} ring wuku niki.";
-"activity-tab-you-saved" = "Ragané karaksa {{PLURAL:$1| $1 suratan}} ring wuku niki.";
 "add-articles-to-reading-list" = "Wewehin {{PLURAL:$1|$1 suratan|$1 suratan}} nuju lis wacénan";
 "advanced-settings-title" = "Setélan lantur";
 "alert-temporary-account" = "Ragané nganggén akun sauntara. Akun pacang kadaluwarsa ring 90 rahina.";
@@ -125,8 +122,6 @@
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Resikin";
 "close-all-tabs" = "Sineb makasami tab";
-"close-all-tabs-confirmation" = "Napiké ragané jagi nyineb $1 tab makasami? Parilaksana puniki nénten prasida kawaliang.";
-"close-all-tabs-confirmation-number" = "Sineb $1 tab makasami?";
 "close-button-accessibility-label" = "Sineb";
 "close-tabs" = "Sineb tab";
 "compass-direction" = "ring pukul $1 tepet";

@@ -209,9 +209,6 @@
 "activity-tab-very-satisfied" = "Очень удовлетворен(а)";
 "activity-tab-very-unsatisfied" = "Очень неудовлетворен(а)";
 "activity-tab-week-graph-label" = "Неделя";
-"activity-tab-you-edited" = "На этой неделе вы редактировали {{PLURAL:$1|$1 раз|$1 раза|$1 раз}}.";
-"activity-tab-you-read" = "На этой неделе вы прочли {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}}.";
-"activity-tab-you-saved" = "На этой неделе вы сохранили {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}}.";
 "activity-tab-your-impact" = "Ваша эффективность";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "advanced-settings-title" = "Дополнительные настройки";
@@ -310,8 +307,6 @@
 "clearing-cache-error" = "Ошибка при очистке кэша.";
 "clearing-cache-in-progress" = "В процессе очистки кэша.";
 "close-all-tabs" = "Закрыть все вкладки";
-"close-all-tabs-confirmation" = "Хотите закрыть все $1 вкладок? Это действие нельзя отменить.";
-"close-all-tabs-confirmation-number" = "Закрыть все $1 вкладок";
 "close-all-tabs-confirmation-subtitle-with-value" = "Хотите закрыть {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}? Это действие нельзя отменить.";
 "close-all-tabs-confirmation-title-with-value" = "Закрыть {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}?";
 "close-button-accessibility-label" = "Закрыть";

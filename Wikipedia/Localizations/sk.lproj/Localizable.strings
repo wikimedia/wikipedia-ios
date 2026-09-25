@@ -157,9 +157,6 @@
 "activity-tab-very-satisfied" = "Veľmi spokojný";
 "activity-tab-very-unsatisfied" = "Veľmi nespokojný";
 "activity-tab-week-graph-label" = "Týždeň";
-"activity-tab-you-edited" = "Tento týždeň ste urobili {{PLURAL:$1|$1 úpravu|$1 úpravy|$1 úprav}}.";
-"activity-tab-you-read" = "Tento týždeň ste prečítali {{PLURAL:$1|$1 článok|$1 články|$1 článkov}}.";
-"activity-tab-you-saved" = "Tento týždeň ste uložili {{PLURAL:$1|$1 článok|$1 články|$1 článkov}}.";
 "activity-tab-your-impact" = "Váš prínos";
 "add-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články}} k zoznamu na prečítanie";
 "advanced-settings-title" = "Rozšírené nastavenia";
@@ -257,8 +254,6 @@
 "clearing-cache-error" = "Chyba pri mazaní vyrovnávacej pamäte.";
 "clearing-cache-in-progress" = "Čistenie cache sa deje.";
 "close-all-tabs" = "Zavrieť všetky karty";
-"close-all-tabs-confirmation" = "Chcete zatvoriť všetky karty ($1)? Túto akciu nie je možné vrátiť späť.";
-"close-all-tabs-confirmation-number" = "Zatvoriť všetky karty ($1)?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Chcete zatvoriť {{PLURAL:$1|$1 kartu|$1 karty|$1 kariet}}? Túto akciu nie je možné vrátiť späť.";
 "close-all-tabs-confirmation-title-with-value" = "Zatvoriť {{PLURAL:$1|$1 kartu|$1 karty|$1 kariet}}?";
 "close-button-accessibility-label" = "Zavrieť";

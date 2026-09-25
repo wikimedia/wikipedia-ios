@@ -147,9 +147,6 @@
 "activity-tab-very-satisfied" = "Çox məmnunam";
 "activity-tab-very-unsatisfied" = "Çox narazıyam";
 "activity-tab-week-graph-label" = "Həftə";
-"activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz.";
-"activity-tab-you-read" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} oxumusunuz.";
-"activity-tab-you-saved" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız.";
 "activity-tab-your-impact" = "Sizin təsiriniz";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";
 "advanced-settings-title" = "Qabaqcıl parametrlər";
@@ -247,8 +244,6 @@
 "clearing-cache-error" = "Keşi təmizləmə xətası.";
 "clearing-cache-in-progress" = "Keş təmizlənir.";
 "close-all-tabs" = "Bütün vərəqələri bağla";
-"close-all-tabs-confirmation" = "$1 vərəqənin hamısını bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
-"close-all-tabs-confirmation-number" = "Bütün $1 vərəqə bağlansın?";
 "close-all-tabs-confirmation-subtitle-with-value" = "{{PLURAL:$1|$1 vərəqəni}} bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 vərəqə}} bağlansın?";
 "close-button-accessibility-label" = "Bağla";

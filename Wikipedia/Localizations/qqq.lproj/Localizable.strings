@@ -139,9 +139,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Title of the Year in Review entry point on the Activity tab, shown to users with enough data for a personalized experience.";
 "activity-tab-year-in-review-low-data-subtitle" = "Subtitle of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
 "activity-tab-year-in-review-low-data-title" = "Title of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
-"activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"activity-tab-you-saved" = "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-your-impact" = "Title for editing section in activity tab.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "advanced-settings-title" = "Title for advanced settings screen";
@@ -240,8 +237,6 @@
 "clearing-cache-error" = "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.";
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-all-tabs" = "Action to close all open tabs.";
-"close-all-tabs-confirmation" = "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.";
-"close-all-tabs-confirmation-number" = "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed";
 "close-all-tabs-confirmation-subtitle-with-value" = "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.";
 "close-all-tabs-confirmation-title-with-value" = "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog. {{Identical|Close}}";

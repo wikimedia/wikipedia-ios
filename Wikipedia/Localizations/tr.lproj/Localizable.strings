@@ -188,9 +188,6 @@
 "activity-tab-very-satisfied" = "Çok memnunum";
 "activity-tab-very-unsatisfied" = "Hiç memnun değilim";
 "activity-tab-week-graph-label" = "Hafta";
-"activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|$1 kez}} düzenleme yaptınız.";
-"activity-tab-you-read" = "Bu hafta {{PLURAL:$1|$1 makale}} okudunuz.";
-"activity-tab-you-saved" = "Bu hafta {{PLURAL:$1|$1 makale}} kaydettiniz.";
 "activity-tab-your-impact" = "Etkiniz";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
@@ -265,8 +262,6 @@
 "clearing-cache-error" = "Önbellek temizlenirken hata oluştu.";
 "clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-all-tabs" = "Tüm sekmeleri kapat";
-"close-all-tabs-confirmation" = "Tüm $1 sekmeyi kapatmak ister misiniz? Bu işlem geri alınamaz.";
-"close-all-tabs-confirmation-number" = "Tüm $1 sekme kapatılsın mı?";
 "close-all-tabs-confirmation-subtitle-with-value" = "$1 {{PLURAL:$1|sekmeyi}} kapatmak istiyor musunuz? Bu işlem geri alınamaz.";
 "close-all-tabs-confirmation-title-with-value" = "$1 {{PLURAL:$1|sekme}} kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";

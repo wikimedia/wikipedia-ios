@@ -141,9 +141,6 @@
 "activity-tab-very-satisfied" = "တ၀ ကျေနပ်တေ";
 "activity-tab-very-unsatisfied" = "တ၀ မကျေနပ်";
 "activity-tab-week-graph-label" = "တပတ်";
-"activity-tab-you-edited" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ကြိမ်|$1 ကြိမ်တိ}} ကို တီးဖြတ်ခရေ။";
-"activity-tab-you-read" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ဆောင်းပါး|$1 ဆောင်းပါးတိ}} ကို ဖတ်ခ‌ရေ။";
-"activity-tab-you-saved" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ‌ေဆောင်းပါး|$1 ဆောင်းပါးတိ}} ကို သိမ်းခရေ။";
 "activity-tab-your-impact" = "သင်ဧ့ အကျိုးသက်ရောက်မှု";
 "add-articles-to-reading-list" = "စာဖတ်စာရင်းပသို့ {{PLURAL:$1|$1 ဆောင်းပါး|$1 ဆောင်းပါးတိ}} ပေါင်းထည့်ရန်";
 "advanced-settings-title" = "အဆင့်မြင့် ဆက်တင်တိ";
@@ -242,8 +239,6 @@
 "clearing-cache-error" = "ကက်ရှ်ကို ရှင်းလင်းရာမာ အမှားအယွင်းဟိနီပါရေ။";
 "clearing-cache-in-progress" = "ကက်ရှ် ရှင်းလင်းခြင်းကို လုပ်ဆောင်နီပါရေ။";
 "close-all-tabs" = "tab အားနုန်းကို ပိတ်ပါ";
-"close-all-tabs-confirmation" = "$1 တက်ဘ်တိအားနုန်းကို ပိတ်ချင်ပါလား။  ‌ေဒေလုပ်ဆောင်ချက်ကို ပြန်ပြင်လို့မရပါ။";
-"close-all-tabs-confirmation-number" = "$1 tab အားနုန်းကို ပိတ်ပါ";
 "close-all-tabs-confirmation-subtitle-with-value" = "{{PLURAL:$1|$1 တဘ်|$1 တဘ်တိ}} ကို ပိတ်ချင်ပါသလား။ ‌ဒေလုပ်ဆောင်ချက်ကို ပြန်ပြင်လို့မရပါ။";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} ကို ပိတ်ဖို့လား။";
 "close-button-accessibility-label" = "ပိတ်ပါ";
