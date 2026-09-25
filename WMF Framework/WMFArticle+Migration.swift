@@ -33,22 +33,6 @@ import CocoaLumberjackSwift
         }
     }
 
-    public func migrateIncremental() async {
-        guard shouldRunMigration() else { return }
-        
-        await withCheckedContinuation { continuation in
-            serialQueue.async {
-                let semaphore = DispatchSemaphore(value: 0)
-                Task {
-                    await self.runMigration(limit: 20)
-                    semaphore.signal()
-                }
-                semaphore.wait()
-                continuation.resume()
-            }
-        }
-    }
-
     @objc(removeFromSavedWithURLs:)
     public func removeFromSaved(withUrls urls: [URL]) {
         guard shouldRunMigration() else { return }
@@ -63,19 +47,6 @@ import CocoaLumberjackSwift
                 } catch {
                     DDLogError("[SavedPagesMigration] Reset migration flag failed: \(error)")
                 }
-                semaphore.signal()
-            }
-            semaphore.wait()
-        }
-    }
-
-    public func clearAll() {
-        guard shouldRunMigration() else { return }
-        
-        serialQueue.async {
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                await self.clearAllSavedData()
                 semaphore.signal()
             }
             semaphore.wait()

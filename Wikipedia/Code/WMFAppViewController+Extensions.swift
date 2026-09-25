@@ -356,10 +356,6 @@ protocol NotificationsCenterFlowViewController where Self: UIViewController {
 
 extension WMFAppViewController: WMFWatchlistDelegate {
 
-    public func emptyViewDidTapSearch() {
-        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
-    }
-
     public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
         let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {

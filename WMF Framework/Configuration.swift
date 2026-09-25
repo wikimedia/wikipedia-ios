@@ -365,19 +365,6 @@ public class Configuration: NSObject {
     
     // MARK: Routing Helpers
     
-    public func isWikipediaHost(_ host: String?) -> Bool {
-        guard let host = host else {
-            return false
-        }
-        for domain in wikipediaDomains {
-            if host.isDomainOrSubDomainOf(domain) {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
     /// Indicates if a url should fall back to an in-app web view or not
     /// Please inspect url namespace first and confirm url cannot display natively before using this method.
     /// - Parameter host: url host that you are trying to route

@@ -100,10 +100,6 @@ final class ImageRecommendationsFunnel: NSObject {
         EventPlatformClient.shared.submit(stream: .imageRecommendation, event: event)
     }
     
-    func logExploreDidTapFeatureAnnouncementPrimaryButton() {
-        logEvent(activeInterface: .onboardingStep1Dialog, action: .startTooltips, project: project)
-    }
-    
     func logOnboardingDidTapContinue() {
         logEvent(activeInterface: .onboardingStep2Dialog, action: .next, project: project)
     }
@@ -274,10 +270,6 @@ final class ImageRecommendationsFunnel: NSObject {
     func logSettingsToggleSuggestedEditsCard(isOn: Bool) {
         let action = isOn ? Action.enableSuggestedEdits : Action.disableSuggestedEdits
         logEvent(activeInterface: .exploreSettings, action: action, project: project)
-    }
-    
-    func logSettingsDidDisableSuggestedEditsCard() {
-        logEvent(activeInterface: .exploreSettings, action: .disableSuggestedEdits, project: project)
     }
     
     func logSaveChangesPublishFail(abortSource: String?) {

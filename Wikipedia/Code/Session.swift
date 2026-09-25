@@ -133,23 +133,6 @@ public class Session: NSObject {
         }
     }
     
-    public func hasValidCentralAuthCookies(for domain: String) -> Bool {
-        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
-            return false
-        }
-        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain)
-        guard !cookies.isEmpty else {
-            return false
-        }
-        let now = Date()
-        for cookie in cookies {
-            if let cookieExpirationDate = cookie.expiresDate, cookieExpirationDate < now {
-                return false
-            }
-        }
-        return true
-    }
-    
     @objc public func clearTemporaryCache() {
         defaultURLSession.configuration.urlCache?.removeAllCachedResponses()
         WMFDataEnvironment.current.basicService?.clearCachedData()

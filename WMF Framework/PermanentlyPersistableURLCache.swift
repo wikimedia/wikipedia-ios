@@ -138,19 +138,6 @@ extension PermanentlyPersistableURLCache {
 // MARK: Private - URLRequest header creation
 
 private extension PermanentlyPersistableURLCache {
-    
-    func addEtagHeaderToURLRequest(_ urlRequest: inout URLRequest, type: Header.PersistItemType) {
-
-        if let cachedUrlResponse = self.cachedResponse(for: urlRequest)?.response as? HTTPURLResponse {
-            for (key, value) in cachedUrlResponse.allHeaderFields {
-                if let keyString = key as? String,
-                    let valueString = value as? String,
-                    keyString == HTTPURLResponse.etagHeaderKey {
-                    urlRequest.setValue(valueString, forHTTPHeaderField: URLRequest.ifNoneMatchHeaderKey)
-                }
-            }
-        }
-    }
 }
 
 // MARK: Database key and variant creation

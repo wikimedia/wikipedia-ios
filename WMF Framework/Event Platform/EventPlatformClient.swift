@@ -745,15 +745,6 @@ import WMFTestKitchen
 private extension EventPlatformClient {
 
     /**
-     * Thread-safe synchronous retrieval of buffered events
-     */
-    func getInputBuffer() -> [(Data, Stream)] {
-        queue.sync {
-            return self.inputBuffer
-        }
-    }
-
-    /**
      * Thread-safe synchronous buffering of an event
      * - Parameter event: event to be buffered
      */

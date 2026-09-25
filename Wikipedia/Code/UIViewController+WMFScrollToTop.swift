@@ -1,7 +1,4 @@
 extension UITableViewController {
-    fileprivate func scrollToFirstIndexPath() {
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0) , at: .top, animated: true)
-    }
 }
 
 extension UICollectionViewController {

@@ -80,14 +80,6 @@ import WMF
         EventPlatformClient.shared.submit(stream: .appTabsInteraction, event: event)
     }
 
-    func logTabIconFirstImpression(project: WikimediaProject) {
-        logEvent(activeInterface: .icon, action: .impression, project: project)
-    }
-
-    func logTabTooltipImpression(project: WikimediaProject) {
-        logEvent(activeInterface: .tooltip, action: .impression, project: project)
-    }
-
     func logTabsOverviewImpression() {
         logEvent(activeInterface: .overview, action: .impression, project: nil)
     }

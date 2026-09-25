@@ -1929,14 +1929,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     // MARK: - Search Filter Dropdown
 
-    fileprivate func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-
-    }
-
-    fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-
-    }
-
     fileprivate func updateSearchBarText(forSearch search: PlaceSearch) {
 
         guard let searchBar = navigationItem.searchController?.searchBar else {
@@ -1949,14 +1941,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             searchBar.text = search.string ?? search.localizedDescription
         }
 
-    }
-
-    fileprivate func updateSearchBarText() {
-        guard let search = currentSearch else {
-            navigationItem.searchController?.searchBar.text = nil
-            return
-        }
-        updateSearchBarText(forSearch: search)
     }
 
     func setupEmptySearchOverlayView() {

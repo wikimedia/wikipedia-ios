@@ -41,24 +41,6 @@ public extension NSManagedObjectContext {
         return try fetch(fetchRequest)
     }
     
-    func wmf_fetchOrCreate<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) throws -> [T]? {
-        var results = try wmf_fetch(objectsForEntityName: entityName, withValues: values, forKey: key) as? [T] ?? []
-        var missingValues = Set(values)
-        for result in results {
-            guard let value = result.value(forKey: key) as? V else {
-                continue
-            }
-            missingValues.remove(value)
-        }
-        for value in missingValues {
-            guard let object = wmf_create(entityNamed: entityName, withValue: value, forKey: key) as? T else {
-                continue
-            }
-            results.append(object)
-        }
-        return results
-    }
-    
     func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, handler: (T) throws -> Void) throws {
         let fetchRequest = T.fetchRequest()
         let batchSize = 500
@@ -102,14 +84,6 @@ public extension NSManagedObjectContext {
             }
             start = end
         }
-    }
-    
-    func performWaitAndReturn<T>(_ block: () -> T?) -> T? {
-        var result: T? = nil
-        performAndWait {
-            result = block()
-        }
-        return result
     }
 }
 

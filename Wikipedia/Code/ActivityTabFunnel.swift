@@ -197,8 +197,4 @@ import WMFComponents
     func logActivityTabOffCustomizeClick() {
         logEvent(activeInterface: .activityTabOff, action: .customizeClick, project: nil)
     }
-    
-    func logActivityTabOffNavClick(from sourceInterface: ActiveInterface) {
-        logEvent(activeInterface: sourceInterface, action: .activityNavClick, project: nil)
-    }
 }

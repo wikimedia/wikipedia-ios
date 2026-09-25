@@ -19,12 +19,6 @@ extension CGPoint {
             y: self.y.wmf_denormalizeUsingReference(size.height)
         )
     }
-    func wmf_normalizeUsingSize (_ size: CGSize) -> CGPoint {
-        return CGPoint(
-            x: self.x.wmf_normalizeUsingReference(size.width),
-            y: self.y.wmf_normalizeUsingReference(size.height)
-        )
-    }
 }
 
 extension CGSize {

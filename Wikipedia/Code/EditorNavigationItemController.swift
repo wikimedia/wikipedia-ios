@@ -254,21 +254,4 @@ class EditorNavigationItemController: NSObject, Themeable {
             navigationItem?.rightBarButtonItems = proposedItems
         }
     }
-
-    func textSelectionDidChange(isRangeSelected: Bool) {
-        undoButton.isEnabled = true
-        redoButton.isEnabled = true
-        progressButton.isEnabled = true
-    }
-
-    func disableButton(button: EditorButton) {
-        switch button.kind {
-        case .undo:
-            undoButton.isEnabled = false
-        case .redo:
-            redoButton.isEnabled = false
-        case .progress:
-            progressButton.isEnabled = false
-        }
-    }
 }
