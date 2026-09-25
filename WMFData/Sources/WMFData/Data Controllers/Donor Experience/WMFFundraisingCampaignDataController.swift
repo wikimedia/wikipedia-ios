@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
 // cannot be an actor. All mutable state lives in WMFLockIsolated boxes below.
@@ -33,6 +34,7 @@ import Foundation
         set { _promptState.value = newValue }
     }
     private let preferencesBannerOptIns = WMFLockIsolated<[WMFProject: Bool]>([:])
+    private let _hasPresentedCampaignThisSession = WMFLockIsolated(false)
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
@@ -48,15 +50,82 @@ import Foundation
         self._service = WMFLockIsolated(service)
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
         self._mediaWikiService = WMFLockIsolated(mediaWikiService)
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     @objc(sharedInstance)
     public static let shared = WMFFundraisingCampaignDataController()
+
+    // MARK: - Session State
+
+    /// True once the campaign banner has shown in this app session. Other announcements, such as
+    /// Year in Review, read this so they do not show right after the banner.
+    /// Kept in memory only. It is cleared when the app goes to the background.
+    public var hasPresentedCampaignThisSession: Bool {
+        _hasPresentedCampaignThisSession.value
+    }
+
+    /// Call this when the campaign banner is shown.
+    public func markCampaignPresentedThisSession() {
+        _hasPresentedCampaignThisSession.value = true
+    }
+
+    @objc private func appDidEnterBackground() {
+        _hasPresentedCampaignThisSession.value = false
+    }
+
+    /// True until the app has gone inactive once. The app saves this date as a plain `Date`, not
+    /// JSON, so it is read from `UserDefaults` directly rather than through `WMFKeyValueStore`.
+    private var isFirstAppSession: Bool {
+        UserDefaults.standard.object(forKey: WMFUserDefaultsKey.appResignActiveDate.rawValue) as? Date == nil
+    }
     
     // MARK: - Public
     
     public func isOptedIn(project: WMFProject) async -> Bool {
         return preferencesBannerOptIns.value[project] ?? true
+    }
+
+    /// Whether the campaign banner would show for this project right now. Uses the same checks as
+    /// the article banner, but shows nothing and saves nothing.
+    /// - Parameters:
+    ///   - countryCode: Country code of the user. Can use Locale.current.region?.identifier
+    ///   - wmfProject: Project to check. The article view passes the article's project. Explore passes the app's primary language project.
+    ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
+    /// - Returns: True if the banner would show.
+    public func shouldShowCampaign(countryCode: String, wmfProject: WMFProject, currentDate: Date = Date()) async -> Bool {
+
+        guard let asset = loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate),
+              asset.actions.first?.url != nil else {
+            return false
+        }
+
+        if isForcingBannerForDevelopment {
+            return true
+        }
+
+        guard await isOptedIn(project: wmfProject) else {
+            return false
+        }
+
+        // The banner never shows in the first app session.
+        guard !isFirstAppSession else {
+            return false
+        }
+
+        let twoFiftyDaysAgo = currentDate.addingTimeInterval(-TimeInterval(60 * 60 * 24 * 250))
+        let recentDonations = WMFDonateDataController.shared.loadLocalDonationHistory(startDate: twoFiftyDaysAgo, endDate: currentDate) ?? []
+        guard recentDonations.isEmpty else {
+            return false
+        }
+
+        let hasDonationReminderOutcome = WMFDonationReminderDataController.shared.loadReminder() != nil && currentDate < WMFDonationReminderDataController.reminderEndDate
+        guard !hasDonationReminderOutcome else {
+            return false
+        }
+
+        return true
     }
     
     /// Set asset as "maybe later" in persistence, so that it can be loaded later only once the maybe later date has passed
@@ -272,6 +341,7 @@ import Foundation
         activeCountryConfigs = []
         promptState = nil
         preferencesBannerOptIns.value = [:]
+        _hasPresentedCampaignThisSession.value = false
     }
     
     // MARK: - Private

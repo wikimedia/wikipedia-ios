@@ -265,20 +265,10 @@ extension ArticleViewController {
         return true
     }
 
+    /// The coordinator marks the announcement as shown when it presents it.
     func presentYearInReviewAnnouncement() {
-
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
-        }
-
-        // TODO: 2026 — swap `yirCoordinator` for the 2026 coordinator. It needs to know it was
-        // launched from the announcement so that slide 0 is included and the exit toast fires.
         yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
         self.yirCoordinator?.start()
-
-        // Marked as soon as it is presented, so a force quit on slide 0 does not earn a second showing.
-        yirDataController.hasPresentedYiRFeatureAnnouncement = true
-
     }
 }
 

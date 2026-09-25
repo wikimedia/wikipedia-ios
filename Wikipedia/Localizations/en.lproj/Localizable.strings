@@ -1703,6 +1703,11 @@
 "wikitext-upload-save-terms-name" = "Terms of Use";
 "wmf-localizations-tests-nonexistent-key" = "fallback";
 "year-in-review-2026-announcement-exit-toast-title" = "You can access your Year in Review later in Activity.";
+"year-in-review-2026-announcement-explore" = "Explore";
+"year-in-review-2026-announcement-headline" = "Your Wikipedia Year in Review is here";
+"year-in-review-2026-announcement-info-body" = "Reading insights are calculated using locally stored data on your device.";
+"year-in-review-2026-announcement-info-title" = "Your reading history is kept protected";
+"year-in-review-2026-announcement-personalized-body" = "Thanks for spending {{PLURAL:$1|$1 day|$1 days}} on your trusty Wikipedia App in 2026.";
 "year-in-review-2026-feedback-email-first-line" = "I have feedback about Year in Review:";
 "year-in-review-2026-feedback-email-subject" = "Year in Review Feedback";
 "year-in-review-button-title" = "Year in Review";

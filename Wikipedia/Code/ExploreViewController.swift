@@ -1079,8 +1079,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 extension ExploreViewController {
     
     /// Modal presentation priority chain for the Explore view:
-    ///   1. Year in Review     →  if shown, stop.
-    ///   2. Games announcement →  shown only when Year in Review declines.
+    ///   1. Fundraising        →  never shown on Explore. If the reader qualifies for the campaign banner,
+    ///                            Year in Review waits for a later app open so the banner goes first.
+    ///   2. Year in Review     →  if shown, stop.
+    ///   3. Games announcement →  shown only when Year in Review declines.
     ///
     /// If Year in Review is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
@@ -1181,14 +1183,51 @@ extension ExploreViewController {
     }
 
     private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
-            presentGamesAnnouncementIfNeeded()
+        guard needsYearInReviewAnnouncement() else {
+            presentTooltipsAndGamesAnnouncementIfNeeded()
+            return
         }
+
+        Task { [weak self] in
+            guard let self else { return }
+
+            // Fundraising goes first. If the reader qualifies for the campaign banner, skip Year in
+            // Review now. It shows on a later app open, after the banner is shown or hidden.
+            // The developer settings override skips this check.
+            let isEligibleForCampaign: Bool
+            if self.yirDataController?.isForcingFeatureAnnouncement == true {
+                isEligibleForCampaign = false
+            } else {
+                isEligibleForCampaign = await self.isEligibleForFundraisingCampaign()
+            }
+
+            // Check again after the wait, since something may have been presented in the meantime.
+            guard !isEligibleForCampaign, self.needsYearInReviewAnnouncement() else {
+                self.presentTooltipsAndGamesAnnouncementIfNeeded()
+                return
+            }
+
+            self.updateProfileButton()
+            self.presentYearInReviewAnnouncement()
+            // YIR showed — games deferred to next launch.
+        }
+    }
+
+    private func presentTooltipsAndGamesAnnouncementIfNeeded() {
+        perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+        presentGamesAnnouncementIfNeeded()
+    }
+
+    /// True if the reader qualifies for the fundraising campaign banner right now. Explore has no
+    /// article, so this checks the app's primary language project.
+    private func isEligibleForFundraisingCampaign() async -> Bool {
+        guard let countryCode = Locale.current.region?.identifier,
+              let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            return false
+        }
+
+        return await WMFFundraisingCampaignDataController.shared.shouldShowCampaign(countryCode: countryCode, wmfProject: wmfProject)
     }
     
     @objc func listenForTooltips() {
@@ -1243,18 +1282,10 @@ extension ExploreViewController {
         presentedViewController.present(newNavigationVC, animated: true, completion: { })
     }
 
+    /// The coordinator marks the announcement as shown when it presents it.
     private func presentYearInReviewAnnouncement() {
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
-        }
-
-        // TODO: 2026 — swap `yirCoordinator` for the 2026 coordinator. It needs to know it was
-        // launched from the announcement so that slide 0 is included and the exit toast fires.
         yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
         self.yirCoordinator?.start()
-
-        // Marked as soon as it is presented, so a force quit on slide 0 does not earn a second showing.
-        yirDataController.hasPresentedYiRFeatureAnnouncement = true
     }
 
     private func shouldShowSearchWidgetAnnouncement() -> Bool {

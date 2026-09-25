@@ -125,6 +125,18 @@ import CoreData
         return distinctArticleCount >= Self.dataRichDistinctArticleThreshold ? .dataRich : .lowData
     }
 
+    /// How many distinct days the reader opened at least one article, in the same data window as
+    /// `fetchUserDataState()`. The announcement copy shows this number.
+    public func fetchReadingDayCount(calendar: Calendar = .current) async throws -> Int {
+        guard let window = Self.userDataStateWindow(year: Self.userDataStateYear, calendar: calendar) else {
+            return 0
+        }
+
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let days = try await pageViewsDataController.fetchDistinctPageViewDays(calendar: calendar)
+        return days.filter { $0 >= window.start && $0 <= window.end }.count
+    }
+
     /// The badge shows for logged-in and logged-out users alike, so this gates only on availability.
     public func shouldShowActivityTabBadge(countryCode: String?) -> Bool {
         guard shouldShowYearInReviewEntryPoint(countryCode: countryCode) else {
@@ -173,6 +185,12 @@ import CoreData
         }
     }
 
+    /// True when the developer settings force the announcement. Screens that show it also skip
+    /// their own checks while this is on, such as the fundraising check on Explore.
+    public var isForcingFeatureAnnouncement: Bool {
+        developerSettingsDataController.forceYiREntryPoint2026 && developerSettingsDataController.forceYiR2026Announcement
+    }
+
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
 
         // Developer setting: show the announcement regardless of everything below — the remote
@@ -186,8 +204,7 @@ import CoreData
         // 2026 config is published.
         //
         // The flag is a sub-setting of forceYiREntryPoint2026 and has no effect without it.
-        if developerSettingsDataController.forceYiREntryPoint2026,
-           developerSettingsDataController.forceYiR2026Announcement {
+        if isForcingFeatureAnnouncement {
             return true
         }
 
@@ -203,6 +220,7 @@ import CoreData
             return false
         }
 
+        // Checks the remote config, the active date range, the Settings toggle, and the hidden countries.
         guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
             return false
         }
@@ -212,6 +230,11 @@ import CoreData
         }
 
         guard !hasSeenYiRIntroSlide else {
+            return false
+        }
+
+        // Fundraising goes first. If the campaign banner showed this session, wait for the next app open.
+        guard !WMFFundraisingCampaignDataController.shared.hasPresentedCampaignThisSession else {
             return false
         }
 

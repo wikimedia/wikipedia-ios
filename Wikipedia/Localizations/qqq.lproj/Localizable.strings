@@ -1703,6 +1703,11 @@
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
 "wmf-localizations-tests-nonexistent-key" = "No comment provided by engineer.";
 "year-in-review-2026-announcement-exit-toast-title" = "Toast displayed after the user dismisses the Year in Review announcement, telling them where to find the feature later.";
+"year-in-review-2026-announcement-explore" = "Title of the button on the Year in Review announcement that opens Year in Review.";
+"year-in-review-2026-announcement-headline" = "Headline of the Year in Review announcement. It is drawn inside the artwork, so VoiceOver reads this text.";
+"year-in-review-2026-announcement-info-body" = "Body of the info card on the Year in Review announcement, which explains how reading data is used.";
+"year-in-review-2026-announcement-info-title" = "Title of the info card on the Year in Review announcement, shown when the reader taps the info icon.";
+"year-in-review-2026-announcement-personalized-body" = "Body text of the Year in Review announcement for readers with enough reading data. $1 is replaced with the number of days the reader read articles in the app.";
 "year-in-review-2026-feedback-email-first-line" = "Opening line of the pre-filled feedback email body for the Year in Review feature.";
 "year-in-review-2026-feedback-email-subject" = "Subject line of the pre-filled feedback email for the Year in Review feature.";
 "year-in-review-button-title" = "Year in review title. Appears on buttons in the profile and settings menu.";

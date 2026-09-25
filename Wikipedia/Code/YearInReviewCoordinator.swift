@@ -19,6 +19,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// overrides it so the funnel records where the flow was opened from.
     private var introSlideLoggingID: String = "profile"
 
+    /// Set by `setupForFeatureAnnouncement`. The next `start()` shows the announcement screen
+    /// instead of the slides, then clears this. Explore shares this coordinator with the profile
+    /// entry point, so the flag must not stay on after the announcement.
+    private var isFeatureAnnouncement = false
+
     private weak var viewModel: WMFYearInReviewViewModel?
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
@@ -37,6 +42,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     @discardableResult
     func start() -> Bool {
+        if isFeatureAnnouncement {
+            isFeatureAnnouncement = false
+            presentFeatureAnnouncement()
+        } else {
+            presentYearInReview()
+        }
+
+        return true
+    }
+
+    func setupForFeatureAnnouncement(introSlideLoggingID: String) {
+        self.introSlideLoggingID = introSlideLoggingID
+        isFeatureAnnouncement = true
+    }
+
+    // MARK: - Presentation
+
+    private func presentYearInReview() {
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(),
             localizedStrings: slideFactory.makeLocalizedStrings(),
@@ -49,12 +72,73 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         navigationController.present(presentedNavigationController, animated: true)
-
-        return true
     }
 
-    func setupForFeatureAnnouncement(introSlideLoggingID: String) {
-        self.introSlideLoggingID = introSlideLoggingID
+    private func presentFeatureAnnouncement() {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+
+            let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
+            let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
+
+            // Something may have been presented while the data loaded.
+            guard navigationController.presentedViewController == nil else { return }
+
+            let viewModel = WMFYearInReviewAnnouncementViewModel(
+                animation: announcementAnimation,
+                localizedStrings: announcementLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount),
+                // TEMPORARY: the sample artwork is light, so the close button uses the dark style.
+                // Remove this line with the real file to get the default light style (20% white).
+                contentStyle: .dark,
+                delegate: self
+            )
+
+            let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
+            hostingController.modalPresentationStyle = .pageSheet
+            // Swiping down would skip the close action and its toast, so only the close button dismisses.
+            hostingController.isModalInPresentation = true
+            navigationController.present(hostingController, animated: true)
+
+            // Marked here, when it is actually on screen, so a force quit before any interaction
+            // does not earn a second showing, and an early exit above does not use it up.
+            dataController.hasPresentedYiRFeatureAnnouncement = true
+        }
+    }
+
+    private func announcementLocalizedStrings(userDataState: WMFYearInReviewDataController.YiRUserDataState, readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
+        let body: String
+        switch userDataState {
+        case .dataRich:
+            let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
+            body = String.localizedStringWithFormat(format, readingDayCount)
+        case .lowData:
+            // TODO: Replace with the collective copy once design provides it, as a WMFLocalizedString.
+            body = "Collective announcement copy TBD"
+        }
+
+        return WMFYearInReviewAnnouncementViewModel.LocalizedStrings(
+            animationAccessibilityLabel: WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement. It is drawn inside the artwork, so VoiceOver reads this text."),
+            body: body,
+            exploreButtonTitle: WMFLocalizedString("year-in-review-2026-announcement-explore", value: "Explore", comment: "Title of the button on the Year in Review announcement that opens Year in Review."),
+            closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
+            infoButtonAccessibilityHint: announcementInfoTitle,
+            infoTitle: announcementInfoTitle,
+            infoBody: WMFLocalizedString("year-in-review-2026-announcement-info-body", value: "Reading insights are calculated using locally stored data on your device.", comment: "Body of the info card on the Year in Review announcement, which explains how reading data is used."),
+            learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
+            gotItButtonTitle: CommonStrings.gotItButtonTitle
+        )
+    }
+
+    // TEMPORARY: the same sample export the slides use. Replace the resource, artboard and state
+    // machine names when design delivers the announcement file.
+    private let announcementAnimation = WMFRiveAnimation(
+        resourceName: "autolayout_multiple_instances_test",
+        artboardName: "frame1",
+        stateMachineName: "insightFrame-stateMachine"
+    )
+
+    private var announcementInfoTitle: String {
+        WMFLocalizedString("year-in-review-2026-announcement-info-title", value: "Your reading history is kept protected", comment: "Title of the info card on the Year in Review announcement, shown when the reader taps the info icon.")
     }
 
     // MARK: - Actions
@@ -147,6 +231,33 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }
+    }
+}
+
+// MARK: - WMFYearInReviewAnnouncementDelegate
+
+extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
+
+    func yearInReviewAnnouncementDidTapExplore() {
+        // TODO: Logged-out readers see the log in prompt here first.
+        guard let presentedViewController = navigationController.presentedViewController else {
+            presentYearInReview()
+            return
+        }
+
+        presentedViewController.dismiss(animated: true) { [weak self] in
+            self?.presentYearInReview()
+        }
+    }
+
+    func yearInReviewAnnouncementDidTapClose() {
+        navigationController.presentedViewController?.dismiss(animated: true) {
+            WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
+        }
+    }
+
+    func yearInReviewAnnouncementDidTapLearnMore() {
+        showLearnMore()
     }
 }
 

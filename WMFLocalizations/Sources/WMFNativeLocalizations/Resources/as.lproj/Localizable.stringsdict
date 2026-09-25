@@ -1059,5 +1059,21 @@
 			<string>%1$d filters</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-announcement-personalized-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Thanks for spending %1$#@v1@ on your trusty Wikipedia App in 2026.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d day</string>
+			<key>other</key>
+			<string>%1$d days</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
