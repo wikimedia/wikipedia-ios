@@ -356,8 +356,18 @@ ORDER BY 1;
 --     n_new_install_event_day  = installs whose new_install_onboarding_start event fell on this day.
 --     n_new_uniques_first_seen = group-neutral: install's first event of any kind is on this day.
 --     To limit to the three builds, uncomment the app_version_name lines.
+--     Written as a single SELECT (no WITH) so Superset's "only SELECT" check accepts it.
+--     Copy from the SELECT line down; don't include these comment lines or the trailing semicolon.
 -- -------------------------------------------------------------------------------------
-WITH assigned AS (
+SELECT
+    a.first_exposure_date AS day,
+    a.group_assigned,
+    COUNT(DISTINCT a.install_id) AS n_assigned_uniques,
+    COUNT(DISTINCT n.install_id) AS n_new_uniques,
+    ROUND(100.0 * COUNT(DISTINCT n.install_id) / COUNT(DISTINCT a.install_id), 1) AS pct_new_uniques,
+    COUNT(DISTINCT CASE WHEN n.new_install_date = a.first_exposure_date THEN a.install_id END) AS n_new_install_event_day,
+    COUNT(DISTINCT CASE WHEN f.first_seen_date = a.first_exposure_date THEN a.install_id END) AS n_new_uniques_first_seen
+FROM (
     SELECT agent.app_install_id AS install_id,
            experiment.assigned AS group_assigned,
            DATE(MIN(from_iso8601_timestamp(dt))) AS first_exposure_date
@@ -372,8 +382,8 @@ WITH assigned AS (
       AND action = 'experiment_exposure'
       AND experiment.enrolled = 'ios-home-feed'
     GROUP BY 1, 2
-),
-new_install_event AS (
+) a
+LEFT JOIN (
     SELECT agent.app_install_id AS install_id,
            DATE(MIN(from_iso8601_timestamp(dt))) AS new_install_date
     FROM event.product_metrics_app_base
@@ -387,8 +397,8 @@ new_install_event AS (
       AND action = 'app_open'
       AND action_source = 'new_install_onboarding_start'
     GROUP BY 1
-),
-first_seen AS (
+) n ON n.install_id = a.install_id
+LEFT JOIN (
     SELECT agent.app_install_id AS install_id,
            DATE(MIN(from_iso8601_timestamp(dt))) AS first_seen_date
     FROM event.product_metrics_app_base
@@ -399,17 +409,6 @@ first_seen AS (
       AND agent.release_status = 'prod'
       AND agent.app_install_id IS NOT NULL
     GROUP BY 1
-)
-SELECT
-    a.first_exposure_date AS day,
-    a.group_assigned,
-    COUNT(DISTINCT a.install_id) AS n_assigned_uniques,
-    COUNT(DISTINCT n.install_id) AS n_new_uniques,
-    ROUND(100.0 * COUNT(DISTINCT n.install_id) / COUNT(DISTINCT a.install_id), 1) AS pct_new_uniques,
-    COUNT(DISTINCT CASE WHEN n.new_install_date = a.first_exposure_date THEN a.install_id END) AS n_new_install_event_day,
-    COUNT(DISTINCT CASE WHEN f.first_seen_date = a.first_exposure_date THEN a.install_id END) AS n_new_uniques_first_seen
-FROM assigned a
-LEFT JOIN new_install_event n ON n.install_id = a.install_id
-LEFT JOIN first_seen f ON f.install_id = a.install_id
+) f ON f.install_id = a.install_id
 GROUP BY 1, 2
 ORDER BY 1, 2;
