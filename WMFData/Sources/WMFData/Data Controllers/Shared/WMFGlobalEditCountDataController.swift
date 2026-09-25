@@ -24,7 +24,7 @@ final class WMFGlobalEditCountDataController {
         }
     }
     
-    func fetchEditCount(startDate: Date, endDate: Date, completion: @escaping (Result<Int, Error>) -> Void) {
+    func fetchEditCount(startDate: Date, endDate: Date, completion: @escaping @Sendable (Result<Int, Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return

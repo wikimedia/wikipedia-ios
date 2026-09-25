@@ -53,6 +53,7 @@ jobs:
           xcodebuild build-for-testing \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -testPlan UITests \
             -destination "${{ steps.simulator.outputs.destination }}" \
             -testProductsPath "WikipediaUITests.xctestproducts" \

@@ -37,7 +37,8 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
             project: enProject,
             userID: userID,
             globalUserID: nil,
-            languageCode: "en"
+            languageCode: "en",
+            userImpactDataProvider: nil
         )
     }
 

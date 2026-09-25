@@ -56,7 +56,7 @@ final class YearInReviewSlideDataControllerFactory {
             .topArticles
         ]
         
-        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode)
+        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: WMFUserImpactDataController.shared)
         
         var dataControllers: [YearInReviewSlideDataControllerProtocol] = []
         
