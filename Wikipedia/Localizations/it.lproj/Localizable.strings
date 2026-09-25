@@ -36,6 +36,7 @@
 // Author: Manfredi26
 // Author: Mannivu
 // Author: Martinligabue
+// Author: Matroz
 // Author: McDutchie
 // Author: Nastoshka
 // Author: Nemo bis
@@ -863,6 +864,7 @@
 "search-recent-clear-delete-all" = "Cancella tutto";
 "search-recent-title" = "Cercato recentemente";
 "search-result-redirected-from" = "Reindirizzamento da: $1";
+"search-semantic-entry-point-try-it-now" = "Provalo subito";
 "search-title" = "Ricerca";
 "search-widget-description" = "Accesso rapido alla ricerca su Wikipedia.";
 "search-widget-wikipedia-title" = "Wikipedia";
