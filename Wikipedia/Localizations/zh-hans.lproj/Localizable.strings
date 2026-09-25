@@ -608,7 +608,6 @@
 "empty-no-saved-pages-message" = "保存页面以便日后即使在离线时也可查看";
 "empty-no-saved-pages-title" = "尚未保存页面";
 "empty-no-search-results-message" = "找不到结果";
-"empty-talk-page-title" = "目前还没有人给该用户留言";
 "end-session" = "结束会话";
 "error-generic-recovery-suggestion" = "请稍后再试";
 "error-unknown" = "出现未知错误";
@@ -1534,7 +1533,6 @@
 "two-factor-login-title" = "登录您的账号";
 "two-factor-login-with-backup-code" = "使用您的任一备份代码";
 "two-factor-login-with-regular-code" = "使用验证码";
-"unable-to-load-talk-page-title" = "无法加载讨论页";
 "unknown-generic-text" = "未知";
 "unwatch" = "取消监视";
 "user-title" = "用户";

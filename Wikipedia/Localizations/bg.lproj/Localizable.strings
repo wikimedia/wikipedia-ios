@@ -187,7 +187,6 @@
 "empty-no-saved-pages-message" = "Запазвайте страници, за да ги видите по-късно, дори офлайн";
 "empty-no-saved-pages-title" = "Все още няма съхранени страници";
 "empty-no-search-results-message" = "Не бяха открити резултати";
-"empty-talk-page-title" = "Все още няма публикувани съобщения за този потребител";
 "error-generic-recovery-suggestion" = "Моля, опитайте по-късно";
 "error-unknown" = "Възникна неизвестна грешка";
 "explore-another-random" = "Друга случайна статия";
@@ -556,7 +555,6 @@
 "top-read-widget-title" = "Най-четени";
 "two-factor-login-continue" = "Продължаване с влизането";
 "two-factor-login-with-regular-code" = "Използвайте код за потвърждение";
-"unable-to-load-talk-page-title" = "Страницата на беседата не може да бъде заредена";
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-title" = "Актуализации за поддръжка на узбекски вариант";
 "vanish-account-continue-button-title" = "Продължаване";

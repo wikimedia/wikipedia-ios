@@ -525,7 +525,6 @@
 "empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду пізніше, навіть в автономному режимі";
 "empty-no-saved-pages-title" = "Ще немає збережених сторінок";
 "empty-no-search-results-message" = "Нічого не знайдено";
-"empty-talk-page-title" = "На сторінці обговорення користувача поки немає дописів";
 "end-session" = "Завершити сесію";
 "error-generic-recovery-suggestion" = "Будь ласка, спробуйте пізніше";
 "error-unknown" = "Сталася невідома помилка.";
@@ -1442,7 +1441,6 @@
 "two-factor-login-title" = "Вхід до вашого облікового запису";
 "two-factor-login-with-backup-code" = "Використати один з ваших резервних кодів";
 "two-factor-login-with-regular-code" = "Використати код верифікації";
-"unable-to-load-talk-page-title" = "Неможливо завантажити сторінку обговорення";
 "unknown-generic-text" = "Невідомо";
 "unwatch" = "Не спостерігати";
 "user-title" = "Користувач";

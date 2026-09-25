@@ -566,7 +566,6 @@
 "empty-no-saved-pages-message" = "Seiten zum späteren Betrachten speichern, auch offline";
 "empty-no-saved-pages-title" = "Noch keine gespeicherten Seiten";
 "empty-no-search-results-message" = "Keine Ergebnisse gefunden";
-"empty-talk-page-title" = "Diesem Benutzer wurden noch keine Nachrichten geschickt";
 "end-session" = "Sitzung beenden";
 "error-generic-recovery-suggestion" = "Bitte später erneut versuchen";
 "error-unknown" = "Es ist ein unbekannter Fehler aufgetreten";
@@ -1508,7 +1507,6 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
-"unable-to-load-talk-page-title" = "Diskussionsseite kann nicht geladen werden";
 "unknown-generic-text" = "Unbekannt";
 "unwatch" = "Nicht mehr beobachten";
 "user-title" = "Benutzer";

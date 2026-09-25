@@ -543,7 +543,6 @@
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
-"empty-talk-page-title" = "Text for placeholder label visible when talk page is empty";
 "end-session" = "Button to allow temporary account users to end their session.";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
 "error-unknown" = "Message displayed when an unknown error occurred";
@@ -1503,7 +1502,6 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
-"unable-to-load-talk-page-title" = "Text for placeholder label visible when talk page can't be loaded";
 "unknown-generic-text" = "Default text used in places where no contextual information is provided";
 "unwatch" = "Title for unwatch toolbar button.";
 "user-title" = "Text that refers to a user in the app";

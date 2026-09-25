@@ -4,7 +4,6 @@ import WMFNativeLocalizations
 
 @objc enum WMFEmptyViewType: Int {
     case none
-    case blank
     case noFeed
     case articleDidNotLoad
     case noSearchResults
@@ -12,8 +11,6 @@ import WMFNativeLocalizations
     case noSavedPagesInReadingList
     case noInternetConnection
     case noSelectedImageToInsert
-    case unableToLoadTalkPage
-    case emptyTalkPage
     case diffCompare
     case diffSingle
     case diffErrorCompare
@@ -29,8 +26,6 @@ extension WMFEmptyViewType {
         switch self {
         case .none:
             return nil
-        case .blank:
-            content = (nil, "", "")
         case .noFeed:
             let message = WMFLocalizedString("empty-no-feed-message", value: "You can see your recommended articles when you have internet", comment: "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored")
             let action = WMFLocalizedString("empty-no-feed-action-message", value: "You can still read saved pages", comment: "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline")
@@ -49,10 +44,6 @@ extension WMFEmptyViewType {
             content = ("no-internet-blank", CommonStrings.noInternetConnection, "")
         case .noSelectedImageToInsert:
             content = ("insert-media/blank", WMFLocalizedString("empty-insert-media-title", value: "Select a file from Wikimedia Commons", comment: "Text for placeholder label visible when no file was selected or uploaded"), "")
-        case .unableToLoadTalkPage:
-            content = ("unable-to-load-talk-page", WMFLocalizedString("unable-to-load-talk-page-title", value: "Unable to load talk page", comment: "Text for placeholder label visible when talk page can't be loaded"), "")
-        case .emptyTalkPage:
-            content = ("empty-talk-page", WMFLocalizedString("empty-talk-page-title", value: "No messages have been posted for this user yet", comment: "Text for placeholder label visible when talk page is empty"), "")
         case .diffCompare:
             content = ("empty-diff", WMFLocalizedString("empty-diff-compare-title", value: "No differences between revisions", comment: "Text for placeholder label visible when diff comparison between revisions is empty."), "")
         case .diffSingle:

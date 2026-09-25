@@ -283,7 +283,6 @@
 "empty-no-saved-pages-message" = "Vista síður til að skoða þær síðar, jafnvel án nettengingar";
 "empty-no-saved-pages-title" = "Engar síður vistaðar ennþá";
 "empty-no-search-results-message" = "Því miður, gat ekki hlaðið inn niðurstöðum";
-"empty-talk-page-title" = "Engin skilaboð hafa ennþá verið send til þessa notanda";
 "error-generic-recovery-suggestion" = "Reyndu aftur síðar";
 "error-unknown" = "Óþekkt villa kom upp";
 "explore-another-random" = "Önnur handahófsvalin grein";
@@ -949,7 +948,6 @@
 "two-factor-login-title" = "Skráðu þig inn í notandaaðganginn þinn";
 "two-factor-login-with-backup-code" = "Notaðu einn af öryggiskóðunum þínum";
 "two-factor-login-with-regular-code" = "Nota staðfestingarkóða";
-"unable-to-load-talk-page-title" = "Gat ekki hlaðið inn spjallsíðu";
 "unknown-generic-text" = "Óþekkt";
 "unwatch" = "Hætta að vakta";
 "user-title" = "Notandi";

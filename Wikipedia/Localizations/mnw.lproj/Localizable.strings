@@ -227,7 +227,6 @@
 "empty-no-saved-pages-message" = "ဂိုင်သိပ် မုက်လိက် သွက်ဂွံ ဗဵု ဍေဟ်တအ် ဗွဲကြဴ၊ သီုကဵု ပ္ဍဲအခိင် မ္ၚးလာင်";
 "empty-no-saved-pages-title" = "မုက်လိက် ဟွံဂွံ ဂိုင်သိပ် ဏီ";
 "empty-no-search-results-message" = "အရာမဂၠာဲဂှ် မုဟွံဂွံ ဆဵု";
-"empty-talk-page-title" = "နကဵု ညးလွပ်ဏအ် လိက်မပတိုန်ထ္ၜးလဝ် ဟွံမဲဏီ";
 "error-generic-recovery-suggestion" = "ပဂုန်တုဲ ဗွဲကြဴ ကလေင်ဂစာန် မွဲဝါပၠန်";
 "error-unknown" = "အရာမဗၠေတ် မဟွံတီမွဲ ကတဵုဒှ်ကၠုင်၊၊";
 "explore-another-random" = "လိက်ပရေင် ဇဟောမ် (ဇျောမ်) တၞဟ်";
@@ -676,7 +675,6 @@
 "two-factor-login-title" = "လုပ်လံက်အေန် ပ္ဍဲအကံက်မၞး";
 "two-factor-login-with-backup-code" = "သုင်စောဲ ကုတ် အရီုအဗင် မၞးညိ";
 "two-factor-login-with-regular-code" = "သုင်စောဲ ကုတ် ဍာံဍာံညိ";
-"unable-to-load-talk-page-title" = "မုက်လိက်ဓရီုကျာဂှ် တံင်ဂြဲကေတ် ဟွံဂွံ";
 "unknown-generic-text" = "ဟွံတီ";
 "welcome-exploration-explore-feed-description" = "လိက်ပရေင် လၟေင်တ္ၚဲ မကဵုကသပ် နကဵု ဂကောံပိုယ်";
 "welcome-exploration-explore-feed-title" = "ဒၞာဲမထ္ၜး";

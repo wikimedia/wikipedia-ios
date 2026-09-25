@@ -241,7 +241,6 @@
 "empty-no-saved-pages-message" = "Išsaugokite puslapius peržiūrai vėliau, net ir neprisijungus";
 "empty-no-saved-pages-title" = "Dar nėra išsaugotų puslapių";
 "empty-no-search-results-message" = "Rezultatų nerasta";
-"empty-talk-page-title" = "Šiam naudotojui nepaskelbtos jokios žinutės";
 "error-generic-recovery-suggestion" = "Prašome pabandyti vėliau";
 "error-unknown" = "Įvyko nežinoma klaida";
 "explore-another-random" = "Kitas atsitiktinis straipsnis";
@@ -903,7 +902,6 @@
 "two-factor-login-title" = "Prisijunkite prie savo paskyros";
 "two-factor-login-with-backup-code" = "Naudoti viena iš savo atsarginių kodų";
 "two-factor-login-with-regular-code" = "Naudoti patvirtinimo kodą";
-"unable-to-load-talk-page-title" = "Nepavyko įkelti aptarimo puslapio";
 "unknown-generic-text" = "Nežinoma";
 "unwatch" = "Nebestebėti";
 "uzbek-variants-alert-body" = "Vikipedijos programėlė dabar palaiko šiuos uzbekų kalbos variantus kaip pirmines ar antrines programėlės kalbas ir tai suteikia galimybę lengviau skaityti, ieškoti ir redaguoti jūsų norimais variantais:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";

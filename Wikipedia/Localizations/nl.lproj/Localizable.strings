@@ -586,7 +586,6 @@
 "empty-no-saved-pages-message" = "Sla pagina's op om ze later te lezen, ook offline";
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
-"empty-talk-page-title" = "Er zijn nog geen berichten geplaatst voor deze gebruiker";
 "end-session" = "Sessie beëindigen";
 "error-generic-recovery-suggestion" = "Probeer later opnieuw";
 "error-unknown" = "Er is een onbekende fout opgetreden";
@@ -1537,7 +1536,6 @@
 "two-factor-login-title" = "Aanmelden bij uw account";
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
-"unable-to-load-talk-page-title" = "Overlegpagina laden niet mogelijk";
 "unknown-generic-text" = "Onbekend";
 "unwatch" = "Niet volgen";
 "user-title" = "Gebruiker";

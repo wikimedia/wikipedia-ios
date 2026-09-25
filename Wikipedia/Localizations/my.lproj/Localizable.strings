@@ -337,7 +337,6 @@
 "empty-no-saved-pages-message" = "အင်တာနက်မရှိလျင်တောင်မှ နောက်ပိုင်းကြည့်ရှုရန် စာမျက်နှာများကို သိမ်းဆည်းပါ";
 "empty-no-saved-pages-title" = "စာမျက်နှာများကို မသိမ်းရသေးပါ";
 "empty-no-search-results-message" = "မည်သည့်ရလဒ်မျှ မရပါ";
-"empty-talk-page-title" = "ဤအသုံးပြုသူအတွက် စာတိုများ မတင်ရသေးပါ";
 "error-generic-recovery-suggestion" = "နောက်တခါ ထပ်မံကြိုးစားကြည့်ပါ";
 "error-unknown" = "အကြောင်းရင်းမသိရှိရသော အမှားတစ်ခု ဖြစ်ပေါ်ခဲ့သည်။";
 "explore-another-random" = "အခြားသော ကျပန်းဆောင်းပါး";
@@ -918,7 +917,6 @@
 "two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
 "two-factor-login-with-backup-code" = "သင့်ရဲ့ အရန်ကုဒ်တွေထဲက တစ်ခုကို အသုံးပြုပါ";
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
-"unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
 "unknown-generic-text" = "အမည်မသိ";
 "user-title" = "အသုံးပြုသူ";
 "vanish-account-continue-button-title" = "ဆက်လက်";
