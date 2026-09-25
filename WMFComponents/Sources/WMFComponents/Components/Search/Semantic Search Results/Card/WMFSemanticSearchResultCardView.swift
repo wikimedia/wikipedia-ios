@@ -42,6 +42,7 @@ struct WMFSemanticSearchResultCardView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .environment(\.layoutDirection, viewModel.isRightToLeft ? .rightToLeft : .leftToRight)
         .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchResultCard)
         .onAppear {
             viewModel.loadDetailsIfNeeded()
@@ -103,7 +104,7 @@ struct WMFSemanticSearchResultCardView: View {
             Text(viewModel.articlePath)
                 .font(Font(WMFFont.for(.caption1)))
                 .foregroundStyle(Color(theme.text))
-                .lineLimit(1)
+                .lineLimit(2)
                 .truncationMode(.tail)
         }
         .padding(.vertical, WMFSpacing.small)

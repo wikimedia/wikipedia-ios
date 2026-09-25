@@ -137,15 +137,15 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
         return String.localizedStringWithFormat(localizedStrings.referencesFormat, count)
     }
 
-    /// Shown where the reference count is not available yet.
+    /// Shown where the reference count is not available yet, as month and year, e.g. `09/2026`.
     var lastUpdatedText: String? {
-        lastUpdatedDate.map { String.localizedStringWithFormat(localizedStrings.lastUpdatedFormat, DateFormatter.lastEditedDateFormatter.string(from: $0))
+        lastUpdatedDate.map { String.localizedStringWithFormat(localizedStrings.lastUpdatedFormat, DateFormatter.monthYearNumericFormatter.string(from: $0))
         }
     }
 
-    /// The same date spelled out, so VoiceOver does not read the numeric form.
+    /// The same month and year spelled out, so VoiceOver does not read the numeric form.
     var lastUpdatedAccessibilityText: String? {
-        lastUpdatedDate.map { String.localizedStringWithFormat(localizedStrings.lastUpdatedFormat, DateFormatter.wmfMonthDayYearDateFormatter.string(from: $0))
+        lastUpdatedDate.map { String.localizedStringWithFormat(localizedStrings.lastUpdatedFormat, DateFormatter.monthYearSpelledOutFormatter.string(from: $0))
         }
     }
 

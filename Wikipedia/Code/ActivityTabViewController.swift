@@ -15,6 +15,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         return try? WMFYearInReviewDataController()
     }
     private let dataStore: MWKDataStore?
+    private var yirUserDataStateTask: Task<Void, Never>?
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
@@ -134,12 +135,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        // Login state is the current stand-in for "has enough personalized data". The data
-        // controller applies the developer settings override on top of it, so a forced state wins
-        // over whatever this resolves to.
-        viewModel.yearInReviewViewModel?.isDataRich = yirDataController.shouldUseDataRichExperience(
-            hasPersonalizedData: viewModel.authenticationState == .loggedIn
-        )
+        // The data controller applies the developer settings override using a reading history of 10+ articles, until we can fullfil the original requirements.
+        yirUserDataStateTask?.cancel()
+        yirUserDataStateTask = Task { [weak self] in
+            let userDataState = (try? await yirDataController.fetchUserDataState()) ?? .lowData
+            guard !Task.isCancelled else { return }
+            self?.viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
+        }
     }
 
     private func embedHostingController() {
@@ -250,9 +252,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
-        // The data-rich / low-data copy currently follows login state, so the card has to be
-        // rebuilt here rather than waiting for the next viewWillAppear.
-        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {
