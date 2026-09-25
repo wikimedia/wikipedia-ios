@@ -7,10 +7,12 @@ name: Strict Concurrency Check
 # warnings becomes a hard ERROR once the package flips to Swift 6 language mode, so
 # this is the burn-down metric for the migration (see the Swift 6.2 migration plan).
 #
-# Schemes still burning down their backlog are report-only (WMFData started at ~127).
+# Schemes still burning down their backlog are report-only.
 # As each scheme reaches zero, move it into GATED_SCHEMES below to make it a hard gate:
 # the job then fails if ANY concurrency warning appears in that scheme's own sources.
-# WMFComponents reached zero via default MainActor isolation and is gated.
+# WMFComponents reached zero via default MainActor isolation. WMFData reached zero
+# via Sendable services/models and lock-isolated singleton state (started at ~127).
+# Both are gated. Next up: WMF Framework and the app targets.
 
 on:
   pull_request:
@@ -26,7 +28,7 @@ env:
   # job FAILS if any concurrency warning appears in the scheme's own sources.
   # (Concurrency-scoped on purpose: blanket warnings-as-errors would also trip on
   # unrelated warnings like deprecations.) Space-separated.
-  GATED_SCHEMES: "WMFComponents"
+  GATED_SCHEMES: "WMFData WMFComponents"
 
 concurrency:
   group: "strict-concurrency-${{ github.ref }}"

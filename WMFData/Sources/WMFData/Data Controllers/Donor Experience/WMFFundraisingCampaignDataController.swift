@@ -1,32 +1,40 @@
 import Foundation
 import UIKit
 
-@objc final public class WMFFundraisingCampaignDataController: NSObject {
-    
-    private actor SafeDictionary<Key: Hashable, Value> {
-        private var dictionary: [Key: Value]
-        init(dict: [Key: Value] = [Key: Value]()) {
-            self.dictionary = dict
-        }
-        
-        func getValue(forKey key: Key) -> Value? {
-            dictionary[key]
-        }
-        
-        func update(value: Value, forKey key: Key) {
-            dictionary[key] = value
-        }
-    }
+// @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
+// cannot be an actor. All mutable state lives in WMFLockIsolated boxes below.
+@objc final public class WMFFundraisingCampaignDataController: NSObject, @unchecked Sendable {
     
     // MARK: - Properties
-    
-    var service: WMFService?
-    var sharedCacheStore: WMFKeyValueStore?
-    var mediaWikiService: WMFService?
-    
-    private var activeCountryConfigs: [WMFFundraisingCampaignConfig] = []
-    private var promptState: WMFFundraisingCampaignPromptState?
-    private var preferencesBannerOptIns: SafeDictionary<WMFProject, Bool> = SafeDictionary<WMFProject, Bool>()
+
+    private let _service: WMFLockIsolated<WMFService?>
+    var service: WMFService? {
+        get { _service.value }
+        set { _service.value = newValue }
+    }
+    private let _sharedCacheStore: WMFLockIsolated<WMFKeyValueStore?>
+    var sharedCacheStore: WMFKeyValueStore? {
+        get { _sharedCacheStore.value }
+        set { _sharedCacheStore.value = newValue }
+    }
+    private let _mediaWikiService: WMFLockIsolated<WMFService?>
+    var mediaWikiService: WMFService? {
+        get { _mediaWikiService.value }
+        set { _mediaWikiService.value = newValue }
+    }
+
+    private let _activeCountryConfigs = WMFLockIsolated<[WMFFundraisingCampaignConfig]>([])
+    private var activeCountryConfigs: [WMFFundraisingCampaignConfig] {
+        get { _activeCountryConfigs.value }
+        set { _activeCountryConfigs.value = newValue }
+    }
+    private let _promptState = WMFLockIsolated<WMFFundraisingCampaignPromptState?>(nil)
+    private var promptState: WMFFundraisingCampaignPromptState? {
+        get { _promptState.value }
+        set { _promptState.value = newValue }
+    }
+    private let preferencesBannerOptIns = WMFLockIsolated<[WMFProject: Bool]>([:])
+    private let _hasPresentedCampaignThisSession = WMFLockIsolated(false)
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
@@ -39,9 +47,9 @@ import UIKit
     // MARK: - Lifecycle
     
     private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
-        self.service = service
-        self.sharedCacheStore = sharedCacheStore
-        self.mediaWikiService = mediaWikiService
+        self._service = WMFLockIsolated(service)
+        self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
+        self._mediaWikiService = WMFLockIsolated(mediaWikiService)
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
@@ -54,21 +62,23 @@ import UIKit
     /// True once the campaign banner has shown in this app session. Other announcements, such as
     /// Year in Review, read this so they do not show right after the banner.
     /// Kept in memory only. It is cleared when the app goes to the background.
-    public private(set) var hasPresentedCampaignThisSession = false
+    public var hasPresentedCampaignThisSession: Bool {
+        _hasPresentedCampaignThisSession.value
+    }
 
     /// Call this when the campaign banner is shown.
     public func markCampaignPresentedThisSession() {
-        hasPresentedCampaignThisSession = true
+        _hasPresentedCampaignThisSession.value = true
     }
 
     @objc private func appDidEnterBackground() {
-        hasPresentedCampaignThisSession = false
+        _hasPresentedCampaignThisSession.value = false
     }
     
     // MARK: - Public
     
     public func isOptedIn(project: WMFProject) async -> Bool {
-        return await preferencesBannerOptIns.getValue(forKey: project) ?? true
+        return preferencesBannerOptIns.value[project] ?? true
     }
 
     /// Whether the campaign banner would show for this project right now. Uses the same checks as
@@ -197,7 +207,7 @@ import UIKit
     ///   - countryCode: Country code of the user. Can use Locale.current.regionCode
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     ///   - completion: Completion handler indicating if the fetch was successful or not.
-    public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         guard let service else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
@@ -234,7 +244,7 @@ import UIKit
         }
     }
     
-    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         guard let mediaWikiService else {
             completion?(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -254,7 +264,7 @@ import UIKit
         
         let request = WMFMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)
         
-        let completion: (Result<[String: Any]?, Error>) -> Void = { result in
+        let completion: @Sendable (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
             case .success(let dict):
                 
@@ -264,18 +274,8 @@ import UIKit
                     
                     if options.keys.contains("centralnotice-display-campaign-type-fundraising") {
                         
-                        if let responseOptInFlag = (options["centralnotice-display-campaign-type-fundraising"] as? Bool) {
-                            
-                            Task {
-                                await self.preferencesBannerOptIns.update(value:responseOptInFlag, forKey:project)
-                                
-                            }
-                        } else {
-                            Task {
-                                await self.preferencesBannerOptIns.update(value:false, forKey:project)
-                                
-                            }
-                        }
+                        let responseOptInFlag = (options["centralnotice-display-campaign-type-fundraising"] as? Bool) ?? false
+                        self.preferencesBannerOptIns.withLock { $0[project] = responseOptInFlag }
                     }
                     
                 }
@@ -334,8 +334,8 @@ import UIKit
         sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
         activeCountryConfigs = []
         promptState = nil
-        preferencesBannerOptIns = SafeDictionary<WMFProject, Bool>()
-        hasPresentedCampaignThisSession = false
+        preferencesBannerOptIns.value = [:]
+        _hasPresentedCampaignThisSession.value = false
     }
     
     // MARK: - Private
