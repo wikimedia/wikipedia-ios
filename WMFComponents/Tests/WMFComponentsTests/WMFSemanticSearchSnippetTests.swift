@@ -110,4 +110,10 @@ final class WMFSemanticSearchSnippetTests: XCTestCase {
         XCTAssertEqual(passage.attribute(.foregroundColor, at: 12, effectiveRange: nil) as? UIColor, text, "The marker is not blue even inside a link.")
         XCTAssertNil(passage.attribute(.link, at: 12, effectiveRange: nil))
     }
+
+    func testHighlightedTextsAreTheMatchesWithoutReferenceMarkers() {
+        let html = "l&#039;<span class=\"searchmatch\">Union  <a href=\"/wiki/E\">européenne</a>\n compte<sup><a href=\"#c\">[3]</a></sup> 27 États</span> membres. <span class=\"searchmatch\">Depuis 2020</span> .<span class=\"searchmatch\"> </span>"
+
+        XCTAssertEqual(WMFSemanticSearchSnippet.highlightedTexts(html: html), ["Union européenne compte 27 États", "Depuis 2020"])
+    }
 }

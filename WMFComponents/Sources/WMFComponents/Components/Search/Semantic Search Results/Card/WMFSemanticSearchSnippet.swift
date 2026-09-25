@@ -5,7 +5,7 @@ import UIKit
 /// tag, links and reference markers are the standard ones. Three touches follow: runs of
 /// whitespace become one space, links are an indication only, and links inside the highlight
 /// are underlined instead of blue.
-enum WMFSemanticSearchSnippet {
+public enum WMFSemanticSearchSnippet {
 
     /// The passage with the styles of the card.
     static func attributedString(
@@ -46,6 +46,27 @@ enum WMFSemanticSearchSnippet {
         styleLinksAsIndication(in: passage, textColor: textColor, highlightTextColor: highlightTextColor)
 
         return passage
+    }
+
+    /// The text of every highlighted run of the snippet, without reference markers, to find the
+    /// passage again inside the article.
+    public static func highlightedTexts(html: String) -> [String] {
+        let passage = attributedString(html: html, font: .systemFont(ofSize: 16), textColor: .black, highlightColor: .yellow, highlightTextColor: .black, linkColor: .blue)
+        var texts: [String] = []
+        passage.enumerateAttribute(.backgroundColor, in: NSRange(location: 0, length: passage.length)) { value, highlightRange, _ in
+            guard value != nil else { return }
+
+            var text = ""
+            passage.enumerateAttribute(.baselineOffset, in: highlightRange) { offset, range, _ in
+                guard offset == nil else { return }
+                text += passage.attributedSubstring(from: range).string
+            }
+            text = collapsedWhitespace(text)
+            if !text.isEmpty {
+                texts.append(text)
+            }
+        }
+        return texts
     }
 
     /// The passage as plain text, for VoiceOver.
