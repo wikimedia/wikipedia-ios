@@ -1571,7 +1571,6 @@
 		83E776A420FFA4D700E26A47 /* DetailTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E776A220FFA4D700E26A47 /* DetailTransition.swift */; };
 		83E776A520FFA4D700E26A47 /* DetailTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E776A220FFA4D700E26A47 /* DetailTransition.swift */; };
 		83E880E823EB19270087223F /* MediaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E880E723EB19270087223F /* MediaList.swift */; };
-		83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */; };
 		83E9C45B2419193C006BDBC2 /* WikipediaSiteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */; };
 		83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
@@ -3717,7 +3716,6 @@
 		83E52BBE1F682E3E0045E776 /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
 		83E776A220FFA4D700E26A47 /* DetailTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTransition.swift; sourceTree = "<group>"; };
 		83E880E723EB19270087223F /* MediaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaList.swift; sourceTree = "<group>"; };
-		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
 		83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikipediaSiteInfo.swift; path = "WMF Framework/WikipediaSiteInfo.swift"; sourceTree = SOURCE_ROOT; };
 		83EE476920D019A100A21F34 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -7660,7 +7658,6 @@
 				7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */,
 				70416BF62565D6C000D5BC33 /* Event Platform */,
 				D81A28BD231E8F4C001CC77D /* ExtensionViewController.swift */,
-				83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */,
 				0E728D271DAEE3200074EB4B /* Feed */,
 				D80ED2581EE178A800CE8C50 /* Gradient.swift */,
 				D8733C931ECA16940011E379 /* HasText.swift */,
@@ -10307,7 +10304,6 @@
 				006694FE265D9F3A00E23AE4 /* WidgetCache.swift in Sources */,
 				0042808F25E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.m in Sources */,
 				67FF9C6B28076ADA000963D1 /* NSError+Utilities.swift in Sources */,
-				83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */,
 				00D9B10129C8D34D008A01E0 /* WidgetFeaturedArticle.swift in Sources */,
 				D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,
 				D8FA18E71E1BD8AF009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
