@@ -172,11 +172,6 @@ class ArticleWebMessagingController: NSObject {
 
     // MARK: iOS App Specific overrides (code in www/, built products in assets/)
 
-    func removeSearchTermHighlights() {
-        let js = "window.wmf.findInPage.removeSearchTermHighlights()"
-        webView?.evaluateJavaScript(js)
-    }
-
     func injectDonationReminderCard(cardHTML: String, completion: @escaping (Bool) -> Void) {
         let sanitizedCardHTML = cardHTML.sanitizedForJavaScriptTemplateLiterals
         let js = """

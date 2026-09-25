@@ -108,18 +108,6 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .onboardingStep2Dialog, action: .learnMore, project: project)
     }
     
-    func logTooltipDidTapFirstNext() {
-        logEvent(activeInterface: .onboardingStep3Dialog, action: .next, project: project)
-    }
-    
-    func logTooltipDidTapSecondNext() {
-        logEvent(activeInterface: .onboardingStep4Dialog, action: .next, project: project)
-    }
-    
-    func logTooltipDidTapThirdOk() {
-        logEvent(activeInterface: .onboardingStep5Dialog, action: .completeTooltips, project: project)
-    }
-    
     func logExploreCardDidAppear() {
         logEvent(activeInterface: .suggestedEditsDialog, action: .impression, project: project)
     }

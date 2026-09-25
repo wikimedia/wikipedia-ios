@@ -57,22 +57,6 @@ internal class ImageControllerCompletionManager<T> {
         }
     }
     
-    func cancel(group: String, identifier: String) {
-        queue.async {
-            guard var tasks = self.tasks[group], let task = tasks[identifier] else {
-                return
-            }
-            self.completions.removeValue(forKey: identifier)
-            task.cancel()
-            tasks.removeValue(forKey: identifier)
-            self.tasks[group] = tasks
-        }
-    }
-    
-    func cancel(_ identifier: String) {
-        cancel(group: "", identifier: identifier)
-    }
-    
     func cancel(_ identifier: String, token: String) {
         cancel(group: "", identifier: identifier, token: token)
     }

@@ -69,11 +69,6 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     }
     
     // MARK: - Update Methods
-    public func updateAlertType(_ newAlertType: WMFSavedArticleAlertType) {
-        if alertType != newAlertType {
-            alertType = newAlertType
-        }
-    }
     
     @MainActor
     private func fetchArticleDetails() async {

@@ -4,9 +4,6 @@ import WMF
 import WMFNativeLocalizations
 
 protocol TalkPageReplyComposeDelegate: AnyObject {
-    func closeReplyView()
-    func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel)
-    func tappedIPTempButton()
 }
 
 /// Class for coordinating talk page reply compose views

@@ -160,21 +160,6 @@ final class WMFSourceEditorFormatterFindAndReplace: WMFSourceEditorFormatter {
         updateMatchHighlights(in: fullAttributedString, lastSelectedMatchIndex: lastSelectedMatchIndex)
     }
 
-    func highlightPreviousMatch(in fullAttributedString: NSMutableAttributedString) {
-        guard !matchRanges.isEmpty else { return }
-
-        let lastSelectedMatchIndex = selectedMatchIndex
-        
-        // Decrement index
-        if let currentIndex = selectedMatchIndex, currentIndex > 0 {
-            selectedMatchIndex = currentIndex - 1
-        } else {
-            selectedMatchIndex = matchRanges.count - 1
-        }
-
-        updateMatchHighlights(in: fullAttributedString, lastSelectedMatchIndex: lastSelectedMatchIndex)
-    }
-
     func replaceSingleMatch(in fullAttributedString: NSMutableAttributedString, with replaceText: String, textView: UITextView) {
         guard let currentSelectedMatchRange = selectedMatchRange else { return }
 

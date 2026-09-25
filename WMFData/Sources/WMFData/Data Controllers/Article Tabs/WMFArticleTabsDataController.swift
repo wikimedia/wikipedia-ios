@@ -180,14 +180,6 @@ public protocol WMFArticleTabsDataControlling {
         return endDate >= Date()
     }
     
-    private func qualifiesForExperiment() -> Bool {
-        guard let primaryAppLanguageProject else {
-            return false
-        }
-        
-        return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
-    }
-
     public var moreDynamicTabsGroupCEnabled: Bool {
         return true
     }

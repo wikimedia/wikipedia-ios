@@ -6,7 +6,6 @@ import WMFData
 public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
-    func logArticleTabsOverviewTappedDone()
     func logArticleTabsOverviewTappedCloseTab()
     func logArticleTabsOverviewTappedCloseAllTabs()
     func logArticleTabsOverviewTappedCloseAllTabsConfirmCancel()

@@ -387,57 +387,6 @@ import CocoaLumberjackSwift
 
     // MARK: - Delete all
 
-    private func clearAllSavedData() async {
-        guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
-            DDLogError("[SavedPagesMigration] Missing WMFData store")
-            return
-        }
-
-        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-            DDLogError("[SavedPagesMigration] Could not create WMFData background context")
-            return
-        }
-        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
-        await wmfContext.perform {
-            do {
-                let pagesFR: NSFetchRequest<CDPage> = CDPage.fetchRequest()
-                pagesFR.predicate = NSPredicate(format: "savedInfo != nil")
-                pagesFR.fetchBatchSize = 500
-
-                let pagesWithSavedInfo = try wmfContext.fetch(pagesFR)
-
-                if !pagesWithSavedInfo.isEmpty {
-                    for page in pagesWithSavedInfo {
-                        page.savedInfo = nil
-                    }
-
-                    if wmfContext.hasChanges {
-                        try wmfContext.save()
-                    }
-                }
-
-                let savedInfoFR = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageSavedInfo")
-                let deleteSavedInfo = NSBatchDeleteRequest(fetchRequest: savedInfoFR)
-                deleteSavedInfo.resultType = .resultTypeObjectIDs
-
-                if let result = try wmfContext.execute(deleteSavedInfo) as? NSBatchDeleteResult,
-                   let deletedIDs = result.result as? [NSManagedObjectID],
-                   !deletedIDs.isEmpty {
-
-                    let viewContext = try? wmfDataStore.viewContext
-
-                    NSManagedObjectContext.mergeChanges(
-                        fromRemoteContextSave: [NSDeletedObjectsKey: deletedIDs],
-                        into: [viewContext].compactMap { $0 }
-                    )
-                }
-            } catch {
-                DDLogError("[SavedPagesMigration] Batch clear in WMFData failed: \(error)")
-            }
-        }
-    }
-
     // MARK: - Legacy helpers
 
     private func resetMigrationFlagForLegacyArticles(with urls: [URL]) async throws {

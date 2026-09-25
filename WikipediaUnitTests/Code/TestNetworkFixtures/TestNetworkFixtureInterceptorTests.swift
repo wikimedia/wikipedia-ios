@@ -343,10 +343,6 @@ private final class InvalidationTrackingHTTPClient: SessionHTTPClient {
         fatalError("Unused in invalidation test")
     }
 
-    func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
-        fatalError("Unused in invalidation test")
-    }
-
     func downloadTask(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         fatalError("Unused in invalidation test")
     }

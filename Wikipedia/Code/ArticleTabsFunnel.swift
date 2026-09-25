@@ -152,14 +152,6 @@ import WMF
         logEvent(activeInterface: .articleMenu, action: .shareClick, project: nil)
     }
     
-    func logTabsOverflowHideArticleSuggestionsTap() {
-        logEvent(activeInterface: .tabsOverflow, action: .hideSuggestClick, project: nil)
-    }
-    
-    func logTabsOverflowShowArticleSuggestionsTap() {
-        logEvent(activeInterface: .tabsOverflow, action: .showSuggestClick, project: nil)
-    }
-    
     func logTabsOverflowCloseAllTabsTap() {
         logEvent(activeInterface: .tabsOverflow, action: .closeAllClick, project: nil)
     }

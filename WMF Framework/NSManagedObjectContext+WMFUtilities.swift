@@ -34,13 +34,6 @@ public extension NSManagedObjectContext {
         return wmf_fetch(objectForEntityName: entityName, withValue: value, forKey: key) ?? wmf_create(entityNamed: entityName, withValue: value, forKey: key)
     }
     
-    func wmf_fetch<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) throws -> [T]? {
-        let fetchRequest = NSFetchRequest<T>(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "\(key) IN %@", argumentArray: [values])
-        fetchRequest.fetchLimit = values.count
-        return try fetch(fetchRequest)
-    }
-    
     func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, handler: (T) throws -> Void) throws {
         let fetchRequest = T.fetchRequest()
         let batchSize = 500

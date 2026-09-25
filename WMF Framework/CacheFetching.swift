@@ -25,7 +25,6 @@ public protocol CacheFetching {
     
     // Session Passthroughs
     func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse?
-    func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? // assumes urlRequest is already populated with the proper cache headers
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String?
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void)
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String?
@@ -33,9 +32,6 @@ public protocol CacheFetching {
     func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String?
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String?
     func variantForURLRequest(_ urlRequest: URLRequest) -> String?
-    
-    // Bundled migration only - copies files into cache
-    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 extension CacheFetching where Self:Fetcher {
@@ -90,10 +86,6 @@ extension CacheFetching where Self:Fetcher {
         return session.cachedResponseForURL(url, type: type)
     }
     
-    public func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? {
-        return session.cachedResponseForURLRequest(urlRequest)
-    }
-    
     public func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String? {
         return session.uniqueFileNameForURLRequest(urlRequest)
     }
@@ -105,10 +97,6 @@ extension CacheFetching where Self:Fetcher {
     public func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         session.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
-    }
-    
-    public func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
-        session.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
     }
     
     public func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
@@ -137,9 +125,5 @@ extension CacheFetching where Self:Fetcher {
     
     public func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
         return session.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-    }
-    
-    public func isCachedWithURLRequest(_ request: URLRequest, completion: @escaping (Bool) -> Void) {
-        return session.isCachedWithURLRequest(request, completion: completion)
     }
 }

@@ -1241,31 +1241,6 @@ extension ExploreViewController {
         yirDataController.hasPresentedYiRFeatureAnnouncement = true
     }
 
-    private func shouldShowSearchWidgetAnnouncement() -> Bool {
-        // Check if user has already seen the announcement
-        if UserDefaults.standard.wmf_didShowSearchWidgetFeatureAnnouncement {
-            return false
-        }
-
-        // Check if current date is before the temporary date (September 30, 2025)
-        let calendar = Calendar.current
-        var expiryDateComponents = DateComponents()
-        expiryDateComponents.year = 2025
-        expiryDateComponents.month = 9
-        expiryDateComponents.day = 30
-
-        guard let expiryDate = calendar.date(from: expiryDateComponents) else {
-            return false
-        }
-
-        let currentDate = Date()
-        return currentDate <= expiryDate
-    }
-
-    private func markSearchWidgetAnnouncementAsSeen() {
-        UserDefaults.standard.wmf_didShowSearchWidgetFeatureAnnouncement = true
-    }
-
 }
 
 // MARK: - Analytics

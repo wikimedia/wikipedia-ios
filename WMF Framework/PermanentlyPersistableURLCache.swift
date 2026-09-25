@@ -386,43 +386,6 @@ extension PermanentlyPersistableURLCache {
         }
     }
     
-    // Bundled migration only - copies files into cache
-    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        guard let url = urlRequest.url else {
-            completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest))
-            return
-        }
-            
-        guard let type = typeFromURLRequest(urlRequest: urlRequest) else {
-            completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineTypeFromRequest))
-            return
-        }
-        
-        guard let headerFileName = uniqueHeaderFileNameForURL(url, type: type),
-        let contentFileName = uniqueFileNameForURL(url, type: type) else {
-            completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineHeaderOrContentFileName))
-            return
-        }
-        
-        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName) { (result) in
-            switch result {
-            case .success, .exists:
-                 CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": mimeType], toNewFileName: headerFileName) { (result) in
-                    switch result {
-                    case .success, .exists:
-                        completion(.success(()))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                }
-                
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
     private func remove(fileName: String, completion: () -> Void) {
         
         // remove from file system
