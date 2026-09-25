@@ -50,9 +50,21 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
     }
 
-    @Published public var showGamesV2: Bool = WMFDeveloperSettingsDataController.shared.showGamesV2 {
+    @Published public var forceYiREntryPoint2026: Bool = WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
         didSet {
-            WMFDeveloperSettingsDataController.shared.showGamesV2 = showGamesV2
+            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = forceYiREntryPoint2026
+        }
+    }
+
+    @Published public var forceYiR2026Announcement: Bool = WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement = forceYiR2026Announcement
+        }
+    }
+
+    @Published public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? = WMFDeveloperSettingsDataController.shared.forceYiRUserDataState {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = forceYiRUserDataState
         }
     }
 
@@ -127,67 +139,25 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 
-        // Year in Review owns the forced data state, so these two items read and write it through
-        // WMFYearInReviewDataController rather than developer settings. It has no shared instance
-        // and its init throws, so one is held for the lifetime of the sinks below.
-        let yirDataController = try? WMFYearInReviewDataController()
-
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
-        let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
-        let forceYiREntryPoint2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026)
-        let forceYiRDataRichUser = WMFFormItemSelectViewModel(title: "Force Year in Review data-rich user", isSelected: yirDataController?.forceYiRUserDataState == .dataRich)
-        let forceYiRLowDataUser = WMFFormItemSelectViewModel(title: "Force Year in Review low-data user", isSelected: yirDataController?.forceYiRUserDataState == .lowData)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
                 enableHomePhase2,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
-                forceYiREntryPoint2026,
-                forceYiRDataRichUser,
-                forceYiRLowDataUser,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
-                showYiR2025,
                 forceHcaptchaChallenge,
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
-        
-        forceYiREntryPoint2026.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = isSelected }
-            .store(in: &subscribers)
-
-        // The two Year in Review data-state items are mutually exclusive. Selecting one clears the
-        // other, and the guard on the clear path keeps that programmatic deselection from wiping the
-        // state that was just written.
-        forceYiRDataRichUser.$isSelected
-            .sink { isSelected in
-                if isSelected {
-                    yirDataController?.forceYiRUserDataState = .dataRich
-                    forceYiRLowDataUser.isSelected = false
-                } else if yirDataController?.forceYiRUserDataState == .dataRich {
-                    yirDataController?.forceYiRUserDataState = nil
-                }
-            }
-            .store(in: &subscribers)
-
-        forceYiRLowDataUser.$isSelected
-            .sink { isSelected in
-                if isSelected {
-                    yirDataController?.forceYiRUserDataState = .lowData
-                    forceYiRDataRichUser.isSelected = false
-                } else if yirDataController?.forceYiRUserDataState == .lowData {
-                    yirDataController?.forceYiRUserDataState = nil
-                }
-            }
-            .store(in: &subscribers)
 
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }
@@ -203,10 +173,6 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
 
         forceMaxArticleTabsTo5.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
-            .store(in: &subscribers)
-
-        showYiR2025.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2025 = isSelected }
             .store(in: &subscribers)
 
         forceHcaptchaChallenge.$isSelected
@@ -270,25 +236,5 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
         }
     }
-
-    public func clearGamesPersistence() {
-        Task {
-            try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
-        }
-    }
 }
 
-private final class YirLoginExperimentBindingCoordinator {
-    private var subscribers: Set<AnyCancellable> = []
-
-    init(control: WMFFormItemSelectViewModel, b: WMFFormItemSelectViewModel) {
-        control.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl = isSelected
-            if isSelected { b.isSelected = false }
-        }.store(in: &subscribers)
-        b.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected
-            if isSelected { control.isSelected = false }
-        }.store(in: &subscribers)
-    }
-}

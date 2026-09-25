@@ -40,15 +40,24 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
-                Toggle("Show Games Version 2", isOn: $viewModel.showGamesV2)
-                Button {
-                    viewModel.clearGamesPersistence()
-                } label: {
-                    Text("Clear games persistence")
-                        .foregroundStyle(Color(theme.link))
+                captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
+                    Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
                 }
+                captionedRow(caption: "Overrides the experience the personalized data selects. Switching it back to Off lets the user data dictate the experience.") {
+                    Picker("Force Experience", selection: $viewModel.forceYiRUserDataState) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRUserDataState?.none)
+                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.dataRich))
+                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.lowData))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "Shows the announcement on every eligible app open, without the remote config, the settings toggle, the country gate, or the already seen state.") {
+                    Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
             } header: {
-                sectionHeader("Games")
+                sectionHeader("Year in Review")
             }
             .listRowBackground(rowBackground)
 

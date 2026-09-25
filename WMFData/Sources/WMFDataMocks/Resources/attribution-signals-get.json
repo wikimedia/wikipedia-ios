@@ -1,0 +1,53 @@
+{
+  "essential": {
+    "link": "https://fr.wikipedia.org/w/index.php?title=Communication&wprov=afsw1",
+    "default_brand_marks": [
+      {
+        "name": "Default logo",
+        "url": "https://fr.wikipedia.org/static/images/project-logos/frwiki.png",
+        "type": "logo"
+      },
+      {
+        "name": "Site icon",
+        "url": "https://fr.wikipedia.org/static/images/icons/wikipedia.png",
+        "type": "icon"
+      },
+      {
+        "name": "Sound logo",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Wikimedia_Sonic_Logo_-_4-seconds.wav",
+        "type": "audio"
+      }
+    ],
+    "source_wiki": {
+      "site_name": "Wikipédia en français",
+      "project_family": "wikipedia",
+      "site_id": "frwiki",
+      "site_language": "fr",
+      "page_language": "fr"
+    },
+    "title": "Communication",
+    "license": {
+      "title": "Creative Commons Attribution-Share Alike 4.0",
+      "short": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+    }
+  },
+  "trust_and_relevance": {
+    "last_updated": "2026-09-03T06:29:36Z",
+    "contributor_counts": null,
+    "page_views": 2128,
+    "reference_count": 2,
+    "trending": {
+      "top": {
+        "read": false,
+        "edited": false,
+        "read_and_edited": false
+      },
+      "relative": {
+        "read": false,
+        "edited": false,
+        "read_and_edited": false
+      }
+    }
+  }
+}

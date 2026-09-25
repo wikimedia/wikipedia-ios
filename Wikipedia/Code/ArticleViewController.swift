@@ -537,17 +537,17 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     /// Modal presentation priority chain for the Article view:
+    ///   1. Fundraising        →  if shown, stop. Also defers Year in Review to the next app open.
     ///   2. Year in Review     →  if shown, stop.
-    ///   3. Fundraising        →  if shown, stop.
-    ///   4. Games announcement →  shown only when all of the above decline.
+    ///   3. Games announcement →  shown only when both of the above decline.
     ///
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded()
+        presentFundraisingOrYearInReviewOrGamesIfNeeded()
     }
 
-    /// Called at the tail of the modal chain (after RC, YIR, and fundraising have all declined).
+    /// Called at the tail of the modal chain (after fundraising and YIR have both declined).
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
@@ -631,22 +631,26 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         return formatter.string(from: Date())
     }
 
-    private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
+    private func presentFundraisingOrYearInReviewOrGamesIfNeeded() {
         if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
             listenForTooltips()
         }
 
-        if needsYearInReviewAnnouncement() {
-            willDisplayYearInReviewModal = true
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        } else {
-            willDisplayYearInReviewModal = false
-            showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
-                self?.presentGamesAnnouncementIfNeeded()
-            })
-        }
+        // Fundraising outranks Year in Review, and resolves asynchronously, so the rest of the
+        // chain runs from its callback.
+        showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
+            guard let self else { return }
+
+            if self.needsYearInReviewAnnouncement() {
+                self.willDisplayYearInReviewModal = true
+                self.updateProfileButton()
+                self.presentYearInReviewAnnouncement()
+                // YIR showed — games deferred to next launch.
+            } else {
+                self.willDisplayYearInReviewModal = false
+                self.presentGamesAnnouncementIfNeeded()
+            }
+        })
     }
 
     @objc private func wButtonTapped(_ sender: UIButton) {
@@ -1487,6 +1491,10 @@ private extension ArticleViewController {
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
+        // The Year in Review announcement defers to the fundraising banner for the rest of the
+        // session. Coming back from the background is the next app open, so clear it here.
+        Self.didShowFundraisingBannerThisSession = false
+
         startSignificantlyViewedTimer()
         trackAppDidBecomeActive()
     }

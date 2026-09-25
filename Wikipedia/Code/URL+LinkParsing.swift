@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 extension URL {
     /// Returns a new URL with the existing scheme replaced with the wikipedia:// scheme
