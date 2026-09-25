@@ -80,14 +80,6 @@ import CoreData
 
     // MARK: - Feature Announcement
 
-    private var featureAnnouncementStatus: Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? false
-    }
-
-    private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
-    }
-    
     public var hasTappedActivityTabAfterYiRReady: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedActivityTabYIR.rawValue)) ?? false
@@ -193,6 +185,12 @@ import CoreData
         }
     }
 
+    /// True when the developer settings force the announcement. Screens that show it also skip
+    /// their own checks while this is on, such as the fundraising check on Explore.
+    public var isForcingFeatureAnnouncement: Bool {
+        developerSettingsDataController.forceYiREntryPoint2026 && developerSettingsDataController.forceYiR2026Announcement
+    }
+
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
 
         // Developer setting: show the announcement regardless of everything below — the remote
@@ -206,8 +204,7 @@ import CoreData
         // 2026 config is published.
         //
         // The flag is a sub-setting of forceYiREntryPoint2026 and has no effect without it.
-        if developerSettingsDataController.forceYiREntryPoint2026,
-           developerSettingsDataController.forceYiR2026Announcement {
+        if isForcingFeatureAnnouncement {
             return true
         }
 

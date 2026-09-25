@@ -96,6 +96,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             // Swiping down would skip the close action and its toast, so only the close button dismisses.
             hostingController.isModalInPresentation = true
             navigationController.present(hostingController, animated: true)
+
+            // Marked here, when it is actually on screen, so a force quit before any interaction
+            // does not earn a second showing, and an early exit above does not use it up.
+            dataController.hasPresentedYiRFeatureAnnouncement = true
         }
     }
 

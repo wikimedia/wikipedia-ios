@@ -74,6 +74,12 @@ import UIKit
     @objc private func appDidEnterBackground() {
         _hasPresentedCampaignThisSession.value = false
     }
+
+    /// True until the app has gone inactive once. The app saves this date as a plain `Date`, not
+    /// JSON, so it is read from `UserDefaults` directly rather than through `WMFKeyValueStore`.
+    private var isFirstAppSession: Bool {
+        UserDefaults.standard.object(forKey: WMFUserDefaultsKey.appResignActiveDate.rawValue) as? Date == nil
+    }
     
     // MARK: - Public
     
@@ -86,10 +92,9 @@ import UIKit
     /// - Parameters:
     ///   - countryCode: Country code of the user. Can use Locale.current.region?.identifier
     ///   - wmfProject: Project to check. The article view passes the article's project. Explore passes the app's primary language project.
-    ///   - isFirstAppSession: True during the first app session. The banner never shows then. Passed in because the app owns this value.
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: True if the banner would show.
-    public func shouldShowCampaign(countryCode: String, wmfProject: WMFProject, isFirstAppSession: Bool, currentDate: Date = Date()) async -> Bool {
+    public func shouldShowCampaign(countryCode: String, wmfProject: WMFProject, currentDate: Date = Date()) async -> Bool {
 
         guard let asset = loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate),
               asset.actions.first?.url != nil else {
@@ -104,6 +109,7 @@ import UIKit
             return false
         }
 
+        // The banner never shows in the first app session.
         guard !isFirstAppSession else {
             return false
         }
