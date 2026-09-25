@@ -105,6 +105,7 @@ final class AppOnboardingCoordinator: NSObject {
                 case .loading:
                     self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_loading", experimentData: WMFHomeDataController.shared.experimentData)
                 case .intro:
+                    self.sendNewInstallOnboardingStartEventIfNeeded()
                     self.onboardingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-onboarding")
                     self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_welcome", experimentData: WMFHomeDataController.shared.experimentData)
                 case .dataPrivacy:
@@ -281,6 +282,20 @@ final class AppOnboardingCoordinator: NSObject {
         hostingController.modalPresentationCapturesStatusBarAppearance = true
         self.hostingController = hostingController
         presentingViewController?.present(hostingController, animated: true)
+    }
+
+    // MARK: - Instrumentation
+
+    /// Sends the new-install `app_open` event once per device, matching the legacy welcome screen
+    /// (`WMFWelcomeInitialViewController`). Shares the same saved flag, so a device never sends it twice.
+    private func sendNewInstallOnboardingStartEventIfNeeded() {
+        let homeDataController = WMFHomeDataController.shared
+        guard !homeDataController.didSendNewInstallOnboardingStartEvent() else { return }
+
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-open")
+            .submitInteraction(action: "app_open", actionSource: "new_install_onboarding_start")
+
+        homeDataController.setDidSendNewInstallOnboardingStartEvent(true)
     }
 
     // MARK: - Languages
