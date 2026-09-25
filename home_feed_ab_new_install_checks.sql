@@ -284,3 +284,66 @@ WHERE ts >= TIMESTAMP '2026-08-28 00:00:00 UTC'
   AND install_version IN ('WikipediaApp/6160-r-2026-08-28', 'WikipediaApp/6169-r-2026-09-04', 'WikipediaApp/6175-r-2026-09-15')
 GROUP BY 1, 2
 ORDER BY 1, 2;
+
+
+-- -------------------------------------------------------------------------------------
+-- Q7. Reproduce the analyst's table: group_assigned / n_assigned_uniques / n_new_uniques.
+--     n_assigned_uniques = distinct installs with an experiment_exposure event, by group.
+--     n_new_uniques      = those installs that also sent app_open / new_install_onboarding_start.
+--                          That event is only sent by the legacy (control) onboarding, so this
+--                          column undercounts treatment by design.
+--     n_new_uniques_first_seen = group-neutral alternative: the install's first event of any
+--                          kind (since the lookback start) falls in the window.
+--     To limit to the three builds, uncomment the app_version_name lines.
+-- -------------------------------------------------------------------------------------
+WITH assigned AS (
+    SELECT DISTINCT
+           agent.app_install_id AS install_id,
+           experiment.assigned AS group_assigned
+    FROM event.product_metrics_app_base
+    WHERE year = 2026 AND month BETWEEN 8 AND 9
+      AND from_iso8601_timestamp(dt) >= TIMESTAMP '2026-08-28 00:00:00 UTC'
+      AND from_iso8601_timestamp(dt) <  TIMESTAMP '2026-09-25 00:00:00 UTC'
+      AND agent.client_platform = 'ios'
+      AND agent.release_status = 'prod'
+      -- AND agent.app_version_name IN ('WikipediaApp/6160-r-2026-08-28', 'WikipediaApp/6169-r-2026-09-04', 'WikipediaApp/6175-r-2026-09-15')
+      AND instrument_name = 'apps-home-feed'
+      AND action = 'experiment_exposure'
+      AND experiment.enrolled = 'ios-home-feed'
+),
+new_install_event AS (
+    SELECT DISTINCT agent.app_install_id AS install_id
+    FROM event.product_metrics_app_base
+    WHERE year = 2026 AND month BETWEEN 8 AND 9
+      AND from_iso8601_timestamp(dt) >= TIMESTAMP '2026-08-28 00:00:00 UTC'
+      AND from_iso8601_timestamp(dt) <  TIMESTAMP '2026-09-25 00:00:00 UTC'
+      AND agent.client_platform = 'ios'
+      AND agent.release_status = 'prod'
+      -- AND agent.app_version_name IN ('WikipediaApp/6160-r-2026-08-28', 'WikipediaApp/6169-r-2026-09-04', 'WikipediaApp/6175-r-2026-09-15')
+      AND instrument_name = 'apps-open'
+      AND action = 'app_open'
+      AND action_source = 'new_install_onboarding_start'
+),
+first_seen AS (
+    SELECT agent.app_install_id AS install_id,
+           MIN(from_iso8601_timestamp(dt)) AS first_event_ts
+    FROM event.product_metrics_app_base
+    WHERE year = 2026 AND month BETWEEN 7 AND 9
+      AND from_iso8601_timestamp(dt) >= TIMESTAMP '2026-07-01 00:00:00 UTC'
+      AND from_iso8601_timestamp(dt) <  TIMESTAMP '2026-09-25 00:00:00 UTC'
+      AND agent.client_platform = 'ios'
+      AND agent.release_status = 'prod'
+      AND agent.app_install_id IS NOT NULL
+    GROUP BY 1
+)
+SELECT
+    a.group_assigned,
+    COUNT(DISTINCT a.install_id) AS n_assigned_uniques,
+    COUNT(DISTINCT n.install_id) AS n_new_uniques,
+    ROUND(100.0 * COUNT(DISTINCT n.install_id) / COUNT(DISTINCT a.install_id), 1) AS pct_new_uniques,
+    COUNT(DISTINCT CASE WHEN f.first_event_ts >= TIMESTAMP '2026-08-28 00:00:00 UTC' THEN a.install_id END) AS n_new_uniques_first_seen
+FROM assigned a
+LEFT JOIN new_install_event n ON n.install_id = a.install_id
+LEFT JOIN first_seen f ON f.install_id = a.install_id
+GROUP BY 1
+ORDER BY 1;
