@@ -1,6 +1,5 @@
 import UIKit
 import WMFComponents
-import SwiftUI
 import WMFData
 import CocoaLumberjackSwift
 import WMFNativeLocalizations
@@ -122,18 +121,15 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     readMoreButtonTitle: CommonStrings.tempAccountsReadMoreTitle
                 )
 
-                let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
-                toastView = toastController.view
-
-                addChild(toastController)
-                view.addSubview(toastController.view)
-                toastController.didMove(toParent: self)
-                toastController.view.translatesAutoresizingMaskIntoConstraints = false
+                let toast = WMFTempAccountsToastView(viewModel: viewModel)
+                toast.translatesAutoresizingMaskIntoConstraints = false
+                toastView = toast
+                view.addSubview(toast)
 
                 NSLayoutConstraint.activate([
-                    toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-                    toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-                    toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+                    toast.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    toast.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    toast.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
                 ])
             }
         }

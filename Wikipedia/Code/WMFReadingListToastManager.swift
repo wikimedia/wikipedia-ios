@@ -3,18 +3,25 @@ import WMFComponents
 @preconcurrency import WMFData
 import WMFNativeLocalizations
 
+/// Shows the reading list toasts after the user saves an article.
+///
+/// The first toast asks the user to add the article to a reading list. After the
+/// user adds it, a second toast confirms the list and opens it on tap.
+@MainActor
 @objc final class WMFReadingListToastManager: NSObject {
 
     // MARK: - Properties
 
     private let dataStore: MWKDataStore
-    private var toastPresenter: WMFReadingListToastPresenter?
     private weak var presenter: UIViewController?
 
     private var currentArticle: WMFArticle?
     private weak var themeableNavigationController: WMFComponentNavigationController?
 
     var theme = Theme.standard
+
+    /// The time in seconds a reading list toast stays on screen.
+    private static let toastDuration: TimeInterval = 13
 
     // MARK: - Init
 
@@ -23,37 +30,18 @@ import WMFNativeLocalizations
         super.init()
     }
 
-    @MainActor
-    private func getToastPresenter() -> WMFReadingListToastPresenter {
-        if let existing = toastPresenter {
-            return existing
-        }
-        let presenter = WMFReadingListToastPresenter()
-        toastPresenter = presenter
-        return presenter
-    }
-
     // MARK: - Public Methods
 
     var isToastHidden: Bool {
-        guard let toastPresenter else { return true }
-        return MainActor.assumeIsolated { toastPresenter.isToastHidden }
+        !WMFToastPresenter.shared.isToastVisible
     }
 
-    /// Dismisses toast with animation - use for normal dismissals
+    /// Closes the toast with an animation.
     @objc func dismissToast() {
-        guard let toastPresenter else { return }
-        Task { @MainActor in
-            toastPresenter.dismissToast()
-        }
+        WMFToastPresenter.shared.dismissCurrentToast()
     }
 
-    /// Dismisses toast immediately without animation - use when keyboard is about to appear to prevent freezing
-    @MainActor
-    func dismissToastImmediately() {
-        toastPresenter?.dismissToastImmediately()
-    }
-
+    /// Shows or closes the toast for the save state of the article.
     @objc func toggle(presenter: UIViewController, article: WMFArticle, theme: Theme) {
         self.presenter = presenter
         self.theme = theme
@@ -65,12 +53,8 @@ import WMFNativeLocalizations
         guard !didUnsaveOtherArticle else { return }
 
         if didSaveOtherArticle {
-            Task { @MainActor [weak self] in
-                guard let self else { return }
-                self.getToastPresenter().resetToast()
-                self.currentArticle = article
-                self.showDefaultToast(article: article)
-            }
+            currentArticle = article
+            showDefaultToast(article: article)
             return
         }
 
@@ -79,10 +63,7 @@ import WMFNativeLocalizations
         if didSave {
             showDefaultToast(article: article)
         } else {
-            guard let toastPresenter else { return }
-            Task { @MainActor in
-                toastPresenter.dismissToast()
-            }
+            dismissToast()
         }
     }
 
@@ -91,31 +72,26 @@ import WMFNativeLocalizations
     private func showDefaultToast(article: WMFArticle) {
         guard let presenter else { return }
 
-        let title = toastButtonTitle(for: article)
-        let icon = WMFSFSymbolIcon.for(symbol: .plusCircle)
         let articleURL = article.url
 
-        let config = WMFReadingListToastConfig(
-            title: title,
-            icon: icon,
-            duration: 13,
-            tapAction: { @Sendable [weak self, articleURL] in
-                Task { @MainActor in
-                    guard let self, let articleURL else { return }
-                    guard let article = self.dataStore.fetchArticle(with: articleURL) else { return }
-                    self.performDefaultAction(article: article)
-                }
+        let config = WMFToastConfig(
+            title: toastButtonTitle(for: article),
+            icon: WMFSFSymbolIcon.for(symbol: .plusCircle),
+            iconStyle: .symbol,
+            duration: Self.toastDuration,
+            tapAction: { [weak self] in
+                guard let self, let articleURL else { return }
+                guard let article = self.dataStore.fetchArticle(with: articleURL) else { return }
+                self.performDefaultAction(article: article)
             }
         )
-
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            self.getToastPresenter().show(config: config, in: presenter)
-        }
+        show(config, from: presenter)
     }
 
     private func showConfirmationToast(readingList: ReadingList, image: UIImage?) {
-        guard let name = readingList.name else { return }
+        guard let name = readingList.name,
+              let presenter,
+              presenter.view.window != nil else { return }
 
         let title = String.localizedStringWithFormat(
             WMFLocalizedString(
@@ -127,33 +103,28 @@ import WMFNativeLocalizations
         )
 
         let readingListObjectID = readingList.objectID
+        let openReadingList: () -> Void = { [weak self] in
+            guard let self,
+                  let readingList = try? self.dataStore.viewContext.existingObject(with: readingListObjectID) as? ReadingList else { return }
+            self.performConfirmationAction(readingList: readingList)
+        }
 
-        let config = WMFReadingListToastConfig(
+        let config = WMFToastConfig(
             title: title,
             icon: image,
-            duration: 13,
+            iconStyle: .thumbnail,
+            duration: Self.toastDuration,
             buttonTitle: WMFLocalizedString("reading-list-alert-see-list", value: "See reading list", comment: "Title for button on alert to see the reading list after adding an article to it."),
-            tapAction: { @Sendable [weak self, readingListObjectID] in
-                Task { @MainActor in
-                    guard let self,
-                          let readingList = try? self.dataStore.viewContext.existingObject(with: readingListObjectID) as? ReadingList else { return }
-                    self.performConfirmationAction(readingList: readingList)
-                }
-            },
-            buttonAction: { @Sendable [weak self, readingListObjectID] in
-                Task { @MainActor in
-                    guard let self,
-                          let readingList = try? self.dataStore.viewContext.existingObject(with: readingListObjectID) as? ReadingList else { return }
-                    self.performConfirmationAction(readingList: readingList)
-                }
-            }
+            tapAction: openReadingList,
+            buttonAction: openReadingList
         )
+        show(config, from: presenter)
+    }
 
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            guard let presenter = self.presenter, presenter.view.window != nil else { return }
-            self.toastPresenter?.show(config: config, in: presenter)
-        }
+    /// Shows the toast in the window of the presenter. Does nothing when the presenter shows a modal.
+    private func show(_ config: WMFToastConfig, from presenter: UIViewController) {
+        guard presenter.presentedViewController == nil else { return }
+        WMFToastPresenter.shared.show(config, in: presenter.view.window)
     }
 
     private func toastButtonTitle(for article: WMFArticle) -> String {
@@ -182,10 +153,9 @@ import WMFNativeLocalizations
         )
     }
 
-    @MainActor
     private func performDefaultAction(article: WMFArticle) {
         guard let presenter else { return }
-        toastPresenter?.dismissToast()
+        WMFToastPresenter.shared.dismissCurrentToast()
 
         let addVC = AddArticlesToReadingListViewController(
             with: dataStore,
@@ -204,10 +174,9 @@ import WMFNativeLocalizations
         presenter.present(nav, animated: true)
     }
 
-    @MainActor
     private func performConfirmationAction(readingList: ReadingList) {
         guard let presenter else { return }
-        toastPresenter?.dismissToast()
+        WMFToastPresenter.shared.dismissCurrentToast()
 
         let detailVC = ReadingListDetailViewController(
             for: readingList,
@@ -226,27 +195,19 @@ import WMFNativeLocalizations
         presenter.present(nav, animated: true)
     }
 
-    private func loadImageOffMain(from url: URL) async -> UIImage? {
-
-        if url.isFileURL {
-            return await Task(priority: .userInitiated) {
-                guard let data = try? Data(contentsOf: url) else { return nil }
-                return UIImage(data: data)
-            }.value
-        } else {
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                return UIImage(data: data)
-            } catch {
-                return nil
-            }
-        }
+    /// Loads the thumbnail through the shared image cache. The article view has
+    /// usually loaded the same image, so this call rarely goes to the network.
+    private func loadThumbnail(from url: URL) async -> UIImage? {
+        guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return nil }
+        return UIImage(data: data)
     }
 }
 
 // MARK: - AddArticlesToReadingListDelegate
 
-extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
+// The delegate protocol is not isolated. The view controller calls it on the main
+// actor, so the @preconcurrency conformance is safe.
+extension WMFReadingListToastManager: @preconcurrency AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(
         _ addArticlesToReadingList: AddArticlesToReadingListViewController,
         didAddArticles articles: [WMFArticle],
@@ -256,28 +217,26 @@ extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
             guard let self else { return }
             self.showConfirmationToast(readingList: readingList, image: nil)
 
-            // try loading thumbnail, update if successful
-            let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
-            guard let imageURL else { return }
+            // Show the thumbnail when it loads.
+            guard let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth()) else { return }
 
             Task { [weak self] in
                 guard let self else { return }
-                let image = await self.loadImageOffMain(from: imageURL)
-                await MainActor.run {
-                    self.showConfirmationToast(readingList: readingList, image: image)
-                }
+                let image = await self.loadThumbnail(from: imageURL)
+                self.showConfirmationToast(readingList: readingList, image: image)
             }
         }
     }
 
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
-        // No-op: confirmation state already applied in-place.
+        // No action. The confirmation toast is already on screen.
     }
 }
 
 // MARK: - Themeable
 
-extension WMFReadingListToastManager: Themeable {
+// Themeable is a legacy protocol without isolation. The app calls it on the main actor.
+extension WMFReadingListToastManager: @preconcurrency Themeable {
     func apply(theme: Theme) {
         self.theme = theme
     }
