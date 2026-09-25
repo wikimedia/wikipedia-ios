@@ -67,6 +67,7 @@
 // Author: Vonavy
 // Author: WindEwriX
 // Author: Wirbel78
+// Author: Yurina Tatiana
 // Author: Yuryleb
 // Author: Zpizza
 // Author: Александр Сигачёв
@@ -456,6 +457,7 @@
 "donate-wikimedia-fine-print-2" = "Фиксированные ежемесячные платежи будут списываться Фондом Викимедиа с наших постоянных доноров по истечении каждого очередного месяца с даты первого пожертвования до тех пор, пока вы не уведомите нас о прекращении поддержки. Пожертвования, инициированные 29-го, 30-го или 31-го числа месяца, будут списываться в последний день более коротких месяцев, как можно ближе к первоначальной дате. Все вопросы о пожертвованиях можно направлять по адресу donate@wikimedia.org.";
 "donation-reminder-card-not-now" = "Не сейчас";
 "donation-reminder-setup-trigger-unit-articles" = "Статьи";
+"donation-reminder-wrap-up-survey-title" = "Опрос";
 "edit-link-display-text-title" = "Показать текст";
 "edit-link-link-target-title" = "Адрес ссылки";
 "edit-link-remove-link-title" = "Убрать ссылку";

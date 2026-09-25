@@ -213,7 +213,7 @@
 "diff-single-intro-title" = "Wprowadzenie";
 "diff-single-line-format" = "Linia $1";
 "diff-thanks-anonymous-no-thanks" = "Nie możesz dziękować anonimowym użytkownikom";
-"diff-thanks-login-subtitle" = "Podziękowania są prostym sposobem na okazanie wdzięczności za wkład edytora w Wikipedię. Musisz być zalogowany, aby wysłać podziękowanie.";
+"diff-thanks-login-subtitle" = "Podziękowania są prostym sposobem na okazanie wdzięczności za wkład edytora w Wikipedię. Musisz się zalogować, aby wysłać podziękowanie.";
 "diff-thanks-login-title" = "Zaloguj się, aby wysłać podziękowanie";
 "diff-thanks-send-button-title" = "Wyślij podziękowanie";
 "diff-thanks-send-subtitle" = "Podziękowania są prostym sposobem na okazanie wdzięczności za wkład edytora w Wikipedię. Nie mogą zostać cofnięte i są publicznie widoczne dla innych.";
@@ -476,7 +476,7 @@
 "logged-out-continue-without-logging-in-button-title" = "Kontynuuj bez logowania";
 "logged-out-log-back-in-button-title" = "Zaloguj się ponownie na swoje konto";
 "logged-out-subtitle" = "Wystąpił problem z uwierzytelnieniem Twojego konta. Aby zsynchronizować listy czytelnicze i edytować je pod nazwą użytkownika, zaloguj się ponownie.";
-"logged-out-title" = "Zostałeś wylogowany";
+"logged-out-title" = "Wylogowano się";
 "login-forgot-password" = "Nie pamiętasz hasła?";
 "login-join-wikipedia" = "Dołącz do Wikipedii.";
 "login-no-account" = "Nie masz konta? $1";
@@ -537,7 +537,7 @@
 "notifications-center-go-to-wikidata-item" = "Element Wikidanych";
 "notifications-center-go-to-your-talk-page" = "Twoja strona dyskusji";
 "notifications-center-inbox-title" = "Projekty";
-"notifications-center-inbox-wikimedia-projects-section-footer" = "Tutaj pojawią się tylko projekty, dla których utworzyłeś konto";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "Tutaj wyświetlą się tylko projekty, w których masz założone konto";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Projekty Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedie";
 "notifications-center-language-project-name-format" = "$2 $1";
@@ -615,7 +615,7 @@
 "page-similar-titles" = "Podobne strony";
 "panel-compare-revisions-text" = "Porównanie wersji pomaga pokazać, jak artykuł zmieniał się na przestrzeni czasu. Porównanie dwóch wersji artykułu pokaże różnicę między tymi wersjami poprzez podświetlenie dowolnej treści, która została zmieniona.";
 "panel-compare-revisions-title" = "Porównaj wersje";
-"panel-not-logged-in-title" = "Nie jesteś zalogowany";
+"panel-not-logged-in-title" = "Nie zalogowano się";
 "pictured" = "z obrazkiem";
 "places-accessibility-clear-saved-searches" = "Wyczyść zapisane wyszukiwania";
 "places-accessibility-group" = "$1 artykułów";

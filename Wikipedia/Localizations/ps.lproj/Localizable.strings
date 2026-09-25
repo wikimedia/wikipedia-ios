@@ -191,8 +191,10 @@
 "cancel" = "ناگارل";
 "chinese-variants-alert-body" = "د ويکيپېډيا کاريال وسمهال په کاريال کې د لومړنيو يا دوهمي ژبو په توگه لاندې چينايي وينگونه ملاتړ کوي، ستاسو د خوښې وړ وينگ کې لوستل، پلټل او سمول اسانه کوي:\n\n简体 چينايي، ساده‌شوې (zh-hans)\n香港繁體 هانکانگ دوديزه (zh-hk)\n澳門繁體 مکايو دوديزه (zh-mo)\n大马简体 مليزيا ساده‌شوې (zh-my)\n新加坡简体 سينگاپور ساده‌شوې (zh-sg)\n臺灣正體 تايوان دوديزه (zh-tw)";
 "chinese-variants-alert-title" = "د چينايي بلبڼې ملاتړ هم‌مهالول";
+"choose-editor-visual-title" = "ليدنيز سمون";
 "clear-title-accessibility-label" = "سپينول";
 "clearing-cache-complete" = "نيونگه سپاکول بشپړ شول.";
+"clearing-cache-error" = "د نيوک سپاکولو تېروتنه.";
 "clearing-cache-in-progress" = "نيونگه سپاکول دوام لري.";
 "close-all-tabs" = "ټولې کړکۍ وتړئ";
 "close-all-tabs-confirmation-number" = "ټولې  $1 ريښکې وتړي؟";
