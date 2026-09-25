@@ -104,7 +104,7 @@ struct WMFSemanticSearchResultCardView: View {
             Text(viewModel.articlePath)
                 .font(Font(WMFFont.for(.caption1)))
                 .foregroundStyle(Color(theme.text))
-                .lineLimit(1)
+                .lineLimit(2)
                 .truncationMode(.tail)
         }
         .padding(.vertical, WMFSpacing.small)
