@@ -521,7 +521,6 @@
 "empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
 "empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده است";
 "empty-no-search-results-message" = "نتیجه‌ای یافت نشد";
-"empty-talk-page-title" = "هنوز هیچ پیامی برای این کاربر ارسال نشده است";
 "end-session" = "پایان نشست";
 "error-generic-recovery-suggestion" = "لطفاً بعداً امتحان کنید";
 "error-unknown" = "خطای ناشناخته‌ای رخ داده است";
@@ -1394,7 +1393,6 @@
 "two-factor-login-title" = "ورود به حسابتان";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای اعتبارسنجی";
-"unable-to-load-talk-page-title" = "ناتوان در بارگیری صفحۀ بحث";
 "unknown-generic-text" = "نامشخص";
 "unwatch" = "توقف پیگیری";
 "user-title" = "کاربر";

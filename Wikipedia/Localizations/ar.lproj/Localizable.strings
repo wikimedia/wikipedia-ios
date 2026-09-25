@@ -524,7 +524,6 @@
 "empty-no-saved-pages-message" = "احفظ الصفحات لمطالعتها لاحقا، حتى بدون اتصال بالإنترنت";
 "empty-no-saved-pages-title" = "لا صفحات محفوظة بعد";
 "empty-no-search-results-message" = "لا توجد نتائج";
-"empty-talk-page-title" = "لم يتم نشر رسائل لهذا المستخدم بعد";
 "end-session" = "إنهاء الجلسة";
 "error-generic-recovery-suggestion" = "من فضلك حاول مرة أخرى لاحقا";
 "error-unknown" = "حدث خطأ غير معروف";
@@ -1401,7 +1400,6 @@
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
 "two-factor-login-with-backup-code" = "استخدم رمزًا من الرموز الاحتياطية";
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
-"unable-to-load-talk-page-title" = "غير قادر على تحميل صفحة النقاش";
 "unknown-generic-text" = "غير معروف";
 "unwatch" = "أوقف المراقبة";
 "user-title" = "المستخدم";

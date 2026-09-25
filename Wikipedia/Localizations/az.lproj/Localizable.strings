@@ -549,7 +549,6 @@
 "empty-no-saved-pages-message" = "Səhifələri daha sonra, hətta oflayn rejimdə də oxumaq üçün onları yadda saxlayın";
 "empty-no-saved-pages-title" = "Hələ yadda saxlanmış səhifə yoxdur";
 "empty-no-search-results-message" = "Nəticələr tapılmadı";
-"empty-talk-page-title" = "Bu istifadəçi üçün hələ heç bir mesaj göndərilməyib";
 "end-session" = "Sessiyanı bitir";
 "error-generic-recovery-suggestion" = "Daha sonra yenidən cəhd edin";
 "error-unknown" = "Naməlum xəta baş verdi";
@@ -1496,7 +1495,6 @@
 "two-factor-login-title" = "Hesabınıza daxil olun";
 "two-factor-login-with-backup-code" = "Ehtiyyat kodlarınızdan birini istifadə edin";
 "two-factor-login-with-regular-code" = "Təsdiqləmə kodundan istifadə edin";
-"unable-to-load-talk-page-title" = "Müzakirə səhifəsini yükləmək mümkün olmadı";
 "unknown-generic-text" = "Naməlum";
 "unwatch" = "İzləmədən çıxar";
 "user-title" = "İstifadəçi";

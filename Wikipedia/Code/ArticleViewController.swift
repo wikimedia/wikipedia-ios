@@ -1666,7 +1666,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 extension ArticleViewController {
     func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
         if showEmptyView {
-            wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+            wmf_showEmptyView(of: .articleDidNotLoad, frame: view.bounds)
         }
         showError(error)
         refreshControl.endRefreshing()

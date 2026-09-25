@@ -308,7 +308,6 @@
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-search-results-message" = "No s'han trobat resultats";
-"empty-talk-page-title" = "Aquest usuari encara no ha enviat cap missatge.";
 "error-generic-recovery-suggestion" = "Torneu-ho a provar més tard";
 "error-unknown" = "S'ha produït un error desconegut";
 "explore-another-random" = "Un altre article a l'atzar";
@@ -1036,7 +1035,6 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
-"unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "unknown-generic-text" = "Desconegut";
 "unwatch" = "Deixa de vigilar";
 "user-title" = "Usuari";

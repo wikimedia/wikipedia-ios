@@ -384,7 +384,6 @@
 "empty-no-saved-pages-message" = "Shranite strani, da si jih ogledate pozneje, tudi brez povezave";
 "empty-no-saved-pages-title" = "Nimate še shranjenih strani";
 "empty-no-search-results-message" = "Ni zadetkov";
-"empty-talk-page-title" = "Za tega uporabnika še ni bilo objavljeno nobeno sporočilo";
 "error-generic-recovery-suggestion" = "Prosimo, poskusite znova pozneje";
 "error-unknown" = "Prišlo je do neznane napake";
 "explore-another-random" = "Še en naključni članek";
@@ -1119,7 +1118,6 @@
 "two-factor-login-title" = "Prijavite se v svoj račun";
 "two-factor-login-with-backup-code" = "Uporabite eno od svojih varnostnih kod";
 "two-factor-login-with-regular-code" = "Uporabite kodo za preverjanje";
-"unable-to-load-talk-page-title" = "Pogovorne strani ni mogoče naložiti";
 "unknown-generic-text" = "Neznano";
 "unwatch" = "Odopazuj";
 "user-title" = "Uporabnik";

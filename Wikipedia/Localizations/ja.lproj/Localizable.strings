@@ -369,7 +369,6 @@
 "empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧できます";
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
-"empty-talk-page-title" = "この利用者にはまだメッセージが投稿されていません";
 "error-generic-recovery-suggestion" = "しばらくしてから再度、操作をしてください";
 "error-unknown" = "不明なエラーが発生しました";
 "evergreen-account-creation-activity-body" = "アクティビティタブで、閲覧時間や探索したトピック、自分の貢献の反響を確認できます。";
@@ -1050,7 +1049,6 @@
 "two-factor-login-title" = "あなたのアカウントにログイン";
 "two-factor-login-with-backup-code" = "バックアップコードの1つを使用する";
 "two-factor-login-with-regular-code" = "確認コードを使用する";
-"unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "unknown-generic-text" = "不明";
 "unwatch" = "ウォッチ解除";
 "user-title" = "利用者";

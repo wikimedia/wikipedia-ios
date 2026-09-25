@@ -421,7 +421,6 @@
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
-"empty-talk-page-title" = "Nessun messaggio è stato ancora pubblicato per quest'utente";
 "end-session" = "Termina sessione";
 "error-generic-recovery-suggestion" = "Per favore, riprova più tardi";
 "error-unknown" = "Si è verificato un errore sconosciuto";
@@ -987,7 +986,6 @@
 "two-factor-login-title" = "Accedi alla tua utenza";
 "two-factor-login-with-backup-code" = "Usa uno dei tuoi codici usa e getta";
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
-"unable-to-load-talk-page-title" = "Impossibile caricare la pagina di discussione";
 "unknown-generic-text" = "Sconosciuto";
 "unwatch" = "Non seguire";
 "user-title" = "Utente";

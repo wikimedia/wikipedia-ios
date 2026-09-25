@@ -384,7 +384,6 @@
 "empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
 "empty-no-search-results-message" = "Tidak ada hasil yang ditemukan";
-"empty-talk-page-title" = "Belum ada pesan yang diposting untuk pengguna ini";
 "error-generic-recovery-suggestion" = "Silakan coba lagi nanti";
 "error-unknown" = "Terjadi sebuah kesalahan yang tidak diketahui";
 "explore-another-random" = "Artikel sembarang lainnya";
@@ -1089,7 +1088,6 @@
 "two-factor-login-title" = "Masuk ke akun Anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kode cadangan Anda";
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
-"unable-to-load-talk-page-title" = "Tidak bisa memuat halaman pembicaraan";
 "unknown-generic-text" = "Tidak diketahui";
 "unwatch" = "Batal pantau";
 "user-title" = "Pengguna";

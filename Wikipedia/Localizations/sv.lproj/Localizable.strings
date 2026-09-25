@@ -525,7 +525,6 @@
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
-"empty-talk-page-title" = "Inga meddelanden har ännu lagts upp för denna användare";
 "end-session" = "Avsluta session";
 "error-generic-recovery-suggestion" = "Försök igen senare";
 "error-unknown" = "Ett okänt fel uppstod";
@@ -1416,7 +1415,6 @@
 "two-factor-login-title" = "Logga in på ditt konto";
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
-"unable-to-load-talk-page-title" = "Kan inte läsa in diskussionssida";
 "unknown-generic-text" = "Okänd";
 "unwatch" = "Sluta bevaka";
 "user-title" = "Användare";
