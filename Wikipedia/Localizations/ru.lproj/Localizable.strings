@@ -715,8 +715,6 @@
 "find-replace-header" = "Поиск и замена";
 "find-replace-header-close-accessibility" = "Закрыть диалог поиска и замены";
 "find-textfield-accessibility" = "Найти";
-"for-you-empty-subtitle-interests-or-modules" = "Добавьте интересующие вас темы или включите модули, чтобы получать персонализированные рекомендации по статьям.";
-"for-you-empty-title" = "Здесь пока ничего нет";
 "for-you-error-retry" = "Попробовать ещё раз";
 "for-you-error-subtitle" = "Подключитесь к интернету и попробуйте снова.";
 "for-you-error-title" = "Нет подключения к интернету";
@@ -748,7 +746,6 @@
 "home-button-saved-accessibility-label" = "Википедия, вернуться к Сохранённым";
 "home-community-tab-title" = "Сообщество";
 "home-edit-languages-title" = "Добавить или изменить языки";
-"home-empty-go-to-settings-button" = "К настройкам";
 "home-feed-for-you-based-on-interests-subtitle" = "Статьи на темы, которые вы выбрали.";
 "home-feed-for-you-based-on-interests-title" = "На основе ваших интересов";
 "home-feed-for-you-because-you-read-subtitle" = "Предложения, основанные на недавней статье из вашей истории.";

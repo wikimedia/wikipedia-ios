@@ -56,6 +56,12 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
     }
 
+    @Published public var forceYiR2026Announcement: Bool = WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement = forceYiR2026Announcement
+        }
+    }
+
     @Published public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? = WMFDeveloperSettingsDataController.shared.forceYiRUserDataState {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = forceYiRUserDataState

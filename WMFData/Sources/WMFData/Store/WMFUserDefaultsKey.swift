@@ -8,12 +8,33 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
+
+    // Year in Review: shared across years.
+    // The opt-out toggle is deliberately NOT year scoped — a user who turned Year in Review off in
+    // 2025 stays opted out in 2026 rather than being silently opted back in.
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
-    case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v4" // 2026, updating as used
+
+    // Year in Review 2025 (kept so 2025 state is never lost; no longer read by the 2026 feature)
+    case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
     case yearInReviewSurveyPresented = "year-in-review-survey-presented-v3"
-    case bypassDonation = "bypass-donation"
-    case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v4" // 2026
+    case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
     case tappedYIR = "tapped-yir"
+    case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
+    case qualifiesForIcon2025 = "qualifies-for-icon-2025"
+
+    // Year in Review 2026
+    // Separate keys from 2025 so that anyone who saw the 2025 announcement, intro slide, survey or
+    // profile badge is still eligible for the 2026 ones.
+    case seenYearInReview2026FeatureAnnouncement = "year-in-review-feature-announcement-2026"
+    case seenYearInReview2026IntroSlide = "seen-year-in-review-intro-slide-2026"
+    case yearInReview2026SurveyPresented = "year-in-review-survey-presented-2026"
+    case tappedYIR2026 = "tapped-yir-2026"
+
+    // Year in Review 2026 dev settings
+    case developerSettingsForceYiREntryPoint2026 = "dev-settings-force-yir-entry-point-2026"
+    case developerSettingsForceYiR2026Announcement = "dev-settings-yir-announcement-2026"
+
+    case bypassDonation = "bypass-donation"
     case forceEmailAuth = "force-email-auth"
     case articleTabRestoration = "article-tab-restoration"
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
@@ -21,8 +42,6 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
-    case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
-    case qualifiesForIcon2025 = "qualifies-for-icon-2025"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
     case hasSeenActivityTab = "has-seen-activity-tab"
     case hasSeenActivityTabNewOnboarding = "has-seen-activity-tab-new-onboarding"
@@ -108,7 +127,6 @@ public enum WMFUserDefaultsKey: String {
     // yir 2026
     case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
     
-    case developerSettingsForceYiREntryPoint2026 = "dev-settings-force-yir-entry-point-2026"
 
     // Semantic search
     case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"

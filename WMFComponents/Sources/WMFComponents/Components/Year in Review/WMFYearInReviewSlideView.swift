@@ -27,7 +27,7 @@ struct WMFYearInReviewSlideView: View {
     }
 
     private var placeholder: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: WMFSpacing.small) {
             Text(slide.id)
                 .font(Font(WMFFont.for(.boldTitle1)))
             Text("no .riv yet")

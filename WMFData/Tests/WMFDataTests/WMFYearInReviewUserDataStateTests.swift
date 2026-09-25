@@ -9,6 +9,7 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         var forceYiREntryPoint2026 = false
         var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState?
         var forceMaxArticleTabsTo5: Bool { false }
+        var forceYiR2026Announcement: Bool { false }
         func loadFeatureConfig() -> WMFFeatureConfigResponse? { nil }
     }
 

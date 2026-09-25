@@ -717,8 +717,6 @@
 "for-you-empty-feed-subtitle" = "Dit \"Til dig\"-feed vil fyldes med personlige artikler, mens du udforsker.";
 "for-you-empty-feed-title" = "Dit feed er tomt lige nu";
 "for-you-empty-feed-ways-to-get-started" = "Måder at komme i gang på:";
-"for-you-empty-subtitle-interests-or-modules" = "Tilføj interesser eller aktivér moduler for at få personlige artikelanbefalinger";
-"for-you-empty-title" = "Intet her endnu";
 "for-you-end-of-feed-add-interests-format" = "Tilføj $1";
 "for-you-end-of-feed-add-interests-link" = "nye interesser";
 "for-you-end-of-feed-community-format" = "Se hvad der sker i $1";
@@ -758,11 +756,9 @@
 "home-button-home-accessibility-label" = "Wikipedia, tilbage til forsiden";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
 "home-card-more-options-accessibility-label" = "Flere muligheder";
-"home-community-empty-feed-turn-on-modules-message" = "Slå moduler til for at se indhold fra fællesskabet";
 "home-community-see-past-content" = "Se tidligere indhold fra fællesskabet";
 "home-community-tab-title" = "Fællesskab";
 "home-edit-languages-title" = "Tilføj eller rediger sprog";
-"home-empty-go-to-settings-button" = "Gå til indstillinger";
 "home-feed-for-you-based-on-interests-subtitle" = "Artikler tilpasset de emner du har valgt.";
 "home-feed-for-you-based-on-interests-title" = "Baseret på dine interesser";
 "home-feed-for-you-because-you-read-subtitle" = "Forslag baseret på en nylig artikel fra din historie";
@@ -1567,6 +1563,5 @@
 "year-in-review-feature-announcement-title-personalized" = "Udforsk din Wikipedia-årsoversigt";
 "year-in-review-feature-explore-footer-v3" = "Din læsehistorik bliver beskyttet. Læseindsigter beregnes alene ud fra lokalt gemte oplysninger på dit device.";
 "year-in-review-highlights-share-logo-caption" = "Wikipedia logo";
-"year-in-review-intro-exit-toast-title" = "Du kan få adgang til dit årsoverblik senere under Profil.";
 "year-in-review-intro-login-title" = "Log ind for personalisering";
 "yesterday-title" = "I går";

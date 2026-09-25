@@ -52,6 +52,10 @@ struct WMFDeveloperSettingsView: View {
                     .tint(Color(theme.secondaryText))
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "Shows the announcement on every eligible app open, without the remote config, the settings toggle, the country gate, or the already seen state.") {
+                    Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
             } header: {
                 sectionHeader("Year in Review")
             }

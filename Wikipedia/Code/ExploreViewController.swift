@@ -1074,7 +1074,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
-
 // MARK: - Modal Presentation Logic
 
 extension ExploreViewController {
@@ -1085,7 +1084,7 @@ extension ExploreViewController {
     ///   2. Year in Review     →  if shown, stop.
     ///   3. Games announcement →  shown only when Year in Review declines.
     ///
-    /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
+    /// If Year in Review is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
         presentYearInReviewAnnouncementOrTooltipsIfNeeded()
@@ -1095,12 +1094,9 @@ extension ExploreViewController {
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
-#if !TEST
-        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
+        guard !didOpenAppFromExternalLink else {
             return
         }
-#endif
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
@@ -1111,6 +1107,18 @@ extension ExploreViewController {
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
         }
+    }
+
+    /// True when this session was started by a deep link. Modals are suppressed in that case so we
+    /// do not interrupt whatever the link was pointing at.
+    private var didOpenAppFromExternalLink: Bool {
+#if !TEST
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return true
+        }
+#endif
+        return false
     }
 
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
@@ -1236,6 +1244,11 @@ extension ExploreViewController {
             return false
         }
 
+        // Same rule as the article surface: no announcement during a deep linked session.
+        guard !didOpenAppFromExternalLink else {
+            return false
+        }
+
         guard let yirDataController else {
                   return false
         }
@@ -1275,9 +1288,14 @@ extension ExploreViewController {
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
+
+        // TODO: 2026 — swap `yirCoordinator` for the 2026 coordinator. It needs to know it was
+        // launched from the announcement so that slide 0 is included and the exit toast fires.
         yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
         self.yirCoordinator?.start()
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+
+        // Marked as soon as it is presented, so a force quit on slide 0 does not earn a second showing.
+        yirDataController.hasPresentedYiRFeatureAnnouncement = true
     }
 
     private func shouldShowSearchWidgetAnnouncement() -> Bool {

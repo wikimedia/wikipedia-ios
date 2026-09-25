@@ -137,6 +137,7 @@ public enum WMFSFSymbolIcon {
     case leave
     case gear
     case booksVertical
+    case booksVerticalFill
     case creditCard
     case flask
     case gearShape
@@ -170,6 +171,7 @@ public enum WMFSFSymbolIcon {
     case widgetAdd
     case testTubeFill
     case clock
+    case clockFill
     case calendarBadgeClock
     case gameControllerFill
     case medal
@@ -370,6 +372,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "gear", withConfiguration: configuration)
         case .booksVertical:
             image = UIImage(systemName: "books.vertical", withConfiguration: configuration)
+        case .booksVerticalFill:
+            image = UIImage(systemName: "books.vertical.fill", withConfiguration: configuration)
         case .creditCard:
             image = UIImage(systemName: "creditcard", withConfiguration: configuration)
         case .flask:
@@ -440,6 +444,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "testtube.2", withConfiguration: configuration)
         case .clock:
             image = UIImage(systemName: "clock", withConfiguration: configuration)
+        case .clockFill:
+            image = UIImage(systemName: "clock.fill", withConfiguration: configuration)
         case .calendarBadgeClock:
             image = UIImage(systemName: "calendar.badge.clock", withConfiguration: configuration)
         case .gameControllerFill:

@@ -12,7 +12,7 @@ public struct WMFBetaBadge: View {
     }
 
     public var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: WMFSpacing.xSmall) {
             if let betaImage = WMFSFSymbolIcon.for(symbol: .flask, font: WMFFont.caption1) {
                 Image(uiImage: betaImage)
                     .foregroundColor(Color(appEnvironment.theme.secondaryText))
@@ -21,9 +21,9 @@ public struct WMFBetaBadge: View {
                 .font(Font(WMFFont.for(.caption1)))
                 .foregroundColor(Color(appEnvironment.theme.text))
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
-        .background(Capsule().stroke(Color(appEnvironment.theme.newBorder), lineWidth: 1))
+        .padding(.horizontal, WMFSpacing.small)
+        .padding(.vertical, WMFSpacing.xSmall)
+        .overlay(Capsule().strokeBorder(Color(appEnvironment.theme.newBorder), lineWidth: 1))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(label)
     }
