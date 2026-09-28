@@ -396,7 +396,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let returningFromArticle = pushedArticleSource != nil
         switch pushedArticleSource {
         case .searchResults:
-            navigationItem.searchController?.searchBar.becomeFirstResponder()
+            // On iPad the search field can't become first responder yet in viewDidAppear, so wait a turn.
+            Task { @MainActor [weak self] in
+                self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            }
         case .semanticSearchSheet:
             semanticSearchResultsCoordinator?.restore()
         case nil:
