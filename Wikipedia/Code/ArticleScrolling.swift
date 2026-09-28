@@ -21,8 +21,9 @@ extension ArticleScrolling where Self: UIViewController {
     ///   - anchor: The anchor to scroll to. The anchor corresponds to an `id` attribute on a HTML tag in the article.
     ///   - centered: If this parameter is true, the element will be centered in the visible area of the article view after scrolling. If this parameter is false, the element will be at the top of the visible area of the article view.
     ///   - animated: Whether or not to animate the scroll change.
+    ///   - reportsErrors: Whether an error from the web view shows a toast. Pass `false` when a failed attempt is retried.
     ///   - completion: A completion that is called when the scroll change is complete. The Boolean passed into the completion is `true` if the point was successfully found and scrolled to or `false` if the point was invalid.
-    func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+    func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, reportsErrors: Bool = true, completion: ((Bool) -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
             completion?(true)
@@ -33,7 +34,9 @@ extension ArticleScrolling where Self: UIViewController {
             assert(Thread.isMainThread)
             switch result {
             case .failure(let error):
-                self.showError(error)
+                if reportsErrors {
+                    self.showError(error)
+                }
                 completion?(false)
             case .success:
                 // The actual scroll happens via a callback event from the WebView
