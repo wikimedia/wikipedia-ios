@@ -209,6 +209,36 @@ class ArticleWebMessagingController: NSObject {
         }
     }
 
+    /// Calls back once the Page Content Service shows the sections of the page. That happens after
+    /// the final setup: before it, the page has the height of the lead only. On an error, calls
+    /// back right away.
+    func sectionsAreShown(completion: @escaping () -> Void) {
+        guard let webView else {
+            completion()
+            return
+        }
+
+        webView.callAsyncJavaScript("await window.wmf.utilities.whenSectionsAreShown()", in: nil, in: .page) { result in
+            if case .failure(let error) = result {
+                DDLogWarn("Error waiting for the sections of the page: \(error)")
+            }
+            completion()
+        }
+    }
+
+    /// The height of the page, as the page measures it. The web view reports the same height once
+    /// it is in sync with the page.
+    func pageHeight(completion: @escaping (CGFloat) -> Void) {
+        guard let webView else {
+            completion(0)
+            return
+        }
+
+        webView.evaluateJavaScript("document.documentElement.scrollHeight") { result, _ in
+            completion((result as? NSNumber).map { CGFloat($0.doubleValue) } ?? 0)
+        }
+    }
+
     func removeElementHighlights() {
         webView?.evaluateJavaScript("pcs.c1.Page.removeHighlightsFromHighlightedElements()")
     }
