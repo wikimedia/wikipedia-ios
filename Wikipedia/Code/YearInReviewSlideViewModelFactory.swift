@@ -21,7 +21,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The slides for `flow`. `nil` is the profile entry point, which does not pick a flow.
-    func makeSlides(for flow: YearInReviewCoordinator.Flow?) -> [WMFYearInReviewSlideViewModel] {
+    func makeSlides(for flow: YearInReviewCoordinator.Flow? = nil) -> [WMFYearInReviewSlideViewModel] {
         switch flow {
         case .personalized, .collective, nil:
             // TODO: Return the personalized and the collective slides once both exist. Both use
