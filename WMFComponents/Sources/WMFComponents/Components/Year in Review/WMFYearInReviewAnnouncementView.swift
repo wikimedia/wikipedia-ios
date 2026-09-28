@@ -58,11 +58,12 @@ public struct WMFYearInReviewAnnouncementView: View {
 
     private var footer: some View {
         VStack(spacing: 24) {
+            // The body copy is drawn in the artwork, so only the icon shows here. VoiceOver reads the
+            // body from this button, since text inside the artwork is not read.
             Button(action: viewModel.tappedInfo) {
-                bodyText
-                    .font(Font(WMFFont.for(.georgiaCallout)))
+                infoIcon
                     .foregroundStyle(Color(uiColor: theme.text))
-                    .multilineTextAlignment(.center)
+                    .frame(width: 44, height: 44)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(viewModel.localizedStrings.body)
@@ -80,13 +81,12 @@ public struct WMFYearInReviewAnnouncementView: View {
         .padding(.bottom, 16)
     }
 
-    /// The body copy with the info icon at the end of the last line.
-    private var bodyText: Text {
-        let text = Text(viewModel.localizedStrings.body)
-        guard let icon = WMFSFSymbolIcon.for(symbol: .infoCircleFill, font: .georgiaCallout) else {
-            return text
+    @ViewBuilder
+    private var infoIcon: some View {
+        if let image = WMFSFSymbolIcon.for(symbol: .infoCircleFill, font: .georgiaCallout) {
+            Image(uiImage: image)
+                .renderingMode(.template)
         }
-        return Text("\(text) \(Image(uiImage: icon).renderingMode(.template))")
     }
 
     // MARK: - Close

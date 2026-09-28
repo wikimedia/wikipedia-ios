@@ -149,6 +149,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     /// `flow` is nil for the profile entry point, which does not pick a flow here.
     private func presentYearInReview(flow: Flow? = nil) {
+        // Read on the main thread without waiting. Empty until the report has been filled in.
+        let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(for: flow),
             localizedStrings: slideFactory.makeLocalizedStrings(),
@@ -174,9 +177,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             // Something may have been presented while the data loaded.
             guard navigationController.presentedViewController == nil else { return }
 
+            let localizedStrings = announcementLocalizedStrings(readingDayCount: readingDayCount)
+
             let viewModel = WMFYearInReviewAnnouncementViewModel(
                 animation: announcementAnimation,
-                localizedStrings: announcementLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount),
+                riveText: [
+                    CoverTextPath.title: announcementHeadline,
+                    CoverTextPath.body: localizedStrings.body
+                ],
+                localizedStrings: localizedStrings,
                 // TEMPORARY: the sample artwork is light, so the close button uses the dark style.
                 // Remove this line with the real file to get the default light style (20% white).
                 contentStyle: .dark,
@@ -195,19 +204,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func announcementLocalizedStrings(userDataState: WMFYearInReviewDataController.YiRUserDataState, readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
-        let body: String
-        switch userDataState {
-        case .dataRich:
-            let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
-            body = String.localizedStringWithFormat(format, readingDayCount)
-        case .lowData:
-            // TODO: Replace with the collective copy once design provides it, as a WMFLocalizedString.
-            body = "Collective announcement copy TBD"
-        }
+    private func announcementLocalizedStrings(readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
+        // Both data states use this copy for now. Switch on the data state again once design
+        // provides the collective copy.
+        let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
+        let body = String.localizedStringWithFormat(format, readingDayCount)
 
         return WMFYearInReviewAnnouncementViewModel.LocalizedStrings(
-            animationAccessibilityLabel: WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement. It is drawn inside the artwork, so VoiceOver reads this text."),
+            animationAccessibilityLabel: announcementHeadline,
             body: body,
             exploreButtonTitle: WMFLocalizedString("year-in-review-2026-announcement-explore", value: "Explore", comment: "Title of the button on the Year in Review announcement that opens Year in Review."),
             closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
@@ -222,10 +226,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     // TEMPORARY: the same sample export the slides use. Replace the resource, artboard and state
     // machine names when design delivers the announcement file.
     private let announcementAnimation = WMFRiveAnimation(
-        resourceName: "autolayout_multiple_instances_test",
-        artboardName: "frame1",
-        stateMachineName: "insightFrame-stateMachine"
+        resourceName: "all_templates",
+        artboardName: "cover",
+        stateMachineName: "cover-statemachine"
     )
+
+    /// Text fields on the cover's `DataTemplate` view model. `Headline` and `data` are not used.
+    private enum CoverTextPath {
+        static let title = WMFRiveText(path: "coverTitle")
+        static let body = WMFRiveText(path: "bodyCopy")
+    }
 
     // MARK: - Announcement log in prompt
 
@@ -315,6 +325,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         announcement.dismiss(animated: true, completion: completion)
+    }
+
+    /// Drawn inside the artwork through `coverTitle`, and read by VoiceOver for the artwork.
+    private var announcementHeadline: String {
+        WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement. It is drawn inside the artwork, so VoiceOver reads this text.")
     }
 
     private var announcementInfoTitle: String {

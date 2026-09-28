@@ -47,10 +47,23 @@ struct YearInReviewSlideDataControllerDependencies {
 
 protocol YearInReviewUserImpactDataProviding: Sendable {
     func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int?
+    func fetchTopViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFUserImpactData.TopViewedArticle]
+}
+
+extension YearInReviewUserImpactDataProviding {
+    /// Default so existing stand-ins in tests still build. WMFUserImpactDataController provides the
+    /// real one below.
+    func fetchTopViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFUserImpactData.TopViewedArticle] {
+        []
+    }
 }
 
 extension WMFUserImpactDataController: YearInReviewUserImpactDataProviding {
     func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
         try await fetch(userID: userID, project: project, language: language).totalPageviewsCount
+    }
+
+    func fetchTopViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFUserImpactData.TopViewedArticle] {
+        try await fetch(userID: userID, project: project, language: language).topViewedArticles
     }
 }
