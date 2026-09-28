@@ -20,7 +20,17 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    func makeSlides() -> [WMFYearInReviewSlideViewModel] {
+    /// The slides for `flow`. `nil` is the profile entry point, which does not pick a flow.
+    func makeSlides(for flow: YearInReviewCoordinator.Flow?) -> [WMFYearInReviewSlideViewModel] {
+        switch flow {
+        case .personalized, .collective, nil:
+            // TODO: Return the personalized and the collective slides once both exist. Both use
+            // the mock slides today.
+            return makeMockSlides()
+        }
+    }
+
+    private func makeMockSlides() -> [WMFYearInReviewSlideViewModel] {
         // TEMPORARY: mock slides driven from the one sample .riv. The sentences are hardcoded
         // stand-ins for WMFLocalizedString, including the Arabic and Chinese ones, so the split
         // can be seen working in a right-to-left script and in one with no spaces.

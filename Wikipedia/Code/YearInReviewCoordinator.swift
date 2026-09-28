@@ -149,10 +149,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     /// `flow` is nil for the profile entry point, which does not pick a flow here.
     private func presentYearInReview(flow: Flow? = nil) {
-        // TODO: Build the personalized or the collective slides from `flow` once both exist.
-        // The mock slides are the same for both today.
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(),
+            slides: slideFactory.makeSlides(for: flow),
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
             loggingDelegate: self

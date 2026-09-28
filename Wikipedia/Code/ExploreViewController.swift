@@ -1191,7 +1191,7 @@ extension ExploreViewController {
         // If Year in Review shows, games is deferred to the next launch.
         yirCoordinator.presentFeatureAnnouncementIfNeeded(
             from: self,
-            introSlideLoggingID: "", // TODO confirm
+            introSlideLoggingID: "", // TODO: confirm with analytics
             onShown: { [weak self] in
                 self?.updateProfileButton()
             },
