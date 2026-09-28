@@ -8,7 +8,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     let id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = false
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account, .donations]
     static let shouldFreeze = false
     
     private let globalUserID: Int?

@@ -605,43 +605,44 @@ import CoreData
         }
     }
 
-    public func deleteAllPersonalizedNetworkData() async throws {
+    /// Deletes every stored Year in Review slide that is made from `source`, for all years. The
+    /// slides are calculated again the next time the report is populated.
+    ///
+    /// Call this when the user clears the source: `.readingHistory` when they clear reading
+    /// history, `.account` on logout, and `.donations` when they delete local donation history.
+    public func deletePersonalizedData(for source: WMFYearInReviewPersonalizationSource) async throws {
 
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
 
-            let cdReports = try self.coreDataStore.fetch(
-                entityType: CDYearInReviewReport.self,
+            let cdSlides = try self.coreDataStore.fetch(
+                entityType: CDYearInReviewSlide.self,
                 predicate: nil,
                 fetchLimit: nil,
                 in: backgroundContext
             )
 
-            guard let cdReports else {
-                return
-            }
-
-            for report in cdReports {
-                guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+            for slide in cdSlides ?? [] {
+                guard let slideID = slide.id,
+                      let dataController = WMFYearInReviewPersonalizedSlideID(rawValue: slideID)?.dataController() else {
                     continue
                 }
 
-                for slide in slides {
-                    guard let slideID = slide.id,
-                          let dataController = WMFYearInReviewPersonalizedSlideID(rawValue: slideID)?.dataController() else {
-                        continue
-                    }
+                guard dataController.personalizationSources.contains(source) else { continue }
 
-                    guard dataController.containsPersonalizedNetworkData else { continue }
-
-                    backgroundContext.delete(slide)
-                }
+                backgroundContext.delete(slide)
             }
 
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
+    }
+
+    /// Deletes all stored Year in Review reports and slides, for all years. Call this when the
+    /// user turns Year in Review off. This does not reset the setting or the seen and tapped flags.
+    public func deleteAllPersonalizedData() async throws {
+        try await deleteAllYearInReviewReports()
     }
 
     public func shouldHideDonateButton() -> Bool {

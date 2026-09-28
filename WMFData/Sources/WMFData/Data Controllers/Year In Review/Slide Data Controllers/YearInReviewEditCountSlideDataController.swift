@@ -8,7 +8,7 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     let id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = true
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account]
     static let shouldFreeze = false
     
     private var editCount: Int?

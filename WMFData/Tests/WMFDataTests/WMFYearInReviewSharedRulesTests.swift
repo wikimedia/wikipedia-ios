@@ -73,6 +73,68 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         try await dataController.createNewYearInReviewReport(year: year, slides: slides)
     }
 
+    func testClearingReadingHistoryDeletesOnlyReadingSlides() async throws {
+        let dataController = try makeDataController()
+        try await saveAllSlides(dataController: dataController)
+
+        try await dataController.deletePersonalizedData(for: .readingHistory)
+
+        let remaining = try await storedSlideIDs(year: 2026)
+        XCTAssertEqual(remaining, [.editCount, .donateCount, .saveCount, .viewCount])
+    }
+
+    func testLogoutDeletesAccountSlidesIncludingDonateSlide() async throws {
+        let dataController = try makeDataController()
+        try await saveAllSlides(dataController: dataController)
+
+        try await dataController.deletePersonalizedData(for: .account)
+
+        let remaining = try await storedSlideIDs(year: 2026)
+        XCTAssertEqual(remaining, [.readCount, .mostReadDate, .mostReadCategories, .location, .topArticles])
+    }
+
+    func testDeletingDonationHistoryDeletesOnlyDonateSlide() async throws {
+        let dataController = try makeDataController()
+        try await saveAllSlides(dataController: dataController)
+
+        try await dataController.deletePersonalizedData(for: .donations)
+
+        let remaining = try await storedSlideIDs(year: 2026)
+        XCTAssertEqual(remaining, Set(allSlideIDs).subtracting([.donateCount]))
+    }
+
+    func testDeletePersonalizedDataCoversAllYears() async throws {
+        let dataController = try makeDataController()
+        try await saveAllSlides(dataController: dataController, year: 2025)
+        try await saveAllSlides(dataController: dataController, year: 2026)
+
+        try await dataController.deletePersonalizedData(for: .readingHistory)
+
+        let remaining2025 = try await storedSlideIDs(year: 2025)
+        let remaining2026 = try await storedSlideIDs(year: 2026)
+        XCTAssertFalse(remaining2025.contains(.readCount))
+        XCTAssertFalse(remaining2026.contains(.readCount))
+    }
+
+    func testDeleteAllPersonalizedDataDeletesReportsAndSlides() async throws {
+        let dataController = try makeDataController()
+        try await saveAllSlides(dataController: dataController)
+        dataController.hasSeenYiRIntroSlide = true
+
+        try await dataController.deleteAllPersonalizedData()
+
+        let store = try XCTUnwrap(store)
+        let reportCount = try await store.viewContext.perform {
+            try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: nil, in: store.viewContext)?.count ?? 0
+        }
+        let remaining = try await storedSlideIDs(year: 2026)
+        XCTAssertEqual(reportCount, 0)
+        XCTAssertTrue(remaining.isEmpty)
+
+        // UI state flags are not personal data and stay.
+        XCTAssertTrue(dataController.hasSeenYiRIntroSlide)
+    }
+
     func testSavingOneYearsReportKeepsOtherYearsSlides() async throws {
         let dataController = try makeDataController()
         try await dataController.createNewYearInReviewReport(year: 2025, slides: [WMFYearInReviewSlide(year: 2025, id: .readCount, data: nil)])
@@ -82,5 +144,17 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         let remaining2026 = try await storedSlideIDs(year: 2026)
         XCTAssertEqual(remaining2025, [.readCount])
         XCTAssertEqual(remaining2026, [.readCount])
+    }
+
+    func testTurningSettingOffDeletesStoredReports() async throws {
+        let dataController = try makeDataController()
+        try await saveAllSlides(dataController: dataController)
+        let settingsDataController = WMFSettingsDataController(yirDataController: dataController, donationDataController: nil)
+
+        let isActive = await settingsDataController.setYirActive(false)
+
+        XCTAssertFalse(isActive)
+        let remaining = try await storedSlideIDs(year: 2026)
+        XCTAssertTrue(remaining.isEmpty)
     }
 }

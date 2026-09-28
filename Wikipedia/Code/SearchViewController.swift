@@ -455,6 +455,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
+            do {
+                try await WMFYearInReviewDataController().deletePersonalizedData(for: .readingHistory)
+            } catch {
+                DDLogError("Failure deleting Year in Review reading data: \(error)")
+            }
         }
     }
 
