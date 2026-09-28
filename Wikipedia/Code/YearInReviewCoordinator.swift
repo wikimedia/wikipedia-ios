@@ -25,6 +25,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// entry point, so the flag must not stay on after the announcement.
     private var isFeatureAnnouncement = false
 
+    /// True while the announcement's data loads. Home can ask twice in a row (on appear and on
+    /// becoming active), so a second request is ignored until the first one finishes.
+    private var isPreparingFeatureAnnouncement = false
+
     /// Which slides to show. Picked from the reader's data and whether they log in from the
     /// announcement.
     enum Flow {
@@ -72,38 +76,25 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// Shows the announcement if the reader should see it now. Explore and Home use this, so both
     /// follow the same rules. Calls `onNotShown` when nothing is presented, so the caller can move on
     /// to its next modal.
+    ///
+    /// Fundraising goes first through `shouldShowYearInReviewFeatureAnnouncement()`: if the campaign
+    /// banner showed this session, the announcement waits for the next app open.
     func presentFeatureAnnouncementIfNeeded(from viewController: UIViewController, introSlideLoggingID: String, onShown: @escaping () -> Void = {}, onNotShown: @escaping () -> Void = {}) {
         guard canPresentFeatureAnnouncement(from: viewController) else {
             onNotShown()
             return
         }
 
-        Task { @MainActor [weak self, weak viewController] in
-            guard let self, let viewController else { return }
-
-            // Fundraising goes first. If the reader qualifies for the campaign banner, skip Year in
-            // Review now. It shows on a later app open, after the banner is shown or hidden.
-            // The developer settings override skips this check.
-            let isEligibleForCampaign: Bool
-            if dataController.isForcingFeatureAnnouncement {
-                isEligibleForCampaign = false
-            } else {
-                isEligibleForCampaign = await isEligibleForFundraisingCampaign()
-            }
-
-            // Check again after the wait, since something may have been presented in the meantime.
-            guard !isEligibleForCampaign, canPresentFeatureAnnouncement(from: viewController) else {
-                onNotShown()
-                return
-            }
-
-            onShown()
-            setupForFeatureAnnouncement(introSlideLoggingID: introSlideLoggingID)
-            start()
-        }
+        onShown()
+        setupForFeatureAnnouncement(introSlideLoggingID: introSlideLoggingID)
+        start()
     }
 
     private func canPresentFeatureAnnouncement(from viewController: UIViewController) -> Bool {
+        guard !isPreparingFeatureAnnouncement else {
+            return false
+        }
+
         if UIDevice.current.userInterfaceIdiom == .pad && navigationController.navigationBar.isHidden {
             return false
         }
@@ -133,25 +124,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return true
     }
 
-    /// True if the reader qualifies for the fundraising campaign banner right now. There is no
-    /// article here, so this checks the app's primary language project.
-    private func isEligibleForFundraisingCampaign() async -> Bool {
-        guard let countryCode = Locale.current.region?.identifier,
-              let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
-            return false
-        }
-
-        return await WMFFundraisingCampaignDataController.shared.shouldShowCampaign(countryCode: countryCode, wmfProject: wmfProject)
-    }
-
     // MARK: - Presentation
 
     /// `flow` is nil for the profile entry point, which does not pick a flow here.
     private func presentYearInReview(flow: Flow? = nil) {
-        // Read on the main thread without waiting. Empty until the report has been filled in.
-        let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(for: flow),
             localizedStrings: slideFactory.makeLocalizedStrings(),
@@ -164,12 +140,22 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         navigationController.present(presentedNavigationController, animated: true)
+
+        // The reader has seen Year in Review, so the announcement no longer needs to show.
+        dataController.hasSeenYiRIntroSlide = true
     }
 
     private func presentFeatureAnnouncement() {
+        // Article calls `start()` directly, so this check is here as well as in
+        // `canPresentFeatureAnnouncement`.
+        guard !isPreparingFeatureAnnouncement else { return }
+        isPreparingFeatureAnnouncement = true
+
         Task { @MainActor [weak self] in
             guard let self else { return }
+            defer { isPreparingFeatureAnnouncement = false }
 
+            // The developer settings toggle decides the state when it is set. See fetchUserDataState().
             let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
             let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
             announcementUserDataState = userDataState
@@ -177,18 +163,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             // Something may have been presented while the data loaded.
             guard navigationController.presentedViewController == nil else { return }
 
-            let localizedStrings = announcementLocalizedStrings(readingDayCount: readingDayCount)
+            let localizedStrings = announcementLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
 
             let viewModel = WMFYearInReviewAnnouncementViewModel(
                 animation: announcementAnimation,
                 riveText: [
-                    CoverTextPath.title: announcementHeadline,
+                    CoverTextPath.title: localizedStrings.animationAccessibilityLabel,
                     CoverTextPath.body: localizedStrings.body
                 ],
                 localizedStrings: localizedStrings,
-                // TEMPORARY: the sample artwork is light, so the close button uses the dark style.
-                // Remove this line with the real file to get the default light style (20% white).
-                contentStyle: .dark,
                 delegate: self
             )
 
@@ -204,14 +187,21 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func announcementLocalizedStrings(readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
-        // Both data states use this copy for now. Switch on the data state again once design
-        // provides the collective copy.
-        let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
-        let body = String.localizedStringWithFormat(format, readingDayCount)
+    private func announcementLocalizedStrings(userDataState: WMFYearInReviewDataController.YiRUserDataState, readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
+        let headline: String
+        let body: String
+        switch userDataState {
+        case .dataRich:
+            headline = WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement for readers with enough reading data. It is drawn inside the artwork, so VoiceOver reads this text.")
+            let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
+            body = String.localizedStringWithFormat(format, readingDayCount)
+        case .lowData:
+            headline = WMFLocalizedString("year-in-review-2026-announcement-collective-headline", value: "Our Year in Review is here", comment: "Headline of the Year in Review announcement for readers without enough reading data for a personalized Year in Review. It is drawn inside the artwork, so VoiceOver reads this text.")
+            body = WMFLocalizedString("year-in-review-2026-announcement-collective-body", value: "There wasn't enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.", comment: "Body text of the Year in Review announcement for readers without enough reading data for a personalized Year in Review.")
+        }
 
         return WMFYearInReviewAnnouncementViewModel.LocalizedStrings(
-            animationAccessibilityLabel: announcementHeadline,
+            animationAccessibilityLabel: headline,
             body: body,
             exploreButtonTitle: WMFLocalizedString("year-in-review-2026-announcement-explore", value: "Explore", comment: "Title of the button on the Year in Review announcement that opens Year in Review."),
             closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
@@ -223,15 +213,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
     }
 
-    // TEMPORARY: the same sample export the slides use. Replace the resource, artboard and state
-    // machine names when design delivers the announcement file.
+    /// The announcement uses the cover artboard of the templates file.
     private let announcementAnimation = WMFRiveAnimation(
         resourceName: "all_templates",
         artboardName: "cover",
         stateMachineName: "cover-statemachine"
     )
 
-    /// Text fields on the cover's `DataTemplate` view model. `Headline` and `data` are not used.
+    /// Text fields on the cover's `DataTemplate` view model. `headline` and `data` are not used.
     private enum CoverTextPath {
         static let title = WMFRiveText(path: "coverTitle")
         static let body = WMFRiveText(path: "bodyCopy")
@@ -325,11 +314,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         announcement.dismiss(animated: true, completion: completion)
-    }
-
-    /// Drawn inside the artwork through `coverTitle`, and read by VoiceOver for the artwork.
-    private var announcementHeadline: String {
-        WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement. It is drawn inside the artwork, so VoiceOver reads this text.")
     }
 
     private var announcementInfoTitle: String {
