@@ -25,6 +25,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// entry point, so the flag must not stay on after the announcement.
     private var isFeatureAnnouncement = false
 
+    /// Which slides to show. Picked from the reader's data and whether they log in from the
+    /// announcement.
+    enum Flow {
+        case personalized
+        case collective
+    }
+
+    /// The data state the announcement was built with. Explore uses it to pick the flow and the log
+    /// in prompt copy.
+    private var announcementUserDataState: WMFYearInReviewDataController.YiRUserDataState = .lowData
+
     private weak var viewModel: WMFYearInReviewViewModel?
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
@@ -136,7 +147,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Presentation
 
-    private func presentYearInReview() {
+    /// `flow` is nil for the profile entry point, which does not pick a flow here.
+    private func presentYearInReview(flow: Flow? = nil) {
+        // TODO: Build the personalized or the collective slides from `flow` once both exist.
+        // The mock slides are the same for both today.
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(),
             localizedStrings: slideFactory.makeLocalizedStrings(),
@@ -157,6 +171,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
             let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
             let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
+            announcementUserDataState = userDataState
 
             // Something may have been presented while the data loaded.
             guard navigationController.presentedViewController == nil else { return }
@@ -213,6 +228,96 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         artboardName: "frame1",
         stateMachineName: "insightFrame-stateMachine"
     )
+
+    // MARK: - Announcement log in prompt
+
+    /// Asks logged-out readers to log in first. Logging in or creating an account opens
+    /// `flowAfterLogin`. Continuing without logging in always opens the collective flow.
+    private func presentAnnouncementLoginPrompt(flowAfterLogin: Flow) {
+        guard let announcement = navigationController.presentedViewController else {
+            presentYearInReview(flow: .collective)
+            return
+        }
+
+        let title: String
+        let message: String
+        switch announcementUserDataState {
+        case .dataRich:
+            title = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-title", value: "Your Year in Review is best with an account", comment: "Title of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
+            message = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-message", value: "Log in to see your top topics, articles, longest rabbit hole, and more. You can still see collective insights without logging in.", comment: "Message of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
+        case .lowData:
+            // TODO: Replace with the collective prompt copy once design provides it, as WMFLocalizedString.
+            title = "Collective login prompt title TBD"
+            message = "Collective login prompt message TBD"
+        }
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let loginAction = UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
+            self?.dismissAnnouncement {
+                self?.startAnnouncementLogin(flowAfterLogin: flowAfterLogin)
+            }
+        }
+
+        let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
+            self?.dismissAnnouncement {
+                self?.presentYearInReview(flow: .collective)
+            }
+        }
+
+        alert.addAction(loginAction)
+        alert.addAction(continueAction)
+        alert.preferredAction = loginAction
+        alert.view.tintColor = theme.colors.link
+
+        announcement.present(alert, animated: true)
+    }
+
+    private func startAnnouncementLogin(flowAfterLogin: Flow) {
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme, loggingCategory: .yir)
+
+        // The log in screen calls this before it dismisses itself, so wait for that to finish.
+        loginCoordinator.loginSuccessCompletion = { [weak self] in
+            DispatchQueue.main.async {
+                self?.presentYearInReviewAfterCurrentDismissal(flow: flowAfterLogin)
+            }
+        }
+
+        // Account creation leaves its screen up, so dismiss it here first.
+        loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+            guard let self else { return }
+            guard let accountCreation = navigationController.presentedViewController else {
+                presentYearInReview(flow: flowAfterLogin)
+                return
+            }
+            accountCreation.dismiss(animated: true) { [weak self] in
+                self?.presentYearInReview(flow: flowAfterLogin)
+            }
+        }
+
+        loginCoordinator.start()
+    }
+
+    /// Presents the slides once any dismissal in progress is done.
+    private func presentYearInReviewAfterCurrentDismissal(flow: Flow) {
+        guard let transitionCoordinator = navigationController.transitionCoordinator else {
+            presentYearInReview(flow: flow)
+            return
+        }
+
+        transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.presentYearInReview(flow: flow)
+        }
+    }
+
+    private func dismissAnnouncement(completion: @escaping () -> Void) {
+        guard let announcement = navigationController.presentedViewController else {
+            completion()
+            return
+        }
+
+        announcement.dismiss(animated: true, completion: completion)
+    }
 
     private var announcementInfoTitle: String {
         WMFLocalizedString("year-in-review-2026-announcement-info-title", value: "Your reading history is kept protected", comment: "Title of the info card on the Year in Review announcement, shown when the reader taps the info icon.")
@@ -316,14 +421,15 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
 extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
 
     func yearInReviewAnnouncementDidTapExplore() {
-        // TODO: Logged-out readers see the log in prompt here first.
-        guard let presentedViewController = navigationController.presentedViewController else {
-            presentYearInReview()
+        let flowForLoggedInReader: Flow = announcementUserDataState == .dataRich ? .personalized : .collective
+
+        guard dataStore.authenticationManager.authStateIsPermanent else {
+            presentAnnouncementLoginPrompt(flowAfterLogin: flowForLoggedInReader)
             return
         }
 
-        presentedViewController.dismiss(animated: true) { [weak self] in
-            self?.presentYearInReview()
+        dismissAnnouncement { [weak self] in
+            self?.presentYearInReview(flow: flowForLoggedInReader)
         }
     }
 
