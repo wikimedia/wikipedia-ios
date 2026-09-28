@@ -70,9 +70,10 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: yearInReviewConfigs), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
     }
 
-    private func makeDataController(remoteYearInReviewConfigs: [YearInReview], forceYiR2026: Bool) throws -> WMFYearInReviewDataController {
+    private func makeDataController(remoteYearInReviewConfigs: [YearInReview], testWikiYearInReviewConfigs: [YearInReview]? = nil, forceYiR2026: Bool) throws -> WMFYearInReviewDataController {
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(
             featureConfig: makeFeatureConfig(remoteYearInReviewConfigs),
+            testWikiFeatureConfig: testWikiYearInReviewConfigs.map(makeFeatureConfig),
             forceYiR2026: forceYiR2026
         )
         return try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: userDefaultsStore, developerSettingsDataController: developerSettingsDataController)
@@ -95,6 +96,23 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
 
     func testRemoteConfigWinsOverLocalConfig() throws {
         let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], forceYiR2026: true)
+        XCTAssertEqual(dataController.config?.activeStartDateString, YearInReview.testConfig.activeStartDateString)
+    }
+
+    func testTestWikiConfigWinsWithForceFlag() throws {
+        let testWikiConfig = makeConfig(activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z")
+        let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], testWikiYearInReviewConfigs: [testWikiConfig], forceYiR2026: true)
+        XCTAssertEqual(dataController.config?.activeStartDateString, "2026-12-02T20:00:00Z")
+    }
+
+    func testTestWikiConfigIsIgnoredWithoutForceFlag() throws {
+        let testWikiConfig = makeConfig(activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z")
+        let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], testWikiYearInReviewConfigs: [testWikiConfig], forceYiR2026: false)
+        XCTAssertEqual(dataController.config?.activeStartDateString, YearInReview.testConfig.activeStartDateString)
+    }
+
+    func testRemoteConfigIsUsedWithForceFlagWhenTestWikiHasNo2026Entry() throws {
+        let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], testWikiYearInReviewConfigs: [], forceYiR2026: true)
         XCTAssertEqual(dataController.config?.activeStartDateString, YearInReview.testConfig.activeStartDateString)
     }
 

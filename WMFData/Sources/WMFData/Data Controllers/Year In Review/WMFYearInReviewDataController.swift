@@ -55,18 +55,18 @@ import CoreData
     }
 
     public var config: WMFFeatureConfigResponse.Common.YearInReview? {
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
-           let config = featureConfig.common.yir(year: Self.targetYear) {
-            return config
-        }
+        let remoteConfig = developerSettingsDataController.loadFeatureConfig()?.common.yir(year: Self.targetYear)
 
-        // TEMPORARY: until the 2026 entry is in the remote config, the developer force flag uses
-        // the local copy. Builds without the flag stay off, so the remote config still controls launch.
+        // TEMPORARY: while the developer force flag is on, use the test wiki entry first, then the
+        // remote entry of this build's environment, then the local copy. Builds without the flag
+        // use only the remote entry, so the remote config still controls launch.
         if developerSettingsDataController.forceYiREntryPoint2026 {
-            return WMFYearInReviewLocalConfig.year2026
+            return developerSettingsDataController.loadTestWikiFeatureConfig()?.common.yir(year: Self.targetYear)
+                ?? remoteConfig
+                ?? WMFYearInReviewLocalConfig.year2026
         }
 
-        return nil
+        return remoteConfig
     }
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
