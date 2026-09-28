@@ -191,12 +191,13 @@ class ArticleWebMessagingController: NSObject {
     }
 
     /// Highlights `passages` inside the section of `anchor`, or in the whole article when the
-    /// section does not have them. Reports how many highlight spans were added.
-    func highlightPassages(_ passages: [String], anchor: String?, completion: @escaping (Int) -> Void) {
+    /// section does not have them. Reports the ids of the highlight spans. The first id is the
+    /// start of the first passage found.
+    func highlightPassages(_ passages: [String], anchor: String?, completion: @escaping ([String]) -> Void) {
         guard let webView,
               let passagesData = try? JSONEncoder().encode(passages),
               let passagesJSON = String(data: passagesData, encoding: .utf8) else {
-            completion(0)
+            completion([])
             return
         }
 
@@ -205,7 +206,7 @@ class ArticleWebMessagingController: NSObject {
             if let error {
                 DDLogWarn("Error highlighting passages: \(error)")
             }
-            completion((result as? [String])?.count ?? 0)
+            completion(result as? [String] ?? [])
         }
     }
 
