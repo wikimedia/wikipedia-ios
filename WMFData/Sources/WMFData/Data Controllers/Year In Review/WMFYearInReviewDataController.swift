@@ -60,6 +60,12 @@ import CoreData
             return config
         }
 
+        // TEMPORARY: until the 2026 entry is in the remote config, the developer force flag uses
+        // the local copy. Builds without the flag stay off, so the remote config still controls launch.
+        if developerSettingsDataController.forceYiREntryPoint2026 {
+            return WMFYearInReviewLocalConfig.year2026
+        }
+
         return nil
     }
 
@@ -115,19 +121,6 @@ import CoreData
     // at least this many distinct articles in the data window.
     static let dataRichDistinctArticleThreshold = 11
 
-    // The proxy measures 2026 reading. targetYear stays 2025 until the whole feature moves to 2026.
-    static let userDataStateYear = 2026
-
-    /// Temporary data window: January 1 through November 30 of `year`, in the given calendar.
-    /// Replace with the remote config `dataStartDate` and `dataEndDate` when the slides are wired.
-    static func userDataStateWindow(year: Int, calendar: Calendar = .current) -> (start: Date, end: Date)? {
-        guard let start = calendar.date(from: DateComponents(year: year, month: 1, day: 1)),
-              let decemberFirst = calendar.date(from: DateComponents(year: year, month: 12, day: 1)) else {
-            return nil
-        }
-        return (start, decemberFirst.addingTimeInterval(-1))
-    }
-
     /// Which Year in Review experience to show. The developer settings override wins, but only when
     /// `forceYiREntryPoint2026` is on. Otherwise the distinct articles in History decide.
     public func fetchUserDataState() async throws -> YiRUserDataState {
@@ -136,13 +129,15 @@ import CoreData
             return forcedState
         }
 
-        guard let window = Self.userDataStateWindow(year: Self.userDataStateYear) else {
+        guard let config = self.config,
+              let startDate = config.dataStartDate,
+              let endDate = config.dataEndDate else {
             return .lowData
         }
 
         // fetchPageViewCounts groups by page, so the count is distinct articles, not views.
         let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-        let distinctArticleCount = try await pageViewsDataController.fetchPageViewCounts(startDate: window.start, endDate: window.end).count
+        let distinctArticleCount = try await pageViewsDataController.fetchPageViewCounts(startDate: startDate, endDate: endDate).count
         return distinctArticleCount >= Self.dataRichDistinctArticleThreshold ? .dataRich : .lowData
     }
 

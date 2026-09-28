@@ -64,6 +64,47 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         XCTAssertEqual(range.end, date("2026-12-01T00:00:00Z"))
     }
 
+    // MARK: - Local config
+
+    private func makeFeatureConfig(_ yearInReviewConfigs: [YearInReview]) -> WMFFeatureConfigResponse {
+        WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: yearInReviewConfigs), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
+    }
+
+    private func makeDataController(remoteYearInReviewConfigs: [YearInReview], forceYiR2026: Bool) throws -> WMFYearInReviewDataController {
+        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(
+            featureConfig: makeFeatureConfig(remoteYearInReviewConfigs),
+            forceYiR2026: forceYiR2026
+        )
+        return try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: userDefaultsStore, developerSettingsDataController: developerSettingsDataController)
+    }
+
+    func testLocalConfigIsUsedWithForceFlagWhenRemoteHasNo2026Entry() throws {
+        let dataController = try makeDataController(remoteYearInReviewConfigs: [], forceYiR2026: true)
+        let config = try XCTUnwrap(dataController.config)
+        XCTAssertEqual(config.year, 2026)
+        XCTAssertEqual(config.activeStartDateString, "2026-12-02T20:00:00Z")
+        XCTAssertEqual(config.activeEndDateString, "2027-02-01T00:00:00Z")
+        XCTAssertEqual(config.dataStartDateString, "2026-01-01T00:00:00Z")
+        XCTAssertEqual(config.dataEndDateString, "2026-12-01T00:00:00Z")
+    }
+
+    func testLocalConfigIsNotUsedWithoutForceFlag() throws {
+        let dataController = try makeDataController(remoteYearInReviewConfigs: [], forceYiR2026: false)
+        XCTAssertNil(dataController.config)
+    }
+
+    func testRemoteConfigWinsOverLocalConfig() throws {
+        let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], forceYiR2026: true)
+        XCTAssertEqual(dataController.config?.activeStartDateString, YearInReview.testConfig.activeStartDateString)
+    }
+
+    func testLocalConfigCountryListsMatch2025() {
+        let local = WMFYearInReviewLocalConfig.year2026
+        XCTAssertEqual(Set(local.hideCountryCodes), Set(YearInReview.testHideCountryCodes))
+        XCTAssertEqual(local.hideCountryCodes.count, Set(local.hideCountryCodes).count)
+        XCTAssertEqual(local.hideDonateCountryCodes, YearInReview.testHideDonateCountryCodes)
+    }
+
     // MARK: - Active window
 
     func testActiveWindowBoundaries() {
