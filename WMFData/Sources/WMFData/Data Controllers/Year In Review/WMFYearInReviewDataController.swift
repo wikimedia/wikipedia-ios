@@ -88,6 +88,27 @@ import CoreData
         }
     }
     
+    // MARK: - Date Ranges
+
+    /// The period for the contributor slide and for donor and editor rewards: December 1 of the
+    /// previous year to December 1 of `year`, at 00:00 UTC. The end date is the first instant
+    /// outside the period. This is set in the app, not in the remote config.
+    public static func contributorDateRange(year: Int) -> DateInterval? {
+        guard let start = utcDate(year: year - 1, month: 12, day: 1),
+              let end = utcDate(year: year, month: 12, day: 1) else {
+            return nil
+        }
+        return DateInterval(start: start, end: end)
+    }
+
+    private static func utcDate(year: Int, month: Int, day: Int) -> Date? {
+        var calendar = Calendar(identifier: .gregorian)
+        if let utc = TimeZone(secondsFromGMT: 0) {
+            calendar.timeZone = utc
+        }
+        return calendar.date(from: DateComponents(year: year, month: month, day: day))
+    }
+
     // MARK: - User Data State
 
     // Temporary proxy until each slide reports its own status: a user is data rich when they read

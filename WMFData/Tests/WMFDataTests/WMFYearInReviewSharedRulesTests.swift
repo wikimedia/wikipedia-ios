@@ -56,6 +56,14 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         return try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: userDefaultsStore, developerSettingsDataController: developerSettingsDataController)
     }
 
+    // MARK: - Date ranges
+
+    func testContributorDateRangeIsDecemberFirstOfPreviousYearToDecemberFirst() throws {
+        let range = try XCTUnwrap(WMFYearInReviewDataController.contributorDateRange(year: 2026))
+        XCTAssertEqual(range.start, date("2025-12-01T00:00:00Z"))
+        XCTAssertEqual(range.end, date("2026-12-01T00:00:00Z"))
+    }
+
     // MARK: - Active window
 
     func testActiveWindowBoundaries() {
