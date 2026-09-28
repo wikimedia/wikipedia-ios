@@ -724,7 +724,8 @@ import CoreData
 
     private func makeCDSlide(from slide: WMFYearInReviewSlide, in context: NSManagedObjectContext) -> CDYearInReviewSlide? {
         do {
-            let predicate = NSPredicate(format: "id == %@", slide.id.rawValue)
+            // Match on year too, so that saving one year's report does not take over another year's slides.
+            let predicate = NSPredicate(format: "id == %@ && year == %d", slide.id.rawValue, slide.year)
             let cdSlide = try self.coreDataStore.fetchOrCreate(
                 entityType: CDYearInReviewSlide.self,
                 predicate: predicate,
