@@ -244,15 +244,12 @@ import CoreData
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
 
-        // Checked before the developer force flag, so that testers see the real opt-out behavior.
         guard yearInReviewSettingsIsEnabled else {
             return false
         }
 
-        if developerSettingsDataController.forceYiREntryPoint2026 {
-            return true
-        }
-
+        // The developer force flag does not skip these checks. It only lets `isActive(for:)` pass
+        // before the start date.
         let currentDate = currentDate ?? Date()
 
         guard let countryCode else {

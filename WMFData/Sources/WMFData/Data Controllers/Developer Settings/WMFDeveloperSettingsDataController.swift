@@ -102,10 +102,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Year in Review
 
-    /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
-    /// as active outside its date window, and the entry point presents even with no 2026 config
-    /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
-    /// entry point and date window flags, so nothing below it is respected.
+    /// Debugging convenience: while on, 2026 Year in Review shows before its launch date. The 2026
+    /// config counts as active before its `activeStartDate`, but not after its `activeEndDate`. The
+    /// opt-out setting and the suppressed-country list still apply.
     public var forceYiREntryPoint2026: Bool {
         get { loadFlag(.developerSettingsForceYiREntryPoint2026) }
         set {

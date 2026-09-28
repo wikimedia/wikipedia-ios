@@ -146,6 +146,24 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
+    @Test
+    func forceYiREntryPoint2026SkipsOnlyTheStartDate() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+            let common = WMFFeatureConfigResponse.Common.YearInReview.testConfig
+            let config = WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z", dataStartDateString: common.dataStartDateString, dataEndDateString: common.dataEndDateString, languages: common.languages, articles: common.articles, savedArticlesApps: common.savedArticlesApps, viewsApps: common.viewsApps, editsApps: common.editsApps, editsPerMinute: common.editsPerMinute, averageArticlesReadPerYear: common.averageArticlesReadPerYear, edits: common.edits, editsEN: common.editsEN, hoursReadEN: common.hoursReadEN, yearsReadEN: common.yearsReadEN, topReadEN: common.topReadEN, topReadPercentages: common.topReadPercentages, bytesAddedEN: common.bytesAddedEN, hideCountryCodes: common.hideCountryCodes, hideDonateCountryCodes: common.hideDonateCountryCodes)
+            let beforeStart = dateFormatter.date(from: "2026-10-01T00:00:00Z")!
+            let afterEnd = dateFormatter.date(from: "2027-02-01T00:00:01Z")!
+
+            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = false
+            #expect(config.isActive(for: beforeStart) == false)
+
+            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = true
+            #expect(config.isActive(for: beforeStart))
+            #expect(config.isActive(for: afterEnd) == false)
+        }
+    }
+
     private let requestRecordingService = WMFRequestRecordingMockService()
 
     private func configureRequestRecordingEnvironment() async {
