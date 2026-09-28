@@ -135,14 +135,19 @@ import CoreData
 
     public func shouldShowYiRNotification(isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
 
+        // The entry point gate checks the Year in Review setting, the config, the active dates and the country.
+        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+            return false
+        }
+
         if isTemporaryAccount {
             return false
         }
 
         if isLoggedOut {
-            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier)
+            return !hasTappedProfileItem && !hasSeenYiRIntroSlide
         }
-        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier)
+        return !hasSeenYiRIntroSlide
     }
 
     public var hasTappedProfileItem: Bool {
@@ -222,15 +227,17 @@ import CoreData
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+
+        // Checked before the developer force flag, so that testers see the real opt-out behavior.
+        guard yearInReviewSettingsIsEnabled else {
+            return false
+        }
+
         if developerSettingsDataController.forceYiREntryPoint2026 {
             return true
         }
 
         let currentDate = currentDate ?? Date()
-
-        guard yearInReviewSettingsIsEnabled else {
-            return false
-        }
 
         guard let countryCode else {
             return false
@@ -655,7 +662,8 @@ import CoreData
             return false
         }
 
-        guard config.hideDonateCountryCodes.contains(locale) else {
+        let uppercaseConfigHideDonateCountryCodes = config.hideDonateCountryCodes.map { $0.uppercased() }
+        guard uppercaseConfigHideDonateCountryCodes.contains(locale.uppercased()) else {
             return false
         }
 

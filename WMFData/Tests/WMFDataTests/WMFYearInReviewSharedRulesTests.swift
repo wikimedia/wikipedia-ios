@@ -56,6 +56,55 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         return try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: userDefaultsStore, developerSettingsDataController: developerSettingsDataController)
     }
 
+    // MARK: - Active window
+
+    func testActiveWindowBoundaries() {
+        let config = makeConfig(activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z")
+
+        XCTAssertFalse(config.isActive(for: date("2026-12-02T19:59:59Z")))
+        XCTAssertTrue(config.isActive(for: date("2026-12-02T20:00:00Z")))
+        XCTAssertTrue(config.isActive(for: date("2027-02-01T00:00:00Z")))
+        XCTAssertFalse(config.isActive(for: date("2027-02-01T00:00:01Z")))
+    }
+
+    // MARK: - Setting
+
+    func testSettingOffHidesEntryPointAndNotification() async throws {
+        let dataController = try makeDataController()
+
+        await MainActor.run {
+            XCTAssertTrue(dataController.shouldShowYearInReviewEntryPoint(countryCode: "US"))
+
+            dataController.yearInReviewSettingsIsEnabled = false
+
+            XCTAssertFalse(dataController.shouldShowYearInReviewEntryPoint(countryCode: "US"))
+            XCTAssertFalse(dataController.shouldShowActivityTabBadge(countryCode: "US"))
+            XCTAssertFalse(dataController.shouldShowYiRNotification(isLoggedOut: false, isTemporaryAccount: false))
+            XCTAssertFalse(dataController.shouldShowYiRNotification(isLoggedOut: true, isTemporaryAccount: false))
+            XCTAssertFalse(dataController.shouldShowYearInReviewFeatureAnnouncement())
+        }
+    }
+
+    func testSettingOffWinsOverDeveloperForceFlag() async throws {
+        let featureConfig = WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: [.testConfig]), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
+        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: featureConfig, forceYiR2026: true)
+        let dataController = try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: userDefaultsStore, developerSettingsDataController: developerSettingsDataController)
+        dataController.yearInReviewSettingsIsEnabled = false
+
+        await MainActor.run {
+            XCTAssertFalse(dataController.shouldShowYearInReviewEntryPoint(countryCode: "US"))
+        }
+    }
+
+    func testSuppressedCountryHidesEntryPoint() async throws {
+        let dataController = try makeDataController()
+
+        await MainActor.run {
+            XCTAssertFalse(dataController.shouldShowYearInReviewEntryPoint(countryCode: "RU"))
+            XCTAssertFalse(dataController.shouldShowYearInReviewEntryPoint(countryCode: "cn"))
+        }
+    }
+
     // MARK: - Clearing data
 
     private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles]
