@@ -51,6 +51,37 @@ final class SemanticSearchPassageHighlightTests: XCTestCase {
         return try XCTUnwrap(result as? T)
     }
 
+    private func callAsync<T>(_ functionBody: String) async throws -> T {
+        let result = try await webView.callAsyncJavaScript(functionBody, contentWorld: .page)
+        return try XCTUnwrap(result as? T)
+    }
+
+    // MARK: - whenSectionsAreShown
+
+    func testResolvesRightAwayWhenTheSectionsAreShown() async throws {
+        let resolved: Bool = try await callAsync("await window.wmf.utilities.whenSectionsAreShown(); return true")
+
+        XCTAssertTrue(resolved)
+    }
+
+    func testWaitsForTheSectionsToBeShown() async throws {
+        let heights: [Double] = try await callAsync("""
+        const section = document.getElementById('Histoire').closest('section')
+        section.style.minHeight = '2000px'
+        section.style.display = 'none'
+        const promise = window.wmf.utilities.whenSectionsAreShown()
+        const heightWhileHidden = document.documentElement.scrollHeight
+        section.style.display = ''
+        window.dispatchEvent(new CustomEvent('onBodyEnd'))
+        await promise
+        return [heightWhileHidden, document.documentElement.scrollHeight]
+        """)
+
+        XCTAssertEqual(heights.count, 2)
+        XCTAssertLessThan(heights[0], 2000, "While the section is hidden, the page is as tall as the view.")
+        XCTAssertGreaterThanOrEqual(heights[1], 2000, "The promise resolves once the sections are shown.")
+    }
+
     func testPassageSpanningALinkIsHighlightedInOneRun() async throws {
         let ids = try await highlight(["transmission de l'information est un processus"], anchor: "Définition")
 
