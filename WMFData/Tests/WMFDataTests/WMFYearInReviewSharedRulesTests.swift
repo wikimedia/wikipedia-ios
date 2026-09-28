@@ -1,4 +1,5 @@
 import XCTest
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 import CoreData
@@ -172,6 +173,25 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         }
     }
 
+    func testReportPopulationHonorsTheSettingAndTheSuppressedCountries() throws {
+        let dataController = try makeDataController()
+
+        XCTAssertTrue(dataController.shouldPopulateYearInReviewReportData(countryCode: "US"))
+        XCTAssertFalse(dataController.shouldPopulateYearInReviewReportData(countryCode: "RU"))
+        XCTAssertFalse(dataController.shouldPopulateYearInReviewReportData(countryCode: "cn"))
+
+        dataController.yearInReviewSettingsIsEnabled = false
+        XCTAssertFalse(dataController.shouldPopulateYearInReviewReportData(countryCode: "US"))
+    }
+
+    func testSettingsItemIsHiddenInSuppressedCountries() throws {
+        let dataController = try makeDataController()
+
+        XCTAssertTrue(dataController.shouldShowYearInReviewSettingsItem(countryCode: "US"))
+        XCTAssertFalse(dataController.shouldShowYearInReviewSettingsItem(countryCode: "RU"))
+        XCTAssertFalse(dataController.shouldShowYearInReviewSettingsItem(countryCode: "cn"))
+    }
+
     // MARK: - Clearing data
 
     private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles]
@@ -260,6 +280,28 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         let remaining2026 = try await storedSlideIDs(year: 2026)
         XCTAssertEqual(remaining2025, [.readCount])
         XCTAssertEqual(remaining2026, [.readCount])
+    }
+
+    private let fixture = WMFDataTestFixture()
+
+    func testDeletingLocalDonationsDeletesOnlyTheDonateSlide() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureDonationEnvironment) {
+            let dataController = try makeDataController()
+            try await saveAllSlides(dataController: dataController)
+            let donateDataController = WMFDonateDataController(service: nil, sharedCacheStore: WMFDataEnvironment.current.sharedCacheStore)
+            let settingsDataController = WMFSettingsDataController(yirDataController: dataController, donationDataController: donateDataController)
+
+            await settingsDataController.deleteLocalDonations()
+
+            let remaining = try await storedSlideIDs(year: 2026)
+            XCTAssertEqual(remaining, Set(allSlideIDs).subtracting([.donateCount]))
+        }
+    }
+
+    /// The donate data controller reads and writes the stores of the environment.
+    private func configureDonationEnvironment() async {
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
 
     func testTurningSettingOffDeletesStoredReports() async throws {

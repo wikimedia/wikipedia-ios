@@ -150,6 +150,25 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
+    /// A moment at the given UTC date. The data range of `testConfig` is in UTC.
+    private func utcDate(_ string: String) throws -> Date {
+        try XCTUnwrap(DateFormatter.mediaWikiAPIDateFormatter.date(from: string))
+    }
+
+    func testReadCountIgnoresViewsOutsideTheInsightsRange() async throws {
+        try await seedPageViews([
+            pageView("December 2025", at: try utcDate("2025-12-15T12:00:00Z")),
+            pageView("January 2026", at: try utcDate("2026-01-01T00:00:00Z")),
+            pageView("November 2026", at: try utcDate("2026-11-30T23:59:59Z")),
+            pageView("December 2026", at: try utcDate("2026-12-01T12:00:00Z"))
+        ])
+
+        let controller = YearInReviewReadCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+        let payload = try decode(WMFYearInReviewReadData.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.readCount, 2, "only the January 1 and November 30 views are inside January 1 to November 30")
+    }
+
     // MARK: - topArticles
 
     func testTopArticlesSkipsSingleViewsAndOrdersByCount() async throws {
@@ -273,6 +292,17 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
+    func testEditCountRequestsTheContributorRange() async throws {
+        let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.basicService = service
+        let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Editor", globalUserID: 1))
+
+        _ = try await populatedPayload(controller)
+
+        let path = try XCTUnwrap(service.requestedURLs.first?.path)
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026, not the insights range: \(path)")
+    }
+
     func testEditCountIsNotEvaluatedWithoutAGlobalUserID() async throws {
         WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Editor"))
@@ -294,6 +324,37 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.editCount, 47)
         XCTAssertNil(payload.donateCount, "no local donation history was seeded")
         XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testDonateCountRequestsTheContributorRangeForItsEditCount() async throws {
+        let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.basicService = service
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+
+        _ = try await populatedPayload(controller)
+
+        let path = try XCTUnwrap(service.requestedURLs.first?.path)
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026: \(path)")
+    }
+
+    func testDonateCountCountsOnlyDonationsInTheContributorRange() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        let timestamps = [
+            "2025-11-30T23:59:59Z", // before the range
+            "2025-12-01T00:00:00Z", // first moment of the range
+            "2026-06-15T12:00:00Z",
+            "2026-11-30T23:59:59Z", // last moment of the range
+            "2026-12-02T12:00:00Z"  // after the range
+        ]
+        let donations = timestamps.map {
+            WMFDonateLocalHistory(donationTimestamp: $0, donationType: .oneTime, donationAmount: 5, currencyCode: "USD", isNative: true, isFirstDonation: false)
+        }
+        try WMFDataEnvironment.current.sharedCacheStore?.save(key: WMFSharedCacheDirectoryNames.donorExperience.rawValue, "AppLocalDonationHistory", value: donations)
+
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.donateCount, 3, "only the donations from December 1, 2025 to November 30, 2026 count")
     }
 
     // MARK: - viewCount
@@ -355,4 +416,50 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
             XCTAssertFalse(controller.isEvaluated)
         }
     }
+}
+
+/// Records the URL of each request, then answers with the JSON resource of `WMFMockBasicService`.
+private final class WMFRecordingMockBasicService: WMFService, @unchecked Sendable {
+    private let wrapped: WMFMockBasicService
+    private let lock = NSLock()
+    private var _requestedURLs: [URL] = []
+
+    var requestedURLs: [URL] {
+        lock.lock()
+        defer { lock.unlock() }
+        return _requestedURLs
+    }
+
+    init(jsonResourceName: String) {
+        self.wrapped = WMFMockBasicService(jsonResourceName: jsonResourceName)
+    }
+
+    private func record(_ request: WMFServiceRequest) {
+        guard let url = request.url else { return }
+        lock.lock()
+        _requestedURLs.append(url)
+        lock.unlock()
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        record(request)
+        wrapped.perform(request: request, completion: completion)
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        record(request)
+        wrapped.perform(request: request, completion: completion)
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        wrapped.performDecodableGET(request: request, completion: completion)
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        wrapped.performDecodablePOST(request: request, completion: completion)
+    }
+
+    func clearCachedData() {}
 }
