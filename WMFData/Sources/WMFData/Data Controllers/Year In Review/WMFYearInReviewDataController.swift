@@ -31,25 +31,6 @@ import CoreData
         case lowData = "low-data"
     }
 
-    /// Shape of the 2025 announcement value still on disk under
-    /// `WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement`. The 2026 feature does not read it —
-    /// it is kept so the 2025 value can still be decoded if we ever need it.
-    struct FeatureAnnouncementStatus: Codable {
-        var hasPresentedYiRFeatureAnnouncementModal: Bool
-        static var `default`: FeatureAnnouncementStatus {
-            return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
-        }
-    }
-
-    /// Shape of the 2025 intro slide value still on disk under
-    /// `WMFUserDefaultsKey.seenYearInReviewIntroSlide`. See note above.
-    struct YiRNotificationAnnouncementStatus: Codable {
-        var hasSeenYiRIntroSlide: Bool
-        static var `default`: YiRNotificationAnnouncementStatus {
-            return YiRNotificationAnnouncementStatus(hasSeenYiRIntroSlide: false)
-        }
-    }
-
     @objc public static func dataControllerForObjectiveC() -> WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }

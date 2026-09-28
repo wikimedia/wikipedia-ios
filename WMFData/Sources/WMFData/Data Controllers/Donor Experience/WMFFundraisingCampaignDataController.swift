@@ -59,9 +59,9 @@ import UIKit
 
     // MARK: - Session State
 
-    /// True once the campaign banner has shown in this app session. Other announcements, such as
-    /// Year in Review, read this so they do not show right after the banner.
-    /// Kept in memory only. It is cleared when the app goes to the background.
+    /// True once the campaign banner has shown in this app session. Year in Review reads this so its
+    /// announcement does not show right after the banner. Kept in memory only, and cleared when the
+    /// app goes to the background, so it waits for the next app open.
     public var hasPresentedCampaignThisSession: Bool {
         _hasPresentedCampaignThisSession.value
     }

@@ -106,12 +106,34 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.significantTimeChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
 
         apply(theme: theme)
     }
 
     @objc private func dayMayHaveChanged() {
         viewModel.refreshFeedsIfDayChanged()
+    }
+
+    @objc private func applicationDidBecomeActive() {
+        // Home stays alive in the tab bar when another tab is on screen. Only run when Home is visible.
+        guard viewIfLoaded?.window != nil else { return }
+        presentYearInReviewAnnouncementIfNeeded()
+    }
+
+    /// The Community segment embeds Explore, which runs its own modal chain. So this only runs when
+    /// that embedded feed is not on screen, such as on the For You segment.
+    private func presentYearInReviewAnnouncementIfNeeded() {
+        guard _embeddedExploreViewController?.viewIfLoaded?.window == nil else { return }
+
+        // TODO: Confirm the logging ID for Home with data before release.
+        yirCoordinator?.presentFeatureAnnouncementIfNeeded(
+            from: self,
+            introSlideLoggingID: "",
+            onShown: { [weak self] in
+                self?.updateProfileButton()
+            }
+        )
     }
 
     /// The article URL a For You card points at. Cards carry a `WMFProject` and a title, so the
@@ -195,6 +217,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         super.viewDidAppear(animated)
         updateChromeAppearance(for: viewModel.selectedTab)
         apply(theme: theme)
+        presentYearInReviewAnnouncementIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

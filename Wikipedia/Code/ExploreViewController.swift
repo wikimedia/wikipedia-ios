@@ -1183,34 +1183,22 @@ extension ExploreViewController {
     }
 
     private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
-        guard needsYearInReviewAnnouncement() else {
+        guard let yirCoordinator else {
             presentTooltipsAndGamesAnnouncementIfNeeded()
             return
         }
 
-        Task { [weak self] in
-            guard let self else { return }
-
-            // Fundraising goes first. If the reader qualifies for the campaign banner, skip Year in
-            // Review now. It shows on a later app open, after the banner is shown or hidden.
-            // The developer settings override skips this check.
-            let isEligibleForCampaign: Bool
-            if self.yirDataController?.isForcingFeatureAnnouncement == true {
-                isEligibleForCampaign = false
-            } else {
-                isEligibleForCampaign = await self.isEligibleForFundraisingCampaign()
+        // If Year in Review shows, games is deferred to the next launch.
+        yirCoordinator.presentFeatureAnnouncementIfNeeded(
+            from: self,
+            introSlideLoggingID: "", // TODO confirm
+            onShown: { [weak self] in
+                self?.updateProfileButton()
+            },
+            onNotShown: { [weak self] in
+                self?.presentTooltipsAndGamesAnnouncementIfNeeded()
             }
-
-            // Check again after the wait, since something may have been presented in the meantime.
-            guard !isEligibleForCampaign, self.needsYearInReviewAnnouncement() else {
-                self.presentTooltipsAndGamesAnnouncementIfNeeded()
-                return
-            }
-
-            self.updateProfileButton()
-            self.presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        }
+        )
     }
 
     private func presentTooltipsAndGamesAnnouncementIfNeeded() {
@@ -1218,52 +1206,10 @@ extension ExploreViewController {
         presentGamesAnnouncementIfNeeded()
     }
 
-    /// True if the reader qualifies for the fundraising campaign banner right now. Explore has no
-    /// article, so this checks the app's primary language project.
-    private func isEligibleForFundraisingCampaign() async -> Bool {
-        guard let countryCode = Locale.current.region?.identifier,
-              let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
-            return false
-        }
-
-        return await WMFFundraisingCampaignDataController.shared.shouldShowCampaign(countryCode: countryCode, wmfProject: wmfProject)
-    }
-    
     @objc func listenForTooltips() {
         if let appViewController = tabBarController as? WMFAppViewController {
             appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
-    }
-
-    private func needsYearInReviewAnnouncement() -> Bool {
-
-        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
-            return false
-        }
-
-        // Same rule as the article surface: no announcement during a deep linked session.
-        guard !didOpenAppFromExternalLink else {
-            return false
-        }
-
-        guard let yirDataController else {
-                  return false
-        }
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
-            return false
-        }
-
-        guard presentedViewController == nil else {
-            return false
-        }
-
-        guard self.isViewLoaded && self.view.window != nil else {
-            return false
-        }
-
-        return true
     }
 
     private func displayURLWebView(url: URL) {
@@ -1280,12 +1226,6 @@ extension ExploreViewController {
         let newNavigationVC =
         WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
         presentedViewController.present(newNavigationVC, animated: true, completion: { })
-    }
-
-    /// The coordinator marks the announcement as shown when it presents it.
-    private func presentYearInReviewAnnouncement() {
-        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
-        self.yirCoordinator?.start()
     }
 
     private func shouldShowSearchWidgetAnnouncement() -> Bool {

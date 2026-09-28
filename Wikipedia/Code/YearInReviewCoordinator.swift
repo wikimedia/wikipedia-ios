@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
@@ -55,6 +56,82 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func setupForFeatureAnnouncement(introSlideLoggingID: String) {
         self.introSlideLoggingID = introSlideLoggingID
         isFeatureAnnouncement = true
+    }
+
+    /// Shows the announcement if the reader should see it now. Explore and Home use this, so both
+    /// follow the same rules. Calls `onNotShown` when nothing is presented, so the caller can move on
+    /// to its next modal.
+    func presentFeatureAnnouncementIfNeeded(from viewController: UIViewController, introSlideLoggingID: String, onShown: @escaping () -> Void = {}, onNotShown: @escaping () -> Void = {}) {
+        guard canPresentFeatureAnnouncement(from: viewController) else {
+            onNotShown()
+            return
+        }
+
+        Task { @MainActor [weak self, weak viewController] in
+            guard let self, let viewController else { return }
+
+            // Fundraising goes first. If the reader qualifies for the campaign banner, skip Year in
+            // Review now. It shows on a later app open, after the banner is shown or hidden.
+            // The developer settings override skips this check.
+            let isEligibleForCampaign: Bool
+            if dataController.isForcingFeatureAnnouncement {
+                isEligibleForCampaign = false
+            } else {
+                isEligibleForCampaign = await isEligibleForFundraisingCampaign()
+            }
+
+            // Check again after the wait, since something may have been presented in the meantime.
+            guard !isEligibleForCampaign, canPresentFeatureAnnouncement(from: viewController) else {
+                onNotShown()
+                return
+            }
+
+            onShown()
+            setupForFeatureAnnouncement(introSlideLoggingID: introSlideLoggingID)
+            start()
+        }
+    }
+
+    private func canPresentFeatureAnnouncement(from viewController: UIViewController) -> Bool {
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationController.navigationBar.isHidden {
+            return false
+        }
+
+        // No announcement during a session that was started by a deep link.
+#if !TEST
+        if let sceneDelegate = viewController.view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return false
+        }
+#endif
+
+        guard dataController.shouldShowYearInReviewFeatureAnnouncement() else {
+            return false
+        }
+
+        // Explore and Home share a navigation controller, so check both for something on screen.
+        guard viewController.presentedViewController == nil,
+              navigationController.presentedViewController == nil else {
+            return false
+        }
+
+        guard viewController.isViewLoaded, viewController.view.window != nil else {
+            return false
+        }
+
+        return true
+    }
+
+    /// True if the reader qualifies for the fundraising campaign banner right now. There is no
+    /// article here, so this checks the app's primary language project.
+    private func isEligibleForFundraisingCampaign() async -> Bool {
+        guard let countryCode = Locale.current.region?.identifier,
+              let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            return false
+        }
+
+        return await WMFFundraisingCampaignDataController.shared.shouldShowCampaign(countryCode: countryCode, wmfProject: wmfProject)
     }
 
     // MARK: - Presentation

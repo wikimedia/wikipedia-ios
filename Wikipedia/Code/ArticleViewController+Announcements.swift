@@ -80,9 +80,9 @@ extension ArticleViewController {
                 return
             }
 
-
             willDisplayCampaignModal = true
-            Self.didShowFundraisingBannerThisSession = true
+            // Year in Review waits for the next app open, so the two are never back to back.
+            fundraisingDataController.markCampaignPresentedThisSession()
 
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, source: donateSource, project: wikimediaProject)
         }
