@@ -24,6 +24,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Private state
 
     private var isSearchActive = false
+    /// True while an article is pushed that the reader should return from to the same search: search bar, results, and the semantic search sheet if it was open.
+    private var keepsSearchStateForPushedArticle = false
     private var cancellables = Set<AnyCancellable>()
     
     var disableSearchCancelLogging: Bool = false
@@ -131,6 +133,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let customAction = self.articleTappedAction {
                 customAction(articleURL)
             } else {
+                keepsSearchStateForPushedArticle = keepsSearchState(forArticleAt: articleURL)
                 let coordinator = LinkCoordinator(
                     navigationController: navVC,
                     url: articleURL,
@@ -149,6 +152,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }()
 
     // MARK: - Semantic search results
+
+    /// Readers who are offered the semantic search entry point return from an article to the search they left.
+    private func keepsSearchState(forArticleAt articleURL: URL) -> Bool {
+        guard let languageCode = articleURL.wmf_languageCode else { return false }
+        return WMFSemanticSearchDataController.shared.isEntryPointAvailable(languageCode: languageCode)
+    }
 
     private func showSemanticSearchResults(query: String, project: WMFProject) {
         guard let navigationController else { return }
@@ -185,6 +194,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             source: .search,
             semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML)
         )
+        keepsSearchStateForPushedArticle = true
         if !coordinator.start() {
             navigate(to: articleURL)
         }
@@ -364,12 +374,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         disableSearchCancelLogging = !isMovingFromParent
 
-        if navigationItem.searchController?.isActive == true {
-            navigationItem.searchController?.isActive = false
+        // Keep the search active under the pushed article, so the reader returns to it.
+        if !keepsSearchStateForPushedArticle {
+            if navigationItem.searchController?.isActive == true {
+                navigationItem.searchController?.isActive = false
+            }
+            isSearchActive = false
+            navigationItem.searchController = nil
+            navigationItem.title = nil
         }
-        isSearchActive = false
-        navigationItem.searchController = nil
-        navigationItem.title = nil
         disableSearchCancelLogging = false
         hideCustomLeadingLargeTitleLabel()
     }
@@ -377,7 +390,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        
+
+        if keepsSearchStateForPushedArticle {
+            keepsSearchStateForPushedArticle = false
+            // No-op unless the article was opened from the sheet.
+            semanticSearchResultsCoordinator?.restore()
+        }
+
         if isRootTabView {
             ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
         } else {
