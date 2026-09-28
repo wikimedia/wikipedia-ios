@@ -125,6 +125,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         vc.semanticSearchTappedAction = { [weak self] query, project in
             self?.showSemanticSearchResults(query: query, project: project)
         }
+        vc.semanticSearchSettingsTappedAction = { [weak self] in
+            self?.showSearchSettings()
+        }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             
@@ -166,6 +169,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         semanticSearchResultsCoordinator = coordinator
         coordinator.start()
+    }
+
+    private func showSearchSettings() {
+        guard let navigationController else { return }
+
+        navigationItem.searchController?.searchBar.resignFirstResponder()
+        SearchSettingsCoordinator(navigationController: navigationController).start()
     }
 
     /// Opens the article at the section of the passage and highlights the passage in it.
