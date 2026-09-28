@@ -24,8 +24,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Private state
 
     private var isSearchActive = false
-    /// True while an article is pushed that the reader should return from to the same search: search bar, results, and the semantic search sheet if it was open.
-    private var keepsSearchStateForPushedArticle = false
+    /// Where the pushed article was opened from. The reader returns from it to the same search.
+    private enum PushedArticleSource {
+        /// A search result. The keyboard comes back on return.
+        case searchResults
+        /// The semantic search sheet. The sheet comes back on return.
+        case semanticSearchSheet
+    }
+
+    /// Set while an article opened from the search is pushed, so the search stays active under it.
+    private var pushedArticleSource: PushedArticleSource?
     private var cancellables = Set<AnyCancellable>()
     
     var disableSearchCancelLogging: Bool = false
@@ -133,7 +141,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let customAction = self.articleTappedAction {
                 customAction(articleURL)
             } else {
-                keepsSearchStateForPushedArticle = keepsSearchState(forArticleAt: articleURL)
+                pushedArticleSource = .searchResults
                 let coordinator = LinkCoordinator(
                     navigationController: navVC,
                     url: articleURL,
@@ -152,12 +160,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }()
 
     // MARK: - Semantic search results
-
-    /// Readers who are offered the semantic search entry point return from an article to the search they left.
-    private func keepsSearchState(forArticleAt articleURL: URL) -> Bool {
-        guard let languageCode = articleURL.wmf_languageCode else { return false }
-        return WMFSemanticSearchDataController.shared.isEntryPointAvailable(languageCode: languageCode)
-    }
 
     private func showSemanticSearchResults(query: String, project: WMFProject) {
         guard let navigationController else { return }
@@ -194,7 +196,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             source: .search,
             semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML)
         )
-        keepsSearchStateForPushedArticle = true
+        pushedArticleSource = .semanticSearchSheet
         if !coordinator.start() {
             navigate(to: articleURL)
         }
@@ -375,7 +377,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         disableSearchCancelLogging = !isMovingFromParent
 
         // Keep the search active under the pushed article, so the reader returns to it.
-        if !keepsSearchStateForPushedArticle {
+        if pushedArticleSource == nil {
             if navigationItem.searchController?.isActive == true {
                 navigationItem.searchController?.isActive = false
             }
@@ -391,16 +393,22 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
 
-        if keepsSearchStateForPushedArticle {
-            keepsSearchStateForPushedArticle = false
-            // No-op unless the article was opened from the sheet.
+        let returningFromArticle = pushedArticleSource != nil
+        switch pushedArticleSource {
+        case .searchResults:
+            navigationItem.searchController?.searchBar.becomeFirstResponder()
+        case .semanticSearchSheet:
             semanticSearchResultsCoordinator?.restore()
+        case nil:
+            break
         }
+        pushedArticleSource = nil
 
         if isRootTabView {
             ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
         } else {
-            if let term = self.prefilledSearchTerm {
+            // Returning from an article keeps the reader's own search instead of the prefilled one.
+            if !returningFromArticle, let term = self.prefilledSearchTerm {
                 self.navigationItem.searchController?.searchBar.text = term
                 self.searchResultsVC.searchAndMakeResultsVisible(for: term)
                 self.navigationItem.searchController?.searchBar.becomeFirstResponder()
