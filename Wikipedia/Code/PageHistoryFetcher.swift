@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFData
 
 public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: (count: Int, limit: Bool)]
 
