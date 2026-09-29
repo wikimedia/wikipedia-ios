@@ -39,6 +39,25 @@ final class WMFSearchSettingsViewModelTests: XCTestCase {
         XCTAssertFalse(items[0].showsBetaBadge)
     }
 
+    func testViewModelIsReleasedAfterBuildingItsSections() async {
+        var viewModel: WMFSearchSettingsViewModel? = await makeViewModel(showsSemanticSearchItem: true)
+        weak var weakViewModel = viewModel
+        XCTAssertFalse(viewModel?.sections.isEmpty ?? true)
+
+        viewModel = nil
+
+        // The init of the view model queues a Task that holds it until the Task runs.
+        let released = expectation(description: "The view model is released")
+        Task {
+            while weakViewModel != nil {
+                await Task.yield()
+            }
+            released.fulfill()
+        }
+        await fulfillment(of: [released], timeout: 1)
+        XCTAssertNil(weakViewModel, "The toggle bindings in the sections must not retain the view model")
+    }
+
     func testTogglingTheRowUpdatesTheStateAndNotifies() async {
         var receivedValues: [Bool] = []
         let viewModel = await makeViewModel(showsSemanticSearchItem: true, showSemanticSearchEntryPoint: false) { receivedValues.append($0) }

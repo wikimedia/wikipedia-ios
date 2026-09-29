@@ -27,9 +27,9 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
     public let showsSemanticSearchItem: Bool
 
     private let userDefaultsStore: WMFKeyValueStore?
-    public var onToggleShowLanguageBar: ((Bool) -> Void)?
-    public var onToggleOpenAppOnSearchTab: ((Bool) -> Void)?
-    public var onToggleShowSemanticSearchEntryPoint: ((Bool) -> Void)?
+    public var onToggleShowLanguageBar: (@MainActor @Sendable (Bool) -> Void)?
+    public var onToggleOpenAppOnSearchTab: (@MainActor @Sendable (Bool) -> Void)?
+    public var onToggleShowSemanticSearchEntryPoint: (@MainActor @Sendable (Bool) -> Void)?
 
     public init(
         showLanguageBar: Bool,
@@ -37,9 +37,9 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
         showsSemanticSearchItem: Bool = false,
         showSemanticSearchEntryPoint: Bool = false,
         userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
-        onToggleShowLanguageBar: ((Bool) -> Void)? = nil,
-        onToggleOpenAppOnSearchTab: ((Bool) -> Void)? = nil,
-        onToggleShowSemanticSearchEntryPoint: ((Bool) -> Void)? = nil
+        onToggleShowLanguageBar: (@MainActor @Sendable (Bool) -> Void)? = nil,
+        onToggleOpenAppOnSearchTab: (@MainActor @Sendable (Bool) -> Void)? = nil,
+        onToggleShowSemanticSearchEntryPoint: (@MainActor @Sendable (Bool) -> Void)? = nil
     ) {
         self.showLanguageBar = showLanguageBar
         self.openAppOnSearchTab = openAppOnSearchTab
@@ -113,30 +113,30 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
 
     private var showLanguagesBinding: Binding<Bool> {
         Binding(
-            get: { self.showLanguageBar },
-            set: { newValue in
-                self.showLanguageBar = newValue
-                self.onToggleShowLanguageBar?(newValue)
+            get: { [weak self] in self?.showLanguageBar ?? false },
+            set: { [weak self] newValue in
+                self?.showLanguageBar = newValue
+                self?.onToggleShowLanguageBar?(newValue)
             }
         )
     }
 
     private var semanticSearchBinding: Binding<Bool> {
         Binding(
-            get: { self.showSemanticSearchEntryPoint },
-            set: { newValue in
-                self.showSemanticSearchEntryPoint = newValue
-                self.onToggleShowSemanticSearchEntryPoint?(newValue)
+            get: { [weak self] in self?.showSemanticSearchEntryPoint ?? false },
+            set: { [weak self] newValue in
+                self?.showSemanticSearchEntryPoint = newValue
+                self?.onToggleShowSemanticSearchEntryPoint?(newValue)
             }
         )
     }
 
     private var openOnSearchTabBinding: Binding<Bool> {
         Binding(
-            get: { self.openAppOnSearchTab },
-            set: { newValue in
-                self.openAppOnSearchTab = newValue
-                self.onToggleOpenAppOnSearchTab?(newValue)
+            get: { [weak self] in self?.openAppOnSearchTab ?? false },
+            set: { [weak self] newValue in
+                self?.openAppOnSearchTab = newValue
+                self?.onToggleOpenAppOnSearchTab?(newValue)
             }
         )
     }

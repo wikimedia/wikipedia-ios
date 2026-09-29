@@ -130,8 +130,7 @@ extension SearchResultsViewController {
     func refreshSemanticSearchEntryPointIfResultsAreShown() {
         guard isShowingSearchResults, let displayedSiteURL else { return }
 
-        let mapper = SearchResultsMapper(siteURL: displayedSiteURL, redirectMappings: [])
-        updateSemanticSearchEntryPoint(query: displayedSearchTerm, languageCode: displayedSiteURL.wmf_languageCode, project: mapper.project)
+        updateSemanticSearchEntryPoint(query: displayedSearchTerm, languageCode: displayedSiteURL.wmf_languageCode, project: SearchResultsMapper.project(for: displayedSiteURL))
     }
 
     func hideSemanticSearchEntryPointIfLanguageChanged(for siteURL: URL) {

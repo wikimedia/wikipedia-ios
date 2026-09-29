@@ -50,7 +50,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     /// Called when the reader taps the button of the toast shown after hiding the semantic
     /// search entry point. Caller is responsible for opening the Search settings.
-    var semanticSearchSettingsTappedAction: (() -> Void)?
+    var semanticSearchSettingsTappedAction: (@MainActor @Sendable () -> Void)?
 
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
