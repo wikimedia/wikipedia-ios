@@ -12,7 +12,6 @@ public final class WMFToastPresenter {
 
     /// The reason a toast closed.
     public enum DismissEvent: Sendable {
-        case tappedBackground
         case durationExpired
         case swipedDown
         case outsideEvent
