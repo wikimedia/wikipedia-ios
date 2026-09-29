@@ -1680,26 +1680,29 @@ extension ArticleViewController {
 
 extension ArticleViewController: WKNavigationDelegate {
 
+    static func shouldAllowNavigation(type navigationType: WKNavigationType) -> Bool {
+        switch navigationType {
+        case .backForward, .reload, .other:
+            return true
+        default:
+            return false
+        }
+    }
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow)
-        default:
+        } else {
             decisionHandler(.cancel)
         }
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow, preferences)
-        default:
+        } else {
             decisionHandler(.cancel, preferences)
         }
     }
