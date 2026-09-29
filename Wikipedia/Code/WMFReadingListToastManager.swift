@@ -88,10 +88,9 @@ import WMFNativeLocalizations
         show(config, from: presenter)
     }
 
-    private func showConfirmationToast(readingList: ReadingList, image: UIImage?) {
-        guard let name = readingList.name,
-              let presenter,
-              presenter.view.window != nil else { return }
+    /// Builds the confirmation toast content. Returns nil if the presenter is off screen.
+    private func confirmationConfig(readingList: ReadingList, image: UIImage?) -> WMFToastConfig? {
+        guard let name = readingList.name else { return nil }
 
         let title = String.localizedStringWithFormat(
             WMFLocalizedString(
@@ -109,7 +108,7 @@ import WMFNativeLocalizations
             self.performConfirmationAction(readingList: readingList)
         }
 
-        let config = WMFToastConfig(
+        return WMFToastConfig(
             title: title,
             icon: image,
             iconStyle: .thumbnail,
@@ -118,7 +117,23 @@ import WMFNativeLocalizations
             tapAction: openReadingList,
             buttonAction: openReadingList
         )
+    }
+
+    private func showConfirmationToast(readingList: ReadingList, image: UIImage?) {
+        guard let presenter,
+              presenter.view.window != nil,
+              let config = confirmationConfig(readingList: readingList, image: image) else { return }
+
         show(config, from: presenter)
+    }
+
+    /// Adds the thumbnail to the confirmation toast that is on screen.
+    ///
+    /// Does nothing if the toast is no longer on screen. A toast that the user
+    /// dismissed must not come back when the image load completes.
+    private func updateConfirmationToast(readingList: ReadingList, image: UIImage?) {
+        guard let config = confirmationConfig(readingList: readingList, image: image) else { return }
+        WMFToastPresenter.shared.updateCurrentToast(config)
     }
 
     /// Shows the toast in the window of the presenter. Does nothing when the presenter shows a modal.
@@ -223,7 +238,7 @@ extension WMFReadingListToastManager: @preconcurrency AddArticlesToReadingListDe
             Task { [weak self] in
                 guard let self else { return }
                 let image = await self.loadThumbnail(from: imageURL)
-                self.showConfirmationToast(readingList: readingList, image: image)
+                self.updateConfirmationToast(readingList: readingList, image: image)
             }
         }
     }

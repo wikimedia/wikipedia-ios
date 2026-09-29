@@ -116,6 +116,16 @@ public final class WMFToastPresenter {
         announce(config)
     }
 
+    /// Replaces the content of the toast that is on screen.
+    ///
+    /// Does nothing if no toast is on screen. Use this method for data that arrives
+    /// after the toast appears, such as a thumbnail image. The toast keeps its
+    /// remaining time on screen, and the presenter does not announce it again.
+    public func updateCurrentToast(_ config: WMFToastConfig) {
+        guard let currentCard, currentCard.window != nil else { return }
+        currentCard.configure(with: config)
+    }
+
     /// Closes the current toast with an animation.
     ///
     /// - Parameter completion: The presenter calls this closure after the toast leaves the screen.
