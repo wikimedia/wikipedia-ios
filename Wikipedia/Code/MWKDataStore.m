@@ -916,6 +916,9 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                                  [taskGroup leave];
                              });
                          }];
+    // Fire and forget. This fetch must not delay the combined completion.
+    [[WMFFundraisingCampaignDataController sharedInstance] fetchConfigWithCountryCode:[[NSLocale currentLocale] countryCode] currentDate:[NSDate now]];
+
     // Remote Feature config
     [taskGroup enter];
     [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError *_Nullable error) {
@@ -1044,6 +1047,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 - (void)authenticationManagerDidReset {
     [self clearMemoryCache];
+    // A stale pending remote teardown must not survive logout (T431140)
+    [self.readingListsController clearNeedsRemoteDisableSyncState];
     [self.readingListsController setSyncEnabled:NO shouldDeleteLocalLists:NO shouldDeleteRemoteLists:NO];
 }
 

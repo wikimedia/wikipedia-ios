@@ -16,6 +16,25 @@ private func toggleBindings(_ sections: [SettingsSection]) -> [Binding<Bool>] {
 }
 
 @MainActor
+final class WMFHomeFeedSettingsViewModelTests: XCTestCase {
+
+    func testCommunitySectionHiddenWithoutHomePhase2() {
+        let vm = WMFHomeFeedSettingsViewModel(showCommunitySettings: false)
+        XCTAssertEqual(vm.sections.count, 1)
+        // Only the For You section remains: Modules + What's Driving rows.
+        XCTAssertEqual(vm.sections[0].items.count, 2)
+    }
+
+    func testCommunitySectionShownWithHomePhase2() {
+        let vm = WMFHomeFeedSettingsViewModel(showCommunitySettings: true)
+        XCTAssertEqual(vm.sections.count, 2)
+        // Community section leads with its single Modules row.
+        XCTAssertEqual(vm.sections[0].items.count, 1)
+        XCTAssertEqual(vm.sections[1].items.count, 2)
+    }
+}
+
+@MainActor
 final class WMFHomeFeedCommunitySettingsViewModelTests: XCTestCase {
 
     private func makeController() -> WMFHomeDataController {
@@ -67,7 +86,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
     }
 
     func testTogglesDefaultToOn() {
-        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: makeController())
+        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: makeController(), logToggleModule: { _, _ in })
         XCTAssertTrue(vm.basedOnYourInterestsIsOn)
         XCTAssertTrue(vm.becauseYouReadIsOn)
         XCTAssertTrue(vm.continueReadingIsOn)
@@ -75,7 +94,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
 
     func testTogglingBindingPersistsThroughDataController() {
         let controller = makeController()
-        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller)
+        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller, logToggleModule: { _, _ in })
 
         let bindings = toggleBindings(vm.sections)
         // Three toggles (the "What's driving your feed" link row has no toggle).
@@ -87,7 +106,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
         XCTAssertFalse(controller.forYouBasedOnInterestsIsOn())
 
         // A fresh view model backed by the same controller reads the persisted value.
-        let vm2 = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller)
+        let vm2 = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller, logToggleModule: { _, _ in })
         XCTAssertFalse(vm2.basedOnYourInterestsIsOn)
         XCTAssertTrue(vm2.becauseYouReadIsOn)
         XCTAssertTrue(vm2.continueReadingIsOn)
@@ -97,7 +116,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
         let controller = makeController()
         controller.setForYouContinueReadingIsOn(false)
 
-        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller)
+        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller, logToggleModule: { _, _ in })
         XCTAssertFalse(vm.continueReadingIsOn)
         XCTAssertTrue(vm.basedOnYourInterestsIsOn)
     }

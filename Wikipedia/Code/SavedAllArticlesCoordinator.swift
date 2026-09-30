@@ -138,30 +138,6 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             navigationController.pushViewController(viewController, animated: true)
         }
 
-        viewModel.didShowDataStateOnAppearance = { [weak self] in
-            guard let self else { return }
-            let dataStore = MWKDataStore.shared()
-            guard
-                !dataStore.authenticationManager.authStateIsPermanent &&
-                !UserDefaults.standard.wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
-                !dataStore.readingListsController.isSyncEnabled
-            else { return }
-            LoginFunnel.shared.logLoginImpressionInSyncPopover()
-            let alert = UIAlertController(
-                title: WMFLocalizedString("reading-list-login-title", value: "Sync your saved articles?", comment: "Title for syncing save articles."),
-                message: CommonStrings.readingListLoginSubtitle,
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: CommonStrings.readingListLoginButtonTitle, style: .default) { [weak navigationController] _ in
-                navigationController?.wmf_showLoginViewController(category: .loginToSyncPopover, theme: self.theme)
-                LoginFunnel.shared.logLoginStartInSyncPopover()
-            })
-            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
-            navigationController.present(alert, animated: true) {
-                UserDefaults.standard.wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
-            }
-        }
-
         let controller = WMFSavedAllArticlesHostingController(viewModel: viewModel)
         self.hostingController = controller
         return controller
@@ -413,12 +389,16 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             }
         }
 
-        // 3. Check article download state (only if no sync errors)
+        // 3. Check article download state (only if no sync errors).
+        // A download error is only relevant while the article isn't downloaded —
+        // a stale error from a failed earlier attempt must not outlive a successful retry.
         switch alertType {
         case .none, .downloading, .articleError:
-            if article.error != .none {
+            if article.isDownloaded {
+                return .none
+            } else if article.error != .none {
                 return .articleError(article.error.localizedDescription)
-            } else if !article.isDownloaded {
+            } else {
                 return .downloading
             }
         default:

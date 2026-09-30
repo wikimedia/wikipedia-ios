@@ -28,6 +28,10 @@ final class TopReadData {
 
     static let shared = TopReadData()
 
+    /// Row thumbnails render as ~70pt squares; 240px covers 3x displays and stays
+    /// under WidgetKit's archival size cap, which the raw API thumbs can exceed.
+    private static let rowImageTargetSize = CGSize(width: 240, height: 240)
+
     var placeholder: TopReadEntry {
         return TopReadEntry(isPlaceholder: true, date: Date())
     }
@@ -59,17 +63,25 @@ final class TopReadData {
                     let title = rankedElement.displayTitle.removingHTML
                     let description = rankedElement.description?.removingHTML ?? ""
                     let url = URL(string: rankedElement.contentURL.desktop.page)
-                    let viewCounts: [NSNumber] = rankedElement.viewHistory.compactMap { NSNumber(value: $0.views) }
+                    let viewCounts: [NSNumber] = rankedElement.viewHistory?.compactMap { NSNumber(value: $0.views) } ?? [NSNumber(value: rankedElement.views)]
                     var image: UIImage?
                     if let imageData = rankedElement.thumbnailImageSource?.data {
-                        image = UIImage(data: imageData)
+                        image = UIImage.downsampled(from: imageData, targetSize: Self.rowImageTargetSize)
                     }
 
                     let displayElement = TopReadEntry.RankedElement(title: title, description: description, articleURL: url, image: image, viewCounts: viewCounts)
                     rankedElements.append(displayElement)
                 }
 
-                completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: groupURL, contentLayoutDirection: layoutDirection))
+                completion(
+                    TopReadEntry(
+                        date: Date(),
+                        rankedElements: rankedElements,
+                        groupURL: groupURL,
+                        contentLayoutDirection: layoutDirection,
+                        isFromCacheFallback: topReadContent.isFromCacheFallback
+                    )
+                )
             case .failure:
                 completion(self.placeholder)
             }
@@ -97,6 +109,7 @@ struct TopReadEntry: TimelineEntry {
     var rankedElements: [RankedElement] = Array(repeating: RankedElement.init(title: "–", description: "–", image: nil, viewCounts: [.init(floatLiteral: 0)]), count: 4)
     var groupURL: URL? = nil
     var contentLayoutDirection: LayoutDirection = .leftToRight
+    var isFromCacheFallback: Bool = false
 }
 
 // MARK: - TimelineProvider
@@ -122,10 +135,16 @@ struct TopReadProvider: TimelineProvider {
             let nextUpdate: Date
             let currentDate = Date()
 
-            // Schedule an earlier refresh if this is placeholder content or not valid for today
-            if entry.isPlaceholder || !(entry.date as NSDate).wmf_UTCDateIsTodayLocal() {
-                let components = DateComponents(hour: 2)
-                nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
+            // Schedule an earlier refresh if this is placeholder content, content served from
+            // cache as a fallback, or not valid for today
+            if entry.isPlaceholder || entry.isFromCacheFallback || !(entry.date as NSDate).wmf_UTCDateIsTodayLocal() {
+                if let publicationDate = WidgetController.expectedTopReadPublicationDate(after: currentDate) {
+                    // Today's most-read data can't exist yet; retry when it should be published.
+                    nextUpdate = publicationDate
+                } else {
+                    let components = DateComponents(hour: 2)
+                    nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
+                }
             } else {
                 nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             }

@@ -5,19 +5,20 @@ import XCTest
 final class TalkPageFetcherTests: XCTestCase {
 
     /// `evaluateResponse` is pure, so no network is needed.
-    private func evaluate(_ result: [String: Any]?) -> Result<Void, Error> {
+    private func evaluate(_ result: [String: Any]?) -> Result<Int?, Error> {
         let session = Session(configuration: .current)
         let fetcher = TalkPageFetcher(session: session, configuration: .current)
-        var captured: Result<Void, Error>!
+        var captured: Result<Int?, Error>!
         fetcher.evaluateResponse(nil, result) { captured = $0 }
         return captured
     }
 
     func testSuccessWithNewRevIDSucceeds() {
         let result = evaluate(["discussiontoolsedit": ["result": "success", "newrevid": 12345]])
-        guard case .success = result else {
+        guard case .success(let newRevisionID) = result else {
             return XCTFail("Expected success, got \(result)")
         }
+        XCTAssertEqual(newRevisionID, 12345)
     }
 
     func testSuccessWithoutNewRevIDIsNotSuccess() {

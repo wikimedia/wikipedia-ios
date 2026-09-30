@@ -117,10 +117,12 @@ private struct WMFDonateAmountButtonGroupView: View {
                         WMFDonateAmountButtonView(viewModel: buttonViewModel)
                     }
                 }
-                HStack(spacing: 12) {
-                    let lastFour = viewModel.buttonViewModels.suffix(4)
-                    ForEach(lastFour) { buttonViewModel in
-                        WMFDonateAmountButtonView(viewModel: buttonViewModel)
+                let remainingButtonViewModels = viewModel.buttonViewModels.dropFirst(3)
+                if !remainingButtonViewModels.isEmpty {
+                    HStack(spacing: 12) {
+                        ForEach(remainingButtonViewModels) { buttonViewModel in
+                            WMFDonateAmountButtonView(viewModel: buttonViewModel)
+                        }
                     }
                 }
             }
@@ -150,7 +152,14 @@ private struct WMFDonateAmountTextfield: View {
     @ObservedObject var viewModel: WMFDonateViewModel.AmountTextFieldViewModel
 
     var body: some View {
-        let configuration = WMFPriceTextField.Configuration(currencyCode: viewModel.currencyCode, focusOnAppearance: true, doneTitle: viewModel.localizedStrings.doneTitle, textfieldAccessibilityHint: viewModel.localizedStrings.textfieldAccessibilityHint, doneAccessibilityHint: viewModel.localizedStrings.doneAccessibilityHint)
+        let configuration = WMFPriceTextField.Configuration(
+            currencyCode: viewModel.currencyCode,
+            focusOnAppearance: viewModel.shouldFocusOnAppearance,
+            doneTitle: viewModel.localizedStrings.doneTitle,
+            textfieldAccessibilityHint: viewModel.localizedStrings.textfieldAccessibilityHint,
+            doneAccessibilityHint: viewModel.localizedStrings.doneAccessibilityHint
+        )
+        
         WMFPriceTextField(configuration: configuration, amount: $viewModel.amount, hasFocus: $viewModel.hasFocus)
     }
 }

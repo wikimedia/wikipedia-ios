@@ -40,6 +40,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
 
+    /// When true, Explore is embedded as a child of the Home tab (Community segment) and must not
+    /// configure or reset the shared navigation bar — the Home view controller owns it.
+    @objc public var isEmbeddedInHomeTab: Bool = false
+
+    /// Tells the Home tab when all the Community cards are hidden and the feed has nothing to show.
+    ///
+    /// The Home tab shows the empty state. Do not show it here. Auto Layout content in this root view
+    /// gives the root a fitting size, and SwiftUI then makes the embedded feed as small as that size.
+    var onEmbeddedEmptyStateChange: ((Bool) -> Void)?
+
+    private var isEmbeddedFeedEmpty = false
+
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
     private var yirDataController: WMFYearInReviewDataController? {
@@ -54,7 +66,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         .startFunnel(name: "wiki_game")
     
     
-    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
     private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
@@ -119,7 +130,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -180,6 +190,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
         configureNavigationBar()
+        updateEmbeddedEmptyStateIfNeeded()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -202,7 +213,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
-        resetNavBarAppearance()
+
+        if !isEmbeddedInHomeTab {
+            resetNavBarAppearance()
+        }
+
+        hasLoggedSuggestedEditsCardImpression = false
     }
 
     open override func refresh() {
@@ -219,7 +235,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: Navigation Bar
 
     private func configureNavigationBar() {
-        
+
+        guard !isEmbeddedInHomeTab else { return }
+
         let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden)
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
@@ -346,6 +364,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     // MARK: - Event logging
 
+    private var hasLoggedSuggestedEditsCardImpression: Bool = false
+
     private func logFeedImpressionAfterDelay() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(logFeedImpression), object: nil)
         perform(#selector(logFeedImpression), with: self, afterDelay: 3)
@@ -365,6 +385,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             guard isUnobstructed else {
                 continue
             }
+
+            if group.contentGroupKind == .suggestedEdits, !hasLoggedSuggestedEditsCardImpression {
+                hasLoggedSuggestedEditsCardImpression = true
+                ImageRecommendationsFunnel.shared.logExploreCardDidAppear()
+            }
         }
     }
 
@@ -380,7 +405,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
         let today = NSDate().wmf_midnightUTCDateFromLocal as Date
         let oldestDate = Calendar.current.date(byAdding: .day, value: -WMFExploreFeedMaximumNumberOfDays, to: today) ?? today
-        fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
+        
+        if isEmbeddedInHomeTab {
+            // Remove because you read / related articles
+            fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@ && contentGroupKindInteger != %@", "feed", oldestDate as NSDate, NSNumber(value: 3))
+        } else {
+            fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
+        }
+        
+        // fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
         fetchRequest.sortDescriptors = dataStore.feedContentController.exploreFeedSortDescriptors()
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
         fetchedResultsController = frc
@@ -897,6 +930,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
 
+        updateEmbeddedEmptyStateIfNeeded()
+
         guard needsReloadVisibleCells else {
             return
         }
@@ -1039,60 +1074,27 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
-
 // MARK: - Modal Presentation Logic
 
 extension ExploreViewController {
     
     /// Modal presentation priority chain for the Explore view:
-    ///   1. Reading challenge  →  if shown, stop.
-    ///   2. Year in Review     →  if shown, stop.
-    ///   3. Games announcement →  shown only when both of the above decline.
+    ///   1. Year in Review     →  if shown, stop.
+    ///   2. Games announcement →  shown only when Year in Review declines.
     ///
-    /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
+    /// If Year in Review is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-
-        // Do not replace an in-flight reading challenge coordinator.
-        guard readingChallengeCoordinator == nil else {
-            return
-        }
-        
-        // Prioritize reading challenge, then fall back to year in review or tooltips
-        guard let navigationController, let dataStore else {
-            presentYearInReviewAnnouncementOrTooltipsIfNeeded()
-            return
-        }
-        
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, fromAppStoreEvent: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
-        
-        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
-            
-            self?.readingChallengeCoordinator = nil
-            
-            // Do not present followup modals if they just saw a reading challenge announcement.
-            guard !didPresentSomething else {
-                return
-            }
-            
-            self?.presentYearInReviewAnnouncementOrTooltipsIfNeeded()
-        }
-        
-        self.readingChallengeCoordinator = readingChallengeCoordinator
-        
-        readingChallengeCoordinator.start()
+        presentYearInReviewAnnouncementOrTooltipsIfNeeded()
     }
 
-    /// Called at the tail of the modal chain (after RC and YIR have both declined).
+    /// Called at the tail of the modal chain (after Year in Review has declined).
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
-#if !TEST
-        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
+        guard !didOpenAppFromExternalLink else {
             return
         }
-#endif
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
@@ -1103,6 +1105,18 @@ extension ExploreViewController {
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
         }
+    }
+
+    /// True when this session was started by a deep link. Modals are suppressed in that case so we
+    /// do not interrupt whatever the link was pointing at.
+    private var didOpenAppFromExternalLink: Bool {
+#if !TEST
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return true
+        }
+#endif
+        return false
     }
 
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
@@ -1189,6 +1203,11 @@ extension ExploreViewController {
             return false
         }
 
+        // Same rule as the article surface: no announcement during a deep linked session.
+        guard !didOpenAppFromExternalLink else {
+            return false
+        }
+
         guard let yirDataController else {
                   return false
         }
@@ -1224,14 +1243,18 @@ extension ExploreViewController {
         presentedViewController.present(newNavigationVC, animated: true, completion: { })
     }
 
-    // TODO: Remove after expiry date (1 March 2025)
     private func presentYearInReviewAnnouncement() {
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
+
+        // TODO: 2026 — swap `yirCoordinator` for the 2026 coordinator. It needs to know it was
+        // launched from the announcement so that slide 0 is included and the exit toast fires.
         yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
         self.yirCoordinator?.start()
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+
+        // Marked as soon as it is presented, so a force quit on slide 0 does not earn a second showing.
+        yirDataController.hasPresentedYiRFeatureAnnouncement = true
     }
 
     private func shouldShowSearchWidgetAnnouncement() -> Bool {
@@ -1403,6 +1426,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
             self.indexPathsForCollapsedCellsThatCanReappear = []
+            self.updateEmbeddedEmptyStateIfNeeded()
         }
     }
 
@@ -1457,14 +1481,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
     }
     
-    @objc func gamesAllSessionsCleared() {
-        DispatchQueue.main.async {
-            self.layoutCache.reset()
-            self.collectionView.collectionViewLayout.invalidateLayout()
-            self.dataStore.feedContentController.resetDailyGameContentGroups()
-        }
-    }
-
     @objc func articleDeleted(_ note: Notification) {
         guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? WMFInMemoryURLKey else {
             return
@@ -1483,7 +1499,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         let hideThisCardHidesAll = group.contentGroupKind.isGlobal && group.contentGroupKind.isNonDateBased
 
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
+        let customizeTitle = WMFDeveloperSettingsDataController.shared.isCommunityFeedMode ? CommonStrings.customizeCommunityFeedTitle : CommonStrings.customizeExploreFeedTitle
+        let customizeExploreFeed = UIAlertAction(title: customizeTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
             exploreFeedSettingsViewController.showCloseButton = true
             exploreFeedSettingsViewController.dataStore = self.dataStore
@@ -1978,5 +1995,58 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
+    }
+}
+
+// MARK: - Embedded Community Empty State
+
+extension ExploreViewController {
+
+    /// The reader cannot turn off the feed in the Home tab. If the reader hides all the cards, the
+    /// feed becomes empty. This method tells the Home tab, which then shows the empty state.
+    func updateEmbeddedEmptyStateIfNeeded() {
+        guard isEmbeddedInHomeTab, isViewLoaded, fetchedResultsController != nil else {
+            return
+        }
+
+        let isEmpty = allCommunityFeedCardsHidden && onlyHiddenCardPlaceholdersRemain
+        guard isEmpty != isEmbeddedFeedEmpty else {
+            return
+        }
+        isEmbeddedFeedEmpty = isEmpty
+
+        if isEmpty {
+            // The empty state hides the "Card hidden / Undo" placeholder. The reader cannot use the
+            // undo, so remove the placeholder.
+            dataStore.feedContentController.dismissCollapsedContentGroups()
+        }
+
+        // Send the change on the next turn. This method can run during a SwiftUI update, and a state
+        // change during the update is not permitted.
+        Task { [weak self] in
+            self?.onEmbeddedEmptyStateChange?(isEmpty)
+        }
+    }
+
+    /// True when all the card kinds of the Community feed settings screen are off.
+    ///
+    /// Do not use `countOfVisibleContentGroupKinds`. That count also includes three global kinds that
+    /// the screen does not show. Those kinds stay on, so the count never becomes zero.
+    private var allCommunityFeedCardsHidden: Bool {
+        !WMFContentGroupKind.communityFeedCardKinds.contains { $0.isInFeed }
+    }
+
+    /// True when only "Card hidden / Undo" placeholders are left in the feed. When the reader hides
+    /// the last card kind, one placeholder stays.
+    private var onlyHiddenCardPlaceholdersRemain: Bool {
+        for section in 0..<numberOfSectionsInExploreFeed {
+            guard let group = group(at: IndexPath(item: 0, section: section)) else {
+                continue
+            }
+            if group.undoType == .none {
+                return false
+            }
+        }
+        return true
     }
 }

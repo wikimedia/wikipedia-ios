@@ -10,29 +10,17 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
         public let syncSavedArticlesFooter: String
         public let showSavedReadingListTitle: String
         public let showSavedReadingListFooter: String
-        public let eraseSavedArticlesTitle: String
-        public let eraseSavedArticlesButtonTitle: String
-        public let eraseSavedArticlesFooterFormat: String
         public let syncWithServerTitle: String
         public let syncWithServerFooter: String
-        public let eraseAlertTitle: String
-        public let eraseAlertMessage: String
-        public let syncAlertMessage: String
 
-        public init(title: String, syncSavedArticlesTitle: String, syncSavedArticlesFooter: String, showSavedReadingListTitle: String, showSavedReadingListFooter: String, eraseSavedArticlesTitle: String, eraseSavedArticlesButtonTitle: String, eraseSavedArticlesFooterFormat: String, syncWithServerTitle: String, syncWithServerFooter: String, eraseAlertTitle: String, eraseAlertMessage: String, syncAlertMessage: String) {
+        public init(title: String, syncSavedArticlesTitle: String, syncSavedArticlesFooter: String, showSavedReadingListTitle: String, showSavedReadingListFooter: String, syncWithServerTitle: String, syncWithServerFooter: String) {
             self.title = title
             self.syncSavedArticlesTitle = syncSavedArticlesTitle
             self.syncSavedArticlesFooter = syncSavedArticlesFooter
             self.showSavedReadingListTitle = showSavedReadingListTitle
             self.showSavedReadingListFooter = showSavedReadingListFooter
-            self.eraseSavedArticlesTitle = eraseSavedArticlesTitle
-            self.eraseSavedArticlesButtonTitle = eraseSavedArticlesButtonTitle
-            self.eraseSavedArticlesFooterFormat = eraseSavedArticlesFooterFormat
             self.syncWithServerTitle = syncWithServerTitle
             self.syncWithServerFooter = syncWithServerFooter
-            self.eraseAlertTitle = eraseAlertTitle
-            self.eraseAlertMessage = eraseAlertMessage
-            self.syncAlertMessage = syncAlertMessage
         }
     }
 
@@ -40,20 +28,17 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
     @Published public var isSyncEnabled: Bool = false
     @Published public var showSavedReadingList: Bool = false
     @Published public var isLoading: Bool = true
-    @Published public var cacheSizeString: String = ""
 
     public let localizedStrings: LocalizedStrings
 
     public var onToggleSync: ((Bool) -> Void)?
     public var onToggleShowSavedList: ((Bool) -> Void)?
-    public var onEraseArticles: (() -> Void)?
     public var onSyncWithServer: (() -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, onToggleSync: ((Bool) -> Void)? = nil, onToggleShowSavedList: ((Bool) -> Void)? = nil, onEraseArticles: (() -> Void)? = nil, onSyncWithServer: (() -> Void)? = nil) {
+    public init(localizedStrings: LocalizedStrings, onToggleSync: ((Bool) -> Void)? = nil, onToggleShowSavedList: ((Bool) -> Void)? = nil, onSyncWithServer: (() -> Void)? = nil) {
         self.localizedStrings = localizedStrings
         self.onToggleSync = onToggleSync
         self.onToggleShowSavedList = onToggleShowSavedList
-        self.onEraseArticles = onEraseArticles
         self.onSyncWithServer = onSyncWithServer
 
         Task { await loadAndBuild() }
@@ -63,7 +48,6 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        // Cache size calculation will be provided by coordinator
         buildSections()
     }
 
@@ -74,11 +58,6 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
 
     public func updateShowSavedList(_ show: Bool) {
         showSavedReadingList = show
-        buildSections()
-    }
-
-    public func updateCacheSize(_ sizeString: String) {
-        cacheSizeString = sizeString
         buildSections()
     }
 
@@ -93,11 +72,6 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
                 header: nil,
                 footer: localizedStrings.showSavedReadingListFooter,
                 items: [showSavedReadingListToggleItem()]
-            ),
-            SettingsSection(
-                header: nil,
-                footer: nil,
-                items: [eraseSavedArticlesButtonItem()]
             ),
             SettingsSection(
                 header: nil,
@@ -126,19 +100,6 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
             subtitle: nil,
             accessory: .toggle(showSavedReadingListBinding),
             action: nil
-        )
-    }
-
-    private func eraseSavedArticlesButtonItem() -> SettingsItem {
-        SettingsItem(
-            image: WMFSFSymbolIcon.for(symbol: .trash),
-            color: WMFColor.red600,
-            title: localizedStrings.eraseSavedArticlesTitle,
-            subtitle: String.localizedStringWithFormat(localizedStrings.eraseSavedArticlesFooterFormat, cacheSizeString),
-            accessory: .chevron(label: localizedStrings.eraseSavedArticlesButtonTitle),
-            action: { [weak self] in
-                self?.onEraseArticles?()
-            }
         )
     }
 

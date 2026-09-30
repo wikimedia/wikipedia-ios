@@ -2,7 +2,12 @@ import Foundation
 import CoreData
 import GameplayKit
 
-public class WMFGamesDataController {
+// All Core Data access is serialized through `moc.perform { }` on a single
+// background context, so the controller is safe to capture in the @Sendable
+// closures those perform calls require. This mirrors WMFArticleTabsDataController,
+// the codebase's Core Data exemplar. `@unchecked` is used (rather than a true
+// Sendable) because the lazily-initialized context properties are mutable.
+public final class WMFGamesDataController: @unchecked Sendable {
 
     // MARK: - Nested Types
 
@@ -23,7 +28,7 @@ public class WMFGamesDataController {
     private var backgroundContext: NSManagedObjectContext? {
         if _backgroundContext == nil {
             _backgroundContext = try? coreDataStore?.newBackgroundContext
-            _backgroundContext?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            _backgroundContext?.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         }
         return _backgroundContext
     }
@@ -284,10 +289,6 @@ extension WMFGamesDataController {
         hasSeenGamesAnnouncement = true
     }
 
-    public func resetAnnouncementSeen() {
-        hasSeenGamesAnnouncement = false
-    }
-
     /// Returns true if the games announcement should be shown.
     /// Checks: not yet seen, not past expiration, and game available in the primary app language.
     public func shouldShowGamesAnnouncement(date: String) async -> Bool {
@@ -534,20 +535,6 @@ extension WMFGamesDataController {
 
     public func fetchWhichCameFirstSessions(project: WMFProject) async throws -> [WMFGameSession] {
         return try await fetchSessions(gameType: Self.whichCameFirstGameType, project: project)
-    }
-
-    public func clearAllSessions() async throws {
-        guard let moc = backgroundContext else {
-            throw CustomError.missingContext
-        }
-        try await moc.perform { [self] in
-            let sessions = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
-            for session in sessions {
-                moc.delete(session)
-            }
-            try moc.save()
-            NotificationCenter.default.post(name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
-        }
     }
 
     // MARK: - Private Encoding Helpers

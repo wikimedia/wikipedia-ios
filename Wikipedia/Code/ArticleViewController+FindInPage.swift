@@ -61,16 +61,18 @@ extension ArticleViewController {
     
     func showFindInPage() {
         createFindInPageViewIfNecessary()
+        startObservingFindInPageKeyboard()
         becomeFirstResponder()
         findInPage.view?.show()
     }
-    
+
     func hideFindInPage(_ completion: (() -> Void)? = nil) {
             resetFindInPage {
                 self.findInPage.view?.hide()
                 self.findInPage.view?.removeFromSuperview()
                 self.findInPage.view = nil
                 self.resignFirstResponder()
+                self.stopObservingFindInPageKeyboard()
                 completion?()
             }
         }
@@ -97,6 +99,78 @@ extension ArticleViewController {
         }
         scroll(to: selectedMatch, centered: true, animated: true)
         webView.evaluateJavaScript("window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId(`\(selectedMatch.sanitizedForJavaScriptTemplateLiterals)`)", completionHandler: nil)
+    }
+
+    // MARK: - Keyboard
+
+    func startObservingFindInPageKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(findInPageKeyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(findInPageKeyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    func stopObservingFindInPageKeyboard() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        restoreScrollViewBottomInsetForFindInPage(animated: false)
+    }
+
+    @objc func findInPageKeyboardWillChangeFrame(_ notification: Notification) {
+        guard findInPage.view != nil,
+              let window = view.window,
+              let endFrameValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+
+        let keyboardFrameInWindow = window.convert(endFrameValue.cgRectValue, from: nil)
+        let webViewFrameInWindow = webView.convert(webView.bounds, to: window)
+        let coveredHeight = max(0, webViewFrameInWindow.maxY - keyboardFrameInWindow.minY)
+
+        if findInPageBaseScrollViewBottomInset == nil {
+            findInPageBaseScrollViewBottomInset = webView.scrollView.contentInset.bottom
+        }
+        let baseInset = findInPageBaseScrollViewBottomInset ?? 0
+
+        setScrollViewBottomInsetForFindInPage(baseInset + coveredHeight, notification: notification)
+    }
+
+    @objc func findInPageKeyboardWillHide(_ notification: Notification) {
+        restoreScrollViewBottomInsetForFindInPage(animated: true, notification: notification)
+    }
+
+    private func setScrollViewBottomInsetForFindInPage(_ bottomInset: CGFloat, notification: Notification) {
+        let scrollView = webView.scrollView
+        guard scrollView.contentInset.bottom != bottomInset else {
+            return
+        }
+        animateAlongsideKeyboard(notification) {
+            scrollView.contentInset.bottom = bottomInset
+            scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+        }
+    }
+
+    private func restoreScrollViewBottomInsetForFindInPage(animated: Bool, notification: Notification? = nil) {
+        guard let baseInset = findInPageBaseScrollViewBottomInset else {
+            return
+        }
+        findInPageBaseScrollViewBottomInset = nil
+        let scrollView = webView.scrollView
+        let apply = {
+            scrollView.contentInset.bottom = baseInset
+            scrollView.verticalScrollIndicatorInsets.bottom = baseInset
+        }
+        if animated, let notification {
+            animateAlongsideKeyboard(notification, apply)
+        } else {
+            apply()
+        }
+    }
+
+    private func animateAlongsideKeyboard(_ notification: Notification, _ animations: @escaping () -> Void) {
+        let userInfo = notification.userInfo
+        let duration = (userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double) ?? 0.25
+        let curveValue = (userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int) ?? Int(UIView.AnimationCurve.easeInOut.rawValue)
+        let options = UIView.AnimationOptions(rawValue: UInt(curveValue) << 16)
+        UIView.animate(withDuration: duration, delay: 0, options: options, animations: animations)
     }
 }
 

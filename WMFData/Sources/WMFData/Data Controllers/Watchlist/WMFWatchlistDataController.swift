@@ -1,9 +1,16 @@
 import Foundation
 import UIKit
 
-public class WMFWatchlistDataController {
-    
-    var service = WMFDataEnvironment.current.mediaWikiService
+// @unchecked Sendable: exposes a broad synchronous API to legacy call sites, so it
+// cannot become an actor yet. The only mutable state is the service reference,
+// held in a WMFLockIsolated box.
+public final class WMFWatchlistDataController: @unchecked Sendable {
+
+    private let _service = WMFLockIsolated(WMFDataEnvironment.current.mediaWikiService)
+    var service: WMFService? {
+        get { _service.value }
+        set { _service.value = newValue }
+    }
     private let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
@@ -93,7 +100,7 @@ public class WMFWatchlistDataController {
     
     // MARK: GET Watchlist Items
 
-    public func fetchWatchlist(completion: @escaping (Result<WMFWatchlist, Error>) -> Void) {
+    public func fetchWatchlist(completion: @escaping @Sendable (Result<WMFWatchlist, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -124,10 +131,13 @@ public class WMFWatchlistDataController {
         apply(filterSettings: filterSettings, to: &parameters)
         
         let group = DispatchGroup()
-        var items: [WMFWatchlist.Item] = []
-        var errors: [WMFProject: [WMFDataControllerError]] = [:]
-        projects.forEach { project in
-            errors[project] = []
+        // Aggregated behind a lock: the per-project service callbacks land on
+        // URLSession's queue concurrently with each other.
+        let fetchState = WMFLockIsolated<(items: [WMFWatchlist.Item], errors: [WMFProject: [WMFDataControllerError]])>(([], [:]))
+        fetchState.withLock { state in
+            projects.forEach { project in
+                state.errors[project] = []
+            }
         }
         
         for project in projects {
@@ -152,46 +162,49 @@ public class WMFWatchlistDataController {
                 
                 switch result {
                 case .success(let apiResponse):
-                    
+
                     if let apiResponseErrors = apiResponse.errors,
                        !apiResponseErrors.isEmpty {
-                        
+
                         let mediaWikiResponseErrors = apiResponseErrors.map { WMFDataControllerError.mediaWikiResponseError($0) }
-                        errors[project, default: []].append(contentsOf: mediaWikiResponseErrors)
+                        fetchState.withLock { $0.errors[project, default: []].append(contentsOf: mediaWikiResponseErrors) }
                         return
                     }
-                    
+
                     guard let query = apiResponse.query else {
-                        errors[project, default: []].append(WMFDataControllerError.unexpectedResponse)
+                        fetchState.withLock { $0.errors[project, default: []].append(WMFDataControllerError.unexpectedResponse) }
                         return
                     }
-                    
-                    items.append(contentsOf: self.watchlistItems(from: query, project: project))
-                    
+
+                    let newItems = self.watchlistItems(from: query, project: project)
+                    fetchState.withLock { $0.items.append(contentsOf: newItems) }
+
                     try? sharedCacheStore?.save(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id, value: apiResponse)
-                    
+
                 case .failure(let error):
                     var usedCache = false
-                    
+
                     if (error as NSError).isInternetConnectionError {
-                        
+
                         let cachedResult: WatchlistAPIResponse? = try? sharedCacheStore?.load(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id)
-                        
+
                         if let query = cachedResult?.query {
-                            items.append(contentsOf: self.watchlistItems(from: query, project: project))
+                            let cachedItems = self.watchlistItems(from: query, project: project)
+                            fetchState.withLock { $0.items.append(contentsOf: cachedItems) }
                             usedCache = true
                         }
                     }
-                    
+
                     if !usedCache {
-                        errors[project, default: []].append(WMFDataControllerError.serviceError(error))
+                        fetchState.withLock { $0.errors[project, default: []].append(WMFDataControllerError.serviceError(error)) }
                     }
                 }
             }
         }
         
         group.notify(queue: .main) {
-        
+
+            let (items, errors) = fetchState.value
             let successProjects = errors.filter { $0.value.isEmpty }
             let failureProjects = errors.filter { !$0.value.isEmpty }
             
@@ -311,7 +324,7 @@ public class WMFWatchlistDataController {
     
     // MARK: POST Watch Item
      
-     public func watch(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType, completion: @escaping (Result<Void, Error>) -> Void) {
+     public func watch(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
 
          guard let service else {
              completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -352,7 +365,7 @@ public class WMFWatchlistDataController {
 
      // MARK: POST Unwatch Item
      
-     public func unwatch(title: String, project: WMFProject, completion: @escaping (Result<Void, Error>) -> Void) {
+     public func unwatch(title: String, project: WMFProject, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
 
          guard let service else {
              completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -393,7 +406,7 @@ public class WMFWatchlistDataController {
     
     // MARK: POST Rollback Page
     
-    public func rollback(title: String, project: WMFProject, username: String, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
+    public func rollback(title: String, project: WMFProject, username: String, completion: @escaping @Sendable (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -436,7 +449,7 @@ public class WMFWatchlistDataController {
     
     // MARK: POST Undo Revision
     
-    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
+    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, completion: @escaping @Sendable (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -491,7 +504,7 @@ public class WMFWatchlistDataController {
         }
     }
     
-    private func fetchUndoRevisionSummaryPrefixText(revisionID: UInt, username: String, project: WMFProject, completion: @escaping (Result<String, Error>) -> Void) {
+    private func fetchUndoRevisionSummaryPrefixText(revisionID: UInt, username: String, project: WMFProject, completion: @escaping @Sendable (Result<String, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))

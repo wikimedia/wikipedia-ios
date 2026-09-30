@@ -240,4 +240,16 @@
 "settings-account" = "Račun";
 "welcome-intro-free-encyclopedia-description" = "Wikipedija je rezultat volonterske suradnje i sadrži više od 40 milijuna članaka na preko 300 jezika.";
 "welcome-languages-search-title" = "Pretraživanje u više od 300 jezika";
+"wikimedia-articletopics-topic-asia" = "Azija";
+"wikimedia-articletopics-topic-central-america" = "Srednja Amerika";
+"wikimedia-articletopics-topic-food-and-drink" = "Hrana i piće";
+"wikimedia-articletopics-topic-general-science" = "Opća znanost";
+"wikimedia-articletopics-topic-history" = "Povijest";
+"wikimedia-articletopics-topic-literature" = "Književnost";
+"wikimedia-articletopics-topic-music" = "Glazba";
+"wikimedia-articletopics-topic-north-america" = "Sjeverna Amerika";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofija i religija";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-society" = "Društvo";
+"wikimedia-articletopics-topic-tv-and-film" = "TV i film";
 "wikitext-upload-save-anonymously-warning" = "Uređivanja će biti pripisana IP-adresi Vašega uređaja. Ako pritisnete $1, ostvarit ćete više privatnosti.";

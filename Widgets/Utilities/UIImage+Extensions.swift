@@ -1,44 +1,56 @@
 import UIKit
-import AVFoundation
+import ImageIO
 
 extension UIImage {
+    /// Widget extensions have a ~30MB memory ceiling, so full-size UIImage(data:)
+    /// decodes can get the process jetsammed. This decodes via ImageIO at (or near)
+    /// the target size; sources much larger than the target are decoded subsampled,
+    /// so their full-size bitmap is never materialized. Results may land slightly
+    /// below the target — the rendering view's scaledToFill covers the difference.
+    static func downsampled(from data: Data, targetSize: CGSize) -> UIImage? {
+        guard targetSize.width > 0, targetSize.height > 0 else { return nil }
+        
+        let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let source = CGImageSourceCreateWithData(data as CFData, sourceOptions) else { return nil }
 
-    /// Scale image to fit within target size while maintaining aspect ratio
-    func scaleImageToFit(targetSize: CGSize) -> UIImage? {
-        let aspectRatioRect = AVFoundation.AVMakeRect(aspectRatio: size, insideRect: CGRect(origin: .zero, size: targetSize))
-        let availableSize = aspectRatioRect.size
+        let maxPixelSize = max(targetSize.width, targetSize.height)
 
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = 1
-        format.opaque = true
-        let renderer = UIGraphicsImageRenderer(size: availableSize, format: format)
-        let resizedImage = renderer.image { context in
-            draw(in: CGRect(origin: .zero, size: availableSize))
+        // Header-only read, no decode
+        var pixelWidth: CGFloat = 0
+        var pixelHeight: CGFloat = 0
+        if let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any] {
+            pixelWidth = properties[kCGImagePropertyPixelWidth] as? CGFloat ?? 0
+            pixelHeight = properties[kCGImagePropertyPixelHeight] as? CGFloat ?? 0
         }
 
-        return resizedImage
-    }
-
-    func scaleImageToFill(targetSize: CGSize) -> UIImage? {
-        guard size.width > 0, size.height > 0,
-              targetSize.width > 0, targetSize.height > 0 else { return nil }
-
-        let widthScale = targetSize.width / size.width
-        let heightScale = targetSize.height / size.height
-        let fillScale = min(max(widthScale, heightScale), 1.0)
-        let scaledSize = CGSize(width: size.width * fillScale, height: size.height * fillScale)
-        let drawOrigin = CGPoint(
-            x: (targetSize.width - scaledSize.width) / 2,
-            y: (targetSize.height - scaledSize.height) / 2
-        )
-
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = 1
-        format.opaque = true
-        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
-        return renderer.image { _ in
-            draw(in: CGRect(origin: drawOrigin, size: scaledSize))
+        // JPEG can only decode cheaply at 1/2, 1/4, 1/8 of full size. When the target
+        // is more than half the source, CreateThumbnailAtIndex decodes the full-size
+        // bitmap transiently — enough to breach the widget extension's ~30MB limit for
+        // large portrait images. It also ignores kCGImageSourceSubsampleFactor;
+        // CreateImageAtIndex honors it, so use that when the source is much larger
+        // than the target. The resulting image may land slightly below the target;
+        // the view's scaledToFill covers the difference.
+        let ratio = max(pixelWidth, pixelHeight) / maxPixelSize
+        if ratio >= 1.5 {
+            let factor = ratio >= 6 ? 8 : (ratio >= 3 ? 4 : 2)
+            let imageOptions = [
+                kCGImageSourceShouldCacheImmediately: true,
+                kCGImageSourceSubsampleFactor: factor
+            ] as CFDictionary
+            if let cgImage = CGImageSourceCreateImageAtIndex(source, 0, imageOptions) {
+                return UIImage(cgImage: cgImage)
+            }
+            // Formats that don't support subsampling fall through to the thumbnail path.
         }
-    }
 
+        let thumbnailOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxPixelSize
+        ] as CFDictionary
+        guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, thumbnailOptions) else { return nil }
+
+        return UIImage(cgImage: cgImage)
+    }
 }

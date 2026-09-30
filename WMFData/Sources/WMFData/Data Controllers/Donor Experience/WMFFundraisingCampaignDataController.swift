@@ -1,42 +1,53 @@
 import Foundation
 
-@objc final public class WMFFundraisingCampaignDataController: NSObject {
-    
-    private actor SafeDictionary<Key: Hashable, Value> {
-        private var dictionary: [Key: Value]
-        init(dict: [Key: Value] = [Key: Value]()) {
-            self.dictionary = dict
-        }
-        
-        func getValue(forKey key: Key) -> Value? {
-            dictionary[key]
-        }
-        
-        func update(value: Value, forKey key: Key) {
-            dictionary[key] = value
-        }
-    }
+// @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
+// cannot be an actor. All mutable state lives in WMFLockIsolated boxes below.
+@objc final public class WMFFundraisingCampaignDataController: NSObject, @unchecked Sendable {
     
     // MARK: - Properties
-    
-    var service: WMFService?
-    var sharedCacheStore: WMFKeyValueStore?
-    var mediaWikiService: WMFService?
-    
-    private var activeCountryConfigs: [WMFFundraisingCampaignConfig] = []
-    private var promptState: WMFFundraisingCampaignPromptState?
-    private var preferencesBannerOptIns: SafeDictionary<WMFProject, Bool> = SafeDictionary<WMFProject, Bool>()
+
+    private let _service: WMFLockIsolated<WMFService?>
+    var service: WMFService? {
+        get { _service.value }
+        set { _service.value = newValue }
+    }
+    private let _sharedCacheStore: WMFLockIsolated<WMFKeyValueStore?>
+    var sharedCacheStore: WMFKeyValueStore? {
+        get { _sharedCacheStore.value }
+        set { _sharedCacheStore.value = newValue }
+    }
+    private let _mediaWikiService: WMFLockIsolated<WMFService?>
+    var mediaWikiService: WMFService? {
+        get { _mediaWikiService.value }
+        set { _mediaWikiService.value = newValue }
+    }
+
+    private let _activeCountryConfigs = WMFLockIsolated<[WMFFundraisingCampaignConfig]>([])
+    private var activeCountryConfigs: [WMFFundraisingCampaignConfig] {
+        get { _activeCountryConfigs.value }
+        set { _activeCountryConfigs.value = newValue }
+    }
+    private let _promptState = WMFLockIsolated<WMFFundraisingCampaignPromptState?>(nil)
+    private var promptState: WMFFundraisingCampaignPromptState? {
+        get { _promptState.value }
+        set { _promptState.value = newValue }
+    }
+    private let preferencesBannerOptIns = WMFLockIsolated<[WMFProject: Bool]>([:])
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WMFFundraisingCampaignPromptState"
 
+    private var isForcingBannerForDevelopment: Bool {
+        WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner
+    }
+
     // MARK: - Lifecycle
     
     private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
-        self.service = service
-        self.sharedCacheStore = sharedCacheStore
-        self.mediaWikiService = mediaWikiService
+        self._service = WMFLockIsolated(service)
+        self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
+        self._mediaWikiService = WMFLockIsolated(mediaWikiService)
     }
     
     @objc(sharedInstance)
@@ -45,7 +56,7 @@ import Foundation
     // MARK: - Public
     
     public func isOptedIn(project: WMFProject) async -> Bool {
-        return await preferencesBannerOptIns.getValue(forKey: project) ?? true
+        return preferencesBannerOptIns.value[project] ?? true
     }
     
     /// Set asset as "maybe later" in persistence, so that it can be loaded later only once the maybe later date has passed
@@ -97,7 +108,11 @@ import Foundation
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: WMFAsset containing information to display in campaign modal.
     public func loadActiveCampaignAsset(countryCode: String, wmfProject: WMFProject, currentDate: Date) -> WMFFundraisingCampaignConfig.WMFAsset? {
-        
+
+        guard !isForcingBannerForDevelopment else {
+            return forcedCampaignAssetForDevelopment(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate)
+        }
+
         guard activeCountryConfigs.isEmpty else {
             
             // re-filter activeCountryConfigs in case campaigns have ended
@@ -124,18 +139,19 @@ import Foundation
         }
     }
 
-    /// Fetches the apps campaign configuration data at https://donate.wikimedia.org/w/index.php?title=MediaWiki:AppsCampaignConfig.json and caches the response. Valid assets can be loaded with loadActiveCampaignAsset
+    /// Fetches the apps campaign configuration data (MediaWiki:AppsCampaignConfig.json, from donate.wikimedia.org, or from test.wikipedia.org when the Use Test Wiki Donate Configs developer setting is on) and caches the response. Valid assets can be loaded with loadActiveCampaignAsset
     /// - Parameters:
     ///   - countryCode: Country code of the user. Can use Locale.current.regionCode
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     ///   - completion: Completion handler indicating if the fetch was successful or not.
-    public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         guard let service else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
         
-        guard let url = URL.fundraisingCampaignConfigURL() else {
+        guard let url = URL.fundraisingCampaignConfigURL(environment: WMFDeveloperSettingsDataController.shared.donateConfigsServiceEnvironment)
+        else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
@@ -165,7 +181,7 @@ import Foundation
         }
     }
     
-    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         guard let mediaWikiService else {
             completion?(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -185,7 +201,7 @@ import Foundation
         
         let request = WMFMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)
         
-        let completion: (Result<[String: Any]?, Error>) -> Void = { result in
+        let completion: @Sendable (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
             case .success(let dict):
                 
@@ -195,18 +211,8 @@ import Foundation
                     
                     if options.keys.contains("centralnotice-display-campaign-type-fundraising") {
                         
-                        if let responseOptInFlag = (options["centralnotice-display-campaign-type-fundraising"] as? Bool) {
-                            
-                            Task {
-                                await self.preferencesBannerOptIns.update(value:responseOptInFlag, forKey:project)
-                                
-                            }
-                        } else {
-                            Task {
-                                await self.preferencesBannerOptIns.update(value:false, forKey:project)
-                                
-                            }
-                        }
+                        let responseOptInFlag = (options["centralnotice-display-campaign-type-fundraising"] as? Bool) ?? false
+                        self.preferencesBannerOptIns.withLock { $0[project] = responseOptInFlag }
                     }
                     
                 }
@@ -220,6 +226,43 @@ import Foundation
         mediaWikiService.perform(request: request, completion: completion)
     }
     
+    // MARK: - Development
+
+    /// Clears the persisted "maybe later" / permanently hidden prompt state so the campaign banner
+    /// can present again. Orchestrated by WMFDeveloperSettingsDataController for the developer
+    /// settings screen; lives here because the prompt state cache is private to this controller.
+    public func clearPromptState() {
+        promptState = nil
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cachePromptStateFileName)
+    }
+
+    public func clearConfigCache() {
+        activeCountryConfigs = []
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cacheConfigFileName)
+    }
+
+    /// Only reachable via the "Force Fundraising Campaign Banner" developer setting. Reads the raw
+    /// cached config (saved unfiltered by fetchConfig) and returns the first asset, ignoring country,
+    /// date window, and prompt state, falling back to any language if the wiki has no asset.
+    private func forcedCampaignAssetForDevelopment(countryCode: String, wmfProject: WMFProject, currentDate: Date) -> WMFFundraisingCampaignConfig.WMFAsset? {
+
+        guard let cachedResult: WMFFundraisingCampaignConfigResponse = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheConfigFileName) else {
+            return nil
+        }
+
+        let configs = activeCountryConfigs(from: cachedResult, countryCode: countryCode, currentDate: currentDate, ignoringCountryAndDateFilters: true)
+
+        if let languageCode = wmfProject.languageCode {
+            for config in configs {
+                if let asset = config.assets[languageCode] {
+                    return asset
+                }
+            }
+        }
+
+        return configs.first?.assets.values.first
+    }
+
     // MARK: - Testing
 
     @_spi(Testing) public func reset() {
@@ -228,7 +271,7 @@ import Foundation
         sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
         activeCountryConfigs = []
         promptState = nil
-        preferencesBannerOptIns = SafeDictionary<WMFProject, Bool>()
+        preferencesBannerOptIns.value = [:]
     }
     
     // MARK: - Private
@@ -238,7 +281,7 @@ import Foundation
         guard let asset = activeLanguageSpecificAsset(languageCode: languageCode, languageVariantCode: languageVariantCode) else {
             return nil
         }
-        
+
         let validateAsset: ((WMFFundraisingCampaignConfig.WMFAsset, WMFFundraisingCampaignPromptState) -> WMFFundraisingCampaignConfig.WMFAsset?) = { asset, promptState in
             guard promptState.campaignID == asset.id else {
                 return asset
@@ -284,7 +327,7 @@ import Foundation
                 return languageVariantCodeAsset
             }
         }
-        
+
         return nil
     }
     
@@ -301,30 +344,30 @@ import Foundation
             guard (firstAsset.startDate...firstAsset.endDate).contains(currentDate) else {
                 return
             }
-            
+
             configs.append(config)
         }
         
         return configs
     }
     
-    private func activeCountryConfigs(from response: WMFFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date) -> [WMFFundraisingCampaignConfig] {
-        
+    private func activeCountryConfigs(from response: WMFFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date, ignoringCountryAndDateFilters: Bool = false) -> [WMFFundraisingCampaignConfig] {
+
         var configs: [WMFFundraisingCampaignConfig] = []
-        
+
         response.configs.forEach({ config in
-            
-            guard config.countryCodes.contains(countryCode) else {
+
+            guard config.countryCodes.contains(countryCode) || ignoringCountryAndDateFilters else {
                 return
             }
-            
+
             let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
             guard let startDate = dateFormatter.date(from: config.startTimeString),
                   let endDate = dateFormatter.date(from: config.endTimeString) else {
                 return
             }
-            
-            guard (startDate...endDate).contains(currentDate) else {
+
+            guard (startDate...endDate).contains(currentDate) || ignoringCountryAndDateFilters else {
                 return
             }
             
@@ -342,7 +385,7 @@ import Foundation
 
                 let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = randomAsset.actions.map { action in
                     
-                    guard let urlString = action.urlString?.replacingOccurrences(of: "$platform;", with: "iOS"),
+                    guard let urlString = action.urlString,
                        let url = URL(string: urlString) else {
                         return WMFFundraisingCampaignConfig.WMFAsset.WMFAction(title: action.title, url: nil)
                     }
@@ -464,7 +507,7 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
         }
     }
     
-    static var currentVersion = 2
+    static let currentVersion = 3
     let configs: [FundraisingCampaignConfig]
     
     init(from decoder: Decoder) throws {

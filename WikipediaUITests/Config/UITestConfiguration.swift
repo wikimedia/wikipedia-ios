@@ -15,7 +15,7 @@ struct UITestConfiguration {
     let resetsPreferredLanguages: Bool
     let suppressesActivityTabOnboarding: Bool
     let suppressesGamesAnnouncement: Bool
-    let suppressesReadingChallengeAnnouncement: Bool
+    let enablesHomeTab: Bool
     let themeName: String?
     let languageCode: String
 
@@ -28,7 +28,7 @@ struct UITestConfiguration {
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
         suppressesGamesAnnouncement: Bool = true,
-        suppressesReadingChallengeAnnouncement: Bool = true
+        enablesHomeTab: Bool = false
     ) {
         self.onboardingState = onboardingState
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
@@ -36,7 +36,7 @@ struct UITestConfiguration {
         self.resetsPreferredLanguages = resetsPreferredLanguages
         self.suppressesActivityTabOnboarding = suppressesActivityTabOnboarding
         self.suppressesGamesAnnouncement = suppressesGamesAnnouncement
-        self.suppressesReadingChallengeAnnouncement = suppressesReadingChallengeAnnouncement
+        self.enablesHomeTab = enablesHomeTab
         self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? defaultLanguageCode
     }
 
@@ -51,10 +51,6 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.resetPreferredLanguages, value: "YES"))
         }
 
-        if suppressesReadingChallengeAnnouncement {
-            argumentValues.append(UITestLaunchArgumentValue(.suppressReadingChallengeAnnouncement, value: "YES"))
-        }
-
         if suppressesActivityTabOnboarding {
             argumentValues.append(UITestLaunchArgumentValue(.suppressActivityTabOnboarding, value: "YES"))
         }
@@ -62,6 +58,10 @@ struct UITestConfiguration {
         if suppressesGamesAnnouncement {
             argumentValues.append(UITestLaunchArgumentValue(.suppressGamesAnnouncement, value: "YES"))
         }
+
+        // Always passed explicitly: the developer-settings flag persists across launches,
+        // so a test that omitted it would inherit whatever the previous test set.
+        argumentValues.append(UITestLaunchArgumentValue(.enableHomeTab, value: enablesHomeTab ? "YES" : "NO"))
 
         argumentValues.append(UITestLaunchArgumentValue(.appleLanguages, value: "(\(languageCode))"))
         argumentValues.append(UITestLaunchArgumentValue(.httpClientProfile, value: httpClientProfile))

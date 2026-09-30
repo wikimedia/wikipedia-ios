@@ -19,15 +19,21 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Dependencies
 
-    @objc var dataStore: MWKDataStore? {
-        didSet {
-            searchResultsVC.resultsViewController.dataStore = dataStore
-        }
-    }
+    @objc var dataStore: MWKDataStore?
 
     // MARK: - Private state
 
     private var isSearchActive = false
+    /// Where the pushed article was opened from. The reader returns from it to the same search.
+    private enum PushedArticleSource {
+        /// A search result. The keyboard comes back on return.
+        case searchResults
+        /// The semantic search sheet. The sheet comes back on return.
+        case semanticSearchSheet
+    }
+
+    /// Set while an article opened from the search is pushed, so the search stays active under it.
+    private var pushedArticleSource: PushedArticleSource?
     private var cancellables = Set<AnyCancellable>()
     
     var disableSearchCancelLogging: Bool = false
@@ -66,6 +72,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Coordinators
 
+    private var semanticSearchResultsCoordinator: SemanticSearchResultsCoordinator?
     private var _yirCoordinator: YearInReviewCoordinator?
     private var yirCoordinator: YearInReviewCoordinator? {
         guard let navigationController, let yirDataController, let dataStore else { return nil }
@@ -125,12 +132,19 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
+        vc.semanticSearchTappedAction = { [weak self] query, project in
+            self?.showSemanticSearchResults(query: query, project: project)
+        }
+        vc.semanticSearchSettingsTappedAction = { [weak self] in
+            self?.showSearchSettings()
+        }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             
             if let customAction = self.articleTappedAction {
                 customAction(articleURL)
             } else {
+                pushedArticleSource = .searchResults
                 let coordinator = LinkCoordinator(
                     navigationController: navVC,
                     url: articleURL,
@@ -147,6 +161,61 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         return vc
     }()
+
+    // MARK: - Semantic search results
+
+    private func showSemanticSearchResults(query: String, project: WMFProject) {
+        guard let navigationController else { return }
+
+        navigationItem.searchController?.searchBar.resignFirstResponder()
+
+        let coordinator = SemanticSearchResultsCoordinator(
+            navigationController: navigationController,
+            query: query,
+            project: project,
+            didSelectResult: { [weak self] result in
+                self?.openSemanticSearchResult(result, project: project)
+            }
+        )
+
+        semanticSearchResultsCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private func showSearchSettings() {
+        guard let navigationController else { return }
+
+        navigationItem.searchController?.searchBar.resignFirstResponder()
+        SearchSettingsCoordinator(navigationController: navigationController).start()
+    }
+
+    /// Opens the article at the section of the passage and highlights the passage in it.
+    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject) {
+        guard let dataStore, let navigationController,
+              let siteURL = project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: result.title)?.wmf_URL(withOptionalFragment: result.sectionTitle.map(Self.sectionAnchor))
+        else { return }
+
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
+
+        let coordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: dataStore,
+            theme: theme,
+            source: .search,
+            semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML)
+        )
+        pushedArticleSource = .semanticSearchSheet
+        if !coordinator.start() {
+            navigate(to: articleURL)
+        }
+    }
+
+    /// The id MediaWiki gives the heading of a section: the title with underscores for spaces.
+    private static func sectionAnchor(for sectionTitle: String) -> String {
+        sectionTitle.replacingOccurrences(of: " ", with: "_")
+    }
 
     // MARK: - History
 
@@ -267,8 +336,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private func share(item: HistoryItem, frame: CGRect?) {
         guard let dataStore, let url = item.url else { return }
         let article = dataStore.fetchArticle(with: url)
-        let dummyView = UIView(frame: frame ?? .zero)
-        _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: dummyView)
+        let sourceRect = frame.map { view.convert($0, from: nil) }
+        _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: view, sourceRect: sourceRect)
     }
 
     lazy var historyViewController: WMFHistoryHostingController = {
@@ -317,12 +386,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         disableSearchCancelLogging = !isMovingFromParent
 
-        if navigationItem.searchController?.isActive == true {
-            navigationItem.searchController?.isActive = false
+        // Keep the search active under the pushed article, so the reader returns to it.
+        if pushedArticleSource == nil {
+            if navigationItem.searchController?.isActive == true {
+                navigationItem.searchController?.isActive = false
+            }
+            isSearchActive = false
+            navigationItem.searchController = nil
+            navigationItem.title = nil
         }
-        isSearchActive = false
-        navigationItem.searchController = nil
-        navigationItem.title = nil
         disableSearchCancelLogging = false
         hideCustomLeadingLargeTitleLabel()
     }
@@ -330,11 +402,26 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        
+
+        let returningFromArticle = pushedArticleSource != nil
+        switch pushedArticleSource {
+        case .searchResults:
+            // On iPad the search field can't become first responder yet in viewDidAppear, so wait a turn.
+            Task { @MainActor [weak self] in
+                self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            }
+        case .semanticSearchSheet:
+            semanticSearchResultsCoordinator?.restore()
+        case nil:
+            break
+        }
+        pushedArticleSource = nil
+
         if isRootTabView {
             ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
         } else {
-            if let term = self.prefilledSearchTerm {
+            // Returning from an article keeps the reader's own search instead of the prefilled one.
+            if !returningFromArticle, let term = self.prefilledSearchTerm {
                 self.navigationItem.searchController?.searchBar.text = term
                 self.searchResultsVC.searchAndMakeResultsVisible(for: term)
                 self.navigationItem.searchController?.searchBar.becomeFirstResponder()
@@ -380,7 +467,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             searchResultsController: searchResultsVC,
             searchControllerDelegate: searchResultsVC,
             searchResultsUpdater: searchResultsVC,
-            searchBarDelegate: nil,
+            searchBarDelegate: searchResultsVC,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false,
             scopeButtonTitles: nil
@@ -455,7 +542,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         Task {
             do {
                 let dc = try WMFPageViewsDataController()
-                try await dc.deleteAllPageViewsAndCategories()
+                try await dc.deleteAllPageViewsCategoriesAndTopics()
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }

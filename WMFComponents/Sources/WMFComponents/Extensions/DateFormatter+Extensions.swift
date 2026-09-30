@@ -64,10 +64,46 @@ public extension DateFormatter {
             return wmfMonthDayDateFormatter.string(from: date)
         }
     }
+
+    /// Intended for VoiceOver labels:
+    /// - If the date is today: spelled-out hours and minutes (e.g. "15 hours 40 minutes"),
+    ///   avoiding punctuation like "15:40" which VoiceOver would enunciate character by character.
+    /// - Otherwise: fallbacks to the same month and day rendering used visually,
+    ///   which is already speech-friendly (e.g. "August 22").
+    static func wmfLastReadAccessibilityLabel(for date: Date) -> String {
+        let calendar = Calendar.current
+        if calendar.isDateInToday(date) {
+            let components = calendar.dateComponents([.hour, .minute], from: date)
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .spellOut
+            formatter.allowedUnits = [.hour, .minute]
+            formatter.zeroFormattingBehavior = .dropLeading
+            if let spelledOut = formatter.string(from: components), !spelledOut.isEmpty {
+                return spelledOut
+            }
+            return wmfShortTimeFormatter.string(from: date)
+        } else {
+            return wmfMonthDayDateFormatter.string(from: date)
+        }
+    }
     
     static let lastEditedDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
+        return formatter
+    }()
+
+    /// Month and year in the numeric form of the locale, e.g. `09/2026`.
+    static let monthYearNumericFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMyyyy")
+        return formatter
+    }()
+
+    /// Month and year spelled out, e.g. `September 2026`.
+    static let monthYearSpelledOutFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMMyyyy")
         return formatter
     }()
     
@@ -86,12 +122,12 @@ public extension DateFormatter {
         return wmfMonthDayDateFormatter.string(from: date)
     }
 
-    /// Parses a `yyyy-MM-dd` string and returns "Month Day, ’Year" e.g. `December 19, 25`
+    /// Parses a `yyyy-MM-dd` string and returns "Month Day, Year" e.g. `December 19, 2025`
     static func wmfMonthDayYearFromDailyGameDate(_ dateString: String) -> String {
         let parser = DateFormatter()
         parser.dateFormat = "yyyy-MM-dd"
         parser.locale = Locale(identifier: "en_US_POSIX")
         guard let date = parser.date(from: dateString) else { return dateString }
-        return wmfMonthDayShortYearDateFormatter.string(from: date)
+        return wmfMonthDayYearDateFormatter.string(from: date)
     }
 }

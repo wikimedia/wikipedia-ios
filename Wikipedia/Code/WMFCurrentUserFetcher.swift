@@ -24,7 +24,18 @@ public enum WMFUserFetcherError: LocalizedError {
     @objc public let isBlocked: Bool
     @objc public let authState: AuthState
     @objc public let registrationDateString: String?
-    init(userID: Int, globalUserID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, isIP: Bool, isTemp: Bool, registrationDateString: String?) {
+
+    public init(
+        userID: Int,
+        globalUserID: Int,
+        name: String,
+        groups: [String],
+        editCount: UInt64,
+        isBlocked: Bool,
+        isIP: Bool,
+        isTemp: Bool,
+        registrationDateString: String?
+    ) {
         assert(!(isTemp && isIP), "Invalid values. A user cannot both be IP and Temp.")
         self.userID = userID
         self.globalUserID = globalUserID

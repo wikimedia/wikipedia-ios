@@ -88,6 +88,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
         usernameField.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
         passwordField.placeholder = WMFLocalizedString("field-password-placeholder", value:"enter password", comment:"Placeholder text shown inside password field until user taps on it")
+        usernameField.textContentType = .username
+        passwordField.textContentType = .password
 
         titleLabel.text = WMFLocalizedString("login-title", value:"Log in to your account", comment:"Title for log in interface")
         usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field {{Identical|Username}}")
@@ -198,7 +200,9 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        authInstrument.submitInteraction(action: "impression")
+
+        let actionContext = category.map { ["invoke_source": $0.rawValue] }
+        authInstrument.submitInteraction(action: "impression", actionContext: actionContext)
         usernameField.becomeFirstResponder()
     }
 

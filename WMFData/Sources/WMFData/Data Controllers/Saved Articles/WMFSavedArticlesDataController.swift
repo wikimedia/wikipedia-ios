@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 
 public actor WMFSavedArticlesDataController {
 
@@ -44,6 +45,18 @@ public actor WMFSavedArticlesDataController {
         let titles = articleThumbTuples.map { $0.0 }
 
         return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: thumbURLs, dateLastSaved: lastDate, articleTitles: titles)
+    }
+
+    public func fetchSavedArticlesCount() async throws -> Int {
+        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
+        let context = try coreDataStore.newBackgroundContext
+
+        return try await context.perform {
+            let request = NSFetchRequest<CDPage>(entityName: "CDPage")
+            request.predicate = NSPredicate(format: "savedInfo != nil")
+
+            return try context.count(for: request)
+        }
     }
 
     // MARK: - Private functions
@@ -100,13 +113,22 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
-    public func fetchRecentlySavedArticles(limit: Int = 3) async throws -> [WMFPageWithTimestamp] {
+    public func fetchRecentlySavedArticles(limit: Int = 3, project: WMFProject? = nil) async throws -> [WMFPageWithTimestamp] {
         guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
         let context = try coreDataStore.newBackgroundContext
 
         return try await context.perform {
             let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
-            let predicate = NSPredicate(format: "savedInfo != nil")
+
+            let predicate: NSPredicate
+            if let project {
+                predicate = NSPredicate(
+                    format: "savedInfo != nil && projectID == %@",
+                    project.id
+                )
+            } else {
+                predicate = NSPredicate(format: "savedInfo != nil")
+            }
 
             guard let pages: [CDPage] = try coreDataStore.fetch(
                 entityType: CDPage.self,
@@ -245,7 +267,7 @@ fileprivate struct SavedArticleSnapshot: Sendable {
     let articleURL: URL?
 }
 
-public struct SavedArticleModuleData: Codable {
+public struct SavedArticleModuleData: Codable, Sendable {
     public let savedArticlesCount: Int
     public let articleThumbURLs: [URL?]
     public let dateLastSaved: Date?

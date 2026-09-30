@@ -1,7 +1,12 @@
 import Foundation
 import CoreData
 
-protocol YearInReviewSlideDataControllerProtocol {
+// Sendable so slide data controllers can cross into the Core Data `perform`
+// closures in WMFYearInReviewDataController. Conformers are classes with a
+// mutable `isEvaluated`, so each conforms via @unchecked Sendable: instances are
+// confined to the sequential populate flow (mutated in a loop, then read once in
+// a single perform closure), so there is no concurrent access in practice.
+protocol YearInReviewSlideDataControllerProtocol: Sendable {
     /// A unique identifier for the slide (e.g., readCount, editCount).
     var id: String { get }
 
@@ -37,4 +42,15 @@ struct YearInReviewSlideDataControllerDependencies {
     let userID: Int?
     let globalUserID: Int?
     let languageCode: String?
+    let userImpactDataProvider: (any YearInReviewUserImpactDataProviding)?
+}
+
+protocol YearInReviewUserImpactDataProviding: Sendable {
+    func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int?
+}
+
+extension WMFUserImpactDataController: YearInReviewUserImpactDataProviding {
+    func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
+        try await fetch(userID: userID, project: project, language: language).totalPageviewsCount
+    }
 }

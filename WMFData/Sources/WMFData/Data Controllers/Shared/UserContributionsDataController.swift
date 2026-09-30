@@ -1,6 +1,6 @@
 import Foundation
 
-public final class UserContributionsDataController {
+public actor UserContributionsDataController {
     
     public static let shared = UserContributionsDataController()
     private let service = WMFDataEnvironment.current.mediaWikiService
@@ -77,7 +77,7 @@ public final class UserContributionsDataController {
         }
     }
     
-    public func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+    public func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String, completion: @escaping @Sendable (Result<(Int, Bool), Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -134,7 +134,7 @@ public final class UserContributionsDataController {
     }
 }
 
-public struct ArticleEdit: Identifiable, Hashable {
+public struct ArticleEdit: Identifiable, Hashable, Sendable {
     public let id: String
     public let title: String
     public let projectID: String

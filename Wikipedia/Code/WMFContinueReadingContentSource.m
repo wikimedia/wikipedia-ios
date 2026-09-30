@@ -1,10 +1,11 @@
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/MWKDataStore.h>
 #import <WMF/WMF-Swift.h>
+@import WMFData;
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 24; //24 hours
+static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 24; // 24 hours
 
 @interface WMFContinueReadingContentSource ()
 
@@ -34,18 +35,35 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
     [moc performBlock:^{
-        
+        // Check Home flags before the lastRead guard so that stale Continue Reading
+        // groups are removed even when the user has no reading history.
+        // Read through WMFDeveloperSettingsDataController so the JSON-encoded Data
+        // values stored by WMFUserDefaultsStore are decoded correctly — NSUserDefaults
+        // boolForKey: returns NO for those.
+        if (WMFHomeDataController.shared.isHomeTabGroupB) {
+            NSArray<WMFContentGroup *> *existingGroups = [moc contentGroupsOfKind:WMFContentGroupKindContinueReading];
+            for (WMFContentGroup *group in existingGroups) {
+                [moc removeContentGroup:group];
+            }
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+
         NSURL *lastRead = [moc wmf_openArticleURL] ?: moc.mostRecentlyReadArticle.URL;
 
         if (!lastRead) {
-            completion();
+            if (completion) {
+                completion();
+            }
             return;
         }
 
         NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
 
         BOOL shouldShowContinueReading = fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle || force;
-        
+
         NSArray<WMFContentGroup *> *groups = [moc contentGroupsOfKind:WMFContentGroupKindContinueReading];
         if (!shouldShowContinueReading) {
             if (groups.count > 0) {

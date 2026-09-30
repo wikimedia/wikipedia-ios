@@ -46,7 +46,7 @@ fileprivate extension WMFData.WMFServiceRequest {
     }
 }
 
-public final class WMFMockGrowthTasksService: WMFService {
+public final class WMFMockGrowthTasksService: WMFService, @unchecked Sendable {
 
     public init() {}
 
@@ -80,7 +80,7 @@ public final class WMFMockGrowthTasksService: WMFService {
 
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
             return
@@ -89,7 +89,7 @@ public final class WMFMockGrowthTasksService: WMFService {
         completion(.success(jsonData))
     }
 
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String : Any]?, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String : Any]?, Error>) -> Void) {
 
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -105,7 +105,7 @@ public final class WMFMockGrowthTasksService: WMFService {
 
     }
     
-    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
             return
@@ -122,7 +122,7 @@ public final class WMFMockGrowthTasksService: WMFService {
 
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
 
     }
     

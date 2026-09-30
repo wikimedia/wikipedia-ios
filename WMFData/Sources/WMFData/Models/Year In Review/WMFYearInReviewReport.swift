@@ -1,6 +1,6 @@
 import Foundation
 
-public class WMFYearInReviewReport: Identifiable {
+public final class WMFYearInReviewReport: Identifiable, Sendable {
     public let year: Int
     public let slides: [WMFYearInReviewSlide]
     

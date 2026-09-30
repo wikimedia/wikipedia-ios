@@ -18,7 +18,13 @@ public final class WMFFeatureAnnouncementViewController: WMFCanvasViewController
     public init(viewModel: WMFFeatureAnnouncementViewModel) {
         self.hostingViewController = WMFFeatureAnnouncementHostingController(viewModel: viewModel)
         super.init()
-        self.preferredContentSize = CGSize(width: 278, height: 450)
+        viewModel.contentHeightChanged = { height in
+            DispatchQueue.main.async { [weak self] in
+                guard let self,
+                      self.preferredContentSize.height != height else { return }
+                self.preferredContentSize = CGSize(width: 278, height: height)
+            }
+        }
     }
 
     required init?(coder: NSCoder) {

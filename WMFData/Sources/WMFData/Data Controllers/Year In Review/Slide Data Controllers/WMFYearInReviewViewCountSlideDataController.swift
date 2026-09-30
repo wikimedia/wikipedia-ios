@@ -1,11 +1,14 @@
 import CoreData
 
-final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataControllerProtocol {
+// @unchecked: `isEvaluated` is mutable, but instances are confined to the sequential
+// populate flow in WMFYearInReviewDataController (mutated in a loop, then read in a
+// single Core Data perform closure) — see YearInReviewSlideDataControllerProtocol.
+final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataControllerProtocol, @unchecked Sendable {
     let id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static var containsPersonalizedNetworkData = true
-    static var shouldFreeze = false
+    static let containsPersonalizedNetworkData = true
+    static let shouldFreeze = false
     
     private var viewCount: Int?
     
@@ -14,13 +17,14 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     private let languageCode: String?
     private let project: WMFProject?
     
-    private let dataController = WMFUserImpactDataController.shared
+    private let userImpactDataProvider: any YearInReviewUserImpactDataProviding
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.userID = dependencies.userID
         self.languageCode = dependencies.languageCode
         self.project = dependencies.project
+        self.userImpactDataProvider = dependencies.userImpactDataProvider ?? WMFUserImpactDataController.shared
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
@@ -47,7 +51,6 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
             throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
         
-        let response = try await dataController.fetch(userID: userId, project: project, language: language)
-        return response.totalPageviewsCount
+        return try await userImpactDataProvider.fetchTotalPageViewsCount(userID: userId, project: project, language: language)
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WMFFeedAPIResponse: Codable {
+public struct WMFFeedAPIResponse: Codable, Sendable {
     public let todaysFeaturedArticle: WMFFeedArticle?
     public let mostRead: WMFFeedMostRead?
     public let image: WMFFeedImageNew?
@@ -17,7 +17,7 @@ public struct WMFFeedAPIResponse: Codable {
 
 // MARK: - Shared article type (used for TFA, most-read articles, and news links)
 
-public struct WMFFeedArticle: Codable {
+public struct WMFFeedArticle: Codable, Sendable {
     public let type: String?
     public let title: String?
     public let displayTitle: String?
@@ -53,25 +53,25 @@ public struct WMFFeedArticle: Codable {
     }
 }
 
-public struct WMFFeedArticleTitles: Codable {
+public struct WMFFeedArticleTitles: Codable, Sendable {
     public let canonical: String?
     public let normalized: String?
     public let display: String?
 }
 
-public struct WMFFeedNamespace: Codable {
+public struct WMFFeedNamespace: Codable, Sendable {
     public let id: Int?
     public let text: String?
 }
 
 // MARK: - Content URLs
 
-public struct WMFFeedContentURLs: Codable {
+public struct WMFFeedContentURLs: Codable, Sendable {
     public let desktop: WMFFeedContentURLGroup?
     public let mobile: WMFFeedContentURLGroup?
 }
 
-public struct WMFFeedContentURLGroup: Codable {
+public struct WMFFeedContentURLGroup: Codable, Sendable {
     public let page: String?
     public let revisions: String?
     public let edit: String?
@@ -80,12 +80,12 @@ public struct WMFFeedContentURLGroup: Codable {
 
 // MARK: - Most Read
 
-public struct WMFFeedMostRead: Codable {
+public struct WMFFeedMostRead: Codable, Sendable {
     public let date: String?
     public let articles: [WMFFeedMostReadArticle]?
 }
 
-public struct WMFFeedMostReadArticle: Codable {
+public struct WMFFeedMostReadArticle: Codable, Sendable {
     public let views: Int?
     public let rank: Int?
     public let viewHistory: [WMFFeedViewHistoryEntry]?
@@ -118,14 +118,14 @@ public struct WMFFeedMostReadArticle: Codable {
     }
 }
 
-public struct WMFFeedViewHistoryEntry: Codable {
+public struct WMFFeedViewHistoryEntry: Codable, Sendable {
     public let date: String?
     public let views: Int?
 }
 
 // MARK: - Image source (shared thumbnail/originalimage shape)
 
-public struct WMFFeedImageSource: Codable {
+public struct WMFFeedImageSource: Codable, Sendable {
     public let source: String?
     public let width: Int?
     public let height: Int?
@@ -133,7 +133,7 @@ public struct WMFFeedImageSource: Codable {
 
 // MARK: - Image of the Day
 
-public struct WMFFeedImageNew: Codable {
+public struct WMFFeedImageNew: Codable, Sendable {
     public let title: String?
     public let thumbnail: WMFFeedImageSource?
     public let image: WMFFeedImageSource?
@@ -152,7 +152,7 @@ public struct WMFFeedImageNew: Codable {
     }
 }
 
-public struct WMFFeedImageArtist: Codable {
+public struct WMFFeedImageArtist: Codable, Sendable {
     public let html: String?
     public let text: String?
     public let name: String?
@@ -164,25 +164,25 @@ public struct WMFFeedImageArtist: Codable {
     }
 }
 
-public struct WMFFeedLocalizedValue: Codable {
+public struct WMFFeedLocalizedValue: Codable, Sendable {
     public let html: String?
     public let text: String?
     public let lang: String?
 }
 
-public struct WMFFeedImageLicense: Codable {
+public struct WMFFeedImageLicense: Codable, Sendable {
     public let type: String?
     public let code: String?
     public let url: String?
 }
 
-public struct WMFFeedImageStructured: Codable {
+public struct WMFFeedImageStructured: Codable, Sendable {
     public let captions: [String: String]?
 }
 
 // MARK: - News
 
-public struct WMFFeedNewsItem: Codable {
+public struct WMFFeedNewsItem: Codable, Sendable {
     public let story: String?
     public let links: [WMFFeedArticle]?
 }

@@ -62,6 +62,7 @@ import WMFTestKitchen
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
     
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
+    private var hydratingHosts: Set<SiteURLHost> = []
     
     @objc public var authStateTemporaryUsername: String? {
         if authStateIsTemporary {
@@ -113,10 +114,37 @@ import WMFTestKitchen
         guard user.authState == .permanent else {
             return nil
         }
-        
         return user
     }
-    
+
+    /// Stores the given user in the cache for the given site if the cache has no entry for that host. Use this when another API call already contains the user information, so the cache gets filled without an extra fetch.
+    public func seedUserCacheIfNeeded(user: WMFCurrentUser, siteURL: URL) {
+        guard let host = siteURL.host, currentUserCache[host] == nil else {
+            return
+        }
+        currentUserCache[host] = user
+    }
+
+    /// Fetches and caches the current user for the given site if the cache has no entry for that host. This call does not block. Callers get the cached value on a later lookup.
+    public func hydrateUserCacheIfNeeded(siteURL: URL) {
+        guard let host = siteURL.host,
+              currentUserCache[host] == nil,
+              !hydratingHosts.contains(host) else {
+            return
+        }
+        hydratingHosts.insert(host)
+        currentUserFetcher.fetch(siteURL: siteURL, success: { user in
+            DispatchQueue.main.async {
+                self.currentUserCache[host] = user
+                self.hydratingHosts.remove(host)
+            }
+        }, failure: { _ in
+            DispatchQueue.main.async {
+                self.hydratingHosts.remove(host)
+            }
+        })
+    }
+
     /// Loops through all current user objects across the various siteURLs we have cached, and returns the username of the first username with authState == .permanent
     @objc public var authStatePermanentUsername: String? {
         

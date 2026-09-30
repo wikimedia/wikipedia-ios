@@ -1,11 +1,17 @@
 import Foundation
 import Combine
 
-public actor WMFSettingsDataController: ObservableObject {
+public enum WMFEditMode: String, Sendable {
+    case visual
+    case source
+}
 
+public actor WMFSettingsDataController: ObservableObject {
     public static let shared = WMFSettingsDataController()
 
-    nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    nonisolated private var userDefaultsStore: WMFKeyValueStore? {
+        WMFDataEnvironment.current.userDefaultsStore
+    }
 
     private var yirDataController: WMFYearInReviewDataController?
     let donationDataController: WMFDonateDataController?
@@ -110,4 +116,29 @@ public actor WMFSettingsDataController: ObservableObject {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
     }
 
+    // MARK: - Editing Preferences
+
+    /// The editing mode the user prefers. Written both from the choose editor sheet and from the
+    /// editing preferences settings screen. Users who have never picked one get visual editing.
+    public nonisolated func defaultEditMode() -> WMFEditMode {
+        guard let raw: String = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.defaultEditMode.rawValue)) ?? nil,
+              let mode = WMFEditMode(rawValue: raw) else {
+            return .visual
+        }
+        return mode
+    }
+
+    public nonisolated func setDefaultEditMode(_ newValue: WMFEditMode) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.defaultEditMode.rawValue, value: newValue.rawValue)
+    }
+
+    /// Whether the choose editor sheet should be skipped in favor of going straight to `defaultEditMode()`.
+    /// Only the sheet's "Don't show this again" checkbox turns this on — changing the mode in settings does not.
+    public nonisolated func skipChooseEditorSheet() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue)) ?? false
+    }
+
+    public nonisolated func setSkipChooseEditorSheet(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue, value: newValue)
+    }
 }

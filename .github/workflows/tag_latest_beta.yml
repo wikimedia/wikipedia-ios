@@ -1,3 +1,6 @@
+# NOTE: This workflow is currently disabled / not in active use.
+# It was originally used to kick off nightly builds through Xcode Cloud by moving
+# the latest_beta tag.
 name: Tag Latest Beta
 
 on:

@@ -153,6 +153,16 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateProfileButton()
+
+        // Matches WMFSettingsViewController — without this the rows that display a current value
+        // (language, feed, app theme, editing preferences) stay stale after returning from a sub screen.
+        if let values = coordinatorDelegate?.fetchDynamicValues() {
+            viewModel.updateDynamicValues(
+                primaryLanguage: values.primaryLanguage,
+                exploreFeedStatus: values.exploreFeedStatus,
+                readingPreferenceTheme: values.readingPreferenceTheme
+            )
+        }
     }
 
     public override func viewDidAppear(_ animated: Bool) {
@@ -168,10 +178,6 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
            yirDataController.shouldShowYearInReviewSettingsItem(countryCode: Locale.current.region?.identifier) {
             DonateFunnel.shared.logYearInReviewSettingsDidAppear()
         }
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Navigation Bar Configuration

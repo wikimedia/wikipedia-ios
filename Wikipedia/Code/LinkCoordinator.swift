@@ -15,8 +15,18 @@ final class LinkCoordinator: Coordinator {
     private let articleSource: ArticleSource
     private let previousPageViewObjectID: NSManagedObjectID?
     let tabConfig: ArticleTabConfig
-    
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig? = nil) {
+    private let revisionID: UInt64?
+
+    init(
+        navigationController: UINavigationController,
+        url: URL,
+        dataStore: MWKDataStore?,
+        theme: Theme,
+        articleSource: ArticleSource,
+        previousPageViewObjectID: NSManagedObjectID? = nil,
+        tabConfig: ArticleTabConfig? = nil,
+        revisionID: UInt64? = nil
+    ) {
         self.navigationController = navigationController
         self.url = url
         self.dataStore = dataStore ?? MWKDataStore.shared()
@@ -24,6 +34,7 @@ final class LinkCoordinator: Coordinator {
         self.articleSource = articleSource
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig ?? .appendArticleAndAssignCurrentTab
+        self.revisionID = revisionID
     }
 
     @MainActor
@@ -41,7 +52,8 @@ final class LinkCoordinator: Coordinator {
                 theme: theme,
                 source: articleSource,
                 previousPageViewObjectID: previousPageViewObjectID,
-                tabConfig: self.tabConfig)
+                tabConfig: self.tabConfig,
+                revisionID: revisionID)
 
             return articleCoordinator.start()
         case .unknown:

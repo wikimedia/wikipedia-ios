@@ -1,8 +1,8 @@
 import Foundation
 
-public struct WMFUserImpactData {
-    
-    public struct TopViewedArticle: Identifiable {
+public struct WMFUserImpactData: Sendable {
+
+    public struct TopViewedArticle: Identifiable, Sendable {
         public let id: String
         public let title: String
         let views: [Date: Int]

@@ -1,14 +1,14 @@
 import Foundation
 
-public final class MessagesDataController {
+public actor MessagesDataController {
     
-    public struct APIResponse: Codable {
+    public struct APIResponse: Codable, Sendable {
 
-        public struct Query: Codable {
+        public struct Query: Codable, Sendable {
             let allmessages: [Message]
         }
-        
-        public struct Message: Codable {
+
+        public struct Message: Codable, Sendable {
             public let name: String
             public let normalizedname: String
             public let content: String
@@ -76,7 +76,9 @@ public final class MessagesDataController {
         }
     }
     
-    private func convertExternalLink(_ input: String) -> String {
+    // Pure helper (touches no actor state) so it can be called from the service's
+    // nonisolated completion callback above.
+    private nonisolated func convertExternalLink(_ input: String) -> String {
         let pattern = #"\[(https?:\/\/[^\s\]]+)\s+([^\]]+)\]"#
 
         guard let regex = try? NSRegularExpression(pattern: pattern) else {

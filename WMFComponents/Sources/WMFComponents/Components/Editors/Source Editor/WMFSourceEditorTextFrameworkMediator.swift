@@ -101,6 +101,8 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
         
         textView.textContainerInset = .init(top: 16, left: 8, bottom: 16, right: 8)
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.contentInsetAdjustmentBehavior = .always
+        textView.alwaysBounceVertical = true
         textView.smartQuotesType = .no
         textView.smartDashesType = .no
         textView.keyboardDismissMode = .interactive

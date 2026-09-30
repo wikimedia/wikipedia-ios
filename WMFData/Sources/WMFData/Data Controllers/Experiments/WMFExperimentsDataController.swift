@@ -1,6 +1,6 @@
 import Foundation
 
-final class WMFExperimentsDataController {
+public final class WMFExperimentsDataController {
     
     // MARK: - Nested Types
     
@@ -8,18 +8,39 @@ final class WMFExperimentsDataController {
         case invalidPercentage
     }
     
-    struct ExperimentConfig {
+    struct ExperimentConfig: Sendable {
         let experiment: Experiment
         let percentageFileName: PercentageFileName
         let bucketFileName: BucketFileName
         let bucketValueControl: BucketValue
         let bucketValueTest: BucketValue
         let bucketValueTest2: BucketValue?
+
+        var bucketValues: [BucketValue] {
+            [bucketValueControl, bucketValueTest, bucketValueTest2].compactMap { $0 }
+        }
+
+        /// A persisted bucket whose signature differs from this value belongs to another experiment
+        /// that used the same file names, and is discarded.
+        var signature: String {
+            "\(bucketFileName.rawValue)|" + bucketValues.map(\.rawValue).joined(separator: ",")
+        }
+
+        var signatureFileName: String {
+            bucketFileName.rawValue + "Signature"
+        }
+
+        var fileNames: [String] {
+            [percentageFileName.rawValue, bucketFileName.rawValue, signatureFileName]
+        }
     }
     
-    public enum Experiment {
+    public enum Experiment: CaseIterable, Sendable {
         case moreDynamicTabsV2
         case yirLoginPrompt
+        case homeTab
+        case donationReminder
+        case semanticSearch
 
         var config: ExperimentConfig {
             switch self {
@@ -27,33 +48,59 @@ final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.moreDynamicTabsV2Config
             case .yirLoginPrompt:
                 return WMFExperimentsDataController.yirLoginPromptConfig
+            case .homeTab:
+                return WMFExperimentsDataController.homeTabConfig
+            case .donationReminder:
+                return WMFExperimentsDataController.donationReminderConfig
+            case .semanticSearch:
+                return WMFExperimentsDataController.semanticSearchConfig
             }
         }
     }
-    
-    public enum PercentageFileName: String {
+
+    public enum PercentageFileName: String, Sendable {
         case moreDynamicTabsPercent
         case yirLoginPromptPercent
+        case homeTabPercent
+        case donationReminderPercent
+        case semanticSearchPercent
     }
-    
-    enum BucketFileName: String {
+
+    enum BucketFileName: String, Sendable {
         case moreDynamicTabsV2Bucket
         case yirLoginPromptBucket
+        case homeTabBucket
+        case donationReminderBucket
+        case semanticSearchBucket
     }
-    
-    public enum BucketValue: String {
+
+    public enum BucketValue: String, Sendable {
         case moreDynamicTabsV2GroupC = "MoreDynamicTabsV2_GroupC"
         case yirLoginPromptControl = "YirLoginPrompt_Control"
         case yirLoginPromptGroupB = "YirLoginPrompt_GroupB"
+        case homeTabControl = "HomeTab_Control"
+        case homeTabGroupB = "HomeTab_GroupB"
+        case donationReminderControl = "DonationReminder_Control"
+        case donationReminderGroupB = "DonationReminder_GroupB"
+        case donationReminderGroupC = "DonationReminder_GroupC"
+        case semanticSearchControl = "SemanticSearch_Control"
+        case semanticSearchGroupB = "SemanticSearch_GroupB"
     }
     
     // MARK: Properties
     
-    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
+    private static let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
+    private var cacheDirectoryName: String { Self.cacheDirectoryName }
 
     private static let moreDynamicTabsV2Config = ExperimentConfig(experiment: .moreDynamicTabsV2, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsV2Bucket, bucketValueControl: .moreDynamicTabsV2GroupC, bucketValueTest: .moreDynamicTabsV2GroupC, bucketValueTest2: .moreDynamicTabsV2GroupC)
     
     private static let yirLoginPromptConfig = ExperimentConfig(experiment: .yirLoginPrompt, percentageFileName: .yirLoginPromptPercent, bucketFileName: .yirLoginPromptBucket, bucketValueControl: .yirLoginPromptControl, bucketValueTest: .yirLoginPromptGroupB, bucketValueTest2: nil)
+
+    private static let homeTabConfig = ExperimentConfig(experiment: .homeTab, percentageFileName: .homeTabPercent, bucketFileName: .homeTabBucket, bucketValueControl: .homeTabControl, bucketValueTest: .homeTabGroupB, bucketValueTest2: nil)
+
+    private static let donationReminderConfig = ExperimentConfig(experiment: .donationReminder, percentageFileName: .donationReminderPercent, bucketFileName: .donationReminderBucket, bucketValueControl: .donationReminderControl, bucketValueTest: .donationReminderGroupB, bucketValueTest2: .donationReminderGroupC)
+
+    private static let semanticSearchConfig = ExperimentConfig(experiment: .semanticSearch, percentageFileName: .semanticSearchPercent, bucketFileName: .semanticSearchBucket, bucketValueControl: .semanticSearchControl, bucketValueTest: .semanticSearchGroupB, bucketValueTest2: nil)
 
     private let store: WMFKeyValueStore
     
@@ -68,7 +115,7 @@ final class WMFExperimentsDataController {
     // this will only generate a new bucket as needed (i.e. if the percentage is different than the last time bucket was generated)
     // forceValue: optional forcing of bucket assignment (i.e. developer settings menu assignments)
     @discardableResult
-    func determineBucketForExperiment(_ experiment: Experiment, withPercentage percentage: Int, forceValue: BucketValue? = nil) throws -> BucketValue {
+    func determineBucketForExperiment(_ experiment: Experiment, withPercentage percentage: Int, forceValue: BucketValue? = nil, randomIntProvider: () -> Int = { Int.random(in: 1...100) }) throws -> BucketValue {
         
         guard percentage >= 0 && percentage <= 100 else {
             throw ExperimentError.invalidPercentage
@@ -78,14 +125,15 @@ final class WMFExperimentsDataController {
         let maybeOldPercentage = percentageForExperiment(experiment)
         let maybeOldBucket = bucketForExperiment(experiment)
         
-        if let oldPercentage = maybeOldPercentage,
+        if forceValue == nil,
+           let oldPercentage = maybeOldPercentage,
            let oldBucket = maybeOldBucket,
            oldPercentage == percentage {
             return oldBucket
         }
         
         // otherwise generate new bucket
-        let randomInt = Int.random(in: 1...100)
+        let randomInt = randomIntProvider()
         let bucket: BucketValue
         
         if let forceValue = forceValue {
@@ -101,6 +149,28 @@ final class WMFExperimentsDataController {
                 } else {
                     bucket = .yirLoginPromptGroupB
                 }
+            case .homeTab:
+                if randomInt <= percentage {
+                    bucket = .homeTabControl
+                } else {
+                    bucket = .homeTabGroupB
+                }
+
+            case .donationReminder:
+                if randomInt <= percentage {
+                    bucket = .donationReminderControl
+                } else if randomInt <= percentage * 2 {
+                    bucket = .donationReminderGroupB
+                } else {
+                    bucket = .donationReminderGroupC
+                }
+
+            case .semanticSearch:
+                if randomInt <= percentage {
+                    bucket = .semanticSearchControl
+                } else {
+                    bucket = .semanticSearchGroupB
+                }
             }
         }
         
@@ -110,21 +180,48 @@ final class WMFExperimentsDataController {
         return bucket
     }
     
+    /// The persisted bucket of `experiment`. A bucket that does not belong to the current config, or
+    /// whose persisted signature differs from the current one, is removed. A bucket persisted before
+    /// signatures existed gets the current signature on first read.
     func bucketForExperiment(_ experiment: Experiment) -> BucketValue? {
-        
-        let key = experiment.config.bucketFileName.rawValue
-        guard let rawValue: String = try? store.load(key: cacheDirectoryName, key) else {
+        let config = experiment.config
+        guard let rawValue: String = try? store.load(key: cacheDirectoryName, config.bucketFileName.rawValue),
+              let bucket = config.bucketValues.first(where: { $0.rawValue == rawValue }) else {
+            try? resetExperiment(experiment)
             return nil
         }
-        
-        return BucketValue(rawValue: rawValue)
+
+        let persistedSignature: String? = try? store.load(key: cacheDirectoryName, config.signatureFileName)
+        switch persistedSignature {
+        case config.signature:
+            return bucket
+        case nil:
+            try? store.save(key: cacheDirectoryName, config.signatureFileName, value: config.signature)
+            return bucket
+        default:
+            try? resetExperiment(experiment)
+            return nil
+        }
     }
     
     func resetExperiment(_ experiment: Experiment) throws {
-        let bucketKey = experiment.config.bucketFileName.rawValue
-        let percentKey = experiment.config.percentageFileName.rawValue
-        try store.remove(key: cacheDirectoryName, bucketKey)
-        try store.remove(key: cacheDirectoryName, percentKey)
+        for fileName in experiment.config.fileNames {
+            try store.remove(key: cacheDirectoryName, fileName)
+        }
+    }
+
+    /// Removes every file in the experiments directory that no active experiment uses. Retiring an
+    /// experiment is removing its `Experiment` case; the next housekeeping run does the rest.
+    public static func pruneRetiredExperiments(store: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+        guard let store,
+              let fileNames = try? store.keys(inDirectory: cacheDirectoryName) else {
+            return
+        }
+
+        let activeFileNames = Experiment.allCases.flatMap { $0.config.fileNames }
+        for fileName in fileNames where !activeFileNames.contains(fileName) {
+            try? store.remove(key: cacheDirectoryName, fileName)
+        }
     }
     
     // MARK: Private
@@ -148,7 +245,8 @@ final class WMFExperimentsDataController {
     
     private func setBucket(_ bucket: BucketValue, forExperiment experiment: Experiment) throws {
         
-        let key = experiment.config.bucketFileName.rawValue
-        try store.save(key: cacheDirectoryName, key, value: bucket.rawValue)
+        let config = experiment.config
+        try store.save(key: cacheDirectoryName, config.bucketFileName.rawValue, value: bucket.rawValue)
+        try store.save(key: cacheDirectoryName, config.signatureFileName, value: config.signature)
     }
 }

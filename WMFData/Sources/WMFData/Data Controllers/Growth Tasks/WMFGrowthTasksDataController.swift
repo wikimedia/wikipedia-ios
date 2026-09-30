@@ -1,11 +1,26 @@
 import Foundation
 
-@objc public final class WMFGrowthTasksDataController: NSObject {
+// @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
+// cannot be an actor. Mutable state is a WMFLockIsolated box plus the lock-guarded
+// static cache below.
+@objc public final class WMFGrowthTasksDataController: NSObject, @unchecked Sendable {
 
-    private var service = WMFDataEnvironment.current.mediaWikiService
+    private let _service = WMFLockIsolated(WMFDataEnvironment.current.mediaWikiService)
+    private var service: WMFService? {
+        get { _service.value }
+        set { _service.value = newValue }
+    }
     let project: WMFProject
     
-    private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
+    // In-memory cache shared across instances. Guarded by `cacheLock` so the
+    // nonisolated static state is concurrency-safe under Swift 6 (each get/set
+    // is individually locked, which is sufficient for this last-write-wins cache).
+    private static let cacheLock = NSLock()
+    private nonisolated(unsafe) static var _currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
+    private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] {
+        get { cacheLock.withLock { _currentImageRecommendations } }
+        set { cacheLock.withLock { _currentImageRecommendations = newValue } }
+    }
 
     public init (project: WMFProject) {
         self.project = project
@@ -25,7 +40,7 @@ import Foundation
         Self.currentImageRecommendations[project] = []
     }
 
-    public func getImageRecommendationsCombined(completion: @escaping (Result<[WMFImageRecommendation.Page], Error>) -> Void) {
+    public func getImageRecommendationsCombined(completion: @escaping @Sendable (Result<[WMFImageRecommendation.Page], Error>) -> Void) {
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -163,7 +178,7 @@ public extension WMFGrowthTasksDataController {
         self.init(project: WMFProject.wikipedia(language))
     }
     
-    @objc func hasImageRecommendations(completion: @escaping (Bool) -> Void) {
+    @objc func hasImageRecommendations(completion: @escaping @Sendable (Bool) -> Void) {
         getImageRecommendationsCombined { result in
             switch result {
             case .success(let pages):

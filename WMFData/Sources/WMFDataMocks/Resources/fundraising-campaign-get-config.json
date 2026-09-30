@@ -1,6 +1,6 @@
 [
    {
-      "version":2
+      "version":3
    },
    {
       "start_time":"2023-10-01T00:00:00Z",
@@ -14,7 +14,7 @@
 
          }
       },
-      "version":2,
+      "version":3,
       "countries":[
          "NL"
       ],
@@ -26,7 +26,7 @@
                "actions":[
                   {
                      "title":"Donate now",
-                     "url":"https://donate.wikimedia.org/?uselang=en&appeal=JimmyQuote&utm_medium=WikipediaApp&utm_campaign=$platform;&utm_source=app_2023_enNL_$platform;_control"
+                     "url":"https://donate.wikimedia.org/?country=$country;&uselang=en;&appeal=SupportingWikipedia&wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&app_install_id=$appInstallId;&app_version=$appVersion;"
                   },
                   {
                      "title":"Maybe later"
@@ -45,7 +45,7 @@
                "actions":[
                   {
                      "title":"Doneer nu",
-                     "url":"https://donate.wikimedia.org/?uselang=nl&appeal=JimmyQuote&utm_medium=WikipediaApp&utm_campaign=$platform;&utm_source=app_2023_nlNL_$platform;_control"
+                     "url":"https://donate.wikimedia.org/?country=$country;&uselang=nl&appeal=SupportingWikipedia&wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&app_install_id=$appInstallId;&app_version=$appVersion;"
                   },
                   {
                      "title":"Misschien later"

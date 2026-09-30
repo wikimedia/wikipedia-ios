@@ -1,6 +1,138 @@
 [
   {
     "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "random",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "search",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "random",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "search",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "random",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "search",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "random",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "search",
+      "formatversion": "2"
+    },
+    "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
+  },
+  {
+    "method": "GET",
     "host": "meta.wikimedia.org",
     "path": "/api/rest_v1/data/javascript/mobile/pcs",
     "statusCode": 200,
@@ -838,7 +970,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/api/rest_v1/page/summary/כלב_הבית",
+    "path": "/api/rest_v1/page/summary/\u05db\u05dc\u05d1_\u05d4\u05d1\u05d9\u05ea",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -848,7 +980,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/api/rest_v1/page/mobile-html/כלב_הבית",
+    "path": "/api/rest_v1/page/mobile-html/\u05db\u05dc\u05d1_\u05d4\u05d1\u05d9\u05ea",
     "statusCode": 200,
     "headers": {
       "Content-Type": "text/html; charset=utf-8"
@@ -858,7 +990,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/api/rest_v1/page/media-list/כלב_הבית",
+    "path": "/api/rest_v1/page/media-list/\u05db\u05dc\u05d1_\u05d4\u05d1\u05d9\u05ea",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -872,7 +1004,7 @@
     "queryItems": {
       "action": "query",
       "prop": "langlinks",
-      "titles": "כלב הבית",
+      "titles": "\u05db\u05dc\u05d1 \u05d4\u05d1\u05d9\u05ea",
       "lllimit": "500",
       "llprop": "langname|autonym",
       "format": "json"
@@ -889,7 +1021,7 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
-      "titles": "כלב הבית",
+      "titles": "\u05db\u05dc\u05d1 \u05d4\u05d1\u05d9\u05ea",
       "prop": "categories",
       "formatversion": "2"
     },
@@ -906,7 +1038,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כ"
+      "gpssearch": "\u05db"
     },
     "statusCode": 200,
     "headers": {
@@ -921,7 +1053,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כל"
+      "gpssearch": "\u05db\u05dc"
     },
     "statusCode": 200,
     "headers": {
@@ -936,7 +1068,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כלב"
+      "gpssearch": "\u05db\u05dc\u05d1"
     },
     "statusCode": 200,
     "headers": {
@@ -951,7 +1083,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כלב "
+      "gpssearch": "\u05db\u05dc\u05d1 "
     },
     "statusCode": 200,
     "headers": {
@@ -966,7 +1098,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כלב ה"
+      "gpssearch": "\u05db\u05dc\u05d1 \u05d4"
     },
     "statusCode": 200,
     "headers": {
@@ -981,7 +1113,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כלב הב"
+      "gpssearch": "\u05db\u05dc\u05d1 \u05d4\u05d1"
     },
     "statusCode": 200,
     "headers": {
@@ -996,7 +1128,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כלב הבי"
+      "gpssearch": "\u05db\u05dc\u05d1 \u05d4\u05d1\u05d9"
     },
     "statusCode": 200,
     "headers": {
@@ -1011,7 +1143,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "כלב הבית"
+      "gpssearch": "\u05db\u05dc\u05d1 \u05d4\u05d1\u05d9\u05ea"
     },
     "statusCode": 200,
     "headers": {
@@ -1022,7 +1154,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/api/rest_v1/page/summary/כלב_(סוג)",
+    "path": "/api/rest_v1/page/summary/\u05db\u05dc\u05d1_(\u05e1\u05d5\u05d2)",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1032,7 +1164,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/api/rest_v1/page/mobile-html/כלב_(סוג)",
+    "path": "/api/rest_v1/page/mobile-html/\u05db\u05dc\u05d1_(\u05e1\u05d5\u05d2)",
     "statusCode": 200,
     "headers": {
       "Content-Type": "text/html; charset=utf-8"
@@ -1062,7 +1194,7 @@
       "prop": "revisions",
       "rvdir": "newer",
       "rvlimit": "1",
-      "titles": "כלב (סוג)"
+      "titles": "\u05db\u05dc\u05d1 (\u05e1\u05d5\u05d2)"
     },
     "statusCode": 200,
     "headers": {
@@ -1080,7 +1212,7 @@
       "rvdir": "older",
       "rvlimit": "51",
       "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
-      "titles": "כלב (סוג)"
+      "titles": "\u05db\u05dc\u05d1 (\u05e1\u05d5\u05d2)"
     },
     "statusCode": 200,
     "headers": {
@@ -1091,7 +1223,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/w/rest.php/v1/page/כלב_(סוג)/history/counts/edits",
+    "path": "/w/rest.php/v1/page/\u05db\u05dc\u05d1_(\u05e1\u05d5\u05d2)/history/counts/edits",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1101,7 +1233,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/w/rest.php/v1/page/כלב_(סוג)/history/counts/anonymous",
+    "path": "/w/rest.php/v1/page/\u05db\u05dc\u05d1_(\u05e1\u05d5\u05d2)/history/counts/anonymous",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1111,7 +1243,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/w/rest.php/v1/page/כלב_(סוג)/history/counts/bot",
+    "path": "/w/rest.php/v1/page/\u05db\u05dc\u05d1_(\u05e1\u05d5\u05d2)/history/counts/bot",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1121,7 +1253,7 @@
   {
     "method": "GET",
     "host": "he.wikipedia.org",
-    "path": "/w/rest.php/v1/page/כלב_(סוג)/history/counts/temporary",
+    "path": "/w/rest.php/v1/page/\u05db\u05dc\u05d1_(\u05e1\u05d5\u05d2)/history/counts/temporary",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1131,7 +1263,7 @@
   {
     "method": "GET",
     "host": "wikimedia.org",
-    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/he.wikipedia.org/כלב_(סוג)/all-editor-types/monthly/",
+    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/he.wikipedia.org/\u05db\u05dc\u05d1_(\u05e1\u05d5\u05d2)/all-editor-types/monthly/",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1154,7 +1286,7 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
-      "titles": "קובץ:CanaanDogChakede1.jpg"
+      "titles": "\u05e7\u05d5\u05d1\u05e5:CanaanDogChakede1.jpg"
     },
     "statusCode": 200,
     "headers": {
@@ -1175,7 +1307,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/api/rest_v1/page/summary/Chó",
+    "path": "/api/rest_v1/page/summary/Ch\u00f3",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1185,7 +1317,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/api/rest_v1/page/mobile-html/Chó",
+    "path": "/api/rest_v1/page/mobile-html/Ch\u00f3",
     "statusCode": 200,
     "headers": {
       "Content-Type": "text/html; charset=utf-8"
@@ -1195,7 +1327,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/api/rest_v1/page/media-list/Chó",
+    "path": "/api/rest_v1/page/media-list/Ch\u00f3",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1209,7 +1341,7 @@
     "queryItems": {
       "action": "query",
       "prop": "langlinks",
-      "titles": "Chó",
+      "titles": "Ch\u00f3",
       "lllimit": "500",
       "llprop": "langname|autonym",
       "format": "json"
@@ -1226,7 +1358,7 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
-      "titles": "Chó",
+      "titles": "Ch\u00f3",
       "prop": "categories",
       "formatversion": "2"
     },
@@ -1273,7 +1405,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó"
+      "gpssearch": "Ch\u00f3"
     },
     "statusCode": 200,
     "headers": {
@@ -1288,7 +1420,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó "
+      "gpssearch": "Ch\u00f3 "
     },
     "statusCode": 200,
     "headers": {
@@ -1303,7 +1435,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó r"
+      "gpssearch": "Ch\u00f3 r"
     },
     "statusCode": 200,
     "headers": {
@@ -1318,7 +1450,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừ"
+      "gpssearch": "Ch\u00f3 r\u1eeb"
     },
     "statusCode": 200,
     "headers": {
@@ -1333,7 +1465,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng"
+      "gpssearch": "Ch\u00f3 r\u1eebng"
     },
     "statusCode": 200,
     "headers": {
@@ -1348,7 +1480,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng "
+      "gpssearch": "Ch\u00f3 r\u1eebng "
     },
     "statusCode": 200,
     "headers": {
@@ -1363,7 +1495,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng l"
+      "gpssearch": "Ch\u00f3 r\u1eebng l"
     },
     "statusCode": 200,
     "headers": {
@@ -1378,7 +1510,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng lô"
+      "gpssearch": "Ch\u00f3 r\u1eebng l\u00f4"
     },
     "statusCode": 200,
     "headers": {
@@ -1393,7 +1525,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng lông"
+      "gpssearch": "Ch\u00f3 r\u1eebng l\u00f4ng"
     },
     "statusCode": 200,
     "headers": {
@@ -1408,7 +1540,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng lông "
+      "gpssearch": "Ch\u00f3 r\u1eebng l\u00f4ng "
     },
     "statusCode": 200,
     "headers": {
@@ -1423,7 +1555,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng lông v"
+      "gpssearch": "Ch\u00f3 r\u1eebng l\u00f4ng v"
     },
     "statusCode": 200,
     "headers": {
@@ -1438,7 +1570,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng lông và"
+      "gpssearch": "Ch\u00f3 r\u1eebng l\u00f4ng v\u00e0"
     },
     "statusCode": 200,
     "headers": {
@@ -1453,7 +1585,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng lông vàn"
+      "gpssearch": "Ch\u00f3 r\u1eebng l\u00f4ng v\u00e0n"
     },
     "statusCode": 200,
     "headers": {
@@ -1468,7 +1600,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
-      "gpssearch": "Chó rừng lông vàng"
+      "gpssearch": "Ch\u00f3 r\u1eebng l\u00f4ng v\u00e0ng"
     },
     "statusCode": 200,
     "headers": {
@@ -1479,7 +1611,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/api/rest_v1/page/summary/Chó_rừng_lông_vàng",
+    "path": "/api/rest_v1/page/summary/Ch\u00f3_r\u1eebng_l\u00f4ng_v\u00e0ng",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1489,7 +1621,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/api/rest_v1/page/mobile-html/Chó_rừng_lông_vàng",
+    "path": "/api/rest_v1/page/mobile-html/Ch\u00f3_r\u1eebng_l\u00f4ng_v\u00e0ng",
     "statusCode": 200,
     "headers": {
       "Content-Type": "text/html; charset=utf-8"
@@ -1499,7 +1631,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/api/rest_v1/page/summary/Chi_Chó",
+    "path": "/api/rest_v1/page/summary/Chi_Ch\u00f3",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1509,7 +1641,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/api/rest_v1/page/mobile-html/Chi_Chó",
+    "path": "/api/rest_v1/page/mobile-html/Chi_Ch\u00f3",
     "statusCode": 200,
     "headers": {
       "Content-Type": "text/html; charset=utf-8"
@@ -1539,7 +1671,7 @@
       "prop": "revisions",
       "rvdir": "newer",
       "rvlimit": "1",
-      "titles": "Chó rừng lông vàng"
+      "titles": "Ch\u00f3 r\u1eebng l\u00f4ng v\u00e0ng"
     },
     "statusCode": 200,
     "headers": {
@@ -1557,7 +1689,7 @@
       "rvdir": "older",
       "rvlimit": "51",
       "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
-      "titles": "Chó rừng lông vàng"
+      "titles": "Ch\u00f3 r\u1eebng l\u00f4ng v\u00e0ng"
     },
     "statusCode": 200,
     "headers": {
@@ -1568,7 +1700,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/edits",
+    "path": "/w/rest.php/v1/page/Ch\u00f3_r\u1eebng_l\u00f4ng_v\u00e0ng/history/counts/edits",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1578,7 +1710,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/anonymous",
+    "path": "/w/rest.php/v1/page/Ch\u00f3_r\u1eebng_l\u00f4ng_v\u00e0ng/history/counts/anonymous",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1588,7 +1720,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/bot",
+    "path": "/w/rest.php/v1/page/Ch\u00f3_r\u1eebng_l\u00f4ng_v\u00e0ng/history/counts/bot",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1598,7 +1730,7 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/temporary",
+    "path": "/w/rest.php/v1/page/Ch\u00f3_r\u1eebng_l\u00f4ng_v\u00e0ng/history/counts/temporary",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1608,7 +1740,7 @@
   {
     "method": "GET",
     "host": "wikimedia.org",
-    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/vi.wikipedia.org/Chó_rừng_lông_vàng/all-editor-types/monthly/",
+    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/vi.wikipedia.org/Ch\u00f3_r\u1eebng_l\u00f4ng_v\u00e0ng/all-editor-types/monthly/",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
@@ -1631,7 +1763,7 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
-      "titles": "Tập tin:Mix breed dog.jpg"
+      "titles": "T\u1eadp tin:Mix breed dog.jpg"
     },
     "statusCode": 200,
     "headers": {
@@ -1645,7 +1777,7 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
-      "titles": "Tập_tin:Mix_breed_dog.jpg"
+      "titles": "T\u1eadp_tin:Mix_breed_dog.jpg"
     },
     "statusCode": 200,
     "headers": {
@@ -1666,7 +1798,7 @@
   {
     "method": "GET",
     "host": "upload.wikimedia.org",
-    "pathSuffix": "Harzer_Fuchs_Hündin_2.jpg",
+    "pathSuffix": "Harzer_Fuchs_H\u00fcndin_2.jpg",
     "statusCode": 200,
     "headers": {
       "Content-Type": "image/jpeg"

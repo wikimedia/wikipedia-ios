@@ -174,9 +174,10 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        authInstrument?.submitInteraction(action: "impression", actionSource: loggingCustomActionSource, elementId: loggingElementId)
-        
+
+        let actionContext = category.map { ["invoke_source": $0.rawValue] }
+        authInstrument?.submitInteraction(action: "impression", actionContext: actionContext)
+
         makeAppropriateFieldFirstResponder()
     }
     

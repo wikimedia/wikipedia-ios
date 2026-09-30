@@ -49,6 +49,20 @@ final class SavedArticlesFetcher: NSObject {
         self.isRunning = false
         unobserveSavedPages()
     }
+
+    private static let rateLimitCooldown: TimeInterval = 60
+
+    func stopAndRestartAfterRateLimitCooldown() {
+        assert(Thread.isMainThread)
+        stop()
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restartAfterRateLimitCooldown), object: nil)
+        perform(#selector(restartAfterRateLimitCooldown), with: nil, afterDelay: Self.rateLimitCooldown)
+    }
+
+    @objc private func restartAfterRateLimitCooldown() {
+        start()
+        update()
+    }
 }
 
 private extension SavedArticlesFetcher {
@@ -270,12 +284,21 @@ private extension SavedArticlesFetcher {
         }
     }
     
+}
+
+// Internal (not private) for unit testing
+extension SavedArticlesFetcher {
     func didFetchArticle(with managedObjectID: NSManagedObjectID) {
         operateOnArticle(with: managedObjectID) { (article) in
             article.isDownloaded = true
+            // A failure on an earlier attempt is no longer relevant — without this
+            // the "Unable to sync article" label sticks forever (T431140 follow-up)
+            article.error = .none
+            article.downloadAttemptCount = 0
+            article.downloadRetryDate = nil
         }
     }
-    
+
     func didFailToFetchArticle(with managedObjectID: NSManagedObjectID, error: Error) {
         operateOnArticle(with: managedObjectID) { (article) in
             handleFailure(with: article, error: error)
@@ -304,6 +327,14 @@ private extension SavedArticlesFetcher {
             default:
                 break
             }
+        }
+        DDLogError("SavedArticlesFetcher: failed to download article \(article.key ?? "unknown"): \(underlyingError)")
+        if let requestError = underlyingError as? RequestError, case .http(429) = requestError {
+            // Rate limited — a global condition, not this article's fault. Pause all
+            // downloading and retry the article as-is when the fetcher restarts,
+            // instead of branding it with an error and escalating its backoff.
+            stopAndRestartAfterRateLimitCooldown()
+            return
         }
         if underlyingError is RequestError {
             article.error = .apiFailed

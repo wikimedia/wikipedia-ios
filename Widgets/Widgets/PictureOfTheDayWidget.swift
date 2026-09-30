@@ -27,8 +27,29 @@ final class PictureOfTheDayData {
 
     // MARK: Properties
 
-    static var sampleEntry: PictureOfTheDayEntry {
-        return PictureOfTheDayEntry(date: Date(), kind: .sample, image: UIImage(named: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
+    static func sampleEntry(targetSize: CGSize) -> PictureOfTheDayEntry {
+        return PictureOfTheDayEntry(date: Date(), kind: .sample, image: sampleImage(fitting: targetSize), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
+    }
+
+    /// The bundled sample is 800×533 (426k px), which exceeds WidgetKit's archival cap on iPad
+    /// (~423k px observed) — the image is silently dropped and gallery previews render gray.
+    /// Scale it down to the family's render size, like real content.
+    private static func sampleImage(fitting targetSize: CGSize) -> UIImage? {
+        guard let image = UIImage(named: "PictureOfTheYear_2019") else {
+            return nil
+        }
+
+        let scale = min(targetSize.width / image.size.width, targetSize.height / image.size.height, 1)
+        guard scale < 1 else {
+            return image
+        }
+
+        let scaledSize = CGSize(width: (image.size.width * scale).rounded(.down), height: (image.size.height * scale).rounded(.down))
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        return UIGraphicsImageRenderer(size: scaledSize, format: format).image { _ in
+            image.draw(in: CGRect(origin: .zero, size: scaledSize))
+        }
     }
     
     static var placeholderEntry: PictureOfTheDayEntry {
@@ -37,7 +58,12 @@ final class PictureOfTheDayData {
 
     // MARK: Public
 
-    static func fetchPictureOfTheDayEntryData(usingCache: Bool = false, maxWidth: Int = 960, completion: @escaping (PictureOfTheDayEntry) -> Void) {
+    static func fetchPictureOfTheDayEntryData(
+        usingCache: Bool = false,
+        maxWidth: Int = 960,
+        targetSize: CGSize,
+        completion: @escaping (PictureOfTheDayEntry) -> Void
+    ) {
         let widgetController = WidgetController.shared
         widgetController.fetchPictureOfTheDayContent(isSnapshot: usingCache, maxWidth: maxWidth) { result in
             let midnightUTCDate: Date = (Date() as NSDate).wmf_midnightUTCDateFromLocal ?? Date()
@@ -45,13 +71,14 @@ final class PictureOfTheDayData {
 
             if let pictureOfTheDay = try? result.get(),
                let imageData = pictureOfTheDay.originalImageSource?.data,
-               let image = UIImage(data: imageData) {
-                let description = pictureOfTheDay.description.text
-                let license = pictureOfTheDay.license.code
-                let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
+               let image = UIImage.downsampled(from: imageData, targetSize: targetSize) {
+                let description = pictureOfTheDay.caption(preferringLanguageCode: widgetController.featuredContentSiteURL.wmf_languageCode)
+                let license = pictureOfTheDay.license?.code
+                var entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
+                entry.isFromCacheFallback = pictureOfTheDay.isFromCacheFallback
                 completion(entry)
             } else {
-                completion(PictureOfTheDayData.sampleEntry)
+                completion(PictureOfTheDayData.sampleEntry(targetSize: targetSize))
             }
         }
     }
@@ -83,6 +110,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
     var image: UIImage?
     var imageDescription: String? = nil
     var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
+    var isFromCacheFallback: Bool = false
 
     // MARK: License Image Parsing
 
@@ -98,14 +126,6 @@ struct PictureOfTheDayEntry: TimelineEntry {
         }
 
         return licenseImages
-    }
-
-    // MARK: - Scale Entry Image
-
-    func scalingImageTo(targetSize: CGSize) -> PictureOfTheDayEntry {
-        var entry = self
-        entry.image = entry.image?.scaleImageToFill(targetSize: targetSize)
-        return entry
     }
 
 }
@@ -127,18 +147,18 @@ struct PictureOfTheDayProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<PictureOfTheDayEntry>) -> Void) {
         let maxWidth = context.potdMaxImageWidth
         let renderSize = context.potdRenderSize
-        PictureOfTheDayData.fetchPictureOfTheDayEntryData(maxWidth: maxWidth) { entry in
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData(maxWidth: maxWidth, targetSize: renderSize) { entry in
             let currentDate = Date()
             let nextUpdate: Date
 
-            if entry.kind == .entry {
+            if entry.kind == .entry && !entry.isFromCacheFallback {
                 nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
                 let components = DateComponents(hour: 2)
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
             }
 
-            let timeline = Timeline(entries: [entry.scalingImageTo(targetSize: renderSize)], policy: .after(nextUpdate))
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
             completion(timeline)
         }
     }
@@ -146,8 +166,12 @@ struct PictureOfTheDayProvider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         let maxWidth = context.potdMaxImageWidth
         let renderSize = context.potdRenderSize
-        PictureOfTheDayData.fetchPictureOfTheDayEntryData(usingCache: context.isPreview, maxWidth: maxWidth) { entry in
-            completion(entry.scalingImageTo(targetSize: renderSize))
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData(
+            usingCache: context.isPreview,
+            maxWidth: maxWidth,
+            targetSize: renderSize
+        ) { entry in
+            completion(entry)
         }
     }
 

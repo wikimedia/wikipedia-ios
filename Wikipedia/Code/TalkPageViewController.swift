@@ -1165,7 +1165,11 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
             }
 
             switch result {
-            case .success:
+            case .success(let newRevisionID):
+                if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
+                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: newRevisionID, project: WikimediaProject(siteURL: talkPageURL))
+                }
+
                 self.replyComposeController.closeAndReset()
 
                 // Try to refresh page
@@ -1174,7 +1178,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     guard let self else { return }
 
                     switch result {
-                    case .success(let revID):
+                    case .success:
                         self.updateEmptyStateVisibility()
                         self.talkPageView.collectionView.reloadData()
 
@@ -1186,17 +1190,12 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         }
 
                         self.handleNewTopicOrCommentAlert(isNewTopic: false, needsFollowupTempAccountToast: wasIP && isTemp)
-                        if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID, project: WikimediaProject(siteURL: talkPageURL))
-                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
                         }
 
-                    case .failure:
-                        if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveFailure(pageURL: talkPageURL)
-                        }
+                    case .failure(let error):
+                        DDLogError("Failure refreshing talk page after reply: \(error)")
                     }
                 }
             case .failure(let error):
@@ -1299,7 +1298,10 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
             guard let self else { return }
 
             switch result {
-            case .success:
+            case .success(let newRevisionID):
+                if let pageURL = viewModel.getTalkPageURL(encoded: false) {
+                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: newRevisionID, project: WikimediaProject(siteURL: pageURL))
+                }
 
                 composeViewController.dismiss(animated: true) { [weak self] in
 
@@ -1324,13 +1326,8 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.updateEmptyStateVisibility()
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
-                        if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID, project: WikimediaProject(siteURL: pageURL))
-                        }
-                    case .failure:
-                        if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
-                        }
+                    case .failure(let error):
+                        DDLogError("Failure refreshing talk page after new topic: \(error)")
                     }
                 }
             case .failure(let error):

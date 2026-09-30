@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 import WMFNativeLocalizations
 
 private extension WMFContentGroupKind {
@@ -19,7 +20,9 @@ private extension WMFContentGroupKind {
         case .suggestedEdits:
             fallthrough
         case .pictureOfTheDay:
-            return WMFLocalizedString("explore-feed-preferences-global-card-footer-text", value: "This card is not language specific, turning off this card will remove it from your Explore feed.", comment: "Text describing the effects of turning off a global card")
+            return WMFDeveloperSettingsDataController.shared.isCommunityFeedMode
+                ? WMFLocalizedString("community-feed-preferences-global-card-footer-text", value: "This card is not language specific, turning off this card will remove it from your Community feed.", comment: "Text describing the effects of turning off a global card")
+                : WMFLocalizedString("explore-feed-preferences-global-card-footer-text", value: "This card is not language specific, turning off this card will remove it from your Explore feed.", comment: "Text describing the effects of turning off a global card")
         case .locationPlaceholder:
             fallthrough
         case .location:

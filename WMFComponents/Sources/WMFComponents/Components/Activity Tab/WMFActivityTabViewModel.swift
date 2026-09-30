@@ -14,8 +14,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
     public var didTapPrimaryLoggedOutCTA: (() -> Void)?
     public var didTapSearchTab: (() -> Void)?
-    public var didTapReadingChallengeCTA: (() -> Void)?
-    public var didTapCloseReadingChallenge: (() -> Void)?
     public var presentCustomizeLogInToastAction: (() -> Void)? {
         didSet {
             self.customizeViewModel.presentLoggedInToastAction = self.presentCustomizeLogInToastAction
@@ -89,11 +87,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let historyCalloutBodyLoggedIn: String
         public let historyCalloutBodyLoggedOut: String
         public let calloutCloseButtonAccesibilityHint: String
-        public let readingChallengeCardTitle: String
-        public let readingChallengeCardBody: String
-        public let readingChallengeCardCTA: String
 
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, startEndDatesAccessibilityLabel: @escaping (String, String) -> String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String, historyCalloutTitle: String, historyCalloutBodyLoggedIn: String, historyCalloutBodyLoggedOut: String, calloutCloseButtonAccesibilityHint: String, readingChallengeCardTitle: String, readingChallengeCardBody: String, readingChallengeCardCTA: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, startEndDatesAccessibilityLabel: @escaping (String, String) -> String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String, historyCalloutTitle: String, historyCalloutBodyLoggedIn: String, historyCalloutBodyLoggedOut: String, calloutCloseButtonAccesibilityHint: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -156,9 +151,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.historyCalloutBodyLoggedIn = historyCalloutBodyLoggedIn
             self.historyCalloutBodyLoggedOut = historyCalloutBodyLoggedOut
             self.calloutCloseButtonAccesibilityHint = calloutCloseButtonAccesibilityHint
-            self.readingChallengeCardTitle = readingChallengeCardTitle
-            self.readingChallengeCardBody = readingChallengeCardBody
-            self.readingChallengeCardCTA = readingChallengeCardCTA
         }
     }
 
@@ -172,6 +164,16 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
 
     var yourImpactOnWikipediaSubtitle: String?
+    private var yearInReviewCancellable: AnyCancellable?
+
+    @Published public var yearInReviewViewModel: WMFActivityTabYearInReviewViewModel? {
+        didSet {
+            yearInReviewCancellable = yearInReviewViewModel?.objectWillChange
+                .sink { [weak self] _ in
+                    self?.objectWillChange.send()
+                }
+        }
+    }
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
     @Published var contributionsViewModel: ContributionsViewModel?
     @Published var allTimeImpactViewModel: AllTimeImpactViewModel?
@@ -192,7 +194,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published var globalEditCount: Int?
     @Published public var isLoading: Bool = false
     public var isEmpty: Bool = false
-    @Published public var showBabyGlobe: Bool = true
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
     public var openCustomize: () -> Void = { }
@@ -228,15 +229,24 @@ public final class WMFActivityTabViewModel: ObservableObject {
             DateFormatter.wmfLastReadFormatter(for: date)
         }
 
+        // Accessibility-friendly variant used to build VoiceOver labels. Avoids reading
+        // "15:40" as "fifteen forty" by spelling out hours and minutes when the
+        // date is today, and reusing the already-speech-friendly month/day rendering otherwise.
+        let dateAccessibilityFormatter: (Date) -> String = { date in
+            DateFormatter.wmfLastReadAccessibilityLabel(for: date)
+        }
+
         self.articlesReadViewModel = ArticlesReadViewModel(
             dataController: dataController,
             dateFormatter: dateFormatter,
+            dateAccessibilityFormatter: dateAccessibilityFormatter,
             makeUsernamesReading: localizedStrings.userNamesReading,
             noUsernameReading: localizedStrings.noUsernameReading
         )
 
         self.articlesSavedViewModel = ArticlesSavedViewModel(
-            dateFormatter: dateFormatter
+            dateFormatter: dateFormatter,
+            dateAccessibilityFormatter: dateAccessibilityFormatter
         )
 
         self.timelineViewModel = TimelineViewModel(

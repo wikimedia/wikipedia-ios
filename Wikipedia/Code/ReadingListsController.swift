@@ -516,33 +516,17 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
 
-    public func eraseAllSavedArticlesAndReadingLists() {
+    /// Clears a persisted .needsRemoteDisable flag without performing the remote teardown.
+    /// If a past teardown didn't complete, we must not silently re-attempt it on a later
+    /// launch or login  — the user can turn sync off again via Settings if they still want it.
+    @objc public func clearNeedsRemoteDisableSyncState() {
         assert(Thread.isMainThread)
-
-        let oldSyncState = syncState
-        var newSyncState = oldSyncState
-
-        if isSyncEnabled {
-            // Since there is no batch delete on the server,
-            // we remove local and remote reading lists
-            // by disabling and then enabling the service.
-            // Otherwise, we'd have to delete everything via single requests.
-            newSyncState.insert(.needsRemoteDisable)
-            newSyncState.insert(.needsRemoteEnable)
-            newSyncState.insert(.needsSync)
-        } else {
-            newSyncState.insert(.needsLocalClear)
-            newSyncState.remove(.needsSync)
-        }
-
-        newSyncState.remove(.needsUpdate)
-        WMFArticleSavedStateMigrationManager.shared.clearAll()
-
-        guard newSyncState != oldSyncState else {
+        var state = syncState
+        guard state.contains(.needsRemoteDisable) else {
             return
         }
-        syncState = newSyncState
-        sync()
+        state.remove(.needsRemoteDisable)
+        syncState = state
     }
 
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {

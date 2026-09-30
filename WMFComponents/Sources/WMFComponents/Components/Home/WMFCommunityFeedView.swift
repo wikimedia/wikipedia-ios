@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 // MARK: - Community Feed View
 
@@ -18,10 +19,28 @@ struct WMFCommunityFeedView: View {
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
 
+    private let seePastContentTitle = WMFLocalizedString("home-community-see-past-content", value: "See past community content", comment: "Button at the bottom of the Community feed that loads content from previous days.")
+
+    var scrollToTopRequestID: Int = 0
+
+    private static func dayAnchorID(_ index: Int) -> String { "community-day-\(index)" }
+
     var body: some View {
+        ScrollViewReader { proxy in
+            feedList
+                .onChange(of: scrollToTopRequestID) { _, _ in
+                    withAnimation {
+                        proxy.scrollTo(Self.dayAnchorID(0), anchor: .top)
+                    }
+                }
+        }
+    }
+
+    private var feedList: some View {
         List {
-            ForEach(Array(pages.enumerated()), id: \.offset) { _, page in
+            ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
                 dateSection(page.date)
+                    .id(Self.dayAnchorID(index))
                 if moduleVisibility.featuredArticle,
                    let tfa = page.featuredArticle,
                    !hiddenCardKeys.contains(page.featuredArticleHideKey ?? "") {
@@ -57,7 +76,7 @@ struct WMFCommunityFeedView: View {
                         .listRowBackground(Color(uiColor: theme.paperBackground))
                 } else {
                     Button(action: onTapSeePastContent) {
-                        Text("See past community content")
+                        Text(seePastContentTitle)
                             .font(Font(WMFFont.for(.semiboldHeadline)))
                             .foregroundStyle(Color(uiColor: theme.link))
                             .frame(maxWidth: .infinity)
@@ -128,7 +147,7 @@ struct WMFCommunityFeedView: View {
         Section {
             TabView {
                 ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-                    WMFNewsStoryCard(story: item.story, theme: theme)
+                    WMFNewsStoryCard(story: item.story, imageURLString: item.imageURLString, theme: theme)
                 }
             }
             .tabViewStyle(.page)
@@ -210,16 +229,24 @@ struct WMFCommunityFeedView: View {
                 Button(role: .destructive) {
                     if let hideKey { onHideCard(hideKey) }
                 } label: {
-                    Label("Hide this card", systemImage: "eye.slash")
+                    Label {
+                        Text(WMFHomeLocalizedStrings.hideCard)
+                    } icon: {
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .eyeSlash) ?? UIImage())
+                    }
                 }
                 .disabled(hideKey == nil)
                 Button(role: .destructive) {
                     onHideModule(module)
                 } label: {
-                    Label("Hide module", systemImage: "xmark.circle")
+                    Label {
+                        Text(WMFHomeLocalizedStrings.hideModule)
+                    } icon: {
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
+                    }
                 }
             } label: {
-                Image(systemName: "ellipsis")
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
             }
         }
@@ -303,22 +330,63 @@ private final class WMFFeaturedArticleImageViewModel: ObservableObject {
 private struct WMFNewsStoryCard: View {
 
     let story: String
+    let imageURLString: String?
     let theme: WMFTheme
 
+    @StateObject private var imageViewModel = WMFNewsStoryImageViewModel()
+
     var body: some View {
-        ScrollView {
-            Text(story)
-                .font(Font(WMFFont.for(.callout)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .multilineTextAlignment(.leading)
-                .padding(16)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        HStack(alignment: .top, spacing: 0) {
+            ScrollView {
+                Text(story)
+                    .font(Font(WMFFont.for(.callout)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                    .multilineTextAlignment(.leading)
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
+            if let uiImage = imageViewModel.uiImage {
+                // Fixed width so the story keeps the majority of the card
+                Color.clear
+                    .frame(width: 120)
+                    .overlay(
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                    )
+                    .clipped()
+                    .accessibilityHidden(true)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.midBackground))
         .cornerRadius(8)
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
+        .onAppear {
+            if let imageURLString, let url = URL(string: imageURLString) {
+                imageViewModel.load(url: url)
+            }
+        }
+    }
+}
+
+@MainActor
+private final class WMFNewsStoryImageViewModel: ObservableObject {
+    @Published var uiImage: UIImage?
+    private var loadTask: Task<Void, Never>?
+
+    func load(url: URL) {
+        loadTask?.cancel()
+        loadTask = Task {
+            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
+            self.uiImage = UIImage(data: data)
+        }
+    }
+
+    deinit {
+        loadTask?.cancel()
     }
 }
 

@@ -20,6 +20,7 @@ public enum SettingsAction {
     case notifications
     case readingPreferences
     case articleSyncing
+    case editingPreferences
     case databasePopulation
     case clearCachedData
     case privacyPolicy
@@ -28,5 +29,6 @@ public enum SettingsAction {
     case helpAndFeedback
     case about
     case deleteDonationHistory
+    case donationReminders
     case legalAndSafety
 }

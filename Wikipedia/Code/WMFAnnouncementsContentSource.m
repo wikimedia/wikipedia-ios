@@ -2,14 +2,12 @@
 #import "WMFAnnouncementsFetcher.h"
 #import "WMFAnnouncement.h"
 #import <WMF/WMF-Swift.h>
-@import WMFData;
 
 @interface WMFAnnouncementsContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 @property (readwrite, nonatomic, strong) WMFAnnouncementsFetcher *fetcher;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readwrite, nonatomic, strong) WMFFundraisingCampaignDataController *fundraisingCampaignDataController;
 @property (readonly, nonatomic, assign) BOOL isLoggedIn;
 
 @end
@@ -23,7 +21,6 @@
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
         self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession:userDataStore.session configuration:userDataStore.configuration];
-        self.fundraisingCampaignDataController = [WMFFundraisingCampaignDataController sharedInstance];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userWasLoggedIn:)
                                                      name:[WMFAuthenticationManager didLogInNotification]
@@ -66,10 +63,6 @@
         return;
     }
     
-    NSString *countryCode = [[NSLocale currentLocale] countryCode];
-
-    [self.fundraisingCampaignDataController fetchConfigWithCountryCode:countryCode currentDate:[NSDate now]];
-
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
         failure:^(NSError *_Nonnull error) {

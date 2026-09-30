@@ -1,5 +1,6 @@
 import Foundation
 import WMFComponents
+import WMFData
 import WMFNativeLocalizations
 
 extension WMFContentGroup {
@@ -77,7 +78,9 @@ extension WMFContentGroup {
         
         if let customVC = vc as? ColumnarCollectionViewController {
             customVC.headerTitle = headerTitle
-            customVC.footerButtonTitle = WMFLocalizedString("explore-detail-back-button-title", value: "Back to Explore feed", comment: "Title for button that allows users to exit detail view and return to Explore.")
+            customVC.footerButtonTitle = WMFDeveloperSettingsDataController.shared.isCommunityFeedMode
+                ? WMFLocalizedString("community-detail-back-button-title", value: "Back to Community feed", comment: "Title for button that allows users to exit detail view and return to the Community feed.")
+                : WMFLocalizedString("explore-detail-back-button-title", value: "Back to Explore feed", comment: "Title for button that allows users to exit detail view and return to Explore.")
             customVC.headerSubtitle = moreType != .onThisDay ? headerSubTitle : nil
             customVC.removeTopHeaderSpacing = true
         }

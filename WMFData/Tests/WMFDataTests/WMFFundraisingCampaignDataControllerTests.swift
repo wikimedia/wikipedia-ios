@@ -29,7 +29,7 @@ final class WMFFundraisingCampaignDataControllerTests {
             #expect(enWikiAsset.footerHtml == "By donating, you agree to our <a href='https://foundation.wikimedia.org/wiki/Donor_privacy_policy/en'>donor policy</a>.")
             #expect(enWikiAsset.actions.count == 3)
             #expect(enWikiAsset.actions[0].title == "Donate now")
-            #expect(enWikiAsset.actions[0].url == URL(string: "https://donate.wikimedia.org/?uselang=en&appeal=JimmyQuote&utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=app_2023_enNL_iOS_control"))
+            #expect(enWikiAsset.actions[0].url == URL(string: "https://donate.wikimedia.org/?country=$country;&uselang=en;&appeal=SupportingWikipedia&wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&app_install_id=$appInstallId;&app_version=$appVersion;"))
             #expect(enWikiAsset.actions[1].title == "Maybe later")
             #expect(enWikiAsset.actions[2].title == "I already donated")
             #expect(enWikiAsset.currencyCode == "EUR")
@@ -39,7 +39,7 @@ final class WMFFundraisingCampaignDataControllerTests {
             #expect(nlWikiAsset.footerHtml == "Als je doneert, ga je akkoord met ons <a href='https://foundation.wikimedia.org/wiki/Donor_privacy_policy/nl'>privacybeleid voor donateurs</a>.")
             #expect(nlWikiAsset.actions.count == 3)
             #expect(nlWikiAsset.actions[0].title == "Doneer nu")
-            #expect(nlWikiAsset.actions[0].url == URL(string: "https://donate.wikimedia.org/?uselang=nl&appeal=JimmyQuote&utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=app_2023_nlNL_iOS_control"))
+            #expect(nlWikiAsset.actions[0].url == URL(string: "https://donate.wikimedia.org/?country=$country;&uselang=nl&appeal=SupportingWikipedia&wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&app_install_id=$appInstallId;&app_version=$appVersion;"))
             #expect(nlWikiAsset.actions[1].title == "Misschien later")
             #expect(nlWikiAsset.actions[2].title == "Ik heb al gedoneerd")
             #expect(nlWikiAsset.currencyCode == "EUR")
@@ -190,10 +190,76 @@ final class WMFFundraisingCampaignDataControllerTests {
         }
     }
 
+    // MARK: - Force Fundraising Campaign Banner developer setting
+
+    @Test
+    func forceBannerDeveloperSettingIgnoresCountryAndDateFilters() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let invalidCountry = "US"
+            let invalidDate = try invalidDate()
+
+            try await controller.fetchConfig(countryCode: invalidCountry, currentDate: invalidDate)
+
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: enProject, currentDate: invalidDate))
+            #expect(asset.id == "NL_2023_11")
+        }
+    }
+
+    @Test
+    func forceBannerDeveloperSettingFallsBackToAnyLanguageAsset() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let germanProject = WMFProject.wikipedia(WMFLanguage(languageCode: "de", languageVariantCode: nil))
+            let validDate = try validFirstDayDate()
+
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: germanProject, currentDate: validDate) != nil)
+        }
+    }
+
+    @Test
+    func forceBannerDeveloperSettingIgnoresPromptState() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let validDate = try validFirstDayDate()
+
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) != nil)
+        }
+    }
+
+    // MARK: - Clear fundraising campaign persistence developer action
+
+    @Test
+    func clearFundraisingCampaignPersistenceClearsPromptStateAndDonationHistory() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) == nil)
+
+            _ = WMFDonateDataController.shared.saveLocalDonationHistory(type: .oneTime, amount: 5, currencyCode: "EUR", isNative: true)
+            #expect(WMFDonateDataController.shared.loadLocalDonationHistory(startDate: nil, endDate: nil)?.isEmpty == false)
+
+            WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) != nil)
+            #expect(WMFDonateDataController.shared.loadLocalDonationHistory(startDate: nil, endDate: nil) == nil)
+        }
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.basicService = WMFFundraisingCampaignRequestMockService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }
 
     private func validFirstDayDate() throws -> Date {

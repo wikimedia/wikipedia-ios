@@ -256,15 +256,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         case .downloading:
             fallthrough
         case .articleError:
-            if article.error != .none {
-                isAlertButtonHidden = false
-                alertType = .articleError(article.error)
-            } else if !article.isDownloaded {
-                isAlertButtonHidden = false
-                alertType = .downloading
-            } else {
+            // A download error is only relevant while the article isn't downloaded —
+            // a stale error from a failed earlier attempt must not outlive a successful retry.
+            if article.isDownloaded {
                 isAlertButtonHidden = true
                 alertType = nil
+            } else if article.error != .none {
+                isAlertButtonHidden = false
+                alertType = .articleError(article.error)
+            } else {
+                isAlertButtonHidden = false
+                alertType = .downloading
             }
         default:
             break
@@ -280,7 +282,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         if let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, failure: { (error) in }, success: { })
             }
         } else {
             isImageViewHidden = true

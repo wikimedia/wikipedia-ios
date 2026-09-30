@@ -50,7 +50,7 @@ class ViewControllerRouter: NSObject {
 
     private func presentLoginViewController(with completion: @escaping () -> Void) -> Bool {
 
-        appViewController.wmf_showLoginViewController(theme: appViewController.theme)
+        appViewController.wmf_showLoginViewController(category: .unknown, theme: appViewController.theme)
         return true
     }
 

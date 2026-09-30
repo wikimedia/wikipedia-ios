@@ -160,8 +160,23 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
     var needsFocusOnSearch: Bool
-    
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, needsFocusOnSearch: Bool = false) {
+    private let revisionID: UInt64?
+    private let semanticSearchPassages: [String]
+
+    init(
+        navigationController: UINavigationController,
+        articleURL: URL,
+        dataStore: MWKDataStore,
+        theme: Theme,
+        needsAnimation: Bool = true,
+        source: ArticleSource,
+        isRestoringState: Bool = false,
+        previousPageViewObjectID: NSManagedObjectID? = nil,
+        tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab,
+        needsFocusOnSearch: Bool = false,
+        revisionID: UInt64? = nil,
+        semanticSearchPassages: [String] = []
+    ) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -172,6 +187,8 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
         self.needsFocusOnSearch = needsFocusOnSearch
+        self.revisionID = revisionID
+        self.semanticSearchPassages = semanticSearchPassages
         super.init()
     }
     
@@ -191,6 +208,8 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
+        articleVC.initialLoadRevisionID = revisionID
+        articleVC.semanticSearchPassages = semanticSearchPassages
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         
         Task {

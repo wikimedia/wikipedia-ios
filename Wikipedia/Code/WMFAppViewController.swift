@@ -26,9 +26,9 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+private let wmfEnableHomeTabForTesting = "WMFEnableHomeTabForTesting"
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
-private let wmfSuppressReadingChallengeAnnouncementForTesting = "WMFSuppressReadingChallengeAnnouncementForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -41,7 +41,6 @@ public let WMFLanguageVariantAlertsLibraryVersion = "WMFLanguageVariantAlertsLib
 // MARK: - WMFAppViewController
 
 final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
-
     // MARK: - Public properties
 
     private(set) var theme: Theme = Theme.standard
@@ -60,6 +59,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var _settingsViewController: SettingsTabViewController?
     private var _exploreViewController: ExploreViewController?
     private var homeCoordinator: HomeCoordinator?
+
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
     private var _searchTabViewController: SearchViewController?
     private var _savedViewController: SavedViewController?
     private var _placesViewController: PlacesViewController?
@@ -234,6 +236,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleYearInReviewActivityBadgeNeedsUpdate),
+                                               name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotificationsCenterContextDidSave),
                                                name: NSNotification.notificationsCenterContextDidSave,
                                                object: nil)
@@ -283,7 +290,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         navigationItem.backButtonDisplayMode = .generic
         
-        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { [weak self] (_: WMFAppViewController, _: UITraitCollection) in
+        registerForTraitChanges([UITraitUserInterfaceStyle.self, UITraitPreferredContentSizeCategory.self]) { [weak self] (_: WMFAppViewController, _: UITraitCollection) in
             self?.debounceTraitCollectionThemeUpdate()
         }
     }
@@ -301,8 +308,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     var isPresentingOnboarding: Bool {
-        return presentedViewController is WMFWelcomeInitialViewController
+        return presentedViewController is WMFAppOnboardingHostingController || presentedViewController is WMFWelcomeInitialViewController
     }
+
+    private var appOnboardingCoordinator: AppOnboardingCoordinator?
 
     private var uiIsLoaded: Bool {
         return (viewControllers?.count ?? 0) > 0
@@ -315,6 +324,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - Setup
 
     private func setupControllers() {
+        // Must run before any reading list sync of the session
+        dataStore.readingListsController.clearNeedsRemoteDisableSyncState()
+
         let periodicWorkerController = PeriodicWorkerController(30, initialDelay: 1, leeway: 15)
         periodicWorkerController.delegate = self
         periodicWorkerController.add(dataStore.readingListsController)
@@ -331,6 +343,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func loadMainUI() {
         guard !uiIsLoaded else { return }
+
         configureTabController()
 
         tabBar.tintAdjustmentMode = .normal
@@ -347,13 +360,15 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if let savedTabBarItem = savedViewController.tabBarItem {
             savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
         }
+
+        updateActivityTabYearInReviewBadge()
     }
 
     private func configureTabController() {
         self.delegate = self
 
         let nav1: WMFComponentNavigationController
-        if WMFDeveloperSettingsDataController.shared.enableHomeTab {
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
             let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
             let homeViewController = coordinator.makeHomeViewController()
             nav1 = rootNavigationController(with: homeViewController)
@@ -458,7 +473,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
+        updateActivityTabYearInReviewBadge()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
         savedArticlesFetcher?.start()
@@ -647,6 +664,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let update: () -> Void = {
                 self.currentTabNavigationController?.popToRootViewController(animated: false)
                 self.configureTabController()
+                self.updateActivityTabYearInReviewBadge()
                 self.selectedIndex = WMFAppTabType.search.rawValue
                 self.isUpdatingDefaultTab = false
             }
@@ -659,6 +677,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     @objc private func handleEnableHomeTabDidChange() {
+        // There are no tabs to rebuild before the main UI loads — and dismissing
+        // presented view controllers at that point would tear down onboarding.
+        guard uiIsLoaded else { return }
         guard !isUpdatingDefaultTab else { return }
         isUpdatingDefaultTab = true
         DispatchQueue.main.async {
@@ -670,6 +691,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 if let savedTabBarItem = self.savedViewController.tabBarItem {
                     self.savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
                 }
+                self.updateActivityTabYearInReviewBadge()
                 self.selectedIndex = WMFAppTabType.main.rawValue
                 self.isUpdatingDefaultTab = false
             }
@@ -913,15 +935,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dataStore.languageLinkController.resetPreferredLanguages()
         }
 
-        if UserDefaults.standard.bool(forKey: wmfSuppressReadingChallengeAnnouncementForTesting) {
-            let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-            sharedDefaults?.set(
-                true,
-                forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue
-            )
-            sharedDefaults?.synchronize()
-        }
-
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
             try? WMFDataEnvironment.current.userDefaultsStore?.save(
                 key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue,
@@ -931,6 +944,15 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
+        }
+
+        // WMFData's user defaults store JSON-encodes its values, so a plain launch-argument
+        // default can't set this flag directly — write it through the data controller instead.
+        // The flag persists across launches, so apply the argument in both directions.
+        if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
+                let enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+                WMFDeveloperSettingsDataController.shared.enableHomePhase2 = enableHomeTab
+                WMFHomeDataController.forceExperimentAssignment(enableHomeTab ? .groupB : .control)
         }
     }
 
@@ -946,6 +968,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // resumeApp: should be called once and only once for every launch from a fully terminated state.
     // It should only be called when the app is active and being shown to the user.
     private func resumeApp(_ completion: (() -> Void)?) {
+        // Assign and apply the home tab experiment before onboarding decisions are made,
+        // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
+        WMFHomeDataController.shared.assignExperiment()
+        WMFHomeDataController.shared.logExperimentExposure()
+
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
             let done: () -> Void = {
@@ -1045,6 +1072,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
+            self.presentOneTimeHomeOnboardingIfNeeded()
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
@@ -1085,6 +1113,113 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         defaults.wmf_setLocationAuthorized(locationAuthorized)
 
         savedArticlesFetcher?.start()
+    }
+    
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    
+    private var oneTimeOnboardingViewController: WMFOnboardingViewController?
+    
+    private func presentOneTimeHomeOnboardingIfNeeded() {
+        guard selectedIndex == WMFAppTabType.main.rawValue else { return }
+        guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
+              homeNav.viewControllers.count == 1 else { return }
+        guard presentedViewController == nil else { return }
+        guard WMFHomeDataController.shared.isHomeTabGroupB else { return }
+
+        let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
+        // check did see onboarding but NOT new onboarding, make sure they haven't seen one time onboarding yet
+        let hasSeenNewOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
+        let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
+
+        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenNewOnboarding else { return }
+
+        let viewModel = WMFOnboardingViewModel(
+            title: WMFLocalizedString(
+                "one-time-onboarding-title",
+                value: "Explore is now Home, with a new look",
+                comment: "Title of the one-time onboarding sheet shown to existing users after the Explore tab is renamed to Home."
+            ),
+            cells: [
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .house),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-name-title",
+                        value: "A new name",
+                        comment: "Title of the 'A new name' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-name-body",
+                        value: "The Explore feed is now Home, in the same spot as before.",
+                        comment: "Description of the 'A new name' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .squareSplit),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-feed-title",
+                        value: "Your feed, two ways",
+                        comment: "Title of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-feed-body",
+                        value: "Discover articles personalized to your interests in For You, or browse Wikipedia's best editorial content in Community.",
+                        comment: "Description of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-control-title",
+                        value: "Stay in control",
+                        comment: "Title of the 'Stay in control' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-control-body",
+                        value: "Every recommendation tells you exactly why it's there. You can update your preferences anytime in Settings.",
+                        comment: "Description of the 'Stay in control' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .globeAmericas),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-languages-title",
+                        value: "Every language, fully personalized",
+                        comment: "Title of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-languages-body",
+                        value: "Reading in multiple languages? Each one gets its own experience. Just switch and your new feed is ready.",
+                        comment: "Description of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                )
+            ],
+            primaryButtonTitle: WMFLocalizedString(
+                "one-time-onboarding-customize-button",
+                value: "Customize my feed",
+                comment: "Primary button on the one-time onboarding sheet that opens the feed customization flow."
+            ),
+            secondaryButtonTitle: WMFLocalizedString(
+                "one-time-onboarding-auto-setup-button",
+                value: "Set it up for me",
+                comment: "Secondary button on the one-time onboarding sheet that automatically configures the feed without customization."
+            )
+        )
+
+        let onboardingVC = WMFOnboardingViewController(viewModel: viewModel)
+        onboardingVC.modalPresentationStyle = .pageSheet
+        onboardingVC.delegate = self
+        oneTimeOnboardingViewController = onboardingVC
+
+        DispatchQueue.main.async {
+              self.present(onboardingVC, animated: true) {
+                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce", experimentData: WMFHomeDataController.shared.experimentData)
+                  WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
+              }
+        }
     }
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
@@ -1213,7 +1348,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         case .random:
             dismissPresentedViewControllers()
-            showRandomArticleFromShortcut(siteURL: siteURL, animated: animated)
+            showRandomArticleFromShortcut(siteURL: siteURL, animated: animated, userInfo: activity.userInfo)
 
         case .activity:
             
@@ -1223,23 +1358,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dismissPresentedViewControllers()
             selectedIndex = WMFAppTabType.recent.rawValue
             currentTabNavigationController?.popToRootViewController(animated: animated)
-            let shouldCollectPrize = activity.userInfo?["collectPrize"] as? Bool ?? false
-            let tappedJoin = activity.userInfo?["join"] as? Bool ?? false
-            let fromAppStoreEvent = activity.userInfo?["appStoreEvent"] as? Bool ?? false
-            
-            if shouldCollectPrize {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentCollectPrize()
-                }
-            } else if tappedJoin {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentReadingChallengeAnnouncementFromWidget()
-                }
-            } else if fromAppStoreEvent {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentReadingChallengeAnnouncementFromAppStoreEvent()
-                }
-            }
 
         case .content:
             dismissPresentedViewControllers()
@@ -1347,7 +1465,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         return abs(resignActiveDate.timeIntervalSinceNow) >= wmfTimeBeforeShowingExploreScreenOnLaunch
     }
 
-    private func visibleArticleViewController() -> ArticleViewController? {
+    func visibleArticleViewController() -> ArticleViewController? {
         guard let topVC = currentTabNavigationController?.topViewController else { return nil }
         return topVC as? ArticleViewController
     }
@@ -1428,6 +1546,27 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 self.settingsViewController.updateProfileButton()
             }
         }
+    }
+
+    // MARK: - Year in Review Activity tab badge
+
+    @objc private func handleYearInReviewActivityBadgeNeedsUpdate() {
+        updateActivityTabYearInReviewBadge()
+    }
+
+    private func updateActivityTabYearInReviewBadge() {
+        guard uiIsLoaded else { return }
+        guard let dataController = try? WMFYearInReviewDataController() else { return }
+
+        let needsBadge = dataController.shouldShowActivityTabBadge(countryCode: Locale.current.region?.identifier)
+
+        if #available(iOS 18.0, *) {
+            let identifier = AccessibilityIdentifiers.RootTab.activityButton
+            tabs.first { $0.identifier == identifier }?.showYearInReviewBadge(needsBadge)
+        }
+        // Read the cached controller rather than the lazy getter — badging must never be the thing
+        // that constructs the Activity tab.
+        _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
     }
 
     @objc func handleNotificationsCenterContextDidSave() {
@@ -1527,7 +1666,33 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             completion(false)
             return
         }
-        
+
+        guard WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB else {
+            presentLegacyOnboarding(completion: completion)
+            return
+        }
+
+        // new onboarding
+        let coordinator = AppOnboardingCoordinator(
+            presentingViewController: self,
+            dataStore: dataStore,
+            theme: theme,
+            willDismiss: { [weak self] in
+                self?.loadMainUI()
+            },
+            completion: { [weak self] in
+                self?.setDidShowOnboarding()
+                WMFHomeDataController.shared.setHasSeenUpdatedHomeOnboarding(true)
+                self?.appOnboardingCoordinator = nil
+                completion(true)
+            })
+        appOnboardingCoordinator = coordinator
+        hideSplashView()
+        coordinator.start()
+    }
+
+    // TODO: Remove the legacy welcome flow once the new home feed onboarding ships unflagged.
+    private func presentLegacyOnboarding(completion: @escaping (Bool) -> Void) {
         let vc = WMFWelcomeInitialViewController.wmf_viewControllerFromWelcomeStoryboard()
         vc.apply(theme: theme)
         vc.completionBlock = {
@@ -1601,7 +1766,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func showRandomArticleFromShortcut(animated: Bool) {
         dismissPresentedViewControllers()
-        showRandomArticleFromShortcut(siteURL: siteURL, animated: animated)
+        showRandomArticleFromShortcut(siteURL: siteURL, animated: animated, userInfo: nil)
     }
 
     private func showNearby(animated: Bool) {
@@ -1637,6 +1802,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
             self.isCheckingRemoteConfig = false
             self.endRemoteConfigCheckBackgroundTask()
+
+            // Year in Review availability comes from this config, so the badge cannot settle
+            // until the fetch lands. This completion carries no isolation, so hop explicitly.
+            Task { @MainActor in
+                self.updateActivityTabYearInReviewBadge()
+            }
         }
     }
 
@@ -1659,6 +1830,8 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         wmf_hideKeyboard()
         logDidSelectViewController(viewController)
+        recordEvergreenAccountCreationAppOpenIfNeeded()
+        presentEvergreenAccountCreationPromptIfNeeded()
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
@@ -1672,7 +1845,11 @@ extension WMFAppViewController: UITabBarControllerDelegate {
         if viewController == tabBarController.selectedViewController {
             switch tabBarController.selectedIndex {
             case WMFAppTabType.main.rawValue:
-                exploreViewController.scrollToTop()
+                if let homeViewController = homeCoordinator?.homeViewController {
+                    homeViewController.scrollSelectedFeedToTop()
+                } else {
+                    exploreViewController.scrollToTop()
+                }
             case WMFAppTabType.search.rawValue:
                 searchTabViewController.makeSearchBarBecomeFirstResponder()
             default:
@@ -1703,7 +1880,9 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     private func updateActiveTitleAccessibilityButton(_ viewController: UIViewController) {
         guard let vc = viewController as? ArticleViewController else { return }
         if selectedIndex == WMFAppTabType.main.rawValue {
-            vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedString("home-button-explore-accessibility-label", value: "Wikipedia, return to Explore", comment: "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
+            vc.navigationItem.titleView?.accessibilityLabel = homeCoordinator != nil
+                ? CommonStrings.homeReturnToHomeAccessibilityLabel
+                : WMFLocalizedString("home-button-explore-accessibility-label", value: "Wikipedia, return to Explore", comment: "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
         } else if selectedIndex == WMFAppTabType.saved.rawValue {
             vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedString("home-button-saved-accessibility-label", value: "Wikipedia, return to Saved", comment: "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.")
         }
@@ -2210,5 +2389,68 @@ extension WMFAppViewController {
         }
         let navVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
         present(navVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - WMFOnboardingViewDelegate (one-time home onboarding)
+
+extension WMFAppViewController: WMFOnboardingViewDelegate {
+
+    func onboardingViewDidClickPrimaryButton() {
+        
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed", experimentData: WMFHomeDataController.shared.experimentData)
+        
+        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
+            guard let self else { return }
+            self.oneTimeOnboardingViewController = nil
+            let coordinator = AppOnboardingCoordinator(
+                presentingViewController: self,
+                dataStore: self.dataStore,
+                theme: self.theme,
+                willDismiss: { [weak self] in
+                    self?.loadMainUI()
+                },
+                completion: { [weak self] in
+                    if let homeViewModel = self?.homeCoordinator?.homeViewController?.viewModel {
+                        homeViewModel.selectedTab = WMFHomeDataController.shared.seeFirstContent() == .personalized ? .forYou : .community
+                    }
+                    self?.appOnboardingCoordinator = nil
+                }
+            )
+            self.appOnboardingCoordinator = coordinator
+            coordinator.startCondensed(instrument: instrument)
+        }
+    }
+
+    func onboardingViewDidClickSecondaryButton() {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default", experimentData: WMFHomeDataController.shared.experimentData)
+        
+        WMFHomeDataController.shared.setSeeFirstContent(.community)
+        if let homeViewModel = homeCoordinator?.homeViewController?.viewModel {
+            homeViewModel.selectedTab = .community
+            homeViewModel.loadForYouFeedIfNeeded()
+        }
+        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
+            self?.oneTimeOnboardingViewController = nil
+        }
+    }
+}
+
+// MARK: - Year in Review badge glyph
+
+/// Matches `SavedTabBarItemProgressBadgeManager`, which badges its tab with this same glyph.
+private let wmfYearInReviewTabBadgeGlyph = "\u{2605}"
+
+private extension UITabBarItem {
+    func showYearInReviewBadge(_ shouldShow: Bool) {
+        badgeValue = shouldShow ? wmfYearInReviewTabBadgeGlyph : nil
+    }
+}
+
+@available(iOS 18.0, *)
+private extension UITab {
+    func showYearInReviewBadge(_ shouldShow: Bool) {
+        badgeValue = shouldShow ? wmfYearInReviewTabBadgeGlyph : nil
     }
 }

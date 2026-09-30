@@ -186,7 +186,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Int?, Error>) -> Void) {
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
@@ -209,7 +209,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
 
-    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Int?, Error>) -> Void) {
 
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
@@ -244,7 +244,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
 
-    func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping (Result<Void, Error>) -> Void) {
+    func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping (Result<Int?, Error>) -> Void) {
         if let error = error {
             completion(.failure(error))
             return
@@ -277,8 +277,8 @@ class TalkPageFetcher: Fetcher {
             completion(.failure(RequestError.unexpectedResponse))
             return
         }
-
-        completion(.success(()))
+        
+        completion(.success(discussionToolsEdit["newrevid"] as? Int))
     }
-    
+
 }

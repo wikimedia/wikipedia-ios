@@ -7,51 +7,25 @@ import WMFData
 @MainActor
 public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
 
-    public struct LocalizedStrings {
-        public let shareScoreButton: String
-        public let yourStatsTitle: String
-        public let gamesPlayedLabel: String
-        public let currentStreakLabel: String
-        public let bestStreakLabel: String
-        public let averageScoreLabel: String
-        public let logInToViewStatsTitle: String
-        public let logInToViewStatsBody: String
-        public let logInButton: String
-        public let playTheArchiveButton: String
+    let shareScoreButton = WMFLocalizedString("which-came-first-share-score-button", value: "Share score", comment: "Button to share the user's score in the Which Came First game")
+    let yourStatsTitle = WMFLocalizedString("which-came-first-your-stats-title", value: "Your stats", comment: "Section title for the user's stats in the Which Came First results screen")
+    let gamesPlayedLabel = WMFLocalizedString("which-came-first-games-played-label", value: "games played", comment: "Label for the games played stat in the Which Came First results screen")
+    let currentStreakLabel = WMFLocalizedString("which-came-first-current-streak-label", value: "current streak", comment: "Label for the current streak stat in the Which Came First results screen")
+    let bestStreakLabel = WMFLocalizedString("which-came-first-best-streak-label", value: "best streak", comment: "Label for the best streak stat in the Which Came First results screen")
+    let averageScoreLabel = WMFLocalizedString("which-came-first-average-score-label", value: "average score", comment: "Label for the average score stat in the Which Came First results screen")
+    let logInToViewStatsTitle = WMFLocalizedString("which-came-first-log-in-stats-title", value: "Log in to view your game stats", comment: "Title prompting the user to log in to view stats in the Which Came First results screen")
+    let logInToViewStatsBody = WMFLocalizedString("which-came-first-log-in-stats-body", value: "See your streaks, scores, and more", comment: "Body text prompting the user to log in to view stats in the Which Came First results screen")
+    let logInButton = WMFLocalizedString("which-came-first-log-in-button", value: "Log in", comment: "Button to log in from the Which Came First results screen")
+    let playTheArchiveButton = CommonStrings.playTheArchiveTitle
 
-        public init(
-            shareScoreButton: String = WMFLocalizedString("which-came-first-share-score-button", value: "Share score", comment: "Button to share the user's score in the Which Came First game"),
-            yourStatsTitle: String = WMFLocalizedString("which-came-first-your-stats-title", value: "Your stats", comment: "Section title for the user's stats in the Which Came First results screen"),
-            gamesPlayedLabel: String = WMFLocalizedString("which-came-first-games-played-label", value: "games played", comment: "Label for the games played stat in the Which Came First results screen"),
-            currentStreakLabel: String = WMFLocalizedString("which-came-first-current-streak-label", value: "current streak", comment: "Label for the current streak stat in the Which Came First results screen"),
-            bestStreakLabel: String = WMFLocalizedString("which-came-first-best-streak-label", value: "best streak", comment: "Label for the best streak stat in the Which Came First results screen"),
-            averageScoreLabel: String = WMFLocalizedString("which-came-first-average-score-label", value: "average score", comment: "Label for the average score stat in the Which Came First results screen"),
-            logInToViewStatsTitle: String = WMFLocalizedString("which-came-first-log-in-stats-title", value: "Log in to view your game stats", comment: "Title prompting the user to log in to view stats in the Which Came First results screen"),
-            logInToViewStatsBody: String = WMFLocalizedString("which-came-first-log-in-stats-body", value: "See your streaks, scores, and more", comment: "Body text prompting the user to log in to view stats in the Which Came First results screen"),
-            logInButton: String = WMFLocalizedString("which-came-first-log-in-button", value: "Log in", comment: "Button to log in from the Which Came First results screen"),
-            playTheArchiveButton: String = CommonStrings.playTheArchiveTitle
-        ) {
-            self.shareScoreButton = shareScoreButton
-            self.yourStatsTitle = yourStatsTitle
-            self.gamesPlayedLabel = gamesPlayedLabel
-            self.currentStreakLabel = currentStreakLabel
-            self.bestStreakLabel = bestStreakLabel
-            self.averageScoreLabel = averageScoreLabel
-            self.logInToViewStatsTitle = logInToViewStatsTitle
-            self.logInToViewStatsBody = logInToViewStatsBody
-            self.logInButton = logInButton
-            self.playTheArchiveButton = playTheArchiveButton
-        }
+    func scoreLabel(_ score: Int, of total: Int) -> String {
+        let format = WMFLocalizedString("which-came-first-score", value: "You scored %1$d/%2$d.", comment: "Score label, where $1 is score and $2 is the total number of questions")
+        return String.localizedStringWithFormat(format, score, total)
+    }
 
-        public func scoreLabel(_ score: Int, of total: Int) -> String {
-            let format = WMFLocalizedString("which-came-first-score", value: "You scored %1$d/%2$d.", comment: "Score label, where $1 is score and $2 is the total number of questions")
-            return String.localizedStringWithFormat(format, score, total)
-        }
-
-        public func countdownLabel(from countdownString: String) -> String {
-            let descriptionText = WMFLocalizedString("which-came-first-next-game-time", value: "Next game in %1$@", comment: "Indication of when new game is available. $1 is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
-            return String.localizedStringWithFormat(descriptionText, countdownString)
-        }
+    func countdownLabel(from countdownString: String) -> String {
+        let descriptionText = WMFLocalizedString("which-came-first-next-game-time", value: "Next game in %1$@", comment: "Indication of when new game is available. $1 is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
+        return String.localizedStringWithFormat(descriptionText, countdownString)
     }
 
     @Published public var score: Int
@@ -65,12 +39,13 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
 
     public let articlesViewModel: WMFWhichCameFirstArticlesViewModel
 
-    public var localizedStrings: LocalizedStrings
     public var onLogIn: ( @MainActor @Sendable () -> Void)?
     public var shareScore: ( @MainActor @Sendable () -> Void)?
     public var onPlayArchive: (@MainActor @Sendable () -> Void)?
 
-    nonisolated(unsafe) private var timerCancellable: AnyCancellable?
+    // The timer is made and used only on the main actor, thus the property needs no escape from
+    // isolation.
+    private var timerCancellable: AnyCancellable?
 
     public init(
         score: Int,
@@ -93,7 +68,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction? = nil,
         onPlayArchive: (@MainActor @Sendable () -> Void)? = nil,
         onArticleTapToEvent: WMFWhichCameFirstArticlesViewModel.ArticleEventTapAction? = nil,
-        localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.score = score
         self.totalQuestions = totalQuestions
@@ -103,7 +77,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.bestStreak = bestStreak
         self.averageScore = averageScore
         self.nextGameCountdownString = Self.computeCountdown()
-        self.localizedStrings = localizedStrings
         self.shareScore = shareScore
         self.onLogIn = onLogIn
         self.onPlayArchive = onPlayArchive

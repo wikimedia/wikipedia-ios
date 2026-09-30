@@ -545,7 +545,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Helpers
 
     private func formattedTodayDateString() -> String {
-        return DateFormatter.wmfMonthDayShortYearDateFormatter.string(from: Date())
+        return DateFormatter.wmfMonthDayYearDateFormatter.string(from: Date())
     }
 
     private func formattedTodayISODateString() -> String {

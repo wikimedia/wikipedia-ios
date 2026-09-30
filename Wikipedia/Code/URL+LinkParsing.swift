@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 extension URL {
     /// Returns a new URL with the existing scheme replaced with the wikipedia:// scheme
@@ -181,7 +182,7 @@ extension URL {
     
     /// Returns true if this is a URL for a media file hosted on Wikimedia Commons
     private var isHostedFileLink: Bool {
-        return host?.lowercased() == Configuration.Domain.uploads
+        return host?.lowercased() == Configuration.Domain.uploads || host?.lowercased() == Configuration.Domain.thumbs
     }
     
     /// Returns true if this is a URL with an extension indicating that it's ogg audio

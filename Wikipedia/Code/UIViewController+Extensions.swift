@@ -7,7 +7,7 @@ import WMFNativeLocalizations
 // MARK: - KeepSavedArticlesTrigger
 
 @objc enum KeepSavedArticlesTrigger: Int {
-    case logout, syncDisabled
+    case logout
 }
 
 // MARK: - UIViewController Reusable alerts
@@ -78,16 +78,10 @@ extension UIViewController {
         present(alert, animated: true)
     }
 
-    private func shouldSuppressForReadingChallenge() async -> Bool {
-        return await WMFActivityTabDataController.shared.isReadingChallengeActive()
-    }
-
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: (() -> Void)? = nil) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             if oncePerLogin {
                 guard !UserDefaults.standard.wmf_didShowEnableReadingListSyncPanel() else {
                     didNotPresentPanelCompletion?()
@@ -142,9 +136,7 @@ extension UIViewController {
     fileprivate func wmf_showAddSavedArticlesToReadingListAlert() {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             let dataStore = MWKDataStore.shared()
             let alert = UIAlertController(
                 title: WMFLocalizedString("reading-list-add-saved-title", value: "Saved articles found", comment: "Title explaining saved articles were found."),
@@ -192,37 +184,11 @@ extension UIViewController {
         present(alert, animated: true)
     }
 
-    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
-            LoginFunnel.shared.logLoginImpressionInSyncPopover()
-            let alert = UIAlertController(
-                title: WMFLocalizedString("reading-list-login-or-create-account-title", value: "Log in to sync saved articles", comment: "Title for syncing saved articles."),
-                message: CommonStrings.readingListLoginSubtitle,
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: CommonStrings.loginOrCreateAccountTitle, style: .default) { [weak self] _ in
-                self?.wmf_showLoginViewController(category: .loginToSyncPopover, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
-                LoginFunnel.shared.logLoginStartInSyncPopover()
-                dismissHandler?()
-            })
-            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
-                dismissHandler?()
-            })
-            self.present(alert, animated: true)
-        }
-    }
-
     @objc(wmf_showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:)
     func wmf_showSyncEnabledPanelOncePerLoginIfNeeded(wasSyncEnabledOnDevice: Bool) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             guard !wasSyncEnabledOnDevice, !UserDefaults.standard.wmf_didShowSyncEnabledPanel() else {
                 return
             }
@@ -243,9 +209,7 @@ extension UIViewController {
     func wmf_showSyncDisabledPanelIfNeeded(wasSyncEnabledOnDevice: Bool) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             guard wasSyncEnabledOnDevice, !UserDefaults.standard.wmf_didShowSyncDisabledPanel() else {
                 return
             }
@@ -288,16 +252,8 @@ extension UIViewController {
         }
 
         let keepTitle = WMFLocalizedString("reading-list-keep-button-title", value: "Yes, keep articles on device", comment: "Title for button to keep synced articles on device.")
-        let removeTitle: String
-        let message: String
-
-        if keepSavedArticlesTrigger == .logout {
-            message = CommonStrings.keepSavedArticlesOnDeviceMessage
-            removeTitle = CommonStrings.readingListDoNotKeepSubtitle
-        } else {
-            message = CommonStrings.keepSavedArticlesOnDeviceMessage + "\n\n" + WMFLocalizedString("reading-list-keep-sync-disabled-additional-subtitle", value: "Turning sync off will remove these articles from your account. If you remove them from your device they will not be recoverable by turning sync on again in the future.", comment: "Additional subtitle informing user that turning sync off will remove saved articles from their account.")
-            removeTitle = WMFLocalizedString("reading-list-keep-sync-disabled-remove-article-button-title", value: "No, remove articles from device and my Wikipedia account", comment: "Title for button that removes save articles from device and Wikipedia account.")
-        }
+        let message = CommonStrings.keepSavedArticlesOnDeviceMessage
+        let removeTitle = CommonStrings.readingListDoNotKeepSubtitle
 
         let alert = UIAlertController(
             title: WMFLocalizedString("reading-list-keep-title", value: "Keep saved articles on device?", comment: "Title for keeping save articles on device."),

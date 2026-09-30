@@ -120,11 +120,11 @@ extension NSManagedObjectContext {
                 guard let canonicalArticle = articlesWithSummaryKey.first ?? articlesWithKey.first else {
                     continue
                 }
-                for article in articlesWithKey {
+                for article in articlesWithKey where article !== canonicalArticle {
                     canonicalArticle.merge(article)
                     delete(article)
                 }
-                for article in articlesWithSummaryKey {
+                for article in articlesWithSummaryKey where article !== canonicalArticle {
                     canonicalArticle.merge(article)
                     delete(article)
                 }

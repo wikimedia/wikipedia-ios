@@ -7,6 +7,9 @@ final class SearchHTTPClient: SessionHTTPClient {
     /// Data returned to the fetcher for every supported request path.
     var responseData = Data()
 
+    /// Responses consumed in request order before falling back to `responseData`.
+    var responseDataQueue: [Data] = []
+
     /// Requests issued by `WMFSearchFetcher`, used to verify the expected API
     /// query was made.
     var capturedRequests: [URLRequest] = []
@@ -19,7 +22,7 @@ final class SearchHTTPClient: SessionHTTPClient {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         capturedRequests.append(request)
 
-        let fixtureRequest = SearchURLProtocol.request(request, withResponseData: responseData)
+        let fixtureRequest = SearchURLProtocol.request(request, withResponseData: nextResponseData())
         return urlSession.dataTask(with: fixtureRequest, completionHandler: completionHandler)
     }
 
@@ -38,7 +41,11 @@ final class SearchHTTPClient: SessionHTTPClient {
             throw URLError(.badURL)
         }
 
-        return (responseData, response)
+        return (nextResponseData(), response)
+    }
+
+    private func nextResponseData() -> Data {
+        responseDataQueue.isEmpty ? responseData : responseDataQueue.removeFirst()
     }
 
     func invalidateAndCancel() {

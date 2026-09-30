@@ -39,7 +39,30 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         public let accessibilityKeyboardDoneButtonHint: String
         public let accessibilityDonateButtonHintFormat: String
 
-        public init(title: String, cancelTitle: String, transactionFeeOptInTextFormat: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
+        public init(
+            title: String,
+            cancelTitle: String,
+            transactionFeeOptInTextFormat: String,
+            monthlyRecurringText: String,
+            emailOptInText: String,
+            maximumErrorText: String?,
+            minimumErrorText: String,
+            genericErrorTextFormat: String,
+            helpLinkProblemsDonating: String,
+            helpLinkOtherWaysToGive: String,
+            helpLinkFrequentlyAskedQuestions: String,
+            helpLinkTaxDeductibilityInformation: String,
+            appleFinePrint: String,
+            wikimediaFinePrint1: String,
+            wikimediaFinePrint2: String,
+            accessibilityAmountButtonHint: String,
+            accessibilityTextfieldHint: String,
+            accessibilityTransactionFeeHint: String,
+            accessibilityMonthlyRecurringHint: String,
+            accessibilityEmailOptInHint: String,
+            accessibilityKeyboardDoneButtonHint: String,
+            accessibilityDonateButtonHintFormat: String
+        ) {
             self.title = title
             self.cancelTitle = cancelTitle
             self.transactionFeeOptInTextFormat = transactionFeeOptInTextFormat
@@ -98,6 +121,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         @Published var amount: Decimal
         @Published var hasFocus: Bool
+        var shouldFocusOnAppearance = true
 
         init(localizedStrings: LocalizedStrings, currencyCode: String, amount: Decimal, hasFocus: Bool) {
             self.localizedStrings = localizedStrings
@@ -202,7 +226,21 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
     // MARK: - Lifecycle
 
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, metricsID: String?, appVersion: String?, appInstallID: String?, coordinatorDelegate: DonateCoordinatorDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
+    public init?(
+        localizedStrings: LocalizedStrings,
+        donateConfig: WMFDonateConfig,
+        paymentMethods: WMFPaymentMethods,
+        countryCode: String,
+        currencyCode: String,
+        languageCode: String,
+        merchantID: String,
+        metricsID: String?,
+        appVersion: String?,
+        appInstallID: String?,
+        coordinatorDelegate: DonateCoordinatorDelegate?,
+        loggingDelegate: WMFDonateLoggingDelegate?,
+        presetAmountsOverride: [Decimal]? = nil
+    ) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
@@ -222,7 +260,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         self.transactionFeeAmount = transactionFeeAmount
 
-        guard let configAmounts = donateConfig.currencyAmountPresets[currencyCode] else {
+        guard let configAmounts = presetAmountsOverride ?? donateConfig.currencyAmountPresets[currencyCode] else {
             return nil
         }
 
@@ -281,6 +319,26 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         }
 
         loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTapApplePayButton(transactionFeeIsSelected: transactionFeeOptInViewModel.isSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, emailOptInIsSelected: emailOptInNSNumber))
+    }
+
+    @MainActor
+    public func preselectRecurringMonthly() {
+        monthlyRecurringViewModel.isSelected = true
+    }
+
+    @MainActor
+    public func preselectAmount(_ amount: Decimal) {
+        textfieldViewModel.shouldFocusOnAppearance = false
+
+        guard buttonViewModels.contains(where: { $0.amount == amount }) else {
+            textfieldViewModel.amount = amount
+            return
+        }
+
+        finalAmount = amount
+        let newButtonViewModels = buttonViewModels.map { AmountButtonViewModel(amount: $0.amount, isSelected: $0.amount == amount, currencyCode: currencyCode, accessibilityHint: localizedStrings.accessibilityAmountButtonHint, coordinatorDelegate: coordinatorDelegate, loggingDelegate: loggingDelegate) }
+        buttonViewModels = newButtonViewModels
+        addButtonSelectionListener()
     }
 
     func validateAndSubmit() {
@@ -449,6 +507,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         textFieldSubscribers.removeAll()
         self.textfieldViewModel.$amount
+            .removeDuplicates()
             .dropFirst()
             .sink { [weak self] newAmount in
 
@@ -533,25 +592,29 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let dataController = WMFDonateDataController.shared
         dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID) { result in
 
-            switch result {
-            case .success:
-                self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
-            case .failure(let error):
-                // Only log errors, don't show to user since we are assuming success.
-                if let dataControllerError = error as? WMFDonateDataControllerError {
-                    switch dataControllerError {
-                    case .paymentsWikiResponseError:
+            // The data controller calls back off-main; hop to the main actor before
+            // touching view model state.
+            Task { @MainActor in
+                switch result {
+                case .success:
+                    self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
+                case .failure(let error):
+                    // Only log errors, don't show to user since we are assuming success.
+                    if let dataControllerError = error as? WMFDonateDataControllerError {
+                        switch dataControllerError {
+                        case .paymentsWikiResponseError:
+                            self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                        }
+                    } else {
                         self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                     }
-                } else {
-                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                 }
-            }
 
-            // Always end the background task
-            if self.submitPaymentBackgroundTask != .invalid {
-                application.endBackgroundTask(self.submitPaymentBackgroundTask)
-                self.submitPaymentBackgroundTask = .invalid
+                // Always end the background task
+                if self.submitPaymentBackgroundTask != .invalid {
+                    application.endBackgroundTask(self.submitPaymentBackgroundTask)
+                    self.submitPaymentBackgroundTask = .invalid
+                }
             }
         }
 
@@ -560,8 +623,9 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
 
         // Wait for payment sheet to dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
-            self?.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
-            self?.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
+            guard let self else { return }
+            self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
+            self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess(recurringMonthlyIsSelected: self.monthlyRecurringViewModel.isSelected))
         })
     }
 

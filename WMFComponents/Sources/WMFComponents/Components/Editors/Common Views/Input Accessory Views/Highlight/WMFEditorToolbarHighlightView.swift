@@ -26,9 +26,16 @@ class WMFEditorToolbarHighlightView: WMFEditorToolbarView {
     
     // MARK: - Lifecycle
 
-    override func awakeFromNib() {
+    // Must match the base class's nonisolated override (see WMFEditorToolbarView);
+    // nib loading of UI objects happens on the main thread.
+    nonisolated override func awakeFromNib() {
         super.awakeFromNib()
-        
+        MainActor.assumeIsolated {
+            setupSubviewsFromNib()
+        }
+    }
+
+    private func setupSubviewsFromNib() {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         

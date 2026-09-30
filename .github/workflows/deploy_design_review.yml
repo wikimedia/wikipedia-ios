@@ -1,0 +1,122 @@
+name: Design Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      phab_task:
+        description: 'Associated Phabricator task (e.g. T123456) to comment with the build info'
+        required: true
+        type: string
+      what_to_test:
+        description: 'What to Test notes for this TestFlight build'
+        required: true
+        type: string
+
+jobs:
+  build-and-upload:
+    runs-on: macos-26
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 1. Compute build number
+      # -------------------------------------------------------
+      - name: Compute build number
+        id: versioning
+        run: |
+          VERSION=$(date -u "+%Y.%m.%d")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          LATEST=$(git tag --list 'alphas/*' \
+            | sed 's|alphas/||' \
+            | grep -E '^[0-9]+$' \
+            | sort -n \
+            | tail -1)
+          BUILD=$(( ${LATEST:-0} + 1 ))
+          echo "build=$BUILD" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION, Build: $BUILD"
+
+      # -------------------------------------------------------
+      # 2. Update version and build number in Info.plist files
+      # -------------------------------------------------------
+      - name: Update version and build number
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          PLISTS=(
+            "WMF Framework/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Staging-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "ContinueReadingWidget/Info.plist"
+            "WikipediaUnitTests/Info.plist"
+            "Widgets/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+          )
+
+          for PLIST in "${PLISTS[@]}"; do
+            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
+          done
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Experimental-Info.plist"
+
+          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
+
+      # -------------------------------------------------------
+      # 3. Build and upload to internal TestFlight (Experimental)
+      # -------------------------------------------------------
+      - name: Install fastlane
+        run: bundle install
+
+      - name: Write App Store API Key
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build and upload to internal TestFlight
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          WHAT_TO_TEST: ${{ github.event.inputs.what_to_test }}
+        run: |
+          bundle exec fastlane design_review
+
+      # -------------------------------------------------------
+      # 4. Tag the build
+      # -------------------------------------------------------
+      - name: Tag build
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "alphas/$BUILD"
+          git push origin "alphas/$BUILD"
+
+      # -------------------------------------------------------
+      # 5. Comment on the associated Phabricator task
+      # -------------------------------------------------------
+      - name: Comment on Phabricator task
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          PHAB_TASK: ${{ github.event.inputs.phab_task }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          MESSAGE="Available in: TestFlight Wikipedia Experimental $VERSION ($BUILD)"
+          curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+            https://phabricator.wikimedia.org/api/maniphest.edit \
+            -d "api.token=$PHAB_TOKEN" \
+            -d "transactions[0][type]=comment" \
+            -d "transactions[0][value]=$MESSAGE" \
+            -d "objectIdentifier=$PHAB_TASK"
+          echo "✓ Commented on $PHAB_TASK"

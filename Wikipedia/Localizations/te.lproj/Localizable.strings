@@ -233,7 +233,6 @@
 "explore-because-you-read-footer" = "సంబంధిత అదనపు వ్యాసాలు";
 "explore-continue-reading-heading" = "చదవడం కొనసాగించండి";
 "explore-detail-back-button-title" = "తిరిగి శోధన ఫీడుకు";
-"explore-enable-location-title" = "మీ స్థానానికి దగ్గర్లోని వ్యాసాలను శోధించండి";
 "explore-featured-article-heading" = "విశేష వ్యాసం";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 వికీపీడియా నుండి";
 "explore-featured-article-sub-heading-from-wikipedia" = "వికీపీడియా నుండి";
@@ -355,7 +354,6 @@
 "home-nearby-footer" = "మీకు దగ్గర్లోని మరిన్ని స్థలాలు";
 "home-nearby-location-footer" = "$1 కు దగ్గర్లోవి మరిన్ని";
 "home-news-footer" = "మరిన్ని వర్తమాన ఘటనలు";
-"home-reading-list-prompt" = "మీరు భద్రపరచిన వ్యాసాలను చదివే జాబితాలుగా అమర్చుకోవచు, వాటిని అన్ని డివైసుల్లోనూ సింకు చేసుకోవచ్చు. లాగినై, మీ అభిరుచుల్లో చదివే జాబితాలను భద్రపరచే అమరికను పెట్టుకోండి.";
 "home-themes-action-title" = "అభిరుచులను నిర్వహించు";
 "home-title" = "శోధించండి";
 "icon-shortcut-nearby-title" = "చుట్టుపక్కల వ్యాసాలు";
@@ -408,10 +406,6 @@
 "main-menu-terms-of-use" = "వాడుక నియమాలు";
 "main-menu-title" = "మరింత";
 "main-menu-zero-faq" = "వికీపీడియా సున్నా ఎఫ్ఎక్యూ";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle-short-updated" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా! - వెచ్చించారని అంచనా.";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle-updated" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా - వెచ్చించారని అంచనా. మారుతున్న మన ప్రపంచం గురించి తెలుసుకోవాలనుకున్నప్పుడు, స్నేహితుల మధ్య పందెం గెలవాలనుకున్నప్పుడు లేదా ఆసక్తికరమైన పిల్లల ప్రశ్నకు సమాధానం చెప్పాలనుకున్నప్పుడూ వికీపీడియా తోడుగా ఉంటుంది.";
 "more-languages-tooltip-description" = "వికీపీడియాను 300 భాషల్లో వెతకండి";
 "more-languages-tooltip-title" = "భాషలను చేర్చు";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 వ్యాసాన్ని|$1 వ్యాసాలను}} చదివే జాబితాకు చేర్చు";
@@ -598,7 +592,6 @@
 "reading-list-generic-error" = "మీ చదివే జాబితాలను తాజాకరిస్తోంటే అనుకోని లోపమేదో దొర్లింది.";
 "reading-list-keep-button-title" = "ఔను, వ్యాసాలను డివైసులో ఉంచు";
 "reading-list-keep-subtitle" = "ఈ డివైసులో, మీ వికీపీడియా ఖాతా లోకి సింకైన వ్యాసాలు కొన్ని ఉన్నాయి. మీరు లాగౌటయ్యాక కూడా ఆ వ్యాసాలను డివైసులో ఉంచమంటారా?";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "వద్దు, వ్యాసాలను డివైసు, నా వికీపీడియా ఖాతా రెంటి లోంచీ తీసివెయ్యి";
 "reading-list-keep-title" = "డివైసులో భద్రపరచిన వ్యాసాలను ఉంచమంటారా?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "వ్యాసాలను పేర్చు";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "వరసలో పేర్చని వ్యాసాల పరిమితి 5000. ప్రస్తుతం ఉన్న వ్యాసాలను జాబితాలుగా పేర్చుకోండి. తద్వారా ఇక ముందు వ్యాసాలను పేర్చుకోవడం కొనసాగించవచ్చు.";
@@ -606,9 +599,7 @@
 "reading-list-list-limit-exceeded-message" = "ఈ చదివే జాబితాను, అందులోని వ్యాసాలనూ సింకు చెయ్యం. ఈ జాబితాను సింకు చెయ్యాలంటే, మీ జాబితాల సంఖ్యను $1 కంటే తగ్గించండి.";
 "reading-list-list-limit-exceeded-title" = "ఒక్కో ఖాతాకు ఉండే {{PLURAL:$1|$1 చదివే జాబితా|$1 చదివే జాబితాల}} పరిమితిని మీరు దాటేసారు.";
 "reading-list-list-limit-reached" = "ఒక్కో ఖాతాకు ఉండే చదివే జాబితాల పరిమితి $1 ని చేరుకున్నారు";
-"reading-list-login-button-title" = "మీరు భద్రపరచిన వ్యాసాలను సింకు చేసేందుకు లాగినవండి";
 "reading-list-login-or-create-account-button-title" = "లాగినవండి / ఖాతాని సృష్టించుకోండి";
-"reading-list-login-or-create-account-title" = "భద్రపరచిన వ్యాసాలను సింకు చేసేందుకు లాగినవండి";
 "reading-list-new-list-name-placeholder" = "చదివే జాబితా లోని వ్యాసం";
 "reading-list-unable-to-add-entry" = "మీ చదివే జాబితా లోకి ఒక అంశాన్ని చేరుస్తూండగా అనుకోని లోపం ఎదురైంది. కాస్సేపాగి మళ్ళీ ప్రయత్నించండి.";
 "reading-list-unable-to-create" = "మీ చదివే జాబితాను సృష్టిస్తూండగా అనుకోని లోపం ఎదురైంది. కాస్సేపాగి మళ్ళీ ప్రయత్నించండి.";
@@ -626,7 +617,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "మీ డివైసులో కొంత స్థలాన్ని ఖాళీ చేసి, మళ్ళీ ప్రయత్నించండి";
 "reading-lists-articles-not-synced-limit-exceeded" = "కొన్ని వ్యాసాలను సింకు చెయ్యలేదు, పరిమితి దాటిపోయింది.";
 "reading-lists-conflicting-reading-list-name-updated" = "మీ జాబితా '$1' పేరును '$2' గా మార్చాం";
-"reading-lists-count" = "{{PLURAL:$1|$1 చదివే జాబితా|$1 చదివే జాబితాలు}}";
 "reading-lists-default-list-description" = "మీరు భద్రపరచిన వ్యాసాల డిఫాల్టు జాబితా";
 "reading-lists-default-list-title" = "భద్రపరచినవి";
 "reading-lists-delete-reading-list-alert-message" = "ఈ చర్యను వెనక్కి తిప్పలేరు. ఈ {{PLURAL:$1|జాబితాలో|జాబితాలలో}} మాత్రమే భద్రపరచిన వ్యాసాలను తీసేస్తాం.";
@@ -656,7 +646,6 @@
 "relative-date-seconds-abbreviated" = "$1సె";
 "relative-date-seconds-ago-abbreviated" = "$1సె క్రితం";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ఈ సంవత్సరం|1=నిరుడు|$1 సంవత్సరాల క్రితం}}";
-"reverted-edit-title" = "తిప్పికొట్టిన దిద్దుబాటు";
 "saved-all-articles-title" = "వ్యాసాలన్నీ";
 "saved-default-reading-list-tag" = "ఈ జాబితాను తొలగించలేరు";
 "saved-pages-image-download-error" = "ఈ భద్రపరచొఇన పేజీ లోని బొమ్మలను దించుడం విఫలమైంది.";
@@ -686,10 +675,6 @@
 "settings-notifications-echo-failure-try-again" = "మళ్ళీ ప్రయత్నించండి";
 "settings-primary-language" = "ప్రాథమిక";
 "settings-primary-language-details" = "ఈ జాబితా లోని మొదటి భాషను ఈ యాప్‌కు ప్రాథమిక భాషగా వాడతాం.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "భద్రపరచిన వ్యాసాలన్నిటినీ తుడిచివెయ్యాలా?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "తుడిచివేయి";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "భద్రపరచిన వ్యాసాలన్నిటినీ తుడిచేస్తే, వాటిని మీ డివైసు నుండే కాకుండా, సింకు చేతనంగా ఉంటే మీ ఖాతాలోనూ తీసివేస్తాం.\n\nమీరు భద్రపరచిన వ్యాసాలను తిడిచేస్తే $1 స్థలం ఖాళీ అవుతుంది.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "భద్రపరచిన వ్యాసాలను తుడిచివెయ్యి";
 "settings-storage-and-syncing-full-sync" = "మీ చదివే జాబితాలను నేపథ్యంలో సింకు చేస్తాం";
 "settings-storage-and-syncing-show-default-reading-list-title" = "భద్రపరచిన చదివే జాబితాను చూపించు";
 "settings-storage-and-syncing-title" = "వ్యాసాల నిల్వ, సింకు చెయ్యడం";
@@ -718,10 +703,6 @@
 "table-of-contents-subheading-label" = "ఉప శీర్షిక $1";
 "talk-page-discussion-read-accessibility-label" = "చదివేసినవి";
 "talk-page-discussion-unread-accessibility-label" = "చదవనివి";
-"talk-page-new-banner-subtitle" = "గుర్తుంచుకోండి, ఇక్కడ ఉన్నవాళ్ళందరం మనుషులమే";
-"talk-page-new-banner-title" = "సహానుభూతితో ఉండండి";
-"talk-page-new-reply-success-text" = "మీ సమాధానాన్ని విజయవంతంగా ప్రచురించాం";
-"talk-page-new-topic-success-text" = "మీ చర్చను విజయవంతంగా ప్రచురించాం";
 "talk-page-subscribed-alert-title" = "మీరు చందా కట్టారు!";
 // Fuzzy
 "talk-page-title-article-talk" = "వ్యాసం చర్చ";
@@ -767,6 +748,45 @@
 "widget-onthisday-description" = "చరిత్రలో ఈ రోజున ఏం జరిగిందో శోధించండి.";
 "widget-onthisday-placeholder-article-snippet" = "ఎవరైనా దిద్దుబాటు చెయ్యగలిగే స్వేచ్ఛా ఆన్‌లైను విజ్ఞానసర్వస్వం";
 "widget-onthisday-placeholder-event-snippet" = "వికీపీడియా అనే స్వేచ్ఛా విజ్ఞానసర్వస్వం ఆన్‌లైను లోకి వచ్చింది.";
+"wikimedia-articletopics-topic-africa" = "ఆఫ్రికా";
+"wikimedia-articletopics-topic-architecture" = "ఆర్కిటెక్చరు";
+"wikimedia-articletopics-topic-art" = "కళ";
+"wikimedia-articletopics-topic-asia" = "ఆసియా";
+"wikimedia-articletopics-topic-biography" = "జీవిత చరిత్ర (అన్నీ)";
+"wikimedia-articletopics-topic-biology" = "బయాలజీ";
+"wikimedia-articletopics-topic-business-and-economics" = "వ్యాపారం, వాణిజ్యం";
+"wikimedia-articletopics-topic-central-america" = "మధ్య అమెరికా";
+"wikimedia-articletopics-topic-chemistry" = "రసాయనశాస్త్రం";
+"wikimedia-articletopics-topic-comics-and-anime" = "కామిక్స్, యానిమె";
+"wikimedia-articletopics-topic-computers-and-internet" = "కంప్యూటర్లు, అంతర్జాలం";
+"wikimedia-articletopics-topic-earth-and-environment" = "భూమి, పర్యావరణం";
+"wikimedia-articletopics-topic-education" = "విద్య";
+"wikimedia-articletopics-topic-engineering" = "ఇంజనీరింగు";
+"wikimedia-articletopics-topic-entertainment" = "వినోదం";
+"wikimedia-articletopics-topic-europe" = "ఐరోపా";
+"wikimedia-articletopics-topic-fashion" = "ఫ్యాషన్";
+"wikimedia-articletopics-topic-food-and-drink" = "ఆహార పానీయాలు";
+"wikimedia-articletopics-topic-general-science" = "జనరల్ సైన్సు";
+"wikimedia-articletopics-topic-history" = "చరిత్ర";
+"wikimedia-articletopics-topic-literature" = "సాహిత్యం";
+"wikimedia-articletopics-topic-mathematics" = "గణితం";
+"wikimedia-articletopics-topic-medicine-and-health" = "వైద్యం, ఆరోగ్యం";
+"wikimedia-articletopics-topic-military-and-warfare" = "సైన్యం, యుద్ధం";
+"wikimedia-articletopics-topic-music" = "సంగీతం";
+"wikimedia-articletopics-topic-north-america" = "ఉత్తర అమెరికా";
+"wikimedia-articletopics-topic-oceania" = "ఓషియానియా";
+"wikimedia-articletopics-topic-performing-arts" = "ప్రదర్శక కళలు";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "తత్వం, మతం";
+"wikimedia-articletopics-topic-physics" = "భౌతికశాస్త్రం";
+"wikimedia-articletopics-topic-politics-and-government" = "రాజకీయాలు, ప్రభుత్వం";
+"wikimedia-articletopics-topic-society" = "సమాజం";
+"wikimedia-articletopics-topic-south-america" = "దక్షిణ అమెరికా";
+"wikimedia-articletopics-topic-sports" = "క్రీడలు";
+"wikimedia-articletopics-topic-technology" = "టెక్నాలజీ";
+"wikimedia-articletopics-topic-transportation" = "రవాణా";
+"wikimedia-articletopics-topic-tv-and-film" = "టీవీ, సినిమా";
+"wikimedia-articletopics-topic-video-games" = "వీడియో గేమ్స్";
+"wikimedia-articletopics-topic-women" = "జీవిత చరిత్ర (మహిళలు)";
 "wikitext-preview-changes" = "మీ మార్పుల మునుజూపును తెస్తున్నాం...";
 "wikitext-preview-link-external-preview-description" = "ఈ లింకు బయటి వెబ్‌సైటుకు పోతోంది: $1";
 "wikitext-preview-link-external-preview-title" = "బయటి లింకు";
@@ -782,18 +802,3 @@
 "wikitext-upload-save-anonymously-or-login" = "దిద్దుబాట్ల శ్రేయస్సు మీ డివైసు ఐపీ చిరునామాకు చెందుతుంది. $1లాగినైతే$2, మీకు మరింత గోప్యత ఉంటుంది.";
 "wikitext-upload-save-anonymously-warning" = "దిద్దుబాట్ల శ్రేయస్సు మీ డివైసు ఐపీ చిరునామాకు చెందుతుంది. $1, మీకు మరింత గోప్యత ఉంటుంది.";
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";
-"year-in-review-personalized-date-day-footer-v3" = "చదవడానికి ఇష్టపడే రోజు";
-"year-in-review-personalized-date-month-footer-v3" = "మీరు ఎక్కువగా చదివిన నెల";
-"year-in-review-personalized-date-title-v3" = "మీకు స్పష్టమైన పఠన ధోరణులు ఉన్నాయి";
-"year-in-review-personalized-location-subtitle-format-1" = "మీరు $2$1$3 గురించి చదివారు.";
-"year-in-review-personalized-location-subtitle-format-3" = "మీరు $4$1$5, $4$2$5, $4$3$5 ల గురించి చదివారు.";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format-v3-updated" = "ప్రపంచవ్యాప్తంగా వికీపీడియా పాఠకుల్లో మీరు తొలి **PERCENT** లో ఉన్నారు. సగటున ఒక్కో పాఠకుడు సంవత్సరానికి {{PLURAL:$1|$1 వ్యాసం|$1 వ్యాసాలు}} చదువుతారు.";
-// Fuzzy
-"year-in-review-personalized-reading-title-v3-format-updated" = "2025 లో మీరు, {{PLURAL:$2|$2 వ్యాసాన్ని|$2 వ్యాసాలను}} చదవడానికి {{PLURAL:$1|$1 నిమిషం|$1 నిమిషాలు}} వెచ్చించారు";
-"year-in-review-time-afternoon" = "అపరాహ్ణం";
-"year-in-review-time-evening" = "సాయంత్రం";
-"year-in-review-time-late-night" = "అర్థరాత్రి";
-"year-in-review-time-midday" = "మధ్యాహ్నం";
-"year-in-review-time-morning" = "ఉదయం";
-"year-in-review-time-night" = "రాత్రి";

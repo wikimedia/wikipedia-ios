@@ -1,87 +1,354 @@
-// TODO: This is temporary UI — topic chips and article grid are placeholders pending final design.
-
 import SwiftUI
 
 public struct WMFHomeFeedInterestsSettingsView: View {
 
     @ObservedObject var viewModel: WMFHomeFeedInterestsSettingsViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @State private var searchIsFocused: Bool = false
+
+    /// Space above the header. Settings pushes this screen under a navigation bar that already
+    /// provides breathing room; onboarding embeds it with only the safe area above, so that
+    /// surface passes a larger inset.
+    private let topContentInset: CGFloat
+    private let bottomContentInset: CGFloat
 
     var theme: WMFTheme { appEnvironment.theme }
 
-    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel) {
+    // This screen caps Dynamic Type at accessibility2 (larger sizes mangle the grid/chips).
+    // The cap modifier below only affects children, so this view's own fonts resolve against
+    // the min'd value; child structs read the capped environment directly.
+    @Environment(\.dynamicTypeSize) private var systemDynamicTypeSize
+
+    private var dynamicTypeSize: DynamicTypeSize {
+        min(systemDynamicTypeSize, .accessibility2)
+    }
+
+    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, topContentInset: CGFloat = 12, bottomContentInset: CGFloat = 0) {
         self.viewModel = viewModel
+        self.topContentInset = topContentInset
+        self.bottomContentInset = bottomContentInset
     }
 
     public var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        ForEach(viewModel.topics, id: \.self) { topic in
-                            TopicChipView(
-                                title: topic.displayName,
-                                isSelected: viewModel.selectedTopics.contains(topic),
-                                theme: theme
-                            )
-                            .onTapGesture {
-                                viewModel.toggleTopic(topic)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                }
+        // Viewport size drives the article grid's column count (iPad/landscape get more),
+        // mirroring how the article tabs grid reads its geometry.
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    header
+                        .padding(.horizontal, 16)
+                        .padding(.top, topContentInset)
 
-                if viewModel.isFetchingArticles {
-                    ProgressView()
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, 80)
-                } else if !viewModel.gridViewModels.isEmpty {
-                    WMFInterestArticleGridView(
-                        viewModels: viewModel.gridViewModels,
-                        theme: theme,
-                        onTap: { vm in
-                            viewModel.toggleArticleSelection(vm)
+                    searchBar
+                        .padding(.horizontal, 8)
+                        .padding(.top, 12)
+
+                    if viewModel.isSearchActive {
+                        languageBar
+                        searchResults
+                    } else {
+                        topicChips
+
+                        if viewModel.isFetchingArticles {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 80)
+                        } else if !viewModel.gridViewModels.isEmpty {
+                            WMFInterestArticleGridView(
+                                viewModels: viewModel.gridViewModels,
+                                theme: theme,
+                                viewportSize: geometry.size,
+                                onTap: { vm in
+                                    viewModel.toggleArticleSelection(vm)
+                                }
+                            )
+                        } else {
+                            HStack {
+                                Spacer()
+                                Text(viewModel.emptyMessage)
+                                    .font(Font(WMFFont.for(.headline, sized: dynamicTypeSize)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                            }
+                            .padding(.top, 80)
                         }
-                    )
-                } else {
-                    HStack {
-                        Spacer()
-                        Text(viewModel.emptyMessage)
-                            .font(Font(WMFFont.for(.headline)))
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
-                            .multilineTextAlignment(.center)
-                        Spacer()
                     }
-                    .padding(.top, 80)
+                }
+                .padding(.bottom, bottomContentInset)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(Color(uiColor: theme.paperBackground))
+        .environment(\.colorScheme, theme.preferredColorScheme)
+        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
+    }
+
+    // MARK: - Header
+
+    @ViewBuilder
+    private var header: some View {
+        if viewModel.selectedCount == 0 {
+            Text(viewModel.headerTitle)
+                .font(Font(WMFFont.for(.boldTitle3, sized: dynamicTypeSize)))
+                .foregroundStyle(Color(uiColor: theme.text))
+        } else if dynamicTypeSize.isAccessibilitySize {
+            // Side-by-side would squeeze both labels into word-breaking columns at
+            // accessibility sizes — stack them instead.
+            VStack(alignment: .leading, spacing: 8) {
+                selectedCountText
+                deselectAllButton
+            }
+        } else {
+            HStack {
+                selectedCountText
+                Spacer()
+                deselectAllButton
+            }
+        }
+    }
+
+    private var selectedCountText: some View {
+        Text(viewModel.selectedCountTitle)
+            .font(Font(WMFFont.for(.boldTitle3, sized: dynamicTypeSize)))
+            .foregroundStyle(Color(uiColor: theme.text))
+    }
+
+    private var deselectAllButton: some View {
+        Button(viewModel.deselectAllTitle) {
+            viewModel.deselectAll()
+        }
+        .font(Font(WMFFont.for(.mediumSubheadline, sized: dynamicTypeSize)))
+        .foregroundStyle(Color(uiColor: theme.link))
+        .accessibilityIdentifier(AccessibilityIdentifiers.Interests.deselectAllButton)
+    }
+
+    // MARK: - Search
+
+    /// The system search bar, matching the search bars used elsewhere in the app.
+    private var searchBar: some View {
+        WMFSearchBarRepresentable(
+            text: $viewModel.searchTerm,
+            isFocused: $searchIsFocused,
+            placeholder: viewModel.searchPlaceholder,
+            theme: theme,
+            accessibilityIdentifier: AccessibilityIdentifiers.Interests.searchField,
+            onCancel: {
+                viewModel.clearSearch()
+                searchIsFocused = false
+            }
+        )
+    }
+
+    // Search-view-controller-style language bar: lets the user pick which of their languages to
+    // search within. Only shown when there's more than one language to choose from.
+    @ViewBuilder
+    private var languageBar: some View {
+        if viewModel.searchLanguages.count > 1 {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(viewModel.searchLanguages, id: \.languageCode) { language in
+                        LanguageChipView(
+                            title: language.localizedName,
+                            isSelected: language == viewModel.searchLanguage,
+                            theme: theme
+                        )
+                        .onTapGesture {
+                            viewModel.selectSearchLanguage(language)
+                        }
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+            }
+        }
+    }
+
+    private var searchResults: some View {
+        LazyVStack(alignment: .leading, spacing: 0) {
+            if viewModel.isSearching && viewModel.searchRows.isEmpty {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 40)
+            } else {
+                ForEach(viewModel.searchRows) { row in
+                    WMFInterestSearchResultRow(row: row, theme: theme) {
+                        if viewModel.addSearchResult(row.result) {
+                            searchIsFocused = false
+                        }
+                    }
+                    Divider()
+                        .overlay(Color(uiColor: theme.border))
+                        .padding(.leading, 16)
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: theme.paperBackground))
-        .environment(\.colorScheme, theme.preferredColorScheme)
+        .padding(.top, 8)
+    }
+
+    // MARK: - Topic chips
+
+    private static let chipsLeadingAnchorID = "interestTopicChipsLeadingAnchor"
+
+    private var topicChips: some View {
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(viewModel.orderedTopics, id: \.self) { topic in
+                        TopicChipView(
+                            title: topic.displayName,
+                            isSelected: viewModel.selectedTopics.contains(topic),
+                            theme: theme
+                        )
+                        .onTapGesture {
+                            let isSelecting = !viewModel.selectedTopics.contains(topic)
+                            viewModel.toggleTopic(topic)
+                            if isSelecting {
+                                Task { @MainActor in
+                                    proxy.scrollTo(Self.chipsLeadingAnchorID, anchor: .leading)
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .id(Self.chipsLeadingAnchorID)
+            }
+        }
+    }
+}
+
+private struct WMFInterestSearchResultRow: View {
+    // Capped by the parent screen; fonts resolve against the capped value.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+
+    let row: WMFHomeFeedInterestsSettingsViewModel.SearchRow
+    let theme: WMFTheme
+    let onTap: () -> Void
+
+    @ObservedObject private var card: WMFInterestArticleCardViewModel
+
+    @ScaledMetric private var thumbnailSize: CGFloat = 44
+
+    init(row: WMFHomeFeedInterestsSettingsViewModel.SearchRow, theme: WMFTheme, onTap: @escaping () -> Void) {
+        self.row = row
+        self.theme = theme
+        self.onTap = onTap
+        self.card = row.card
+    }
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Group {
+                if let uiImage = card.uiImage {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    Color(uiColor: theme.midBackground)
+                }
+            }
+            .frame(width: thumbnailSize, height: thumbnailSize)
+            .clipShape(RoundedRectangle(cornerRadius: 6))
+
+            VStack(alignment: .leading, spacing: 2) {
+                WMFHtmlText(html: card.displayTitle, styles: HtmlUtils.Styles(font: WMFFont.for(.subheadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldSubheadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
+                if let description = card.description {
+                    Text(description)
+                        .font(Font(WMFFont.for(.caption1, sized: dynamicTypeSize)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .lineLimit(2)
+                }
+            }
+
+            Spacer()
+
+            if let icon = WMFSFSymbolIcon.for(symbol: card.isSelected ? .checkmarkCircleFill : .plusCircle, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
+                Image(uiImage: icon)
+                    .foregroundStyle(Color(uiColor: theme.link))
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onTap()
+        }
+        .onAppear {
+            card.loadIfNeeded()
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityAddTraits(card.isSelected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Interests.searchResultRow)
+    }
+
+    private var accessibilityLabel: String {
+        [card.displayTitle.removingHTML, card.description]
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .joined(separator: ", ")
     }
 }
 
 private struct TopicChipView: View {
+    // Capped by the parent screen; fonts resolve against the capped value.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    let title: String
+    let isSelected: Bool
+    let theme: WMFTheme
+
+    private var foregroundColor: Color {
+        isSelected ? Color(uiColor: theme.paperBackground) : Color(uiColor: theme.text)
+    }
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 4) {
+            if let icon = WMFSFSymbolIcon.for(symbol: isSelected ? .checkmark : .add, font: .subheadline, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
+                Image(uiImage: icon)
+                    .foregroundStyle(foregroundColor)
+            }
+            Text(title)
+                .font(Font(WMFFont.for(.subheadline, sized: dynamicTypeSize)))
+                .foregroundStyle(foregroundColor)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 7)
+        .background(
+            Capsule()
+                .fill(isSelected ? Color(uiColor: theme.link) : Color(uiColor: theme.baseBackground))
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(title)
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+    }
+}
+
+/// A search-language chip: mimics the topic chip capsule style but carries no selection icon.
+private struct LanguageChipView: View {
+    // Capped by the parent screen; fonts resolve against the capped value.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     let title: String
     let isSelected: Bool
     let theme: WMFTheme
 
     var body: some View {
         Text(title)
-            .font(Font(WMFFont.for(.subheadline)))
-            .foregroundStyle(isSelected ? Color(uiColor: theme.paperBackground) : Color(uiColor: theme.link))
+            .font(Font(WMFFont.for(.subheadline, sized: dynamicTypeSize)))
+            .foregroundStyle(isSelected ? Color(uiColor: theme.paperBackground) : Color(uiColor: theme.text))
             .padding(.horizontal, 14)
-            .padding(.vertical, 8)
+            .padding(.vertical, 7)
             .background(
                 Capsule()
-                    .fill(isSelected ? Color(uiColor: theme.link) : Color.clear)
+                    .fill(isSelected ? Color(uiColor: theme.link) : Color(uiColor: theme.baseBackground))
             )
-            .overlay(
-                Capsule()
-                    .strokeBorder(Color(uiColor: theme.link), lineWidth: 1.5)
-            )
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(title)
+            .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }
+
