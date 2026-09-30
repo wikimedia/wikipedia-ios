@@ -273,7 +273,6 @@
 "empty-no-saved-pages-message" = "Salvați pagini pentru a le vizualiza mai târziu, chiar și în modul off-line";
 "empty-no-saved-pages-title" = "Nicio pagină salvată încă";
 "empty-no-search-results-message" = "Niciun rezultat găsit";
-"empty-talk-page-title" = "Nu au fost postate încă mesaje pentru acest utilizator";
 "error-generic-recovery-suggestion" = "Vă rugăm să încercați din nou mai târziu";
 "error-unknown" = "A apărut o eroare necunoscută.";
 "explore-another-random" = "Alt articol aleatoriu";
@@ -899,7 +898,6 @@
 "two-factor-login-title" = "Conectați-vă la contul dvs.";
 "two-factor-login-with-backup-code" = "Utilizați unul dintre codurile de rezervă";
 "two-factor-login-with-regular-code" = "Utilizați codul de verificare";
-"unable-to-load-talk-page-title" = "Pagina de discuție nu putut fi încărcată";
 "unknown-generic-text" = "Necunoscut";
 "uzbek-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante uzbece ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualizări ale suportului pentru varianta uzbekă";

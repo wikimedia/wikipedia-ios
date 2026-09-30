@@ -276,7 +276,6 @@
 "empty-no-saved-pages-message" = "Sačuvajte stranice da biste ih kasnije čitali, čak i kad niste na mreži";
 "empty-no-saved-pages-title" = "Zasad nema sačuvanih stranica";
 "empty-no-search-results-message" = "Nema rezultata";
-"empty-talk-page-title" = "Još nema objavljenih poruka za ovog korisnika";
 "error-generic-recovery-suggestion" = "Pokušajte ponovo kasnije";
 "error-unknown" = "Desila se nepoznata greška";
 "explore-another-random" = "Drugi nasumični članak";
@@ -877,7 +876,6 @@
 "two-factor-login-title" = "Prijavite se na svoj račun";
 "two-factor-login-with-backup-code" = "Koristi jedan od rezervnih kodova";
 "two-factor-login-with-regular-code" = "Koristi potvrdni kod";
-"unable-to-load-talk-page-title" = "Nije moguće učitati stranicu za razgovor";
 "unknown-generic-text" = "Nepoznato";
 "uzbek-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante uzbečkog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\noʻzbekcha lotin uzbečki, latinica (uz-latin)\nўзбекча кирилл uzbečki, ćirilica (uz-cyrl)";
 "uzbek-variants-alert-title" = "Ažuriranja podrške za varijantu uzbečkog jezika";

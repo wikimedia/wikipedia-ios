@@ -520,7 +520,6 @@
 "empty-no-saved-pages-message" = "Uložte si stránky na ich čítanie neskôr, a to aj v režime offline";
 "empty-no-saved-pages-title" = "Žiadne uložené stránky.";
 "empty-no-search-results-message" = "Neboli nájdené žiadne výsledky vyhľadávania";
-"empty-talk-page-title" = "Tomuto používateľovi zatiaľ neboli odoslané žiadne správy";
 "end-session" = "Ukončiť reláciu";
 "error-generic-recovery-suggestion" = "Prosím, skúste to znova neskôr";
 "error-unknown" = "Vyskytla sa neznáma chyba";
@@ -1439,7 +1438,6 @@
 "two-factor-login-title" = "Prihláste sa do svojho účtu";
 "two-factor-login-with-backup-code" = "Použite jeden z vašich záložných kódov";
 "two-factor-login-with-regular-code" = "Použite overovací kód";
-"unable-to-load-talk-page-title" = "Nedá sa načítať diskusnú stránku";
 "unknown-generic-text" = "Neznáme";
 "unwatch" = "Nesledovať";
 "user-title" = "Používateľ";
