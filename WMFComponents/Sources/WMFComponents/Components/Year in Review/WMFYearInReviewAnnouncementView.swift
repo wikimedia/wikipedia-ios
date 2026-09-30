@@ -19,9 +19,6 @@ public struct WMFYearInReviewAnnouncementView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 // The navigation bar is see-through, so the artwork runs under it.
                 .ignoresSafeArea(.container, edges: .top)
-                .overlay(alignment: .bottom) {
-                    artworkBottomEdgeMarker
-                }
 
             WMFLargeButton(
                 style: .primary,
