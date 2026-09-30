@@ -545,7 +545,6 @@
 "empty-no-saved-pages-message" = "အင်တာနက်မဟိကေတောင်မှ နောက်ပိုင်းကြေ့ရှုဖို့ စာမျက်နှာတိကို သိမ်းဆည်းပါ";
 "empty-no-saved-pages-title" = "စာမျက်နှာတိကို မသိမ်းရသိပါ";
 "empty-no-search-results-message" = "ရလဒ်ယှာမတွိပါ";
-"empty-talk-page-title" = "ဒေအသုံးပြုသူအတွက် စာတိုတိ မတင်ရသိပါ";
 "end-session" = "ဆက်ယှောင်းက ထွက်ပါ";
 "error-generic-recovery-suggestion" = "နောက်တခါ ထပ်ကြိုးစားကြေ့ပါ";
 "error-unknown" = "အကြောင်းရင်းမသိဟိရရေ အမှားတစ်ခု ဖြစ်ပေါ်ခရေ";
@@ -1494,7 +1493,6 @@
 "two-factor-login-title" = "သင်ဧ့အကောင့်သို့ ၀င်ဖို့";
 "two-factor-login-with-backup-code" = "သင်ဧ့ အရန်ကုဒ်တိထဲက တစ်ခုကို အသုံးပြုပါ";
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်ကို အသုံးပြုပါ";
-"unable-to-load-talk-page-title" = "ဆွီးနွီးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
 "unknown-generic-text" = "မသိ";
 "unwatch" = "အမှတ်မထားမိ";
 "user-title" = "အသုံးပြုသူ";

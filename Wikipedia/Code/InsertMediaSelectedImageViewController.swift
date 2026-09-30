@@ -26,7 +26,7 @@ final class InsertMediaSelectedImageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if image == nil {
-            wmf_showEmptyView(of: .noSelectedImageToInsert, theme: theme, frame: view.bounds)
+            wmf_showEmptyView(of: .noSelectedImageToInsert, frame: view.bounds)
         } else {
             wmf_hideEmptyView()
         }
@@ -88,7 +88,6 @@ extension InsertMediaSelectedImageViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        wmf_applyTheme(toEmptyView: theme)
         view.backgroundColor = theme.colors.baseBackground
         activityIndicator.color = theme.isDark ? .white : .gray
     }

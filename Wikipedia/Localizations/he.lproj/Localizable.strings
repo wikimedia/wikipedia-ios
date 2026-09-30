@@ -445,7 +445,6 @@
 "empty-no-saved-pages-message" = "אפשר לשמור דפים כדי לקרוא אותם אחר־כך, אפילו בלי חיבור לרשת";
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
 "empty-no-search-results-message" = "לא נמצאו תוצאות";
-"empty-talk-page-title" = "אין שיחות עבור משתמש זה";
 "error-generic-recovery-suggestion" = "נא לנסות שוב מאוחר יותר";
 "error-unknown" = "אירעה שגיאה בלתי־ידועה";
 "evergreen-account-creation-create-account-button" = "יצירת חשבון";
@@ -1236,7 +1235,6 @@
 "two-factor-login-title" = "כניסה לחשבון שלך";
 "two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
-"unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
 "unwatch" = "הפסקת מעקב";
 "user-title" = "משתמש";

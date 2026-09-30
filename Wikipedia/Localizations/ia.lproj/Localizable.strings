@@ -471,7 +471,6 @@
 "empty-no-saved-pages-message" = "Salveguarda paginas pro vider los plus tarde, mesmo sin connexion";
 "empty-no-saved-pages-title" = "Necun pagina salveguardate ancora";
 "empty-no-search-results-message" = "Nulle resultato trovate";
-"empty-talk-page-title" = "Necun message ha ancora essite publicate pro iste usator";
 "end-session" = "Terminar session";
 "error-generic-recovery-suggestion" = "Per favor reproba plus tarde";
 "error-unknown" = "Un error incognite ha occurrite";
@@ -1304,7 +1303,6 @@
 "two-factor-login-title" = "Aperir session in tu conto";
 "two-factor-login-with-backup-code" = "Usar un de tu codices de reserva";
 "two-factor-login-with-regular-code" = "Usar codice de verification";
-"unable-to-load-talk-page-title" = "Impossibile cargar le pagina de discussion";
 "unknown-generic-text" = "Incognite";
 "unwatch" = "Disobservar";
 "user-title" = "Usator";
