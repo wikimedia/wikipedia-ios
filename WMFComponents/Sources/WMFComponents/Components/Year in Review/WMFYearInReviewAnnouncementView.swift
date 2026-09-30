@@ -57,15 +57,4 @@ public struct WMFYearInReviewAnnouncementView: View {
                 .padding(.horizontal, 24)
         }
     }
-
-    /// TEMPORARY: marks where the artwork ends, to check its size. Debug builds only.
-    @ViewBuilder
-    private var artworkBottomEdgeMarker: some View {
-        #if DEBUG
-        Rectangle()
-            .fill(Color(uiColor: WMFColor.red600))
-            .frame(height: 1)
-            .accessibilityHidden(true)
-        #endif
-    }
 }
