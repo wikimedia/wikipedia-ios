@@ -27,6 +27,7 @@ public final class WMFToastPresenter {
     private var cancellables = Set<AnyCancellable>()
 
     private var currentToast: UIView?
+    private var currentToastBottomConstraint: NSLayoutConstraint?
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer?
     private var dismissWorkItem: DispatchWorkItem?
     private var dismissAction: (@Sendable (DismissEvent) -> Void)?
@@ -76,10 +77,32 @@ public final class WMFToastPresenter {
         
         let keyboardHeight = window.bounds.height - keyboardFrame.minY
         currentKeyboardHeight = max(0, keyboardHeight)
+        repositionCurrentToast(in: window)
     }
 
     @objc private func keyboardWillHide(_ notification: Notification) {
         currentKeyboardHeight = 0
+        if let window = currentToast?.window {
+            repositionCurrentToast(in: window)
+        }
+    }
+
+    /// A toast shown while the keyboard is up would otherwise stay at the keyboard height after it hides.
+    private func repositionCurrentToast(in containerView: UIView) {
+        guard let currentToastBottomConstraint, currentToast != nil else { return }
+
+        currentToastBottomConstraint.constant = bottomConstant(in: containerView)
+        UIView.animate(withDuration: 0.25) {
+            containerView.layoutIfNeeded()
+        }
+    }
+
+    /// When a keyboard, tab bar or toolbar is present, the toast sits above it with extra spacing.
+    /// When none is present, it pins closer to the bottom of the safe area.
+    private func bottomConstant(in containerView: UIView) -> CGFloat {
+        let window = containerView as? UIWindow ?? containerView.window
+        let toolbarOffset = currentKeyboardHeight > 0 ? currentKeyboardHeight : window?.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
+        return toolbarOffset > 0 ? -(24 + toolbarOffset) : 0
     }
 
     // MARK: - Public API.
@@ -183,19 +206,11 @@ public final class WMFToastPresenter {
             equalTo: containerView.safeAreaLayoutGuide.trailingAnchor,
             constant: -16
         )
-        let toolbarOffset = currentKeyboardHeight > 0 ? currentKeyboardHeight : containerView.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
-        // When a tab bar or toolbar is present, offset above it with extra spacing.
-        // When neither is present, pin closer to the bottom of the safe area.
-        let bottomConstant: CGFloat
-        if toolbarOffset > 0 {
-            bottomConstant = -(24 + toolbarOffset)
-        } else {
-            bottomConstant = 0
-        }
         let bottom = shadowContainer.bottomAnchor.constraint(
             equalTo: containerView.safeAreaLayoutGuide.bottomAnchor,
-            constant: bottomConstant
+            constant: bottomConstant(in: containerView)
         )
+        currentToastBottomConstraint = bottom
 
         leading.priority = .required
         trailing.priority = .required
@@ -317,6 +332,7 @@ public final class WMFToastPresenter {
             toast.removeFromSuperview()
             if self.currentToast === toast {
                 self.currentToast = nil
+                self.currentToastBottomConstraint = nil
             }
 
             if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
@@ -335,9 +351,9 @@ public final class WMFToastPresenter {
 extension UIViewController {
     func visibleToolbarHeightAboveSafeArea() -> CGFloat {
         
-        // If there's a modal presented over the full screen, the tab bar is not visible.
+        // A full screen modal or a sheet covers the tab bar. Only a popover leaves it visible.
         if let presented = presentedViewController,
-           presented.modalPresentationStyle == .fullScreen || presented.modalPresentationStyle == .overFullScreen {
+           presented.modalPresentationStyle != .popover {
             return 0
         }
 
