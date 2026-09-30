@@ -1320,6 +1320,13 @@
 "search-widget-announcement-title" = "Title for the search widget feature announcement";
 "search-widget-description" = "Text for description of Search widget displayed when adding to home screen.";
 "search-widget-wikipedia-title" = "Wikipedia title text displayed in the search widget.";
+"semantic-search-feedback-placeholder" = "Placeholder of the optional text field in the feedback on the search.";
+"semantic-search-feedback-question" = "Question asking whether the passages found by the search were useful. Followed by thumbs up and thumbs down buttons.";
+"semantic-search-feedback-submit" = "Title of the button that sends the feedback on the search.";
+"semantic-search-feedback-thanks" = "Toast shown after the reader sends feedback on the search.";
+"semantic-search-feedback-thumbs-down-accessibility" = "Accessibility label of the thumbs down button in the feedback on the search. Answers the question whether the reader found what they were looking for.";
+"semantic-search-feedback-thumbs-up-accessibility" = "Accessibility label of the thumbs up button in the feedback on the search. Answers the question whether the reader found what they were looking for.";
+"semantic-search-feedback-title" = "Title of the card that asks for feedback on the search, shown in an article opened from a passage found by the search.";
 "semantic-search-passage-not-found" = "Message shown after opening an article from a passage found by the search, when the passage is not in the article anymore.";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
 "serbian-variants-alert-title" = "Title of alert used to inform users about Serbian variant support.";
