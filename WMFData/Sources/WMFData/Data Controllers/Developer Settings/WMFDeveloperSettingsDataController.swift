@@ -6,6 +6,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var forceYiREntryPoint2026: Bool { get }
     var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? { get }
     var forceYiR2026Announcement: Bool { get }
+    func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse?
+}
+
+public extension WMFDeveloperSettingsDataControlling {
+    func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse? { nil }
 }
 
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
@@ -26,9 +31,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         get { _featureConfig.value }
         set { _featureConfig.value = newValue }
     }
+    private let _testWikiFeatureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
+    private var testWikiFeatureConfig: WMFFeatureConfigResponse? {
+        get { _testWikiFeatureConfig.value }
+        set { _testWikiFeatureConfig.value = newValue }
+    }
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
 
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
+    private let cacheTestWikiFeatureConfigFileName = "AppsFeatureConfigTestWiki"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self.service = service
@@ -102,10 +113,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Year in Review
 
-    /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
-    /// as active outside its date window, and the entry point presents even with no 2026 config
-    /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
-    /// entry point and date window flags, so nothing below it is respected.
+    /// Debugging convenience: while on, 2026 Year in Review shows before its launch date. The 2026
+    /// config counts as active before its `activeStartDate`, but not after its `activeEndDate`. The
+    /// opt-out setting and the suppressed-country list still apply.
+    ///
+    /// While on, the 2026 config comes from the test wiki feature config first, also in production
+    /// builds (see `fetchTestWikiFeatureConfigIfNeeded`), so TestFlight testers see the test entry.
     public var forceYiREntryPoint2026: Bool {
         get { loadFlag(.developerSettingsForceYiREntryPoint2026) }
         set {
@@ -113,6 +126,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             saveFlag(.developerSettingsForceYiREntryPoint2026, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+            }
+            if newValue {
+                fetchTestWikiFeatureConfigIfNeeded()
             }
         }
     }
@@ -327,6 +343,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     @objc public func fetchFeatureConfig(completion: @escaping @Sendable (Error?) -> Void) {
+        fetchTestWikiFeatureConfigIfNeeded()
+
         guard let service else {
             completion(WMFDataControllerError.basicServiceUnavailable)
             return
@@ -355,8 +373,50 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    // MARK: - Test Wiki Feature Config
+
+    /// TEMPORARY: the feature config from the test wiki, fetched only while `forceYiREntryPoint2026`
+    /// is on. Only its Year in Review entries are used (see `WMFYearInReviewDataController.config`).
+    /// Every other remote setting still comes from `loadFeatureConfig()`.
+    public func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse? {
+        guard testWikiFeatureConfig == nil else { return testWikiFeatureConfig }
+        let testWikiFeatureConfig: WMFFeatureConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheTestWikiFeatureConfigFileName)
+        guard let cachedDate = testWikiFeatureConfig?.cachedDate else { return nil }
+        let fourHours = TimeInterval(60 * 60 * 4)
+        guard (-cachedDate.timeIntervalSinceNow) < fourHours else { return nil }
+        self.testWikiFeatureConfig = testWikiFeatureConfig
+        return testWikiFeatureConfig
+    }
+
+    /// TEMPORARY: while `forceYiREntryPoint2026` is on in a production build, also fetch the test
+    /// wiki feature config. Staging builds already fetch the test wiki in `fetchFeatureConfig`.
+    public func fetchTestWikiFeatureConfigIfNeeded() {
+        guard forceYiREntryPoint2026,
+              WMFDataEnvironment.current.serviceEnvironment == .production,
+              let service,
+              let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+              let url = URL.featureConfigURL(environment: .staging, project: WMFProject.wikipedia(primaryAppLanguage)) else {
+            return
+        }
+
+        let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .json)
+        service.performDecodableGET(request: request) { [weak self] (result: Result<WMFFeatureConfigResponse, Error>) in
+            guard let self, case .success(var response) = result else { return }
+            response.cachedDate = Date()
+            self.testWikiFeatureConfig = response
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheTestWikiFeatureConfigFileName, value: response)
+
+            // The service calls this completion on a background queue. The observers of this
+            // notification update UIKit badges, so post it on the main actor.
+            Task { @MainActor in
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+            }
+        }
+    }
+
     @_spi(Testing) public func reset() {
         featureConfig = nil
+        testWikiFeatureConfig = nil
         sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
     }
 }
