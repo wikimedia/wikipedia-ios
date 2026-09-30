@@ -19,6 +19,9 @@ public struct WMFYearInReviewAnnouncementView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 // The navigation bar is see-through, so the artwork runs under it.
                 .ignoresSafeArea(.container, edges: .top)
+                .overlay(alignment: .bottom) {
+                    artworkBottomEdgeMarker
+                }
 
             WMFLargeButton(
                 style: .primary,
@@ -53,5 +56,16 @@ public struct WMFYearInReviewAnnouncementView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
         }
+    }
+
+    /// TEMPORARY: marks where the artwork ends, to check its size. Debug builds only.
+    @ViewBuilder
+    private var artworkBottomEdgeMarker: some View {
+        #if DEBUG
+        Rectangle()
+            .fill(Color(uiColor: WMFColor.red600))
+            .frame(height: 1)
+            .accessibilityHidden(true)
+        #endif
     }
 }

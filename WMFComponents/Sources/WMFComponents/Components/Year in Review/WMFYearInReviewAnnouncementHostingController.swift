@@ -30,46 +30,24 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
 
     // MARK: - Navigation bar
 
-    /// Same layout as the slides: close, the W, and the more menu.
+    /// Same navigation bar as the slides.
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(
-            title: "",
-            customView: WMFYearInReviewNavigationItems.makeTitleView(
-                accessibilityLabel: viewModel.localizedStrings.wIconAccessibilityLabel,
-                tintColor: viewModel.contentColor
-            ),
-            alignment: .centerCompact
-        )
-
-        let closeConfig = WMFLargeCloseButtonConfig(
-            imageType: .plainX,
-            target: self,
-            action: #selector(tappedClose),
-            alignment: .leading
-        )
-
-        configureNavigationBar(
-            titleConfig: titleConfig,
-            closeButtonConfig: closeConfig,
-            profileButtonConfig: nil,
-            tabsButtonConfig: nil,
-            searchBarConfig: nil,
-            hideNavigationBarOnScroll: false
-        )
-
-        navigationItem.rightBarButtonItem = WMFYearInReviewNavigationItems.makeMoreButton(
-            strings: WMFYearInReviewNavigationItems.MoreMenuStrings(
+        WMFYearInReviewNavigationItems.configure(
+            self,
+            strings: WMFYearInReviewNavigationItems.Strings(
+                wIconAccessibilityLabel: viewModel.localizedStrings.wIconAccessibilityLabel,
+                closeButtonAccessibilityLabel: viewModel.localizedStrings.closeButtonAccessibilityLabel,
                 moreButtonAccessibilityLabel: viewModel.localizedStrings.moreButtonAccessibilityLabel,
                 learnMoreTitle: viewModel.localizedStrings.learnMoreButtonTitle,
-                aboutInsightsTitle: viewModel.localizedStrings.aboutInsightsButtonTitle
+                aboutInsightsTitle: viewModel.localizedStrings.aboutInsightsButtonTitle,
+                shareFeedbackTitle: viewModel.localizedStrings.shareFeedbackButtonTitle
             ),
             tintColor: viewModel.contentColor,
+            closeAction: #selector(tappedClose),
             onLearnMore: { [weak self] in self?.viewModel.tappedLearnMore() },
-            onAboutInsights: { [weak self] in self?.viewModel.tappedAboutInsights() }
+            onAboutInsights: { [weak self] in self?.viewModel.tappedAboutInsights() },
+            onShareFeedback: { [weak self] in self?.viewModel.tappedShareFeedback() }
         )
-
-        navigationItem.leftBarButtonItem?.tintColor = viewModel.contentColor
-        navigationItem.leftBarButtonItem?.accessibilityLabel = viewModel.localizedStrings.closeButtonAccessibilityLabel
     }
 
     @objc private func tappedClose() {
