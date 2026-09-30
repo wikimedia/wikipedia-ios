@@ -197,8 +197,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
             body = String.localizedStringWithFormat(format, readingDayCount)
         case .lowData:
-            headline = WMFLocalizedString("year-in-review-2026-announcement-collective-headline", value: "Our Year in Review is here", comment: "Headline of the Year in Review announcement for readers without enough reading data for a personalized Year in Review. It is drawn inside the artwork, so VoiceOver reads this text.")
-            body = WMFLocalizedString("year-in-review-2026-announcement-collective-body", value: "There wasn't enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.", comment: "Body text of the Year in Review announcement for readers without enough reading data for a personalized Year in Review.")
+            headline = collectiveHeadline
+            body = collectiveBody
         }
 
         return WMFYearInReviewAnnouncementViewModel.LocalizedStrings(
@@ -212,6 +212,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             aboutInsightsButtonTitle: YearInReviewSlideViewModelFactory.aboutInsightsButtonTitle,
             shareFeedbackButtonTitle: CommonStrings.shareFeedbackTitle
         )
+    }
+
+    /// Used by the collective announcement and the collective log in prompt.
+    private var collectiveHeadline: String {
+        WMFLocalizedString("year-in-review-2026-announcement-collective-headline", value: "Our Year in Review is here", comment: "Headline of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and title of the log in prompt shown to them. On the announcement it is drawn inside the artwork, so VoiceOver reads this text.")
+    }
+
+    /// Used by the collective announcement and the collective log in prompt.
+    private var collectiveBody: String {
+        WMFLocalizedString("year-in-review-2026-announcement-collective-body", value: "There wasn't enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.", comment: "Body text of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and message of the log in prompt shown to them.")
     }
 
     /// The announcement uses the cover artboard of the templates file.
@@ -244,9 +254,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-title", value: "Your Year in Review is best with an account", comment: "Title of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
             message = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-message", value: "Log in to see your top topics, articles, longest rabbit hole, and more. You can still see collective insights without logging in.", comment: "Message of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
         case .lowData:
-            // TODO: Replace with the collective prompt copy once design provides it, as WMFLocalizedString.
-            title = "Collective login prompt title TBD"
-            message = "Collective login prompt message TBD"
+            title = collectiveHeadline
+            message = collectiveBody
         }
 
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -358,9 +367,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         showHelpPage(url: yearInReviewHelpURL(pathComponents: [], section: nil))
     }
 
-    /// "About your insights" in the more menu opens the FAQ answer on how insights are calculated.
+    /// "About your insights" in the more menu opens the FAQ.
     private func showAboutInsights() {
-        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: "How was this calculated?"))
+        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: nil))
     }
 
     private func showHelpPage(url: URL?) {

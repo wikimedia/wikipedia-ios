@@ -159,7 +159,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// Shared with the announcement's more menu.
     static var aboutInsightsButtonTitle: String {
-        WMFLocalizedString("year-in-review-2026-about-insights", value: "About your insights", comment: "Title of the Year in Review more menu item that opens the FAQ answer explaining how reading insights are calculated.")
+        WMFLocalizedString("year-in-review-2026-about-insights", value: "About your insights", comment: "Title of the Year in Review more menu item that opens the Frequently Asked Questions page.")
     }
 
     func makeLocalizedStrings() -> WMFYearInReviewViewModel.LocalizedStrings {
