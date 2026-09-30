@@ -5,6 +5,8 @@ public protocol WMFYearInReviewAnnouncementDelegate: AnyObject {
     func yearInReviewAnnouncementDidTapExplore()
     func yearInReviewAnnouncementDidTapClose()
     func yearInReviewAnnouncementDidTapLearnMore()
+    func yearInReviewAnnouncementDidTapAboutInsights()
+    func yearInReviewAnnouncementDidTapShareFeedback()
 }
 
 @MainActor
@@ -14,37 +16,36 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
         /// VoiceOver reads this for the Rive artwork. The headline is drawn inside the artwork,
         /// so this should contain the headline text.
         public let animationAccessibilityLabel: String
-        /// The copy under the artwork. The app builds it, so the personalized and the collective
-        /// versions only differ in the string passed in.
+        /// Drawn inside the artwork. VoiceOver reads it after the headline.
         public let body: String
         public let exploreButtonTitle: String
+        public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
-        public let infoButtonAccessibilityHint: String
-        public let infoTitle: String
-        public let infoBody: String
+        public let moreButtonAccessibilityLabel: String
         public let learnMoreButtonTitle: String
-        public let gotItButtonTitle: String
+        public let aboutInsightsButtonTitle: String
+        public let shareFeedbackButtonTitle: String
 
         public init(
             animationAccessibilityLabel: String,
             body: String,
             exploreButtonTitle: String,
+            wIconAccessibilityLabel: String,
             closeButtonAccessibilityLabel: String,
-            infoButtonAccessibilityHint: String,
-            infoTitle: String,
-            infoBody: String,
+            moreButtonAccessibilityLabel: String,
             learnMoreButtonTitle: String,
-            gotItButtonTitle: String
+            aboutInsightsButtonTitle: String,
+            shareFeedbackButtonTitle: String
         ) {
             self.animationAccessibilityLabel = animationAccessibilityLabel
             self.body = body
             self.exploreButtonTitle = exploreButtonTitle
+            self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
-            self.infoButtonAccessibilityHint = infoButtonAccessibilityHint
-            self.infoTitle = infoTitle
-            self.infoBody = infoBody
+            self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.learnMoreButtonTitle = learnMoreButtonTitle
-            self.gotItButtonTitle = gotItButtonTitle
+            self.aboutInsightsButtonTitle = aboutInsightsButtonTitle
+            self.shareFeedbackButtonTitle = shareFeedbackButtonTitle
         }
     }
 
@@ -53,10 +54,8 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
     public let riveNumbers: [WMFRiveNumber: Double]
     public let localizedStrings: LocalizedStrings
 
-    /// Which color the close button uses above the artwork. Same rule as the slides.
+    /// Which color the navigation bar items use above the artwork.
     public let contentStyle: WMFYearInReviewSlideViewModel.ContentStyle
-
-    @Published public private(set) var isShowingInfo = false
 
     private weak var delegate: WMFYearInReviewAnnouncementDelegate?
 
@@ -76,8 +75,9 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
         self.delegate = delegate
     }
 
-    var closeButtonColor: UIColor {
-        contentStyle == .light ? WMFColor.whiteAlpha20 : WMFColor.gray700
+    /// Same rule as `WMFYearInReviewSlideViewModel.contentColor`.
+    var contentColor: UIColor {
+        contentStyle == .light ? WMFColor.white : WMFColor.gray700
     }
 
     func tappedExplore() {
@@ -88,16 +88,15 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
         delegate?.yearInReviewAnnouncementDidTapClose()
     }
 
-    func tappedInfo() {
-        isShowingInfo = true
-    }
-
-    func tappedGotIt() {
-        isShowingInfo = false
-    }
-
     func tappedLearnMore() {
-        isShowingInfo = false
         delegate?.yearInReviewAnnouncementDidTapLearnMore()
+    }
+
+    func tappedAboutInsights() {
+        delegate?.yearInReviewAnnouncementDidTapAboutInsights()
+    }
+
+    func tappedShareFeedback() {
+        delegate?.yearInReviewAnnouncementDidTapShareFeedback()
     }
 }
