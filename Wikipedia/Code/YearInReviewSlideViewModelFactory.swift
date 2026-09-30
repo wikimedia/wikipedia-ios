@@ -157,6 +157,11 @@ struct YearInReviewSlideViewModelFactory {
         }
     }
 
+    /// Shared with the announcement's more menu.
+    static var aboutInsightsButtonTitle: String {
+        WMFLocalizedString("year-in-review-2026-about-insights", value: "About your insights", comment: "Title of the Year in Review more menu item that opens the FAQ answer explaining how reading insights are calculated.")
+    }
+
     func makeLocalizedStrings() -> WMFYearInReviewViewModel.LocalizedStrings {
         WMFYearInReviewViewModel.LocalizedStrings(
             wIconAccessibilityLabel: CommonStrings.plainWikipediaName,
@@ -165,6 +170,7 @@ struct YearInReviewSlideViewModelFactory {
             shareButtonTitle: CommonStrings.shortShareTitle,
             donateButtonTitle: CommonStrings.donateTitle,
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
+            aboutInsightsButtonTitle: Self.aboutInsightsButtonTitle,
             shareFeedbackButtonTitle: CommonStrings.shareFeedbackTitle,
             slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
         )

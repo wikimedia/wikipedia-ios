@@ -175,11 +175,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 delegate: self
             )
 
+            // In a navigation controller so it gets the same close button and more menu as the slides.
             let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
-            hostingController.modalPresentationStyle = .pageSheet
+            let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
             // Swiping down would skip the close action and its toast, so only the close button dismisses.
-            hostingController.isModalInPresentation = true
-            navigationController.present(hostingController, animated: true)
+            announcementNavigationController.isModalInPresentation = true
+            navigationController.present(announcementNavigationController, animated: true)
 
             // Marked here, when it is actually on screen, so a force quit before any interaction
             // does not earn a second showing, and an early exit above does not use it up.
@@ -204,12 +205,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             animationAccessibilityLabel: headline,
             body: body,
             exploreButtonTitle: WMFLocalizedString("year-in-review-2026-announcement-explore", value: "Explore", comment: "Title of the button on the Year in Review announcement that opens Year in Review."),
+            wIconAccessibilityLabel: CommonStrings.plainWikipediaName,
             closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
-            infoButtonAccessibilityHint: announcementInfoTitle,
-            infoTitle: announcementInfoTitle,
-            infoBody: WMFLocalizedString("year-in-review-2026-announcement-info-body", value: "Reading insights are calculated using locally stored data on your device.", comment: "Body of the info card on the Year in Review announcement, which explains how reading data is used."),
+            moreButtonAccessibilityLabel: CommonStrings.moreButton,
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
-            gotItButtonTitle: CommonStrings.gotItButtonTitle
+            aboutInsightsButtonTitle: YearInReviewSlideViewModelFactory.aboutInsightsButtonTitle,
+            shareFeedbackButtonTitle: CommonStrings.shareFeedbackTitle
         )
     }
 
@@ -316,10 +317,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         announcement.dismiss(animated: true, completion: completion)
     }
 
-    private var announcementInfoTitle: String {
-        WMFLocalizedString("year-in-review-2026-announcement-info-title", value: "Your reading history is kept protected", comment: "Title of the info card on the Year in Review announcement, shown when the reader taps the info icon.")
-    }
-
     // MARK: - Actions
 
     private func donate(getSourceRect: @escaping @MainActor () -> CGRect, slideLoggingID: String) {
@@ -343,26 +340,36 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         donateCoordinator.start()
     }
 
-    /// The FAQ page is translated per app language, so the URL is built rather than hardcoded.
-    private var featureFAQURL: URL? {
+    /// The pages are translated per app language, so the URLs are built rather than hardcoded.
+    private func yearInReviewHelpURL(pathComponents: [String], section: String?) -> URL? {
         guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return nil
         }
 
         return WMFProject.mediawiki.translatedHelpURL(
-            pathComponents: ["Wikimedia Apps", "Team", "Wikipedia Year in Review", "Frequently Asked Questions"],
-            section: "Frequently asked questions",
+            pathComponents: ["Wikimedia Apps", "Team", "Wikipedia Year in Review"] + pathComponents,
+            section: section,
             language: appLanguage
         )
     }
 
-    private func showLearnMore() {
+    /// "Learn more" in the more menu opens the project page.
+    private func showProjectPage() {
+        showHelpPage(url: yearInReviewHelpURL(pathComponents: [], section: nil))
+    }
+
+    /// "About your insights" in the more menu opens the FAQ answer on how insights are calculated.
+    private func showAboutInsights() {
+        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: "How was this calculated?"))
+    }
+
+    private func showHelpPage(url: URL?) {
         guard let presentedViewController = navigationController.presentedViewController,
-              let featureFAQURL else {
+              let url else {
             return
         }
 
-        let config = SinglePageWebViewController.StandardConfig(url: featureFAQURL, useSimpleNavigationBar: true)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
         let webViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
         presentedViewController.present(webNavigationController, animated: true)
@@ -402,7 +409,9 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
         case .close:
             navigationController.presentedViewController?.dismiss(animated: true)
         case .learnMore:
-            showLearnMore()
+            showProjectPage()
+        case .aboutInsights:
+            showAboutInsights()
         case .shareFeedback:
             shareFeedback()
         case .share:
@@ -437,7 +446,15 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
     }
 
     func yearInReviewAnnouncementDidTapLearnMore() {
-        showLearnMore()
+        showProjectPage()
+    }
+
+    func yearInReviewAnnouncementDidTapAboutInsights() {
+        showAboutInsights()
+    }
+
+    func yearInReviewAnnouncementDidTapShareFeedback() {
+        shareFeedback()
     }
 }
 

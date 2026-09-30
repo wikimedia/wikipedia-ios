@@ -4,7 +4,6 @@ public struct WMFYearInReviewAnnouncementView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFYearInReviewAnnouncementViewModel
-    @AccessibilityFocusState private var isInfoCardFocused: Bool
 
     private var theme: WMFTheme {
         appEnvironment.theme
@@ -18,18 +17,18 @@ public struct WMFYearInReviewAnnouncementView: View {
         VStack(spacing: 0) {
             animation
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            footer
+                // The navigation bar is see-through, so the artwork runs under it.
+                .ignoresSafeArea(.container, edges: .top)
+
+            WMFLargeButton(
+                style: .primary,
+                title: viewModel.localizedStrings.exploreButtonTitle,
+                action: viewModel.tappedExplore
+            )
+            .padding(.horizontal, 24)
+            .padding(.top, 24)
+            .padding(.bottom, 16)
         }
-        .overlay(alignment: .topLeading) {
-            closeButton
-        }
-        .overlay(alignment: .bottom) {
-            if viewModel.isShowingInfo {
-                infoCard
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-            }
-        }
-        .animation(.easeInOut(duration: 0.2), value: viewModel.isShowingInfo)
         .background(Color(uiColor: theme.paperBackground))
     }
 
@@ -44,6 +43,8 @@ public struct WMFYearInReviewAnnouncementView: View {
                 numbers: viewModel.riveNumbers,
                 accessibilityLabel: viewModel.localizedStrings.animationAccessibilityLabel
             )
+            // Text inside the artwork is not read, so VoiceOver gets the body here.
+            .accessibilityValue(Text(viewModel.localizedStrings.body))
         } else {
             // Shows until the .riv file is added.
             Text(viewModel.localizedStrings.animationAccessibilityLabel)
@@ -51,99 +52,6 @@ public struct WMFYearInReviewAnnouncementView: View {
                 .foregroundStyle(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
-        }
-    }
-
-    // MARK: - Footer
-
-    private var footer: some View {
-        VStack(spacing: 24) {
-            // The body copy is drawn in the artwork, so only the icon shows here. VoiceOver reads the
-            // body from this button, since text inside the artwork is not read.
-            Button(action: viewModel.tappedInfo) {
-                infoIcon
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    .frame(width: 44, height: 44)
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(viewModel.localizedStrings.body)
-            .accessibilityHint(viewModel.localizedStrings.infoButtonAccessibilityHint)
-
-            Button(action: viewModel.tappedExplore) {
-                Text(viewModel.localizedStrings.exploreButtonTitle)
-                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                    .padding(.horizontal, 20)
-            }
-            .buttonStyle(CapsuleButtonStyle(kind: .primary, layout: .hug, theme: theme))
-        }
-        .padding(.horizontal, 24)
-        .padding(.top, 24)
-        .padding(.bottom, 16)
-    }
-
-    @ViewBuilder
-    private var infoIcon: some View {
-        if let image = WMFSFSymbolIcon.for(symbol: .infoCircleFill, font: .georgiaCallout) {
-            Image(uiImage: image)
-                .renderingMode(.template)
-        }
-    }
-
-    // MARK: - Close
-
-    private var closeButton: some View {
-        Button(action: viewModel.tappedClose) {
-            closeIcon
-                .foregroundStyle(Color(uiColor: viewModel.closeButtonColor))
-                .frame(width: 44, height: 44)
-        }
-        .padding(8)
-        .accessibilityLabel(viewModel.localizedStrings.closeButtonAccessibilityLabel)
-    }
-
-    @ViewBuilder
-    private var closeIcon: some View {
-        if let image = WMFSFSymbolIcon.for(symbol: .close, font: .boldTitle3) {
-            Image(uiImage: image)
-                .renderingMode(.template)
-        }
-    }
-
-    // MARK: - Info card
-
-    /// Uses the theme's text and background colors swapped, so the card stands out in any theme.
-    private var infoCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(viewModel.localizedStrings.infoTitle)
-                .font(Font(WMFFont.for(.boldSubheadline)))
-                .foregroundStyle(Color(uiColor: theme.paperBackground))
-
-            Text(viewModel.localizedStrings.infoBody)
-                .font(Font(WMFFont.for(.subheadline)))
-                .foregroundStyle(Color(uiColor: theme.paperBackground))
-
-            HStack(spacing: 24) {
-                Button(viewModel.localizedStrings.learnMoreButtonTitle, action: viewModel.tappedLearnMore)
-                Button(viewModel.localizedStrings.gotItButtonTitle, action: viewModel.tappedGotIt)
-            }
-            .buttonStyle(.plain)
-            .font(Font(WMFFont.for(.semiboldSubheadline)))
-            .foregroundStyle(Color(uiColor: theme.link))
-            .padding(.top, 8)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(uiColor: theme.text))
-        )
-        .padding(.horizontal, 16)
-        .padding(.bottom, 16)
-        .accessibilityElement(children: .contain)
-        .accessibilityAddTraits(.isModal)
-        .accessibilityFocused($isInfoCardFocused)
-        .onAppear {
-            isInfoCardFocused = true
         }
     }
 }
