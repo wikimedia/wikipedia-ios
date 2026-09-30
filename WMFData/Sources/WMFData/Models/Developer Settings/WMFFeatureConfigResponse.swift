@@ -81,18 +81,18 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             
             func isActive(for date: Date) -> Bool {
 
-                // Overwrite date check if the developer settings flag for this config's year is on.
-                // This allows us to test outside of active date range. Each year has its own flag so
-                // that leaving the 2025 flag on does not force the 2026 config active.
-                let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                // The 2025 force flag went with the 2025 UI, so only 2026 has one.
-                if year == 2026, developerSettingsDataController.forceYiREntryPoint2026 {
-                    return true
-                }
-
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
                     return false
                 }
+
+                // While the developer settings flag for this config's year is on, skip only the start
+                // date, so testers see the feature before launch. The end date still applies. Each
+                // year has its own flag so that an old flag cannot force a new config active. The
+                // 2025 force flag went with the 2025 UI, so only 2026 has one.
+                if year == 2026, WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
+                    return date <= activeEndDate
+                }
+
                 return date >= activeStartDate && date <= activeEndDate
             }
         }
