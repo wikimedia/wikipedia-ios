@@ -38,6 +38,12 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
             },
             closeAction: { [weak self] in
                 self?.dismiss()
+            },
+            feedbackAction: { _, _ in
+                // TODO: Send the rating and optional text the reader submits.
+            },
+            feedbackTextFieldFocusAction: { [weak self] in
+                self?.expandSheet()
             }
         )
 
@@ -81,6 +87,16 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         selectedDetentIdentifier = sheetNavigationController?.sheetPresentationController?.selectedDetentIdentifier
         sheetNavigationController?.dismiss(animated: true) { [weak self] in
             self?.didSelectResult(result)
+        }
+    }
+
+    /// At the medium detent the keyboard leaves little room to type and scroll.
+    private func expandSheet() {
+        guard let sheet = sheetNavigationController?.sheetPresentationController,
+              sheet.selectedDetentIdentifier != .large else { return }
+
+        sheet.animateChanges {
+            sheet.selectedDetentIdentifier = .large
         }
     }
 

@@ -22,14 +22,15 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
 
     /// Configures the service, then resets the shared data controllers, in the same order as
     /// `WMFDataTestFixture.withConfiguredEnvironment`.
-    private func makeViewModel(service: WMFService?, opened: (@MainActor @Sendable (WMFSemanticSearchResult) -> Void)? = nil, closed: (@MainActor @Sendable () -> Void)? = nil) async -> WMFSemanticSearchResultsViewModel {
+    private func makeViewModel(service: WMFService?, opened: (@MainActor @Sendable (WMFSemanticSearchResult) -> Void)? = nil, closed: (@MainActor @Sendable () -> Void)? = nil, feedbackDelay: Duration = .seconds(3)) async -> WMFSemanticSearchResultsViewModel {
         WMFDataEnvironment.current.basicService = service
         await fixture.resetWMFDataTestState()
         return WMFSemanticSearchResultsViewModel(
             query: "qu'est-ce que la communication",
             project: project,
             readInArticleAction: { opened?($0) },
-            closeAction: { closed?() })
+            closeAction: { closed?() },
+            feedbackDelay: feedbackDelay)
     }
 
     private func waitUntilLoaded(_ viewModel: WMFSemanticSearchResultsViewModel) async {
@@ -136,6 +137,52 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
 
         XCTAssertEqual(opened, ["Communication"])
         XCTAssertEqual(closeCount, 1)
+    }
+
+    // MARK: - Feedback
+
+    func testTappingAPassageWhileTypingFeedbackOnlyPutsTheKeyboardAway() async {
+        var opened: [String] = []
+        let viewModel = await makeViewModel(service: WMFMockBasicService(), opened: { opened.append($0.title) })
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+
+        viewModel.feedbackViewModel.isTextFieldFocused = true
+        viewModel.results[1].readInArticle()
+
+        XCTAssertTrue(opened.isEmpty)
+        XCTAssertFalse(viewModel.feedbackViewModel.isTextFieldFocused)
+
+        viewModel.results[1].readInArticle()
+
+        XCTAssertEqual(opened, ["Communication"])
+    }
+
+
+    func testFeedbackShowsAfterTheSheetAppears() async {
+        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .milliseconds(50))
+        XCTAssertFalse(viewModel.isFeedbackVisible)
+
+        viewModel.sheetDidAppear()
+        XCTAssertFalse(viewModel.isFeedbackVisible)
+
+        for _ in 0..<50 where !viewModel.isFeedbackVisible {
+            try? await Task.sleep(for: .milliseconds(20))
+        }
+        XCTAssertTrue(viewModel.isFeedbackVisible)
+    }
+
+    func testSubmittingHidesTheFeedback() async {
+        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
+        viewModel.sheetDidAppear()
+        for _ in 0..<50 where !viewModel.isFeedbackVisible {
+            try? await Task.sleep(for: .milliseconds(20))
+        }
+
+        viewModel.feedbackViewModel.rate(.positive)
+        viewModel.feedbackViewModel.submit()
+
+        XCTAssertFalse(viewModel.isFeedbackVisible)
     }
 }
 
