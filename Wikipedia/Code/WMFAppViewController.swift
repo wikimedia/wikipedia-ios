@@ -26,6 +26,9 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+#if UITEST
+private let wmfUITestCentralAuthUsername = "WMFUITestCentralAuthUsername"
+#endif
 private let wmfEnableHomeTabForTesting = "WMFEnableHomeTabForTesting"
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
@@ -945,6 +948,19 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
         }
+
+        #if UITEST
+        // The cookie persists across launches, so an empty value clears what a previous test left behind.
+        if let centralAuthUsername = UserDefaults.standard.string(forKey: wmfUITestCentralAuthUsername) {
+            if centralAuthUsername.isEmpty {
+                dataStore.session.setCentralAuthUserCookieForTesting(nil)
+            } else {
+                KeychainCredentialsManager.shared.username = nil
+                KeychainCredentialsManager.shared.password = nil
+                dataStore.session.setCentralAuthUserCookieForTesting(centralAuthUsername)
+            }
+        }
+        #endif
 
         // WMFData's user defaults store JSON-encodes its values, so a plain launch-argument
         // default can't set this flag directly — write it through the data controller instead.

@@ -113,6 +113,32 @@ public class Session: NSObject {
         return cookie.value
     }
     
+    #if UITEST
+    /// UI-test hook (T430460): leaves the cookie storage in the state of an unfinished logout or a restore
+    /// to a new phone, where `centralauth_User` survived but the keychain credentials did not. `nil` removes it.
+    public func setCentralAuthUserCookieForTesting(_ value: String?) {
+        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
+            return
+        }
+        let domain = Configuration.current.centralAuthCookieSourceDomain
+        if let existingCookie = storage.cookieWithName("centralauth_User", for: domain) {
+            storage.deleteCookie(existingCookie)
+        }
+        guard let value,
+              let cookie = HTTPCookie(properties: [
+                .name: "centralauth_User",
+                .value: value,
+                .domain: domain,
+                .path: "/",
+                .secure: "TRUE",
+                .expires: Date(timeIntervalSinceNow: 365 * 24 * 60 * 60)
+              ]) else {
+            return
+        }
+        storage.setCookie(cookie)
+    }
+    #endif
+
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
