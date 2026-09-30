@@ -9,7 +9,8 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
 
     private let query: String
     private let project: WMFProject
-    private let didSelectResult: (WMFSemanticSearchResult) -> Void
+    /// The flag tells whether the article should ask for feedback: the reader ignored the prompt in the sheet.
+    private let didSelectResult: (WMFSemanticSearchResult, Bool) -> Void
 
     private var viewModel: WMFSemanticSearchResultsViewModel?
     /// Kept after the sheet is dismissed to open an article, so `restore()` can show the same sheet again.
@@ -20,7 +21,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         navigationController: UINavigationController,
         query: String,
         project: WMFProject,
-        didSelectResult: @escaping (WMFSemanticSearchResult) -> Void
+        didSelectResult: @escaping (WMFSemanticSearchResult, Bool) -> Void
     ) {
         self.navigationController = navigationController
         self.query = query
@@ -85,8 +86,9 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
     private func open(_ result: WMFSemanticSearchResult) {
         viewModel?.cancel()
         selectedDetentIdentifier = sheetNavigationController?.sheetPresentationController?.selectedDetentIdentifier
+        let needsFeedback = viewModel?.handOffFeedbackIfIgnored() ?? false
         sheetNavigationController?.dismiss(animated: true) { [weak self] in
-            self?.didSelectResult(result)
+            self?.didSelectResult(result, needsFeedback)
         }
     }
 

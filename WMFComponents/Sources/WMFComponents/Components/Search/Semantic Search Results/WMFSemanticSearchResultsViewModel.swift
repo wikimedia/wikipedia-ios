@@ -59,7 +59,8 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     private let feedbackTextFieldFocusAction: Action?
     private let feedbackDelay: Duration
     private var feedbackTask: Task<Void, Never>?
-    /// The reader submitted the banner. It doesn't come back.
+    /// The sheet has had its one chance to ask: the reader submitted the banner, or an article
+    /// opened from a passage took over asking. The banner doesn't come back and no other article asks.
     private var hasAskedForFeedback = false
 
     private(set) lazy var betaLabel = CommonStrings.betaLabel(languageCode: languageCode)
@@ -208,6 +209,18 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
             guard !Task.isCancelled else { return }
             self?.isFeedbackVisible = true
         }
+    }
+
+    /// Call it when opening an article from a passage. Returns true when the reader neither
+    /// answered the prompt nor started to, so the article should ask instead. In that case the
+    /// sheet stops asking, so a reader who comes back to it and opens another passage isn't asked twice.
+    public func handOffFeedbackIfIgnored() -> Bool {
+        guard !hasAskedForFeedback, !feedbackViewModel.hasRated else { return false }
+
+        hasAskedForFeedback = true
+        isFeedbackVisible = false
+        feedbackTask?.cancel()
+        return true
     }
 
     private func submitFeedback(rating: WMFSemanticSearchFeedbackViewModel.Rating, text: String?) {

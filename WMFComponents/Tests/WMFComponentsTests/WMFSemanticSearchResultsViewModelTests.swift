@@ -172,6 +172,26 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.isFeedbackVisible)
     }
 
+    func testIgnoredFeedbackIsHandedOffToTheArticleOnce() async {
+        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
+        viewModel.sheetDidAppear()
+        for _ in 0..<50 where !viewModel.isFeedbackVisible {
+            try? await Task.sleep(for: .milliseconds(20))
+        }
+
+        XCTAssertTrue(viewModel.handOffFeedbackIfIgnored())
+        XCTAssertFalse(viewModel.isFeedbackVisible)
+        XCTAssertFalse(viewModel.handOffFeedbackIfIgnored())
+    }
+
+    func testRatingWithoutSubmittingIsNotHandedOff() async {
+        let viewModel = await makeViewModel(service: WMFMockBasicService())
+
+        viewModel.feedbackViewModel.rate(.negative)
+
+        XCTAssertFalse(viewModel.handOffFeedbackIfIgnored())
+    }
+
     func testSubmittingHidesTheFeedback() async {
         let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
         viewModel.sheetDidAppear()
@@ -183,6 +203,7 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
         viewModel.feedbackViewModel.submit()
 
         XCTAssertFalse(viewModel.isFeedbackVisible)
+        XCTAssertFalse(viewModel.handOffFeedbackIfIgnored())
     }
 }
 
