@@ -17,14 +17,24 @@ public struct SettingsItem: Identifiable {
     let color: UIColor?
     let title: String
     let subtitle: String?
+    let showsBetaBadge: Bool
     let accessory: AccessoryType
     let action: (() -> Void)?
 
-    public init(image: UIImage?, color: UIColor?, title: String, subtitle: String?, accessory: AccessoryType, action: (() -> Void)?) {
+    public init(
+        image: UIImage?,
+        color: UIColor?,
+        title: String,
+        subtitle: String?,
+        showsBetaBadge: Bool = false,
+        accessory: AccessoryType,
+        action: (() -> Void)?
+    ) {
         self.image = image
         self.color = color
         self.title = title
         self.subtitle = subtitle
+        self.showsBetaBadge = showsBetaBadge
         self.accessory = accessory
         self.action = action
     }
