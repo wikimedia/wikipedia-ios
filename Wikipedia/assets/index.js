@@ -26,6 +26,18 @@ const accessibilityCursorToFragment = fragmentId => {
   focus_element.focus()
 }
 
+// The Page Content Service shows the sections of the page after the `final_setup` message, then
+// dispatches `onBodyEnd` on the window. Until then, the page has the height of the lead only and
+// the elements of the sections have no position. Resolves once the sections are shown.
+const whenSectionsAreShown = () => new Promise(resolve => {
+  const sections = [...document.querySelectorAll('section')]
+  if (sections.every(section => section.style.display !== 'none')) {
+    resolve()
+    return
+  }
+  window.addEventListener('onBodyEnd', () => resolve(), { once: true })
+})
+
 //*****END: utilities.js
 
 //*****BEGIN: editTextSelection.js
@@ -507,6 +519,7 @@ const highlightPassages = (passages, anchor) => {
 window.wmf.elementLocation.getFirstOnScreenSection = getFirstOnScreenSection
 window.wmf.elementLocation.getElementRect = getElementRect
 window.wmf.utilities.accessibilityCursorToFragment = accessibilityCursorToFragment
+window.wmf.utilities.whenSectionsAreShown = whenSectionsAreShown
 window.wmf.findInPage.removeSearchTermHighlights = removeSearchTermHighlights
 window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm

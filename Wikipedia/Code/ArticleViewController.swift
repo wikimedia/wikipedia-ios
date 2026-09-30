@@ -49,6 +49,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     /// Passages of a semantic search result to highlight once the article is set up. Used once.
     var semanticSearchPassages: [String] = []
+    var pendingSemanticSearchScroll: SemanticSearchScroll?
 
     /// When set before the initial load, article content is fetched at this specific revision
     /// (e.g. displaying a freshly published edit when returning from the web Visual Editor)
@@ -1070,9 +1071,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func checkForScrollToAnchor(in response: HTTPURLResponse) {
-        guard let fragment = response.url?.fragment else {
+        guard let fragment = response.url?.fragment, semanticSearchPassages.isEmpty else {
             return
         }
+
         // The fragment is percent-encoded in the URL. Element ids are not.
         scrollRestorationState = .scrollToAnchor(fragment.removingPercentEncoding ?? fragment, attempt: 1, completion: { [weak self] success, maxedAttempts in
             if success || maxedAttempts {
@@ -1475,6 +1477,7 @@ private extension ArticleViewController {
 
     @objc func debouncedContentSizeDidChange() {
         restoreScrollStateIfNecessary()
+        scrollToSemanticSearchTargetIfReady()
     }
 
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {

@@ -1297,6 +1297,9 @@
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
 "search-semantic-entry-point-accessibility-hint" = "Accessibility hint of the semantic search entry point shown above the search suggestions. Read by VoiceOver after the label to explain what happens on activation.";
 "search-semantic-entry-point-description" = "Explanatory text of the semantic search entry point shown above the search suggestions.";
+"search-semantic-entry-point-hidden-toast-modify" = "Title of the button that opens the Search settings, in the toast shown after the reader hides the semantic search entry point on the search screen.";
+"search-semantic-entry-point-hidden-toast-subtitle" = "Subtitle of the toast shown after the reader hides the semantic search entry point on the search screen.";
+"search-semantic-entry-point-hidden-toast-title" = "Title of the toast shown after the reader hides the semantic search entry point on the search screen.";
 "search-semantic-entry-point-hide-accessibility-label" = "Accessibility label of the button that hides the semantic search entry point shown above the search suggestions.";
 "search-semantic-entry-point-info-accessibility-label" = "Accessibility label of the info button in the semantic search entry point shown above the search suggestions.";
 "search-semantic-entry-point-try-it-now" = "Call to action shown in the semantic search entry point above the search suggestions until the reader uses it for the first time.";
@@ -1355,6 +1358,8 @@
 "settings-search-footer-text" = "Footer text for section that allows users to customize certain Search settings";
 "settings-search-footer-text-home" = "Footer text for section that allows users to customize certain Search settings, shown while the Home tab experiment is enabled";
 "settings-search-open-app-on-search" = "Title for setting that allows users to open app on Search tab";
+"settings-search-semantic-search-subtitle" = "Subtitle of the Search settings row that shows or hides the semantic search entry point on the search screen.";
+"settings-search-semantic-search-title" = "Title of the Search settings row that shows or hides the semantic search entry point on the search screen.";
 "settings-storage-and-syncing-disable-sync-alert-message" = "Message of the confirmation alert shown when the user turns off reading list syncing";
 "settings-storage-and-syncing-disable-sync-alert-no" = "Button that cancels turning off reading list syncing";
 "settings-storage-and-syncing-disable-sync-alert-title" = "Title of the confirmation alert shown when the user turns off reading list syncing";

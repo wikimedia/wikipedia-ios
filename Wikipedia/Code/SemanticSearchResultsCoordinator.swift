@@ -12,7 +12,9 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
     private let didSelectResult: (WMFSemanticSearchResult) -> Void
 
     private var viewModel: WMFSemanticSearchResultsViewModel?
-    private weak var sheetNavigationController: UINavigationController?
+    /// Kept after the sheet is dismissed to open an article, so `restore()` can show the same sheet again.
+    private var sheetNavigationController: UINavigationController?
+    private var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
 
     init(
         navigationController: UINavigationController,
@@ -45,24 +47,38 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
             modalPresentationStyle: .pageSheet
         )
 
-        if let sheet = sheetNavigationController.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-            sheet.prefersGrabberVisible = true
-            sheet.delegate = self
-        }
-
         self.viewModel = viewModel
         self.sheetNavigationController = sheetNavigationController
 
         viewModel.load()
+        present(sheetNavigationController)
+        return true
+    }
+
+    /// Presents the sheet again as the reader left it before opening an article from it.
+    func restore() {
+        guard let sheetNavigationController, sheetNavigationController.presentingViewController == nil else { return }
+
+        present(sheetNavigationController)
+    }
+
+    private func present(_ sheetNavigationController: UINavigationController) {
+        // Each presentation gets a new sheet presentation controller, so configure it every time.
+        if let sheet = sheetNavigationController.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.selectedDetentIdentifier = selectedDetentIdentifier
+            sheet.prefersGrabberVisible = true
+            sheet.delegate = self
+        }
+
         let presenter = navigationController.presentedViewController ?? navigationController
         presenter.view.endEditing(true)
         presenter.present(sheetNavigationController, animated: true)
-        return true
     }
 
     private func open(_ result: WMFSemanticSearchResult) {
         viewModel?.cancel()
+        selectedDetentIdentifier = sheetNavigationController?.sheetPresentationController?.selectedDetentIdentifier
         sheetNavigationController?.dismiss(animated: true) { [weak self] in
             self?.didSelectResult(result)
         }
@@ -71,6 +87,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
     private func dismiss() {
         viewModel?.cancel()
         sheetNavigationController?.dismiss(animated: true)
+        sheetNavigationController = nil
     }
 }
 
@@ -78,6 +95,7 @@ extension SemanticSearchResultsCoordinator: UISheetPresentationControllerDelegat
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         viewModel?.cancel()
+        sheetNavigationController = nil
     }
 
 }

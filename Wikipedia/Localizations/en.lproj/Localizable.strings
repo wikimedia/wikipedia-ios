@@ -1297,6 +1297,9 @@
 "search-result-redirected-from" = "Redirected from: $1";
 "search-semantic-entry-point-accessibility-hint" = "Searches within articles for your query";
 "search-semantic-entry-point-description" = "Search within articles and jump straight to the relevant passage";
+"search-semantic-entry-point-hidden-toast-modify" = "Modify";
+"search-semantic-entry-point-hidden-toast-subtitle" = "You can make it visible again via Settings.";
+"search-semantic-entry-point-hidden-toast-title" = "Module hidden.";
 "search-semantic-entry-point-hide-accessibility-label" = "Hide searching within articles";
 "search-semantic-entry-point-info-accessibility-label" = "About searching within articles";
 "search-semantic-entry-point-try-it-now" = "Try it now";
@@ -1355,6 +1358,8 @@
 "settings-search-footer-text" = "Set the app to open to the Search tab instead of the Explore tab";
 "settings-search-footer-text-home" = "Set the app to open to the Search tab instead of the Home tab";
 "settings-search-open-app-on-search" = "Open app on Search tab";
+"settings-search-semantic-search-subtitle" = "Jump straight into the relevant passage";
+"settings-search-semantic-search-title" = "Search within articles";
 "settings-storage-and-syncing-disable-sync-alert-message" = "Turning off syncing will delete your synced reading lists from your Wikipedia account and from other devices. Your lists and articles will remain on this device.";
 "settings-storage-and-syncing-disable-sync-alert-no" = "No";
 "settings-storage-and-syncing-disable-sync-alert-title" = "Turn off reading list syncing?";
