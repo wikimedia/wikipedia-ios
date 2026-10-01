@@ -26,7 +26,6 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
-private let wmfEnableHomeTabForTesting = "WMFEnableHomeTabForTesting"
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
 
@@ -280,11 +279,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                name: .dismissReadingListToast,
                                                object: nil)
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleEnableHomeTabDidChange),
-                                               name: WMFNSNotification.enableHomeTabDidChange,
-                                               object: nil)
-
         observeArticleTabsNSNotifications()
         setupReadingListsHelpers()
 
@@ -367,24 +361,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func configureTabController() {
         self.delegate = self
 
-        let nav1: WMFComponentNavigationController
-        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
-            let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
-            let homeViewController = coordinator.makeHomeViewController()
-            nav1 = rootNavigationController(with: homeViewController)
-            coordinator.attach(navigationController: nav1)
-            homeCoordinator = coordinator
-        } else {
-            homeCoordinator = nil
-            let mainViewController: UIViewController
-            switch UserDefaults.standard.defaultTabType {
-            case .settings:
-                mainViewController = settingsViewController
-            default:
-                mainViewController = exploreViewController
-            }
-            nav1 = rootNavigationController(with: mainViewController)
-        }
+        let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
+        let homeViewController = coordinator.makeHomeViewController()
+        let nav1 = rootNavigationController(with: homeViewController)
+        coordinator.attach(navigationController: nav1)
+        homeCoordinator = coordinator
+
         let nav2 = rootNavigationController(with: placesViewController)
         let nav3 = rootNavigationController(with: savedViewController)
         let nav4 = rootNavigationController(with: activityTabViewController)
@@ -676,43 +658,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
-    @objc private func handleEnableHomeTabDidChange() {
-        // There are no tabs to rebuild before the main UI loads — and dismissing
-        // presented view controllers at that point would tear down onboarding.
-        guard uiIsLoaded else { return }
-        guard !isUpdatingDefaultTab else { return }
-        isUpdatingDefaultTab = true
-        DispatchQueue.main.async {
-            let update: () -> Void = {
-                self.currentTabNavigationController?.popToRootViewController(animated: false)
-
-                self.resetCachedRootTabViewControllers()
-                self.configureTabController()
-                if let savedTabBarItem = self.savedViewController.tabBarItem {
-                    self.savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
-                }
-                self.updateActivityTabYearInReviewBadge()
-                self.selectedIndex = WMFAppTabType.main.rawValue
-                self.isUpdatingDefaultTab = false
-            }
-            if let presented = self.presentedViewController {
-                presented.dismiss(animated: true, completion: update)
-            } else {
-                update()
-            }
-        }
-    }
-
-    private func resetCachedRootTabViewControllers() {
-        _exploreViewController = nil
-        _settingsViewController = nil
-        _placesViewController = nil
-        _savedViewController = nil
-        _activityTabViewController = nil
-        _searchTabViewController = nil
-        homeCoordinator = nil
-    }
-
     // MARK: - Hint
 
     private func showReadingListHintForArticle(_ article: WMFArticle) {
@@ -945,15 +890,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
         }
-
-        // WMFData's user defaults store JSON-encodes its values, so a plain launch-argument
-        // default can't set this flag directly — write it through the data controller instead.
-        // The flag persists across launches, so apply the argument in both directions.
-        if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
-                let enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
-                WMFDeveloperSettingsDataController.shared.enableHomePhase2 = enableHomeTab
-                WMFHomeDataController.forceExperimentAssignment(enableHomeTab ? .groupB : .control)
-        }
     }
 
     // MARK: - Start/Pause/Resume App
@@ -968,11 +904,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // resumeApp: should be called once and only once for every launch from a fully terminated state.
     // It should only be called when the app is active and being shown to the user.
     private func resumeApp(_ completion: (() -> Void)?) {
-        // Assign and apply the home tab experiment before onboarding decisions are made,
-        // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
-        WMFHomeDataController.shared.assignExperiment()
-        WMFHomeDataController.shared.logExperimentExposure()
-
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
             let done: () -> Void = {
@@ -1124,7 +1055,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
               homeNav.viewControllers.count == 1 else { return }
         guard presentedViewController == nil else { return }
-        guard WMFHomeDataController.shared.isHomeTabGroupB else { return }
 
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
         // check did see onboarding but NOT new onboarding, make sure they haven't seen one time onboarding yet
@@ -1216,7 +1146,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         DispatchQueue.main.async {
               self.present(onboardingVC, animated: true) {
-                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce", experimentData: WMFHomeDataController.shared.experimentData)
+                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce")
                   WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
               }
         }
@@ -1667,12 +1597,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             return
         }
 
-        guard WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB else {
-            presentLegacyOnboarding(completion: completion)
-            return
-        }
-
-        // new onboarding
         let coordinator = AppOnboardingCoordinator(
             presentingViewController: self,
             dataStore: dataStore,
@@ -1689,19 +1613,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         appOnboardingCoordinator = coordinator
         hideSplashView()
         coordinator.start()
-    }
-
-    // TODO: Remove the legacy welcome flow once the new home feed onboarding ships unflagged.
-    private func presentLegacyOnboarding(completion: @escaping (Bool) -> Void) {
-        let vc = WMFWelcomeInitialViewController.wmf_viewControllerFromWelcomeStoryboard()
-        vc.apply(theme: theme)
-        vc.completionBlock = {
-            self.setDidShowOnboarding()
-            completion(true)
-        }
-        hideSplashView()
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: false, completion: nil)
     }
 
     // MARK: - Splash
@@ -1880,9 +1791,7 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     private func updateActiveTitleAccessibilityButton(_ viewController: UIViewController) {
         guard let vc = viewController as? ArticleViewController else { return }
         if selectedIndex == WMFAppTabType.main.rawValue {
-            vc.navigationItem.titleView?.accessibilityLabel = homeCoordinator != nil
-                ? CommonStrings.homeReturnToHomeAccessibilityLabel
-                : WMFLocalizedString("home-button-explore-accessibility-label", value: "Wikipedia, return to Explore", comment: "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
+            vc.navigationItem.titleView?.accessibilityLabel = CommonStrings.homeReturnToHomeAccessibilityLabel
         } else if selectedIndex == WMFAppTabType.saved.rawValue {
             vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedString("home-button-saved-accessibility-label", value: "Wikipedia, return to Saved", comment: "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.")
         }
@@ -2397,7 +2306,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
         
         let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
-        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed", experimentData: WMFHomeDataController.shared.experimentData)
+        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed")
         
         oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
             guard let self else { return }
@@ -2422,7 +2331,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
     }
 
     func onboardingViewDidClickSecondaryButton() {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default", experimentData: WMFHomeDataController.shared.experimentData)
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default")
         
         WMFHomeDataController.shared.setSeeFirstContent(.community)
         if let homeViewModel = homeCoordinator?.homeViewController?.viewModel {

@@ -333,25 +333,19 @@ final public class WMFSettingsViewModel: ObservableObject {
         })
 
         var feedItems: [SettingsItem] = []
-        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
-            if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
-                // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
-                // feed row covers customization for both segments.
-                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-                }))
-            } else {
-                // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
-                // powers the Community segment and its settings stay reachable here relabeled as Community.
-                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-                }))
-                feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
-                }))
-            }
+        if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
+            // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
+            // feed row covers customization for both segments.
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+            }))
         } else {
-            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
+            // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
+            // powers the Community segment and its settings stay reachable here relabeled as Community.
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+            }))
+            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
                 self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
             }))
         }
