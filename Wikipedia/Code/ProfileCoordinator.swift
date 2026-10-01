@@ -217,6 +217,9 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 widgetController.reloadAllWidgetsIfNecessary()
             }
         )
+        viewModel.regenerateYiR2026Report = { [dataStore] in
+            try await YearInReviewCoordinator.populateReport(dataStore: dataStore, regenerate: true) != nil
+        }
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 

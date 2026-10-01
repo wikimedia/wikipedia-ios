@@ -42,6 +42,12 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
     /// Set by the app after init. Nil hides the Widgets section.
     @Published public var widgetDiagnostics: WMFDeveloperSettingsWidgetDiagnostics?
 
+    /// Set by the app. Builds the 2026 Year in Review report again from the current data, and
+    /// returns false when the report could not be built.
+    public var regenerateYiR2026Report: (@MainActor () async throws -> Bool)?
+    @Published public private(set) var isRegeneratingYiR2026Report = false
+    @Published public var yiR2026ReportAlertMessage: String?
+
     private var subscribers: Set<AnyCancellable> = []
 
     @Published public var enableDeveloperMode: Bool = WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
@@ -216,6 +222,24 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    @discardableResult
+    public func tappedRegenerateYiR2026Report() -> Task<Void, Never>? {
+        guard let regenerateYiR2026Report, !isRegeneratingYiR2026Report else { return nil }
+        isRegeneratingYiR2026Report = true
+        return Task { [weak self] in
+            let message: String
+            do {
+                message = try await regenerateYiR2026Report()
+                    ? "The Year in Review 2026 report was built again. Open Year in Review to see it."
+                    : "The report was not built. Check the Year in Review setting in Settings, the 2026 config and the country of the device."
+            } catch {
+                message = "The report was not built: \(error.localizedDescription)"
+            }
+            self?.isRegeneratingYiR2026Report = false
+            self?.yiR2026ReportAlertMessage = message
         }
     }
 

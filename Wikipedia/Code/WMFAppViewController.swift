@@ -1574,31 +1574,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     /// Fills the Year in Review report in the background, so the slides can read it when they open.
     /// The data controller checks the remote config, the active dates, the Settings toggle and the country.
     private func populateYearInReviewReportIfNeeded() {
-        guard yearInReviewPopulateTask == nil,
-              let appLanguage = dataStore.languageLinkController.appLanguage,
-              let countryCode = Locale.current.region?.identifier else {
+        guard yearInReviewPopulateTask == nil else {
             return
         }
-
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
-        let username = dataStore.authenticationManager.authStatePermanentUsername
 
         yearInReviewPopulateTask = Task { [weak self] in
             guard let self else { return }
             do {
-                let dataController = try WMFYearInReviewDataController()
-                try await dataController.populateYearInReviewReportData(
-                    for: WMFYearInReviewDataController.targetYear,
-                    countryCode: countryCode,
-                    primaryAppLanguageProject: project,
-                    username: username,
-                    userID: permanentUser?.userID,
-                    globalUserID: permanentUser?.globalUserID,
-                    savedSlideDataDelegate: dataStore.savedPageList,
-                    legacyPageViewsDataDelegate: dataStore,
-                    mainPageIdentifier: dataStore
-                )
+                try await YearInReviewCoordinator.populateReport(dataStore: dataStore)
             } catch {
                 DDLogError("Error populating the Year in Review report: \(error)")
             }

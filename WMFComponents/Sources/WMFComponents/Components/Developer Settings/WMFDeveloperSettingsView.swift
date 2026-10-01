@@ -56,6 +56,23 @@ struct WMFDeveloperSettingsView: View {
                     Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026)
+                if viewModel.regenerateYiR2026Report != nil {
+                    captionedRow(caption: "Deletes the report and builds it again from your current reading history, frozen slides too. To try a new state, clear your history, read some articles, then tap this.") {
+                        Button {
+                            viewModel.tappedRegenerateYiR2026Report()
+                        } label: {
+                            HStack {
+                                Text("Regenerate Year in Review 2026 Report")
+                                    .foregroundStyle(Color(theme.link))
+                                Spacer()
+                                if viewModel.isRegeneratingYiR2026Report {
+                                    ProgressView()
+                                }
+                            }
+                        }
+                    }
+                    .disabled(!viewModel.forceYiREntryPoint2026 || viewModel.isRegeneratingYiR2026Report)
+                }
             } header: {
                 sectionHeader("Year in Review")
             }
@@ -186,6 +203,18 @@ struct WMFDeveloperSettingsView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
+        .alert(
+            "Year in Review 2026 Report",
+            isPresented: Binding(
+                get: { viewModel.yiR2026ReportAlertMessage != nil },
+                set: { if !$0 { viewModel.yiR2026ReportAlertMessage = nil } }
+            ),
+            presenting: viewModel.yiR2026ReportAlertMessage
+        ) { _ in
+            Button("OK", role: .cancel) {}
+        } message: { message in
+            Text(message)
+        }
         .listBackgroundColor(Color(theme.baseBackground))
         .foregroundStyle(Color(theme.text))
         .toggleStyle(SwitchToggleStyle(tint: Color(theme.accent)))
