@@ -20,15 +20,6 @@ extension UIViewController {
         } else {
             hasUnreadNotifications = false
         }
-
-        var needsYiRNotification = false
-        if let yirDataController {
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent, isTemporaryAccount: isTemporaryAccount)
-        }
-        // do not override `hasUnreadNotifications` completely
-        if needsYiRNotification {
-            hasUnreadNotifications = true
-        }
         
         let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         

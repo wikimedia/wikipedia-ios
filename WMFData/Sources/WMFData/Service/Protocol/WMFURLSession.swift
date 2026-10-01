@@ -1,6 +1,8 @@
 import Foundation
 
-public protocol WMFURLSession {
+// Sendable: session abstractions back WMFService implementations, which are
+// themselves Sendable. URLSession already satisfies this.
+public protocol WMFURLSession: Sendable {
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFURLSessionDataTask
     func clearCachedData()
 }

@@ -47,6 +47,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
 
+    /// Passages of a semantic search result to highlight once the article is set up. Used once.
+    var semanticSearchPassages: [String] = []
+    var pendingSemanticSearchScroll: SemanticSearchScroll?
+
     /// When set before the initial load, article content is fetched at this specific revision
     /// (e.g. displaying a freshly published edit when returning from the web Visual Editor)
     var initialLoadRevisionID: UInt64?
@@ -177,12 +181,19 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isShowingDonateFlowFromDonationReminderCard = false
 
+    var shownWrapUpCard: WMFDonationReminderDataController.WrapUpCard?
+
+    var localDonationCountBeforeDonateFlow = 0
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
     private var tocStackViewTopConstraint: NSLayoutConstraint?
 
     internal var articleViewSource: ArticleSource
+
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
 
     // Properties related to tracking number of seconds this article is viewed.
     var pageViewObjectID: NSManagedObjectID?
@@ -302,7 +313,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
-        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, failure: { (error) in
             DDLogWarn("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
@@ -530,17 +541,17 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     /// Modal presentation priority chain for the Article view:
+    ///   1. Fundraising        →  if shown, stop. Also defers Year in Review to the next app open.
     ///   2. Year in Review     →  if shown, stop.
-    ///   3. Fundraising        →  if shown, stop.
-    ///   4. Games announcement →  shown only when all of the above decline.
+    ///   3. Games announcement →  shown only when both of the above decline.
     ///
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded()
+        presentFundraisingOrYearInReviewOrGamesIfNeeded()
     }
 
-    /// Called at the tail of the modal chain (after RC, YIR, and fundraising have all declined).
+    /// Called at the tail of the modal chain (after fundraising and YIR have both declined).
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
@@ -554,7 +565,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         Task { [weak self] in
             guard let self else { return }
-            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else {
+                // Nothing else wanted the screen, so the lowest priority prompt gets its turn.
+                self.presentEvergreenAccountCreationPromptIfNeeded()
+                return
+            }
             // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
@@ -620,22 +635,26 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         return formatter.string(from: Date())
     }
 
-    private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
+    private func presentFundraisingOrYearInReviewOrGamesIfNeeded() {
         if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
             listenForTooltips()
         }
 
-        if needsYearInReviewAnnouncement() {
-            willDisplayYearInReviewModal = true
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        } else {
-            willDisplayYearInReviewModal = false
-            showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
-                self?.presentGamesAnnouncementIfNeeded()
-            })
-        }
+        // Fundraising outranks Year in Review, and resolves asynchronously, so the rest of the
+        // chain runs from its callback.
+        showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
+            guard let self else { return }
+
+            if self.needsYearInReviewAnnouncement() {
+                self.willDisplayYearInReviewModal = true
+                self.updateProfileButton()
+                self.presentYearInReviewAnnouncement()
+                // YIR showed — games deferred to next launch.
+            } else {
+                self.willDisplayYearInReviewModal = false
+                self.presentGamesAnnouncementIfNeeded()
+            }
+        })
     }
 
     @objc private func wButtonTapped(_ sender: UIButton) {
@@ -1019,7 +1038,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
         case .scrollToAnchor(let anchor, let attempt, let maxAttempts, let completion):
             scrollRestorationState = .none
-            self.scroll(to: anchor, animated: true) { [weak self] (success) in
+            // An early attempt can run before the page script exists. Only the last attempt reports the error.
+            self.scroll(to: anchor, animated: false, reportsErrors: attempt >= maxAttempts) { [weak self] (success) in
                 guard !success, attempt < maxAttempts else {
                     completion?(success, attempt >= maxAttempts)
                     return
@@ -1051,10 +1071,16 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func checkForScrollToAnchor(in response: HTTPURLResponse) {
-        guard let fragment = response.url?.fragment else {
+        guard let fragment = response.url?.fragment, semanticSearchPassages.isEmpty else {
             return
         }
-        scrollRestorationState = .scrollToAnchor(fragment, attempt: 1)
+
+        // The fragment is percent-encoded in the URL. Element ids are not.
+        scrollRestorationState = .scrollToAnchor(fragment.removingPercentEncoding ?? fragment, attempt: 1, completion: { [weak self] success, maxedAttempts in
+            if success || maxedAttempts {
+                self?.setWebViewHidden(false, animated: true)
+            }
+        })
     }
 
     // MARK: Article State Restoration
@@ -1069,12 +1095,17 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
-    /// Perform any necessary initial configuration for state restoration
+    /// Perform any necessary initial configuration for state restoration, or for a URL with a
+    /// section: the article shows up already at the section, not scrolling from the top.
     func setupForStateRestorationIfNecessary() {
-        guard isRestoringState else {
+        guard isRestoringState || opensAtSection else {
             return
         }
         setWebViewHidden(true, animated: false)
+    }
+
+    var opensAtSection: Bool {
+        articleURL.fragment != nil
     }
 
     /// Translates an article's viewedScrollPosition or viewedFragment values to a scrollRestorationState. These values are saved to the article object when the ArticleVC disappears,the app is backgrounded, or an edit is made and the article is reloaded.
@@ -1446,6 +1477,7 @@ private extension ArticleViewController {
 
     @objc func debouncedContentSizeDidChange() {
         restoreScrollStateIfNecessary()
+        scrollToSemanticSearchTargetIfReady()
     }
 
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
@@ -1465,6 +1497,10 @@ private extension ArticleViewController {
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
+        // The Year in Review announcement defers to the fundraising banner for the rest of the
+        // session. Coming back from the background is the next app open, so clear it here.
+        Self.didShowFundraisingBannerThisSession = false
+
         startSignificantlyViewedTimer()
         trackAppDidBecomeActive()
     }
@@ -1647,7 +1683,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 extension ArticleViewController {
     func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
         if showEmptyView {
-            wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+            wmf_showEmptyView(of: .articleDidNotLoad, frame: view.bounds)
         }
         showError(error)
         refreshControl.endRefreshing()

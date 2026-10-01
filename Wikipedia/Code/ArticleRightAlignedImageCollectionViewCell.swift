@@ -36,7 +36,6 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
 
     override open func updateStyles() {
         styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
-        boldFont = .boldCallout
     }
 
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

@@ -53,10 +53,22 @@ import WMFTestKitchen
             queue: nil
         ) { [weak self] notification in
             guard let self else { return }
+            // Notification is not Sendable. Read the Sendable project value before the task starts.
+            let project = notification.object as? WMFProject
             Task {
-                await self.invalidateForYouCache(project: notification.object as? WMFProject)
+                await self.invalidateForYouCache(project: project)
             }
         }
+    }
+    
+    /// Forces the persisted experiment bucket before the shared singleton is initialized.
+    /// Must be called before the first access to `WMFHomeDataController.shared`.
+    /// Used in UITesting
+    public static func forceExperimentAssignment(_ assignment: HomeTabExperimentAssignment) {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let controller = WMFExperimentsDataController(store: store)
+        let forceValue: WMFExperimentsDataController.BucketValue = assignment == .groupB ? .homeTabGroupB : .homeTabControl
+        _ = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50, forceValue: forceValue)
     }
     
     public nonisolated func assignExperiment() {
@@ -119,6 +131,17 @@ import WMFTestKitchen
 
     public nonisolated func setHasSeenOneTimeOnboarding(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue, value: newValue)
+    }
+
+    // MARK: - Settings: For You Swipe Onboarding
+
+    /// Whether the swipe-up hint has been shown over the For You feed. It is shown at most once.
+    public nonisolated func hasSeenForYouSwipeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenForYouSwipeOnboarding.rawValue)) ?? false
+    }
+
+    public nonisolated func setHasSeenForYouSwipeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenForYouSwipeOnboarding.rawValue, value: newValue)
     }
 
     // MARK: - Settings: Selected Language

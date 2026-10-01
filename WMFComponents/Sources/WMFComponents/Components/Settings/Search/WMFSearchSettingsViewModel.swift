@@ -1,41 +1,54 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 @MainActor
 public final class WMFSearchSettingsViewModel: ObservableObject {
 
-    public struct LocalizedStrings {
-        public let title: String
-        public let showLanguagesTitle: String
-        public let openOnSearchTabTitle: String
-        public let footerText: String
+    public let title = CommonStrings.searchTitle
+    let showLanguagesTitle = WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view")
+    let openOnSearchTabTitle = WMFLocalizedString("settings-search-open-app-on-search", value: "Open app on Search tab", comment: "Title for setting that allows users to open app on Search tab")
+    let semanticSearchTitle = WMFLocalizedString("settings-search-semantic-search-title", value: "Search within articles", comment: "Title of the Search settings row that shows or hides the semantic search entry point on the search screen.")
+    let semanticSearchSubtitle = WMFLocalizedString("settings-search-semantic-search-subtitle", value: "Jump straight into the relevant passage", comment: "Subtitle of the Search settings row that shows or hides the semantic search entry point on the search screen.")
 
-        public init(title: String, showLanguagesTitle: String, openOnSearchTabTitle: String, footerText: String) {
-            self.title = title
-            self.showLanguagesTitle = showLanguagesTitle
-            self.openOnSearchTabTitle = openOnSearchTabTitle
-            self.footerText = footerText
-        }
+    var footerText: String {
+        WMFDeveloperSettingsDataController.shared.isCommunityFeedMode
+            ? WMFLocalizedString("settings-search-footer-text-home", value: "Set the app to open to the Search tab instead of the Home tab", comment: "Footer text for section that allows users to customize certain Search settings, shown while the Home tab experiment is enabled")
+            : WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
     }
 
     @Published public private(set) var sections: [SettingsSection] = []
     @Published public var showLanguageBar: Bool = false
     @Published public var openAppOnSearchTab: Bool = false
+    @Published public var showSemanticSearchEntryPoint: Bool = false
     @Published public var isLoading: Bool = true
 
-    public let localizedStrings: LocalizedStrings
+    /// The semantic search row only exists for readers who can see the entry point.
+    public let showsSemanticSearchItem: Bool
 
     private let userDefaultsStore: WMFKeyValueStore?
-    public var onToggleShowLanguageBar: ((Bool) -> Void)?
-    public var onToggleOpenAppOnSearchTab: ((Bool) -> Void)?
+    public var onToggleShowLanguageBar: (@MainActor @Sendable (Bool) -> Void)?
+    public var onToggleOpenAppOnSearchTab: (@MainActor @Sendable (Bool) -> Void)?
+    public var onToggleShowSemanticSearchEntryPoint: (@MainActor @Sendable (Bool) -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, showLanguageBar: Bool, openAppOnSearchTab: Bool, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, onToggleShowLanguageBar: ((Bool) -> Void)? = nil, onToggleOpenAppOnSearchTab: ((Bool) -> Void)? = nil) {
-        self.localizedStrings = localizedStrings
+    public init(
+        showLanguageBar: Bool,
+        openAppOnSearchTab: Bool,
+        showsSemanticSearchItem: Bool = false,
+        showSemanticSearchEntryPoint: Bool = false,
+        userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
+        onToggleShowLanguageBar: (@MainActor @Sendable (Bool) -> Void)? = nil,
+        onToggleOpenAppOnSearchTab: (@MainActor @Sendable (Bool) -> Void)? = nil,
+        onToggleShowSemanticSearchEntryPoint: (@MainActor @Sendable (Bool) -> Void)? = nil
+    ) {
         self.showLanguageBar = showLanguageBar
         self.openAppOnSearchTab = openAppOnSearchTab
+        self.showsSemanticSearchItem = showsSemanticSearchItem
+        self.showSemanticSearchEntryPoint = showSemanticSearchEntryPoint
         self.userDefaultsStore = userDefaultsStore
         self.onToggleShowLanguageBar = onToggleShowLanguageBar
         self.onToggleOpenAppOnSearchTab = onToggleOpenAppOnSearchTab
+        self.onToggleShowSemanticSearchEntryPoint = onToggleShowSemanticSearchEntryPoint
 
         Task { await loadAndBuild() }
     }
@@ -49,14 +62,17 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
     }
 
     private func buildSections() {
+        var items = [showLanguagesToggleItem()]
+        if showsSemanticSearchItem {
+            items.append(semanticSearchToggleItem())
+        }
+        items.append(openOnSearchTabToggleItem())
+
         sections = [
             SettingsSection(
                 header: nil,
-                footer: localizedStrings.footerText,
-                items: [
-                    showLanguagesToggleItem(),
-                    openOnSearchTabToggleItem()
-                ]
+                footer: footerText,
+                items: items
             )
         ]
     }
@@ -65,9 +81,21 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
         SettingsItem(
             image: nil,
             color: nil,
-            title: localizedStrings.showLanguagesTitle,
+            title: showLanguagesTitle,
             subtitle: nil,
             accessory: .toggle(showLanguagesBinding),
+            action: nil
+        )
+    }
+
+    private func semanticSearchToggleItem() -> SettingsItem {
+        SettingsItem(
+            image: nil,
+            color: nil,
+            title: semanticSearchTitle,
+            subtitle: semanticSearchSubtitle,
+            showsBetaBadge: true,
+            accessory: .toggle(semanticSearchBinding),
             action: nil
         )
     }
@@ -76,7 +104,7 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
         SettingsItem(
             image: nil,
             color: nil,
-            title: localizedStrings.openOnSearchTabTitle,
+            title: openOnSearchTabTitle,
             subtitle: nil,
             accessory: .toggle(openOnSearchTabBinding),
             action: nil
@@ -85,20 +113,30 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
 
     private var showLanguagesBinding: Binding<Bool> {
         Binding(
-            get: { self.showLanguageBar },
-            set: { newValue in
-                self.showLanguageBar = newValue
-                self.onToggleShowLanguageBar?(newValue)
+            get: { [weak self] in self?.showLanguageBar ?? false },
+            set: { [weak self] newValue in
+                self?.showLanguageBar = newValue
+                self?.onToggleShowLanguageBar?(newValue)
+            }
+        )
+    }
+
+    private var semanticSearchBinding: Binding<Bool> {
+        Binding(
+            get: { [weak self] in self?.showSemanticSearchEntryPoint ?? false },
+            set: { [weak self] newValue in
+                self?.showSemanticSearchEntryPoint = newValue
+                self?.onToggleShowSemanticSearchEntryPoint?(newValue)
             }
         )
     }
 
     private var openOnSearchTabBinding: Binding<Bool> {
         Binding(
-            get: { self.openAppOnSearchTab },
-            set: { newValue in
-                self.openAppOnSearchTab = newValue
-                self.onToggleOpenAppOnSearchTab?(newValue)
+            get: { [weak self] in self?.openAppOnSearchTab ?? false },
+            set: { [weak self] newValue in
+                self?.openAppOnSearchTab = newValue
+                self?.onToggleOpenAppOnSearchTab?(newValue)
             }
         )
     }

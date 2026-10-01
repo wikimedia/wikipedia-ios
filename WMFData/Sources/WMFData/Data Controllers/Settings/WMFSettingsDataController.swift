@@ -16,7 +16,7 @@ public actor WMFSettingsDataController: ObservableObject {
     private var yirDataController: WMFYearInReviewDataController?
     let donationDataController: WMFDonateDataController?
 
-    private init (yirDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController(),
+    init(yirDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController(),
                   donationDataController: WMFDonateDataController? = WMFDonateDataController()
     ) {
         self.yirDataController = yirDataController
@@ -62,16 +62,22 @@ public actor WMFSettingsDataController: ObservableObject {
         return donationDataController.hasLocallySavedDonations
     }
 
-    public func deleteLocalDonations() {
+    public func deleteLocalDonations() async {
         guard let donationDataController else {
             return
         }
         donationDataController.deleteLocalDonationHistory()
+
+        try? await yirDataController?.deletePersonalizedData(for: .donations)
     }
 
 
     public func setYirActive(_ enabled: Bool) async -> Bool {
         yirDataController?.yearInReviewSettingsIsEnabled = enabled
+
+        if !enabled {
+            try? await yirDataController?.deleteAllPersonalizedData()
+        }
 
         return yirIsActive()
     }
@@ -140,11 +146,5 @@ public actor WMFSettingsDataController: ObservableObject {
 
     public nonisolated func setSkipChooseEditorSheet(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue, value: newValue)
-    }
-
-    /// Resets both editing preferences, so the sheet shows again and the mode falls back to visual.
-    public nonisolated func clearDefaultEditMode() {
-        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.defaultEditMode.rawValue)
-        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue)
     }
 }

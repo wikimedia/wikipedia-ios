@@ -17,6 +17,15 @@ public struct WMFSurveyView: View {
         return !selectedOptions.isEmpty || !otherOptionText.isEmpty
     }
 
+    private var isOverCharacterLimit: Bool {
+        guard let characterLimit = viewModel.otherTextCharacterLimit else { return false }
+        return otherOptionText.count > characterLimit
+    }
+
+    private var canSubmit: Bool {
+        userHasSelectedReasons && !isOverCharacterLimit
+    }
+
     @FocusState var otherOptionTextFieldSelected: Bool
 
     @State var otherOptionText = ""
@@ -40,21 +49,6 @@ public struct WMFSurveyView: View {
     public var body: some View {
         NavigationView {
             List {
-                Section {
-                    VStack(alignment: .leading) {
-                        Text(viewModel.localizedStrings.subtitle)
-                            .font(Font(WMFFont.for(.callout)))
-                        if let instructions = viewModel.localizedStrings.instructions {
-                            Text(instructions)
-                                .font(Font(WMFFont.for(.italicCallout)))
-                        }
-                    }
-                }
-                .foregroundColor(Color(theme.secondaryText))
-                .listRowBackground(Color.clear)
-                .listRowSeparator(.hidden)
-                .listCustomSectionSpacing(0)
-
                 Section {
                     ForEach(viewModel.options) { optionViewModel in
                         HStack {
@@ -85,6 +79,27 @@ public struct WMFSurveyView: View {
                     }
                     .listRowBackground(Color(theme.paperBackground))
                     .listRowSeparatorTint(Color(theme.newBorder))
+                } header: {
+                    VStack(alignment: .leading, spacing: 8) {
+                        if let heading = viewModel.localizedStrings.heading {
+                            Text(heading)
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                                .foregroundColor(Color(theme.text))
+                        }
+                        Text(viewModel.localizedStrings.subtitle)
+                            .font(Font(WMFFont.for(.callout)))
+                            .foregroundColor(Color(theme.secondaryText))
+                        if let instructions = viewModel.localizedStrings.instructions {
+                            Text(instructions)
+                                .font(Font(WMFFont.for(.italicCallout)))
+                                .foregroundColor(Color(theme.secondaryText))
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .textCase(nil)
+                    .listRowInsets(EdgeInsets())
+                    .padding(.top, 24)
+                    .padding(.bottom, 24)
                 }
                 .listSectionSeparator(.hidden)
 
@@ -103,20 +118,43 @@ public struct WMFSurveyView: View {
                         .listRowBackground(Color(theme.paperBackground))
                     }
 
+                } footer: {
+                    if let characterLimit = viewModel.otherTextCharacterLimit {
+                        HStack {
+                            if isOverCharacterLimit, let characterLimitErrorText = viewModel.localizedStrings.characterLimitErrorText {
+                                Text(characterLimitErrorText)
+                                    .foregroundColor(Color(theme.destructive))
+                            }
+                            Spacer()
+                            Text("\(otherOptionText.count)/\(characterLimit)")
+                                .foregroundColor(Color(isOverCharacterLimit ? theme.destructive : theme.secondaryText))
+                        }
+                        .font(Font(WMFFont.for(.caption1)))
+                    }
                 }
                 .listCustomSectionSpacing(16)
                 .listRowSeparator(.hidden)
             }
             .listBackgroundColor(Color(theme.baseBackground))
             .listStyle(.insetGrouped)
+            .background(Color(theme.baseBackground))
             .navigationTitle(viewModel.localizedStrings.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(viewModel.localizedStrings.cancel) {
-                        cancelAction?()
+                    if #available(iOS 26.0, *) {
+                        Button(role: .close) {
+                            cancelAction?()
+                        }
+                    } else {
+                        Button {
+                            cancelAction?()
+                        } label: {
+                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
+                        }
+                        .foregroundStyle(Color(theme.link))
+                        .accessibilityLabel(viewModel.localizedStrings.cancel)
                     }
-                    .foregroundStyle(Color(theme.link))
                 }
 
                 ToolbarItem(placement: .topBarTrailing) {
@@ -126,8 +164,8 @@ public struct WMFSurveyView: View {
                         }
                         submitAction?(Array(selectedOptions), otherOptionText)
                     }
-                    .disabled(!userHasSelectedReasons)
-                    .foregroundStyle(Color(userHasSelectedReasons ? theme.link : theme.secondaryText))
+                    .disabled(!canSubmit)
+                    .foregroundStyle(Color(canSubmit ? theme.link : theme.secondaryText))
                 }
             }
             }
