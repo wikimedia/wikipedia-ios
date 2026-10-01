@@ -118,8 +118,18 @@ public actor WMFSettingsDataController: ObservableObject {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
     }
 
-    public func setOpenAppOnSearchTab(_ newValue: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
+    /// Synchronous on purpose: the app reads this value while it builds its tabs, and the launch
+    /// migrations write it just before that. Returns whether the value was saved, so a migration
+    /// can keep its source value and retry on the next launch when it was not.
+    @discardableResult
+    public nonisolated func setOpenAppOnSearchTab(_ newValue: Bool) -> Bool {
+        guard let userDefaultsStore else { return false }
+        do {
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
+            return true
+        } catch {
+            return false
+        }
     }
 
     // MARK: - Editing Preferences

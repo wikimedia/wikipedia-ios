@@ -27,6 +27,7 @@ private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfig
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
 private let wmfLegacyDefaultTabTypeKey = "WMFDefaultTabTypeKey"
+private let wmfLegacyDefaultTabTypeSettingsValue = 1 // the old `WMFAppDefaultTabType.settings`
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
 
@@ -832,7 +833,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                     self.isMigrationComplete = true
                     self.isMigrationActive = false
                     self.endMigrationBackgroundTask()
-                    self.removeLegacyDefaultTabTypeIfNeeded()
+                    self.migrateLegacyDefaultTabTypeIfNeeded()
                     self.applyUITestLaunchOverridesIfNeeded()
                     self.checkRemoteAppConfigIfNecessary()
                     self.setupControllers()
@@ -844,11 +845,17 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
-    /// Home is always the main tab and the Explore tab setting no longer exists. Remove the stored value,
-    /// which a reader who had turned Explore off still has as "Settings". Their "open app on Search tab"
-    /// setting is separate and is left alone, so the app keeps opening where it did for them.
-    private func removeLegacyDefaultTabTypeIfNeeded() {
+    /// The Explore tab setting no longer exists. A reader who had turned Explore off has `.settings` stored,
+    /// and the old setter also turned on "open app on Search tab" for them. Reset that one so they land on Home.
+    /// A reader who still had Explore on keeps their own Search setting.
+    private func migrateLegacyDefaultTabTypeIfNeeded() {
         guard UserDefaults.standard.object(forKey: wmfLegacyDefaultTabTypeKey) != nil else { return }
+
+        if UserDefaults.standard.integer(forKey: wmfLegacyDefaultTabTypeKey) == wmfLegacyDefaultTabTypeSettingsValue {
+            // Keep the legacy key until the write succeeds, so the migration retries on the next launch instead of losing the reader's state.
+            guard WMFSettingsDataController.shared.setOpenAppOnSearchTab(false) else { return }
+        }
+
         UserDefaults.standard.removeObject(forKey: wmfLegacyDefaultTabTypeKey)
     }
 
@@ -2148,8 +2155,8 @@ extension WMFAppViewController {
         guard let navVC = viewController as? UINavigationController,
               let rootViewController = navVC.viewControllers.first else { return }
 
-        if rootViewController is ExploreViewController {
-            NavigationEventsFunnel.shared.logTappedExplore()
+        if rootViewController is HomeViewController {
+            NavigationEventsFunnel.shared.logTappedHome()
         } else if rootViewController is PlacesViewController {
             NavigationEventsFunnel.shared.logTappedPlaces()
         } else if rootViewController is SavedViewController {

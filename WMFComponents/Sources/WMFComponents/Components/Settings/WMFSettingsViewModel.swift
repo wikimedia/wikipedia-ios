@@ -269,7 +269,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         await refreshSections()
     }
 
-    /// Updates the language, explore feed status and reading theme synchronously
+    /// Updates the language and reading theme synchronously
     /// by patching the affected items directly in the existing sections array.
     public func updateDynamicValues(primaryLanguage: String, readingPreferenceTheme: String) {
         self.mainLanguage = primaryLanguage
