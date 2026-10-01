@@ -75,6 +75,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var unprocessedShortcutItem: UIApplicationShortcutItem?
 
     private var backgroundTasks: [String: UIBackgroundTaskIdentifier] = [:]
+    private var yearInReviewPopulateTask: Task<Void, Never>?
     private let backgroundTasksLock = NSLock()
     
     private var isWaitingToResumeApp: Bool = false
@@ -476,6 +477,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()
+        populateYearInReviewReportIfNeeded()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
         savedArticlesFetcher?.start()
@@ -1567,6 +1569,41 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // Read the cached controller rather than the lazy getter — badging must never be the thing
         // that constructs the Activity tab.
         _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
+    }
+
+    /// Fills the Year in Review report in the background, so the slides can read it when they open.
+    /// The data controller checks the remote config, the active dates, the Settings toggle and the country.
+    private func populateYearInReviewReportIfNeeded() {
+        guard yearInReviewPopulateTask == nil,
+              let appLanguage = dataStore.languageLinkController.appLanguage,
+              let countryCode = Locale.current.region?.identifier else {
+            return
+        }
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+
+        yearInReviewPopulateTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                let dataController = try WMFYearInReviewDataController()
+                try await dataController.populateYearInReviewReportData(
+                    for: WMFYearInReviewDataController.targetYear,
+                    countryCode: countryCode,
+                    primaryAppLanguageProject: project,
+                    username: username,
+                    userID: permanentUser?.userID,
+                    globalUserID: permanentUser?.globalUserID,
+                    savedSlideDataDelegate: dataStore.savedPageList,
+                    legacyPageViewsDataDelegate: dataStore,
+                    mainPageIdentifier: dataStore
+                )
+            } catch {
+                DDLogError("Error populating the Year in Review report: \(error)")
+            }
+            yearInReviewPopulateTask = nil
+        }
     }
 
     @objc func handleNotificationsCenterContextDidSave() {
