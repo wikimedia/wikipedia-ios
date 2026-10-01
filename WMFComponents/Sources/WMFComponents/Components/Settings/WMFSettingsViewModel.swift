@@ -153,20 +153,18 @@ final public class WMFSettingsViewModel: ObservableObject {
     private var tempUsername: String?
     private var isTempAccount: Bool
     private var mainLanguage: String
-    private var exploreFeedStatus: Bool
     private var readingPreferenceTheme: String
     public weak var coordinatorDelegate: SettingsCoordinatorDelegate?
     private let dataController: WMFSettingsDataController
 
     // MARK: - Lifecycle
 
-    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataController: WMFSettingsDataController) async {
+    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataController: WMFSettingsDataController) async {
         self.localizedStrings = localizedStrings
         self.username = username
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
@@ -181,7 +179,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController
@@ -192,7 +189,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: primaryLanguage,
-            exploreFeedStatus: exploreFeedStatus,
             readingPreferenceTheme: readingPreferenceTheme,
             coordinatorDelegate: coordinatorDelegate,
             dataController: dataController
@@ -207,7 +203,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController,
@@ -218,7 +213,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
@@ -230,7 +224,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController
@@ -241,7 +234,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: primaryLanguage,
-            exploreFeedStatus: exploreFeedStatus,
             readingPreferenceTheme: readingPreferenceTheme,
             coordinatorDelegate: coordinatorDelegate,
             dataController: dataController,
@@ -279,9 +271,8 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     /// Updates the language, explore feed status and reading theme synchronously
     /// by patching the affected items directly in the existing sections array.
-    public func updateDynamicValues(primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
+    public func updateDynamicValues(primaryLanguage: String, readingPreferenceTheme: String) {
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
 
         // Find the main section (the one that has no header and contains the myLanguages item).
@@ -296,13 +287,6 @@ final public class WMFSettingsViewModel: ObservableObject {
                         image: existing.image, color: existing.color,
                         title: existing.title, subtitle: existing.subtitle,
                         accessory: .chevron(label: primaryLanguage),
-                        action: existing.action)
-
-                } else if title == localizedStrings.exploreFeedTitle || title == CommonStrings.communityFeedTitle {
-                    sections[sectionIndex].items[itemIndex] = SettingsItem(
-                        image: existing.image, color: existing.color,
-                        title: existing.title, subtitle: existing.subtitle,
-                        accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle),
                         action: existing.action)
 
                 } else if title == localizedStrings.readingpreferences {
@@ -344,9 +328,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             // powers the Community segment and its settings stay reachable here relabeled as Community.
             feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
                 self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-            }))
-            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
-                self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
             }))
         }
 

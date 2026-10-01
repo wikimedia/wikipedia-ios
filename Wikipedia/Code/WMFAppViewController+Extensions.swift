@@ -1229,7 +1229,6 @@ extension WMFAppViewController {
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
-        viewModel.isExploreFeedOn = UserDefaults.standard.integer(forKey: "WMFDefaultTabTypeKey") == 0
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -1331,7 +1330,6 @@ extension WMFAppViewController {
     @objc func generateSettingsTab() -> SettingsTabViewController {
         let dataController = WMFSettingsDataController.shared
 
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
         let username = dataStore.authenticationManager.authStatePermanentUsername
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
@@ -1372,7 +1370,6 @@ extension WMFAppViewController {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: language,
-            exploreFeedStatus: isExploreFeedOn,
             readingPreferenceTheme: themeName,
             coordinatorDelegate: nil,
             dataController: dataController

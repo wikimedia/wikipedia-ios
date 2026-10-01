@@ -1,24 +1,13 @@
 import XCTest
 import WMFComponents
 
-/// Tests for the new multi-step app onboarding, shown at first launch when the home tab
-/// feature flag is enabled. The legacy welcome flow (shown when the flag is off) is covered
-/// by `AppOnboardingUITests`.
+/// Tests for the app onboarding shown at first launch.
 final class NewAppOnboardingUITests: XCTestCase {
 
     func testFirstLaunchShowsOnboardingSmoke() throws {
-        launchWikipediaAppRobot(onboardingState: .notCompleted, enablesHomeTab: true)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
             .newOnboarding
             .assertPage(.intro)
-    }
-
-    func testLegacyOnboardingShownWhenHomeTabDisabled() throws {
-        let app = launchWikipediaAppRobot(onboardingState: .notCompleted, enablesHomeTab: false)
-
-        app.onboarding
-            .assertPage(.introduction)
-        app.newOnboarding
-            .assertNotShown()
     }
 
     func testOnboardingScreenshots() throws {
@@ -31,7 +20,7 @@ final class NewAppOnboardingUITests: XCTestCase {
             case feedPreference = "New App Onboarding Feed Preference"
         }
 
-        let app = launchWikipediaAppRobot(onboardingState: .notCompleted, enablesHomeTab: true)
+        let app = launchWikipediaAppRobot(onboardingState: .notCompleted)
 
         app.newOnboarding
             .assertPage(.intro)
@@ -54,7 +43,7 @@ final class NewAppOnboardingUITests: XCTestCase {
     }
 
     func testAdvanceThroughAllStepsCompletesOnboarding() throws {
-        launchWikipediaAppRobot(onboardingState: .notCompleted, enablesHomeTab: true)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
             .newOnboarding
             .advance(to: .feedPreference)
             .tapNext()
@@ -62,7 +51,7 @@ final class NewAppOnboardingUITests: XCTestCase {
     }
 
     func testSkipFromPersonalizationCompletesOnboarding() throws {
-        launchWikipediaAppRobot(onboardingState: .notCompleted, enablesHomeTab: true)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
             .newOnboarding
             .advance(to: .personalizationIntro)
             .tapSkip()
@@ -70,7 +59,7 @@ final class NewAppOnboardingUITests: XCTestCase {
     }
 
     func testLearnMoreLinksPresentDestinations() throws {
-        launchWikipediaAppRobot(onboardingState: .notCompleted, enablesHomeTab: true)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
             .newOnboarding
             .assertPage(.intro)
             .assertLearnMoreOpensWebView()
@@ -81,8 +70,7 @@ final class NewAppOnboardingUITests: XCTestCase {
     func testAdditionalLanguageCanBeAddedDuringOnboarding() throws {
         let app = launchWikipediaAppRobot(
             onboardingState: .notCompleted,
-            resetsPreferredLanguages: true,
-            enablesHomeTab: true
+            resetsPreferredLanguages: true
         )
 
         let preferredLanguages = app.newOnboarding
@@ -101,8 +89,7 @@ final class NewAppOnboardingUITests: XCTestCase {
 
         launchWikipediaAppRobot(
             onboardingState: .notCompleted,
-            resetsPreferredLanguages: true,
-            enablesHomeTab: true
+            resetsPreferredLanguages: true
         )
             .newOnboarding
             .advance(to: .languages)
@@ -111,7 +98,7 @@ final class NewAppOnboardingUITests: XCTestCase {
     }
 
     func testInterestsSearchAddsArticle() throws {
-        launchWikipediaAppRobot(onboardingState: .notCompleted, enablesHomeTab: true)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
             .newOnboarding
             .advance(to: .interests)
             .searchInterests(for: "Einstein")
