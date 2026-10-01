@@ -14,25 +14,24 @@ final class WMFSemanticSearchResultsTests {
     @Test
     func resultsKeepTheRankOrderOfTheAPI() async throws {
         try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService()) }) {
-            let page = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
+            let response = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
 
-            #expect(page.results.map(\.title) == ["Complexité de la communication", "Communication", "Communication animale"])
-            #expect(page.nextOffset == 3)
+            #expect(response.results.map(\.title) == ["Complexité de la communication", "Communication", "Communication animale"])
         }
     }
 
     @Test
     func resultsDecodeSnippetSectionAndThumbnail() async throws {
         try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService()) }) {
-            let page = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
+            let response = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
 
-            let first = try #require(page.results.first)
+            let first = try #require(response.results.first)
             #expect(first.pageID == 7825418)
             #expect(first.snippetHTML.hasPrefix("<span class=\"searchmatch\">La complexité de la communication"))
             #expect(first.sectionTitle == nil)
             #expect(first.thumbnailURL == nil)
 
-            let last = try #require(page.results.last)
+            let last = try #require(response.results.last)
             #expect(last.sectionTitle == "Différence entre communication et information")
             #expect(last.thumbnailURL?.host == "thumb.wikimedia.org")
         }

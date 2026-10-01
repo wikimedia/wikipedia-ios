@@ -35,11 +35,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     @Published private(set) var state: State = .loading
     @Published private(set) var results: [WMFSemanticSearchResultViewModel] = []
-    @Published private(set) var isLoadingMore = false
 
-    static let maximumResultCount = 8
-
-    private var nextOffset: Int?
     private var loadTask: Task<Void, Never>?
     private let readInArticleAction: ResultAction
     private let closeAction: Action
@@ -80,23 +76,8 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
         cancel()
         state = .loading
         results = []
-        nextOffset = nil
         loadTask = Task { [weak self] in
-            await self?.fetch(offset: 0)
-        }
-    }
-
-    func loadMoreIfNeeded(after item: WMFSemanticSearchResultViewModel) {
-        guard state == .results,
-              item.id == results.last?.id,
-              let nextOffset,
-              !isLoadingMore else {
-            return
-        }
-
-        isLoadingMore = true
-        loadTask = Task { [weak self] in
-            await self?.fetch(offset: nextOffset)
+            await self?.fetch()
         }
     }
 
@@ -104,29 +85,22 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     public func cancel() {
         loadTask?.cancel()
         loadTask = nil
-        isLoadingMore = false
     }
 
-    private func fetch(offset: Int) async {
+    private func fetch() async {
         do {
-            let page = try await WMFSemanticSearchDataController.shared.fetchResults(query: query, project: project, offset: offset)
+            let response = try await WMFSemanticSearchDataController.shared.fetchResults(query: query, project: project)
             guard !Task.isCancelled else { return }
 
-            let newResults = page.results.map { WMFSemanticSearchResultViewModel(result: $0, project: project, localizedStrings: resultLocalizedStrings, readInArticleAction: readInArticleAction) }
-            let allResults = offset == 0 ? newResults : results + newResults
-            results = Array(allResults.prefix(Self.maximumResultCount))
-            nextOffset = results.count < Self.maximumResultCount ? page.nextOffset : nil
+            results = response.results.map { WMFSemanticSearchResultViewModel(result: $0, project: project, localizedStrings: resultLocalizedStrings, readInArticleAction: readInArticleAction) }
             state = results.isEmpty ? .empty : .results
         } catch is CancellationError {
             return
         } catch {
             guard !Task.isCancelled else { return }
-            if offset == 0 {
-                state = .error(errorViewModel(for: Self.errorKind(for: error)))
-            }
+            state = .error(errorViewModel(for: Self.errorKind(for: error)))
         }
 
-        isLoadingMore = false
         loadTask = nil
     }
 
