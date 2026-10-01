@@ -116,8 +116,8 @@ final class WMFActivityTabDataControllerPreferencesTests {
     /// With no app language configured there is no project to build a request for. Both account
     /// fetches must throw rather than force-unwrap their way into a crash.
     @Test
-    func accountFetchesThrowWhenThereIsNoAppLanguage() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+    func accountFetchesThrowWhenThereIsNoAppLanguage() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let dataController = WMFActivityTabDataController()
 
             #expect(WMFDataEnvironment.current.primaryAppLanguage == nil, "Premise of this test.")
