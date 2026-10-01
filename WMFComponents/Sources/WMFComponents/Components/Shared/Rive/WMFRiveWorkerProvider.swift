@@ -66,6 +66,11 @@ enum WMFRiveWorkerProvider {
         throw failure ?? WMFRiveError.workerUnavailable
     }
 
+    /// Decodes image data on the worker that draws the files, so a view model can bind it.
+    static func decodeImage(from data: Data) async throws -> RiveRuntime.Image {
+        try await sharedWorker().decodeImage(from: data)
+    }
+
     static func makeRive(for animation: WMFRiveAnimation) async throws -> Rive {
         let worker = try await sharedWorker()
         let file = try await File(source: .local(animation.resourceName, .module), worker: worker)
