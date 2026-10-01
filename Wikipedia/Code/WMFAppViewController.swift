@@ -20,18 +20,18 @@ import WMFNativeLocalizations
 
 // MARK: - Constants
 
-private let wmfTimeBeforeShowingExploreScreenOnLaunch: TimeInterval = 24 * 60 * 60
+private let wmfTimeBeforeShowingHomeScreenOnLaunch: TimeInterval = 24 * 60 * 60
 private let wmfRemoteAppConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+private let wmfLegacyDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
-private var kvoNSUserDefaultsDefaultTabType = UInt8(0)
 
 // MARK: - Public constant
 
@@ -101,14 +101,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var configuration: Configuration?
     private var router: ViewControllerRouter?
     
-    private var isUpdatingDefaultTab: Bool = false
     private var rootTabAccessibilityIdentifiers: [String?] = []
 
     // MARK: - init / deinit
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        UserDefaults.standard.removeObserver(self, forKeyPath: UserDefaults.Key.defaultTabType)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
 
@@ -130,7 +128,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         
         tabItemIdentifiersToDelete = []
         tabIdentifiersToDelete = []
-        isUpdatingDefaultTab = false
     }
 
     required init?(coder: NSCoder) {
@@ -198,11 +195,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                selector: #selector(articleSaveToDiskDidFail(_:)),
                                                name: SavedArticlesFetcher.saveToDiskDidFail,
                                                object: nil)
-
-        UserDefaults.standard.addObserver(self,
-                                          forKeyPath: UserDefaults.Key.defaultTabType,
-                                          options: .new,
-                                          context: &kvoNSUserDefaultsDefaultTabType)
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(exploreFeedPreferencesDidChange(_:)),
@@ -347,9 +339,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         transitionsController = ViewControllerTransitionsController()
 
         searchTabViewController.apply(theme: theme)
-        if UserDefaults.standard.defaultTabType == .settings {
-            settingsViewController.apply(theme: theme)
-        }
 
         if let savedTabBarItem = savedViewController.tabBarItem {
             savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
@@ -637,27 +626,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         readingListHintPresenter.dismissToast()
     }
 
-    // MARK: - Explore feed preferences
-
-    private func updateDefaultTab() {
-        guard !isUpdatingDefaultTab else { return }
-        isUpdatingDefaultTab = true
-        DispatchQueue.main.async {
-            let update: () -> Void = {
-                self.currentTabNavigationController?.popToRootViewController(animated: false)
-                self.configureTabController()
-                self.updateActivityTabYearInReviewBadge()
-                self.selectedIndex = WMFAppTabType.search.rawValue
-                self.isUpdatingDefaultTab = false
-            }
-            if let presented = self.presentedViewController {
-                presented.dismiss(animated: true, completion: update)
-            } else {
-                update()
-            }
-        }
-    }
-
     // MARK: - Hint
 
     private func showReadingListHintForArticle(_ article: WMFArticle) {
@@ -864,6 +832,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                     self.isMigrationComplete = true
                     self.isMigrationActive = false
                     self.endMigrationBackgroundTask()
+                    self.removeLegacyDefaultTabTypeIfNeeded()
                     self.applyUITestLaunchOverridesIfNeeded()
                     self.checkRemoteAppConfigIfNecessary()
                     self.setupControllers()
@@ -873,6 +842,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 }
             }
         }
+    }
+
+    /// Home is always the main tab and the Explore tab setting no longer exists. Remove the stored value,
+    /// which a reader who had turned Explore off still has as "Settings". Their "open app on Search tab"
+    /// setting is separate and is left alone, so the app keeps opening where it did for them.
+    private func removeLegacyDefaultTabTypeIfNeeded() {
+        guard UserDefaults.standard.object(forKey: wmfLegacyDefaultTabTypeKey) != nil else { return }
+        UserDefaults.standard.removeObject(forKey: wmfLegacyDefaultTabTypeKey)
     }
 
     private func applyUITestLaunchOverridesIfNeeded() {
@@ -972,9 +949,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                     done()
                 }
                 _ = self.dataStore.authenticationManager.authStateIsTemporary
-            } else if self.shouldShowExploreScreenOnLaunch() {
+            } else if self.shouldShowHomeOnLaunch() {
                 self.hideSplashView()
-                self.showExplore()
+                self.showHome()
                 done()
             } else {
                 self.hideSplashView()
@@ -1230,7 +1207,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func canProcessUserActivity(_ activity: NSUserActivity?) -> Bool {
         guard let activity else { return false }
         switch activity.wmf_type() {
-        case .explore, .places, .savedPages, .search, .settings, .appearanceSettings, .content, .activity, .random:
+        case .home, .places, .savedPages, .search, .settings, .appearanceSettings, .content, .activity, .random:
             return true
         case .searchResults:
             return activity.wmf_searchTerm() != nil
@@ -1262,7 +1239,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let type = activity.wmf_type()
 
         switch type {
-        case .explore:
+        case .home:
             dismissPresentedViewControllers()
             selectedIndex = WMFAppTabType.main.rawValue
             currentTabNavigationController?.popToRootViewController(animated: animated)
@@ -1389,10 +1366,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         return contentURL
     }
 
-    private func shouldShowExploreScreenOnLaunch() -> Bool {
+    private func shouldShowHomeOnLaunch() -> Bool {
         guard !shouldOpenAppOnSearchTab() else { return false }
         guard let resignActiveDate = UserDefaults.standard.wmf_appResignActiveDate() else { return false }
-        return abs(resignActiveDate.timeIntervalSinceNow) >= wmfTimeBeforeShowingExploreScreenOnLaunch
+        return abs(resignActiveDate.timeIntervalSinceNow) >= wmfTimeBeforeShowingHomeScreenOnLaunch
     }
 
     func visibleArticleViewController() -> ArticleViewController? {
@@ -1422,8 +1399,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if context == &kvoSavedArticlesFetcherProgress {
             ProgressContainer.shared.articleFetcherProgress = _savedArticlesFetcher?.progress
-        } else if context == &kvoNSUserDefaultsDefaultTabType {
-            updateDefaultTab()
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
@@ -1471,9 +1446,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 homeViewController.updateProfileButton()
             } else {
                 self.exploreViewController.updateProfileButton()
-            }
-            if UserDefaults.standard.defaultTabType == .settings {
-                self.settingsViewController.updateProfileButton()
             }
         }
     }
@@ -1639,9 +1611,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         splashScreenViewController?.triggerMigratingAnimation()
     }
 
-    // MARK: - Explore VC
+    // MARK: - Home
 
-    private func showExplore() {
+    private func showHome() {
         selectedIndex = WMFAppTabType.main.rawValue
         currentTabNavigationController?.popToRootViewController(animated: false)
     }
@@ -1924,9 +1896,6 @@ extension WMFAppViewController: Themeable {
             return
         }
         
-        if UserDefaults.standard.defaultTabType == .settings {
-            settingsViewController.apply(theme: theme)
-        }
         exploreViewController.apply(theme: theme)
         placesViewController.apply(theme: theme)
         savedViewController.apply(theme: theme)
@@ -2144,15 +2113,7 @@ extension WMFAppViewController {
             settingsNavigationController.pushViewController(sub, animated: false)
         }
 
-        switch UserDefaults.standard.defaultTabType {
-        case .settings:
-            selectedIndex = WMFAppTabType.main.rawValue
-            if let sub = subViewController {
-                push(sub, animated: animated)
-            }
-        default:
-            present(settingsNavigationController, animated: animated, completion: nil)
-        }
+        present(settingsNavigationController, animated: animated, completion: nil)
     }
 
     private func showSettings(animated: Bool) {
@@ -2187,10 +2148,8 @@ extension WMFAppViewController {
         guard let navVC = viewController as? UINavigationController,
               let rootViewController = navVC.viewControllers.first else { return }
 
-        if rootViewController is ExploreViewController && UserDefaults.standard.defaultTabType == .explore {
+        if rootViewController is ExploreViewController {
             NavigationEventsFunnel.shared.logTappedExplore()
-        } else if rootViewController is SettingsTabViewController && UserDefaults.standard.defaultTabType == .settings {
-            NavigationEventsFunnel.shared.logTappedSettingsFromTabBar()
         } else if rootViewController is PlacesViewController {
             NavigationEventsFunnel.shared.logTappedPlaces()
         } else if rootViewController is SavedViewController {
@@ -2211,9 +2170,6 @@ extension WMFAppViewController {
         showLoggedOutPanelIfNeeded()
         DispatchQueue.main.async {
             self.exploreViewController.updateProfileButton()
-            if UserDefaults.standard.defaultTabType == .settings {
-                self.settingsViewController.updateProfileButton()
-            }
             UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
 
             if self.isResumeComplete {
@@ -2229,9 +2185,6 @@ extension WMFAppViewController {
     @objc private func userWasLoggedIn(_ note: Notification) {
         DispatchQueue.main.async {
             self.exploreViewController.updateProfileButton()
-            if UserDefaults.standard.defaultTabType == .settings {
-                self.settingsViewController.updateProfileButton()
-            }
 
             if self.isResumeComplete {
                 self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
