@@ -1720,6 +1720,10 @@
 "year-in-review-2026-announcement-exit-toast-title" = "You can access your Year in Review later in Activity.";
 "year-in-review-2026-feedback-email-first-line" = "I have feedback about Year in Review:";
 "year-in-review-2026-feedback-email-subject" = "Year in Review Feedback";
+"year-in-review-2026-reread-articles-empty-subtitle" = "So much for looking at an article twice. You prefer novelty and falling down new rabbit holes.";
+"year-in-review-2026-reread-articles-empty-title" = "You're not a re-reader";
+"year-in-review-2026-reread-articles-title" = "Some articles in your rotation:";
+"year-in-review-2026-reread-articles-visit-count" = "{{PLURAL:$1|$1 visit|$1 visits}}";
 "year-in-review-button-title" = "Year in Review";
 "year-in-review-feature-announcement-title-personalized" = "Explore your Wikipedia Year in Review";
 "year-in-review-feature-explore-body-v3" = "See insights about which articles you read on the Wikipedia app and the edits you made.";
