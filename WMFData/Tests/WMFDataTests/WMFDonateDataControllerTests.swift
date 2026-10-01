@@ -1,6 +1,7 @@
 import Contacts
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
@@ -8,6 +9,7 @@ import Testing
 struct WMFDonateDataControllerTests {
 
     private let controller: WMFDonateDataController
+    private let fixture = WMFDataTestFixture()
 
     init() {
         controller = WMFDonateDataController(service: WMFDonateRequestMockService(), sharedCacheStore: WMFMockKeyValueStore())
@@ -77,6 +79,30 @@ struct WMFDonateDataControllerTests {
     }
 
     @Test
+    func fetchConfigsUsesTheHardcodedPaymentMethodsWhenThePaymentsAPIFails() async throws {
+        try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+            WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        }) {
+            let rateLimitedController = WMFDonateDataController(service: WMFDonateRequestRateLimitedPaymentsMockService(), sharedCacheStore: WMFMockKeyValueStore())
+
+            await #expect(throws: (any Error).self) {
+                try await rateLimitedController.fetchConfigs(for: "US")
+            }
+
+            WMFDeveloperSettingsDataController.shared.useHardcodedPaymentMethods = true
+            try await rateLimitedController.fetchConfigs(for: "US")
+
+            let donateData = rateLimitedController.loadConfigs()
+            let paymentMethods = try #require(donateData.paymentMethods)
+            #expect(donateData.donateConfig != nil)
+            #expect(paymentMethods.applePayPaymentNetworks == [.amex, .discover, .maestro, .masterCard, .visa])
+
+            WMFDeveloperSettingsDataController.shared.useHardcodedPaymentMethods = false
+        }
+    }
+
+    @Test
     func donateSubmitPaymentNoInternetConnection() async throws {
         controller.service = WMFMockServiceNoInternetConnection()
 
@@ -140,6 +166,32 @@ private final class WMFDonateRequestMockService: WMFService {
             request.parameters?["country"] as? String == "US" &&
             request.parameters?["currency"] as? String == "USD"
     }
+}
+
+private final class WMFDonateRequestRateLimitedPaymentsMockService: WMFService {
+    private let baseService = WMFDonateRequestMockService()
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        completion(.failure(WMFServiceError.unexpectedResponse))
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        completion(.failure(WMFServiceError.unexpectedResponse))
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        if request.parameters?["action"] as? String == "getPaymentMethods" {
+            completion(.failure(WMFServiceError.unexpectedResponse))
+        } else {
+            baseService.performDecodableGET(request: request, completion: completion)
+        }
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        completion(.failure(WMFServiceError.unexpectedResponse))
+    }
+
+    func clearCachedData() {}
 }
 
 private extension WMFDonateDataController {

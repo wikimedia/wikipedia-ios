@@ -199,7 +199,6 @@
 "explore-because-you-read-footer" = "Más artículos rellacionaos";
 "explore-continue-reading-heading" = "Siguir lleyendo";
 "explore-detail-back-button-title" = "Volver a la canal d'esploración";
-"explore-enable-location-title" = "Esplorar artículos cercanos al to allugamientu actual";
 "explore-featured-article-heading" = "Artículu destacáu";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Wikipedia";
@@ -295,7 +294,6 @@
 "home-nearby-footer" = "Más llugares cerca del to allugamientu";
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más actividaes actuales";
-"home-reading-list-prompt" = "Los artículos guardaos agora pueden organizase'n llistes de llectura y sincronizase ente preseos. Anicia sesión pa permitir que les llistes de llectura se guarden nes preferencies d'usuariu.";
 "home-themes-action-title" = "Alministrar les preferencies";
 "home-themes-prompt" = "Axusta les preferencies de Llectura, incluyendo'l tamañu del testu y tema, dende la barra de ferramientes del artículu o na configuración d'usuariu pa una esperiencia de llectura más cómoda.";
 "home-title" = "Esplorar";
@@ -418,11 +416,7 @@
 "reading-list-list-limit-exceeded-message" = "Esta llista de llectura y los artículos guardaos nella nun se sincronizarán, reduz el númberu de llistes a $1 pa siguir sincronizando esta llista.";
 "reading-list-list-limit-exceeded-title" = "Pasasti la llende de {{PLURAL:$1|$1 llista|$1 llistes}} de llectura per cuenta.";
 "reading-list-list-limit-reached" = "Aportasti a la llende de $1 llistes de llectura per cuenta";
-"reading-list-login-button-title" = "Anicia sesión pa sincronizar los artículos guardaos";
 "reading-list-login-or-create-account-button-title" = "Aniciar sesión o crear una cuenta";
-"reading-list-login-or-create-account-title" = "Anicia sesión pa sincronizar los artículos guardaos";
-"reading-list-login-subtitle" = "Anicia sesión o crea una cuenta pa permitir que los artículos guardaos y llistes de llectura se sincronicen ente preseos y se guarden nes preferencies d'usuariu.";
-"reading-list-login-title" = "¿Sincronizar los artículos guardaos?";
 "reading-list-name-user-created-annotation" = "_[creada pol usuariu]";
 "reading-list-new-list-description-placeholder" = "descripción curtia opcional";
 "reading-list-new-list-name-placeholder" = "títulu de la llista de llectura";
@@ -449,7 +443,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Llibera espaciu nel preséu y tenta nuevamente";
 "reading-lists-articles-not-synced-limit-exceeded" = "Dellos artículos nun se sincronizaron, pasóse la llende";
 "reading-lists-conflicting-reading-list-name-updated" = "Camudóse'l nome de la llista «$1» a «$2»";
-"reading-lists-count" = "{{PLURAL:$1|$1 llista|$1 llistes}} de llectura";
 "reading-lists-default-list-description" = "Llista predeterminada d'artículos guardaos";
 "reading-lists-default-list-title" = "Guardada";
 "reading-lists-delete-reading-list-alert-message" = "Esta aición nun puede desfacese. Cuanquier artículu guardáu sólo {{PLURAL:$1|nesta llista|nestes llistes}} va dexar de guardase.";

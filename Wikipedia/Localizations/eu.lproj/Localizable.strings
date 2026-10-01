@@ -135,7 +135,6 @@
 "explore-because-you-read-footer" = "Erlazionatutako artikulu gehiago";
 "explore-continue-reading-heading" = "Jarraitu irakurtzen";
 "explore-detail-back-button-title" = "Atzera Arakatze jariora";
-"explore-enable-location-title" = "Zure kokapenetik gertuko artikuluak arakatu";
 "explore-featured-article-heading" = "Nabarmendutako artikulua";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Wikipediatik";
 "explore-featured-article-sub-heading-from-wikipedia" = "Wikipediatik";
@@ -230,7 +229,6 @@
 "home-nearby-footer" = "Zure kokapenetik gertuko leku gehiago";
 "home-nearby-location-footer" = "Zure kokapenetik gertuko gehiago $1";
 "home-news-footer" = "Oraingo gertakari gehiago";
-"home-reading-list-prompt" = "Gordetako artikuluak irakurketa-zerrendatan antola eta sinkroniza daitezke gailuetan zehar. Hasi saioa zure irakurketa-zerrendak zure erabiltzaile prefentzietan gordetzeko baimena eman ahal izateko.";
 "home-themes-action-title" = "Lehentasunak aukeratu";
 "home-themes-prompt" = "Zure irakurketa lehentasunak hitzartu testuaren neurria eta gaia artikuluaren erraminta atalean edo erabiltzailearen doitze atalean, irakurketa esperientzia erosoagoa izateko.";
 "home-title" = "Esploratu";
@@ -350,11 +348,7 @@
 "reading-list-list-limit-exceeded-message" = "Irakurketa zerrenda hau eta hor gordetako artikuluak ez dira sinkronizatuko. Murriztu ezazu zure zerrenda kopurua $1-(e)ra, zerrenda honen sinkronizazioari berriz ekin ahal izateko.";
 "reading-list-list-limit-exceeded-title" = "Kontu bakoitzeko {{PLURAL:$1|irakurketa zerrenda $1en|$1 irakurketa zerrenden}} muga gainditu duzu.";
 "reading-list-list-limit-reached" = "Kontu bakoitzeko $1 irakurketa-zerrenden muga gainditu duzu.";
-"reading-list-login-button-title" = "Hasi saioa gordetako arikuluak sinkronizatzeko";
 "reading-list-login-or-create-account-button-title" = "Hasi saioa edo sortu kontua";
-"reading-list-login-or-create-account-title" = "Hasi saioa gordetako artikuluak sinkronizatzeko";
-"reading-list-login-subtitle" = "Hasi saioa edo sortu kontu bat zure gordetako artikuluak eta irakurketa-zerrendak gailu guztietan sinkronizatzeko eta zure erabiltzailearen hobespenetan gorde ahal izateko.";
-"reading-list-login-title" = "Gordetako artikuluak sinkronizatu?";
 "reading-list-name-user-created-annotation" = "_[erabiltzailea sortua]";
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
@@ -381,7 +375,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Hustu espazio pixka bat zure gailuan eta berriz saiatu";
 "reading-lists-articles-not-synced-limit-exceeded" = "Artikulu batzuk ez dira sinkronizatu, muga gainditu da";
 "reading-lists-conflicting-reading-list-name-updated" = "Zure '$1' zerrenda '$2' berrizendatu da";
-"reading-lists-count" = "{{PLURAL:$1|irakurketa zerrenda bat|$1 irakurketa zerrenda}}";
 "reading-lists-default-list-description" = "Zerrenda lehenetsia gordetako artikuluentzat";
 "reading-lists-default-list-title" = "Gordeta";
 "reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";

@@ -161,6 +161,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     var tabItemIdentifier: UUID?
     var needsFocusOnSearch: Bool
     private let revisionID: UInt64?
+    private let semanticSearchPassages: [String]
 
     init(
         navigationController: UINavigationController,
@@ -173,7 +174,8 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         previousPageViewObjectID: NSManagedObjectID? = nil,
         tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab,
         needsFocusOnSearch: Bool = false,
-        revisionID: UInt64? = nil
+        revisionID: UInt64? = nil,
+        semanticSearchPassages: [String] = []
     ) {
         self.navigationController = navigationController
         self.articleURL = articleURL
@@ -186,6 +188,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.tabConfig = tabConfig
         self.needsFocusOnSearch = needsFocusOnSearch
         self.revisionID = revisionID
+        self.semanticSearchPassages = semanticSearchPassages
         super.init()
     }
     
@@ -206,6 +209,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         }
         articleVC.isRestoringState = isRestoringState
         articleVC.initialLoadRevisionID = revisionID
+        articleVC.semanticSearchPassages = semanticSearchPassages
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         
         Task {

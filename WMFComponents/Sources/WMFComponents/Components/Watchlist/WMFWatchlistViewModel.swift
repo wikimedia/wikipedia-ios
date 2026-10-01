@@ -156,21 +156,25 @@ public final class WMFWatchlistViewModel: ObservableObject {
         menuButtonItemsWithoutThank = menuButtonItems.dropLast()
     }
 
-	 public func fetchWatchlist(_ completion: (() -> Void)? = nil) {
+	 public func fetchWatchlist(_ completion: (@MainActor @Sendable () -> Void)? = nil) {
         dataController.fetchWatchlist { result in
-			switch result {
-			case .success(let watchlist):
-				self.items = watchlist.items.map { item in
-                    let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, isAnonymous: item.isAnon, isTemp: item.isTemp, isBot: item.isBot, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project, htmlStripped: self.localizedStrings.htmlStripped)
-					return viewModel
-				}
-				self.sections = self.sortWatchlistItems()
-                self.activeFilterCount = watchlist.activeFilterCount
-			case .failure:
-				break
-			}
-			self.hasPerformedInitialFetch = true
-            completion?()
+            // The data controller calls back off-main; hop to the main actor before
+            // touching view model state.
+            Task { @MainActor in
+                switch result {
+                case .success(let watchlist):
+                    self.items = watchlist.items.map { item in
+                        let viewModel = ItemViewModel(title: item.title, commentHTML: item.commentHtml, commentWikitext: item.commentWikitext, timestamp: item.timestamp, username: item.username, isAnonymous: item.isAnon, isTemp: item.isTemp, isBot: item.isBot, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID, byteChange: Int(item.byteLength) - Int(item.oldByteLength), project: item.project, htmlStripped: self.localizedStrings.htmlStripped)
+                        return viewModel
+                    }
+                    self.sections = self.sortWatchlistItems()
+                    self.activeFilterCount = watchlist.activeFilterCount
+                case .failure:
+                    break
+                }
+                self.hasPerformedInitialFetch = true
+                completion?()
+            }
 		}
 	}
 

@@ -198,15 +198,11 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *sendAnalyticsToWMFLabs = WMFLocalizedStringWithDefaultValue(@"developer-settings-send-analytics-to-wmflabs", nil, nil, @"Send analytics to wmflabs.", @"Title for setting to send analytics to a different backend. Displayed on the developer settings view.");
 
-    NSString *enableYearInReview = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-year-in-review", nil, nil, @"Enable Year in Review", @"Title for enabling the Year in Review feature. Displayed on the developer settings view.");
-
     NSString *bypassDonation = WMFLocalizedStringWithDefaultValue(@"developer-settings-bypass-donation", nil, nil, @"Bypass Donation", @"Title for option to bypass a donation in developer settings menu.");
 
     NSString *forceEmailAuth = WMFLocalizedStringWithDefaultValue(@"developer-force-email-auth", nil, nil, @"Force email auth", @"Title for option to force email auth in developer settings menu.");
 
-    NSString *enableMoreDynamicTabsV2GroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-group-C-v2", nil, nil, @"Enable tabs V2 with group C", @"Title for option to enable for Group C V2");
-
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableMoreDynamicTabsV2GroupC:enableMoreDynamicTabsV2GroupC enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth done:WMFCommonStringsWrapper.doneTitle];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth done:WMFCommonStringsWrapper.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

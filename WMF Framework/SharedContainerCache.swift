@@ -58,6 +58,18 @@ public final class SharedContainerCache: SharedContainerCacheHousekeepingProtoco
         try FileManager.default.removeItem(at: cacheDataFileURL)
     }
 
+    /// The names, without extension, of the JSON files cached under `subdirectoryPathComponent`.
+    public static func fileNames(inSubdirectory subdirectoryPathComponent: String) -> [String] {
+        let subdirectoryURL = cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
+        guard let fileURLs = try? FileManager.default.contentsOfDirectory(at: subdirectoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles) else {
+            return []
+        }
+
+        return fileURLs
+            .filter { $0.pathExtension == "json" }
+            .map { $0.deletingPathExtension().lastPathComponent }
+    }
+
     /// Persist only the last 50 visited talk pages
     @objc public static func deleteStaleCachedItems(in subdirectoryPathComponent: String, cleanupLevel: WMFCleanupLevel) {
         let folderURL = cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent)

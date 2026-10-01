@@ -34,7 +34,7 @@ public enum WMFIcon {
     public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
     public static let settingsPreferences = UIImage(named: "settings-preferences", in: .module, with: nil)
     public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
-    public static let settingsPrivacy = UIImage(named: "settings-privacy.pdf", in: .module, with: nil)
+    public static let settingsPrivacy = UIImage(named: "settings-privacy", in: .module, with: nil)
 
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
@@ -136,6 +136,7 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
+    case booksVertical
     case booksVerticalFill
     case creditCard
     case flask
@@ -170,6 +171,7 @@ public enum WMFSFSymbolIcon {
     case widgetAdd
     case testTubeFill
     case clock
+    case clockFill
     case calendarBadgeClock
     case gameControllerFill
     case medal
@@ -185,6 +187,7 @@ public enum WMFSFSymbolIcon {
     case chevronUpChevronDown
     case globe
     case newspaper
+    case person2Fill
 
     public var name: String? {
         switch self {
@@ -367,6 +370,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .booksVertical:
+            image = UIImage(systemName: "books.vertical", withConfiguration: configuration)
         case .booksVerticalFill:
             image = UIImage(systemName: "books.vertical.fill", withConfiguration: configuration)
         case .creditCard:
@@ -439,6 +444,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "testtube.2", withConfiguration: configuration)
         case .clock:
             image = UIImage(systemName: "clock", withConfiguration: configuration)
+        case .clockFill:
+            image = UIImage(systemName: "clock.fill", withConfiguration: configuration)
         case .calendarBadgeClock:
             image = UIImage(systemName: "calendar.badge.clock", withConfiguration: configuration)
         case .gameControllerFill:
@@ -473,6 +480,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.split.2x1", withConfiguration: configuration)
         case .newspaper:
             image = UIImage(systemName: "newspaper", withConfiguration: configuration)
+        case .person2Fill:
+            image = UIImage(systemName: "person.2.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

@@ -59,6 +59,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var _settingsViewController: SettingsTabViewController?
     private var _exploreViewController: ExploreViewController?
     private var homeCoordinator: HomeCoordinator?
+
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
     private var _searchTabViewController: SearchViewController?
     private var _savedViewController: SavedViewController?
     private var _placesViewController: PlacesViewController?
@@ -233,6 +236,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleYearInReviewActivityBadgeNeedsUpdate),
+                                               name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotificationsCenterContextDidSave),
                                                name: NSNotification.notificationsCenterContextDidSave,
                                                object: nil)
@@ -352,6 +360,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if let savedTabBarItem = savedViewController.tabBarItem {
             savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
         }
+
+        updateActivityTabYearInReviewBadge()
     }
 
     private func configureTabController() {
@@ -463,7 +473,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
+        updateActivityTabYearInReviewBadge()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
         savedArticlesFetcher?.start()
@@ -652,6 +664,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let update: () -> Void = {
                 self.currentTabNavigationController?.popToRootViewController(animated: false)
                 self.configureTabController()
+                self.updateActivityTabYearInReviewBadge()
                 self.selectedIndex = WMFAppTabType.search.rawValue
                 self.isUpdatingDefaultTab = false
             }
@@ -678,6 +691,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 if let savedTabBarItem = self.savedViewController.tabBarItem {
                     self.savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
                 }
+                self.updateActivityTabYearInReviewBadge()
                 self.selectedIndex = WMFAppTabType.main.rawValue
                 self.isUpdatingDefaultTab = false
             }
@@ -936,7 +950,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // default can't set this flag directly — write it through the data controller instead.
         // The flag persists across launches, so apply the argument in both directions.
         if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
-            WMFDeveloperSettingsDataController.shared.enableHomePhase2 = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+                let enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+                WMFDeveloperSettingsDataController.shared.enableHomePhase2 = enableHomeTab
+                WMFHomeDataController.forceExperimentAssignment(enableHomeTab ? .groupB : .control)
         }
     }
 
@@ -1532,6 +1548,27 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
+    // MARK: - Year in Review Activity tab badge
+
+    @objc private func handleYearInReviewActivityBadgeNeedsUpdate() {
+        updateActivityTabYearInReviewBadge()
+    }
+
+    private func updateActivityTabYearInReviewBadge() {
+        guard uiIsLoaded else { return }
+        guard let dataController = try? WMFYearInReviewDataController() else { return }
+
+        let needsBadge = dataController.shouldShowActivityTabBadge(countryCode: Locale.current.region?.identifier)
+
+        if #available(iOS 18.0, *) {
+            let identifier = AccessibilityIdentifiers.RootTab.activityButton
+            tabs.first { $0.identifier == identifier }?.showYearInReviewBadge(needsBadge)
+        }
+        // Read the cached controller rather than the lazy getter — badging must never be the thing
+        // that constructs the Activity tab.
+        _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
+    }
+
     @objc func handleNotificationsCenterContextDidSave() {
         DispatchQueue.main.async {
             try? UNUserNotificationCenter.current().setBadgeCount(self.dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue)
@@ -1765,6 +1802,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
             self.isCheckingRemoteConfig = false
             self.endRemoteConfigCheckBackgroundTask()
+
+            // Year in Review availability comes from this config, so the badge cannot settle
+            // until the fetch lands. This completion carries no isolation, so hop explicitly.
+            Task { @MainActor in
+                self.updateActivityTabYearInReviewBadge()
+            }
         }
     }
 
@@ -1787,6 +1830,8 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         wmf_hideKeyboard()
         logDidSelectViewController(viewController)
+        recordEvergreenAccountCreationAppOpenIfNeeded()
+        presentEvergreenAccountCreationPromptIfNeeded()
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
@@ -1979,8 +2024,6 @@ extension WMFAppViewController: Themeable {
         searchTabViewController.apply(theme: theme)
 
         applyTheme(theme, toPresentedViewController: presentedViewController)
-
-        WMFToastManager.sharedInstance.apply(theme: theme)
 
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
@@ -2389,5 +2432,23 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
         oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
             self?.oneTimeOnboardingViewController = nil
         }
+    }
+}
+
+// MARK: - Year in Review badge glyph
+
+/// Matches `SavedTabBarItemProgressBadgeManager`, which badges its tab with this same glyph.
+private let wmfYearInReviewTabBadgeGlyph = "\u{2605}"
+
+private extension UITabBarItem {
+    func showYearInReviewBadge(_ shouldShow: Bool) {
+        badgeValue = shouldShow ? wmfYearInReviewTabBadgeGlyph : nil
+    }
+}
+
+@available(iOS 18.0, *)
+private extension UITab {
+    func showYearInReviewBadge(_ shouldShow: Bool) {
+        badgeValue = shouldShow ? wmfYearInReviewTabBadgeGlyph : nil
     }
 }

@@ -9,13 +9,13 @@ public enum WMFNSNotification {
     public static let sharedCacheStoreSetup = Notification.Name(WMFNotificationName.sharedCacheStoreSetup.rawValue)
     public static let refreshExploreForGamesCard = Notification.Name(WMFNotificationName.refreshExploreForGamesCard.rawValue)
     public static let whichCameFirstSessionDidUpdate = Notification.Name(WMFNotificationName.whichCameFirstSessionDidUpdate.rawValue)
-    public static let gamesAllSessionsCleared = Notification.Name(WMFNotificationName.gamesAllSessionsCleared.rawValue)
     public static let enableHomeTabDidChange = Notification.Name(WMFNotificationName.enableHomeTabDidChange.rawValue)
     public static let enableHomePhase2DidChange = Notification.Name(WMFNotificationName.enableHomePhase2DidChange.rawValue)
     public static let communityModuleVisibilityDidChange = Notification.Name(WMFNotificationName.communityModuleVisibilityDidChange.rawValue)
     public static let forYouModuleVisibilityDidChange = Notification.Name(WMFNotificationName.forYouModuleVisibilityDidChange.rawValue)
     public static let forYouInterestsDidChange = Notification.Name(WMFNotificationName.forYouInterestsDidChange.rawValue)
     public static let pageViewHistoryDidChange = Notification.Name(WMFNotificationName.pageViwHistoryDidChange.rawValue)
+    public static let yearInReviewActivityTabBadgeNeedsUpdate = Notification.Name(WMFNotificationName.yirActivity2026.rawValue)
 
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -32,11 +32,11 @@ private enum WMFNotificationName: String {
     case sharedCacheStoreSetup = "WMFDataSharedCacheStoreSetup"
     case refreshExploreForGamesCard = "WMFDataRefreshExploreForGamesCard"
     case whichCameFirstSessionDidUpdate = "WMFDataWhichCameFirstSessionDidUpdate"
-    case gamesAllSessionsCleared = "WMFDataGamesAllSessionsCleared"
     case enableHomeTabDidChange = "WMFDataEnableHomeTabDidChange"
     case enableHomePhase2DidChange = "WMFDataEnableHomePhase2DidChange"
     case communityModuleVisibilityDidChange = "WMFDataCommunityModuleVisibilityDidChange"
     case forYouModuleVisibilityDidChange = "WMFDataForYouModuleVisibilityDidChange"
     case forYouInterestsDidChange = "WMFDataForYouInterestsDidChange"
     case pageViwHistoryDidChange = "WMFPageViewHistoryDidChange"
+    case yirActivity2026 = "WMFYearInReviewActivityTabBadgeNeedsUpdate"
 }

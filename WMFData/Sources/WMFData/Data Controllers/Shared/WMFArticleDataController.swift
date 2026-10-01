@@ -99,7 +99,7 @@ public final class WMFArticleDataController {
     ///   - project: Project the article belongs to (EN Wiki, etc)
     ///   - request: Request struct to fetch certain pieces of data. So far can support watchlist status and user rollback rights.
     ///   - completion: Completion block called when API has completed
-    public func fetchArticleInfo(title: String, project: WMFProject, request: ArticleInfoRequest, completion: @escaping (Result<WMFArticleInfoResponse, Error>) -> Void) {
+    public func fetchArticleInfo(title: String, project: WMFProject, request: ArticleInfoRequest, completion: @escaping @Sendable (Result<WMFArticleInfoResponse, Error>) -> Void) {
          
         guard let mediaWikiService else {
              completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))

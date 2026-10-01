@@ -197,26 +197,14 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         return WMFFeatureConfigResponse(common: common, ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
     }
     
-    var october17: Date {
-        var components = DateComponents()
-        components.year = 2025
-        components.month = 10
-        components.day = 17
-        components.hour = 0
-        components.minute = 0
-        components.second = 0
-        return Calendar.current.date(from: components)!
+    /// Before `testConfig`'s active window opens.
+    var beforeActiveWindow: Date {
+        return Date().addingTimeInterval(-60 * 60 * 24 * 2)
     }
-    
-    var december15: Date {
-        var components = DateComponents()
-        components.year = 2025
-        components.month = 12
-        components.day = 15
-        components.hour = 0
-        components.minute = 0
-        components.second = 0
-        return Calendar.current.date(from: components)!
+
+    /// Inside `testConfig`'s active window.
+    var insideActiveWindow: Date {
+        return Date()
     }
     
     func testYearInReviewEntryPointFeatureDisabled() throws {
@@ -232,7 +220,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             return
         }
         
-        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: october17)
+        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: beforeActiveWindow)
         
         XCTAssertFalse(shouldShowEntryPoint, "Should not show entry point for mock config outside of active dates.")
     }
@@ -246,8 +234,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2025, id: .readCount)
-        try await yearInReviewDataController.createNewYearInReviewReport(year: 2025, slides: [slides])
+        let slides = WMFYearInReviewSlide(year: 2026, id: .readCount)
+        try await yearInReviewDataController.createNewYearInReviewReport(year: 2026, slides: [slides])
         
         guard let usCountryCode, let ruCountryCode else {
             XCTFail("Missing expected country codes")
@@ -255,11 +243,11 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         }
         
         await MainActor.run {
-            let shouldShowEntryPointUS = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: december15)
+            let shouldShowEntryPointUS = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: insideActiveWindow)
             
             XCTAssertTrue(shouldShowEntryPointUS, "US should show entry point for mock YiR config.")
 
-            let shouldShowEntryPointRU = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: ruCountryCode, currentDate: december15)
+            let shouldShowEntryPointRU = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: ruCountryCode, currentDate: insideActiveWindow)
             
             XCTAssertFalse(shouldShowEntryPointRU, "RU should not show entry point for mock YiR config.")
         }
@@ -353,12 +341,14 @@ extension WMFFeatureConfigResponse.Common.YearInReview {
     
     static var testConfig: WMFFeatureConfigResponse.Common.YearInReview {
         
-        // Dynamically set always active end date for test stability
+        // Both ends of the active window are set around "now", so the config is active while
+        // the tests run whatever the date. The 2025 config anchored its start to a fixed
+        // 2025-12-01, which only counted as active because that date had passed.
         let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
-        let oneDay = 60 * 60 * 24
-        let activeEndDate = Date().addingTimeInterval(Double(oneDay))
-        let activeEndDateString = dateFormatter.string(from: activeEndDate)
+        let oneDay: TimeInterval = 60 * 60 * 24
+        let activeStartDateString = dateFormatter.string(from: Date().addingTimeInterval(-oneDay))
+        let activeEndDateString = dateFormatter.string(from: Date().addingTimeInterval(oneDay))
         
-        return WMFFeatureConfigResponse.Common.YearInReview(year: 2025, activeStartDateString: "2025-12-01T00:00:00Z", activeEndDateString: activeEndDateString, dataStartDateString: "2025-01-01T00:00:00Z", dataEndDateString: "2025-12-01T00:00:00Z", languages: 300, articles: 10000000, savedArticlesApps: 37574993, viewsApps: 1000000000, editsApps: 124356, editsPerMinute: 342, averageArticlesReadPerYear: 335, edits: 81987181, editsEN: 31000000, hoursReadEN: 2423171000, yearsReadEN: 275000, topReadEN: testTopReadEN, topReadPercentages:testTopReadPercentages, bytesAddedEN: 1000000000, hideCountryCodes: testHideCountryCodes, hideDonateCountryCodes: testHideDonateCountryCodes)
+        return WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: activeStartDateString, activeEndDateString: activeEndDateString, dataStartDateString: "2026-01-01T00:00:00Z", dataEndDateString: "2026-12-01T00:00:00Z", languages: 300, articles: 10000000, savedArticlesApps: 37574993, viewsApps: 1000000000, editsApps: 124356, editsPerMinute: 342, averageArticlesReadPerYear: 335, edits: 81987181, editsEN: 31000000, hoursReadEN: 2423171000, yearsReadEN: 275000, topReadEN: testTopReadEN, topReadPercentages:testTopReadPercentages, bytesAddedEN: 1000000000, hideCountryCodes: testHideCountryCodes, hideDonateCountryCodes: testHideDonateCountryCodes)
     }
 }

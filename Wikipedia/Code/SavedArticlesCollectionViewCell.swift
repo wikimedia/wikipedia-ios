@@ -282,7 +282,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         if let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, failure: { (error) in }, success: { })
             }
         } else {
             isImageViewHidden = true
