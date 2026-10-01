@@ -35,8 +35,7 @@ extension Notification.Name {
 extension WMFAppViewController {
 
     @objc func shouldOpenAppOnSearchTab() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+        return WMFSettingsDataController.shared.openAppOnSearchTab()
     }
 
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
@@ -778,9 +777,8 @@ extension WMFAppViewController {
             return
         }
         let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
-        let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            await settingsDataController.setOpenAppOnSearchTab(legacyValue)
+        guard WMFSettingsDataController.shared.setOpenAppOnSearchTab(legacyValue) else {
+            return
         }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
