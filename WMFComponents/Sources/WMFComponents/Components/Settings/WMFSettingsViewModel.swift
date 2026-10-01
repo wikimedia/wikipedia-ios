@@ -17,14 +17,24 @@ public struct SettingsItem: Identifiable {
     let color: UIColor?
     let title: String
     let subtitle: String?
+    let showsBetaBadge: Bool
     let accessory: AccessoryType
     let action: (() -> Void)?
 
-    public init(image: UIImage?, color: UIColor?, title: String, subtitle: String?, accessory: AccessoryType, action: (() -> Void)?) {
+    public init(
+        image: UIImage?,
+        color: UIColor?,
+        title: String,
+        subtitle: String?,
+        showsBetaBadge: Bool = false,
+        accessory: AccessoryType,
+        action: (() -> Void)?
+    ) {
         self.image = image
         self.color = color
         self.title = title
         self.subtitle = subtitle
+        self.showsBetaBadge = showsBetaBadge
         self.accessory = accessory
         self.action = action
     }
@@ -75,7 +85,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let safetyTitle: String
 
         let donationsHeader = WMFLocalizedString("settings-donations-header", value: "Donations", comment: "Header of the donations section on the settings screen.")
-        let donationRemindersTitle = WMFLocalizedString("settings-donation-reminders-title", value: "Donation reminders", comment: "Title of the donation reminders row on the settings screen.")
+        let donationRemindersTitle = CommonStrings.donationRemindersTitle
         let donationRemindersSubtitleFormat = WMFLocalizedString("settings-donation-reminders-subtitle", value: "Wikipedia will remind you to donate %1$@ every %2$@ articles you read.", comment: "Subtitle of the donation reminders row on the settings screen. %1$@ is the donation amount, %2$@ is the number of articles.")
         let clearDonationHistoryTitle = WMFLocalizedString("settings-clear-donation-history", value: "Clear donation history", comment: "Title of the row on the settings screen that deletes the locally saved donation history.")
 
@@ -374,7 +384,7 @@ final public class WMFSettingsViewModel: ObservableObject {
 
         var mainItems: [SettingsItem] = [pushNotifications, readingPrefs, articleStorage]
 
-        if WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
+        if WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled {
             mainItems.append(editingPreferencesItem())
         }
 
@@ -392,8 +402,8 @@ final public class WMFSettingsViewModel: ObservableObject {
         return section
     }
 
-    /// Only shown while the visual editing journey is in development. The value reflects the mode the
-    /// user last picked, either here or in the choose editor sheet.
+    /// Only shown while the remote feature config enables the visual editor journey. The value
+    /// reflects the mode the user last picked, either here or in the choose editor sheet.
     private func editingPreferencesItem() -> SettingsItem {
         SettingsItem(image: WMFSFSymbolIcon.for(symbol: .pencil), color: WMFColor.green600, title: WMFEditingPreferencesCopy.title, subtitle: nil, accessory: .chevron(label: WMFSettingsDataController.shared.defaultEditMode().localizedShortTitle), action: {
             self.coordinatorDelegate?.handleSettingsAction(.editingPreferences)

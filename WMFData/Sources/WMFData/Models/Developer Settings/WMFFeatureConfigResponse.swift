@@ -1,13 +1,13 @@
 import Foundation
 
-public struct WMFFeatureConfigResponse: Codable {
+public struct WMFFeatureConfigResponse: Codable, Sendable {
     
-    public struct Common: Codable {
+    public struct Common: Codable, Sendable {
         public let yir: [YearInReview]
         
-        public struct YearInReview: Codable {
+        public struct YearInReview: Codable, Sendable {
             
-            public struct TopReadPercentage: Codable {
+            public struct TopReadPercentage: Codable, Sendable {
                 public let identifier: String
                 public let min: Int
                 public let max: Int?
@@ -80,16 +80,19 @@ public struct WMFFeatureConfigResponse: Codable {
             }
             
             func isActive(for date: Date) -> Bool {
-                
-                // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
-                let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                if developerSettingsDataController.showYiR2025 {
-                    return true
-                }
-                
+
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
-                    return false 
+                    return false
                 }
+
+                // While the developer settings flag for this config's year is on, skip only the start
+                // date, so testers see the feature before launch. The end date still applies. Each
+                // year has its own flag so that an old flag cannot force a new config active. The
+                // 2025 force flag went with the 2025 UI, so only 2026 has one.
+                if year == 2026, WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
+                    return date <= activeEndDate
+                }
+
                 return date >= activeStartDate && date <= activeEndDate
             }
         }
@@ -103,10 +106,12 @@ public struct WMFFeatureConfigResponse: Codable {
         }
     }
     
-    public struct IOS: Codable {
+    public struct IOS: Codable, Sendable {
         public let hCaptcha: HCaptcha?
+        public let visualEditorEnabled: Bool?
+        public let semanticSearchLanguages: [String]
         
-        public struct HCaptcha: Codable {
+        public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
             public let jsSrc: String
             public let endpoint: String
@@ -115,6 +120,25 @@ public struct WMFFeatureConfigResponse: Codable {
             public let reportapi: String
             public let sentry: Bool
             public let apiKey: String
+        }
+
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = []) {
+            self.hCaptcha = hCaptcha
+            self.visualEditorEnabled = visualEditorEnabled
+            self.semanticSearchLanguages = semanticSearchLanguages
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case hCaptcha
+            case visualEditorEnabled
+            case semanticSearchLanguages
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            hCaptcha = try container.decodeIfPresent(HCaptcha.self, forKey: .hCaptcha)
+            visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
+            semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
         }
     }
     

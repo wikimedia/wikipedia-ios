@@ -67,7 +67,7 @@ public actor WMFImageDataController {
         }
     }
 
-    public func fetchImageInfo(title: String, thumbnailWidth: UInt, project: WMFProject, completion: @escaping (Result<WMFImageInfo, Error>) -> Void) {
+    public func fetchImageInfo(title: String, thumbnailWidth: UInt, project: WMFProject, completion: @escaping @Sendable (Result<WMFImageInfo, Error>) -> Void) {
         guard let mediaWikiService else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return

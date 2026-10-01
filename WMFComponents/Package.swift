@@ -16,7 +16,8 @@ let package = Package(
         .package(name: "WMFData", path: "../WMFData/"),
         .package(name: "WMFLocalizations", path: "../WMFLocalizations/"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.19.0"),
-        .package(url: "https://github.com/airbnb/lottie-ios.git", from: "4.5.0")
+        .package(url: "https://github.com/airbnb/lottie-ios.git", from: "4.5.0"),
+        .package(url: "https://github.com/rive-app/rive-ios.git", exact: "6.26.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -28,6 +29,7 @@ let package = Package(
                 .product(name: "WMFDataMocks", package: "WMFData"),
                 .product(name: "SDWebImage", package: "SDWebImage"),
                 .product(name: "Lottie", package: "lottie-ios"),
+                .product(name: "RiveRuntime", package: "rive-ios"),
                 .product(name: "WMFNativeLocalizations", package: "WMFLocalizations")
             ],
             path: "Sources/WMFComponents",

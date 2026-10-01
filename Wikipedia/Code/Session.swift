@@ -461,8 +461,12 @@ public class Session: NSObject {
                 completionHandler(nil, response, error)
                 return
             }
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            guard let httpResponse = response as? HTTPURLResponse else {
                 completionHandler(nil, response, nil)
+                return
+            }
+            guard HTTPStatusCode.isSuccessful(httpResponse.statusCode) else {
+                completionHandler(nil, response, RequestError.http(httpResponse.statusCode))
                 return
             }
             do {
@@ -488,8 +492,12 @@ public class Session: NSObject {
                 completionHandler(nil, response, error)
                 return
             }
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            guard let httpResponse = response as? HTTPURLResponse else {
                 completionHandler(nil, response, nil)
+                return
+            }
+            guard HTTPStatusCode.isSuccessful(httpResponse.statusCode) else {
+                completionHandler(nil, response, RequestError.http(httpResponse.statusCode))
                 return
             }
             do {

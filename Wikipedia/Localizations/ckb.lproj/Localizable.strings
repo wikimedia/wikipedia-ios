@@ -179,7 +179,6 @@
 "explore-another-random" = "وتارێکی تر بە ھەڵکەوت";
 "explore-because-you-read" = "لەبەر ئەوەی ئەمەت خوێندەوە:";
 "explore-continue-reading-heading" = "بەردەوامبوون لە خوێندنەوە";
-"explore-enable-location-title" = "بە وتارەکانی نزیک ناوچەکەت بگەڕێ";
 "explore-featured-article-heading" = "وتاری ھەڵبژێردراو";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "لە $1 ویکیپیدیا";
 "explore-featured-article-sub-heading-from-wikipedia" = "لە ویکیپیدیا";
@@ -307,7 +306,6 @@
 "no-internet-connection" = "پەیوەندیی ئینتەرنێت نییە";
 "notifications-center-agent-description-from-format" = "لە $1ەوە";
 "notifications-center-alert" = "ھۆشدار";
-"notifications-center-badge-button-accessibility-label" = "ئاگادارکەرەوەکان بە نیشانەی نەخوێندراوەوە";
 "notifications-center-cell-notification-type-accessibility-label-format" = "ئاگادارکەرەوەی $1";
 "notifications-center-change-password" = "گۆڕینی تێپەڕوشە";
 "notifications-center-checking-for-notifications" = "گەڕان بۆ ئاگادارییەکان...";
@@ -509,7 +507,6 @@
 "two-factor-login-with-regular-code" = "کۆدی دووپاتکردنەوە بەکاربھێنە";
 "unknown-generic-text" = "نەزانراو";
 "unwatch" = "لابردنی چاودێری";
-"vanish-account-username-field" = "ناوی بەکارھێنەر و پەڕەی بەکارھێنەر";
 "vanish-account-warning-title" = "ئاگاداری";
 "variants-alert-dismiss-button" = "نا سپاس";
 "variants-alert-preferences-button" = "بەسەر ھەڵبژاردەکانتدا بچۆرەوە";

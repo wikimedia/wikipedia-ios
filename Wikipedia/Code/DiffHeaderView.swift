@@ -112,7 +112,7 @@ final class DiffHeaderContentView: UIView {
         self.viewModel = new
 
         if let leadImageURL = viewModel?.imageURL {
-            imageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            imageView.wmf_setImage(with: leadImageURL, detectFaces: true, failure: { (error) in
                 DDLogWarn("Failure loading diff header image: \(error)")
             }, success: { [weak self] in
                 self?.imageView.isHidden = false

@@ -70,7 +70,6 @@
 "action-unsave" = "Wotstronić";
 "action-unsaved-accessibility-notification" = "Zapisk wotstronjeny";
 "action-update" = "Aktualizować";
-"activity-tab-add-images-title" = "Wobrazy přidać";
 "activity-tab-articles-read" = "W tutym měsacu čitane zapiski";
 "activity-tab-articles-read-graph-label" = "Nastawki";
 "activity-tab-hours-minutes-read" = "$1h $2m";
@@ -132,8 +131,6 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Chceš {{PLURAL:$1|$1 rajtark|$1 rajtarkaj|$1 rajtarki|$1 rajtarkow}} začinić? To njeda so cofnyć.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 rajtark|$1 rajtarkaj|$1 rajtarki|$1 rajtarkow}} začinić?";
 "close-button-accessibility-label" = "Začinić";
-"close-other-tabs" = "Druhe rajtarki začinić";
-"close-tab-confirmation" = "Rajtark začinić?";
 "close-tabs" = "Rajtarki začinić";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 rajtark začinjeny|$1 rajtarkaj začinjenej|$1 rajtarki začinjene|$1 rajtarkow začinjene}}.";
 "compass-direction" = "na $1 hodź.";
@@ -197,7 +194,6 @@
 "diff-thanks-send-title" = "Zjawnje so podźakować";
 "diff-thanks-sent-cannot-unsend" = "Dźakowanja njehodźa so cofnyć";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 njezměnjena linka|$1 njezměnjenej lince|$1 njezměnjene linki|$1 njezměnjenych linkow}}";
-"duplicate-tab" = "Rajtark podwojić";
 "edit-link-display-text-title" = "Pokazany tekst";
 "edit-link-link-target-title" = "Cil wotkaza";
 "edit-link-remove-link-title" = "Wotkaz wotstronić";
@@ -249,7 +245,6 @@
 "explore-another-random" = "Dalši připadny zapisk";
 "explore-because-you-read-footer" = "Dalše podobne zapiski";
 "explore-continue-reading-heading" = "Dale čitać";
-"explore-enable-location-title" = "Namakaj zapiski blisko twojeho stejišća";
 "explore-featured-article-heading" = "Doporučeny zapisk";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Z Wikipedije w tutej rěči: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipedije";
@@ -572,9 +567,7 @@
 "share-on-twitter-sign-off" = "přez Wikipediju";
 "share-social-format" = "„$1“ přez Wikipediju: $2";
 "sort-by-title-action" = "Titul";
-"survey-other-placeholder" = "Druhe";
 "survey-submit" = "Wotpósłać";
-"survey-title" = "Přičina";
 "table-of-contents-button-label" = "Zapis wobsaha";
 "table-of-contents-close-accessibility-hint" = "Začinić";
 "table-of-contents-close-accessibility-label" = "Zapis wobsaha začinić";
@@ -634,7 +627,6 @@
 "unwatch" = "Hižo njewobkedźbować";
 "user-title" = "Wužiwar";
 "vanish-account-continue-button-title" = "Dale";
-"vanish-account-username-field" = "Wužiwarske mjeno a wužiwarska strona";
 "vanish-account-warning-title" = "Warnowanje";
 "variants-alert-dismiss-button" = "Ně, dźakuju so";
 "watch" = "Wobkedźbować";

@@ -184,28 +184,6 @@ extension UIViewController {
         present(alert, animated: true)
     }
 
-    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-
-            LoginFunnel.shared.logLoginImpressionInSyncPopover()
-            let alert = UIAlertController(
-                title: WMFLocalizedString("reading-list-login-or-create-account-title", value: "Log in to sync saved articles", comment: "Title for syncing saved articles."),
-                message: CommonStrings.readingListLoginSubtitle,
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: CommonStrings.loginOrCreateAccountTitle, style: .default) { [weak self] _ in
-                self?.wmf_showLoginViewController(category: .loginToSyncPopover, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
-                LoginFunnel.shared.logLoginStartInSyncPopover()
-                dismissHandler?()
-            })
-            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
-                dismissHandler?()
-            })
-            self.present(alert, animated: true)
-        }
-    }
-
     @objc(wmf_showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:)
     func wmf_showSyncEnabledPanelOncePerLoginIfNeeded(wasSyncEnabledOnDevice: Bool) {
         Task { @MainActor [weak self] in
