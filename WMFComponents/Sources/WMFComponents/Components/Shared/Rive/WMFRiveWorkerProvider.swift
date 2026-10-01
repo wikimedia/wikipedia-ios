@@ -26,6 +26,8 @@ enum WMFRiveWorkerProvider {
 
     private static let systemFontSubstitutions: [String: UIFont] = [
         "SanSerifFont": .systemFont(ofSize: 17, weight: .bold),
+        // The list subtitles use this face. The export renames SF Pro Regular.
+        "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular),
         // TEMPORARY: New York stands in for Linux Libertine to prove the mechanism.
         // Design must either embed the real serif on export or approve this substitute.
         "SerifFont": serifSystemFont(ofSize: 17)
