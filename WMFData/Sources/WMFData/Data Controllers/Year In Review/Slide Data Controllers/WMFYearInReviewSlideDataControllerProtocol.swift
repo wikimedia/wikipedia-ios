@@ -32,6 +32,7 @@ struct YearInReviewSlideDataControllerDependencies {
     let globalUserID: Int?
     let languageCode: String?
     let userImpactDataProvider: (any YearInReviewUserImpactDataProviding)?
+    var mainPageIdentifier: (any WMFMainPageIdentifying)? = nil
 }
 
 protocol YearInReviewUserImpactDataProviding: Sendable {
