@@ -20,15 +20,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// overrides it so the funnel records where the flow was opened from.
     private var introSlideLoggingID: String = "profile"
 
-    /// Set by `setupForFeatureAnnouncement`. The next `start()` shows the announcement screen
-    /// instead of the slides, then clears this. Explore shares this coordinator with the profile
-    /// entry point, so the flag must not stay on after the announcement.
-    private var isFeatureAnnouncement = false
-
-    /// True while the announcement's data loads. Home can ask twice in a row (on appear and on
-    /// becoming active), so a second request is ignored until the first one finishes.
-    private var isPreparingFeatureAnnouncement = false
-
     /// Which slides to show. Picked from the reader's data and whether they log in from the
     /// announcement.
     enum Flow {
@@ -55,77 +46,51 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.dataController = dataController
         super.init()
     }
-
+    
     @discardableResult
     func start() -> Bool {
-        if isFeatureAnnouncement {
-            isFeatureAnnouncement = false
-            presentFeatureAnnouncement()
-        } else {
-            presentYearInReview()
-        }
-
+        presentYearInReview()
         return true
     }
 
-    func setupForFeatureAnnouncement(introSlideLoggingID: String) {
-        self.introSlideLoggingID = introSlideLoggingID
-        isFeatureAnnouncement = true
-    }
-
-    /// Shows the announcement if the reader should see it now. Explore and Home use this, so both
-    /// follow the same rules. Calls `onNotShown` when nothing is presented, so the caller can move on
-    /// to its next modal.
-    ///
-    /// Fundraising goes first through `shouldShowYearInReviewFeatureAnnouncement()`: if the campaign
-    /// banner showed this session, the announcement waits for the next app open.
-    func presentFeatureAnnouncementIfNeeded(from viewController: UIViewController, introSlideLoggingID: String, onShown: @escaping () -> Void = {}, onNotShown: @escaping () -> Void = {}) {
-        // Already loading. A repeat call must not move the caller on to its next modal.
-        guard !isPreparingFeatureAnnouncement else {
-            return
-        }
-
-        guard canPresentFeatureAnnouncement(from: viewController) else {
-            onNotShown()
-            return
-        }
-
-        onShown()
-        setupForFeatureAnnouncement(introSlideLoggingID: introSlideLoggingID)
-        start()
-    }
-
-    private func canPresentFeatureAnnouncement(from viewController: UIViewController) -> Bool {
-        guard !isPreparingFeatureAnnouncement else {
-            return false
-        }
-
-        if UIDevice.current.userInterfaceIdiom == .pad && navigationController.navigationBar.isHidden {
-            return false
-        }
-
-        // No announcement during a session that was started by a deep link.
-#if !TEST
-        if let sceneDelegate = viewController.view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
-            return false
-        }
-#endif
-
+    /// Loads the announcement data and shows the announcement. Returns true only when it is on screen.
+    /// The caller decides whether a pop-up is allowed now, and what comes next when this returns false.
+    @MainActor
+    func presentFeatureAnnouncement(introSlideLoggingID: String) async -> Bool {
         guard dataController.shouldShowYearInReviewFeatureAnnouncement() else {
             return false
         }
 
-        // Explore and Home share a navigation controller, so check both for something on screen.
-        guard viewController.presentedViewController == nil,
-              navigationController.presentedViewController == nil else {
+        self.introSlideLoggingID = introSlideLoggingID
+
+        let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
+        let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
+
+        // Something may have been presented while the data loaded.
+        guard navigationController.presentedViewController == nil else {
             return false
         }
 
-        guard viewController.isViewLoaded, viewController.view.window != nil else {
-            return false
-        }
+        announcementUserDataState = userDataState
+        let localizedStrings = announcementLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
 
+        let viewModel = WMFYearInReviewAnnouncementViewModel(
+            animation: announcementAnimation,
+            riveText: [
+                CoverTextPath.title: localizedStrings.animationAccessibilityLabel,
+                CoverTextPath.body: localizedStrings.body
+            ],
+            localizedStrings: localizedStrings,
+            delegate: self
+        )
+
+        let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
+        let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
+        announcementNavigationController.isModalInPresentation = true
+        navigationController.present(announcementNavigationController, animated: true)
+
+        // Marked here, when it is on screen, so an early exit above does not use it up.
+        dataController.hasPresentedYiRFeatureAnnouncement = true
         return true
     }
 
@@ -148,49 +113,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         // The reader has seen Year in Review, so the announcement no longer needs to show.
         dataController.hasSeenYiRIntroSlide = true
-    }
-
-    private func presentFeatureAnnouncement() {
-        // Article calls `start()` directly, so this check is here as well as in
-        // `canPresentFeatureAnnouncement`.
-        guard !isPreparingFeatureAnnouncement else { return }
-        isPreparingFeatureAnnouncement = true
-
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            defer { isPreparingFeatureAnnouncement = false }
-
-            // The developer settings toggle decides the state when it is set. See fetchUserDataState().
-            let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
-            let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
-            announcementUserDataState = userDataState
-
-            // Something may have been presented while the data loaded.
-            guard navigationController.presentedViewController == nil else { return }
-
-            let localizedStrings = announcementLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
-
-            let viewModel = WMFYearInReviewAnnouncementViewModel(
-                animation: announcementAnimation,
-                riveText: [
-                    CoverTextPath.title: localizedStrings.animationAccessibilityLabel,
-                    CoverTextPath.body: localizedStrings.body
-                ],
-                localizedStrings: localizedStrings,
-                delegate: self
-            )
-
-            // In a navigation controller so it gets the same close button and more menu as the slides.
-            let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
-            let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
-            // Swiping down would skip the close action and its toast, so only the close button dismisses.
-            announcementNavigationController.isModalInPresentation = true
-            navigationController.present(announcementNavigationController, animated: true)
-
-            // Marked here, when it is actually on screen, so a force quit before any interaction
-            // does not earn a second showing, and an early exit above does not use it up.
-            dataController.hasPresentedYiRFeatureAnnouncement = true
-        }
     }
 
     private func announcementLocalizedStrings(userDataState: WMFYearInReviewDataController.YiRUserDataState, readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {

@@ -24,6 +24,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     
     private weak var homeCoordinator: HomeCoordinator?
 
+    private var isPresentingYearInReview = false
+
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel, homeCoordinator: HomeCoordinator) {
         self.dataStore = dataStore
         self.theme = theme
@@ -131,19 +133,53 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         presentYearInReviewAnnouncementIfNeeded()
     }
 
+    // MARK: - Year in Review Announcement
+
     /// The Community segment embeds Explore, which runs its own modal chain. So this only runs when
     /// that embedded feed is not on screen, such as on the For You segment.
     private func presentYearInReviewAnnouncementIfNeeded() {
         guard _embeddedExploreViewController?.viewIfLoaded?.window == nil else { return }
+        guard !isPresentingYearInReview, canShowModalNow, let yirCoordinator else { return }
 
-        // TODO: Confirm the logging ID for Home with data before release.
-        yirCoordinator?.presentFeatureAnnouncementIfNeeded(
-            from: self,
-            introSlideLoggingID: "",
-            onShown: { [weak self] in
-                self?.updateProfileButton()
+        isPresentingYearInReview = true
+        Task { [weak self] in
+            guard let self else { return }
+            defer { isPresentingYearInReview = false }
+
+            // TODO: Confirm the logging ID for Home with data before release.
+            if await yirCoordinator.presentFeatureAnnouncement(introSlideLoggingID: "") {
+                updateProfileButton()
             }
-        )
+        }
+    }
+
+    /// Home decides whether a pop-up may show now. The coordinator only loads, shows and reports back.
+    private var canShowModalNow: Bool {
+        if didOpenAppFromExternalLink { return false }
+
+        if UIDevice.current.userInterfaceIdiom == .pad, navigationController?.navigationBar.isHidden == true {
+            return false
+        }
+
+        guard let navigationController,
+              presentedViewController == nil,
+              navigationController.presentedViewController == nil,
+              isViewLoaded, view.window != nil else {
+            return false
+        }
+        return true
+    }
+
+    /// True when this session was started by a deep link. Modals are suppressed in that case so we
+    /// do not interrupt whatever the link was pointing at.
+    private var didOpenAppFromExternalLink: Bool {
+#if !TEST
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return true
+        }
+#endif
+        return false
     }
 
     /// The article URL a For You card points at. Cards carry a `WMFProject` and a title, so the

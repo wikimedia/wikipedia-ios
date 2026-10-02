@@ -109,6 +109,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
             return existingYirCoordinator
     }
+    
+    private var isPresentingModals = false
 
     // MARK: - Lifecycle
 
@@ -1077,17 +1079,44 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 // MARK: - Modal Presentation Logic
 
 extension ExploreViewController {
-    
-    /// Modal presentation priority chain for the Explore view:
-    ///   1. Fundraising        →  never shown on Explore. If the reader qualifies for the campaign banner,
-    ///                            Year in Review waits for a later app open so the banner goes first.
-    ///   2. Year in Review     →  if shown, stop.
-    ///   3. Games announcement →  shown only when Year in Review declines.
-    ///
-    /// If Year in Review is shown, the games announcement is deferred to the next launch.
-    /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        presentYearInReviewAnnouncementOrTooltipsIfNeeded()
+        guard !isPresentingModals else { return }
+
+        // Cold launch: the store is not ready yet. coreDataStoreSetup() runs this again.
+        guard WMFDataEnvironment.current.coreDataStore != nil else { return }
+
+        isPresentingModals = true
+        Task { [weak self] in
+            guard let self else { return }
+            defer { isPresentingModals = false }
+
+            if await presentYearInReviewAnnouncementIfNeeded() {
+                updateProfileButton()
+                return
+            }
+            presentTooltipsAndGamesAnnouncementIfNeeded()
+        }
+    }
+
+    private func presentYearInReviewAnnouncementIfNeeded() async -> Bool {
+        guard canShowModalNow, let yirCoordinator else { return false }
+        return await yirCoordinator.presentFeatureAnnouncement(introSlideLoggingID: "") // TODO: confirm with analytics
+    }
+
+    private var canShowModalNow: Bool {
+        if didOpenAppFromExternalLink { return false }
+
+        if UIDevice.current.userInterfaceIdiom == .pad, navigationController?.navigationBar.isHidden == true {
+            return false
+        }
+
+        guard let navigationController,
+              presentedViewController == nil,
+              navigationController.presentedViewController == nil,
+              isViewLoaded, view.window != nil else {
+            return false
+        }
+        return true
     }
 
     /// Called at the tail of the modal chain (after Year in Review has declined).
@@ -1180,31 +1209,6 @@ extension ExploreViewController {
     private func todayDateString() -> String {
         let formatter = DateFormatter.onThisDayAPIDateFormatter
         return formatter.string(from: Date())
-    }
-
-    private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
-        // Cold launch: the store isn't ready yet. Wait for coreDataStoreSetup() to retry.
-        // Without this, the chain falls through and uses up the games announcement.
-        guard WMFDataEnvironment.current.coreDataStore != nil else {
-            return
-        }
-
-        guard let yirCoordinator else {
-            presentTooltipsAndGamesAnnouncementIfNeeded()
-            return
-        }
-
-        // If Year in Review shows, games is deferred to the next launch.
-        yirCoordinator.presentFeatureAnnouncementIfNeeded(
-            from: self,
-            introSlideLoggingID: "", // TODO: confirm with analytics
-            onShown: { [weak self] in
-                self?.updateProfileButton()
-            },
-            onNotShown: { [weak self] in
-                self?.presentTooltipsAndGamesAnnouncementIfNeeded()
-            }
-        )
     }
 
     private func presentTooltipsAndGamesAnnouncementIfNeeded() {
