@@ -1,5 +1,6 @@
 import Testing
 import WMFComponents
+import WMFData
 @testable import Wikipedia
 
 @MainActor
@@ -27,7 +28,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     }()
 
     private var allSlides: [WMFYearInReviewSlideViewModel] {
-        factory.makeSlides(for: .personalized) + factory.makeSlides(for: .collective)
+        factory.makeSlides(for: .dataRich) + factory.makeSlides(for: .lowData)
     }
 
     private static func isEmptyVersion(_ artboard: String) -> Bool {
@@ -129,12 +130,12 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
     }
 
-    // MARK: - Flows
+    // MARK: - User data state
 
-    /// Until the collective frames exist, the collective flow stands in with the empty versions.
+    /// Until the collective frames exist, low data stands in with the empty versions.
     @Test
-    func theCollectiveFlowShowsOnlyEmptyVersions() {
-        let slides = factory.makeSlides(for: .collective)
+    func lowDataShowsOnlyEmptyVersions() {
+        let slides = factory.makeSlides(for: .lowData)
         #expect(!slides.isEmpty)
 
         for slide in slides {
@@ -143,11 +144,18 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
     }
 
+    /// The other half of the mapping: data rich readers get the full versions, not the empty ones.
+    @Test
+    func dataRichShowsFullVersions() {
+        let slides = factory.makeSlides(for: .dataRich)
+        #expect(slides.contains { !Self.isEmptyVersion($0.animation?.artboardName ?? "") })
+    }
+
     /// The pager keys `.scrollPosition(id:)` on the slide id. Two slides with one id stop the
     /// paging from resolving.
-    @Test(arguments: [YearInReviewCoordinator.Flow.personalized, .collective])
-    func slideIdsAreUnique(flow: YearInReviewCoordinator.Flow) {
-        let ids = factory.makeSlides(for: flow).map(\.id)
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func slideIdsAreUnique(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+        let ids = factory.makeSlides(for: userDataState).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
     }
 
