@@ -79,6 +79,7 @@ struct ProfileListItem: Identifiable {
     let isDonate: Bool
     let isLoadingDonateConfigs: Bool
     let action: () -> ()?
+    var accessibilityIdentifier: String? = nil
 }
 
 struct ProfileSection: Identifiable {
@@ -253,7 +254,8 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showUserPageTempAccount)
-                }
+                },
+                accessibilityIdentifier: AccessibilityIdentifiers.Profile.temporaryAccountUserPageRow
             )
             let talkPageItem = ProfileListItem(
                 text: localizedStrings.talkPageTitle,
@@ -276,7 +278,8 @@ enum ProfileState {
                 action: {
                    coordinatorDelegate?.handleProfileAction(.login)
 
-                }
+                },
+                accessibilityIdentifier: AccessibilityIdentifiers.Profile.joinWikipediaRow
             )
             let donateItem = ProfileListItem(
                 text: localizedStrings.donateTitle,
@@ -365,7 +368,8 @@ enum ProfileState {
                 action: {
                     coordinatorDelegate?.handleProfileAction(.login)
 
-                }
+                },
+                accessibilityIdentifier: AccessibilityIdentifiers.Profile.joinWikipediaRow
             )
             let donateItem = ProfileListItem(
                 text: localizedStrings.donateTitle,

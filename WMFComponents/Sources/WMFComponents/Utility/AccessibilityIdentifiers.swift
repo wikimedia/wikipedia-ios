@@ -61,6 +61,8 @@ public enum AccessibilityIdentifiers {
     public enum Profile {
         public static let button = "profile-button"
         public static let view = "Profile View"
+        public static let temporaryAccountUserPageRow = "Profile Temporary Account User Page Row"
+        public static let joinWikipediaRow = "Profile Join Wikipedia Row"
     }
 
     public enum Search {

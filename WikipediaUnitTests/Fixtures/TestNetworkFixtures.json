@@ -2024,5 +2024,49 @@
       "Content-Type": "image/webp"
     },
     "bodyResource": "46pxWikispeciesLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "meta": "siteinfo",
+      "siprop": "autocreatetempuser"
+    },
+    "bodyResource": "TempAccounts/en/SiteInfoAutoCreateTempUser.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "meta": "siteinfo",
+      "siprop": "autocreatetempuser"
+    },
+    "bodyResource": "TempAccounts/de/SiteInfoAutoCreateTempUser.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "meta": "siteinfo",
+      "siprop": "autocreatetempuser"
+    },
+    "bodyResource": "TempAccounts/he/SiteInfoAutoCreateTempUser.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "meta": "siteinfo",
+      "siprop": "autocreatetempuser"
+    },
+    "bodyResource": "TempAccounts/vi/SiteInfoAutoCreateTempUser.json"
   }
 ]

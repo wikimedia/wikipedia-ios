@@ -2,6 +2,7 @@
 enum UITestLaunchArgument: String {
     case appThemeName = "-WMFAppThemeName"
     case appleLanguages = "-AppleLanguages"
+    case centralAuthUsername = "-WMFUITestCentralAuthUsername"
     case didShowOnboarding = "-DidShowOnboarding5.3"
     case enableHomeTab = "-WMFEnableHomeTabForTesting"
     case hideTipsForTesting = "-WMFHideTipsForTesting"

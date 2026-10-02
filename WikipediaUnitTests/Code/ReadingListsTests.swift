@@ -230,6 +230,18 @@ class ReadingListsTests: XCTestCase {
         XCTAssertFalse(readingListsController.isSyncEnabled)
     }
 
+    func testAuthenticationManagerWillLogOutStopsSyncBeforeCompleting() throws {
+        let delegate = try XCTUnwrap(dataStore as? WMFAuthenticationManagerDelegate, "MWKDataStore should be the authentication manager's delegate")
+        let logoutMayProceed = expectation(description: "will log out completion")
+        DispatchQueue.global().async {
+            delegate.authenticationManagerWillLogOut {
+                XCTAssertTrue(Thread.isMainThread)
+                logoutMayProceed.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 10)
+    }
+
     private func runSyncOperation(timeout: TimeInterval = 30) throws {
         let operation = ReadingListsSyncOperation(readingListsController: dataStore.readingListsController)
         let operationFinished = expectation(description: "sync operation finished")
