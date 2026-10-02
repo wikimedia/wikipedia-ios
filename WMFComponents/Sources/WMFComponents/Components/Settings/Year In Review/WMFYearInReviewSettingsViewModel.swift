@@ -23,9 +23,9 @@ public final class WMFYearInReviewSettingsViewModel: ObservableObject {
     public let localizedStrings: LocalizedStrings
 
     private let dataController: WMFSettingsDataController
-    public var onToggle: ((Bool) -> Void)?
+    public var onToggle: (@MainActor @Sendable (Bool) -> Void)?
 
-    public init(dataController: WMFSettingsDataController, localizedStrings: LocalizedStrings, onToggle: ((Bool) -> Void)? = nil) {
+    public init(dataController: WMFSettingsDataController, localizedStrings: LocalizedStrings, onToggle: (@MainActor @Sendable (Bool) -> Void)? = nil) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.onToggle = onToggle
@@ -65,12 +65,12 @@ public final class WMFYearInReviewSettingsViewModel: ObservableObject {
 
     private var toggleBinding: Binding<Bool> {
         Binding(
-            get: { self.isEnabled },
-            set: { newValue in
-                self.onToggle?(newValue)
+            get: { [weak self] in self?.isEnabled ?? false },
+            set: { [weak self] newValue in
+                self?.onToggle?(newValue)
 
                 Task { @MainActor in
-                    await self.setEnabled(newValue)
+                    await self?.setEnabled(newValue)
                 }
             }
         )
