@@ -1,4 +1,4 @@
-#import <WMF/WMFMTLModel.h>
+#import <Foundation/Foundation.h>
 #import <WMF/MWKDataObject.h>
 #import <WMF/WMFBlockDefinitions.h>
 
@@ -19,7 +19,7 @@ typedef id<NSCopying, NSObject> MWKListIndex;
  * Can be specialized to contain instances of @c EntryType, which are queryable by index or an associated key of type
  * @c IndexType.
  */
-@interface MWKList <EntryType : MWKListEntry, IndexType : MWKListIndex> : WMFMTLModel<NSFastEnumeration>
+@interface MWKList <EntryType : MWKListEntry, IndexType : MWKListIndex> : NSObject<NSFastEnumeration>
 
  - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 

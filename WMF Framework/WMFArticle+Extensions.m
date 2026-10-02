@@ -285,7 +285,9 @@
         if (article.pageViews == nil) {
             article.pageViews = pageViews;
         } else {
-            article.pageViews = [article.pageViews mtl_dictionaryByAddingEntriesFromDictionary:pageViews];
+            NSMutableDictionary *mergedPageViews = [article.pageViews mutableCopy];
+            [mergedPageViews addEntriesFromDictionary:pageViews];
+            article.pageViews = [mergedPageViews copy];
         }
     }
     if (feedPreview.imageURLString != nil) {
