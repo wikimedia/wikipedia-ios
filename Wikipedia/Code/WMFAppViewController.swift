@@ -295,7 +295,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     var isPresentingOnboarding: Bool {
-        return presentedViewController is WMFAppOnboardingHostingController || presentedViewController is WMFWelcomeInitialViewController
+        return presentedViewController is WMFAppOnboardingHostingController
     }
 
     private var appOnboardingCoordinator: AppOnboardingCoordinator?

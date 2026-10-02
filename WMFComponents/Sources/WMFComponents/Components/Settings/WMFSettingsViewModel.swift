@@ -329,6 +329,9 @@ final public class WMFSettingsViewModel: ObservableObject {
             feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
                 self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
             }))
+            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
+            }))
         }
 
         let label = await dataController.yirIsActive() == true ? localizedStrings.onTitle : localizedStrings.offTitle
