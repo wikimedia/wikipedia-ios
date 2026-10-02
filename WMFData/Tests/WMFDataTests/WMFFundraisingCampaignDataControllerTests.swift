@@ -311,8 +311,8 @@ final class WMFFundraisingCampaignDataControllerTests {
     // MARK: - Session state
 
     @Test
-    func markCampaignPresentedSetsSessionFlag() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+    func markCampaignPresentedSetsSessionFlag() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             // Start from a cleared flag, since the controller is shared across tests.
             NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
             #expect(controller.hasPresentedCampaignThisSession == false)
@@ -323,8 +323,8 @@ final class WMFFundraisingCampaignDataControllerTests {
     }
 
     @Test
-    func sessionFlagClearsWhenAppGoesToBackground() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+    func sessionFlagClearsWhenAppGoesToBackground() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             controller.markCampaignPresentedThisSession()
             NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
             #expect(controller.hasPresentedCampaignThisSession == false)

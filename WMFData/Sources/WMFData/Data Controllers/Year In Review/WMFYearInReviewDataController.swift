@@ -124,6 +124,10 @@ import CoreData
 
     /// How many distinct days the reader opened at least one article, in the same data window as
     /// `fetchUserDataState()`. The announcement copy shows this number.
+    ///
+    /// The window is applied to the page view timestamps in the fetch, then each is turned into a
+    /// day in `calendar`. The window bounds are UTC instants, so comparing local starts of day with
+    /// them would be wrong away from UTC.
     public func fetchReadingDayCount(calendar: Calendar = .current) async throws -> Int {
         guard let config = self.config,
               let startDate = config.dataStartDate,
@@ -132,8 +136,8 @@ import CoreData
         }
 
         let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-        let days = try await pageViewsDataController.fetchDistinctPageViewDays(calendar: calendar)
-        return days.filter { $0 >= startDate && $0 < endDate }.count
+        let days = try await pageViewsDataController.fetchDistinctPageViewDays(startDate: startDate, endDate: endDate, calendar: calendar)
+        return days.count
     }
 
     /// The badge shows for logged-in and logged-out users alike, so this gates only on availability.
@@ -189,8 +193,6 @@ import CoreData
         }
     }
 
-    /// True when the developer settings force the announcement. Screens that show it also skip
-    /// their own checks while this is on, such as the fundraising check on Explore.
     public var isForcingFeatureAnnouncement: Bool {
         developerSettingsDataController.forceYiREntryPoint2026 && developerSettingsDataController.forceYiR2026Announcement
     }
