@@ -194,6 +194,11 @@ import CoreData
         }
     }
 
+    /// True when the developer settings force the announcement.
+    public var isForcingFeatureAnnouncement: Bool {
+        developerSettingsDataController.forceYiREntryPoint2026 && developerSettingsDataController.forceYiR2026Announcement
+    }
+
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
 
         // Developer setting: show the announcement regardless of everything below — the remote
