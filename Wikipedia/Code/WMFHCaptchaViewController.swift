@@ -36,8 +36,9 @@ class WMFHCaptchaViewController: ThemeableViewController {
     var hCaptcha: HCaptcha?
     var captchaWebView: WKWebView?
 
-    /// Site key provided by the server (via authmanagerinfo `metadata.key`) for this challenge.
-    /// When set, it takes precedence over the site key in the remote feature config.
+    /// Explicit site key for this challenge — either server-provided (via authmanagerinfo
+    /// `metadata.key`) or the app's own key for a specific action. When set, it overrides the
+    /// default site key in the remote feature config.
     var siteKey: String?
 
     var successAction: ((String) -> Void)?
