@@ -5,6 +5,16 @@ import UIKit
 
 struct ArticleViewControllerTests {
 
+    @Test
+    func webContentProcessRecoveryNavigationPolicy() {
+        #expect(ArticleViewController.shouldAllowNavigation(type: .backForward))
+        #expect(ArticleViewController.shouldAllowNavigation(type: .reload))
+        #expect(ArticleViewController.shouldAllowNavigation(type: .other))
+        #expect(!ArticleViewController.shouldAllowNavigation(type: .linkActivated))
+        #expect(!ArticleViewController.shouldAllowNavigation(type: .formSubmitted))
+        #expect(!ArticleViewController.shouldAllowNavigation(type: .formResubmitted))
+    }
+
     @MainActor
     @Test
     func articleVCAccessesSchemeHandler() async throws {
