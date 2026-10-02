@@ -136,5 +136,6 @@ public enum WMFUserDefaultsKey: String {
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
 
     // Local notifications
+    case localNotificationsHandledDays = "local-notifications-handled-days"
     case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"
 }
