@@ -1,5 +1,6 @@
 import Testing
 import WMFComponents
+import WMFData
 @testable import Wikipedia
 
 @MainActor
@@ -8,57 +9,157 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory()
 
-    /// A Rive text run that the app does not write keeps what it held before: the text of the
-    /// last slide, or the copy inside the .riv. Nothing on the screen shows that the app missed
-    /// a run, so each slide must write each run that it owns.
-    ///
-    /// A leading or trailing fragment can be empty, because the number can start or end the
-    /// sentence. The number and the body copy cannot.
+    /// Frames that use the `List` view model. Every other frame uses `DataTemplate`.
+    private static let listArtboards: Set<String> = [
+        "frame7", "frame9", "frame12", "frame12-empty", "frame15", "frame15-empty", "frame18"
+    ]
+
+    private static let templatePaths: Set<String> = ["headline", "data", "bodyCopy"]
+
+    private static let listItemCount = 3
+
+    private static let listPaths: Set<String> = {
+        var paths: Set<String> = ["headline", "bodyText"]
+        for number in 1...listItemCount {
+            paths.insert("articleTitle\(number)")
+            paths.insert("subTitle\(number)")
+        }
+        return paths
+    }()
+
+    private var allSlides: [WMFYearInReviewSlideViewModel] {
+        factory.makeSlides(for: .dataRich) + factory.makeSlides(for: .lowData)
+    }
+
+    private static func isEmptyVersion(_ artboard: String) -> Bool {
+        artboard.hasSuffix("-empty")
+    }
+
+    private static func textByPath(_ slide: WMFYearInReviewSlideViewModel) -> [String: String] {
+        Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
+    }
+
+    // MARK: - Text
+
+    /// A name the view model does not have draws nothing, and the load still reports success.
+    /// So every name a slide writes must exist in its frame's view model.
     @Test
-    func everySlideWritesAllOfItsTextRuns() {
-        for slide in factory.makeSlides() {
-            let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
+    func everySlideWritesOnlyNamesItsViewModelHas() {
+        for slide in allSlides {
+            guard let artboard = slide.animation?.artboardName else {
+                Issue.record("\(slide.id) has no artboard")
+                continue
+            }
 
-            #expect(byPath["headline1"] != nil, "\(slide.id) writes no headline1")
-            #expect(byPath["headline2"] != nil, "\(slide.id) writes no headline2")
-            #expect(byPath["bodyCopy"]?.isEmpty == false, "\(slide.id) has no body copy")
-            #expect(byPath.count == 4, "\(slide.id) writes \(byPath.count) runs, expected 4")
+            let allowed = Self.listArtboards.contains(artboard) ? Self.listPaths : Self.templatePaths
+            let unknown = Set(Self.textByPath(slide).keys).subtracting(allowed)
+            #expect(unknown.isEmpty, "\(slide.id) on \(artboard) writes unknown names \(unknown.sorted())")
+        }
+    }
 
-            let numberPaths = Set(byPath.keys).subtracting(["headline1", "headline2", "bodyCopy"])
-            #expect(numberPaths.count == 1, "\(slide.id) does not write exactly one number")
-            for path in numberPaths {
-                #expect(byPath[path]?.isEmpty == false, "\(slide.id) leaves \(path) empty")
+    /// Text the app does not write keeps the sample copy from the .riv, and nothing on screen
+    /// shows that it was missed. So each template slide writes every field its frame uses.
+    @Test
+    func templateSlidesWriteAllTheirText() {
+        for slide in allSlides {
+            guard let artboard = slide.animation?.artboardName,
+                  !Self.listArtboards.contains(artboard) else {
+                continue
+            }
+
+            let text = Self.textByPath(slide)
+            #expect(text["headline"]?.isEmpty == false, "\(slide.id) has no headline")
+            #expect(text["bodyCopy"]?.isEmpty == false, "\(slide.id) has no body copy")
+
+            if Self.isEmptyVersion(artboard) {
+                #expect(text["data"] == nil, "\(slide.id) is an empty version but writes data")
+            } else {
+                #expect(text["data"]?.isEmpty == false, "\(slide.id) has no data")
             }
         }
     }
 
-    /// The number run belongs to the artboard, not to the slide. A slide that names the run of
-    /// another artboard draws nothing, and the load still reports success.
+    /// List items come in title and subtitle pairs, numbered from 1 with no gaps. Empty versions
+    /// show no items.
     @Test
-    func theNumberRunMatchesTheArtboard() {
-        let runForArtboard = ["frame1": "readDays", "frame2": "streakNumber"]
+    func listSlidesWriteAHeadingAndWholeItems() {
+        for slide in allSlides {
+            guard let artboard = slide.animation?.artboardName,
+                  Self.listArtboards.contains(artboard) else {
+                continue
+            }
 
-        for slide in factory.makeSlides() {
-            guard let artboard = slide.animation?.artboardName else {
-                #expect(Bool(false), "\(slide.id) has no artboard")
+            let text = Self.textByPath(slide)
+            let hasHeading = text["headline"]?.isEmpty == false || text["bodyText"]?.isEmpty == false
+            #expect(hasHeading, "\(slide.id) has no heading")
+
+            let itemCount = (1...Self.listItemCount).filter { text["articleTitle\($0)"] != nil }.count
+
+            if Self.isEmptyVersion(artboard) {
+                #expect(itemCount == 0, "\(slide.id) is an empty version but writes \(itemCount) items")
                 continue
             }
-            guard let expected = runForArtboard[artboard] else {
-                #expect(Bool(false), "\(slide.id) uses unknown artboard \(artboard)")
-                continue
+
+            #expect(itemCount > 0, "\(slide.id) writes no items")
+            for number in 1...Self.listItemCount {
+                let hasTitle = text["articleTitle\(number)"] != nil
+                let hasSubtitle = text["subTitle\(number)"] != nil
+                #expect(hasTitle == hasSubtitle, "\(slide.id) item \(number) has a title or a subtitle but not both")
+                #expect(hasTitle == (number <= itemCount), "\(slide.id) items are not numbered from 1 without gaps")
+                if hasTitle {
+                    #expect(text["articleTitle\(number)"]?.isEmpty == false, "\(slide.id) item \(number) has an empty title")
+                }
             }
-            let paths = Set(slide.text.keys.map(\.path))
-            #expect(paths.contains(expected), "\(slide.id) on \(artboard) must write \(expected)")
         }
+    }
+
+    // MARK: - Animation
+
+    /// Each frame has its own state machine, named after it. A slide that names another frame's
+    /// state machine does not animate, and the load still reports success.
+    @Test
+    func eachSlideUsesItsFramesStateMachine() {
+        for slide in allSlides {
+            guard let animation = slide.animation, let artboard = animation.artboardName else {
+                Issue.record("\(slide.id) has no animation")
+                continue
+            }
+
+            #expect(animation.resourceName == "all_templates", "\(slide.id) uses \(animation.resourceName)")
+            #expect(animation.stateMachineName == "\(artboard)-statemachine", "\(slide.id) on \(artboard) uses \(animation.stateMachineName ?? "no state machine")")
+        }
+    }
+
+    // MARK: - User data state
+
+    /// Until the collective frames exist, low data stands in with the empty versions.
+    @Test
+    func lowDataShowsOnlyEmptyVersions() {
+        let slides = factory.makeSlides(for: .lowData)
+        #expect(!slides.isEmpty)
+
+        for slide in slides {
+            let artboard = slide.animation?.artboardName ?? ""
+            #expect(Self.isEmptyVersion(artboard), "\(slide.id) on \(artboard) is not an empty version")
+        }
+    }
+
+    /// The other half of the mapping: data rich readers get the full versions, not the empty ones.
+    @Test
+    func dataRichShowsFullVersions() {
+        let slides = factory.makeSlides(for: .dataRich)
+        #expect(slides.contains { !Self.isEmptyVersion($0.animation?.artboardName ?? "") })
     }
 
     /// The pager keys `.scrollPosition(id:)` on the slide id. Two slides with one id stop the
     /// paging from resolving.
-    @Test
-    func slideIdsAreUnique() {
-        let ids = factory.makeSlides().map(\.id)
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func slideIdsAreUnique(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+        let ids = factory.makeSlides(for: userDataState).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
     }
+
+    // MARK: - Strings
 
     @Test
     func thePositionValueReadsAsOneBased() {

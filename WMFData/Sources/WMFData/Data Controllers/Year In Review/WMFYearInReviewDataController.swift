@@ -31,25 +31,6 @@ import CoreData
         case lowData = "low-data"
     }
 
-    /// Shape of the 2025 announcement value still on disk under
-    /// `WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement`. The 2026 feature does not read it —
-    /// it is kept so the 2025 value can still be decoded if we ever need it.
-    struct FeatureAnnouncementStatus: Codable {
-        var hasPresentedYiRFeatureAnnouncementModal: Bool
-        static var `default`: FeatureAnnouncementStatus {
-            return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
-        }
-    }
-
-    /// Shape of the 2025 intro slide value still on disk under
-    /// `WMFUserDefaultsKey.seenYearInReviewIntroSlide`. See note above.
-    struct YiRNotificationAnnouncementStatus: Codable {
-        var hasSeenYiRIntroSlide: Bool
-        static var `default`: YiRNotificationAnnouncementStatus {
-            return YiRNotificationAnnouncementStatus(hasSeenYiRIntroSlide: false)
-        }
-    }
-
     @objc public static func dataControllerForObjectiveC() -> WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
@@ -141,6 +122,24 @@ import CoreData
         return distinctArticleCount >= Self.dataRichDistinctArticleThreshold ? .dataRich : .lowData
     }
 
+    /// How many distinct days the reader opened at least one article, in the same data window as
+    /// `fetchUserDataState()`. The announcement copy shows this number.
+    ///
+    /// The window is applied to the page view timestamps in the fetch, then each is turned into a
+    /// day in `calendar`. The window bounds are UTC instants, so comparing local starts of day with
+    /// them would be wrong away from UTC.
+    public func fetchReadingDayCount(calendar: Calendar = .current) async throws -> Int {
+        guard let config = self.config,
+              let startDate = config.dataStartDate,
+              let endDate = config.dataEndDate else {
+            return 0
+        }
+
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let days = try await pageViewsDataController.fetchDistinctPageViewDays(startDate: startDate, endDate: endDate, calendar: calendar)
+        return days.count
+    }
+
     /// The badge shows for logged-in and logged-out users alike, so this gates only on availability.
     public func shouldShowActivityTabBadge(countryCode: String?) -> Bool {
         guard shouldShowYearInReviewEntryPoint(countryCode: countryCode) else {
@@ -194,6 +193,10 @@ import CoreData
         }
     }
 
+    public var isForcingFeatureAnnouncement: Bool {
+        developerSettingsDataController.forceYiREntryPoint2026 && developerSettingsDataController.forceYiR2026Announcement
+    }
+
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
 
         // Developer setting: show the announcement regardless of everything below — the remote
@@ -207,8 +210,7 @@ import CoreData
         // 2026 config is published.
         //
         // The flag is a sub-setting of forceYiREntryPoint2026 and has no effect without it.
-        if developerSettingsDataController.forceYiREntryPoint2026,
-           developerSettingsDataController.forceYiR2026Announcement {
+        if isForcingFeatureAnnouncement {
             return true
         }
 
@@ -224,6 +226,7 @@ import CoreData
             return false
         }
 
+        // Checks the remote config, the active date range, the Settings toggle, and the hidden countries.
         guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
             return false
         }
@@ -233,6 +236,11 @@ import CoreData
         }
 
         guard !hasSeenYiRIntroSlide else {
+            return false
+        }
+
+        // Fundraising goes first. If the campaign banner showed this session, wait for the next app open.
+        guard !WMFFundraisingCampaignDataController.shared.hasPresentedCampaignThisSession else {
             return false
         }
 

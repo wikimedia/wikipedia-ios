@@ -9,7 +9,7 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         var forceYiREntryPoint2026 = false
         var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState?
         var forceMaxArticleTabsTo5: Bool { false }
-        var forceYiR2026Announcement: Bool { false }
+        var forceYiR2026Announcement = false
         func loadFeatureConfig() -> WMFFeatureConfigResponse? {
             // Data window 2026-01-01 to 2026-12-01 UTC.
             WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: [.testConfig]), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
@@ -107,5 +107,43 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         developerSettings.forceYiRUserDataState = nil
         let state = try await dataController.fetchUserDataState()
         XCTAssertEqual(state, .dataRich)
+    }
+
+    // MARK: - Reading day count
+
+    func testReadingDayCountCountsEachDayOnce() async throws {
+        try await addPageViews(distinctArticles: 3, on: date(month: 3, day: 10))
+        try await addPageViews(distinctArticles: 1, on: date(month: 4, day: 2), prefix: "April")
+        let count = try await dataController.fetchReadingDayCount()
+        XCTAssertEqual(count, 2)
+    }
+
+    func testReadingDayCountIgnoresDaysOutsideJanuaryThroughNovember() async throws {
+        try await addPageViews(distinctArticles: 1, on: date(month: 11, day: 30))
+        try await addPageViews(distinctArticles: 1, on: date(month: 12, day: 1), prefix: "December")
+        try await addPageViews(distinctArticles: 1, on: date(month: 12, day: 31, year: year - 1), prefix: "Last Year")
+        let count = try await dataController.fetchReadingDayCount()
+        XCTAssertEqual(count, 1)
+    }
+
+    func testReadingDayCountIsZeroWithNoHistory() async throws {
+        let count = try await dataController.fetchReadingDayCount()
+        XCTAssertEqual(count, 0)
+    }
+
+    // MARK: - Forced announcement
+
+    func testForcingFeatureAnnouncementNeedsBothToggles() {
+        developerSettings.forceYiREntryPoint2026 = true
+        developerSettings.forceYiR2026Announcement = false
+        XCTAssertFalse(dataController.isForcingFeatureAnnouncement)
+
+        developerSettings.forceYiREntryPoint2026 = false
+        developerSettings.forceYiR2026Announcement = true
+        XCTAssertFalse(dataController.isForcingFeatureAnnouncement)
+
+        developerSettings.forceYiREntryPoint2026 = true
+        developerSettings.forceYiR2026Announcement = true
+        XCTAssertTrue(dataController.isForcingFeatureAnnouncement)
     }
 }

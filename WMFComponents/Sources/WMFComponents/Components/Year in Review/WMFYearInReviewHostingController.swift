@@ -170,72 +170,34 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         })
     }
 
+    // MARK: - Navigation bar
+
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(
-            title: "",
-            customView: makeTitleView(),
-            alignment: .centerCompact
+        WMFYearInReviewNavigationItems.configure(
+            self,
+            strings: WMFYearInReviewNavigationItems.Strings(
+                wIconAccessibilityLabel: viewModel.localizedStrings.wIconAccessibilityLabel,
+                closeButtonAccessibilityLabel: viewModel.localizedStrings.closeButtonAccessibilityLabel,
+                moreButtonAccessibilityLabel: viewModel.localizedStrings.moreButtonAccessibilityLabel,
+                learnMoreTitle: viewModel.localizedStrings.learnMoreButtonTitle,
+                aboutInsightsTitle: viewModel.localizedStrings.aboutInsightsButtonTitle,
+                shareFeedbackTitle: viewModel.localizedStrings.shareFeedbackButtonTitle
+            ),
+            tintColor: contentColor,
+            closeAction: #selector(tappedClose),
+            onLearnMore: { [weak self] in self?.viewModel.tappedLearnMore() },
+            onAboutInsights: { [weak self] in self?.viewModel.tappedAboutInsights() },
+            onShareFeedback: { [weak self] in self?.viewModel.tappedShareFeedback() }
         )
-
-        let closeConfig = WMFLargeCloseButtonConfig(
-            imageType: .plainX,
-            target: self,
-            action: #selector(tappedClose),
-            alignment: .leading
-        )
-
-        configureNavigationBar(
-            titleConfig: titleConfig,
-            closeButtonConfig: closeConfig,
-            profileButtonConfig: nil,
-            tabsButtonConfig: nil,
-            searchBarConfig: nil,
-            hideNavigationBarOnScroll: false
-        )
-
-        navigationItem.rightBarButtonItem = makeMoreButton()
-        applyContentColor()
     }
 
+    /// Each slide says whether its artwork is light or dark, so the bar items follow the current slide.
     private func applyContentColor() {
-        let color = viewModel.currentSlide?.contentColor ?? theme.text
-        navigationItem.rightBarButtonItem?.tintColor = color
-        navigationItem.leftBarButtonItem?.tintColor = color
-        (navigationItem.titleView as? UIImageView)?.tintColor = color
+        WMFYearInReviewNavigationItems.applyTintColor(contentColor, to: navigationItem)
     }
 
-    private func makeTitleView() -> UIView {
-        let imageView = UIImageView(image: UIImage(named: "W", in: .module, with: nil))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = viewModel.currentSlide?.contentColor ?? theme.text
-        imageView.isAccessibilityElement = true
-        imageView.accessibilityLabel = viewModel.localizedStrings.wIconAccessibilityLabel
-        imageView.frame = CGRect(x: 0, y: 0, width: 24, height: 20)
-        return imageView
-    }
-
-    private func makeMoreButton() -> UIBarButtonItem {
-        let learnMore = UIAction(
-            title: viewModel.localizedStrings.learnMoreButtonTitle,
-            image: WMFSFSymbolIcon.for(symbol: .infoCircle)
-        ) { [weak self] _ in
-            self?.viewModel.tappedLearnMore()
-        }
-
-        let shareFeedback = UIAction(
-            title: viewModel.localizedStrings.shareFeedbackButtonTitle,
-            image: WMFSFSymbolIcon.for(symbol: .ellipsisBubble)
-        ) { [weak self] _ in
-            self?.viewModel.tappedShareFeedback()
-        }
-
-        let item = UIBarButtonItem(
-            image: WMFSFSymbolIcon.for(symbol: .ellipsis),
-            menu: UIMenu(children: [learnMore, shareFeedback])
-        )
-        item.accessibilityLabel = viewModel.localizedStrings.moreButtonAccessibilityLabel
-        item.tintColor = viewModel.currentSlide?.contentColor ?? theme.text
-        return item
+    private var contentColor: UIColor {
+        viewModel.currentSlide?.contentColor ?? theme.text
     }
 
     @objc private func tappedClose() {
