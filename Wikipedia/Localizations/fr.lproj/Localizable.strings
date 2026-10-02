@@ -563,7 +563,6 @@
 "empty-no-saved-pages-message" = "Enregistrer des pages pour les lire ultérieurement, même hors ligne";
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
-"empty-talk-page-title" = "Aucun message n’a encore été posté pour cet utilisateur";
 "end-session" = "Fermer la session";
 "error-generic-recovery-suggestion" = "Veuillez réessayer ultérieurement";
 "error-unknown" = "Une erreur inconnue est survenue";
@@ -1456,7 +1455,6 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
-"unable-to-load-talk-page-title" = "Impossible de charger la page de discussion";
 "unknown-generic-text" = "Inconnu";
 "unwatch" = "Ne plus suivre";
 "user-title" = "Utilisateur";

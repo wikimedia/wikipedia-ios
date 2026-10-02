@@ -67,6 +67,7 @@
 // Author: Vonavy
 // Author: WindEwriX
 // Author: Wirbel78
+// Author: Yurina Tatiana
 // Author: Yuryleb
 // Author: Zpizza
 // Author: Александр Сигачёв
@@ -456,6 +457,7 @@
 "donate-wikimedia-fine-print-2" = "Фиксированные ежемесячные платежи будут списываться Фондом Викимедиа с наших постоянных доноров по истечении каждого очередного месяца с даты первого пожертвования до тех пор, пока вы не уведомите нас о прекращении поддержки. Пожертвования, инициированные 29-го, 30-го или 31-го числа месяца, будут списываться в последний день более коротких месяцев, как можно ближе к первоначальной дате. Все вопросы о пожертвованиях можно направлять по адресу donate@wikimedia.org.";
 "donation-reminder-card-not-now" = "Не сейчас";
 "donation-reminder-setup-trigger-unit-articles" = "Статьи";
+"donation-reminder-wrap-up-survey-title" = "Опрос";
 "edit-link-display-text-title" = "Показать текст";
 "edit-link-link-target-title" = "Адрес ссылки";
 "edit-link-remove-link-title" = "Убрать ссылку";
@@ -575,7 +577,6 @@
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-search-results-message" = "Ничего не найдено";
-"empty-talk-page-title" = "Участник ещё не публиковал обсуждений";
 "end-session" = "Завершить сеанс";
 "error-generic-recovery-suggestion" = "Пожалуйста, повторите позже";
 "error-unknown" = "Произошла неизвестная ошибка";
@@ -1277,6 +1278,9 @@
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-community-feed-title" = "Сообщество";
 "settings-donate" = "Пожертвовать";
+"settings-editing-preferences-source-short" = "Код";
+"settings-editing-preferences-title" = "Редактирование";
+"settings-editing-preferences-visual-short" = "Визуальное";
 "settings-explore-games-subtitle" = "Ежедневные викторины по материалам Википедии";
 "settings-explore-games-title" = "Викторины";
 "settings-help-and-feedback" = "Помощь и обратная связь";
@@ -1437,7 +1441,6 @@
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
-"unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
 "unknown-generic-text" = "Неизвестно";
 "unwatch" = "Не следить";
 "user-title" = "Участник";

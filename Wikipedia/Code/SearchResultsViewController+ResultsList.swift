@@ -11,6 +11,18 @@ extension SearchResultsViewController {
 
     private static let noSearchResultsMessage = WMFLocalizedString("empty-no-search-results-message", value: "No results found", comment: "Shown when there are no search results")
 
+    private static func semanticSearchHiddenToastTitle(languageCode: String) -> String {
+        WMFLocalizedString("search-semantic-entry-point-hidden-toast-title", languageCode: languageCode, value: "Module hidden.", comment: "Title of the toast shown after the reader hides the semantic search entry point on the search screen.")
+    }
+
+    private static func semanticSearchHiddenToastSubtitle(languageCode: String) -> String {
+        WMFLocalizedString("search-semantic-entry-point-hidden-toast-subtitle", languageCode: languageCode, value: "You can make it visible again via Settings.", comment: "Subtitle of the toast shown after the reader hides the semantic search entry point on the search screen.")
+    }
+
+    private static func semanticSearchHiddenToastButtonTitle(languageCode: String) -> String {
+        WMFLocalizedString("search-semantic-entry-point-hidden-toast-modify", languageCode: languageCode, value: "Modify", comment: "Title of the button that opens the Search settings, in the toast shown after the reader hides the semantic search entry point on the search screen.")
+    }
+
     func makeResultsViewModel() -> WMFSearchResultsViewModel {
         let localizedStrings = WMFSearchResultsViewModel.LocalizedStrings(
             openActionTitle: CommonStrings.articleTabsOpen,
@@ -83,13 +95,13 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
-        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode)
+        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
     }
 
     // MARK: - Semantic search entry point
 
-    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?) {
-        guard let query, !query.isEmpty, let languageCode else {
+    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
+        guard let query, !query.isEmpty, let languageCode, let project else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
@@ -107,8 +119,18 @@ extension SearchResultsViewController {
         if let semanticSearchEntryPointViewModel = resultsViewModel.semanticSearchEntryPointViewModel, semanticSearchEntryPointViewModel.languageCode == languageCode {
             semanticSearchEntryPointViewModel.update(query: query)
         } else {
-            resultsViewModel.showSemanticSearchEntryPoint(makeSemanticSearchEntryPointViewModel(query: query, languageCode: languageCode))
+            resultsViewModel.showSemanticSearchEntryPoint(
+                makeSemanticSearchEntryPointViewModel(query: query, languageCode: languageCode, project: project)
+            )
         }
+    }
+
+    /// Applies the Settings control after the reader comes back from it: the entry point shows
+    /// again when the toggle turned it on, and goes away when the toggle turned it off.
+    func refreshSemanticSearchEntryPointIfResultsAreShown() {
+        guard isShowingSearchResults, let displayedSiteURL else { return }
+
+        updateSemanticSearchEntryPoint(query: displayedSearchTerm, languageCode: displayedSiteURL.wmf_languageCode, project: SearchResultsMapper.project(for: displayedSiteURL))
     }
 
     func hideSemanticSearchEntryPointIfLanguageChanged(for siteURL: URL) {
@@ -119,7 +141,11 @@ extension SearchResultsViewController {
         resultsViewModel.hideSemanticSearchEntryPoint()
     }
 
-    private func makeSemanticSearchEntryPointViewModel(query: String, languageCode: String) -> WMFSemanticSearchEntryPointViewModel {
+    private func makeSemanticSearchEntryPointViewModel(
+        query: String,
+        languageCode: String,
+        project: WMFProject
+    ) -> WMFSemanticSearchEntryPointViewModel {
         let dataController = WMFSemanticSearchDataController.shared
         let showsTryItNow = !dataController.hasUsedEntryPoint
         if showsTryItNow {
@@ -133,21 +159,35 @@ extension SearchResultsViewController {
             query: query,
             languageCode: languageCode,
             showsTryItNow: showsTryItNow,
-            tapAction: { _ in },
+            tapAction: { [weak self] query in
+                guard let self else { return }
+                saveLastSearch()
+                semanticSearchTappedAction?(query, project)
+            },
             infoAction: { _ in },
             hideAction: { [weak self] _ in
-                self?.hideSemanticSearchEntryPoint()
+                self?.hideSemanticSearchEntryPoint(languageCode: languageCode)
             }
         )
     }
 
-    private func hideSemanticSearchEntryPoint() {
+    private func hideSemanticSearchEntryPoint(languageCode: String) {
         do {
             try WMFSemanticSearchDataController.shared.setEntryPointHidden(true)
         } catch {
             DDLogError("Hiding the semantic search entry point failed: \(error)")
         }
         resultsViewModel.hideSemanticSearchEntryPoint()
+
+        WMFToastManager.sharedInstance.showRichToast(
+            Self.semanticSearchHiddenToastTitle(languageCode: languageCode),
+            subtitle: Self.semanticSearchHiddenToastSubtitle(languageCode: languageCode),
+            buttonTitle: Self.semanticSearchHiddenToastButtonTitle(languageCode: languageCode),
+            dismissPreviousToasts: true,
+            buttonCallBack: { [weak self] in
+                self?.semanticSearchSettingsTappedAction?()
+            }
+        )
     }
 
     private func openInBackgroundTab(_ result: SearchResult) {

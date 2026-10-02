@@ -557,6 +557,7 @@
 "home-community-see-past-content" = "Kuckt de virege Communautéitscontenu";
 "home-community-tab-title" = "Communautéit";
 "home-edit-languages-title" = "Sproochen derbäisetzen oder änneren";
+"home-empty-feed-title" = "Äre Feed ass eidel";
 "home-feed-for-you-based-on-interests-title" = "Op Basis vun Ären Interessen";
 "home-feed-for-you-because-you-read-subtitle" = "Virschléi op Basis vun engem rezenten Artikel aus Ärem Historique";
 "home-feed-for-you-because-you-read-title" = "Well Dir dat gelies hutt";
@@ -986,6 +987,14 @@
 "search-recent-empty" = "Nach keng rezent Sich";
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
+"search-semantic-entry-point-hidden-toast-title" = "Modul verstoppt.";
+"search-semantic-results-empty-title" = "Keng Resultater fir dës Sich";
+"search-semantic-results-error-subtitle" = "Probéiert wgl. nach eng Kéier.";
+"search-semantic-results-error-title" = "Et ass eppes schif gaangen";
+"search-semantic-results-rate-limited-title" = "Ze vill Sichufroen";
+"search-semantic-results-read-in-article" = "Am Artikel liesen";
+"search-semantic-results-references" = "$1 {{PLURAL:$1|Referenz|Referenzen}}";
+"search-semantic-results-unavailable-subtitle" = "Probéiert wgl. méi spéit nach eng Kéier.";
 "search-title" = "Sichen";
 "search-widget-description" = "Schnellzougrëff fir op Wikipedia ze sichen.";
 "search-widget-wikipedia-title" = "Wikipedia";
@@ -1133,7 +1142,6 @@
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
-"unable-to-load-talk-page-title" = "Diskussiounssäit konnt net geluede ginn";
 "unknown-generic-text" = "Onbekannt";
 "unwatch" = "Net méi iwwerwaachen";
 "user-title" = "Benotzer";
@@ -1281,7 +1289,7 @@
 "wikitext-preview-link-not-found-preview-description" = "D'Wikipedia huet keen Artikel mat genau dësem Numm";
 "wikitext-preview-link-not-found-preview-title" = "Keen interne Link fonnt";
 "wikitext-preview-link-preview-description" = "Dëse Link féiert op „$1“";
-"wikitext-preview-link-preview-title" = "Preview vum Link";
+"wikitext-preview-link-preview-title" = "Link-Virschau";
 "wikitext-preview-save-changes-title" = "Ännerunge späicheren";
 "wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréiwung obligatoresch.";

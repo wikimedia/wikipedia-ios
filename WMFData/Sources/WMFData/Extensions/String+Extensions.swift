@@ -17,4 +17,8 @@ public extension String {
     var normalizedForDisplay: String {
         return self.underscoresToSpaces.precomposedStringWithCanonicalMapping
     }
+
+    var percentEncodedPageTitleForPathComponents: String? {
+        return denormalizedPageTitle.addingPercentEncoding(withAllowedCharacters: .encodeURIComponentAllowed)
+    }
 }

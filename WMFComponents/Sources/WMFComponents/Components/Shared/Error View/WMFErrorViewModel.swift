@@ -1,9 +1,9 @@
 import Foundation
 import UIKit
 
-public final class WMFErrorViewModel {
+public final class WMFErrorViewModel: Equatable {
 
-    public struct LocalizedStrings {
+    public struct LocalizedStrings: Equatable {
         let title: String
         let subtitle: String
         let buttonTitle: String
@@ -21,5 +21,9 @@ public final class WMFErrorViewModel {
     public init(localizedStrings: LocalizedStrings, image: UIImage?) {
         self.localizedStrings = localizedStrings
         self.image = image
+    }
+
+    public static func == (lhs: WMFErrorViewModel, rhs: WMFErrorViewModel) -> Bool {
+        lhs.localizedStrings == rhs.localizedStrings && lhs.image == rhs.image
     }
 }

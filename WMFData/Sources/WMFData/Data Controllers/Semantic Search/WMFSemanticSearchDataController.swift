@@ -44,6 +44,16 @@ public final class WMFSemanticSearchDataController: Sendable {
         (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.semanticSearchEntryPointHidden.rawValue)) ?? false
     }
 
+    /// True when Settings offers the control that shows or hides the entry point: the reader is
+    /// in group B while the feature is on.
+    public var isSettingsEntryAvailable: Bool {
+        guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
+            return false
+        }
+
+        return experimentAssignment == .groupB
+    }
+
     public func setEntryPointHidden(_ isHidden: Bool) throws {
         guard let userDefaultsStore else {
             throw ExperimentError.missingUserDefaultsStore
