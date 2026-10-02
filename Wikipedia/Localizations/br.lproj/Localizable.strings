@@ -1030,7 +1030,7 @@
 "notifications-center-status-filtered-by" = "Silet gant";
 "notifications-center-status-in-projects" = "{{PLURAL:$1|1=En 1 raktres|E $1 raktres}}";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|Raktres}}";
-"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 doare}}";
+"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 doare|$1 doare}}";
 "notifications-center-status-read" = "Lenn";
 "notifications-center-status-triple-concatenation" = "$1 ha $2 diwar $3";
 "notifications-center-status-unread" = "Anlennet";
