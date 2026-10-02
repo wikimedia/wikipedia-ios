@@ -1278,6 +1278,9 @@
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-community-feed-title" = "Сообщество";
 "settings-donate" = "Пожертвовать";
+"settings-editing-preferences-source-short" = "Код";
+"settings-editing-preferences-title" = "Редактирование";
+"settings-editing-preferences-visual-short" = "Визуальное";
 "settings-explore-games-subtitle" = "Ежедневные викторины по материалам Википедии";
 "settings-explore-games-title" = "Викторины";
 "settings-help-and-feedback" = "Помощь и обратная связь";
