@@ -9,7 +9,7 @@ final class WMFYearInReviewThumbnailLoader: ObservableObject {
 
     private let fetchThumbnail: @Sendable (WMFYearInReviewSlideViewModel.ArticleThumbnail) async throws -> Data?
 
-    init(fetchThumbnail: @escaping @Sendable (WMFYearInReviewSlideViewModel.ArticleThumbnail) async throws -> Data? = WMFYearInReviewThumbnailLoader.fetchThumbnail) {
+    init(fetchThumbnail: @escaping @Sendable (WMFYearInReviewSlideViewModel.ArticleThumbnail) async throws -> Data? = { try await WMFYearInReviewThumbnailLoader.fetchThumbnail($0) }) {
         self.fetchThumbnail = fetchThumbnail
     }
 
