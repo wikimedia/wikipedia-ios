@@ -12,7 +12,7 @@ Pull request has a question that needs answering.
 For Work in Progress or pull requests on Hold, [mark your PR as draft](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests) via the GitHub UI.
 
 ## Assigning pull requests
-Every pull request automatically requests a review from the `wikimedia/ios` team via [CODEOWNERS](../.github/CODEOWNERS). GitHub then randomly chooses an iOS engineer from the team to review. If you have one or more specific engineers in mind to review, you can assign them directly.
+Once a pull request is ready for review, GitHub automatically requests a review from the `wikimedia/ios` team via [CODEOWNERS](../.github/CODEOWNERS) and assigns an iOS engineer according to the team's review-assignment settings. If you have one or more specific engineers in mind to review, you can assign them directly.
 
 ## Merging pull requests
 Pull requests require code review approval from one other developer before merging. After the pull request is merged, delete the branch, unless it's the TWN branch. **Never delete the twn branch** as it's [required by translatewiki to import translations](localization.md).
