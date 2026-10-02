@@ -84,6 +84,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var isCheckingRemoteConfig: Bool = false
 
     private var notificationUserInfoToShow: [AnyHashable: Any]?
+    private var localNotificationTypeToShow: WMFLocalNotificationType?
 
     private var _settingsNavigationController: WMFComponentNavigationController?
 
@@ -750,6 +751,31 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
+    // MARK: - Local Notifications
+
+    static var applicationStateDescription: String {
+        switch UIApplication.shared.applicationState {
+        case .active: return "active"
+        case .inactive: return "inactive"
+        case .background: return "background"
+        @unknown default: return "unknown"
+        }
+    }
+
+    /// Only call from the background app refresh task. Schedules any local notifications that are due.
+    func performLocalNotificationsBackgroundRefresh() async {
+        await Self.scheduleLocalNotificationsIfNeeded(dataStore: dataStore)
+    }
+
+    /// Shared by background app refresh and the Developer Settings "Run notification refresh now" button.
+    static func scheduleLocalNotificationsIfNeeded(dataStore: MWKDataStore) async {
+        let appLanguage = dataStore.languageLinkController.appLanguage
+        let language = WMFLanguage(languageCode: appLanguage?.languageCode ?? "en", languageVariantCode: appLanguage?.languageVariantCode)
+        // todo: localize if this prototype becomes a real experiment
+        let bodyFormat = "%1$@ is the top trending article today, tap here to see more"
+        await WMFDailyTopReadNotificationDataController.shared.scheduleIfNeeded(project: .wikipedia(language), bodyFormat: bodyFormat, appState: applicationStateDescription)
+    }
+
     // MARK: - Background Processing
 
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
@@ -1017,6 +1043,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 self.hideSplashView()
                 self.showNotificationCenterForNotificationInfo(info)
                 self.notificationUserInfoToShow = nil
+                done()
+            } else if let localNotificationType = self.localNotificationTypeToShow {
+                self.hideSplashView()
+                self.localNotificationTypeToShow = nil
+                self.showDestination(for: localNotificationType)
                 done()
             } else if let activity = self.unprocessedUserActivity {
                 self.processUserActivity(activity, animated: false) {
@@ -1935,9 +1966,40 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
 
         if response.notification.request.content.threadIdentifier == EchoModelVersion.current {
             showNotificationCenterForNotificationInfo(info)
+        } else if let rawType = info[WMFLocalNotificationType.userInfoKey] as? String,
+                  let localNotificationType = WMFLocalNotificationType(rawValue: rawType) {
+            handleLocalNotificationTap(type: localNotificationType)
         }
 
         completionHandler()
+    }
+
+    private func handleLocalNotificationTap(type: WMFLocalNotificationType) {
+        let appState = Self.applicationStateDescription
+        switch type {
+        case .dailyTopRead:
+            Task {
+                await WMFDailyTopReadNotificationDataController.shared.logTap(appState: appState)
+            }
+        }
+
+        guard isMigrationComplete else {
+            localNotificationTypeToShow = type
+            return
+        }
+        showDestination(for: type)
+    }
+
+    private func showDestination(for localNotificationType: WMFLocalNotificationType) {
+        switch localNotificationType {
+        case .dailyTopRead:
+            guard let topReadGroup = dataStore.viewContext.newestVisibleGroup(of: .topRead, forSiteURL: dataStore.primarySiteURL),
+                  let groupURL = topReadGroup.url else {
+                showExplore()
+                return
+            }
+            processUserActivity(NSUserActivity.wmf_contentActivity(with: groupURL), animated: true, completion: {})
+        }
     }
 
     private func showNotificationCenterForNotificationInfo(_ info: [AnyHashable: Any]) {
