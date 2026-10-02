@@ -4,6 +4,7 @@ public struct WMFSemanticSearchFeedbackView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSemanticSearchFeedbackViewModel
+    @Environment(\.displayScale) private var displayScale
     @FocusState private var isTextFieldFocused: Bool
     /// The card's content height at the width it's laid out at, so its sheet can fit it.
     var onCardHeightChange: ((CGFloat) -> Void)?
@@ -18,6 +19,10 @@ public struct WMFSemanticSearchFeedbackView: View {
     // Matches the passage cards, which sit on the paper color on sepia for contrast.
     private var bannerBackground: UIColor {
         theme == .sepia ? theme.paperBackground : theme.midBackground
+    }
+    
+    private var hairline: CGFloat {
+        max(1.0 / displayScale, 0.5)
     }
 
     public init(viewModel: WMFSemanticSearchFeedbackViewModel) {
@@ -53,6 +58,11 @@ public struct WMFSemanticSearchFeedbackView: View {
         .padding(.bottom, viewModel.isTextFieldVisible ? WMFSpacing.large : WMFSpacing.small)
         .background(Color(bannerBackground))
         .clipShape(RoundedRectangle(cornerRadius: WMFCornerRadius.xLarge))
+        .overlay(
+            RoundedRectangle(cornerRadius: WMFCornerRadius.xLarge)
+                .stroke(Color(theme.newBorder), lineWidth: hairline)
+        )
+        .contentShape(Rectangle())
         .animation(.default, value: viewModel.isTextFieldVisible)
         .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchFeedback)
     }
