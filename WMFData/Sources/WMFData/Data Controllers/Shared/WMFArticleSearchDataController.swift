@@ -176,6 +176,9 @@ public actor WMFArticleSearchDataController {
                 "action": "query",
                 "prop": "coordinates|pageimages|description|pageprops",
                 "coprop": "type|dim",
+                // Without this parameter the API gives no distance. Thus every result reports
+                // zero metres, and the caller sorts the results incorrectly.
+                "codistancefrompoint": String(format: "%f|%f", latitude, longitude),
                 "colimit": limitString,
                 "generator": "search",
                 "gsrsearch": searchParts.joined(separator: " "),

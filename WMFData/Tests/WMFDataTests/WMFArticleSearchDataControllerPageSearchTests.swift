@@ -100,6 +100,32 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         XCTAssertEqual(paris?.extract?.hasSuffix("..."), false, "The API ellipsis is removed")
     }
 
+    // MARK: - The distance parameter
+
+    /// The full text branch must ask for the distance. Without the parameter the API gives no
+    /// distance, thus every result reports zero metres and the sort order is wrong.
+    func testNearbyFullTextSearchAsksForTheDistance() async throws {
+        let service = CapturingSearchService()
+        let controller = WMFArticleSearchDataController(basicService: service)
+
+        _ = try await controller.searchNearby(project: enProject, latitude: 48.8566, longitude: 2.3522, radius: 1000, term: "cafe", limit: 5)
+
+        let parameters = try XCTUnwrap(service.capturedParameters.first)
+        XCTAssertEqual(parameters["generator"] as? String, "search", "A search term uses the full text branch")
+        XCTAssertEqual(parameters["codistancefrompoint"] as? String, "48.856600|2.352200")
+    }
+
+    func testNearbyGeoSearchAsksForTheDistance() async throws {
+        let service = CapturingSearchService()
+        let controller = WMFArticleSearchDataController(basicService: service)
+
+        _ = try await controller.searchNearby(project: enProject, latitude: 48.8566, longitude: 2.3522, radius: 1000, limit: 5)
+
+        let parameters = try XCTUnwrap(service.capturedParameters.first)
+        XCTAssertEqual(parameters["generator"] as? String, "geosearch")
+        XCTAssertEqual(parameters["codistancefrompoint"] as? String, "48.856600|2.352200")
+    }
+
     // MARK: - Helpers
 
     func testDimensionParsing() {
@@ -115,5 +141,42 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         XCTAssertEqual(WMFArticleSearchResult.cleanExtract("A cat."), "A cat.")
         XCTAssertNil(WMFArticleSearchResult.cleanExtract("..."))
         XCTAssertNil(WMFArticleSearchResult.cleanExtract(nil))
+    }
+}
+
+/// Records the parameters of each request and answers with one fixture.
+private final class CapturingSearchService: WMFService, @unchecked Sendable {
+    private let data: Data
+    private(set) var capturedParameters: [[String: Any]] = []
+
+    /// The tests assert the request parameters, thus an empty result is enough.
+    init(json: String = "{\"query\":{\"pages\":[]}}") {
+        data = Data(json.utf8)
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        capturedParameters.append(request.parameters ?? [:])
+        completion(.success(data))
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        capturedParameters.append(request.parameters ?? [:])
+        completion(.success(try? JSONSerialization.jsonObject(with: data) as? [String: Any]))
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        capturedParameters.append(request.parameters ?? [:])
+        do {
+            completion(.success(try JSONDecoder().decode(T.self, from: data)))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        performDecodableGET(request: request, completion: completion)
+    }
+
+    func clearCachedData() {
     }
 }
