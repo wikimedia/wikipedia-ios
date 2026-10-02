@@ -49,14 +49,15 @@ final class WMFSearchResults {
         )
     }
 
-    /// Append the results of another request. Results with a known display title are not added.
+    /// Appends the results of another request. A result is not added if its display title is
+    /// already present, including a repeat inside `other`.
     func merge(_ other: WMFSearchResults) {
-        let knownDisplayTitles = Set(results.compactMap(\.displayTitle))
+        var knownDisplayTitles = Set(results.compactMap(\.displayTitle))
         let newResults = other.results.filter { result in
             guard let displayTitle = result.displayTitle else {
                 return false
             }
-            return !knownDisplayTitles.contains(displayTitle)
+            return knownDisplayTitles.insert(displayTitle).inserted
         }
         results.append(contentsOf: newResults)
 
