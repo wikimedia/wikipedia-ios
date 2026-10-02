@@ -18,15 +18,14 @@ extension WMFSemanticSearchDataController {
         }
     }
 
-    public static let resultsPageSize = 3
+    /// The sheet shows at most this many passages. One request fetches all of them.
+    public static let resultsLimit = 8
 
     private var basicService: WMFService? { WMFDataEnvironment.current.basicService }
 
     // MARK: - Results
 
-    /// Fetches one page of passages for `query`. Pass the `nextOffset` of the previous page to
-    /// fetch the page after it.
-    public func fetchResults(query: String, project: WMFProject, offset: Int = 0) async throws -> WMFSemanticSearchResultsPage {
+    public func fetchResults(query: String, project: WMFProject) async throws -> WMFSemanticSearchResults {
         guard let basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -35,7 +34,7 @@ extension WMFSemanticSearchDataController {
             throw WMFDataControllerError.failureCreatingRequestURL
         }
 
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             "action": "query",
             "format": "json",
             "formatversion": "2",
@@ -43,7 +42,7 @@ extension WMFSemanticSearchDataController {
             "gsrsearch": query,
             "gsrwhat": "text",
             "gsrnamespace": "0",
-            "gsrlimit": String(Self.resultsPageSize),
+            "gsrlimit": String(Self.resultsLimit),
             "gsrprop": "snippet|sectiontitle|redirecttitle",
             "cirrusSemanticSearch": "hl",
             "prop": "pageimages",
@@ -51,10 +50,6 @@ extension WMFSemanticSearchDataController {
             "errorformat": "html",
             "errorsuselocal": "1"
         ]
-
-        if offset > 0 {
-            parameters["gsroffset"] = String(offset)
-        }
 
         let request = WMFBasicServiceRequest(
             url: url,
@@ -83,7 +78,7 @@ extension WMFSemanticSearchDataController {
             )
         }
 
-        return WMFSemanticSearchResultsPage(results: results, nextOffset: response.continue?.gsroffset)
+        return WMFSemanticSearchResults(results: results)
     }
 
     // MARK: - Attribution
@@ -163,7 +158,6 @@ extension WMFSemanticSearchDataController {
 
     private struct SearchResponse: Decodable, Sendable {
         let query: Query?
-        let `continue`: Continue?
         let errors: [WMFMediaWikiError]?
 
         struct Query: Decodable, Sendable {
@@ -182,10 +176,6 @@ extension WMFSemanticSearchDataController {
             struct Thumbnail: Decodable, Sendable {
                 let source: String?
             }
-        }
-
-        struct Continue: Decodable, Sendable {
-            let gsroffset: Int?
         }
     }
 

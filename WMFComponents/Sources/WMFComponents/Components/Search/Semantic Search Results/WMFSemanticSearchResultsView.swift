@@ -43,13 +43,6 @@ public struct WMFSemanticSearchResultsView: View {
             LazyVStack(spacing: WMFSpacing.large) {
                 ForEach(viewModel.results) { item in
                     WMFSemanticSearchResultCardView(viewModel: item)
-                    .onAppear {
-                        viewModel.loadMoreIfNeeded(after: item)
-                    }
-                }
-                if viewModel.isLoadingMore {
-                    ProgressView()
-                        .padding(.vertical, WMFSpacing.small)
                 }
             }
             .padding(.horizontal, WMFSpacing.large)

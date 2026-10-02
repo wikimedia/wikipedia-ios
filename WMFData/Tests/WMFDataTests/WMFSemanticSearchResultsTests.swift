@@ -14,25 +14,38 @@ final class WMFSemanticSearchResultsTests {
     @Test
     func resultsKeepTheRankOrderOfTheAPI() async throws {
         try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService()) }) {
-            let page = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
+            let response = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
 
-            #expect(page.results.map(\.title) == ["Complexité de la communication", "Communication", "Communication animale"])
-            #expect(page.nextOffset == 3)
+            #expect(response.results.map(\.title) == ["Complexité de la communication", "Communication", "Communication animale"])
+        }
+    }
+
+    @Test
+    func resultsComeFromOneRequestOfEight() async throws {
+        let service = WMFRecordingService()
+        try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: service) }) {
+            _ = try await controller.fetchResults(query: "communication", project: project)
+
+            #expect(service.requests.count == 1)
+            let request = try #require(service.requests.first)
+            #expect(request.method == .GET)
+            #expect(request.parameters?["gsrlimit"] as? String == "8")
+            #expect(request.parameters?["gsroffset"] == nil)
         }
     }
 
     @Test
     func resultsDecodeSnippetSectionAndThumbnail() async throws {
         try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService()) }) {
-            let page = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
+            let response = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)
 
-            let first = try #require(page.results.first)
+            let first = try #require(response.results.first)
             #expect(first.pageID == 7825418)
             #expect(first.snippetHTML.hasPrefix("<span class=\"searchmatch\">La complexité de la communication"))
             #expect(first.sectionTitle == nil)
             #expect(first.thumbnailURL == nil)
 
-            let last = try #require(page.results.last)
+            let last = try #require(response.results.last)
             #expect(last.sectionTitle == "Différence entre communication et information")
             #expect(last.thumbnailURL?.host == "thumb.wikimedia.org")
         }
@@ -96,6 +109,44 @@ final class WMFSemanticSearchResultsTests {
 
     private func configureEnvironment(service: WMFService?) {
         WMFDataEnvironment.current.basicService = service
+    }
+}
+
+/// Answers with the semantic search fixture and keeps every request it receives.
+private final class WMFRecordingService: WMFService {
+
+    struct Request {
+        let method: WMFServiceRequestMethod
+        let parameters: [String: Any]?
+    }
+
+    private let fixtureService = WMFMockBasicService()
+    private(set) var requests: [Request] = []
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+        record(request)
+        fixtureService.perform(request: request, completion: completion)
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        record(request)
+        fixtureService.perform(request: request, completion: completion)
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        fixtureService.performDecodableGET(request: request, completion: completion)
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        fixtureService.performDecodablePOST(request: request, completion: completion)
+    }
+
+    func clearCachedData() {}
+
+    private func record<R: WMFServiceRequest>(_ request: R) {
+        requests.append(Request(method: request.method, parameters: request.parameters))
     }
 }
 
