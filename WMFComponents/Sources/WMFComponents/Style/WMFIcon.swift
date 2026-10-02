@@ -188,6 +188,8 @@ public enum WMFSFSymbolIcon {
     case globe
     case newspaper
     case person2Fill
+    case handThumbsUp
+    case handThumbsDown
 
     public var name: String? {
         switch self {
@@ -482,6 +484,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "newspaper", withConfiguration: configuration)
         case .person2Fill:
             image = UIImage(systemName: "person.2.fill", withConfiguration: configuration)
+        case .handThumbsUp:
+            image = UIImage(systemName: "hand.thumbsup", withConfiguration: configuration)
+        case .handThumbsDown:
+            image = UIImage(systemName: "hand.thumbsdown", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
