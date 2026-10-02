@@ -198,8 +198,9 @@ private final class WMFMockAttributionService: WMFService {
     }
 
     private var attributionJSON: Data {
+        let contributorCounts: Any = contributorCount.map { ["total_unique": $0, "logged_in_users": $0, "unregistered_users": 0, "known_bots": 0] } ?? NSNull()
         let signals: [String: Any] = [
-            "contributor_counts": contributorCount ?? NSNull(),
+            "contributor_counts": contributorCounts,
             "reference_count": referenceCount ?? NSNull(),
             "last_updated": lastUpdated ?? NSNull()
         ]
