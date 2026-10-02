@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 public struct WMFYearInReviewSlideViewModel: Identifiable {
 
@@ -7,6 +8,17 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
 
         public init(accessibilityLabel: String? = nil) {
             self.accessibilityLabel = accessibilityLabel
+        }
+    }
+
+    /// An article whose thumbnail fills an image property in the .riv.
+    public struct ArticleThumbnail: Hashable, Sendable {
+        public let project: WMFProject
+        public let title: String
+
+        public init(project: WMFProject, title: String) {
+            self.project = project
+            self.title = title
         }
     }
 
@@ -24,6 +36,8 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     public let animation: WMFRiveAnimation?
     public let text: [WMFRiveText: String]
     public let numbers: [WMFRiveNumber: Double]
+    /// Loaded when the slide shows. A property with no thumbnail keeps the placeholder in the .riv.
+    public let articleThumbnails: [WMFRiveImage: ArticleThumbnail]
     public let localizedStrings: LocalizedStrings
     public let showsShareButton: Bool
     public let showsDonateButton: Bool
@@ -35,6 +49,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         animation: WMFRiveAnimation? = nil,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
+        articleThumbnails: [WMFRiveImage: ArticleThumbnail] = [:],
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         showsShareButton: Bool = true,
         showsDonateButton: Bool = true,
@@ -45,6 +60,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         self.animation = animation
         self.text = text
         self.numbers = numbers
+        self.articleThumbnails = articleThumbnails
         self.localizedStrings = localizedStrings
         self.showsShareButton = showsShareButton
         self.showsDonateButton = showsDonateButton

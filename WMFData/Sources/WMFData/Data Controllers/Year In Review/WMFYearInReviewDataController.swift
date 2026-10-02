@@ -194,6 +194,11 @@ import CoreData
         }
     }
 
+    /// True when the developer settings force the announcement.
+    public var isForcingFeatureAnnouncement: Bool {
+        developerSettingsDataController.forceYiREntryPoint2026 && developerSettingsDataController.forceYiR2026Announcement
+    }
+
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
 
         // Developer setting: show the announcement regardless of everything below — the remote
@@ -476,7 +481,7 @@ import CoreData
     }
 
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: Int?, globalUserID: Int?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: Int?, globalUserID: Int?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate, mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode) else {
             return nil
@@ -502,7 +507,8 @@ import CoreData
             globalUserID: globalUserID,
             project: primaryAppLanguageProject,
             savedSlideDataDelegate: savedSlideDataDelegate,
-            legacyPageViewsDataDelegate: legacyPageViewsDataDelegate
+            legacyPageViewsDataDelegate: legacyPageViewsDataDelegate,
+            mainPageIdentifier: mainPageIdentifier
         )
 
         // First pull existing report slide IDs from Core Data

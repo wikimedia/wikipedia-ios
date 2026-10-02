@@ -8,47 +8,38 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory()
 
-    /// A Rive text run that the app does not write keeps what it held before: the text of the
-    /// last slide, or the copy inside the .riv. Nothing on the screen shows that the app missed
-    /// a run, so each slide must write each run that it owns.
-    ///
-    /// A leading or trailing fragment can be empty, because the number can start or end the
-    /// sentence. The number and the body copy cannot.
+    /// Only the articles visited multiple times slide has real data so far. It always shows,
+    /// in its full or its empty version, so Year in Review never opens with no slides.
     @Test
-    func everySlideWritesAllOfItsTextRuns() {
-        for slide in factory.makeSlides() {
-            let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
+    func makesOnlyTheArticlesVisitedMultipleTimesSlide() {
+        let slides = factory.makeSlides()
 
-            #expect(byPath["headline1"] != nil, "\(slide.id) writes no headline1")
-            #expect(byPath["headline2"] != nil, "\(slide.id) writes no headline2")
-            #expect(byPath["bodyCopy"]?.isEmpty == false, "\(slide.id) has no body copy")
-            #expect(byPath.count == 4, "\(slide.id) writes \(byPath.count) runs, expected 4")
-
-            let numberPaths = Set(byPath.keys).subtracting(["headline1", "headline2", "bodyCopy"])
-            #expect(numberPaths.count == 1, "\(slide.id) does not write exactly one number")
-            for path in numberPaths {
-                #expect(byPath[path]?.isEmpty == false, "\(slide.id) leaves \(path) empty")
-            }
-        }
+        #expect(slides.count == 1)
+        #expect(["frame12", "frame12-empty"].contains(slides.first?.animation?.artboardName ?? ""))
+        #expect(slides.first?.animation?.resourceName == "all_templates")
     }
 
-    /// The number run belongs to the artboard, not to the slide. A slide that names the run of
-    /// another artboard draws nothing, and the load still reports success.
+    /// A Rive text run that the app does not write keeps the copy inside the .riv. Nothing on the
+    /// screen shows that the app missed a run, so the slide must write each run that it owns.
     @Test
-    func theNumberRunMatchesTheArtboard() {
-        let runForArtboard = ["frame1": "readDays", "frame2": "streakNumber"]
+    func theSlideWritesAllOfItsTextRuns() throws {
+        let slide = try #require(factory.makeSlides().first)
+        let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
 
-        for slide in factory.makeSlides() {
-            guard let artboard = slide.animation?.artboardName else {
-                #expect(Bool(false), "\(slide.id) has no artboard")
-                continue
+        switch slide.animation?.artboardName {
+        case "frame12-empty":
+            #expect(byPath["headline"]?.isEmpty == false)
+            #expect(byPath["bodyText"]?.isEmpty == false)
+            #expect(slide.articleThumbnails.isEmpty)
+        case "frame12":
+            #expect(byPath["bodyText"]?.isEmpty == false)
+            // An unused row is written as an empty string, so all three rows are always present.
+            for number in 1...3 {
+                #expect(byPath["articleTitle\(number)"] != nil, "row \(number) has no title")
+                #expect(byPath["subTitle\(number)"] != nil, "row \(number) has no subtitle")
             }
-            guard let expected = runForArtboard[artboard] else {
-                #expect(Bool(false), "\(slide.id) uses unknown artboard \(artboard)")
-                continue
-            }
-            let paths = Set(slide.text.keys.map(\.path))
-            #expect(paths.contains(expected), "\(slide.id) on \(artboard) must write \(expected)")
+        default:
+            Issue.record("unexpected artboard \(slide.animation?.artboardName ?? "nil")")
         }
     }
 

@@ -94,3 +94,15 @@ extension MWKDataStore: LegacyPageViewsDataDelegate {
         }
     }
 }
+
+extension MWKDataStore: WMFMainPageIdentifying {
+    /// The lookup table in `WikipediaURLTranslations` has no lock, and the app reads it on the main thread.
+    public func isMainPage(title: String, project: WMFProject) async -> Bool {
+        guard case .wikipedia(let language) = project else {
+            return false
+        }
+        return await MainActor.run {
+            WikipediaURLTranslations.isMainpageTitle(title, in: language.languageCode)
+        }
+    }
+}

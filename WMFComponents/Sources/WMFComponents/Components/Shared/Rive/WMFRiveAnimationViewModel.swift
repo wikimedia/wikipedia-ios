@@ -23,23 +23,31 @@ final class WMFRiveAnimationViewModel: ObservableObject {
 
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
+    private var images: [WMFRiveImage: Data]
     private var loadTask: Task<Void, Never>?
+    private var imageTask: Task<Void, Never>?
     private let loader: @MainActor (WMFRiveAnimation) async throws -> Rive
+    private let imageDecoder: @MainActor (Data) async throws -> RiveRuntime.Image
 
     init(
         animation: WMFRiveAnimation,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
-        loader: @escaping @MainActor (WMFRiveAnimation) async throws -> Rive = WMFRiveWorkerProvider.makeRive
+        images: [WMFRiveImage: Data] = [:],
+        loader: @escaping @MainActor (WMFRiveAnimation) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
+        imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
     ) {
         self.animation = animation
         self.text = text
         self.numbers = numbers
+        self.images = images
         self.loader = loader
+        self.imageDecoder = imageDecoder
     }
 
     deinit {
         loadTask?.cancel()
+        imageTask?.cancel()
     }
 
     @discardableResult
@@ -78,6 +86,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     func unload() {
         loadTask?.cancel()
         loadTask = nil
+        imageTask?.cancel()
+        imageTask = nil
         rive = nil
         loadState = .idle
     }
@@ -89,6 +99,12 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         applyValues()
     }
 
+    func update(images newImages: [WMFRiveImage: Data]) {
+        guard newImages != images else { return }
+        images = newImages
+        applyImages()
+    }
+
     private func applyValues() {
         guard let instance = rive?.viewModelInstance else { return }
         for (property, value) in text {
@@ -96,6 +112,28 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for (property, value) in numbers {
             instance.setValue(of: NumberProperty(path: property.path), to: Float(value))
+        }
+        applyImages()
+    }
+
+    /// Decoding is async, so the images arrive after the text. An image that does not decode keeps
+    /// the placeholder inside the .riv.
+    private func applyImages() {
+        imageTask?.cancel()
+        guard let instance = rive?.viewModelInstance, !images.isEmpty else { return }
+        let images = images
+        imageTask = Task { [weak self] in
+            for (property, data) in images {
+                guard let self else { return }
+                do {
+                    let image = try await self.imageDecoder(data)
+                    guard !Task.isCancelled else { return }
+                    instance.setValue(of: ImageProperty(path: property.path), to: image)
+                } catch {
+                    guard !Task.isCancelled else { return }
+                    WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not decode the image for \"\(property.path)\": \(error.localizedDescription)"))
+                }
+            }
         }
     }
 

@@ -3,6 +3,7 @@ import SwiftUI
 struct WMFYearInReviewSlideView: View {
 
     let slide: WMFYearInReviewSlideViewModel
+    @StateObject private var thumbnailLoader = WMFYearInReviewThumbnailLoader()
 
     var body: some View {
         ZStack {
@@ -19,8 +20,12 @@ struct WMFYearInReviewSlideView: View {
                 animation,
                 text: slide.text,
                 numbers: slide.numbers,
+                images: thumbnailLoader.images,
                 accessibilityLabel: slide.localizedStrings.accessibilityLabel
             )
+            .task(id: slide.articleThumbnails) {
+                await thumbnailLoader.load(slide.articleThumbnails)
+            }
         } else {
             placeholder
         }

@@ -9,6 +9,7 @@ public struct WMFRiveView: View {
 
     private let text: [WMFRiveText: String]
     private let numbers: [WMFRiveNumber: Double]
+    private let images: [WMFRiveImage: Data]
     private let accessibilityLabel: String?
     private let frameRate: Int?
 
@@ -16,17 +17,20 @@ public struct WMFRiveView: View {
         _ animation: WMFRiveAnimation,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
+        images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String? = nil,
         frameRate: Int? = nil
     ) {
         self.text = text
         self.numbers = numbers
+        self.images = images
         self.accessibilityLabel = accessibilityLabel
         self.frameRate = frameRate
         _viewModel = StateObject(wrappedValue: WMFRiveAnimationViewModel(
             animation: animation,
             text: text,
-            numbers: numbers
+            numbers: numbers,
+            images: images
         ))
     }
 
@@ -43,6 +47,9 @@ public struct WMFRiveView: View {
             }
             .onChange(of: numbers) {
                 viewModel.update(text: text, numbers: numbers)
+            }
+            .onChange(of: images) {
+                viewModel.update(images: images)
             }
     }
 

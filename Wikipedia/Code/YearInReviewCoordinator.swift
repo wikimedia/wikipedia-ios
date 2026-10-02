@@ -7,6 +7,40 @@ import WMFNativeLocalizations
 /// navigation bar, the toolbar and the injected text.
 final class YearInReviewCoordinator: NSObject, Coordinator {
 
+    /// Fills the Year in Review report for the target year. The data controller checks the remote
+    /// config, the active dates, the Settings toggle and the country, and returns `nil` when one of
+    /// them stops the population.
+    ///
+    /// - Parameter regenerate: deletes the report first, so every slide is built again from the
+    ///   current data, frozen slides too. Only the developer settings use it.
+    @discardableResult
+    static func populateReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+        guard let appLanguage = dataStore.languageLinkController.appLanguage,
+              let countryCode = Locale.current.region?.identifier else {
+            return nil
+        }
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
+        let dataController = try WMFYearInReviewDataController()
+
+        if regenerate {
+            try await dataController.deleteYearInReviewReport(year: WMFYearInReviewDataController.targetYear)
+        }
+
+        return try await dataController.populateYearInReviewReportData(
+            for: WMFYearInReviewDataController.targetYear,
+            countryCode: countryCode,
+            primaryAppLanguageProject: project,
+            username: dataStore.authenticationManager.authStatePermanentUsername,
+            userID: permanentUser?.userID,
+            globalUserID: permanentUser?.globalUserID,
+            savedSlideDataDelegate: dataStore.savedPageList,
+            legacyPageViewsDataDelegate: dataStore,
+            mainPageIdentifier: dataStore
+        )
+    }
+
     var theme: Theme
     var navigationController: UINavigationController
 
