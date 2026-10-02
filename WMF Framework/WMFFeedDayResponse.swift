@@ -15,7 +15,6 @@ public final class WMFFeedTopReadResponse: NSObject {
         super.init()
     }
 
-    /// Create the bridge object from the WMFData model.
     public convenience init(mostRead: WMFFeedMostRead, languageVariantCode: String?) {
         let date = mostRead.date.flatMap { DateFormatter.wmf_yearMonthDayZ().date(from: $0) }
         let previews = (mostRead.articles ?? []).compactMap { WMFFeedTopReadArticlePreview(mostReadArticle: $0, languageVariantCode: languageVariantCode) }
@@ -47,7 +46,6 @@ public final class WMFFeedDayResponse: NSObject {
         super.init()
     }
 
-    /// Create the bridge object from the WMFData model.
     public convenience init(response: WMFFeedAPIResponse, maxAge: Int, languageVariantCode: String?) {
         self.init(
             maxAge: maxAge,
@@ -58,7 +56,6 @@ public final class WMFFeedDayResponse: NSObject {
         )
     }
 
-    /// The key of the stored max age value.
     @objc(WMFFeedDayResponseMaxAgeKey)
     public static func maxAgeKey() -> String {
         return "WMFFeedDayResponseMaxAge"

@@ -3,7 +3,6 @@ import CoreLocation
 import WMFData
 import WMFNativeLocalizations
 
-/// The sort order for a location search.
 @objc public enum WMFLocationSearchSortStyle: UInt {
     case none = 0
     case pageViews
@@ -53,7 +52,6 @@ public final class WMFLocationSearchFetcher: NSObject {
         fetchArticles(withSiteURL: siteURL, in: region, matchingSearchTerm: nil, sortStyle: .none, resultLimit: resultLimit, completion: completion, failure: failure)
     }
 
-    /// Fetch articles in a region. An optional search term filters the articles.
     @objc(fetchArticlesWithSiteURL:inRegion:matchingSearchTerm:sortStyle:resultLimit:completion:failure:)
     public func fetchArticles(withSiteURL siteURL: URL, in region: CLCircularRegion, matchingSearchTerm searchTerm: String?, sortStyle: WMFLocationSearchSortStyle, resultLimit: UInt, completion: @escaping (WMFLocationSearchResults) -> Void, failure: @escaping (Error) -> Void) {
         guard let languageCode = siteURL.wmf_languageCode else {

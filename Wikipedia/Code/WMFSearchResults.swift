@@ -2,10 +2,8 @@ import Foundation
 import WMF
 import WMFData
 
-/// The maximum number of results that one search request returns.
 let WMFMaxSearchResultLimit: UInt = 24
 
-/// A redirect that a search result came from.
 struct MWKSearchRedirectMapping: Hashable {
     let redirectFromTitle: String
     let redirectToTitle: String
@@ -21,10 +19,7 @@ struct MWKSearchRedirectMapping: Hashable {
     }
 }
 
-/// The results of one or more search requests for the same term.
-///
-/// A prefix search can append the results of a full text search. The object keeps the order of the results
-/// and removes results with a display title that is already present.
+/// Holds the results of a prefix search, and of a full text search for the same term.
 final class WMFSearchResults {
     let searchTerm: String
     private(set) var results: [MWKSearchResult]
@@ -38,8 +33,7 @@ final class WMFSearchResults {
         self.redirectMappings = redirectMappings
     }
 
-    /// Create the results from the WMFData response.
-    /// - Parameter languageVariantCode: The language variant of the site. The initializer sets it on the thumbnail URLs.
+    /// - Parameter languageVariantCode: The initializer sets it on the thumbnail URLs.
     convenience init(searchTerm: String, response: WMFArticleSearchResponse, languageVariantCode: String?) {
         self.init(
             searchTerm: searchTerm,

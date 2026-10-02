@@ -52,7 +52,6 @@ public class MWKSearchResult: NSObject, NSSecureCoding, NSCopying {
         super.init()
     }
 
-    /// Create the bridge object from the WMFData model.
     /// - Parameter languageVariantCode: The language variant of the site. The initializer sets it on the thumbnail URL.
     public init(result: WMFArticleSearchResult, languageVariantCode: String?) {
         let displayTitleHTML = result.displayTitle ?? result.title
@@ -85,12 +84,11 @@ public class MWKSearchResult: NSObject, NSSecureCoding, NSCopying {
         return siteURL.wmf_URL(withTitle: title)
     }
 
-    /// Set the language variant code on the thumbnail URL. The content group calls this method after it decodes the object.
+    /// The content group calls this method after it decodes the object.
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         thumbnailURL?.wmf_languageVariantCode = languageVariantCode
     }
 
-    /// Convert the coordinate type from the API to the geo type of the article.
     static func geoType(from typeString: String?) -> WMFGeoType? {
         guard var type = typeString?.lowercased() else {
             return nil
@@ -123,8 +121,7 @@ public class MWKSearchResult: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - NSCopying
 
-    /// The Mantle model conformed to NSCopying. A copy property of this type thus needs this
-    /// method. The copy is shallow, as the Mantle copy was.
+    /// The Mantle model conformed to NSCopying. The copy is shallow, as the Mantle copy was.
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = MWKSearchResult(articleID: articleID, revID: revID, title: title, displayTitle: displayTitle, displayTitleHTML: storedDisplayTitleHTML, wikidataDescription: wikidataDescription, extract: extract, thumbnailURL: thumbnailURL, index: index, titleNamespace: titleNamespace, location: location)
         copy.viewCounts = viewCounts

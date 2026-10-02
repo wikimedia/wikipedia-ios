@@ -42,7 +42,6 @@ public class WMFFeedArticlePreview: NSObject, NSSecureCoding, NSCopying {
         super.init()
     }
 
-    /// Create the bridge object from the common fields of the WMFData feed models.
     /// The initializer fails when the model has no title or no article URL.
     init?(fields: WMFFeedArticleFields, languageVariantCode: String?) {
         guard let displayTitle = fields.normalizedTitle ?? fields.articleTitle,
@@ -102,7 +101,7 @@ public class WMFFeedArticlePreview: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - Language variant
 
-    /// Set the language variant code on the URL properties. The content group calls this method after it decodes the object.
+    /// The content group calls this method after it decodes the object.
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         thumbnailURL?.wmf_languageVariantCode = languageVariantCode
         articleURL.wmf_languageVariantCode = languageVariantCode
@@ -110,8 +109,8 @@ public class WMFFeedArticlePreview: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - NSCopying
 
-    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
-    /// calls this method. The copy is shallow, as the Mantle copy was.
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. The copy is
+    /// shallow, as the Mantle copy was.
     public func copy(with zone: NSZone? = nil) -> Any {
         return WMFFeedArticlePreview(
             articleURL: articleURL,

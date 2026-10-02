@@ -26,7 +26,6 @@ public final class WMFFeedNewsStory: NSObject, NSSecureCoding, NSCopying {
         super.init()
     }
 
-    /// Create the bridge object from the WMFData model.
     public convenience init(newsItem: WMFFeedNewsItem, languageVariantCode: String?) {
         let previews = (newsItem.links ?? []).compactMap { WMFFeedArticlePreview(article: $0, languageVariantCode: languageVariantCode) }
         self.init(storyHTML: newsItem.story, articlePreviews: previews, featuredArticlePreview: nil, midnightUTCMonthAndDay: newsItem.storyMonthAndDay)
@@ -46,7 +45,7 @@ public final class WMFFeedNewsStory: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - Language variant
 
-    /// Set the language variant code on the article previews. The content group calls this method after it decodes the object.
+    /// The content group calls this method after it decodes the object.
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         featuredArticlePreview?.propagateLanguageVariantCode(languageVariantCode)
         articlePreviews?.forEach { $0.propagateLanguageVariantCode(languageVariantCode) }
@@ -54,8 +53,8 @@ public final class WMFFeedNewsStory: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - NSCopying
 
-    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
-    /// calls this method. The copy is shallow, as the Mantle copy was.
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. The copy is
+    /// shallow, as the Mantle copy was.
     public func copy(with zone: NSZone? = nil) -> Any {
         return WMFFeedNewsStory(
             storyHTML: storyHTML,

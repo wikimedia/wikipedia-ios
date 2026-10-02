@@ -21,7 +21,6 @@ class WMFSearchFetcher {
         fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure, success: success)
     }
 
-    /// Search articles by prefix or by full text.
     /// - Parameter previousResults: When present, the new results are merged into this object and the object is returned.
     func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
         guard let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
@@ -36,7 +35,7 @@ class WMFSearchFetcher {
         search(term: searchTerm, project: .commons, namespace: 6, languageVariantCode: nil, resultLimit: resultLimit, fullTextSearch: fullTextSearch, previousResults: previousResults, failure: failure, success: success)
     }
 
-    /// Cancel every request that is in progress. Each cancelled request calls its failure block with a cancellation error.
+    /// Each cancelled request calls its failure block with a cancellation error.
     func cancelAllFetches() {
         lock.lock()
         let running = tasks.values

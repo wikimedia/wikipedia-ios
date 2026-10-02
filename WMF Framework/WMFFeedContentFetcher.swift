@@ -23,7 +23,7 @@ public final class WMFFeedContentFetcher: NSObject {
         super.init()
     }
 
-    /// The URL of the feed content for a site and a date. The widget uses this URL as a cache key.
+    /// The widget uses this URL as a cache key.
     @objc(feedContentURLForSiteURL:onDate:configuration:)
     public static func feedContentURL(forSiteURL siteURL: URL, on date: Date?, configuration: Configuration) -> URL? {
         var path = ["feed", "featured"]
@@ -37,7 +37,6 @@ public final class WMFFeedContentFetcher: NSObject {
         return configuration.feedContentAPIURLForURL(siteURL, appending: path)
     }
 
-    /// Fetch the feed content for a site and a date.
     @objc(fetchFeedContentForURL:date:force:failure:success:)
     public func fetchFeedContent(forURL siteURL: URL, date: Date, force: Bool, failure: @escaping (Error) -> Void, success: @escaping (WMFFeedDayResponse) -> Void) {
         guard let languageCode = siteURL.wmf_languageCode else {

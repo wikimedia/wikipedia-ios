@@ -28,7 +28,6 @@ public final class WMFOnThisDayEventsFetcher: NSObject {
         return supportedLanguages.contains(languageCode)
     }
 
-    /// Fetch the events for a month and a day.
     @objc(fetchOnThisDayEventsForURL:month:day:failure:success:)
     public func fetchOnThisDayEvents(forURL siteURL: URL, month: UInt, day: UInt, failure: @escaping (Error) -> Void, success: @escaping ([WMFFeedOnThisDayEvent]) -> Void) {
         guard let languageCode = siteURL.wmf_languageCode,

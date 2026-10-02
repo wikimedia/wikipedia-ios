@@ -39,13 +39,11 @@ public final class WMFFeedOnThisDayEvent: NSObject, NSSecureCoding, NSCopying {
         super.init()
     }
 
-    /// Create the bridge object from the WMFData model.
     public convenience init(event: WMFOnThisDayEvent, languageVariantCode: String?) {
         let previews = event.pages.compactMap { WMFFeedArticlePreview(page: $0, languageVariantCode: languageVariantCode) }
         self.init(text: event.text, year: NSNumber(value: event.year), articlePreviews: previews)
     }
 
-    /// Compute the rank score of the event.
     public func calculateScore() -> NSNumber {
         let imageCount = (articlePreviews ?? []).filter { $0.imageURLString != nil }.count
         return NSNumber(value: WMFOnThisDayEvent.score(text: text, imageCount: imageCount, languageCode: languageCode))
@@ -53,15 +51,15 @@ public final class WMFFeedOnThisDayEvent: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - Language variant
 
-    /// Set the language variant code on the article previews. The content group calls this method after it decodes the object.
+    /// The content group calls this method after it decodes the object.
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         articlePreviews?.forEach { $0.propagateLanguageVariantCode(languageVariantCode) }
     }
 
     // MARK: - NSCopying
 
-    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
-    /// calls this method. The copy is shallow, as the Mantle copy was.
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. The copy is
+    /// shallow, as the Mantle copy was.
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = WMFFeedOnThisDayEvent(text: text, year: year, articlePreviews: articlePreviews)
         copy.score = score

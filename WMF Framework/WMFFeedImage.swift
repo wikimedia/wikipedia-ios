@@ -30,7 +30,7 @@ public final class WMFFeedImage: NSObject, NSSecureCoding, NSCopying {
         super.init()
     }
 
-    /// Create the bridge object from the WMFData model. The initializer fails when the title or the image URL is missing.
+    /// The initializer fails when the title or the image URL is missing.
     public convenience init?(image: WMFFeedImageNew, languageVariantCode: String?) {
         guard let title = image.title,
               let imageURLString = image.image?.source,
@@ -105,7 +105,7 @@ public final class WMFFeedImage: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - Language variant
 
-    /// Set the language variant code on the URL properties. The content group calls this method after it decodes the object.
+    /// The content group calls this method after it decodes the object.
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         imageThumbURL.wmf_languageVariantCode = languageVariantCode
         imageURL.wmf_languageVariantCode = languageVariantCode
@@ -113,8 +113,8 @@ public final class WMFFeedImage: NSObject, NSSecureCoding, NSCopying {
 
     // MARK: - NSCopying
 
-    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
-    /// calls this method. The copy is shallow, as the Mantle copy was.
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. The copy is
+    /// shallow, as the Mantle copy was.
     public func copy(with zone: NSZone? = nil) -> Any {
         return WMFFeedImage(
             canonicalPageTitle: canonicalPageTitle,
