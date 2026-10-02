@@ -608,8 +608,9 @@ extension TalkPageTopicComposeViewController: UITextViewDelegate {
 
     func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
         if case .link(let url) = textItem.content {
-            navigate(to: url.absoluteURL, useSafari: true)
-            return nil // Prevent default action
+            return UIAction { [weak self] _ in
+                self?.navigate(to: url.absoluteURL, useSafari: true)
+            }
         }
         return defaultAction
     }
