@@ -233,10 +233,16 @@ extension ArticleViewController {
         return true
     }
 
-    /// The coordinator marks the announcement as shown when it presents it.
-    func presentYearInReviewAnnouncement() {
-        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
-        self.yirCoordinator?.start()
+    /// Loads the data and shows the announcement. Returns true only when it is on screen, so the
+    /// caller can move on to its next modal when it is not. The coordinator marks the announcement
+    /// as shown when it presents it.
+    @MainActor
+    func presentYearInReviewAnnouncement() async -> Bool {
+        guard let yirCoordinator else {
+            return false
+        }
+
+        return await yirCoordinator.presentFeatureAnnouncement(introSlideLoggingID: "article_prompt")
     }
 }
 

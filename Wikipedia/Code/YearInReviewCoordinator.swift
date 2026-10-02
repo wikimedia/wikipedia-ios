@@ -20,21 +20,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// overrides it so the funnel records where the flow was opened from.
     private var introSlideLoggingID: String = "profile"
 
-    /// Which slides to show. Picked from the reader's data and whether they log in from the
-    /// announcement.
-    enum Flow {
-        case personalized
-        case collective
-    }
-
-    /// The data state the announcement was built with. Explore uses it to pick the flow and the log
-    /// in prompt copy.
+    /// The data state the announcement was built with. It picks the slides opened from the
+    /// announcement and the log in prompt copy.
     private var announcementUserDataState: WMFYearInReviewDataController.YiRUserDataState = .lowData
 
     private weak var viewModel: WMFYearInReviewViewModel?
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
     private let slideFactory = YearInReviewSlideViewModelFactory()
+
+    /// Makes the announcement screen and the text of the log in prompt that follows it.
+    private let announcementFactory = YearInReviewAnnouncementViewModelFactory()
 
     /// DonateCoordinator drives a multi-step flow of its own, so it has to outlive this call.
     private var donateCoordinator: DonateCoordinator?
@@ -72,15 +68,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         announcementUserDataState = userDataState
-        let localizedStrings = announcementLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
-
-        let viewModel = WMFYearInReviewAnnouncementViewModel(
-            animation: announcementAnimation,
-            riveText: [
-                CoverTextPath.title: localizedStrings.animationAccessibilityLabel,
-                CoverTextPath.body: localizedStrings.body
-            ],
-            localizedStrings: localizedStrings,
+        let viewModel = announcementFactory.makeViewModel(
+            userDataState: userDataState,
+            readingDayCount: readingDayCount,
             delegate: self
         )
 
@@ -96,10 +86,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Presentation
 
-    /// `flow` is nil for the profile entry point, which does not pick a flow here.
-    private func presentYearInReview(flow: Flow? = nil) {
+    /// `userDataState` is nil for the profile entry point, which does not pick slides here.
+    ///
+    /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
+    /// has data. `userDataState` is a temporary proxy for that (see `dataRichDistinctArticleThreshold`
+    /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
+    private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(for: flow),
+            slides: slideFactory.makeSlides(for: userDataState),
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
             loggingDelegate: self
@@ -115,87 +109,29 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         dataController.hasSeenYiRIntroSlide = true
     }
 
-    private func announcementLocalizedStrings(userDataState: WMFYearInReviewDataController.YiRUserDataState, readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
-        let headline: String
-        let body: String
-        switch userDataState {
-        case .dataRich:
-            headline = WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement for readers with enough reading data. It is drawn inside the artwork, so VoiceOver reads this text.")
-            let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
-            body = String.localizedStringWithFormat(format, readingDayCount)
-        case .lowData:
-            headline = collectiveHeadline
-            body = collectiveBody
-        }
-
-        return WMFYearInReviewAnnouncementViewModel.LocalizedStrings(
-            animationAccessibilityLabel: headline,
-            body: body,
-            exploreButtonTitle: WMFLocalizedString("year-in-review-2026-announcement-explore", value: "Explore", comment: "Title of the button on the Year in Review announcement that opens Year in Review."),
-            wIconAccessibilityLabel: CommonStrings.plainWikipediaName,
-            closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
-            moreButtonAccessibilityLabel: CommonStrings.moreButton,
-            learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
-            aboutInsightsButtonTitle: YearInReviewSlideViewModelFactory.aboutInsightsButtonTitle,
-            shareFeedbackButtonTitle: CommonStrings.shareFeedbackTitle
-        )
-    }
-
-    /// Used by the collective announcement and the collective log in prompt.
-    private var collectiveHeadline: String {
-        WMFLocalizedString("year-in-review-2026-announcement-collective-headline", value: "Our Year in Review is here", comment: "Headline of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and title of the log in prompt shown to them. On the announcement it is drawn inside the artwork, so VoiceOver reads this text.")
-    }
-
-    /// Used by the collective announcement and the collective log in prompt.
-    private var collectiveBody: String {
-        WMFLocalizedString("year-in-review-2026-announcement-collective-body", value: "There wasn't enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.", comment: "Body text of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and message of the log in prompt shown to them.")
-    }
-
-    /// The announcement uses the cover artboard of the templates file.
-    private let announcementAnimation = WMFRiveAnimation(
-        resourceName: "all_templates",
-        artboardName: "cover",
-        stateMachineName: "cover-statemachine"
-    )
-
-    /// Text fields on the cover's `DataTemplate` view model. `headline` and `data` are not used.
-    private enum CoverTextPath {
-        static let title = WMFRiveText(path: "coverTitle")
-        static let body = WMFRiveText(path: "bodyCopy")
-    }
-
     // MARK: - Announcement log in prompt
 
-    /// Asks logged-out readers to log in first. Logging in or creating an account opens
-    /// `flowAfterLogin`. Continuing without logging in always opens the collective flow.
-    private func presentAnnouncementLoginPrompt(flowAfterLogin: Flow) {
+    /// Asks logged-out readers to log in first. Logging in or creating an account opens the slides
+    /// for `userDataStateAfterLogin`. Continuing without logging in always opens the low data slides.
+    private func presentAnnouncementLoginPrompt(userDataStateAfterLogin: WMFYearInReviewDataController.YiRUserDataState) {
         guard let announcement = navigationController.presentedViewController else {
-            presentYearInReview(flow: .collective)
+            presentYearInReview(userDataState: .lowData)
             return
         }
 
-        let title: String
-        let message: String
-        switch announcementUserDataState {
-        case .dataRich:
-            title = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-title", value: "Your Year in Review is best with an account", comment: "Title of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
-            message = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-message", value: "Log in to see your top topics, articles, longest rabbit hole, and more. You can still see collective insights without logging in.", comment: "Message of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
-        case .lowData:
-            title = collectiveHeadline
-            message = collectiveBody
-        }
+        let copy = announcementFactory.makeLoginPromptCopy(userDataState: announcementUserDataState)
 
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: copy.title, message: copy.message, preferredStyle: .alert)
 
         let loginAction = UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
             self?.dismissAnnouncement {
-                self?.startAnnouncementLogin(flowAfterLogin: flowAfterLogin)
+                self?.startAnnouncementLogin(userDataStateAfterLogin: userDataStateAfterLogin)
             }
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
             self?.dismissAnnouncement {
-                self?.presentYearInReview(flow: .collective)
+                self?.presentYearInReview(userDataState: .lowData)
             }
         }
 
@@ -207,13 +143,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         announcement.present(alert, animated: true)
     }
 
-    private func startAnnouncementLogin(flowAfterLogin: Flow) {
+    private func startAnnouncementLogin(userDataStateAfterLogin: WMFYearInReviewDataController.YiRUserDataState) {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme, loggingCategory: .yir)
 
         // The log in screen calls this before it dismisses itself, so wait for that to finish.
         loginCoordinator.loginSuccessCompletion = { [weak self] in
-            DispatchQueue.main.async {
-                self?.presentYearInReviewAfterCurrentDismissal(flow: flowAfterLogin)
+            Task { @MainActor [weak self] in
+                self?.presentYearInReviewAfterCurrentDismissal(userDataState: userDataStateAfterLogin)
             }
         }
 
@@ -221,11 +157,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
             guard let self else { return }
             guard let accountCreation = navigationController.presentedViewController else {
-                presentYearInReview(flow: flowAfterLogin)
+                presentYearInReview(userDataState: userDataStateAfterLogin)
                 return
             }
             accountCreation.dismiss(animated: true) { [weak self] in
-                self?.presentYearInReview(flow: flowAfterLogin)
+                self?.presentYearInReview(userDataState: userDataStateAfterLogin)
             }
         }
 
@@ -233,14 +169,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// Presents the slides once any dismissal in progress is done.
-    private func presentYearInReviewAfterCurrentDismissal(flow: Flow) {
+    private func presentYearInReviewAfterCurrentDismissal(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
         guard let transitionCoordinator = navigationController.transitionCoordinator else {
-            presentYearInReview(flow: flow)
+            presentYearInReview(userDataState: userDataState)
             return
         }
 
         transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.presentYearInReview(flow: flow)
+            self?.presentYearInReview(userDataState: userDataState)
         }
     }
 
@@ -363,15 +299,15 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
 extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
 
     func yearInReviewAnnouncementDidTapExplore() {
-        let flowForLoggedInReader: Flow = announcementUserDataState == .dataRich ? .personalized : .collective
+        let userDataState = announcementUserDataState
 
         guard dataStore.authenticationManager.authStateIsPermanent else {
-            presentAnnouncementLoginPrompt(flowAfterLogin: flowForLoggedInReader)
+            presentAnnouncementLoginPrompt(userDataStateAfterLogin: userDataState)
             return
         }
 
         dismissAnnouncement { [weak self] in
-            self?.presentYearInReview(flow: flowForLoggedInReader)
+            self?.presentYearInReview(userDataState: userDataState)
         }
     }
 

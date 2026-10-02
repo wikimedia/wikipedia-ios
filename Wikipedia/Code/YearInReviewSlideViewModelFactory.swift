@@ -176,20 +176,18 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// The slides for `flow`. `nil` is the profile entry point, which does not pick a flow.
+    /// The slides for `userDataState`. `nil` is the profile entry point, which does not pick one, so
+    /// the developer settings decide.
     ///
-    /// TEMPORARY: every slide uses dummy data. Personalized shows the full versions, collective shows
+    /// TEMPORARY: every slide uses dummy data. `.dataRich` shows the full versions, `.lowData` shows
     /// the empty versions until the collective frames exist.
-    func makeSlides(for flow: YearInReviewCoordinator.Flow? = nil) -> [WMFYearInReviewSlideViewModel] {
-        let showsFullVersions: Bool
-        switch flow {
-        case .personalized:
-            showsFullVersions = true
-        case .collective:
-            showsFullVersions = false
-        case nil:
-            showsFullVersions = forcedUserDataState != .lowData
-        }
+    ///
+    /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
+    /// has data. `userDataState` is a temporary proxy for that (see `dataRichDistinctArticleThreshold`
+    /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
+    func makeSlides(for userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) -> [WMFYearInReviewSlideViewModel] {
+        let state = userDataState ?? forcedUserDataState
+        let showsFullVersions = state != .lowData
 
         return makePersonalizedSlides(data: showsFullVersions ? SlideData.mock() : SlideData.mockEmpty)
     }
