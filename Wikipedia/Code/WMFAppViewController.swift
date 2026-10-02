@@ -2279,7 +2279,7 @@ extension WMFAppViewController {
               let rootViewController = navVC.viewControllers.first else { return }
 
         if rootViewController is ExploreViewController && UserDefaults.standard.defaultTabType == .explore {
-            NavigationEventsFunnel.shared.logTappedExplore()
+            NavigationEventsFunnel.shared.logTappedHome()
         } else if rootViewController is SettingsTabViewController && UserDefaults.standard.defaultTabType == .settings {
             NavigationEventsFunnel.shared.logTappedSettingsFromTabBar()
         } else if rootViewController is PlacesViewController {
