@@ -636,10 +636,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentFundraisingOrYearInReviewOrGamesIfNeeded() {
-        if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
-            listenForTooltips()
-        }
-
         // Fundraising outranks Year in Review, and resolves asynchronously, so the rest of the
         // chain runs from its callback.
         showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
