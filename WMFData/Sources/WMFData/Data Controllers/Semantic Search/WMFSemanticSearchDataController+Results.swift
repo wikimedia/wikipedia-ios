@@ -113,7 +113,7 @@ extension WMFSemanticSearchDataController {
         let signals = response.trustAndRelevance
 
         return WMFSemanticSearchAttribution(
-            contributorCount: signals?.contributorCounts,
+            contributorCount: signals?.contributorCounts?.totalUnique,
             referenceCount: signals?.referenceCount,
             lastUpdated: signals?.lastUpdated.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
         )
@@ -188,13 +188,21 @@ extension WMFSemanticSearchDataController {
 
         struct TrustAndRelevance: Decodable, Sendable {
             let lastUpdated: String?
-            let contributorCounts: Int?
+            let contributorCounts: ContributorCounts?
             let referenceCount: Int?
 
             enum CodingKeys: String, CodingKey {
                 case lastUpdated = "last_updated"
                 case contributorCounts = "contributor_counts"
                 case referenceCount = "reference_count"
+            }
+        }
+
+        struct ContributorCounts: Decodable, Sendable {
+            let totalUnique: Int?
+
+            enum CodingKeys: String, CodingKey {
+                case totalUnique = "total_unique"
             }
         }
     }
