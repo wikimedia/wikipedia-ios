@@ -1183,6 +1183,12 @@ extension ExploreViewController {
     }
 
     private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
+        // Cold launch: the store isn't ready yet. Wait for coreDataStoreSetup() to retry.
+        // Without this, the chain falls through and uses up the games announcement.
+        guard WMFDataEnvironment.current.coreDataStore != nil else {
+            return
+        }
+
         guard let yirCoordinator else {
             presentTooltipsAndGamesAnnouncementIfNeeded()
             return
@@ -1555,6 +1561,10 @@ extension ExploreViewController {
 
     @objc func coreDataStoreSetup() {
         configureNavigationBar()
+
+        // Retry the modal chain now that the store exists. Same visibility check as applicationDidBecomeActive().
+        guard viewIfLoaded?.window != nil else { return }
+        presentModalsIfNeeded()
     }
 
     @objc func refreshExploreForGamesCard() {

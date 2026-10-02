@@ -107,6 +107,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.significantTimeChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
 
         apply(theme: theme)
     }
@@ -117,6 +118,15 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     @objc private func applicationDidBecomeActive() {
         // Home stays alive in the tab bar when another tab is on screen. Only run when Home is visible.
+        guard viewIfLoaded?.window != nil else { return }
+        presentYearInReviewAnnouncementIfNeeded()
+    }
+    
+    @objc private func coreDataStoreSetup() {
+        // The store is ready now, so the data controller and coordinator can be built.
+        configureNavigationBar()
+
+        // Same visibility check as applicationDidBecomeActive().
         guard viewIfLoaded?.window != nil else { return }
         presentYearInReviewAnnouncementIfNeeded()
     }

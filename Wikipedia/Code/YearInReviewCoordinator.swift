@@ -80,6 +80,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// Fundraising goes first through `shouldShowYearInReviewFeatureAnnouncement()`: if the campaign
     /// banner showed this session, the announcement waits for the next app open.
     func presentFeatureAnnouncementIfNeeded(from viewController: UIViewController, introSlideLoggingID: String, onShown: @escaping () -> Void = {}, onNotShown: @escaping () -> Void = {}) {
+        // Already loading. A repeat call must not move the caller on to its next modal.
+        guard !isPreparingFeatureAnnouncement else {
+            return
+        }
+
         guard canPresentFeatureAnnouncement(from: viewController) else {
             onNotShown()
             return
