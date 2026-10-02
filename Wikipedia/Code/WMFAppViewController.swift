@@ -750,6 +750,31 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
+    // MARK: - Local Notifications
+
+    static var applicationStateDescription: String {
+        switch UIApplication.shared.applicationState {
+        case .active: return "active"
+        case .inactive: return "inactive"
+        case .background: return "background"
+        @unknown default: return "unknown"
+        }
+    }
+
+    /// Only call from the background app refresh task. Schedules any local notifications that are due.
+    func performLocalNotificationsBackgroundRefresh() async {
+        await Self.scheduleLocalNotificationsIfNeeded(dataStore: dataStore)
+    }
+
+    /// Shared by background app refresh and the Developer Settings "Run notification refresh now" button.
+    static func scheduleLocalNotificationsIfNeeded(dataStore: MWKDataStore) async {
+        let appLanguage = dataStore.languageLinkController.appLanguage
+        let language = WMFLanguage(languageCode: appLanguage?.languageCode ?? "en", languageVariantCode: appLanguage?.languageVariantCode)
+        // todo: localize if this prototype becomes a real experiment
+        let bodyFormat = "%1$@ is the top trending article today, tap here to see more"
+        await WMFDailyTopReadNotificationDataController.shared.scheduleIfNeeded(project: .wikipedia(language), bodyFormat: bodyFormat, appState: applicationStateDescription)
+    }
+
     // MARK: - Background Processing
 
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
