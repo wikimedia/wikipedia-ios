@@ -178,6 +178,15 @@ struct WMFDeveloperSettingsView: View {
                 .listRowBackground(rowBackground)
             }
 
+            Section {
+                captionedRow(caption: "Schedules a once-daily notification for today's top read article from background app refresh. Turning this off cancels any notification waiting to fire.") {
+                    Toggle("Daily Top Read Notifications", isOn: $viewModel.enableDailyTopReadNotifications)
+                }
+            } header: {
+                sectionHeader("Local Notifications")
+            }
+            .listRowBackground(rowBackground)
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)

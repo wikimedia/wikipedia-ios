@@ -42,6 +42,16 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
     /// Set by the app after init. Nil hides the Widgets section.
     @Published public var widgetDiagnostics: WMFDeveloperSettingsWidgetDiagnostics?
 
+    @Published public var enableDailyTopReadNotifications: Bool = WMFDeveloperSettingsDataController.shared.enableDailyTopReadNotifications {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDailyTopReadNotifications = enableDailyTopReadNotifications
+            guard !enableDailyTopReadNotifications else { return }
+            Task {
+                await WMFDailyTopReadNotificationDataController.shared.userDidDisable()
+            }
+        }
+    }
+
     private var subscribers: Set<AnyCancellable> = []
 
     @Published public var enableDeveloperMode: Bool = WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
