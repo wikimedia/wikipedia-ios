@@ -586,7 +586,6 @@
 "empty-no-saved-pages-message" = "儲存頁面以便日後即使在離線時也可檢視";
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到結果";
-"empty-talk-page-title" = "尚未對此使用者發佈過訊息";
 "end-session" = "結束連線階段";
 "error-generic-recovery-suggestion" = "請稍後再試";
 "error-unknown" = "發生不明錯誤";
@@ -1537,7 +1536,6 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
-"unable-to-load-talk-page-title" = "無法載入討論頁";
 "unknown-generic-text" = "未知";
 "unwatch" = "取消監視";
 "user-title" = "使用者";

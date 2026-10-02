@@ -10,11 +10,14 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState?
         var forceMaxArticleTabsTo5: Bool { false }
         var forceYiR2026Announcement: Bool { false }
-        func loadFeatureConfig() -> WMFFeatureConfigResponse? { nil }
+        func loadFeatureConfig() -> WMFFeatureConfigResponse? {
+            // Data window 2026-01-01 to 2026-12-01 UTC.
+            WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: [.testConfig]), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
+        }
     }
 
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
-    private let year = WMFYearInReviewDataController.userDataStateYear
+    private let year = WMFYearInReviewDataController.targetYear
 
     private var store: WMFCoreDataStore!
     private var developerSettings: MockDeveloperSettingsDataController!
@@ -30,8 +33,11 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         pageViewsDataController = try WMFPageViewsDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore())
     }
 
+    /// Noon UTC, to match the UTC data window of the config.
     private func date(month: Int, day: Int, year: Int? = nil) -> Date {
-        Calendar.current.date(from: DateComponents(year: year ?? self.year, month: month, day: day, hour: 12))!
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        return calendar.date(from: DateComponents(year: year ?? self.year, month: month, day: day, hour: 12))!
     }
 
     private func addPageViews(distinctArticles: Int, on date: Date, prefix: String = "Article") async throws {
@@ -77,6 +83,13 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         try await addPageViews(distinctArticles: 11, on: date(month: 3, day: 10))
         developerSettings.forceYiREntryPoint2026 = true
         developerSettings.forceYiRUserDataState = .lowData
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testNoConfigIsLowData() async throws {
+        let dataController = try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore(), developerSettingsDataController: WMFMockDeveloperSettingsDataController(featureConfig: WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: []), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))))
+        try await addPageViews(distinctArticles: 11, on: date(month: 3, day: 10))
         let state = try await dataController.fetchUserDataState()
         XCTAssertEqual(state, .lowData)
     }

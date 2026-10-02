@@ -198,7 +198,6 @@
 "empty-no-saved-pages-message" = "Gardar páxinas para velas máis tarde, incluso sen conexión";
 "empty-no-saved-pages-title" = "Aínda non hai páxinas gardadas";
 "empty-no-search-results-message" = "No se atoparon resultados";
-"empty-talk-page-title" = "Aínda non foi publicada ningunha mensaxe para este usuario";
 "error-generic-recovery-suggestion" = "Por favor, ténteo de novo máis tarde";
 "error-unknown" = "Houbo un erro descoñecido";
 "explore-another-random" = "Outro artigo aleatorio";
@@ -412,7 +411,7 @@
 "on-this-day-title" = "Neste día";
 "original-tab-button-popover-description" = "Prema na \"W\" para volver á pestana na que comezou";
 "page-history-compare-title" = "Comparar";
-"page-history-minor-edits" = "edicións menores";
+"page-history-minor-edits" = "edicións pequenas";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-history-title" = "Historial de revisións";
 "page-protected-can-not-edit" = "Non ten os permisos necesarios para editar esta páxina";
@@ -610,7 +609,6 @@
 "two-factor-login-title" = "Comezar sesión na súa conta";
 "two-factor-login-with-backup-code" = "Usar un dos seus códigos de copia de seguridade";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
-"unable-to-load-talk-page-title" = "Non se pode cargar a páxina de conversa";
 "unknown-generic-text" = "Descoñecido";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas e artigos diarios da nosa comunidade";
 "welcome-exploration-explore-feed-title" = "Canle Explorar";

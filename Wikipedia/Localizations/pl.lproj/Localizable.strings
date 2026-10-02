@@ -272,7 +272,6 @@
 "empty-no-saved-pages-message" = "Zapisz strony, aby wyświetlić je później, nawet offline";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
 "empty-no-search-results-message" = "Nie znaleziono";
-"empty-talk-page-title" = "Nie dodano jeszcze żadnych wiadomości dla tego użytkownika";
 "error-generic-recovery-suggestion" = "Spróbuj ponownie później";
 "error-unknown" = "Wystąpił nieznany błąd";
 "explore-another-random" = "Inny losowy artykuł";
@@ -839,7 +838,6 @@
 "two-factor-login-title" = "Zaloguj się na swoje konto";
 "two-factor-login-with-backup-code" = "Użyj jednego ze swoich kodów zapasowych";
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
-"unable-to-load-talk-page-title" = "Nie można wczytać strony dyskusji";
 "unknown-generic-text" = "Nieznany";
 "user-title" = "Użytkownik";
 "vanish-account-warning-title" = "Ostrzeżenie";

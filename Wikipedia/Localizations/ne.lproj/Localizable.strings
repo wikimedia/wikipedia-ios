@@ -376,6 +376,12 @@
 "search-recent-clear-delete-all" = "सबै मेट्ने";
 "search-recent-title" = "भर्खरैका खोजहरू";
 "search-result-redirected-from" = "$1: बाट अनुप्रेषित";
+"search-semantic-results-empty-title" = "यस खोजीका लागि कुनै परिणामहरू छैनन्";
+"search-semantic-results-error-subtitle" = "कृपया फेरि प्रयास गर्नुहोस्।";
+"search-semantic-results-error-title" = "केही गडबड भयो!";
+"search-semantic-results-rate-limited-title" = "धेरै खोजहरू";
+"search-semantic-results-read-in-article" = "लेखमा पढ्नुहोस्";
+"search-semantic-results-unavailable-subtitle" = "कृपया पछि फेरि प्रयास गर्नुहोस्।";
 "search-title" = "खोज्नुहोस्";
 "settings-account" = "खाता";
 // Fuzzy
@@ -403,7 +409,7 @@
 "table-of-contents-heading" = "सामग्रीहरू";
 "table-of-contents-hide-button-label" = "विषयसूची बन्द गर्नहोस्";
 "talk-page-discussion-read-accessibility-label" = "पढिएकाे";
-"talk-page-reply-button" = "जवाफ दिनुहोस्";
+"talk-page-reply-button" = "उत्तर दिनुहोस्";
 "talk-page-reply-placeholder-format" = "$1लाई जवाफ दिनुहोस्";
 "talk-page-subscribe-to-topic" = "सदस्यता लिनुहोस्";
 "talk-page-unsubscribe-to-topic" = "सदस्यता खारेज गर्नुहोस्";

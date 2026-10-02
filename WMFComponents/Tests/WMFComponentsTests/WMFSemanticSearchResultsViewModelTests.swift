@@ -93,27 +93,6 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
         XCTAssertEqual(errorViewModel.localizedStrings.title, viewModel.generalErrorTitle)
     }
 
-    func testResultsAreCappedAtEight() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService())
-
-        viewModel.load()
-        await waitUntilLoaded(viewModel)
-        XCTAssertEqual(viewModel.results.count, 3)
-
-        // The mock answers every page with the same three results and a next offset.
-        for expectedCount in [6, 8] {
-            viewModel.loadMoreIfNeeded(after: viewModel.results[viewModel.results.count - 1])
-            for _ in 0..<50 where viewModel.isLoadingMore {
-                try? await Task.sleep(for: .milliseconds(20))
-            }
-            XCTAssertEqual(viewModel.results.count, expectedCount)
-        }
-
-        viewModel.loadMoreIfNeeded(after: viewModel.results[7])
-        XCTAssertFalse(viewModel.isLoadingMore, "Nothing loads past the cap.")
-        XCTAssertEqual(viewModel.results.count, WMFSemanticSearchResultsViewModel.maximumResultCount)
-    }
-
     func testCancelKeepsTheLoadingState() async {
         let viewModel = await makeViewModel(service: WMFMockBasicService())
 

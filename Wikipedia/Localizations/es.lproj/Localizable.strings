@@ -1,6 +1,7 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
 // Author: -jem-
+// Author: A.jalate
 // Author: AVIADOR71
 // Author: Agusbou2015
 // Author: Andru1013
@@ -518,7 +519,6 @@
 "empty-no-saved-pages-message" = "Guarda páginas para verlas más tarde, incluso sin conexión";
 "empty-no-saved-pages-title" = "Todavía no hay páginas guardadas";
 "empty-no-search-results-message" = "No se encontraron resultados";
-"empty-talk-page-title" = "Este usuario no ha publicado ningún mensaje todavía";
 "error-generic-recovery-suggestion" = "\nPor favor, inténtalo de nuevo más tarde";
 "error-unknown" = "Ocurrió un error desconocido";
 "explore-another-random" = "Otro artículo aleatorio";
@@ -1149,6 +1149,15 @@
 "search-recent-empty" = "No hay búsquedas recientes todavía";
 "search-recent-title" = "Búsquedas recientes";
 "search-result-redirected-from" = "Redirigido desde: $1";
+"search-semantic-results-empty-title" = "No hay resultados para esta búsqueda";
+"search-semantic-results-error-subtitle" = "Por favor vuelva a intentarlo.";
+"search-semantic-results-error-title" = "Algo salió mal";
+"search-semantic-results-last-updated" = "Última actualización $1";
+"search-semantic-results-rate-limited-subtitle" = "Espera un momento e inténtarlo de nuevo.";
+"search-semantic-results-rate-limited-title" = "Demasiadas búsquedas";
+"search-semantic-results-read-in-article" = "Leer en el artículo";
+"search-semantic-results-unavailable-subtitle" = "Por favor, vuelva a intentarlo más tarde.";
+"search-semantic-results-unavailable-title" = "La función de búsqueda no está disponible en este momento.";
 "search-title" = "Buscar";
 "search-widget-announcement-body" = "Añade el widget de búsqueda de Wikipedia a tu pantalla de inicio o de bloqueo para obtener respuestas más rápidas, al alcance de tu mano.";
 "search-widget-announcement-title" = "Nuevo widget de búsqueda disponible";
@@ -1323,7 +1332,6 @@
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
 "two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
-"unable-to-load-talk-page-title" = "No se puede cargar la página de discusión";
 "unknown-generic-text" = "Desconocido";
 "unwatch" = "Dejar de vigilar";
 "user-title" = "Usuario";
@@ -1453,6 +1461,9 @@
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
+"year-in-review-2026-announcement-exit-toast-title" = "Podrás acceder a tu Resumen Anual más tarde en el menú de Actividad.";
+"year-in-review-2026-feedback-email-first-line" = "Tengo comentarios sobre el resumen del año:";
+"year-in-review-2026-feedback-email-subject" = "Comentarios sobre el resumen del año";
 "year-in-review-button-title" = "Resumen del año";
 "year-in-review-feature-announcement-title-personalized" = "Consulta tu resumen anual de Wikipedia";
 "year-in-review-feature-explore-footer-v3" = "Tu historial de lectura está protegido. Los datos de lectura se calculan con datos almacenados localmente en tu dispositivo.";

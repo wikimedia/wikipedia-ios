@@ -7,7 +7,7 @@ final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataCo
     let id = WMFYearInReviewPersonalizedSlideID.mostReadDate.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = false
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
     
     var mostReadDate: WMFPageViewDates?

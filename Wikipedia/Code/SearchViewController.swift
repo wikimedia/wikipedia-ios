@@ -547,6 +547,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
+            do {
+                try await WMFYearInReviewDataController().deletePersonalizedData(for: .readingHistory)
+            } catch {
+                DDLogError("Failure deleting Year in Review reading data: \(error)")
+            }
         }
     }
 
@@ -619,9 +624,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
 extension SearchViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
-        // Dismiss the reading list toast so it doesn't interfere with the keyboard.
-        NotificationCenter.default.post(name: NSNotification.dismissReadingListToast, object: nil)
-        
         isSearchActive = true
         navigationController?.hidesBarsOnSwipe = false
         

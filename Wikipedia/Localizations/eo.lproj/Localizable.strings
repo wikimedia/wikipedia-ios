@@ -196,7 +196,6 @@
 "empty-no-saved-pages-message" = "Konservi paĝojn por vidi ilin poste, eksterrete";
 "empty-no-saved-pages-title" = "Neniuj konservitaj paĝoj ankoraŭ";
 "empty-no-search-results-message" = "Neniuj rezultoj trovitaj";
-"empty-talk-page-title" = "Neniu mesaĝo afiŝiĝis por ĉi tiu uzanto";
 "error-generic-recovery-suggestion" = "Bonvolu provi denove poste";
 "error-unknown" = "Okazis nekonata eraro";
 "explore-another-random" = "Alia hazarda artikolo";
@@ -622,7 +621,6 @@
 "two-factor-login-title" = "Ensaluti en vian konton";
 "two-factor-login-with-backup-code" = "Uzi unu el viaj rezervaj kodoj";
 "two-factor-login-with-regular-code" = "Uzi la kontrolkodon";
-"unable-to-load-talk-page-title" = "Ne povas ŝargi diskutpaĝon";
 "watchlist-byte-change" = "({{PLURAL:$1|$1 bajto|$1 bajtoj}})";
 "watchlist-user-button-user-page" = "Uzantopaĝo";
 "welcome-exploration-explore-feed-description" = "Rekomendataj legaĵoj kaj ĉiutagaj artikoloj de nia komunumo";
