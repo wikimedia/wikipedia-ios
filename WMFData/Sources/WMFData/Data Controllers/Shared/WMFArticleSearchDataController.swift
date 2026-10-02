@@ -242,11 +242,20 @@ public actor WMFArticleSearchDataController {
             throw WMFDataControllerError.failureCreatingRequestURL
         }
 
+        try Task.checkCancellation()
+
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
-        return try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<WMFArticleSearchAPIResponse, Error>) in
-                continuation.resume(with: result)
+        let cancellation = WMFRequestCancellation()
+
+        return try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                let task = service.performCancellableDecodableGET(request: request) { (result: Result<WMFArticleSearchAPIResponse, Error>) in
+                    continuation.resume(with: result)
+                }
+                cancellation.setTask(task)
             }
+        } onCancel: {
+            cancellation.cancel()
         }
     }
 }
