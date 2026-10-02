@@ -85,12 +85,7 @@ public final class WMFLocationSearchFetcher: NSObject {
                 let locationResults = results.map { MWKLocationSearchResult(result: $0, languageVariantCode: languageVariantCode) }
                 completion(WMFLocationSearchResults(searchSiteURL: siteURL, region: region, searchTerm: searchTerm, results: locationResults))
             } catch {
-                // Network errors go to the caller. Every other error means that there are no results.
-                if (error as NSError).domain == NSURLErrorDomain {
-                    failure(error)
-                } else {
-                    failure(WMFLocationSearchFetcher.noResultsError)
-                }
+                failure(error)
             }
         }
     }
