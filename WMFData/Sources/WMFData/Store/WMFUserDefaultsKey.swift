@@ -134,4 +134,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsForceYiRUserDataState = "dev-settings-force-yir-user-data-state"
     case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
+
+    // Local notifications
+    case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"
 }
