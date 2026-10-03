@@ -204,7 +204,7 @@ private extension HelpViewController {
         let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
         dispatchQueue.async {
 
-            let sharedCache = SharedContainerCache.init(fileName: "User Data Export Sync Info")
+            let sharedCache = WMFSharedContainerCache(fileName: "User Data Export Sync Info")
             
             apiController.getAllReadingLists { (serverReadingLists, _, _) in
                 dispatchQueue.async {
