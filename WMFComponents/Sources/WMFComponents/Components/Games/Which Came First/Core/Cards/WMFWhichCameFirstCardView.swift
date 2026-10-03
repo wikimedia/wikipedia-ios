@@ -104,7 +104,7 @@ public struct WMFWhichCameFirstCardView: View {
     private var eventText: some View {
         ScrollView(.vertical, showsIndicators: true) {
             Text(viewModel.event.text)
-                .font(Font(WMFFont.for(.footnote)))
+                .font(Font(WMFFont.for(sizeClass == .regular ? .title2 : .footnote)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 2)
@@ -122,12 +122,12 @@ public struct WMFWhichCameFirstCardView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 100, height: 100)
+                    .frame(width: sizeClass == .regular ? 160 : 100, height: sizeClass == .regular ? 160 : 100)
                     .clipShape(RoundedRectangle(cornerRadius: 2))
             } else {
                 RoundedRectangle(cornerRadius: 2)
                     .fill(Color(uiColor: theme.midBackground))
-                    .frame(width: 100, height: 100)
+                    .frame(width: sizeClass == .regular ? 160 : 100, height: sizeClass == .regular ? 160 : 100)
                     .overlay(ProgressView().scaleEffect(0.7))
             }
         }
@@ -150,7 +150,7 @@ public struct WMFWhichCameFirstCardView: View {
         Text(viewModel.event.dateString)
             .accessibilityHidden(true)
             .minimumScaleFactor(0.3)
-            .font(Font(WMFFont.for(.subheadline)))
+            .font(Font(WMFFont.for(sizeClass == .regular ? .headline : .subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 8)
             .padding(.vertical, 2)
@@ -167,7 +167,7 @@ private struct CardHeightModifier: ViewModifier {
     func body(content: Content) -> some View {
         if isRegular {
             content
-                .containerRelativeFrame(.vertical, count: 3, spacing: 16)
+                .frame(height: 300)
         } else {
             content
                 .frame(height: cardHeight)
