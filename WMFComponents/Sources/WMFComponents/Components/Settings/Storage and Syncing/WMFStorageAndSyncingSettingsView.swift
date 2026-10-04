@@ -50,26 +50,19 @@ public struct WMFStorageAndSyncingSettingsView: View {
 
     @ViewBuilder
     private func row(for item: SettingsItem) -> some View {
-        switch item.accessory {
-        case .toggle:
-            SettingsRow(item: item)
-                .contentShape(Rectangle())
-                .listRowBackground(Color(uiColor: theme.chromeBackground))
-                .listRowSeparator(.hidden)
-
-        case .chevron:
-            Button {
-                item.action?()
-            } label: {
+        if let action = item.action {
+            Button(action: action) {
                 SettingsRow(item: item)
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .listRowBackground(Color(uiColor: theme.chromeBackground))
             .listRowSeparator(.hidden)
-
-        case .none, .icon:
-            Text("") // can't break
+        } else {
+            SettingsRow(item: item)
+                .contentShape(Rectangle())
+                .listRowBackground(Color(uiColor: theme.chromeBackground))
+                .listRowSeparator(.hidden)
         }
     }
 }
