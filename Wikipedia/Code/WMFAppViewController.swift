@@ -866,7 +866,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
             try? WMFDataEnvironment.current.userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue,
+                key: WMFUserDefaultsKey.hasSeenActivityTabOnboarding.rawValue,
                 value: true
             )
         }
@@ -1042,10 +1042,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
         // check did see onboarding but NOT new onboarding, make sure they haven't seen one time onboarding yet
-        let hasSeenNewOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
+        let hasSeenOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
         let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
 
-        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenNewOnboarding else { return }
+        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenOnboarding else { return }
 
         let viewModel = WMFOnboardingViewModel(
             title: WMFLocalizedString(

@@ -22,8 +22,8 @@ extension WikipediaAppRobot {
         OnboardingRobot(base: base, configuration: configuration)
     }
 
-    var newOnboarding: NewOnboardingRobot {
-        NewOnboardingRobot(base: base, configuration: configuration)
+    var Onboarding: OnboardingRobot {
+        OnboardingRobot(base: base, configuration: configuration)
     }
 }
 

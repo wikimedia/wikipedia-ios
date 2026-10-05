@@ -4,7 +4,7 @@ import WMFComponents
 /// Drives the new first-launch app onboarding flow (shown when the home tab feature flag is
 /// enabled): step advancement, learn-more web views, language setup, interests selection,
 /// and skip behavior.
-struct NewOnboardingRobot: ScreenshotCapturingRobot {
+struct OnboardingRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private let configuration: UITestConfiguration
 
@@ -16,7 +16,7 @@ struct NewOnboardingRobot: ScreenshotCapturingRobot {
 
 // MARK: - Page types
 
-extension NewOnboardingRobot {
+extension OnboardingRobot {
     enum OnboardingPage: CaseIterable {
         case intro
         case dataPrivacy
@@ -46,7 +46,7 @@ extension NewOnboardingRobot {
 
 // MARK: - Screen state
 
-extension NewOnboardingRobot {
+extension OnboardingRobot {
     /// Steps are SwiftUI views whose root container can surface as different element types
     /// (e.g. a single-child stack collapses onto its ScrollView), so match any element type.
     private func pageElement(_ page: OnboardingPage) -> XCUIElement {
@@ -89,7 +89,7 @@ extension NewOnboardingRobot {
 
 // MARK: - Navigation
 
-extension NewOnboardingRobot {
+extension OnboardingRobot {
     @discardableResult
     func advance(to targetPage: OnboardingPage, file: StaticString = #filePath, line: UInt = #line) -> Self {
         guard let targetIndex = OnboardingPage.allCases.firstIndex(of: targetPage) else {
@@ -143,7 +143,7 @@ extension NewOnboardingRobot {
 
 // MARK: - Web view links
 
-extension NewOnboardingRobot {
+extension OnboardingRobot {
     @discardableResult
     func assertLearnMoreOpensWebView(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.tapButton(
@@ -180,7 +180,7 @@ extension NewOnboardingRobot {
 
 // MARK: - Interests
 
-extension NewOnboardingRobot {
+extension OnboardingRobot {
     @discardableResult
     func searchInterests(for term: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
         let searchField = base.app.searchFields[AccessibilityIdentifiers.Interests.searchField]
