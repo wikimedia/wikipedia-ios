@@ -178,6 +178,7 @@ public actor WMFLocalNotificationDataController {
     }
 
     public func log(_ entry: WMFLocalNotificationLogEntry) {
+        // todo: each append loads and rewrites the whole log file. This is fine for prototype testing, but if this becomes a real experiment, remove the log or move it to Core Data.
         var entries = loadLog()
         entries.append(entry)
         if entries.count > Self.maxLogEntries {
