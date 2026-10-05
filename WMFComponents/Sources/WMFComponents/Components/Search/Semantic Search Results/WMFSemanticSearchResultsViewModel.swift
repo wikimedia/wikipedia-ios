@@ -20,6 +20,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     public typealias ResultAction = @MainActor @Sendable (WMFSemanticSearchResult) -> Void
     public typealias Action = @MainActor @Sendable () -> Void
+    public typealias FeedbackAction = WMFSemanticSearchFeedbackViewModel.SubmitAction
 
     let query: String
     let project: WMFProject
@@ -35,10 +36,28 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     @Published private(set) var state: State = .loading
     @Published private(set) var results: [WMFSemanticSearchResultViewModel] = []
+    @Published private(set) var isFeedbackVisible = false
+
+    /// The prompt above the passages asking whether the reader found what they were looking for.
+    public private(set) lazy var feedbackViewModel = WMFSemanticSearchFeedbackViewModel(
+        style: .inline,
+        languageCode: languageCode,
+        submitAction: { [weak self] rating, text in
+            self?.submitFeedback(rating: rating, text: text)
+        },
+        textFieldFocusAction: feedbackTextFieldFocusAction
+    )
 
     private var loadTask: Task<Void, Never>?
     private let readInArticleAction: ResultAction
     private let closeAction: Action
+    private let feedbackAction: FeedbackAction?
+    private let feedbackTextFieldFocusAction: Action?
+    private let feedbackDelay: Duration
+    private var feedbackTask: Task<Void, Never>?
+    /// The sheet has had its one chance to ask: the reader submitted the banner, or an article
+    /// opened from a passage took over asking. The banner doesn't come back and no other article asks.
+    private var hasAskedForFeedback = false
 
     private(set) lazy var betaLabel = CommonStrings.betaLabel(languageCode: languageCode)
     private(set) lazy var emptyTitle = WMFLocalizedString("search-semantic-results-empty-title", languageCode: languageCode, value: "No results for this search", comment: "Shown in the sheet of passages found inside articles when the search returns nothing.")
@@ -57,17 +76,21 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
         lastUpdatedFormat: WMFLocalizedString("search-semantic-results-last-updated", languageCode: languageCode, value: "Last update %1$@", comment: "Date of the last edit of the article a passage comes from, shown where the reference count is not available. %1$@ is replaced with the date in the short numeric style of the device, e.g. 9/26/26.")
     )
 
-    public init(query: String, project: WMFProject, readInArticleAction: @escaping ResultAction, closeAction: @escaping Action) {
+    public init(query: String, project: WMFProject, readInArticleAction: @escaping ResultAction, closeAction: @escaping Action, feedbackAction: FeedbackAction? = nil, feedbackTextFieldFocusAction: Action? = nil, feedbackDelay: Duration = .seconds(3)) {
         self.query = query
         self.project = project
         self.readInArticleAction = readInArticleAction
         self.closeAction = closeAction
+        self.feedbackAction = feedbackAction
+        self.feedbackTextFieldFocusAction = feedbackTextFieldFocusAction
+        self.feedbackDelay = feedbackDelay
 
         languageCode = project.languageCode
     }
 
     deinit {
         loadTask?.cancel()
+        feedbackTask?.cancel()
     }
 
     // MARK: - Loading
@@ -92,6 +115,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
             let response = try await WMFSemanticSearchDataController.shared.fetchResults(query: query, project: project)
             guard !Task.isCancelled else { return }
 
+            let readInArticleAction: ResultAction = { [weak self] in self?.readInArticle($0) }
             results = response.results.map { WMFSemanticSearchResultViewModel(result: $0, project: project, localizedStrings: resultLocalizedStrings, readInArticleAction: readInArticleAction) }
             state = results.isEmpty ? .empty : .results
         } catch is CancellationError {
@@ -148,7 +172,49 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Feedback
+
+    /// Shows the feedback prompt a moment after the sheet appears. Call it when the sheet appears.
+    public func sheetDidAppear() {
+        guard feedbackTask == nil, !hasAskedForFeedback else { return }
+
+        feedbackTask = Task { [weak self, feedbackDelay] in
+            try? await Task.sleep(for: feedbackDelay)
+            guard !Task.isCancelled else { return }
+            self?.isFeedbackVisible = true
+        }
+    }
+
+    /// Call it when opening an article from a passage. Returns true when the reader neither
+    /// answered the prompt nor started to, so the article should ask instead. In that case the
+    /// sheet stops asking, so a reader who comes back to it and opens another passage isn't asked twice.
+    public func handOffFeedbackIfIgnored() -> Bool {
+        guard !hasAskedForFeedback, !feedbackViewModel.hasRated else { return false }
+
+        hasAskedForFeedback = true
+        isFeedbackVisible = false
+        feedbackTask?.cancel()
+        return true
+    }
+
+    private func submitFeedback(rating: WMFSemanticSearchFeedbackViewModel.Rating, text: String?) {
+        hasAskedForFeedback = true
+        isFeedbackVisible = false
+        feedbackAction?(rating, text)
+        WMFToastPresenter.shared.show(WMFToastConfig(title: feedbackViewModel.thanksToastTitle))
+    }
+
     // MARK: - Actions
+
+    /// While the reader types feedback, a tap on a passage only puts the keyboard away, so a
+    /// tap meant to leave the text field doesn't open the article and lose the draft.
+    private func readInArticle(_ result: WMFSemanticSearchResult) {
+        guard !feedbackViewModel.isTextFieldFocused else {
+            feedbackViewModel.isTextFieldFocused = false
+            return
+        }
+        readInArticleAction(result)
+    }
 
     func close() {
         closeAction()
