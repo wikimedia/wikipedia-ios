@@ -217,12 +217,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 widgetController.reloadAllWidgetsIfNecessary()
             }
         )
-        let dataStore = self.dataStore
-        viewModel.localNotificationActions = WMFDeveloperSettingsLocalNotificationActions(
-            runDailyTopReadRefreshNow: {
-                await WMFAppViewController.scheduleLocalNotificationsIfNeeded(dataStore: dataStore)
-            }
-        )
+        viewModel.localNotificationActions = LocalNotificationCoordinator.developerSettingsActions(dataStore: dataStore)
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 

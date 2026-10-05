@@ -753,27 +753,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     // MARK: - Local Notifications
 
-    static var applicationStateDescription: String {
-        switch UIApplication.shared.applicationState {
-        case .active: return "active"
-        case .inactive: return "inactive"
-        case .background: return "background"
-        @unknown default: return "unknown"
-        }
-    }
-
     /// Only call from the background app refresh task. Schedules any local notifications that are due.
     func performLocalNotificationsBackgroundRefresh() async {
-        await Self.scheduleLocalNotificationsIfNeeded(dataStore: dataStore)
-    }
-
-    /// Shared by background app refresh and the Developer Settings "Run notification refresh now" button.
-    static func scheduleLocalNotificationsIfNeeded(dataStore: MWKDataStore) async {
-        let appLanguage = dataStore.languageLinkController.appLanguage
-        let language = WMFLanguage(languageCode: appLanguage?.languageCode ?? "en", languageVariantCode: appLanguage?.languageVariantCode)
-        // todo: localize if this prototype becomes a real experiment
-        let bodyFormat = "%1$@ is the top trending article today, tap here to see more"
-        await WMFDailyTopReadNotificationDataController.shared.scheduleIfNeeded(project: .wikipedia(language), bodyFormat: bodyFormat, appState: applicationStateDescription)
+        await LocalNotificationCoordinator.scheduleNotificationsIfNeeded(dataStore: dataStore)
     }
 
     // MARK: - Background Processing
@@ -1975,13 +1957,7 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
     }
 
     private func handleLocalNotificationTap(type: WMFLocalNotificationType) {
-        let appState = Self.applicationStateDescription
-        switch type {
-        case .dailyTopRead:
-            Task {
-                await WMFDailyTopReadNotificationDataController.shared.logTap(appState: appState)
-            }
-        }
+        LocalNotificationCoordinator.logTap(type: type)
 
         guard isMigrationComplete else {
             localNotificationTypeToShow = type
@@ -1990,16 +1966,15 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
         showDestination(for: type)
     }
 
+    /// Shows Explore, then lets the coordinator push the notification's destination on top of it.
     private func showDestination(for localNotificationType: WMFLocalNotificationType) {
-        switch localNotificationType {
-        case .dailyTopRead:
-            guard let topReadGroup = dataStore.viewContext.newestVisibleGroup(of: .topRead, forSiteURL: dataStore.primarySiteURL),
-                  let groupURL = topReadGroup.url else {
-                showExplore()
-                return
-            }
-            processUserActivity(NSUserActivity.wmf_contentActivity(with: groupURL), animated: true, completion: {})
+        dismissPresentedViewControllers()
+        showExplore()
+        guard let navigationController = currentTabNavigationController else {
+            return
         }
+        let coordinator = LocalNotificationCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, type: localNotificationType)
+        coordinator.start()
     }
 
     private func showNotificationCenterForNotificationInfo(_ info: [AnyHashable: Any]) {

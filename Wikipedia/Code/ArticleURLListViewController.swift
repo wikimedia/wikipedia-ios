@@ -81,7 +81,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
             return
         }
 
-        let appState = WMFAppViewController.applicationStateDescription
+        let appState = LocalNotificationCoordinator.applicationStateDescription
         Task {
             await WMFDailyTopReadNotificationDataController.shared.userDidViewTopRead(appState: appState)
         }
