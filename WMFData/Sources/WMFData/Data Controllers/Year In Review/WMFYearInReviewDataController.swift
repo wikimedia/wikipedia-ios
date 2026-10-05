@@ -781,8 +781,18 @@ import CoreData
 }
 
 public struct WMFYearInReviewReadData: Codable {
+    /// The user must have read at least this number of articles to see the full total articles slide.
+    public static let minimumReadCount = 3
+
+    /// The number of unique articles read. Pages outside the main namespace and main pages are
+    /// left out.
     public let readCount: Int
     public let minutesRead: Int
+
+    /// If false, show the empty state of the total articles slide.
+    public var isEligible: Bool {
+        readCount >= Self.minimumReadCount
+    }
 }
 
 public class SavedArticleSlideData: NSObject, Codable {
