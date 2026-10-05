@@ -217,7 +217,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 widgetController.reloadAllWidgetsIfNecessary()
             }
         )
-        viewModel.localNotificationActions = LocalNotificationCoordinator.developerSettingsActions(dataStore: dataStore)
+        viewModel.configureLocalNotificationActions(dataStore: dataStore)
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 

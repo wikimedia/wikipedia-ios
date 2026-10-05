@@ -73,3 +73,12 @@ final class LocalNotificationCoordinator: Coordinator {
         }
     }
 }
+
+// MARK: - Developer Settings
+
+extension WMFDeveloperSettingsViewModel {
+    /// Attaches the "Run notification refresh now" action. Used by both Developer Settings entry points (Profile and About).
+    @objc func configureLocalNotificationActions(dataStore: MWKDataStore) {
+        localNotificationActions = LocalNotificationCoordinator.developerSettingsActions(dataStore: dataStore)
+    }
+}
