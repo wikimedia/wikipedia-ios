@@ -18,8 +18,13 @@ final class WMFRiveAnimationViewModel: ObservableObject {
 
     @Published private(set) var loadState: LoadState = .idle
     @Published private(set) var rive: Rive?
+    /// The value of `readBool` in the loaded file. `nil` until the file loads, or if the file has no such property.
+    @Published private(set) var readBoolValue: Bool?
 
     let animation: WMFRiveAnimation
+    /// A boolean property to read after the file loads, from the view model instance that has the name
+    /// of the artboard if there is one, otherwise from the bound instance.
+    let readBool: WMFRiveBool?
 
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
@@ -34,6 +39,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
         images: [WMFRiveImage: Data] = [:],
+        readBool: WMFRiveBool? = nil,
         loader: @escaping @MainActor (WMFRiveAnimation) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
     ) {
@@ -41,6 +47,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.text = text
         self.numbers = numbers
         self.images = images
+        self.readBool = readBool
         self.loader = loader
         self.imageDecoder = imageDecoder
     }
@@ -70,6 +77,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             self.loadState = .loaded
             validatePathsInDebug()
             applyValues()
+            await readBoolFromFile()
         } catch is CancellationError {
             return
         } catch {
@@ -89,6 +97,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         imageTask?.cancel()
         imageTask = nil
         rive = nil
+        readBoolValue = nil
         loadState = .idle
     }
 
@@ -135,6 +144,23 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    /// `dataBind: .auto` binds the default instance of the artboard. The templates set their flags on
+    /// the instance that has the name of the artboard, so read that instance first.
+    private func readBoolFromFile() async {
+        guard let readBool, let rive else { return }
+        let property = BoolProperty(path: readBool.path)
+        var value: Bool?
+        if let artboardName = animation.artboardName,
+           let named = try? await rive.file.createViewModelInstance(.name(artboardName, from: .artboardDefault(rive.artboard))) {
+            value = try? await named.value(of: property)
+        }
+        if value == nil, let bound = rive.viewModelInstance {
+            value = try? await bound.value(of: property)
+        }
+        guard !Task.isCancelled else { return }
+        readBoolValue = value
     }
 
     private func stage(for error: any Error) -> WMFRiveFailure.Stage {

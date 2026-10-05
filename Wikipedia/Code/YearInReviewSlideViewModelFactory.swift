@@ -253,7 +253,8 @@ struct YearInReviewSlideViewModelFactory {
             text: text,
             articleThumbnails: articleThumbnails,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
-            contentStyle: .dark
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag
         )
     }
 
@@ -291,9 +292,14 @@ struct YearInReviewSlideViewModelFactory {
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
-            contentStyle: .dark
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag
         )
     }
+
+    /// Each template in the file sets this flag for the contrast of the controls above it. The style
+    /// that the factory passes shows only until the slide loads.
+    private static let lightContentFlag = WMFRiveBool(path: "isUIWhite")
 
     /// The file with the frame templates.
     private let templatesResourceName = "all_templates"

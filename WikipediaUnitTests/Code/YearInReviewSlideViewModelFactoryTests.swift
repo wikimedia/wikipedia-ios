@@ -69,6 +69,14 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(artboards == ["frame1-empty", "frame12-empty"])
     }
 
+    /// Each template sets `isUIWhite` for the contrast of the controls above it, so every slide must read it.
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func everySlideReadsTheContrastFlag(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+        for slide in factory.makeSlides(userDataState: userDataState) {
+            #expect(slide.lightContentFlag?.path == "isUIWhite", "\(slide.id)")
+        }
+    }
+
     // MARK: - Total articles
 
     private func text(_ slide: WMFYearInReviewSlideViewModel, _ path: String) -> String? {

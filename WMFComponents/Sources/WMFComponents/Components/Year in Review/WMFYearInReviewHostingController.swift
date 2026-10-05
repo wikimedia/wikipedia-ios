@@ -37,6 +37,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             }
             .store(in: &cancellables)
 
+        // A slide can set the color of the controls in its .riv, which is known only after it loads.
+        viewModel.$loadedContentStyles
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applyContentColor()
+            }
+            .store(in: &cancellables)
+
         // The donate button becomes a spinner while the donate configuration loads.
         viewModel.$isLoadingDonate
             .receive(on: DispatchQueue.main)
@@ -198,7 +206,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     }
 
     private func applyContentColor() {
-        let color = viewModel.currentSlide?.contentColor ?? theme.text
+        let color = viewModel.currentContentColor ?? theme.text
         navigationItem.rightBarButtonItem?.tintColor = color
         navigationItem.leftBarButtonItem?.tintColor = color
         (navigationItem.titleView as? UIImageView)?.tintColor = color
@@ -207,7 +215,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     private func makeTitleView() -> UIView {
         let imageView = UIImageView(image: UIImage(named: "W", in: .module, with: nil))
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = viewModel.currentSlide?.contentColor ?? theme.text
+        imageView.tintColor = viewModel.currentContentColor ?? theme.text
         imageView.isAccessibilityElement = true
         imageView.accessibilityLabel = viewModel.localizedStrings.wIconAccessibilityLabel
         imageView.frame = CGRect(x: 0, y: 0, width: 24, height: 20)
@@ -234,7 +242,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             menu: UIMenu(children: [learnMore, shareFeedback])
         )
         item.accessibilityLabel = viewModel.localizedStrings.moreButtonAccessibilityLabel
-        item.tintColor = viewModel.currentSlide?.contentColor ?? theme.text
+        item.tintColor = viewModel.currentContentColor ?? theme.text
         return item
     }
 
