@@ -35,8 +35,30 @@ public struct WMFYearInReviewTopArticlesSlideData: Codable, Sendable {
 /// Identifies the main page of a wiki. The per-language main page titles live app-side, so the app
 /// supplies this.
 public protocol WMFMainPageIdentifying: AnyObject {
+    /// The title of the main page of `project`, or `nil` if it is not known. The case and the use
+    /// of underscores or spaces do not matter.
+    func mainPageTitle(for project: WMFProject) async -> String?
+}
+
+extension WMFMainPageIdentifying {
     /// `title` has spaces, not underscores.
-    func isMainPage(title: String, project: WMFProject) async -> Bool
+    func isMainPage(title: String, project: WMFProject) async -> Bool {
+        guard let mainPageTitle = await mainPageTitle(for: project) else {
+            return false
+        }
+        return WMFMainPageTitle.matches(title, mainPageTitle: mainPageTitle)
+    }
+}
+
+/// Compares titles the same way as the app-side main page lookup: case and underscores are ignored.
+enum WMFMainPageTitle {
+    static func canonicalized(_ title: String) -> String {
+        title.uppercased().replacingOccurrences(of: "_", with: " ")
+    }
+
+    static func matches(_ title: String, mainPageTitle: String) -> Bool {
+        canonicalized(title) == canonicalized(mainPageTitle)
+    }
 }
 
 // @unchecked: `isEvaluated` is mutable, but instances are confined to the sequential

@@ -176,8 +176,10 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     private final class StubMainPageIdentifier: WMFMainPageIdentifying {
         let mainPages: [(title: String, projectID: String)]
         init(mainPages: [(title: String, projectID: String)]) { self.mainPages = mainPages }
-        func isMainPage(title: String, project: WMFProject) async -> Bool {
-            mainPages.contains { $0.title == title && $0.projectID == project.id }
+        private(set) var requestedProjectIDs: [String] = []
+        func mainPageTitle(for project: WMFProject) async -> String? {
+            requestedProjectIDs.append(project.id)
+            return mainPages.first { $0.projectID == project.id }?.title
         }
     }
 
