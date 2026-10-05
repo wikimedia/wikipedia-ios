@@ -56,7 +56,7 @@ public actor WMFLocalNotificationDataController {
         let day = Self.dayString(for: date, calendar: calendar)
         let authorizationStatus = await scheduler.authorizationStatus()
 
-        log(.attempt, type: type, appState: appState, authorizationStatus: authorizationStatus)
+        log(.runStarted, type: type, appState: appState, authorizationStatus: authorizationStatus)
 
         guard !isHandled(type: type, day: day) else {
             log(.skippedAlreadyHandled, type: type, appState: appState, authorizationStatus: authorizationStatus)

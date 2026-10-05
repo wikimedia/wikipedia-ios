@@ -64,7 +64,8 @@ public enum WMFLocalNotificationAuthorizationStatus: String, Codable, Sendable {
 public struct WMFLocalNotificationLogEntry: Codable, Sendable, Equatable {
 
     public enum Event: String, Codable, Sendable {
-        case attempt
+        /// A scheduling run started, from background app refresh or Developer Settings. Always followed by one outcome event.
+        case runStarted
         case scheduled
         case skippedAlreadyHandled
         case skippedNotAuthorized

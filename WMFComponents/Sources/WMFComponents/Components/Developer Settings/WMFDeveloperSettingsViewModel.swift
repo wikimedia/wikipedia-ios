@@ -278,9 +278,9 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
 
         let scheduledCount = entries.filter { $0.event == .scheduled }.count
-        let backgroundAttempts = entries.filter { $0.event == .attempt && $0.appState == "background" }.count
+        let backgroundRuns = entries.filter { $0.event == .runStarted && $0.appState == "background" }.count
         localNotificationLogSummaryLines = [
-            "\(entries.count) entries, \(backgroundAttempts) background attempts, \(scheduledCount) scheduled",
+            "\(entries.count) entries, \(backgroundRuns) background runs, \(scheduledCount) scheduled",
             "Latest: \(last.event.rawValue) at \(last.timestamp.formatted(date: .abbreviated, time: .standard))"
         ]
     }

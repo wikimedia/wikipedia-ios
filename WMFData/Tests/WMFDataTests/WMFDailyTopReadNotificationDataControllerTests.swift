@@ -69,7 +69,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         XCTAssertEqual(added.first?.userInfo[WMFLocalNotificationType.userInfoKey], "dailyTopRead")
 
         let events = await loggedEvents()
-        XCTAssertEqual(events, [.attempt, .scheduled])
+        XCTAssertEqual(events, [.runStarted, .scheduled])
     }
 
     func testSchedulesShortlyWhenAfterTenAM() async throws {
@@ -88,7 +88,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         let added = await scheduler.added
         XCTAssertTrue(added.isEmpty)
         let events = await loggedEvents()
-        XCTAssertEqual(events, [.attempt, .skippedTooLate])
+        XCTAssertEqual(events, [.runStarted, .skippedTooLate])
 
         // Day was not marked handled, so the next morning still schedules.
         let nextMorning = try makeController(now: date(hour: 1, day: 30))
@@ -105,7 +105,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         let added = await scheduler.added
         XCTAssertEqual(added.count, 1)
         let events = await loggedEvents()
-        XCTAssertEqual(events, [.attempt, .scheduled, .attempt, .skippedAlreadyHandled])
+        XCTAssertEqual(events, [.runStarted, .scheduled, .runStarted, .skippedAlreadyHandled])
     }
 
     func testSkipsWhenNotAuthorized() async throws {
@@ -116,7 +116,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         let added = await scheduler.added
         XCTAssertTrue(added.isEmpty)
         let log = await localNotificationDataController.loadLog()
-        XCTAssertEqual(log.map { $0.event }, [.attempt, .skippedNotAuthorized])
+        XCTAssertEqual(log.map { $0.event }, [.runStarted, .skippedNotAuthorized])
         XCTAssertEqual(log.last?.authorizationStatus, "denied")
     }
 
@@ -125,7 +125,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         await controller.scheduleIfNeeded(project: project, bodyFormat: bodyFormat, appState: nil)
 
         let events = await loggedEvents()
-        XCTAssertEqual(events, [.attempt, .failedNoContent])
+        XCTAssertEqual(events, [.runStarted, .failedNoContent])
     }
 
     func testViewingTopReadCancelsAndBlocksScheduling() async throws {
@@ -139,7 +139,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         // Viewing Top Read again doesn't log a second cancellation.
         await controller.userDidViewTopRead(appState: "active")
         let events = await loggedEvents()
-        XCTAssertEqual(events, [.attempt, .scheduled, .cancelledByUserVisit])
+        XCTAssertEqual(events, [.runStarted, .scheduled, .cancelledByUserVisit])
     }
 
     func testViewingTopReadBeforeRefreshBlocksScheduling() async throws {
@@ -150,12 +150,12 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         let added = await scheduler.added
         XCTAssertTrue(added.isEmpty)
         let events = await loggedEvents()
-        XCTAssertEqual(events, [.attempt, .skippedAlreadyHandled])
+        XCTAssertEqual(events, [.runStarted, .skippedAlreadyHandled])
     }
 
     func testLogIsCapped() async throws {
         for _ in 0..<(WMFLocalNotificationDataController.maxLogEntries + 5) {
-            await localNotificationDataController.log(WMFLocalNotificationLogEntry(type: .dailyTopRead, event: .attempt))
+            await localNotificationDataController.log(WMFLocalNotificationLogEntry(type: .dailyTopRead, event: .runStarted))
         }
         let log = await localNotificationDataController.loadLog()
         XCTAssertEqual(log.count, WMFLocalNotificationDataController.maxLogEntries)
@@ -182,10 +182,10 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
     }
 
     func testExportAndClearLog() async throws {
-        await localNotificationDataController.log(WMFLocalNotificationLogEntry(timestamp: date(hour: 3), type: .dailyTopRead, event: .attempt))
+        await localNotificationDataController.log(WMFLocalNotificationLogEntry(timestamp: date(hour: 3), type: .dailyTopRead, event: .runStarted))
         let data = try await localNotificationDataController.exportLogData()
         let exported = try JSONDecoder().decode([WMFLocalNotificationLogEntry].self, from: data)
-        XCTAssertEqual(exported.map { $0.event }, [.attempt])
+        XCTAssertEqual(exported.map { $0.event }, [.runStarted])
 
         await localNotificationDataController.clearLog()
         let log = await localNotificationDataController.loadLog()
@@ -211,7 +211,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         let pending = await scheduler.pending
         XCTAssertTrue(pending.isEmpty)
         let events = await loggedEvents()
-        XCTAssertEqual(events, [.attempt, .scheduled, .cancelledByDisable])
+        XCTAssertEqual(events, [.runStarted, .scheduled, .cancelledByDisable])
 
         // Nothing left to cancel, so a second disable doesn't log.
         await controller.userDidDisable()
@@ -234,7 +234,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         let added = await scheduler.added
         XCTAssertTrue(added.isEmpty)
         let log = await localNotificationDataController.loadLog()
-        XCTAssertEqual(log.map { $0.event }, [.attempt, .failedFetch])
+        XCTAssertEqual(log.map { $0.event }, [.runStarted, .failedFetch])
         XCTAssertNotNil(log.last?.error)
 
         // A failed fetch doesn't mark the day handled, so a later refresh can try again.
@@ -252,7 +252,7 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
             content: { _ in WMFLocalNotificationContent(title: "Title", body: "Body", logSummary: "Summary") })
 
         let log = await localNotificationDataController.loadLog()
-        XCTAssertEqual(log.map { $0.event }, [.attempt, .failedSchedule])
+        XCTAssertEqual(log.map { $0.event }, [.runStarted, .failedSchedule])
         XCTAssertEqual(log.last?.contentSummary, "Summary")
         let isHandled = await localNotificationDataController.isHandled(type: .dailyTopRead, day: "2026-09-29")
         XCTAssertFalse(isHandled)
