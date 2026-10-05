@@ -25,12 +25,15 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     /// A boolean property to read after the file loads, from the view model instance that has the name
     /// of the artboard if there is one, otherwise from the bound instance.
     let readBool: WMFRiveBool?
+    /// Text runs to keep on one line. See `WMFRiveSingleLineFit`.
+    let singleLineFits: [WMFRiveSingleLineFit]
 
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
     private var images: [WMFRiveImage: Data]
     private var loadTask: Task<Void, Never>?
     private var imageTask: Task<Void, Never>?
+    private var fitTask: Task<Void, Never>?
     private let loader: @MainActor (WMFRiveAnimation) async throws -> Rive
     private let imageDecoder: @MainActor (Data) async throws -> RiveRuntime.Image
 
@@ -40,6 +43,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         numbers: [WMFRiveNumber: Double] = [:],
         images: [WMFRiveImage: Data] = [:],
         readBool: WMFRiveBool? = nil,
+        singleLineFits: [WMFRiveSingleLineFit] = [],
         loader: @escaping @MainActor (WMFRiveAnimation) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
     ) {
@@ -48,6 +52,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.numbers = numbers
         self.images = images
         self.readBool = readBool
+        self.singleLineFits = singleLineFits
         self.loader = loader
         self.imageDecoder = imageDecoder
     }
@@ -55,6 +60,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     deinit {
         loadTask?.cancel()
         imageTask?.cancel()
+        fitTask?.cancel()
     }
 
     @discardableResult
@@ -74,9 +80,12 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             let rive = try await loader(animation)
             guard !Task.isCancelled else { return }
             self.rive = rive
-            self.loadState = .loaded
             validatePathsInDebug()
             applyValues()
+            // Fit the text before the animation shows, so a long value never shows at the wrong size.
+            await applySingleLineFits()
+            guard !Task.isCancelled else { return }
+            self.loadState = .loaded
             await readBoolFromFile()
         } catch is CancellationError {
             return
@@ -96,6 +105,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         loadTask = nil
         imageTask?.cancel()
         imageTask = nil
+        fitTask?.cancel()
+        fitTask = nil
         rive = nil
         readBoolValue = nil
         loadState = .idle
@@ -106,6 +117,11 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         text = newText
         numbers = newNumbers
         applyValues()
+        guard !singleLineFits.isEmpty else { return }
+        fitTask?.cancel()
+        fitTask = Task { [weak self] in
+            await self?.applySingleLineFits()
+        }
     }
 
     func update(images newImages: [WMFRiveImage: Data]) {
@@ -142,6 +158,44 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                     guard !Task.isCancelled else { return }
                     WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not decode the image for \"\(property.path)\": \(error.localizedDescription)"))
                 }
+            }
+        }
+    }
+
+    /// Binds a new instance of each global view model that a fit uses, also when the value fits, so a
+    /// shorter value returns to the size in the file.
+    private func applySingleLineFits() async {
+        guard let rive, !singleLineFits.isEmpty else { return }
+        var globals: [String: ViewModelInstance] = [:]
+        for fit in singleLineFits {
+            guard let value = text[fit.text], !value.isEmpty else { continue }
+            do {
+                let global: ViewModelInstance
+                if let existing = globals[fit.globalViewModelName] {
+                    global = existing
+                } else {
+                    global = try await rive.file.createViewModelInstance(.viewModelDefault(from: .name(fit.globalViewModelName)))
+                    globals[fit.globalViewModelName] = global
+                }
+                let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
+                let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
+                guard let width = WMFRiveSingleLineFit.width(of: value, fontAssetName: fit.fontAssetName, fontSize: fontSize) else {
+                    WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "No system font for the asset \"\(fit.fontAssetName)\", so \"\(fit.text.path)\" is not fitted."))
+                    continue
+                }
+                let scale = WMFRiveSingleLineFit.scale(textWidth: width, maximumWidth: fit.maximumWidth)
+                global.setValue(of: NumberProperty(path: fit.fontSize.path), to: Float(fontSize * scale))
+                global.setValue(of: NumberProperty(path: fit.lineHeight.path), to: Float(lineHeight * scale))
+            } catch {
+                WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "Could not fit \"\(fit.text.path)\": \(error.localizedDescription)"))
+            }
+        }
+        guard !Task.isCancelled else { return }
+        for (name, global) in globals {
+            do {
+                try await rive.stateMachine.bindViewModelInstances { (name, global) }
+            } catch {
+                WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "Could not bind the global view model \"\(name)\": \(error.localizedDescription)"))
             }
         }
     }

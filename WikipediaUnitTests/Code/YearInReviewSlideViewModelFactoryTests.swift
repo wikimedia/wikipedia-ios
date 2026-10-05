@@ -104,6 +104,18 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(slide.localizedStrings.accessibilityLabel?.contains(bodyCopy) == true)
     }
 
+    /// The large number keeps to one line. The empty slide has no number, so it fits nothing.
+    @Test
+    func onlyTheFullSlideFitsTheNumber() {
+        let full = factory.totalArticlesSlide(readCount: 350, topReadPercentage: 50, averageReadCount: 335)
+        let empty = factory.totalArticlesSlide(readCount: 0, topReadPercentage: nil, averageReadCount: 335)
+
+        #expect(full.singleLineFits.map(\.text.path) == ["data"])
+        #expect(full.singleLineFits.first?.fontSize.path == "dataNumberFontSize")
+        #expect(full.singleLineFits.first?.lineHeight.path == "dataNumbersLineHeight")
+        #expect(empty.singleLineFits.isEmpty)
+    }
+
     @Test
     func theTopBucketKeepsItsFraction() throws {
         let slide = factory.totalArticlesSlide(readCount: 50000, topReadPercentage: 0.01, averageReadCount: 335)

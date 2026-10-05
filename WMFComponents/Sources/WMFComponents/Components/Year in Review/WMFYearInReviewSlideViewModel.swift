@@ -49,6 +49,8 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     /// A boolean in the .riv that the artwork sets. True asks for light controls. When the slide
     /// loads, its value replaces `contentStyle`.
     public let lightContentFlag: WMFRiveBool?
+    /// Text runs that the slide keeps on one line.
+    public let singleLineFits: [WMFRiveSingleLineFit]
 
     public init(
         id: String,
@@ -61,7 +63,8 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         showsShareButton: Bool = true,
         showsDonateButton: Bool = true,
         contentStyle: ContentStyle = .light,
-        lightContentFlag: WMFRiveBool? = nil
+        lightContentFlag: WMFRiveBool? = nil,
+        singleLineFits: [WMFRiveSingleLineFit] = []
     ) {
         self.id = id
         self.loggingID = loggingID
@@ -74,6 +77,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         self.showsDonateButton = showsDonateButton
         self.contentStyle = contentStyle
         self.lightContentFlag = lightContentFlag
+        self.singleLineFits = singleLineFits
     }
 
     public var prefersLightContent: Bool {

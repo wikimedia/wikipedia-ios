@@ -33,6 +33,11 @@ enum WMFRiveWorkerProvider {
         "SerifFont": serifSystemFont(ofSize: 17)
     ]
 
+    /// The system font that the app supplies for a font asset of the .riv, or `nil` if it supplies none.
+    static func substituteFont(forAssetNamed name: String) -> UIFont? {
+        systemFontSubstitutions[name]
+    }
+
     private static func serifSystemFont(ofSize size: CGFloat) -> UIFont {
         let base = UIFont.systemFont(ofSize: size)
         guard let descriptor = base.fontDescriptor.withDesign(.serif) else { return base }

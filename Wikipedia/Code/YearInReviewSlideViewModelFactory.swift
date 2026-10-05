@@ -267,6 +267,18 @@ struct YearInReviewSlideViewModelFactory {
         static let bodyCopy = WMFRiveText(path: "bodyCopy")
     }
 
+    /// The box of the large number does not grow, so a long number wraps on top of the body copy.
+    /// Make the number smaller until it fits on one line. The width is the width of the
+    /// `Data-Numbers` artboard in the templates file.
+    private static let dataNumberFit = WMFRiveSingleLineFit(
+        text: DataTextPath.data,
+        fontAssetName: "SanSerifFont",
+        maximumWidth: 344,
+        globalViewModelName: "GlobalProperties",
+        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
+        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight")
+    )
+
     /// A slide from the templates file that shows one number. Pass `nil` for a text field that the
     /// frame does not use.
     private func dataSlide(
@@ -293,7 +305,8 @@ struct YearInReviewSlideViewModelFactory {
             text: text,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
-            lightContentFlag: Self.lightContentFlag
+            lightContentFlag: Self.lightContentFlag,
+            singleLineFits: data == nil ? [] : [Self.dataNumberFit]
         )
     }
 
