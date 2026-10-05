@@ -20,6 +20,10 @@ public actor WMFMockLocalNotificationScheduler: WMFLocalNotificationScheduling {
         self.status = status
     }
 
+    public func setAddError(_ error: Error?) {
+        self.addError = error
+    }
+
     public func authorizationStatus() async -> WMFLocalNotificationAuthorizationStatus {
         status
     }

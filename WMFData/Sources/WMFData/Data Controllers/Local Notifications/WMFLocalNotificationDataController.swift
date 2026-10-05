@@ -1,6 +1,7 @@
 import Foundation
 
 /// Feature-agnostic layer for scheduling local notifications, tracking which days a notification type has been handled, and persisting a lifecycle log.
+/// Daily notification features call `scheduleDaily` and provide only their fire time rules and content.
 public actor WMFLocalNotificationDataController {
 
     public static let shared = WMFLocalNotificationDataController()
@@ -11,6 +12,8 @@ public actor WMFLocalNotificationDataController {
     private let scheduler: WMFLocalNotificationScheduling
     private let injectedUserDefaultsStore: WMFKeyValueStore?
     private let injectedSharedCacheStore: WMFKeyValueStore?
+    private let calendar: Calendar
+    private let now: @Sendable () -> Date
 
     private var userDefaultsStore: WMFKeyValueStore? {
         injectedUserDefaultsStore ?? WMFDataEnvironment.current.userDefaultsStore
@@ -20,10 +23,93 @@ public actor WMFLocalNotificationDataController {
         injectedSharedCacheStore ?? WMFDataEnvironment.current.sharedCacheStore
     }
 
-    public init(scheduler: WMFLocalNotificationScheduling = WMFUserNotificationCenterScheduler(), userDefaultsStore: WMFKeyValueStore? = nil, sharedCacheStore: WMFKeyValueStore? = nil) {
+    public init(scheduler: WMFLocalNotificationScheduling = WMFUserNotificationCenterScheduler(),
+                userDefaultsStore: WMFKeyValueStore? = nil,
+                sharedCacheStore: WMFKeyValueStore? = nil,
+                calendar: Calendar = .current,
+                now: @escaping @Sendable () -> Date = { Date() }) {
         self.scheduler = scheduler
         self.injectedUserDefaultsStore = userDefaultsStore
         self.injectedSharedCacheStore = sharedCacheStore
+        self.calendar = calendar
+        self.now = now
+    }
+
+    // MARK: - Daily notifications
+
+    /// Identifier of the daily notification of this type for a day string (yyyy-MM-dd).
+    public static func dailyIdentifier(type: WMFLocalNotificationType, day: String) -> String {
+        "\(type.rawValue)-\(day)"
+    }
+
+    /// Schedules today's notification of this type, unless one was already handled today. Each step is logged.
+    /// - Parameters:
+    ///   - type: The daily notification type. Callers check their own feature flag before calling.
+    ///   - appState: Application state description, recorded in the log.
+    ///   - fireDate: When to fire, given the current date and calendar. Nil skips today as too late.
+    ///   - content: Fetches the notification content for the current date. Nil logs `failedNoContent`; throwing logs `failedFetch`.
+    public func scheduleDaily(type: WMFLocalNotificationType,
+                              appState: String?,
+                              fireDate: @Sendable (_ now: Date, _ calendar: Calendar) -> Date?,
+                              content: @Sendable (_ now: Date) async throws -> WMFLocalNotificationContent?) async {
+        let date = now()
+        let day = Self.dayString(for: date, calendar: calendar)
+        let authorizationStatus = await scheduler.authorizationStatus()
+
+        log(.attempt, type: type, appState: appState, authorizationStatus: authorizationStatus)
+
+        guard !isHandled(type: type, day: day) else {
+            log(.skippedAlreadyHandled, type: type, appState: appState, authorizationStatus: authorizationStatus)
+            return
+        }
+
+        guard authorizationStatus.isAuthorized else {
+            log(.skippedNotAuthorized, type: type, appState: appState, authorizationStatus: authorizationStatus)
+            return
+        }
+
+        guard let fireDate = fireDate(date, calendar) else {
+            log(.skippedTooLate, type: type, appState: appState, authorizationStatus: authorizationStatus)
+            return
+        }
+
+        let notificationContent: WMFLocalNotificationContent
+        do {
+            guard let fetchedContent = try await content(date) else {
+                log(.failedNoContent, type: type, appState: appState, authorizationStatus: authorizationStatus)
+                return
+            }
+            notificationContent = fetchedContent
+        } catch {
+            log(.failedFetch, type: type, appState: appState, authorizationStatus: authorizationStatus, error: String(describing: error))
+            return
+        }
+
+        let notification = WMFLocalNotification(
+            type: type,
+            identifier: Self.dailyIdentifier(type: type, day: day),
+            title: notificationContent.title,
+            body: notificationContent.body,
+            fireDate: fireDate)
+
+        do {
+            try await scheduler.add(notification)
+            markHandled(type: type, day: day)
+            log(.scheduled, type: type, appState: appState, authorizationStatus: authorizationStatus, contentSummary: notificationContent.logSummary, fireDate: fireDate)
+        } catch {
+            log(.failedSchedule, type: type, appState: appState, authorizationStatus: authorizationStatus, contentSummary: notificationContent.logSummary, fireDate: fireDate, error: String(describing: error))
+        }
+    }
+
+    /// Call when the user has seen the content on their own. Cancels today's pending notification of this type
+    /// and prevents one from being scheduled later today. Logs `cancelledByUserVisit` if one was pending.
+    public func suppressDailyForToday(type: WMFLocalNotificationType, appState: String?) async {
+        let day = Self.dayString(for: now(), calendar: calendar)
+        let wasPending = await cancel(identifier: Self.dailyIdentifier(type: type, day: day))
+        markHandled(type: type, day: day)
+        if wasPending {
+            log(.cancelledByUserVisit, type: type, appState: appState)
+        }
     }
 
     // MARK: - Scheduling
@@ -77,6 +163,19 @@ public actor WMFLocalNotificationDataController {
     }
 
     // MARK: - Log
+
+    /// Logs an event with the current time.
+    public func log(_ event: WMFLocalNotificationLogEntry.Event, type: WMFLocalNotificationType, appState: String?, authorizationStatus: WMFLocalNotificationAuthorizationStatus? = nil, contentSummary: String? = nil, fireDate: Date? = nil, error: String? = nil) {
+        log(WMFLocalNotificationLogEntry(
+            timestamp: now(),
+            type: type,
+            event: event,
+            appState: appState,
+            authorizationStatus: authorizationStatus?.rawValue,
+            contentSummary: contentSummary,
+            fireDate: fireDate,
+            error: error))
+    }
 
     public func log(_ entry: WMFLocalNotificationLogEntry) {
         var entries = loadLog()

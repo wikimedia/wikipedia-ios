@@ -28,6 +28,20 @@ public struct WMFLocalNotification: Sendable {
     }
 }
 
+/// What a feature provides for one daily notification.
+public struct WMFLocalNotificationContent: Sendable {
+    public let title: String?
+    public let body: String
+    /// Short description recorded in the log, e.g. the article title.
+    public let logSummary: String?
+
+    public init(title: String? = nil, body: String, logSummary: String? = nil) {
+        self.title = title
+        self.body = body
+        self.logSummary = logSummary
+    }
+}
+
 public enum WMFLocalNotificationAuthorizationStatus: String, Codable, Sendable {
     case notDetermined
     case denied

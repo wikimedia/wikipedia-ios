@@ -15,12 +15,14 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
 
     private var scheduler: WMFMockLocalNotificationScheduler!
     private var localNotificationDataController: WMFLocalNotificationDataController!
+    private var userDefaultsStore: WMFMockKeyValueStore!
     private var sharedCacheStore: WMFMockKeyValueStore!
 
     override func setUp() async throws {
         scheduler = WMFMockLocalNotificationScheduler()
+        userDefaultsStore = WMFMockKeyValueStore()
         sharedCacheStore = WMFMockKeyValueStore()
-        localNotificationDataController = WMFLocalNotificationDataController(scheduler: scheduler, userDefaultsStore: WMFMockKeyValueStore(), sharedCacheStore: sharedCacheStore)
+        localNotificationDataController = makeLocalNotificationDataController(now: Date())
     }
 
     // MARK: - Helpers
@@ -35,13 +37,17 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         return try JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(json.utf8))
     }
 
+    /// Instances share the scheduler and stores, like successive launches of the app.
+    private func makeLocalNotificationDataController(now: Date) -> WMFLocalNotificationDataController {
+        WMFLocalNotificationDataController(scheduler: scheduler, userDefaultsStore: userDefaultsStore, sharedCacheStore: sharedCacheStore, calendar: calendar, now: { now })
+    }
+
     private func makeController(now: Date, response: WMFFeedAPIResponse? = nil, isEnabled: Bool = true) throws -> WMFDailyTopReadNotificationDataController {
         let response = try response ?? makeResponse(articles: [("Second_Article", 2), ("Top_Article", 1)])
+        localNotificationDataController = makeLocalNotificationDataController(now: now)
         return WMFDailyTopReadNotificationDataController(
             feedDataController: WMFMockFeedDataController(response: response),
             localNotificationDataController: localNotificationDataController,
-            calendar: calendar,
-            now: { now },
             isEnabled: { isEnabled })
     }
 
@@ -211,5 +217,65 @@ final class WMFDailyTopReadNotificationDataControllerTests: XCTestCase {
         await controller.userDidDisable()
         let eventsAfterSecondDisable = await loggedEvents()
         XCTAssertEqual(eventsAfterSecondDisable, events)
+    }
+
+    // MARK: - scheduleDaily
+
+    private struct ContentError: Error { }
+
+    func testScheduleDailyLogsFailedFetchWhenContentThrows() async throws {
+        localNotificationDataController = makeLocalNotificationDataController(now: date(hour: 3))
+        await localNotificationDataController.scheduleDaily(
+            type: .dailyTopRead,
+            appState: nil,
+            fireDate: { now, _ in now },
+            content: { _ in throw ContentError() })
+
+        let added = await scheduler.added
+        XCTAssertTrue(added.isEmpty)
+        let log = await localNotificationDataController.loadLog()
+        XCTAssertEqual(log.map { $0.event }, [.attempt, .failedFetch])
+        XCTAssertNotNil(log.last?.error)
+
+        // A failed fetch doesn't mark the day handled, so a later refresh can try again.
+        let isHandled = await localNotificationDataController.isHandled(type: .dailyTopRead, day: "2026-09-29")
+        XCTAssertFalse(isHandled)
+    }
+
+    func testScheduleDailyLogsFailedScheduleAndLeavesDayUnhandled() async throws {
+        await scheduler.setAddError(ContentError())
+        localNotificationDataController = makeLocalNotificationDataController(now: date(hour: 3))
+        await localNotificationDataController.scheduleDaily(
+            type: .dailyTopRead,
+            appState: nil,
+            fireDate: { now, _ in now },
+            content: { _ in WMFLocalNotificationContent(title: "Title", body: "Body", logSummary: "Summary") })
+
+        let log = await localNotificationDataController.loadLog()
+        XCTAssertEqual(log.map { $0.event }, [.attempt, .failedSchedule])
+        XCTAssertEqual(log.last?.contentSummary, "Summary")
+        let isHandled = await localNotificationDataController.isHandled(type: .dailyTopRead, day: "2026-09-29")
+        XCTAssertFalse(isHandled)
+    }
+
+    func testScheduleDailyPassesTitleAndDoesNotFetchContentWhenAlreadyHandled() async throws {
+        localNotificationDataController = makeLocalNotificationDataController(now: date(hour: 3))
+        await localNotificationDataController.scheduleDaily(
+            type: .dailyTopRead,
+            appState: nil,
+            fireDate: { now, _ in now },
+            content: { _ in WMFLocalNotificationContent(title: "Title", body: "Body") })
+
+        let added = await scheduler.added
+        XCTAssertEqual(added.first?.title, "Title")
+
+        await localNotificationDataController.scheduleDaily(
+            type: .dailyTopRead,
+            appState: nil,
+            fireDate: { now, _ in now },
+            content: { _ in
+                XCTFail("Content shouldn't be fetched once the day is handled")
+                return nil
+            })
     }
 }
