@@ -1333,6 +1333,13 @@
 "search-widget-announcement-title" = "Достапно ново помагало за пребарување";
 "search-widget-description" = "Брз пристап до пребарување на Википедија.";
 "search-widget-wikipedia-title" = "Википедија";
+"semantic-search-feedback-placeholder" = "Кажете ни повеќе (незадол.)";
+"semantic-search-feedback-question" = "Дали го најдовте она што го барате?";
+"semantic-search-feedback-submit" = "Поднеси";
+"semantic-search-feedback-thanks" = "Ви благодариме за искажаното мислење";
+"semantic-search-feedback-thumbs-down-accessibility" = "Не";
+"semantic-search-feedback-thumbs-up-accessibility" = "Да";
+"semantic-search-feedback-title" = "Мислења";
 "semantic-search-passage-not-found" = "Овој пасус повеќе не е во статијата";
 "serbian-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве српски варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nсрпски ћирилица — српски на кирилица (sr-ec)\nsrpski latinica — српски на латиница (sr-el)";
 "serbian-variants-alert-title" = "Новост за поддршка на српски варијанти";
