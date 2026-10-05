@@ -21,10 +21,83 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the articles visited multiple times slide has real data so far.
+    /// Only the total articles slide and the articles visited multiple times slide have real data so far.
     func makeSlides() -> [WMFYearInReviewSlideViewModel] {
-        // No stored data means no qualifying articles, so show the empty state, never zero slides.
-        [rereadArticlesSlide(storedRereadArticles() ?? [])]
+        // No stored data means no qualifying articles, so show the empty states, never zero slides.
+        let config = try? WMFYearInReviewDataController().config
+        let readCount = storedReadCount() ?? 0
+        return [
+            totalArticlesSlide(
+                readCount: readCount,
+                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
+                averageReadCount: config?.averageArticlesReadPerYear
+            ),
+            rereadArticlesSlide(storedRereadArticles() ?? [])
+        ]
+    }
+
+    // MARK: - Total articles
+
+    /// The number of unique articles read, from the report the app fills in the background.
+    /// `nil` when the report does not have this slide yet.
+    private func storedReadCount() -> Int? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .readCount })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data).readCount
+        } catch {
+            DDLogError("Error reading the Year in Review total articles: \(error)")
+            return nil
+        }
+    }
+
+    /// Shows the empty version unless the reader read at least `WMFYearInReviewReadData.minimumReadCount` articles.
+    /// - Parameters:
+    ///   - topReadPercentage: The "top X%" of readers globally, for example `50` or `0.01`. `nil` when the reader is below the 50th percentile.
+    ///   - averageReadCount: The number of articles the average person reads in a year.
+    func totalArticlesSlide(readCount: Int, topReadPercentage: Double?, averageReadCount: Int?) -> WMFYearInReviewSlideViewModel {
+        guard readCount >= WMFYearInReviewReadData.minimumReadCount else {
+            let headline = WMFLocalizedString("year-in-review-2026-total-articles-empty-title", value: "You have millions of articles to discover", comment: "Title of the Year in Review slide shown when the reader read fewer than three articles this year.")
+            let bodyText = WMFLocalizedString("year-in-review-2026-total-articles-empty-subtitle", value: "Just wait until you find out all there is to learn on Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the reader read fewer than three articles this year.")
+            return dataSlide(
+                id: "totalArticlesEmpty",
+                artboard: "frame1-empty",
+                stateMachine: "frame1-empty-statemachine",
+                headline: headline,
+                data: nil,
+                bodyText: bodyText,
+                accessibilityLabel: "\(headline). \(bodyText)"
+            )
+        }
+
+        let headline = WMFLocalizedString("year-in-review-2026-total-articles-title", value: "Your total article count:", comment: "Title of the Year in Review slide that shows the number of unique articles the reader read this year. The number follows it.")
+        let count = NumberFormatter.localizedString(from: NSNumber(value: readCount), number: .decimal)
+        let bodyText: String
+        if let topReadPercentage, let averageReadCount {
+            let format = WMFLocalizedString("year-in-review-2026-total-articles-top-percent-subtitle", value: "That puts you in the top %1$@ of Wikipedia readers globally. The average person reads {{PLURAL:%2$d|%2$d article|%2$d articles}} a year.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers in the top 50% or better. %1$@ is replaced with a percentage, for example \"50%\". %2$d is replaced with the number of articles the average person reads in a year.")
+            bodyText = String.localizedStringWithFormat(format, percentString(topReadPercentage), averageReadCount)
+        } else {
+            bodyText = WMFLocalizedString("year-in-review-2026-total-articles-subtitle", value: "You've been exploring all year. Every article added something to what you know.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers below the top 50%.")
+        }
+        return dataSlide(
+            id: "totalArticles",
+            artboard: "frame1",
+            stateMachine: "frame1-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    /// `percentage` is out of 100, for example `0.01` becomes "0.01%".
+    private func percentString(_ percentage: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: percentage / 100)) ?? "\(percentage)%"
     }
 
     // MARK: - Articles visited multiple times
@@ -155,6 +228,44 @@ struct YearInReviewSlideViewModelFactory {
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
             articleThumbnails: articleThumbnails,
+            localizedStrings: .init(accessibilityLabel: accessibilityLabel),
+            contentStyle: .dark
+        )
+    }
+
+    // MARK: - Data slides
+
+    /// Text fields on the `DataTemplate` view model in the templates file.
+    private enum DataTextPath {
+        static let headline = WMFRiveText(path: "headline")
+        static let data = WMFRiveText(path: "data")
+        static let bodyCopy = WMFRiveText(path: "bodyCopy")
+    }
+
+    /// A slide from the templates file that shows one number. Pass `nil` for a text field that the
+    /// frame does not use.
+    private func dataSlide(
+        id: String,
+        artboard: String,
+        stateMachine: String,
+        headline: String,
+        data: String?,
+        bodyText: String,
+        accessibilityLabel: String
+    ) -> WMFYearInReviewSlideViewModel {
+        var text: [WMFRiveText: String] = [
+            DataTextPath.headline: headline,
+            DataTextPath.bodyCopy: bodyText
+        ]
+        if let data {
+            text[DataTextPath.data] = data
+        }
+
+        return WMFYearInReviewSlideViewModel(
+            id: id,
+            loggingID: id,
+            animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
+            text: text,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark
         )

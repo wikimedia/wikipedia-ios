@@ -1724,6 +1724,11 @@
 "year-in-review-2026-reread-articles-empty-title" = "You're not a re-reader";
 "year-in-review-2026-reread-articles-title" = "Some articles in your rotation:";
 "year-in-review-2026-reread-articles-visit-count" = "{{PLURAL:$1|$1 visit|$1 visits}}";
+"year-in-review-2026-total-articles-empty-subtitle" = "Just wait until you find out all there is to learn on Wikipedia.";
+"year-in-review-2026-total-articles-empty-title" = "You have millions of articles to discover";
+"year-in-review-2026-total-articles-subtitle" = "You've been exploring all year. Every article added something to what you know.";
+"year-in-review-2026-total-articles-title" = "Your total article count:";
+"year-in-review-2026-total-articles-top-percent-subtitle" = "That puts you in the top $1 of Wikipedia readers globally. The average person reads {{PLURAL:$2|$2 article|$2 articles}} a year.";
 "year-in-review-button-title" = "Year in Review";
 "year-in-review-feature-announcement-title-personalized" = "Explore your Wikipedia Year in Review";
 "year-in-review-feature-explore-body-v3" = "See insights about which articles you read on the Wikipedia app and the edits you made.";
