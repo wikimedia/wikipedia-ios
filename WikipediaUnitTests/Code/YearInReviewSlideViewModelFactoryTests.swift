@@ -1,5 +1,6 @@
 import Testing
 import WMFComponents
+import WMFData
 @testable import Wikipedia
 
 @MainActor
@@ -10,9 +11,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// Only the total articles slide and the articles visited multiple times slide have real data so
     /// far. Each always shows, in its full or its empty version, so Year in Review never opens with no slides.
-    @Test
-    func makesTheTotalArticlesAndTheArticlesVisitedMultipleTimesSlides() {
-        let slides = factory.makeSlides()
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func makesTheTotalArticlesAndTheArticlesVisitedMultipleTimesSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+        let slides = factory.makeSlides(userDataState: userDataState)
 
         #expect(slides.count == 2)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
@@ -22,9 +23,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// A Rive text run that the app does not write keeps the copy inside the .riv. Nothing on the
     /// screen shows that the app missed a run, so the slide must write each run that it owns.
-    @Test
-    func theSlidesWriteAllOfTheirTextRuns() throws {
-        for slide in factory.makeSlides() {
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func theSlidesWriteAllOfTheirTextRuns(userDataState: WMFYearInReviewDataController.YiRUserDataState) throws {
+        for slide in factory.makeSlides(userDataState: userDataState) {
             let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
 
             switch slide.animation?.artboardName {
@@ -50,6 +51,22 @@ struct YearInReviewSlideViewModelFactoryTests {
                 Issue.record("unexpected artboard \(slide.animation?.artboardName ?? "nil")")
             }
         }
+    }
+
+    /// A low-data user sees the empty version of each slide, whatever data is stored.
+    @Test
+    func aLowDataUserSeesOnlyEmptySlides() {
+        let artboards = factory.makeSlides(userDataState: .lowData).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards == ["frame1-empty", "frame12-empty"])
+    }
+
+    /// The developer settings can force the empty version of each personalized slide for a data-rich user.
+    @Test
+    func allEmptyStatesShowsOnlyEmptySlides() {
+        let artboards = factory.makeSlides(userDataState: .dataRich, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards == ["frame1-empty", "frame12-empty"])
     }
 
     // MARK: - Total articles
@@ -97,9 +114,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// The pager keys `.scrollPosition(id:)` on the slide id. Two slides with one id stop the
     /// paging from resolving.
-    @Test
-    func slideIdsAreUnique() {
-        let ids = factory.makeSlides().map(\.id)
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func slideIdsAreUnique(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+        let ids = factory.makeSlides(userDataState: userDataState).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
     }
 

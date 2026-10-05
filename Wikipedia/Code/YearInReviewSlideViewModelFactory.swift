@@ -22,18 +22,34 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// Only the total articles slide and the articles visited multiple times slide have real data so far.
-    func makeSlides() -> [WMFYearInReviewSlideViewModel] {
-        // No stored data means no qualifying articles, so show the empty states, never zero slides.
-        let config = try? WMFYearInReviewDataController().config
-        let readCount = storedReadCount() ?? 0
-        return [
-            totalArticlesSlide(
-                readCount: readCount,
-                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
-                averageReadCount: config?.averageArticlesReadPerYear
-            ),
-            rereadArticlesSlide(storedRereadArticles() ?? [])
-        ]
+    /// A data-rich user sees their data, but a slide without enough data shows its empty version.
+    /// - Parameter forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
+    func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+        switch userDataState {
+        case .lowData:
+            // TODO: Show the collective slides when the templates file has them. Until then, a
+            // low-data user sees the empty version of each personalized slide, so Year in Review
+            // never opens with no slides.
+            return personalizedEmptySlides()
+        case .dataRich where forcesAllEmptyStates:
+            return personalizedEmptySlides()
+        case .dataRich:
+            // No stored data means no qualifying articles, so show the empty states, never zero slides.
+            let config = try? WMFYearInReviewDataController().config
+            let readCount = storedReadCount() ?? 0
+            return [
+                totalArticlesSlide(
+                    readCount: readCount,
+                    topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
+                    averageReadCount: config?.averageArticlesReadPerYear
+                ),
+                rereadArticlesSlide(storedRereadArticles() ?? [])
+            ]
+        }
+    }
+
+    private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
+        [totalArticlesEmptySlide(), rereadArticlesEmptySlide()]
     }
 
     // MARK: - Total articles
@@ -59,17 +75,7 @@ struct YearInReviewSlideViewModelFactory {
     ///   - averageReadCount: The number of articles the average person reads in a year.
     func totalArticlesSlide(readCount: Int, topReadPercentage: Double?, averageReadCount: Int?) -> WMFYearInReviewSlideViewModel {
         guard readCount >= WMFYearInReviewReadData.minimumReadCount else {
-            let headline = WMFLocalizedString("year-in-review-2026-total-articles-empty-title", value: "You have millions of articles to discover", comment: "Title of the Year in Review slide shown when the reader read fewer than three articles this year.")
-            let bodyText = WMFLocalizedString("year-in-review-2026-total-articles-empty-subtitle", value: "Just wait until you find out all there is to learn on Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the reader read fewer than three articles this year.")
-            return dataSlide(
-                id: "totalArticlesEmpty",
-                artboard: "frame1-empty",
-                stateMachine: "frame1-empty-statemachine",
-                headline: headline,
-                data: nil,
-                bodyText: bodyText,
-                accessibilityLabel: "\(headline). \(bodyText)"
-            )
+            return totalArticlesEmptySlide()
         }
 
         let headline = WMFLocalizedString("year-in-review-2026-total-articles-title", value: "Your total article count:", comment: "Title of the Year in Review slide that shows the number of unique articles the reader read this year. The number follows it.")
@@ -89,6 +95,20 @@ struct YearInReviewSlideViewModelFactory {
             data: count,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    private func totalArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = WMFLocalizedString("year-in-review-2026-total-articles-empty-title", value: "You have millions of articles to discover", comment: "Title of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
+        let bodyText = WMFLocalizedString("year-in-review-2026-total-articles-empty-subtitle", value: "Just wait until you find out all there is to learn on Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
+        return dataSlide(
+            id: "totalArticlesEmpty",
+            artboard: "frame1-empty",
+            stateMachine: "frame1-empty-statemachine",
+            headline: headline,
+            data: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline). \(bodyText)"
         )
     }
 
@@ -131,17 +151,7 @@ struct YearInReviewSlideViewModelFactory {
     /// Shows the empty version unless at least two articles were visited multiple times.
     private func rereadArticlesSlide(_ articles: [RereadArticle]) -> WMFYearInReviewSlideViewModel {
         guard articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount else {
-            let headline = WMFLocalizedString("year-in-review-2026-reread-articles-empty-title", value: "You're not a re-reader", comment: "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each.")
-            let bodyText = WMFLocalizedString("year-in-review-2026-reread-articles-empty-subtitle", value: "So much for looking at an article twice. You prefer novelty and falling down new rabbit holes.", comment: "Subtitle of the Year in Review slide shown when the reader did not visit at least two articles two or more times each.")
-            return listSlide(
-                id: "rereadArticlesEmpty",
-                artboard: "frame12-empty",
-                stateMachine: "frame12-empty-statemachine",
-                headline: headline,
-                bodyText: bodyText,
-                items: [],
-                accessibilityLabel: "\(headline). \(bodyText)"
-            )
+            return rereadArticlesEmptySlide()
         }
 
         let bodyText = WMFLocalizedString("year-in-review-2026-reread-articles-title", value: "Some articles in your rotation:", comment: "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.")
@@ -166,6 +176,20 @@ struct YearInReviewSlideViewModelFactory {
             items: items + emptyRows,
             articleThumbnails: thumbnails,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
+    private func rereadArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = WMFLocalizedString("year-in-review-2026-reread-articles-empty-title", value: "You're not a re-reader", comment: "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
+        let bodyText = WMFLocalizedString("year-in-review-2026-reread-articles-empty-subtitle", value: "So much for looking at an article twice. You prefer novelty and falling down new rabbit holes.", comment: "Subtitle of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
+        return listSlide(
+            id: "rereadArticlesEmpty",
+            artboard: "frame12-empty",
+            stateMachine: "frame12-empty-statemachine",
+            headline: headline,
+            bodyText: bodyText,
+            items: [],
+            accessibilityLabel: "\(headline). \(bodyText)"
         )
     }
 
