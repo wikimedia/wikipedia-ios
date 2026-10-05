@@ -56,6 +56,7 @@ public enum AccessibilityIdentifiers {
 
     public enum Home {
         public static let languagePickerButton = "Home Language Picker Button"
+        public static let view = "Home View"
     }
 
     public enum Profile {

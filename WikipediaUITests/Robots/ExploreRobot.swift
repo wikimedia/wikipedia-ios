@@ -17,7 +17,7 @@ struct ExploreRobot: ScreenshotCapturingRobot {
 extension ExploreRobot {
     enum RootTab: CaseIterable {
         case activity
-        case explore
+        case home
         case places
         case saved
         case search
@@ -26,8 +26,8 @@ extension ExploreRobot {
             switch self {
             case .activity:
                 return AccessibilityIdentifiers.RootTab.activityButton
-            case .explore:
-                return AccessibilityIdentifiers.RootTab.exploreButton
+            case .home:
+                return AccessibilityIdentifiers.RootTab.homeButton
             case .places:
                 return AccessibilityIdentifiers.RootTab.placesButton
             case .saved:
@@ -41,8 +41,8 @@ extension ExploreRobot {
             switch self {
             case .activity:
                 return "Activity root tab"
-            case .explore:
-                return "Explore root tab"
+            case .home:
+                return "Home root tab"
             case .places:
                 return "Places root tab"
             case .saved:
@@ -61,10 +61,14 @@ extension ExploreRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
-            base.app.otherElements[AccessibilityIdentifiers.Explore.view],
+            base.app.otherElements[AccessibilityIdentifiers.Home.view],
+            timeout: 30,
             file: file,
             line: line
         )
+        // On a cold first launch the tab bar can be slow to become hittable
+        // (e.g. while app data migration or a system alert is in flight).
+        base.assertExists(base.app.tabBars.firstMatch, timeout: 30, file: file, line: line)
         return self
     }
 
@@ -88,6 +92,11 @@ extension ExploreRobot {
 extension ExploreRobot {
     @discardableResult
     func openFirstArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
+        // Article cells live in the Community segment (the first segment) of the Home tab.
+        let communitySegment = base.app.segmentedControls.buttons.element(boundBy: 0)
+        if communitySegment.waitForExistence(timeout: 15), !communitySegment.isSelected {
+            communitySegment.tap()
+        }
         let articleCells = base.app.descendants(matching: .any)
             .matching(identifier: AccessibilityIdentifiers.Explore.articleCell)
         let articleCell = base.firstHittableElement(
@@ -125,14 +134,14 @@ extension ExploreRobot {
     @discardableResult
     func tapRootTab(_ tab: RootTab, file: StaticString = #filePath, line: UInt = #line) -> Self {
         let button = rootTabButton(for: tab)
-        base.assertVisible(button, timeout: 15, description: tab.description, file: file, line: line)
+        base.assertVisible(button, timeout: 45, description: tab.description, file: file, line: line)
         base.tapCenter(of: button, file: file, line: line)
 
         switch tab {
         case .search:
             if !searchView.waitForExistence(timeout: 15) {
                 let retryButton = rootTabButton(for: tab)
-                base.assertVisible(retryButton, timeout: 5, description: tab.description, file: file, line: line)
+                base.assertVisible(retryButton, timeout: 15, description: tab.description, file: file, line: line)
                 base.tapCenter(of: retryButton, file: file, line: line)
                 base.assertExists(
                     searchView,

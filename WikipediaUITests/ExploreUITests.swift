@@ -33,7 +33,7 @@ final class ExploreUITests: XCTestCase {
         launchWikipediaAppRobot(onboardingState: .completed)
             .explore
             .assertVisible()
-            .tapRootTab(.explore)
+            .tapRootTab(.home)
             .tapRootTab(.places)
             .tapRootTab(.saved)
             .tapRootTab(.activity)
