@@ -1857,7 +1857,7 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
     /// Shows Explore, then lets the coordinator push the notification's destination on top of it.
     private func showDestination(for localNotificationType: WMFLocalNotificationType) {
         dismissPresentedViewControllers()
-        showExplore()
+        showHome()
         guard let navigationController = currentTabNavigationController else {
             return
         }
