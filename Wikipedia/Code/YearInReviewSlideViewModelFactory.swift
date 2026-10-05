@@ -21,35 +21,45 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
+    /// Shows all the frames in the templates file, from the cover to the end slide.
     /// Only the total articles slide and the articles visited multiple times slide have real data so far.
+    /// The other slides show mock data until their tickets give them real data.
     /// A data-rich user sees their data, but a slide without enough data shows its empty version.
     /// - Parameter forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
     func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+        let showsEmptyStates: Bool
+        let totalArticles: WMFYearInReviewSlideViewModel
+        let rereadArticles: WMFYearInReviewSlideViewModel
         switch userDataState {
         case .lowData:
             // TODO: Show the collective slides when the templates file has them. Until then, a
             // low-data user sees the empty version of each personalized slide, so Year in Review
             // never opens with no slides.
-            return personalizedEmptySlides()
+            showsEmptyStates = true
+            totalArticles = totalArticlesEmptySlide()
+            rereadArticles = rereadArticlesEmptySlide()
         case .dataRich where forcesAllEmptyStates:
-            return personalizedEmptySlides()
+            showsEmptyStates = true
+            totalArticles = totalArticlesEmptySlide()
+            rereadArticles = rereadArticlesEmptySlide()
         case .dataRich:
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
             let readCount = storedReadCount() ?? 0
-            return [
-                totalArticlesSlide(
-                    readCount: readCount,
-                    topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
-                    averageReadCount: config?.averageArticlesReadPerYear
-                ),
-                rereadArticlesSlide(storedRereadArticles() ?? [])
-            ]
+            showsEmptyStates = false
+            totalArticles = totalArticlesSlide(
+                readCount: readCount,
+                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
+                averageReadCount: config?.averageArticlesReadPerYear
+            )
+            rereadArticles = rereadArticlesSlide(storedRereadArticles() ?? [])
         }
-    }
 
-    private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), rereadArticlesEmptySlide()]
+        return [mockCoverSlide(), totalArticles]
+            + mockSlidesBeforeRereadArticles(showsEmptyStates: showsEmptyStates)
+            + [rereadArticles]
+            + mockSlidesAfterRereadArticles(showsEmptyStates: showsEmptyStates)
+            + [mockEndSlide()]
     }
 
     // MARK: - Total articles
@@ -297,4 +307,284 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The file with the frame templates.
     private let templatesResourceName = "all_templates"
+}
+
+// MARK: - Mock slides
+
+// TODO: Replace each mock slide with real data in its own ticket. The copy is not localized on
+// purpose: it is placeholder copy from the templates file, and the final copy can change.
+extension YearInReviewSlideViewModelFactory {
+
+    /// The articles on the mock list slides. They are real English Wikipedia articles, so the
+    /// thumbnails load.
+    private static let mockArticles = [
+        "Pamela Anderson",
+        "Pamukkale",
+        "Catherine, Princess of Wales"
+    ]
+
+    private static let mockProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+
+    /// Frames 2 to 10. Frame 11 has no content in the templates file, so it is not shown.
+    private func mockSlidesBeforeRereadArticles(showsEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+        [
+            mockDataSlide(
+                frame: "frame2",
+                headline: WMFLocalizedString("year-in-review-2026-mock-days-visited-title", value: "Days you visited Wikipedia in 2026:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                data: "55",
+                bodyCopy: WMFLocalizedString("year-in-review-2026-mock-days-visited-subtitle", value: "Your activity peaked in December, when you read on 20 different days.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+            ),
+            mockDataSlide(
+                frame: "frame3",
+                headline: WMFLocalizedString("year-in-review-2026-mock-minutes-title", value: "Total minutes spent reading:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                data: "924",
+                bodyCopy: WMFLocalizedString("year-in-review-2026-mock-minutes-subtitle", value: "That's longer than a full night's sleep. Time flies when you're falling down a rabbit hole.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+            ),
+            showsEmptyStates
+                ? mockDataSlide(
+                    frame: "frame4-empty",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-streak-empty-title", value: "0 reading streaks... yet", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: nil,
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-streak-empty-subtitle", value: "It's not a streak until you've done it for 3 consecutive days. Why not start now?", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                )
+                : mockDataSlide(
+                    frame: "frame4",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-streak-title", value: "Days in your longest reading streak", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: "14",
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-streak-subtitle", value: "From March 4 to March 17, you really got into the groove of reading every day.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                ),
+            showsEmptyStates
+                ? mockDataSlide(
+                    frame: "frame5-empty",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-time-empty-title", value: "You read basically whenever", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: nil,
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-time-empty-subtitle", value: "There's no set day or time when to decide to explore the pages of Wikipedia.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                )
+                : mockDataSlide(
+                    frame: "frame5",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-time-title", value: "Favorite time to explore:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: WMFLocalizedString("year-in-review-2026-mock-time-data", value: "TUESDAY EVENINGS", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-time-subtitle", value: "50% of your exploring occurred during this time and on this day of the week. Coincidence or...not?", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                ),
+            showsEmptyStates
+                ? mockDataSlide(
+                    frame: "frame6-empty",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-topic-empty-title", value: "Your #1 topic of 2026 is... all of them", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: nil,
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-topic-empty-subtitle", value: "With so many interests, there's no one topic that defined your reading habits.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                )
+                : mockDataSlide(
+                    frame: "frame6",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-topic-title", value: "Your top topic of 2026:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: WMFLocalizedString("year-in-review-2026-mock-topic-data", value: "HISTORY", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-topic-subtitle", value: "From Battle of Gettysburg to Xia Dynasty, 23 of your articles were tied to this theme. You're clearly fascinated by the past.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                ),
+            mockListSlide(
+                frame: "frame7",
+                headline: "",
+                bodyText: WMFLocalizedString("year-in-review-2026-mock-runners-up-title", value: "And your runners-up for 2026:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                items: [
+                    ListItem(title: WMFLocalizedString("year-in-review-2026-mock-runners-up-1", value: "Central America", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."), subtitle: WMFLocalizedString("year-in-review-2026-mock-runners-up-1-count", value: "14 articles", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                    ListItem(title: WMFLocalizedString("year-in-review-2026-mock-runners-up-2", value: "Visual art", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."), subtitle: WMFLocalizedString("year-in-review-2026-mock-runners-up-2-count", value: "12 articles", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                    ListItem(title: WMFLocalizedString("year-in-review-2026-mock-runners-up-3", value: "Politics and government", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."), subtitle: WMFLocalizedString("year-in-review-2026-mock-runners-up-3-count", value: "8 articles", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."))
+                ],
+                hasThumbnails: false
+            ),
+            mockDataSlide(
+                frame: "frame8",
+                headline: WMFLocalizedString("year-in-review-2026-mock-biggest-day-title", value: "Biggest reading day:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                data: WMFLocalizedString("year-in-review-2026-mock-biggest-day-data", value: "MARCH 7", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                bodyCopy: WMFLocalizedString("year-in-review-2026-mock-biggest-day-subtitle", value: "You spent a total of 43 minutes on Wikipedia. How's that for being productive?", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+            ),
+            mockListSlide(
+                frame: "frame9",
+                headline: WMFLocalizedString("year-in-review-2026-mock-taste-title", value: "This is just a taste of some of the articles:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                bodyText: "",
+                items: [
+                    ListItem(title: Self.mockArticles[0], subtitle: WMFLocalizedString("year-in-review-2026-mock-description-1", value: "American supermodel", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                    ListItem(title: Self.mockArticles[1], subtitle: WMFLocalizedString("year-in-review-2026-mock-description-2", value: "Natural site in Denizli Province in southwestern Turkey", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                    ListItem(title: Self.mockArticles[2], subtitle: WMFLocalizedString("year-in-review-2026-mock-description-3", value: "A member of the British royal family.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."))
+                ],
+                hasThumbnails: true
+            ),
+            mockInteractionSlide()
+        ]
+    }
+
+    /// Frames 13 to 18.
+    private func mockSlidesAfterRereadArticles(showsEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+        [
+            mockDataSlide(
+                frame: "frame13",
+                headline: WMFLocalizedString("year-in-review-2026-mock-niche-title", value: "Talk about having niche interests, like:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                data: WMFLocalizedString("year-in-review-2026-mock-niche-data", value: "MEDIEVAL SIEGE ENGINES", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                bodyCopy: WMFLocalizedString("year-in-review-2026-mock-niche-subtitle", value: "For one reason or another, when it came to this category, you went all in!", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+            ),
+            showsEmptyStates
+                ? mockListSlide(
+                    frame: "frame14-empty",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-map-empty-title", value: "Your reading took you all over the map", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    bodyText: WMFLocalizedString("year-in-review-2026-mock-map-empty-subtitle", value: "Your articles came from so many places that no single one stands out.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    items: [],
+                    hasThumbnails: false
+                )
+                : mockListSlide(
+                    frame: "frame14",
+                    headline: "",
+                    bodyText: WMFLocalizedString("year-in-review-2026-mock-map-title", value: "Your reading practically took you to:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    items: [ListItem(title: WMFLocalizedString("year-in-review-2026-mock-map-place", value: "France", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."), subtitle: WMFLocalizedString("year-in-review-2026-mock-map-place-count", value: "Based on 12 articles", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."))],
+                    hasThumbnails: false
+                ),
+            showsEmptyStates
+                ? mockListSlide(
+                    frame: "frame15-empty",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-saved-empty-title", value: "You have 0 articles saved.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    bodyText: WMFLocalizedString("year-in-review-2026-mock-saved-empty-subtitle", value: "You currently have 0 articles saved. Look for the bookmark icon on an article, so you can read up on whatever... later.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    items: [],
+                    hasThumbnails: false
+                )
+                : mockListSlide(
+                    frame: "frame15",
+                    headline: "",
+                    bodyText: WMFLocalizedString("year-in-review-2026-mock-saved-title", value: "Articles you saved for later: 26", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    items: [
+                        ListItem(title: Self.mockArticles[0], subtitle: WMFLocalizedString("year-in-review-2026-mock-description-1", value: "American supermodel", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                        ListItem(title: Self.mockArticles[1], subtitle: WMFLocalizedString("year-in-review-2026-mock-description-2", value: "Natural site in Denizli Province in southwestern Turkey", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                        ListItem(title: Self.mockArticles[2], subtitle: WMFLocalizedString("year-in-review-2026-mock-description-3", value: "A member of the British royal family.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."))
+                    ],
+                    hasThumbnails: true
+                ),
+            showsEmptyStates
+                ? mockDataSlide(
+                    frame: "frame16-empty",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-edits-empty-title", value: "You've made 0 edits so far", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: nil,
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-edits-empty-subtitle", value: "You haven't made any edits yet, but it's easy to learn how. Now's a good time to join the community that builds Wikipedia.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                )
+                : mockDataSlide(
+                    frame: "frame16",
+                    headline: WMFLocalizedString("year-in-review-2026-mock-edits-title", value: "Edits you made:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                    data: "357",
+                    bodyCopy: WMFLocalizedString("year-in-review-2026-mock-edits-subtitle", value: "Whether you contribute to Wikipedia, Wikimedia Commons, or Wikidata, thank you for improving everyone's access to human knowledge.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+                ),
+            mockDataSlide(
+                frame: "frame17",
+                headline: WMFLocalizedString("year-in-review-2026-mock-edit-views-title", value: "Views your edits received:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                data: "14,791",
+                bodyCopy: WMFLocalizedString("year-in-review-2026-mock-edit-views-subtitle", value: "In 2026, readers from around the world saw the changes you made.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+            ),
+            mockListSlide(
+                frame: "frame18",
+                headline: "",
+                bodyText: WMFLocalizedString("year-in-review-2026-mock-most-viewed-title", value: "The articles most-viewed since your edit:", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+                items: [
+                    ListItem(title: Self.mockArticles[0], subtitle: WMFLocalizedString("year-in-review-2026-mock-most-viewed-1-count", value: "200 views", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                    ListItem(title: Self.mockArticles[1], subtitle: WMFLocalizedString("year-in-review-2026-mock-most-viewed-2-count", value: "150 views", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")),
+                    ListItem(title: Self.mockArticles[2], subtitle: WMFLocalizedString("year-in-review-2026-mock-most-viewed-3-count", value: "50 views", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."))
+                ],
+                hasThumbnails: true
+            )
+        ]
+    }
+
+    /// Frame 10 asks which of two articles the reader read the longest, then shows the result.
+    /// It uses the `Interaction` view model, not `List`.
+    private func mockInteractionSlide() -> WMFYearInReviewSlideViewModel {
+        let headline = WMFLocalizedString("year-in-review-2026-mock-longest-read-title", value: "What was the article you read the longest?", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+        let firstSubtitle = WMFLocalizedString("year-in-review-2026-mock-description-2", value: "Natural site in Denizli Province in southwestern Turkey", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+        let secondSubtitle = WMFLocalizedString("year-in-review-2026-mock-description-1", value: "American supermodel", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+        let resultSubtitle = WMFLocalizedString("year-in-review-2026-mock-longest-read-result", value: "You read it for 12 minutes", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+        let first = Self.mockArticles[1]
+        let second = Self.mockArticles[0]
+        return WMFYearInReviewSlideViewModel(
+            id: "mock-frame10",
+            loggingID: "mock-frame10",
+            animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: "frame10", stateMachineName: "frame10-statemachine"),
+            text: [
+                WMFRiveText(path: "headline"): headline,
+                WMFRiveText(path: "articleTitle1"): first,
+                WMFRiveText(path: "subTitle1"): firstSubtitle,
+                WMFRiveText(path: "articleTitle2"): second,
+                WMFRiveText(path: "subTitle2"): secondSubtitle,
+                WMFRiveText(path: "resultTitle"): first,
+                WMFRiveText(path: "resultSubTitle"): resultSubtitle
+            ],
+            articleThumbnails: [
+                WMFRiveImage(path: "thumbnail1"): .init(project: Self.mockProject, title: first),
+                WMFRiveImage(path: "thumbnail2"): .init(project: Self.mockProject, title: second),
+                WMFRiveImage(path: "resultThumbnail"): .init(project: Self.mockProject, title: first)
+            ],
+            localizedStrings: .init(accessibilityLabel: "\(headline) \(first), \(firstSubtitle). \(second), \(secondSubtitle). \(first), \(resultSubtitle)."),
+            contentStyle: .dark
+        )
+    }
+
+    /// The first slide, in place of the announcement.
+    private func mockCoverSlide() -> WMFYearInReviewSlideViewModel {
+        mockTitleSlide(
+            frame: "cover",
+            title: WMFLocalizedString("year-in-review-2026-mock-cover-title", value: "YOUR WIKIPEDIA YEAR IN REVIEW IS HERE", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+            bodyCopy: WMFLocalizedString("year-in-review-2026-mock-cover-subtitle", value: "Thanks for spending 55 days on your trusty Wikipedia App in 2026.", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+        )
+    }
+
+    private func mockEndSlide() -> WMFYearInReviewSlideViewModel {
+        mockTitleSlide(
+            frame: "end",
+            title: WMFLocalizedString("year-in-review-2026-mock-end-title", value: "THANK YOU!", comment: "Mock copy for a Year in Review slide. Only for testing, not for release."),
+            bodyCopy: WMFLocalizedString("year-in-review-2026-mock-end-subtitle", value: "As an editor, your contributions keep Wikipedia ad-free, trustworthy, and available to everyone. We can't thank you enough for supporting Wikipedia!", comment: "Mock copy for a Year in Review slide. Only for testing, not for release.")
+        )
+    }
+
+    /// The cover and the end frames use `coverTitle` in place of `headline` and `data`.
+    private func mockTitleSlide(frame: String, title: String, bodyCopy: String) -> WMFYearInReviewSlideViewModel {
+        WMFYearInReviewSlideViewModel(
+            id: "mock-\(frame)",
+            loggingID: "mock-\(frame)",
+            animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: frame, stateMachineName: "\(frame)-statemachine"),
+            text: [
+                WMFRiveText(path: "coverTitle"): title,
+                DataTextPath.headline: "",
+                DataTextPath.data: "",
+                DataTextPath.bodyCopy: bodyCopy
+            ],
+            localizedStrings: .init(accessibilityLabel: "\(title). \(bodyCopy)"),
+            contentStyle: .dark
+        )
+    }
+
+    private func mockDataSlide(frame: String, headline: String, data: String?, bodyCopy: String) -> WMFYearInReviewSlideViewModel {
+        dataSlide(
+            id: "mock-\(frame)",
+            artboard: frame,
+            stateMachine: "\(frame)-statemachine",
+            headline: headline,
+            data: data,
+            bodyText: bodyCopy,
+            accessibilityLabel: [headline, data, bodyCopy].compactMap { $0 }.joined(separator: " ")
+        )
+    }
+
+    /// Pass `""` for a text field that the frame does not use, so the copy in the .riv does not show.
+    /// Rows that are not given are written as empty rows, for the same reason.
+    private func mockListSlide(frame: String, headline: String, bodyText: String, items: [ListItem], hasThumbnails: Bool) -> WMFYearInReviewSlideViewModel {
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        if hasThumbnails {
+            for (index, item) in items.enumerated() where !item.title.isEmpty {
+                thumbnails[WMFRiveImage(path: "icon\(index + 1)")] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: Self.mockProject, title: item.title)
+            }
+        }
+        let heading = [headline, bodyText].filter { !$0.isEmpty }.joined(separator: ". ")
+        let accessibilityLabel = listAccessibilityLabel(heading: heading, items: items.filter { !$0.title.isEmpty })
+        return listSlide(
+            id: "mock-\(frame)",
+            artboard: frame,
+            stateMachine: "\(frame)-statemachine",
+            headline: headline,
+            bodyText: bodyText,
+            items: items + Array(repeating: ListItem(title: "", subtitle: ""), count: max(0, 3 - items.count)),
+            articleThumbnails: thumbnails,
+            accessibilityLabel: accessibilityLabel
+        )
+    }
 }

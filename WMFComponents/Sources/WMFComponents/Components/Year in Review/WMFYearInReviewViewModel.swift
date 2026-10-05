@@ -60,6 +60,13 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
     @Published public var isLoadingDonate: Bool = false
 
+    /// The `isUIWhite` value of each frame, by slide id. The artwork sets it, so the app draws its
+    /// controls in a color that has contrast with the frame.
+    @Published private(set) var uiWhiteBySlideID: [String: Bool] = [:]
+
+    /// The boolean property in the templates file that tells the app to draw white controls.
+    static let uiWhitePath = WMFRiveBool(path: "isUIWhite")
+
     @Published public var topSafeAreaInset: CGFloat = 0
 
     public let localizedStrings: LocalizedStrings
@@ -89,6 +96,19 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public var currentSlide: WMFYearInReviewSlideViewModel? {
         guard slides.indices.contains(currentSlideIndex) else { return nil }
         return slides[currentSlideIndex]
+    }
+
+    /// The color of the app controls above the current slide. The `isUIWhite` value of the frame
+    /// wins over the `contentStyle` of the slide, because the artwork knows its own colors.
+    public var currentContentColor: UIColor? {
+        guard let currentSlide else { return nil }
+        guard let isUIWhite = uiWhiteBySlideID[currentSlide.id] else { return currentSlide.contentColor }
+        return isUIWhite ? WMFColor.white : WMFColor.gray700
+    }
+
+    func setUIWhite(_ isUIWhite: Bool, forSlideID slideID: String) {
+        guard uiWhiteBySlideID[slideID] != isUIWhite else { return }
+        uiWhiteBySlideID[slideID] = isUIWhite
     }
 
     public var isLastSlide: Bool {

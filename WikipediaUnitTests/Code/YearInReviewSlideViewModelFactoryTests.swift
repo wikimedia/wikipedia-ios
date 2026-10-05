@@ -11,14 +11,28 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// Only the total articles slide and the articles visited multiple times slide have real data so
     /// far. Each always shows, in its full or its empty version, so Year in Review never opens with no slides.
+    /// The other frames show mock data, from the cover to the end slide.
     @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func makesTheTotalArticlesAndTheArticlesVisitedMultipleTimesSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+    func makesAllTheFramesFromTheCoverToTheEnd(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
         let slides = factory.makeSlides(userDataState: userDataState)
 
-        #expect(slides.count == 2)
-        #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
-        #expect(["frame12", "frame12-empty"].contains(slides.last?.animation?.artboardName ?? ""))
+        #expect(slides.count == 19)
+        #expect(slides.first?.animation?.artboardName == "cover")
+        #expect(["frame1", "frame1-empty"].contains(slides[1].animation?.artboardName ?? ""))
+        #expect(["frame12", "frame12-empty"].contains(slides[11].animation?.artboardName ?? ""))
+        #expect(slides.last?.animation?.artboardName == "end")
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
+    }
+
+    /// The state machine of each frame has the name of the frame with "-statemachine" after it.
+    @Test
+    func eachSlideUsesTheStateMachineOfItsFrame() {
+        let slides = factory.makeSlides(userDataState: .dataRich) + factory.makeSlides(userDataState: .lowData)
+
+        for slide in slides {
+            let artboard = slide.animation?.artboardName ?? "nil"
+            #expect(slide.animation?.stateMachineName == "\(artboard)-statemachine")
+        }
     }
 
     /// A Rive text run that the app does not write keeps the copy inside the .riv. Nothing on the
@@ -27,6 +41,11 @@ struct YearInReviewSlideViewModelFactoryTests {
     func theSlidesWriteAllOfTheirTextRuns(userDataState: WMFYearInReviewDataController.YiRUserDataState) throws {
         for slide in factory.makeSlides(userDataState: userDataState) {
             let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
+
+            if slide.id.hasPrefix("mock-") {
+                #expect(slide.text.values.contains { !$0.isEmpty }, "\(slide.id) writes no text")
+                continue
+            }
 
             switch slide.animation?.artboardName {
             case "frame1-empty":
@@ -53,12 +72,19 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
     }
 
+    /// Each frame that has an empty version in the templates file shows it. The other frames show
+    /// their full version.
+    private let emptyStateArtboards = [
+        "cover", "frame1-empty", "frame2", "frame3", "frame4-empty", "frame5-empty", "frame6-empty", "frame7", "frame8", "frame9", "frame10",
+        "frame12-empty", "frame13", "frame14-empty", "frame15-empty", "frame16-empty", "frame17", "frame18", "end"
+    ]
+
     /// A low-data user sees the empty version of each slide, whatever data is stored.
     @Test
     func aLowDataUserSeesOnlyEmptySlides() {
         let artboards = factory.makeSlides(userDataState: .lowData).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame12-empty"])
+        #expect(artboards == emptyStateArtboards)
     }
 
     /// The developer settings can force the empty version of each personalized slide for a data-rich user.
@@ -66,7 +92,20 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlides(userDataState: .dataRich, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame12-empty"])
+        #expect(artboards == emptyStateArtboards)
+    }
+
+    /// The mock frames show their full version for a data-rich user.
+    @Test
+    func aDataRichUserSeesTheFullMockSlides() {
+        let artboards = factory.makeSlides(userDataState: .dataRich)
+            .filter { $0.id.hasPrefix("mock-") }
+            .map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards == [
+            "cover", "frame2", "frame3", "frame4", "frame5", "frame6", "frame7", "frame8", "frame9", "frame10",
+            "frame13", "frame14", "frame15", "frame16", "frame17", "frame18", "end"
+        ])
     }
 
     // MARK: - Total articles

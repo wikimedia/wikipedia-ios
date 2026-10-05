@@ -31,6 +31,16 @@ public nonisolated struct WMFRiveNumber: Sendable, Hashable {
     }
 }
 
+/// A boolean property in the .riv that the app reads, such as a value the artwork sets for the app.
+public nonisolated struct WMFRiveBool: Sendable, Hashable {
+
+    public let path: String
+
+    public init(path: String) {
+        self.path = path
+    }
+}
+
 /// An image property in the .riv, such as an article thumbnail.
 public nonisolated struct WMFRiveImage: Sendable, Hashable {
 

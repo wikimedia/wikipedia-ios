@@ -911,5 +911,37 @@
 			<string>%1$d مرشح</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-reread-articles-visit-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d زيارة</string>
+			<key>other</key>
+			<string>%1$d زيارات</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>هذا يضعك ضمن أعلى %1$@ من قراء ويكيبيديا حول العالم. يقرأ الشخص العادي %2$#@v2@ في السنة.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d مقالة</string>
+			<key>other</key>
+			<string>%2$d مقالات</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

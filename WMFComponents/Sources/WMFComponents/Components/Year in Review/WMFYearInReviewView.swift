@@ -23,7 +23,7 @@ public struct WMFYearInReviewView: View {
                 WMFYearInReviewProgressView(
                     slideCount: viewModel.slides.count,
                     currentIndex: viewModel.currentSlideIndex,
-                    color: Color(uiColor: viewModel.currentSlide?.contentColor ?? WMFColor.white)
+                    color: Color(uiColor: viewModel.currentContentColor ?? WMFColor.white)
                 )
                 .padding(.trailing, WMFYearInReviewViewModel.progressBarEdgeInset)
                 .padding(.top, viewModel.progressBarTopInset)
@@ -79,7 +79,9 @@ public struct WMFYearInReviewView: View {
     @ViewBuilder
     private var slideViews: some View {
         ForEach(viewModel.slides) { slide in
-            WMFYearInReviewSlideView(slide: slide)
+            WMFYearInReviewSlideView(slide: slide) { isUIWhite in
+                viewModel.setUIWhite(isUIWhite, forSlideID: slide.id)
+            }
                 .containerRelativeFrame(.vertical)
                 .id(slide.id)
         }
@@ -96,7 +98,7 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         let paged = content
-            .scrollTargetBehavior(.paging)
+            .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
             .scrollPosition(id: $currentSlideID)
             .scrollIndicators(.hidden)
             .accessibilityElement(children: .contain)

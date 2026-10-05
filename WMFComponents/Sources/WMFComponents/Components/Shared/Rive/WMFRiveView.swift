@@ -18,6 +18,8 @@ public struct WMFRiveView: View {
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
         images: [WMFRiveImage: Data] = [:],
+        boolsToRead: [WMFRiveBool] = [],
+        onBoolRead: (@MainActor (WMFRiveBool, Bool) -> Void)? = nil,
         accessibilityLabel: String? = nil,
         frameRate: Int? = nil
     ) {
@@ -30,7 +32,9 @@ public struct WMFRiveView: View {
             animation: animation,
             text: text,
             numbers: numbers,
-            images: images
+            images: images,
+            boolsToRead: boolsToRead,
+            onBoolRead: onBoolRead
         ))
     }
 

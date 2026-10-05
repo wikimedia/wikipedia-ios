@@ -3,6 +3,8 @@ import SwiftUI
 struct WMFYearInReviewSlideView: View {
 
     let slide: WMFYearInReviewSlideViewModel
+    /// Called with the `isUIWhite` value of the frame, when the frame has one.
+    var onUIWhiteRead: (@MainActor (Bool) -> Void)?
     @StateObject private var thumbnailLoader = WMFYearInReviewThumbnailLoader()
 
     var body: some View {
@@ -21,6 +23,8 @@ struct WMFYearInReviewSlideView: View {
                 text: slide.text,
                 numbers: slide.numbers,
                 images: thumbnailLoader.images,
+                boolsToRead: [WMFYearInReviewViewModel.uiWhitePath],
+                onBoolRead: { _, value in onUIWhiteRead?(value) },
                 accessibilityLabel: slide.localizedStrings.accessibilityLabel
             )
             .task(id: slide.articleThumbnails) {

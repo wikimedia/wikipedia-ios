@@ -28,12 +28,16 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private var imageTask: Task<Void, Never>?
     private let loader: @MainActor (WMFRiveAnimation) async throws -> Rive
     private let imageDecoder: @MainActor (Data) async throws -> RiveRuntime.Image
+    private let boolsToRead: [WMFRiveBool]
+    private let onBoolRead: (@MainActor (WMFRiveBool, Bool) -> Void)?
 
     init(
         animation: WMFRiveAnimation,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
         images: [WMFRiveImage: Data] = [:],
+        boolsToRead: [WMFRiveBool] = [],
+        onBoolRead: (@MainActor (WMFRiveBool, Bool) -> Void)? = nil,
         loader: @escaping @MainActor (WMFRiveAnimation) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
     ) {
@@ -43,6 +47,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.images = images
         self.loader = loader
         self.imageDecoder = imageDecoder
+        self.boolsToRead = boolsToRead
+        self.onBoolRead = onBoolRead
     }
 
     deinit {
@@ -70,6 +76,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             self.loadState = .loaded
             validatePathsInDebug()
             applyValues()
+            await readBools(from: rive)
         } catch is CancellationError {
             return
         } catch {
@@ -134,6 +141,16 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                     WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not decode the image for \"\(property.path)\": \(error.localizedDescription)"))
                 }
             }
+        }
+    }
+
+    /// A frame that does not have the property is skipped, so the caller keeps its default.
+    private func readBools(from rive: Rive) async {
+        guard let onBoolRead, let instance = rive.viewModelInstance else { return }
+        for property in boolsToRead {
+            guard let value = try? await instance.value(of: BoolProperty(path: property.path)) else { continue }
+            guard !Task.isCancelled else { return }
+            onBoolRead(property, value)
         }
     }
 
