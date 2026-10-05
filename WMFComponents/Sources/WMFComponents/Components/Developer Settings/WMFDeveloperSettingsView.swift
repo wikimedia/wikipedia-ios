@@ -43,11 +43,12 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
                     Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
                 }
-                captionedRow(caption: "Overrides the experience the personalized data selects. Switching it back to Off lets the user data dictate the experience.") {
-                    Picker("Force Experience", selection: $viewModel.forceYiRUserDataState) {
-                        Text("Off").tag(WMFYearInReviewDataController.YiRUserDataState?.none)
-                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.dataRich))
-                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.lowData))
+                captionedRow(caption: "Overrides the experience the personalized data selects. All Empty States shows the empty version of each personalized slide. Switching it back to Off lets the user data dictate the experience.") {
+                    Picker("Force Experience", selection: $viewModel.forceYiRExperience) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRForcedExperience?.none)
+                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.dataRich))
+                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.lowData))
+                        Text("All Empty States").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.allEmptyStates))
                     }
                     .tint(Color(theme.secondaryText))
                 }

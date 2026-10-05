@@ -24,11 +24,19 @@ import CoreData
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
     
-    /// Which Year in Review experience to force, regardless of how much personalized data the
-    /// account actually has. Nil means no override and the real data decides.
+    /// The Year in Review experience for the user. A data-rich user sees the personalized slides. A
+    /// low-data user sees the collective slides.
     public enum YiRUserDataState: String, Sendable {
         case dataRich = "data-rich"
         case lowData = "low-data"
+    }
+
+    /// The experience that the developer settings force, regardless of the personalized data.
+    public enum YiRForcedExperience: String, Sendable, CaseIterable {
+        case dataRich = "data-rich"
+        case lowData = "low-data"
+        /// A data-rich user whose personalized slides all show their empty version. Use it to check the empty states.
+        case allEmptyStates = "all-empty-states"
     }
 
     /// Shape of the 2025 announcement value still on disk under
@@ -117,28 +125,59 @@ import CoreData
 
     // MARK: - User Data State
 
-    // Temporary proxy until each slide reports its own status: a user is data rich when they read
-    // at least this many distinct articles in the data window.
-    static let dataRichDistinctArticleThreshold = 11
+    /// A user is data rich when at least this number of personalized slides have enough data to
+    /// show their full version.
+    static let dataRichEligibleSlideThreshold = 2
 
     /// Which Year in Review experience to show. The developer settings override wins, but only when
-    /// `forceYiREntryPoint2026` is on. Otherwise the distinct articles in History decide.
-    public func fetchUserDataState() async throws -> YiRUserDataState {
-        if developerSettingsDataController.forceYiREntryPoint2026,
-           let forcedState = developerSettingsDataController.forceYiRUserDataState {
-            return forcedState
+    /// `forceYiREntryPoint2026` is on. Otherwise the slides in the stored report decide. Without a
+    /// report, the user is low data.
+    @MainActor
+    public func fetchUserDataState() throws -> YiRUserDataState {
+        switch forcedExperience {
+        case .dataRich, .allEmptyStates:
+            return .dataRich
+        case .lowData:
+            return .lowData
+        case nil:
+            break
         }
 
-        guard let config = self.config,
-              let startDate = config.dataStartDate,
-              let endDate = config.dataEndDate else {
+        guard let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
             return .lowData
         }
+        let eligibleSlideCount = report.slides.count(where: Self.hasEnoughData)
+        return eligibleSlideCount >= Self.dataRichEligibleSlideThreshold ? .dataRich : .lowData
+    }
 
-        // fetchPageViewCounts groups by page, so the count is distinct articles, not views.
-        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-        let distinctArticleCount = try await pageViewsDataController.fetchPageViewCounts(startDate: startDate, endDate: endDate).count
-        return distinctArticleCount >= Self.dataRichDistinctArticleThreshold ? .dataRich : .lowData
+    /// True if the developer settings force the empty version of each personalized slide.
+    public var forcesAllEmptyStates: Bool {
+        forcedExperience == .allEmptyStates
+    }
+
+    /// The developer settings override. It has an effect only when `forceYiREntryPoint2026` is on.
+    private var forcedExperience: YiRForcedExperience? {
+        guard developerSettingsDataController.forceYiREntryPoint2026 else {
+            return nil
+        }
+        return developerSettingsDataController.forceYiRExperience
+    }
+
+    /// True if the slide can show its full version, not its empty version.
+    static func hasEnoughData(_ slide: WMFYearInReviewSlide) -> Bool {
+        guard let data = slide.data else {
+            return false
+        }
+        let decoder = JSONDecoder()
+        switch slide.id {
+        case .readCount:
+            return (try? decoder.decode(WMFYearInReviewReadData.self, from: data))?.isEligible ?? false
+        case .topArticles:
+            return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible ?? false
+        case .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
+            // These slides are not in the 2026 flow yet. Add each one when its slide is built.
+            return false
+        }
     }
 
     /// The badge shows for logged-in and logged-out users alike, so this gates only on availability.
