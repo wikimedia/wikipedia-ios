@@ -321,6 +321,19 @@ public extension WMFDeveloperSettingsDataControlling {
         }
     }
 
+    // MARK: - Local Notifications
+
+    /// Gates the daily top read local notification prototype. Off by default.
+    public var enableDailyTopReadNotifications: Bool {
+        get { Self.enableDailyTopReadNotifications }
+        set { saveFlag(.developerSettingsEnableDailyTopReadNotifications, newValue) }
+    }
+
+    /// Static so app launch and background refresh can read the flag without initializing `shared`.
+    public static var enableDailyTopReadNotifications: Bool {
+        (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDailyTopReadNotifications.rawValue)) ?? false
+    }
+
     // MARK: - Remote Feature Flags
 
     /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
