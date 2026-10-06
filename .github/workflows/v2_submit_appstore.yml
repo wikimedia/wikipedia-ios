@@ -1,0 +1,46 @@
+name: V2 Submit App Store
+
+# STUB. This file exists on main only so the workflow shows up in the Actions
+# "Run workflow" dropdown - GitHub offers workflow_dispatch only for workflows
+# present on the default branch. The on: block below is copied verbatim from
+# the real workflow so the dispatch form asks for the right inputs; keep the
+# two in sync if the real one's inputs change.
+#
+# Running this against main does nothing but print its inputs. Pick the
+# feature branch in the Run workflow dropdown to get the real workflow.
+#
+# Delete this file and land the real one when that branch merges.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (YYYY.MM.DD) of the existing TestFlight build to submit'
+        required: true
+        type: string
+      build_number:
+        description: 'Build number of the existing TestFlight build to submit (the betas/ number)'
+        required: true
+        type: string
+      submit_for_review:
+        description: 'Submit to App Store Review? Leave unchecked to only stage the version and metadata.'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  stub:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Explain that this is a stub
+        env:
+          INPUTS: ${{ toJSON(github.event.inputs) }}
+        run: |
+          echo "This is the stub copy of ${{ github.workflow }} on ${{ github.ref_name }}."
+          echo "It builds, uploads and tags nothing."
+          echo
+          echo "To run the real workflow, dispatch it again and pick the branch"
+          echo "that carries the v2 release workflows in the Run workflow dropdown."
+          echo
+          echo "Inputs received: $INPUTS"
