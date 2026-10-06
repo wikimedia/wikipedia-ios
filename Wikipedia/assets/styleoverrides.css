@@ -1,26 +1,23 @@
 
 /* FIND IN PAGE STYLES */
 
+/*
+    Same colors as the Page Content Service find-in-page (::search-text) and passage highlight
+    (pcs-highlight) styles, in every theme. The app finds matches itself, with these spans, so the
+    ::search-text rules of the Page Content Service do not apply to them.
+*/
 .findInPageMatch {
-    background-color: rgba(255, 204, 51, 0.3) !important;
-    color: black !important;
-    border-radius: 2px !important
-}
-
-.pcs-theme-dark .findInPageMatch,
-.pcs-theme-black .findInPageMatch {
-    background-color: rgba(247, 215, 121, 0.7) !important;
-    color: black !important;
-    border-radius: 2px !important
+    background-color: #f7d779 !important;
+    color: #000 !important
 }
 
 .findInPageMatch_Focus {
-    background-color: #fc3 !important
+    background-color: #f7d779b3 !important;
+    color: #000 !important
 }
 
-.pcs-theme-dark .findInPageMatch_Focus,
-.pcs-theme-black .findInPageMatch_Focus {
-    background-color: #fc3 !important
+a .findInPageMatch {
+    text-decoration: underline !important
 }
 
 /* MISC STYLES */
