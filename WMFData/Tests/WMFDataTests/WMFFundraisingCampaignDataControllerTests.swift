@@ -309,30 +309,29 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     // MARK: - Session state
 
-    // These two tests use their own controller and their own NotificationCenter. Posting to
-    // NotificationCenter.default would tell every observer in the test process that the app went to
-    // the background, and a fresh controller starts with the flag cleared, so no reset is needed.
+    // The controller no longer listens for the app going to the background. The app calls
+    // `clearSessionState()` instead, so these tests call it directly and never post a notification.
+    // The controller is shared across tests, so each test starts from a cleared flag.
 
     @Test
     func markCampaignPresentedSetsSessionFlag() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let isolatedController = WMFFundraisingCampaignDataController(notificationCenter: NotificationCenter())
-            #expect(isolatedController.hasPresentedCampaignThisSession == false)
+            controller.clearSessionState()
+            #expect(controller.hasPresentedCampaignThisSession == false)
 
-            isolatedController.markCampaignPresentedThisSession()
-            #expect(isolatedController.hasPresentedCampaignThisSession)
+            controller.markCampaignPresentedThisSession()
+            #expect(controller.hasPresentedCampaignThisSession)
         }
     }
 
     @Test
-    func sessionFlagClearsWhenAppGoesToBackground() async {
+    func clearSessionStateClearsSessionFlag() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let notificationCenter = NotificationCenter()
-            let isolatedController = WMFFundraisingCampaignDataController(notificationCenter: notificationCenter)
+            controller.markCampaignPresentedThisSession()
+            #expect(controller.hasPresentedCampaignThisSession)
 
-            isolatedController.markCampaignPresentedThisSession()
-            notificationCenter.post(name: WMFFundraisingCampaignDataController.appDidEnterBackgroundNotificationName, object: nil)
-            #expect(isolatedController.hasPresentedCampaignThisSession == false)
+            controller.clearSessionState()
+            #expect(controller.hasPresentedCampaignThisSession == false)
         }
     }
 
