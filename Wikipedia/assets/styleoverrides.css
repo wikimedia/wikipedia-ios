@@ -7,12 +7,12 @@
     ::search-text rules of the Page Content Service do not apply to them.
 */
 .findInPageMatch {
-    background-color: #f7d779 !important;
+    background-color: #f7d779b3 !important;
     color: #000 !important
 }
 
 .findInPageMatch_Focus {
-    background-color: #f7d779b3 !important;
+    background-color: #f7d779 !important;
     color: #000 !important
 }
 
