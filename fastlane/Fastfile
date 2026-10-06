@@ -45,15 +45,16 @@ platform :ios do
     end
   end
 
-  # Shared helper: build the app
-  def build_the_app
+  # Shared helper: build the app. Defaults to the production Wikipedia
+  # scheme; the Alpha build passes its own scheme/configuration.
+  def build_the_app(scheme: "Wikipedia", configuration: "Release", archive_name: "Wikipedia")
     build_app(
       project: "Wikipedia.xcodeproj",
-      scheme: "Wikipedia",
-      configuration: "Release",
+      scheme: scheme,
+      configuration: configuration,
       derived_data_path: "build",
       destination: "generic/platform=iOS",
-      archive_path: "build/Wikipedia.xcarchive",
+      archive_path: "build/#{archive_name}.xcarchive",
       export_method: "app-store",
       include_symbols: true,
       xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
@@ -74,6 +75,37 @@ platform :ios do
 
     upload_to_testflight(
       api_key: api_key,
+      distribute_external: false,
+      notify_external_testers: false,
+      changelog: what_to_test,
+      skip_waiting_for_build_processing: true,
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 1b: Alpha (v2_deploy_alpha)
+  #
+  # Builds the Alpha scheme rather than the production Wikipedia scheme.
+  # Runs alongside internal_beta above while the v2 workflows are tested.
+  # ----------------------------------------------------------
+  desc "Build the Alpha app and deploy to internal TestFlight testers"
+  lane :alpha do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_the_app(
+      scheme: "Alpha",
+      configuration: "Alpha",
+      archive_name: "Wikipedia-Alpha",
+    )
+
+    what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
+
+    upload_to_testflight(
+      api_key: api_key,
+      app_identifier: "org.wikimedia.wikipedia.tfbeta",
       distribute_external: false,
       notify_external_testers: false,
       changelog: what_to_test,
