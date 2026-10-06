@@ -27,9 +27,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var lastOpenSource: String? = nil
     // Tracks whether the current activation was triggered by an external link (deep link from Safari, etc.).
     // Unlike `lastOpenSource`, this is NOT consumed by the app_open instrument — it persists for the
-    // activation so announcement modals (on Explore and Article) can suppress themselves and defer to the
+    // activation so announcement modals (on Home, Explore and Article) can suppress themselves and defer to the
     // next normal app open. Reset to false at the start of each foreground cycle.
-    var didOpenAppFromExternalLink = false
+    // Every change is forwarded to WMFAppViewController, which passes it on to Home and Explore.
+    var didOpenAppFromExternalLink = false {
+        didSet {
+            appViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
+        }
+    }
     // Holds a pending app_open source when the data environment isn't ready yet (e.g. fresh install).
     // Consumed by dataEnvironmentDidSetup() once setup completes.
     private var pendingAppOpenSource: String? = nil

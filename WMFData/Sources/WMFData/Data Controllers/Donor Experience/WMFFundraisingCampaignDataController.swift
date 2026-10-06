@@ -45,15 +45,22 @@ import Foundation
 
     // MARK: - Lifecycle
     
-    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
+    /// Not private, so unit tests (`@testable import WMFData`) can make a controller with its own
+    /// `NotificationCenter`. Posting to `NotificationCenter.default` from a test would reach every
+    /// observer in the test process, not only this controller. The app uses `shared`.
+    init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService, notificationCenter: NotificationCenter = .default) {
         self._service = WMFLockIsolated(service)
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
         self._mediaWikiService = WMFLockIsolated(mediaWikiService)
         super.init()
-        // WMFData cannot import UIKit, so this uses the raw name of UIApplication.didEnterBackgroundNotification.
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: Notification.Name("UIApplicationDidEnterBackgroundNotification"), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appDidEnterBackground), name: Self.appDidEnterBackgroundNotificationName, object: nil)
     }
     
+    /// The raw name of `UIApplication.didEnterBackgroundNotification`. WMFData cannot import UIKit, so
+    /// the name is spelled out here, once. Unit tests post this name to their own `NotificationCenter`,
+    /// so they do not need UIKit either.
+    static let appDidEnterBackgroundNotificationName = Notification.Name("UIApplicationDidEnterBackgroundNotification")
+
     @objc(sharedInstance)
     public static let shared = WMFFundraisingCampaignDataController()
 
@@ -91,7 +98,7 @@ import Foundation
     /// the article banner, but shows nothing and saves nothing.
     /// - Parameters:
     ///   - countryCode: Country code of the user. Can use Locale.current.region?.identifier
-    ///   - wmfProject: Project to check. The article view passes the article's project. Explore passes the app's primary language project.
+    ///   - wmfProject: Project to check. The article view passes the article's project. Home passes the app's primary language project.
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: True if the banner would show.
     public func shouldShowCampaign(countryCode: String, wmfProject: WMFProject, currentDate: Date = Date()) async -> Bool {

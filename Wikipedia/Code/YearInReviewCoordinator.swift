@@ -18,7 +18,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     /// The slide id reported for actions taken on the first slide. An announcement entry point
     /// overrides it so the funnel records where the flow was opened from.
-    private var introSlideLoggingID: String = "profile"
+    /// TODO: add when data ticket is available
+    private var introSlideLoggingID: String = ""
 
     /// The data state the announcement was built with. It picks the slides opened from the
     /// announcement and the log in prompt copy.

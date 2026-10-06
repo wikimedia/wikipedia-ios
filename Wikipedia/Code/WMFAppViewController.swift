@@ -60,6 +60,15 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var _exploreViewController: ExploreViewController?
     private var homeCoordinator: HomeCoordinator?
 
+    /// True when this activation was started by a deep link. Set by SceneDelegate, which resets it at
+    /// the start of each foreground cycle. Home and Explore read it to hold back modals.
+    var didOpenAppFromExternalLink = false {
+        didSet {
+            homeCoordinator?.homeViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
+            _exploreViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
+        }
+    }
+
     /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
     var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
     private var _searchTabViewController: SearchViewController?
@@ -371,6 +380,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
             let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
             let homeViewController = coordinator.makeHomeViewController()
+            homeViewController.didOpenAppFromExternalLink = didOpenAppFromExternalLink
             nav1 = rootNavigationController(with: homeViewController)
             coordinator.attach(navigationController: nav1)
             homeCoordinator = coordinator
@@ -1528,6 +1538,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.exploreButton
             vc.title = WMFCommonStringsWrapper.exploreTabTitle
             vc.apply(theme: theme)
+            vc.didOpenAppFromExternalLink = didOpenAppFromExternalLink
             _exploreViewController = vc
             return vc
         }

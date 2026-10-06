@@ -155,7 +155,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     /// Home decides whether a pop-up may show now. The coordinator only loads, shows and reports back.
     private var canShowModalNow: Bool {
-        if didOpenAppFromExternalLink { return false }
+        guard WMFYearInReviewDataController.AnnouncementPresentationContext.home(isFromDeepLink: didOpenAppFromExternalLink).allowsAnnouncement else {
+            return false
+        }
 
         if UIDevice.current.userInterfaceIdiom == .pad, navigationController?.navigationBar.isHidden == true {
             return false
@@ -170,16 +172,14 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         return true
     }
 
-    /// True when this session was started by a deep link. Modals are suppressed in that case so we
-    /// do not interrupt whatever the link was pointing at.
-    private var didOpenAppFromExternalLink: Bool {
-#if !TEST
-        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
-            return true
+    /// True when this session was started by a deep link. Set by `WMFAppViewController`, which is
+    /// told about the link when `SceneDelegate` routes it. Modals are suppressed in that case so we
+    /// do not interrupt whatever the link was pointing at. The embedded Explore feed runs its own
+    /// modal chain, so it gets the same value.
+    var didOpenAppFromExternalLink = false {
+        didSet {
+            _embeddedExploreViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
         }
-#endif
-        return false
     }
 
     /// The article URL a For You card points at. Cards carry a `WMFProject` and a title, so the
@@ -380,6 +380,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         let vc = ExploreViewController()
         vc.dataStore = dataStore
         vc.isEmbeddedInHomeTab = true
+        vc.didOpenAppFromExternalLink = didOpenAppFromExternalLink
         vc.additionalSafeAreaInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
         vc.onEmbeddedEmptyStateChange = { [weak self] isEmpty in

@@ -112,6 +112,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private var isPresentingModals = false
 
+    /// True when this session was started by a deep link. Set from outside: by `WMFAppViewController`
+    /// for the Explore tab, and by the Home tab for the embedded feed. Modals are suppressed in that
+    /// case so we do not interrupt whatever the link was pointing at.
+    var didOpenAppFromExternalLink = false
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -1104,7 +1109,9 @@ extension ExploreViewController {
     }
 
     private var canShowModalNow: Bool {
-        if didOpenAppFromExternalLink { return false }
+        guard WMFYearInReviewDataController.AnnouncementPresentationContext.explore(isFromDeepLink: didOpenAppFromExternalLink).allowsAnnouncement else {
+            return false
+        }
 
         if UIDevice.current.userInterfaceIdiom == .pad, navigationController?.navigationBar.isHidden == true {
             return false
@@ -1136,18 +1143,6 @@ extension ExploreViewController {
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
         }
-    }
-
-    /// True when this session was started by a deep link. Modals are suppressed in that case so we
-    /// do not interrupt whatever the link was pointing at.
-    private var didOpenAppFromExternalLink: Bool {
-#if !TEST
-        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
-            return true
-        }
-#endif
-        return false
     }
 
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
