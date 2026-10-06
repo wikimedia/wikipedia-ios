@@ -4,9 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       phab_task:
-        description: 'Associated Phabricator task (e.g. T123456) to comment with the build info'
-        required: true
+        description: 'Associated Phabricator task (e.g. T123456) to comment with the build info. Leave blank for a one-off build with no task.'
+        required: false
         type: string
+        default: ''
       what_to_test:
         description: 'What to Test notes for this TestFlight build'
         required: true
@@ -120,6 +121,11 @@ jobs:
           VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
+          if [ -z "$PHAB_TASK" ]; then
+            echo "No Phabricator task given, skipping comment"
+            exit 0
+          fi
+
           MESSAGE="Available in: TestFlight Wikipedia Experimental $VERSION ($BUILD)"
           curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
             https://phabricator.wikimedia.org/api/maniphest.edit \
