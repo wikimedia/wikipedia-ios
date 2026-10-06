@@ -54,13 +54,13 @@ class OldTalkPageReplyCell: CollectionViewCell {
         if isRTL {
             titleX = adjustedMargins.left
         } else {
-            titleX = depthIndicatorOrigin == nil ? adjustedMargins.left : depthIndicatorOrigin!.x + 10
+            titleX = depthIndicatorOrigin.map { $0.x + 10 } ?? adjustedMargins.left
         }
         
         let titleOrigin = CGPoint(x: titleX, y: adjustedMargins.top)
         var titleMaximumWidth: CGFloat
         if isRTL {
-            titleMaximumWidth = depthIndicatorOrigin == nil ? size.width - adjustedMargins.right - titleOrigin.x : depthIndicatorOrigin!.x - adjustedMargins.left
+            titleMaximumWidth = depthIndicatorOrigin.map { $0.x - adjustedMargins.left } ?? (size.width - adjustedMargins.right - titleOrigin.x)
         } else {
             titleMaximumWidth = (size.width - adjustedMargins.right) - titleOrigin.x
         }

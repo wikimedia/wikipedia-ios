@@ -1100,7 +1100,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let now = Date()
 
         let locationAuthorized = LocationManagerFactory.coarseLocationManager().isAuthorized
-        if feedRefreshDate == nil || now.timeIntervalSince(feedRefreshDate!) > timeBeforeRefreshingExploreFeed() || NSCalendar.wmf_gregorian().wmf_days(from: feedRefreshDate!, to: now) > 0 {
+        let shouldRefreshFeed: Bool
+        if let feedRefreshDate {
+            shouldRefreshFeed = now.timeIntervalSince(feedRefreshDate) > timeBeforeRefreshingExploreFeed() || NSCalendar.wmf_gregorian().wmf_days(from: feedRefreshDate, to: now) > 0
+        } else {
+            shouldRefreshFeed = true
+        }
+        if shouldRefreshFeed {
             resumeAndAnnouncementsCompleteGroup.enter()
             exploreViewController.updateFeedSources(with: nil, userInitiated: false) {
                 resumeAndAnnouncementsCompleteGroup.leave()
