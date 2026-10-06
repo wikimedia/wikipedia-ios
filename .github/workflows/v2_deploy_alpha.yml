@@ -10,6 +10,9 @@ on:
   #   - cron: '0 10 * * *' # run at 10AM UTC
   workflow_dispatch:
 
+env:
+  XCODE_VERSION: "26.6"
+
 jobs:
   build-and-upload:
     runs-on: macos-26
@@ -19,6 +22,11 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+          xcodebuild -version
 
       # -------------------------------------------------------
       # 1. Compute build number
