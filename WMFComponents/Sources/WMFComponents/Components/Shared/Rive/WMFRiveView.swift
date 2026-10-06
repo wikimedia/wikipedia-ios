@@ -22,7 +22,7 @@ public struct WMFRiveView: View {
         accessibilityLabel: String? = nil,
         frameRate: Int? = nil,
         readBool: WMFRiveBool? = nil,
-        singleLineFits: [WMFRiveSingleLineFit] = [],
+        textFits: [WMFRiveTextFit] = [],
         onReadBool: (@MainActor (Bool) -> Void)? = nil
     ) {
         self.text = text
@@ -37,7 +37,7 @@ public struct WMFRiveView: View {
             numbers: numbers,
             images: images,
             readBool: readBool,
-            singleLineFits: singleLineFits
+            textFits: textFits
         ))
     }
 

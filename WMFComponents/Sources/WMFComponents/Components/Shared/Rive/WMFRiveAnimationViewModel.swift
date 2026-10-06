@@ -25,8 +25,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     /// A boolean property to read after the file loads, from the view model instance that has the name
     /// of the artboard if there is one, otherwise from the bound instance.
     let readBool: WMFRiveBool?
-    /// Text runs to keep on one line. See `WMFRiveSingleLineFit`.
-    let singleLineFits: [WMFRiveSingleLineFit]
+    /// Text runs to keep to a maximum number of lines. See `WMFRiveTextFit`.
+    let textFits: [WMFRiveTextFit]
 
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
@@ -43,7 +43,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         numbers: [WMFRiveNumber: Double] = [:],
         images: [WMFRiveImage: Data] = [:],
         readBool: WMFRiveBool? = nil,
-        singleLineFits: [WMFRiveSingleLineFit] = [],
+        textFits: [WMFRiveTextFit] = [],
         loader: @escaping @MainActor (WMFRiveAnimation) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
     ) {
@@ -52,7 +52,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.numbers = numbers
         self.images = images
         self.readBool = readBool
-        self.singleLineFits = singleLineFits
+        self.textFits = textFits
         self.loader = loader
         self.imageDecoder = imageDecoder
     }
@@ -83,7 +83,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             validatePathsInDebug()
             applyValues()
             // Fit the text before the animation shows, so a long value never shows at the wrong size.
-            await applySingleLineFits()
+            await applyTextFits()
             guard !Task.isCancelled else { return }
             self.loadState = .loaded
             await readBoolFromFile()
@@ -117,10 +117,10 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         text = newText
         numbers = newNumbers
         applyValues()
-        guard !singleLineFits.isEmpty else { return }
+        guard !textFits.isEmpty else { return }
         fitTask?.cancel()
         fitTask = Task { [weak self] in
-            await self?.applySingleLineFits()
+            await self?.applyTextFits()
         }
     }
 
@@ -164,10 +164,20 @@ final class WMFRiveAnimationViewModel: ObservableObject {
 
     /// Binds a new instance of each global view model that a fit uses, also when the value fits, so a
     /// shorter value returns to the size in the file.
-    private func applySingleLineFits() async {
-        guard let rive, !singleLineFits.isEmpty else { return }
+    private func applyTextFits() async {
+        guard let rive, !textFits.isEmpty else { return }
+
+        struct Measured {
+            let fit: WMFRiveTextFit
+            let global: ViewModelInstance
+            let fontSize: Double
+            let lineHeight: Double
+            let scale: Double
+        }
+
         var globals: [String: ViewModelInstance] = [:]
-        for fit in singleLineFits {
+        var measured: [Measured] = []
+        for fit in textFits {
             guard let value = text[fit.text], !value.isEmpty else { continue }
             do {
                 let global: ViewModelInstance
@@ -179,17 +189,28 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                 }
                 let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
                 let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
-                guard let width = WMFRiveSingleLineFit.width(of: value, fontAssetName: fit.fontAssetName, fontSize: fontSize) else {
+                guard let scale = fit.scale(for: value, fontSize: fontSize) else {
                     WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "No system font for the asset \"\(fit.fontAssetName)\", so \"\(fit.text.path)\" is not fitted."))
                     continue
                 }
-                let scale = WMFRiveSingleLineFit.scale(textWidth: width, maximumWidth: fit.maximumWidth)
-                global.setValue(of: NumberProperty(path: fit.fontSize.path), to: Float(fontSize * scale))
-                global.setValue(of: NumberProperty(path: fit.lineHeight.path), to: Float(lineHeight * scale))
+                measured.append(Measured(fit: fit, global: global, fontSize: fontSize, lineHeight: lineHeight, scale: scale))
             } catch {
                 WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "Could not fit \"\(fit.text.path)\": \(error.localizedDescription)"))
             }
         }
+
+        // The runs of a group use the smallest scale of the group.
+        var groupScales: [String: Double] = [:]
+        for item in measured {
+            guard let group = item.fit.group else { continue }
+            groupScales[group] = min(groupScales[group] ?? 1, item.scale)
+        }
+        for item in measured {
+            let scale = item.fit.group.flatMap { groupScales[$0] } ?? item.scale
+            item.global.setValue(of: NumberProperty(path: item.fit.fontSize.path), to: Float(item.fontSize * scale))
+            item.global.setValue(of: NumberProperty(path: item.fit.lineHeight.path), to: Float(item.lineHeight * scale))
+        }
+
         guard !Task.isCancelled else { return }
         for (name, global) in globals {
             do {

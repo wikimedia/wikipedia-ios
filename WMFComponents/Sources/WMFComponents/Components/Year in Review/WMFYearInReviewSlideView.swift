@@ -25,7 +25,7 @@ struct WMFYearInReviewSlideView: View {
                 images: thumbnailLoader.images,
                 accessibilityLabel: slide.localizedStrings.accessibilityLabel,
                 readBool: slide.lightContentFlag,
-                singleLineFits: slide.singleLineFits,
+                textFits: slide.textFits,
                 onReadBool: onLightContentFlag
             )
             .task(id: slide.articleThumbnails) {

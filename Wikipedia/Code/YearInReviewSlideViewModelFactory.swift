@@ -254,7 +254,8 @@ struct YearInReviewSlideViewModelFactory {
             articleThumbnails: articleThumbnails,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
-            lightContentFlag: Self.lightContentFlag
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.copyFits(headline: ListTextPath.headline, bodyText: ListTextPath.bodyText)
         )
     }
 
@@ -270,10 +271,11 @@ struct YearInReviewSlideViewModelFactory {
     /// The box of the large number does not grow, so a long number wraps on top of the body copy.
     /// Make the number smaller until it fits on one line. The width is the width of the
     /// `Data-Numbers` artboard in the templates file.
-    private static let dataNumberFit = WMFRiveSingleLineFit(
+    private static let dataNumberFit = WMFRiveTextFit(
         text: DataTextPath.data,
         fontAssetName: "SanSerifFont",
         maximumWidth: 344,
+        maximumLines: 1,
         globalViewModelName: "GlobalProperties",
         fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
         lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight")
@@ -306,9 +308,44 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            singleLineFits: data == nil ? [] : [Self.dataNumberFit]
+            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [Self.dataNumberFit])
         )
     }
+
+    // MARK: - Text size
+
+    /// The headline and the body copy grow, so long copy can push the content past the bottom of the
+    /// slide. Over these line counts, make both smaller by the same scale, to at most 75%. The width
+    /// is smaller than the text boxes on any frame, so the line counts are safe.
+    private static func copyFits(headline: WMFRiveText, bodyText: WMFRiveText) -> [WMFRiveTextFit] {
+        [
+            WMFRiveTextFit(
+                text: headline,
+                fontAssetName: "SerifFont",
+                maximumWidth: copyWidth,
+                maximumLines: 3,
+                minimumScale: 0.75,
+                group: "copy",
+                globalViewModelName: "GlobalProperties",
+                fontSize: WMFRiveNumber(path: "headlineFontSize"),
+                lineHeight: WMFRiveNumber(path: "headlineLineHeight")
+            ),
+            WMFRiveTextFit(
+                text: bodyText,
+                fontAssetName: "SerifFont",
+                maximumWidth: copyWidth,
+                maximumLines: 4,
+                minimumScale: 0.75,
+                group: "copy",
+                globalViewModelName: "GlobalProperties",
+                fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
+                lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
+            )
+        ]
+    }
+
+    /// In artboard units. The headline and body boxes are about 296 to 320 wide.
+    private static let copyWidth = 290.0
 
     /// Each template in the file sets this flag for the contrast of the controls above it. The style
     /// that the factory passes shows only until the slide loads.

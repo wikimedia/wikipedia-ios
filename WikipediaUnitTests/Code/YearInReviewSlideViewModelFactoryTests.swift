@@ -110,10 +110,22 @@ struct YearInReviewSlideViewModelFactoryTests {
         let full = factory.totalArticlesSlide(readCount: 350, topReadPercentage: 50, averageReadCount: 335)
         let empty = factory.totalArticlesSlide(readCount: 0, topReadPercentage: nil, averageReadCount: 335)
 
-        #expect(full.singleLineFits.map(\.text.path) == ["data"])
-        #expect(full.singleLineFits.first?.fontSize.path == "dataNumberFontSize")
-        #expect(full.singleLineFits.first?.lineHeight.path == "dataNumbersLineHeight")
-        #expect(empty.singleLineFits.isEmpty)
+        let number = full.textFits.first { $0.text.path == "data" }
+        #expect(number?.maximumLines == 1)
+        #expect(number?.fontSize.path == "dataNumberFontSize")
+        #expect(number?.lineHeight.path == "dataNumbersLineHeight")
+        #expect(empty.textFits.contains { $0.text.path == "data" } == false)
+    }
+
+    /// Long copy can push the content past the bottom of the slide, so every slide limits the
+    /// headline and the body copy, and both shrink together.
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func everySlideLimitsItsCopy(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+        for slide in factory.makeSlides(userDataState: userDataState) {
+            let copy = slide.textFits.filter { $0.text.path != "data" }
+            #expect(copy.map(\.fontSize.path) == ["headlineFontSize", "bodyCopyFontSize"], "\(slide.id)")
+            #expect(Set(copy.compactMap(\.group)).count == 1, "\(slide.id)")
+        }
     }
 
     @Test
