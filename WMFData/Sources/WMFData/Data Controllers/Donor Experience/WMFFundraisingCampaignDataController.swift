@@ -1,5 +1,4 @@
 import Foundation
-import UIKit
 
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
 // cannot be an actor. All mutable state lives in WMFLockIsolated boxes below.
@@ -51,7 +50,8 @@ import UIKit
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
         self._mediaWikiService = WMFLockIsolated(mediaWikiService)
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        // WMFData cannot import UIKit, so this uses the raw name of UIApplication.didEnterBackgroundNotification.
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: Notification.Name("UIApplicationDidEnterBackgroundNotification"), object: nil)
     }
     
     @objc(sharedInstance)
