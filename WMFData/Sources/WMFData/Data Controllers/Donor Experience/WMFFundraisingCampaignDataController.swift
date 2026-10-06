@@ -90,7 +90,7 @@ import Foundation
     /// the article banner, but shows nothing and saves nothing.
     /// - Parameters:
     ///   - countryCode: Country code of the user. Can use Locale.current.region?.identifier
-    ///   - wmfProject: Project to check. The article view passes the article's project. Home passes the app's primary language project.
+    ///   - wmfProject: Project to check. The article view passes the article's project.
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: True if the banner would show.
     public func shouldShowCampaign(countryCode: String, wmfProject: WMFProject, currentDate: Date = Date()) async -> Bool {
