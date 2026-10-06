@@ -105,11 +105,22 @@ jobs:
       - name: Tag build
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git tag "exp/$BUILD"
-          git push origin "exp/$BUILD"
+          # TEMPORARY - revert to `git push origin "exp/$BUILD"` before merging.
+          # GITHUB_TOKEN is a GitHub App token with no Workflows permission, and
+          # there is no `workflows` key in the Actions permissions block to grant
+          # one. It therefore refuses to push any ref - a tag included - whose
+          # tree carries .github/workflows/** differing from the default branch,
+          # which is every commit on this branch while the v2_ workflows are
+          # unmerged. Pushing as wmf-apps-ci instead only works if that
+          # fine-grained PAT carries Workflows: read and write.
+          # Once this merges to main there is no workflow diff and the plain
+          # `git push origin` works again, so this detour should not ship.
+          git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "exp/$BUILD"
 
       # -------------------------------------------------------
       # 5. Comment on the associated Phabricator task
