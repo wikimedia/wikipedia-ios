@@ -315,7 +315,7 @@ struct YearInReviewSlideViewModelFactory {
     // MARK: - Text size
 
     /// The headline and the body copy grow, so long copy can push the content past the bottom of the
-    /// slide. Over these line counts, make both smaller by the same scale, to at most 75%. The width
+    /// slide. Over these line counts, make both smaller by the same scale, to at most `copyMinimumScale`. The width
     /// is smaller than the text boxes on any frame, so the line counts are safe.
     private static func copyFits(headline: WMFRiveText, bodyText: WMFRiveText) -> [WMFRiveTextFit] {
         [
@@ -324,7 +324,7 @@ struct YearInReviewSlideViewModelFactory {
                 fontAssetName: "SerifFont",
                 maximumWidth: copyWidth,
                 maximumLines: 3,
-                minimumScale: 0.75,
+                minimumScale: copyMinimumScale,
                 group: "copy",
                 globalViewModelName: "GlobalProperties",
                 fontSize: WMFRiveNumber(path: "headlineFontSize"),
@@ -335,7 +335,7 @@ struct YearInReviewSlideViewModelFactory {
                 fontAssetName: "SerifFont",
                 maximumWidth: copyWidth,
                 maximumLines: 4,
-                minimumScale: 0.75,
+                minimumScale: copyMinimumScale,
                 group: "copy",
                 globalViewModelName: "GlobalProperties",
                 fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
@@ -346,6 +346,11 @@ struct YearInReviewSlideViewModelFactory {
 
     /// In artboard units. The headline and body boxes are about 296 to 320 wide.
     private static let copyWidth = 290.0
+
+    /// The smallest scale of the headline and the body copy. At 75%, the longest copy that was
+    /// tested (Russian, October 2026) filled the iPhone SE slide to its bottom edge, so 70% keeps
+    /// a margin.
+    static let copyMinimumScale = 0.7
 
     /// Each template in the file sets this flag for the contrast of the controls above it. The style
     /// that the factory passes shows only until the slide loads.

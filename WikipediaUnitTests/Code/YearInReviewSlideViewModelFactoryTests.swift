@@ -125,6 +125,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             let copy = slide.textFits.filter { $0.text.path != "data" }
             #expect(copy.map(\.fontSize.path) == ["headlineFontSize", "bodyCopyFontSize"], "\(slide.id)")
             #expect(Set(copy.compactMap(\.group)).count == 1, "\(slide.id)")
+            #expect(copy.allSatisfy { $0.minimumScale == YearInReviewSlideViewModelFactory.copyMinimumScale }, "\(slide.id)")
         }
     }
 
