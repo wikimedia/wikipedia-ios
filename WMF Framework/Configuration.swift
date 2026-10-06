@@ -21,6 +21,7 @@ public class Configuration: NSObject {
     public struct LocalOptions: OptionSet {
         public let rawValue: Int
         
+        // periphery:ignore - Only the WMF_LOCAL configuration uses this.
         public static let localAnnouncements = LocalOptions(rawValue: 1 << 0)
         public static let localPCS = LocalOptions(rawValue: 1 << 1)
         
@@ -121,6 +122,7 @@ public class Configuration: NSObject {
         )
     }
     
+    // periphery:ignore - Only the WMF_LOCAL configuration calls this.
     private static func local(options: LocalOptions) -> Configuration {
         
         let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.localPCS) ? .localPCS : .production
