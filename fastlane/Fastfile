@@ -153,6 +153,47 @@ platform :ios do
   end
 
   # ----------------------------------------------------------
+  # Workflow 2b: Beta (v2_deploy_beta)
+  #
+  # Same upload as external_beta above - it differs only in which commit
+  # the workflow builds from (a release candidate branch). Runs alongside
+  # external_beta while the v2 workflows are tested.
+  # ----------------------------------------------------------
+  desc "Build and deploy a release candidate to external TestFlight testers"
+  lane :beta do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_the_app
+
+    # Read localized notes from JSON file written by workflow
+    localized_notes = JSON.parse(File.read("/tmp/what_to_test.json")) rescue {}
+
+    # Build localized_build_info hash
+    localized_build_info = localized_notes.transform_values do |notes|
+      { whats_new: notes }
+    end
+
+    # Ensure there's always a default
+    unless localized_build_info.key?("default")
+      default_notes = localized_notes["en-US"] || "See release notes for details"
+      localized_build_info["default"] = { whats_new: default_notes }
+    end
+
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_external: true,
+      notify_external_testers: true,
+      localized_build_info: localized_build_info,
+      submit_beta_review: true,
+      skip_waiting_for_build_processing: false,
+      groups: ["External Testers"],
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
   # Workflow 3: App Store submission
   # ----------------------------------------------------------
   desc "Build and submit to App Store Review"
