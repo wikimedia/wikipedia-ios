@@ -44,38 +44,30 @@ import Foundation
     }
 
     // MARK: - Lifecycle
-    
-    /// Not private, so unit tests (`@testable import WMFData`) can make a controller with its own
-    /// `NotificationCenter`. Posting to `NotificationCenter.default` from a test would reach every
-    /// observer in the test process, not only this controller. The app uses `shared`.
-    init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService, notificationCenter: NotificationCenter = .default) {
+    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self._service = WMFLockIsolated(service)
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
         self._mediaWikiService = WMFLockIsolated(mediaWikiService)
         super.init()
-        notificationCenter.addObserver(self, selector: #selector(appDidEnterBackground), name: Self.appDidEnterBackgroundNotificationName, object: nil)
     }
     
-    /// The raw name of `UIApplication.didEnterBackgroundNotification`. WMFData cannot import UIKit, so
-    /// the name is spelled out here, once. Unit tests post this name to their own `NotificationCenter`,
-    /// so they do not need UIKit either.
-    static let appDidEnterBackgroundNotificationName = Notification.Name("UIApplicationDidEnterBackgroundNotification")
-
     @objc(sharedInstance)
     public static let shared = WMFFundraisingCampaignDataController()
-
+    
     // MARK: - Session State
-
     /// True once the campaign banner has shown in this app session. Year in Review reads this so its
-    /// announcement does not show right after the banner. Kept in memory only, and cleared when the
-    /// app goes to the background, so it waits for the next app open.
+    /// announcement does not show right after the banner. Kept in memory only. The app clears it
+    /// when it goes to the background, so the announcement waits for the next app open.
     public var hasPresentedCampaignThisSession: Bool {
         _hasPresentedCampaignThisSession.value
     }
-
     /// Call this when the campaign banner is shown.
     public func markCampaignPresentedThisSession() {
         _hasPresentedCampaignThisSession.value = true
+    }
+    /// Call this when the app goes to the background. The next app open is a new session.
+    public func clearSessionState() {
+        _hasPresentedCampaignThisSession.value = false
     }
 
     @objc private func appDidEnterBackground() {

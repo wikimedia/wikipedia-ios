@@ -2,6 +2,7 @@ import UIKit
 import BackgroundTasks
 import CocoaLumberjackSwift
 import WMFTestKitchen
+import WMFData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -98,6 +99,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appDelegate?.updateDynamicIconShortcutItems()
         appDelegate?.scheduleBackgroundAppRefreshTask()
         appDelegate?.scheduleDatabaseHousekeeperTask()
+        WMFFundraisingCampaignDataController.shared.clearSessionState()
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
