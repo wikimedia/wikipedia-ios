@@ -84,6 +84,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var isCheckingRemoteConfig: Bool = false
 
     private var notificationUserInfoToShow: [AnyHashable: Any]?
+    private var localNotificationTypeToShow: WMFLocalNotificationType?
 
     private var _settingsNavigationController: WMFComponentNavigationController?
 
@@ -750,6 +751,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
+    // MARK: - Local Notifications
+
+    /// Only call from the background app refresh task. Schedules any local notifications that are due.
+    func performLocalNotificationsBackgroundRefresh() async {
+        await LocalNotificationCoordinator.scheduleNotificationsIfNeeded(dataStore: dataStore)
+    }
+
     // MARK: - Background Processing
 
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
@@ -1017,6 +1025,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 self.hideSplashView()
                 self.showNotificationCenterForNotificationInfo(info)
                 self.notificationUserInfoToShow = nil
+                done()
+            } else if let localNotificationType = self.localNotificationTypeToShow {
+                self.hideSplashView()
+                self.localNotificationTypeToShow = nil
+                self.showDestination(for: localNotificationType)
                 done()
             } else if let activity = self.unprocessedUserActivity {
                 self.processUserActivity(activity, animated: false) {
@@ -1935,9 +1948,33 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
 
         if response.notification.request.content.threadIdentifier == EchoModelVersion.current {
             showNotificationCenterForNotificationInfo(info)
+        } else if let rawType = info[WMFLocalNotificationType.userInfoKey] as? String,
+                  let localNotificationType = WMFLocalNotificationType(rawValue: rawType) {
+            handleLocalNotificationTap(type: localNotificationType)
         }
 
         completionHandler()
+    }
+
+    private func handleLocalNotificationTap(type: WMFLocalNotificationType) {
+        LocalNotificationCoordinator.logTap(type: type)
+
+        guard isMigrationComplete else {
+            localNotificationTypeToShow = type
+            return
+        }
+        showDestination(for: type)
+    }
+
+    /// Shows Explore, then lets the coordinator push the notification's destination on top of it.
+    private func showDestination(for localNotificationType: WMFLocalNotificationType) {
+        dismissPresentedViewControllers()
+        showExplore()
+        guard let navigationController = currentTabNavigationController else {
+            return
+        }
+        let coordinator = LocalNotificationCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, type: localNotificationType)
+        coordinator.start()
     }
 
     private func showNotificationCenterForNotificationInfo(_ info: [AnyHashable: Any]) {
@@ -2024,8 +2061,6 @@ extension WMFAppViewController: Themeable {
         searchTabViewController.apply(theme: theme)
 
         applyTheme(theme, toPresentedViewController: presentedViewController)
-
-        WMFToastManager.sharedInstance.apply(theme: theme)
 
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 

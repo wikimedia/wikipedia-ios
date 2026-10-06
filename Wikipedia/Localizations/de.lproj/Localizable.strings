@@ -37,6 +37,7 @@
 // Author: TheRabbit22
 // Author: ThisCarthing
 // Author: TomatoCake
+// Author: Translatemax
 // Author: Tsevener
 // Author: Tte
 // Author: Ubahnverleih
@@ -179,6 +180,11 @@
 "activity-tab-very-satisfied" = "Sehr zufrieden";
 "activity-tab-very-unsatisfied" = "Sehr unzufrieden";
 "activity-tab-week-graph-label" = "Woche";
+"activity-tab-year-in-review-cta" = "Los geht’s";
+"activity-tab-year-in-review-data-rich-subtitle" = "Erlebe dein Jahr auf Wikipedia noch einmal.";
+"activity-tab-year-in-review-data-rich-title" = "Dein Jahresrückblick ist da";
+"activity-tab-year-in-review-low-data-subtitle" = "Erlebe das Jahr auf Wikipedia noch einmal.";
+"activity-tab-year-in-review-low-data-title" = "Unser Jahresrückblick ist da";
 "activity-tab-your-impact" = "Deine Wirkung";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Einen|$1}} Artikel zu einer Sammlung hinzufügen";
 "advanced-settings-title" = "Erweiterte Einstellungen";
@@ -419,10 +425,12 @@
 "donate-transaction-fee-opt-in-text" = "Ich füge großzügig $1 hinzu, um die Transaktionsgebühren zu decken, damit 100%% meiner Spende behalten werden kann.";
 "donate-wikimedia-fine-print-1" = "Wir verkaufen oder handeln deine Informationen nicht an Dritte. Durch eine Spende stimmst du zu, Deine persönlichen Daten mit der Wikimedia Foundation, der gemeinnützigen Organisation, die Wikipedia und andere Wikimedia-Projekte hostet und ihren Dienstleistern gemäß unserer [Spenderrichtlinie]($1) zu teilen. Die Wikimedia Foundation und ihre Dienstleister befinden sich in den Vereinigten Staaten und in anderen Ländern, deren Datenschutzgesetze möglicherweise nicht deinen eigenen entsprechen. Für weitere Informationen lies bitte unsere [Spenderrichtlinie]($1).";
 "donate-wikimedia-fine-print-2" = "Für wiederkehrende Spender werden feste monatliche Zahlungen von der Wikimedia Foundation am monatlichen Jahrestag der ersten Spende abgebucht, bis du uns mitteilst, sie einzustellen. Spenden, die am 29., 30. oder 31. des Monats initiiert werden, wiederholen sich am letzten Tag des Monats für kürzere Monate, so nah wie möglich am ursprünglichen Datum. Bei Fragen wende dich bitte an donate@wikimedia.org.";
-"donation-reminder-card-body" = "Am $1 hast du uns gebeten, dich nach dem Lesen von {{PLURAL:$2|$2 Artikel|$2 Artikeln}} ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von $3 gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Versprechen heute ein.";
+"donation-reminder-card-body" = "Am $1 hast du uns gebeten, dich nach dem Lesen von {{PLURAL:$2|$2 Artikel|$2 Artikeln}} ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von $3 gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Zusage heute ein.";
 "donation-reminder-card-donate" = "Ja, jetzt spenden";
 "donation-reminder-card-heading" = "Du hast {{PLURAL:$1|$1 Artikel}} gelesen, seit du $2 zugesagt hast!";
 "donation-reminder-card-not-now" = "Nicht jetzt";
+"donation-reminder-card-not-now-toast-modify" = "Ändern";
+"donation-reminder-card-not-now-toast-settings" = "Spendenerinnerungen können jederzeit in den Einstellungen angepasst werden.";
 "donation-reminder-card-subsequent-heading" = "Du hast {{PLURAL:$1|$1 weiteren Artikel|$1 weitere Artikel}} gelesen!";
 "donation-reminder-email-report-body" = "Ich habe ein Problem mit der Funktion für Spendenerinnerungen festgestellt:";
 "donation-reminder-email-report-subject" = "Fehlerbericht – Spendenerinnerungen";
@@ -442,6 +450,21 @@
 "donation-reminder-setup-trigger-group-title-articles" = "Immer wenn ich lese";
 "donation-reminder-setup-trigger-unit-articles" = "Artikel";
 "donation-reminder-setup-update-button-title" = "Erinnerung aktualisieren";
+"donation-reminder-wrap-up-card-body" = "Danke, dass du die Spendenerinnerungen getestet hast, die sich nach deinen gelesenen Artikeln richten. Dein Feedback entscheidet, ob daraus eine dauerhafte Möglichkeit wird, auf Wikipedia zu spenden. Es dauert nur eine Minute und eine Spende ist nicht erforderlich.";
+"donation-reminder-wrap-up-card-heading" = "Das war’s mit den Spendenerinnerungen";
+"donation-reminder-wrap-up-card-share-feedback" = "Feedback geben";
+"donation-reminder-wrap-up-payment-prompt-title" = "Wie möchtest du monatlich spenden?";
+"donation-reminder-wrap-up-recurring-card-body" = "Wir zeigen keine Erinnerungen mehr in der App an, aber du kannst Wikipedia weiterhin unterstützen, indem du deinen zugesagten Betrag von $1 monatlich spendest.";
+"donation-reminder-wrap-up-recurring-card-give-monthly" = "Monatlich spenden";
+"donation-reminder-wrap-up-recurring-card-heading" = "Das Experiment ist beendet";
+"donation-reminder-wrap-up-survey-character-limit" = "Zeichenlimit überschritten";
+"donation-reminder-wrap-up-survey-intro" = "Eine kurze Frage zu den Spendenerinnerungen";
+"donation-reminder-wrap-up-survey-option-keep" = "Beibehalten";
+"donation-reminder-wrap-up-survey-option-remove" = "Entfernen";
+"donation-reminder-wrap-up-survey-placeholder" = "Noch etwas? (optional)";
+"donation-reminder-wrap-up-survey-subtitle" = "Sollen Spendenerinnerungen, die sich nach deinen gelesenen Artikeln richten, eine dauerhafte Funktion werden?";
+"donation-reminder-wrap-up-survey-title" = "Umfrage";
+"donation-reminder-wrap-up-survey-toast" = "Danke für dein Feedback. Deine Antwort hilft uns zu entscheiden, was wir als Nächstes entwickeln.";
 "edit-link-display-text-title" = "Angezeigter Text";
 "edit-link-link-target-title" = "Linkziel";
 "edit-link-remove-link-title" = "Link entfernen";
@@ -561,7 +584,6 @@
 "empty-no-saved-pages-message" = "Seiten zum späteren Betrachten speichern, auch offline";
 "empty-no-saved-pages-title" = "Noch keine gespeicherten Seiten";
 "empty-no-search-results-message" = "Keine Ergebnisse gefunden";
-"empty-talk-page-title" = "Diesem Benutzer wurden noch keine Nachrichten geschickt";
 "end-session" = "Sitzung beenden";
 "error-generic-recovery-suggestion" = "Bitte später erneut versuchen";
 "error-unknown" = "Es ist ein unbekannter Fehler aufgetreten";
@@ -717,7 +739,17 @@
 "find-replace-header" = "Suchen und ersetzen";
 "find-replace-header-close-accessibility" = "Suchen und ersetzen schließen";
 "find-textfield-accessibility" = "Suchen";
+"for-you-empty-feed-add-interests-link" = "einige Interessen";
+"for-you-empty-feed-subtitle" = "Dein „Für dich“-Feed füllt sich nach und nach mit personalisierten Artikeln, während du Wikipedia erkundest.";
+"for-you-empty-feed-title" = "Dein Feed ist vorerst leer";
+"for-you-empty-feed-ways-to-get-started" = "So kannst du loslegen:";
+"for-you-end-of-feed-add-interests-format" = "Füge $1 hinzu";
+"for-you-end-of-feed-add-interests-link" = "neue Interessen";
+"for-you-end-of-feed-community-format" = "Sieh dir an, was in der $1 los ist";
+"for-you-end-of-feed-community-link" = "Community";
+"for-you-end-of-feed-subtitle" = "Schau morgen wieder vorbei, dann warten neue Artikel auf dich, die auf dich zugeschnitten sind.";
 "for-you-end-of-feed-title" = "Das war’s für heute!";
+"for-you-end-of-feed-ways-to-keep-learning" = "So kannst du weiterlernen:";
 "for-you-error-retry" = "Erneut versuchen";
 "for-you-error-subtitle" = "Stelle eine Internetverbindung her und versuche es erneut.";
 "for-you-error-title" = "Keine Internetverbindung";
@@ -753,6 +785,10 @@
 "home-community-see-past-content" = "Frühere Community-Inhalte ansehen";
 "home-community-tab-title" = "Gemeinschaft";
 "home-edit-languages-title" = "Sprachen hinzufügen oder bearbeiten";
+"home-empty-community-feed-subtitle" = "Aktiviere die Module unter $1„Community“$2, um Inhalte zu sehen, die von Mitwirkenden aus der gesamten Wikimedia-Bewegung kuratiert werden.";
+"home-empty-feed-manage-modules-button" = "Module verwalten";
+"home-empty-feed-title" = "Dein Feed ist leer";
+"home-empty-for-you-feed-subtitle" = "Aktiviere die Module unter $1„Für dich“$2, um Inhalte zu sehen, die auf deinen Vorlieben basieren.";
 "home-feed-for-you-based-on-interests-subtitle" = "Artikel, zugeschnitten auf die von dir gewählten Themen.";
 "home-feed-for-you-based-on-interests-title" = "Basierend auf deinen Interessen";
 "home-feed-for-you-because-you-read-subtitle" = "Vorschläge basierend auf einem kürzlich gelesenen Artikel aus deinem Verlauf";
@@ -1300,11 +1336,31 @@
 "search-recent-empty" = "Noch keine letzten Suchanfragen";
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
+"search-semantic-entry-point-accessibility-hint" = "Durchsucht Artikelinhalte nach deiner Suchanfrage";
+"search-semantic-entry-point-description" = "Innerhalb von Artikeln suchen und direkt zur passenden Textstelle springen";
+"search-semantic-entry-point-hidden-toast-modify" = "Ändern";
+"search-semantic-entry-point-hidden-toast-subtitle" = "Du kannst es in den Einstellungen wieder einblenden.";
+"search-semantic-entry-point-hidden-toast-title" = "Modul ausgeblendet.";
+"search-semantic-entry-point-hide-accessibility-label" = "Suche in Artikeln ausblenden";
+"search-semantic-entry-point-info-accessibility-label" = "Über die Suche in Artikeln";
+"search-semantic-entry-point-try-it-now" = "Jetzt ausprobieren";
+"search-semantic-results-contributors" = "{{PLURAL:$1|$1 Mitwirkender|$1 Mitwirkende}}";
+"search-semantic-results-empty-title" = "Für diese Suche wurden keine Ergebnisse gefunden.";
+"search-semantic-results-error-subtitle" = "Bitte versuchen Sie es noch einmal.";
+"search-semantic-results-error-title" = "Etwas ist schiefgelaufen";
+"search-semantic-results-last-updated" = "Zuletzt aktualisiert am $1";
+"search-semantic-results-rate-limited-subtitle" = "Warte einen Moment und versuche es erneut.";
+"search-semantic-results-rate-limited-title" = "Zu viele Suchanfragen";
+"search-semantic-results-read-in-article" = "Im Artikel lesen";
+"search-semantic-results-references" = "{{PLURAL:$1|$1 Einzelnachweis|$1 Einzelnachweise}}";
+"search-semantic-results-unavailable-subtitle" = "Bitte versuchen Sie es später noch einmal.";
+"search-semantic-results-unavailable-title" = "Die Suche ist gerade nicht verfügbar";
 "search-title" = "Suchen";
 "search-widget-announcement-body" = "Füge das Wikipedia-Suche-Widget zu deinem Home- oder Sperrbildschirm hinzu, um schneller Antworten direkt zur Hand zu haben.";
 "search-widget-announcement-title" = "Neues Such-Widget verfügbar";
 "search-widget-description" = "Schneller Zugriff auf die Suche in Wikipedia.";
 "search-widget-wikipedia-title" = "Wikipedia";
+"semantic-search-passage-not-found" = "Dieser Abschnitt ist nicht mehr im Artikel.";
 "serbian-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Serbisch-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\nсрпски ћирилица Serbisch, Kyrillisch (sr-ec)\nsrpski latinica Serbisch, Lateinisch (sr-el)";
 "serbian-variants-alert-title" = "Updates zur Serbisch-Varianten-Unterstützung";
 "settings-account" = "Benutzerkonto";
@@ -1342,6 +1398,8 @@
 "settings-search-footer-text" = "Konfiguriere die App so, dass beim Start der Suchreiter anstelle des Entdecken-Reiters angezeigt wird.";
 "settings-search-footer-text-home" = "Die App beim Öffnen den Reiter „Suchen“ statt „Start“ anzeigen lassen";
 "settings-search-open-app-on-search" = "App mit dem Suchreiter öffnen";
+"settings-search-semantic-search-subtitle" = "Direkt zur passenden Textstelle springen";
+"settings-search-semantic-search-title" = "In Artikeln suchen";
 "settings-storage-and-syncing-disable-sync-alert-message" = "Wenn du die Synchronisierung ausschaltest, werden deine synchronisierten Sammlungen aus deinem Wikipedia-Benutzerkonto und von anderen Geräten gelöscht. Deine Sammlungen und Artikel bleiben auf diesem Gerät erhalten.";
 "settings-storage-and-syncing-disable-sync-alert-no" = "Nein";
 "settings-storage-and-syncing-disable-sync-alert-title" = "Synchronisierung von Sammlungen ausschalten?";
@@ -1501,7 +1559,6 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
-"unable-to-load-talk-page-title" = "Diskussionsseite kann nicht geladen werden";
 "unknown-generic-text" = "Unbekannt";
 "unwatch" = "Nicht mehr beobachten";
 "user-title" = "Benutzer";
@@ -1700,6 +1757,9 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Durch das Veröffentlichen von Änderungen stimmst du den $1Nutzungsbedingungen$2 zu und stimmst unwiderruflich zu, deinen Beitrag unter der $3CC BY-SA 4.0$4 Lizenz und der $5GFDL$6 zu veröffentlichen. Du stimmst zu, dass ein Hyperlink oder eine URL eine ausreichende Namensnennung unter der Creative-Commons-Lizenz darstellt.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
 "wmf-localizations-tests-nonexistent-key" = "fallback";
+"year-in-review-2026-announcement-exit-toast-title" = "Du kannst deinen Jahresrückblick später unter „Aktivität“ aufrufen.";
+"year-in-review-2026-feedback-email-first-line" = "Ich habe Feedback zum Jahresrückblick:";
+"year-in-review-2026-feedback-email-subject" = "Feedback zum Jahresrückblick";
 "year-in-review-button-title" = "Jahresrückblick";
 "year-in-review-feature-announcement-title-personalized" = "Entdecke dein Wikipedia-Jahr im Rückblick";
 "year-in-review-feature-explore-body-v3" = "Sieh dir Einblicke darüber an, welche Artikel du in der Wikipedia-App gelesen hast und welche Bearbeitungen du vorgenommen hast.";

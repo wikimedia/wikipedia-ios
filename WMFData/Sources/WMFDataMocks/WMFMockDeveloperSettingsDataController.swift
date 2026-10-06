@@ -21,15 +21,21 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     let forceYiR2026AnnouncementOverride: Bool
 
     private let featureConfig: WMFData.WMFFeatureConfigResponse
+    private let testWikiFeatureConfig: WMFData.WMFFeatureConfigResponse?
 
-    public init(featureConfig: WMFData.WMFFeatureConfigResponse, forceYiR2026: Bool = false, forceYiR2026Announcement: Bool = false) {
+    public init(featureConfig: WMFData.WMFFeatureConfigResponse, testWikiFeatureConfig: WMFData.WMFFeatureConfigResponse? = nil, forceYiR2026: Bool = false, forceYiR2026Announcement: Bool = false) {
         self.featureConfig = featureConfig
+        self.testWikiFeatureConfig = testWikiFeatureConfig
         self.forceYiR2026Override = forceYiR2026
         self.forceYiR2026AnnouncementOverride = forceYiR2026Announcement
     }
 
     func loadFeatureConfig() -> WMFData.WMFFeatureConfigResponse? {
         return self.featureConfig
+    }
+
+    func loadTestWikiFeatureConfig() -> WMFData.WMFFeatureConfigResponse? {
+        return self.testWikiFeatureConfig
     }
 }
 

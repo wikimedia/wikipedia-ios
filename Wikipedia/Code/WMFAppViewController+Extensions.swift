@@ -900,7 +900,7 @@ extension WMFAppViewController {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
-                try await yirDataController.deleteAllPersonalizedNetworkData()
+                try await yirDataController.deletePersonalizedData(for: .account)
             } catch {
                 DDLogError("Failure deleting personalized editing data from year in review: \(error)")
             }

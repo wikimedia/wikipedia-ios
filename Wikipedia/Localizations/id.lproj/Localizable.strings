@@ -383,7 +383,6 @@
 "empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
 "empty-no-search-results-message" = "Tidak ada hasil yang ditemukan";
-"empty-talk-page-title" = "Belum ada pesan yang diposting untuk pengguna ini";
 "error-generic-recovery-suggestion" = "Silakan coba lagi nanti";
 "error-unknown" = "Terjadi sebuah kesalahan yang tidak diketahui";
 "explore-another-random" = "Artikel sembarang lainnya";
@@ -940,6 +939,12 @@
 "search-recent-empty" = "Belum ada pencarian terbaru";
 "search-recent-title" = "Dicari baru-baru ini";
 "search-result-redirected-from" = "Dialihkan dari: $1";
+"search-semantic-results-empty-title" = "Tidak ada hasil untuk pencarian ini";
+"search-semantic-results-error-subtitle" = "Silakan coba lagi.";
+"search-semantic-results-error-title" = "Terjadi kesalahan";
+"search-semantic-results-rate-limited-title" = "Terlalu banyak pencarian";
+"search-semantic-results-read-in-article" = "Baca di artikel";
+"search-semantic-results-unavailable-subtitle" = "Silakan coba lagi nanti.";
 "search-title" = "Cari";
 "search-widget-announcement-body" = "Tambahkan gawit Pencarian Wikipedia ke Layar Utama atau Layar Kunci Anda untuk mendapatkan jawaban lebih cepat, langsung di ujung jari Anda.";
 "search-widget-announcement-title" = "Gawit Pencarian baru tersedia";
@@ -1086,7 +1091,6 @@
 "two-factor-login-title" = "Masuk ke akun Anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kode cadangan Anda";
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
-"unable-to-load-talk-page-title" = "Tidak bisa memuat halaman pembicaraan";
 "unknown-generic-text" = "Tidak diketahui";
 "unwatch" = "Batal pantau";
 "user-title" = "Pengguna";
