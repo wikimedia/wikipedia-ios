@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
@@ -331,7 +332,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 return
             }
 
-            changePasswordVC.userName = self.usernameField!.text
+            changePasswordVC.userName = self.usernameField.text
             changePasswordVC.apply(theme: self.theme)
             let navigationController = WMFComponentNavigationController(rootViewController: changePasswordVC, modalPresentationStyle: .overFullScreen)
             presenter.present(navigationController, animated: true, completion: nil)
@@ -359,8 +360,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             
             guard let self else { return }
             
-            twoFactorViewController.userName = self.usernameField!.text
-            twoFactorViewController.password = self.passwordField!.text
+            twoFactorViewController.userName = self.usernameField.text
+            twoFactorViewController.password = self.passwordField.text
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.classicInfo?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
             twoFactorViewController.apply(theme: self.theme)
@@ -419,9 +420,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             }
         }
-        let siteURL = dataStore.primarySiteURL
-        loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
-            DispatchQueue.main.async { [weak self] in
+        loginInfoFetcher.fetchLoginInfoForSiteURL(captchaSiteURL(), success: { [weak self] info in
+            DispatchQueue.main.async {
 
                 guard let self else { return }
 
@@ -525,7 +525,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     public func captchaSiteURL() -> URL {
-        return (dataStore.primarySiteURL)!
+        return dataStore.primarySiteURL ?? Configuration.current.defaultSiteURL
     }
 
     func captchaKeyboardReturnKeyTapped() {
