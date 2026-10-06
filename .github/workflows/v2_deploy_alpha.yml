@@ -161,7 +161,7 @@ jobs:
 
       # -------------------------------------------------------
       # 5. Fetch Phabricator tasks from PRs
-      #    - All PRs since last release → What to Test notes + release task
+      #    - All PRs since last release → What to Test notes
       #    - New PRs since last alpha → Phabricator commenting
       # -------------------------------------------------------
       - name: Fetch Phabricator tasks from PRs
@@ -215,7 +215,7 @@ jobs:
 
             return list(dict.fromkeys(phab_tasks))
 
-          # All tasks since last release → What to Test notes + release task
+          # All tasks since last release → What to Test notes
           if all_pr_numbers_str:
             all_pr_numbers = [p for p in all_pr_numbers_str.split(',') if p]
             all_tasks = fetch_phab_tasks(all_pr_numbers)
@@ -238,7 +238,6 @@ jobs:
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
             f.write(f"phab_task_urls={','.join(new_tasks)}\n")
-            f.write(f"all_phab_task_urls={','.join(all_tasks)}\n")
           EOF
 
       # -------------------------------------------------------
@@ -362,116 +361,3 @@ jobs:
               -d "objectIdentifier=$TASK_ID"
             echo "✓ Commented on $TASK_ID"
           done
-
-      # -------------------------------------------------------
-      # 11. Update release task with included tasks
-      # -------------------------------------------------------
-      - name: Update release task with included tasks
-        if: steps.duplicate_check.outputs.skip != 'true'
-        env:
-          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
-          ALL_PHAB_TASK_URLS: ${{ steps.phab.outputs.all_phab_task_urls }}
-          VERSION: ${{ steps.versioning.outputs.version }}
-        run: |
-          python3 << 'EOF'
-          import urllib.request
-          import urllib.parse
-          import json
-          import re
-          import os
-
-          token = os.environ['PHAB_TOKEN']
-          version = os.environ['VERSION']
-          task_urls = os.environ.get('ALL_PHAB_TASK_URLS', '')
-
-          if not task_urls:
-            print("No Phabricator tasks found, skipping release task update")
-            exit(0)
-
-          # Search for any open release task with a date-based version title
-          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
-
-          def release_branch_value(description):
-            match = re.search(r'\*\*Release branch\*\*:(.*)', description)
-            return match.group(1).strip() if match else ''
-
-          req = urllib.request.Request(
-            'https://phabricator.wikimedia.org/api/maniphest.search',
-            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
-            data=urllib.parse.urlencode({
-              'api.token': token,
-              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
-              'constraints[statuses][0]': 'open',
-              'order': 'newest',
-              'limit': '100',
-            }).encode()
-          )
-
-          with urllib.request.urlopen(req) as resp:
-            data = json.loads(resp.read())
-
-          tasks = data.get('result', {}).get('data', [])
-          # Skip any release task that's already associated with a release
-          # branch (i.e. already past Submit and in Apple's court) - only the
-          # task still tracking main should get updated here.
-          release_task = next(
-            (t for t in tasks
-             if release_pattern.match(t.get('fields', {}).get('name', ''))
-             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
-            , None
-          )
-
-          if not release_task:
-            print("No open release task found (or all open ones are already associated with a release branch), skipping")
-            exit(0)
-
-          task_phid = release_task['phid']
-          current_title = release_task.get('fields', {}).get('name', '')
-          current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
-
-          print(f"Found release task: '{current_title}' -> updating title to 'Release {version}'")
-
-          # Keep the Release version field in the body in sync with the title
-          current_description = re.sub(
-            r'(\*\*Release version\*\*:).*',
-            rf'\1 {version}',
-            current_description,
-            count=1
-          )
-
-          # Build new included tasks section
-          task_ids = []
-          for url in task_urls.split(','):
-            match = re.search(r'T(\d+)$', url.strip())
-            if match:
-              task_ids.append(f"{{{match.group(0)}}}")
-          task_list = '\n'.join(task_ids)
-          new_section = f"\n\n**Included Tasks:**\n{task_list}"
-
-          # Replace existing section or append
-          if '**Included Tasks:**' in current_description:
-            new_description = current_description.split('**Included Tasks:**')[0].rstrip() + new_section
-          else:
-            new_description = current_description.rstrip() + new_section
-
-          # Update task title and description
-          req = urllib.request.Request(
-            'https://phabricator.wikimedia.org/api/maniphest.edit',
-            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
-            data=urllib.parse.urlencode({
-              'api.token': token,
-              'objectIdentifier': task_phid,
-              'transactions[0][type]': 'title',
-              'transactions[0][value]': f'Release {version}',
-              'transactions[1][type]': 'description',
-              'transactions[1][value]': new_description,
-            }).encode()
-          )
-
-          with urllib.request.urlopen(req) as resp:
-            result = json.loads(resp.read())
-            if not result.get('error_code'):
-              print(f"✓ Updated release task to Release {version}")
-            else:
-              print(f"✗ Failed to update release task: {result.get('error_info')}")
-          EOF
