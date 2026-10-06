@@ -1,16 +1,5 @@
 name: V2 Deploy Design Review
 
-# STUB. This file exists on main only so the workflow shows up in the Actions
-# "Run workflow" dropdown - GitHub offers workflow_dispatch only for workflows
-# present on the default branch. The on: block below is copied verbatim from
-# the real workflow so the dispatch form asks for the right inputs; keep the
-# two in sync if the real one's inputs change.
-#
-# Running this against main does nothing but print its inputs. Pick the
-# feature branch in the Run workflow dropdown to get the real workflow.
-#
-# Delete this file and land the real one when that branch merges.
-
 on:
   workflow_dispatch:
     inputs:
@@ -24,18 +13,110 @@ on:
         type: string
 
 jobs:
-  stub:
-    runs-on: ubuntu-latest
+  build-and-upload:
+    runs-on: macos-26
 
     steps:
-      - name: Explain that this is a stub
-        env:
-          INPUTS: ${{ toJSON(github.event.inputs) }}
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 1. Compute build number
+      # -------------------------------------------------------
+      - name: Compute build number
+        id: versioning
         run: |
-          echo "This is the stub copy of ${{ github.workflow }} on ${{ github.ref_name }}."
-          echo "It builds, uploads and tags nothing."
-          echo
-          echo "To run the real workflow, dispatch it again and pick the branch"
-          echo "that carries the v2 release workflows in the Run workflow dropdown."
-          echo
-          echo "Inputs received: $INPUTS"
+          VERSION=$(date -u "+%Y.%m.%d")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          LATEST=$(git tag --list 'exp/*' \
+            | sed 's|exp/||' \
+            | grep -E '^[0-9]+$' \
+            | sort -n \
+            | tail -1)
+          BUILD=$(( ${LATEST:-0} + 1 ))
+          echo "build=$BUILD" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION, Build: $BUILD"
+
+      # -------------------------------------------------------
+      # 2. Update version and build number in Info.plist files
+      # -------------------------------------------------------
+      - name: Update version and build number
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          PLISTS=(
+            "WMF Framework/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Alpha-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "ContinueReadingWidget/Info.plist"
+            "WikipediaUnitTests/Info.plist"
+            "Widgets/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+          )
+
+          for PLIST in "${PLISTS[@]}"; do
+            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
+          done
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Experimental-Info.plist"
+
+          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
+
+      # -------------------------------------------------------
+      # 3. Build and upload to internal TestFlight (Experimental)
+      # -------------------------------------------------------
+      - name: Install fastlane
+        run: bundle install
+
+      - name: Write App Store API Key
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build and upload to internal TestFlight
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          WHAT_TO_TEST: ${{ github.event.inputs.what_to_test }}
+        run: |
+          bundle exec fastlane design_review
+
+      # -------------------------------------------------------
+      # 4. Tag the build
+      # -------------------------------------------------------
+      - name: Tag build
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "exp/$BUILD"
+          git push origin "exp/$BUILD"
+
+      # -------------------------------------------------------
+      # 5. Comment on the associated Phabricator task
+      # -------------------------------------------------------
+      - name: Comment on Phabricator task
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          PHAB_TASK: ${{ github.event.inputs.phab_task }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          MESSAGE="Available in: TestFlight Wikipedia Experimental $VERSION ($BUILD)"
+          curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+            https://phabricator.wikimedia.org/api/maniphest.edit \
+            -d "api.token=$PHAB_TOKEN" \
+            -d "transactions[0][type]=comment" \
+            -d "transactions[0][value]=$MESSAGE" \
+            -d "objectIdentifier=$PHAB_TASK"
+          echo "✓ Commented on $PHAB_TASK"
