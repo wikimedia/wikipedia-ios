@@ -55,8 +55,16 @@ comes from the highest `alphas/` tag and that tag is not pushed until the run
 finishes.
 
 `V2 Deploy Beta` builds the production app from a `release-candidate/YYYY.MM.DD`
-branch, which it reuses if one exists or cuts from `main` if not. The version
-name comes from that branch's date.
+branch. Unlike the other two it does not use the current date: dispatch it with
+`mode=new` and a version to start a cycle - normally the date you plan to ship,
+so a build carries the date it is meant to be released on - or with
+`mode=existing` to keep building the cycle already in progress, which takes its
+version from the existing branch.
+
+A cycle is that branch plus an open Phabricator release task, and the two are
+kept in lockstep. `mode=new` refuses to run while either still exists, so a
+cycle has to be finished and cleaned up before the next one starts;
+`mode=existing` refuses to run when there is no cycle to continue.
 
 Release submission and wrap-up are covered by `V2 Submit App Store`, which
 submits a build already in TestFlight rather than building one, and
