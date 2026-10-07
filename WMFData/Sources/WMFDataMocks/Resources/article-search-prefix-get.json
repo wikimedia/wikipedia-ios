@@ -1,0 +1,160 @@
+{
+  "batchcomplete": true,
+  "continue": {
+    "sroffset": 1,
+    "gpsoffset": 6,
+    "continue": "gpsoffset||"
+  },
+  "query": {
+    "pages": [
+      {
+        "pageid": 534366,
+        "ns": 0,
+        "title": "Barack Obama",
+        "index": 1,
+        "description": "President of the United States from 2009 to 2017",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/330px-President_Barack_Obama.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 400
+        },
+        "revisions": [
+          {
+            "revid": 1372672213,
+            "parentid": 1372501321
+          }
+        ],
+        "pageprops": {
+          "displaytitle": "<span class=\"mw-page-title-main\">Barack Obama</span>"
+        }
+      },
+      {
+        "pageid": 16136849,
+        "ns": 0,
+        "title": "Barack Obama Sr.",
+        "index": 3,
+        "description": "Kenyan economist (1934–1982)",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Barack_Obama_Sr._1962.jpg/330px-Barack_Obama_Sr._1962.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 490
+        },
+        "revisions": [
+          {
+            "revid": 1368278440,
+            "parentid": 1367754100
+          }
+        ],
+        "coordinates": [
+          {
+            "lat": 41.878,
+            "lon": -87.6298,
+            "primary": true,
+            "type": "landmark",
+            "dim": "2km"
+          }
+        ]
+      },
+      {
+        "pageid": 20617631,
+        "ns": 0,
+        "title": "Barack Obama citizenship conspiracy theories",
+        "index": 2,
+        "description": "Debunked conspiracy theories",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Billboard_Challenging_the_validity_of_Barack_Obama%27s_Birth_Certificate.JPG/330px-Billboard_Challenging_the_validity_of_Barack_Obama%27s_Birth_Certificate.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 192
+        },
+        "revisions": [
+          {
+            "revid": 1372546560,
+            "parentid": 1371481176
+          }
+        ]
+      },
+      {
+        "pageid": 26937919,
+        "ns": 0,
+        "title": "Barack Obama 2012 presidential campaign",
+        "index": 5,
+        "description": "American political campaign",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1371527552,
+            "parentid": 1360522527
+          }
+        ]
+      },
+      {
+        "pageid": 41828619,
+        "ns": 0,
+        "title": "Barack Obama Presidential Center",
+        "index": 4,
+        "description": "Library in Chicago, Illinois",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Obama_Center_south_elevation_2_%28opening_day%29_-_Chicago%2C_IL_-_June_2026.jpg/330px-Obama_Center_south_elevation_2_%28opening_day%29_-_Chicago%2C_IL_-_June_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 480
+        },
+        "revisions": [
+          {
+            "revid": 1371797474,
+            "parentid": 1371341286
+          }
+        ],
+        "coordinates": [
+          {
+            "lat": 41.786261,
+            "lon": -87.585882,
+            "primary": true,
+            "type": "landmark",
+            "dim": "1000"
+          }
+        ]
+      },
+      {
+        "pageid": 62030582,
+        "ns": 0,
+        "title": "Barack Obama tan suit controversy",
+        "index": 6,
+        "description": "2014 fashion incident",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Barack_Obama_meets_with_John_F_Tefft%2C_August_2014.jpg/330px-Barack_Obama_meets_with_John_F_Tefft%2C_August_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 213
+        },
+        "revisions": [
+          {
+            "revid": 1371847288,
+            "parentid": 1371835056
+          }
+        ]
+      }
+    ],
+    "searchinfo": {
+      "suggestion": "barracks",
+      "suggestionsnippet": "barracks"
+    },
+    "search": [
+      {
+        "ns": 0,
+        "title": "Barack Obama",
+        "pageid": 534366
+      }
+    ],
+    "redirects": [
+      {
+        "index": 3,
+        "from": "Barack Hussein Obama",
+        "to": "Barack Obama"
+      }
+    ]
+  }
+}

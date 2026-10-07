@@ -1,11 +1,5 @@
 #import <WMF/WMFFeedContentSource.h>
-#import <WMF/WMFFeedContentFetcher.h>
 
-#import <WMF/WMFFeedDayResponse.h>
-#import <WMF/WMFFeedArticlePreview.h>
-#import <WMF/WMFFeedImage.h>
-#import <WMF/WMFFeedTopReadResponse.h>
-#import <WMF/WMFFeedNewsStory.h>
 
 #import <WMF/WMFNotificationsController.h>
 
@@ -43,7 +37,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (WMFFeedContentFetcher *)fetcher {
     if (_fetcher == nil) {
-        _fetcher = [[WMFFeedContentFetcher alloc] initWithSession:self.userDataStore.session configuration:self.userDataStore.configuration];
+        _fetcher = [[WMFFeedContentFetcher alloc] init];
     }
     return _fetcher;
 }
