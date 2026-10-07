@@ -13,6 +13,20 @@ name: V2 Deploy Beta
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Start a new release cycle, or continue the one already in progress'
+        required: true
+        type: choice
+        default: existing
+        options:
+          - existing
+          - new
+      version:
+        description: 'Only for mode=new: the version to release, as YYYY.MM.DD. Normally the date you plan to ship to the App Store. Ignored when mode=existing.'
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: write
