@@ -58,7 +58,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var transitionsController: ViewControllerTransitionsController?
 
     private var _settingsViewController: SettingsTabViewController?
-    private var _exploreViewController: ExploreViewController?
     private var homeCoordinator: HomeCoordinator?
 
     /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
@@ -274,6 +273,16 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                name: .dismissReadingListToast,
                                                object: nil)
 
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(databaseHousekeeperDidComplete),
+                                               name: .databaseHousekeeperDidComplete,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(whichCameFirstSessionDidUpdate(_:)),
+                                               name: WMFNSNotification.whichCameFirstSessionDidUpdate,
+                                               object: nil)
+
         observeArticleTabsNSNotifications()
         setupReadingListsHelpers()
 
@@ -469,10 +478,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         guard uiIsLoaded else { return }
 
-        if visibleViewController() == exploreViewController {
-            exploreViewController.isGranularUpdatingEnabled = true
-        }
-
         if isResumeComplete {
             performTasksThatShouldOccurAfterBecomeActiveAndResume()
             UserHistoryFunnel.shared.logSnapshot()
@@ -481,8 +486,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     @objc private func appWillResignActiveWithNotification(_ note: Notification) {
         guard uiIsLoaded else { return }
-
-        exploreViewController.isGranularUpdatingEnabled = false
 
         navigationStateController.saveNavigationState(for: self, in: dataStore.viewContext)
         
@@ -1011,7 +1014,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
-                NotificationCenter.default.post(name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
+                self.dataStore.feedContentController.updateFeedSources(with: nil, userInitiated: false, completion: nil)
             }
         }
 
@@ -1030,8 +1033,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
         if shouldRefreshFeed {
             resumeAndAnnouncementsCompleteGroup.enter()
-            exploreViewController.updateFeedSources(with: nil, userInitiated: false) {
-                resumeAndAnnouncementsCompleteGroup.leave()
+            dataStore.feedContentController.updateFeedSources(with: nil, userInitiated: false) {
+                DispatchQueue.main.async {
+                    resumeAndAnnouncementsCompleteGroup.leave()
+                }
             }
         } else {
             if locationAuthorized != defaults.wmf_locationAuthorized() {
@@ -1317,7 +1322,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                     }
                 }
             } else if let url {
-                exploreViewController.updateFeedSources(with: nil, userInitiated: false) {
+                dataStore.feedContentController.updateFeedSources(with: nil, userInitiated: false) {
                     DispatchQueue.main.async {
                         if let group = self.dataStore.viewContext.contentGroup(for: url),
                            let vc = group.detailViewControllerWithDataStore( self.dataStore, theme: self.theme) {
@@ -1456,31 +1461,33 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         return _navigationStateController
     }
 
-    var exploreViewController: ExploreViewController {
-        
-        guard let _exploreViewController else {
-            let vc = ExploreViewController()
-            vc.dataStore = dataStore
-            vc.notificationsCenterPresentationDelegate = self
-            vc.tabBarItem.image = UIImage(named: "tabbar-explore")
-            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.exploreButton
-            vc.title = WMFCommonStringsWrapper.exploreTabTitle
-            vc.apply(theme: theme)
-            _exploreViewController = vc
-            return vc
-        }
-        
-        return _exploreViewController
-    }
-
     @objc func handleExploreCenterBadgeNeedsUpdateNotification() {
         DispatchQueue.main.async {
-            if let homeViewController = self.homeCoordinator?.homeViewController {
-                homeViewController.updateProfileButton()
-            } else {
-                self.exploreViewController.updateProfileButton()
-            }
+            self.homeCoordinator?.homeViewController?.updateProfileButton()
         }
+    }
+
+    // MARK: - Feed content
+
+    /// Housekeeping removes old feed content, so the feed refreshes after it. The Home tab may not
+    /// have loaded the embedded Explore feed, so this refresh does not depend on it.
+    /// Housekeeping also runs in the background processing task. Do not refresh the feed until the app resumes.
+    @objc private func databaseHousekeeperDidComplete() {
+        DispatchQueue.main.async {
+            guard self.isResumeComplete else { return }
+            self.dataStore.feedContentController.updateFeedSources(with: nil, userInitiated: true, completion: nil)
+        }
+    }
+
+    /// Keeps today's daily game card preview current after the reader answers a question.
+    @objc private func whichCameFirstSessionDidUpdate(_ note: Notification) {
+        guard let projectID = note.userInfo?["projectID"] as? String,
+              let date = note.userInfo?["dailyGameDate"] as? String else { return }
+
+        let todayDateString = DateFormatter.onThisDayAPIDateFormatter.string(from: Date())
+        guard date == todayDateString else { return }
+
+        dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
     }
 
     // MARK: - Year in Review Activity tab badge
@@ -1761,11 +1768,7 @@ extension WMFAppViewController: UITabBarControllerDelegate {
         if viewController == tabBarController.selectedViewController {
             switch tabBarController.selectedIndex {
             case WMFAppTabType.main.rawValue:
-                if let homeViewController = homeCoordinator?.homeViewController {
-                    homeViewController.scrollSelectedFeedToTop()
-                } else {
-                    exploreViewController.scrollToTop()
-                }
+                homeCoordinator?.homeViewController?.scrollSelectedFeedToTop()
             case WMFAppTabType.search.rawValue:
                 searchTabViewController.makeSearchBarBecomeFirstResponder()
             default:
@@ -1827,6 +1830,7 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
     // The method will be called on the delegate only if the application is in the foreground.
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         if notification.request.content.threadIdentifier == EchoModelVersion.current {
+            dataStore.remoteNotificationsController.loadNotifications(force: true)
             NotificationCenter.default.post(name: NSNotification.pushNotificationBannerDidDisplayInForeground, object: nil, userInfo: notification.request.content.userInfo)
         }
         completionHandler([.list, .banner])
@@ -1953,7 +1957,6 @@ extension WMFAppViewController: Themeable {
             return
         }
         
-        exploreViewController.apply(theme: theme)
         placesViewController.apply(theme: theme)
         savedViewController.apply(theme: theme)
         searchTabViewController.apply(theme: theme)
@@ -2226,7 +2229,7 @@ extension WMFAppViewController {
     @objc private func userWasLoggedOut(_ note: Notification) {
         showLoggedOutPanelIfNeeded()
         DispatchQueue.main.async {
-            self.exploreViewController.updateProfileButton()
+            self.homeCoordinator?.homeViewController?.updateProfileButton()
             UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
 
             if self.isResumeComplete {
@@ -2241,7 +2244,7 @@ extension WMFAppViewController {
 
     @objc private func userWasLoggedIn(_ note: Notification) {
         DispatchQueue.main.async {
-            self.exploreViewController.updateProfileButton()
+            self.homeCoordinator?.homeViewController?.updateProfileButton()
 
             if self.isResumeComplete {
                 self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
