@@ -14,8 +14,8 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
 // MARK: - Navigation
 
 extension WikipediaAppRobot {
-    var explore: ExploreRobot {
-        ExploreRobot(base: base, configuration: configuration)
+    var home: HomeRobot {
+        HomeRobot(base: base, configuration: configuration)
     }
 
     var onboarding: OnboardingRobot {

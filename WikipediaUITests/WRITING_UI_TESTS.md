@@ -85,7 +85,7 @@ The current lane split is:
 
 ## Add The Test
 
-1. Name the test after the feature or flow, for example `PlacesUITests`, `ExploreUITests`, or `ArticleImageGalleryUITests`.
+1. Name the test after the feature or flow, for example `PlacesUITests`, `HomeUITests`, or `ArticleImageGalleryUITests`.
 2. Add a new file only when the behavior is a distinct feature or flow. Otherwise extend the closest existing test file.
 3. Add new Swift files to the `WikipediaUITests` target in `Wikipedia.xcodeproj`.
 4. Keep the test method as a user journey. It should read like:
@@ -93,7 +93,7 @@ The current lane split is:
    ```swift
    func testUserCanCompleteFeatureJourney() throws {
        launchWikipediaAppRobot(onboardingState: .completed)
-           .explore
+           .home
            .assertVisible()
            .openSearch()
            .openArticle(named: "Dog")
