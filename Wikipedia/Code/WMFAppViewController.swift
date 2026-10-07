@@ -29,6 +29,8 @@ private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
 private let wmfEnableHomeTabForTesting = "WMFEnableHomeTabForTesting"
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
+private let wmfSuppressYearInReviewAnnouncementForTesting = "WMFSuppressYearInReviewAnnouncementForTesting"
+private let wmfSuppressOneTimeHomeOnboardingForTesting = "WMFSuppressOneTimeHomeOnboardingForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -954,6 +956,17 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
+        }
+
+        // The Year in Review announcement is a sheet that appears once per install, which for a
+        // fresh UI-test install means once per test, at an unpredictable moment. Mark it as seen.
+        // Written straight to the store: WMFYearInReviewDataController() throws while the Core Data
+        // store is still being set up, which `try?` would hide.
+        if UserDefaults.standard.bool(forKey: wmfSuppressYearInReviewAnnouncementForTesting) {
+            try? WMFDataEnvironment.current.userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.seenYearInReview2026FeatureAnnouncement.rawValue,
+                value: true
+            )
         }
 
         // WMFData's user defaults store JSON-encodes its values, so a plain launch-argument

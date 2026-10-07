@@ -53,6 +53,7 @@ enum WMFYearInReviewNavigationItems {
             onShareFeedback: onShareFeedback
         )
         viewController.navigationItem.leftBarButtonItem?.accessibilityLabel = strings.closeButtonAccessibilityLabel
+        viewController.navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.YearInReview.closeButton
 
         applyTintColor(tintColor, to: viewController.navigationItem)
     }
