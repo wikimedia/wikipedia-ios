@@ -49,8 +49,10 @@ review, so designers can sign off before a task goes through PR review.
 
 `V2 Deploy Alpha` builds the `Alpha` scheme, which points at various staging
 server environments and has feature flags turned on for in-development testing.
-It is meant to run nightly against `main`, and skips the build when the latest
-commit is already tagged.
+It is meant to build every merge into `main`, and skips the build when the
+latest commit is already tagged. Runs are serialized, because the build number
+comes from the highest `alphas/` tag and that tag is not pushed until the run
+finishes.
 
 `V2 Deploy Beta` builds the production app from a `release-candidate/YYYY.MM.DD`
 branch, which it reuses if one exists or cuts from `main` if not. The version
