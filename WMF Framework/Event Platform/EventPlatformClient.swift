@@ -188,20 +188,27 @@ import WMFTestKitchen
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static var analyticsEventIntakeURI: URL {
+    private static var analyticsEventIntakeURI: URL? {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
-            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
+            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")
         } else {
-            URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+            URL(string: "https://intake-analytics.wikimedia.org/v1/events")
         }
     }
 
-    private static var loggingEventIntakeURI: URL {
+    private static var loggingEventIntakeURI: URL? {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
-            URL(string: "https://intake-logging-beta.wmflabs.org/v1/events")!
+            URL(string: "https://intake-logging-beta.wmflabs.org/v1/events")
         } else {
-            URL(string: "https://intake-logging.wikimedia.org/v1/events")!
+            URL(string: "https://intake-logging.wikimedia.org/v1/events")
         }
+    }
+
+    private static func intakeURI(for event: PersistedEvent, streamConfigurations: [Stream: StreamConfiguration]?) -> URL? {
+        if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
+            return loggingEventIntakeURI
+        }
+        return analyticsEventIntakeURI
     }
 
     /**
@@ -220,7 +227,7 @@ import WMFTestKitchen
      * be "eventgate-analytics-external" (to filter out irrelevant streams from
      * the returned list of stream configurations).
      */
-    private static let streamConfigsURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json")!
+    private static let streamConfigsURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json")
 
     /**
      * An individual stream's configuration.
@@ -298,9 +305,13 @@ import WMFTestKitchen
      *     every failed attempt
      */
     private func fetchStreamConfiguration(retries: Int, retryDelay: TimeInterval) {
-        self.httpGet(url: EventPlatformClient.streamConfigsURI, completion: { (data, response, error) in
+        guard let streamConfigsURI = EventPlatformClient.streamConfigsURI else {
+            assertionFailure("EPC: stream configs URI is not a valid URL")
+            return
+        }
+        self.httpGet(url: streamConfigsURI, completion: { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, let data = data, httpResponse.statusCode == 200 else {
-                DDLogWarn("EPC: Server did not respond adequately, will try \(EventPlatformClient.streamConfigsURI.absoluteString) again")
+                DDLogWarn("EPC: Server did not respond adequately, will try \(streamConfigsURI.absoluteString) again")
 
                 if retries > 0 {
                     dispatchOnMainQueueAfterDelayInSeconds(retryDelay) {
@@ -415,12 +426,11 @@ import WMFTestKitchen
         let group = DispatchGroup()
 
         for event in events {
-            group.enter()
-            
-            var uri = EventPlatformClient.analyticsEventIntakeURI
-            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
-                uri = EventPlatformClient.loggingEventIntakeURI
+            guard let uri = EventPlatformClient.intakeURI(for: event, streamConfigurations: streamConfigurations) else {
+                assertionFailure("EPC: intake URI is not a valid URL")
+                continue
             }
+            group.enter()
             
             httpPost(url: uri, body: event.data) { [weak storageManager] result in
                 defer { group.leave() }
@@ -462,13 +472,12 @@ import WMFTestKitchen
         DDLogDebug("EPC: Processing all scheduled requests")
         let group = DispatchGroup()
         for event in events {
+            guard var uri = EventPlatformClient.intakeURI(for: event, streamConfigurations: streamConfigurations) else {
+                assertionFailure("EPC: intake URI is not a valid URL")
+                continue
+            }
             group.enter()
 
-            var uri = EventPlatformClient.analyticsEventIntakeURI
-            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
-                uri = EventPlatformClient.loggingEventIntakeURI
-            }
-            
             #if !DEBUG
             uri.append(queryItems: [URLQueryItem(name: "hasty", value: "true")])
             #endif
