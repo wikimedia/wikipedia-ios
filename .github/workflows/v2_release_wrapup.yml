@@ -45,11 +45,14 @@ jobs:
         env:
           VERSION: ${{ github.event.inputs.version }}
           SHA: ${{ steps.resolve.outputs.sha }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git tag "releases/$VERSION" "$SHA"
-          git push origin "releases/$VERSION"
+          # Push as wmf-apps-ci like our other automated repo writes;
+          # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "releases/$VERSION"
           echo "Created releases/$VERSION at $SHA"
 
       # -------------------------------------------------------

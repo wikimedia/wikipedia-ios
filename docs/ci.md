@@ -89,11 +89,15 @@ Our GitHub organization has a bot account called wmf-apps-ci which has been used
 
 3. We have a manually-triggered GitHub action that posts a PR to increment the app version. This commit is made with the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
+4. The V2 deploy workflows push their git tags (`exp/`, `alphas/`, `betas/` and `releases/`) and create the `release-candidate/{date}` branch using the wmf-apps-ci account, with the same personal access token, read from the APPS_BOT_TOKEN repository secret. The default `GITHUB_TOKEN` cannot be used for this: it is a GitHub App token with no Workflows permission, and the Actions `permissions:` block has no key to grant one, so it refuses to push any ref whose tree differs from the default branch under `.github/workflows/`. That token therefore needs `Workflows: read and write` alongside its other permissions.
+
 ### What happens when this token expires?
 
 You should notice a few things:
 
 - When a Beta Build is made, you will no longer see new `betas/{build number}` tag numbers added to the `main` branch.
+
+- The V2 deploy workflows will build and upload to TestFlight successfully, then fail at their "Tag build" step. `V2 Deploy Beta` will also fail to push its release candidate branch.
 
 - When a Translatewiki PR is opened, you will no longer see the followup "Import translations from TranslateWiki" commit in the PR.
 

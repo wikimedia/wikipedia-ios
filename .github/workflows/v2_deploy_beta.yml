@@ -383,12 +383,15 @@ jobs:
         env:
           BRANCH: ${{ steps.branch.outputs.branch }}
           CREATED: ${{ steps.branch.outputs.created }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
           if [ "$CREATED" = "true" ]; then
-            git push origin "HEAD:refs/heads/$BRANCH"
+            # Push as wmf-apps-ci like our other automated repo writes;
+            # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+            git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "HEAD:refs/heads/$BRANCH"
             echo "Pushed new release candidate branch $BRANCH"
           else
             echo "$BRANCH already exists on remote, nothing to push"
@@ -397,11 +400,14 @@ jobs:
       - name: Tag build
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git tag "betas/$BUILD"
-          git push origin "betas/$BUILD"
+          # Push as wmf-apps-ci like our other automated repo writes;
+          # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "betas/$BUILD"
 
       # -------------------------------------------------------
       # 10. Post to Phabricator tasks
