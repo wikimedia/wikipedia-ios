@@ -196,6 +196,50 @@ struct WMFDeveloperSettingsView: View {
                 .listRowBackground(rowBackground)
             }
 
+            Section {
+                captionedRow(caption: "Schedules a once-daily notification for today's top read article from background app refresh. Turning this off cancels any notification waiting to fire.") {
+                    Toggle("Daily Top Read Notifications", isOn: $viewModel.enableDailyTopReadNotifications)
+                }
+                ForEach(Array(viewModel.localNotificationLogSummaryLines.enumerated()), id: \.offset) { _, line in
+                    diagnosticLine(line)
+                }
+                captionedRow(caption: "Shares the full log as JSON, e.g. via AirDrop.") {
+                    Button {
+                        viewModel.exportLocalNotificationLog()
+                    } label: {
+                        Text("Export notification log")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+                captionedRow(caption: "Forgets that a notification was scheduled today, or that today's Top Read list was viewed, so the next refresh can schedule again.") {
+                    Button {
+                        viewModel.resetLocalNotificationHandledDays()
+                    } label: {
+                        Text("Reset daily notification state")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+                if viewModel.localNotificationActions != nil {
+                    captionedRow(caption: "Runs the daily top read scheduling now, the same way background app refresh does. The log records it with app state \"active\", so it is distinguishable from real background runs.") {
+                        Button {
+                            viewModel.runDailyTopReadRefreshNow()
+                        } label: {
+                            Text("Run notification refresh now")
+                                .foregroundStyle(Color(theme.link))
+                        }
+                    }
+                }
+                Button {
+                    viewModel.clearLocalNotificationLog()
+                } label: {
+                    Text("Clear notification log")
+                        .foregroundStyle(Color(theme.destructive))
+                }
+            } header: {
+                sectionHeader("Local Notifications")
+            }
+            .listRowBackground(rowBackground)
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
@@ -219,6 +263,12 @@ struct WMFDeveloperSettingsView: View {
         .listBackgroundColor(Color(theme.baseBackground))
         .foregroundStyle(Color(theme.text))
         .toggleStyle(SwitchToggleStyle(tint: Color(theme.accent)))
+        .task {
+            await viewModel.loadLocalNotificationLogSummary()
+        }
+        .sheet(item: $viewModel.localNotificationLogExportFile) { file in
+            WMFDeveloperSettingsShareSheet(activityItems: [file.url])
+        }
     }
 
     private var rowBackground: some View {
@@ -252,4 +302,14 @@ struct WMFDeveloperSettingsView: View {
                 .foregroundStyle(Color(theme.secondaryText))
         }
     }
+}
+
+private struct WMFDeveloperSettingsShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) { }
 }

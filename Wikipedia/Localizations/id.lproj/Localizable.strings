@@ -941,6 +941,12 @@
 "search-recent-empty" = "Belum ada pencarian terbaru";
 "search-recent-title" = "Dicari baru-baru ini";
 "search-result-redirected-from" = "Dialihkan dari: $1";
+"search-semantic-results-empty-title" = "Tidak ada hasil untuk pencarian ini";
+"search-semantic-results-error-subtitle" = "Silakan coba lagi.";
+"search-semantic-results-error-title" = "Terjadi kesalahan";
+"search-semantic-results-rate-limited-title" = "Terlalu banyak pencarian";
+"search-semantic-results-read-in-article" = "Baca di artikel";
+"search-semantic-results-unavailable-subtitle" = "Silakan coba lagi nanti.";
 "search-title" = "Cari";
 "search-widget-announcement-body" = "Tambahkan gawit Pencarian Wikipedia ke Layar Utama atau Layar Kunci Anda untuk mendapatkan jawaban lebih cepat, langsung di ujung jari Anda.";
 "search-widget-announcement-title" = "Gawit Pencarian baru tersedia";

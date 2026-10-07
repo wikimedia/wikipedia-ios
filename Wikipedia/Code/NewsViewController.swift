@@ -183,11 +183,13 @@ extension NewsViewController {
         let dayAndMonth = Calendar.current.dateComponents([.day, .month], from: storyDate)
         let currentYear = Calendar.current.dateComponents([.year], from: Date())
         
+        guard let year = currentYear.year, let day = dayAndMonth.day else { return nil }
+
         var formattedYearComponent = DateComponents()
-        formattedYearComponent.year = currentYear.year! - 1
-        
+        formattedYearComponent.year = year - 1
+
         var formattedDayAndMonthComponent = DateComponents()
-        formattedDayAndMonthComponent.day = dayAndMonth.day! + 1
+        formattedDayAndMonthComponent.day = day + 1
         formattedDayAndMonthComponent.month = dayAndMonth.month
         
         guard let date1 = calendar.date(from: formattedDayAndMonthComponent),

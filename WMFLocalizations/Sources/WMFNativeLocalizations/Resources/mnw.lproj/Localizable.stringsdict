@@ -130,6 +130,22 @@
 			<string>%1$d ပၞောန် ဟွံပလေဝ်ဒါန်လဝ်ဂမၠိင်</string>
 		</dict>
 	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ရုဲကေတ်လဝ်</string>
+			<key>other</key>
+			<string>%1$d ပရေၚ်မရုဲကေတ်လဝ်</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -144,6 +160,134 @@
 			<string>%1$d article</string>
 			<key>other</key>
 			<string>%1$d articles</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ပေ</string>
+			<key>other</key>
+			<string>%1$d ပေဂမၠိုင်</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-meters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d မဳတာ</string>
+			<key>other</key>
+			<string>%1$d မဳတာဂမၠိုၚ်</string>
+		</dict>
+	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ထိုၚ်လိက်</string>
+			<key>other</key>
+			<string>%1$d ထိုၚ်လိက်ဂမၠိုၚ်</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>In 1 ပရဝ်ဂျေတ်</string>
+			<key>other</key>
+			<string>In %1$d ပရဝ်ဂျေတ်ဂမၠိုၚ်</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects-plain</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 ပရဝ်ဂျေတ်</string>
+			<key>other</key>
+			<string>%1$d ပရဝ်ဂျေတ်ဂမၠိုၚ်</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-types</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 ဗီုပြၚ်</string>
+			<key>other</key>
+			<string>%1$d ဗီုပြၚ်ဂမၠိုၚ်</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-body-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@လ္တူ %2$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ထိုၚ်လိက်တၟိ</string>
+			<key>other</key>
+			<string>%1$d ထိုၚ်တၟိဂမၠိုၚ်</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ထိုၚ်လိက်တၟိ</string>
+			<key>other</key>
+			<string>ထိုၚ်လိက်တၟိဂမၠိုၚ်</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -367,6 +511,42 @@
 			<string>%1$d နာဍဳ တုဲကၠုင်</string>
 			<key>zero</key>
 			<string>ပြဟ်ဟ်ဏအ်</string>
+		</dict>
+	</dict>
+	<key>relative-date-hrs-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>အကြာနာဍဳ %1$d</string>
+			<key>other</key>
+			<string>အကြာနာဍဳ %1$d ဂမၠိုၚ်</string>
+			<key>zero</key>
+			<string>ဟွံလံဏီ</string>
+		</dict>
+	</dict>
+	<key>relative-date-min-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>အကြာမိနေတ် %1$d</string>
+			<key>other</key>
+			<string>အကြာမိနေတ် %1$d ဂမၠိုၚ်</string>
+			<key>zero</key>
+			<string>လၟုဟ်</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>

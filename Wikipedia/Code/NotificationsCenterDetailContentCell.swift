@@ -41,7 +41,7 @@ class NotificationsCenterDetailContentCell: UITableViewCell, ReusableCell {
     func configure(viewModel: NotificationsCenterDetailViewModel, theme: Theme) {
         backgroundColor = theme.colors.paperBackground
 
-        let bodyContent = viewModel.contentBody != nil ? "\n\n\(viewModel.contentBody!)" : ""
+        let bodyContent = viewModel.contentBody.map { "\n\n\($0)" } ?? ""
 
         let boldAttribute = [NSAttributedString.Key.font: WMFFont.for(.boldCallout, compatibleWith: traitCollection)]
         let paragraphStyle = NSMutableParagraphStyle()
