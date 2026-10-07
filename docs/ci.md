@@ -66,10 +66,14 @@ kept in lockstep. `mode=new` refuses to run while either still exists, so a
 cycle has to be finished and cleaned up before the next one starts;
 `mode=existing` refuses to run when there is no cycle to continue.
 
-Only one `release-candidate/*` branch may exist at a time. `V2 Release Wrap Up`
-deletes it at the end of a cycle; if a second one ever shows up, beta fails
-rather than guess which to build. Hotfixes are meant to branch under `hotfix/`
-and get their own workflow rather than opening a second release candidate.
+Before building anything, `mode=existing` checks that the cycle is in a sane
+state: exactly one `release-candidate/*` branch, exactly one open release task,
+and both naming the same version. Any other combination fails the run in about
+a minute, naming which part is wrong, rather than partway through an archive
+and upload. `V2 Release Wrap Up` deletes the branch at the end of a cycle, so a
+second one generally means a wrap-up that never ran. Hotfixes are meant to
+branch under `hotfix/` and get their own workflow rather than opening a second
+release candidate.
 
 Release submission and wrap-up are covered by `V2 Submit App Store`, which
 submits a build already in TestFlight rather than building one, and

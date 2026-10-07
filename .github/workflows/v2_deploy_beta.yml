@@ -180,8 +180,18 @@ jobs:
               echo "::warning::Ignoring version '$INPUT_VERSION' - mode=existing takes its version from the release candidate branch."
             fi
 
+            # A cycle is exactly one release candidate branch and exactly
+            # one open release task, both naming the same version. Anything
+            # else means the cycle is not in a state worth building from, so
+            # say which part is wrong and stop here - before a 25 minute
+            # archive, a TestFlight upload and a beta review submission.
             if [ "$COUNT" -eq 0 ]; then
               echo "::error::No release-candidate/* branch exists, so there is no cycle to continue. Re-run with mode=new and a version to start one."
+              exit 1
+            fi
+
+            if [ "$COUNT" -gt 1 ]; then
+              echo "::error::$COUNT release candidate branches exist: $CANDIDATE_LIST. Only one is allowed at a time - V2 Release Wrap Up deletes it at the end of a cycle. Delete all but the one you are releasing, then re-run."
               exit 1
             fi
 
@@ -190,28 +200,24 @@ jobs:
               exit 1
             fi
 
-            # Exactly one release candidate branch exists at a time, so
-            # there is never a choice to make here. More than one means a
-            # previous cycle was never cleaned up - V2 Release Wrap Up
-            # deletes the branch - and guessing which to build is how you
-            # ship the wrong one.
-            if [ "$COUNT" -gt 1 ]; then
-              echo "::error::$COUNT release candidate branches exist: $CANDIDATE_LIST. Only one is allowed at a time. Delete all but the cycle you are releasing, then re-run."
+            if [ "$TASK_COUNT" -gt 1 ]; then
+              echo "::error::$TASK_COUNT open Phabricator release tasks exist: $TASK_NAMES. Only one is allowed at a time. Close all but the one for the cycle you are releasing, then re-run."
               exit 1
             fi
 
             BRANCH="$EXISTING"
             VERSION="${BRANCH#release-candidate/}"
 
-            # Branch and task should name the same version. A mismatch means
-            # the two have drifted apart; the branch wins, because it is what
-            # actually gets built.
-            case " $TASK_VERSIONS " in
-              *" $VERSION "*) ;;
-              *) echo "::warning::Release candidate branch is $VERSION but the open release task(s) are for $TASK_VERSIONS. Building $VERSION." ;;
-            esac
+            # Exactly one task is open by this point, so TASK_VERSIONS holds
+            # exactly one version. It has to be the branch's: if they name
+            # different releases there is no safe guess about which one this
+            # build belongs to.
+            if [ "$TASK_VERSIONS" != "$VERSION" ]; then
+              echo "::error::Release candidate branch is $VERSION but the open release task is for $TASK_VERSIONS ($TASK_NAMES). Rename whichever is wrong so the two match, then re-run."
+              exit 1
+            fi
 
-            echo "Continuing release cycle $VERSION from $BRANCH"
+            echo "Continuing release cycle $VERSION (branch $BRANCH, task $TASK_NAMES)"
             git checkout -B "$BRANCH" "origin/$BRANCH"
             echo "created=false" >> $GITHUB_OUTPUT
           fi
