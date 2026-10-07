@@ -98,6 +98,24 @@ jobs:
           bundle exec fastlane verify_testflight_build
 
       # -------------------------------------------------------
+      # TEMPORARY - DELETE BEFORE MERGING THIS BRANCH
+      #
+      # Halts the run so the TestFlight lookup above can be exercised against
+      # a real build without writing any App Store Connect metadata or
+      # submitting anything for review. The lookup's failure path is already
+      # proven (a bogus version fails in verify_testflight_build); this is to
+      # prove the success path.
+      #
+      # Read the result from the "Verify TestFlight build exists" step, not
+      # from the run: this step fails on purpose, so the run will be red even
+      # when the lookup worked.
+      # -------------------------------------------------------
+      - name: TEMPORARY halt before App Store metadata
+        run: |
+          echo "::notice::verify_testflight_build succeeded. Halting here on purpose - temporary verification step, delete before merge."
+          exit 1
+
+      # -------------------------------------------------------
       # 4. Fetch "What's New" translations from Google Sheet
       # -------------------------------------------------------
       - name: Fetch release notes translations
