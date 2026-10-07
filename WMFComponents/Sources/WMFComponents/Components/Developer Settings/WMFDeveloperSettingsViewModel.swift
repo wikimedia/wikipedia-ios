@@ -105,6 +105,21 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    /// Builds Year in Review from made-up sample data for every template, instead of the stored
+    /// report. Has an effect only while `forceYiREntryPoint2026` is on.
+    @Published public var useYiRSampleData: Bool = WMFDeveloperSettingsDataController.shared.useYiRSampleData {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.useYiRSampleData = useYiRSampleData
+        }
+    }
+
+    /// The language of the sample data. Has an effect only while `useYiRSampleData` is on.
+    @Published public var yiRSampleLanguage: WMFYiRSampleLanguage = WMFDeveloperSettingsDataController.shared.yiRSampleLanguage {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.yiRSampleLanguage = yiRSampleLanguage
+        }
+    }
+
     @Published public var forceFundraisingCampaignBanner: Bool = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = forceFundraisingCampaignBanner

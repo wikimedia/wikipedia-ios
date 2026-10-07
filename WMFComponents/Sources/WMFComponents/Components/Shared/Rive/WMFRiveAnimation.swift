@@ -5,11 +5,15 @@ public struct WMFRiveAnimation: Sendable, Equatable {
     public let resourceName: String
     public let artboardName: String?
     public let stateMachineName: String?
+    /// The name of the view model instance that holds the flags of the artboard, such as `isUIWhite`.
+    /// `nil` means the instance has the name of the artboard.
+    public let viewModelInstanceName: String?
 
-    public init(resourceName: String, artboardName: String? = nil, stateMachineName: String? = nil) {
+    public init(resourceName: String, artboardName: String? = nil, stateMachineName: String? = nil, viewModelInstanceName: String? = nil) {
         self.resourceName = resourceName
         self.artboardName = artboardName
         self.stateMachineName = stateMachineName
+        self.viewModelInstanceName = viewModelInstanceName
     }
 }
 

@@ -53,6 +53,19 @@ struct WMFDeveloperSettingsView: View {
                     .tint(Color(theme.secondaryText))
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "Builds Year in Review from made-up sample data for every template, instead of your reading history. With Force Experience set to All Empty States, it shows the empty versions. Use it to hand builds to design.") {
+                    Toggle("Use Sample Data", isOn: $viewModel.useYiRSampleData)
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "The language of the sample text. Arabic and Japanese show one slide for each kind of template. Article images only load when the app language is English.") {
+                    Picker("Sample Language", selection: $viewModel.yiRSampleLanguage) {
+                        ForEach(WMFYiRSampleLanguage.allCases, id: \.self) { language in
+                            Text(sampleLanguageTitle(language)).tag(language)
+                        }
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026 || !viewModel.useYiRSampleData)
                 captionedRow(caption: "Shows the announcement on every eligible app open, without the remote config, the settings toggle, the country gate, or the already seen state.") {
                     Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
                 }
@@ -292,6 +305,17 @@ struct WMFDeveloperSettingsView: View {
             .font(Font(WMFFont.for(.caption1)))
             .foregroundStyle(Color(theme.text))
             .textSelection(.enabled)
+    }
+
+    private func sampleLanguageTitle(_ language: WMFYiRSampleLanguage) -> String {
+        switch language {
+        case .english:
+            return "English"
+        case .arabic:
+            return "Arabic (right to left)"
+        case .japanese:
+            return "Japanese"
+        }
     }
 
     private func captionedRow(caption: String, @ViewBuilder control: () -> some View) -> some View {

@@ -23,7 +23,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
 
     let animation: WMFRiveAnimation
     /// A boolean property to read after the file loads, from the view model instance that has the name
-    /// of the artboard if there is one, otherwise from the bound instance.
+    /// of the artboard if there is one, otherwise from the bound instance. An animation can name
+    /// another instance with `viewModelInstanceName`.
     let readBool: WMFRiveBool?
     /// Text runs to keep to a maximum number of lines. See `WMFRiveTextFit`.
     let textFits: [WMFRiveTextFit]
@@ -222,13 +223,14 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     }
 
     /// `dataBind: .auto` binds the default instance of the artboard. The templates set their flags on
-    /// the instance that has the name of the artboard, so read that instance first.
+    /// the instance that has the name of the artboard, so read that instance first. An animation whose
+    /// instance has another name, such as the two `frame9` artboards, gives it in `viewModelInstanceName`.
     private func readBoolFromFile() async {
         guard let readBool, let rive else { return }
         let property = BoolProperty(path: readBool.path)
         var value: Bool?
-        if let artboardName = animation.artboardName,
-           let named = try? await rive.file.createViewModelInstance(.name(artboardName, from: .artboardDefault(rive.artboard))) {
+        if let instanceName = animation.viewModelInstanceName ?? animation.artboardName,
+           let named = try? await rive.file.createViewModelInstance(.name(instanceName, from: .artboardDefault(rive.artboard))) {
             value = try? await named.value(of: property)
         }
         if value == nil, let bound = rive.viewModelInstance {

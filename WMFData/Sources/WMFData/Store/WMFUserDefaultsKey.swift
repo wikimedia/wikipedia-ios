@@ -33,6 +33,8 @@ public enum WMFUserDefaultsKey: String {
     // Year in Review 2026 dev settings
     case developerSettingsForceYiREntryPoint2026 = "dev-settings-force-yir-entry-point-2026"
     case developerSettingsForceYiR2026Announcement = "dev-settings-yir-announcement-2026"
+    case developerSettingsUseYiRSampleData = "dev-settings-use-yir-sample-data"
+    case developerSettingsYiRSampleLanguage = "dev-settings-yir-sample-language"
 
     case bypassDonation = "bypass-donation"
     case forceEmailAuth = "force-email-auth"

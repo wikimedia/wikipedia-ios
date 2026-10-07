@@ -1,16 +1,31 @@
 import Foundation
 
+/// The language the Year in Review sample data is written in. Used only when
+/// `useYiRSampleData` is on. Arabic covers right-to-left text, Japanese covers a script
+/// with no spaces between words.
+public enum WMFYiRSampleLanguage: String, CaseIterable, Sendable {
+    case english
+    case arabic
+    case japanese
+}
+
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
     var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? { get }
     var forceYiR2026Announcement: Bool { get }
+    var useYiRSampleData: Bool { get }
+    var yiRSampleLanguage: WMFYiRSampleLanguage { get }
     func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse?
 }
 
 public extension WMFDeveloperSettingsDataControlling {
     func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse? { nil }
+
+    // Defaults so existing conformers, such as test mocks, keep compiling.
+    var useYiRSampleData: Bool { false }
+    var yiRSampleLanguage: WMFYiRSampleLanguage { .english }
 }
 
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
@@ -149,6 +164,29 @@ public extension WMFDeveloperSettingsDataControlling {
             } else {
                 try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
             }
+        }
+    }
+
+    /// Debugging convenience: while on, 2026 Year in Review is built from made-up sample data for
+    /// every template in the Rive file, instead of the stored report. Used to hand builds to design.
+    /// Has an effect only when `forceYiREntryPoint2026` is also true.
+    public var useYiRSampleData: Bool {
+        get { loadFlag(.developerSettingsUseYiRSampleData) }
+        set { saveFlag(.developerSettingsUseYiRSampleData, newValue) }
+    }
+
+    /// Debugging convenience: the language the sample data is written in. English when nothing has
+    /// been stored. Has an effect only when `useYiRSampleData` is also true.
+    public var yiRSampleLanguage: WMFYiRSampleLanguage {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRSampleLanguage.rawValue),
+                  let language = WMFYiRSampleLanguage(rawValue: rawValue) else {
+                return .english
+            }
+            return language
+        }
+        set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRSampleLanguage.rawValue, value: newValue.rawValue)
         }
     }
 
