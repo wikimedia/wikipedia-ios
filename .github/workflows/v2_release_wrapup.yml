@@ -16,6 +16,13 @@ permissions:
   contents: write
   pull-requests: write
 
+# Serialize repeats of the same wrap up. The group is keyed by the inputs rather
+# than flat, so two genuinely different versions still run in parallel and only a
+# double-dispatch of the same one queues behind itself.
+concurrency:
+  group: v2-release-wrapup-${{ inputs.version }}
+  cancel-in-progress: false
+
 jobs:
   wrap-up:
     runs-on: macos-26

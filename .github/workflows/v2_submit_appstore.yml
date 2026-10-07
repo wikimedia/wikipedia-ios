@@ -22,6 +22,13 @@ on:
         type: boolean
         default: false
 
+# Serialize repeats of the same submission. The group is keyed by the inputs rather
+# than flat, so two genuinely different submissions still run in parallel and only a
+# double-dispatch of the same one queues behind itself.
+concurrency:
+  group: v2-submit-appstore-${{ inputs.version }}-${{ inputs.build_number }}
+  cancel-in-progress: false
+
 jobs:
   submit:
     runs-on: macos-26

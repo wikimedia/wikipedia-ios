@@ -9,6 +9,15 @@ permissions:
 env:
   XCODE_VERSION: "26.6"
 
+# Serialize runs, for the same reason as V2 Deploy Alpha: the build number is
+# read from the highest betas/ tag at checkout, but that tag is not pushed
+# until the run finishes, so overlapping runs would compute the same number and
+# App Store Connect would reject the second upload. cancel-in-progress stays
+# false so a run is never killed between its TestFlight upload and its tag push.
+concurrency:
+  group: v2-deploy-beta
+  cancel-in-progress: false
+
 jobs:
   build-and-upload:
     runs-on: macos-26
