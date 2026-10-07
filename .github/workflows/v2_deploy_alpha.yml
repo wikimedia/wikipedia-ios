@@ -12,6 +12,17 @@ on:
   #     - main
   workflow_dispatch:
 
+# Serialize runs. The build number is read from the highest alphas/ tag at
+# checkout, but that tag is not pushed until the end of the run, so two
+# overlapping runs would both compute the same number and App Store Connect
+# would reject the second upload as a duplicate. cancel-in-progress stays
+# false deliberately: cancelling a run could kill it after the TestFlight
+# upload but before the tag push, leaving the build number untagged and the
+# next run colliding with it.
+concurrency:
+  group: v2-deploy-alpha
+  cancel-in-progress: false
+
 env:
   XCODE_VERSION: "26.6"
 
