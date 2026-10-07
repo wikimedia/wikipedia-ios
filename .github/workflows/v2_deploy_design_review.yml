@@ -30,9 +30,18 @@ jobs:
     runs-on: macos-26
 
     steps:
+      # fetch-depth: 0 is needed for the tag list and the PR lookback, but
+      # a full clone of this repo is ~1.4GB of pack and takes over a minute.
+      # blob:none makes it a partial clone - all commits and trees, no
+      # historical file contents - and git fetches the blobs it actually
+      # needs on demand. Nothing here reads old file contents: the tag and
+      # branch lookups are refs, the PR lookback is commit metadata, and
+      # only the checked-out commit needs real files. Trialled here first;
+      # roll out to the other deploy workflows if the fetch time drops.
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          filter: blob:none
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # -------------------------------------------------------
