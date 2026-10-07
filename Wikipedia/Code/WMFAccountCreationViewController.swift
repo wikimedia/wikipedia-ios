@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 import WMFComponents
 import WMFNativeLocalizations
 import CocoaLumberjackSwift
@@ -242,8 +243,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate func getCaptcha(completion: @escaping (WMFCaptcha?) -> Void) {
         let failure: WMFErrorHandler = {error in }
-        let siteURL = dataStore.primarySiteURL
-        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
+        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(captchaSiteURL(), success: { info in
             DispatchQueue.main.async {
                 completion(info.captcha)
             }
@@ -360,7 +360,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     public func captchaSiteURL() -> URL {
-        return (dataStore.primarySiteURL)!
+        return dataStore.primarySiteURL ?? Configuration.current.defaultSiteURL
     }
     
     public func captchaHideSubtitle() -> Bool {
@@ -485,7 +485,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     @IBAction func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         guard textField === usernameField, reason == .committed, let username = textField.text else { return }
-        let siteURL = dataStore.primarySiteURL!
+        let siteURL = captchaSiteURL()
         
         guard !checkingUsernameAvailability else {
             // Already checking username availability. Returning early to prevent duplicate calls.
@@ -518,7 +518,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
 
-        let siteURL = dataStore.primarySiteURL
+        let siteURL = captchaSiteURL()
         
         let creationFailure: WMFErrorHandler = {[weak self] error in
             DispatchQueue.main.async {
@@ -568,13 +568,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         
                         let parsedMessage = message?.text ?? ""
                         
-                        guard let linkBaseURL = siteURL else {
-                            break
-                        }
-                        
                         WMFToastManager.sharedInstance.dismissCurrentToast()
 
-                        self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
+                        self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: siteURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
                     default:
                         break
@@ -593,15 +589,25 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, classicCaptchaID: captchaViewController?.captcha?.classicInfo?.captchaID, classicCaptchaWord: captchaViewController?.solution, hCaptchaToken: hCaptchaToken, siteURL: siteURL!, success: {_ in
-            DispatchQueue.main.async {
-                if self.captchaIsVisible() {
-                    self.authInstrument.submitInteraction(action: "fancy_captcha_success")
+        accountCreator.createAccount(
+            username: usernameField.text ?? "",
+            password: passwordField.text ?? "",
+            retypePassword: passwordRepeatField.text ?? "",
+            email: emailField.text ?? "",
+            classicCaptchaID: captchaViewController?.captcha?.classicInfo?.captchaID,
+            classicCaptchaWord: captchaViewController?.solution,
+            hCaptchaToken: hCaptchaToken,
+            siteURL: siteURL,
+            success: { _ in
+                DispatchQueue.main.async {
+                    if self.captchaIsVisible() {
+                        self.authInstrument.submitInteraction(action: "fancy_captcha_success")
+                    }
+                    
+                    self.login()
                 }
-                
-                self.login()
-            }
-        }, failure: creationFailure)
+            },
+            failure: creationFailure)
     }
     
     func apply(theme: Theme) {
