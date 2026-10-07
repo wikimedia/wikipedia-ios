@@ -7,7 +7,6 @@ public enum WMFNSNotification {
     public static let articleTabItemDeleted = Notification.Name(WMFNotificationName.articleTabItemDeleted.rawValue)
     public static let coreDataStoreSetup = Notification.Name(WMFNotificationName.coreDataStoreSetup.rawValue)
     public static let sharedCacheStoreSetup = Notification.Name(WMFNotificationName.sharedCacheStoreSetup.rawValue)
-    public static let refreshExploreForGamesCard = Notification.Name(WMFNotificationName.refreshExploreForGamesCard.rawValue)
     public static let whichCameFirstSessionDidUpdate = Notification.Name(WMFNotificationName.whichCameFirstSessionDidUpdate.rawValue)
     public static let enableHomePhase2DidChange = Notification.Name(WMFNotificationName.enableHomePhase2DidChange.rawValue)
     public static let communityModuleVisibilityDidChange = Notification.Name(WMFNotificationName.communityModuleVisibilityDidChange.rawValue)
@@ -29,7 +28,6 @@ private enum WMFNotificationName: String {
     case articleTabItemDeleted = "WMFDataArticleTabItemDeleted"
     case coreDataStoreSetup = "WMFDataCoreDataStoreSetup"
     case sharedCacheStoreSetup = "WMFDataSharedCacheStoreSetup"
-    case refreshExploreForGamesCard = "WMFDataRefreshExploreForGamesCard"
     case whichCameFirstSessionDidUpdate = "WMFDataWhichCameFirstSessionDidUpdate"
     case enableHomePhase2DidChange = "WMFDataEnableHomePhase2DidChange"
     case communityModuleVisibilityDidChange = "WMFDataCommunityModuleVisibilityDidChange"

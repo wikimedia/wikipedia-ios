@@ -123,12 +123,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
@@ -223,12 +220,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     open override func refresh() {
         updateFeedSources(with: nil, userInitiated: true) {
-        }
-    }
-
-    @objc private func databaseHousekeeperDidComplete() {
-        DispatchQueue.main.async {
-            self.refresh()
         }
     }
 
@@ -1470,15 +1461,13 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
     
     @objc func whichCameFirstSessionDidUpdate(_ note: Notification) {
-        guard let projectID = note.userInfo?["projectID"] as? String,
-              let date = note.userInfo?["dailyGameDate"] as? String else { return }
+        guard let date = note.userInfo?["dailyGameDate"] as? String else { return }
 
         let todayDateString = DateFormatter.onThisDayAPIDateFormatter.string(from: Date())
         guard date == todayDateString else { return }
 
+        // WMFAppViewController updates the card preview. Animate that change as a delete and insert.
         wantsDeleteInsertOnNextItemUpdate = true
-
-        dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
     }
     
     @objc func articleDeleted(_ note: Notification) {
@@ -1570,10 +1559,6 @@ extension ExploreViewController {
         notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
     }
 
-    @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
-        dataStore.remoteNotificationsController.loadNotifications(force: true)
-    }
-
     @objc func applicationDidBecomeActive() {
         // The Explore view controller stays alive in the tab bar even when another tab is on screen.
         // Only run the modal chain on foreground when Explore is actually visible, otherwise the
@@ -1584,10 +1569,6 @@ extension ExploreViewController {
 
     @objc func coreDataStoreSetup() {
         configureNavigationBar()
-    }
-
-    @objc func refreshExploreForGamesCard() {
-        updateFeedSources(userInitiated: false)
     }
 }
 
