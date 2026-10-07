@@ -47,7 +47,6 @@ public enum AccessibilityIdentifiers {
 
     public enum RootTab {
         public static let activityButton = "Root Tab Activity Button"
-        public static let exploreButton = "Root Tab Explore Button"
         public static let homeButton = "Root Tab Home Button"
         public static let placesButton = "Root Tab Places Button"
         public static let savedButton = "Root Tab Saved Button"
@@ -109,14 +108,9 @@ public enum AccessibilityIdentifiers {
 
     public enum Onboarding {
         public static let addLanguagesButton = "App Onboarding Add Languages Button"
-        public static let analyticsLearnMoreButton = "App Onboarding Analytics Learn More Button"
-        public static let analyticsView = "App Onboarding Analytics View"
         public static let communityOptionButton = "App Onboarding Community Option Button"
         public static let dataPrivacyView = "App Onboarding Data Privacy View"
-        public static let explorationView = "App Onboarding Exploration View"
         public static let feedPreferenceView = "App Onboarding Feed Preference View"
-        public static let introductionLearnMoreButton = "App Onboarding Introduction Learn More Button"
-        public static let introductionView = "App Onboarding Introduction View"
         public static let introView = "App Onboarding Intro View"
         public static let languagesView = "App Onboarding Languages View"
         public static let learnMoreLink = "App Onboarding Learn More Link"
