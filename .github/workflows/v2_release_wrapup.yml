@@ -37,11 +37,10 @@ jobs:
       # 0. Fail fast if the bot token is missing
       #
       #    Pushes below use wmf-apps-ci. If the secret resolves empty the
-      #    push URL still looks valid but carries no credentials, so git
-      #    falls back to the AUTHORIZATION header actions/checkout leaves
-      #    configured - GITHUB_TOKEN - which cannot push a ref touching
-      #    .github/workflows. That surfaces as a confusing "GitHub App"
-      #    rejection after the build has already uploaded, so check here.
+      #    push URL still looks valid but carries no credentials, and the
+      #    push is rejected as "a GitHub App" - GITHUB_TOKEN, which cannot
+      #    push a ref touching .github/workflows. That only surfaces after
+      #    the build has already uploaded, so check it up front instead.
       # -------------------------------------------------------
       - name: Check bot token is available
         env:
@@ -79,6 +78,12 @@ jobs:
           git tag "releases/$VERSION" "$SHA"
           # Push as wmf-apps-ci like our other automated repo writes;
           # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          # The -c clears the AUTHORIZATION header actions/checkout leaves
+          # configured for github.com, so the URL's credentials are the only
+          # ones in play. Belt and braces: on 2026-10-07 a branch push with
+          # this same URL was still rejected as "a GitHub App" and started
+          # working once the -c was added, but a tag push had already
+          # succeeded without it, so the mechanism is not fully understood.
           git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "releases/$VERSION"
           echo "Created releases/$VERSION at $SHA"
 
