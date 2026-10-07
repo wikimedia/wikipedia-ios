@@ -51,7 +51,11 @@ jobs:
       # 1. Resolve the release cycle - its version, branch and task
       #
       #    A cycle is a release-candidate/YYYY.MM.DD branch plus an open
-      #    Phabricator release task, and the two are kept in lockstep.
+      #    Phabricator release task, and the two are kept in lockstep. Only
+      #    one cycle may be open at a time, so neither mode ever has to
+      #    guess which branch to build; a second one is an error. Hotfixes
+      #    are meant to branch under hotfix/ and get their own workflow
+      #    rather than opening a second release candidate here.
       #
       #    mode=new starts a cycle at the version you enter - normally the
       #    date you plan to ship, so the version a build carries is the date
@@ -186,8 +190,14 @@ jobs:
               exit 1
             fi
 
+            # Exactly one release candidate branch exists at a time, so
+            # there is never a choice to make here. More than one means a
+            # previous cycle was never cleaned up - V2 Release Wrap Up
+            # deletes the branch - and guessing which to build is how you
+            # ship the wrong one.
             if [ "$COUNT" -gt 1 ]; then
-              echo "::warning::Found $COUNT release-candidate branches, using the newest ($EXISTING). Others: $(printf '%s' "$CANDIDATES" | tail -n +2 | tr '\n' ' ')"
+              echo "::error::$COUNT release candidate branches exist: $CANDIDATE_LIST. Only one is allowed at a time. Delete all but the cycle you are releasing, then re-run."
+              exit 1
             fi
 
             BRANCH="$EXISTING"
