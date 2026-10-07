@@ -16,7 +16,7 @@ public struct WMFLanguage: Equatable, Codable, Sendable, Identifiable {
     }
 
     public var localizedName: String {
-        Locale.current.localizedString(forLanguageCode: languageCode) ?? languageCode
+        Locale.current.localizedString(forWikipediaLanguageCode: languageCode) ?? languageCode
     }
 
     var isRTL: Bool {

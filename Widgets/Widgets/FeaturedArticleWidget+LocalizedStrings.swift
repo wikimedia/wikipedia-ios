@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFData
 import WMFNativeLocalizations
 
 extension FeaturedArticleWidget {
@@ -15,7 +16,7 @@ extension FeaturedArticleWidget {
 		static let fromWikipediaDefault = WMFLocalizedString("featured-widget-from-wikipedia", value: "From Wikipedia", comment: "Text displayed as Wikipedia source on Featured article widget if language is unavailable.")
 
 		static func fromLanguageWikipediaTextFor(languageCode: String?) -> String {
-			guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forLanguageCode: languageCode) else {
+			guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forWikipediaLanguageCode: languageCode) else {
 				return FeaturedArticleWidget.LocalizedStrings.fromWikipediaDefault
 			}
 

@@ -5,7 +5,6 @@ struct Wikipedia: Codable {
     let languageName: String
     let localName: String
     let altISOCode: String?
-    let localeOverrideCode: String?
 }
 
 struct WikipediaLanguageVariant: Codable {
