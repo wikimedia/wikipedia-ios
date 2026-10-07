@@ -43,6 +43,13 @@ know which commit a given build came from:
 | V2 Deploy Alpha | Wikipedia Alpha | `Alpha` | `alphas/{build number}` |
 | V2 Deploy Beta | Wikipedia | `Wikipedia` | `betas/{build number}` |
 
+**These are not live yet.** The `V2` workflows are being tested alongside the
+originals they replace - `Design Review`, `Internal TestFlight`,
+`External TestFlight`, `App Store Submission` and `Release Wrap Up` - which are
+still present and still what actually deploys. `Internal TestFlight` in
+particular is still on its nightly schedule. At cutover the originals are
+deleted, the `V2` prefix comes off these, and this note goes away.
+
 `V2 Deploy Design Review` is kicked off manually by engineers as-needed. We use
 that app to demonstrate implementation of a task or prototype that needs design
 review, so designers can sign off before a task goes through PR review.
@@ -50,7 +57,9 @@ review, so designers can sign off before a task goes through PR review.
 `V2 Deploy Alpha` builds the `Alpha` scheme, which points at various staging
 server environments and has feature flags turned on for in-development testing.
 It is meant to build every merge into `main`, and skips the build when the
-latest commit is already tagged. Runs are serialized, because the build number
+latest commit is already tagged. That push trigger is commented out until
+cutover, so for now it only runs when dispatched by hand - leaving it on would
+double up with `Internal TestFlight`, which is still scheduled nightly. Runs are serialized, because the build number
 comes from the highest `alphas/` tag and that tag is not pushed until the run
 finishes.
 
