@@ -15,6 +15,7 @@ struct UITestConfiguration {
     let resetsPreferredLanguages: Bool
     let suppressesActivityTabOnboarding: Bool
     let suppressesGamesAnnouncement: Bool
+    let suppressesHomeOnboarding: Bool
     let themeName: String?
     let languageCode: String
 
@@ -26,7 +27,8 @@ struct UITestConfiguration {
         onboardingState: OnboardingState = .completed,
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
-        suppressesGamesAnnouncement: Bool = true
+        suppressesGamesAnnouncement: Bool = true,
+        suppressesHomeOnboarding: Bool = true
     ) {
         self.onboardingState = onboardingState
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
@@ -34,6 +36,7 @@ struct UITestConfiguration {
         self.resetsPreferredLanguages = resetsPreferredLanguages
         self.suppressesActivityTabOnboarding = suppressesActivityTabOnboarding
         self.suppressesGamesAnnouncement = suppressesGamesAnnouncement
+        self.suppressesHomeOnboarding = suppressesHomeOnboarding
         self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? defaultLanguageCode
     }
 
@@ -54,6 +57,10 @@ struct UITestConfiguration {
 
         if suppressesGamesAnnouncement {
             argumentValues.append(UITestLaunchArgumentValue(.suppressGamesAnnouncement, value: "YES"))
+        }
+
+        if suppressesHomeOnboarding {
+            argumentValues.append(UITestLaunchArgumentValue(.suppressHomeOnboarding, value: "YES"))
         }
 
         argumentValues.append(UITestLaunchArgumentValue(.appleLanguages, value: "(\(languageCode))"))

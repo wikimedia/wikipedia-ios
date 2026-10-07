@@ -62,13 +62,9 @@ extension ExploreRobot {
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
             base.app.otherElements[AccessibilityIdentifiers.Home.view],
-            timeout: 30,
             file: file,
             line: line
         )
-        // On a cold first launch the tab bar can be slow to become hittable
-        // (e.g. while app data migration or a system alert is in flight).
-        base.assertExists(base.app.tabBars.firstMatch, timeout: 30, file: file, line: line)
         return self
     }
 
@@ -134,14 +130,14 @@ extension ExploreRobot {
     @discardableResult
     func tapRootTab(_ tab: RootTab, file: StaticString = #filePath, line: UInt = #line) -> Self {
         let button = rootTabButton(for: tab)
-        base.assertVisible(button, timeout: 45, description: tab.description, file: file, line: line)
+        base.assertVisible(button, timeout: 15, description: tab.description, file: file, line: line)
         base.tapCenter(of: button, file: file, line: line)
 
         switch tab {
         case .search:
             if !searchView.waitForExistence(timeout: 15) {
                 let retryButton = rootTabButton(for: tab)
-                base.assertVisible(retryButton, timeout: 15, description: tab.description, file: file, line: line)
+                base.assertVisible(retryButton, timeout: 5, description: tab.description, file: file, line: line)
                 base.tapCenter(of: retryButton, file: file, line: line)
                 base.assertExists(
                     searchView,

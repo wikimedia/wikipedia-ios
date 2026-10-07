@@ -1,9 +1,8 @@
 import XCTest
 import WMFComponents
 
-/// Drives the new first-launch app onboarding flow (shown when the home tab feature flag is
-/// enabled): step advancement, learn-more web views, language setup, interests selection,
-/// and skip behavior.
+/// Drives the first-launch app onboarding flow: step advancement, learn-more web views,
+/// language setup, interests selection, and skip behavior.
 struct OnboardingRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private let configuration: UITestConfiguration
@@ -63,12 +62,6 @@ extension OnboardingRobot {
             file: file,
             line: line
         )
-        return self
-    }
-
-    @discardableResult
-    func assertNotShown(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        XCTAssertFalse(pageElement(.intro).exists, "New onboarding should not be shown", file: file, line: line)
         return self
     }
 

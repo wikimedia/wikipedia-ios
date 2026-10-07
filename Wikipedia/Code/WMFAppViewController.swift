@@ -30,6 +30,7 @@ private let wmfLegacyDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 private let wmfLegacyDefaultTabTypeSettingsValue = 1 // the old `WMFAppDefaultTabType.settings`
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
+private let wmfSuppressHomeOnboardingForTesting = "WMFSuppressHomeOnboardingForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -881,6 +882,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
+        }
+
+        // UI tests launch as an existing reader, so the one-time "Explore is now Home" sheet would cover Home.
+        if UserDefaults.standard.bool(forKey: wmfSuppressHomeOnboardingForTesting) {
+            WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
         }
     }
 

@@ -2,27 +2,27 @@ import XCTest
 import WMFComponents
 
 /// Tests for the app onboarding shown at first launch.
-final class NewAppOnboardingUITests: XCTestCase {
+final class AppOnboardingUITests: XCTestCase {
 
     func testFirstLaunchShowsOnboardingSmoke() throws {
         launchWikipediaAppRobot(onboardingState: .notCompleted)
-            .Onboarding
+            .onboarding
             .assertPage(.intro)
     }
 
     func testOnboardingScreenshots() throws {
         enum ScreenshotNames: String {
-            case intro = "New App Onboarding Intro"
-            case dataPrivacy = "New App Onboarding Data Privacy"
-            case languages = "New App Onboarding Languages"
-            case personalizationIntro = "New App Onboarding Personalization Intro"
-            case interests = "New App Onboarding Interests"
-            case feedPreference = "New App Onboarding Feed Preference"
+            case intro = "App Onboarding Intro"
+            case dataPrivacy = "App Onboarding Data Privacy"
+            case languages = "App Onboarding Languages"
+            case personalizationIntro = "App Onboarding Personalization Intro"
+            case interests = "App Onboarding Interests"
+            case feedPreference = "App Onboarding Feed Preference"
         }
 
         let app = launchWikipediaAppRobot(onboardingState: .notCompleted)
 
-        app.Onboarding
+        app.onboarding
             .assertPage(.intro)
             .captureScreenshot(ScreenshotNames.intro)
             .tapNext()
@@ -44,7 +44,7 @@ final class NewAppOnboardingUITests: XCTestCase {
 
     func testAdvanceThroughAllStepsCompletesOnboarding() throws {
         launchWikipediaAppRobot(onboardingState: .notCompleted)
-            .Onboarding
+            .onboarding
             .advance(to: .feedPreference)
             .tapNext()
             .assertDismissed()
@@ -52,7 +52,7 @@ final class NewAppOnboardingUITests: XCTestCase {
 
     func testSkipFromPersonalizationCompletesOnboarding() throws {
         launchWikipediaAppRobot(onboardingState: .notCompleted)
-            .Onboarding
+            .onboarding
             .advance(to: .personalizationIntro)
             .tapSkip()
             .assertDismissed()
@@ -60,7 +60,7 @@ final class NewAppOnboardingUITests: XCTestCase {
 
     func testLearnMoreLinksPresentDestinations() throws {
         launchWikipediaAppRobot(onboardingState: .notCompleted)
-            .Onboarding
+            .onboarding
             .assertPage(.intro)
             .assertLearnMoreOpensWebView()
             .advance(to: .dataPrivacy)
@@ -73,7 +73,7 @@ final class NewAppOnboardingUITests: XCTestCase {
             resetsPreferredLanguages: true
         )
 
-        let preferredLanguages = app.Onboarding
+        let preferredLanguages = app.onboarding
             .advance(to: .languages)
             .openPreferredLanguages()
         let targetLanguageCode = try preferredLanguages.languageCodeAvailableToAdd()
@@ -91,7 +91,7 @@ final class NewAppOnboardingUITests: XCTestCase {
             onboardingState: .notCompleted,
             resetsPreferredLanguages: true
         )
-            .Onboarding
+            .onboarding
             .advance(to: .languages)
             .openPreferredLanguages()
             .assertPreferredLanguage(expectedLanguageCode)
@@ -99,7 +99,7 @@ final class NewAppOnboardingUITests: XCTestCase {
 
     func testInterestsSearchAddsArticle() throws {
         launchWikipediaAppRobot(onboardingState: .notCompleted)
-            .Onboarding
+            .onboarding
             .advance(to: .interests)
             .searchInterests(for: "Einstein")
             .addFirstSearchResult()
