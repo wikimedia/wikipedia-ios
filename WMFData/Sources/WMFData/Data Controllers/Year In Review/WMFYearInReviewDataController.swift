@@ -542,11 +542,13 @@ import CoreData
         // Create new core data slides from evaluated data controllers, save to core data report and return generic report struct
         let report = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "year == %d", year)
-            let cdReport = try self.coreDataStore.fetchOrCreate(
+            guard let cdReport = try self.coreDataStore.fetchOrCreate(
                 entityType: CDYearInReviewReport.self,
                 predicate: predicate,
                 in: backgroundContext
-            )!
+            ) else {
+                throw WMFCoreDataStoreError.missingEntity
+            }
 
             cdReport.year = Int32(year)
 

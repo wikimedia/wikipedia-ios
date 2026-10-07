@@ -58,10 +58,4 @@ public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { re
         self.image = image
         self.origin = origin
     }
-
-    public init(url: URL, image: Image, originRawValue: Int) {
-        self.url = url
-        self.image = image
-        self.origin = ImageOrigin(rawValue: originRawValue)!
-    }
 }

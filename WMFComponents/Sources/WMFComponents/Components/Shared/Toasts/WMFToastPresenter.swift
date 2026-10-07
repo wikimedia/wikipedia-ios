@@ -311,9 +311,9 @@ private extension UIViewController {
 
     /// Returns the height of the visible tab bar above the bottom safe area, or 0.
     func visibleToolbarHeightAboveSafeArea() -> CGFloat {
-        // A full screen modal covers the tab bar.
+        // A full screen modal or a sheet covers the tab bar. Only a popover leaves it visible.
         if let presented = presentedViewController,
-           presented.modalPresentationStyle == .fullScreen || presented.modalPresentationStyle == .overFullScreen {
+           presented.modalPresentationStyle != .popover {
             return 0
         }
 
