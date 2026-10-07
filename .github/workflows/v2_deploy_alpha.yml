@@ -1,13 +1,15 @@
 name: V2 Deploy Alpha
 
 on:
-  # Nightly schedule is intentionally disabled while this runs alongside the
-  # original Internal TestFlight workflow, which is still scheduled nightly
-  # at the same time. Leaving both on would double the nightly archive and
-  # upload, and post twice to the same Phabricator tasks. Uncomment when
-  # cutting over, and disable the schedule on deploy_testflight_internal.
-  # schedule:
-  #   - cron: '0 10 * * *' # run at 10AM UTC
+  # Alpha builds every merge into main rather than nightly. The trigger is
+  # commented out until this branch merges: while it lives on a feature
+  # branch the push trigger cannot fire anyway, and once it is on main it
+  # would run alongside deploy_testflight_internal, which is still scheduled
+  # nightly - doubling the archive and upload. Uncomment at cutover, and
+  # disable the schedule on deploy_testflight_internal at the same time.
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 env:
