@@ -30,7 +30,11 @@ if [[ ${CI_XCODEBUILD_EXIT_CODE} == 0 && ! -z ${CI_APP_STORE_SIGNED_APP_PATH} ]]
 	# Push this ref alone. --tags offers every local tag, which means ~2,500
 	# refs negotiated to create one, and a far less readable error when it
 	# fails.
-	git push https://${GITHUB_USERNAME}:${GITHUB_PAT}@github.com/wikimedia/wikipedia-ios.git "${BUILD_TAG}"
+	if [[ -z "${APPS_BOT_TOKEN}" ]]; then
+		echo "APPS_BOT_TOKEN is not set for this Xcode Cloud workflow - cannot push the tag."
+		exit 1
+	fi
+	git push https://wmf-apps-ci:${APPS_BOT_TOKEN}@github.com/wikimedia/wikipedia-ios.git "${BUILD_TAG}"
 	echo "Successfully tagged ${BUILD_TAG}"
 	exit 0
 else

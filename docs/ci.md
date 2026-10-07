@@ -128,9 +128,9 @@ and is currently disabled.
 
 Our GitHub organization has a bot account called wmf-apps-ci which has been used for various reasons in the past. Currently for iOS, this bot account is used to make automated write commits to our repository. This happens in four instances:
 
-1. When Xcode Cloud completes a Beta Build, Alpha Build or Experimental Build, [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh) tags the commit with `betas/`, `alphas/` or `exp/{build number}` and pushes it to our remote repository using the wmf-apps-ci account. It does this with a fine-tuned personal access token set up in the wmf-apps-ci GitHub account settings, read from two environment variables in the Xcode Cloud workflow settings: `GITHUB_USERNAME` (the bot account name, `wmf-apps-ci`) and `GITHUB_PAT` (the token).
+1. When Xcode Cloud completes a Beta Build, Alpha Build or Experimental Build, [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh) tags the commit with `betas/`, `alphas/` or `exp/{build number}` and pushes it to our remote repository using the wmf-apps-ci account. It does this with a fine-tuned personal access token set up in the wmf-apps-ci GitHub account settings, read from an `APPS_BOT_TOKEN` environment variable in the Xcode Cloud workflow settings - the same name as the GitHub Actions secret, holding the same token. The account name is a literal in the script, not a variable.
 
-   **Xcode Cloud environment variables are per-workflow, not per-app.** Each workflow that tags needs its own copy of both variables. If either one is missing, the push URL collapses to `https://:@github.com/...` and the step fails with `remote: No anonymous write access.` followed by `fatal: Authentication failed`. That reads like an expired token but actually means an unset variable - worth checking before rotating anything.
+   **Xcode Cloud environment variables are per-workflow, not per-app.** Each workflow that tags needs its own copy. If it is missing the script fails with a clear message before attempting the push; an older revision read the account name from a `GITHUB_USERNAME` variable too, and an unset one there collapsed the URL to `https://:@github.com/...`, failing with `remote: No anonymous write access.` - which read like an expired token but meant an unset variable.
 
 2. When a Translatewiki PR is opened, a GitHub action runs the localizations script, commits and pushes the changes to the remote repository using the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
@@ -155,7 +155,7 @@ You should notice a few things:
 To fix this:
 1. Log into GitHub as wmf-apps-ci. The account credentials are in the 1Password iOS Team Vault. Generate a new fine-tuned token with access to the Wikipedia iOS Repository. Save this token in the 1Password iOS Team Vault in case we need it elsewhere in the future.
 
-2. Edit each Xcode Cloud workflow that pushes tags - Beta Build, Alpha Build and Experimental Build (this can be done in Xcode). Under Environment, update the `GITHUB_PAT` variable with this new token, and confirm `GITHUB_USERNAME` is set to `wmf-apps-ci`. These variables are per-workflow, so updating one workflow does not update the others.
+2. Edit each Xcode Cloud workflow that pushes tags - Beta Build, Alpha Build and Experimental Build (this can be done in Xcode). Under Environment, update the `APPS_BOT_TOKEN` variable with this new token. It is per-workflow, so updating one workflow does not update the others.
 
 3. Log back into your usual GitHub account. Go to the Wikipedia iOS repository Settings. Under Secrets and variables > Actions, update the APPS_BOT_TOKEN secret with this new token.
 
