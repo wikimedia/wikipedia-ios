@@ -42,6 +42,26 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      # -------------------------------------------------------
+      # 0. Fail fast if the bot token is missing
+      #
+      #    Pushes below use wmf-apps-ci. If the secret resolves empty the
+      #    push URL still looks valid but carries no credentials, so git
+      #    falls back to the AUTHORIZATION header actions/checkout leaves
+      #    configured - GITHUB_TOKEN - which cannot push a ref touching
+      #    .github/workflows. That surfaces as a confusing "GitHub App"
+      #    rejection after the build has already uploaded, so check here.
+      # -------------------------------------------------------
+      - name: Check bot token is available
+        env:
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is empty or not available to this run. Tags and branches cannot be pushed as wmf-apps-ci, and falling back to GITHUB_TOKEN would be rejected. Check the repository secret."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
       - name: Select Xcode
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
@@ -542,7 +562,7 @@ jobs:
           if [ "$CREATED" = "true" ]; then
             # Push as wmf-apps-ci like our other automated repo writes;
             # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
-            git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "HEAD:refs/heads/$BRANCH"
+            git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "HEAD:refs/heads/$BRANCH"
             echo "Pushed new release candidate branch $BRANCH"
           else
             echo "$BRANCH already exists on remote, nothing to push"
@@ -558,7 +578,7 @@ jobs:
           git tag "betas/$BUILD"
           # Push as wmf-apps-ci like our other automated repo writes;
           # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
-          git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "betas/$BUILD"
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "betas/$BUILD"
 
       # -------------------------------------------------------
       # 10. Post to Phabricator tasks
