@@ -208,17 +208,32 @@ jobs:
               and predicate(release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
             ]
 
-          # A re-submission (e.g. after Apple rejects and a fix is pushed to
-          # the same release branch) will find this task already stamped
-          # with the branch - match that first. Otherwise fall back to the
-          # task still tracking main, which this run is graduating into the
-          # release branch for the first time.
+          # This step is the only thing that ever writes **Release
+          # branch**, so that field marks whether a task has already been
+          # through a submission. A re-submission - Apple rejects, a fix
+          # lands on the same release branch, this runs again - finds the
+          # task already stamped with the branch, so match that first. A
+          # first submission finds the task beta created at the start of the
+          # cycle, with the field still blank, and stamps it below.
           already_branched = matching_tasks(lambda v: v == branch)
           not_yet_branched = matching_tasks(lambda v: not v)
           release_task = (already_branched or not_yet_branched or [None])[0]
 
           if not release_task:
-            print("No matching open release task found, skipping")
+            # Step 7 has already submitted to App Store review by this point,
+            # so failing here would misreport that. Warn loudly instead, and
+            # say what was actually open so the mismatch is diagnosable -
+            # a task stamped with some other branch is the usual cause.
+            seen = '; '.join(
+              f"{t['fields']['name']} (Release branch: "
+              f"{release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')) or 'blank'})"
+              for t in matching_tasks(lambda v: True)
+            ) or 'none'
+            print(
+              f"::warning::Submitted {version} but found no release task to update. "
+              f"Looked for an open release task stamped with {branch}, or not stamped at all. "
+              f"Open release tasks: {seen}. Update the task by hand."
+            )
             exit(0)
 
           task_phid = release_task['phid']
