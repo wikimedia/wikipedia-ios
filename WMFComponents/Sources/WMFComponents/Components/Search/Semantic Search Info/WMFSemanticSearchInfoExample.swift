@@ -62,7 +62,7 @@ struct WMFSemanticSearchInfoExample {
     )
 
     private static let french = WMFSemanticSearchInfoExample(
-        query: "Comment la Lune s'est-elle formée\u{00A0}?",
+        query: "Comment la lune s'est formée\u{00A0}?",
         project: wikipedia("fr"),
         result: WMFSemanticSearchResult(
             pageID: 1893,
