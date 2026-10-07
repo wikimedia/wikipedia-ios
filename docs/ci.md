@@ -102,6 +102,23 @@ workflow has to be named "Beta Build", "Alpha Build" or "Experimental Build" to
 get a build number and tag at all - anything else falls through and is left
 alone.
 
+**Before running a fallback build, set that workflow's next build number** in
+its Xcode Cloud settings, to one above the highest existing tag for its prefix
+(`exp/`, `alphas/` or `betas/`). Xcode Cloud keeps its own build number counter
+and it is not derived from anything in this repo, so it does not know about
+builds GitHub Actions has made since the last fallback run. Only one direction
+synchronises on its own: Actions takes `max(tag) + 1`, so it picks up correctly
+after an Xcode Cloud build without anyone doing anything, but nothing updates
+Xcode Cloud in return. A stale value is not dangerous - App Store Connect
+rejects a duplicate build number, so the upload fails rather than two builds
+quietly sharing a number.
+
+Also note the version is always the current UTC date, from
+`date -u "+%Y.%m.%d"` in ci_pre_xcodebuild.sh. There is no way to pass one in.
+That is fine for Alpha and Experimental, but it means a fallback Beta build
+cannot target a release candidate's ship date - it will stamp today's instead,
+creating a second version alongside the cycle's in App Store Connect.
+
 There is also a Github [Action](../.github/workflows/tag_latest_beta.yml) titled
 "Tag Latest Beta", which moves the `latest_beta` tag to the latest commit on
 `main`. It was used to trigger the old Xcode Cloud nightly build conditionally,
