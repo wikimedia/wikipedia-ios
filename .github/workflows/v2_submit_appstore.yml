@@ -246,11 +246,12 @@ jobs:
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
+              # Description only - the release task's title is set when
+              # beta creates it and is never rewritten, so submitting with a
+              # mistyped version cannot quietly rename the task.
               'objectIdentifier': task_phid,
-              'transactions[0][type]': 'title',
-              'transactions[0][value]': f'Release {version}',
-              'transactions[1][type]': 'description',
-              'transactions[1][value]': description,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': description,
             }).encode()
           )
 

@@ -792,17 +792,19 @@ jobs:
           else:
             new_description = current_description.rstrip() + new_section
 
-          # Update task title and description
+          # Update the description only. The title is set once, when the
+          # task is created, and never rewritten: by this point the cycle
+          # check has already proved the task's version matches the branch,
+          # so a title write here could only ever rename a task that someone
+          # had deliberately changed.
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.edit',
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
               'objectIdentifier': task_phid,
-              'transactions[0][type]': 'title',
-              'transactions[0][value]': f'Release {version}',
-              'transactions[1][type]': 'description',
-              'transactions[1][value]': new_description,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': new_description,
             }).encode()
           )
 
