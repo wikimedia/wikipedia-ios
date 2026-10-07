@@ -43,12 +43,11 @@ know which commit a given build came from:
 | V2 Deploy Alpha | Wikipedia Alpha | `Alpha` | `alphas/{build number}` |
 | V2 Deploy Beta | Wikipedia | `Wikipedia` | `betas/{build number}` |
 
-**These are not live yet.** The `V2` workflows are being tested alongside the
-originals they replace - `Design Review`, `Internal TestFlight`,
-`External TestFlight`, `App Store Submission` and `Release Wrap Up` - which are
-still present and still what actually deploys. `Internal TestFlight` in
-particular is still on its nightly schedule. At cutover the originals are
-deleted, the `V2` prefix comes off these, and this note goes away.
+These are the live deploy path. The originals they replace - `Design Review`,
+`Internal TestFlight`, `External TestFlight`, `App Store Submission` and
+`Release Wrap Up` - are commented out in place rather than deleted, so the
+cutover is easy to read and easy to undo. Delete those files, and drop the
+`V2` prefix from these, once they have run a few cycles without incident.
 
 `V2 Deploy Design Review` is kicked off manually by engineers as-needed. We use
 that app to demonstrate implementation of a task or prototype that needs design
@@ -56,11 +55,9 @@ review, so designers can sign off before a task goes through PR review.
 
 `V2 Deploy Alpha` builds the `Alpha` scheme, which points at various staging
 server environments and has feature flags turned on for in-development testing.
-It is meant to build every merge into `main`, and skips the build when the
-latest commit is already tagged. That push trigger is commented out until
-cutover, so for now it only runs when dispatched by hand - leaving it on would
-double up with `Internal TestFlight`, which is still scheduled nightly. Runs are serialized, because the build number
-comes from the highest `alphas/` tag and that tag is not pushed until the run
+It builds on every merge into `main`, and skips the build when the latest
+commit is already tagged. Runs are serialized, because the build number comes
+from the highest `alphas/` tag and that tag is not pushed until the run
 finishes.
 
 `V2 Deploy Beta` builds the production app from a `release-candidate/YYYY.MM.DD`
@@ -118,11 +115,6 @@ Also note the version is always the current UTC date, from
 That is fine for Alpha and Experimental, but it means a fallback Beta build
 cannot target a release candidate's ship date - it will stamp today's instead,
 creating a second version alongside the cycle's in App Store Connect.
-
-There is also a Github [Action](../.github/workflows/tag_latest_beta.yml) titled
-"Tag Latest Beta", which moves the `latest_beta` tag to the latest commit on
-`main`. It was used to trigger the old Xcode Cloud nightly build conditionally,
-and is currently disabled.
 
 ## Relationship between wmf-apps-ci, GitHub Actions, and PR Status Checks
 

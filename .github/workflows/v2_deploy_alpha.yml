@@ -1,15 +1,11 @@
 name: V2 Deploy Alpha
 
 on:
-  # Alpha builds every merge into main rather than nightly. The trigger is
-  # commented out until this branch merges: while it lives on a feature
-  # branch the push trigger cannot fire anyway, and once it is on main it
-  # would run alongside deploy_testflight_internal, which is still scheduled
-  # nightly - doubling the archive and upload. Uncomment at cutover, and
-  # disable the schedule on deploy_testflight_internal at the same time.
-  # push:
-  #   branches:
-  #     - main
+  # Alpha builds on every merge into main rather than on a nightly schedule,
+  # and skips the build when the latest commit is already tagged.
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 # Serialize runs. The build number is read from the highest alphas/ tag at
