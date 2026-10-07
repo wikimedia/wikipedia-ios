@@ -1,18 +1,6 @@
 import Foundation
 
 extension Optional where Wrapped == URL {
-    /// Returns a URL with `source=widget_{name}` appended to its query, preserving existing query items.
-    func wmf_urlWithWidgetSource(name: String) -> URL? {
-        guard let url = self else { return nil }
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return url }
-        var queryItems = components.queryItems ?? []
-        // If a source already exists, do not overwrite
-        if !queryItems.contains(where: { $0.name == "source" }) {
-            queryItems.append(URLQueryItem(name: "source", value: "widget_\(name)"))
-        }
-        components.queryItems = queryItems
-        return components.url ?? url
-    }
 }
 
 extension URL {

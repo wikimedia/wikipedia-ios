@@ -24,14 +24,6 @@ extension Notification.Name {
     public static let dismissReadingListToast = Notification.Name.dismissReadingListToast
 }
 
-@objc public enum AppTab: Int {
-    case main = 0
-    case places = 1
-    case saved = 2
-    case activity = 3
-    case search = 4
-}
-
 extension WMFAppViewController {
 
     @objc func shouldOpenAppOnSearchTab() -> Bool {
@@ -363,10 +355,6 @@ protocol NotificationsCenterFlowViewController where Self: UIViewController {
 // MARK: - Watchlist
 
 extension WMFAppViewController: WMFWatchlistDelegate {
-
-    public func emptyViewDidTapSearch() {
-        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
-    }
 
     public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
         let wikimediaProject = WikimediaProject(wmfProject: project)

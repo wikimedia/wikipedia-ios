@@ -68,30 +68,6 @@ final class NavigationStateController: NSObject {
         return moc.navigationState?.viewControllers.compactMap { $0.info?.articleKey }
     }
     
-    private func pushOrPresent(_ viewController: UIViewController & Themeable, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
-        viewController.apply(theme: theme)
-        switch presentation {
-        case .push:
-            navigationController.pushViewController(viewController, animated: animated)
-        case .modal:
-            viewController.modalPresentationStyle = .overFullScreen
-            navigationController.present(viewController, animated: animated)
-        }
-    }
-    
-    private func articleURL(from info: Info) -> URL? {
-        guard
-            let articleKey = info.articleKey,
-            var articleURL = URL(string: articleKey)
-        else {
-            return nil
-        }
-        if let sectionAnchor = info.articleSectionAnchor, let articleURLWithFragment = articleURL.wmf_URL(withFragment: sectionAnchor) {
-            articleURL = articleURLWithFragment
-        }
-        return articleURL
-    }
-    
     private func visibleArticleViewController(for viewController: UIViewController) -> ArticleViewController? {
         guard let navigationController = viewController as? UINavigationController else {
             return nil

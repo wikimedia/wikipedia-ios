@@ -31,10 +31,6 @@ final class TestNetworkFixtureHTTPClient: SessionHTTPClient {
         fixtureClient.dataTask(with: fixtureRequest(for: request), completionHandler: completionHandler)
     }
 
-    func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
-        downloadTask(with: URLRequest(url: url), completionHandler: completionHandler)
-    }
-
     func downloadTask(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         fixtureClient.downloadTask(with: fixtureRequest(for: request), completionHandler: completionHandler)
     }

@@ -26,10 +26,6 @@ final class SearchHTTPClient: SessionHTTPClient {
         return urlSession.dataTask(with: fixtureRequest, completionHandler: completionHandler)
     }
 
-    func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
-        fatalError("Download tasks are not used by WMFSearchFetcherTests")
-    }
-
     func downloadTask(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         fatalError("Download tasks are not used by WMFSearchFetcherTests")
     }

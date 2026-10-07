@@ -677,17 +677,6 @@ extension WMFSourceEditorViewController: WMFFindAndReplaceViewDelegate {
         updateFindViewModelState()
     }
     
-    func findAndReplaceViewDidTapNext(_ view: WMFFindAndReplaceView) {
-        
-        textFrameworkMediator.findNext(afterRange: nil)
-        updateFindViewModelState()
-    }
-    
-    func findAndReplaceViewDidTapPrevious(_ view: WMFFindAndReplaceView) {
-        textFrameworkMediator.findPrevious()
-        updateFindViewModelState()
-    }
-    
     func findAndReplaceView(_ view: WMFFindAndReplaceView, didTapReplaceSingle replaceText: String) {
         textFrameworkMediator.replaceSingle(replaceText: replaceText)
         updateFindViewModelState()

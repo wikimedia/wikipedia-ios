@@ -14,7 +14,6 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var forceYiR2026Announcement: Bool { return forceYiR2026AnnouncementOverride }
     var enableHomeTabExperimentControl: Bool { return false }
     var enableHomeTabExperimentGroupB: Bool { return false }
-    func transitionToEnrolledStateIfForced() {}
 
     /// Defaults to false so tests exercise the real date window and the real once-per-user gate.
     /// Set either one in a test that needs the developer override path.

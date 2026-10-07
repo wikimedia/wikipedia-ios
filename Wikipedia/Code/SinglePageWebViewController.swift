@@ -227,10 +227,6 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         navigationController?.popToRootViewController(animated: true)
     }
 
-    private func fetch() {
-        webView.load(URLRequest(url: url))
-    }
-    
     var fetched = false
 
     override func viewWillAppear(_ animated: Bool) {

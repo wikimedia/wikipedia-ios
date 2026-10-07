@@ -13,11 +13,6 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
     func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar)
 }
 
-// Wrapper for accessing View in Objective-C
-@objc class WMFSavedViewControllerView: NSObject {
-    @objc static let readingListsViewRawValue = SavedViewController.View.readingLists.rawValue
-}
-
 @objc(WMFSavedViewController)
 class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 
@@ -162,12 +157,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
             configureNavigationBar()
         }
-    }
-
-    private enum ExtendedNavBarViewType {
-        case none
-        case search
-        case createNewReadingList
     }
 
     private var isCurrentViewEmpty: Bool {

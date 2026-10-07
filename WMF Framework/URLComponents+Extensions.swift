@@ -1,14 +1,6 @@
 import Foundation
 
 extension URLComponents {
-     static func with(host: String, scheme: String = "https", path: String = "/", queryParameters: [String: Any]? = nil) -> URLComponents {
-        var components = URLComponents()
-        components.host = host
-        components.scheme = scheme
-        components.path = path
-        components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
-        return components
-    }
     
     public static func percentEncodedQueryStringFrom(_ queryParameters: [String: Any]) -> String {
         var query = ""

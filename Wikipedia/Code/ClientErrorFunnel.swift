@@ -50,19 +50,6 @@ import WMFData
         }
     }
 
-    func logEvent(message: String?) {
-        let event: ClientErrorFunnel.Event = ClientErrorFunnel.Event(
-            message: message,
-            errorClass: nil,
-            errorContext: Self.appInstallIDContext,
-            stackTrace: nil,
-            url: nil,
-            http: nil
-        )
-
-        EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
-    }
-
     public func logHTTPError(info: WMFHTTPErrorInfo) {
         // Never log errors from the event intake itself: that would emit a new event
         // to the same failing endpoint, creating a feedback loop. Intake requests

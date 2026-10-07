@@ -80,11 +80,6 @@ public struct WidgetTopRead: Codable {
 
     // MARK: - Public
 
-    public init(dateString: String?, elements: [Article]) {
-        self.dateString = dateString
-        self.elements = elements
-    }
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         dateString = try container.decodeIfPresent(String.self, forKey: .dateString)

@@ -34,54 +34,6 @@
 			<string>%1$d dní</string>
 		</dict>
 	</dict>
-	<key>activity-tab-you-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Tento týždeň ste urobili %1$#@v1@.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d úpravu</string>
-			<key>other</key>
-			<string>%1$d úprav</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-read</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Tento týždeň ste prečítali %1$#@v1@.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d článok</string>
-			<key>other</key>
-			<string>%1$d článkov</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-saved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Tento týždeň ste uložili %1$#@v1@.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d článok</string>
-			<key>other</key>
-			<string>%1$d článkov</string>
-		</dict>
-	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

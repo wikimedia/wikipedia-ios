@@ -9,7 +9,6 @@ enum WMFWelcomePageType {
 }
 
 public protocol WMFWelcomeNavigationDelegate: AnyObject {
-    func showNextWelcomePage(_ sender: AnyObject)
 }
 
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate, Themeable {

@@ -3,7 +3,7 @@
 
 scripts/setup_homebrew
 
-BREW_FORMULAE="clang-format swiftlint"
+BREW_FORMULAE="clang-format swiftlint periphery"
 
 # check if each formula is installed, if not install it, do not upgrade against the user's wishes
 for formula in ${BREW_FORMULAE}; do

@@ -92,8 +92,4 @@ class WMFWelcomeContainerViewController: ThemeableViewController {
             vc.apply(theme: theme)
         }
     }
-    
-    @IBAction private func next(withSender sender: AnyObject) {
-        welcomeNavigationDelegate?.showNextWelcomePage(self)
-    }
 }

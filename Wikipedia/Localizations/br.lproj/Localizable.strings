@@ -153,9 +153,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Amañ emañ ho Pilañs ar Bloaz";
 "activity-tab-year-in-review-low-data-subtitle" = "Adwelit ar bloavezh e Wikipedia";
 "activity-tab-year-in-review-low-data-title" = "Amañ emañ hor Bilañs ar Bloaz";
-"activity-tab-you-edited" = "{{PLURAL:$1|$1 gwech}} hoc'h eus graet kemmoù er sizhun-mañ.";
-"activity-tab-you-read" = "{{PLURAL:$1|$1 pennad}} hoc'h eus lennet er sizhun-mañ.";
-"activity-tab-you-saved" = "{{PLURAL:$1|$1 pennad|}} hoc'h eus enrollet er sizhun-mañ.";
 "activity-tab-your-impact" = "Ho skog";
 "add-articles-to-reading-list" = "Ouzhpennañ {{PLURAL:$1|$1 pennad}} da roll al lennadoù";
 "advanced-settings-title" = "Arventennoù araokaet";
@@ -254,8 +251,6 @@
 "clearing-cache-error" = "Fazi en ur riñsañ ar grubuilh.";
 "clearing-cache-in-progress" = "Riñsañ ar grubuilh war ober.";
 "close-all-tabs" = "Serriñ an holl ivinelloù";
-"close-all-tabs-confirmation" = "Ha mennet oc'h da serriñ an holl $1 ivinelloù ? Ne c'heller ket nullañ an ober-se.";
-"close-all-tabs-confirmation-number" = "Serriñ an holl $1 ivinelloù ?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Ha mennet oc'h da serriñ {{PLURAL:$1|$1 ivinell}}? Ne c'heller ket nullañ an ober-se.";
 "close-all-tabs-confirmation-title-with-value" = "Serriñ {{PLURAL:$1|$1 ivinell}}?";
 "close-button-accessibility-label" = "Serriñ";
@@ -1173,7 +1168,6 @@
 "potd-sample-entry-description" = "Daou darv o redek endra emañ ar c'hevezer o terc'hel krog enno e ''pacu jawi'' (\"redadeg tirvi\" e minangkabaoueg), ur redadeg tirvi hengounel e Tanah Datar, Sumatera ar C'hornôg, Indonezia. 2015, Final-45.";
 "potd-widget-description" = "Bezit plijet gant ul luc'hskeudenn gaer bemdeziek diuzet gant hor c'humuniezh.";
 "potd-widget-title" = "Skeudenn an deiz";
-"preference-summary-eventlogging-opt-in" = "Aotren Diazezadur Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
 "privacy-policy-title" = "Politikerezh a-fet prevezded";
 "problem-with-feature-title" = "Kudenn gant un arc'hweladur";
 "profile-button-accessibility-hint" = "Kas a ra da wel ar profil";
@@ -1349,7 +1343,6 @@
 "settings-clear-cache" = "Diverkañ ar roadennoù krubuilhet";
 "settings-clear-cache-are-you-sure-message" = "Diverkañ roadennoù krubuilhet a ziac'hubo war-dro $1 a blas. Ne ziverko ket ho pajennoù enrollet.";
 "settings-clear-cache-are-you-sure-title" = "Diverkañ ar roadennoù krubuilhet ?";
-"settings-clear-cache-cancel" = "Nullañ";
 "settings-clear-cache-ok" = "Goullonderiñ ar c'hrubuilh";
 "settings-clear-donation-history" = "Diverkaén istor an donezonoù";
 "settings-community-feed-title" = "Kumuniezh";

@@ -1,0 +1,82 @@
+#!/bin/bash
+# Find unused Swift code with Periphery. See docs/periphery.md.
+#
+# Usage: scripts/periphery [periphery scan options]
+#   scripts/periphery
+#   scripts/periphery --format csv > unused.csv
+#   scripts/periphery --write-baseline build/periphery/baseline.json
+#   scripts/periphery --baseline build/periphery/baseline.json
+#
+# Environment:
+#   PERIPHERY_SIMULATOR_ID   Simulator UDID for the build. Default: the first
+#                            available iPhone simulator.
+#   PERIPHERY_SKIP_BUILD=1   Use the index from the last build. Use this only
+#                            when no Swift file changed since that build.
+#
+# Periphery's own build step cannot choose a simulator when several runtimes
+# are installed. Thus this script builds the schemes first and gives the index
+# to Periphery.
+#
+# The index must hold every variant of the code, or code that only one variant
+# calls shows as unused:
+# - "build-for-testing" compiles the test targets, with the Test configuration
+#   ("#if TEST").
+# - "build" of Wikipedia compiles the Debug configuration ("#if DEBUG").
+# - "build" of Staging compiles "#if WMF_STAGING".
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+if ! command -v periphery > /dev/null; then
+	echo "error: Periphery is not installed. Run scripts/brew_install or 'brew install periphery'." >&2
+	exit 1
+fi
+
+DERIVED_DATA="build/periphery/DerivedData"
+LOG_DIR="build/periphery/logs"
+# Each step is "<xcodebuild action>:<scheme>".
+BUILD_STEPS="build-for-testing:Wikipedia build-for-testing:WMFData build-for-testing:WMFComponents build:Wikipedia build:Staging"
+mkdir -p "$LOG_DIR"
+
+if [ "${PERIPHERY_SKIP_BUILD:-0}" != "1" ]; then
+	SIMULATOR_ID="${PERIPHERY_SIMULATOR_ID:-$(xcrun simctl list devices available | grep -m 1 -E '^ +iPhone' | grep -oE '[0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12}' || true)}"
+	if [ -z "$SIMULATOR_ID" ]; then
+		echo "error: No iPhone simulator found. Set PERIPHERY_SIMULATOR_ID." >&2
+		exit 1
+	fi
+
+	for STEP in $BUILD_STEPS; do
+		ACTION="${STEP%%:*}"
+		SCHEME="${STEP#*:}"
+		LOG="${LOG_DIR}/${ACTION}-${SCHEME}.log"
+		echo "Running ${ACTION} for ${SCHEME} (log: ${LOG})" >&2
+		if ! xcodebuild "$ACTION" \
+			-project Wikipedia.xcodeproj \
+			-scheme "$SCHEME" \
+			-destination "platform=iOS Simulator,id=${SIMULATOR_ID}" \
+			-derivedDataPath "$DERIVED_DATA" \
+			> "$LOG" 2>&1; then
+			echo "error: ${ACTION} for ${SCHEME} failed. See ${LOG}." >&2
+			grep -E ': error:' "$LOG" | sort -u | head -20 >&2 || true
+			exit 1
+		fi
+	done
+fi
+
+INDEX_STORE="${DERIVED_DATA}/Index.noindex/DataStore"
+if [ ! -d "$INDEX_STORE" ]; then
+	echo "error: No index store at ${INDEX_STORE}. Run the script without PERIPHERY_SKIP_BUILD." >&2
+	exit 1
+fi
+
+# Periphery prints a "Declaration conflict" warning for each Objective-C
+# declaration that two targets index. These warnings do not change the result
+# for Swift code, so remove them from the output.
+periphery scan \
+	--config .periphery.yml \
+	--skip-build \
+	--index-store-path "$INDEX_STORE" \
+	--disable-update-check \
+	"$@" \
+	2> >(grep -vE 'Declaration conflict|This issue can cause|Existing declaration:|Conflicting declaration:|To resolve this warning|ensure that Xcode is not running' >&2)

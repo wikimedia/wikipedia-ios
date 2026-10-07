@@ -133,23 +133,6 @@ public class Session: NSObject {
         }
     }
     
-    public func hasValidCentralAuthCookies(for domain: String) -> Bool {
-        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
-            return false
-        }
-        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain)
-        guard !cookies.isEmpty else {
-            return false
-        }
-        let now = Date()
-        for cookie in cookies {
-            if let cookieExpirationDate = cookie.expiresDate, cookieExpirationDate < now {
-                return false
-            }
-        }
-        return true
-    }
-    
     @objc public func clearTemporaryCache() {
         defaultURLSession.configuration.urlCache?.removeAllCachedResponses()
         WMFDataEnvironment.current.basicService?.clearCachedData()
@@ -346,11 +329,6 @@ public class Session: NSObject {
         return task
     }
     
-    // tonitodo: utlilize Callback & addCallback/session delegate stuff instead of completionHandler
-    public func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
-        return httpClient.downloadTask(with: url, completionHandler: completionHandler)
-    }
-
     public func downloadTask(with urlRequest: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask? {
 
         return httpClient.downloadTask(with: urlRequest, completionHandler: completionHandler)
@@ -615,10 +593,6 @@ extension Session {
 
 // MARK: PermanentlyPersistableURLCache Passthroughs
 
-enum SessionPermanentCacheError: Error {
-    case unexpectedURLCacheType
-}
-
 extension Session {
     
     @objc func imageInfoURLRequestFromPersistence(with url: URL) -> URLRequest? {
@@ -707,12 +681,6 @@ extension Session {
     
     func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
         return permanentCache?.urlCache.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-    }
-    
-    // Bundled migration only - copies files into cache
-    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        permanentCache?.urlCache.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
     }
 }
 

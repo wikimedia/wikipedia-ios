@@ -7,7 +7,6 @@ enum DescriptionWelcomePageType {
 }
 
 public protocol DescriptionWelcomeNavigationDelegate: AnyObject {
-    func showNextWelcomePage(_ sender: AnyObject)
 }
 
 class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, DescriptionWelcomeNavigationDelegate, Themeable {

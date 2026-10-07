@@ -66,8 +66,4 @@ class DescriptionWelcomeContainerViewController: UIViewController, Themeable {
             vc.pageType = pageType
         }
     }
-    
-    @IBAction private func next(withSender sender: AnyObject) {
-        welcomeNavigationDelegate?.showNextWelcomePage(self)
-    }
 }

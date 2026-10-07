@@ -291,7 +291,6 @@
 "places-unknown-distance" = "dohé ora kaweruhan";
 "potd-description-prefix" = "Gambar dina iki ing $1";
 "potd-empty-error-description" = "Wurung njupuk gambar dina iki ing $1";
-"preference-summary-eventlogging-opt-in" = "Ngidini Yeyasan Wikimedia ngumpulaké katerangan ngenani carané nganggo aplikasi supaya aplikasiné dadi luwih becik";
 "reading-themes-controls-accessibility-brightness-slider" = "Panggeser padhang";
 "reading-themes-controls-accessibility-dark-theme-button" = "Ules peteng";
 "reading-themes-controls-accessibility-light-theme-button" = "Ules padhang";
@@ -322,7 +321,6 @@
 "settings-clear-cache" = "Resiki dhata ing cache";
 "settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing cache bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";
 "settings-clear-cache-are-you-sure-title" = "Resiki dhata ing cache?";
-"settings-clear-cache-cancel" = "Wurung";
 "settings-clear-cache-ok" = "Resiki cache";
 "settings-help-and-feedback" = "Pitulung lan pamrayoga";
 "settings-language-bar" = "Tuduhaké basa ing panggolèkan";

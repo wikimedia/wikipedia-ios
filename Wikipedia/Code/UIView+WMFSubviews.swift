@@ -8,10 +8,6 @@ extension UIView {
         return nil
     }
     
-    func wmf_firstSuperviewOfType<T>(_ type: T.Type) -> T? {
-        return superview as? T ?? superview.flatMap { $0.wmf_firstSuperviewOfType(type) }
-    }
-
     /// Recursively searches the view hierarchy for the first descendant of the given type.
     func firstDescendant<T>(ofType type: T.Type) -> T? {
         for subview in subviews {

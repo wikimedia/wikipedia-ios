@@ -137,9 +137,6 @@
 "activity-tab-very-satisfied" = "Ylen tyydyväine";
 "activity-tab-very-unsatisfied" = "Ylen tyydymätöi";
 "activity-tab-week-graph-label" = "Nedäli";
-"activity-tab-you-edited" = "Kohendit {{PLURAL:$1|$1 kerran|$1 kerdua}} täl nedälil.";
-"activity-tab-you-read" = "Luvit {{PLURAL:|$1 kirjutuksen|$1 kirjutustu}} täl nedälil.";
-"activity-tab-you-saved" = "Tallendit {{PLURAL:$1|$1 kirjutuksen|$1 kirjutustu}} täl nedälil.";
 "activity-tab-your-impact" = "Sinun vaikutus";
 "add-articles-to-reading-list" = "Ližiä {{PLURAL:$1|$1 kirjutus|$1 kirjutustu}} luvendulistah";
 "advanced-settings-title" = "Ližäazetukset";
@@ -199,8 +196,6 @@
 "clearing-cache-error" = "Probliemu välimuston tyhjendämizes";
 "clearing-cache-in-progress" = "Välimustuo tyhjendetäh.";
 "close-all-tabs" = "Salbua kai välilehtet";
-"close-all-tabs-confirmation" = "Tahtotgo salvata kai $1 välilehtie? Tädä ruaduo ei voi peruuttua.";
-"close-all-tabs-confirmation-number" = "Salvatahgo kai $1 välilehtie?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Tahtotgo salvata {{PLURAL:$1|$1 välilehten|$1 välilehtie}}? Tädä ruaduo ei voi peruuttua.";
 "close-all-tabs-confirmation-title-with-value" = "Salvatahgo {{PLURAL:|$1 välilehti|$1 välilehtie}}?";
 "close-button-accessibility-label" = "Salbua";

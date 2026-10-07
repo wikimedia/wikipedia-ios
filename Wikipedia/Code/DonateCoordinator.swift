@@ -5,13 +5,6 @@ import WMFData
 import CocoaLumberjackSwift
 import WMFNativeLocalizations
 
-// Helper class to access donate coordinator logic from Obj-c
-@objc class WMFDonateCoordinatorWrapper: NSObject {
-    @MainActor @objc static func metricsIDForSettingsProfileDonateSource(languageCode: String?) -> String? {
-        return DonateCoordinator.metricsID(for: .settingsProfile, languageCode: languageCode)
-    }
-}
-
 class DonateCoordinator: Coordinator {
 
     // MARK: Nested Types

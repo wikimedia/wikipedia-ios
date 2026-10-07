@@ -18,9 +18,6 @@ public protocol WMFImageRecommendationsDelegate: AnyObject {
 public protocol WMFImageRecommendationsLoggingDelegate: AnyObject {
     func logOnboardingDidTapPrimaryButton()
     func logOnboardingDidTapSecondaryButton()
-    func logTooltipsDidTapFirstNext()
-    func logTooltipsDidTapSecondNext()
-    func logTooltipsDidTapThirdOK()
     func logBottomSheetDidAppear()
     func logBottomSheetDidTapYes()
     func logBottomSheetDidTapNo()

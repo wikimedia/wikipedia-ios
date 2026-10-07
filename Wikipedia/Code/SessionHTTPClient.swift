@@ -5,7 +5,6 @@ import Foundation
 protocol SessionHTTPClient {
     func dataTask(with request: URLRequest, callback: Session.Callback) -> URLSessionTask
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-    func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask
     func downloadTask(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask
     func data(for request: URLRequest) async throws -> (Data, URLResponse)
     func invalidateAndCancel()
@@ -65,10 +64,6 @@ final class URLSessionHTTPClient: SessionHTTPClient {
 
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         urlSession.dataTask(with: request, completionHandler: completionHandler)
-    }
-
-    func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
-        urlSession.downloadTask(with: url, completionHandler: completionHandler)
     }
 
     func downloadTask(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {

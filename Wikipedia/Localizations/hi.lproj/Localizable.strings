@@ -383,7 +383,6 @@
 "places-unknown-distance" = "अज्ञात दूरी";
 "potd-description-prefix" = "$1 के लिए आज का चित्र";
 "potd-empty-error-description" = "$1 के लिए आज का चित्र लाने में असमर्थ";
-"preference-summary-eventlogging-opt-in" = "एप को बेहतर बनाने के लिए विकिमीडिया फाउंडेशन को आपके द्वारा इस एप के इस्तेमाल संबंधी जानकारी को इकट्ठा करने की अनुमति दें";
 "reading-list-add-saved-button-title" = "हाँ, उन्हें मेरी पठन सूची में जोड़ें";
 "reading-list-add-saved-title" = "सहेजे गए लेख मिले";
 "reading-list-do-not-keep-button-title" = "नहीं, डिवाइस से लेख हटाएं";
@@ -420,7 +419,6 @@
 "settings-clear-cache" = "कैश डेटा खाली करें";
 "settings-clear-cache-are-you-sure-message" = "कैश डेटा खाली करने से $1 स्पेस खाली होगी। इससे आपके सहेजे गए पेज नहीं डिलीट होंगे।";
 "settings-clear-cache-are-you-sure-title" = "कैश डेटा खाली करें?";
-"settings-clear-cache-cancel" = "रद्द करें";
 "settings-clear-cache-ok" = "कैश खाली करें";
 // Fuzzy
 "settings-donate" = "विकिपीडिया को दान करें";
