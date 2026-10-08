@@ -13,6 +13,7 @@ struct WMFSemanticSearchInfoExample {
     let attribution: WMFSemanticSearchAttribution
 
     private static let moonThumbnail = UIImage(named: "semantic-search-example-moon", in: .module, with: nil)
+    private static let japaneseMoonThumbnail = UIImage(named: "semantic-search-example-moon-ja", in: .module, with: nil)
 
     static func forLanguage(_ languageCode: String?) -> WMFSemanticSearchInfoExample {
         switch languageCode {
@@ -76,19 +77,18 @@ struct WMFSemanticSearchInfoExample {
         attribution: WMFSemanticSearchAttribution(contributorCount: 947, referenceCount: 473, lastUpdated: nil)
     )
 
-    /// The Japanese question with the English passage, until the search API serves Japanese passages.
     private static let japanese = WMFSemanticSearchInfoExample(
         query: "月はどのように形成されたのか？",
         project: wikipedia("ja"),
         result: WMFSemanticSearchResult(
-            pageID: 19331,
-            title: "Moon",
-            snippetHTML: "The prevailing theory is that the Earth–Moon system formed after a giant impact of a Mars -sized body (named Theia) with the proto-Earth. <span class=\"searchmatch\">The oblique impact blasted material into orbit about the Earth</span> and the material accreted and formed the Moon just beyond the Earth&#039;s Roche limit of ~ 2.56 R.",
-            sectionTitle: "Formation",
+            pageID: 2020012,
+            title: "月",
+            snippetHTML: "だが、いずれの説も現在の月の力学的・物質科学的な特徴を矛盾なく説明することができなかった。まず、親子説では地球-月系の現在の全 角運動量 を原始地球が単独で持っていたとは考えにくい。兄弟説では月の平均密度から推定される全体的な組成が、地球と比較して金属鉄に乏しいことを説明できない。また、他人説では地球の重力圏外から進入する月が、地球からちょうど良い距離に接近して衛星軌道へ捕らえられる可能性が低い。また、 アポロ計画 により採取された 月の石 の分析結果から判明した地球の マントル と月の石の化学組成や 酸素同位体 比の類似性も、他人説は説明できない。一方で、 月の石 の 放射年代測定 により月が<span class=\"searchmatch\">約45億5000万年前に</span>誕生したこと、月の高地が斜長岩からなることから月はその歴史の初期に高温だったことが明らかとなった。これらの証拠から、有力視されるようになったのが巨大衝突説である。",
+            sectionTitle: "古典的学説",
             redirectTitle: nil,
             thumbnailURL: nil
         ),
-        thumbnail: moonThumbnail,
-        attribution: WMFSemanticSearchAttribution(contributorCount: 2751, referenceCount: 464, lastUpdated: nil)
+        thumbnail: japaneseMoonThumbnail,
+        attribution: WMFSemanticSearchAttribution(contributorCount: nil, referenceCount: 71, lastUpdated: Date(timeIntervalSince1970: 1_790_592_983))
     )
 }
