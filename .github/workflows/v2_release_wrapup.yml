@@ -262,6 +262,14 @@ jobs:
         if: steps.check_branch.outputs.branch_exists == 'true' && steps.check_branch.outputs.new_commits == '0'
         env:
           BRANCH: ${{ steps.check_branch.outputs.branch }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
-          git push origin --delete "$BRANCH"
+          # Delete as wmf-apps-ci, not as github-actions[bot]. release-candidate/**
+          # is protected with "Restrict who can push", and the allowlist is
+          # wmf-apps-ci plus org/repo admins and Maintain - "Allow deletions"
+          # grants deletion to those same actors, so a plain `git push origin
+          # --delete` using the GITHUB_TOKEN credentials actions/checkout left
+          # configured would be rejected. This also matches how every other repo
+          # write in these workflows is made.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} --delete "$BRANCH"
           echo "Deleted $BRANCH"
