@@ -1,7 +1,7 @@
 import XCTest
 import WMFComponents
 
-/// Represents the profile screen opened from Explore.
+/// Represents the profile screen opened from Home.
 struct ProfileRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
 }

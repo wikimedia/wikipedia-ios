@@ -1,57 +1,57 @@
 import XCTest
 
-final class ExploreUITests: XCTestCase {
-    func testExplore() throws {
+final class HomeUITests: XCTestCase {
+    func testHome() throws {
         enum ScreenshotNames: String {
-            case initial = "Explore Initial"
-            case profile = "Explore Profile"
+            case initial = "Home Initial"
+            case profile = "Home Profile"
         }
         
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .captureScreenshot(ScreenshotNames.initial)
             .openProfile()
             .captureScreenshot(ScreenshotNames.profile)
     }
 
-    func testExploreTopTabsButtonOpensArticleTabs() throws {
+    func testHomeTopTabsButtonOpensArticleTabs() throws {
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .openTabs()
     }
 
-    func testExploreTopProfileButtonOpensProfile() throws {
+    func testHomeTopProfileButtonOpensProfile() throws {
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .openProfile()
     }
 
-    func testExploreBottomTabsCanBeTapped() throws {
+    func testHomeBottomTabsCanBeTapped() throws {
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
-            .tapRootTab(.explore)
+            .tapRootTab(.home)
             .tapRootTab(.places)
             .tapRootTab(.saved)
             .tapRootTab(.activity)
             .tapRootTab(.search)
     }
 
-    func testExploreBottomTabsExposeAccessibilityIdentifiers() throws {
+    func testHomeBottomTabsExposeAccessibilityIdentifiers() throws {
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .assertRootTabAccessibilityIdentifiersSurfaced()
     }
 
-    func testExploreSearchShowsResult() throws {
-        let searchTerm = exploreSearchTerm
+    func testHomeSearchShowsResult() throws {
+        let searchTerm = homeSearchTerm
 
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .openSearch()
             .focusSearchField()
@@ -59,11 +59,11 @@ final class ExploreUITests: XCTestCase {
             .assertSearchResultVisible(named: searchTerm)
     }
 
-    func testExploreSearchResultStaysVisibleAfterRotation() throws {
-        let searchTerm = exploreSearchTerm
+    func testHomeSearchResultStaysVisibleAfterRotation() throws {
+        let searchTerm = homeSearchTerm
 
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .openSearch()
             .focusSearchField()
@@ -76,11 +76,11 @@ final class ExploreUITests: XCTestCase {
             .assertSearchResultVisible(named: searchTerm)
     }
 
-    func testExploreSearchResultOpensArticle() throws {
-        let searchTerm = exploreSearchTerm
+    func testHomeSearchResultOpensArticle() throws {
+        let searchTerm = homeSearchTerm
 
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .openSearch()
             .focusSearchField()
@@ -91,11 +91,11 @@ final class ExploreUITests: XCTestCase {
             .assertTopControlsVisible()
     }
 
-    func testExploreRecentSearchesCanBeCleared() throws {
-        let searchTerm = exploreSearchTerm
+    func testHomeRecentSearchesCanBeCleared() throws {
+        let searchTerm = homeSearchTerm
 
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .openSearch()
             .focusSearchField()
@@ -112,7 +112,7 @@ final class ExploreUITests: XCTestCase {
             .assertRecentSearchTermCleared(searchTerm)
     }
 
-    private var exploreSearchTerm: String {
+    private var homeSearchTerm: String {
         switch uiTestConfiguration.languageCode {
         case "en":
             "Dog"
@@ -123,7 +123,7 @@ final class ExploreUITests: XCTestCase {
         case "vi":
             "Chó"
         default:
-            preconditionFailure("Explore search tests unsupported search fixture language")
+            preconditionFailure("Home search tests unsupported search fixture language")
         }
     }
 }

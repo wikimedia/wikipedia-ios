@@ -1,7 +1,8 @@
 import XCTest
 import WMFComponents
 
-/// Drives the first-launch onboarding flow, including paging, learn-more modals, language setup, and skip behavior.
+/// Drives the first-launch app onboarding flow: step advancement, learn-more web views,
+/// language setup, interests selection, and skip behavior.
 struct OnboardingRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private let configuration: UITestConfiguration
@@ -16,21 +17,27 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
 
 extension OnboardingRobot {
     enum OnboardingPage: CaseIterable {
-        case introduction
-        case exploration
+        case intro
+        case dataPrivacy
         case languages
-        case analytics
+        case personalizationIntro
+        case interests
+        case feedPreference
 
         var accessibilityIdentifier: String {
             switch self {
-            case .introduction:
-                return AccessibilityIdentifiers.Onboarding.introductionView
-            case .exploration:
-                return AccessibilityIdentifiers.Onboarding.explorationView
+            case .intro:
+                return AccessibilityIdentifiers.Onboarding.introView
+            case .dataPrivacy:
+                return AccessibilityIdentifiers.Onboarding.dataPrivacyView
             case .languages:
                 return AccessibilityIdentifiers.Onboarding.languagesView
-            case .analytics:
-                return AccessibilityIdentifiers.Onboarding.analyticsView
+            case .personalizationIntro:
+                return AccessibilityIdentifiers.Onboarding.personalizationIntroView
+            case .interests:
+                return AccessibilityIdentifiers.Interests.view
+            case .feedPreference:
+                return AccessibilityIdentifiers.Onboarding.feedPreferenceView
             }
         }
     }
@@ -39,14 +46,36 @@ extension OnboardingRobot {
 // MARK: - Screen state
 
 extension OnboardingRobot {
+    /// Steps are SwiftUI views whose root container can surface as different element types
+    /// (e.g. a single-child stack collapses onto its ScrollView), so match any element type.
+    private func pageElement(_ page: OnboardingPage) -> XCUIElement {
+        base.app.descendants(matching: .any)[page.accessibilityIdentifier]
+    }
+
     @discardableResult
     func assertPage(_ page: OnboardingPage, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        // Generous timeout: the first page can take a while to appear on a cold install
+        // while app data migration runs.
         base.assertExists(
-            base.app.otherElements[page.accessibilityIdentifier],
-            timeout: 10,
+            pageElement(page),
+            timeout: 30,
             file: file,
             line: line
         )
+        return self
+    }
+
+    @discardableResult
+    func assertDismissed(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        for page in OnboardingPage.allCases {
+            base.waitForElementToDisappear(
+                pageElement(page),
+                timeout: 10,
+                file: file,
+                line: line
+            )
+        }
+        base.assertExists(base.app.tabBars.firstMatch, timeout: 10, file: file, line: line)
         return self
     }
 }
@@ -61,7 +90,7 @@ extension OnboardingRobot {
             return self
         }
 
-        assertPage(.introduction, file: file, line: line)
+        assertPage(.intro, file: file, line: line)
         guard targetIndex > 0 else {
             return self
         }
@@ -85,23 +114,12 @@ extension OnboardingRobot {
     }
 
     @discardableResult
-    func swipeToNextPage(
-        from currentPage: OnboardingPage,
-        to nextPage: OnboardingPage,
-        file: StaticString = #filePath,
-        line: UInt = #line
-    ) -> Self {
-        let currentElement = base.app.otherElements[currentPage.accessibilityIdentifier]
-        base.assertVisible(currentElement, file: file, line: line)
-
-        if configuration.isRightToLeft {
-            currentElement.swipeRight()
-        } else {
-            currentElement.swipeLeft()
-        }
-
-        base.waitForElementToDisappear(currentElement, timeout: 10, file: file, line: line)
-        assertPage(nextPage, file: file, line: line)
+    func tapSkip(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(
+            withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton,
+            file: file,
+            line: line
+        )
         return self
     }
 
@@ -114,50 +132,75 @@ extension OnboardingRobot {
         )
         return PreferredLanguagesRobot(base: base).assertVisible(file: file, line: line)
     }
-
-    @discardableResult
-    func skipToExplore(file: StaticString = #filePath, line: UInt = #line) -> ExploreRobot {
-        base.tapButton(
-            withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton,
-            file: file,
-            line: line
-        )
-        return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
-    }
 }
 
-// MARK: - Content
+// MARK: - Web view links
 
 extension OnboardingRobot {
     @discardableResult
-    func assertIntroductionLearnMoreCanBeDismissed(file: StaticString = #filePath, line: UInt = #line) -> Self {
+    func assertLearnMoreOpensWebView(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.tapButton(
-            withIdentifier: AccessibilityIdentifiers.Onboarding.introductionLearnMoreButton,
+            withIdentifier: AccessibilityIdentifiers.Onboarding.learnMoreLink,
             file: file,
             line: line
         )
 
-        let alert = base.app.alerts.firstMatch
-        base.assertExists(alert, file: file, line: line)
-        alert.buttons.firstMatch.tap()
-        base.waitForElementToDisappear(alert, file: file, line: line)
+        let webView = base.app.webViews.firstMatch
+        base.assertExists(webView, timeout: 15, file: file, line: line)
+
+        let closeButton = base.app.navigationBars.firstMatch.buttons.firstMatch
+        base.assertExists(closeButton, file: file, line: line)
+        closeButton.tap()
+        base.waitForElementToDisappear(webView, timeout: 10, file: file, line: line)
+        return self
+    }
+
+    /// The privacy policy and terms of use links are AttributedString ranges inside a single
+    /// SwiftUI Text, which XCUITest exposes as one StaticText without tappable Link children —
+    /// so assert their presence rather than tapping the individual ranges. Their tap handling
+    /// presents the same in-app web view as the intro's learn-more button, which is tapped.
+    @discardableResult
+    func assertPrivacyAndTermsLinksExist(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(
+            base.app.descendants(matching: .any)[AccessibilityIdentifiers.Onboarding.privacyLinks],
+            timeout: 10,
+            file: file,
+            line: line
+        )
+        return self
+    }
+}
+
+// MARK: - Interests
+
+extension OnboardingRobot {
+    @discardableResult
+    func searchInterests(for term: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let searchField = base.app.searchFields[AccessibilityIdentifiers.Interests.searchField]
+        base.assertExists(searchField, timeout: 10, file: file, line: line)
+        searchField.tap()
+        searchField.typeText(term)
         return self
     }
 
     @discardableResult
-    func assertAnalyticsLearnMoreDestinationsCanBePresented(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(
-            withIdentifier: AccessibilityIdentifiers.Onboarding.analyticsLearnMoreButton,
+    func addFirstSearchResult(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let firstResult = base.app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.Interests.searchResultRow)
+            .firstMatch
+        base.assertExists(firstResult, timeout: 10, file: file, line: line)
+        firstResult.tap()
+        return self
+    }
+
+    @discardableResult
+    func assertHasSelections(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(
+            base.app.buttons[AccessibilityIdentifiers.Interests.deselectAllButton],
+            timeout: 10,
             file: file,
             line: line
         )
-
-        let analyticsLinks = base.app.sheets.firstMatch
-        base.assertExists(analyticsLinks, file: file, line: line)
-        base.assertExists(analyticsLinks.buttons.element(boundBy: 0), file: file, line: line)
-        base.assertExists(analyticsLinks.buttons.element(boundBy: 1), file: file, line: line)
-        base.assertExists(analyticsLinks.buttons.element(boundBy: 2), file: file, line: line)
-        analyticsLinks.buttons.element(boundBy: 2).tap()
         return self
     }
 }
