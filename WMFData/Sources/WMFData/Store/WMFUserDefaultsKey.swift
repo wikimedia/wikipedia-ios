@@ -128,8 +128,8 @@ public enum WMFUserDefaultsKey: String {
     
     // yir 2026
     case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
+    case developerSettingsYiRSampleListItemCount = "dev-settings-yir-sample-list-item-count"
     
-
     // Semantic search
     case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
     case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"

@@ -66,6 +66,15 @@ struct WMFDeveloperSettingsView: View {
                     .tint(Color(theme.secondaryText))
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026 || !viewModel.useYiRSampleData)
+                captionedRow(caption: "How many articles the Frame 7 list slide shows. Use it to check the layout with one, two or three rows.") {
+                    Picker("Frame 7 Article Count", selection: $viewModel.yiRSampleListItemCount) {
+                        ForEach(1...3, id: \.self) { count in
+                            Text("\(count)").tag(count)
+                        }
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026 || !viewModel.useYiRSampleData)
                 captionedRow(caption: "Shows the announcement on every eligible app open, without the remote config, the settings toggle, the country gate, or the already seen state.") {
                     Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
                 }

@@ -451,11 +451,11 @@ extension YearInReviewSlideViewModelFactory {
             sampleListSlide(
                 artboard: "frame7",
                 bodyText: "And your runners-up for 2026:",
-                items: [
+                items: frame7Items([
                     ListItem(title: "Central America", subtitle: "14 articles"),
                     ListItem(title: "Visual art", subtitle: "12 articles"),
                     ListItem(title: "Politics and government", subtitle: "8 articles")
-                ],
+                ]),
                 setsRowCount: true
             ),
             sampleDataSlide(
@@ -626,11 +626,11 @@ extension YearInReviewSlideViewModelFactory {
             sampleListSlide(
                 artboard: "frame7",
                 bodyText: "وأبرز اهتماماتك التالية لعام 2026:",
-                items: [
+                items: frame7Items([
                     ListItem(title: "أمريكا الوسطى", subtitle: "14 مقالة"),
                     ListItem(title: "الفن التشكيلي", subtitle: "12 مقالة"),
                     ListItem(title: "السياسة والحكومة", subtitle: "8 مقالات")
-                ],
+                ]),
                 setsRowCount: true
             ),
             sampleListSlide(
@@ -685,11 +685,11 @@ extension YearInReviewSlideViewModelFactory {
             sampleListSlide(
                 artboard: "frame7",
                 bodyText: "2026年のその他の人気ジャンル:",
-                items: [
+                items: frame7Items([
                     ListItem(title: "中央アメリカ", subtitle: "14件の記事"),
                     ListItem(title: "視覚芸術", subtitle: "12件の記事"),
                     ListItem(title: "政治・行政", subtitle: "8件の記事")
-                ],
+                ]),
                 setsRowCount: true
             ),
             sampleListSlide(
@@ -749,6 +749,12 @@ extension YearInReviewSlideViewModelFactory {
     /// Writes `numOfListItems` on frame 7 and frame 9. In a debug build, writing a property that is not
     /// in the file stops the app, so turn this off if the file in the app does not have it.
     private static let writesRowCount = true
+
+    /// Frame 7 shows only as many rows as the developer setting asks for.
+    /// `sampleListSlide` already writes `numOfListItems` from the item count and clears the unused rows.
+    private func frame7Items(_ items: [ListItem]) -> [ListItem] {
+        Array(items.prefix(WMFDeveloperSettingsDataController.shared.yiRSampleListItemCount))
+    }
 
     /// An empty state has no number. `data` is still written, as an empty string, because a field that
     /// is not written shows the "initial value" text inside the .riv.

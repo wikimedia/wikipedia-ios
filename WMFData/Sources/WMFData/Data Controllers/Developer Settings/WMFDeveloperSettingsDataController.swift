@@ -17,6 +17,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var forceYiR2026Announcement: Bool { get }
     var useYiRSampleData: Bool { get }
     var yiRSampleLanguage: WMFYiRSampleLanguage { get }
+    var yiRSampleListItemCount: Int { get }
     func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse?
 }
 
@@ -26,6 +27,7 @@ public extension WMFDeveloperSettingsDataControlling {
     // Defaults so existing conformers, such as test mocks, keep compiling.
     var useYiRSampleData: Bool { false }
     var yiRSampleLanguage: WMFYiRSampleLanguage { .english }
+    var yiRSampleListItemCount: Int { 3 }
 }
 
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
@@ -187,6 +189,22 @@ public extension WMFDeveloperSettingsDataControlling {
         }
         set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRSampleLanguage.rawValue, value: newValue.rawValue)
+        }
+    }
+
+    /// Debugging convenience: how many rows the Frame 7 sample slide shows, from 1 to 3.
+    /// Three when nothing has been stored. Has an effect only when `useYiRSampleData` is also true.
+    public var yiRSampleListItemCount: Int {
+        get {
+            guard let count: Int = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRSampleListItemCount.rawValue),
+                  (1...3).contains(count) else {
+                return 3
+            }
+            return count
+        }
+        set {
+            let clamped = min(max(newValue, 1), 3)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRSampleListItemCount.rawValue, value: clamped)
         }
     }
 

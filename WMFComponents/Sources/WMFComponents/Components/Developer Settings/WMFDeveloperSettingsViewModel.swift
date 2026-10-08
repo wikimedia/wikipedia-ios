@@ -120,6 +120,13 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    /// How many rows the Frame 7 sample slide shows. Has an effect only while `useYiRSampleData` is on.
+    @Published public var yiRSampleListItemCount: Int = WMFDeveloperSettingsDataController.shared.yiRSampleListItemCount {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.yiRSampleListItemCount = yiRSampleListItemCount
+        }
+    }
+
     @Published public var forceFundraisingCampaignBanner: Bool = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = forceFundraisingCampaignBanner
