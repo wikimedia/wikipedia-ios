@@ -59,13 +59,13 @@
         }
         case WMFSettingsMenuItemType_Search: {
             return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStringsWrapper searchTitle]
-                                                 iconName:@"settings-search"
-                                                iconColor:[UIColor wmf_green_600]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
+            [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:[WMFCommonStringsWrapper searchTitle]
+                                             iconName:@"settings-search"
+                                            iconColor:[UIColor wmf_green_600]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_ExploreFeed: {
             return
@@ -73,8 +73,8 @@
                                                     title:[WMFCommonStringsWrapper exploreFeedTitle]
                                                  iconName:@"settings-explore"
                                                 iconColor:[UIColor wmf_blue_300]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? WMFCommonStringsWrapper.offGenericTitle : WMFCommonStringsWrapper.onGenericTitle
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
