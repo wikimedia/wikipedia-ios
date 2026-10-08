@@ -17,7 +17,7 @@ let package = Package(
         .package(name: "WMFLocalizations", path: "../WMFLocalizations/"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.19.0"),
         .package(url: "https://github.com/airbnb/lottie-ios.git", from: "4.5.0"),
-        .package(url: "https://github.com/rive-app/rive-ios.git", exact: "6.26.0")
+        .package(url: "https://github.com/rive-app/rive-ios.git", exact: "6.28.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

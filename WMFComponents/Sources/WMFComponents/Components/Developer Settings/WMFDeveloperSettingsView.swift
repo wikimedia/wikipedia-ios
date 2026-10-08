@@ -43,11 +43,12 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
                     Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
                 }
-                captionedRow(caption: "Overrides the experience the personalized data selects. Switching it back to Off lets the user data dictate the experience.") {
-                    Picker("Force Experience", selection: $viewModel.forceYiRUserDataState) {
-                        Text("Off").tag(WMFYearInReviewDataController.YiRUserDataState?.none)
-                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.dataRich))
-                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.lowData))
+                captionedRow(caption: "Overrides the experience the personalized data selects. All Empty States shows the empty version of each personalized slide. Switching it back to Off lets the user data dictate the experience.") {
+                    Picker("Force Experience", selection: $viewModel.forceYiRExperience) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRForcedExperience?.none)
+                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.dataRich))
+                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.lowData))
+                        Text("All Empty States").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.allEmptyStates))
                     }
                     .tint(Color(theme.secondaryText))
                 }
@@ -56,6 +57,23 @@ struct WMFDeveloperSettingsView: View {
                     Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026)
+                if viewModel.regenerateYiR2026Report != nil {
+                    captionedRow(caption: "Deletes the report and builds it again from your current reading history, frozen slides too. To try a new state, clear your history, read some articles, then tap this.") {
+                        Button {
+                            viewModel.tappedRegenerateYiR2026Report()
+                        } label: {
+                            HStack {
+                                Text("Regenerate Year in Review 2026 Report")
+                                    .foregroundStyle(Color(theme.link))
+                                Spacer()
+                                if viewModel.isRegeneratingYiR2026Report {
+                                    ProgressView()
+                                }
+                            }
+                        }
+                    }
+                    .disabled(!viewModel.forceYiREntryPoint2026 || viewModel.isRegeneratingYiR2026Report)
+                }
             } header: {
                 sectionHeader("Year in Review")
             }
@@ -230,6 +248,18 @@ struct WMFDeveloperSettingsView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
+        .alert(
+            "Year in Review 2026 Report",
+            isPresented: Binding(
+                get: { viewModel.yiR2026ReportAlertMessage != nil },
+                set: { if !$0 { viewModel.yiR2026ReportAlertMessage = nil } }
+            ),
+            presenting: viewModel.yiR2026ReportAlertMessage
+        ) { _ in
+            Button("OK", role: .cancel) {}
+        } message: { message in
+            Text(message)
+        }
         .listBackgroundColor(Color(theme.baseBackground))
         .foregroundStyle(Color(theme.text))
         .toggleStyle(SwitchToggleStyle(tint: Color(theme.accent)))

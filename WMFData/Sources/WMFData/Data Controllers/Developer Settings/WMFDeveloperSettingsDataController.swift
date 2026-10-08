@@ -4,7 +4,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
-    var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? { get }
+    var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? { get }
     var forceYiR2026Announcement: Bool { get }
     func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse?
 }
@@ -136,12 +136,12 @@ public extension WMFDeveloperSettingsDataControlling {
     /// Debugging convenience: which Year in Review experience to force, regardless of how much
     /// personalized data the account has. Nil means no override. Has an effect only when
     /// `forceYiREntryPoint2026` is also true.
-    public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? {
+    public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? {
         get {
             guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
                 return nil
             }
-            return WMFYearInReviewDataController.YiRUserDataState(rawValue: rawValue)
+            return WMFYearInReviewDataController.YiRForcedExperience(rawValue: rawValue)
         }
         set {
             if let newValue {
