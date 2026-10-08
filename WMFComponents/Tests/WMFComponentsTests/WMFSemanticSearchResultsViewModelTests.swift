@@ -50,6 +50,15 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.languageCode, "fr")
     }
 
+    func testLoadKeepsTheSearchIDOfTheResponse() async {
+        let viewModel = await makeViewModel(service: WMFMockBasicService(responseHeaders: ["x-search-id": "292nfmbhub08hd5are0cajr22"]))
+
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+
+        XCTAssertEqual(viewModel.searchID, "292nfmbhub08hd5are0cajr22")
+    }
+
     func testResultRowsParseTheSnippet() async {
         let viewModel = await makeViewModel(service: WMFMockBasicService())
 
