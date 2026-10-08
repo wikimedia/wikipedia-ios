@@ -16,11 +16,13 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         }
     }
 
+    private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let year = WMFYearInReviewDataController.targetYear
 
     private var store: WMFCoreDataStore!
     private var developerSettings: MockDeveloperSettingsDataController!
     private var dataController: WMFYearInReviewDataController!
+    private var pageViewsDataController: WMFPageViewsDataController!
 
     override func setUp() async throws {
         try await super.setUp()
@@ -28,6 +30,23 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
         developerSettings = MockDeveloperSettingsDataController()
         dataController = try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore(), developerSettingsDataController: developerSettings)
+        pageViewsDataController = try WMFPageViewsDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore())
+    }
+
+    // MARK: - Helpers
+
+    /// Noon UTC, to match the UTC data window of the config.
+    private func date(month: Int, day: Int, year: Int? = nil) -> Date {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .gmt
+        let components = DateComponents(year: year ?? self.year, month: month, day: day, hour: 12)
+        return calendar.date(from: components) ?? Date(timeIntervalSince1970: 0)
+    }
+
+    private func addPageViews(distinctArticles: Int, on date: Date, prefix: String = "Article") async throws {
+        for index in 0..<distinctArticles {
+            _ = try await pageViewsDataController.addPageView(title: "\(prefix) \(index)", namespaceID: 0, project: project, previousPageViewObjectID: nil, timestamp: date)
+        }
     }
 
     // MARK: - Slides
