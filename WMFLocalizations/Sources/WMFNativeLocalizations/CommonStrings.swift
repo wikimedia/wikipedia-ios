@@ -855,8 +855,266 @@ public class CommonStrings: NSObject {
     
     // Games
     public static let playTodaysGameTitle = WMFLocalizedString("games-wcf-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.")
-    
+
+    // MARK: - Year in Review
+
     public static let youCanAccessYIRInActivity = WMFLocalizedString("year-in-review-2026-announcement-exit-toast-title", value: "You can access your Year in Review later in Activity.", comment: "Toast displayed after the user dismisses the Year in Review announcement, telling them where to find the feature later.")
+
+    // Intro
+
+    public static let yearInReviewIntroTitle = WMFLocalizedString("year-in-review-2026-intro-title", value: "Your Wikipedia Year in Review is here", comment: "Title of the first Year in Review slide, for readers with enough data for a personalized Year in Review.")
+    public static func yearInReviewIntroSubtitle(dayCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-intro-subtitle", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia app in 2026.", comment: "Subtitle of the first Year in Review slide, for readers with enough data for a personalized Year in Review. %1$d is replaced with the number of days the reader used the app this year.")
+        return String.localizedStringWithFormat(format, dayCount)
+    }
+    public static let yearInReviewCollectiveIntroTitle = WMFLocalizedString("year-in-review-2026-collective-intro-title", value: "Our Year in Review is here", comment: "Title of the first Year in Review slide, for readers without enough data for a personalized Year in Review.")
+    public static let yearInReviewCollectiveIntroSubtitle = WMFLocalizedString("year-in-review-2026-collective-intro-subtitle", value: "There wasn’t enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.", comment: "Subtitle of the first Year in Review slide, for readers without enough data for a personalized Year in Review.")
+
+    // Total articles
+
+    public static let yearInReviewTotalArticlesTitle = WMFLocalizedString("year-in-review-2026-total-articles-title", value: "Your total article count:", comment: "Title of the Year in Review slide that shows the number of unique articles the reader read this year. The number follows it.")
+    public static func yearInReviewTotalArticlesTopPercentSubtitle(percent: String, averageReadCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-total-articles-top-percent-subtitle", value: "That puts you in the top %1$@ of Wikipedia readers globally. The average person reads {{PLURAL:%2$d|%2$d article|%2$d articles}} a year.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers in the top 50% or better. %1$@ is replaced with a percentage, for example \"50%\". %2$d is replaced with the number of articles the average person reads in a year.")
+        return String.localizedStringWithFormat(format, percent, averageReadCount)
+    }
+    public static let yearInReviewTotalArticlesSubtitle = WMFLocalizedString("year-in-review-2026-total-articles-subtitle", value: "You've been exploring all year. Every article added something to what you know.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers below the top 50%.")
+    public static let yearInReviewTotalArticlesEmptyTitle = WMFLocalizedString("year-in-review-2026-total-articles-empty-title", value: "You have millions of articles to discover", comment: "Title of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
+    public static let yearInReviewTotalArticlesEmptySubtitle = WMFLocalizedString("year-in-review-2026-total-articles-empty-subtitle", value: "Just wait until you find out all there is to learn on Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
+
+    // Days visited
+
+    public static let yearInReviewDaysVisitedTitle = WMFLocalizedString("year-in-review-2026-days-visited-title", value: "Days you visited Wikipedia in 2026:", comment: "Title of the Year in Review slide that shows the number of days the reader visited Wikipedia this year. The number follows it.")
+    public static func yearInReviewDaysVisitedSubtitle(month: String, dayCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-days-visited-subtitle", value: "Your activity peaked in %1$@, when you read on {{PLURAL:%2$d|%2$d different day|%2$d different days}}.", comment: "Subtitle of the Year in Review slide that shows the number of days the reader visited Wikipedia this year. %1$@ is replaced with the name of the month with the most reading days, for example \"December\". %2$d is replaced with the number of days the reader read in that month.")
+        return String.localizedStringWithFormat(format, month, dayCount)
+    }
+
+    // Minutes read
+
+    public static let yearInReviewMinutesReadTitle = WMFLocalizedString("year-in-review-2026-minutes-read-title", value: "Total minutes spent reading:", comment: "Title of the Year in Review slide that shows the number of minutes the reader spent reading this year. The number follows it.")
+    public static let yearInReviewMinutesReadSubtitle = WMFLocalizedString("year-in-review-2026-minutes-read-subtitle", value: "Time flies when you're falling down a rabbit hole.", comment: "Shown after the time comparison on the Year in Review slide that shows the number of minutes the reader spent reading this year.")
+
+    // Minutes read comparisons. The slide shows the comparison for the largest threshold that the minutes read are equal to or more than.
+
+    public static let yearInReviewMinutesReadComparisonHummingbird = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-hummingbird", value: "That's longer than it takes a hummingbird's heart to beat 1,200 times.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 1 minute or more.")
+    public static let yearInReviewMinutesReadComparisonSunlight = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-sunlight", value: "That's longer than it takes sunlight to travel from the sun to Earth.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 9 minutes or more.")
+    public static let yearInReviewMinutesReadComparisonEgg = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-egg", value: "That's longer than it takes to hard-boil an egg.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 13 minutes or more.")
+    public static let yearInReviewMinutesReadComparisonFallAsleep = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-fall-asleep", value: "That's longer than the average time it takes people to fall asleep.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 19 minutes or more.")
+    public static let yearInReviewMinutesReadComparisonSitcom = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-sitcom", value: "That's longer than a sitcom episode, commercials and all.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 31 minutes or more.")
+    public static let yearInReviewMinutesReadComparisonSpaceStation = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-space-station", value: "That's longer than it takes the International Space Station to orbit Earth once.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 93 minutes or more.")
+    public static let yearInReviewMinutesReadComparisonMarathon = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-marathon", value: "That's longer than the current marathon world record.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 121 minutes or more.")
+    public static let yearInReviewMinutesReadComparisonNightSleep = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-night-sleep", value: "That's longer than a full night's sleep.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 540 minutes or more.")
+    public static let yearInReviewMinutesReadComparisonHoneybee = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-honeybee", value: "That's longer than it takes a queen honeybee to lay up to 2,000 eggs.", comment: "Compares the reading time of the reader to a known duration, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 1,441 minutes or more.")
+    public static func yearInReviewMinutesReadComparisonDays(dayCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-minutes-read-comparison-days", value: "That's longer than {{PLURAL:%1$d|%1$d entire day|%1$d entire days}}.", comment: "Compares the reading time of the reader to a number of days, on the Year in Review slide that shows the number of minutes the reader spent reading this year. Shown for 2,800 minutes or more. %1$d is replaced with the number of full days, up to 300.")
+        return String.localizedStringWithFormat(format, dayCount)
+    }
+
+    // Reading streak
+
+    public static let yearInReviewReadingStreakTitle = WMFLocalizedString("year-in-review-2026-reading-streak-title", value: "Days in your longest reading streak:", comment: "Title of the Year in Review slide that shows the longest number of consecutive days the reader read this year. The number follows it.")
+    public static func yearInReviewReadingStreakSubtitle(dateRange: String) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-reading-streak-subtitle", value: "From %1$@, you really got into the groove of reading every day.", comment: "Subtitle of the Year in Review slide that shows the longest reading streak of the reader. %1$@ is replaced with the date range of the streak, for example \"March 4–14\".")
+        return String.localizedStringWithFormat(format, dateRange)
+    }
+    public static let yearInReviewReadingStreakEmptyTitle = WMFLocalizedString("year-in-review-2026-reading-streak-empty-title", value: "0 reading streaks... yet", comment: "Title of the Year in Review slide shown when the reader did not read on 3 or more consecutive days this year.")
+    public static let yearInReviewReadingStreakEmptySubtitle = WMFLocalizedString("year-in-review-2026-reading-streak-empty-subtitle", value: "It's not a streak until you've done it for 3 consecutive days. Why not start now?", comment: "Subtitle of the Year in Review slide shown when the reader did not read on 3 or more consecutive days this year.")
+
+    // Favorite time to read
+
+    public static let yearInReviewFavoriteTimeTitle = WMFLocalizedString("year-in-review-2026-favorite-time-title", value: "Favorite time to explore:", comment: "Title of the Year in Review slide that shows the time of day when the reader read most. The time of day follows it, for example \"Evenings\".")
+    public static func yearInReviewFavoriteTimeSubtitle(percent: String) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-favorite-time-subtitle", value: "%1$@ of your exploring occurred during this time of day. Coincidence or...not?", comment: "Subtitle of the Year in Review slide that shows the time of day when the reader read most. %1$@ is replaced with a percentage, for example \"50%\".")
+        return String.localizedStringWithFormat(format, percent)
+    }
+    public static let yearInReviewFavoriteTimeEmptyTitle = WMFLocalizedString("year-in-review-2026-favorite-time-empty-title", value: "You read basically whenever", comment: "Title of the Year in Review slide shown when the reader does not have one time of day when they read most.")
+    public static let yearInReviewFavoriteTimeEmptySubtitle = WMFLocalizedString("year-in-review-2026-favorite-time-empty-subtitle", value: "There's no set day or time when to decide to explore the pages of Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the reader does not have one time of day when they read most.")
+
+    // Top topics
+
+    public static let yearInReviewTopTopicTitle = WMFLocalizedString("year-in-review-2026-top-topic-title", value: "Your top topic of 2026:", comment: "Title of the Year in Review slide that shows the topic the reader read most this year. The name of the topic follows it, for example \"History\".")
+    public static func yearInReviewTopTopicSubtitle(firstArticleTitle: String, lastArticleTitle: String, articleCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-top-topic-subtitle", value: "From %1$@ to %2$@, {{PLURAL:%3$d|%3$d of your articles was|%3$d of your articles were}} tied to this theme.", comment: "Subtitle of the Year in Review slide that shows the topic the reader read most this year. %1$@ and %2$@ are replaced with the titles of two articles in the topic, for example \"Battle of Gettysburg\" and \"Xia dynasty\". %3$d is replaced with the number of articles the reader read in the topic. A sentence about the topic follows it.")
+        return String.localizedStringWithFormat(format, firstArticleTitle, lastArticleTitle, articleCount)
+    }
+    public static let yearInReviewTopTopicEmptyTitle = WMFLocalizedString("year-in-review-2026-top-topic-empty-title", value: "Your #1 topic of 2026 is... all of them", comment: "Title of the Year in Review slide shown when no one topic is the top topic of the reader this year.")
+    public static let yearInReviewTopTopicEmptySubtitle = WMFLocalizedString("year-in-review-2026-top-topic-empty-subtitle", value: "With so many interests, there's no one topic that defined your reading habits.", comment: "Subtitle of the Year in Review slide shown when no one topic is the top topic of the reader this year.")
+    public static let yearInReviewRunnerUpTopicsTitle = WMFLocalizedString("year-in-review-2026-runner-up-topics-title", value: "And your runners-up for 2026:", comment: "Title of the Year in Review slide that lists the topics the reader read most after the top topic. The list of topics follows it.")
+
+    // Top topic sentences. The slide shows the sentence for the top topic of the reader after the subtitle.
+
+    public static let yearInReviewTopTopicSentenceArchitecture = WMFLocalizedString("year-in-review-2026-top-topic-sentence-architecture", value: "You spent the year appreciating things that were built to last.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Architecture\".")
+    public static let yearInReviewTopTopicSentenceArt = WMFLocalizedString("year-in-review-2026-top-topic-sentence-art", value: "You gravitated toward the beautiful, the bold, and the occasionally baffling.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Art\".")
+    public static let yearInReviewTopTopicSentenceComicsAndAnime = WMFLocalizedString("year-in-review-2026-top-topic-sentence-comics-and-anime", value: "Panel by panel, you went deep on the worlds of comics and anime.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Comics and anime\".")
+    public static let yearInReviewTopTopicSentenceEntertainment = WMFLocalizedString("year-in-review-2026-top-topic-sentence-entertainment", value: "You couldn't stay away from the world of entertainment this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Entertainment\".")
+    public static let yearInReviewTopTopicSentenceFashion = WMFLocalizedString("year-in-review-2026-top-topic-sentence-fashion", value: "You clicked into the world of style more than most.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Fashion\".")
+    public static let yearInReviewTopTopicSentenceLiterature = WMFLocalizedString("year-in-review-2026-top-topic-sentence-literature", value: "Your reading had a literary streak this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Literature\".")
+    public static let yearInReviewTopTopicSentenceMusic = WMFLocalizedString("year-in-review-2026-top-topic-sentence-music", value: "Your curiosity had a soundtrack this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Music\".")
+    public static let yearInReviewTopTopicSentencePerformingArts = WMFLocalizedString("year-in-review-2026-top-topic-sentence-performing-arts", value: "You were drawn to the stage, in one form or another.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Performing arts\".")
+    public static let yearInReviewTopTopicSentenceSports = WMFLocalizedString("year-in-review-2026-top-topic-sentence-sports", value: "You kept score on the world of sports this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Sports\".")
+    public static let yearInReviewTopTopicSentenceTVAndFilm = WMFLocalizedString("year-in-review-2026-top-topic-sentence-tv-and-film", value: "Your reading doubled as a watchlist this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"TV and film\".")
+    public static let yearInReviewTopTopicSentenceVideoGames = WMFLocalizedString("year-in-review-2026-top-topic-sentence-video-games", value: "You leveled up your knowledge of video games.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Video games\".")
+    public static let yearInReviewTopTopicSentenceBiography = WMFLocalizedString("year-in-review-2026-top-topic-sentence-biography", value: "You spent the year getting to know other people's stories.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Biography (all)\" or \"Biography (women)\".")
+    public static let yearInReviewTopTopicSentenceBusinessAndEconomics = WMFLocalizedString("year-in-review-2026-top-topic-sentence-business-and-economics", value: "You kept an eye on how the world does business.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Business and economics\".")
+    public static let yearInReviewTopTopicSentenceEducation = WMFLocalizedString("year-in-review-2026-top-topic-sentence-education", value: "Learning about learning was kind of your thing this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Education\".")
+    public static let yearInReviewTopTopicSentenceFoodAndDrink = WMFLocalizedString("year-in-review-2026-top-topic-sentence-food-and-drink", value: "Your curiosity had a bit of an appetite this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Food and drink\".")
+    public static let yearInReviewTopTopicSentenceHistory = WMFLocalizedString("year-in-review-2026-top-topic-sentence-history", value: "You're clearly fascinated by the past.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"History\".")
+    public static let yearInReviewTopTopicSentenceMilitaryAndWarfare = WMFLocalizedString("year-in-review-2026-top-topic-sentence-military-and-warfare", value: "You dug into the history of conflict and defense.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Military and warfare\".")
+    public static let yearInReviewTopTopicSentencePhilosophyAndReligion = WMFLocalizedString("year-in-review-2026-top-topic-sentence-philosophy-and-religion", value: "You spent time with the big questions this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Philosophy and religion\".")
+    public static let yearInReviewTopTopicSentencePoliticsAndGovernment = WMFLocalizedString("year-in-review-2026-top-topic-sentence-politics-and-government", value: "You kept tabs on how the world is run.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Politics and government\".")
+    public static let yearInReviewTopTopicSentenceSociety = WMFLocalizedString("year-in-review-2026-top-topic-sentence-society", value: "You were curious about the way people live and organize.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Society\".")
+    public static let yearInReviewTopTopicSentenceTransportation = WMFLocalizedString("year-in-review-2026-top-topic-sentence-transportation", value: "You looked into how the world gets from place to place.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Transportation\".")
+    public static let yearInReviewTopTopicSentenceBiology = WMFLocalizedString("year-in-review-2026-top-topic-sentence-biology", value: "You explored the science of living things.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Biology\".")
+    public static let yearInReviewTopTopicSentenceChemistry = WMFLocalizedString("year-in-review-2026-top-topic-sentence-chemistry", value: "You mixed a little chemistry into your reading this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Chemistry\".")
+    public static let yearInReviewTopTopicSentenceComputersAndInternet = WMFLocalizedString("year-in-review-2026-top-topic-sentence-computers-and-internet", value: "You spent real time understanding the tech behind your screen.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Computers and internet\".")
+    public static let yearInReviewTopTopicSentenceEarthAndEnvironment = WMFLocalizedString("year-in-review-2026-top-topic-sentence-earth-and-environment", value: "You kept your reading grounded, literally.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Earth and environment\".")
+    public static let yearInReviewTopTopicSentenceEngineering = WMFLocalizedString("year-in-review-2026-top-topic-sentence-engineering", value: "You liked learning how things are built and how they work.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Engineering\".")
+    public static let yearInReviewTopTopicSentenceGeneralScience = WMFLocalizedString("year-in-review-2026-top-topic-sentence-general-science", value: "Your curiosity ran wide across the sciences.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"General science\".")
+    public static let yearInReviewTopTopicSentenceMathematics = WMFLocalizedString("year-in-review-2026-top-topic-sentence-mathematics", value: "You gave numbers their due this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Mathematics\".")
+    public static let yearInReviewTopTopicSentenceMedicineAndHealth = WMFLocalizedString("year-in-review-2026-top-topic-sentence-medicine-and-health", value: "You spent time learning how the body works.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Medicine and health\".")
+    public static let yearInReviewTopTopicSentencePhysics = WMFLocalizedString("year-in-review-2026-top-topic-sentence-physics", value: "You looked into the rules that run the universe.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Physics\".")
+    public static let yearInReviewTopTopicSentenceTechnology = WMFLocalizedString("year-in-review-2026-top-topic-sentence-technology", value: "You kept up with how things are changing.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Technology\".")
+    public static let yearInReviewTopTopicSentenceAfrica = WMFLocalizedString("year-in-review-2026-top-topic-sentence-africa", value: "Your reading took you across Africa this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Africa\".")
+    public static let yearInReviewTopTopicSentenceAsia = WMFLocalizedString("year-in-review-2026-top-topic-sentence-asia", value: "Your reading took you across Asia this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Asia\".")
+    public static let yearInReviewTopTopicSentenceCentralAmerica = WMFLocalizedString("year-in-review-2026-top-topic-sentence-central-america", value: "Your reading took you through Central America this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Central America\".")
+    public static let yearInReviewTopTopicSentenceEurope = WMFLocalizedString("year-in-review-2026-top-topic-sentence-europe", value: "Your reading took you across Europe this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Europe\".")
+    public static let yearInReviewTopTopicSentenceNorthAmerica = WMFLocalizedString("year-in-review-2026-top-topic-sentence-north-america", value: "Your reading kept you close to home in North America (or explored it from afar).", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"North America\".")
+    public static let yearInReviewTopTopicSentenceOceania = WMFLocalizedString("year-in-review-2026-top-topic-sentence-oceania", value: "Your reading carried you out to Oceania this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Oceania\".")
+    public static let yearInReviewTopTopicSentenceSouthAmerica = WMFLocalizedString("year-in-review-2026-top-topic-sentence-south-america", value: "Your reading took you across South America this year.", comment: "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"South America\".")
+
+    // Biggest reading day
+
+    public static let yearInReviewBiggestReadingDayTitle = WMFLocalizedString("year-in-review-2026-biggest-reading-day-title", value: "Biggest reading day:", comment: "Title of the Year in Review slide that shows the day when the reader read most this year. The date follows it, for example \"March 7\".")
+    public static func yearInReviewBiggestReadingDaySubtitle(minuteCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-biggest-reading-day-subtitle", value: "You spent a total of {{PLURAL:%1$d|%1$d minute|%1$d minutes}} on Wikipedia. How's that for being productive?", comment: "Subtitle of the Year in Review slide that shows the day when the reader read most this year. %1$d is replaced with the number of minutes the reader read on that day.")
+        return String.localizedStringWithFormat(format, minuteCount)
+    }
+
+    // Articles read
+
+    public static let yearInReviewArticlesReadTitle = WMFLocalizedString("year-in-review-2026-articles-read-title", value: "A taste of the articles you read:", comment: "Title of the Year in Review slide that lists some of the articles the reader read this year. The list of articles follows it.")
+
+    // Most time spent on an article
+
+    public static let yearInReviewMostTimeArticleTitle = WMFLocalizedString("year-in-review-2026-most-time-article-title", value: "On which did you spend the most time?", comment: "Title of the Year in Review slide that asks the reader which of the listed articles they spent the most time on. The list of articles follows it.")
+    public static func yearInReviewMostTimeArticleSubtitle(minuteCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-most-time-article-subtitle", value: "You spent a total of {{PLURAL:%1$d|%1$d minute|%1$d minutes}} on this article throughout 2026!", comment: "Shown on the Year in Review slide that reveals the article the reader spent the most time on this year. %1$d is replaced with the number of minutes the reader spent on that article.")
+        return String.localizedStringWithFormat(format, minuteCount)
+    }
+
+    // Deepest rabbit hole
+
+    public static let yearInReviewRabbitHoleTitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-title", value: "Which of your rabbit holes was the deepest?", comment: "Title of the Year in Review slide that asks the reader which of the listed rabbit holes was the deepest. A rabbit hole is a series of articles the reader opened one after the other from links. The list follows it.")
+    public static func yearInReviewRabbitHoleRevealTitle(linkCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-title", value: "{{PLURAL:%1$d|%1$d link|%1$d links}} deep is impressive.", comment: "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. %1$d is replaced with the number of links the reader followed one after the other.")
+        return String.localizedStringWithFormat(format, linkCount)
+    }
+    public static let yearInReviewRabbitHoleRevealSubtitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-subtitle", value: "Which rabbit hole will you fall down next?", comment: "Subtitle of the Year in Review slide that reveals the deepest rabbit hole of the reader.")
+
+    // Niche interest
+
+    public static let yearInReviewNicheInterestTitle = WMFLocalizedString("year-in-review-2026-niche-interest-title", value: "Talk about having niche interests, like:", comment: "Title of the Year in Review slide that shows an uncommon article category the reader read a lot. The name of the category follows it.")
+    public static let yearInReviewNicheInterestSubtitle = WMFLocalizedString("year-in-review-2026-niche-interest-subtitle", value: "For one reason or another, when it came to this category, you went all in!", comment: "Subtitle of the Year in Review slide that shows an uncommon article category the reader read a lot.")
+
+    // Articles visited multiple times
+
+    public static let yearInReviewRereadArticlesTitle = WMFLocalizedString("year-in-review-2026-reread-articles-title", value: "Some articles in your rotation:", comment: "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.")
+    public static func yearInReviewRereadArticlesVisitCount(_ visitCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-reread-articles-visit-count", value: "{{PLURAL:%1$d|%1$d visit|%1$d visits}}", comment: "Shown under each article on the Year in Review slide of articles visited multiple times. %1$d is replaced with the number of times the reader visited the article this year.")
+        return String.localizedStringWithFormat(format, visitCount)
+    }
+    public static let yearInReviewRereadArticlesEmptyTitle = WMFLocalizedString("year-in-review-2026-reread-articles-empty-title", value: "You're not a re-reader", comment: "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
+    public static let yearInReviewRereadArticlesEmptySubtitle = WMFLocalizedString("year-in-review-2026-reread-articles-empty-subtitle", value: "So much for looking at an article twice. You prefer novelty and falling down new rabbit holes.", comment: "Subtitle of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
+
+    // Places
+
+    public static let yearInReviewPlacesTitle = WMFLocalizedString("year-in-review-2026-places-title", value: "Your reading practically took you to:", comment: "Title of the Year in Review slide that lists places from the articles the reader read this year. The list of places follows it.")
+    public static let yearInReviewPlacesEmptyTitle = WMFLocalizedString("year-in-review-2026-places-empty-title", value: "Your reading took you all over the map", comment: "Title of the Year in Review slide shown when the reader does not have places to show from the articles they read this year.")
+    public static let yearInReviewPlacesEmptySubtitle = WMFLocalizedString("year-in-review-2026-places-empty-subtitle", value: "In 2026, you traveled all over Wikipedia. Check out the Places feature for ideas on where to go when you're on the go.", comment: "Subtitle of the Year in Review slide shown when the reader does not have places to show from the articles they read this year. \"Places\" is the name of the map feature in the app.")
+
+    // Saved articles
+
+    public static let yearInReviewSavedArticlesTitle = WMFLocalizedString("year-in-review-2026-saved-articles-title", value: "Articles you saved for later:", comment: "Title of the Year in Review slide that shows the number of articles the reader saved this year. The number follows it.")
+    public static let yearInReviewSavedArticlesEmptyTitle = WMFLocalizedString("year-in-review-2026-saved-articles-empty-title", value: "You have 0 articles saved", comment: "Title of the Year in Review slide shown when the reader did not save articles this year.")
+    public static let yearInReviewSavedArticlesEmptySubtitle = WMFLocalizedString("year-in-review-2026-saved-articles-empty-subtitle", value: "You currently have 0 articles saved. Look for the bookmark icon on an article, so you can read up on whatever... later.", comment: "Subtitle of the Year in Review slide shown when the reader did not save articles this year.")
+
+    // Edits
+
+    public static let yearInReviewEditsTitle = WMFLocalizedString("year-in-review-2026-edits-title", value: "Edits you made:", comment: "Title of the Year in Review slide that shows the number of edits the user made this year. The number follows it.")
+    public static let yearInReviewEditsSubtitle = WMFLocalizedString("year-in-review-2026-edits-subtitle", value: "Whether you contribute to Wikipedia, Wikimedia Commons, or Wikidata, thank you for improving everyone's access to human knowledge.", comment: "Subtitle of the Year in Review slide that shows the number of edits the user made this year.")
+    public static let yearInReviewEditsEmptyTitle = WMFLocalizedString("year-in-review-2026-edits-empty-title", value: "You've made 0 edits so far", comment: "Title of the Year in Review slide shown when the user did not make edits this year.")
+    public static let yearInReviewEditsEmptySubtitle = WMFLocalizedString("year-in-review-2026-edits-empty-subtitle", value: "You haven't made any edits yet, but it's easy to learn how. Now's a good time to join the community that builds Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the user did not make edits this year.")
+
+    // Edit views
+
+    public static let yearInReviewEditViewsTitle = WMFLocalizedString("year-in-review-2026-edit-views-title", value: "Views your edits received:", comment: "Title of the Year in Review slide that shows the number of views the edits of the user received this year. The number follows it.")
+    public static let yearInReviewEditViewsSubtitle = WMFLocalizedString("year-in-review-2026-edit-views-subtitle", value: "In 2026, readers from around the world saw the changes you made.", comment: "Subtitle of the Year in Review slide that shows the number of views the edits of the user received this year.")
+    public static let yearInReviewMostViewedEditedArticlesTitle = WMFLocalizedString("year-in-review-2026-most-viewed-edited-articles-title", value: "The articles most-viewed since your edit:", comment: "Title of the Year in Review slide that lists the articles the user edited that received the most views after the edit. The list of articles follows it.")
+
+    // Contributor thank-you
+
+    public static let yearInReviewThankYouTitle = WMFLocalizedString("year-in-review-2026-thank-you-title", value: "Thank you!", comment: "Title of the Year in Review slide that thanks the user for editing or donating.")
+    public static let yearInReviewThankYouEditorSubtitle = WMFLocalizedString("year-in-review-2026-thank-you-editor-subtitle", value: "As an editor, your contributions keep Wikipedia ad-free, trustworthy, and available to everyone. We can't thank you enough for supporting Wikipedia!", comment: "Subtitle of the Year in Review slide that thanks the user, for users who edited.")
+    public static let yearInReviewThankYouDonorSubtitle = WMFLocalizedString("year-in-review-2026-thank-you-donor-subtitle", value: "As a donor, your contributions keep Wikipedia ad-free, trustworthy, and available to everyone. We can't thank you enough for supporting Wikipedia!", comment: "Subtitle of the Year in Review slide that thanks the user, for users who donated.")
+    public static let yearInReviewThankYouEditorAndDonorSubtitle = WMFLocalizedString("year-in-review-2026-thank-you-editor-and-donor-subtitle", value: "As an editor and donor, your contributions keep Wikipedia ad-free, trustworthy, and available to everyone. We can't thank you enough for supporting Wikipedia!", comment: "Subtitle of the Year in Review slide that thanks the user, for users who edited and donated.")
+
+    // You matter
+
+    public static let yearInReviewYouMatterTitle = WMFLocalizedString("year-in-review-2026-you-matter-title", value: "You matter.", comment: "Title of the Year in Review slide that asks the reader to support Wikipedia, for readers who did not edit or donate.")
+    public static let yearInReviewYouMatterSubtitle = WMFLocalizedString("year-in-review-2026-you-matter-subtitle", value: "Wikipedia exists thanks to real people like you, contributing what they can to keep it thriving. If Wikipedia is valuable to you, please consider supporting it by donating or editing.", comment: "Subtitle of the Year in Review slide that asks the reader to support Wikipedia, for readers who did not edit or donate.")
+    public static let yearInReviewYouMatterLogInSubtitle = WMFLocalizedString("year-in-review-2026-you-matter-log-in-subtitle", value: "Already a contributor? Log in or create an account to see your achievements.", comment: "Shown after the subtitle of the Year in Review slide that asks the reader to support Wikipedia, for readers without enough data for a personalized Year in Review.")
+
+    // Collective
+
+    public static let yearInReviewCollectiveHoursReadTitle = WMFLocalizedString("year-in-review-2026-collective-hours-read-title", value: "Hours we spent reading Wikipedia in 2026:", comment: "Title of the Year in Review slide that shows the number of hours all readers spent reading Wikipedia this year. The number follows it.")
+    public static func yearInReviewCollectiveHoursReadSubtitle(yearCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-collective-hours-read-subtitle", value: "Collectively, across all languages, readers like you spent an estimated {{PLURAL:%1$d|%1$d year|%1$d years}} reading Wikipedia.", comment: "Subtitle of the Year in Review slide that shows the number of hours all readers spent reading Wikipedia this year. %1$d is replaced with the same time in years, for example \"275,000\".")
+        return String.localizedStringWithFormat(format, yearCount)
+    }
+    public static let yearInReviewCollectiveLanguagesTitle = WMFLocalizedString("year-in-review-2026-collective-languages-title", value: "Languages Wikipedia is available in:", comment: "Title of the Year in Review slide that shows the number of languages Wikipedia is available in. The number follows it, for example \"300+\".")
+    public static let yearInReviewCollectiveLanguagesSubtitle = WMFLocalizedString("year-in-review-2026-collective-languages-subtitle", value: "Wikipedia is written and maintained by volunteer communities from around the world—proof that human knowledge speaks way more than one language.", comment: "Subtitle of the Year in Review slide that shows the number of languages Wikipedia is available in.")
+    public static let yearInReviewCollectiveArticlesTitle = WMFLocalizedString("year-in-review-2026-collective-articles-title", value: "Articles on Wikipedia:", comment: "Title of the Year in Review slide that shows the number of articles on Wikipedia. The number follows it.")
+    public static let yearInReviewCollectiveArticlesSubtitle = WMFLocalizedString("year-in-review-2026-collective-articles-subtitle", value: "Wikipedia continues to be built by humans—volunteers from all over the world who use reliable sources to create and curate all of its content.", comment: "Subtitle of the Year in Review slide that shows the number of articles on Wikipedia.")
+    public static let yearInReviewCollectiveSavedArticlesTitle = WMFLocalizedString("year-in-review-2026-collective-saved-articles-title", value: "Articles saved by readers in 2026:", comment: "Title of the Year in Review slide that shows the number of articles all readers saved this year. The number follows it.")
+    public static let yearInReviewCollectiveSavedArticlesSubtitle = WMFLocalizedString("year-in-review-2026-collective-saved-articles-subtitle", value: "Readers bookmarked thousands and thousands of articles to read for the first, third, or hundredth time.", comment: "Subtitle of the Year in Review slide that shows the number of articles all readers saved this year.")
+    public static let yearInReviewCollectiveEditorsTitle = WMFLocalizedString("year-in-review-2026-collective-editors-title", value: "Volunteer editors:", comment: "Title of the Year in Review slide that shows the number of volunteer editors. The number follows it.")
+    public static let yearInReviewCollectiveEditorsSubtitle = WMFLocalizedString("year-in-review-2026-collective-editors-subtitle", value: "Did you know that all Wikimedia projects are made by volunteers? Editors contribute new articles and improve current articles.", comment: "Subtitle of the Year in Review slide that shows the number of volunteer editors.")
+    public static let yearInReviewCollectiveEditsTitle = WMFLocalizedString("year-in-review-2026-collective-edits-title", value: "Edits volunteers made:", comment: "Title of the Year in Review slide that shows the number of edits all volunteers made this year. The number follows it.")
+    public static let yearInReviewCollectiveEditsSubtitle = WMFLocalizedString("year-in-review-2026-collective-edits-subtitle", value: "Every hour of every day, volunteers around the world work to improve Wikipedia by updating article facts, photographing historic landmarks, and fixing typos.", comment: "Subtitle of the Year in Review slide that shows the number of edits all volunteers made this year.")
+    public static let yearInReviewCollectiveGlobalReachTitle = WMFLocalizedString("year-in-review-2026-collective-global-reach-title", value: "Wikipedia's global reach:", comment: "Title of the Year in Review slide about how many people visit Wikipedia. The text \"one of the top ten most visited websites in the world\" follows it.")
+    public static let yearInReviewCollectiveGlobalReachData = WMFLocalizedString("year-in-review-2026-collective-global-reach-data", value: "one of the top ten most visited websites in the world", comment: "Shown after the title \"Wikipedia's global reach:\" on the Year in Review slide about how many people visit Wikipedia.")
+    public static let yearInReviewCollectiveGlobalReachSubtitle = WMFLocalizedString("year-in-review-2026-collective-global-reach-subtitle", value: "Wikipedia is the backbone of the internet’s knowledge. From students to chatbots, everyone learns from it.", comment: "Subtitle of the Year in Review slide about how many people visit Wikipedia.")
+
+    // Outro
+
+    public static let yearInReviewOutroTitle = WMFLocalizedString("year-in-review-2026-outro-title", value: "Until the next rabbit hole", comment: "Title of the last Year in Review slide.")
+    public static let yearInReviewOutroSubtitle = WMFLocalizedString("year-in-review-2026-outro-subtitle", value: "Whether you came for one article or one hundred, thanks for exploring, reading, and staying curious with us on Wikipedia.", comment: "Subtitle of the last Year in Review slide.")
+    public static let yearInReviewOutroShareButtonTitle = WMFLocalizedString("year-in-review-2026-outro-share-button-title", value: "Share highlights", comment: "Button on the last Year in Review slide. Tapping it shares the highlights of the Year in Review of the reader.")
+    public static func yearInReviewShareText(url: String) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-share-text", value: "Here's my 2026 Wikipedia Year in Review, from the Wikipedia app: %1$@", comment: "Text the reader shares with their Year in Review highlights. %1$@ is replaced with a link to the Wikipedia app.")
+        return String.localizedStringWithFormat(format, url)
+    }
+
+    // Outro cards
+
+    public static let yearInReviewStoreCardTitle = WMFLocalizedString("year-in-review-2026-store-card-title", value: "A small thank-you", comment: "Title of the Year in Review card that gives a discount on the Wikipedia store.")
+    public static func yearInReviewStoreCardSubtitle(percent: String) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-store-card-subtitle", value: "Because you help keep knowledge free, we're giving you %1$@ off the Wikipedia store. No code needed, it's applied at checkout.", comment: "Subtitle of the Year in Review card that gives a discount on the Wikipedia store. %1$@ is replaced with a percentage, for example \"15%\".")
+        return String.localizedStringWithFormat(format, percent)
+    }
+    public static let yearInReviewGamesCardTitle = WMFLocalizedString("year-in-review-2026-games-card-title", value: "Ready for another challenge?", comment: "Title of the Year in Review card that opens the games.")
+    public static let yearInReviewGamesCardSubtitle = WMFLocalizedString("year-in-review-2026-games-card-subtitle", value: "Put your Wikipedia brain to the test with quick games inspired by the world's knowledge.", comment: "Subtitle of the Year in Review card that opens the games.")
+    public static let yearInReviewGamesCardButtonTitle = WMFLocalizedString("year-in-review-2026-games-card-button-title", value: "Start playing", comment: "Button on the Year in Review card that opens the games.")
+    public static let yearInReviewInterestsCardTitle = WMFLocalizedString("year-in-review-2026-interests-card-title", value: "Make Home your own", comment: "Title of the Year in Review card that opens the interests screen. \"Home\" is the name of a tab in the app.")
+    public static let yearInReviewInterestsCardSubtitle = WMFLocalizedString("year-in-review-2026-interests-card-subtitle", value: "Pick the subjects that fascinate you and get recommendations tailored to your interests.", comment: "Subtitle of the Year in Review card that opens the interests screen.")
+    public static let yearInReviewInterestsCardButtonTitle = WMFLocalizedString("year-in-review-2026-interests-card-button-title", value: "Customize interests", comment: "Button on the Year in Review card that opens the interests screen.")
+    public static let yearInReviewCollectiveCardTitle = WMFLocalizedString("year-in-review-2026-collective-card-title", value: "Our Year in Review", comment: "Title of the Year in Review card that opens the Year in Review of all readers.")
+    public static let yearInReviewCollectiveCardSubtitle = WMFLocalizedString("year-in-review-2026-collective-card-subtitle", value: "Rediscover how much the world read, edited, and explored together.", comment: "Subtitle of the Year in Review card that opens the Year in Review of all readers.")
+    public static let yearInReviewCollectiveCardButtonTitle = WMFLocalizedString("year-in-review-2026-collective-card-button-title", value: "Explore now", comment: "Button on the Year in Review card that opens the Year in Review of all readers.")
+    public static let yearInReviewQuizCardTitle = WMFLocalizedString("year-in-review-2026-quiz-card-title", value: "Which Wikipedia are you?", comment: "Title of the Year in Review card that opens a quiz about the history of Wikipedia.")
+    public static let yearInReviewQuizCardSubtitle = WMFLocalizedString("year-in-review-2026-quiz-card-subtitle", value: "From dial-up days to now, travel through Wikipedia's history.", comment: "Subtitle of the Year in Review card that opens a quiz about the history of Wikipedia. \"Dial-up\" is an old type of internet connection.")
+    public static let yearInReviewQuizCardButtonTitle = WMFLocalizedString("year-in-review-2026-quiz-card-button-title", value: "Take the quiz", comment: "Button on the Year in Review card that opens a quiz about the history of Wikipedia.")
+    public static let yearInReviewTabsCardTitle = WMFLocalizedString("year-in-review-2026-tabs-card-title", value: "Revisit your open tabs", comment: "Title of the Year in Review card that opens the open tabs of the reader.")
 }
 
 // Language variant strings
