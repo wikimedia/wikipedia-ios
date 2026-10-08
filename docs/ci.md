@@ -4,7 +4,7 @@ Our continuous integration process involves a combination of both Xcode Cloud wo
 
 ## Localizations
 
-We have a Github Action [workflow](../.github/workflows/localization.yml) that automatically runs our localizations script whenever a Translatewiki PR is opened against the `twn` branch. The file changes made from this script are then committed and pushed up to the PR branch. More details on this process can be found in the [localization document](localization.md).
+We have a Github Action [workflow](../.github/workflows/localization.yml) that automatically runs our localizations script whenever a push is made to the `twn` branch. The file changes made from this script are then committed and pushed up to the PR branch. More details on this process can be found in the [localization document](localization.md).
 
 ## PR Tests
 
@@ -15,7 +15,7 @@ Our PR unit tests are run in a GitHub Action workflow named "Run Unit Tests". Th
 UI-test workflow details are covered in the [UI-test GitHub Actions mapping](../WikipediaUITests/GITHUB_ACTIONS.md).
 
 In short:
-- `Run UI Tests` is the fixture-backed `WikipediaUITests` lane. It runs on nightly `repository_dispatch` and manual release-tag dispatch using the `English (Light)` configuration from the `UITests` test plan.
+- `Run UI Tests` is the fixture-backed `WikipediaUITests` lane. It runs daily at 2:00UTC as well as manual dispatch, using the `English (Light)` configuration from the `UITests` test plan.
 - `Run E2E Tests` is the live-network smoke lane. It runs on PRs targeting `main` and manual release-tag dispatch using the `English (Light, E2E)` configuration and the test identifiers in `WikipediaUITests/E2ESmokeTests.txt`.
 - `Run Full UI Test Plan` is a manual release-tag lane that builds `WikipediaUITests` once and fans out `test-without-building` jobs for every checked-in `UITests.xctestplan` configuration.
 
@@ -53,8 +53,7 @@ cutover is easy to read and easy to undo. Delete those files, and drop the
 that app to demonstrate implementation of a task or prototype that needs design
 review, so designers can sign off before a task goes through PR review.
 
-`V2 Deploy Alpha` builds the `Alpha` scheme, which points at various staging
-server environments and has feature flags turned on for in-development testing.
+`V2 Deploy Alpha` builds the `Alpha` scheme. It currently points at test.wikipedia.org for donate, campaign, and feature configs.
 It builds on every merge into `main`, and skips the build when the latest
 commit is already tagged. Runs are serialized, because the build number comes
 from the highest `alphas/` tag and that tag is not pushed until the run
@@ -77,9 +76,7 @@ state: exactly one `release-candidate/*` branch, exactly one open release task,
 and both naming the same version. Any other combination fails the run in about
 a minute, naming which part is wrong, rather than partway through an archive
 and upload. `V2 Release Wrap Up` deletes the branch at the end of a cycle, so a
-second one generally means a wrap-up that never ran. Hotfixes are meant to
-branch under `hotfix/` and get their own workflow rather than opening a second
-release candidate.
+second one generally means a wrap-up that never ran, OR there's an open PR to merge the previous RC commits back into main.
 
 Release submission and wrap-up are covered by `V2 Submit App Store`, which
 submits a build already in TestFlight rather than building one, and
@@ -99,8 +96,8 @@ workflow has to be named "Beta Build", "Alpha Build" or "Experimental Build" to
 get a build number and tag at all - anything else falls through and is left
 alone.
 
-**Before running a fallback build, set that workflow's next build number** in
-its Xcode Cloud settings, to one above the highest existing tag for its prefix
+**Before running a fallback build, make sure the workflow's next build number** in
+its Xcode Cloud settings is above the highest existing tag for its prefix
 (`exp/`, `alphas/` or `betas/`). Xcode Cloud keeps its own build number counter
 and it is not derived from anything in this repo, so it does not know about
 builds GitHub Actions has made since the last fallback run. Only one direction
@@ -118,31 +115,25 @@ creating a second version alongside the cycle's in App Store Connect.
 
 ## Relationship between wmf-apps-ci, GitHub Actions, and PR Status Checks
 
-Our GitHub organization has a bot account called wmf-apps-ci which has been used for various reasons in the past. Currently for iOS, this bot account is used to make automated write commits to our repository. This happens in four instances:
+Our GitHub organization has a bot account called wmf-apps-ci which has been used for various reasons in the past. Currently for iOS, this bot account is used to make automated write commits to our repository. This happens in three instances:
 
 1. When Xcode Cloud completes a Beta Build, Alpha Build or Experimental Build, [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh) tags the commit with `betas/`, `alphas/` or `exp/{build number}` and pushes it to our remote repository using the wmf-apps-ci account. It does this with a fine-tuned personal access token set up in the wmf-apps-ci GitHub account settings, read from an `APPS_BOT_TOKEN` environment variable in the Xcode Cloud workflow settings - the same name as the GitHub Actions secret, holding the same token. The account name is a literal in the script, not a variable.
 
    **Xcode Cloud environment variables are per-workflow, not per-app.** Each workflow that tags needs its own copy. If it is missing the script fails with a clear message before attempting the push; an older revision read the account name from a `GITHUB_USERNAME` variable too, and an unset one there collapsed the URL to `https://:@github.com/...`, failing with `remote: No anonymous write access.` - which read like an expired token but meant an unset variable.
 
-2. When a Translatewiki PR is opened, a GitHub action runs the localizations script, commits and pushes the changes to the remote repository using the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
+2. When a new commit is made to the twn branch, a GitHub action runs the localizations script, commits and pushes the changes to the remote repository using the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
-3. We have a manually-triggered GitHub action that posts a PR to increment the app version. This commit is made with the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
-
-4. The V2 deploy workflows push their git tags (`exp/`, `alphas/`, `betas/` and `releases/`) and create the `release-candidate/{date}` branch using the wmf-apps-ci account, with the same personal access token, read from the APPS_BOT_TOKEN repository secret. The default `GITHUB_TOKEN` cannot be used for this: it is a GitHub App token with no Workflows permission, and the Actions `permissions:` block has no key to grant one, so it refuses to push any ref whose tree differs from the default branch under `.github/workflows/`. That token therefore needs `Workflows: read and write` alongside its other permissions.
+3. The V2 deploy workflows push their git tags (`exp/`, `alphas/`, `betas/` and `releases/`) and create the `release-candidate/{date}` branch using the wmf-apps-ci account, with the same personal access token, read from the APPS_BOT_TOKEN repository secret.
 
 ### What happens when this token expires?
 
 You should notice a few things:
-
-- When a Beta Build is made, you will no longer see new `betas/{build number}` tag numbers added to the `main` branch.
 
 - The V2 deploy workflows will build and upload to TestFlight successfully, then fail at their "Tag build" step. `V2 Deploy Beta` will also fail to push its release candidate branch.
 
 - An Xcode Cloud Beta, Alpha or Experimental build will fail at its post-xcodebuild step. Note that nothing is distributed in that case: the tag script runs before the TestFlight post-action, so a failed tag fails the whole build and the archive never ships. This is the opposite of the GitHub Actions behaviour above, which uploads first and tags afterwards.
 
 - When a Translatewiki PR is opened, you will no longer see the followup "Import translations from TranslateWiki" commit in the PR.
-
-- Running the "Update App Version" GitHub action manually will probably fail.
 
 To fix this:
 1. Log into GitHub as wmf-apps-ci. The account credentials are in the 1Password iOS Team Vault. Generate a new fine-tuned token with access to the Wikipedia iOS Repository. Save this token in the 1Password iOS Team Vault in case we need it elsewhere in the future.
@@ -153,4 +144,4 @@ To fix this:
 
 ### Why don't we commit and push with the standard GitHub token / github-actions user account?
 
-When the commit is made by github-actions in a PR, our unit tests refuse to run. This is apparently [by design](https://github.com/peter-evans/create-pull-request/issues/48#issuecomment-537478081), to avoid unending actions loops. We switched to making repository changes via the wmf-apps-ci when we noticed our Translatewiki and Update App Version PRs were not running unit tests. 
+When the commit is made by github-actions in a PR, our unit tests refuse to run. This is apparently [by design](https://github.com/peter-evans/create-pull-request/issues/48#issuecomment-537478081), to avoid unending actions loops. We switched to making repository changes via the wmf-apps-ci when we noticed our Translatewiki PRs were not running unit tests. 
