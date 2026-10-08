@@ -923,6 +923,9 @@
 "search-semantic-entry-point-hidden-toast-subtitle" = "設定から再度表示できます";
 "search-semantic-entry-point-hidden-toast-title" = "モジュールは非表示になっています";
 "search-semantic-entry-point-try-it-now" = "今すぐ試す";
+"search-semantic-info-sources" = "文章は、人々が調査・執筆・編集した記事から抜粋されています。すべて出典が示されているので、元の情報を確認できます。";
+"search-semantic-info-summary" = "Wikipediaの記事から質問への答えを見つけ、関連する箇所に直接移動できます。";
+"search-semantic-info-title" = "この機能とは？";
 "search-semantic-results-contributors" = "{{PLURAL:$1|$1 貢献者}}";
 "search-semantic-results-empty-title" = "検索結果がありません";
 "search-semantic-results-error-subtitle" = "もう一度お試しください";

@@ -1303,11 +1303,14 @@
 "search-semantic-entry-point-hide-accessibility-label" = "Hide searching within articles";
 "search-semantic-entry-point-info-accessibility-label" = "About searching within articles";
 "search-semantic-entry-point-try-it-now" = "Try it now";
+"search-semantic-info-sources" = "Passages are drawn from articles that people researched, wrote, and edited, each one backed by cited sources you can check.";
+"search-semantic-info-summary" = "Find answers to your questions inside Wikipedia articles and jump straight into the relevant passage.";
+"search-semantic-info-title" = "What is this feature?";
 "search-semantic-results-contributors" = "{{PLURAL:$1|$1 contributor|$1 contributors}}";
 "search-semantic-results-empty-title" = "No results for this search";
 "search-semantic-results-error-subtitle" = "Please try again.";
 "search-semantic-results-error-title" = "Something went wrong";
-"search-semantic-results-last-updated" = "Last update $1";
+"search-semantic-results-last-updated" = "Last updated $1";
 "search-semantic-results-rate-limited-subtitle" = "Wait a moment and try again.";
 "search-semantic-results-rate-limited-title" = "Too many searches";
 "search-semantic-results-read-in-article" = "Read in article";

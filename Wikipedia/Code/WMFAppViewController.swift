@@ -919,6 +919,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             self.setupTips()
+            WMFToastPresenter.shared.startObservingKeyboard()
             self.setupWMFDataEnvironment()
             self.setupWMFDataCoreDataStore()
 

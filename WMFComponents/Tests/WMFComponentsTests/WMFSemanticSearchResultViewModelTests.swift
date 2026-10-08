@@ -11,7 +11,8 @@ final class WMFSemanticSearchResultViewModelTests: XCTestCase {
         readInArticleTitle: "Read in article",
         contributorsFormat: "%1$d contributors",
         referencesFormat: "%1$d references",
-        lastUpdatedFormat: "Last update %1$@")
+        lastUpdatedFormat: "Last updated %1$@"
+    )
 
     override func setUp() async throws {
         try await super.setUp()
@@ -153,9 +154,9 @@ final class WMFSemanticSearchResultViewModelTests: XCTestCase {
 
         XCTAssertNil(viewModel.contributorsText)
         XCTAssertNil(viewModel.referencesText)
-        XCTAssertEqual(viewModel.lastUpdatedText, "Last update \(DateFormatter.monthYearNumericFormatter.string(from: date))")
+        XCTAssertEqual(viewModel.lastUpdatedText, "Last updated \(DateFormatter.monthYearNumericFormatter.string(from: date))")
         XCTAssertFalse(viewModel.lastUpdatedText?.contains("03") ?? true, "Only the month and the year show, not the day.")
-        XCTAssertEqual(viewModel.lastUpdatedAccessibilityText, "Last update \(DateFormatter.monthYearSpelledOutFormatter.string(from: date))")
+        XCTAssertEqual(viewModel.lastUpdatedAccessibilityText, "Last updated \(DateFormatter.monthYearSpelledOutFormatter.string(from: date))")
         XCTAssertNil(viewModel.thumbnail, "No thumbnail URL, no request.")
     }
 
@@ -190,6 +191,30 @@ final class WMFSemanticSearchResultViewModelTests: XCTestCase {
         XCTAssertEqual(service.attributionRequestCount, 1)
     }
 
+    func testExampleKeepsItsThumbnailAndAttributionWithoutRequests() async {
+        let attribution = WMFSemanticSearchAttribution(contributorCount: 2467, referenceCount: 266, lastUpdated: nil)
+        let thumbnail = UIImage(data: Self.onePixelPNG)
+        let viewModel = WMFSemanticSearchResultViewModel(
+            exampleResult: makeResult(thumbnailURL: URL(string: "https://upload.wikimedia.org/thumb.png")!),
+            project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)),
+            thumbnail: thumbnail,
+            attribution: attribution,
+            localizedStrings: localizedStrings)
+        let service = WMFMockAttributionService(contributorCount: 1, referenceCount: 1, lastUpdated: nil, imageData: Self.onePixelPNG)
+        WMFDataEnvironment.current.basicService = service
+        await fixture.resetWMFDataTestState()
+
+        viewModel.loadDetailsIfNeeded()
+        try? await Task.sleep(for: .milliseconds(100))
+
+        XCTAssertFalse(viewModel.showsReadInArticle)
+        XCTAssertEqual(viewModel.attribution, attribution)
+        XCTAssertEqual(viewModel.contributorsText, String.localizedStringWithFormat("%1$d contributors", 2467))
+        XCTAssertTrue(viewModel.thumbnail === thumbnail)
+        XCTAssertEqual(service.attributionRequestCount, 0)
+        XCTAssertEqual(service.imageRequestCount, 0)
+    }
+
     private static let onePixelPNG: Data = UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1)).pngData { context in
         UIColor.black.setFill()
         context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
@@ -205,9 +230,14 @@ private final class WMFMockAttributionService: WMFService {
     private let imageData: Data?
     private let lock = NSLock()
     private var _attributionRequestCount = 0
+    private var _imageRequestCount = 0
 
     var attributionRequestCount: Int {
         lock.withLock { _attributionRequestCount }
+    }
+
+    var imageRequestCount: Int {
+        lock.withLock { _imageRequestCount }
     }
 
     init(contributorCount: Int?, referenceCount: Int?, lastUpdated: String?, imageData: Data?) {
@@ -233,6 +263,7 @@ private final class WMFMockAttributionService: WMFService {
 
     func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
         if let imageData, !isAttributionRequest(request) {
+            lock.withLock { _imageRequestCount += 1 }
             completion(.success(imageData))
         } else {
             completion(.failure(URLError(.fileDoesNotExist)))

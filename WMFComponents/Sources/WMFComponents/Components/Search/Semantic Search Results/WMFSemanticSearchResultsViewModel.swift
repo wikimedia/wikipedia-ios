@@ -69,12 +69,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     private(set) lazy var backendUnavailableErrorTitle = WMFLocalizedString("search-semantic-results-unavailable-title", languageCode: languageCode, value: "Search is not available right now", comment: "Title shown in the sheet of passages found inside articles when the search service is down.")
     private(set) lazy var backendUnavailableErrorSubtitle = WMFLocalizedString("search-semantic-results-unavailable-subtitle", languageCode: languageCode, value: "Please try again later.", comment: "Subtitle shown in the sheet of passages found inside articles when the search service is down.")
 
-    private lazy var resultLocalizedStrings = WMFSemanticSearchResultViewModel.LocalizedStrings(
-        readInArticleTitle: WMFLocalizedString("search-semantic-results-read-in-article", languageCode: languageCode, value: "Read in article", comment: "Call to action at the end of a passage found inside an article. Opens the article at that passage."),
-        contributorsFormat: WMFLocalizedString("search-semantic-results-contributors", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d contributor|%1$d contributors}}", comment: "Number of people who edited the article a passage comes from. %1$d is replaced with the number of contributors."),
-        referencesFormat: WMFLocalizedString("search-semantic-results-references", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d reference|%1$d references}}", comment: "Number of references of the article a passage comes from. %1$d is replaced with the number of references."),
-        lastUpdatedFormat: WMFLocalizedString("search-semantic-results-last-updated", languageCode: languageCode, value: "Last update %1$@", comment: "Date of the last edit of the article a passage comes from, shown where the reference count is not available. %1$@ is replaced with the date in the short numeric style of the device, e.g. 9/26/26.")
-    )
+    private lazy var resultLocalizedStrings = WMFSemanticSearchResultViewModel.LocalizedStrings.forLanguage(languageCode)
 
     public init(query: String, project: WMFProject, readInArticleAction: @escaping ResultAction, closeAction: @escaping Action, feedbackAction: FeedbackAction? = nil, feedbackTextFieldFocusAction: Action? = nil, feedbackDelay: Duration = .seconds(3)) {
         self.query = query

@@ -1211,6 +1211,9 @@
 "search-semantic-entry-point-hidden-toast-subtitle" = "يمكنك إظهارها مرة أخرى من خلال الإعدادات";
 "search-semantic-entry-point-hidden-toast-title" = "الوحدة مخفية";
 "search-semantic-entry-point-try-it-now" = "جرّبه الآن";
+"search-semantic-info-sources" = "تُستخلص المقاطع من مقالات أعدّها أشخاص بالبحث والكتابة والتحرير، ويستند كل مقطع منها إلى مصادر مُستشهد بها يمكنك التحقق منها.";
+"search-semantic-info-summary" = "اعثر على إجابات لأسئلتك داخل مقالات ويكيبيديا، وانتقل مباشرةً إلى المقطع ذي الصلة.";
+"search-semantic-info-title" = "ما هذه الميزة؟";
 "search-semantic-results-contributors" = "{{PLURAL:$1|$1 مساهم|$1 مساهمون}}";
 "search-semantic-results-empty-title" = "لا توجد نتائج لهذا البحث";
 "search-semantic-results-error-subtitle" = "حاول مجددًا";

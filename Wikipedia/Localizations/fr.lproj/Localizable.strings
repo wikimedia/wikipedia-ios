@@ -1269,6 +1269,9 @@
 "search-semantic-entry-point-hidden-toast-subtitle" = "Vous pouvez le rendre de nouveau visible dans les paramètres";
 "search-semantic-entry-point-hidden-toast-title" = "Module masqué";
 "search-semantic-entry-point-try-it-now" = "Essayer maintenant";
+"search-semantic-info-sources" = "Les passages sont issus d'articles recherchés, rédigés et édités par des contributeurs, et s'appuient tous sur des sources citées que vous pouvez vérifier.";
+"search-semantic-info-summary" = "Trouvez des réponses à vos questions dans les articles Wikipédia et accédez directement au passage concerné.";
+"search-semantic-info-title" = "Quelle est cette fonctionnalité?";
 "search-semantic-results-contributors" = "{{PLURAL:$1|$1 contributeur|$1 contributeurs}}";
 "search-semantic-results-empty-title" = "Aucun résultat pour cette recherche";
 "search-semantic-results-error-subtitle" = "Réessayer";
