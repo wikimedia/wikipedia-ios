@@ -998,6 +998,13 @@
 "search-title" = "Sichen";
 "search-widget-description" = "Schnellzougrëff fir op Wikipedia ze sichen.";
 "search-widget-wikipedia-title" = "Wikipedia";
+"semantic-search-feedback-placeholder" = "Erzielt eis méi (fakultativ)";
+"semantic-search-feedback-question" = "Hutt Dir fonnt, wouno Dir gesicht hutt?";
+"semantic-search-feedback-submit" = "Ofschécken";
+"semantic-search-feedback-thanks" = "Merci fir Äre Feedback";
+"semantic-search-feedback-thumbs-down-accessibility" = "Nee";
+"semantic-search-feedback-thumbs-up-accessibility" = "Jo";
+"semantic-search-feedback-title" = "Feedback";
 "settings-account" = "Benotzerkont";
 "settings-appearance" = "Ausgesi vun der App";
 "settings-clear-cache" = "Tëschegespäichert Date läschen";

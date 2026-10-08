@@ -1,3 +1,4 @@
+import CocoaLumberjackSwift
 import Foundation
 import UIKit
 import WMFComponents
@@ -63,6 +64,14 @@ struct YearInReviewSlideViewModelFactory {
             let description: String?
         }
 
+        /// An article the reader visited two or more times.
+        struct RereadArticle {
+            let title: String
+            let visitCount: Int
+            /// The wiki of the article, for its thumbnail. `nil` shows the placeholder in the .riv.
+            let project: WMFProject?
+        }
+
         struct ViewedArticle {
             let title: String
             let viewCount: Int?
@@ -80,7 +89,7 @@ struct YearInReviewSlideViewModelFactory {
         /// The first is the top topic. The rest are the runners-up.
         var topics: [Topic]?
         var sampleArticles: [Article]?
-        var rereadArticles: [Article]?
+        var rereadArticles: [RereadArticle]?
         var savedArticles: SavedArticles?
         var editCount: Int?
         var editViewCount: Int?
@@ -125,7 +134,11 @@ struct YearInReviewSlideViewModelFactory {
                 Topic(name: WMFArticleTopic.politicsAndGovernment.rawValue, articleCount: 8, exampleArticleTitles: [])
             ]
             data.sampleArticles = articles
-            data.rereadArticles = articles
+            data.rereadArticles = [
+                RereadArticle(title: "Pamela Anderson", visitCount: 3, project: nil),
+                RereadArticle(title: "Pamukkale", visitCount: 2, project: nil),
+                RereadArticle(title: "Catherine, Princess of Wales", visitCount: 2, project: nil)
+            ]
             data.savedArticles = SavedArticles(count: 26, articles: [
                 ViewedArticle(title: "Pamela Anderson", viewCount: 230),
                 ViewedArticle(title: "Pamukkale", viewCount: 200),
@@ -176,30 +189,67 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// The slides for `userDataState`. `nil` is the profile entry point, which does not pick one, so
-    /// the developer settings decide.
+    /// The slides for `userDataState`.
     ///
-    /// TEMPORARY: every slide uses dummy data. `.dataRich` shows the full versions, `.lowData` shows
-    /// the empty versions until the collective frames exist.
+    /// TEMPORARY: every slide uses dummy data, except the total articles slide and the articles
+    /// visited multiple times slide, which use the stored report. `.dataRich` shows the full
+    /// versions. `.lowData` shows the empty versions until the collective frames exist.
     ///
     /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
     /// has data. `userDataState` is a temporary proxy for that (see `dataRichDistinctArticleThreshold`
     /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
-    func makeSlides(for userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) -> [WMFYearInReviewSlideViewModel] {
-        let state = userDataState ?? forcedUserDataState
-        let showsFullVersions = state != .lowData
+    /// - Parameter forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
+    func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+        guard userDataState == .dataRich, !forcesAllEmptyStates else {
+            return makePersonalizedSlides(data: SlideData.mockEmpty)
+        }
 
-        return makePersonalizedSlides(data: showsFullVersions ? SlideData.mock() : SlideData.mockEmpty)
+        // No stored data means no qualifying articles, so the two real slides show their empty
+        // versions, never zero slides.
+        let config = try? WMFYearInReviewDataController().config
+        let readCount = storedReadCount() ?? 0
+
+        var data = SlideData.mock()
+        data.articleCount = SlideData.ArticleCount(count: readCount, percentile: config?.topReadPercentage(forReadCount: readCount))
+        data.averageArticleCount = config?.averageArticlesReadPerYear
+        data.rereadArticles = storedRereadArticles() ?? []
+        return makePersonalizedSlides(data: data)
     }
 
-    /// The developer settings data state, only while the Year in Review toggle is on. Same rule as
-    /// `WMFYearInReviewDataController.fetchUserDataState()`.
-    private var forcedUserDataState: WMFYearInReviewDataController.YiRUserDataState? {
-        let developerSettings = WMFDeveloperSettingsDataController.shared
-        guard developerSettings.forceYiREntryPoint2026 else {
+    // MARK: - Stored report
+
+    /// The number of unique articles read, from the report the app fills in the background.
+    /// `nil` when the report does not have this slide yet.
+    private func storedReadCount() -> Int? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .readCount })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data).readCount
+        } catch {
+            DDLogError("Error reading the Year in Review total articles: \(error)")
             return nil
         }
-        return developerSettings.forceYiRUserDataState
+    }
+
+    /// The articles visited multiple times, from the report the app fills in the background.
+    /// `nil` when the report does not have this slide yet.
+    private func storedRereadArticles() -> [SlideData.RereadArticle]? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .topArticles })?.data else {
+                return nil
+            }
+            let slideData = try JSONDecoder().decode(WMFYearInReviewTopArticlesSlideData.self, from: data)
+            guard slideData.isEligible else {
+                return []
+            }
+            return slideData.articles.map { SlideData.RereadArticle(title: $0.title, visitCount: $0.visitCount, project: $0.project) }
+        } catch {
+            DDLogError("Error reading the Year in Review articles visited multiple times: \(error)")
+            return nil
+        }
     }
 
     // MARK: - Personalized slides
@@ -207,7 +257,7 @@ struct YearInReviewSlideViewModelFactory {
     /// In the order of the design sheet. Frames 10, 11, 13, 14 and 19 are not in the sheet yet.
     private func makePersonalizedSlides(data: SlideData) -> [WMFYearInReviewSlideViewModel] {
         let slides: [WMFYearInReviewSlideViewModel?] = [
-            data.articleCount.map { articleCountSlide($0, averageCount: data.averageArticleCount) },
+            data.articleCount.map { totalArticlesSlide(readCount: $0.count, topReadPercentage: $0.percentile, averageReadCount: data.averageArticleCount) },
             data.readingActivity.flatMap { readingDaysSlide($0) },
             data.minutesRead.flatMap { minutesReadSlide($0) },
             data.readingActivity.map { streakSlide($0.longestStreak) },
@@ -229,41 +279,50 @@ struct YearInReviewSlideViewModelFactory {
     // MARK: - Slides
 
     // TEMPORARY: the sentences below are English stand-ins from the copy sheet. They become
-    // WMFLocalizedString with plural rules once the copy is final.
+    // WMFLocalizedString with plural rules once the copy is final. The total articles slide and the
+    // articles visited multiple times slide are already localized.
 
-    private func articleCountSlide(_ articleCount: SlideData.ArticleCount, averageCount: Int?) -> WMFYearInReviewSlideViewModel {
-        guard articleCount.count > 0 else {
-            let headline = "You have millions of articles to discover"
-            let body = "Just wait until you find out all there is to learn on Wikipedia."
-            return templateSlide(
-                id: "articleCountEmpty",
-                artboard: "frame1-empty",
-                stateMachine: "frame1-empty-statemachine",
-                headline: headline,
-                data: nil,
-                body: body,
-                accessibilityLabel: "\(headline). \(body)",
-                showsShareButton: false
-            )
+    /// Shows the empty version unless the reader read at least `WMFYearInReviewReadData.minimumReadCount` articles.
+    /// - Parameters:
+    ///   - topReadPercentage: The "top X%" of readers globally, for example `50` or `0.01`. `nil` when the reader is below the 50th percentile.
+    ///   - averageReadCount: The number of articles the average person reads in a year.
+    func totalArticlesSlide(readCount: Int, topReadPercentage: Double?, averageReadCount: Int?) -> WMFYearInReviewSlideViewModel {
+        guard readCount >= WMFYearInReviewReadData.minimumReadCount else {
+            return totalArticlesEmptySlide()
         }
 
-        let headline = "Your total article count:"
-        let count = formatted(articleCount.count)
-        let body: String
-        if let percentile = articleCount.percentile, let averageCount {
-            body = "That puts you in the top \(formattedPercent(percentile)) of Wikipedia readers globally. The average person reads \(formatted(averageCount)) articles a year."
+        let headline = WMFLocalizedString("year-in-review-2026-total-articles-title", value: "Your total article count:", comment: "Title of the Year in Review slide that shows the number of unique articles the reader read this year. The number follows it.")
+        let count = NumberFormatter.localizedString(from: NSNumber(value: readCount), number: .decimal)
+        let bodyText: String
+        if let topReadPercentage, let averageReadCount {
+            let format = WMFLocalizedString("year-in-review-2026-total-articles-top-percent-subtitle", value: "That puts you in the top %1$@ of Wikipedia readers globally. The average person reads {{PLURAL:%2$d|%2$d article|%2$d articles}} a year.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers in the top 50% or better. %1$@ is replaced with a percentage, for example \"50%\". %2$d is replaced with the number of articles the average person reads in a year.")
+            bodyText = String.localizedStringWithFormat(format, formattedPercent(topReadPercentage), averageReadCount)
         } else {
-            body = "You've been exploring all year. Every article added something to what you know."
+            bodyText = WMFLocalizedString("year-in-review-2026-total-articles-subtitle", value: "You've been exploring all year. Every article added something to what you know.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers below the top 50%.")
         }
-
         return templateSlide(
-            id: "articleCount",
+            id: "totalArticles",
             artboard: "frame1",
             stateMachine: "frame1-statemachine",
             headline: headline,
             data: count,
-            body: body,
-            accessibilityLabel: "\(headline) \(count). \(body)",
+            body: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)",
+            showsShareButton: false
+        )
+    }
+
+    private func totalArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = WMFLocalizedString("year-in-review-2026-total-articles-empty-title", value: "You have millions of articles to discover", comment: "Title of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
+        let bodyText = WMFLocalizedString("year-in-review-2026-total-articles-empty-subtitle", value: "Just wait until you find out all there is to learn on Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
+        return templateSlide(
+            id: "totalArticlesEmpty",
+            artboard: "frame1-empty",
+            stateMachine: "frame1-empty-statemachine",
+            headline: headline,
+            data: nil,
+            body: bodyText,
+            accessibilityLabel: "\(headline). \(bodyText)",
             showsShareButton: false
         )
     }
@@ -487,32 +546,49 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func rereadArticlesSlide(_ articles: [SlideData.Article]) -> WMFYearInReviewSlideViewModel {
-        guard !articles.isEmpty else {
-            let headline = "You're not a re-reader"
-            let bodyText = "So much for looking at an article twice. You prefer novelty and falling down new rabbit holes."
-            return listSlide(
-                id: "rereadArticlesEmpty",
-                artboard: "frame12-empty",
-                stateMachine: "frame12-empty-statemachine",
-                headline: headline,
-                bodyText: bodyText,
-                items: [],
-                accessibilityLabel: "\(headline). \(bodyText)",
-                showsShareButton: false
-            )
+    /// Shows the empty version unless at least two articles were visited multiple times.
+    private func rereadArticlesSlide(_ articles: [SlideData.RereadArticle]) -> WMFYearInReviewSlideViewModel {
+        guard articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount else {
+            return rereadArticlesEmptySlide()
         }
 
-        let bodyText = "Some articles in your rotation:"
-        let items = articles.map { ListItem(title: $0.title, subtitle: $0.description ?? "") }
+        let bodyText = WMFLocalizedString("year-in-review-2026-reread-articles-title", value: "Some articles in your rotation:", comment: "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.")
+        let visitCountFormat = WMFLocalizedString("year-in-review-2026-reread-articles-visit-count", value: "{{PLURAL:%1$d|%1$d visit|%1$d visits}}", comment: "Shown under each article on the Year in Review slide of articles visited multiple times. %1$d is replaced with the number of times the reader visited the article this year.")
+        let shownArticles = Array(articles.prefix(3))
+        let items = shownArticles.map { article in
+            ListItem(title: article.title, subtitle: String.localizedStringWithFormat(visitCountFormat, article.visitCount))
+        }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        for (index, article) in shownArticles.enumerated() {
+            guard let project = article.project else { continue }
+            thumbnails[WMFRiveImage(path: "icon\(index + 1)")] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+        }
+        // A row that is not written keeps the copy inside the .riv ("initial value"), so clear the unused rows.
+        let emptyRows = Array(repeating: ListItem(title: "", subtitle: ""), count: 3 - items.count)
         return listSlide(
             id: "rereadArticles",
             artboard: "frame12",
             stateMachine: "frame12-statemachine",
             headline: nil,
             bodyText: bodyText,
-            items: items,
+            items: items + emptyRows,
+            articleThumbnails: thumbnails,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
+    private func rereadArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = WMFLocalizedString("year-in-review-2026-reread-articles-empty-title", value: "You're not a re-reader", comment: "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
+        let bodyText = WMFLocalizedString("year-in-review-2026-reread-articles-empty-subtitle", value: "So much for looking at an article twice. You prefer novelty and falling down new rabbit holes.", comment: "Subtitle of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
+        return listSlide(
+            id: "rereadArticlesEmpty",
+            artboard: "frame12-empty",
+            stateMachine: "frame12-empty-statemachine",
+            headline: headline,
+            bodyText: bodyText,
+            items: [],
+            accessibilityLabel: "\(headline). \(bodyText)",
+            showsShareButton: false
         )
     }
 
@@ -771,13 +847,13 @@ struct YearInReviewSlideViewModelFactory {
         accessibilityLabel: String,
         showsShareButton: Bool = true
     ) -> WMFYearInReviewSlideViewModel {
-        var text: [WMFRiveText: String] = [
+        let text: [WMFRiveText: String] = [
             TemplateTextPath.headline: headline,
-            TemplateTextPath.bodyCopy: body
+            TemplateTextPath.bodyCopy: body,
+            // A field that is not written shows the "initial value" text inside the .riv, so an
+            // empty version writes an empty string.
+            TemplateTextPath.data: data ?? ""
         ]
-        if let data {
-            text[TemplateTextPath.data] = data
-        }
 
         return WMFYearInReviewSlideViewModel(
             id: id,
@@ -786,7 +862,9 @@ struct YearInReviewSlideViewModelFactory {
             text: text,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             showsShareButton: showsShareButton,
-            contentStyle: .dark
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.copyFits(headline: TemplateTextPath.headline, bodyText: TemplateTextPath.bodyCopy) + (data == nil ? [] : [Self.dataNumberFit])
         )
     }
 
@@ -800,6 +878,7 @@ struct YearInReviewSlideViewModelFactory {
         headline: String?,
         bodyText: String?,
         items: [ListItem],
+        articleThumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:],
         accessibilityLabel: String,
         showsShareButton: Bool = true
     ) -> WMFYearInReviewSlideViewModel {
@@ -820,11 +899,71 @@ struct YearInReviewSlideViewModelFactory {
             loggingID: id,
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
+            articleThumbnails: articleThumbnails,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             showsShareButton: showsShareButton,
-            contentStyle: .dark
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.copyFits(headline: ListTextPath.headline, bodyText: ListTextPath.bodyText)
         )
     }
+
+    // MARK: - Text size
+
+    /// The box of the large number does not grow, so a long number wraps on top of the body copy.
+    /// Make the number smaller until it fits on one line. The width is the width of the
+    /// `Data-Numbers` artboard in the templates file.
+    private static let dataNumberFit = WMFRiveTextFit(
+        text: TemplateTextPath.data,
+        fontAssetName: "SanSerifFont",
+        maximumWidth: 344,
+        maximumLines: 1,
+        globalViewModelName: "GlobalProperties",
+        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
+        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight")
+    )
+
+    /// The headline and the body copy grow, so long copy can push the content past the bottom of the
+    /// slide. Over these line counts, make both smaller by the same scale, to at most `copyMinimumScale`. The width
+    /// is smaller than the text boxes on any frame, so the line counts are safe.
+    private static func copyFits(headline: WMFRiveText, bodyText: WMFRiveText) -> [WMFRiveTextFit] {
+        [
+            WMFRiveTextFit(
+                text: headline,
+                fontAssetName: "SerifFont",
+                maximumWidth: copyWidth,
+                maximumLines: 3,
+                minimumScale: copyMinimumScale,
+                group: "copy",
+                globalViewModelName: "GlobalProperties",
+                fontSize: WMFRiveNumber(path: "headlineFontSize"),
+                lineHeight: WMFRiveNumber(path: "headlineLineHeight")
+            ),
+            WMFRiveTextFit(
+                text: bodyText,
+                fontAssetName: "SerifFont",
+                maximumWidth: copyWidth,
+                maximumLines: 4,
+                minimumScale: copyMinimumScale,
+                group: "copy",
+                globalViewModelName: "GlobalProperties",
+                fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
+                lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
+            )
+        ]
+    }
+
+    /// In artboard units. The headline and body boxes are about 296 to 320 wide.
+    private static let copyWidth = 290.0
+
+    /// The smallest scale of the headline and the body copy. At 75%, the longest copy that was
+    /// tested (Russian, October 2026) filled the iPhone SE slide to its bottom edge, so 70% keeps
+    /// a margin.
+    static let copyMinimumScale = 0.7
+
+    /// Each template in the file sets this flag for the contrast of the controls above it. The style
+    /// that the factory passes shows only until the slide loads.
+    private static let lightContentFlag = WMFRiveBool(path: "isUIWhite")
 
     /// The file with the cover and the frame templates.
     private let templatesResourceName = "all_templates"

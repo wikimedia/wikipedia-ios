@@ -37,6 +37,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             }
             .store(in: &cancellables)
 
+        // A slide can set the color of the controls in its .riv, which is known only after it loads.
+        viewModel.$loadedContentStyles
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applyContentColor()
+            }
+            .store(in: &cancellables)
+
         // The donate button becomes a spinner while the donate configuration loads.
         viewModel.$isLoadingDonate
             .receive(on: DispatchQueue.main)
@@ -196,8 +204,9 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         WMFYearInReviewNavigationItems.applyTintColor(contentColor, to: navigationItem)
     }
 
+    /// The color from the .riv once the slide has loaded, otherwise the style the factory gave it.
     private var contentColor: UIColor {
-        viewModel.currentSlide?.contentColor ?? theme.text
+        viewModel.currentContentColor ?? theme.text
     }
 
     @objc private func tappedClose() {

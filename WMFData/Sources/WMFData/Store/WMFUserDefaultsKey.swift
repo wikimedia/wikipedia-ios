@@ -44,7 +44,7 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
     case hasSeenActivityTab = "has-seen-activity-tab"
-    case hasSeenActivityTabNewOnboarding = "has-seen-activity-tab-new-onboarding"
+    case hasSeenActivityTabOnboarding = "has-seen-activity-tab-new-onboarding"
     case hasSeenActiviyTabSurvey = "has-seen-activity-tab-survey"
     case activityTabVisitCount = "activity-tab-visit-count"
     case activityTabIsTimeSpentReadingOn = "activity-tab-time-spent-reading"
@@ -137,4 +137,8 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsForceYiRUserDataState = "dev-settings-force-yir-user-data-state"
     case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
+
+    // Local notifications
+    case localNotificationsHandledDays = "local-notifications-handled-days"
+    case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"
 }

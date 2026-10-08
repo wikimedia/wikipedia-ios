@@ -95,6 +95,16 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
 
                 return date >= activeStartDate && date <= activeEndDate
             }
+
+            /// The "top X%" of readers globally that `readCount` puts the reader in, for example `50`
+            /// or `0.01`. The value comes from the `topReadPercentages` buckets. It is `nil` when the
+            /// count is not in a bucket, thus below the 50th percentile.
+            public func topReadPercentage(forReadCount readCount: Int) -> Double? {
+                let bucket = topReadPercentages.first { bucket in
+                    readCount >= bucket.min && readCount <= (bucket.max ?? .max)
+                }
+                return bucket.flatMap { Double($0.identifier) }
+            }
         }
         
         public func yir(year: Int) -> YearInReview? {

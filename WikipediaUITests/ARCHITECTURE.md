@@ -27,7 +27,7 @@ Good test methods are short chains of robot calls:
 
 ```swift
 launchWikipediaAppRobot(onboardingState: .completed)
-    .explore
+    .home
     .assertVisible()
     .openSearch()
     .openArticle(named: "Dog")

@@ -4,7 +4,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
-    var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? { get }
+    var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? { get }
     var forceYiR2026Announcement: Bool { get }
     func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse?
 }
@@ -136,12 +136,12 @@ public extension WMFDeveloperSettingsDataControlling {
     /// Debugging convenience: which Year in Review experience to force, regardless of how much
     /// personalized data the account has. Nil means no override. Has an effect only when
     /// `forceYiREntryPoint2026` is also true.
-    public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? {
+    public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? {
         get {
             guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
                 return nil
             }
-            return WMFYearInReviewDataController.YiRUserDataState(rawValue: rawValue)
+            return WMFYearInReviewDataController.YiRForcedExperience(rawValue: rawValue)
         }
         set {
             if let newValue {
@@ -166,8 +166,7 @@ public extension WMFDeveloperSettingsDataControlling {
     // MARK: - Home
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
-    /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
-    /// `enableHomeTab` is also true.
+    /// feed (replacing the embedded legacy Explore feed) and its settings.
     @objc public var enableHomePhase2: Bool {
         get { loadFlag(.developerSettingsEnableHomePhase2) }
         set {
@@ -179,10 +178,10 @@ public extension WMFDeveloperSettingsDataControlling {
         }
     }
 
-    /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
-    /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
+    /// True while the legacy Explore feed backs the Home tab's Community segment (phase 2 off).
+    /// In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB && !enableHomePhase2
+        !enableHomePhase2
     }
 
     // MARK: - Fundraising
@@ -320,6 +319,19 @@ public extension WMFDeveloperSettingsDataControlling {
                 try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue)
             }
         }
+    }
+
+    // MARK: - Local Notifications
+
+    /// Gates the daily top read local notification prototype. Off by default.
+    public var enableDailyTopReadNotifications: Bool {
+        get { Self.enableDailyTopReadNotifications }
+        set { saveFlag(.developerSettingsEnableDailyTopReadNotifications, newValue) }
+    }
+
+    /// Static so app launch and background refresh can read the flag without initializing `shared`.
+    public static var enableDailyTopReadNotifications: Bool {
+        (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDailyTopReadNotifications.rawValue)) ?? false
     }
 
     // MARK: - Remote Feature Flags

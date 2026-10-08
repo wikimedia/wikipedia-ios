@@ -8,6 +8,40 @@ import WMFNativeLocalizations
 /// navigation bar, the toolbar and the injected text.
 final class YearInReviewCoordinator: NSObject, Coordinator {
 
+    /// Fills the Year in Review report for the target year. The data controller checks the remote
+    /// config, the active dates, the Settings toggle and the country, and returns `nil` when one of
+    /// them stops the population.
+    ///
+    /// - Parameter regenerate: deletes the report first, so every slide is built again from the
+    ///   current data, frozen slides too. Only the developer settings use it.
+    @discardableResult
+    static func populateReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+        guard let appLanguage = dataStore.languageLinkController.appLanguage,
+              let countryCode = Locale.current.region?.identifier else {
+            return nil
+        }
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
+        let dataController = try WMFYearInReviewDataController()
+
+        if regenerate {
+            try await dataController.deleteYearInReviewReport(year: WMFYearInReviewDataController.targetYear)
+        }
+
+        return try await dataController.populateYearInReviewReportData(
+            for: WMFYearInReviewDataController.targetYear,
+            countryCode: countryCode,
+            primaryAppLanguageProject: project,
+            username: dataStore.authenticationManager.authStatePermanentUsername,
+            userID: permanentUser?.userID,
+            globalUserID: permanentUser?.globalUserID,
+            savedSlideDataDelegate: dataStore.savedPageList,
+            legacyPageViewsDataDelegate: dataStore,
+            mainPageIdentifier: dataStore
+        )
+    }
+
     var theme: Theme
     var navigationController: UINavigationController
 
@@ -87,14 +121,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Presentation
 
-    /// `userDataState` is nil for the profile entry point, which does not pick slides here.
+    /// `userDataState` is nil for the profile entry point, which does not pick slides here. The data
+    /// controller picks it then, and the developer settings can override it.
     ///
     /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
-    /// has data. `userDataState` is a temporary proxy for that (see `dataRichDistinctArticleThreshold`
+    /// has data. `userDataState` is a temporary proxy for that (see `dataRichEligibleSlideThreshold`
     /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
     private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
+        // `fetchUserDataState()` runs on the main actor. This method only runs on the main thread,
+        // because it presents view controllers.
+        let userDataState = userDataState ?? MainActor.assumeIsolated {
+            (try? dataController.fetchUserDataState()) ?? .lowData
+        }
+
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(for: userDataState),
+            slides: slideFactory.makeSlides(
+                userDataState: userDataState,
+                forcesAllEmptyStates: dataController.forcesAllEmptyStates
+            ),
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
             loggingDelegate: self

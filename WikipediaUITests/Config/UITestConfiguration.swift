@@ -15,7 +15,7 @@ struct UITestConfiguration {
     let resetsPreferredLanguages: Bool
     let suppressesActivityTabOnboarding: Bool
     let suppressesGamesAnnouncement: Bool
-    let enablesHomeTab: Bool
+    let suppressesHomeOnboarding: Bool
     let themeName: String?
     let languageCode: String
 
@@ -28,7 +28,7 @@ struct UITestConfiguration {
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
         suppressesGamesAnnouncement: Bool = true,
-        enablesHomeTab: Bool = false
+        suppressesHomeOnboarding: Bool = true
     ) {
         self.onboardingState = onboardingState
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
@@ -36,7 +36,7 @@ struct UITestConfiguration {
         self.resetsPreferredLanguages = resetsPreferredLanguages
         self.suppressesActivityTabOnboarding = suppressesActivityTabOnboarding
         self.suppressesGamesAnnouncement = suppressesGamesAnnouncement
-        self.enablesHomeTab = enablesHomeTab
+        self.suppressesHomeOnboarding = suppressesHomeOnboarding
         self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? defaultLanguageCode
     }
 
@@ -59,13 +59,11 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.suppressGamesAnnouncement, value: "YES"))
         }
 
+        if suppressesHomeOnboarding {
+            argumentValues.append(UITestLaunchArgumentValue(.suppressHomeOnboarding, value: "YES"))
+        }
+
         argumentValues.append(UITestLaunchArgumentValue(.suppressYearInReviewAnnouncement, value: "YES"))
-
-        // Always passed explicitly: the developer-settings flag persists across launches,
-        // so a test that omitted it would inherit whatever the previous test set.
-        argumentValues.append(UITestLaunchArgumentValue(.enableHomeTab, value: enablesHomeTab ? "YES" : "NO"))
-
-        argumentValues.append(UITestLaunchArgumentValue(.suppressOneTimeHomeOnboarding, value: "YES"))
         argumentValues.append(UITestLaunchArgumentValue(.appleLanguages, value: "(\(languageCode))"))
         argumentValues.append(UITestLaunchArgumentValue(.httpClientProfile, value: httpClientProfile))
         argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))
