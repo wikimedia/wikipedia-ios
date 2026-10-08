@@ -1107,5 +1107,21 @@
 			<string>%1$d visits</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>That puts you in the top %1$@ of Wikipedia readers globally. The average person reads %2$#@v2@ a year.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d article</string>
+			<key>other</key>
+			<string>%2$d articles</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

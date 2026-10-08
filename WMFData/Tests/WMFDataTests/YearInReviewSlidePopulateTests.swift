@@ -169,6 +169,69 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.readCount, 2, "only the January 1 and November 30 views are inside January 1 to November 30")
     }
 
+    private func readCountPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> WMFYearInReviewReadData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewReadCountSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        return try decode(WMFYearInReviewReadData.self, from: try await populatedPayload(controller))
+    }
+
+    func testReadCountExcludesPagesOutsideTheMainNamespace() async throws {
+        let when = try date(month: 5, day: 1, hour: 10)
+        try await seedPageViews([pageView("Kept", at: when)])
+        let pageViewsDataController = try WMFPageViewsDataController()
+        _ = try await pageViewsDataController.addPageView(title: "Talk_Page", namespaceID: 1, project: enProject, previousPageViewObjectID: nil, timestamp: when)
+        _ = try await pageViewsDataController.addPageView(title: "Some_Template", namespaceID: 10, project: enProject, previousPageViewObjectID: nil, timestamp: when)
+
+        let payload = try await readCountPayload()
+
+        XCTAssertEqual(payload.readCount, 1)
+    }
+
+    func testReadCountExcludesMainPages() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        let when = try date(month: 3, day: 4, hour: 9)
+        try await seedPageViews([
+            pageView("Main_Page", at: when),
+            WMFLegacyPageView(title: "Pagina_principale", project: itProject, viewedDate: when, latitude: nil, longitude: nil),
+            // The same title on another wiki is an ordinary article.
+            pageView("Pagina_principale", at: when),
+            pageView("Kept", at: when)
+        ])
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await readCountPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.readCount, 2, "the English and Italian main pages are left out")
+    }
+
+    func testReadCountAsksForTheMainPageOnceForEachWiki() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        let when = try date(month: 3, day: 4, hour: 9)
+        var views = (1...20).map { pageView("Article_\($0)", at: when) }
+        views += (1...5).map { WMFLegacyPageView(title: "Articolo_\($0)", project: itProject, viewedDate: when, latitude: nil, longitude: nil) }
+        views.append(WMFLegacyPageView(title: "PAGINA_PRINCIPALE", project: itProject, viewedDate: when, latitude: nil, longitude: nil))
+        try await seedPageViews(views)
+
+        // The app returns the title in upper case, so the case of the stored title must not matter.
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await readCountPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.readCount, 25)
+        XCTAssertEqual(identifier.requestedProjectIDs.sorted(), [enProject.id, itProject.id].sorted(), "one request for each wiki, not one for each article")
+    }
+
+    func testReadCountIsEligibleFromThreeArticles() async throws {
+        let when = try date(month: 3, day: 4, hour: 9)
+        try await seedPageViews([pageView("Alpha", at: when), pageView("Beta", at: when)])
+        let twoArticles = try await readCountPayload()
+        XCTAssertFalse(twoArticles.isEligible, "two articles show the empty state")
+
+        try await seedPageViews([pageView("Gamma", at: when)])
+        let threeArticles = try await readCountPayload()
+        XCTAssertTrue(threeArticles.isEligible)
+    }
+
     // MARK: - topArticles
 
     private typealias TopArticlesData = WMFYearInReviewTopArticlesSlideData
@@ -176,8 +239,10 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     private final class StubMainPageIdentifier: WMFMainPageIdentifying {
         let mainPages: [(title: String, projectID: String)]
         init(mainPages: [(title: String, projectID: String)]) { self.mainPages = mainPages }
-        func isMainPage(title: String, project: WMFProject) async -> Bool {
-            mainPages.contains { $0.title == title && $0.projectID == project.id }
+        private(set) var requestedProjectIDs: [String] = []
+        func mainPageTitle(for project: WMFProject) async -> String? {
+            requestedProjectIDs.append(project.id)
+            return mainPages.first { $0.projectID == project.id }?.title
         }
     }
 

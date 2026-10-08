@@ -16089,7 +16089,7 @@
 			repositoryURL = "https://github.com/rive-app/rive-ios.git";
 			requirement = {
 				kind = exactVersion;
-				version = 6.26.0;
+				version = 6.28.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

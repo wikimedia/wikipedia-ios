@@ -1727,10 +1727,15 @@
 "year-in-review-2026-announcement-exit-toast-title" = "Toast displayed after the user dismisses the Year in Review announcement, telling them where to find the feature later.";
 "year-in-review-2026-feedback-email-first-line" = "Opening line of the pre-filled feedback email body for the Year in Review feature.";
 "year-in-review-2026-feedback-email-subject" = "Subject line of the pre-filled feedback email for the Year in Review feature.";
-"year-in-review-2026-reread-articles-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not visit at least two articles two or more times each.";
-"year-in-review-2026-reread-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each.";
+"year-in-review-2026-reread-articles-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.";
+"year-in-review-2026-reread-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.";
 "year-in-review-2026-reread-articles-title" = "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.";
 "year-in-review-2026-reread-articles-visit-count" = "Shown under each article on the Year in Review slide of articles visited multiple times. $1 is replaced with the number of times the reader visited the article this year.";
+"year-in-review-2026-total-articles-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.";
+"year-in-review-2026-total-articles-empty-title" = "Title of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.";
+"year-in-review-2026-total-articles-subtitle" = "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers below the top 50%.";
+"year-in-review-2026-total-articles-title" = "Title of the Year in Review slide that shows the number of unique articles the reader read this year. The number follows it.";
+"year-in-review-2026-total-articles-top-percent-subtitle" = "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers in the top 50% or better. $1 is replaced with a percentage, for example \"50%\". $2 is replaced with the number of articles the average person reads in a year.";
 "year-in-review-button-title" = "Year in review title. Appears on buttons in the profile and settings menu.";
 "year-in-review-feature-announcement-title-personalized" = "Title for year in review feature announcement";
 "year-in-review-feature-explore-body-v3" = "Body for year in review feature announcement - version 3";

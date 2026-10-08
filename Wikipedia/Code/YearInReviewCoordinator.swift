@@ -72,7 +72,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     @discardableResult
     func start() -> Bool {
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(),
+            slides: slideFactory.makeSlides(
+                userDataState: (try? dataController.fetchUserDataState()) ?? .lowData,
+                forcesAllEmptyStates: dataController.forcesAllEmptyStates
+            ),
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
             loggingDelegate: self
