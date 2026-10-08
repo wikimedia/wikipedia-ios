@@ -20,17 +20,19 @@ public struct WMFSemanticSearchInfoView: View {
         self.fittingHeightDidChange = fittingHeightDidChange
     }
 
+    // The button sits below the scroll view, not in a safe area inset, so VoiceOver reads the
+    // text before the button.
     public var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: WMFSpacing.xLarge) {
-                description
-                example
+        VStack(spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: WMFSpacing.xLarge) {
+                    description
+                    example
+                }
+                .padding(WMFSpacing.large)
+                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { scrollContentHeight = $0 }
             }
-            .padding(WMFSpacing.large)
-            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { scrollContentHeight = $0 }
-        }
-        .scrollBounceBehavior(.basedOnSize)
-        .safeAreaInset(edge: .bottom) {
+            .scrollBounceBehavior(.basedOnSize)
             learnMoreButton
                 .padding(WMFSpacing.large)
                 .background(Color(theme.paperBackground))
@@ -52,6 +54,8 @@ public struct WMFSemanticSearchInfoView: View {
         .font(Font(WMFFont.for(.callout)))
         .foregroundStyle(Color(theme.text))
         .frame(maxWidth: .infinity, alignment: .leading)
+        // VoiceOver reads the two paragraphs as one element.
+        .accessibilityElement(children: .combine)
     }
 
     private var example: some View {
@@ -67,8 +71,9 @@ public struct WMFSemanticSearchInfoView: View {
             // The example shows a result only. It does not open the article.
             WMFSemanticSearchResultCardView(viewModel: viewModel.exampleResult)
                 .allowsHitTesting(false)
-                .accessibilityRemoveTraits(.isButton)
         }
+        // VoiceOver skips the example. Without the visual, it reads like a real result.
+        .accessibilityHidden(true)
     }
 
     private var learnMoreButton: some View {
