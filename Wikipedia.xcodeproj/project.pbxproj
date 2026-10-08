@@ -8427,9 +8427,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				KnownAssetTags = (
-					WMFWelcome,
-				);
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1640;

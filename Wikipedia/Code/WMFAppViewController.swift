@@ -1065,11 +1065,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard presentedViewController == nil else { return }
 
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
-        // check did see onboarding but NOT new onboarding, make sure they haven't seen one time onboarding yet
-        let hasSeenOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
+        // Show the sheet only to a reader who saw the old onboarding, did not see the Home onboarding, and did not see this sheet.
+        let hasSeenHomeOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
         let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
 
-        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenOnboarding else { return }
+        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenHomeOnboarding else { return }
 
         let viewModel = WMFOnboardingViewModel(
             title: WMFLocalizedString(

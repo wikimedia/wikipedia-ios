@@ -286,8 +286,8 @@ final class AppOnboardingCoordinator: NSObject {
 
     // MARK: - Instrumentation
 
-    /// Sends the new-install `app_open` event once per device, matching the legacy welcome screen
-    /// (`WMFWelcomeInitialViewController`). Shares the same saved flag, so a device never sends it twice.
+    /// Sends the new-install `app_open` event once per device, the same event that the old welcome
+    /// screen sent. It uses the same saved flag, so a device that sent it before does not send it again.
     private func sendNewInstallOnboardingStartEventIfNeeded() {
         let homeDataController = WMFHomeDataController.shared
         guard !homeDataController.didSendNewInstallOnboardingStartEvent() else { return }
