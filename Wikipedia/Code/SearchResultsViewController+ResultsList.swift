@@ -164,7 +164,9 @@ extension SearchResultsViewController {
                 saveLastSearch()
                 semanticSearchTappedAction?(query, project)
             },
-            infoAction: { _ in },
+            infoAction: { [weak self] _ in
+                self?.semanticSearchInfoTappedAction?(languageCode)
+            },
             hideAction: { [weak self] _ in
                 self?.hideSemanticSearchEntryPoint(languageCode: languageCode)
             }

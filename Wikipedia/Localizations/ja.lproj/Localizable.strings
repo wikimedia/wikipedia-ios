@@ -917,6 +917,12 @@
 "search-recent-empty" = "最近の検索はまだありません";
 "search-recent-title" = "最近の検索";
 "search-result-redirected-from" = "$1 から転送されました";
+"search-semantic-info-sources" = "文章は、人々が調査・執筆・編集した記事から抜粋されています。すべて出典が示されているので、元の情報を確認できます。";
+"search-semantic-info-summary" = "Wikipediaの記事から質問への答えを見つけ、関連する箇所に直接移動できます。";
+"search-semantic-info-title" = "この機能とは？";
+"search-semantic-results-contributors" = "{{PLURAL:$1|$1 貢献者}}";
+"search-semantic-results-last-updated" = "最終更新 $1";
+"search-semantic-results-references" = "{{PLURAL:$1|$1 参考文献}}";
 "search-title" = "検索";
 "settings-account" = "アカウント";
 "settings-appearance" = "アプリのテーマ";

@@ -73,6 +73,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Coordinators
 
     private var semanticSearchResultsCoordinator: SemanticSearchResultsCoordinator?
+    private var semanticSearchInfoCoordinator: SemanticSearchInfoCoordinator?
     private var _yirCoordinator: YearInReviewCoordinator?
     private var yirCoordinator: YearInReviewCoordinator? {
         guard let navigationController, let yirDataController, let dataStore else { return nil }
@@ -137,6 +138,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         vc.semanticSearchSettingsTappedAction = { [weak self] in
             self?.showSearchSettings()
+        }
+        vc.semanticSearchInfoTappedAction = { [weak self] languageCode in
+            self?.showSemanticSearchInfo(languageCode: languageCode)
         }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
@@ -216,6 +220,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     /// The id MediaWiki gives the heading of a section: the title with underscores for spaces.
     private static func sectionAnchor(for sectionTitle: String) -> String {
         sectionTitle.replacingOccurrences(of: " ", with: "_")
+    }
+
+    // MARK: - Semantic search info
+
+    private func showSemanticSearchInfo(languageCode: String) {
+        guard let navigationController else { return }
+
+        let coordinator = SemanticSearchInfoCoordinator(navigationController: navigationController, languageCode: languageCode)
+        semanticSearchInfoCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - History
