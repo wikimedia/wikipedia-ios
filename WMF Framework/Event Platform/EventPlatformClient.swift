@@ -979,6 +979,11 @@ import WMFTestKitchen
             return
         }
         guard let config = streamConfigs[stream] else {
+            if stream == .productMetricsAppBase {
+                storageManager.push(data: data, stream: stream)
+                return
+            }
+
             DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .unconfiguredStream)
             return
