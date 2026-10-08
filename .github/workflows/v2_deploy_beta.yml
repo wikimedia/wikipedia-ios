@@ -715,10 +715,18 @@ jobs:
 
           with urllib.request.urlopen(req) as resp:
             result = json.loads(resp.read())
-            if not result.get('error_code'):
-              print(f"✓ Created release task 'Release {version}'")
-            else:
-              print(f"✗ Failed to create release task: {result.get('error_info')}")
+
+          # Fail the run rather than printing and going green. The release
+          # candidate branch was pushed back in step 9, so a cycle with a branch
+          # and no task is a state both modes refuse: mode=existing wants a task,
+          # mode=new refuses because the branch already exists. Going green here
+          # means nobody finds out until the next beta is dispatched.
+          if result.get('error_code'):
+            print(f"::error::Failed to create the release task for {version}: {result.get('error_info')}")
+            print(f"::error::{branch} was already pushed, so this cycle is half-created. To finish it, create a Phabricator task titled 'Release {version}' in the Wikipedia-iOS-App Release project and re-run with mode=existing. To abandon it, delete {branch} and re-run with mode=new.")
+            exit(1)
+
+          print(f"✓ Created release task 'Release {version}'")
           EOF
 
       # -------------------------------------------------------
