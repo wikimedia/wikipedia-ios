@@ -308,9 +308,9 @@ import WMFTestKitchen
         }
 
         guard !Bundle.main.isAppExtension else {
-            /// Extensions rely on the cache the main app maintains. A widget process is
-            /// short-lived and about to be suspended — a retrying fetch of the
-            /// rate-limited streamconfigs MediaWiki API there is wasted traffic.
+            if cachedResponse == nil {
+                self.fetchStreamConfiguration(retries: 0, retryDelay: 0)
+            }
             return
         }
 
