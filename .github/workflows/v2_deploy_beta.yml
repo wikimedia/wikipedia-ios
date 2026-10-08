@@ -1,13 +1,36 @@
-name: External TestFlight
+name: V2 Deploy Beta
 
 on:
   workflow_dispatch:
     inputs:
-      version_override:
-        description: "Override the version (YYYY.MM.DD) instead of using today's date - use this to reuse an existing version instead of getting a new one. Leave blank to use today's date."
+      mode:
+        description: 'Start a new release cycle, or continue the one already in progress'
+        required: true
+        type: choice
+        default: existing
+        options:
+          - existing
+          - new
+      version:
+        description: 'Only for mode=new: the version to release, as YYYY.MM.DD. Normally the date you plan to ship to the App Store. Ignored when mode=existing.'
         required: false
         type: string
         default: ''
+
+permissions:
+  contents: write
+
+env:
+  XCODE_VERSION: "26.6"
+
+# Serialize runs, for the same reason as V2 Deploy Alpha: the build number is
+# read from the highest betas/ tag at checkout, but that tag is not pushed
+# until the run finishes, so overlapping runs would compute the same number and
+# App Store Connect would reject the second upload. cancel-in-progress stays
+# false so a run is never killed between its TestFlight upload and its tag push.
+concurrency:
+  group: v2-deploy-beta
+  cancel-in-progress: false
 
 jobs:
   build-and-upload:
@@ -20,16 +43,215 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # -------------------------------------------------------
-      # 1. Compute build number
+      # 0. Fail fast if the bot token is missing
+      #
+      #    Pushes below use wmf-apps-ci. If the secret resolves empty the
+      #    push URL still looks valid but carries no credentials, so git
+      #    falls back to the AUTHORIZATION header actions/checkout leaves
+      #    configured - GITHUB_TOKEN - which cannot push a ref touching
+      #    .github/workflows. That surfaces as a confusing "GitHub App"
+      #    rejection after the build has already uploaded, so check here.
+      # -------------------------------------------------------
+      - name: Check bot token is available
+        env:
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is empty or not available to this run. Tags and branches cannot be pushed as wmf-apps-ci, and falling back to GITHUB_TOKEN would be rejected. Check the repository secret."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+          xcodebuild -version
+
+      # -------------------------------------------------------
+      # 1. Resolve the release cycle - its version, branch and task
+      #
+      #    A cycle is a release-candidate/YYYY.MM.DD branch plus an open
+      #    Phabricator release task, and the two are kept in lockstep. Only
+      #    one cycle may be open at a time, so neither mode ever has to
+      #    guess which branch to build; a second one is an error. Hotfixes
+      #    are meant to branch under hotfix/ and get their own workflow
+      #    rather than opening a second release candidate here.
+      #
+      #    mode=new starts a cycle at the version you enter - normally the
+      #    date you plan to ship, so the version a build carries is the date
+      #    it is meant to be released on rather than the date it was built.
+      #    It refuses to run if either a release candidate branch or an open
+      #    release task is already there, so a cycle has to be finished and
+      #    cleaned up before the next one starts.
+      #
+      #    mode=existing continues the cycle already in progress and takes
+      #    the version from its branch, so no version has to be entered
+      #    again. It refuses to run if there is no cycle to continue.
+      # -------------------------------------------------------
+      - name: Find open release task
+        id: release_task
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import re
+          import os
+
+          token = os.environ['PHAB_TOKEN']
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.search',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+              'constraints[statuses][0]': 'open',
+              'order': 'newest',
+              'limit': '100',
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+
+          # Fail rather than guess. This step gates whether a new cycle may
+          # start, so an unreachable Phabricator has to stop the run - and it
+          # runs before the build, so nothing is wasted by stopping here.
+          if data.get('error_code'):
+            print(f"::error::Phabricator lookup failed: {data.get('error_info')}")
+            raise SystemExit(1)
+
+          tasks = [
+            t for t in data.get('result', {}).get('data', [])
+            if release_pattern.match(t.get('fields', {}).get('name', ''))
+          ]
+
+          names = '; '.join(f"T{t['id']} {t['fields']['name']}" for t in tasks)
+          versions = ' '.join(t['fields']['name'].split()[1] for t in tasks)
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+            out.write(f"count={len(tasks)}\n")
+            out.write(f"names={names}\n")
+            out.write(f"versions={versions}\n")
+
+          print(f"Found {len(tasks)} open release task(s)" + (f": {names}" if tasks else ""))
+          EOF
+
+      - name: Resolve release candidate branch
+        id: branch
+        env:
+          MODE: ${{ github.event.inputs.mode }}
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+          TASK_COUNT: ${{ steps.release_task.outputs.count }}
+          TASK_NAMES: ${{ steps.release_task.outputs.names }}
+          TASK_VERSIONS: ${{ steps.release_task.outputs.versions }}
+        run: |
+          git fetch origin --tags --prune '+refs/heads/*:refs/remotes/origin/*'
+
+          CANDIDATES=$(git branch -r --list 'origin/release-candidate/*' \
+            | sed 's|^[[:space:]]*origin/||' \
+            | grep -E '^release-candidate/[0-9]{4}\.[0-9]{2}\.[0-9]{2}$' \
+            | sort -r)
+
+          COUNT=$(printf '%s' "$CANDIDATES" | grep -c . || true)
+          EXISTING=$(printf '%s\n' "$CANDIDATES" | head -1)
+          CANDIDATE_LIST=$(printf '%s' "$CANDIDATES" | tr '\n' ' ')
+
+          if [ "$MODE" = "new" ]; then
+            if [ -z "$INPUT_VERSION" ]; then
+              echo "::error::mode=new needs a version. Re-run and enter the release date as YYYY.MM.DD."
+              exit 1
+            fi
+
+            # The branch name and the Phabricator task title are both matched
+            # by date-shaped regexes elsewhere in this workflow, so a version
+            # in any other shape would silently fail to be found later.
+            if ! printf '%s' "$INPUT_VERSION" | grep -qE '^[0-9]{4}\.[0-9]{2}\.[0-9]{2}$'; then
+              echo "::error::Version '$INPUT_VERSION' is not YYYY.MM.DD."
+              exit 1
+            fi
+
+            if [ "$COUNT" -gt 0 ]; then
+              echo "::error::Cannot start $INPUT_VERSION - release candidate branch already exists: $CANDIDATE_LIST. Finish and delete that cycle's branch, or re-run with mode=existing."
+              exit 1
+            fi
+
+            if [ "$TASK_COUNT" -gt 0 ]; then
+              echo "::error::Cannot start $INPUT_VERSION - an open Phabricator release task already exists: $TASK_NAMES. Close it, or re-run with mode=existing."
+              exit 1
+            fi
+
+            VERSION="$INPUT_VERSION"
+            BRANCH="release-candidate/$VERSION"
+            # Cut from the dispatched ref (HEAD as checked out above) rather
+            # than hardcoding main, so a test run against a feature branch
+            # builds that branch instead of silently building main. It is
+            # only pushed once the build has uploaded (step 9), so a failed
+            # build doesn't leave a stray branch behind.
+            echo "Starting release cycle $VERSION, cutting $BRANCH from ${GITHUB_REF_NAME}"
+            git checkout -B "$BRANCH"
+            echo "created=true" >> $GITHUB_OUTPUT
+          else
+            if [ -n "$INPUT_VERSION" ]; then
+              echo "::warning::Ignoring version '$INPUT_VERSION' - mode=existing takes its version from the release candidate branch."
+            fi
+
+            # A cycle is exactly one release candidate branch and exactly
+            # one open release task, both naming the same version. Anything
+            # else means the cycle is not in a state worth building from, so
+            # say which part is wrong and stop here - before a 25 minute
+            # archive, a TestFlight upload and a beta review submission.
+            if [ "$COUNT" -eq 0 ]; then
+              echo "::error::No release-candidate/* branch exists, so there is no cycle to continue. Re-run with mode=new and a version to start one."
+              exit 1
+            fi
+
+            if [ "$COUNT" -gt 1 ]; then
+              echo "::error::$COUNT release candidate branches exist: $CANDIDATE_LIST. Only one is allowed at a time - V2 Release Wrap Up deletes it at the end of a cycle. Delete all but the one you are releasing, then re-run."
+              exit 1
+            fi
+
+            if [ "$TASK_COUNT" -eq 0 ]; then
+              echo "::error::No open Phabricator release task exists, so there is no cycle to continue. Re-run with mode=new and a version to start one."
+              exit 1
+            fi
+
+            if [ "$TASK_COUNT" -gt 1 ]; then
+              echo "::error::$TASK_COUNT open Phabricator release tasks exist: $TASK_NAMES. Only one is allowed at a time. Close all but the one for the cycle you are releasing, then re-run."
+              exit 1
+            fi
+
+            BRANCH="$EXISTING"
+            VERSION="${BRANCH#release-candidate/}"
+
+            # Exactly one task is open by this point, so TASK_VERSIONS holds
+            # exactly one version. It has to be the branch's: if they name
+            # different releases there is no safe guess about which one this
+            # build belongs to.
+            if [ "$TASK_VERSIONS" != "$VERSION" ]; then
+              echo "::error::Release candidate branch is $VERSION but the open release task is for $TASK_VERSIONS ($TASK_NAMES). Rename whichever is wrong so the two match, then re-run."
+              exit 1
+            fi
+
+            echo "Continuing release cycle $VERSION (branch $BRANCH, task $TASK_NAMES)"
+            git checkout -B "$BRANCH" "origin/$BRANCH"
+            echo "created=false" >> $GITHUB_OUTPUT
+          fi
+
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building $VERSION from $BRANCH at $(git rev-parse HEAD)"
+
+      # -------------------------------------------------------
+      # 2. Compute build number
       # -------------------------------------------------------
       - name: Compute build number
         id: versioning
-        env:
-          VERSION_OVERRIDE: ${{ github.event.inputs.version_override }}
         run: |
-          VERSION="${VERSION_OVERRIDE:-$(date -u "+%Y.%m.%d")}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
           LATEST=$(git tag --list 'betas/*' \
             | sed 's|betas/||' \
             | grep -E '^[0-9]+$' \
@@ -37,10 +259,10 @@ jobs:
             | tail -1)
           BUILD=$(( ${LATEST:-0} + 1 ))
           echo "build=$BUILD" >> $GITHUB_OUTPUT
-          echo "Version: $VERSION, Build: $BUILD"
+          echo "Version: ${{ steps.branch.outputs.version }}, Build: $BUILD"
 
       # -------------------------------------------------------
-      # 2. Find new PRs since last release tag
+      # 3. Find new PRs since last release tag (for the release task)
       # -------------------------------------------------------
       - name: Find new PRs since last release
         id: prs
@@ -89,7 +311,7 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 3. Find new PRs since last beta tag (for Phabricator commenting)
+      # 4. Find new PRs since last beta tag (for Phabricator commenting)
       # -------------------------------------------------------
       - name: Find new PRs since last beta
         id: new_prs
@@ -135,9 +357,10 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 4. Fetch Phabricator tasks from PRs
-      #    - All PRs since last release → What to Test notes + release task
+      # 5. Fetch Phabricator tasks from PRs
+      #    - All PRs since last release → release task Included Tasks
       #    - New PRs since last beta → Phabricator commenting
+      #    (What to Test notes come from the Google Sheet, not from here)
       # -------------------------------------------------------
       - name: Fetch Phabricator tasks from PRs
         id: phab
@@ -189,6 +412,7 @@ jobs:
 
             return list(dict.fromkeys(phab_tasks))
 
+          # All tasks since last release → release task Included Tasks
           if all_pr_numbers_str:
             all_pr_numbers = [p for p in all_pr_numbers_str.split(',') if p]
             all_tasks = fetch_phab_tasks(all_pr_numbers)
@@ -200,6 +424,7 @@ jobs:
             open('/tmp/phab_tasks.txt', 'w').close()
             all_tasks = []
 
+          # New tasks since last beta → for Phabricator commenting
           if new_pr_numbers_str:
             new_pr_list = [p for p in new_pr_numbers_str.split(',') if p]
             new_tasks = fetch_phab_tasks(new_pr_list)
@@ -214,11 +439,13 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 5. Fetch "What to Test" notes from Google Sheet
+      # 6. Fetch "What to Test" notes from Google Sheet
+      #    External testers get per-locale notes, so these come from the
+      #    sheet rather than from the Phabricator task list.
       # -------------------------------------------------------
       - name: Fetch What to Test notes
         env:
-          VERSION: ${{ steps.versioning.outputs.version }}
+          VERSION: ${{ steps.branch.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
           python3 << 'EOF'
@@ -272,11 +499,11 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 6. Update version and build number in Info.plist files
+      # 7. Update version and build number in Info.plist files
       # -------------------------------------------------------
       - name: Update version and build number
         env:
-          VERSION: ${{ steps.versioning.outputs.version }}
+          VERSION: ${{ steps.branch.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
           PLISTS=(
@@ -301,7 +528,7 @@ jobs:
           echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
 
       # -------------------------------------------------------
-      # 7. Build and upload to TestFlight (external)
+      # 8. Build and upload to TestFlight (external)
       # -------------------------------------------------------
       - name: Install fastlane
         run: bundle install
@@ -318,28 +545,49 @@ jobs:
           APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
           APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
         run: |
-          bundle exec fastlane external_beta
+          bundle exec fastlane beta
 
       # -------------------------------------------------------
-      # 8. Tag the build
+      # 9. Push the release candidate branch and tag the build
       # -------------------------------------------------------
+      - name: Push release candidate branch
+        env:
+          BRANCH: ${{ steps.branch.outputs.branch }}
+          CREATED: ${{ steps.branch.outputs.created }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          if [ "$CREATED" = "true" ]; then
+            # Push as wmf-apps-ci like our other automated repo writes;
+            # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+            git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "HEAD:refs/heads/$BRANCH"
+            echo "Pushed new release candidate branch $BRANCH"
+          else
+            echo "$BRANCH already exists on remote, nothing to push"
+          fi
+
       - name: Tag build
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git tag "betas/$BUILD"
-          git push origin "betas/$BUILD"
+          # Push as wmf-apps-ci like our other automated repo writes;
+          # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "betas/$BUILD"
 
       # -------------------------------------------------------
-      # 9. Post to Phabricator tasks
+      # 10. Post to Phabricator tasks
       # -------------------------------------------------------
       - name: Post to Phabricator tasks
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           PHAB_TASK_URLS: ${{ steps.phab.outputs.phab_task_urls }}
-          VERSION: ${{ steps.versioning.outputs.version }}
+          VERSION: ${{ steps.branch.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
           if [ -z "$PHAB_TASK_URLS" ]; then
@@ -365,12 +613,13 @@ jobs:
           done
 
       # -------------------------------------------------------
-      # 10. Create Phabricator release task
+      # 11. Create Phabricator release task
       # -------------------------------------------------------
       - name: Create Phabricator release task
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
-          VERSION: ${{ steps.versioning.outputs.version }}
+          VERSION: ${{ steps.branch.outputs.version }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
         run: |
           python3 << 'EOF'
           import urllib.request
@@ -381,6 +630,7 @@ jobs:
 
           token = os.environ['PHAB_TOKEN']
           version = os.environ['VERSION']
+          branch = os.environ['BRANCH']
 
           release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
 
@@ -404,17 +654,24 @@ jobs:
             data = json.loads(resp.read())
 
           tasks = data.get('result', {}).get('data', [])
-          # An open release task without a release branch yet is the one
-          # still tracking main - reuse it instead of creating a duplicate.
-          existing_task = next(
-            (t for t in tasks
-             if release_pattern.match(t.get('fields', {}).get('name', ''))
-             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
-            , None
-          )
+
+          def matching_tasks(predicate):
+            return [
+              t for t in tasks
+              if release_pattern.match(t.get('fields', {}).get('name', ''))
+              and predicate(release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
+            ]
+
+          # A task already stamped with this run's release branch belongs to
+          # this cycle (submit_appstore stamps it), and a task with no branch
+          # yet is the one still tracking main. Either way, reuse it rather
+          # than creating a duplicate for the same version.
+          existing_task = (matching_tasks(lambda v: v == branch)
+                           or matching_tasks(lambda v: not v)
+                           or [None])[0]
 
           if existing_task:
-            print(f"Found existing open release task '{existing_task.get('fields', {}).get('name', '')}' without a release branch yet, skipping creation")
+            print(f"Found existing open release task '{existing_task.get('fields', {}).get('name', '')}' for this cycle, skipping creation")
             exit(0)
 
           print(f"No eligible open release task found, creating one for {version}...")
@@ -446,13 +703,14 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 11. Update release task with included tasks
+      # 12. Update release task with included tasks
       # -------------------------------------------------------
       - name: Update release task with included tasks
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           ALL_PHAB_TASK_URLS: ${{ steps.phab.outputs.all_phab_task_urls }}
-          VERSION: ${{ steps.versioning.outputs.version }}
+          VERSION: ${{ steps.branch.outputs.version }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
         run: |
           python3 << 'EOF'
           import urllib.request
@@ -463,6 +721,7 @@ jobs:
 
           token = os.environ['PHAB_TOKEN']
           version = os.environ['VERSION']
+          branch = os.environ['BRANCH']
           task_urls = os.environ.get('ALL_PHAB_TASK_URLS', '')
 
           if not task_urls:
@@ -492,18 +751,23 @@ jobs:
             data = json.loads(resp.read())
 
           tasks = data.get('result', {}).get('data', [])
-          # Skip any release task that's already associated with a release
-          # branch (i.e. already past Submit and in Apple's court) - only the
-          # task still tracking main should get updated here.
-          release_task = next(
-            (t for t in tasks
-             if release_pattern.match(t.get('fields', {}).get('name', ''))
-             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
-            , None
-          )
+
+          def matching_tasks(predicate):
+            return [
+              t for t in tasks
+              if release_pattern.match(t.get('fields', {}).get('name', ''))
+              and predicate(release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
+            ]
+
+          # Prefer the task already stamped with this run's release branch,
+          # then the one still tracking main. Any other branch-associated
+          # task belongs to an earlier cycle and is left alone.
+          release_task = (matching_tasks(lambda v: v == branch)
+                          or matching_tasks(lambda v: not v)
+                          or [None])[0]
 
           if not release_task:
-            print("No open release task found (or all open ones are already associated with a release branch), skipping")
+            print("No open release task found for this cycle, skipping")
             exit(0)
 
           task_phid = release_task['phid']
@@ -512,13 +776,27 @@ jobs:
 
           print(f"Found release task: '{current_title}' -> updating title to 'Release {version}'")
 
+          def set_field(description, field, value):
+            pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
+            if pattern.search(description):
+              return pattern.sub(rf'\1 {value}', description, count=1)
+            insertion = f"**{field}**: {value}"
+            if '**Included Tasks:**' in description:
+              before, marker, after = description.partition('**Included Tasks:**')
+              return before.rstrip() + "\n" + insertion + "\n\n" + marker + after
+            return description.rstrip() + f"\n\n{insertion}"
+
           # Keep the Release version field in the body in sync with the title
-          current_description = re.sub(
-            r'(\*\*Release version\*\*:).*',
-            rf'\1 {version}',
-            current_description,
-            count=1
-          )
+          current_description = set_field(current_description, 'Release version', version)
+
+          # Stamp the release branch now that it exists. This is what takes
+          # the task out of the nightly Alpha workflow's search, which looks
+          # for an open release task with no branch yet and retitles it to
+          # that night's date. Without this stamp, the next nightly run would
+          # rename this cycle's task and overwrite its Included Tasks with
+          # whatever is on main, leaving release_wrap_up unable to find
+          # "Release {version}" by title.
+          current_description = set_field(current_description, 'Release branch', branch)
 
           # Build new included tasks section
           task_ids = []
@@ -534,17 +812,19 @@ jobs:
           else:
             new_description = current_description.rstrip() + new_section
 
-          # Update task title and description
+          # Update the description only. The title is set once, when the
+          # task is created, and never rewritten: by this point the cycle
+          # check has already proved the task's version matches the branch,
+          # so a title write here could only ever rename a task that someone
+          # had deliberately changed.
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.edit',
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
               'objectIdentifier': task_phid,
-              'transactions[0][type]': 'title',
-              'transactions[0][value]': f'Release {version}',
-              'transactions[1][type]': 'description',
-              'transactions[1][value]': new_description,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': new_description,
             }).encode()
           )
 

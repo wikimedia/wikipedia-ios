@@ -31,47 +31,101 @@ In order to get our [localization tests](../WikipediaUnitTests/Code/TWNStringsTe
 
 Changes were then committed to git ([example](https://github.com/wikimedia/wikipedia-ios/pull/4507/commits/86d9f3150c2e5a021910eba0a3e21a96ad0a27e6)). 
 
-## Nightly Production Build
+## Deploys
 
-Our CI process distributes a new production Wikipedia app to TestFlight for internal testers each night against the latest commit in our `main` branch. If there are no new commits since the last distribution, this workflow does not run. This two-step process allows us to distribute conditionally each night:
+GitHub Actions is the primary deploy path. Each of these is a workflow in
+[.github/workflows](../.github/workflows), and each pushes its own git tag so we
+know which commit a given build came from:
 
-### GitHub Action
+| Workflow | App | Scheme | Tag |
+| --- | --- | --- | --- |
+| V2 Deploy Design Review | Wikipedia Experimental | `Experimental` | `exp/{build number}` |
+| V2 Deploy Alpha | Wikipedia Alpha | `Alpha` | `alphas/{build number}` |
+| V2 Deploy Beta | Wikipedia | `Wikipedia` | `betas/{build number}` |
 
-Every night, we run a Github [Action](../.github/workflows/tag_latest_beta.yml) titled "Tag Latest Beta". This script moves the git tag `latest_beta` to the latest commit in our `main` branch. If the `latest_beta` tag is already located at the last commit, it does nothing.
+**These are not live yet.** The `V2` workflows are being tested alongside the
+originals they replace - `Design Review`, `Internal TestFlight`,
+`External TestFlight`, `App Store Submission` and `Release Wrap Up` - which are
+still present and still what actually deploys. `Internal TestFlight` in
+particular is still on its nightly schedule. At cutover the originals are
+deleted, the `V2` prefix comes off these, and this note goes away.
 
-### Xcode Cloud
+`V2 Deploy Design Review` is kicked off manually by engineers as-needed. We use
+that app to demonstrate implementation of a task or prototype that needs design
+review, so designers can sign off before a task goes through PR review.
 
-Xcode Cloud has a workflow titled "Nightly Build" that is set to trigger a build distribution whenever the `latest_beta` tag changes.
+`V2 Deploy Alpha` builds the `Alpha` scheme, which points at various staging
+server environments and has feature flags turned on for in-development testing.
+It is meant to build every merge into `main`, and skips the build when the
+latest commit is already tagged. That push trigger is commented out until
+cutover, so for now it only runs when dispatched by hand - leaving it on would
+double up with `Internal TestFlight`, which is still scheduled nightly. Runs are serialized, because the build number
+comes from the highest `alphas/` tag and that tag is not pushed until the run
+finishes.
 
-Once a build completes in this workflow, it pushes a git tag entitled `betas/{build number}` to the repository, so that we know which commit a nightly build is built against. It performs this task via [ci_post_xcodebuild.sh](../ci_scripts/ci_post_xcodebuild.sh) and our [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh) script.
+`V2 Deploy Beta` builds the production app from a `release-candidate/YYYY.MM.DD`
+branch. Unlike the other two it does not use the current date: dispatch it with
+`mode=new` and a version to start a cycle - normally the date you plan to ship,
+so a build carries the date it is meant to be released on - or with
+`mode=existing` to keep building the cycle already in progress, which takes its
+version from the existing branch.
 
-## Weekly Staging Build
+A cycle is that branch plus an open Phabricator release task, and the two are
+kept in lockstep. `mode=new` refuses to run while either still exists, so a
+cycle has to be finished and cleaned up before the next one starts;
+`mode=existing` refuses to run when there is no cycle to continue.
 
-Our CI process distributes a new staging Wikipedia app to TestFlight for internal testers once a week on Sundays. This staging app is pointed to various staging server environments, as well as has feature flags turned on for in-development feature testing.
+Before building anything, `mode=existing` checks that the cycle is in a sane
+state: exactly one `release-candidate/*` branch, exactly one open release task,
+and both naming the same version. Any other combination fails the run in about
+a minute, naming which part is wrong, rather than partway through an archive
+and upload. `V2 Release Wrap Up` deletes the branch at the end of a cycle, so a
+second one generally means a wrap-up that never ran. Hotfixes are meant to
+branch under `hotfix/` and get their own workflow rather than opening a second
+release candidate.
 
-This is done through Xcode Cloud on a schedule, via the workflow named "Weekly Staging Build". There is no additional GitHub Action component to make it conditional, like we do with the nightly build.
+Release submission and wrap-up are covered by `V2 Submit App Store`, which
+submits a build already in TestFlight rather than building one, and
+`V2 Release Wrap Up`.
 
-## Experimental Build
+### Xcode Cloud fallback
 
-We also have an Xcode Cloud workflow that distributes a new experimental Wikipedia app for internal testers. This workflow must be kicked off manually by engineers as-needed. It can be run against any branch and defaults to the production server environment.
+Xcode Cloud has equivalent workflows named "Beta Build", "Alpha Build" and
+"Experimental Build". These are the fallback for when GitHub Actions is
+unavailable, and they set version and build numbers and push tags using the same
+prefixes as the table above, via [ci_pre_xcodebuild.sh](../ci_scripts/ci_pre_xcodebuild.sh),
+[ci_post_xcodebuild.sh](../ci_scripts/ci_post_xcodebuild.sh) and
+[tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh).
 
-We use this app to demonstrate implementation of a task or prototype that needs design review. This allows designers to sign off before a task goes through the process of PR review. Once a PR is reviewed, approved and merged into `main`, the feature will make it into the production nightly build and the task moves to QA.
+Note that these scripts match on the Xcode Cloud workflow name exactly, so a
+workflow has to be named "Beta Build", "Alpha Build" or "Experimental Build" to
+get a build number and tag at all - anything else falls through and is left
+alone.
+
+There is also a Github [Action](../.github/workflows/tag_latest_beta.yml) titled
+"Tag Latest Beta", which moves the `latest_beta` tag to the latest commit on
+`main`. It was used to trigger the old Xcode Cloud nightly build conditionally,
+and is currently disabled.
 
 ## Relationship between wmf-apps-ci, GitHub Actions, and PR Status Checks
 
 Our GitHub organization has a bot account called wmf-apps-ci which has been used for various reasons in the past. Currently for iOS, this bot account is used to make automated write commits to our repository. This happens in three instances:
 
-1. When Xcode Cloud completes our nightly build, it tags the commit with `betas/{build number}` and pushes it to our remote repository using the wmf-apps-ci account. It does this with a fine-tuned personal access token set up in the wmf-apps-ci GitHub account settings. This personal access token is then set as an environment variable in Xcode Cloud Settings.
+1. When Xcode Cloud completes a Beta Build, it tags the commit with `betas/{build number}` and pushes it to our remote repository using the wmf-apps-ci account. It does this with a fine-tuned personal access token set up in the wmf-apps-ci GitHub account settings. This personal access token is then set as an environment variable in Xcode Cloud Settings.
 
 2. When a Translatewiki PR is opened, a GitHub action runs the localizations script, commits and pushes the changes to the remote repository using the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
 3. We have a manually-triggered GitHub action that posts a PR to increment the app version. This commit is made with the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
+4. The V2 deploy workflows push their git tags (`exp/`, `alphas/`, `betas/` and `releases/`) and create the `release-candidate/{date}` branch using the wmf-apps-ci account, with the same personal access token, read from the APPS_BOT_TOKEN repository secret. The default `GITHUB_TOKEN` cannot be used for this: it is a GitHub App token with no Workflows permission, and the Actions `permissions:` block has no key to grant one, so it refuses to push any ref whose tree differs from the default branch under `.github/workflows/`. That token therefore needs `Workflows: read and write` alongside its other permissions.
+
 ### What happens when this token expires?
 
 You should notice a few things:
 
-- When a nightly build is made, you will no longer see new `betas/{build number}` tag numbers added to the `main` branch.
+- When a Beta Build is made, you will no longer see new `betas/{build number}` tag numbers added to the `main` branch.
+
+- The V2 deploy workflows will build and upload to TestFlight successfully, then fail at their "Tag build" step. `V2 Deploy Beta` will also fail to push its release candidate branch.
 
 - When a Translatewiki PR is opened, you will no longer see the followup "Import translations from TranslateWiki" commit in the PR.
 
@@ -80,7 +134,7 @@ You should notice a few things:
 To fix this:
 1. Log into GitHub as wmf-apps-ci. The account credentials are in the 1Password iOS Team Vault. Generate a new fine-tuned token with access to the Wikipedia iOS Repository. Save this token in the 1Password iOS Team Vault in case we need it elsewhere in the future.
 
-2. Edit the Xcode Cloud Nightly Build workflow (this can be done in Xcode). Under environment, update the `GITHUB_PAT` variable with this new token.
+2. Edit the Xcode Cloud Beta Build workflow (this can be done in Xcode). Under environment, update the `GITHUB_PAT` variable with this new token.
 
 3. Log back into your usual GitHub account. Go to the Wikipedia iOS repository Settings. Under Secrets and variables > Actions, update the APPS_BOT_TOKEN secret with this new token.
 

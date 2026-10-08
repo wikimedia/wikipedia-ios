@@ -1,16 +1,29 @@
-name: Design Review
+name: V2 Deploy Design Review
 
 on:
   workflow_dispatch:
     inputs:
       phab_task:
-        description: 'Associated Phabricator task (e.g. T123456) to comment with the build info'
-        required: true
+        description: 'Associated Phabricator task (e.g. T123456) to comment with the build info. Leave blank for a one-off build with no task.'
+        required: false
         type: string
+        default: ''
       what_to_test:
         description: 'What to Test notes for this TestFlight build'
         required: true
         type: string
+
+env:
+  XCODE_VERSION: "26.6"
+
+# Serialize runs, for the same reason as V2 Deploy Alpha: the build number is
+# read from the highest exp/ tag at checkout, but that tag is not pushed
+# until the run finishes, so overlapping runs would compute the same number and
+# App Store Connect would reject the second upload. cancel-in-progress stays
+# false so a run is never killed between its TestFlight upload and its tag push.
+concurrency:
+  group: v2-deploy-design-review
+  cancel-in-progress: false
 
 jobs:
   build-and-upload:
@@ -23,6 +36,31 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # -------------------------------------------------------
+      # 0. Fail fast if the bot token is missing
+      #
+      #    Pushes below use wmf-apps-ci. If the secret resolves empty the
+      #    push URL still looks valid but carries no credentials, so git
+      #    falls back to the AUTHORIZATION header actions/checkout leaves
+      #    configured - GITHUB_TOKEN - which cannot push a ref touching
+      #    .github/workflows. That surfaces as a confusing "GitHub App"
+      #    rejection after the build has already uploaded, so check here.
+      # -------------------------------------------------------
+      - name: Check bot token is available
+        env:
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is empty or not available to this run. Tags and branches cannot be pushed as wmf-apps-ci, and falling back to GITHUB_TOKEN would be rejected. Check the repository secret."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+          xcodebuild -version
+
+      # -------------------------------------------------------
       # 1. Compute build number
       # -------------------------------------------------------
       - name: Compute build number
@@ -31,8 +69,8 @@ jobs:
           VERSION=$(date -u "+%Y.%m.%d")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          LATEST=$(git tag --list 'alphas/*' \
-            | sed 's|alphas/||' \
+          LATEST=$(git tag --list 'exp/*' \
+            | sed 's|exp/||' \
             | grep -E '^[0-9]+$' \
             | sort -n \
             | tail -1)
@@ -96,11 +134,14 @@ jobs:
       - name: Tag build
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git tag "alphas/$BUILD"
-          git push origin "alphas/$BUILD"
+          git tag "exp/$BUILD"
+          # Push as wmf-apps-ci like our other automated repo writes;
+          # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "exp/$BUILD"
 
       # -------------------------------------------------------
       # 5. Comment on the associated Phabricator task
@@ -112,6 +153,11 @@ jobs:
           VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
+          if [ -z "$PHAB_TASK" ]; then
+            echo "No Phabricator task given, skipping comment"
+            exit 0
+          fi
+
           MESSAGE="Available in: TestFlight Wikipedia Experimental $VERSION ($BUILD)"
           curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
             https://phabricator.wikimedia.org/api/maniphest.edit \

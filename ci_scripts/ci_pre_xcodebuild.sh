@@ -21,7 +21,7 @@ PLISTS=(
     "../Wikipedia Stickers/Info.plist"
     "../Wikipedia/Experimental-Info.plist"
     "../Wikipedia/Local-Info.plist"
-    "../Wikipedia/Staging-Info.plist"
+    "../Wikipedia/Alpha-Info.plist"
     "../Wikipedia/Wikipedia-Info.plist"
     "../ContinueReadingWidget/Info.plist"
     "../WikipediaUnitTests/Info.plist"
@@ -34,18 +34,26 @@ for PLIST in "${PLISTS[@]}"; do
     echo "Updated ${PLIST}"
 done
 
+# GitHub Actions is the primary deploy path; these Xcode Cloud workflows are
+# the manual fallback for when it is unavailable, so the prefixes below have
+# to stay in step with it - betas/ for production, alphas/ for Alpha, exp/
+# for design review.
+#
 # Compute CFBundleVersion the same way the GitHub Actions deploy workflows
-# do: highest existing betas/ or alphas/ tag, plus one. Requires
+# do: highest existing tag for this workflow's prefix, plus one. Requires
 # "Manage Version and Build Number" to be turned off for this workflow in
 # the Xcode Cloud workflow settings, otherwise Xcode Cloud will overwrite
 # the build number during the archive step. That setting only governs the
 # build number, not CFBundleShortVersionString above, which stays
 # date-based regardless.
-if [[ ${CI_WORKFLOW} == "Nightly Build" ]]; then
+if [[ ${CI_WORKFLOW} == "Beta Build" ]]; then
     TAG_PREFIX="betas"
     BUILD_PLIST="../Wikipedia/Wikipedia-Info.plist"
-elif [[ ${CI_WORKFLOW} == "Experimental Build" ]]; then
+elif [[ ${CI_WORKFLOW} == "Alpha Build" ]]; then
     TAG_PREFIX="alphas"
+    BUILD_PLIST="../Wikipedia/Alpha-Info.plist"
+elif [[ ${CI_WORKFLOW} == "Experimental Build" ]]; then
+    TAG_PREFIX="exp"
     BUILD_PLIST="../Wikipedia/Experimental-Info.plist"
 else
     TAG_PREFIX=""

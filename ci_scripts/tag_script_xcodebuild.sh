@@ -1,12 +1,19 @@
  #!/bin/sh
 
+# Tags an Xcode Cloud build. GitHub Actions is the primary deploy path, so
+# this runs only when a build is driven from Xcode Cloud as a fallback; the
+# prefixes here mirror the ones the v2_ GitHub Actions workflows push.
+
 set -e
 
-if [[ ${CI_WORKFLOW} == "Nightly Build" ]]; then
+if [[ ${CI_WORKFLOW} == "Beta Build" ]]; then
 	TAG_PREFIX="betas"
 	BUILD_PLIST="../Wikipedia/Wikipedia-Info.plist"
-elif [[ ${CI_WORKFLOW} == "Experimental Build" ]]; then
+elif [[ ${CI_WORKFLOW} == "Alpha Build" ]]; then
 	TAG_PREFIX="alphas"
+	BUILD_PLIST="../Wikipedia/Alpha-Info.plist"
+elif [[ ${CI_WORKFLOW} == "Experimental Build" ]]; then
+	TAG_PREFIX="exp"
 	BUILD_PLIST="../Wikipedia/Experimental-Info.plist"
 else
 	echo "Unrecognized workflow for tagging: ${CI_WORKFLOW}"

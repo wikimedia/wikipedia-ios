@@ -1,15 +1,30 @@
-name: Internal TestFlight
+name: V2 Deploy Alpha
 
 on:
-  schedule:
-    - cron: '0 10 * * *' # run at 10AM UTC
+  # Alpha builds every merge into main rather than nightly. The trigger is
+  # commented out until this branch merges: while it lives on a feature
+  # branch the push trigger cannot fire anyway, and once it is on main it
+  # would run alongside deploy_testflight_internal, which is still scheduled
+  # nightly - doubling the archive and upload. Uncomment at cutover, and
+  # disable the schedule on deploy_testflight_internal at the same time.
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
-    inputs:
-      version_override:
-        description: "Override the version (YYYY.MM.DD) instead of using today's date - use this to reuse an existing version instead of getting a new one. Leave blank to use today's date."
-        required: false
-        type: string
-        default: ''
+
+# Serialize runs. The build number is read from the highest alphas/ tag at
+# checkout, but that tag is not pushed until the end of the run, so two
+# overlapping runs would both compute the same number and App Store Connect
+# would reject the second upload as a duplicate. cancel-in-progress stays
+# false deliberately: cancelling a run could kill it after the TestFlight
+# upload but before the tag push, leaving the build number untagged and the
+# next run colliding with it.
+concurrency:
+  group: v2-deploy-alpha
+  cancel-in-progress: false
+
+env:
+  XCODE_VERSION: "26.6"
 
 jobs:
   build-and-upload:
@@ -22,18 +37,41 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # -------------------------------------------------------
+      # 0. Fail fast if the bot token is missing
+      #
+      #    Pushes below use wmf-apps-ci. If the secret resolves empty the
+      #    push URL still looks valid but carries no credentials, so git
+      #    falls back to the AUTHORIZATION header actions/checkout leaves
+      #    configured - GITHUB_TOKEN - which cannot push a ref touching
+      #    .github/workflows. That surfaces as a confusing "GitHub App"
+      #    rejection after the build has already uploaded, so check here.
+      # -------------------------------------------------------
+      - name: Check bot token is available
+        env:
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is empty or not available to this run. Tags and branches cannot be pushed as wmf-apps-ci, and falling back to GITHUB_TOKEN would be rejected. Check the repository secret."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+          xcodebuild -version
+
+      # -------------------------------------------------------
       # 1. Compute build number
       # -------------------------------------------------------
       - name: Compute build number
         id: versioning
-        env:
-          VERSION_OVERRIDE: ${{ github.event.inputs.version_override }}
         run: |
-          VERSION="${VERSION_OVERRIDE:-$(date -u "+%Y.%m.%d")}"
+          VERSION=$(date -u "+%Y.%m.%d")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          LATEST=$(git tag --list 'betas/*' \
-            | sed 's|betas/||' \
+          LATEST=$(git tag --list 'alphas/*' \
+            | sed 's|alphas/||' \
             | grep -E '^[0-9]+$' \
             | sort -n \
             | tail -1)
@@ -48,12 +86,12 @@ jobs:
         id: duplicate_check
         run: |
           LATEST_COMMIT=$(git rev-parse HEAD)
-          EXISTING_TAG=$(git tag --points-at $LATEST_COMMIT | grep 'betas/' | head -1)
+          EXISTING_TAG=$(git tag --points-at $LATEST_COMMIT | grep 'alphas/' | head -1)
           if [ -n "$EXISTING_TAG" ]; then
             echo "Commit $LATEST_COMMIT already has tag $EXISTING_TAG, skipping build"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "No existing beta tag for this commit, proceeding"
+            echo "No existing alpha tag for this commit, proceeding"
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
@@ -108,9 +146,9 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 4. Find new PRs since last beta tag (for Phabricator commenting)
+      # 4. Find new PRs since last alpha tag (for Phabricator commenting)
       # -------------------------------------------------------
-      - name: Find new PRs since last beta
+      - name: Find new PRs since last alpha
         id: new_prs
         if: steps.duplicate_check.outputs.skip != 'true'
         run: |
@@ -120,22 +158,22 @@ jobs:
           import os
 
           result = subprocess.run(
-            ['git', 'tag', '--list', 'betas/*', '--sort=-version:refname'],
+            ['git', 'tag', '--list', 'alphas/*', '--sort=-version:refname'],
             capture_output=True, text=True
           )
           tags = result.stdout.strip().split('\n')
-          last_beta_tag = next((t for t in tags if t), None)
+          last_alpha_tag = next((t for t in tags if t), None)
 
-          if not last_beta_tag:
-            print("No beta tag found, skipping new PR lookup")
+          if not last_alpha_tag:
+            print("No alpha tag found, skipping new PR lookup")
             with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               f.write("new_pr_numbers=\n")
             exit(0)
 
-          print(f"Last beta tag: {last_beta_tag}")
+          print(f"Last alpha tag: {last_alpha_tag}")
 
           result = subprocess.run(
-            ['git', 'log', '--oneline', f'{last_beta_tag}..HEAD'],
+            ['git', 'log', '--oneline', f'{last_alpha_tag}..HEAD'],
             capture_output=True, text=True
           )
           commits = result.stdout.strip().split('\n')
@@ -148,7 +186,7 @@ jobs:
             if match:
               pr_numbers.append(match.group(1))
 
-          print(f"Found PRs since last beta: {pr_numbers}")
+          print(f"Found PRs since last alpha: {pr_numbers}")
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
             f.write(f"new_pr_numbers={','.join(pr_numbers)}\n")
@@ -156,8 +194,8 @@ jobs:
 
       # -------------------------------------------------------
       # 5. Fetch Phabricator tasks from PRs
-      #    - All PRs since last release → What to Test notes + release task
-      #    - New PRs since last beta → Phabricator commenting
+      #    - All PRs since last release → What to Test notes
+      #    - New PRs since last alpha → Phabricator commenting
       # -------------------------------------------------------
       - name: Fetch Phabricator tasks from PRs
         id: phab
@@ -210,7 +248,7 @@ jobs:
 
             return list(dict.fromkeys(phab_tasks))
 
-          # All tasks since last release → What to Test notes + release task
+          # All tasks since last release → What to Test notes
           if all_pr_numbers_str:
             all_pr_numbers = [p for p in all_pr_numbers_str.split(',') if p]
             all_tasks = fetch_phab_tasks(all_pr_numbers)
@@ -222,18 +260,17 @@ jobs:
             open('/tmp/phab_tasks.txt', 'w').close()
             all_tasks = []
 
-          # New tasks since last beta → for Phabricator commenting
+          # New tasks since last alpha → for Phabricator commenting
           if new_pr_numbers_str:
             new_pr_list = [p for p in new_pr_numbers_str.split(',') if p]
             new_tasks = fetch_phab_tasks(new_pr_list)
-            print(f"New Phabricator tasks (since last beta): {new_tasks}")
+            print(f"New Phabricator tasks (since last alpha): {new_tasks}")
           else:
-            print("No new PRs since last beta, skipping Phabricator commenting")
+            print("No new PRs since last alpha, skipping Phabricator commenting")
             new_tasks = []
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
             f.write(f"phab_task_urls={','.join(new_tasks)}\n")
-            f.write(f"all_phab_task_urls={','.join(all_tasks)}\n")
           EOF
 
       # -------------------------------------------------------
@@ -284,12 +321,12 @@ jobs:
             /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
           done
 
-          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Wikipedia-Info.plist"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Alpha-Info.plist"
 
           echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
 
       # -------------------------------------------------------
-      # 8. Build and upload to TestFlight (internal)
+      # 8. Build the Alpha app and upload to TestFlight (internal)
       # -------------------------------------------------------
       - name: Install fastlane
         if: steps.duplicate_check.outputs.skip != 'true'
@@ -310,7 +347,7 @@ jobs:
           APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
           WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
         run: |
-          bundle exec fastlane internal_beta
+          bundle exec fastlane alpha
 
       # -------------------------------------------------------
       # 9. Tag the build
@@ -319,11 +356,14 @@ jobs:
         if: steps.duplicate_check.outputs.skip != 'true'
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git tag "betas/$BUILD"
-          git push origin "betas/$BUILD"
+          git tag "alphas/$BUILD"
+          # Push as wmf-apps-ci like our other automated repo writes;
+          # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "alphas/$BUILD"
 
       # -------------------------------------------------------
       # 10. Post to Phabricator tasks
@@ -341,7 +381,7 @@ jobs:
             exit 0
           fi
 
-          MESSAGE="Available in: TestFlight Wikipedia $VERSION ($BUILD)"
+          MESSAGE="Available in: TestFlight Wikipedia Alpha $VERSION ($BUILD)"
 
           echo "$PHAB_TASK_URLS" | tr ',' '\n' | while IFS= read -r url; do
             TASK_ID=$(echo "$url" | grep -oEi "T[0-9]+$")
@@ -357,116 +397,3 @@ jobs:
               -d "objectIdentifier=$TASK_ID"
             echo "✓ Commented on $TASK_ID"
           done
-
-      # -------------------------------------------------------
-      # 11. Update release task with included tasks
-      # -------------------------------------------------------
-      - name: Update release task with included tasks
-        if: steps.duplicate_check.outputs.skip != 'true'
-        env:
-          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
-          ALL_PHAB_TASK_URLS: ${{ steps.phab.outputs.all_phab_task_urls }}
-          VERSION: ${{ steps.versioning.outputs.version }}
-        run: |
-          python3 << 'EOF'
-          import urllib.request
-          import urllib.parse
-          import json
-          import re
-          import os
-
-          token = os.environ['PHAB_TOKEN']
-          version = os.environ['VERSION']
-          task_urls = os.environ.get('ALL_PHAB_TASK_URLS', '')
-
-          if not task_urls:
-            print("No Phabricator tasks found, skipping release task update")
-            exit(0)
-
-          # Search for any open release task with a date-based version title
-          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
-
-          def release_branch_value(description):
-            match = re.search(r'\*\*Release branch\*\*:(.*)', description)
-            return match.group(1).strip() if match else ''
-
-          req = urllib.request.Request(
-            'https://phabricator.wikimedia.org/api/maniphest.search',
-            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
-            data=urllib.parse.urlencode({
-              'api.token': token,
-              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
-              'constraints[statuses][0]': 'open',
-              'order': 'newest',
-              'limit': '100',
-            }).encode()
-          )
-
-          with urllib.request.urlopen(req) as resp:
-            data = json.loads(resp.read())
-
-          tasks = data.get('result', {}).get('data', [])
-          # Skip any release task that's already associated with a release
-          # branch (i.e. already past Submit and in Apple's court) - only the
-          # task still tracking main should get updated here.
-          release_task = next(
-            (t for t in tasks
-             if release_pattern.match(t.get('fields', {}).get('name', ''))
-             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
-            , None
-          )
-
-          if not release_task:
-            print("No open release task found (or all open ones are already associated with a release branch), skipping")
-            exit(0)
-
-          task_phid = release_task['phid']
-          current_title = release_task.get('fields', {}).get('name', '')
-          current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
-
-          print(f"Found release task: '{current_title}' -> updating title to 'Release {version}'")
-
-          # Keep the Release version field in the body in sync with the title
-          current_description = re.sub(
-            r'(\*\*Release version\*\*:).*',
-            rf'\1 {version}',
-            current_description,
-            count=1
-          )
-
-          # Build new included tasks section
-          task_ids = []
-          for url in task_urls.split(','):
-            match = re.search(r'T(\d+)$', url.strip())
-            if match:
-              task_ids.append(f"{{{match.group(0)}}}")
-          task_list = '\n'.join(task_ids)
-          new_section = f"\n\n**Included Tasks:**\n{task_list}"
-
-          # Replace existing section or append
-          if '**Included Tasks:**' in current_description:
-            new_description = current_description.split('**Included Tasks:**')[0].rstrip() + new_section
-          else:
-            new_description = current_description.rstrip() + new_section
-
-          # Update task title and description
-          req = urllib.request.Request(
-            'https://phabricator.wikimedia.org/api/maniphest.edit',
-            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
-            data=urllib.parse.urlencode({
-              'api.token': token,
-              'objectIdentifier': task_phid,
-              'transactions[0][type]': 'title',
-              'transactions[0][value]': f'Release {version}',
-              'transactions[1][type]': 'description',
-              'transactions[1][value]': new_description,
-            }).encode()
-          )
-
-          with urllib.request.urlopen(req) as resp:
-            result = json.loads(resp.read())
-            if not result.get('error_code'):
-              print(f"✓ Updated release task to Release {version}")
-            else:
-              print(f"✗ Failed to update release task: {result.get('error_info')}")
-          EOF

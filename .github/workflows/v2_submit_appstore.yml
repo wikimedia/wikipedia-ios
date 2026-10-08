@@ -1,21 +1,36 @@
-name: App Store Submission
+name: V2 Submit App Store
+
+# This workflow does not build or upload anything. It takes a version and
+# build number that the Beta workflow already uploaded to TestFlight and
+# submits that exact build to Apple. If the pair can't be found in
+# TestFlight, the run fails before touching App Store Connect metadata.
 
 on:
   workflow_dispatch:
     inputs:
+      version:
+        description: 'Version (YYYY.MM.DD) of the existing TestFlight build to submit'
+        required: true
+        type: string
+      build_number:
+        description: 'Build number of the existing TestFlight build to submit (the betas/ number)'
+        required: true
+        type: string
       submit_for_review:
-        description: 'Submit to App Store Review after uploading?'
+        description: 'Submit to App Store Review? Leave unchecked to only stage the version and metadata.'
         required: false
         type: boolean
         default: false
-      version_override:
-        description: "Override the version (YYYY.MM.DD) instead of using today's date - use this to reuse an existing version instead of getting a new one. Leave blank to use today's date."
-        required: false
-        type: string
-        default: ''
+
+# Serialize repeats of the same submission. The group is keyed by the inputs rather
+# than flat, so two genuinely different submissions still run in parallel and only a
+# double-dispatch of the same one queues behind itself.
+concurrency:
+  group: v2-submit-appstore-${{ inputs.version }}-${{ inputs.build_number }}
+  cancel-in-progress: false
 
 jobs:
-  build-and-upload:
+  submit:
     runs-on: macos-26
 
     steps:
@@ -25,27 +40,57 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # -------------------------------------------------------
-      # 1. Compute build number
+      # 1. Check out the release candidate branch for this version
+      #    Nothing is built here, so this is about operating on the ref
+      #    that actually shipped. A missing branch is only a warning -
+      #    the TestFlight check in step 3 is the real gate.
       # -------------------------------------------------------
-      - name: Compute build number
-        id: versioning
+      - name: Check out release candidate branch
+        id: branch
         env:
-          VERSION_OVERRIDE: ${{ github.event.inputs.version_override }}
+          VERSION: ${{ github.event.inputs.version }}
         run: |
-          VERSION="${VERSION_OVERRIDE:-$(date -u "+%Y.%m.%d")}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          BRANCH="release-candidate/$VERSION"
+          git fetch origin --prune '+refs/heads/*:refs/remotes/origin/*'
 
-          LATEST=$(git tag --list 'betas/*' \
-            | sed 's|betas/||' \
-            | grep -E '^[0-9]+$' \
-            | sort -n \
-            | tail -1)
-          BUILD=$(( ${LATEST:-0} + 1 ))
-          echo "build=$BUILD" >> $GITHUB_OUTPUT
-          echo "Version: $VERSION, Build: $BUILD"
+          if git rev-parse --verify "refs/remotes/origin/$BRANCH" >/dev/null 2>&1; then
+            git checkout -B "$BRANCH" "origin/$BRANCH"
+            echo "Checked out $BRANCH at $(git rev-parse HEAD)"
+          else
+            echo "::warning::$BRANCH not found on remote, staying on ${{ github.ref_name }}. The Beta workflow normally creates this branch."
+          fi
+
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 
       # -------------------------------------------------------
-      # 2. Fetch "What's New" translations from Google Sheet
+      # 2. Set up fastlane and App Store credentials
+      # -------------------------------------------------------
+      - name: Install fastlane
+        run: bundle install
+
+      - name: Write App Store API Key
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      # -------------------------------------------------------
+      # 3. Verify the build exists in TestFlight
+      #    Fails the run if the version/build pair isn't there, or is
+      #    still processing, before any metadata is written.
+      # -------------------------------------------------------
+      - name: Verify TestFlight build exists
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          VERSION: ${{ github.event.inputs.version }}
+          BUILD_NUMBER: ${{ github.event.inputs.build_number }}
+        run: |
+          bundle exec fastlane verify_testflight_build
+
+      # -------------------------------------------------------
+      # 4. Fetch "What's New" translations from Google Sheet
       # -------------------------------------------------------
       - name: Fetch release notes translations
         run: |
@@ -97,98 +142,27 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 3. Update version and build number in Info.plist files
+      # 5. Submit the existing TestFlight build to App Store Review
       # -------------------------------------------------------
-      - name: Update version and build number
-        env:
-          VERSION: ${{ steps.versioning.outputs.version }}
-          BUILD: ${{ steps.versioning.outputs.build }}
-        run: |
-          PLISTS=(
-            "WMF Framework/Info.plist"
-            "Wikipedia Stickers/Info.plist"
-            "Wikipedia/Experimental-Info.plist"
-            "Wikipedia/Local-Info.plist"
-            "Wikipedia/Alpha-Info.plist"
-            "Wikipedia/Wikipedia-Info.plist"
-            "ContinueReadingWidget/Info.plist"
-            "WikipediaUnitTests/Info.plist"
-            "Widgets/Info.plist"
-            "NotificationServiceExtension/Info.plist"
-          )
-
-          for PLIST in "${PLISTS[@]}"; do
-            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
-          done
-
-          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Wikipedia-Info.plist"
-
-          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
-
-      # -------------------------------------------------------
-      # 4. Build and submit to App Store
-      # -------------------------------------------------------
-      - name: Install fastlane
-        run: bundle install
-
-      - name: Write App Store API Key
-        run: |
-          mkdir -p ~/.appstore
-          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
-          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
-
-      - name: Build and submit to App Store
+      - name: Submit to App Store
         env:
           APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
           APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
           APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
           SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
-          VERSION: ${{ steps.versioning.outputs.version }}
+          VERSION: ${{ github.event.inputs.version }}
+          BUILD_NUMBER: ${{ github.event.inputs.build_number }}
         run: |
-          bundle exec fastlane submit_for_review
+          bundle exec fastlane submit_appstore
 
       # -------------------------------------------------------
-      # 5. Tag the build
-      # -------------------------------------------------------
-      - name: Tag build
-        env:
-          BUILD: ${{ steps.versioning.outputs.build }}
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git tag "betas/$BUILD"
-          git push origin "betas/$BUILD"
-
-      # -------------------------------------------------------
-      # 6. Create or fast-forward the release branch (frees up main for the next cycle)
-      # -------------------------------------------------------
-      - name: Create release branch
-        env:
-          VERSION: ${{ steps.versioning.outputs.version }}
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          BRANCH="release-candidate/$VERSION"
-          echo "branch=$BRANCH" >> $GITHUB_ENV
-
-          # Creates the branch if it doesn't exist yet, or fast-forwards it
-          # to this run's commit if it does - a re-submission run built from
-          # a newer commit than the branch's current tip shouldn't leave the
-          # branch stuck pointing at the original commit. A non-fast-forward
-          # push (the branch has diverged, e.g. a hotfix landed directly on
-          # it that this run's commit doesn't contain) fails loudly here
-          # rather than silently overwriting or silently doing nothing.
-          git push origin "HEAD:refs/heads/$BRANCH"
-          echo "release-candidate branch is now at: $BRANCH"
-
-      # -------------------------------------------------------
-      # 7. Update release task with release branch and submission date
+      # 6. Update release task with release branch and submission date
       # -------------------------------------------------------
       - name: Update release task with release branch and submission date
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
-          VERSION: ${{ steps.versioning.outputs.version }}
-          BRANCH: ${{ env.branch }}
+          VERSION: ${{ github.event.inputs.version }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
           SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
         run: |
           python3 << 'EOF'
@@ -234,18 +208,32 @@ jobs:
               and predicate(release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
             ]
 
-          # A re-submission (e.g. after Apple rejects and a fix is pushed to
-          # the same release branch, run again with version_override) will
-          # find the branch already created and this task already stamped
-          # with it - match that first. Otherwise fall back to the task
-          # still tracking main, not yet branch-associated, which this run
-          # is graduating into the release branch for the first time.
+          # This step is the only thing that ever writes **Release
+          # branch**, so that field marks whether a task has already been
+          # through a submission. A re-submission - Apple rejects, a fix
+          # lands on the same release branch, this runs again - finds the
+          # task already stamped with the branch, so match that first. A
+          # first submission finds the task beta created at the start of the
+          # cycle, with the field still blank, and stamps it below.
           already_branched = matching_tasks(lambda v: v == branch)
           not_yet_branched = matching_tasks(lambda v: not v)
           release_task = (already_branched or not_yet_branched or [None])[0]
 
           if not release_task:
-            print("No matching open release task found, skipping")
+            # Step 7 has already submitted to App Store review by this point,
+            # so failing here would misreport that. Warn loudly instead, and
+            # say what was actually open so the mismatch is diagnosable -
+            # a task stamped with some other branch is the usual cause.
+            seen = '; '.join(
+              f"{t['fields']['name']} (Release branch: "
+              f"{release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')) or 'blank'})"
+              for t in matching_tasks(lambda v: True)
+            ) or 'none'
+            print(
+              f"::warning::Submitted {version} but found no release task to update. "
+              f"Looked for an open release task stamped with {branch}, or not stamped at all. "
+              f"Open release tasks: {seen}. Update the task by hand."
+            )
             exit(0)
 
           task_phid = release_task['phid']
@@ -273,11 +261,12 @@ jobs:
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
+              # Description only - the release task's title is set when
+              # beta creates it and is never rewritten, so submitting with a
+              # mistyped version cannot quietly rename the task.
               'objectIdentifier': task_phid,
-              'transactions[0][type]': 'title',
-              'transactions[0][value]': f'Release {version}',
-              'transactions[1][type]': 'description',
-              'transactions[1][value]': description,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': description,
             }).encode()
           )
 
