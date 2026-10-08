@@ -46,7 +46,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     /// Called with the query and the project of the search when the reader taps the semantic
     /// search entry point.
-    var semanticSearchTappedAction: ((String, WMFProject) -> Void)?
+    var semanticSearchTappedAction: (@MainActor @Sendable (String, WMFProject) -> Void)?
 
     /// Called when the reader taps the button of the toast shown after hiding the semantic
     /// search entry point. Caller is responsible for opening the Search settings.
@@ -54,7 +54,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     /// Called with the search language code when the reader taps the info button of the
     /// semantic search entry point.
-    var semanticSearchInfoTappedAction: ((String) -> Void)?
+    var semanticSearchInfoTappedAction: (@MainActor @Sendable (String) -> Void)?
 
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
