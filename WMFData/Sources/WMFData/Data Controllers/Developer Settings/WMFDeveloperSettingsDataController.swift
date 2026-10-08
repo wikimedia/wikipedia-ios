@@ -166,8 +166,7 @@ public extension WMFDeveloperSettingsDataControlling {
     // MARK: - Home
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
-    /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
-    /// `enableHomeTab` is also true.
+    /// feed (replacing the embedded legacy Explore feed) and its settings.
     @objc public var enableHomePhase2: Bool {
         get { loadFlag(.developerSettingsEnableHomePhase2) }
         set {
@@ -179,10 +178,10 @@ public extension WMFDeveloperSettingsDataControlling {
         }
     }
 
-    /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
-    /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
+    /// True while the legacy Explore feed backs the Home tab's Community segment (phase 2 off).
+    /// In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB && !enableHomePhase2
+        !enableHomePhase2
     }
 
     // MARK: - Fundraising
