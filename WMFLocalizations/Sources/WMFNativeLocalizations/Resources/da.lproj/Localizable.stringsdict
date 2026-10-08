@@ -488,6 +488,22 @@
 			<string>%1$d filtre</string>
 		</dict>
 	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Er du sikker på at du vil markere %1$#@v1@ som læste? Dine notifikationer vil blive markeret som læst på alle dine enheder %1$d</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d din besked</string>
+			<key>other</key>
+			<string>%1$d alle dine beskeder</string>
+		</dict>
+	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -1006,11 +1006,15 @@
 "notifications-center-login-notifications" = "Login-notifikationer";
 "notifications-center-mark" = "Markér";
 "notifications-center-mark-all-as-read" = "Markér alle som læste";
+"notifications-center-mark-all-as-read-confirmation-format" = "Er du sikker på at du vil markere {{PLURAL:$1|$1 din besked|$1 alle dine beskeder}} som læste? Dine notifikationer vil blive markeret som læst på alle dine enheder $1";
+"notifications-center-mark-all-as-read-missing-number" = "Er du sikker på, at du vil markere alle dine notifikationer som læste? Dine notifikationer vil blive markeret som læste på alle dine enheder.";
 "notifications-center-mark-as-read" = "Markér som læst";
 "notifications-center-mark-as-unread" = "Markér som ulæst";
 "notifications-center-more-action-accessibility-label" = "Mere";
+"notifications-center-notifications-settings" = "Indstillinger for notifikationer";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 besked|$1 beskeder}}";
 "notifications-center-onboarding-modal-continue-action" = "Fortsæt";
+"notifications-center-onboarding-modal-filters-message" = "Filtrer dine notifikationer efter læst status og type for nemt at indsnævre din indbakke.";
 "notifications-center-onboarding-modal-filters-title" = "Filtre";
 "notifications-center-onboarding-modal-learn-more-action" = "Lær mere om notifikationer";
 "notifications-center-onboarding-modal-project-inboxes-title" = "Projektindbakker";

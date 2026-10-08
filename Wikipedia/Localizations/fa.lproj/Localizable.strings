@@ -1215,6 +1215,12 @@
 "search-title" = "جستجو";
 "search-widget-announcement-title" = "ابزارک جستجوی جدید در دسترس است";
 "search-widget-wikipedia-title" = "ویکی‌پدیا";
+"semantic-search-feedback-placeholder" = "به ما بیشتر بگویید (اختیاری)";
+"semantic-search-feedback-question" = "آنچه دنبالش بودید را پیدا کردید؟";
+"semantic-search-feedback-submit" = "ثبت";
+"semantic-search-feedback-thumbs-down-accessibility" = "خیر";
+"semantic-search-feedback-thumbs-up-accessibility" = "بله";
+"semantic-search-feedback-title" = "بازخورد";
 "serbian-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان صربی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان صربی";
 "settings-account" = "حساب";

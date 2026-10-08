@@ -948,10 +948,12 @@
 "reading-lists-list-not-synced-limit-exceeded" = "Lëscht net synchroniséiert, Limitt iwwerschratt";
 "reading-lists-sort-saved-articles" = "Gespäichert Artikelen sortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
+"reading-themes-controls-accessibility-brightness-slider" = "Hellegkeets-Slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Däischtere Modus";
 "reading-themes-controls-accessibility-light-theme-button" = "Helle Modus";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Modus";
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Ervirhiewe vun der Syntax";
+"reading-themes-controls-accessibility-text-size-slider" = "Textgréisst-Slider";
 "reference-title" = "Referenz: $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|1=Gëschter|Viru(n) $1 Deeg}}";
 "relative-date-hours-abbreviated" = "$1 h";

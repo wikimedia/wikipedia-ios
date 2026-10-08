@@ -582,6 +582,9 @@
 "end-session" = "Завершить сеанс";
 "error-generic-recovery-suggestion" = "Пожалуйста, повторите позже";
 "error-unknown" = "Произошла неизвестная ошибка";
+"evergreen-account-creation-maybe-later-button" = "Возможно, позже";
+"evergreen-account-creation-slide-position" = "$1 из $2";
+"evergreen-account-creation-title" = "Википедия лучше, если у вас есть учётная запись.";
 "explore-another-random" = "Другая случайная статья";
 "explore-because-you-read" = "На основе прочитанного";
 "explore-because-you-read-footer" = "Больше статей на основе прочитанного";
@@ -718,6 +721,14 @@
 "find-replace-header" = "Поиск и замена";
 "find-replace-header-close-accessibility" = "Закрыть диалог поиска и замены";
 "find-textfield-accessibility" = "Найти";
+"for-you-empty-feed-add-interests-link" = "темы по интересам";
+"for-you-empty-feed-subtitle" = "По мере просмотра в вашей ленте «Для вас» будут появляться персонализированные статьи.";
+"for-you-empty-feed-title" = "В вашей ленте пока что ничего нет";
+"for-you-empty-feed-ways-to-get-started" = "С чего начать:";
+"for-you-end-of-feed-add-interests-format" = "Добавить $1";
+"for-you-end-of-feed-add-interests-link" = "новые темы по интересам";
+"for-you-end-of-feed-community-format" = "Посмотрите, что предлагает $1";
+"for-you-end-of-feed-community-link" = "сообщество";
 "for-you-error-retry" = "Попробовать ещё раз";
 "for-you-error-subtitle" = "Подключитесь к интернету и попробуйте снова.";
 "for-you-error-title" = "Нет подключения к интернету";
@@ -749,6 +760,9 @@
 "home-button-saved-accessibility-label" = "Википедия, вернуться к Сохранённым";
 "home-community-tab-title" = "Сообщество";
 "home-edit-languages-title" = "Добавить или изменить языки";
+"home-empty-community-feed-subtitle" = "Включите модули $1«Сообщество»$2 для отображения контента, отбираемого редакторами.";
+"home-empty-feed-manage-modules-button" = "Настройка модулей";
+"home-empty-feed-title" = "В вашей ленте пока что ничего нет";
 "home-feed-for-you-based-on-interests-subtitle" = "Статьи на темы, которые вы выбрали.";
 "home-feed-for-you-based-on-interests-title" = "На основе ваших интересов";
 "home-feed-for-you-because-you-read-subtitle" = "Предложения, основанные на недавней статье из вашей истории.";
@@ -789,6 +803,7 @@
 "home-feed-whats-driving-settings-title" = "Что формирует вашу ленту";
 "home-feed-whats-driving-your-interests-subtitle" = "Выберите интересующие вас темы";
 "home-feed-whats-driving-your-interests-title" = "Ваши интересы";
+"home-for-you-card-position-accessibility-value" = "$1 из $2";
 "home-for-you-tab-title" = "Для вас";
 "home-more-like-footer" = "Ещё статей, похожих на $1";
 "home-nearby-footer" = "Больше мест вблизи";
@@ -1266,9 +1281,13 @@
 "search-recent-empty" = "В истории поиска пока ничего нет";
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
+"search-semantic-results-last-updated" = "Последнее обновление: $1";
+"search-semantic-results-rate-limited-title" = "Слишком много поисковых запросов";
 "search-title" = "Поиск";
 "search-widget-description" = "Быстрый доступ к поиску в Википедии.";
 "search-widget-wikipedia-title" = "Википедия";
+"semantic-search-feedback-thumbs-down-accessibility" = "Нет";
+"semantic-search-feedback-thumbs-up-accessibility" = "Да";
 "serbian-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты сербского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Обновления поддержки вариантов Сербского";
 "settings-account" = "Учётная запись";
@@ -1281,8 +1300,8 @@
 "settings-community-feed-title" = "Сообщество";
 "settings-donate" = "Пожертвовать";
 "settings-editing-preferences-source-short" = "Код";
-"settings-editing-preferences-title" = "Редактирование";
-"settings-editing-preferences-visual-short" = "Визуальное";
+"settings-editing-preferences-title" = "Редактор";
+"settings-editing-preferences-visual-short" = "Визуальный";
 "settings-explore-games-subtitle" = "Ежедневные викторины по материалам Википедии";
 "settings-explore-games-title" = "Викторины";
 "settings-help-and-feedback" = "Помощь и обратная связь";
