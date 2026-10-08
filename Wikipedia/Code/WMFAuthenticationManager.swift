@@ -174,7 +174,17 @@ import WMFTestKitchen
     
     @objc public var authStateIsTemporary: Bool {
         // To match Android, is_temp = existence of central auth username cookie, but missing an entry in the local credential store
-        return session.hasCentralAuthUserCookie() && KeychainCredentialsManager.shared.username == nil && KeychainCredentialsManager.shared.password == nil
+        guard let centralAuthUsername = session.getCentralAuthUserCookie(),
+              WMFAuthenticationManager.isTemporaryAccountUsername(centralAuthUsername) else {
+            return false
+        }
+        return KeychainCredentialsManager.shared.username == nil && KeychainCredentialsManager.shared.password == nil
+    }
+
+    /// Temporary account names on Wikimedia wikis always start with `~` (e.g. `~2026-12345-6`).
+    /// A permanent username left in the cookie by an unfinished logout must not be treated as a temporary account.
+    static func isTemporaryAccountUsername(_ username: String) -> Bool {
+        return username.hasPrefix("~")
     }
     
     // MARK: Login

@@ -46,7 +46,8 @@ extension XCTestCase {
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
         suppressesGamesAnnouncement: Bool = true,
-        enablesHomeTab: Bool = false
+        enablesHomeTab: Bool = false,
+        centralAuthUsername: String? = nil
     ) -> WikipediaAppRobot {
         let app = XCUIApplication()
         let configuration = UITestConfiguration(
@@ -54,7 +55,8 @@ extension XCTestCase {
             resetsPreferredLanguages: resetsPreferredLanguages,
             suppressesActivityTabOnboarding: suppressesActivityTabOnboarding,
             suppressesGamesAnnouncement: suppressesGamesAnnouncement,
-            enablesHomeTab: enablesHomeTab
+            enablesHomeTab: enablesHomeTab,
+            centralAuthUsername: centralAuthUsername
         )
         app.configureForUITestLaunch(configuration: configuration)
         app.launch()
