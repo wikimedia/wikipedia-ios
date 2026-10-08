@@ -75,6 +75,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var unprocessedShortcutItem: UIApplicationShortcutItem?
 
     private var backgroundTasks: [String: UIBackgroundTaskIdentifier] = [:]
+    private var yearInReviewPopulateTask: Task<Void, Never>?
     private let backgroundTasksLock = NSLock()
     
     private var isWaitingToResumeApp: Bool = false
@@ -477,6 +478,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()
+        populateYearInReviewReportIfNeeded()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
         savedArticlesFetcher?.start()
@@ -1586,6 +1588,24 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // Read the cached controller rather than the lazy getter — badging must never be the thing
         // that constructs the Activity tab.
         _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
+    }
+
+    /// Fills the Year in Review report in the background, so the slides can read it when they open.
+    /// The data controller checks the remote config, the active dates, the Settings toggle and the country.
+    private func populateYearInReviewReportIfNeeded() {
+        guard yearInReviewPopulateTask == nil else {
+            return
+        }
+
+        yearInReviewPopulateTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await YearInReviewCoordinator.populateReport(dataStore: dataStore)
+            } catch {
+                DDLogError("Error populating the Year in Review report: \(error)")
+            }
+            yearInReviewPopulateTask = nil
+        }
     }
 
     @objc func handleNotificationsCenterContextDidSave() {

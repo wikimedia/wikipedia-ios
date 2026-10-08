@@ -1216,6 +1216,12 @@ extension ExploreViewController {
             return false
         }
 
+        // The forced announcement must not open the Year in Review slides. This surface has no
+        // 2026 announcement screen yet, so it shows nothing while the force flag is on.
+        guard !yirDataController.isForcingFeatureAnnouncement else {
+            return false
+        }
+
         guard presentedViewController == nil else {
             return false
         }

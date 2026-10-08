@@ -171,21 +171,112 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
     // MARK: - topArticles
 
-    func testTopArticlesSkipsSingleViewsAndOrdersByCount() async throws {
-        var views: [WMFLegacyPageView] = []
-        for index in 0..<4 { views.append(pageView("Most_Read", at: try date(month: 4, day: 1 + index, hour: 10))) }
-        for index in 0..<2 { views.append(pageView("Second", at: try date(month: 5, day: 1 + index, hour: 10))) }
-        views.append(pageView("Read_Once", at: try date(month: 6, day: 1, hour: 10)))
+    private typealias TopArticlesData = WMFYearInReviewTopArticlesSlideData
+
+    private final class StubMainPageIdentifier: WMFMainPageIdentifying {
+        let mainPages: [(title: String, projectID: String)]
+        init(mainPages: [(title: String, projectID: String)]) { self.mainPages = mainPages }
+        func isMainPage(title: String, project: WMFProject) async -> Bool {
+            mainPages.contains { $0.title == title && $0.projectID == project.id }
+        }
+    }
+
+    private func seedVisits(_ title: String, count: Int, month: Int, project: WMFProject? = nil) throws -> [WMFLegacyPageView] {
+        try (0..<count).map { index in
+            WMFLegacyPageView(title: title, project: project ?? enProject, viewedDate: try date(month: month, day: 1 + index, hour: 10), latitude: nil, longitude: nil)
+        }
+    }
+
+    private func topArticlesPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> TopArticlesData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewTopReadArticleSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        let payload = try decode(TopArticlesData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    func testTopArticlesSkipsSingleViewsAndOrdersByVisitCount() async throws {
+        var views = try seedVisits("Most_Read", count: 4, month: 4)
+        views += try seedVisits("Second", count: 2, month: 5)
+        views += try seedVisits("Read_Once", count: 1, month: 6)
         try await seedPageViews(views)
 
-        let controller = YearInReviewTopReadArticleSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
-        let articles = try decode([String].self, from: try await populatedPayload(controller))
+        let payload = try await topArticlesPayload()
 
-        XCTAssertEqual(articles.first, "Most Read", "underscores become spaces and the busiest article leads")
-        XCTAssertTrue(articles.contains("Second"))
-        XCTAssertFalse(articles.contains("Read Once"), "an article read once is excluded")
-        XCTAssertLessThanOrEqual(articles.count, 5)
-        XCTAssertTrue(controller.isEvaluated)
+        XCTAssertEqual(payload.articles.map(\.title), ["Most Read", "Second"], "underscores become spaces, the busiest article leads, and an article read once is excluded")
+        XCTAssertEqual(payload.articles.map(\.visitCount), [4, 2])
+        XCTAssertEqual(payload.articles.first?.projectID, enProject.id)
+        XCTAssertEqual(payload.articles.first?.project, enProject)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testTopArticlesShowsAtMostThreeAndBreaksTiesByTitle() async throws {
+        var views = try seedVisits("Delta", count: 5, month: 3)
+        views += try seedVisits("Charlie", count: 3, month: 4)
+        views += try seedVisits("Alpha", count: 3, month: 5)
+        views += try seedVisits("Bravo", count: 3, month: 6)
+        try await seedPageViews(views)
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Delta", "Alpha", "Bravo"])
+    }
+
+    func testTopArticlesIsNotEligibleWithOnlyOneArticleVisitedTwice() async throws {
+        var views = try seedVisits("Twice", count: 2, month: 4)
+        views += try seedVisits("Once", count: 1, month: 5)
+        try await seedPageViews(views)
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Twice"])
+        XCTAssertFalse(payload.isEligible, "two qualifying articles are necessary, so this shows the empty state")
+    }
+
+    func testTopArticlesIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await topArticlesPayload()
+
+        XCTAssertTrue(payload.articles.isEmpty)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testTopArticlesExcludesPagesOutsideTheMainNamespace() async throws {
+        try await seedPageViews(try seedVisits("Kept", count: 2, month: 4))
+        let pageViewsDataController = try WMFPageViewsDataController()
+        for index in 0..<5 {
+            _ = try await pageViewsDataController.addPageView(title: "Talk_Page", namespaceID: 1, project: enProject, previousPageViewObjectID: nil, timestamp: try date(month: 5, day: 1 + index, hour: 10))
+            _ = try await pageViewsDataController.addPageView(title: "Some_Template", namespaceID: 10, project: enProject, previousPageViewObjectID: nil, timestamp: try date(month: 6, day: 1 + index, hour: 10))
+        }
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Kept"])
+    }
+
+    func testTopArticlesExcludesTheEnglishMainPageWithoutAnIdentifier() async throws {
+        var views = try seedVisits("Main_Page", count: 9, month: 3)
+        views += try seedVisits("Kept", count: 2, month: 4)
+        try await seedPageViews(views)
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Kept"])
+    }
+
+    func testTopArticlesExcludesMainPagesTheAppIdentifies() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        var views = try seedVisits("Pagina_principale", count: 9, month: 3, project: itProject)
+        // The same title on another wiki is an ordinary article.
+        views += try seedVisits("Pagina_principale", count: 3, month: 4)
+        views += try seedVisits("Kept", count: 2, month: 5)
+        try await seedPageViews(views)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await topArticlesPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Pagina principale", "Kept"])
+        XCTAssertEqual(payload.articles.first?.projectID, enProject.id)
     }
 
     // MARK: - mostReadCategories
