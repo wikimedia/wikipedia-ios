@@ -81,6 +81,14 @@ jobs:
           SHA: ${{ steps.resolve.outputs.sha }}
           APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
+          # Idempotent on purpose: if a later step failed, a re-run has to get
+          # past here. Checks the remote rather than the local tag list, since
+          # the checkout may not have fetched a tag pushed by an earlier run.
+          if git ls-remote --exit-code --tags origin "refs/tags/releases/$VERSION" >/dev/null 2>&1; then
+            echo "::warning::releases/$VERSION already exists - skipping tag creation"
+            exit 0
+          fi
+
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git tag "releases/$VERSION" "$SHA"
@@ -104,6 +112,11 @@ jobs:
           VERSION: ${{ github.event.inputs.version }}
           BUILD: ${{ github.event.inputs.beta_build_number }}
         run: |
+          if gh release view "releases/$VERSION" >/dev/null 2>&1; then
+            echo "::warning::GitHub Release releases/$VERSION already exists - skipping"
+            exit 0
+          fi
+
           gh release create "releases/$VERSION" \
             --title "Release $VERSION" \
             --notes "Wikipedia iOS $VERSION ($BUILD)"
@@ -201,9 +214,21 @@ jobs:
           VERSION: ${{ github.event.inputs.version }}
         run: |
           BRANCH="release-candidate/$VERSION"
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+
+          # A completed run deletes this branch in step 7, so a re-run finds it
+          # gone. That means the cycle was already cleaned up, not that anything
+          # is wrong - skip the merge-back check instead of failing the fetch.
+          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "::warning::$BRANCH no longer exists - already cleaned up, skipping steps 6 and 7"
+            echo "branch_exists=false" >> $GITHUB_OUTPUT
+            echo "new_commits=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "branch_exists=true" >> $GITHUB_OUTPUT
+
           git fetch origin main "$BRANCH"
           NEW_COMMITS=$(git rev-list "origin/main..origin/$BRANCH" | wc -l | tr -d ' ')
-          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
           echo "new_commits=$NEW_COMMITS" >> $GITHUB_OUTPUT
           echo "$BRANCH has $NEW_COMMITS commit(s) not on main"
 
@@ -211,12 +236,18 @@ jobs:
       # 6. Open a PR for any changes not yet on main
       # -------------------------------------------------------
       - name: Open PR for unmerged release branch changes
-        if: steps.check_branch.outputs.new_commits != '0'
+        if: steps.check_branch.outputs.branch_exists == 'true' && steps.check_branch.outputs.new_commits != '0'
         env:
           GH_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
           VERSION: ${{ github.event.inputs.version }}
           BRANCH: ${{ steps.check_branch.outputs.branch }}
         run: |
+          EXISTING=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq 'length')
+          if [ "$EXISTING" -gt 0 ]; then
+            echo "::warning::A PR from $BRANCH into main is already open - skipping"
+            exit 0
+          fi
+
           gh pr create \
             --base main \
             --head "$BRANCH" \
@@ -228,7 +259,7 @@ jobs:
       # 7. Delete release branch (only if nothing to merge back)
       # -------------------------------------------------------
       - name: Delete release branch
-        if: steps.check_branch.outputs.new_commits == '0'
+        if: steps.check_branch.outputs.branch_exists == 'true' && steps.check_branch.outputs.new_commits == '0'
         env:
           BRANCH: ${{ steps.check_branch.outputs.branch }}
         run: |
