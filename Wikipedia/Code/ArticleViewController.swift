@@ -50,6 +50,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Passages of a semantic search result to highlight once the article is set up. Used once.
     var semanticSearchPassages: [String] = []
     var pendingSemanticSearchScroll: SemanticSearchScroll?
+    /// The id of the semantic search request that gave the passage, for the instrumentation.
+    var semanticSearchID: String?
     /// The reader opened the article from a passage found by the search and ignored the feedback prompt there.
     var needsSemanticSearchFeedback = false
     var semanticSearchFeedbackTask: Task<Void, Never>?
