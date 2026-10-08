@@ -816,13 +816,11 @@ jobs:
           # Keep the Release version field in the body in sync with the title
           current_description = set_field(current_description, 'Release version', version)
 
-          # Stamp the release branch now that it exists. This is what takes
-          # the task out of the nightly Alpha workflow's search, which looks
-          # for an open release task with no branch yet and retitles it to
-          # that night's date. Without this stamp, the next nightly run would
-          # rename this cycle's task and overwrite its Included Tasks with
-          # whatever is on main, leaving release_wrap_up unable to find
-          # "Release {version}" by title.
+          # Stamp the release branch now that it exists, so later lookups can
+          # tell which cycle this task belongs to. "Create Phabricator release
+          # task" above prefers a task already stamped with this branch over
+          # one with no branch yet, and v2_submit_appstore matches on the same
+          # field.
           current_description = set_field(current_description, 'Release branch', branch)
 
           # Build new included tasks section
