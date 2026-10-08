@@ -1,6 +1,7 @@
 import CocoaLumberjackSwift
 import CoreData
 import WMFNativeLocalizations
+import WMFData
 
 public extension Notification.Name {
     static let NotificationsCenterContextDidSave = Notification.Name("NotificationsCenterContextDidSave")
@@ -145,7 +146,7 @@ final class RemoteNotificationsModelController {
                 try batchDeleteBlock(libraryRequest, backgroundContext)
                 
                 // remove notifications from shared cache (referenced by the NotificationsService extension)
-                let sharedCache = SharedContainerCache.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
+                let sharedCache = WMFSharedContainerCache(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
                 var cache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
                 cache.notifications = []
                 cache.currentUnreadCount = 0

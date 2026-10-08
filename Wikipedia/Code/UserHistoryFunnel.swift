@@ -23,7 +23,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         self.dataStore = dataStore
     }
 
-    private let sharedCache = SharedContainerCache.init(fileName: "User History Funnel Snapshot")
+    private let sharedCache = WMFSharedContainerCache(fileName: "User History Funnel Snapshot")
 
     public struct FeedEnabledList: Codable, Equatable {
         let featuredArticle: ItemLanguages?
