@@ -452,7 +452,7 @@
 "editor-find-current-match-info-zero-results-accessibility" = "لم يتم العثور على أي تطابقات";
 "editor-find-next-button-accessibility" = "النتيجة التالية";
 "editor-find-previous-button-accessibility" = "نتيجة البحث السابقة";
-"editor-find-textfield-accessibility" = "جد";
+"editor-find-textfield-accessibility" = "ابحث";
 "editor-keyboard-bold-accessibility" = "غليظ";
 "editor-keyboard-close-text-format-menu-accessibility" = "إغلاق قائمة تنسيق النص";
 "editor-keyboard-comment-accessibility" = "تعليق";
@@ -662,7 +662,7 @@
 "find-replace-header" = "ابحث واستبدل";
 "find-replace-header-close-accessibility" = "إغلاق أوجد واستبدل";
 "find-textfield-accessibility" = "ابحث";
-"forgot-password-button-title" = "أعد الضبط";
+"forgot-password-button-title" = "إعادة ضبط";
 "forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";
 "forgot-password-instructions" = "أدخل أحد الحقول أدناه لتستقبل تعليمات إعادة ضبط كلمة السر عبر البريد الإلكتروني";
 "forgot-password-title" = "أعد ضبط كلمة السر";
@@ -887,7 +887,7 @@
 "notifications-center-filters-read-status-item-title-read" = "اقرأ";
 "notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
 "notifications-center-filters-read-status-section-title" = "حالة القراءة";
-"notifications-center-filters-title" = "المرشحات";
+"notifications-center-filters-title" = "مرشحات";
 "notifications-center-filters-types-footer" = "تعديل أنواع الإشعارات لتصفيتها داخل / خارج صندوق الوارد الخاص بالإشعارات.  لن تكون الأنواع التي تم إيقاف تشغيلها مرئية ، ولكن سيتوفر محتواها وأي إشعارات جديدة عند تشغيل التبديل مرة أخرى.";
 "notifications-center-filters-types-item-title-all" = "جميع الأنواع";
 "notifications-center-filters-types-section-title" = "أنواع الإخطارات";
@@ -1430,7 +1430,7 @@
 "watchlist-change-expiry-subtitle" = "اختر فترة قائمة المراقبة";
 "watchlist-change-expiry-title" = "انتهاء صلاحية قائمة المراقبة";
 "watchlist-diff-action-button-title" = "انتقل إلى الاختلاف";
-"watchlist-edit-summary-accessibility" = "تحرير الملخص";
+"watchlist-edit-summary-accessibility" = "ملخص التعديل";
 "watchlist-empty-view-button-title" = "البحث عن المقالات";
 "watchlist-empty-view-filter-title" = "ليس لديك أي عناصر في قائمة المراقبة";
 "watchlist-empty-view-subtitle" = "تابع ما يحدث للمقالات التي تهمك. انقر على القائمة الموجودة في المقالة وحدد \"مشاهدة\" لرؤية التغييرات التي تطرأ على المقالة.";

@@ -458,6 +458,8 @@
 "donation-reminder-setup-trigger-group-title-articles" = "Sempre que leio";
 "donation-reminder-setup-trigger-unit-articles" = "Artigos";
 "donation-reminder-setup-update-button-title" = "Lembrete de atualização";
+"donation-reminder-wrap-up-card-share-feedback" = "Compartilhar comentário";
+"donation-reminder-wrap-up-survey-title" = "Pesquisa";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Destino do link";
 "edit-link-remove-link-title" = "Remover link";
@@ -1330,6 +1332,10 @@
 "search-widget-announcement-title" = "Novo widget de pesquisa disponível";
 "search-widget-description" = "Acesso rápido à pesquisa na Wikipédia.";
 "search-widget-wikipedia-title" = "Wikipédia";
+"semantic-search-feedback-submit" = "Enviar";
+"semantic-search-feedback-thumbs-down-accessibility" = "Não";
+"semantic-search-feedback-thumbs-up-accessibility" = "Sim";
+"semantic-search-feedback-title" = "Comentário";
 "serbian-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes sérvias como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\nсрпски ћирилица Serbian, Cirílico (sr-ec)\nsrpski latinica Serbian, Latino (sr-el)";
 "serbian-variants-alert-title" = "Atualizações para o suporte à variante sérvia";
 "settings-account" = "Conta";

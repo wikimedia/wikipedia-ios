@@ -1131,7 +1131,7 @@
 "watchlist-added-toast-permanently" = "Lasihuvvon du čuovvunlistui bissovažžan.";
 "watchlist-added-toast-six-months" = "Lasihuvvon du čuovvunlistui guđa mánnui.";
 "watchlist-added-toast-three-months" = "Lasihuvvon du čuovvunlistui golmma mánnui.";
-"watchlist-added-toast-view-watchlist" = "Čájet cuovvunlisttu";
+"watchlist-added-toast-view-watchlist" = "Čájet čuovvunlistu";
 "watchlist-byte-change" = "{{PLURAL:$1|$1 stávvalat}}";
 "watchlist-change-expiry-option-one-month" = "1 mánnu";
 "watchlist-change-expiry-option-one-week" = "1 vahkku";
