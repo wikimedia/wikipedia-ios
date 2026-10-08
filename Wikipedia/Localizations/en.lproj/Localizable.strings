@@ -1296,7 +1296,7 @@
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-semantic-entry-point-accessibility-hint" = "Searches within articles for your query";
-"search-semantic-entry-point-description" = "Search within articles and jump straight to the relevant passage";
+"search-semantic-entry-point-description" = "Search within articles and jump straight into the relevant passage";
 "search-semantic-entry-point-hidden-toast-modify" = "Modify";
 "search-semantic-entry-point-hidden-toast-subtitle" = "You can make it visible again via Settings.";
 "search-semantic-entry-point-hidden-toast-title" = "Module hidden.";
