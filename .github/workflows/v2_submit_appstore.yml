@@ -216,13 +216,14 @@ jobs:
               and predicate(release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
             ]
 
-          # This step is the only thing that ever writes **Release
-          # branch**, so that field marks whether a task has already been
-          # through a submission. A re-submission - Apple rejects, a fix
-          # lands on the same release branch, this runs again - finds the
-          # task already stamped with the branch, so match that first. A
-          # first submission finds the task beta created at the start of the
-          # cycle, with the field still blank, and stamps it below.
+          # **Release branch** marks which cycle a task belongs to. Both this
+          # step and v2_deploy_beta's "Update release task with included
+          # tasks" write it, and beta gets there first - it stamps the task on
+          # the cycle's first build - so by the time we run, this cycle's task
+          # is normally already stamped. Match that first. The blank fallback
+          # covers a task that was never stamped, either because beta's update
+          # step failed or because someone created the task by hand. Either
+          # way this step re-stamps it below.
           already_branched = matching_tasks(lambda v: v == branch)
           not_yet_branched = matching_tasks(lambda v: not v)
           release_task = (already_branched or not_yet_branched or [None])[0]
