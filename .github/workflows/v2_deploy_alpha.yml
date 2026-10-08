@@ -1,8 +1,7 @@
 name: V2 Deploy Alpha
 
 on:
-  # Alpha builds on every merge into main rather than on a nightly schedule,
-  # and skips the build when the latest commit is already tagged.
+  # Alpha builds on every merge into main and skips the build when the latest commit is already tagged.
   push:
     branches:
       - main
