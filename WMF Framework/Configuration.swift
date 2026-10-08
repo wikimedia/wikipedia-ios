@@ -40,7 +40,7 @@ public class Configuration: NSObject {
     @objc public static let current: Configuration = {
         #if WMF_LOCAL
         return Configuration.local(options: [.localPCS, .localAnnouncements])
-        #elseif WMF_STAGING
+        #elseif WMF_ALPHA
 		
 		/* NOTE: .betaCluster attempts to point to the MediaWiki beta cluster for all possible endpoints.
 		Change this to .appsLabsForPCS for alternative staging environments.
