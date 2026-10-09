@@ -31,14 +31,14 @@ final class SemanticSearchInfoCoordinator: Coordinator {
         let viewModel = WMFSemanticSearchInfoViewModel(
             languageCode: languageCode,
             learnMoreAction: { [weak self] in
-                guard let self, let learnMoreURL else { return }
-                instrumentation.logInfoLearnMore()
-                navigationController.navigate(to: learnMoreURL, useSafari: true)
+                guard let self, let learnMoreURL = self.learnMoreURL else { return }
+                self.instrumentation.logInfoLearnMore()
+                self.navigationController.navigate(to: learnMoreURL, useSafari: true)
             },
             closeAction: { [weak self] in
                 guard let self else { return }
-                instrumentation.logInfoClose()
-                sheetNavigationController?.dismiss(animated: true)
+                self.instrumentation.logInfoClose()
+                self.sheetNavigationController?.dismiss(animated: true)
             }
         )
         instrumentation.logInfoImpression()

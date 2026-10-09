@@ -111,13 +111,13 @@ extension ArticleViewController {
             style: .card,
             submitAction: { [weak self] rating, text in
                 guard let self else { return }
-                semanticSearchInstrumentation?.logFeedbackSubmit(placement: .article, rating: rating, text: text, searchID: semanticSearchID)
-                dismissSemanticSearchFeedback(showingThanks: true)
+                self.semanticSearchInstrumentation?.logFeedbackSubmit(placement: .article, rating: rating, text: text, searchID: self.semanticSearchID)
+                self.dismissSemanticSearchFeedback(showingThanks: true)
             },
             closeAction: { [weak self] in
                 guard let self else { return }
-                semanticSearchInstrumentation?.logFeedbackClose(placement: .article)
-                dismissSemanticSearchFeedback(showingThanks: false)
+                self.semanticSearchInstrumentation?.logFeedbackClose(placement: .article)
+                self.dismissSemanticSearchFeedback(showingThanks: false)
             }
         )
 

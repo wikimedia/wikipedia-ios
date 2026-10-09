@@ -43,11 +43,11 @@ extension SearchResultsViewController {
             },
             tapAction: { [weak self] result, index in
                 guard let self else { return }
-                if let displayedSearchResults {
-                    instrumentation.logLexicalResultTap(position: index + 1, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
+                if let displayedSearchResults = self.displayedSearchResults {
+                    self.instrumentation.logLexicalResultTap(position: index + 1, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
                 }
-                saveLastSearch()
-                articleTappedAction?(result.articleURL, false)
+                self.saveLastSearch()
+                self.articleTappedAction?(result.articleURL, false)
             },
             openAction: { [weak self] result, _ in
                 ArticleTabsFunnel.shared.logLongPressOpen()
@@ -172,19 +172,19 @@ extension SearchResultsViewController {
             showsTryItNow: showsTryItNow,
             tapAction: { [weak self] query in
                 guard let self else { return }
-                instrumentation.logEntryPointTap(isTryItNow: showsTryItNow)
-                saveLastSearch()
-                semanticSearchTappedAction?(query, project)
+                self.instrumentation.logEntryPointTap(isTryItNow: showsTryItNow)
+                self.saveLastSearch()
+                self.semanticSearchTappedAction?(query, project)
             },
             infoAction: { [weak self] _ in
                 guard let self else { return }
-                instrumentation.logEntryPointInfoTap()
-                semanticSearchInfoTappedAction?(languageCode)
+                self.instrumentation.logEntryPointInfoTap()
+                self.semanticSearchInfoTappedAction?(languageCode)
             },
             hideAction: { [weak self] _ in
                 guard let self else { return }
-                instrumentation.logEntryPointClose()
-                hideSemanticSearchEntryPoint(languageCode: languageCode)
+                self.instrumentation.logEntryPointClose()
+                self.hideSemanticSearchEntryPoint(languageCode: languageCode)
             }
         )
     }

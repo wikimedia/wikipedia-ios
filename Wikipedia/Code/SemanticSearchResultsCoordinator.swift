@@ -46,7 +46,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
             },
             feedbackAction: { [weak self] rating, text in
                 guard let self else { return }
-                instrumentation.logFeedbackSubmit(placement: .sheet, rating: rating, text: text, searchID: viewModel?.searchID)
+                self.instrumentation.logFeedbackSubmit(placement: .sheet, rating: rating, text: text, searchID: self.viewModel?.searchID)
             },
             feedbackTextFieldFocusAction: { [weak self] in
                 self?.expandSheet()
