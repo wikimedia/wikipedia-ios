@@ -30,6 +30,7 @@ private let wmfLegacyDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 private let wmfLegacyDefaultTabTypeSettingsValue = 1 // the old `WMFAppDefaultTabType.settings`
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
+private let wmfSuppressYearInReviewAnnouncementForTesting = "WMFSuppressYearInReviewAnnouncementForTesting"
 private let wmfSuppressHomeOnboardingForTesting = "WMFSuppressHomeOnboardingForTesting"
 
 // KVO context pointers
@@ -59,6 +60,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private var _settingsViewController: SettingsTabViewController?
     private var homeCoordinator: HomeCoordinator?
+
+    /// True when this activation was started by a deep link. Set by SceneDelegate, which resets it at
+    /// the start of each foreground cycle. Home reads it to hold back modals.
+    var didOpenAppFromExternalLink = false {
+        didSet {
+            homeCoordinator?.homeViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
+        }
+    }
 
     /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
     var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
@@ -365,10 +374,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
         let homeViewController = coordinator.makeHomeViewController()
+        homeViewController.didOpenAppFromExternalLink = didOpenAppFromExternalLink
         let nav1 = rootNavigationController(with: homeViewController)
         coordinator.attach(navigationController: nav1)
         homeCoordinator = coordinator
-
         let nav2 = rootNavigationController(with: placesViewController)
         let nav3 = rootNavigationController(with: savedViewController)
         let nav4 = rootNavigationController(with: activityTabViewController)
@@ -887,6 +896,17 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
+        }
+
+        // The Year in Review announcement is a sheet that appears once per install, which for a
+        // fresh UI-test install means once per test, at an unpredictable moment. Mark it as seen.
+        // Written straight to the store: WMFYearInReviewDataController() throws while the Core Data
+        // store is still being set up, which `try?` would hide.
+        if UserDefaults.standard.bool(forKey: wmfSuppressYearInReviewAnnouncementForTesting) {
+            try? WMFDataEnvironment.current.userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.seenYearInReview2026FeatureAnnouncement.rawValue,
+                value: true
+            )
         }
 
         // UI tests launch as an existing reader, so the one-time "Explore is now Home" sheet would cover Home.

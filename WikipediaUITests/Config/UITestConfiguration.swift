@@ -63,6 +63,7 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.suppressHomeOnboarding, value: "YES"))
         }
 
+        argumentValues.append(UITestLaunchArgumentValue(.suppressYearInReviewAnnouncement, value: "YES"))
         argumentValues.append(UITestLaunchArgumentValue(.appleLanguages, value: "(\(languageCode))"))
         argumentValues.append(UITestLaunchArgumentValue(.httpClientProfile, value: httpClientProfile))
         argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))

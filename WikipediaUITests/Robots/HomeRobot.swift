@@ -60,6 +60,7 @@ extension HomeRobot {
 extension HomeRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        dismissYearInReviewAnnouncementIfPresent()
         base.assertExists(
             base.app.otherElements[AccessibilityIdentifiers.Home.view],
             file: file,
@@ -129,6 +130,7 @@ extension HomeRobot {
 
     @discardableResult
     func tapRootTab(_ tab: RootTab, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        dismissYearInReviewAnnouncementIfPresent()
         let button = rootTabButton(for: tab)
         base.assertVisible(button, timeout: 15, description: tab.description, file: file, line: line)
         base.tapCenter(of: button, file: file, line: line)
@@ -167,6 +169,17 @@ private extension HomeRobot {
 
     var searchView: XCUIElement {
         base.app.otherElements[AccessibilityIdentifiers.Search.view]
+    }
+
+    /// The Year in Review announcement is a sheet that can appear shortly after launch and cover
+    /// the tab bar. If it is on screen, close it so the test can continue.
+    func dismissYearInReviewAnnouncementIfPresent() {
+        let closeButton = base.app.buttons[AccessibilityIdentifiers.YearInReview.closeButton]
+        guard closeButton.waitForExistence(timeout: 3), closeButton.isHittable else {
+            return
+        }
+        closeButton.tap()
+        _ = closeButton.waitForNonExistence(timeout: 5)
     }
 
     func dismissPlacesLocationPromptIfNeeded(file: StaticString = #filePath, line: UInt = #line) {

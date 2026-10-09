@@ -9,18 +9,20 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         var forceYiREntryPoint2026 = false
         var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience?
         var forceMaxArticleTabsTo5: Bool { false }
-        var forceYiR2026Announcement: Bool { false }
+        var forceYiR2026Announcement = false
         func loadFeatureConfig() -> WMFFeatureConfigResponse? {
             // Data window 2026-01-01 to 2026-12-01 UTC.
             WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: [.testConfig]), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
         }
     }
 
+    private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let year = WMFYearInReviewDataController.targetYear
 
     private var store: WMFCoreDataStore!
     private var developerSettings: MockDeveloperSettingsDataController!
     private var dataController: WMFYearInReviewDataController!
+    private var pageViewsDataController: WMFPageViewsDataController!
 
     override func setUp() async throws {
         try await super.setUp()
@@ -28,6 +30,23 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
         developerSettings = MockDeveloperSettingsDataController()
         dataController = try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore(), developerSettingsDataController: developerSettings)
+        pageViewsDataController = try WMFPageViewsDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore())
+    }
+
+    // MARK: - Helpers
+
+    /// Noon UTC, to match the UTC data window of the config.
+    private func date(month: Int, day: Int, year: Int? = nil) -> Date {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .gmt
+        let components = DateComponents(year: year ?? self.year, month: month, day: day, hour: 12)
+        return calendar.date(from: components) ?? Date(timeIntervalSince1970: 0)
+    }
+
+    private func addPageViews(distinctArticles: Int, on date: Date, prefix: String = "Article") async throws {
+        for index in 0..<distinctArticles {
+            _ = try await pageViewsDataController.addPageView(title: "\(prefix) \(index)", namespaceID: 0, project: project, previousPageViewObjectID: nil, timestamp: date)
+        }
     }
 
     // MARK: - Slides
@@ -151,5 +170,43 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
     func testForcedExperienceKeepsTheStoredRawValues() {
         XCTAssertEqual(WMFYearInReviewDataController.YiRForcedExperience(rawValue: "data-rich"), .dataRich)
         XCTAssertEqual(WMFYearInReviewDataController.YiRForcedExperience(rawValue: "low-data"), .lowData)
+    }
+
+    // MARK: - Reading day count
+
+    func testReadingDayCountCountsEachDayOnce() async throws {
+        try await addPageViews(distinctArticles: 3, on: date(month: 3, day: 10))
+        try await addPageViews(distinctArticles: 1, on: date(month: 4, day: 2), prefix: "April")
+        let count = try await dataController.fetchReadingDayCount()
+        XCTAssertEqual(count, 2)
+    }
+
+    func testReadingDayCountIgnoresDaysOutsideJanuaryThroughNovember() async throws {
+        try await addPageViews(distinctArticles: 1, on: date(month: 11, day: 30))
+        try await addPageViews(distinctArticles: 1, on: date(month: 12, day: 1), prefix: "December")
+        try await addPageViews(distinctArticles: 1, on: date(month: 12, day: 31, year: year - 1), prefix: "Last Year")
+        let count = try await dataController.fetchReadingDayCount()
+        XCTAssertEqual(count, 1)
+    }
+
+    func testReadingDayCountIsZeroWithNoHistory() async throws {
+        let count = try await dataController.fetchReadingDayCount()
+        XCTAssertEqual(count, 0)
+    }
+
+    // MARK: - Forced announcement
+
+    func testForcingFeatureAnnouncementNeedsBothToggles() {
+        developerSettings.forceYiREntryPoint2026 = true
+        developerSettings.forceYiR2026Announcement = false
+        XCTAssertFalse(dataController.isForcingFeatureAnnouncement)
+
+        developerSettings.forceYiREntryPoint2026 = false
+        developerSettings.forceYiR2026Announcement = true
+        XCTAssertFalse(dataController.isForcingFeatureAnnouncement)
+
+        developerSettings.forceYiREntryPoint2026 = true
+        developerSettings.forceYiR2026Announcement = true
+        XCTAssertTrue(dataController.isForcingFeatureAnnouncement)
     }
 }

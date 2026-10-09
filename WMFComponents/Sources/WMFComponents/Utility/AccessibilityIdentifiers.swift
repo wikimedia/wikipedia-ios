@@ -58,6 +58,10 @@ public enum AccessibilityIdentifiers {
         public static let view = "Home View"
     }
 
+    public enum YearInReview {
+        public static let closeButton = "Year in Review Close Button"
+    }
+
     public enum Profile {
         public static let button = "profile-button"
         public static let view = "Profile View"

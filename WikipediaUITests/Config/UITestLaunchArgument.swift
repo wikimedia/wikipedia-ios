@@ -8,6 +8,7 @@ enum UITestLaunchArgument: String {
     case resetPreferredLanguages = "-WMFResetPreferredLanguages"
     case suppressActivityTabOnboarding = "-WMFSuppressActivityTabOnboardingForTesting"
     case suppressGamesAnnouncement = "-WMFSuppressGamesAnnouncementForTesting"
+    case suppressYearInReviewAnnouncement = "-WMFSuppressYearInReviewAnnouncementForTesting"
     case suppressHomeOnboarding = "-WMFSuppressHomeOnboardingForTesting"
     case uiTestLanguageCode = "-WMFUITestLanguageCode"
 }
