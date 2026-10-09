@@ -165,7 +165,28 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         UIApplication.shared.open(mailtoURL)
     }
+    
+    private func shareSlideImage(slideID: String) {
+        Task { @MainActor [weak self] in
+            guard let self,
+                  let slide = self.viewModel?.slides.first(where: { $0.id == slideID }),
+                  let presenter = self.navigationController.presentedViewController else {
+                return
+            }
 
+            do {
+                // 3 seconds is a placeholder. Design decides when the artwork is at rest.
+                let image = try await WMFRiveImageExporter.image(for: slide, poseTime: 3)
+                let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = presenter.view
+                presenter.present(activityViewController, animated: true)
+            } catch {
+                #if DEBUG
+                print("[YiRShareExport] \(error.localizedDescription)")
+                #endif
+            }
+        }
+    }
 }
 
 // MARK: - WMFYearInReviewCoordinating
@@ -179,8 +200,8 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
             showLearnMore()
         case .shareFeedback:
             shareFeedback()
-        case .share:
-            break
+        case .share(let slideID):
+            shareSlideImage(slideID: slideID)
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }
