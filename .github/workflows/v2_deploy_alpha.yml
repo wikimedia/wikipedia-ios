@@ -1,39 +1,407 @@
 name: V2 Deploy Alpha
 
-# STUB. This file exists on main only so the workflow shows up in the Actions
-# "Run workflow" dropdown - GitHub offers workflow_dispatch only for workflows
-# present on the default branch. The on: block below is copied verbatim from
-# the real workflow so the dispatch form asks for the right inputs; keep the
-# two in sync if the real one's inputs change.
-#
-# Running this against main does nothing but print its inputs. Pick the
-# feature branch in the Run workflow dropdown to get the real workflow.
-#
-# Delete this file and land the real one when that branch merges.
-
 on:
-  # Nightly schedule is intentionally disabled while this runs alongside the
-  # original Internal TestFlight workflow, which is still scheduled nightly
-  # at the same time. Leaving both on would double the nightly archive and
-  # upload, and post twice to the same Phabricator tasks. Uncomment when
-  # cutting over, and disable the schedule on deploy_testflight_internal.
-  # schedule:
-  #   - cron: '0 10 * * *' # run at 10AM UTC
+  # Alpha builds on every merge into main and skips the build when the latest commit is already tagged.
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
+# Serialize runs. The build number is read from the highest alphas/ tag at
+# checkout, but that tag is not pushed until the end of the run, so two
+# overlapping runs would both compute the same number and App Store Connect
+# would reject the second upload as a duplicate. cancel-in-progress stays
+# false deliberately: cancelling a run could kill it after the TestFlight
+# upload but before the tag push, leaving the build number untagged and the
+# next run colliding with it.
+concurrency:
+  group: v2-deploy-alpha
+  cancel-in-progress: false
+
+env:
+  XCODE_VERSION: "26.6"
+
 jobs:
-  stub:
-    runs-on: ubuntu-latest
+  build-and-upload:
+    runs-on: macos-26
 
     steps:
-      - name: Explain that this is a stub
+      # fetch-depth: 0 is needed for the tag list and the PR lookback, but
+      # a full clone of this repo is ~1.4GB of pack. blob:none makes it a
+      # partial clone - all commits and trees, no historical file contents -
+      # and git fetches the blobs it actually needs on demand. Nothing here
+      # reads old file contents: the tag and branch lookups are refs, the PR
+      # lookback is commit metadata, and only the checked-out commit needs
+      # real files. Measured on design review: 71s checkout down to 15s.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 0. Fail fast if the bot token is missing
+      #
+      #    Pushes below use wmf-apps-ci. If the secret resolves empty the
+      #    push URL still looks valid but carries no credentials, and the
+      #    push is rejected as "a GitHub App" - GITHUB_TOKEN, which cannot
+      #    push a ref touching .github/workflows. That only surfaces after
+      #    the build has already uploaded, so check it up front instead.
+      # -------------------------------------------------------
+      - name: Check bot token is available
         env:
-          INPUTS: ${{ toJSON(github.event.inputs) }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
-          echo "This is the stub copy of ${{ github.workflow }} on ${{ github.ref_name }}."
-          echo "It builds, uploads and tags nothing."
-          echo
-          echo "To run the real workflow, dispatch it again and pick the branch"
-          echo "that carries the v2 release workflows in the Run workflow dropdown."
-          echo
-          echo "Inputs received: $INPUTS"
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is empty or not available to this run. Tags and branches cannot be pushed as wmf-apps-ci, and falling back to GITHUB_TOKEN would be rejected. Check the repository secret."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+          xcodebuild -version
+
+      # -------------------------------------------------------
+      # 1. Compute build number
+      # -------------------------------------------------------
+      - name: Compute build number
+        id: versioning
+        run: |
+          VERSION=$(date -u "+%Y.%m.%d")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          LATEST=$(git tag --list 'alphas/*' \
+            | sed 's|alphas/||' \
+            | grep -E '^[0-9]+$' \
+            | sort -n \
+            | tail -1)
+          BUILD=$(( ${LATEST:-0} + 1 ))
+          echo "build=$BUILD" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION, Build: $BUILD"
+
+      # -------------------------------------------------------
+      # 2. Check for duplicate build
+      # -------------------------------------------------------
+      - name: Check for duplicate build
+        id: duplicate_check
+        run: |
+          LATEST_COMMIT=$(git rev-parse HEAD)
+          EXISTING_TAG=$(git tag --points-at $LATEST_COMMIT | grep 'alphas/' | head -1)
+          if [ -n "$EXISTING_TAG" ]; then
+            echo "Commit $LATEST_COMMIT already has tag $EXISTING_TAG, skipping build"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "No existing alpha tag for this commit, proceeding"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      # -------------------------------------------------------
+      # 3. Find new PRs since last release tag (for What to Test notes)
+      # -------------------------------------------------------
+      - name: Find new PRs since last release
+        id: prs
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 << 'EOF'
+          import subprocess
+          import re
+          import os
+
+          result = subprocess.run(
+            ['git', 'tag', '--list', 'releases/*', '--sort=-version:refname'],
+            capture_output=True, text=True
+          )
+          tags = result.stdout.strip().split('\n')
+          last_release_tag = next((t for t in tags if t), None)
+
+          if not last_release_tag:
+            print("No release tag found, skipping PR lookup")
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write("pr_numbers=\n")
+            exit(0)
+
+          print(f"Last release tag: {last_release_tag}")
+
+          result = subprocess.run(
+            ['git', 'log', '--oneline', f'{last_release_tag}..HEAD'],
+            capture_output=True, text=True
+          )
+          commits = result.stdout.strip().split('\n')
+
+          pr_numbers = []
+          for commit in commits:
+            # Matches both merge-commit PRs ("Merge pull request #123")
+            # and squash-merge PRs ("Fix campaign modal (#123)")
+            match = re.search(r'Merge pull request #(\d+)', commit) or re.search(r'\(#(\d+)\)\s*$', commit)
+            if match:
+              pr_numbers.append(match.group(1))
+
+          print(f"Found PRs since last release: {pr_numbers}")
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"pr_numbers={','.join(pr_numbers)}\n")
+            f.write(f"last_release_tag={last_release_tag}\n")
+          EOF
+
+      # -------------------------------------------------------
+      # 4. Find new PRs since last alpha tag (for Phabricator commenting)
+      # -------------------------------------------------------
+      - name: Find new PRs since last alpha
+        id: new_prs
+        if: steps.duplicate_check.outputs.skip != 'true'
+        run: |
+          python3 << 'EOF'
+          import subprocess
+          import re
+          import os
+
+          result = subprocess.run(
+            ['git', 'tag', '--list', 'alphas/*', '--sort=-version:refname'],
+            capture_output=True, text=True
+          )
+          tags = result.stdout.strip().split('\n')
+          last_alpha_tag = next((t for t in tags if t), None)
+
+          if not last_alpha_tag:
+            print("No alpha tag found, skipping new PR lookup")
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write("new_pr_numbers=\n")
+            exit(0)
+
+          print(f"Last alpha tag: {last_alpha_tag}")
+
+          result = subprocess.run(
+            ['git', 'log', '--oneline', f'{last_alpha_tag}..HEAD'],
+            capture_output=True, text=True
+          )
+          commits = result.stdout.strip().split('\n')
+
+          pr_numbers = []
+          for commit in commits:
+            # Matches both merge-commit PRs ("Merge pull request #123")
+            # and squash-merge PRs ("Fix campaign modal (#123)")
+            match = re.search(r'Merge pull request #(\d+)', commit) or re.search(r'\(#(\d+)\)\s*$', commit)
+            if match:
+              pr_numbers.append(match.group(1))
+
+          print(f"Found PRs since last alpha: {pr_numbers}")
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"new_pr_numbers={','.join(pr_numbers)}\n")
+          EOF
+
+      # -------------------------------------------------------
+      # 5. Fetch Phabricator tasks from PRs
+      #    - All PRs since last release → What to Test notes
+      #    - New PRs since last alpha → Phabricator commenting
+      # -------------------------------------------------------
+      - name: Fetch Phabricator tasks from PRs
+        id: phab
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ALL_PR_NUMBERS: ${{ steps.prs.outputs.pr_numbers }}
+          NEW_PR_NUMBERS: ${{ steps.new_prs.outputs.new_pr_numbers }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.error
+          import json
+          import re
+          import os
+
+          all_pr_numbers_str = os.environ.get('ALL_PR_NUMBERS', '')
+          new_pr_numbers_str = os.environ.get('NEW_PR_NUMBERS', '')
+          repo = os.environ['REPO']
+          token = os.environ['GH_TOKEN']
+
+          def fetch_phab_tasks(pr_numbers):
+            phab_tasks = []
+            for pr_num in pr_numbers:
+              url = f"https://api.github.com/repos/{repo}/pulls/{pr_num}"
+              req = urllib.request.Request(url, headers={'Authorization': f'token {token}'})
+              body = ''
+              for attempt in range(3):
+                try:
+                  with urllib.request.urlopen(req) as resp:
+                    body = json.loads(resp.read()).get('body') or ''
+                  break
+                except urllib.error.HTTPError as e:
+                  if e.code == 504 and attempt < 2:
+                    print(f"PR #{pr_num}: 504 timeout, retrying ({attempt + 1}/3)...")
+                    import time
+                    time.sleep(5)
+                  else:
+                    print(f"Could not fetch PR #{pr_num}: {e}")
+                    break
+
+              phab_section = re.findall(
+                r'\*{0,2}Phabricator:\*{0,2}\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
+                body, re.IGNORECASE
+              )
+              for section in phab_section:
+                urls = re.findall(r'https://phabricator\.wikimedia\.org/T\d+', section)
+                phab_tasks.extend(urls)
+
+            return list(dict.fromkeys(phab_tasks))
+
+          # All tasks since last release → What to Test notes
+          if all_pr_numbers_str:
+            all_pr_numbers = [p for p in all_pr_numbers_str.split(',') if p]
+            all_tasks = fetch_phab_tasks(all_pr_numbers)
+            print(f"All Phabricator tasks (since last release): {all_tasks}")
+            with open('/tmp/phab_tasks.txt', 'w') as f:
+              f.write('\n'.join(f'• {t}' for t in all_tasks))
+          else:
+            print("No PRs since last release")
+            open('/tmp/phab_tasks.txt', 'w').close()
+            all_tasks = []
+
+          # New tasks since last alpha → for Phabricator commenting
+          if new_pr_numbers_str:
+            new_pr_list = [p for p in new_pr_numbers_str.split(',') if p]
+            new_tasks = fetch_phab_tasks(new_pr_list)
+            print(f"New Phabricator tasks (since last alpha): {new_tasks}")
+          else:
+            print("No new PRs since last alpha, skipping Phabricator commenting")
+            new_tasks = []
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"phab_task_urls={','.join(new_tasks)}\n")
+          EOF
+
+      # -------------------------------------------------------
+      # 6. Write TestFlight "What to Test" notes
+      # -------------------------------------------------------
+      - name: Write TestFlight notes
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+          LAST_RELEASE_TAG: ${{ steps.prs.outputs.last_release_tag }}
+        run: |
+          mkdir -p fastlane/metadata
+          PHAB_TASKS=$(cat /tmp/phab_tasks.txt 2>/dev/null || echo "No Phabricator tasks found")
+
+          cat > /tmp/what_to_test.txt << EOF
+          Build: $VERSION ($BUILD)
+
+          Changes since $LAST_RELEASE_TAG:
+          $PHAB_TASKS
+          EOF
+
+          cat /tmp/what_to_test.txt
+
+      # -------------------------------------------------------
+      # 7. Update version and build number in Info.plist files
+      # -------------------------------------------------------
+      - name: Update version and build number
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          PLISTS=(
+            "WMF Framework/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Alpha-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "ContinueReadingWidget/Info.plist"
+            "WikipediaUnitTests/Info.plist"
+            "Widgets/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+          )
+
+          for PLIST in "${PLISTS[@]}"; do
+            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
+          done
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Alpha-Info.plist"
+
+          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
+
+      # -------------------------------------------------------
+      # 8. Build the Alpha app and upload to TestFlight (internal)
+      # -------------------------------------------------------
+      - name: Install fastlane
+        if: steps.duplicate_check.outputs.skip != 'true'
+        run: bundle install
+
+      - name: Write App Store API Key
+        if: steps.duplicate_check.outputs.skip != 'true'
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build and upload to internal TestFlight
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
+        run: |
+          bundle exec fastlane alpha
+
+      # -------------------------------------------------------
+      # 9. Tag the build
+      # -------------------------------------------------------
+      - name: Tag build
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "alphas/$BUILD"
+          # Push as wmf-apps-ci like our other automated repo writes;
+          # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          # The -c clears the AUTHORIZATION header actions/checkout leaves
+          # configured for github.com, so the URL's credentials are the only
+          # ones in play. Belt and braces: on 2026-10-07 a branch push with
+          # this same URL was still rejected as "a GitHub App" and started
+          # working once the -c was added, but a tag push had already
+          # succeeded without it, so the mechanism is not fully understood.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "alphas/$BUILD"
+
+      # -------------------------------------------------------
+      # 10. Post to Phabricator tasks
+      # -------------------------------------------------------
+      - name: Post to Phabricator tasks
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          PHAB_TASK_URLS: ${{ steps.phab.outputs.phab_task_urls }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          if [ -z "$PHAB_TASK_URLS" ]; then
+            echo "No Phabricator tasks to comment on"
+            exit 0
+          fi
+
+          MESSAGE="Available in: TestFlight Wikipedia Alpha $VERSION ($BUILD)"
+
+          echo "$PHAB_TASK_URLS" | tr ',' '\n' | while IFS= read -r url; do
+            TASK_ID=$(echo "$url" | grep -oEi "T[0-9]+$")
+            if [ -z "$TASK_ID" ]; then
+              continue
+            fi
+            echo "Commenting on $TASK_ID..."
+            curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+              https://phabricator.wikimedia.org/api/maniphest.edit \
+              -d "api.token=$PHAB_TOKEN" \
+              -d "transactions[0][type]=comment" \
+              -d "transactions[0][value]=$MESSAGE" \
+              -d "objectIdentifier=$TASK_ID"
+            echo "✓ Commented on $TASK_ID"
+          done
