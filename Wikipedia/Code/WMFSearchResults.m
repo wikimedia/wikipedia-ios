@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readwrite) NSString *searchTerm;
 @property (nonatomic, copy, nullable, readwrite) NSString *searchSuggestion;
 @property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *results;
+@property (nonatomic, copy, nullable, readwrite) NSString *prefixSearchID;
+@property (nonatomic, copy, nullable, readwrite) NSString *fullTextSearchID;
 
 @end
 
@@ -108,6 +110,19 @@ NS_ASSUME_NONNULL_BEGIN
         return YES;
     }];
     [self.mutableResults addObjectsFromArray:newResults];
+}
+
+// The full text results merge into the prefix results. Each id stays with the request that gave it.
+- (void)mergePrefixSearchIDFromModel:(WMFSearchResults *)searchResults {
+    if (searchResults.prefixSearchID) {
+        self.prefixSearchID = searchResults.prefixSearchID;
+    }
+}
+
+- (void)mergeFullTextSearchIDFromModel:(WMFSearchResults *)searchResults {
+    if (searchResults.fullTextSearchID) {
+        self.fullTextSearchID = searchResults.fullTextSearchID;
+    }
 }
 
 - (void)mergeSearchSuggestionFromModel:(WMFSearchResults *)searchResults {

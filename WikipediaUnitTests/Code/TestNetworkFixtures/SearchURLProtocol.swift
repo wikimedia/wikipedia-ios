@@ -4,6 +4,7 @@ import Foundation
 /// data tasks from in-memory response data.
 final class SearchURLProtocol: URLProtocol, @unchecked Sendable {
     private static let responseDataKey = "SearchURLProtocol.responseData"
+    private static let responseHeadersKey = "SearchURLProtocol.responseHeaders"
 
     /// Ephemeral configuration that routes only requests tagged by
     /// `request(_:withResponseData:)` through this protocol.
@@ -15,12 +16,13 @@ final class SearchURLProtocol: URLProtocol, @unchecked Sendable {
 
     /// Tags a request with response data so `canInit(with:)` accepts it and
     /// `startLoading()` can replay the bytes back to the client.
-    static func request(_ request: URLRequest, withResponseData data: Data) -> URLRequest {
+    static func request(_ request: URLRequest, withResponseData data: Data, headers: [String: String] = [:]) -> URLRequest {
         guard let mutableRequest = (request as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
             preconditionFailure("URLRequest should bridge to NSMutableURLRequest")
         }
 
         URLProtocol.setProperty(data, forKey: responseDataKey, in: mutableRequest)
+        URLProtocol.setProperty(headers, forKey: responseHeadersKey, in: mutableRequest)
         return mutableRequest as URLRequest
     }
 
@@ -33,8 +35,10 @@ final class SearchURLProtocol: URLProtocol, @unchecked Sendable {
     }
 
     override func startLoading() {
+        var headerFields = URLProtocol.property(forKey: Self.responseHeadersKey, in: request) as? [String: String] ?? [:]
+        headerFields["Content-Type"] = "application/json"
         guard let url = request.url,
-              let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json"]) else {
+              let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headerFields) else {
             client?.urlProtocol(self, didFailWithError: URLError(.badURL))
             return
         }
