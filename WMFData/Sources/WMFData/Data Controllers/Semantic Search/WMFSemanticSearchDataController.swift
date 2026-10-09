@@ -136,7 +136,7 @@ public final class WMFSemanticSearchDataController: Sendable {
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
-        let isNew = experimentsDataController.bucketForExperiment(.semanticSearch) == nil
+        let isNew = !experimentsDataController.hasPersistedBucket(for: .semanticSearch, withPercentage: Self.experimentControlPercentage)
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.semanticSearch, withPercentage: Self.experimentControlPercentage)
 
         guard let assignment = ExperimentAssignment(bucketValue: bucketValue) else {

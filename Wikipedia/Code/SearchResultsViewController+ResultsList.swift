@@ -44,7 +44,7 @@ extension SearchResultsViewController {
             tapAction: { [weak self] result, index in
                 guard let self else { return }
                 if let displayedSearchResults {
-                    instrumentation.logLexicalResultTap(position: index + 1, type: displayedSearchResults.type, searchIDs: displayedSearchResults.results.lexicalSearchIDs)
+                    instrumentation.logLexicalResultTap(position: index + 1, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
                 }
                 saveLastSearch()
                 articleTappedAction?(result.articleURL, false)

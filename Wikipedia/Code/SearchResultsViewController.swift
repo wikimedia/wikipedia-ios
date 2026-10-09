@@ -107,7 +107,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     var displayedSearchTerm: String?
     var displayedSiteURL: URL?
     /// The lexical results on screen and how they came, for the events of the taps on them.
-    private(set) var displayedSearchResults: (results: WMFSearchResults, type: WMFSearchType)?
+    private(set) var displayedSearchResults: SearchResultsLoader.Outcome?
     /// The recent search the reader tapped. The search it starts says so in its init event.
     private var recentSearchTermPendingInit: String?
     /// The reader used the keyboard microphone for the text in the search bar.
@@ -367,12 +367,12 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             enrollInSemanticSearchExperimentIfNeeded(languageCode: languageCode)
         }
         do {
-            let (results, type) = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
+            let outcome = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
             guard !Task.isCancelled else { return }
             NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
-            displayedSearchResults = (results, type)
-            instrumentation.logLexicalResultsImpression(searchIDs: results.lexicalSearchIDs)
-            displaySearchResults(results, siteURL: siteURL)
+            displayedSearchResults = outcome
+            instrumentation.logLexicalResultsImpression(searchIDs: outcome.results.lexicalSearchIDs)
+            displaySearchResults(outcome.results, siteURL: siteURL)
         } catch is CancellationError {
             return
         } catch let SearchResultsLoader.Failure.fetch(error, _) {

@@ -15,6 +15,7 @@ struct SearchResultsLoaderTests {
 
         #expect(outcome.type == .prefix)
         #expect(outcome.results.results?.count == 24)
+        #expect(outcome.prefixResultCount == 24)
         #expect(!harness.httpClient.capturedRequests.containsFullTextSearchRequest)
     }
 
@@ -28,6 +29,9 @@ struct SearchResultsLoaderTests {
 
         #expect(outcome.type == .full)
         #expect((outcome.results.results?.count ?? 0) > 5)
+        #expect(outcome.prefixResultCount == 5)
+        #expect(outcome.type(ofRow: 4) == .prefix)
+        #expect(outcome.type(ofRow: 5) == .full)
         #expect(harness.httpClient.capturedRequests.containsFullTextSearchRequest)
     }
 

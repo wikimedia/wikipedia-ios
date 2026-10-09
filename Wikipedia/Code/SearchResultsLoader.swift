@@ -12,11 +12,24 @@ struct SearchResultsLoader {
         case fetch(Error, WMFSearchType)
     }
 
+    /// The results of a search. The full text rows come after the prefix rows, so the count of
+    /// prefix rows says which request gave each row.
+    struct Outcome {
+        let results: WMFSearchResults
+        let type: WMFSearchType
+        let prefixResultCount: Int
+
+        /// Which request gave the row at `index`.
+        func type(ofRow index: Int) -> WMFSearchType {
+            index < prefixResultCount ? .prefix : .full
+        }
+    }
+
     static let fullTextSearchThreshold = 12
 
     let fetcher: WMFSearchFetcher
 
-    func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = WMFMaxSearchResultLimit) async throws -> (results: WMFSearchResults, type: WMFSearchType) {
+    func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = WMFMaxSearchResultLimit) async throws -> Outcome {
         let prefixResults: WMFSearchResults
         do {
             prefixResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit)
@@ -28,21 +41,21 @@ struct SearchResultsLoader {
 
         let prefixCount = prefixResults.results?.count ?? 0
         guard prefixCount < Self.fullTextSearchThreshold else {
-            return (prefixResults, .prefix)
+            return Outcome(results: prefixResults, type: .prefix, prefixResultCount: prefixCount)
         }
 
         try Task.checkCancellation()
 
         do {
             let fullTextResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: true, appendToPreviousResults: prefixResults)
-            return (fullTextResults, .full)
+            return Outcome(results: fullTextResults, type: .full, prefixResultCount: prefixCount)
         } catch let error as CancellationError {
             throw error
         } catch {
             guard prefixCount > 0 else {
                 throw Failure.fetch(error, .full)
             }
-            return (prefixResults, .prefix)
+            return Outcome(results: prefixResults, type: .prefix, prefixResultCount: prefixCount)
         }
     }
 }
