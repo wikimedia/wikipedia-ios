@@ -84,14 +84,13 @@ struct YearInReviewSlideViewModelFactory {
             return totalArticlesEmptySlide()
         }
 
-        let headline = WMFLocalizedString("year-in-review-2026-total-articles-title", value: "Your total article count:", comment: "Title of the Year in Review slide that shows the number of unique articles the reader read this year. The number follows it.")
+        let headline = CommonStrings.yearInReviewTotalArticlesTitle
         let count = NumberFormatter.localizedString(from: NSNumber(value: readCount), number: .decimal)
         let bodyText: String
         if let topReadPercentage, let averageReadCount {
-            let format = WMFLocalizedString("year-in-review-2026-total-articles-top-percent-subtitle", value: "That puts you in the top %1$@ of Wikipedia readers globally. The average person reads {{PLURAL:%2$d|%2$d article|%2$d articles}} a year.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers in the top 50% or better. %1$@ is replaced with a percentage, for example \"50%\". %2$d is replaced with the number of articles the average person reads in a year.")
-            bodyText = String.localizedStringWithFormat(format, percentString(topReadPercentage), averageReadCount)
+            bodyText = CommonStrings.yearInReviewTotalArticlesTopPercentSubtitle(percent: percentString(topReadPercentage), averageReadCount: averageReadCount)
         } else {
-            bodyText = WMFLocalizedString("year-in-review-2026-total-articles-subtitle", value: "You've been exploring all year. Every article added something to what you know.", comment: "Subtitle of the Year in Review slide that shows the number of articles the reader read this year, for readers below the top 50%.")
+            bodyText = CommonStrings.yearInReviewTotalArticlesSubtitle
         }
         return dataSlide(
             id: "totalArticles",
@@ -105,8 +104,8 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     private func totalArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
-        let headline = WMFLocalizedString("year-in-review-2026-total-articles-empty-title", value: "You have millions of articles to discover", comment: "Title of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
-        let bodyText = WMFLocalizedString("year-in-review-2026-total-articles-empty-subtitle", value: "Just wait until you find out all there is to learn on Wikipedia.", comment: "Subtitle of the Year in Review slide shown when the reader read fewer than three articles this year, or when the reader does not have enough data for a personalized Year in Review.")
+        let headline = CommonStrings.yearInReviewTotalArticlesEmptyTitle
+        let bodyText = CommonStrings.yearInReviewTotalArticlesEmptySubtitle
         return dataSlide(
             id: "totalArticlesEmpty",
             artboard: "frame1-empty",
@@ -160,11 +159,10 @@ struct YearInReviewSlideViewModelFactory {
             return rereadArticlesEmptySlide()
         }
 
-        let bodyText = WMFLocalizedString("year-in-review-2026-reread-articles-title", value: "Some articles in your rotation:", comment: "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.")
-        let visitCountFormat = WMFLocalizedString("year-in-review-2026-reread-articles-visit-count", value: "{{PLURAL:%1$d|%1$d visit|%1$d visits}}", comment: "Shown under each article on the Year in Review slide of articles visited multiple times. %1$d is replaced with the number of times the reader visited the article this year.")
+        let bodyText = CommonStrings.yearInReviewRereadArticlesTitle
         let shownArticles = Array(articles.prefix(3))
         let items = shownArticles.map { article in
-            ListItem(title: article.title, subtitle: String.localizedStringWithFormat(visitCountFormat, article.visitCount))
+            ListItem(title: article.title, subtitle: CommonStrings.yearInReviewRereadArticlesVisitCount(article.visitCount))
         }
         var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
         for (index, article) in shownArticles.enumerated() {
@@ -187,8 +185,8 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     private func rereadArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
-        let headline = WMFLocalizedString("year-in-review-2026-reread-articles-empty-title", value: "You're not a re-reader", comment: "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
-        let bodyText = WMFLocalizedString("year-in-review-2026-reread-articles-empty-subtitle", value: "So much for looking at an article twice. You prefer novelty and falling down new rabbit holes.", comment: "Subtitle of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.")
+        let headline = CommonStrings.yearInReviewRereadArticlesEmptyTitle
+        let bodyText = CommonStrings.yearInReviewRereadArticlesEmptySubtitle
         return listSlide(
             id: "rereadArticlesEmpty",
             artboard: "frame13-empty",

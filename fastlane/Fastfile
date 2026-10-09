@@ -45,15 +45,16 @@ platform :ios do
     end
   end
 
-  # Shared helper: build the app
-  def build_the_app
+  # Shared helper: build the app. Defaults to the production Wikipedia
+  # scheme; the Alpha build passes its own scheme/configuration.
+  def build_the_app(scheme: "Wikipedia", configuration: "Release", archive_name: "Wikipedia")
     build_app(
       project: "Wikipedia.xcodeproj",
-      scheme: "Wikipedia",
-      configuration: "Release",
+      scheme: scheme,
+      configuration: configuration,
       derived_data_path: "build",
       destination: "generic/platform=iOS",
-      archive_path: "build/Wikipedia.xcarchive",
+      archive_path: "build/#{archive_name}.xcarchive",
       export_method: "app-store",
       include_symbols: true,
       xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
@@ -84,10 +85,82 @@ platform :ios do
   end
 
   # ----------------------------------------------------------
+  # Workflow 1b: Alpha (v2_deploy_alpha)
+  #
+  # Builds the Alpha scheme rather than the production Wikipedia scheme.
+  # Runs alongside internal_beta above while the v2 workflows are tested.
+  # ----------------------------------------------------------
+  desc "Build the Alpha app and deploy to internal TestFlight testers"
+  lane :alpha do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_the_app(
+      scheme: "Alpha",
+      configuration: "Alpha",
+      archive_name: "Wikipedia-Alpha",
+    )
+
+    what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
+
+    upload_to_testflight(
+      api_key: api_key,
+      app_identifier: "org.wikimedia.wikipedia.tfbeta",
+      distribute_external: false,
+      notify_external_testers: false,
+      changelog: what_to_test,
+      skip_waiting_for_build_processing: true,
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
   # Workflow 2: External TestFlight
   # ----------------------------------------------------------
   desc "Build and deploy to external TestFlight testers, submit for beta review"
   lane :external_beta do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_the_app
+
+    # Read localized notes from JSON file written by workflow
+    localized_notes = JSON.parse(File.read("/tmp/what_to_test.json")) rescue {}
+
+    # Build localized_build_info hash
+    localized_build_info = localized_notes.transform_values do |notes|
+      { whats_new: notes }
+    end
+
+    # Ensure there's always a default
+    unless localized_build_info.key?("default")
+      default_notes = localized_notes["en-US"] || "See release notes for details"
+      localized_build_info["default"] = { whats_new: default_notes }
+    end
+
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_external: true,
+      notify_external_testers: true,
+      localized_build_info: localized_build_info,
+      submit_beta_review: true,
+      skip_waiting_for_build_processing: false,
+      groups: ["External Testers"],
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 2b: Beta (v2_deploy_beta)
+  #
+  # Same upload as external_beta above - it differs only in which commit
+  # the workflow builds from (a release candidate branch). Runs alongside
+  # external_beta while the v2 workflows are tested.
+  # ----------------------------------------------------------
+  desc "Build and deploy a release candidate to external TestFlight testers"
+  lane :beta do
     api_key = get_api_key
     before_cert_ids = all_certificate_ids
 
@@ -147,6 +220,88 @@ platform :ios do
     )
 
     cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 3b: App Store submission (v2_submit_appstore)
+  #
+  # Unlike submit_for_review above, this builds nothing - it submits a build
+  # v2_deploy_beta already uploaded to TestFlight. Because nothing is built
+  # here, a missing or still-processing build has to fail loudly rather than
+  # let the submission pick up something unexpected.
+  # ----------------------------------------------------------
+  desc "Verify a version/build pair already exists in TestFlight"
+  lane :verify_testflight_build do
+    # app_store_connect_api_key authenticates Spaceship globally
+    # (set_spaceship_token defaults to true), so the lookups below work
+    # off the same credentials as the submission itself.
+    get_api_key
+
+    version = ENV["VERSION"].to_s
+    build_number = ENV["BUILD_NUMBER"].to_s
+    UI.user_error!("VERSION is required") if version.empty?
+    UI.user_error!("BUILD_NUMBER is required") if build_number.empty?
+
+    # The production app, per the app_identifier in fastlane/Appfile - the
+    # same one the Beta workflow uploads to.
+    app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+    app = Spaceship::ConnectAPI::App.find(app_identifier)
+    UI.user_error!("Could not find app #{app_identifier} on this account") if app.nil?
+
+    # Build.all maps :version onto the marketing version
+    # (preReleaseVersion.version) and :build_number onto CFBundleVersion.
+    build = Spaceship::ConnectAPI::Build.all(
+      app_id: app.id,
+      version: version,
+      build_number: build_number,
+    ).first
+
+    if build.nil?
+      available = Spaceship::ConnectAPI::Build.all(app_id: app.id, version: version).map(&:version)
+      detail = if available.empty?
+        "No builds exist in TestFlight for version #{version} at all."
+      else
+        "Build numbers present for #{version}: #{available.join(', ')}."
+      end
+      UI.user_error!(
+        "No TestFlight build #{version} (#{build_number}) found. #{detail} " \
+        "Run the Beta workflow to upload it before submitting."
+      )
+    end
+
+    UI.success("Found TestFlight build #{version} (#{build_number}), state: #{build.processing_state}")
+
+    unless build.processing_state == "VALID"
+      UI.user_error!(
+        "Build #{version} (#{build_number}) is in state #{build.processing_state}, not VALID. " \
+        "Wait for App Store Connect to finish processing it before submitting."
+      )
+    end
+  end
+
+  desc "Submit an existing TestFlight build to App Store Review"
+  lane :submit_appstore do
+    api_key = get_api_key
+
+    should_submit = ENV["SUBMIT_FOR_REVIEW"] == "true"
+
+    # skip_binary_upload means deliver selects the already-uploaded build
+    # identified by app_version/build_number instead of archiving one.
+    upload_to_app_store(
+      api_key: api_key,
+      app_version: ENV["VERSION"],
+      build_number: ENV["BUILD_NUMBER"],
+      skip_binary_upload: true,
+      submit_for_review: should_submit,
+      automatic_release: false,
+      phased_release: true,
+      reset_ratings: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      skip_screenshots: true,
+      skip_metadata: false,
+      metadata_path: "fastlane/metadata",
+    )
   end
 
   # ----------------------------------------------------------

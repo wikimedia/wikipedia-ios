@@ -1,16 +1,5 @@
 name: V2 Release Wrap Up
 
-# STUB. This file exists on main only so the workflow shows up in the Actions
-# "Run workflow" dropdown - GitHub offers workflow_dispatch only for workflows
-# present on the default branch. The on: block below is copied verbatim from
-# the real workflow so the dispatch form asks for the right inputs; keep the
-# two in sync if the real one's inputs change.
-#
-# Running this against main does nothing but print its inputs. Pick the
-# feature branch in the Run workflow dropdown to get the real workflow.
-#
-# Delete this file and land the real one when that branch merges.
-
 on:
   workflow_dispatch:
     inputs:
@@ -27,19 +16,260 @@ permissions:
   contents: write
   pull-requests: write
 
+# Serialize repeats of the same wrap up. The group is keyed by the inputs rather
+# than flat, so two genuinely different versions still run in parallel and only a
+# double-dispatch of the same one queues behind itself.
+concurrency:
+  group: v2-release-wrapup-${{ inputs.version }}
+  cancel-in-progress: false
+
 jobs:
-  stub:
-    runs-on: ubuntu-latest
+  wrap-up:
+    runs-on: macos-26
 
     steps:
-      - name: Explain that this is a stub
+      # fetch-depth: 0 is needed for the tag list and the PR lookback, but
+      # a full clone of this repo is ~1.4GB of pack. blob:none makes it a
+      # partial clone - all commits and trees, no historical file contents -
+      # and git fetches the blobs it actually needs on demand. Nothing here
+      # reads old file contents: the tag and branch lookups are refs, the PR
+      # lookback is commit metadata, and only the checked-out commit needs
+      # real files. Measured on design review: 71s checkout down to 15s.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 0. Fail fast if the bot token is missing
+      #
+      #    Pushes below use wmf-apps-ci. If the secret resolves empty the
+      #    push URL still looks valid but carries no credentials, and the
+      #    push is rejected as "a GitHub App" - GITHUB_TOKEN, which cannot
+      #    push a ref touching .github/workflows. That only surfaces after
+      #    the build has already uploaded, so check it up front instead.
+      # -------------------------------------------------------
+      - name: Check bot token is available
         env:
-          INPUTS: ${{ toJSON(github.event.inputs) }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
-          echo "This is the stub copy of ${{ github.workflow }} on ${{ github.ref_name }}."
-          echo "It builds, uploads and tags nothing."
-          echo
-          echo "To run the real workflow, dispatch it again and pick the branch"
-          echo "that carries the v2 release workflows in the Run workflow dropdown."
-          echo
-          echo "Inputs received: $INPUTS"
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is empty or not available to this run. Tags and branches cannot be pushed as wmf-apps-ci, and falling back to GITHUB_TOKEN would be rejected. Check the repository secret."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
+      # -------------------------------------------------------
+      # 1. Resolve the commit that was released
+      # -------------------------------------------------------
+      - name: Resolve released commit
+        id: resolve
+        env:
+          BETA_BUILD_NUMBER: ${{ github.event.inputs.beta_build_number }}
+        run: |
+          SHA=$(git rev-parse "refs/tags/betas/$BETA_BUILD_NUMBER")
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+          echo "Released commit: $SHA (betas/$BETA_BUILD_NUMBER)"
+
+      # -------------------------------------------------------
+      # 2. Create release tag
+      # -------------------------------------------------------
+      - name: Create release tag
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          SHA: ${{ steps.resolve.outputs.sha }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          # Idempotent on purpose: if a later step failed, a re-run has to get
+          # past here. Checks the remote rather than the local tag list, since
+          # the checkout may not have fetched a tag pushed by an earlier run.
+          if git ls-remote --exit-code --tags origin "refs/tags/releases/$VERSION" >/dev/null 2>&1; then
+            echo "::warning::releases/$VERSION already exists - skipping tag creation"
+            exit 0
+          fi
+
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "releases/$VERSION" "$SHA"
+          # Push as wmf-apps-ci like our other automated repo writes;
+          # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          # The -c clears the AUTHORIZATION header actions/checkout leaves
+          # configured for github.com, so the URL's credentials are the only
+          # ones in play. Belt and braces: on 2026-10-07 a branch push with
+          # this same URL was still rejected as "a GitHub App" and started
+          # working once the -c was added, but a tag push had already
+          # succeeded without it, so the mechanism is not fully understood.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "releases/$VERSION"
+          echo "Created releases/$VERSION at $SHA"
+
+      # -------------------------------------------------------
+      # 3. Create GitHub Release
+      # -------------------------------------------------------
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.event.inputs.version }}
+          BUILD: ${{ github.event.inputs.beta_build_number }}
+        run: |
+          if gh release view "releases/$VERSION" >/dev/null 2>&1; then
+            echo "::warning::GitHub Release releases/$VERSION already exists - skipping"
+            exit 0
+          fi
+
+          gh release create "releases/$VERSION" \
+            --title "Release $VERSION" \
+            --notes "Wikipedia iOS $VERSION ($BUILD)"
+
+      # -------------------------------------------------------
+      # 4. Update release task with final info
+      # -------------------------------------------------------
+      - name: Update release task with final info
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          VERSION: ${{ github.event.inputs.version }}
+          SHA: ${{ steps.resolve.outputs.sha }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import re
+          import os
+          from datetime import datetime, timezone
+
+          token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
+          sha = os.environ['SHA']
+          release_tag = f"releases/{version}"
+          release_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.search',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+              'constraints[statuses][0]': 'open',
+              'order': 'newest',
+              'limit': '100',
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+
+          tasks = data.get('result', {}).get('data', [])
+          release_task = next(
+            (t for t in tasks if t.get('fields', {}).get('name', '') == f"Release {version}"),
+            None
+          )
+
+          if not release_task:
+            print(f"No open task titled 'Release {version}' found, skipping")
+            exit(0)
+
+          task_phid = release_task['phid']
+          description = release_task.get('fields', {}).get('description', {}).get('raw', '')
+
+          def set_field(description, field, value):
+            pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
+            if pattern.search(description):
+              return pattern.sub(rf'\1 {value}', description, count=1)
+            insertion = f"**{field}**: {value}"
+            if '**Included Tasks:**' in description:
+              before, marker, after = description.partition('**Included Tasks:**')
+              return before.rstrip() + "\n" + insertion + "\n\n" + marker + after
+            return description.rstrip() + f"\n\n{insertion}"
+
+          description = set_field(description, 'Release tag', release_tag)
+          description = set_field(description, 'Release SHA1', sha)
+          description = set_field(description, 'App Store Release Date', release_date)
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.edit',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'objectIdentifier': task_phid,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': description,
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+            if not result.get('error_code'):
+              print(f"✓ Updated release task with tag {release_tag}, SHA {sha}, release date {release_date}")
+            else:
+              print(f"✗ Failed to update release task: {result.get('error_info')}")
+          EOF
+
+      # -------------------------------------------------------
+      # 5. Check release branch for unmerged changes
+      # -------------------------------------------------------
+      - name: Check release branch for unmerged changes
+        id: check_branch
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          BRANCH="release-candidate/$VERSION"
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+
+          # A completed run deletes this branch in step 7, so a re-run finds it
+          # gone. That means the cycle was already cleaned up, not that anything
+          # is wrong - skip the merge-back check instead of failing the fetch.
+          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "::warning::$BRANCH no longer exists - already cleaned up, skipping steps 6 and 7"
+            echo "branch_exists=false" >> $GITHUB_OUTPUT
+            echo "new_commits=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "branch_exists=true" >> $GITHUB_OUTPUT
+
+          git fetch origin main "$BRANCH"
+          NEW_COMMITS=$(git rev-list "origin/main..origin/$BRANCH" | wc -l | tr -d ' ')
+          echo "new_commits=$NEW_COMMITS" >> $GITHUB_OUTPUT
+          echo "$BRANCH has $NEW_COMMITS commit(s) not on main"
+
+      # -------------------------------------------------------
+      # 6. Open a PR for any changes not yet on main
+      # -------------------------------------------------------
+      - name: Open PR for unmerged release branch changes
+        if: steps.check_branch.outputs.branch_exists == 'true' && steps.check_branch.outputs.new_commits != '0'
+        env:
+          GH_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+          VERSION: ${{ github.event.inputs.version }}
+          BRANCH: ${{ steps.check_branch.outputs.branch }}
+        run: |
+          EXISTING=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq 'length')
+          if [ "$EXISTING" -gt 0 ]; then
+            echo "::warning::A PR from $BRANCH into main is already open - skipping"
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Merge $BRANCH back to main" \
+            --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back."
+          echo "Opened PR to merge $BRANCH into main - branch left in place until it merges"
+
+      # -------------------------------------------------------
+      # 7. Delete release branch (only if nothing to merge back)
+      # -------------------------------------------------------
+      - name: Delete release branch
+        if: steps.check_branch.outputs.branch_exists == 'true' && steps.check_branch.outputs.new_commits == '0'
+        env:
+          BRANCH: ${{ steps.check_branch.outputs.branch }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          # Delete as wmf-apps-ci, not as github-actions[bot]. release-candidate/**
+          # is protected with "Restrict who can push", and the allowlist is
+          # wmf-apps-ci plus org/repo admins and Maintain - "Allow deletions"
+          # grants deletion to those same actors, so a plain `git push origin
+          # --delete` using the GITHUB_TOKEN credentials actions/checkout left
+          # configured would be rejected. This also matches how every other repo
+          # write in these workflows is made.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} --delete "$BRANCH"
+          echo "Deleted $BRANCH"

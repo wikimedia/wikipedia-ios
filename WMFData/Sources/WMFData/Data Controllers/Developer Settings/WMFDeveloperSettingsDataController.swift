@@ -251,7 +251,7 @@ public extension WMFDeveloperSettingsDataControlling {
     }
 
     /// Debugging convenience: fetches the donate and fundraising campaign configs from Test Wiki
-    /// instead of Donate wiki, so unpublished campaigns can be tested without the Staging scheme.
+    /// instead of Donate wiki, so unpublished campaigns can be tested without the Alpha scheme.
     public var useTestWikiDonateConfigs: Bool {
         get { loadFlag(.developerSettingsUseTestWikiDonateConfigs) }
         set {
@@ -457,7 +457,7 @@ public extension WMFDeveloperSettingsDataControlling {
     }
 
     /// TEMPORARY: while `forceYiREntryPoint2026` is on in a production build, also fetch the test
-    /// wiki feature config. Staging builds already fetch the test wiki in `fetchFeatureConfig`.
+    /// wiki feature config. Alpha builds already fetch the test wiki in `fetchFeatureConfig`.
     public func fetchTestWikiFeatureConfigIfNeeded() {
         guard forceYiREntryPoint2026,
               WMFDataEnvironment.current.serviceEnvironment == .production,
