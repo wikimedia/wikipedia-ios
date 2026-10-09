@@ -30,10 +30,17 @@ public final class WMFAccountSettingsViewModel: ObservableObject {
     public let localizedStrings: LocalizedStrings
 
     private let userDefaultsStore: WMFKeyValueStore?
-    public var onVanishAccount: (() -> Void)?
-    public var onToggleAutoSign: ((Bool) -> Void)?
+    public var onVanishAccount: (@MainActor @Sendable () -> Void)?
+    public var onToggleAutoSign: (@MainActor @Sendable (Bool) -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, username: String, autoSignDiscussions: Bool, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, onVanishAccount: (() -> Void)? = nil, onToggleAutoSign: ((Bool) -> Void)? = nil) {
+    public init(
+        localizedStrings: LocalizedStrings,
+        username: String,
+        autoSignDiscussions: Bool,
+        userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
+        onVanishAccount: (@MainActor @Sendable () -> Void)? = nil,
+        onToggleAutoSign: (@MainActor @Sendable (Bool) -> Void)? = nil
+    ) {
         self.localizedStrings = localizedStrings
         self.username = username
         self.autoSignDiscussions = autoSignDiscussions
@@ -106,10 +113,10 @@ public final class WMFAccountSettingsViewModel: ObservableObject {
 
     private var autoSignDiscussionsBinding: Binding<Bool> {
         Binding(
-            get: { self.autoSignDiscussions },
-            set: { newValue in
-                self.autoSignDiscussions = newValue
-                self.onToggleAutoSign?(newValue)
+            get: { [weak self] in self?.autoSignDiscussions ?? false },
+            set: { [weak self] newValue in
+                self?.autoSignDiscussions = newValue
+                self?.onToggleAutoSign?(newValue)
             }
         )
     }
