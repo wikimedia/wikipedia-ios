@@ -1,5 +1,11 @@
 import WMF
 
+/// Which request gave the results: the prefix search alone, or the full text search appended to it.
+public enum WMFSearchType: String, Codable {
+    case full
+    case prefix
+}
+
 struct SearchResultsLoader {
 
     enum Failure: Error {

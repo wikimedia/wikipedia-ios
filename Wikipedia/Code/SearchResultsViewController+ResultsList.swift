@@ -43,7 +43,9 @@ extension SearchResultsViewController {
             },
             tapAction: { [weak self] result, index in
                 guard let self else { return }
-                SearchFunnel.shared.logSearchResultTap(position: index, source: source.stringValue)
+                if let displayedSearchResults {
+                    instrumentation.logLexicalResultTap(position: index + 1, type: displayedSearchResults.type, searchIDs: displayedSearchResults.results.lexicalSearchIDs)
+                }
                 saveLastSearch()
                 articleTappedAction?(result.articleURL, false)
             },
@@ -95,24 +97,33 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
-        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
+        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project, isNewResultsList: true)
     }
 
     // MARK: - Semantic search entry point
 
-    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
+    /// `isNewResultsList` is true when a list of results just came in. That is the moment of the
+    /// entry point impression, in both groups. A refresh of the same list does not count again.
+    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?, isNewResultsList: Bool = false) {
         guard let query, !query.isEmpty, let languageCode, let project else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
         let dataController = WMFSemanticSearchDataController.shared
 
-        do {
-            try dataController.assignExperimentIfNeeded(languageCode: languageCode)
-        } catch {
-            DDLogError("Semantic search experiment assignment failed: \(error)")
+        let isEntryPointAvailable = dataController.isEntryPointAvailable(languageCode: languageCode)
+        if isNewResultsList, dataController.isEligible(languageCode: languageCode), let assignment = dataController.experimentAssignment {
+            let searchIDs = displayedSearchResults?.results.lexicalSearchIDs ?? SearchInstrumentation.LexicalSearchIDs(prefix: nil, fullText: nil)
+            switch assignment {
+            case .groupB where isEntryPointAvailable:
+                instrumentation.logDiveEntryImpression(isTreatment: true, searchIDs: searchIDs)
+            case .control:
+                instrumentation.logDiveEntryImpression(isTreatment: false, searchIDs: searchIDs)
+            case .groupB:
+                break
+            }
         }
-        guard dataController.isEntryPointAvailable(languageCode: languageCode) else {
+        guard isEntryPointAvailable else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
@@ -161,14 +172,19 @@ extension SearchResultsViewController {
             showsTryItNow: showsTryItNow,
             tapAction: { [weak self] query in
                 guard let self else { return }
+                instrumentation.logEntryPointTap(isTryItNow: showsTryItNow)
                 saveLastSearch()
                 semanticSearchTappedAction?(query, project)
             },
             infoAction: { [weak self] _ in
-                self?.semanticSearchInfoTappedAction?(languageCode)
+                guard let self else { return }
+                instrumentation.logEntryPointInfoTap()
+                semanticSearchInfoTappedAction?(languageCode)
             },
             hideAction: { [weak self] _ in
-                self?.hideSemanticSearchEntryPoint(languageCode: languageCode)
+                guard let self else { return }
+                instrumentation.logEntryPointClose()
+                hideSemanticSearchEntryPoint(languageCode: languageCode)
             }
         )
     }

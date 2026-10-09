@@ -8,7 +8,7 @@ import Combine
 import WMFTestKitchen
 
 /// Standalone view controller for searching Wikipedia articles. Designed to be used within a navigation controller, as its search bar leans on navigationItem.searchController behavior.
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider, SearchResultsHosting {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider {
     
     let source: SearchResultsViewController.EventLoggingSource
 
@@ -36,7 +36,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var pushedArticleSource: PushedArticleSource?
     private var cancellables = Set<AnyCancellable>()
     
-    var disableSearchCancelLogging: Bool = false
     
     // MARK: - Public configuration (set before pushing)
 
@@ -177,6 +176,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             navigationController: navigationController,
             query: query,
             project: project,
+            instrumentation: searchResultsVC.instrumentation,
             didSelectResult: { [weak self] result, searchID, needsFeedback in
                 self?.openSemanticSearchResult(result, project: project, searchID: searchID, needsFeedback: needsFeedback)
             }
@@ -210,6 +210,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             source: .search,
             semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML),
             semanticSearchID: searchID,
+            semanticSearchInstrumentation: searchResultsVC.instrumentation,
             needsSemanticSearchFeedback: needsFeedback
         )
         pushedArticleSource = .semanticSearchSheet
@@ -228,7 +229,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private func showSemanticSearchInfo(languageCode: String) {
         guard let navigationController else { return }
 
-        let coordinator = SemanticSearchInfoCoordinator(navigationController: navigationController, languageCode: languageCode)
+        let coordinator = SemanticSearchInfoCoordinator(navigationController: navigationController, languageCode: languageCode, instrumentation: searchResultsVC.instrumentation)
         semanticSearchInfoCoordinator = coordinator
         coordinator.start()
     }
@@ -400,8 +401,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        disableSearchCancelLogging = !isMovingFromParent
-
         // Keep the search active under the pushed article, so the reader returns to it.
         if pushedArticleSource == nil {
             if navigationItem.searchController?.isActive == true {
@@ -411,7 +410,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             navigationItem.searchController = nil
             navigationItem.title = nil
         }
-        disableSearchCancelLogging = false
         hideCustomLeadingLargeTitleLabel()
     }
 
