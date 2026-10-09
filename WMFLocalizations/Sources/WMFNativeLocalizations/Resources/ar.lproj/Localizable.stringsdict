@@ -845,8 +845,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d مساهم</string>
 			<key>other</key>
-			<string>%1$d المساهمون</string>
+			<string>%1$d مساهمون</string>
 		</dict>
 	</dict>
 	<key>search-semantic-results-references</key>
@@ -859,8 +861,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d مرجع</string>
 			<key>other</key>
-			<string>%1$d المراجع</string>
+			<string>%1$d مراجع</string>
 		</dict>
 	</dict>
 	<key>tabs-navbar-title-format</key>
