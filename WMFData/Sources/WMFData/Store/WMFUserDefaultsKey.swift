@@ -56,6 +56,7 @@ public enum WMFUserDefaultsKey: String {
     case didMigrateAutoSignTalkPageDiscussions = "did-migrate-auto-sign-talk-page-discussions"
     case showSearchLanguageBar = "show-search-language-bar"
     case openAppOnSearchTab = "open-app-on-search-tab"
+	case immersiveModeEnabled = "immersive-mode-enabled"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
     case developerSettingsFundraisingOverriddenCurrentDate = "dev-settings-fundraising-overridden-current-date"

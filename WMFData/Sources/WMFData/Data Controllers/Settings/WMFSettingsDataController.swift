@@ -132,6 +132,27 @@ public actor WMFSettingsDataController: ObservableObject {
         }
     }
 
+	// MARK: - Immersive Mode
+
+	/// Whether the reader opted to hide the system status bar. Missing or unreadable settings default to off.
+	/// Synchronous because UIKit needs the preference while creating and laying out view controllers.
+	public nonisolated func immersiveModeEnabled() -> Bool {
+		return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.immersiveModeEnabled.rawValue)) ?? false
+	}
+
+	/// Saves the preference before the UI applies it, returning false if persistence is unavailable or fails.
+	/// Keeping the write synchronous preserves the order of successive toggle changes.
+	@discardableResult
+	public nonisolated func setImmersiveModeEnabled(_ enabled: Bool) -> Bool {
+		guard let userDefaultsStore else { return false }
+		do {
+			try userDefaultsStore.save(key: WMFUserDefaultsKey.immersiveModeEnabled.rawValue, value: enabled)
+			return true
+		} catch {
+			return false
+		}
+	}
+
     // MARK: - Editing Preferences
 
     /// The editing mode the user prefers. Written both from the choose editor sheet and from the

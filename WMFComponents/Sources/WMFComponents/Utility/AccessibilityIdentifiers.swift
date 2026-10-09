@@ -60,8 +60,15 @@ public enum AccessibilityIdentifiers {
 
     public enum Profile {
         public static let button = "profile-button"
+		public static let settingsButton = "Profile Settings Button"
         public static let view = "Profile View"
     }
+
+	/// Identifies the preferences screen and its immersive-mode control across localizations.
+	public enum Settings {
+		public static let immersiveModeSwitch = "Settings Immersive Mode Switch"
+		public static let view = "Settings View"
+	}
 
     public enum Search {
         public static let clearRecentSearchesButton = "Search Clear Recent Searches Button"

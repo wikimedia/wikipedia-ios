@@ -245,6 +245,8 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
+		// Status-bar visibility can change without a rotation when immersive mode is toggled.
+		calculateTopSafeAreaOverlayHeight()
         scrollViewInsetsDidChange()
     }
     

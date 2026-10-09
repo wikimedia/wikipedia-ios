@@ -78,6 +78,8 @@ struct ProfileListItem: Identifiable {
     var needsNotificationCount: Bool = false
     let isDonate: Bool
     let isLoadingDonateConfigs: Bool
+	/// Identifies actionable rows without depending on the current app language.
+	var accessibilityIdentifier: String? = nil
     let action: () -> ()?
 }
 
@@ -168,6 +170,7 @@ enum ProfileState {
                 hasNotifications: nil,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
+				accessibilityIdentifier: AccessibilityIdentifiers.Profile.settingsButton,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
@@ -297,6 +300,7 @@ enum ProfileState {
                 hasNotifications: nil,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
+				accessibilityIdentifier: AccessibilityIdentifiers.Profile.settingsButton,
                 action: {
                    coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
@@ -387,6 +391,7 @@ enum ProfileState {
                 hasNotifications: nil,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
+				accessibilityIdentifier: AccessibilityIdentifiers.Profile.settingsButton,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
                 }

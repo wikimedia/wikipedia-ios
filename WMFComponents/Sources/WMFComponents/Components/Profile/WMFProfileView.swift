@@ -101,6 +101,7 @@ public struct WMFProfileView: View {
                 }
             }
         }
+		.accessibilityIdentifier(item.accessibilityIdentifier ?? "")
         .background(content: {
             GeometryReader { geometry in
                 Color.clear

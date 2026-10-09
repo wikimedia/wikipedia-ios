@@ -936,6 +936,7 @@
 		70B7983625758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B7983525758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift */; };
 		76F2C89F24F595530FFD066D /* EvergreenAccountCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960130C531A2414C9A6DCDF8 /* EvergreenAccountCreationCoordinator.swift */; };
 		77C367D052E2441FA4BA9479 /* VisualEditorReturnJourneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */; };
+		77C367D052E2441FA4BA9480 /* ImmersiveModeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CC0C9EA6734DCA8BB96685 /* ImmersiveModeViewControllerTests.swift */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -3381,6 +3382,7 @@
 		70B7983525758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EPEventRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEditorReturnJourneyTests.swift; sourceTree = "<group>"; };
+		77CC0C9EA6734DCA8BB96685 /* ImmersiveModeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveModeViewControllerTests.swift; sourceTree = "<group>"; };
 		7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatchEditToolbarViewController.xib; sourceTree = "<group>"; };
 		7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFunnel.swift; sourceTree = "<group>"; };
 		7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -7187,6 +7189,7 @@
 				D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */,
 				83BBBE5523F56F9400AD0994 /* LocaleTests.swift */,
 				77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */,
+				77CC0C9EA6734DCA8BB96685 /* ImmersiveModeViewControllerTests.swift */,
 				D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */,
 				B0E809041C0D18A00065EBC0 /* CircularBitwiseRotationTests.m */,
 				B0E809081C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m */,
@@ -9320,6 +9323,7 @@
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
 				83BBBE5623F56F9400AD0994 /* LocaleTests.swift in Sources */,
 				77C367D052E2441FA4BA9479 /* VisualEditorReturnJourneyTests.swift in Sources */,
+				77C367D052E2441FA4BA9480 /* ImmersiveModeViewControllerTests.swift in Sources */,
 				B39427451E71F79700D3146D /* NSSetBlocksKitTest.m in Sources */,
 				B0E808B91C0D17160065EBC0 /* WMFHTTPHangingProtocol.m in Sources */,
 				BC52D0F71C207D3300F625A9 /* TWNStringsTests.m in Sources */,

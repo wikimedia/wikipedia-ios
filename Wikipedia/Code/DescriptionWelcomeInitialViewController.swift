@@ -1,3 +1,5 @@
+import WMFComponents
+
 // A lightweight way to provide iPhone X friendly constraints when using a UIPageViewController
 // is to simply embed it in a container view which uses such constraints. No need to modify the
 // UIPageViewController subclass at all. DescriptionWelcomeInitialViewController embeds a UIPageViewController
@@ -28,7 +30,7 @@ class DescriptionWelcomeInitialViewController: UIViewController, Themeable {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return false
+		return WMFAppEnvironment.current.isImmersiveModeEnabled
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

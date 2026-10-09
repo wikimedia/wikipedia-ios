@@ -117,6 +117,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                  }];
 }
 
+/// Keeps the status-bar cover in sync when immersive mode changes without rotating the device.
+- (void)viewSafeAreaInsetsDidChange {
+	[super viewSafeAreaInsetsDidChange];
+	[self calculateTopSafeAreaOverlayHeightFromObjC];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     WMFSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WMFSettingsTableViewCell.identifier forIndexPath:indexPath];
 
