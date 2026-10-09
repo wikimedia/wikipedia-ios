@@ -176,7 +176,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
             do {
                 // 3 seconds is a placeholder. Design decides when the artwork is at rest.
-                let image = try await WMFRiveImageExporter.image(for: slide, poseTime: 3)
+                let image = try await WMFRiveImageExporter.image(for: slide, poseTime: 3, caption: "Made with the Wikipedia App")
                 let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = presenter.view
                 presenter.present(activityViewController, animated: true)

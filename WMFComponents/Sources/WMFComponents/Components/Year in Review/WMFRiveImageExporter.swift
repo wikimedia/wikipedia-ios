@@ -3,13 +3,15 @@ import RiveRuntime
 import UIKit
 
 /// SPIKE (not compiled yet): draws one Year in Review slide to a still image, from its own copy of
-/// the Rive artboard. It does not touch the slide that is on screen.
+/// the Rive artboard, then adds the Wikipedia logo and a caption. It does not touch the slide that
+/// is on screen.
 ///
 /// How it works:
 /// 1. Loads a second copy of the slide's artboard with the same text, numbers, images and text
 ///    fitting as the live slide (`WMFRiveAnimationViewModel`).
 /// 2. Moves the animation forward to `poseTime`, in small steps.
 /// 3. Draws the artboard into a Metal texture that this file owns, then reads the pixels back.
+/// 4. Draws the logo and the caption on top, with native drawing.
 ///
 /// Rive's iOS 6.28.0 renderer draws into any Metal texture (`Rive.makeRenderer()`), so no on-screen
 /// view is needed.
@@ -49,15 +51,31 @@ public enum WMFRiveImageExporter {
     /// chance to run. One large step could skip a change.
     private static let stepInterval: TimeInterval = 1.0 / 60.0
 
+    // MARK: - Footer layout
+    // PLACEHOLDERS. Take the real values from the Figma frame.
+
+    /// The footer is laid out as on a phone this many points wide, then scaled up to the image.
+    /// The same width is used by `WMFWhichCameFirstShareView`.
+    private static let referenceWidth: CGFloat = 393
+
+    /// The asset in `Assets.xcassets` of WMFComponents. Confirm against Figma that this is the logo it shows.
+    private static let logoAssetName = "W-share-logo"
+    private static let logoHeight: CGFloat = 28
+    private static let logoToCaptionSpacing: CGFloat = 8
+    private static let bottomMargin: CGFloat = 32
+    private static let sideMargin: CGFloat = 24
+
     /// - Parameters:
     ///   - slide: The slide to export. Its text, numbers, thumbnails and text fits are used.
     ///   - poseTime: Seconds to move the animation forward. Ask design when the artwork reaches its resting pose.
+    ///   - caption: The localized line under the logo, for example "Created with the Wikipedia app".
     ///   - size: The size of the image in pixels.
     ///   - fit: How the artboard fills the image. The live slide uses `.layout`, but Rive does not let
     ///     an app resize the artboard, so the export uses a fit that scales the artboard instead.
     public static func image(
         for slide: WMFYearInReviewSlideViewModel,
         poseTime: TimeInterval,
+        caption: String,
         size: CGSize = defaultSize,
         fit: RiveRuntime.Fit = .cover(alignment: .center)
     ) async throws -> UIImage {
@@ -73,6 +91,7 @@ public enum WMFRiveImageExporter {
             animation: animation,
             text: slide.text,
             numbers: slide.numbers,
+            readBool: slide.lightContentFlag,
             textFits: slide.textFits
         )
         await viewModel.load()
@@ -82,12 +101,17 @@ public enum WMFRiveImageExporter {
             throw ExportError.loadFailed
         }
 
+        // The artwork says whether it is light or dark. Without the flag, use the style of the slide.
+        let prefersLight = viewModel.readBoolValue ?? slide.prefersLightContent
+        let style: WMFYearInReviewSlideViewModel.ContentStyle = prefersLight ? .light : .dark
+
         await bind(images: thumbnailLoader.images, to: rive, animation: animation)
 
         rive.fit = fit
         advance(rive, by: poseTime)
 
-        return try await render(rive, size: size)
+        let artwork = try await render(rive, size: size)
+        return addFooter(to: artwork, caption: caption, style: style)
     }
 
     // MARK: - Images
@@ -200,6 +224,69 @@ public enum WMFRiveImageExporter {
         }
 
         return UIImage(cgImage: cgImage, scale: 1, orientation: .up)
+    }
+
+    // MARK: - Footer
+
+    /// Draws the logo and the caption at the bottom center, in the color of the artwork's style.
+    private static func addFooter(to artwork: UIImage, caption: String, style: WMFYearInReviewSlideViewModel.ContentStyle) -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        format.opaque = false
+
+        let pixelSize = artwork.size
+        let renderer = UIGraphicsImageRenderer(size: pixelSize, format: format)
+
+        return renderer.image { context in
+            artwork.draw(in: CGRect(origin: .zero, size: pixelSize))
+
+            // From here, draw in points of a phone that is `referenceWidth` wide.
+            let scale = pixelSize.width / referenceWidth
+            context.cgContext.scaleBy(x: scale, y: scale)
+            let canvas = CGSize(width: referenceWidth, height: pixelSize.height / scale)
+
+            let color = WMFColor.red600
+
+            // A fixed text size, so the image does not depend on the Dynamic Type setting of the reader.
+            let traits = UITraitCollection(preferredContentSizeCategory: .large)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: WMFFont.for(.caption1, compatibleWith: traits),
+                .foregroundColor: color,
+                .paragraphStyle: paragraphStyle
+            ]
+
+            let maximumWidth = canvas.width - 2 * sideMargin
+            let captionBounds = (caption as NSString).boundingRect(
+                with: CGSize(width: maximumWidth, height: .greatestFiniteMagnitude),
+                options: [.usesLineFragmentOrigin],
+                attributes: attributes,
+                context: nil
+            )
+            let captionHeight = ceil(captionBounds.height)
+            let captionRect = CGRect(
+                x: sideMargin,
+                y: canvas.height - bottomMargin - captionHeight,
+                width: maximumWidth,
+                height: captionHeight
+            )
+            (caption as NSString).draw(with: captionRect, options: [.usesLineFragmentOrigin], attributes: attributes, context: nil)
+
+            guard let logo = UIImage(named: logoAssetName, in: .module, compatibleWith: traits)?
+                .withTintColor(color, renderingMode: .alwaysOriginal),
+                  logo.size.height > 0 else {
+                return
+            }
+            let logoWidth = logoHeight * logo.size.width / logo.size.height
+            let logoRect = CGRect(
+                x: (canvas.width - logoWidth) / 2,
+                y: captionRect.minY - logoToCaptionSpacing - logoHeight,
+                width: logoWidth,
+                height: logoHeight
+            )
+            logo.draw(in: logoRect)
+        }
     }
 }
 
