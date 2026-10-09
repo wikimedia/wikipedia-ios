@@ -220,6 +220,12 @@ public final class WMFBasicService: WMFService {
     }
     
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
+        performDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
+            completion(result.map(\.value))
+        }
+    }
+
+    public func performDecodableGETWithResponse<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<WMFServiceResponse<T>, Error>) -> Void) {
         
         performGET(request: request) { data, response, error in
             
@@ -235,12 +241,23 @@ public final class WMFBasicService: WMFService {
             
             do {
                 let decoder = JSONDecoder()
-                let result: T = try decoder.decode(T.self, from: data)
-                completion(.success(result))
+                let value: T = try decoder.decode(T.self, from: data)
+                completion(.success(WMFServiceResponse(value: value, headers: Self.headers(of: response))))
             } catch let error {
                 completion(.failure(error))
             }
         }
+    }
+
+    private static func headers(of response: URLResponse?) -> [String: String] {
+        guard let allHeaderFields = (response as? HTTPURLResponse)?.allHeaderFields else { return [:] }
+
+        var headers: [String: String] = [:]
+        for (name, value) in allHeaderFields {
+            guard let name = name as? String, let value = value as? String else { continue }
+            headers[name] = value
+        }
+        return headers
     }
     
     public func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {

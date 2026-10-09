@@ -36,6 +36,9 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     @Published private(set) var state: State = .loading
     @Published private(set) var results: [WMFSemanticSearchResultViewModel] = []
+    /// The id of the request that gave the results on screen, for the instrumentation of the
+    /// search. Nil until the results arrive, or when the response has no id.
+    public private(set) var searchID: String?
     @Published private(set) var isFeedbackVisible = false
 
     /// The prompt above the passages asking whether the reader found what they were looking for.
@@ -94,6 +97,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
         cancel()
         state = .loading
         results = []
+        searchID = nil
         loadTask = Task { [weak self] in
             await self?.fetch()
         }
@@ -110,6 +114,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
             let response = try await WMFSemanticSearchDataController.shared.fetchResults(query: query, project: project)
             guard !Task.isCancelled else { return }
 
+            searchID = response.searchID
             let readInArticleAction: ResultAction = { [weak self] in self?.readInArticle($0) }
             results = response.results.map { WMFSemanticSearchResultViewModel(result: $0, project: project, localizedStrings: resultLocalizedStrings, readInArticleAction: readInArticleAction) }
             state = results.isEmpty ? .empty : .results

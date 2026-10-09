@@ -32,6 +32,20 @@ struct SearchResultsLoaderTests {
     }
 
     @Test
+    func fullTextResultsKeepBothSearchIDs() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [try fixtureData(named: "BarackSearch", limitedTo: 5), try fixtureData(named: "BarackSearch")]
+        harness.httpClient.responseHeadersQueue = [["x-search-id": "prefix-id"], ["x-search-id": "full-text-id"]]
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.type == .full)
+        #expect(outcome.results.prefixSearchID == "prefix-id")
+        #expect(outcome.results.fullTextSearchID == "full-text-id")
+    }
+
+    @Test
     func fullTextFailureFallsBackToThePrefixResults() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
