@@ -8,6 +8,22 @@ protocol ScreenshotCapturingRobot {
 // MARK: - Shared screen actions
 
 extension ScreenshotCapturingRobot {
+	/// Waits for the system status bar while leaving app navigation controls outside the assertion.
+	@MainActor
+	@discardableResult
+	func assertStatusBarVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+		base.assertExists(base.app.statusBars.firstMatch, description: "system status bar", file: file, line: line)
+		return self
+	}
+
+	/// Checks the system status bar on whichever screen the journey has reached.
+	@MainActor
+	@discardableResult
+	func assertStatusBarHidden(file: StaticString = #filePath, line: UInt = #line) -> Self {
+		base.waitForElementToDisappear(base.app.statusBars.firstMatch, file: file, line: line)
+		return self
+	}
+
     @discardableResult
     func captureScreenshot(_ screenshot: any RawRepresentable<String>) -> Self {
         base.captureScreenshot(named: screenshot.rawValue)

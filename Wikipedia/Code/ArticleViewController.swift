@@ -413,6 +413,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         tableOfContentsController.updateVerticalPaddings(top: 10, bottom: 0)
     }
 
+	/// Refreshes the status-bar cover when immersive mode changes the available content area.
+	override func viewSafeAreaInsetsDidChange() {
+		super.viewSafeAreaInsetsDidChange()
+		calculateTopSafeAreaOverlayHeight()
+	}
+
     internal func updateArticleMargins() {
 
         let defaultUpdateBlock = {

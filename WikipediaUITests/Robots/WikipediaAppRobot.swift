@@ -26,6 +26,15 @@ extension WikipediaAppRobot {
 // MARK: - App lifecycle
 
 extension WikipediaAppRobot {
+	/// Relaunches the same configured app without overriding any persisted reading preference.
+	@MainActor
+	@discardableResult
+	func relaunch() -> Self {
+		base.app.terminate()
+		base.app.launch()
+		return self
+	}
+
     @discardableResult
     func terminate() -> Self {
         base.app.terminate()

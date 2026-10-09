@@ -18,6 +18,12 @@ final public class WMFSettingsViewController: WMFComponentHostingController<WMFS
 
     private var hasAppearedBefore = false
 
+	/// Exposes the settings container to UI tests in every supported language.
+	public override func viewDidLoad() {
+		super.viewDidLoad()
+		view.accessibilityIdentifier = AccessibilityIdentifiers.Settings.view
+	}
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()

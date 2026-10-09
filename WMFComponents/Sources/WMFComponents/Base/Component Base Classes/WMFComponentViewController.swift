@@ -66,4 +66,9 @@ open class WMFComponentViewController: UIViewController {
         return appEnvironment.theme.preferredStatusBarStyle
     }
 
+	/// Applies the preference to UIKit screens presented without a navigation controller.
+	open override var prefersStatusBarHidden: Bool {
+		return appEnvironment.isImmersiveModeEnabled || super.prefersStatusBarHidden
+	}
+
 }

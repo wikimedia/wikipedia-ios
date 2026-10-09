@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 import WMF
 import WMFData
 import WMFComponents
@@ -52,6 +53,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - Private stored properties
 
     private var periodicWorkerController: PeriodicWorkerController?
+	private var appEnvironmentSubscription: AnyCancellable?
     private var backgroundFetcherController: BackgroundFetcherController?
     private var reachabilityNotifier: ReachabilityNotifier?
 
@@ -146,6 +148,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         apply(theme: theme)
 
         updateAppEnvironment(theme: theme, traitCollection: traitCollection)
+
+		// Settings can change status bar visibility while this tab controller is covered by a modal.
+		appEnvironmentSubscription = WMFAppEnvironment.publisher
+			.sink { [weak self] _ in self?.setNeedsStatusBarAppearanceUpdate() }
 
         backgroundTasks = Dictionary(minimumCapacity: 5)
 
@@ -303,8 +309,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     override var prefersStatusBarHidden: Bool {
-        return false
+		return WMFAppEnvironment.current.isImmersiveModeEnabled
     }
+
+	/// Prevent the selected tab from overriding the reader's explicit immersive-mode preference.
+	override var childForStatusBarHidden: UIViewController? {
+		return WMFAppEnvironment.current.isImmersiveModeEnabled ? nil : super.childForStatusBarHidden
+	}
 
     var isPresentingOnboarding: Bool {
         return presentedViewController is WMFAppOnboardingHostingController
@@ -935,8 +946,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                         if let navController = self.navigationController {
                             navController.pushViewController(tempVC, animated: true)
                         } else {
-                            let navController = UINavigationController(rootViewController: tempVC)
-                            navController.modalPresentationStyle = .fullScreen
+							// Use the shared presenter so this full-screen flow also honors immersive mode.
+							let navController = WMFComponentNavigationController(rootViewController: tempVC, modalPresentationStyle: .fullScreen)
                             self.present(navController, animated: true, completion: nil)
                         }
                     },

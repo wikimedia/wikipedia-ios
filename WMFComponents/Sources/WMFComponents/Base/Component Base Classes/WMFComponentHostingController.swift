@@ -66,6 +66,11 @@ open class WMFComponentHostingController<HostedView: View>: UIHostingController<
         setNeedsStatusBarAppearanceUpdate()
     }
 
+	/// Applies the preference to SwiftUI screens presented without a navigation controller.
+	open override var prefersStatusBarHidden: Bool {
+		return appEnvironment.isImmersiveModeEnabled || super.prefersStatusBarHidden
+	}
+
     // Explicitly nonisolated (matching UIHostingController's own deinit) rather than
     // the isolated deinit this class would implicitly get under the module's default
     // MainActor isolation. Works around a swift-frontend 6.3.3 crash: the SIL

@@ -1,6 +1,51 @@
 import XCTest
 
 final class HomeUITests: XCTestCase {
+	/// The preference applies immediately, survives launch, and covers both native and article screens.
+	@MainActor
+	func testImmersiveModePersistsAndRestoresStatusBar() throws {
+		try XCTSkipUnless(
+			uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.fixtureStrict.rawValue,
+			"Immersive mode coverage uses bundled article fixtures."
+		)
+		guard let fixture = ArticleRobot.articleControlsFixture(languageCode: uiTestConfiguration.languageCode) else {
+			throw XCTSkip("Immersive mode coverage requires an article fixture for the configured language.")
+		}
+
+		let app = launchWikipediaAppRobot(onboardingState: .completed)
+		app.home
+			.rotateToPortrait()
+			.assertVisible()
+			.openProfile()
+			.openSettings()
+			.setImmersiveModeEnabled(false)
+			.assertImmersiveModeEnabled(false)
+			.assertStatusBarVisible()
+			.setImmersiveModeEnabled(true)
+			.assertImmersiveModeEnabled(true)
+			.assertStatusBarHidden()
+
+		app.relaunch()
+			.home
+			.assertVisible()
+			.assertStatusBarHidden()
+			.openSearch()
+			.focusSearchField()
+			.typeSearchTerm(fixture.primaryArticleTitle)
+			.assertSearchResultVisible(named: fixture.primaryArticleTitle)
+			.openResult(named: fixture.primaryArticleTitle)
+			.assertVisible()
+			.assertTopControlsVisible()
+			.assertStatusBarHidden()
+			.tapHomeButtonToHome()
+			.openProfile()
+			.openSettings()
+			.assertImmersiveModeEnabled(true)
+			.setImmersiveModeEnabled(false)
+			.assertImmersiveModeEnabled(false)
+			.assertStatusBarVisible()
+	}
+
     func testHome() throws {
         enum ScreenshotNames: String {
             case initial = "Home Initial"

@@ -208,6 +208,16 @@ open class WMFComponentNavigationController: UINavigationController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return theme.preferredStatusBarStyle
     }
+
+	/// Let UIKit keep its normal landscape behavior when immersive mode is off.
+	open override var prefersStatusBarHidden: Bool {
+		return appEnvironment.isImmersiveModeEnabled || super.prefersStatusBarHidden
+	}
+
+	/// Immersive mode takes precedence over screens that normally request a visible status bar.
+	open override var childForStatusBarHidden: UIViewController? {
+		return appEnvironment.isImmersiveModeEnabled ? nil : super.childForStatusBarHidden
+	}
     
     // MARK: - Private
     

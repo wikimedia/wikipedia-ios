@@ -47,6 +47,8 @@ struct SettingsRow: View {
         case .toggle(let binding):
             Toggle("", isOn: binding)
                 .labelsHidden()
+				.accessibilityLabel(item.title)
+				.accessibilityIdentifier(item.accessibilityIdentifier ?? "")
                 .toggleStyle(SwitchToggleStyle(tint: Color(uiColor: theme.accent)))
         case .icon(let image):
             if let image {
@@ -94,13 +96,20 @@ public struct WMFSettingsView: View {
                         }
                     ) {
                         ForEach(section.items) { item in
-                            Button {
-                                item.action?()
-                            } label: {
-                                SettingsRow(item: item)
-                                    .contentShape(Rectangle())
-                            }
-                            .buttonStyle(.plain)
+							Group {
+								// A toggle is already interactive; wrapping it in a button creates competing actions.
+								if case .toggle = item.accessory {
+									SettingsRow(item: item)
+								} else {
+									Button {
+										item.action?()
+									} label: {
+										SettingsRow(item: item)
+											.contentShape(Rectangle())
+									}
+									.buttonStyle(.plain)
+								}
+							}
                             .listRowBackground(Color(uiColor: theme.chromeBackground))
                             .listRowSeparator(.hidden)
                         }

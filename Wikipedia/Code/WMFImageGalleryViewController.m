@@ -97,6 +97,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @dynamic dataSource;
 
+/// Showing photo controls must not restore the status bar while immersive mode is enabled.
+- (BOOL)prefersStatusBarHidden {
+	return WMFAppEnvironment.current.isImmersiveModeEnabled || [super prefersStatusBarHidden];
+}
+
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
     self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
     if (self) {

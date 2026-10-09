@@ -18,6 +18,8 @@ public struct SettingsItem: Identifiable {
     let title: String
     let subtitle: String?
     let showsBetaBadge: Bool
+	/// A stable identifier for the row's interactive accessory, independent of its localized label.
+	let accessibilityIdentifier: String?
     let accessory: AccessoryType
     let action: (() -> Void)?
 
@@ -27,6 +29,7 @@ public struct SettingsItem: Identifiable {
         title: String,
         subtitle: String?,
         showsBetaBadge: Bool = false,
+		accessibilityIdentifier: String? = nil,
         accessory: AccessoryType,
         action: (() -> Void)?
     ) {
@@ -35,6 +38,7 @@ public struct SettingsItem: Identifiable {
         self.title = title
         self.subtitle = subtitle
         self.showsBetaBadge = showsBetaBadge
+		self.accessibilityIdentifier = accessibilityIdentifier
         self.accessory = accessory
         self.action = action
     }
@@ -83,6 +87,8 @@ final public class WMFSettingsViewModel: ObservableObject {
         let helpTitle: String
         let aboutTitle: String
         let safetyTitle: String
+		let immersiveModeTitle = WMFLocalizedString("settings-immersive-mode-title", value: "Immersive mode", comment: "Title of the setting that hides the system status bar throughout the app. This is off by default.")
+		let immersiveModeSubtitle = WMFLocalizedString("settings-immersive-mode-subtitle", value: "Hide the status bar showing the time, Wi-Fi, and battery level.", comment: "Explains immersive mode in Settings. The app navigation controls remain available.")
 
         let donationsHeader = WMFLocalizedString("settings-donations-header", value: "Donations", comment: "Header of the donations section on the settings screen.")
         let donationRemindersTitle = CommonStrings.donationRemindersTitle
@@ -145,6 +151,8 @@ final public class WMFSettingsViewModel: ObservableObject {
     // MARK: - Properties
 
     @Published private(set) var sections: [SettingsSection] = []
+	/// The persisted status bar preference displayed by the Settings toggle.
+	@Published private(set) var isImmersiveModeEnabled: Bool
 
     let URLTerms = "https://foundation.wikimedia.org/wiki/Terms_of_Use/en"
 
@@ -168,6 +176,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
+		self.isImmersiveModeEnabled = dataController.immersiveModeEnabled()
         await buildSections()
     }
 
@@ -216,6 +225,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
+		self.isImmersiveModeEnabled = dataController.immersiveModeEnabled()
     }
 
     private static func __createWithoutBuilding(
@@ -360,7 +370,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
         })
 
-        var mainItems: [SettingsItem] = [pushNotifications, readingPrefs, articleStorage]
+		var mainItems: [SettingsItem] = [pushNotifications, readingPrefs, immersiveModeItem(), articleStorage]
 
         if WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled {
             mainItems.append(editingPreferencesItem())
@@ -379,6 +389,26 @@ final public class WMFSettingsViewModel: ObservableObject {
 #endif
         return section
     }
+
+	/// Persists each toggle change before updating visible controllers through the shared UI environment.
+	private func immersiveModeItem() -> SettingsItem {
+		SettingsItem(
+			image: WMFSFSymbolIcon.for(symbol: .eyeSlash),
+			color: WMFColor.gray600,
+			title: localizedStrings.immersiveModeTitle,
+			subtitle: localizedStrings.immersiveModeSubtitle,
+			accessibilityIdentifier: AccessibilityIdentifiers.Settings.immersiveModeSwitch,
+			accessory: .toggle(Binding(
+				get: { [weak self] in self?.isImmersiveModeEnabled ?? false },
+				set: { [weak self] enabled in
+					guard let self, self.dataController.setImmersiveModeEnabled(enabled) else { return }
+					self.isImmersiveModeEnabled = enabled
+					WMFAppEnvironment.current.set(isImmersiveModeEnabled: enabled)
+				}
+			)),
+			action: nil
+		)
+	}
 
     /// Only shown while the remote feature config enables the visual editor journey. The value
     /// reflects the mode the user last picked, either here or in the choose editor sheet.
