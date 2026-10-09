@@ -1470,9 +1470,6 @@
 		83ACF8E528E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */; };
 		83ACF8E628E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */; };
 		83ACF8E728E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */; };
-		83AE025C299D9CDD00C45F73 /* SearchFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE025B299D9CDD00C45F73 /* SearchFunnel.swift */; };
-		83AE025D299D9CDD00C45F73 /* SearchFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE025B299D9CDD00C45F73 /* SearchFunnel.swift */; };
-		83AE025E299D9CDD00C45F73 /* SearchFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE025B299D9CDD00C45F73 /* SearchFunnel.swift */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C861F34BB64004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
@@ -1781,6 +1778,7 @@
 		B0BCF0AD2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */; };
 		B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */; };
 		E81A4E0626082000005CE006 /* SemanticSearchPassageHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */; };
+		E81A4E2626082000005CE026 /* SearchInstrumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */; };
 		3F4CF854EA7F9FA3057C8E58 /* MWKImageInfoFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04881C1695CEC2F4FDF1A89 /* MWKImageInfoFetcherTests.swift */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
@@ -2632,12 +2630,15 @@
 		E446C3D95A844026889BE43A /* ArticlePeekPreviewViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F65B649B1404086AB3BE8 /* ArticlePeekPreviewViewControllerTests.swift */; };
 		E81A4C0226081900005CD002 /* DonationReminderSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */; };
 		E81A4D0226081900005CE002 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
+		E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D2126081900005CE021 /* SearchInstrumentation.swift */; };
 		E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
 		E81A4C0326081900005CD003 /* DonationReminderSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */; };
 		E81A4D0326081900005CE003 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
+		E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D2126081900005CE021 /* SearchInstrumentation.swift */; };
 		E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
 		E81A4C0426081900005CD004 /* DonationReminderSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */; };
 		E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
+		E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D2126081900005CE021 /* SearchInstrumentation.swift */; };
 		E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
 		E81A4E0226081900005CF002 /* SemanticSearchInfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */; };
 		E81A4E0326081900005CF003 /* SemanticSearchInfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */; };
@@ -3687,7 +3688,6 @@
 		83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaLookup.swift; sourceTree = "<group>"; };
 		83ACAAAC24E6EED9003B3035 /* WikipediaSiteInfoLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaSiteInfoLookup.swift; sourceTree = "<group>"; };
 		83ACF8E428E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainerCacheHousekeeping.swift; sourceTree = "<group>"; };
-		83AE025B299D9CDD00C45F73 /* SearchFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFunnel.swift; sourceTree = "<group>"; };
 		83AF34F624D3341D000046D6 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = System/Library/Frameworks/BackgroundTasks.framework; sourceTree = SDKROOT; };
 		83B019CD24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtility.swift; sourceTree = "<group>"; };
 		83B019CE24F6ACAA0014B5EF /* WikipediaLanguageCommandLineUtilityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikipediaLanguageCommandLineUtilityAPI.swift; sourceTree = "<group>"; };
@@ -3868,6 +3868,7 @@
 		B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableEducationPanelViewController.swift; sourceTree = "<group>"; };
 		B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMapTests.swift"; sourceTree = "<group>"; };
 		E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchPassageHighlightTests.swift; sourceTree = "<group>"; };
+		E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInstrumentationTests.swift; sourceTree = "<group>"; };
 		A04881C1695CEC2F4FDF1A89 /* MWKImageInfoFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWKImageInfoFetcherTests.swift; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -4360,6 +4361,7 @@
 		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
 		E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationReminderSetupCoordinator.swift; sourceTree = "<group>"; };
 		E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchResultsCoordinator.swift; sourceTree = "<group>"; };
+		E81A4D2126081900005CE021 /* SearchInstrumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInstrumentation.swift; sourceTree = "<group>"; };
 		E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsCoordinator.swift; sourceTree = "<group>"; };
 		E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchInfoCoordinator.swift; sourceTree = "<group>"; };
 		E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundraisingAnnouncementDismissActionTests.swift; sourceTree = "<group>"; };
@@ -5442,7 +5444,6 @@
 				8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */,
 				83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */,
 				676E813229380D8A00F15258 /* TalkPagesFunnel.swift */,
-				83AE025B299D9CDD00C45F73 /* SearchFunnel.swift */,
 				83155BA52A0D70B7003D141D /* NavigationEventsFunnel.swift */,
 				83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */,
 				6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */,
@@ -6413,6 +6414,7 @@
 				678ABAE72C9DB948005CD570 /* DonateCoordinator.swift */,
 				E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */,
 				E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */,
+				E81A4D2126081900005CE021 /* SearchInstrumentation.swift */,
 				E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */,
 				E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */,
 			);
@@ -7373,6 +7375,7 @@
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 				E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */,
 				E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */,
+				E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */,
 				A04881C1695CEC2F4FDF1A89 /* MWKImageInfoFetcherTests.swift */,
 				E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
@@ -9444,6 +9447,7 @@
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
 				E81A4C0626082000005CD006 /* FundraisingAnnouncementDismissActionTests.swift in Sources */,
 				E81A4E0626082000005CE006 /* SemanticSearchPassageHighlightTests.swift in Sources */,
+				E81A4E2626082000005CE026 /* SearchInstrumentationTests.swift in Sources */,
 				3F4CF854EA7F9FA3057C8E58 /* MWKImageInfoFetcherTests.swift in Sources */,
 				E81A4C0826082000005CD008 /* YearInReviewSlideViewModelFactoryTests.swift in Sources */,
 				BC62AE621C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m in Sources */,
@@ -9759,7 +9763,6 @@
 				0036C8B3282C2AAA00EADB35 /* Notification+NotificationsCenter.swift in Sources */,
 				B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
-				83AE025C299D9CDD00C45F73 /* SearchFunnel.swift in Sources */,
 				67C1757628AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */,
 				678ECA632D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */,
 				D82E956A1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
@@ -9827,6 +9830,7 @@
 				678ABAEA2C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				E81A4C0426081900005CD004 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */,
+				E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0426081900005CF004 /* SemanticSearchInfoCoordinator.swift in Sources */,
 				BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */,
@@ -10651,6 +10655,7 @@
 				678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				E81A4C0326081900005CD003 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0326081900005CE003 /* SemanticSearchResultsCoordinator.swift in Sources */,
+				E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0326081900005CF003 /* SemanticSearchInfoCoordinator.swift in Sources */,
 				672428982362113900490629 /* DiffFetcher.swift in Sources */,
@@ -10721,7 +10726,6 @@
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				67B0B8902BF51E3300480B46 /* ArticleCollectionViewController.swift in Sources */,
 				FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */,
-				83AE025E299D9CDD00C45F73 /* SearchFunnel.swift in Sources */,
 				673FC3D2273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */,
 				67282FBF24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
 				6782DBF9234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,
@@ -11211,6 +11215,7 @@
 				678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				E81A4C0226081900005CD002 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0226081900005CE002 /* SemanticSearchResultsCoordinator.swift in Sources */,
+				E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0226081900005CF002 /* SemanticSearchInfoCoordinator.swift in Sources */,
 				372F04852D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */,
@@ -11279,7 +11284,6 @@
 				67282FBE24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
 				67B0B88F2BF51E3300480B46 /* ArticleCollectionViewController.swift in Sources */,
 				FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */,
-				83AE025D299D9CDD00C45F73 /* SearchFunnel.swift in Sources */,
 				673FC3D1273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */,
 				D8EC3E611E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				7A6ED51920ADBF950001849F /* SettingsFunnel.swift in Sources */,

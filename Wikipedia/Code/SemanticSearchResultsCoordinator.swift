@@ -9,8 +9,10 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
 
     private let query: String
     private let project: WMFProject
-    /// The flag tells whether the article should ask for feedback: the reader ignored the prompt in the sheet.
-    private let didSelectResult: (WMFSemanticSearchResult, Bool) -> Void
+    private let instrumentation: SearchInstrumentation
+    /// The id is the search id of the request that gave the result, for the instrumentation. The flag
+    /// tells whether the article should ask for feedback: the reader ignored the prompt in the sheet.
+    private let didSelectResult: (WMFSemanticSearchResult, String?, Bool) -> Void
 
     private var viewModel: WMFSemanticSearchResultsViewModel?
     /// Kept after the sheet is dismissed to open an article, so `restore()` can show the same sheet again.
@@ -21,11 +23,13 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         navigationController: UINavigationController,
         query: String,
         project: WMFProject,
-        didSelectResult: @escaping (WMFSemanticSearchResult, Bool) -> Void
+        instrumentation: SearchInstrumentation,
+        didSelectResult: @escaping (WMFSemanticSearchResult, String?, Bool) -> Void
     ) {
         self.navigationController = navigationController
         self.query = query
         self.project = project
+        self.instrumentation = instrumentation
         self.didSelectResult = didSelectResult
     }
 
@@ -38,10 +42,11 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
                 self?.open(result)
             },
             closeAction: { [weak self] in
-                self?.dismiss()
+                self?.close()
             },
-            feedbackAction: { _, _ in
-                // TODO: Send the rating and optional text the reader submits.
+            feedbackAction: { [weak self] rating, text in
+                guard let self else { return }
+                self.instrumentation.logFeedbackSubmit(placement: .sheet, rating: rating, text: text, searchID: self.viewModel?.searchID)
             },
             feedbackTextFieldFocusAction: { [weak self] in
                 self?.expandSheet()
@@ -54,6 +59,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
             modalPresentationStyle: .pageSheet
         )
 
+        viewModel.loggingDelegate = self
         self.viewModel = viewModel
         self.sheetNavigationController = sheetNavigationController
 
@@ -67,6 +73,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         guard let sheetNavigationController, sheetNavigationController.presentingViewController == nil else { return }
 
         present(sheetNavigationController)
+        viewModel?.logImpressionIfLoaded()
     }
 
     private func present(_ sheetNavigationController: UINavigationController) {
@@ -86,9 +93,10 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
     private func open(_ result: WMFSemanticSearchResult) {
         viewModel?.cancel()
         selectedDetentIdentifier = sheetNavigationController?.sheetPresentationController?.selectedDetentIdentifier
+        let searchID = viewModel?.searchID
         let needsFeedback = viewModel?.handOffFeedbackIfIgnored() ?? false
         sheetNavigationController?.dismiss(animated: true) { [weak self] in
-            self?.didSelectResult(result, needsFeedback)
+            self?.didSelectResult(result, searchID, needsFeedback)
         }
     }
 
@@ -102,18 +110,45 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         }
     }
 
+    /// The reader tapped the close button.
+    private func close() {
+        logClose()
+        dismiss()
+    }
+
     private func dismiss() {
         viewModel?.cancel()
         sheetNavigationController?.dismiss(animated: true)
         sheetNavigationController = nil
     }
+
+    private func logClose() {
+        instrumentation.logResultsClose(whileAskingForFeedback: viewModel?.isAskingForFeedback ?? false)
+    }
 }
 
 extension SemanticSearchResultsCoordinator: UISheetPresentationControllerDelegate {
 
+    /// The reader pulled the sheet down.
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        logClose()
         viewModel?.cancel()
         sheetNavigationController = nil
     }
 
+}
+
+extension SemanticSearchResultsCoordinator: WMFSemanticSearchResultsLoggingDelegate {
+
+    func logResultsImpression(searchID: String?) {
+        instrumentation.logResultsImpression(searchID: searchID)
+    }
+
+    func logEmptyResultsImpression() {
+        instrumentation.logEmptyResultsImpression()
+    }
+
+    func logResultTap(position: Int, searchID: String?) {
+        instrumentation.logResultTap(position: position, searchID: searchID)
+    }
 }

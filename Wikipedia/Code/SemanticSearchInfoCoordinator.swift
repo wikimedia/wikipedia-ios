@@ -8,6 +8,7 @@ final class SemanticSearchInfoCoordinator: Coordinator {
     let navigationController: UINavigationController
 
     private let languageCode: String
+    private let instrumentation: SearchInstrumentation
 
     /// The project page of the experiment, in the search language when a translation exists.
     private var learnMoreURL: URL? {
@@ -19,9 +20,10 @@ final class SemanticSearchInfoCoordinator: Coordinator {
 
     private weak var sheetNavigationController: UINavigationController?
 
-    init(navigationController: UINavigationController, languageCode: String) {
+    init(navigationController: UINavigationController, languageCode: String, instrumentation: SearchInstrumentation) {
         self.navigationController = navigationController
         self.languageCode = languageCode
+        self.instrumentation = instrumentation
     }
 
     @discardableResult
@@ -29,13 +31,17 @@ final class SemanticSearchInfoCoordinator: Coordinator {
         let viewModel = WMFSemanticSearchInfoViewModel(
             languageCode: languageCode,
             learnMoreAction: { [weak self] in
-                guard let self, let learnMoreURL else { return }
-                navigationController.navigate(to: learnMoreURL, useSafari: true)
+                guard let self, let learnMoreURL = self.learnMoreURL else { return }
+                self.instrumentation.logInfoLearnMore()
+                self.navigationController.navigate(to: learnMoreURL, useSafari: true)
             },
             closeAction: { [weak self] in
-                self?.sheetNavigationController?.dismiss(animated: true)
+                guard let self else { return }
+                self.instrumentation.logInfoClose()
+                self.sheetNavigationController?.dismiss(animated: true)
             }
         )
+        instrumentation.logInfoImpression()
 
         let hostingController = WMFSemanticSearchInfoHostingController(viewModel: viewModel)
         let sheetNavigationController = WMFComponentNavigationController(

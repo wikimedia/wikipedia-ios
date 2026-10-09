@@ -8,9 +8,6 @@ import SwiftUI
 
 // Protocol that any parent view controller that sets SearchResultsViewController as its navigationItem.searchResultsController should conform to. It ensures search cancel logging happens properly.
 // Conformers to this class should properly set this flag in their viewWillDisappear methods.
-protocol SearchResultsHosting {
-    var disableSearchCancelLogging: Bool { get }
-}
 
 /// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
 class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider {
@@ -46,6 +43,9 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     /// Called with the query and the project of the search when the reader taps the semantic
     /// search entry point.
+    /// Follows the search into the sheet of passages and the article. The search screen owns it.
+    let instrumentation = SearchInstrumentation()
+
     var semanticSearchTappedAction: (@MainActor @Sendable (String, WMFProject) -> Void)?
 
     /// Called when the reader taps the button of the toast shown after hiding the semantic
@@ -106,6 +106,12 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     var focusesFirstResultWhenKeyboardHides = false
     var displayedSearchTerm: String?
     var displayedSiteURL: URL?
+    /// The lexical results on screen and how they came, for the events of the taps on them.
+    private(set) var displayedSearchResults: SearchResultsLoader.Outcome?
+    /// The recent search the reader tapped. The search it starts says so in its init event.
+    private var recentSearchTermPendingInit: String?
+    /// The reader used the keyboard microphone for the text in the search bar.
+    private var isDictating = false
     var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
 
     var siteURL: URL? {
@@ -160,7 +166,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         updateLanguageBarVisibility()
         reloadRecentSearches()
         refreshSemanticSearchEntryPointIfResultsAreShown()
-        SearchFunnel.shared.logSearchStart(source: source.stringValue)
+        instrumentation.logSearchScreenImpression(source: source, project: siteURL.flatMap { SearchResultsMapper.project(for: $0) })
     }
 
     override func viewDidLayoutSubviews() {
@@ -316,10 +322,10 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     // MARK: - Search
 
     func search() {
-        search(for: searchTerm, suggested: false)
+        search(for: searchTerm)
     }
 
-    private func search(for searchTerm: String?, suggested: Bool) {
+    private func search(for searchTerm: String?) {
         guard let siteURL else {
             assertionFailure("siteURL must not be nil")
             return
@@ -336,27 +342,42 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         resetSearchResults()
         hideSemanticSearchEntryPointIfLanguageChanged(for: siteURL)
         searchTask = Task { [weak self] in
-            await self?.performSearch(for: searchTerm, siteURL: siteURL, suggested: suggested)
+            await self?.performSearch(for: searchTerm, siteURL: siteURL)
         }
     }
 
-    private func performSearch(for searchTerm: String, siteURL: URL, suggested: Bool) async {
+    private func performSearch(for searchTerm: String, siteURL: URL) async {
         guard !Task.isCancelled else { return }
         
-        let start = Date()
+        if let project = SearchResultsMapper.project(for: siteURL) {
+            let origin: SearchInstrumentation.SearchOrigin
+            if recentSearchTermPendingInit == searchTerm {
+                origin = .recentSearch
+            } else if isDictating {
+                origin = .voice
+            } else {
+                origin = .typed
+            }
+            instrumentation.logSearchInit(searchTerm: searchTerm, project: project, origin: origin)
+        }
+        recentSearchTermPendingInit = nil
+        if let languageCode = siteURL.wmf_languageCode {
+            let dataController = WMFSemanticSearchDataController.shared
+            instrumentation.logQueryEligibility(isEligible: dataController.isEligible(languageCode: languageCode))
+            enrollInSemanticSearchExperimentIfNeeded(languageCode: languageCode)
+        }
         do {
-            let (results, type) = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
+            let outcome = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
             guard !Task.isCancelled else { return }
             NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
-            displaySearchResults(results, siteURL: siteURL)
-            guard !suggested else { return }
-            SearchFunnel.shared.logSearchResults(with: type, resultCount: results.results?.count ?? 0, elapsedTime: Date().timeIntervalSince(start), source: source.stringValue)
+            displayedSearchResults = outcome
+            instrumentation.logLexicalResultsImpression(searchIDs: outcome.results.lexicalSearchIDs)
+            displaySearchResults(outcome.results, siteURL: siteURL)
         } catch is CancellationError {
             return
-        } catch let SearchResultsLoader.Failure.fetch(error, type) {
+        } catch let SearchResultsLoader.Failure.fetch(error, _) {
             guard !Task.isCancelled, !(error as NSError).wmf_isCancelledError() else { return }
             displaySearchError(error)
-            SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: source.stringValue)
         } catch {
             assertionFailure("Unexpected search error: \(error)")
         }
@@ -372,6 +393,18 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         resultsViewModel.reset()
     }
 
+    /// The group is rolled on the first eligible search, before any result shows. The exposure
+    /// event goes out with it.
+    private func enrollInSemanticSearchExperimentIfNeeded(languageCode: String) {
+        do {
+            if try WMFSemanticSearchDataController.shared.enrollIfNeeded(languageCode: languageCode)?.isNew == true {
+                instrumentation.logExperimentExposure()
+            }
+        } catch {
+            DDLogError("Semantic search experiment assignment failed: \(error)")
+        }
+    }
+
     func didCancelSearch() {
         resetSearchResults()
         resultsViewModel.hideSemanticSearchEntryPoint()
@@ -383,7 +416,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard let term, term.wmf_hasNonWhitespaceText else { return }
         searchTerm = term
         showSearchResults(animated: false)
-        search(for: term, suggested: false)
+        search(for: term)
     }
 
     // MARK: - Recent Search Saving
@@ -452,6 +485,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     private lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
         guard let self else { return }
+        self.instrumentation.logRecentSearchTap(searchTerm: term.text, project: self.siteURL.flatMap { SearchResultsMapper.project(for: $0) })
+        self.recentSearchTermPendingInit = term.text
         self.resetSearchResults()
         if let pop = self.populateSearchBarAction {
             pop(term.text)
@@ -508,6 +543,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let text = searchController.searchBar.text ?? ""
         needsAnimateLanguageBarMovement = false
+        isDictating = searchController.searchBar.searchTextField.textInputMode?.primaryLanguage == "dictation"
 
         if text.wmf_hasNonWhitespaceText {
             showSearchResults(animated: false)
@@ -525,7 +561,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
                 guard let self else { return }
                 try? await Task.sleep(for: .milliseconds(100))
                 guard !Task.isCancelled else { return }
-                search(for: text, suggested: false)
+                search(for: text)
             }
         } else {
             searchTerm = nil
@@ -555,11 +591,6 @@ extension SearchResultsViewController: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
         searchBarIPadCustomizer.willDismissSearchController(searchController)
         parentSearchControllerDelegate?.willDismissSearchController?(searchController)
-        if let searchHoster = self.presentingViewController as? SearchResultsHosting {
-            if !searchHoster.disableSearchCancelLogging { // Avoid cancel logging if search dismissal is due to navigating away
-                SearchFunnel.shared.logSearchCancel(source: source.stringValue)
-            }
-        }
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
@@ -577,7 +608,13 @@ extension SearchResultsViewController: UISearchControllerDelegate {
 
 extension SearchResultsViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
-        SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue)
         search()
+    }
+}
+
+extension WMFSearchResults {
+
+    var lexicalSearchIDs: SearchInstrumentation.LexicalSearchIDs {
+        SearchInstrumentation.LexicalSearchIDs(prefix: prefixSearchID, fullText: fullTextSearchID)
     }
 }
