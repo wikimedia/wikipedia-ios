@@ -161,6 +161,8 @@ private class FeedCard: ExploreFeedSettingsItem {
     }
 }
 
+/// The legacy Explore feed powers the Community segment of the Home tab, so this screen is the
+/// Community feed settings. The feed cannot be turned off: hiding every card just shows an empty state.
 @objc(WMFExploreFeedSettingsViewController)
 class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, WMFNavigationBarConfiguring {
     
@@ -184,18 +186,9 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
         assert(!preferredLanguages.isEmpty)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }
-    
-    /// While the Home tab experiment is running (phase 1), this feed powers the Community segment of
-    /// the Home tab: the screen is titled Community, and the feed cannot be turned off — so the
-    /// Explore tab toggle and the "turn off the feed" footers are hidden. With home phase 2, the
-    /// reworked community feed replaces it and the screen returns to its Explore feed behavior.
-    private var isCommunityMode: Bool {
-        WMFDeveloperSettingsDataController.shared.isCommunityFeedMode
-    }
 
     private func configureNavigationBar() {
-        let title = isCommunityMode ? CommonStrings.communityFeedTitle : CommonStrings.exploreFeedTitle
-        let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: .centerCompact)
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.communityFeedTitle, customView: nil, alignment: .centerCompact)
         var closeConfig: WMFLargeCloseButtonConfig? = nil
         
         if showCloseButton {
@@ -221,35 +214,14 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
     // MARK: Items
 
     private lazy var feedCards: [FeedCard] = {
-        let inTheNews = FeedCard(contentGroupKind: .news, displayType: displayType)
-        let onThisDay = FeedCard(contentGroupKind: .onThisDay, displayType: displayType)
-        let featuredArticle = FeedCard(contentGroupKind: .featuredArticle, displayType: displayType)
-        let topRead = FeedCard(contentGroupKind: .topRead, displayType: displayType)
-        let places = FeedCard(contentGroupKind: .location, displayType: displayType)
-        let randomizer = FeedCard(contentGroupKind: .random, displayType: displayType)
-        let dailyGame = FeedCard(contentGroupKind: .dailyGame, displayType: displayType)
-        let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
-        let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
-        let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
-        let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
+        var cards = WMFContentGroupKind.communityFeedCardKinds.map { FeedCard(contentGroupKind: $0, displayType: displayType) }
 
-        if isCommunityMode {
-            feedCards = WMFContentGroupKind.communityFeedCardKinds.map { FeedCard(contentGroupKind: $0, displayType: displayType) }
-        } else {
-            feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
-            feedCards.insert(dailyGame, at: 3)
+        let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
+        if shouldShowSuggestedEdits {
+            cards.append(FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType))
         }
-  
-        let suggestedEditsOption = suggestedEdits
 
-            let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
-
-            if shouldShowSuggestedEdits {
-                feedCards.append(suggestedEditsOption)
-            }
-
-        return feedCards
-
+        return cards
     }()
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
@@ -258,27 +230,10 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
 
     // MARK: Sections
 
-    // Only shown in baseline (non-community) mode — hiding all cards can turn the feed off there.
-    let togglingFeedCardsFooterText = WMFLocalizedString("explore-feed-preferences-languages-footer-text", value: "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.", comment: "Text for explaining the effects of hiding all feed cards")
-
     private lazy var customizationSection: ExploreFeedSettingsSection = {
-        // In community mode the feed is presented as the Community feed and cannot be turned off, so
-        // the strings say "Community feed" (new keys) and drop the "will turn off the Explore tab"
-        // footer. Baseline keeps the original Explore feed strings and keys.
-        if isCommunityMode {
-            let headerTitle = WMFLocalizedString("new-explore-feed-preferences-customize-explore-feed", value: "Customize the Community feed", comment: "Title of the Settings section that allows users to customize the Community feed")
-            let footerTitle = WMFLocalizedString("new-explore-feed-preferences-customize-explore-feed-footer-text", value: "Hiding a card type will stop this card type from appearing in the Community feed.", comment: "Text for explaining the effects of hiding feed cards")
-            return ExploreFeedSettingsSection(headerTitle: headerTitle, footerTitle: footerTitle, items: feedCards)
-        } else {
-            let headerTitle = WMFLocalizedString("explore-feed-preferences-customize-explore-feed", value: "Customize the Explore feed", comment: "Title of the Settings section that allows users to customize the Explore feed")
-            let hidingCardFooterText = WMFLocalizedString("explore-feed-preferences-customize-explore-feed-footer-text", value: "Hiding a card type will stop this card type from appearing in the Explore feed.", comment: "Text for explaining the effects of hiding feed cards")
-            let footerTitle = String.localizedStringWithFormat("%@ %@", hidingCardFooterText, togglingFeedCardsFooterText)
-            return ExploreFeedSettingsSection(headerTitle: headerTitle, footerTitle: footerTitle, items: feedCards)
-        }
-    }()
-
-    private lazy var mainSection: ExploreFeedSettingsSection = {
-        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: WMFLocalizedString("explore-feed-preferences-turn-off-feed-disclosure", value: "Turning off the Explore tab will replace the Explore tab with a Settings tab.", comment: "Text for explaining the effects of turning off the Explore tab"), items: [ExploreFeedSettingsPrimary(for: .entireFeed)])
+        let headerTitle = WMFLocalizedString("new-explore-feed-preferences-customize-explore-feed", value: "Customize the Community feed", comment: "Title of the Settings section that allows users to customize the Community feed")
+        let footerTitle = WMFLocalizedString("new-explore-feed-preferences-customize-explore-feed-footer-text", value: "Hiding a card type will stop this card type from appearing in the Community feed.", comment: "Text for explaining the effects of hiding feed cards")
+        return ExploreFeedSettingsSection(headerTitle: headerTitle, footerTitle: footerTitle, items: feedCards)
     }()
 
     private lazy var languagesSection: ExploreFeedSettingsSection? = {
@@ -287,7 +242,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
         }
         var items: [ExploreFeedSettingsItem] = languages
         items.append(globalCards)
-        return ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: isCommunityMode ? "" : togglingFeedCardsFooterText, items: items)
+        return ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: "", items: items)
     }()
 
     override var sections: [ExploreFeedSettingsSection] {
@@ -295,38 +250,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
         if displayType == .multipleLanguages, let languagesSection {
             sections.append(languagesSection)
         }
-        if !isCommunityMode {
-            sections.append(mainSection)
-        }
         return sections
-    }
-
-    // MARK: Toggling Explore feed
-
-    private func turnOnExploreAlertController(turnedOn: @escaping () -> Void, cancelled: @escaping () -> Void) -> UIAlertController {
-        let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-message", value: "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon", comment: "Message for alert that allows users to turn on the Explore tab"), preferredStyle: .alert)
-        let turnOnExplore = UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
-            turnedOn()
-        })
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
-            cancelled()
-        })
-        alertController.addAction(turnOnExplore)
-        alertController.addAction(cancel)
-        return alertController
-    }
-
-    private func turnOffExploreAlertController(turnedOff: @escaping () -> Void, cancelled: @escaping () -> Void) -> UIAlertController {
-        let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-title", value: "Turn off the Explore tab?", comment: "Title for alert that allows users to turn off the Explore tab"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-message", value: "The Explore tab can be turned back on in Explore feed settings", comment: "Message for alert that allows users to turn off the Explore tab"), preferredStyle: .alert)
-        let turnOffExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .destructive, handler: { _ in
-            turnedOff()
-        })
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
-            cancelled()
-        })
-        alertController.addAction(turnOffExplore)
-        alertController.addAction(cancel)
-        return alertController
     }
 }
 
@@ -359,24 +283,6 @@ extension ExploreFeedSettingsViewController {
         let controlTag = sender.tag
         guard let feedContentController = feedContentController else {
             assertionFailure("feedContentController is nil")
-            return
-        }
-        guard controlTag != -1 else { // main switch
-            if sender.isOn {
-                present(turnOnExploreAlertController(turnedOn: {
-                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(true, updateFeed: false)
-                    UserDefaults.standard.defaultTabType = .explore
-                }, cancelled: {
-                    sender.setOn(false, animated: true)
-                }), animated: true)
-            } else {
-                present(turnOffExploreAlertController(turnedOff: {
-                    self.dataStore?.feedContentController.toggleAllContentGroupKinds(false, updateFeed: false)
-                    UserDefaults.standard.defaultTabType = .settings
-                }, cancelled: {
-                    sender.setOn(true, animated: true)
-                }), animated: true)
-            }
             return
         }
         guard controlTag != -2 else { // global cards

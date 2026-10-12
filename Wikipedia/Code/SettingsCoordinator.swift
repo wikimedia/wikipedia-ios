@@ -109,8 +109,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     func asyncStart() async {
-
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
 
         let username = dataStore.authenticationManager.authStatePermanentUsername
@@ -120,7 +118,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
 
-        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: dataController)
+        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, readingPreferenceTheme: themeName, dataController: dataController)
 
         self.settingsViewModel = viewModel
         let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
@@ -129,11 +127,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         registerAuthNotificationObservers()
     }
 
-    func fetchDynamicValues() -> (primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
+    func fetchDynamicValues() -> (primaryLanguage: String, readingPreferenceTheme: String) {
         let primaryLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
-        let exploreFeedStatus = UserDefaults.standard.defaultTabType == .explore
         let readingPreferenceTheme = UserDefaults.standard.themeDisplayName
-        return (primaryLanguage: primaryLanguage, exploreFeedStatus: exploreFeedStatus, readingPreferenceTheme: readingPreferenceTheme)
+        return (primaryLanguage: primaryLanguage, readingPreferenceTheme: readingPreferenceTheme)
     }
 
     func handleSettingsAction(_ action: SettingsAction) {
@@ -520,7 +517,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         if let newLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() {
             settingsViewModel?.updateDynamicValues(
                 primaryLanguage: newLanguage,
-                exploreFeedStatus: UserDefaults.standard.defaultTabType == .explore,
                 readingPreferenceTheme: UserDefaults.standard.themeDisplayName
             )
         }
@@ -583,7 +579,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showHomeFeedSettings() {
         
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter", experimentData: WMFHomeDataController.shared.experimentData)
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter")
         
         guard let settingsNav = settingsNavigationController else {
             return

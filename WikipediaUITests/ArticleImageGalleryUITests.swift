@@ -8,7 +8,7 @@ final class ArticleImageGalleryUITests: XCTestCase {
         )
 
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             .openSearch()
             .focusSearchField()
