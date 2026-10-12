@@ -325,7 +325,7 @@
 	<key>donation-reminder-card-body</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Am %1$@ hast du uns gebeten, dich nach dem Lesen von %2$#@v2@ ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von %3$@ gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Versprechen heute ein.</string>
+		<string>Am %1$@ hast du uns gebeten, dich nach dem Lesen von %2$#@v2@ ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von %3$@ gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Zusage heute ein.</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -928,6 +928,38 @@
 			<string>d</string>
 			<key>other</key>
 			<string>Artikel</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-contributors</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Mitwirkender</string>
+			<key>other</key>
+			<string>%1$d Mitwirkende</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-references</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Einzelnachweis</string>
+			<key>other</key>
+			<string>%1$d Einzelnachweise</string>
 		</dict>
 	</dict>
 	<key>tabs-navbar-title-format</key>

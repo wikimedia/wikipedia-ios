@@ -28,7 +28,7 @@
     NSString *environment;
 #if DEBUG || defined(WMF_LOCAL) || defined(UITESTS) || defined(TEST)
     environment = @"dev";
-#elif defined(WMF_EXPERIMENTAL) || defined(WMF_STAGING)
+#elif defined(WMF_EXPERIMENTAL) || defined(WMF_ALPHA)
     environment = @"alpha";
 #else
     if (![self wmf_isAppStoreBundleIdentifier]) {

@@ -10,16 +10,20 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
-    
+
+    private static let articleNamespaceID = 0
+
     private var readData: WMFYearInReviewReadData?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    private weak var mainPageIdentifier: WMFMainPageIdentifying?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
+        self.mainPageIdentifier = dependencies.mainPageIdentifier
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
@@ -31,12 +35,37 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         
         let dataController = try WMFPageViewsDataController()
         
-        let readCount = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate).count
+        let pageViewCounts = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
+        let articles = pageViewCounts.filter { $0.page.namespaceID == Self.articleNamespaceID }
+
+        // Get the main page title once for each wiki, not once for each article. Each request can go to the main actor.
+        var mainPageTitles: [String: String] = [:]
+        for projectID in Set(articles.map(\.page.projectID)) {
+            if let title = await mainPageTitle(projectID: projectID) {
+                mainPageTitles[projectID] = WMFMainPageTitle.canonicalized(title)
+            }
+        }
+
+        let readCount = articles.count(where: { item in
+            let title = WMFMainPageTitle.canonicalized(item.page.title)
+            // The app does not record the English main page, but older data can contain it.
+            return title != Self.englishMainPageTitle && title != mainPageTitles[item.page.projectID]
+        })
         let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
         
         readData = WMFYearInReviewReadData(readCount: readCount, minutesRead: minutesRead)
         
         isEvaluated = true
+    }
+
+    private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
+
+    private func mainPageTitle(projectID: String) async -> String? {
+        guard let project = WMFProject(id: projectID),
+              let mainPageIdentifier else {
+            return nil
+        }
+        return await mainPageIdentifier.mainPageTitle(for: project)
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {

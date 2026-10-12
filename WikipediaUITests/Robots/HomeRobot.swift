@@ -1,8 +1,8 @@
 import XCTest
 import WMFComponents
 
-/// Represents the Explore tab after app launch or onboarding dismissal.
-struct ExploreRobot: ScreenshotCapturingRobot {
+/// Represents the Home tab after app launch or onboarding dismissal.
+struct HomeRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private let configuration: UITestConfiguration
 
@@ -14,10 +14,10 @@ struct ExploreRobot: ScreenshotCapturingRobot {
 
 // MARK: - Root tabs
 
-extension ExploreRobot {
+extension HomeRobot {
     enum RootTab: CaseIterable {
         case activity
-        case explore
+        case home
         case places
         case saved
         case search
@@ -26,8 +26,8 @@ extension ExploreRobot {
             switch self {
             case .activity:
                 return AccessibilityIdentifiers.RootTab.activityButton
-            case .explore:
-                return AccessibilityIdentifiers.RootTab.exploreButton
+            case .home:
+                return AccessibilityIdentifiers.RootTab.homeButton
             case .places:
                 return AccessibilityIdentifiers.RootTab.placesButton
             case .saved:
@@ -41,8 +41,8 @@ extension ExploreRobot {
             switch self {
             case .activity:
                 return "Activity root tab"
-            case .explore:
-                return "Explore root tab"
+            case .home:
+                return "Home root tab"
             case .places:
                 return "Places root tab"
             case .saved:
@@ -57,11 +57,11 @@ extension ExploreRobot {
 
 // MARK: - Screen state
 
-extension ExploreRobot {
+extension HomeRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
-            base.app.otherElements[AccessibilityIdentifiers.Explore.view],
+            base.app.otherElements[AccessibilityIdentifiers.Home.view],
             file: file,
             line: line
         )
@@ -85,15 +85,20 @@ extension ExploreRobot {
 
 // MARK: - Content
 
-extension ExploreRobot {
+extension HomeRobot {
     @discardableResult
     func openFirstArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
+        // Article cells live in the Community segment (the first segment) of the Home tab.
+        let communitySegment = base.app.segmentedControls.buttons.element(boundBy: 0)
+        if communitySegment.waitForExistence(timeout: 15), !communitySegment.isSelected {
+            communitySegment.tap()
+        }
         let articleCells = base.app.descendants(matching: .any)
             .matching(identifier: AccessibilityIdentifiers.Explore.articleCell)
         let articleCell = base.firstHittableElement(
             matching: articleCells,
             timeout: 60,
-            description: "Explore article cell",
+            description: "Community feed article cell",
             file: file,
             line: line
         )
@@ -155,7 +160,7 @@ extension ExploreRobot {
 
 // MARK: - Private helpers
 
-private extension ExploreRobot {
+private extension HomeRobot {
     func rootTabButton(for tab: RootTab) -> XCUIElement {
         base.app.buttons.matching(identifier: tab.accessibilityIdentifier).firstMatch
     }
