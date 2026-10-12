@@ -45,7 +45,7 @@ public final class WMFCaptcha {
         }
         
         guard
-            let captchaAuthenticationRequest = requests.first(where: {$0["id"]! as! String == "CaptchaAuthenticationRequest"}),
+            let captchaAuthenticationRequest = requests.first(where: { ($0["id"] as? String) == "CaptchaAuthenticationRequest" }),
             let fields = captchaAuthenticationRequest["fields"] as? [String : AnyObject],
             let captchaId = fields["captchaId"] as? [String : AnyObject],
             let captchaInfo = fields["captchaInfo"] as? [String : AnyObject],

@@ -54,6 +54,10 @@ extension ArticleViewController: ArticleToolbarHandling {
         return tableOfContentsController.viewController.displayMode == .inline && tableOfContentsController.viewController.isVisible
     }
     
+    func toolbarWasTouched(from controller: ArticleToolbarController) {
+        skipSemanticSearchFeedback()
+    }
+
     func toggleSave(from controller: ArticleToolbarController) {
         NavigationEventsFunnel.shared.logEvent(action: .articleToolbarSave)
         let isSaved = dataStore.savedPageList.toggleSavedPage(for: articleURL)

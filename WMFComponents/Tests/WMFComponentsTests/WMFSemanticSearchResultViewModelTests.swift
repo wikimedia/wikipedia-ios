@@ -159,6 +159,26 @@ final class WMFSemanticSearchResultViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.thumbnail, "No thumbnail URL, no request.")
     }
 
+    func testAttributionRowHidesWithoutAnySignal() async {
+        let viewModel = makeViewModel()
+        let service = WMFMockAttributionService(contributorCount: nil, referenceCount: nil, lastUpdated: nil, imageData: nil)
+
+        XCTAssertFalse(viewModel.hasAttributionSignals, "Nothing loaded yet, nothing to show.")
+
+        await loadDetails(of: viewModel, with: service)
+
+        XCTAssertFalse(viewModel.hasAttributionSignals)
+    }
+
+    func testAttributionRowShowsWithOneSignal() async {
+        let viewModel = makeViewModel()
+        let service = WMFMockAttributionService(contributorCount: nil, referenceCount: 2, lastUpdated: nil, imageData: nil)
+
+        await loadDetails(of: viewModel, with: service)
+
+        XCTAssertTrue(viewModel.hasAttributionSignals)
+    }
+
     func testLoadDetailsRequestsOnce() async {
         let viewModel = makeViewModel()
         let service = WMFMockAttributionService(contributorCount: 1, referenceCount: 1, lastUpdated: nil, imageData: nil)
@@ -198,8 +218,9 @@ private final class WMFMockAttributionService: WMFService {
     }
 
     private var attributionJSON: Data {
+        let contributorCounts: Any = contributorCount.map { ["total_unique": $0, "logged_in_users": $0, "unregistered_users": 0, "known_bots": 0] } ?? NSNull()
         let signals: [String: Any] = [
-            "contributor_counts": contributorCount ?? NSNull(),
+            "contributor_counts": contributorCounts,
             "reference_count": referenceCount ?? NSNull(),
             "last_updated": lastUpdated ?? NSNull()
         ]

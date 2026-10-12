@@ -125,6 +125,11 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
             linkColor: linkColor))
     }
 
+    /// False while the signals load and when the API has none of them, so the card hides the row.
+    var hasAttributionSignals: Bool {
+        contributorsText != nil || referencesText != nil || lastUpdatedText != nil
+    }
+
     var contributorsText: String? {
         guard let count = attribution?.contributorCount else { return nil }
 

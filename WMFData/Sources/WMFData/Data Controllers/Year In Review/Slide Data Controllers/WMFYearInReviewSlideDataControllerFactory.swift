@@ -8,6 +8,7 @@ final class YearInReviewSlideDataControllerFactory {
     
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    private weak var mainPageIdentifier: WMFMainPageIdentifying?
     
     private let username: String?
     private let userID: Int?
@@ -22,7 +23,8 @@ final class YearInReviewSlideDataControllerFactory {
         globalUserID: Int?,
         project: WMFProject?,
         savedSlideDataDelegate: SavedArticleSlideDataDelegate,
-        legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate
+        legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate,
+        mainPageIdentifier: WMFMainPageIdentifying? = nil
     ) {
         self.year = year
         self.config = config
@@ -33,6 +35,7 @@ final class YearInReviewSlideDataControllerFactory {
         
         self.savedSlideDataDelegate = savedSlideDataDelegate
         self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
+        self.mainPageIdentifier = mainPageIdentifier
     }
     
     func makeSlideDataControllers(missingFrom existingSlideIDs: Set<String>) async throws -> [YearInReviewSlideDataControllerProtocol] {
@@ -56,7 +59,7 @@ final class YearInReviewSlideDataControllerFactory {
             .topArticles
         ]
         
-        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: WMFUserImpactDataController.shared)
+        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: WMFUserImpactDataController.shared, mainPageIdentifier: mainPageIdentifier)
         
         var dataControllers: [YearInReviewSlideDataControllerProtocol] = []
         

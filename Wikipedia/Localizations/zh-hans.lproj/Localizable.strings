@@ -61,6 +61,7 @@
 // Author: TeaSummer
 // Author: Tonylianlong
 // Author: Tsevener
+// Author: Villager-bloc-h
 // Author: Viztor
 // Author: VulpesVulpes825
 // Author: WiiUf
@@ -1336,6 +1337,13 @@
 "search-widget-announcement-title" = "有新的搜索小工具可用";
 "search-widget-description" = "快速访问以搜索维基百科";
 "search-widget-wikipedia-title" = "维基百科";
+"semantic-search-feedback-placeholder" = "请提供更多信息（可选）";
+"semantic-search-feedback-question" = "您找到了要找的东西了吗？";
+"semantic-search-feedback-submit" = "提交";
+"semantic-search-feedback-thanks" = "感谢您的反馈";
+"semantic-search-feedback-thumbs-down-accessibility" = "否";
+"semantic-search-feedback-thumbs-up-accessibility" = "是";
+"semantic-search-feedback-title" = "反馈";
 "serbian-variants-alert-body" = "维基百科应用现在支持以下塞尔维亚语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "更新塞尔维亚语变体支持";
 "settings-account" = "账号";

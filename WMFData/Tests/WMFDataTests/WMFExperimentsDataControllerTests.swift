@@ -41,43 +41,43 @@ final class WMFExperimentsDataControllerTests {
     @Test
     func bucketPersistedBeforeSignaturesGetsTheCurrentSignature() throws {
         let store = WMFMockKeyValueStore()
-        try store.save(key: Self.directory, "homeTabBucket", value: "HomeTab_GroupB")
-        try store.save(key: Self.directory, "homeTabPercent", value: 50)
+        try store.save(key: Self.directory, "semanticSearchBucket", value: "SemanticSearch_GroupB")
+        try store.save(key: Self.directory, "semanticSearchPercent", value: 50)
         let controller = WMFExperimentsDataController(store: store)
 
-        #expect(controller.bucketForExperiment(.homeTab) == .homeTabGroupB)
-        let bucket = try controller.determineBucketForExperiment(.homeTab, withPercentage: 50, randomIntProvider: { 1 })
-        #expect(bucket == .homeTabGroupB)
+        #expect(controller.bucketForExperiment(.semanticSearch) == .semanticSearchGroupB)
+        let bucket = try controller.determineBucketForExperiment(.semanticSearch, withPercentage: 50, randomIntProvider: { 1 })
+        #expect(bucket == .semanticSearchGroupB)
 
-        let signature: String? = try store.load(key: Self.directory, "homeTabBucketSignature")
-        #expect(signature == WMFExperimentsDataController.Experiment.homeTab.config.signature)
+        let signature: String? = try store.load(key: Self.directory, "semanticSearchBucketSignature")
+        #expect(signature == WMFExperimentsDataController.Experiment.semanticSearch.config.signature)
     }
 
     @Test
     func bucketOfAnotherExperimentIsDiscarded() throws {
         let store = WMFMockKeyValueStore()
-        try store.save(key: Self.directory, "homeTabBucket", value: "ActivityTab_Control")
-        try store.save(key: Self.directory, "homeTabPercent", value: 50)
+        try store.save(key: Self.directory, "semanticSearchBucket", value: "ActivityTab_Control")
+        try store.save(key: Self.directory, "semanticSearchPercent", value: 50)
         let controller = WMFExperimentsDataController(store: store)
 
-        #expect(controller.bucketForExperiment(.homeTab) == nil)
+        #expect(controller.bucketForExperiment(.semanticSearch) == nil)
         #expect(try store.keys(inDirectory: Self.directory).isEmpty)
     }
 
     @Test
     func bucketWithAStaleSignatureIsDiscardedAndReRolled() throws {
         let store = WMFMockKeyValueStore()
-        try store.save(key: Self.directory, "homeTabBucket", value: "HomeTab_GroupB")
-        try store.save(key: Self.directory, "homeTabPercent", value: 50)
-        try store.save(key: Self.directory, "homeTabBucketSignature", value: "homeTabBucket|HomeTab_Control,HomeTab_GroupB,HomeTab_GroupC")
+        try store.save(key: Self.directory, "semanticSearchBucket", value: "SemanticSearch_GroupB")
+        try store.save(key: Self.directory, "semanticSearchPercent", value: 50)
+        try store.save(key: Self.directory, "semanticSearchBucketSignature", value: "semanticSearchBucket|SemanticSearch_Control,SemanticSearch_GroupB,SemanticSearch_GroupC")
         let controller = WMFExperimentsDataController(store: store)
 
-        #expect(controller.bucketForExperiment(.homeTab) == nil)
-        let bucket = try controller.determineBucketForExperiment(.homeTab, withPercentage: 50, randomIntProvider: { 1 })
-        #expect(bucket == .homeTabControl)
+        #expect(controller.bucketForExperiment(.semanticSearch) == nil)
+        let bucket = try controller.determineBucketForExperiment(.semanticSearch, withPercentage: 50, randomIntProvider: { 1 })
+        #expect(bucket == .semanticSearchControl)
 
-        let signature: String? = try store.load(key: Self.directory, "homeTabBucketSignature")
-        #expect(signature == WMFExperimentsDataController.Experiment.homeTab.config.signature)
+        let signature: String? = try store.load(key: Self.directory, "semanticSearchBucketSignature")
+        #expect(signature == WMFExperimentsDataController.Experiment.semanticSearch.config.signature)
     }
 
     @Test
@@ -101,14 +101,14 @@ final class WMFExperimentsDataControllerTests {
         try store.save(key: Self.directory, "articleSearchBarBucket", value: "ArticleSearchBar_Test")
         try store.save(key: Self.directory, "homeTabBucket", value: "HomeTab_GroupB")
         try store.save(key: Self.directory, "homeTabPercent", value: 50)
+        try store.save(key: Self.directory, "homeTabBucketSignature", value: "homeTabBucket|HomeTab_Control,HomeTab_GroupB")
         let controller = WMFExperimentsDataController(store: store)
         let activeBucket = try controller.determineBucketForExperiment(.donationReminder, withPercentage: 33)
         try store.save(key: "Developer Settings", "AppsFeatureConfig", value: "untouched")
 
         WMFExperimentsDataController.pruneRetiredExperiments(store: store)
 
-        #expect(try store.keys(inDirectory: Self.directory) == ["donationReminderBucket", "donationReminderBucketSignature", "donationReminderPercent", "homeTabBucket", "homeTabPercent"])
-        #expect(controller.bucketForExperiment(.homeTab) == .homeTabGroupB)
+        #expect(try store.keys(inDirectory: Self.directory) == ["donationReminderBucket", "donationReminderBucketSignature", "donationReminderPercent"])
         #expect(controller.bucketForExperiment(.donationReminder) == activeBucket)
         let otherDirectoryValue: String? = try store.load(key: "Developer Settings", "AppsFeatureConfig")
         #expect(otherDirectoryValue == "untouched")
@@ -122,7 +122,6 @@ final class WMFExperimentsDataControllerTests {
         let percentages: [WMFExperimentsDataController.Experiment: Int] = [
             .moreDynamicTabsV2: 50,
             .yirLoginPrompt: 50,
-            .homeTab: 50,
             .donationReminder: 33,
             .semanticSearch: 50
         ]
