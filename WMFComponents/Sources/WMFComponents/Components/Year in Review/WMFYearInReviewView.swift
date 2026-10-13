@@ -97,8 +97,10 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
 
     @ViewBuilder
     func body(content: Content) -> some View {
+        // `.viewAligned` snaps to the slides marked by `.scrollTargetLayout()`. `.paging` moves by
+        // the height of the scroll view instead, which is not the height of a slide here.
         let paged = content
-            .scrollTargetBehavior(.paging)
+            .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
             .scrollPosition(id: $currentSlideID)
             .scrollIndicators(.hidden)
             .accessibilityElement(children: .contain)
