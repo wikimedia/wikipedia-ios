@@ -21,7 +21,7 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles slide and the articles visited multiple times slide have real data so far.
+    /// Only the total articles, articles visited multiple times and topic slides have real data so far.
     /// A data-rich user sees their data, but a slide without enough data shows its empty version.
     /// - Parameter forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
     func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
@@ -44,12 +44,12 @@ struct YearInReviewSlideViewModelFactory {
                     averageReadCount: config?.averageArticlesReadPerYear
                 ),
                 rereadArticlesSlide(storedRereadArticles() ?? [])
-            ]
+            ] + topicSlides(storedTopTopics())
         }
     }
 
     private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), rereadArticlesEmptySlide()]
+        [totalArticlesEmptySlide(), rereadArticlesEmptySlide(), topTopicEmptySlide()]
     }
 
     // MARK: - Total articles
@@ -188,6 +188,96 @@ struct YearInReviewSlideViewModelFactory {
             bodyText: bodyText,
             items: [],
             accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    // MARK: - Topics
+
+    /// The topic slides, from the report the app fills in the background. `nil` when the report
+    /// does not have these slides yet.
+    private func storedTopTopics() -> WMFYearInReviewTopTopicsSlideData? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .topTopics })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(WMFYearInReviewTopTopicsSlideData.self, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review top topics: \(error)")
+            return nil
+        }
+    }
+
+    /// The top topic slide, then the runners-up slide if there are enough runners-up. Shows the
+    /// empty version of the top topic slide if the reader does not have a top topic.
+    func topicSlides(_ slideData: WMFYearInReviewTopTopicsSlideData?) -> [WMFYearInReviewSlideViewModel] {
+        guard let slideData,
+              slideData.isEligible,
+              let topTopic = slideData.topTopic,
+              let topic = topTopic.topicCount.topic else {
+            return [topTopicEmptySlide()]
+        }
+
+        var slides = [topTopicSlide(topic: topic, topTopic: topTopic)]
+        if slideData.showsRunnerUps {
+            slides.append(runnerUpTopicsSlide(slideData.runnerUps.compactMap(\.topic)))
+        }
+        return slides
+    }
+
+    private func topTopicSlide(topic: WMFArticleTopic, topTopic: WMFYearInReviewTopTopicsSlideData.TopTopic) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewTopTopicTitle
+        let topicName = topic.displayName
+        let subtitle = CommonStrings.yearInReviewTopTopicSubtitle(
+            firstArticleTitle: topTopic.firstArticle.title,
+            lastArticleTitle: topTopic.lastArticle.title,
+            articleCount: topTopic.topicCount.articleCount
+        )
+        let bodyText = "\(subtitle) \(topic.yearInReviewSentence)"
+
+        // TODO: Show the two article tiles and the topic illustration when frame6 has image
+        // properties. The `DataTemplate` view model has text properties only.
+        return dataSlide(
+            id: "topTopic",
+            artboard: "frame6",
+            stateMachine: "frame6-statemachine",
+            headline: headline,
+            data: topicName.localizedUppercase,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(topicName). \(bodyText)"
+        )
+    }
+
+    private func topTopicEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewTopTopicEmptyTitle
+        let bodyText = CommonStrings.yearInReviewTopTopicEmptySubtitle
+        return dataSlide(
+            id: "topTopicEmpty",
+            artboard: "frame6-empty",
+            stateMachine: "frame6-empty-statemachine",
+            headline: headline,
+            data: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    /// The runners-up show the topic name only, with no article count.
+    private func runnerUpTopicsSlide(_ topics: [WMFArticleTopic]) -> WMFYearInReviewSlideViewModel {
+        let bodyText = CommonStrings.yearInReviewRunnerUpTopicsTitle
+        let items = topics.prefix(WMFYearInReviewTopTopicsSlideData.maximumRunnerUpCount).map { topic in
+            ListItem(title: topic.displayName, subtitle: "")
+        }
+        // A row that is not written keeps the copy inside the .riv ("initial value"), so clear the unused rows.
+        let emptyRows = Array(repeating: ListItem(title: "", subtitle: ""), count: 3 - items.count)
+        return listSlide(
+            id: "runnerUpTopics",
+            artboard: "frame7",
+            stateMachine: "frame7-statemachine",
+            headline: nil,
+            bodyText: bodyText,
+            items: items + emptyRows,
+            accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
         )
     }
 

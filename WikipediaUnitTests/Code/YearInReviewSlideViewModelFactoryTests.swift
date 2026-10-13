@@ -1,6 +1,7 @@
 import Testing
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 @testable import Wikipedia
 
 @MainActor
@@ -9,15 +10,17 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory()
 
-    /// Only the total articles slide and the articles visited multiple times slide have real data so
+    /// Only the total articles, articles visited multiple times and top topic slides have real data so
     /// far. Each always shows, in its full or its empty version, so Year in Review never opens with no slides.
+    /// The test host has no stored report, so the runners-up slide does not show.
     @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func makesTheTotalArticlesAndTheArticlesVisitedMultipleTimesSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+    func makesTheTotalArticlesTheArticlesVisitedMultipleTimesAndTheTopTopicSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
         let slides = factory.makeSlides(userDataState: userDataState)
 
-        #expect(slides.count == 2)
+        #expect(slides.count == 3)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
-        #expect(["frame12", "frame12-empty"].contains(slides.last?.animation?.artboardName ?? ""))
+        #expect(["frame12", "frame12-empty"].contains(slides[1].animation?.artboardName ?? ""))
+        #expect(["frame6", "frame6-empty"].contains(slides.last?.animation?.artboardName ?? ""))
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
     }
 
@@ -47,6 +50,10 @@ struct YearInReviewSlideViewModelFactoryTests {
                     #expect(byPath["articleTitle\(number)"] != nil, "row \(number) has no title")
                     #expect(byPath["subTitle\(number)"] != nil, "row \(number) has no subtitle")
                 }
+            case "frame6-empty":
+                #expect(byPath["headline"]?.isEmpty == false)
+                #expect(byPath["bodyCopy"]?.isEmpty == false)
+                #expect(byPath["data"] == nil)
             default:
                 Issue.record("unexpected artboard \(slide.animation?.artboardName ?? "nil")")
             }
@@ -58,7 +65,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func aLowDataUserSeesOnlyEmptySlides() {
         let artboards = factory.makeSlides(userDataState: .lowData).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame12-empty"])
+        #expect(artboards == ["frame1-empty", "frame12-empty", "frame6-empty"])
     }
 
     /// The developer settings can force the empty version of each personalized slide for a data-rich user.
@@ -66,7 +73,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlides(userDataState: .dataRich, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame12-empty"])
+        #expect(artboards == ["frame1-empty", "frame12-empty", "frame6-empty"])
     }
 
     /// Each template sets `isUIWhite` for the contrast of the controls above it, so every slide must read it.
@@ -151,6 +158,73 @@ struct YearInReviewSlideViewModelFactoryTests {
     func slideIdsAreUnique(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
         let ids = factory.makeSlides(userDataState: userDataState).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
+    }
+
+    // MARK: - Topics
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func topTopicsData(readCount: Int = 20, topTopicID: String? = "history", runnerUpIDs: [String] = []) throws -> WMFYearInReviewTopTopicsSlideData {
+        var json: [String: Any] = [
+            "readCount": readCount,
+            "runnerUps": runnerUpIDs.map { ["topicID": $0, "articleCount": 3] }
+        ]
+        if let topTopicID {
+            json["topTopic"] = [
+                "topicCount": ["topicID": topTopicID, "articleCount": 23],
+                "firstArticle": ["title": "Battle of Gettysburg", "projectID": "wikipedia~en"],
+                "lastArticle": ["title": "Xia dynasty", "projectID": "wikipedia~en"]
+            ]
+        }
+        let data = try JSONSerialization.data(withJSONObject: json)
+        return try JSONDecoder().decode(WMFYearInReviewTopTopicsSlideData.self, from: data)
+    }
+
+    @Test
+    func theTopTopicSlideShowsTheTopicTheTwoArticleTitlesAndTheTopicSentence() throws {
+        let slides = factory.topicSlides(try topTopicsData())
+
+        #expect(slides.map { $0.animation?.artboardName } == ["frame6"])
+        let slide = try #require(slides.first)
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewTopTopicTitle)
+        #expect(text(slide, "data") == WMFArticleTopic.history.displayName.localizedUppercase)
+        let bodyCopy = try #require(text(slide, "bodyCopy"))
+        #expect(bodyCopy.contains("Battle of Gettysburg"))
+        #expect(bodyCopy.contains("Xia dynasty"))
+        #expect(bodyCopy.contains("23"))
+        #expect(bodyCopy.hasSuffix(CommonStrings.yearInReviewTopTopicSentenceHistory))
+    }
+
+    @Test
+    func noStoredTopTopicShowsTheEmptyState() throws {
+        #expect(factory.topicSlides(nil).map { $0.animation?.artboardName } == ["frame6-empty"])
+        #expect(factory.topicSlides(try topTopicsData(topTopicID: nil)).map { $0.animation?.artboardName } == ["frame6-empty"])
+        // A top topic with fewer than five articles read in total is not eligible.
+        #expect(factory.topicSlides(try topTopicsData(readCount: 4)).map { $0.animation?.artboardName } == ["frame6-empty"])
+    }
+
+    @Test
+    func theRunnersUpShowOnlyWithTwoOrMoreTopicsAndOnlyTheirNames() throws {
+        let oneRunnerUp = factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology"]))
+        #expect(oneRunnerUp.map { $0.animation?.artboardName } == ["frame6"])
+
+        let twoRunnerUps = factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        #expect(twoRunnerUps.map { $0.animation?.artboardName } == ["frame6", "frame7"])
+
+        let runnersUp = try #require(twoRunnerUps.last)
+        #expect(text(runnersUp, "bodyText") == CommonStrings.yearInReviewRunnerUpTopicsTitle)
+        #expect(text(runnersUp, "articleTitle1") == WMFArticleTopic.biology.displayName)
+        #expect(text(runnersUp, "articleTitle2") == WMFArticleTopic.sports.displayName)
+        // The unused row and all subtitles are written empty, so no .riv copy shows.
+        #expect(text(runnersUp, "articleTitle3") == "")
+        #expect((1...3).allSatisfy { text(runnersUp, "subTitle\($0)") == "" })
+    }
+
+    @Test
+    func eachTopicHasATopicSentence() {
+        for topic in WMFArticleTopic.allCases {
+            #expect(!topic.yearInReviewSentence.isEmpty, "\(topic)")
+        }
+        #expect(WMFArticleTopic.women.yearInReviewSentence == WMFArticleTopic.biography.yearInReviewSentence)
     }
 
     @Test
