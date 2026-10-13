@@ -19,7 +19,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         #expect(slides.count == 3)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
-        #expect(["frame12", "frame12-empty"].contains(slides[1].animation?.artboardName ?? ""))
+        #expect(["frame13", "frame13-empty"].contains(slides[1].animation?.artboardName ?? ""))
         #expect(["frame6", "frame6-empty"].contains(slides.last?.animation?.artboardName ?? ""))
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
     }
@@ -39,11 +39,13 @@ struct YearInReviewSlideViewModelFactoryTests {
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["data"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
-            case "frame12-empty":
+            case "frame13-empty":
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["bodyText"]?.isEmpty == false)
                 #expect(slide.articleThumbnails.isEmpty)
-            case "frame12":
+                // The empty frame has no rows, so it does not get a row count.
+                #expect(slide.numbers.isEmpty)
+            case "frame13":
                 #expect(byPath["bodyText"]?.isEmpty == false)
                 // An unused row is written as an empty string, so all three rows are always present.
                 for number in 1...3 {
@@ -65,7 +67,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func aLowDataUserSeesOnlyEmptySlides() {
         let artboards = factory.makeSlides(userDataState: .lowData).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame12-empty", "frame6-empty"])
+        #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty"])
     }
 
     /// The developer settings can force the empty version of each personalized slide for a data-rich user.
@@ -73,7 +75,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlides(userDataState: .dataRich, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame12-empty", "frame6-empty"])
+        #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty"])
     }
 
     /// Each template sets `isUIWhite` for the contrast of the controls above it, so every slide must read it.
@@ -192,6 +194,11 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(bodyCopy.contains("Xia dynasty"))
         #expect(bodyCopy.contains("23"))
         #expect(bodyCopy.hasSuffix(CommonStrings.yearInReviewTopTopicSentenceHistory))
+        // The topic name uses the data text style, not the large number style.
+        let topicNameFit = slide.textFits.first { $0.text.path == "data" }
+        #expect(topicNameFit?.maximumLines == 1)
+        #expect(topicNameFit?.fontSize.path == "dataTextFontSize")
+        #expect(topicNameFit?.lineHeight.path == "dataTextLineHeight")
     }
 
     @Test
@@ -217,6 +224,8 @@ struct YearInReviewSlideViewModelFactoryTests {
         // The unused row and all subtitles are written empty, so no .riv copy shows.
         #expect(text(runnersUp, "articleTitle3") == "")
         #expect((1...3).allSatisfy { text(runnersUp, "subTitle\($0)") == "" })
+        // The frame shows only the rows that have a topic.
+        #expect(runnersUp.numbers.first { $0.key.path == "numOfListItems" }?.value == 2)
     }
 
     @Test

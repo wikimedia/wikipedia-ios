@@ -163,15 +163,13 @@ struct YearInReviewSlideViewModelFactory {
             guard let project = article.project else { continue }
             thumbnails[WMFRiveImage(path: "icon\(index + 1)")] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
         }
-        // A row that is not written keeps the copy inside the .riv ("initial value"), so clear the unused rows.
-        let emptyRows = Array(repeating: ListItem(title: "", subtitle: ""), count: 3 - items.count)
         return listSlide(
             id: "rereadArticles",
-            artboard: "frame12",
+            artboard: "frame13",
             stateMachine: "frame12-statemachine",
             headline: nil,
             bodyText: bodyText,
-            items: items + emptyRows,
+            items: items,
             articleThumbnails: thumbnails,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
         )
@@ -182,7 +180,7 @@ struct YearInReviewSlideViewModelFactory {
         let bodyText = CommonStrings.yearInReviewRereadArticlesEmptySubtitle
         return listSlide(
             id: "rereadArticlesEmpty",
-            artboard: "frame12-empty",
+            artboard: "frame13-empty",
             stateMachine: "frame12-empty-statemachine",
             headline: headline,
             bodyText: bodyText,
@@ -235,14 +233,15 @@ struct YearInReviewSlideViewModelFactory {
         )
         let bodyText = "\(subtitle) \(topic.yearInReviewSentence)"
 
-        // TODO: Show the two article tiles and the topic illustration when frame6 has image
-        // properties. The `DataTemplate` view model has text properties only.
+        // TODO: Set the `topicIcon` image of frame6 when the app has the topic illustrations.
+        // Until then, the frame shows its own sample illustration for each topic.
         return dataSlide(
             id: "topTopic",
             artboard: "frame6",
             stateMachine: "frame6-statemachine",
             headline: headline,
             data: topicName.localizedUppercase,
+            dataFit: Self.dataTextFit,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(topicName). \(bodyText)"
         )
@@ -268,15 +267,13 @@ struct YearInReviewSlideViewModelFactory {
         let items = topics.prefix(WMFYearInReviewTopTopicsSlideData.maximumRunnerUpCount).map { topic in
             ListItem(title: topic.displayName, subtitle: "")
         }
-        // A row that is not written keeps the copy inside the .riv ("initial value"), so clear the unused rows.
-        let emptyRows = Array(repeating: ListItem(title: "", subtitle: ""), count: 3 - items.count)
         return listSlide(
             id: "runnerUpTopics",
             artboard: "frame7",
             stateMachine: "frame7-statemachine",
             headline: nil,
             bodyText: bodyText,
-            items: items + emptyRows,
+            items: items,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
         )
     }
@@ -310,8 +307,14 @@ struct YearInReviewSlideViewModelFactory {
         return ([heading] + itemLabels).joined(separator: " ")
     }
 
+    /// The number of rows that a list frame shows. The frame hides the other rows.
+    private static let numberOfListItems = WMFRiveNumber(path: "numOfListItems")
+
+    /// The number of rows on a list frame.
+    private static let maximumListItems = 3
+
     /// A list slide from the templates file. Pass `nil` for a text field that the frame does not
-    /// use. The file has room for three items.
+    /// use. The file has room for three items. Pass no items for a frame without rows.
     private func listSlide(
         id: String,
         artboard: String,
@@ -329,9 +332,16 @@ struct YearInReviewSlideViewModelFactory {
         if let bodyText {
             text[ListTextPath.bodyText] = bodyText
         }
-        for (number, item) in zip(1...3, items) {
-            text[ListTextPath.articleTitle(number)] = item.title
-            text[ListTextPath.subTitle(number)] = item.subtitle
+        var numbers: [WMFRiveNumber: Double] = [:]
+        if !items.isEmpty {
+            let shownItems = Array(items.prefix(Self.maximumListItems))
+            // A row that is not written keeps the copy inside the .riv ("initial value"), so clear the unused rows.
+            let emptyRows = Array(repeating: ListItem(title: "", subtitle: ""), count: Self.maximumListItems - shownItems.count)
+            for (number, item) in zip(1...Self.maximumListItems, shownItems + emptyRows) {
+                text[ListTextPath.articleTitle(number)] = item.title
+                text[ListTextPath.subTitle(number)] = item.subtitle
+            }
+            numbers[Self.numberOfListItems] = Double(shownItems.count)
         }
 
         return WMFYearInReviewSlideViewModel(
@@ -339,6 +349,7 @@ struct YearInReviewSlideViewModelFactory {
             loggingID: id,
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
+            numbers: numbers,
             articleThumbnails: articleThumbnails,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
@@ -369,14 +380,29 @@ struct YearInReviewSlideViewModelFactory {
         lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight")
     )
 
-    /// A slide from the templates file that shows one number. Pass `nil` for a text field that the
-    /// frame does not use.
+    /// The box of the data text, for example a topic name, does not grow. Make the text smaller
+    /// until it fits on one line. The width is the width of the `Data-Text` artboard in the
+    /// templates file.
+    private static let dataTextFit = WMFRiveTextFit(
+        text: DataTextPath.data,
+        fontAssetName: "SanSerifFont",
+        maximumWidth: 344,
+        maximumLines: 1,
+        globalViewModelName: "GlobalProperties",
+        fontSize: WMFRiveNumber(path: "dataTextFontSize"),
+        lineHeight: WMFRiveNumber(path: "dataTextLineHeight")
+    )
+
+    /// A slide from the templates file that shows one number or one short text. Pass `nil` for a
+    /// text field that the frame does not use.
+    /// - Parameter dataFit: The fit of `data`. A number uses `dataNumberFit`, and a text uses `dataTextFit`.
     private func dataSlide(
         id: String,
         artboard: String,
         stateMachine: String,
         headline: String,
         data: String?,
+        dataFit: WMFRiveTextFit = Self.dataNumberFit,
         bodyText: String,
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
@@ -396,7 +422,7 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [Self.dataNumberFit])
+            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit])
         )
     }
 
