@@ -344,6 +344,155 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.articles.first?.projectID, enProject.id)
     }
 
+    // MARK: - topTopics
+
+    private typealias TopTopicsData = WMFYearInReviewTopTopicsSlideData
+
+    /// Reads each article once and stores its topic labels.
+    private func seedArticles(_ titles: [String], labels: [String], month: Int = 4, project: WMFProject? = nil) async throws {
+        let project = project ?? enProject
+        try await seedPageViews(try titles.enumerated().map { index, title in
+            WMFLegacyPageView(title: title, project: project, viewedDate: try date(month: month, day: 1 + index, hour: 10), latitude: nil, longitude: nil)
+        })
+        let topicsDataController = try WMFPageTopicsDataController()
+        for title in titles {
+            try await topicsDataController.savePageTopics(title: title, namespaceID: 0, project: project, topics: labels.map { WMFPageTopic(topic: $0, score: 0.9) })
+        }
+    }
+
+    private func topTopicsPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> TopTopicsData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        let payload = try decode(TopTopicsData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    func testTopTopicHasTheMostArticlesAndTheAlphabeticalFirstAndLastArticles() async throws {
+        try await seedArticles(["Xia_dynasty", "Battle_of_Gettysburg", "Roman_Empire", "Magna_Carta"], labels: ["History_and_Society.History"])
+        try await seedArticles(["Cat", "Dog", "Frog"], labels: ["STEM.Biology"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 7)
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 4)
+        XCTAssertEqual(payload.topTopic?.firstArticle.title, "Battle of Gettysburg", "underscores become spaces")
+        XCTAssertEqual(payload.topTopic?.lastArticle.title, "Xia dynasty")
+        XCTAssertEqual(payload.topTopic?.firstArticle.project, enProject)
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.biology])
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertFalse(payload.showsRunnerUps, "one runner-up does not show the runners-up slide")
+    }
+
+    func testTopTopicIsNotEligibleWithFewerThanFiveArticles() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma", "Delta"], labels: ["STEM.Physics"])
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 4)
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .physics)
+        XCTAssertFalse(payload.isEligible, "five articles are necessary, so this shows the empty state")
+        XCTAssertFalse(payload.showsRunnerUps)
+    }
+
+    func testTopTopicIsNotEligibleWhenNoTopicHasThreeArticles() async throws {
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"])
+        try await seedArticles(["Gamma", "Delta"], labels: ["STEM.Biology"], month: 5)
+        try await seedArticles(["Epsilon", "Zeta"], labels: ["Culture.Sports"], month: 6)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 6)
+        XCTAssertNil(payload.topTopic)
+        XCTAssertTrue(payload.runnerUps.isEmpty)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testArticlesWithoutTopicsCountTowardTheReadCountOnly() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
+        try await seedPageViews([pageView("No_Topics_1", at: try date(month: 7, day: 1, hour: 10)), pageView("No_Topics_2", at: try date(month: 7, day: 2, hour: 10))])
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 5)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 3)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testRunnerUpsLeaveOutTheTopTopicAndShowAtMostThree() async throws {
+        try await seedArticles((1...6).map { "History_\($0)" }, labels: ["History_and_Society.History"], month: 2)
+        try await seedArticles((1...5).map { "Biology_\($0)" }, labels: ["STEM.Biology"], month: 3)
+        try await seedArticles((1...4).map { "Sports_\($0)" }, labels: ["Culture.Sports"], month: 4)
+        try await seedArticles((1...4).map { "Music_\($0)" }, labels: ["Culture.Media.Music"], month: 5)
+        try await seedArticles((1...3).map { "Physics_\($0)" }, labels: ["STEM.Physics"], month: 6)
+        try await seedArticles((1...2).map { "Art_\($0)" }, labels: ["Culture.Visual_arts.Visual_arts*"], month: 7)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        // Sports and music tie, so the topic ID decides the order.
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.biology, .music, .sports])
+        XCTAssertEqual(payload.runnerUps.map(\.articleCount), [5, 4, 4])
+        XCTAssertTrue(payload.showsRunnerUps)
+    }
+
+    func testAnArticleWithTwoLabelsForOneTopicCountsOnce() async throws {
+        try await seedArticles(["Tokyo", "Kyoto", "Osaka"], labels: ["Geography.Regions.Asia.Asia*", "Geography.Regions.Asia.East_Asia"])
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .asia)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 3)
+    }
+
+    func testWomenBiographiesCountAsBiographies() async throws {
+        try await seedArticles(["Marie_Curie", "Ada_Lovelace"], labels: ["Culture.Biography.Women", "Culture.Biography.Biography*"])
+        try await seedArticles(["Albert_Einstein"], labels: ["Culture.Biography.Biography*"], month: 5)
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"], month: 6)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .biography)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 3)
+        XCTAssertFalse(payload.runnerUps.contains { $0.topic == .women })
+    }
+
+    func testTopTopicTieIsOneOfTheTiedTopics() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
+        try await seedArticles(["Delta", "Epsilon", "Zeta"], labels: ["STEM.Biology"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        let topTopic = try XCTUnwrap(payload.topTopic?.topicCount.topic)
+        XCTAssertTrue([.physics, .biology].contains(topTopic))
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [topTopic == .physics ? .biology : .physics])
+    }
+
+    func testTopTopicsExcludesMainPages() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        try await seedArticles(["Main_Page", "Alpha", "Beta"], labels: ["STEM.Physics"])
+        try await seedArticles(["Pagina_principale"], labels: ["STEM.Physics"], project: itProject)
+        try await seedArticles(["Gamma", "Delta", "Epsilon"], labels: ["STEM.Biology"], month: 5)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await topTopicsPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.readCount, 5)
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .biology, "physics has two articles without the main pages")
+        XCTAssertTrue(payload.runnerUps.isEmpty)
+    }
+
+    func testTopTopicsIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 0)
+        XCTAssertNil(payload.topTopic)
+        XCTAssertFalse(payload.isEligible)
+    }
+
     // MARK: - mostReadCategories
 
     func testMostReadCategoriesPrefersNamesWithTwoUnderscoresAndCapsAtFive() async throws {
