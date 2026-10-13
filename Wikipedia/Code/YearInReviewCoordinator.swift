@@ -110,7 +110,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
 
         let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
-        let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
+        // Full screen from the first frame, same style as the slides.
+        let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         announcementNavigationController.isModalInPresentation = true
         navigationController.present(announcementNavigationController, animated: true)
 
@@ -121,13 +122,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Presentation
 
+    /// Builds the slides and their hosting controller. Shared by the direct presentation and the
+    /// in place transition from the announcement.
+    ///
     /// `userDataState` is nil for the profile entry point, which does not pick slides here. The data
     /// controller picks it then, and the developer settings can override it.
     ///
     /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
     /// has data. `userDataState` is a temporary proxy for that (see `dataRichEligibleSlideThreshold`
     /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
-    private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
+    private func makeYearInReviewHostingController(userDataState: WMFYearInReviewDataController.YiRUserDataState?) -> WMFYearInReviewHostingController {
         // `fetchUserDataState()` runs on the main actor. This method only runs on the main thread,
         // because it presents view controllers.
         let userDataState = userDataState ?? MainActor.assumeIsolated {
@@ -146,9 +150,34 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         self.viewModel = viewModel
 
-        let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
+        return WMFYearInReviewHostingController(viewModel: viewModel)
+    }
+
+    private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
+        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         navigationController.present(presentedNavigationController, animated: true)
+
+        // The reader has seen Year in Review, so the announcement no longer needs to show.
+        dataController.hasSeenYiRIntroSlide = true
+    }
+
+    /// Replaces the announcement with the first slide inside the same full screen navigation
+    /// controller, so nothing is dismissed and presented again.
+    private func transitionAnnouncementToYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState?) {
+        guard let announcementNavigationController = navigationController.presentedViewController as? UINavigationController else {
+            presentYearInReview(userDataState: userDataState)
+            return
+        }
+
+        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
+
+        // The announcement blocks swipe to dismiss. The slides never did.
+        announcementNavigationController.isModalInPresentation = false
+
+        UIView.transition(with: announcementNavigationController.view, duration: 0.3, options: .transitionCrossDissolve) {
+            announcementNavigationController.setViewControllers([hostingController], animated: false)
+        }
 
         // The reader has seen Year in Review, so the announcement no longer needs to show.
         dataController.hasSeenYiRIntroSlide = true
@@ -175,9 +204,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
-            self?.dismissAnnouncement {
-                self?.presentYearInReview(userDataState: .lowData)
-            }
+            self?.transitionAnnouncementToYearInReview(userDataState: .lowData)
         }
 
         alert.addAction(loginAction)
@@ -351,9 +378,7 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
             return
         }
 
-        dismissAnnouncement { [weak self] in
-            self?.presentYearInReview(userDataState: userDataState)
-        }
+        transitionAnnouncementToYearInReview(userDataState: userDataState)
     }
 
     func yearInReviewAnnouncementDidTapClose() {
