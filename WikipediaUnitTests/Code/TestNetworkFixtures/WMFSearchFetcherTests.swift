@@ -41,6 +41,38 @@ struct WMFSearchFetcherTests {
         #expect(harness.httpClient.capturedRequests.containsPrefixSearchRequest)
     }
 
+    @Test
+    func prefixResponseKeepsItsSearchID() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        harness.httpClient.responseHeadersQueue = [["X-Search-Id": "292nfmbhub08hd5are0cajr22"]]
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        #expect(result.prefixSearchID == "292nfmbhub08hd5are0cajr22")
+        #expect(result.fullTextSearchID == nil)
+    }
+
+    @Test
+    func responseWithoutTheHeaderHasNoSearchID() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        #expect(result.prefixSearchID == nil)
+    }
+
     private func makeHarness() -> (fetcher: WMFSearchFetcher, httpClient: SearchHTTPClient) {
         let httpClient = SearchHTTPClient()
         let session = Session(configuration: .current, httpClientProvider: SearchHTTPClientProvider(httpClient: httpClient))

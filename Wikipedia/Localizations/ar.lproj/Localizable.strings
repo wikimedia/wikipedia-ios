@@ -1205,6 +1205,12 @@
 "search-recent-empty" = "لا توجد عمليات بحث حديثة حتى الآن";
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
+"search-semantic-info-sources" = "تُستخلص المقاطع من مقالات أعدّها أشخاص بالبحث والكتابة والتحرير، ويستند كل مقطع منها إلى مصادر مُستشهد بها يمكنك التحقق منها.";
+"search-semantic-info-summary" = "اعثر على إجابات لأسئلتك داخل مقالات ويكيبيديا، وانتقل مباشرةً إلى المقطع ذي الصلة.";
+"search-semantic-info-title" = "ما هذه الميزة؟";
+"search-semantic-results-contributors" = "{{PLURAL:$1|$1 المساهمون}}";
+"search-semantic-results-last-updated" = "آخر تحديث $1";
+"search-semantic-results-references" = "{{PLURAL:$1|$1 المراجع}}";
 "search-title" = "بحث";
 "search-widget-announcement-body" = "قم بإضافة أداة البحث في ويكيبيديا إلى الشاشة الرئيسية أو شاشة القفل للحصول على إجابات أسرع، مباشرة في متناول يدك.";
 "search-widget-announcement-title" = "أداة بحث جديدة متاحة";

@@ -61,6 +61,7 @@
 // Author: Soul Train
 // Author: Stjn
 // Author: Sunpriat
+// Author: Tejoebāsa
 // Author: UniCollab
 // Author: Valencia212
 // Author: Vlad5250
@@ -197,6 +198,7 @@
 "activity-tab-onboarding-second-item-title" = "Обзор эффективности";
 "activity-tab-onboarding-third-item-subtitle-updated" = "В разделе «Активность» отображается подробная хронология чтения, сохранения и правок статей. Ваша история чтения отныне доступна на вкладке «Поиск».";
 "activity-tab-onboarding-third-item-title-updated" = "История чтения теперь отображается в «Поиске»";
+"activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Доволен";
 "activity-tab-saved" = "Сохранено в этом месяце";
 "activity-tab-survey-subtitle" = "Помогите улучшить «Активность». Вы удовлетворены этой функцией?";

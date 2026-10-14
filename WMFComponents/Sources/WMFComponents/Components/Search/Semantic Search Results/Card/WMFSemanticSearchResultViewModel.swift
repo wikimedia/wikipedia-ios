@@ -1,5 +1,6 @@
 import UIKit
 import WMFData
+import WMFNativeLocalizations
 
 @MainActor
 public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifiable {
@@ -9,6 +10,15 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
         let contributorsFormat: String
         let referencesFormat: String
         let lastUpdatedFormat: String
+
+        static func forLanguage(_ languageCode: String?) -> LocalizedStrings {
+            LocalizedStrings(
+                readInArticleTitle: WMFLocalizedString("search-semantic-results-read-in-article", languageCode: languageCode, value: "Read in article", comment: "Call to action at the end of a passage found inside an article. Opens the article at that passage."),
+                contributorsFormat: WMFLocalizedString("search-semantic-results-contributors", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d contributor|%1$d contributors}}", comment: "Number of people who edited the article a passage comes from. %1$d is replaced with the number of contributors."),
+                referencesFormat: WMFLocalizedString("search-semantic-results-references", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d reference|%1$d references}}", comment: "Number of references of the article a passage comes from. %1$d is replaced with the number of references."),
+                lastUpdatedFormat: WMFLocalizedString("search-semantic-results-last-updated", languageCode: languageCode, value: "Last updated %1$@", comment: "Date of the last edit of the article a passage comes from, shown where the reference count is not available. %1$@ is replaced with the date in the short numeric style of the device, e.g. 9/26/26.")
+            )
+        }
     }
 
     public let result: WMFSemanticSearchResult
@@ -16,6 +26,7 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
     /// The passage as plain text, for VoiceOver.
     let passageText: String
     let localizedStrings: LocalizedStrings
+    let showsReadInArticle: Bool
 
     @Published private(set) var thumbnail: UIImage?
     @Published private(set) var attribution: WMFSemanticSearchAttribution?
@@ -30,6 +41,7 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
     /// Ink height of the mark relative to the ascender of the passage font.
     private static let quotationMarkHeightRatio: CGFloat = 0.85
 
+    private let loadsDetails: Bool
     private var loadTask: Task<Void, Never>?
     private var cachedQuotationMarkImage: (fontSize: CGFloat, color: UIColor, image: UIImage)?
 
@@ -49,7 +61,23 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
         self.project = project
         self.passageText = WMFSemanticSearchSnippet.plainText(html: result.snippetHTML)
         self.localizedStrings = localizedStrings
+        self.showsReadInArticle = true
+        self.loadsDetails = true
         self.readInArticleAction = readInArticleAction
+    }
+
+    /// A card with a bundled thumbnail, fixed trust signals and no call to action, to show what a result
+    /// looks like. It makes no request.
+    init(exampleResult result: WMFSemanticSearchResult, project: WMFProject, thumbnail: UIImage?, attribution: WMFSemanticSearchAttribution, localizedStrings: LocalizedStrings) {
+        self.result = result
+        self.project = project
+        self.passageText = WMFSemanticSearchSnippet.plainText(html: result.snippetHTML)
+        self.localizedStrings = localizedStrings
+        self.showsReadInArticle = false
+        self.loadsDetails = false
+        self.thumbnail = thumbnail
+        self.attribution = attribution
+        self.readInArticleAction = { _ in }
     }
 
     func readInArticle() {
@@ -181,6 +209,8 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
     }
 
     private func loadThumbnail() async -> UIImage? {
+        guard loadsDetails else { return thumbnail }
+
         guard let thumbnailURL = result.thumbnailURL,
               let data = try? await WMFImageDataController.shared.fetchImageData(url: thumbnailURL)
         else { return nil }
@@ -189,6 +219,8 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
     }
 
     private func loadAttribution() async -> WMFSemanticSearchAttribution? {
-        try? await WMFSemanticSearchDataController.shared.fetchAttribution(title: result.title, project: project)
+        guard loadsDetails else { return attribution }
+
+        return try? await WMFSemanticSearchDataController.shared.fetchAttribution(title: result.title, project: project)
     }
 }

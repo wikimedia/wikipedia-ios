@@ -73,6 +73,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Coordinators
 
     private var semanticSearchResultsCoordinator: SemanticSearchResultsCoordinator?
+    private var semanticSearchInfoCoordinator: SemanticSearchInfoCoordinator?
     private var _yirCoordinator: YearInReviewCoordinator?
     private var yirCoordinator: YearInReviewCoordinator? {
         guard let navigationController, let yirDataController, let dataStore else { return nil }
@@ -138,6 +139,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         vc.semanticSearchSettingsTappedAction = { [weak self] in
             self?.showSearchSettings()
         }
+        vc.semanticSearchInfoTappedAction = { [weak self] languageCode in
+            self?.showSemanticSearchInfo(languageCode: languageCode)
+        }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             
@@ -173,8 +177,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             navigationController: navigationController,
             query: query,
             project: project,
-            didSelectResult: { [weak self] result in
-                self?.openSemanticSearchResult(result, project: project)
+            didSelectResult: { [weak self] result, needsFeedback in
+                self?.openSemanticSearchResult(result, project: project, needsFeedback: needsFeedback)
             }
         )
 
@@ -190,7 +194,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     /// Opens the article at the section of the passage and highlights the passage in it.
-    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject) {
+    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject, needsFeedback: Bool) {
         guard let dataStore, let navigationController,
               let siteURL = project.siteURL,
               var articleURL = siteURL.wmf_URL(withTitle: result.title)?.wmf_URL(withOptionalFragment: result.sectionTitle.map(Self.sectionAnchor))
@@ -204,7 +208,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             dataStore: dataStore,
             theme: theme,
             source: .search,
-            semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML)
+            semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML),
+            needsSemanticSearchFeedback: needsFeedback
         )
         pushedArticleSource = .semanticSearchSheet
         if !coordinator.start() {
@@ -215,6 +220,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     /// The id MediaWiki gives the heading of a section: the title with underscores for spaces.
     private static func sectionAnchor(for sectionTitle: String) -> String {
         sectionTitle.replacingOccurrences(of: " ", with: "_")
+    }
+
+    // MARK: - Semantic search info
+
+    private func showSemanticSearchInfo(languageCode: String) {
+        guard let navigationController else { return }
+
+        let coordinator = SemanticSearchInfoCoordinator(navigationController: navigationController, languageCode: languageCode)
+        semanticSearchInfoCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - History

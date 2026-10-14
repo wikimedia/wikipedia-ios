@@ -41,6 +41,10 @@ public struct WMFSemanticSearchResultsView: View {
     private var resultsList: some View {
         ScrollView {
             LazyVStack(spacing: WMFSpacing.large) {
+                if viewModel.isFeedbackVisible {
+                    WMFSemanticSearchFeedbackView(viewModel: viewModel.feedbackViewModel)
+                        .transition(.opacity)
+                }
                 ForEach(viewModel.results) { item in
                     WMFSemanticSearchResultCardView(viewModel: item)
                 }
@@ -48,7 +52,9 @@ public struct WMFSemanticSearchResultsView: View {
             .padding(.horizontal, WMFSpacing.large)
             .padding(.top, WMFSpacing.medium)
             .padding(.bottom, listBottomPadding)
+            .animation(.default, value: viewModel.isFeedbackVisible)
         }
+        .scrollDismissesKeyboard(.immediately)
     }
 
     // In a regular width the sheet floats with rounded bottom corners and no safe area below

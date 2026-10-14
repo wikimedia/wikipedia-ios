@@ -214,7 +214,10 @@ public class Configuration: NSObject {
         var components = URLComponents()
         components.scheme = "https"
         components.host = defaultSiteDomain
-        self.defaultSiteURL = components.url!
+        guard let defaultSiteURL = components.url else {
+            preconditionFailure("Invalid default site domain: \(defaultSiteDomain)")
+        }
+        self.defaultSiteURL = defaultSiteURL
         self.wikipediaCookieDomain = wikipediaCookieDomain
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = centralAuthCookieTargetDomains

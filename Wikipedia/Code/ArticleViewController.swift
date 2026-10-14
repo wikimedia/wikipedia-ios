@@ -50,6 +50,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Passages of a semantic search result to highlight once the article is set up. Used once.
     var semanticSearchPassages: [String] = []
     var pendingSemanticSearchScroll: SemanticSearchScroll?
+    /// The reader opened the article from a passage found by the search and ignored the feedback prompt there.
+    var needsSemanticSearchFeedback = false
+    var semanticSearchFeedbackTask: Task<Void, Never>?
 
     /// When set before the initial load, article content is fetched at this specific revision
     /// (e.g. displaying a freshly published edit when returning from the web Visual Editor)
@@ -508,6 +511,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
+        scheduleSemanticSearchFeedbackIfNeeded()
 
         if let project {
             if isMainPage {
@@ -674,6 +678,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         NotificationCenter.default.post(name: NSNotification.articleViewControllerDidDisappear, object: nil)
         wTipObservationTask?.cancel()
         wTipObservationTask = nil
+        skipSemanticSearchFeedback()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         trackArticleWillDisappear()
