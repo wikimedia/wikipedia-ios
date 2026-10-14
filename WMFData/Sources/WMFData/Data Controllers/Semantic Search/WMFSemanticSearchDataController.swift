@@ -17,8 +17,8 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     public static let shared = WMFSemanticSearchDataController()
 
-    // TODO: Remove when the `iosv1.semanticSearchLanguages` in the remote feature config is available.
-    public static let defaultTargetLanguageCodes = ["fr", "ar", "ja"]
+    /// The target languages while the developer setting is on and the remote config has none.
+    public static let developerSettingsTargetLanguageCodes = ["fr", "ar", "ja"]
 
     private static let experimentControlPercentage = 50
 
@@ -100,11 +100,16 @@ public final class WMFSemanticSearchDataController: Sendable {
         targetLanguageCodes.contains(languageCode)
     }
 
-    /// The languages from `iosv1.semanticSearchLanguages` in the remote feature config. Until the
-    /// remote config has the key, the default target languages apply.
+    /// The languages from `iosv1.semanticSearchLanguagesv2` in the remote feature config. When the
+    /// remote config has none, the developer settings languages apply while the "Enable Semantic
+    /// Search" developer setting is on. Otherwise no language is targeted.
     public var targetLanguageCodes: [String] {
-        let remoteLanguageCodes = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.semanticSearchLanguages ?? []
-        return remoteLanguageCodes.isEmpty ? Self.defaultTargetLanguageCodes : remoteLanguageCodes
+        let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
+        let remoteLanguageCodes = developerSettingsDataController.loadFeatureConfig()?.ios.semanticSearchLanguages ?? []
+        guard remoteLanguageCodes.isEmpty, developerSettingsDataController.enableSemanticSearch else {
+            return remoteLanguageCodes
+        }
+        return Self.developerSettingsTargetLanguageCodes
     }
 
     // MARK: - Experiment Assignment

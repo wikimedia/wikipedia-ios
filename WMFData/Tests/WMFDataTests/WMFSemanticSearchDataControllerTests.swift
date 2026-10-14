@@ -85,17 +85,44 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
-    func defaultTargetLanguagesApplyWithoutRemoteTargetLanguages() async throws {
+    func noLanguageIsTargetedWithoutRemoteTargetLanguages() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteTargetLanguages([], semanticSearchEnabled: true)
+
+            #expect(controller.targetLanguageCodes.isEmpty)
+            #expect(controller.isEligible(languageCode: "fr") == false)
+        }
+    }
+
+    @Test
+    func developerSettingsLanguagesApplyWithoutRemoteTargetLanguagesWhileTheDeveloperToggleIsOn() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
 
-            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.defaultTargetLanguageCodes)
+            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.developerSettingsTargetLanguageCodes)
             #expect(controller.isEligible(languageCode: "fr"))
             #expect(controller.isEligible(languageCode: "en") == false)
+        }
+    }
 
+    @Test
+    func developerSettingsLanguagesApplyWhenTheRemoteTargetLanguagesAreEmpty() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
             try saveRemoteTargetLanguages([])
 
-            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.defaultTargetLanguageCodes)
+            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.developerSettingsTargetLanguageCodes)
+        }
+    }
+
+    @Test
+    func remoteTargetLanguagesWinWhileTheDeveloperToggleIsOn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["pt"])
+
+            #expect(controller.targetLanguageCodes == ["pt"])
+            #expect(controller.isEligible(languageCode: "fr") == false)
         }
     }
 
@@ -219,7 +246,7 @@ final class WMFSemanticSearchDataControllerTests {
     @Test
     func featureConfigDecodesTheSemanticSearchLanguages() throws {
         let json = Data("""
-        {"commonv1": {"yir": []}, "iosv1": {"semanticSearchLanguages": ["fr", "ar", "ja"]}}
+        {"commonv1": {"yir": []}, "iosv1": {"semanticSearchLanguagesv2": ["fr", "ar", "ja"]}}
         """.utf8)
 
         let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)

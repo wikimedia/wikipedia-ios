@@ -133,7 +133,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         private enum CodingKeys: String, CodingKey {
             case hCaptcha
             case visualEditorEnabled
-            case semanticSearchLanguages
+            case semanticSearchLanguages = "semanticSearchLanguagesv2"
             case semanticSearchEnabled = "semanticSearchEnabledv2"
         }
 
