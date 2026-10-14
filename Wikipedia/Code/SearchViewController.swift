@@ -374,6 +374,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // One funnel per search screen, as on Android: it starts here and lives as long as this
+        // screen does. Coming back from an article keeps it; a new search screen gets its own.
+        searchResultsVC.instrumentation.logSearchScreenImpression(source: source, project: searchResultsVC.siteURL.flatMap { SearchResultsMapper.project(for: $0) })
         view.accessibilityIdentifier = AccessibilityIdentifiers.Search.view
         
         // Apply configuration properties to the container now that it's initialized
@@ -416,7 +419,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        searchResultsVC.instrumentation.logSearchScreenImpression(source: source, project: searchResultsVC.siteURL.flatMap { SearchResultsMapper.project(for: $0) })
 
         let returningFromArticle = pushedArticleSource != nil
         switch pushedArticleSource {

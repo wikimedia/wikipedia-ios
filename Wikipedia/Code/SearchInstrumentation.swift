@@ -79,8 +79,6 @@ final class SearchInstrumentation {
     private let instrument: InstrumentImpl
     private let dataController: WMFSemanticSearchDataController
     private(set) var project: WMFProject?
-    /// The funnel showed a results list. The next init starts a new funnel.
-    private var funnelHasResults = false
 
     init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared) {
         self.client = client
@@ -99,9 +97,10 @@ final class SearchInstrumentation {
 
     // MARK: - Search screen
 
-    /// The reader got to the search screen. A funnel starts here when there is none. Coming back
-    /// from an article keeps the funnel of the search. `project` is the wiki the search bar is
-    /// set to, when known.
+    /// The reader got to the search screen. The funnel starts here, once per screen, and holds
+    /// every search the reader runs on it, through the result taps and the feedback in the
+    /// article. A new search screen has its own instrumentation, so its own funnel. `project`
+    /// is the wiki the search bar is set to, when known.
     func logSearchScreenImpression(source: SearchResultsViewController.EventLoggingSource, project: WMFProject? = nil) {
         if let project {
             self.project = project
@@ -112,13 +111,11 @@ final class SearchInstrumentation {
         submit(action: "impression", actionSubtype: source.searchActionSubtype)
     }
 
-    /// A search goes to the server. Every debounced keystroke sends one. A new funnel starts on
-    /// the first init after a results list showed, so each question has one funnel with its
-    /// inits and its list. A search from a recent search or from dictation says so in the subtype.
+    /// A search goes to the server. Every debounced search sends one, in the funnel of the
+    /// screen. A search from a recent search or from dictation says so in the subtype.
     func logSearchInit(searchTerm: String, project: WMFProject, origin: SearchOrigin = .typed) {
         self.project = project
-        if instrument.funnel == nil || funnelHasResults {
-            funnelHasResults = false
+        if instrument.funnel == nil {
             instrument.startFunnel(name: Self.funnelName)
         }
         submit(action: "init", actionSubtype: origin.actionSubtype, actionContext: Self.queryContext(searchTerm))
@@ -134,7 +131,6 @@ final class SearchInstrumentation {
     // MARK: - Lexical results
 
     func logLexicalResultsImpression(searchIDs: LexicalSearchIDs) {
-        funnelHasResults = true
         submit(action: "impression", actionSubtype: "lexical_result", elementId: "search_result", actionContext: searchIDs.actionContext)
     }
 

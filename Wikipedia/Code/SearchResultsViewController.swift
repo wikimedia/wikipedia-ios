@@ -544,7 +544,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
             searchTask?.cancel()
             searchTask = Task { @MainActor [weak self] in
                 guard let self else { return }
-                try? await Task.sleep(for: .milliseconds(100))
+                try? await Task.sleep(for: .milliseconds(200))
                 guard !Task.isCancelled else { return }
                 search(for: text)
             }

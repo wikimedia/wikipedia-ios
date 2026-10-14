@@ -46,7 +46,7 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertTrue(sender.events.isEmpty)
     }
 
-    func testScreenImpressionStartsAFunnelAndKeepsItAfterwards() throws {
+    func testTheScreenImpressionStartsTheFunnelOfTheScreen() throws {
         sender.events.removeAll()
         let fresh = SearchInstrumentation(client: client)
 
@@ -58,6 +58,7 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(sender.events.map(\.action), ["impression", "impression", "impression", "impression"])
         XCTAssertEqual(sender.events.map(\.actionSubtype), ["toolbar", "feed_bar", "nav_menu", nil])
         XCTAssertEqual(Set(sender.events.compactMap(\.funnelEntryToken)).count, 1)
+        XCTAssertEqual(sender.events.map(\.funnelEventSequencePosition), [1, 2, 3, 4])
         XCTAssertNotNil(try context(of: sender.events[0])["time_spent_ms"])
         XCTAssertEqual(sender.events.map(\.mediawikiData?.database), ["frwiki", "frwiki", "frwiki", "frwiki"])
     }
@@ -106,11 +107,10 @@ final class SearchInstrumentationTests: XCTestCase {
         instrumentation.logSearchInit(searchTerm: "la lune rousse", project: project)
         instrumentation.logSearchInit(searchTerm: "la lune bleue", project: project, origin: .voice)
 
-        XCTAssertEqual(sender.events.map(\.action), ["click", "init", "init", "init"])
-        XCTAssertEqual(sender.events.map(\.actionSubtype), ["recent_search", "recent_search", nil, "voice"])
-        XCTAssertEqual(sender.events.map(\.elementId), ["search_result", nil, nil, nil])
+        XCTAssertEqual(sender.events.map(\.action), ["init", "init", "init"])
+        XCTAssertEqual(sender.events.map(\.actionSubtype), ["recent_search", nil, "voice"])
+        XCTAssertEqual(sender.events.map(\.elementId), [nil, nil, nil])
         XCTAssertEqual(try context(of: sender.events[0])["query"], "la lune")
-        XCTAssertEqual(try context(of: sender.events[1])["query"], "la lune")
     }
 
     func testEventsShareTheFunnelOfTheSearch() throws {
@@ -128,22 +128,21 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(events.map(\.mediawikiData?.database), ["frwiki", "frwiki"])
     }
 
-    func testAFunnelCoversTheKeystrokesUpToTheirResultsList() throws {
+    func testTheFunnelOfTheScreenHoldsEverySearchAndEveryReturn() throws {
+        sender.events.removeAll()
+        let fresh = SearchInstrumentation(client: client)
         let ids = SearchInstrumentation.LexicalSearchIDs(prefix: "pre", fullText: nil)
-        instrumentation.logSearchInit(searchTerm: "la", project: project)
-        instrumentation.logSearchInit(searchTerm: "la lune", project: project)
-        instrumentation.logLexicalResultsImpression(searchIDs: ids)
-        instrumentation.logEntryPointTap(isTryItNow: false)
-        instrumentation.logSearchInit(searchTerm: "la lune r", project: project)
-        instrumentation.logSearchInit(searchTerm: "la lune rousse", project: project)
-        instrumentation.logLexicalResultsImpression(searchIDs: ids)
+        fresh.logSearchScreenImpression(source: .searchTab, project: project)
+        fresh.logSearchInit(searchTerm: "la", project: project)
+        fresh.logSearchInit(searchTerm: "la lune", project: project)
+        fresh.logLexicalResultsImpression(searchIDs: ids)
+        fresh.logLexicalResultTap(position: 1, type: .prefix, searchIDs: ids)
+        fresh.logFeedbackSubmit(placement: .article, rating: .positive, text: nil, searchID: nil)
+        fresh.logSearchInit(searchTerm: "la lune rousse", project: project)
+        fresh.logLexicalResultsImpression(searchIDs: ids)
 
-        let tokens = sender.events.map(\.funnelEntryToken)
-        // setUp sent an init without a list, so the first question keeps that funnel.
-        XCTAssertEqual(Set(tokens[0...3]).count, 1)
-        XCTAssertEqual(Set(tokens[4...6]).count, 1)
-        XCTAssertNotEqual(tokens[3], tokens[4])
-        XCTAssertEqual(sender.events.map(\.funnelEventSequencePosition), [2, 3, 4, 5, 1, 2, 3])
+        XCTAssertEqual(Set(sender.events.compactMap(\.funnelEntryToken)).count, 1)
+        XCTAssertEqual(sender.events.map(\.funnelEventSequencePosition), [1, 2, 3, 4, 5, 6, 7, 8])
     }
 
     func testEntryPointClicks() throws {
