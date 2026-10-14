@@ -101,8 +101,7 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertNil(prefixTap["search_id_ful"])
     }
 
-    func testRecentSearchTapAndTheInitItStarts() throws {
-        instrumentation.logRecentSearchTap(searchTerm: "la lune")
+    func testTheOriginOfTheSearchIsTheSubtypeOfTheInit() throws {
         instrumentation.logSearchInit(searchTerm: "la lune", project: project, origin: .recentSearch)
         instrumentation.logSearchInit(searchTerm: "la lune rousse", project: project)
         instrumentation.logSearchInit(searchTerm: "la lune bleue", project: project, origin: .voice)

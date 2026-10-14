@@ -470,7 +470,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     private lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
         guard let self else { return }
-        self.instrumentation.logRecentSearchTap(searchTerm: term.text, project: self.siteURL.flatMap { SearchResultsMapper.project(for: $0) })
         self.recentSearchTermPendingInit = term.text
         self.resetSearchResults()
         if let pop = self.populateSearchBarAction {

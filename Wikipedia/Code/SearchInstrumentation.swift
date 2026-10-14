@@ -121,13 +121,6 @@ final class SearchInstrumentation {
         submit(action: "init", actionSubtype: origin.actionSubtype, actionContext: Self.queryContext(searchTerm))
     }
 
-    func logRecentSearchTap(searchTerm: String, project: WMFProject? = nil) {
-        if let project {
-            self.project = project
-        }
-        submit(action: "click", actionSubtype: "recent_search", elementId: "search_result", actionContext: Self.queryContext(searchTerm))
-    }
-
     // MARK: - Lexical results
 
     func logLexicalResultsImpression(searchIDs: LexicalSearchIDs) {
