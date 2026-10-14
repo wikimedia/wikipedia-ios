@@ -161,7 +161,7 @@ struct YearInReviewSlideViewModelFactory {
         var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
         for (index, article) in shownArticles.enumerated() {
             guard let project = article.project else { continue }
-            thumbnails[WMFRiveImage(path: "icon\(index + 1)")] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+            thumbnails[ListImagePath.icon(index + 1)] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
         }
         return listSlide(
             id: "rereadArticles",
@@ -216,14 +216,19 @@ struct YearInReviewSlideViewModelFactory {
             return [topTopicEmptySlide()]
         }
 
-        var slides = [topTopicSlide(topic: topic, topTopic: topTopic)]
+        var slides = [topTopicSlide(topic: topic, topTopic: topTopic, illustration: slideData.illustration(for: topic))]
         if slideData.showsRunnerUps {
-            slides.append(runnerUpTopicsSlide(slideData.runnerUps.compactMap(\.topic)))
+            let runnerUps = slideData.runnerUps.compactMap(\.topic)
+            slides.append(runnerUpTopicsSlide(runnerUps, illustrations: runnerUps.map(slideData.illustration(for:))))
         }
         return slides
     }
 
-    private func topTopicSlide(topic: WMFArticleTopic, topTopic: WMFYearInReviewTopTopicsSlideData.TopTopic) -> WMFYearInReviewSlideViewModel {
+    /// The image property of the topic illustration on frame6.
+    private static let topicIcon = WMFRiveImage(path: "topicIcon")
+
+    /// - Parameter illustration: The image data of the topic illustration. `nil` shows the sample illustration in the .riv.
+    private func topTopicSlide(topic: WMFArticleTopic, topTopic: WMFYearInReviewTopTopicsSlideData.TopTopic, illustration: Data?) -> WMFYearInReviewSlideViewModel {
         let headline = CommonStrings.yearInReviewTopTopicTitle
         let topicName = topic.displayName
         let subtitle = CommonStrings.yearInReviewTopTopicSubtitle(
@@ -233,8 +238,6 @@ struct YearInReviewSlideViewModelFactory {
         )
         let bodyText = "\(subtitle) \(topic.yearInReviewSentence)"
 
-        // TODO: Set the `topicIcon` image of frame6 when the app has the topic illustrations.
-        // Until then, the frame shows its own sample illustration for each topic.
         return dataSlide(
             id: "topTopic",
             artboard: "frame6",
@@ -243,6 +246,7 @@ struct YearInReviewSlideViewModelFactory {
             data: topicName.localizedUppercase,
             dataFit: Self.dataTextFit,
             bodyText: bodyText,
+            images: illustration.map { [Self.topicIcon: $0] } ?? [:],
             accessibilityLabel: "\(headline) \(topicName). \(bodyText)"
         )
     }
@@ -261,11 +265,19 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// The runners-up show the topic name only, with no article count.
-    private func runnerUpTopicsSlide(_ topics: [WMFArticleTopic]) -> WMFYearInReviewSlideViewModel {
+    /// The runners-up show the topic name and illustration only, with no article count.
+    /// - Parameter illustrations: The image data of the illustration of each topic, in the same order.
+    private func runnerUpTopicsSlide(_ topics: [WMFArticleTopic], illustrations: [Data?]) -> WMFYearInReviewSlideViewModel {
         let bodyText = CommonStrings.yearInReviewRunnerUpTopicsTitle
-        let items = topics.prefix(WMFYearInReviewTopTopicsSlideData.maximumRunnerUpCount).map { topic in
+        let shownTopics = topics.prefix(WMFYearInReviewTopTopicsSlideData.maximumRunnerUpCount)
+        let items = shownTopics.map { topic in
             ListItem(title: topic.displayName, subtitle: "")
+        }
+        var images: [WMFRiveImage: Data] = [:]
+        for (index, illustration) in zip(shownTopics.indices, illustrations) {
+            if let illustration {
+                images[ListImagePath.icon(index + 1)] = illustration
+            }
         }
         return listSlide(
             id: "runnerUpTopics",
@@ -274,6 +286,7 @@ struct YearInReviewSlideViewModelFactory {
             headline: nil,
             bodyText: bodyText,
             items: items,
+            images: images,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
         )
     }
@@ -291,6 +304,13 @@ struct YearInReviewSlideViewModelFactory {
 
         static func subTitle(_ number: Int) -> WMFRiveText {
             WMFRiveText(path: "subTitle\(number)")
+        }
+    }
+
+    /// Image fields on the `List` view model in the templates file.
+    private enum ListImagePath {
+        static func icon(_ number: Int) -> WMFRiveImage {
+            WMFRiveImage(path: "icon\(number)")
         }
     }
 
@@ -323,6 +343,7 @@ struct YearInReviewSlideViewModelFactory {
         bodyText: String?,
         items: [ListItem],
         articleThumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:],
+        images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text: [WMFRiveText: String] = [:]
@@ -351,6 +372,7 @@ struct YearInReviewSlideViewModelFactory {
             text: text,
             numbers: numbers,
             articleThumbnails: articleThumbnails,
+            images: images,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
@@ -404,6 +426,7 @@ struct YearInReviewSlideViewModelFactory {
         data: String?,
         dataFit: WMFRiveTextFit = Self.dataNumberFit,
         bodyText: String,
+        images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text: [WMFRiveText: String] = [
@@ -419,6 +442,7 @@ struct YearInReviewSlideViewModelFactory {
             loggingID: id,
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
+            images: images,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,

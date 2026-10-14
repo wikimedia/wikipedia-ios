@@ -165,11 +165,15 @@ struct YearInReviewSlideViewModelFactoryTests {
     // MARK: - Topics
 
     /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
-    private func topTopicsData(readCount: Int = 20, topTopicID: String? = "history", runnerUpIDs: [String] = []) throws -> WMFYearInReviewTopTopicsSlideData {
+    /// - Parameter illustrations: Image data keyed by Commons file name. JSON stores `Data` as Base64.
+    private func topTopicsData(readCount: Int = 20, topTopicID: String? = "history", runnerUpIDs: [String] = [], illustrations: [String: Data]? = nil) throws -> WMFYearInReviewTopTopicsSlideData {
         var json: [String: Any] = [
             "readCount": readCount,
             "runnerUps": runnerUpIDs.map { ["topicID": $0, "articleCount": 3] }
         ]
+        if let illustrations {
+            json["illustrations"] = illustrations.mapValues { $0.base64EncodedString() }
+        }
         if let topTopicID {
             json["topTopic"] = [
                 "topicCount": ["topicID": topTopicID, "articleCount": 23],
@@ -199,6 +203,34 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(topicNameFit?.maximumLines == 1)
         #expect(topicNameFit?.fontSize.path == "dataTextFontSize")
         #expect(topicNameFit?.lineHeight.path == "dataTextLineHeight")
+    }
+
+    /// The downloaded illustrations fill topicIcon on frame6 and the row icons on frame7.
+    @Test
+    func theTopicSlidesShowTheDownloadedIllustrations() throws {
+        let history = Data("history".utf8)
+        let regional = Data("regional".utf8)
+        let slideData = try topTopicsData(
+            runnerUpIDs: ["europe", "asia", "biology"],
+            illustrations: ["17 History.png": history, "33 - 39 Regional.png": regional]
+        )
+
+        let slides = factory.topicSlides(slideData)
+        let topTopic = try #require(slides.first)
+        let runnersUp = try #require(slides.last)
+
+        #expect(topTopic.images.first { $0.key.path == "topicIcon" }?.value == history)
+        let icons = Dictionary(uniqueKeysWithValues: runnersUp.images.map { ($0.key.path, $0.value) })
+        #expect(icons["icon1"] == regional)
+        #expect(icons["icon2"] == regional)
+        // Biology did not download, so its row keeps the placeholder in the .riv.
+        #expect(icons["icon3"] == nil)
+    }
+
+    @Test
+    func withoutIllustrationsTheTopicSlidesSetNoImages() throws {
+        let slides = factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        #expect(slides.allSatisfy { $0.images.isEmpty })
     }
 
     @Test

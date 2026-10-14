@@ -22,7 +22,7 @@ struct WMFYearInReviewSlideView: View {
                 animation,
                 text: slide.text,
                 numbers: slide.numbers,
-                images: thumbnailLoader.images,
+                images: slide.images.merging(thumbnailLoader.images) { _, loaded in loaded },
                 accessibilityLabel: slide.localizedStrings.accessibilityLabel,
                 readBool: slide.lightContentFlag,
                 textFits: slide.textFits,
