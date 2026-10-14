@@ -194,21 +194,57 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
     }
 
 
-    func testFeedbackShowsAfterTheSheetAppears() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .milliseconds(50))
+    func testFeedbackShowsAfterTheResultsAreOnScreen() async {
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .milliseconds(50))
         XCTAssertFalse(viewModel.isFeedbackVisible)
 
         viewModel.sheetDidAppear()
         XCTAssertFalse(viewModel.isFeedbackVisible)
 
-        for _ in 0..<50 where !viewModel.isFeedbackVisible {
-            try? await Task.sleep(for: .milliseconds(20))
-        }
+        await waitForFeedback(viewModel)
         XCTAssertTrue(viewModel.isFeedbackVisible)
     }
 
+    func testFeedbackDelayStartsWhenTheResultsArrive() async {
+        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .milliseconds(300))
+        viewModel.sheetDidAppear()
+
+        // A long load: the sheet is on screen without results for longer than the delay.
+        try? await Task.sleep(for: .milliseconds(400))
+        XCTAssertFalse(viewModel.isFeedbackVisible)
+
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+        XCTAssertEqual(viewModel.state, .results)
+        XCTAssertFalse(viewModel.isFeedbackVisible)
+
+        await waitForFeedback(viewModel)
+        XCTAssertTrue(viewModel.isFeedbackVisible)
+    }
+
+    func testFeedbackDoesNotShowWithoutResults() async {
+        let empty = await makeViewModel(service: WMFMockBasicService(jsonResourceName: "semantic-search-get-empty"), feedbackDelay: .zero)
+        empty.load()
+        await waitUntilLoaded(empty)
+        let failed = await makeViewModel(service: WMFMockFailingService(statusCode: 429), feedbackDelay: .zero)
+        failed.load()
+        await waitUntilLoaded(failed)
+        let delegate = FeedbackPromptDelegate()
+        empty.feedbackPromptDelegate = delegate
+        failed.feedbackPromptDelegate = delegate
+
+        empty.sheetDidAppear()
+        failed.sheetDidAppear()
+        try? await Task.sleep(for: .milliseconds(100))
+
+        XCTAssertEqual(empty.state, .empty)
+        XCTAssertFalse(empty.isFeedbackVisible)
+        XCTAssertFalse(failed.isFeedbackVisible)
+        XCTAssertEqual(delegate.appearanceCount, 0)
+    }
+
     func testIgnoredFeedbackIsHandedOffToTheArticle() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .zero)
         viewModel.sheetDidAppear()
         await waitForFeedback(viewModel)
 
@@ -217,10 +253,11 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
     }
 
     func testFeedbackDoesNotComeBackToTheSameSheet() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .zero)
         viewModel.sheetDidAppear()
         await waitForFeedback(viewModel)
         _ = viewModel.handOffFeedbackIfIgnored()
+        viewModel.sheetDidDisappear()
 
         viewModel.sheetDidAppear()
         try? await Task.sleep(for: .milliseconds(100))
@@ -229,9 +266,10 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
     }
 
     func testFeedbackThatNeverShowedCanShowWhenTheSheetComesBack() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .milliseconds(200))
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .milliseconds(200))
         viewModel.sheetDidAppear()
         _ = viewModel.handOffFeedbackIfIgnored()
+        viewModel.sheetDidDisappear()
 
         viewModel.sheetDidAppear()
         await waitForFeedback(viewModel)
@@ -240,7 +278,7 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
     }
 
     func testFeedbackDueAfterTheSheetDisappearsDoesNotShow() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .milliseconds(50))
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .milliseconds(50))
         let delegate = FeedbackPromptDelegate()
         viewModel.feedbackPromptDelegate = delegate
 
@@ -253,7 +291,7 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
     }
 
     func testTheDelegateCanKeepTheFeedbackHidden() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .zero)
         let delegate = FeedbackPromptDelegate()
         delegate.canShowSheetFeedbackPrompt = false
         viewModel.feedbackPromptDelegate = delegate
@@ -266,7 +304,7 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
     }
 
     func testTheDelegateLearnsWhenTheFeedbackShows() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .zero)
         let delegate = FeedbackPromptDelegate()
         viewModel.feedbackPromptDelegate = delegate
 
@@ -274,12 +312,6 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
         await waitForFeedback(viewModel)
 
         XCTAssertEqual(delegate.appearanceCount, 1)
-    }
-
-    private func waitForFeedback(_ viewModel: WMFSemanticSearchResultsViewModel) async {
-        for _ in 0..<50 where !viewModel.isFeedbackVisible {
-            try? await Task.sleep(for: .milliseconds(20))
-        }
     }
 
     func testRatingWithoutSubmittingIsNotHandedOff() async {
@@ -291,17 +323,28 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
     }
 
     func testSubmittingHidesTheFeedback() async {
-        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: .zero)
+        let viewModel = await makeLoadedViewModel(feedbackDelay: .zero)
         viewModel.sheetDidAppear()
-        for _ in 0..<50 where !viewModel.isFeedbackVisible {
-            try? await Task.sleep(for: .milliseconds(20))
-        }
+        await waitForFeedback(viewModel)
 
         viewModel.feedbackViewModel.rate(.positive)
         viewModel.feedbackViewModel.submit()
 
         XCTAssertFalse(viewModel.isFeedbackVisible)
         XCTAssertFalse(viewModel.handOffFeedbackIfIgnored())
+    }
+
+    private func makeLoadedViewModel(feedbackDelay: Duration) async -> WMFSemanticSearchResultsViewModel {
+        let viewModel = await makeViewModel(service: WMFMockBasicService(), feedbackDelay: feedbackDelay)
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+        return viewModel
+    }
+
+    private func waitForFeedback(_ viewModel: WMFSemanticSearchResultsViewModel) async {
+        for _ in 0..<50 where !viewModel.isFeedbackVisible {
+            try? await Task.sleep(for: .milliseconds(20))
+        }
     }
 }
 
