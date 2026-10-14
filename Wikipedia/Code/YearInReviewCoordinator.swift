@@ -94,6 +94,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         self.introSlideLoggingID = introSlideLoggingID
 
+        return await presentAnnouncement()
+    }
+
+    /// Opens the announcement from an entry point the reader tapped, such as the Activity tab card.
+    /// It skips the "should the pop-up show" check, because the reader asked for it.
+    @discardableResult
+    @MainActor
+    func presentFeatureAnnouncementFromEntryPoint() async -> Bool {
+        return await presentAnnouncement()
+    }
+
+    @MainActor
+    private func presentAnnouncement() async -> Bool {
         let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
         let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
 
