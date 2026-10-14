@@ -278,7 +278,7 @@ private extension WMFSearchType {
     var searchResultType: String {
         switch self {
         case .prefix: return "PREFIX"
-        case .full: return "FULLTEXT"
+        case .full: return "FULL_TEXT"
         }
     }
 }

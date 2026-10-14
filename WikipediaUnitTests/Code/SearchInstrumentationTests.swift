@@ -92,7 +92,7 @@ final class SearchInstrumentationTests: XCTestCase {
 
         let fullTextTap = try context(of: sender.events[1])
         XCTAssertEqual(fullTextTap["position"], "3")
-        XCTAssertEqual(fullTextTap["type"], "FULLTEXT")
+        XCTAssertEqual(fullTextTap["type"], "FULL_TEXT")
 
         let prefixTap = try context(of: sender.events[2])
         XCTAssertEqual(prefixTap["type"], "PREFIX")
