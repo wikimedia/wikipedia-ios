@@ -109,6 +109,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
             return existingYirCoordinator
     }
+    
+    private var isPresentingModals = false
+
+    /// True when this session was started by a deep link. Set from outside: by `WMFAppViewController`
+    /// for the Explore tab, and by the Home tab for the embedded feed. Modals are suppressed in that
+    /// case so we do not interrupt whatever the link was pointing at.
+    var didOpenAppFromExternalLink = false
 
     // MARK: - Lifecycle
 
@@ -1068,15 +1075,46 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 // MARK: - Modal Presentation Logic
 
 extension ExploreViewController {
-    
-    /// Modal presentation priority chain for the Explore view:
-    ///   1. Year in Review     →  if shown, stop.
-    ///   2. Games announcement →  shown only when Year in Review declines.
-    ///
-    /// If Year in Review is shown, the games announcement is deferred to the next launch.
-    /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        presentYearInReviewAnnouncementOrTooltipsIfNeeded()
+        guard !isPresentingModals else { return }
+
+        // Cold launch: the store is not ready yet. coreDataStoreSetup() runs this again.
+        guard WMFDataEnvironment.current.coreDataStore != nil else { return }
+
+        isPresentingModals = true
+        Task { [weak self] in
+            guard let self else { return }
+            defer { isPresentingModals = false }
+
+            if await presentYearInReviewAnnouncementIfNeeded() {
+                updateProfileButton()
+                return
+            }
+            presentTooltipsAndGamesAnnouncementIfNeeded()
+        }
+    }
+
+    private func presentYearInReviewAnnouncementIfNeeded() async -> Bool {
+        guard canShowModalNow, let yirCoordinator else { return false }
+        return await yirCoordinator.presentFeatureAnnouncement(introSlideLoggingID: "") // TODO: confirm with analytics
+    }
+
+    private var canShowModalNow: Bool {
+        guard WMFYearInReviewDataController.AnnouncementPresentationContext.explore(isFromDeepLink: didOpenAppFromExternalLink).allowsAnnouncement else {
+            return false
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .pad, navigationController?.navigationBar.isHidden == true {
+            return false
+        }
+
+        guard let navigationController,
+              presentedViewController == nil,
+              navigationController.presentedViewController == nil,
+              isViewLoaded, view.window != nil else {
+            return false
+        }
+        return true
     }
 
     /// Called at the tail of the modal chain (after Year in Review has declined).
@@ -1096,18 +1134,6 @@ extension ExploreViewController {
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
         }
-    }
-
-    /// True when this session was started by a deep link. Modals are suppressed in that case so we
-    /// do not interrupt whatever the link was pointing at.
-    private var didOpenAppFromExternalLink: Bool {
-#if !TEST
-        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
-            return true
-        }
-#endif
-        return false
     }
 
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
@@ -1171,57 +1197,15 @@ extension ExploreViewController {
         return formatter.string(from: Date())
     }
 
-    private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
-            presentGamesAnnouncementIfNeeded()
-        }
+    private func presentTooltipsAndGamesAnnouncementIfNeeded() {
+        perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+        presentGamesAnnouncementIfNeeded()
     }
-    
+
     @objc func listenForTooltips() {
         if let appViewController = tabBarController as? WMFAppViewController {
             appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
-    }
-
-    private func needsYearInReviewAnnouncement() -> Bool {
-
-        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
-            return false
-        }
-
-        // Same rule as the article surface: no announcement during a deep linked session.
-        guard !didOpenAppFromExternalLink else {
-            return false
-        }
-
-        guard let yirDataController else {
-                  return false
-        }
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
-            return false
-        }
-
-        // The forced announcement must not open the Year in Review slides. This surface has no
-        // 2026 announcement screen yet, so it shows nothing while the force flag is on.
-        guard !yirDataController.isForcingFeatureAnnouncement else {
-            return false
-        }
-
-        guard presentedViewController == nil else {
-            return false
-        }
-
-        guard self.isViewLoaded && self.view.window != nil else {
-            return false
-        }
-
-        return true
     }
 
     private func displayURLWebView(url: URL) {
@@ -1238,20 +1222,6 @@ extension ExploreViewController {
         let newNavigationVC =
         WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
         presentedViewController.present(newNavigationVC, animated: true, completion: { })
-    }
-
-    private func presentYearInReviewAnnouncement() {
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
-        }
-
-        // TODO: 2026 — swap `yirCoordinator` for the 2026 coordinator. It needs to know it was
-        // launched from the announcement so that slide 0 is included and the exit toast fires.
-        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
-        self.yirCoordinator?.start()
-
-        // Marked as soon as it is presented, so a force quit on slide 0 does not earn a second showing.
-        yirDataController.hasPresentedYiRFeatureAnnouncement = true
     }
 
     private func shouldShowSearchWidgetAnnouncement() -> Bool {
@@ -1575,6 +1545,10 @@ extension ExploreViewController {
 
     @objc func coreDataStoreSetup() {
         configureNavigationBar()
+
+        // Retry the modal chain now that the store exists. Same visibility check as applicationDidBecomeActive().
+        guard viewIfLoaded?.window != nil else { return }
+        presentModalsIfNeeded()
     }
 }
 

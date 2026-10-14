@@ -8,6 +8,11 @@ import WMFNativeLocalizations
 /// Makes the content that the Year in Review view model is built from.
 struct YearInReviewSlideViewModelFactory {
 
+    /// Shared with the announcement's more menu.
+    static var aboutInsightsButtonTitle: String {
+        WMFLocalizedString("year-in-review-2026-about-insights", value: "About your insights", comment: "Title of the Year in Review more menu item that opens the Frequently Asked Questions page.")
+    }
+
     func makeLocalizedStrings() -> WMFYearInReviewViewModel.LocalizedStrings {
         WMFYearInReviewViewModel.LocalizedStrings(
             wIconAccessibilityLabel: CommonStrings.plainWikipediaName,
@@ -16,6 +21,7 @@ struct YearInReviewSlideViewModelFactory {
             shareButtonTitle: CommonStrings.shortShareTitle,
             donateButtonTitle: CommonStrings.donateTitle,
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
+            aboutInsightsButtonTitle: Self.aboutInsightsButtonTitle,
             shareFeedbackButtonTitle: CommonStrings.shareFeedbackTitle,
             slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
         )
