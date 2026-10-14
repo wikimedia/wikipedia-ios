@@ -49,6 +49,15 @@ public struct WMFYearInReviewTopTopicsSlideData: Codable, Sendable {
     public let topTopic: TopTopic?
     /// The topics that come after the top topic, most articles first. Fewer than `minimumRunnerUpCount` is possible.
     public let runnerUps: [TopicCount]
+    /// The image data of the topic illustrations, keyed by Commons file name. The slide data
+    /// controller downloads only the illustrations of the shown topics. A download that fails is
+    /// left out. `nil` in slide data from before the illustrations.
+    public internal(set) var illustrations: [String: Data]?
+
+    /// The image data of the illustration of `topic`, or `nil` if it did not download.
+    public func illustration(for topic: WMFArticleTopic) -> Data? {
+        illustrations?[topic.yearInReviewIllustrationFileName]
+    }
 
     /// If false, show the empty state ("Your #1 topic of 2026 is... all of them").
     public var isEligible: Bool {
@@ -78,6 +87,11 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
     private static let articleNamespaceID = 0
 
     private var slideData: SlideData?
+
+    /// Downloads one illustration. Tests replace it.
+    var fetchIllustrationData: @Sendable (URL) async throws -> Data = { url in
+        try await WMFImageDataController.shared.fetchImageData(url: url)
+    }
 
     private weak var mainPageIdentifier: WMFMainPageIdentifying?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
@@ -129,9 +143,43 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
             }
         }
 
-        slideData = Self.slideData(readCount: readCount, articlesByTopic: articlesByTopic)
+        var slideData = Self.slideData(readCount: readCount, articlesByTopic: articlesByTopic)
+        if slideData.isEligible {
+            slideData.illustrations = await downloadIllustrations(for: slideData)
+        }
+        self.slideData = slideData
 
         isEvaluated = true
+    }
+
+    /// Downloads the illustrations of the top topic and the runners-up. The topics of a region
+    /// use the same file, so each file downloads one time.
+    private func downloadIllustrations(for slideData: SlideData) async -> [String: Data] {
+        var topics = slideData.topTopic.flatMap(\.topicCount.topic).map { [$0] } ?? []
+        if slideData.showsRunnerUps {
+            topics += slideData.runnerUps.compactMap(\.topic)
+        }
+        let fileNames = Set(topics.map(\.yearInReviewIllustrationFileName))
+
+        let fetchIllustrationData = fetchIllustrationData
+        return await withTaskGroup(of: (String, Data?).self) { group in
+            for fileName in fileNames {
+                group.addTask {
+                    guard let url = URL.commonsUploadURL(fileName: fileName) else {
+                        return (fileName, nil)
+                    }
+                    return (fileName, try? await fetchIllustrationData(url))
+                }
+            }
+
+            var illustrations: [String: Data] = [:]
+            for await (fileName, data) in group {
+                if let data {
+                    illustrations[fileName] = data
+                }
+            }
+            return illustrations
+        }
     }
 
     /// The Year in Review slides show "Biography (women)" as "Biography (all)", so that the runners-up

@@ -360,10 +360,35 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         }
     }
 
-    private func topTopicsPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> TopTopicsData {
+    /// Records the illustration downloads. A file name in `failingFileNames` fails.
+    private final class StubIllustrationFetcher: @unchecked Sendable {
+        private let lock = NSLock()
+        private var urls: [URL] = []
+        let failingFileNames: Set<String>
+
+        init(failingFileNames: Set<String> = []) {
+            self.failingFileNames = failingFileNames
+        }
+
+        var requestedFileNames: [String] {
+            lock.withLock { urls.map { $0.lastPathComponent.replacingOccurrences(of: "_", with: " ") } }
+        }
+
+        func fetch(_ url: URL) throws -> Data {
+            lock.withLock { urls.append(url) }
+            let fileName = url.lastPathComponent.replacingOccurrences(of: "_", with: " ")
+            if failingFileNames.contains(fileName) {
+                throw URLError(.notConnectedToInternet)
+            }
+            return Data(fileName.utf8)
+        }
+    }
+
+    private func topTopicsPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil, illustrationFetcher: StubIllustrationFetcher = StubIllustrationFetcher()) async throws -> TopTopicsData {
         var dependencies = makeDependencies()
         dependencies.mainPageIdentifier = mainPageIdentifier
         let controller = YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        controller.fetchIllustrationData = { try illustrationFetcher.fetch($0) }
         let payload = try decode(TopTopicsData.self, from: try await populatedPayload(controller))
         XCTAssertTrue(controller.isEvaluated)
         return payload
@@ -483,6 +508,56 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.readCount, 5)
         XCTAssertEqual(payload.topTopic?.topicCount.topic, .biology, "physics has two articles without the main pages")
         XCTAssertTrue(payload.runnerUps.isEmpty)
+    }
+
+    func testTopTopicsDownloadsOnlyTheIllustrationsOfTheShownTopics() async throws {
+        try await seedArticles((1...5).map { "History_\($0)" }, labels: ["History_and_Society.History"], month: 2)
+        try await seedArticles((1...4).map { "Europe_\($0)" }, labels: ["Geography.Regions.Europe.Europe*"], month: 3)
+        try await seedArticles((1...3).map { "Asia_\($0)" }, labels: ["Geography.Regions.Asia.Asia*"], month: 4)
+        try await seedArticles((1...3).map { "Biology_\($0)" }, labels: ["STEM.Biology"], month: 5)
+        // A fourth runner-up is not shown, so its illustration does not download.
+        try await seedArticles((1...3).map { "Sports_\($0)" }, labels: ["Culture.Sports"], month: 6)
+
+        let fetcher = StubIllustrationFetcher()
+        let payload = try await topTopicsPayload(illustrationFetcher: fetcher)
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.europe, .asia, .biology])
+        // Europe and Asia use the same file, so it downloads one time.
+        XCTAssertEqual(fetcher.requestedFileNames.sorted(), ["17 History.png", "23 Biology.png", "33 - 39 Regional.png"])
+        XCTAssertEqual(payload.illustration(for: .history), Data("17 History.png".utf8))
+        XCTAssertEqual(payload.illustration(for: .asia), Data("33 - 39 Regional.png".utf8))
+        XCTAssertEqual(payload.illustration(for: .europe), payload.illustration(for: .asia))
+        XCTAssertNil(payload.illustration(for: .sports))
+    }
+
+    func testTopTopicsLeavesOutAnIllustrationThatFailsToDownload() async throws {
+        try await seedArticles((1...5).map { "History_\($0)" }, labels: ["History_and_Society.History"])
+
+        let fetcher = StubIllustrationFetcher(failingFileNames: ["17 History.png"])
+        let payload = try await topTopicsPayload(illustrationFetcher: fetcher)
+
+        XCTAssertTrue(payload.isEligible, "a failed download does not change the slide data")
+        XCTAssertNil(payload.illustration(for: .history))
+    }
+
+    func testTopTopicsDoesNotDownloadIllustrationsForTheEmptyState() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
+
+        let fetcher = StubIllustrationFetcher()
+        let payload = try await topTopicsPayload(illustrationFetcher: fetcher)
+
+        XCTAssertFalse(payload.isEligible)
+        XCTAssertTrue(fetcher.requestedFileNames.isEmpty)
+        XCTAssertNil(payload.illustrations)
+    }
+
+    /// Slide data from before the illustrations decodes without them.
+    func testTopTopicsDataWithoutIllustrationsDecodes() throws {
+        let json = #"{"readCount": 5, "runnerUps": []}"#
+        let payload = try JSONDecoder().decode(TopTopicsData.self, from: Data(json.utf8))
+        XCTAssertNil(payload.illustrations)
+        XCTAssertNil(payload.illustration(for: .history))
     }
 
     func testTopTopicsIsNotEligibleWithNoPageViews() async throws {
