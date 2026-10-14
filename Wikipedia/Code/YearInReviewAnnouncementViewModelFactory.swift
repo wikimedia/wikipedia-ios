@@ -23,6 +23,44 @@ struct YearInReviewAnnouncementViewModelFactory {
         static let body = WMFRiveText(path: "bodyCopy")
     }
 
+    /// The cover sets this flag for the contrast of the controls above it, the same as each slide.
+    static let lightContentFlag = WMFRiveBool(path: "isUIWhite")
+
+    /// The title and the body copy grow, so long copy can push the content past the bottom of the
+    /// cover. Over these line counts, make both smaller by the same scale, to at most
+    /// `YearInReviewSlideViewModelFactory.copyMinimumScale`. Same rule as the copy on the slides.
+    static let textFits: [WMFRiveTextFit] = [
+        WMFRiveTextFit(
+            text: CoverTextPath.title,
+            fontAssetName: "SanSerifFont",
+            maximumWidth: coverTitleWidth,
+            maximumLines: 3,
+            minimumScale: YearInReviewSlideViewModelFactory.copyMinimumScale,
+            group: "copy",
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "coverGlyphsFontSize"),
+            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight")
+        ),
+        WMFRiveTextFit(
+            text: CoverTextPath.body,
+            fontAssetName: "SerifFont",
+            maximumWidth: coverBodyWidth,
+            maximumLines: 5,
+            minimumScale: YearInReviewSlideViewModelFactory.copyMinimumScale,
+            group: "copy",
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
+            lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
+        )
+    ]
+
+    /// In artboard units. The title box is a little wider than this. The body box is narrower, but
+    /// a smaller width would make the English collective body (5 lines) smaller too. The cover has a
+    /// lot of free space below the body, so a body that wraps to a few more lines still fits.
+    /// Checked with long Russian copy (October 2026): the title made both smaller, to 3 lines.
+    private static let coverTitleWidth = 290.0
+    private static let coverBodyWidth = 290.0
+
     @MainActor
     func makeViewModel(userDataState: UserDataState, readingDayCount: Int, delegate: WMFYearInReviewAnnouncementDelegate) -> WMFYearInReviewAnnouncementViewModel {
         let localizedStrings = makeLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
@@ -34,6 +72,8 @@ struct YearInReviewAnnouncementViewModelFactory {
                 CoverTextPath.body: localizedStrings.body
             ],
             localizedStrings: localizedStrings,
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.textFits,
             delegate: delegate
         )
     }

@@ -1,9 +1,11 @@
 import SwiftUI
 import UIKit
+import Combine
 
 public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHostingController<WMFYearInReviewAnnouncementView>, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFYearInReviewAnnouncementViewModel
+    private var cancellables = Set<AnyCancellable>()
 
     public init(viewModel: WMFYearInReviewAnnouncementViewModel) {
         self.viewModel = viewModel
@@ -20,6 +22,20 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
 
     public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return .portrait
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // The artwork sets the color of the controls in its .riv, which is known only after it loads.
+        // `@Published` sends the new value before the property changes, so use the value it sends.
+        viewModel.$contentStyle
+            .dropFirst()
+            .sink { [weak self] contentStyle in
+                guard let self else { return }
+                WMFYearInReviewNavigationItems.applyTintColor(contentStyle.color, to: navigationItem)
+            }
+            .store(in: &cancellables)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
