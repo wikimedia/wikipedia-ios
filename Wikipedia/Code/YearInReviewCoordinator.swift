@@ -94,7 +94,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         self.introSlideLoggingID = introSlideLoggingID
 
-        let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
+        let userDataState = (try? dataController.fetchUserDataState()) ?? .lowData
         let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
 
         // Something may have been presented while the data loaded.
@@ -123,10 +123,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     /// `userDataState` is nil for the profile entry point, which does not pick slides here. The data
     /// controller picks it then, and the developer settings can override it.
-    ///
-    /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
-    /// has data. `userDataState` is a temporary proxy for that (see `dataRichEligibleSlideThreshold`
-    /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
     private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
         // `fetchUserDataState()` runs on the main actor. This method only runs on the main thread,
         // because it presents view controllers.
