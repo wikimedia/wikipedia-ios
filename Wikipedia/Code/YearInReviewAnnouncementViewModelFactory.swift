@@ -83,12 +83,11 @@ struct YearInReviewAnnouncementViewModelFactory {
         let body: String
         switch userDataState {
         case .dataRich:
-            headline = WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement for readers with enough reading data. It is drawn inside the artwork, so VoiceOver reads this text.")
-            let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
-            body = String.localizedStringWithFormat(format, readingDayCount)
+            headline = CommonStrings.yearInReviewIntroTitle
+            body = CommonStrings.yearInReviewIntroSubtitle(dayCount: readingDayCount)
         case .lowData:
-            headline = collectiveHeadline
-            body = collectiveBody
+            headline = CommonStrings.yearInReviewCollectiveIntroTitle
+            body = CommonStrings.yearInReviewCollectiveIntroSubtitle
         }
 
         return WMFYearInReviewAnnouncementViewModel.LocalizedStrings(
@@ -112,17 +111,7 @@ struct YearInReviewAnnouncementViewModelFactory {
             let message = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-message", value: "Log in to see your top topics, articles, longest rabbit hole, and more. You can still see collective insights without logging in.", comment: "Message of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
             return (title, message)
         case .lowData:
-            return (collectiveHeadline, collectiveBody)
+            return (CommonStrings.yearInReviewCollectiveIntroTitle, CommonStrings.yearInReviewCollectiveIntroSubtitle)
         }
-    }
-
-    /// Used by the collective announcement and the collective log in prompt.
-    private var collectiveHeadline: String {
-        WMFLocalizedString("year-in-review-2026-announcement-collective-headline", value: "Our Year in Review is here", comment: "Headline of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and title of the log in prompt shown to them. On the announcement it is drawn inside the artwork, so VoiceOver reads this text.")
-    }
-
-    /// Used by the collective announcement and the collective log in prompt.
-    private var collectiveBody: String {
-        WMFLocalizedString("year-in-review-2026-announcement-collective-body", value: "There wasn't enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.", comment: "Body text of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and message of the log in prompt shown to them.")
     }
 }
