@@ -47,7 +47,7 @@ public final class WMFSemanticSearchDataController: Sendable {
     /// True when Settings offers the control that shows or hides the entry point: the reader is
     /// in group B while the feature is on.
     public var isSettingsEntryAvailable: Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
+        guard WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled else {
             return false
         }
 
@@ -89,7 +89,7 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     /// True when a search in `languageCode` can enroll the reader in the experiment.
     public func isEligible(languageCode: String) -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
+        guard WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled else {
             return false
         }
 

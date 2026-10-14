@@ -110,6 +110,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         public let hCaptcha: HCaptcha?
         public let visualEditorEnabled: Bool?
         public let semanticSearchLanguages: [String]
+        public let semanticSearchEnabled: Bool?
         
         public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
@@ -122,16 +123,18 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let apiKey: String
         }
 
-        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = []) {
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil) {
             self.hCaptcha = hCaptcha
             self.visualEditorEnabled = visualEditorEnabled
             self.semanticSearchLanguages = semanticSearchLanguages
+            self.semanticSearchEnabled = semanticSearchEnabled
         }
 
         private enum CodingKeys: String, CodingKey {
             case hCaptcha
             case visualEditorEnabled
             case semanticSearchLanguages
+            case semanticSearchEnabled = "semanticSearchEnabledv2"
         }
 
         public init(from decoder: Decoder) throws {
@@ -139,6 +142,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             hCaptcha = try container.decodeIfPresent(HCaptcha.self, forKey: .hCaptcha)
             visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
             semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
+            semanticSearchEnabled = try container.decodeIfPresent(Bool.self, forKey: .semanticSearchEnabled)
         }
     }
     

@@ -211,6 +211,7 @@ final class WMFSemanticSearchDataControllerTests {
         let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
 
         #expect(config.ios.semanticSearchLanguages.isEmpty)
+        #expect(config.ios.semanticSearchEnabled == nil)
         #expect(config.ios.visualEditorEnabled == true)
         #expect(config.ios.hCaptcha == nil)
     }
@@ -226,9 +227,50 @@ final class WMFSemanticSearchDataControllerTests {
         #expect(config.ios.semanticSearchLanguages == ["fr", "ar", "ja"])
     }
 
-    private func saveRemoteTargetLanguages(_ languageCodes: [String]) throws {
+    @Test
+    func featureConfigDecodesTheRemoteSemanticSearchFlag() throws {
+        let json = Data("""
+        {"commonv1": {"yir": []}, "iosv1": {"semanticSearchEnabledv2": true}}
+        """.utf8)
+
+        let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
+
+        #expect(config.ios.semanticSearchEnabled == true)
+    }
+
+    @Test
+    func remoteFlagEnablesTheFeatureWhileTheDeveloperToggleIsOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+            try saveRemoteTargetLanguages(["fr"], semanticSearchEnabled: true)
+
+            #expect(WMFDeveloperSettingsDataController.shared.enableSemanticSearch == false)
+            #expect(WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled)
+            #expect(controller.isEligible(languageCode: "fr"))
+            #expect(controller.isEntryPointAvailable(languageCode: "fr"))
+            #expect(controller.isSettingsEntryAvailable)
+        }
+    }
+
+    @Test
+    func developerToggleEnablesTheFeatureWhileTheRemoteFlagIsOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+            try saveRemoteTargetLanguages(["fr"], semanticSearchEnabled: false)
+
+            #expect(WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled == false)
+            #expect(controller.isEligible(languageCode: "fr") == false)
+
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+
+            #expect(WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled)
+            #expect(controller.isEligible(languageCode: "fr"))
+        }
+    }
+
+    private func saveRemoteTargetLanguages(_ languageCodes: [String], semanticSearchEnabled: Bool? = nil) throws {
         let sharedCacheStore = try #require(WMFDataEnvironment.current.sharedCacheStore)
-        let ios = WMFFeatureConfigResponse.IOS(hCaptcha: nil, semanticSearchLanguages: languageCodes)
+        let ios = WMFFeatureConfigResponse.IOS(hCaptcha: nil, semanticSearchLanguages: languageCodes, semanticSearchEnabled: semanticSearchEnabled)
         let config = WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: []), ios: ios, cachedDate: Date())
         try sharedCacheStore.save(key: "Developer Settings", "AppsFeatureConfig", value: config)
     }
