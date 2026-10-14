@@ -35,24 +35,19 @@ public struct WMFYearInReviewAnnouncementView: View {
 
     // MARK: - Artwork
 
-    @ViewBuilder
     private var animation: some View {
-        if let animation = viewModel.animation {
-            WMFRiveView(
-                animation,
-                text: viewModel.riveText,
-                numbers: viewModel.riveNumbers,
-                accessibilityLabel: viewModel.localizedStrings.animationAccessibilityLabel
-            )
-            // Text inside the artwork is not read, so VoiceOver gets the body here.
-            .accessibilityValue(Text(viewModel.localizedStrings.body))
-        } else {
-            // Shows until the .riv file is added.
-            Text(viewModel.localizedStrings.animationAccessibilityLabel)
-                .font(Font(WMFFont.for(.boldTitle1)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 24)
-        }
+        WMFRiveView(
+            viewModel.animation,
+            text: viewModel.riveText,
+            numbers: viewModel.riveNumbers,
+            accessibilityLabel: viewModel.localizedStrings.animationAccessibilityLabel,
+            readBool: viewModel.lightContentFlag,
+            textFits: viewModel.textFits,
+            onReadBool: { [weak viewModel] isLight in
+                viewModel?.didReadLightContentFlag(isLight)
+            }
+        )
+        // Text inside the artwork is not read, so VoiceOver gets the body here.
+        .accessibilityValue(Text(viewModel.localizedStrings.body))
     }
 }

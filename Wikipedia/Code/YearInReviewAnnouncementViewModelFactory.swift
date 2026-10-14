@@ -23,6 +23,44 @@ struct YearInReviewAnnouncementViewModelFactory {
         static let body = WMFRiveText(path: "bodyCopy")
     }
 
+    /// The cover sets this flag for the contrast of the controls above it, the same as each slide.
+    static let lightContentFlag = WMFRiveBool(path: "isUIWhite")
+
+    /// The title and the body copy grow, so long copy can push the content past the bottom of the
+    /// cover. Over these line counts, make both smaller by the same scale, to at most
+    /// `YearInReviewSlideViewModelFactory.copyMinimumScale`. Same rule as the copy on the slides.
+    static let textFits: [WMFRiveTextFit] = [
+        WMFRiveTextFit(
+            text: CoverTextPath.title,
+            fontAssetName: "SanSerifFont",
+            maximumWidth: coverTitleWidth,
+            maximumLines: 3,
+            minimumScale: YearInReviewSlideViewModelFactory.copyMinimumScale,
+            group: "copy",
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "coverGlyphsFontSize"),
+            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight")
+        ),
+        WMFRiveTextFit(
+            text: CoverTextPath.body,
+            fontAssetName: "SerifFont",
+            maximumWidth: coverBodyWidth,
+            maximumLines: 5,
+            minimumScale: YearInReviewSlideViewModelFactory.copyMinimumScale,
+            group: "copy",
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
+            lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
+        )
+    ]
+
+    /// In artboard units. The title box is a little wider than this. The body box is narrower, but
+    /// a smaller width would make the English collective body (5 lines) smaller too. The cover has a
+    /// lot of free space below the body, so a body that wraps to a few more lines still fits.
+    /// Checked with long Russian copy (October 2026): the title made both smaller, to 3 lines.
+    private static let coverTitleWidth = 290.0
+    private static let coverBodyWidth = 290.0
+
     @MainActor
     func makeViewModel(userDataState: UserDataState, readingDayCount: Int, delegate: WMFYearInReviewAnnouncementDelegate) -> WMFYearInReviewAnnouncementViewModel {
         let localizedStrings = makeLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
@@ -34,6 +72,8 @@ struct YearInReviewAnnouncementViewModelFactory {
                 CoverTextPath.body: localizedStrings.body
             ],
             localizedStrings: localizedStrings,
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.textFits,
             delegate: delegate
         )
     }
@@ -43,12 +83,11 @@ struct YearInReviewAnnouncementViewModelFactory {
         let body: String
         switch userDataState {
         case .dataRich:
-            headline = WMFLocalizedString("year-in-review-2026-announcement-headline", value: "Your Wikipedia Year in Review is here", comment: "Headline of the Year in Review announcement for readers with enough reading data. It is drawn inside the artwork, so VoiceOver reads this text.")
-            let format = WMFLocalizedString("year-in-review-2026-announcement-personalized-body", value: "Thanks for spending {{PLURAL:%1$d|%1$d day|%1$d days}} on your trusty Wikipedia App in 2026.", comment: "Body text of the Year in Review announcement for readers with enough reading data. %1$d is replaced with the number of days the reader read articles in the app.")
-            body = String.localizedStringWithFormat(format, readingDayCount)
+            headline = CommonStrings.yearInReviewIntroTitle
+            body = CommonStrings.yearInReviewIntroSubtitle(dayCount: readingDayCount)
         case .lowData:
-            headline = collectiveHeadline
-            body = collectiveBody
+            headline = CommonStrings.yearInReviewCollectiveIntroTitle
+            body = CommonStrings.yearInReviewCollectiveIntroSubtitle
         }
 
         return WMFYearInReviewAnnouncementViewModel.LocalizedStrings(
@@ -72,17 +111,7 @@ struct YearInReviewAnnouncementViewModelFactory {
             let message = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-message", value: "Log in to see your top topics, articles, longest rabbit hole, and more. You can still see collective insights without logging in.", comment: "Message of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
             return (title, message)
         case .lowData:
-            return (collectiveHeadline, collectiveBody)
+            return (CommonStrings.yearInReviewCollectiveIntroTitle, CommonStrings.yearInReviewCollectiveIntroSubtitle)
         }
-    }
-
-    /// Used by the collective announcement and the collective log in prompt.
-    private var collectiveHeadline: String {
-        WMFLocalizedString("year-in-review-2026-announcement-collective-headline", value: "Our Year in Review is here", comment: "Headline of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and title of the log in prompt shown to them. On the announcement it is drawn inside the artwork, so VoiceOver reads this text.")
-    }
-
-    /// Used by the collective announcement and the collective log in prompt.
-    private var collectiveBody: String {
-        WMFLocalizedString("year-in-review-2026-announcement-collective-body", value: "There wasn't enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.", comment: "Body text of the Year in Review announcement for readers without enough reading data for a personalized Year in Review, and message of the log in prompt shown to them.")
     }
 }
