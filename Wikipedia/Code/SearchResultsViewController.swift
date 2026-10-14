@@ -6,9 +6,6 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
-// Protocol that any parent view controller that sets SearchResultsViewController as its navigationItem.searchResultsController should conform to. It ensures search cancel logging happens properly.
-// Conformers to this class should properly set this flag in their viewWillDisappear methods.
-
 /// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
 class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider {
 
@@ -19,15 +16,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         case topOfFeed
         case article
         case unknown
-
-        var stringValue: String {
-            switch self {
-            case .article: return "article"
-            case .topOfFeed: return "top_of_feed"
-            case .searchTab: return "search_tab"
-            case .unknown: return "unknown"
-            }
-        }
     }
 
     var eventLoggingCategory: EventCategoryMEP { .history }
@@ -166,7 +154,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         updateLanguageBarVisibility()
         reloadRecentSearches()
         refreshSemanticSearchEntryPointIfResultsAreShown()
-        instrumentation.logSearchScreenImpression(source: source, project: siteURL.flatMap { SearchResultsMapper.project(for: $0) })
     }
 
     override func viewDidLayoutSubviews() {
@@ -362,8 +349,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         }
         recentSearchTermPendingInit = nil
         if let languageCode = siteURL.wmf_languageCode {
-            let dataController = WMFSemanticSearchDataController.shared
-            instrumentation.logQueryEligibility(isEligible: dataController.isEligible(languageCode: languageCode))
             enrollInSemanticSearchExperimentIfNeeded(languageCode: languageCode)
         }
         do {

@@ -44,7 +44,10 @@ extension SearchResultsViewController {
             tapAction: { [weak self] result, index in
                 guard let self else { return }
                 if let displayedSearchResults = self.displayedSearchResults {
-                    self.instrumentation.logLexicalResultTap(position: index + 1, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
+                    // The position is the index of the row in the response of its own request, as the
+                    // Android app reports it. It restarts at 1 for the rows the full text search appended.
+                    let position = self.searchResultsByArticleURL[result.id]?.index?.intValue ?? (index + 1)
+                    self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
                 }
                 self.saveLastSearch()
                 self.articleTappedAction?(result.articleURL, false)
@@ -97,33 +100,19 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
-        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project, isNewResultsList: true)
+        updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
     }
 
     // MARK: - Semantic search entry point
 
-    /// `isNewResultsList` is true when a list of results just came in. That is the moment of the
-    /// entry point impression, in both groups. A refresh of the same list does not count again.
-    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?, isNewResultsList: Bool = false) {
+    private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
         guard let query, !query.isEmpty, let languageCode, let project else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
         let dataController = WMFSemanticSearchDataController.shared
 
-        let isEntryPointAvailable = dataController.isEntryPointAvailable(languageCode: languageCode)
-        if isNewResultsList, dataController.isEligible(languageCode: languageCode), let assignment = dataController.experimentAssignment {
-            let searchIDs = displayedSearchResults?.results.lexicalSearchIDs ?? SearchInstrumentation.LexicalSearchIDs(prefix: nil, fullText: nil)
-            switch assignment {
-            case .groupB where isEntryPointAvailable:
-                instrumentation.logDiveEntryImpression(isTreatment: true, searchIDs: searchIDs)
-            case .control:
-                instrumentation.logDiveEntryImpression(isTreatment: false, searchIDs: searchIDs)
-            case .groupB:
-                break
-            }
-        }
-        guard isEntryPointAvailable else {
+        guard dataController.isEntryPointAvailable(languageCode: languageCode) else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }

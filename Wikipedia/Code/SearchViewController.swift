@@ -416,6 +416,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
+        searchResultsVC.instrumentation.logSearchScreenImpression(source: source, project: searchResultsVC.siteURL.flatMap { SearchResultsMapper.project(for: $0) })
 
         let returningFromArticle = pushedArticleSource != nil
         switch pushedArticleSource {

@@ -66,9 +66,6 @@ final class SearchInstrumentation {
     }
 
     static let instrumentName = "apps-search"
-    /// The version of the eligibility rules: the search language is a target language and the
-    /// feature is on. Raise it when the rules change.
-    static let eligibilityRulesVersion = "1"
     /// The spec collects the search term up to this many characters.
     static let queryLimit = 256
     /// The text field already stops at this limit. The event cuts the text too, as a safety net.
@@ -98,19 +95,6 @@ final class SearchInstrumentation {
     func logExperimentExposure() {
         guard let experimentData = dataController.experimentData else { return }
         client.submitExperimentExposure(experimentData: experimentData)
-    }
-
-    /// Sent for every search, in both groups, before any Dive UI.
-    func logQueryEligibility(isEligible: Bool) {
-        submit(action: "dive_query_eligibility", actionContext: ["eligible": isEligible, "rules_version": Self.eligibilityRulesVersion])
-    }
-
-    /// The entry point rendered for an eligible search. In the control group, the same moment
-    /// counts as the opportunity the reader did not get.
-    func logDiveEntryImpression(isTreatment: Bool, searchIDs: LexicalSearchIDs) {
-        var actionContext = searchIDs.actionContext
-        actionContext["eligible"] = true
-        submit(action: "dive_entry_impression", elementId: isTreatment ? "dive_entry" : "dive_entry_opportunity", actionContext: actionContext)
     }
 
     // MARK: - Search screen

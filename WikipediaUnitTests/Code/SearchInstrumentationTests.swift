@@ -45,31 +45,6 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertTrue(sender.events.isEmpty)
     }
 
-    func testQueryEligibilityCarriesTheRulesVersion() throws {
-        instrumentation.logQueryEligibility(isEligible: true)
-        instrumentation.logQueryEligibility(isEligible: false)
-
-        XCTAssertEqual(sender.events.map(\.action), ["dive_query_eligibility", "dive_query_eligibility"])
-        XCTAssertEqual(sender.events.map(\.actionSource), ["search", "search"])
-        let eligible = try context(of: sender.events[0])
-        XCTAssertEqual(eligible["eligible"], "true")
-        XCTAssertEqual(eligible["rules_version"], SearchInstrumentation.eligibilityRulesVersion)
-        XCTAssertEqual(try context(of: sender.events[1])["eligible"], "false")
-    }
-
-    func testDiveEntryImpressionNamesTheGroup() throws {
-        let ids = SearchInstrumentation.LexicalSearchIDs(prefix: "pre", fullText: nil)
-        instrumentation.logDiveEntryImpression(isTreatment: true, searchIDs: ids)
-        instrumentation.logDiveEntryImpression(isTreatment: false, searchIDs: ids)
-
-        XCTAssertEqual(sender.events.map(\.action), ["dive_entry_impression", "dive_entry_impression"])
-        XCTAssertEqual(sender.events.map(\.elementId), ["dive_entry", "dive_entry_opportunity"])
-        let context = try context(of: sender.events[0])
-        XCTAssertEqual(context["eligible"], "true")
-        XCTAssertEqual(context["search_id_pre"], "pre")
-        XCTAssertNil(context["search_id_ful"])
-    }
-
     func testScreenImpressionStartsAFunnelAndKeepsItAfterwards() throws {
         sender.events.removeAll()
         let fresh = SearchInstrumentation(client: client)
