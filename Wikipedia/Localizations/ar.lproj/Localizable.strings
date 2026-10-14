@@ -1206,10 +1206,13 @@
 "search-recent-empty" = "لا توجد عمليات بحث حديثة حتى الآن";
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
+"search-semantic-entry-point-accessibility-hint" = "نتائج البحث للمقالات حسب استعلامك";
 "search-semantic-entry-point-description" = "ابحث داخل المقالات وانتقل مباشرةً إلى المقطع ذي الصلة";
 "search-semantic-entry-point-hidden-toast-modify" = "تعديل";
 "search-semantic-entry-point-hidden-toast-subtitle" = "يمكنك إظهارها مرة أخرى من خلال الإعدادات";
 "search-semantic-entry-point-hidden-toast-title" = "الوحدة مخفية";
+"search-semantic-entry-point-hide-accessibility-label" = "إخفاء البحث داخل المقالات";
+"search-semantic-entry-point-info-accessibility-label" = "حول البحث داخل المقالات";
 "search-semantic-entry-point-try-it-now" = "جرّبه الآن";
 "search-semantic-info-sources" = "تُستخلص المقاطع من مقالات أعدّها أشخاص بالبحث والكتابة والتحرير، ويستند كل مقطع منها إلى مصادر مُستشهد بها يمكنك التحقق منها.";
 "search-semantic-info-summary" = "اعثر على إجابات لأسئلتك داخل مقالات ويكيبيديا، وانتقل مباشرةً إلى المقطع ذي الصلة.";
@@ -1219,8 +1222,12 @@
 "search-semantic-results-error-subtitle" = "حاول مجددًا";
 "search-semantic-results-error-title" = "حدث خطأ ما";
 "search-semantic-results-last-updated" = "آخر تحديث $1";
+"search-semantic-results-rate-limited-subtitle" = "انتظر قليلاً ثم حاول مرة أخرى.";
+"search-semantic-results-rate-limited-title" = "عمليات بحث مفرطة";
+"search-semantic-results-read-in-article" = "اقرأ في المقالة";
 "search-semantic-results-references" = "{{PLURAL:$1|$1 مرجع|$1 مراجع}}";
 "search-semantic-results-unavailable-subtitle" = "من فضلك حاول مرة أخرى لاحقا";
+"search-semantic-results-unavailable-title" = "البحث غير متاح حاليًا";
 "search-title" = "بحث";
 "search-widget-announcement-body" = "قم بإضافة أداة البحث في ويكيبيديا إلى الشاشة الرئيسية أو شاشة القفل للحصول على إجابات أسرع، مباشرة في متناول يدك.";
 "search-widget-announcement-title" = "أداة بحث جديدة متاحة";
@@ -1232,6 +1239,8 @@
 "semantic-search-feedback-thanks" = "شكراً على ملاحظاتك";
 "semantic-search-feedback-thumbs-down-accessibility" = "لا";
 "semantic-search-feedback-thumbs-up-accessibility" = "نعم";
+"semantic-search-feedback-title" = "ملاحظات";
+"semantic-search-passage-not-found" = "هذا المقطع لم يعد موجودًا في المقالة";
 "serbian-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصربية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! српски ћирилица الصربية ، السيريلية (sr-ec)! ! srpski latinica الصربية، اللاتينية (sr-el)";
 "serbian-variants-alert-title" = "تحديثات لدعم النسخة الصربية";
 "settings-account" = "حساب";

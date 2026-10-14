@@ -918,10 +918,13 @@
 "search-recent-empty" = "最近の検索はまだありません";
 "search-recent-title" = "最近の検索";
 "search-result-redirected-from" = "$1 から転送されました";
+"search-semantic-entry-point-accessibility-hint" = "記事内で検索する";
 "search-semantic-entry-point-description" = "記事内を検索して、関連する箇所に直接移動";
 "search-semantic-entry-point-hidden-toast-modify" = "変更";
 "search-semantic-entry-point-hidden-toast-subtitle" = "設定から再度表示できます";
 "search-semantic-entry-point-hidden-toast-title" = "モジュールは非表示になっています";
+"search-semantic-entry-point-hide-accessibility-label" = "記事内検索を非表示にする";
+"search-semantic-entry-point-info-accessibility-label" = "記事内検索について";
 "search-semantic-entry-point-try-it-now" = "今すぐ試す";
 "search-semantic-info-sources" = "文章は、人々が調査・執筆・編集した記事から抜粋されています。すべて出典が示されているので、元の情報を確認できます。";
 "search-semantic-info-summary" = "Wikipediaの記事から質問への答えを見つけ、関連する箇所に直接移動できます。";
@@ -931,8 +934,12 @@
 "search-semantic-results-error-subtitle" = "もう一度お試しください";
 "search-semantic-results-error-title" = "エラーが発生しました";
 "search-semantic-results-last-updated" = "最終更新 $1";
+"search-semantic-results-rate-limited-subtitle" = "しばらく待ってから、もう一度お試しください。";
+"search-semantic-results-rate-limited-title" = "検索回数が多すぎます";
+"search-semantic-results-read-in-article" = "記事で読む";
 "search-semantic-results-references" = "{{PLURAL:$1|$1 参考文献}}";
 "search-semantic-results-unavailable-subtitle" = "しばらくしてから再度、操作をしてください";
+"search-semantic-results-unavailable-title" = "現在、検索は利用できません";
 "search-title" = "検索";
 "semantic-search-feedback-placeholder" = "詳しく教えてください（任意）";
 "semantic-search-feedback-question" = "お探しのものは見つかりましたか？";
@@ -940,6 +947,8 @@
 "semantic-search-feedback-thanks" = "フィードバックありがとうございます";
 "semantic-search-feedback-thumbs-down-accessibility" = "いいえ";
 "semantic-search-feedback-thumbs-up-accessibility" = "はい";
+"semantic-search-feedback-title" = "フィードバック";
+"semantic-search-passage-not-found" = "この記事にはこの箇所はもう掲載されていません";
 "settings-account" = "アカウント";
 "settings-appearance" = "アプリのテーマ";
 "settings-clear-cache" = "キャッシュを消去";

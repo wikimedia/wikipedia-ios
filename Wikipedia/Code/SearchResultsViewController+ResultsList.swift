@@ -12,11 +12,11 @@ extension SearchResultsViewController {
     private static let noSearchResultsMessage = WMFLocalizedString("empty-no-search-results-message", value: "No results found", comment: "Shown when there are no search results")
 
     private static func semanticSearchHiddenToastTitle(languageCode: String) -> String {
-        WMFLocalizedString("search-semantic-entry-point-hidden-toast-title", languageCode: languageCode, value: "Module hidden.", comment: "Title of the toast shown after the reader hides the semantic search entry point on the search screen.")
+        WMFLocalizedString("search-semantic-entry-point-hidden-toast-title", languageCode: languageCode, value: "Module hidden", comment: "Title of the toast shown after the reader hides the semantic search entry point on the search screen.")
     }
 
     private static func semanticSearchHiddenToastSubtitle(languageCode: String) -> String {
-        WMFLocalizedString("search-semantic-entry-point-hidden-toast-subtitle", languageCode: languageCode, value: "You can make it visible again via Settings.", comment: "Subtitle of the toast shown after the reader hides the semantic search entry point on the search screen.")
+        WMFLocalizedString("search-semantic-entry-point-hidden-toast-subtitle", languageCode: languageCode, value: "You can make it visible again via Settings", comment: "Subtitle of the toast shown after the reader hides the semantic search entry point on the search screen.")
     }
 
     private static func semanticSearchHiddenToastButtonTitle(languageCode: String) -> String {
