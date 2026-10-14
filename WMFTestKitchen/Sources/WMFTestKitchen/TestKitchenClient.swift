@@ -42,14 +42,15 @@ public class TestKitchenClient {
     }
 
     /// Sends the exposure event of an experiment. It goes out with no instrument,
-    /// so it has no instrument name and no funnel.
-    public func submitExperimentExposure(experimentData: ExperimentData) {
+    /// so it has no instrument name and no funnel. `mediawikiDatabase` names the wiki
+    /// the exposure happened on; without it the event carries the primary wiki of the app.
+    public func submitExperimentExposure(experimentData: ExperimentData, mediawikiDatabase: String? = nil) {
         let event = Event(
             schema: TestKitchenClient.schemaAppBase,
             stream: TestKitchenClient.streamAppBase,
             dt: iso8601Timestamp(),
             instrument: nil,
-            clientData: getClientData(mediawikiDatabase: nil),
+            clientData: getClientData(mediawikiDatabase: mediawikiDatabase),
             interactionData: InteractionData(action: TestKitchenClient.experimentExposureAction, experimentData: experimentData)
         )
 

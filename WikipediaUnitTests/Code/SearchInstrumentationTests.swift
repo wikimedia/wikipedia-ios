@@ -35,6 +35,7 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertNil(event.actionSource)
         XCTAssertEqual(event.experimentData?.enrolled, "semantic-search-phase-2")
         XCTAssertEqual(event.experimentData?.assigned, "treatment")
+        XCTAssertEqual(event.mediawikiData?.database, "frwiki")
     }
 
     func testExperimentExposureNeedsAGroup() throws {

@@ -90,11 +90,11 @@ final class SearchInstrumentation {
 
     // MARK: - Experiment
 
-    /// The reader got a group. Sent once, with no instrument and outside the search funnel, as
-    /// the Android app sends it.
+    /// The reader got a group. Sent once, with no instrument and outside the search funnel, on
+    /// the wiki of the search that enrolled the reader.
     func logExperimentExposure() {
         guard let experimentData = dataController.experimentData else { return }
-        client.submitExperimentExposure(experimentData: experimentData)
+        client.submitExperimentExposure(experimentData: experimentData, mediawikiDatabase: project?.mediaWikiDatabase)
     }
 
     // MARK: - Search screen
