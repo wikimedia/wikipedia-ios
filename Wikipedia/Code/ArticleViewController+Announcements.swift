@@ -6,11 +6,6 @@ import WMFNativeLocalizations
 
 extension ArticleViewController {
 
-    /// Set when the fundraising banner shows. The Year in Review announcement waits for the next
-    /// app open rather than appearing behind it, so a user eligible for both never gets them back
-    /// to back. Session-scoped, never persisted.
-    static var didShowFundraisingBannerThisSession = false
-
     func showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: (() -> Void)? = nil) {
 
         guard let countryCode = Locale.current.region?.identifier,
@@ -22,7 +17,6 @@ extension ArticleViewController {
         }
 
         let fundraisingDataController = WMFFundraisingCampaignDataController.shared
-        let isForcingBannerForDevelopment = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner
 
         Task {
             let isOptedIn = await fundraisingDataController.isOptedIn(project: wmfProject)
@@ -71,38 +65,18 @@ extension ArticleViewController {
                 }
             }
 
-            let isFirstAppSession = UserDefaults.standard.wmf_appResignActiveDate() == nil
-            let hasDonationReminderOutcome = WMFDonationReminderDataController.shared.loadReminder() != nil && Date() < WMFDonationReminderDataController.reminderEndDate
-
-            guard (isOptedIn && !userDonatedWithinLast250Days() && !isFirstAppSession && !hasDonationReminderOutcome) || isForcingBannerForDevelopment else {
+            guard await fundraisingDataController.shouldShowCampaign(countryCode: countryCode, wmfProject: wmfProject) else {
                 willDisplayCampaignModal = false
                 onNothingShown?()
                 return
             }
 
-
             willDisplayCampaignModal = true
-            Self.didShowFundraisingBannerThisSession = true
+            // Year in Review waits for the next app open, so the two are never back to back.
+            fundraisingDataController.markCampaignPresentedThisSession()
 
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, source: donateSource, project: wikimediaProject)
         }
-    }
-
-    private func userDonatedWithinLast250Days() -> Bool {
-
-        let donateDataController = WMFDonateDataController.shared
-
-        let currentDate = Date()
-        let twoFiftyDaysTimeInterval = TimeInterval(60*60*24*250)
-        let twoFiftyDaysAgo = currentDate.addingTimeInterval(-twoFiftyDaysTimeInterval)
-        let localDonationHistory = donateDataController.loadLocalDonationHistory(startDate: twoFiftyDaysAgo, endDate: Date())
-
-        if let localDonationHistory,
-           !localDonationHistory.isEmpty {
-            return true
-        }
-
-        return false
     }
 
     private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, source: DonateCoordinator.Source, project: WikimediaProject) {
@@ -235,12 +209,6 @@ extension ArticleViewController {
 
     func needsYearInReviewAnnouncement() -> Bool {
 
-        // The fundraising banner outranks this announcement. If it showed at any point this
-        // session, wait for the next app open instead of stacking the two.
-        guard !Self.didShowFundraisingBannerThisSession else {
-            return false
-        }
-
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
@@ -271,20 +239,16 @@ extension ArticleViewController {
         return true
     }
 
-    func presentYearInReviewAnnouncement() {
-
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
+    /// Loads the data and shows the announcement. Returns true only when it is on screen, so the
+    /// caller can move on to its next modal when it is not. The coordinator marks the announcement
+    /// as shown when it presents it.
+    @MainActor
+    func presentYearInReviewAnnouncement() async -> Bool {
+        guard let yirCoordinator else {
+            return false
         }
 
-        // TODO: 2026 — swap `yirCoordinator` for the 2026 coordinator. It needs to know it was
-        // launched from the announcement so that slide 0 is included and the exit toast fires.
-        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
-        self.yirCoordinator?.start()
-
-        // Marked as soon as it is presented, so a force quit on slide 0 does not earn a second showing.
-        yirDataController.hasPresentedYiRFeatureAnnouncement = true
-
+        return await yirCoordinator.presentFeatureAnnouncement(introSlideLoggingID: "article_prompt")
     }
 }
 

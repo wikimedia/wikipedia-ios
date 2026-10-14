@@ -43,6 +43,7 @@ struct WMFYearInReviewViewModelTests {
             shareButtonTitle: "Share",
             donateButtonTitle: "Donate",
             learnMoreButtonTitle: "Learn more",
+            aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
             slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
         )
@@ -212,6 +213,20 @@ struct WMFYearInReviewViewModelTests {
             #expect(slideLoggingID == "logging1")
         } else {
             Issue.record("expected a learnMore action")
+        }
+    }
+
+    @Test
+    func tappedAboutInsightsCarriesTheSlideLoggingID() {
+        let viewModel = makeViewModel()
+        viewModel.currentSlideID = "slide2"
+
+        viewModel.tappedAboutInsights()
+
+        if case .aboutInsights(let slideLoggingID) = coordinator.actions.last {
+            #expect(slideLoggingID == "logging2")
+        } else {
+            Issue.record("expected an aboutInsights action")
         }
     }
 

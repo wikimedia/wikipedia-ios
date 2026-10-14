@@ -81,6 +81,9 @@ public enum WMFUserDefaultsKey: String {
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"
 
+    // App lifecycle. Written by the app in NSUserDefaults+WMFExtensions.swift as a plain Date.
+    case appResignActiveDate = "WMFAppResignActiveDateKey"
+
     // Home feed: Community modules
     case homeFeedCommunityFeaturedArticleIsOn = "home-feed-community-featured-article-is-on"
     case homeFeedCommunityTopReadIsOn = "home-feed-community-top-read-is-on"
