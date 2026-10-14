@@ -51,6 +51,7 @@ final class SearchSettingsCoordinator: Coordinator {
                 Task { await dataController.setOpenAppOnSearchTab(newValue) }
             },
             onToggleShowSemanticSearchEntryPoint: { newValue in
+                SearchInstrumentation.logSettingsToggle(isOn: newValue)
                 do {
                     try semanticSearchDataController.setEntryPointHidden(!newValue)
                 } catch {

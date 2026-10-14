@@ -1,4 +1,5 @@
 import Foundation
+import WMFTestKitchen
 
 // Sendable: the only stored property is the immutable `stateLock`. All other state
 // is read through the environment stores.
@@ -21,6 +22,8 @@ public final class WMFSemanticSearchDataController: Sendable {
     public static let defaultTargetLanguageCodes = ["fr", "ar", "ja"]
 
     private static let experimentControlPercentage = 50
+    /// The name of the experiment in the `experiments.enrolled` column of the search events.
+    static let experimentName = "semantic-search-phase-2"
 
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
@@ -109,10 +112,18 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     // MARK: - Experiment Assignment
 
+    /// The group of the reader, and whether this call is the one that rolled it.
+    public struct ExperimentEnrollment: Sendable, Equatable {
+        public let assignment: ExperimentAssignment
+        /// True the first time: the instrumentation sends the exposure event then.
+        public let isNew: Bool
+    }
+
     /// Rolls the experiment bucket the first time a reader runs an eligible search, and returns
-    /// the persisted bucket after that. Returns nil when the search is not eligible.
+    /// the persisted bucket after that, saying whether this call rolled it. Returns nil when the
+    /// search is not eligible.
     @discardableResult
-    public func assignExperimentIfNeeded(languageCode: String) throws -> ExperimentAssignment? {
+    public func enrollIfNeeded(languageCode: String) throws -> ExperimentEnrollment? {
         stateLock.lock()
         defer { stateLock.unlock() }
 
@@ -125,13 +136,28 @@ public final class WMFSemanticSearchDataController: Sendable {
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+        let isNew = !experimentsDataController.hasPersistedBucket(for: .semanticSearch, withPercentage: Self.experimentControlPercentage)
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.semanticSearch, withPercentage: Self.experimentControlPercentage)
 
         guard let assignment = ExperimentAssignment(bucketValue: bucketValue) else {
             throw ExperimentError.unexpectedBucketValue
         }
 
-        return developerSettingsForcedAssignment ?? assignment
+        return ExperimentEnrollment(assignment: developerSettingsForcedAssignment ?? assignment, isNew: isNew)
+    }
+
+    /// The experiment fields of every search event, in the shape the Android app sends. Nil before
+    /// the reader has a group.
+    public var experimentData: ExperimentData? {
+        guard let experimentAssignment else { return nil }
+
+        let coordinator = developerSettingsForcedAssignment == nil ? ExperimentData.coordinatorCustom : ExperimentData.coordinatorForced
+        return ExperimentData(
+            enrolled: Self.experimentName,
+            assigned: experimentAssignment == .groupB ? "treatment" : "control",
+            coordinator: coordinator,
+            subjectId: WMFDataEnvironment.current.appInstallIDUtility?()
+        )
     }
 
     public var experimentAssignment: ExperimentAssignment? {

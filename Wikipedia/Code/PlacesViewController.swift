@@ -953,8 +953,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
 
-        SearchFunnel.shared.logSearchDidYouMean(source: "places")
-
         performSearch(search)
     }
 

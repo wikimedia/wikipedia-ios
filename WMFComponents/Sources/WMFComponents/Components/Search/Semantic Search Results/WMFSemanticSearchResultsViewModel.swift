@@ -2,6 +2,15 @@ import Foundation
 import WMFData
 import WMFNativeLocalizations
 
+/// Receives the moments of the sheet that the instrumentation records. The app side implements it.
+@MainActor
+public protocol WMFSemanticSearchResultsLoggingDelegate: AnyObject {
+    func logResultsImpression(searchID: String?)
+    func logEmptyResultsImpression()
+    /// position is 1-indexed
+    func logResultTap(position: Int, searchID: String?)
+}
+
 @MainActor
 public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
@@ -39,6 +48,13 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     /// The id of the request that gave the results on screen, for the instrumentation of the
     /// search. Nil until the results arrive, or when the response has no id.
     public private(set) var searchID: String?
+
+    public weak var loggingDelegate: WMFSemanticSearchResultsLoggingDelegate?
+
+    /// The banner asking for feedback is on screen and has no rating yet.
+    public var isAskingForFeedback: Bool {
+        isFeedbackVisible && !feedbackViewModel.hasRated
+    }
     @Published private(set) var isFeedbackVisible = false
 
     /// The prompt above the passages asking whether the reader found what they were looking for.
@@ -118,6 +134,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
             let readInArticleAction: ResultAction = { [weak self] in self?.readInArticle($0) }
             results = response.results.map { WMFSemanticSearchResultViewModel(result: $0, project: project, localizedStrings: resultLocalizedStrings, readInArticleAction: readInArticleAction) }
             state = results.isEmpty ? .empty : .results
+            logImpressionIfLoaded()
         } catch is CancellationError {
             return
         } catch {
@@ -204,6 +221,21 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
         WMFToastPresenter.shared.show(WMFToastConfig(title: feedbackViewModel.thanksToastTitle))
     }
 
+    // MARK: - Logging
+
+    /// Records an impression of the loaded passages, or of the empty state. Call it again when the
+    /// sheet comes back on screen, so each presentation counts.
+    public func logImpressionIfLoaded() {
+        switch state {
+        case .results:
+            loggingDelegate?.logResultsImpression(searchID: searchID)
+        case .empty:
+            loggingDelegate?.logEmptyResultsImpression()
+        case .loading, .error:
+            break
+        }
+    }
+
     // MARK: - Actions
 
     /// While the reader types feedback, a tap on a passage only puts the keyboard away, so a
@@ -212,6 +244,9 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
         guard !feedbackViewModel.isTextFieldFocused else {
             feedbackViewModel.isTextFieldFocused = false
             return
+        }
+        if let index = results.firstIndex(where: { $0.result == result }) {
+            loggingDelegate?.logResultTap(position: index + 1, searchID: searchID)
         }
         readInArticleAction(result)
     }

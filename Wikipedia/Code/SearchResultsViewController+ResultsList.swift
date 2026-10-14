@@ -43,9 +43,14 @@ extension SearchResultsViewController {
             },
             tapAction: { [weak self] result, index in
                 guard let self else { return }
-                SearchFunnel.shared.logSearchResultTap(position: index, source: source.stringValue)
-                saveLastSearch()
-                articleTappedAction?(result.articleURL, false)
+                if let displayedSearchResults = self.displayedSearchResults {
+                    // The position is the index of the row in the response of its own request, as the
+                    // Android app reports it. It restarts at 1 for the rows the full text search appended.
+                    let position = self.searchResultsByArticleURL[result.id]?.index?.intValue ?? (index + 1)
+                    self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
+                }
+                self.saveLastSearch()
+                self.articleTappedAction?(result.articleURL, false)
             },
             openAction: { [weak self] result, _ in
                 ArticleTabsFunnel.shared.logLongPressOpen()
@@ -107,11 +112,6 @@ extension SearchResultsViewController {
         }
         let dataController = WMFSemanticSearchDataController.shared
 
-        do {
-            try dataController.assignExperimentIfNeeded(languageCode: languageCode)
-        } catch {
-            DDLogError("Semantic search experiment assignment failed: \(error)")
-        }
         guard dataController.isEntryPointAvailable(languageCode: languageCode) else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
@@ -161,14 +161,19 @@ extension SearchResultsViewController {
             showsTryItNow: showsTryItNow,
             tapAction: { [weak self] query in
                 guard let self else { return }
-                saveLastSearch()
-                semanticSearchTappedAction?(query, project)
+                self.instrumentation.logEntryPointTap(isTryItNow: showsTryItNow)
+                self.saveLastSearch()
+                self.semanticSearchTappedAction?(query, project)
             },
             infoAction: { [weak self] _ in
-                self?.semanticSearchInfoTappedAction?(languageCode)
+                guard let self else { return }
+                self.instrumentation.logEntryPointInfoTap()
+                self.semanticSearchInfoTappedAction?(languageCode)
             },
             hideAction: { [weak self] _ in
-                self?.hideSemanticSearchEntryPoint(languageCode: languageCode)
+                guard let self else { return }
+                self.instrumentation.logEntryPointClose()
+                self.hideSemanticSearchEntryPoint(languageCode: languageCode)
             }
         )
     }

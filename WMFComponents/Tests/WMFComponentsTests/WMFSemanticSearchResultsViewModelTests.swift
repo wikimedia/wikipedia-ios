@@ -59,6 +59,53 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.searchID, "292nfmbhub08hd5are0cajr22")
     }
 
+    func testLoadLogsAnImpressionWithTheSearchID() async {
+        let delegate = LoggingDelegate()
+        let viewModel = await makeViewModel(service: WMFMockBasicService(responseHeaders: ["x-search-id": "292nfmbhub08hd5are0cajr22"]))
+        viewModel.loggingDelegate = delegate
+
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+
+        XCTAssertEqual(delegate.events, [.resultsImpression(searchID: "292nfmbhub08hd5are0cajr22")])
+    }
+
+    func testEmptyResultsLogTheirOwnImpression() async {
+        let delegate = LoggingDelegate()
+        let viewModel = await makeViewModel(service: WMFMockBasicService(jsonResourceName: "semantic-search-get-empty"))
+        viewModel.loggingDelegate = delegate
+
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+
+        XCTAssertEqual(viewModel.state, .empty)
+        XCTAssertEqual(delegate.events, [.emptyImpression])
+    }
+
+    func testShowingTheSheetAgainLogsAnotherImpression() async {
+        let delegate = LoggingDelegate()
+        let viewModel = await makeViewModel(service: WMFMockBasicService())
+        viewModel.loggingDelegate = delegate
+
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+        viewModel.logImpressionIfLoaded()
+
+        XCTAssertEqual(delegate.events, [.resultsImpression(searchID: nil), .resultsImpression(searchID: nil)])
+    }
+
+    func testTappingAPassageLogsItsPositionFromOne() async {
+        let delegate = LoggingDelegate()
+        let viewModel = await makeViewModel(service: WMFMockBasicService(responseHeaders: ["x-search-id": "292nfmbhub08hd5are0cajr22"]))
+        viewModel.loggingDelegate = delegate
+
+        viewModel.load()
+        await waitUntilLoaded(viewModel)
+        viewModel.results[1].readInArticle()
+
+        XCTAssertEqual(delegate.events.last, .resultTap(position: 2, searchID: "292nfmbhub08hd5are0cajr22"))
+    }
+
     func testResultRowsParseTheSnippet() async {
         let viewModel = await makeViewModel(service: WMFMockBasicService())
 
@@ -192,6 +239,29 @@ final class WMFSemanticSearchResultsViewModelTests: XCTestCase {
 
         XCTAssertFalse(viewModel.isFeedbackVisible)
         XCTAssertFalse(viewModel.handOffFeedbackIfIgnored())
+    }
+}
+
+private final class LoggingDelegate: WMFSemanticSearchResultsLoggingDelegate {
+
+    enum Event: Equatable {
+        case resultsImpression(searchID: String?)
+        case emptyImpression
+        case resultTap(position: Int, searchID: String?)
+    }
+
+    private(set) var events: [Event] = []
+
+    func logResultsImpression(searchID: String?) {
+        events.append(.resultsImpression(searchID: searchID))
+    }
+
+    func logEmptyResultsImpression() {
+        events.append(.emptyImpression)
+    }
+
+    func logResultTap(position: Int, searchID: String?) {
+        events.append(.resultTap(position: position, searchID: searchID))
     }
 }
 

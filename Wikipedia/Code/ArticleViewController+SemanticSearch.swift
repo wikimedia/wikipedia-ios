@@ -81,7 +81,10 @@ extension ArticleViewController {
 
     /// The reader moved on, or started doing something else in the article. The prompt doesn't
     /// come back for this article.
-    func skipSemanticSearchFeedback() {
+    func skipSemanticSearchFeedback(reason: SearchInstrumentation.FeedbackSuppression) {
+        if needsSemanticSearchFeedback {
+            semanticSearchInstrumentation?.logFeedbackPromptSuppressed(placement: .article, reason: reason)
+        }
         needsSemanticSearchFeedback = false
         semanticSearchFeedbackTask?.cancel()
         semanticSearchFeedbackTask = nil
@@ -98,7 +101,7 @@ extension ArticleViewController {
 
     private func presentSemanticSearchFeedback() {
         guard canPresentSemanticSearchFeedback else {
-            skipSemanticSearchFeedback()
+            skipSemanticSearchFeedback(reason: .screenCovered)
             return
         }
 
@@ -106,12 +109,15 @@ extension ArticleViewController {
 
         let viewModel = WMFSemanticSearchFeedbackViewModel(
             style: .card,
-            submitAction: { [weak self] _, _ in
-                // TODO: Send the rating and optional text the reader submits.
-                self?.dismissSemanticSearchFeedback(showingThanks: true)
+            submitAction: { [weak self] rating, text in
+                guard let self else { return }
+                self.semanticSearchInstrumentation?.logFeedbackSubmit(placement: .article, rating: rating, text: text, searchID: self.semanticSearchID)
+                self.dismissSemanticSearchFeedback(showingThanks: true)
             },
             closeAction: { [weak self] in
-                self?.dismissSemanticSearchFeedback(showingThanks: false)
+                guard let self else { return }
+                self.semanticSearchInstrumentation?.logFeedbackClose(placement: .article)
+                self.dismissSemanticSearchFeedback(showingThanks: false)
             }
         )
 
