@@ -122,6 +122,7 @@ extension ArticleViewController {
         )
 
         present(WMFSemanticSearchFeedbackHostingController(viewModel: viewModel), animated: true)
+        semanticSearchInstrumentation?.feedbackPromptDidAppear(placement: .article)
     }
 
     private func dismissSemanticSearchFeedback(showingThanks: Bool) {

@@ -84,6 +84,8 @@ final class SearchInstrumentation {
     private(set) var project: WMFProject?
     /// The funnel showed a results list. The next init starts a new funnel.
     private var funnelHasResults = false
+    /// What the feedback prompt did in the current funnel.
+    private var feedbackPromptRecord = FeedbackPromptRecord(funnelToken: nil)
 
     init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared) {
         self.client = client
@@ -226,6 +228,7 @@ final class SearchInstrumentation {
             actionContext["text"] = String(text.prefix(Self.feedbackTextLimit))
         }
         submit(action: "click", actionSubtype: placement.actionSubtype, elementId: "feedback_submit", actionContext: actionContext)
+        updateFeedbackPromptRecord { $0.hasAnswer = true }
     }
 
     func logFeedbackClose(placement: FeedbackPlacement) {
@@ -235,6 +238,55 @@ final class SearchInstrumentation {
     /// The prompt did not get on screen: something else took the reader's attention first.
     func logFeedbackPromptSuppressed(placement: FeedbackPlacement, reason: FeedbackSuppression) {
         submit(action: "error", actionSubtype: placement.actionSubtype, elementId: "feedback_prompt", actionContext: ["error_type": reason.rawValue])
+    }
+
+    // MARK: - Feedback prompt
+
+    /// What the feedback prompt did in one funnel. The record follows the funnel token, so it
+    /// starts over whenever a new funnel starts, wherever that happens.
+    private struct FeedbackPromptRecord {
+        let funnelToken: String?
+        var hasShownInSheet = false
+        var hasShownInArticle = false
+        var hasAnswer = false
+    }
+
+    private var currentFeedbackPromptRecord: FeedbackPromptRecord {
+        let funnelToken = instrument.funnel?.token
+        guard feedbackPromptRecord.funnelToken == funnelToken else {
+            return FeedbackPromptRecord(funnelToken: funnelToken)
+        }
+        return feedbackPromptRecord
+    }
+
+    private func updateFeedbackPromptRecord(_ update: (inout FeedbackPromptRecord) -> Void) {
+        var record = currentFeedbackPromptRecord
+        update(&record)
+        feedbackPromptRecord = record
+    }
+
+    /// The prompt shows at most once in the sheet and once in the article per funnel, and never
+    /// after an answer, so a funnel has at most one answer. The sheet doesn't ask again after the
+    /// article asked. Only a prompt that got on screen counts.
+    func canShowFeedbackPrompt(placement: FeedbackPlacement) -> Bool {
+        let record = currentFeedbackPromptRecord
+        switch placement {
+        case .sheet:
+            return !record.hasShownInSheet && !record.hasShownInArticle && !record.hasAnswer
+        case .article:
+            return !record.hasShownInArticle && !record.hasAnswer
+        }
+    }
+
+    func feedbackPromptDidAppear(placement: FeedbackPlacement) {
+        updateFeedbackPromptRecord { record in
+            switch placement {
+            case .sheet:
+                record.hasShownInSheet = true
+            case .article:
+                record.hasShownInArticle = true
+            }
+        }
     }
 
     // MARK: - Settings

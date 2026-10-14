@@ -258,6 +258,58 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(try sender.events[1...].map { try context(of: $0)["error_type"] }, ["left_article", "started_activity", "screen_covered"])
     }
 
+    // MARK: - Feedback prompt
+
+    func testFeedbackPromptShowsOnceInTheSheetAndOnceInTheArticlePerFunnel() {
+        XCTAssertTrue(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+        instrumentation.feedbackPromptDidAppear(placement: .sheet)
+
+        // The reader ignored the sheet and opened a passage.
+        XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+        XCTAssertTrue(instrumentation.canShowFeedbackPrompt(placement: .article))
+        instrumentation.feedbackPromptDidAppear(placement: .article)
+
+        // Back in the same funnel: no prompt anywhere.
+        XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+        XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .article))
+    }
+
+    func testTheSheetDoesNotAskAfterTheArticleAsked() {
+        instrumentation.feedbackPromptDidAppear(placement: .article)
+
+        XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+    }
+
+    func testAnAnswerEndsTheFeedbackPromptOfTheFunnel() {
+        instrumentation.feedbackPromptDidAppear(placement: .sheet)
+        instrumentation.logFeedbackSubmit(placement: .sheet, rating: .positive, text: nil, searchID: nil)
+
+        XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+        XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .article))
+    }
+
+    func testANewFunnelCanShowTheFeedbackPromptAgain() {
+        instrumentation.feedbackPromptDidAppear(placement: .sheet)
+        instrumentation.feedbackPromptDidAppear(placement: .article)
+
+        instrumentation.logLexicalResultsImpression(searchIDs: SearchInstrumentation.LexicalSearchIDs(prefix: nil, fullText: nil))
+        instrumentation.logSearchInit(searchTerm: "la lune", project: project)
+
+        XCTAssertTrue(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+        XCTAssertTrue(instrumentation.canShowFeedbackPrompt(placement: .article))
+    }
+
+    func testTheFeedbackPromptStaysWithItsFunnelUntilANewOneStarts() {
+        instrumentation.feedbackPromptDidAppear(placement: .sheet)
+
+        // More keystrokes and a list in the same funnel, then coming back to the screen.
+        instrumentation.logSearchInit(searchTerm: "la", project: project)
+        instrumentation.logLexicalResultsImpression(searchIDs: SearchInstrumentation.LexicalSearchIDs(prefix: nil, fullText: nil))
+        instrumentation.logSearchScreenImpression(source: .searchTab)
+
+        XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+    }
+
     func testSettingsToggleHasNoFunnel() throws {
         SearchInstrumentation.logSettingsToggle(isOn: true, instrument: client.getInstrument(name: SearchInstrumentation.instrumentName))
         SearchInstrumentation.logSettingsToggle(isOn: false, instrument: client.getInstrument(name: SearchInstrumentation.instrumentName))
