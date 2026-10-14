@@ -46,7 +46,7 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertTrue(sender.events.isEmpty)
     }
 
-    func testTheScreenImpressionStartsTheFunnelOfTheScreen() throws {
+    func testEachSearchActivationStartsAFunnel() throws {
         sender.events.removeAll()
         let fresh = SearchInstrumentation(client: client)
 
@@ -57,8 +57,8 @@ final class SearchInstrumentationTests: XCTestCase {
 
         XCTAssertEqual(sender.events.map(\.action), ["impression", "impression", "impression", "impression"])
         XCTAssertEqual(sender.events.map(\.actionSubtype), ["toolbar", "feed_bar", "nav_menu", nil])
-        XCTAssertEqual(Set(sender.events.compactMap(\.funnelEntryToken)).count, 1)
-        XCTAssertEqual(sender.events.map(\.funnelEventSequencePosition), [1, 2, 3, 4])
+        XCTAssertEqual(Set(sender.events.compactMap(\.funnelEntryToken)).count, 4)
+        XCTAssertEqual(sender.events.map(\.funnelEventSequencePosition), [1, 1, 1, 1])
         XCTAssertNotNil(try context(of: sender.events[0])["time_spent_ms"])
         XCTAssertEqual(sender.events.map(\.mediawikiData?.database), ["frwiki", "frwiki", "frwiki", "frwiki"])
     }
@@ -127,7 +127,7 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(events.map(\.mediawikiData?.database), ["frwiki", "frwiki"])
     }
 
-    func testTheFunnelOfTheScreenHoldsEverySearchAndEveryReturn() throws {
+    func testTheFunnelHoldsEverySearchAndEveryReturnUntilTheSearchEnds() throws {
         sender.events.removeAll()
         let fresh = SearchInstrumentation(client: client)
         let ids = SearchInstrumentation.LexicalSearchIDs(prefix: "pre", fullText: nil)
@@ -139,9 +139,15 @@ final class SearchInstrumentationTests: XCTestCase {
         fresh.logFeedbackSubmit(placement: .article, rating: .positive, text: nil, searchID: nil)
         fresh.logSearchInit(searchTerm: "la lune rousse", project: project)
         fresh.logLexicalResultsImpression(searchIDs: ids)
+        fresh.endSearch()
+        fresh.logSearchScreenImpression(source: .searchTab, project: project)
+        fresh.logSearchInit(searchTerm: "le soleil", project: project)
 
-        XCTAssertEqual(Set(sender.events.compactMap(\.funnelEntryToken)).count, 1)
-        XCTAssertEqual(sender.events.map(\.funnelEventSequencePosition), [1, 2, 3, 4, 5, 6, 7, 8])
+        let tokens = sender.events.map(\.funnelEntryToken)
+        XCTAssertEqual(Set(tokens[0...7]).count, 1)
+        XCTAssertEqual(tokens[8], tokens[9])
+        XCTAssertNotEqual(tokens[7], tokens[8])
+        XCTAssertEqual(sender.events.map(\.funnelEventSequencePosition), [1, 2, 3, 4, 5, 6, 7, 8, 1, 2])
     }
 
     func testEntryPointClicks() throws {

@@ -97,18 +97,22 @@ final class SearchInstrumentation {
 
     // MARK: - Search screen
 
-    /// The reader got to the search screen. The funnel starts here, once per screen, and holds
-    /// every search the reader runs on it, through the result taps and the feedback in the
-    /// article. A new search screen has its own instrumentation, so its own funnel. `project`
-    /// is the wiki the search bar is set to, when known.
+    /// The search became active. A funnel starts here and holds everything the reader does
+    /// from this search: every init, the result taps, the Dive sheet and the feedback in the
+    /// article, also after a return from an article. It ends with `endSearch`. This is the
+    /// life of a SearchActivity on Android. `project` is the wiki the search bar is set to.
     func logSearchScreenImpression(source: SearchResultsViewController.EventLoggingSource, project: WMFProject? = nil) {
         if let project {
             self.project = project
         }
-        if instrument.funnel == nil {
-            instrument.startFunnel(name: Self.funnelName)
-        }
+        instrument.startFunnel(name: Self.funnelName)
         submit(action: "impression", actionSubtype: source.searchActionSubtype)
+    }
+
+    /// The reader cancelled the search or left the screen without opening an article. The next
+    /// search starts a new funnel.
+    func endSearch() {
+        instrument.stopFunnel()
     }
 
     /// A search goes to the server. Every debounced search sends one, in the funnel of the

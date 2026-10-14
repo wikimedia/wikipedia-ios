@@ -567,12 +567,19 @@ extension SearchResultsViewController: UISearchResultsUpdating {
 /// delegate callbacks should assign themselves to `parentSearchControllerDelegate`.
 extension SearchResultsViewController: UISearchControllerDelegate {
 
+    /// The search is active: the funnel of this search starts, as on Android when the search
+    /// activity opens. Coming back from an article does not present the search again, so it
+    /// keeps the funnel.
     func willPresentSearchController(_ searchController: UISearchController) {
+        instrumentation.logSearchScreenImpression(source: source, project: siteURL.flatMap { SearchResultsMapper.project(for: $0) })
         searchBarIPadCustomizer.willPresentSearchController(searchController)
         parentSearchControllerDelegate?.willPresentSearchController?(searchController)
     }
 
+    /// The reader cancelled or left without opening an article: the funnel ends. A push to an
+    /// article keeps the search active, so it does not come through here.
     func willDismissSearchController(_ searchController: UISearchController) {
+        instrumentation.endSearch()
         searchBarIPadCustomizer.willDismissSearchController(searchController)
         parentSearchControllerDelegate?.willDismissSearchController?(searchController)
     }
