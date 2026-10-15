@@ -380,7 +380,9 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard let outcome = displayedSearchResults,
               outcome.nextOffset != nil,
               let searchTerm = displayedSearchTerm,
-              let siteURL = displayedSiteURL else {
+              let siteURL = displayedSiteURL,
+              // The loader appends to a copy made here, so the results shown never leave the main actor.
+              let pendingOutcome = outcome.copyingResults() else {
             resultsViewModel.failLoadingMore()
             return
         }
@@ -390,7 +392,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         pageTask = Task { [weak self] in
             guard let self else { return }
             do {
-                let nextPage = try await resultsLoader.fetchNextPage(after: outcome, for: searchTerm, siteURL: siteURL)
+                let nextPage = try await resultsLoader.fetchNextPage(after: pendingOutcome, for: searchTerm, siteURL: siteURL)
                 guard !Task.isCancelled, displayedSearchResults?.results === outcome.results else { return }
                 pageTask = nil
                 displayedSearchResults = nextPage

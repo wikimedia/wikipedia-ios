@@ -23,6 +23,16 @@ struct SearchResultsLoader {
         /// The ids of the first page's requests. Later pages don't change them, as on Android.
         let searchIDs: SearchInstrumentation.LexicalSearchIDs
 
+        /// The same outcome with its own copy of the results, so a page can append to it while
+        /// the results shown stay untouched. Make it where the results are shown, before handing
+        /// it to `fetchNextPage`.
+        func copyingResults() -> Outcome? {
+            guard let copy = results.copy() as? WMFSearchResults else {
+                return nil
+            }
+            return Outcome(results: copy, type: type, prefixResultCount: prefixResultCount, nextOffset: nextOffset, searchIDs: searchIDs)
+        }
+
         /// Which request gave the row at `index`.
         func type(ofRow index: Int) -> WMFSearchType {
             index < prefixResultCount ? .prefix : .full
@@ -71,17 +81,15 @@ struct SearchResultsLoader {
         }
     }
 
-    /// Appends the next page of full text results to `outcome`. Rows already shown are dropped, and
-    /// a page that only repeats them is skipped for the one after it.
+    /// Appends the next page of full text results to the results of `outcome`, which it changes, so
+    /// pass an outcome from `copyingResults()`. Rows already shown are dropped, and a page that only
+    /// repeats them is skipped for the one after it.
     func fetchNextPage(after outcome: Outcome, for searchTerm: String, siteURL: URL) async throws -> Outcome {
         guard var offset = outcome.nextOffset else {
             return outcome
         }
 
-        // The displayed results stay untouched while the page loads.
-        guard let results = outcome.results.copy() as? WMFSearchResults else {
-            return outcome
-        }
+        let results = outcome.results
         let previousCount = results.results?.count ?? 0
         var nextOffset: Int?
 

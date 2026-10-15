@@ -101,7 +101,7 @@ struct SearchResultsLoaderTests {
         let loader = SearchResultsLoader(fetcher: harness.fetcher)
         let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
 
-        let secondPage = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+        let secondPage = try await loader.fetchNextPage(after: try #require(firstPage.copyingResults()), for: "foo", siteURL: siteURL)
 
         #expect(firstPage.results.results?.count == 35)
         #expect(secondPage.results.results?.count == 45)
@@ -128,7 +128,7 @@ struct SearchResultsLoaderTests {
         let loader = SearchResultsLoader(fetcher: harness.fetcher)
         let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
 
-        let secondPage = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+        let secondPage = try await loader.fetchNextPage(after: try #require(firstPage.copyingResults()), for: "foo", siteURL: siteURL)
 
         #expect(secondPage.results.results?.count == 40)
         #expect(secondPage.nextOffset == 20)
@@ -143,21 +143,21 @@ struct SearchResultsLoaderTests {
         let loader = SearchResultsLoader(fetcher: harness.fetcher)
         let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
 
-        let secondPage = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+        let secondPage = try await loader.fetchNextPage(after: try #require(firstPage.copyingResults()), for: "foo", siteURL: siteURL)
 
         #expect(secondPage.results.results?.count == 34)
         #expect(secondPage.nextOffset == nil)
     }
 
     @Test
-    func nextPageLeavesTheShownResultsAlone() async throws {
+    func nextPageOfACopyLeavesTheShownResultsAlone() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
         harness.httpClient.responseDataQueue = [try searchData(pageCount: 30), try searchData(pageCount: 10, titlePrefix: "New", firstPageID: 2000)]
         let loader = SearchResultsLoader(fetcher: harness.fetcher)
         let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
 
-        _ = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+        _ = try await loader.fetchNextPage(after: try #require(firstPage.copyingResults()), for: "foo", siteURL: siteURL)
 
         #expect(firstPage.results.results?.count == 30)
     }
