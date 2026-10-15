@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *results;
 @property (nonatomic, copy, nullable, readwrite) NSString *prefixSearchID;
 @property (nonatomic, copy, nullable, readwrite) NSString *fullTextSearchID;
+@property (nonatomic, strong, nullable, readwrite) NSNumber *nextOffset;
 
 @end
 
@@ -129,6 +130,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (searchResults.fullTextSearchID) {
         self.fullTextSearchID = searchResults.fullTextSearchID;
     }
+}
+
+// Each page of the full text search says where the next one starts, so the newest offset wins, even when it is nil.
+- (void)mergeNextOffsetFromModel:(WMFSearchResults *)searchResults {
+    self.nextOffset = searchResults.nextOffset;
 }
 
 #pragma mark - KVO

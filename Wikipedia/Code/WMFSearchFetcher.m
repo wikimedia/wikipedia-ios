@@ -26,6 +26,17 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
            appendToPreviousResults:(nullable WMFSearchResults *)previousResults
                            failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success {
+    [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch offset:0 appendToPreviousResults:previousResults failure:failure success:success];
+}
+
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+                            offset:(NSUInteger)offset
+           appendToPreviousResults:(nullable WMFSearchResults *)previousResults
+                           failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success {
     if (!siteURL) {
         siteURL = [NSURL wmf_URLWithDefaultSiteAndCurrentLocale];
     }
@@ -76,7 +87,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                  @"gsrwhat": @"text",
                  @"gsrinfo": @"",
                  @"gsrprop": @"redirecttitle",
-                 @"gsroffset": @0,
+                 @"gsroffset": @(offset),
                  @"gsrlimit": numResults,
                  @"piprop": @"thumbnail",
                  //@"pilicense": @"any",
@@ -102,6 +113,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                          }
 
                          NSString *searchID = [response valueForHTTPHeaderField:@"x-search-id"];
+                         NSNumber *nextOffset = [self nextFullTextSearchOffsetFromResult:result];
 
                          NSDictionary *query = [result objectForKey:@"query"];
                          if (!query) {
@@ -110,6 +122,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                                  returnResults.searchTerm = searchTerm;
                              }
                              [self setSearchID:searchID onResults:returnResults fullTextSearch:fullTextSearch];
+                             returnResults.nextOffset = nextOffset;
                              success(returnResults);
                              return;
                          }
@@ -122,6 +135,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                          }
                          searchResults.searchTerm = searchTerm;
                          [self setSearchID:searchID onResults:searchResults fullTextSearch:fullTextSearch];
+                         searchResults.nextOffset = nextOffset;
 
                          if (!previousResults) {
                              success(searchResults);
@@ -132,6 +146,16 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
                          success(previousResults);
                      }];
+}
+
+/// The `gsroffset` the next page of the full text search starts at, or nil when there are no more results.
+- (nullable NSNumber *)nextFullTextSearchOffsetFromResult:(nullable NSDictionary<NSString *, id> *)result {
+    NSDictionary *continueDictionary = [result objectForKey:@"continue"];
+    if (![continueDictionary isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+    id offset = [continueDictionary objectForKey:@"gsroffset"];
+    return [offset isKindOfClass:[NSNumber class]] ? offset : nil;
 }
 
 - (void)setSearchID:(nullable NSString *)searchID onResults:(WMFSearchResults *)results fullTextSearch:(BOOL)fullTextSearch {

@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The id CirrusSearch gives to the full text search request, when one was made.
 @property (nonatomic, copy, nullable, readonly) NSString *fullTextSearchID;
 
+/// The `gsroffset` the next page of the full text search starts at, from the last request's `continue`. Nil when there are no more results.
+@property (nonatomic, strong, nullable, readonly) NSNumber *nextOffset;
+
 - (instancetype)initWithSearchTerm:(NSString *)searchTerm
                            results:(nullable NSArray<MWKSearchResult *> *)results
                   redirectMappings:(NSArray<MWKSearchRedirectMapping *> *)redirectMappings;

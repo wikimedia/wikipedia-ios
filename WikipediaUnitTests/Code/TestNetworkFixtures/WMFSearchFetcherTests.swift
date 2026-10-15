@@ -73,6 +73,55 @@ struct WMFSearchFetcherTests {
     }
 
     @Test
+    func fullTextRequestStartsAtTheOffset() async throws {
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: ["batchcomplete": true])
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        _ = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 10, fullTextSearch: true, offset: 40)
+
+        let parameters = try #require(harness.httpClient.capturedRequests.first).queryParameters
+        #expect(parameters["generator"] == "search")
+        #expect(parameters["gsroffset"] == "40")
+        #expect(parameters["gsrlimit"] == "10")
+    }
+
+    @Test
+    func responseContinuationGivesTheNextOffset() async throws {
+        var json = try jsonFixture(named: "BarackSearch")
+        json["continue"] = ["gsroffset": 30, "continue": "gsroffset||"]
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 30, fullTextSearch: true)
+
+        #expect(result.nextOffset == 30)
+    }
+
+    @Test
+    func responseWithoutContinuationHasNoNextOffset() async throws {
+        var json = try jsonFixture(named: "BarackSearch")
+        json["continue"] = nil
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 30, fullTextSearch: true)
+
+        #expect(result.nextOffset == nil)
+    }
+
+    @Test
     func prefixResponseKeepsItsSearchID() async throws {
         let json = try jsonFixture(named: "BarackSearch")
         let harness = makeHarness()

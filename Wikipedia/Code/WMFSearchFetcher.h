@@ -23,6 +23,16 @@ extern NSUInteger const WMFMaxSearchResultLimit;
                            failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success;
 
+/// `offset` is the `gsroffset` of the full text search, from the `nextOffset` of the previous page. It is ignored for a prefix search.
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+                            offset:(NSUInteger)offset
+           appendToPreviousResults:(nullable WMFSearchResults *)results
+                           failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success;
+
 - (void)fetchFilesForSearchTerm:(NSString *)searchTerm
                        resultLimit:(NSUInteger)resultLimit
                     fullTextSearch:(BOOL)fullTextSearch

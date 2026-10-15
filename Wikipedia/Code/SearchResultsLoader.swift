@@ -61,12 +61,12 @@ struct SearchResultsLoader {
 }
 
 extension WMFSearchFetcher {
-    func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool = false, appendToPreviousResults previousResults: WMFSearchResults? = nil) async throws -> WMFSearchResults {
+    func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool = false, offset: UInt = 0, appendToPreviousResults previousResults: WMFSearchResults? = nil) async throws -> WMFSearchResults {
         try Task.checkCancellation()
         return try await withTaskCancellationHandler {
             do {
                 return try await withCheckedThrowingContinuation { continuation in
-                    fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: fullTextSearch, appendToPreviousResults: previousResults, failure: { error in
+                    fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: fullTextSearch, offset: offset, appendToPreviousResults: previousResults, failure: { error in
                         continuation.resume(throwing: error)
                     }, success: { results in
                         continuation.resume(returning: results)
