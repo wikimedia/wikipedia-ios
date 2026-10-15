@@ -343,6 +343,9 @@ struct YearInReviewSlideViewModelFactory {
         return ([heading] + itemLabels).joined(separator: " ")
     }
 
+    /// Lays a list frame out from right to left for a right-to-left app language.
+    private static let listLayoutDirection = WMFRiveLayoutDirection(property: WMFRiveEnum(path: "layoutDir"))
+
     /// The number of rows that a list frame shows. The frame hides the other rows.
     private static let numberOfListItems = WMFRiveNumber(path: "numOfListItems")
 
@@ -389,6 +392,7 @@ struct YearInReviewSlideViewModelFactory {
             numbers: numbers,
             articleThumbnails: articleThumbnails,
             images: images,
+            layoutDirection: Self.listLayoutDirection,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,

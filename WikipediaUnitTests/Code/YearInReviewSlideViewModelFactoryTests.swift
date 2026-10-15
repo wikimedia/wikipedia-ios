@@ -78,6 +78,21 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty"])
     }
 
+    /// Only the List view model has the layoutDir enum, so only the list frames set it.
+    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
+    func onlyListSlidesSetTheLayoutDirection(userDataState: WMFYearInReviewDataController.YiRUserDataState) throws {
+        let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty"]
+        let slides = factory.makeSlides(userDataState: userDataState) + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        for slide in slides {
+            let artboard = slide.animation?.artboardName ?? ""
+            if listFrames.contains(artboard) {
+                #expect(slide.layoutDirection?.property.path == "layoutDir", "\(artboard)")
+            } else {
+                #expect(slide.layoutDirection == nil, "\(artboard)")
+            }
+        }
+    }
+
     /// Each template sets `isUIWhite` for the contrast of the controls above it, so every slide must read it.
     @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
     func everySlideReadsTheContrastFlag(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
