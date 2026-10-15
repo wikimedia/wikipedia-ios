@@ -110,7 +110,9 @@ extension SearchResultsViewController {
     func appendSearchResults(_ outcome: SearchResultsLoader.Outcome, after previousCount: Int, siteURL: URL) {
         let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.results.redirectMappings ?? [])
         let newResults = (outcome.results.results ?? []).dropFirst(previousCount).compactMap { mwkResult -> SearchResult? in
-            guard let result = mapper.searchResult(from: mwkResult) else {
+            // A row already shown keeps its own result, so its taps report its own position.
+            guard let result = mapper.searchResult(from: mwkResult),
+                  searchResultsByArticleURL[result.id] == nil else {
                 return nil
             }
             searchResultsByArticleURL[result.id] = mwkResult
