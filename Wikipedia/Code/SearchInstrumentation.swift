@@ -74,6 +74,9 @@ final class SearchInstrumentation {
     private let dataController: WMFSemanticSearchDataController
     private(set) var project: WMFProject?
 
+    /// What the feedback prompt did in the current funnel.
+    private var feedbackPromptRecord = FeedbackPromptRecord(funnelToken: nil)
+
     init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared) {
         self.client = client
         self.instrument = client.getInstrument(name: Self.instrumentName)
@@ -171,13 +174,10 @@ final class SearchInstrumentation {
         submit(action: "impression", actionSubtype: "semantic_result_empty", elementId: "search_result")
     }
 
-    /// Closing the sheet while it asks for feedback counts as closing the feedback.
-    func logResultsClose(whileAskingForFeedback: Bool) {
-        if whileAskingForFeedback {
-            logFeedbackClose(placement: .sheet)
-        } else {
-            submit(action: "click", actionSubtype: "semantic_result", elementId: "close_result_button")
-        }
+    /// The reader closed the sheet, also while it asks for feedback: that is a search with no
+    /// click through, not a close of the feedback.
+    func logResultsClose() {
+        submit(action: "click", actionSubtype: "semantic_result", elementId: "close_result_button")
     }
 
     func logResultTap(position: Int, searchID: String?) {
@@ -197,15 +197,65 @@ final class SearchInstrumentation {
             actionContext["text"] = String(text.prefix(Self.feedbackTextLimit))
         }
         submit(action: "click", actionSubtype: placement.actionSubtype, elementId: "feedback_submit", actionContext: actionContext)
+        updateFeedbackPromptRecord { $0.hasAnswer = true }
     }
 
     func logFeedbackClose(placement: FeedbackPlacement) {
-        submit(action: "click", actionSubtype: placement.actionSubtype, elementId: "feedback_close_button")
+        submit(action: "click", actionSubtype: placement.actionSubtype, elementId: "close_feedback_button")
     }
 
     /// The prompt did not get on screen: something else took the reader's attention first.
     func logFeedbackPromptSuppressed(placement: FeedbackPlacement, reason: FeedbackSuppression) {
         submit(action: "error", actionSubtype: placement.actionSubtype, elementId: "feedback_prompt", actionContext: ["error_type": reason.rawValue])
+    }
+
+    // MARK: - Feedback prompt
+
+    /// What the feedback prompt did in one funnel. The record follows the funnel token, so it
+    /// starts over whenever a new funnel starts, wherever that happens.
+    private struct FeedbackPromptRecord {
+        let funnelToken: String?
+        var hasShownInSheet = false
+        var hasShownInArticle = false
+        var hasAnswer = false
+    }
+
+    private var currentFeedbackPromptRecord: FeedbackPromptRecord {
+        let funnelToken = instrument.funnel?.token
+        guard feedbackPromptRecord.funnelToken == funnelToken else {
+            return FeedbackPromptRecord(funnelToken: funnelToken)
+        }
+        return feedbackPromptRecord
+    }
+
+    private func updateFeedbackPromptRecord(_ update: (inout FeedbackPromptRecord) -> Void) {
+        var record = currentFeedbackPromptRecord
+        update(&record)
+        feedbackPromptRecord = record
+    }
+
+    /// The prompt shows at most once in the sheet and once in the article per funnel, and never
+    /// after an answer, so a funnel has at most one answer. The sheet doesn't ask again after the
+    /// article asked. Only a prompt that got on screen counts.
+    func canShowFeedbackPrompt(placement: FeedbackPlacement) -> Bool {
+        let record = currentFeedbackPromptRecord
+        switch placement {
+        case .sheet:
+            return !record.hasShownInSheet && !record.hasShownInArticle && !record.hasAnswer
+        case .article:
+            return !record.hasShownInArticle && !record.hasAnswer
+        }
+    }
+
+    func feedbackPromptDidAppear(placement: FeedbackPlacement) {
+        updateFeedbackPromptRecord { record in
+            switch placement {
+            case .sheet:
+                record.hasShownInSheet = true
+            case .article:
+                record.hasShownInArticle = true
+            }
+        }
     }
 
     // MARK: - Settings

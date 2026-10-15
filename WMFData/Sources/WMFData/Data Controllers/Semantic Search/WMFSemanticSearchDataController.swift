@@ -18,8 +18,8 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     public static let shared = WMFSemanticSearchDataController()
 
-    // TODO: Remove when the `iosv1.semanticSearchLanguages` in the remote feature config is available.
-    public static let defaultTargetLanguageCodes = ["fr", "ar", "ja"]
+    /// The target languages while the developer setting is on and the remote config has none.
+    public static let developerSettingsTargetLanguageCodes = ["fr", "ar", "ja"]
 
     private static let experimentControlPercentage = 50
     /// The name of the experiment in the `experiments.enrolled` column of the search events.
@@ -50,7 +50,7 @@ public final class WMFSemanticSearchDataController: Sendable {
     /// True when Settings offers the control that shows or hides the entry point: the reader is
     /// in group B while the feature is on.
     public var isSettingsEntryAvailable: Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
+        guard WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled else {
             return false
         }
 
@@ -92,7 +92,7 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     /// True when a search in `languageCode` can enroll the reader in the experiment.
     public func isEligible(languageCode: String) -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
+        guard WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled else {
             return false
         }
 
@@ -103,11 +103,16 @@ public final class WMFSemanticSearchDataController: Sendable {
         targetLanguageCodes.contains(languageCode)
     }
 
-    /// The languages from `iosv1.semanticSearchLanguages` in the remote feature config. Until the
-    /// remote config has the key, the default target languages apply.
+    /// The languages from `iosv1.semanticSearchLanguagesv2` in the remote feature config. When the
+    /// remote config has none, the developer settings languages apply while the "Enable Semantic
+    /// Search" developer setting is on. Otherwise no language is targeted.
     public var targetLanguageCodes: [String] {
-        let remoteLanguageCodes = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.semanticSearchLanguages ?? []
-        return remoteLanguageCodes.isEmpty ? Self.defaultTargetLanguageCodes : remoteLanguageCodes
+        let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
+        let remoteLanguageCodes = developerSettingsDataController.loadFeatureConfig()?.ios.semanticSearchLanguages ?? []
+        guard remoteLanguageCodes.isEmpty, developerSettingsDataController.enableSemanticSearch else {
+            return remoteLanguageCodes
+        }
+        return Self.developerSettingsTargetLanguageCodes
     }
 
     // MARK: - Experiment Assignment

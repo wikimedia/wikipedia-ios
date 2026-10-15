@@ -82,10 +82,11 @@ extension ArticleViewController {
 
     private static let semanticSearchFeedbackDelay: Duration = .seconds(5)
 
-    /// Asks for feedback on the search a moment after the reader lands on the article, if they
-    /// opened it from a passage and ignored the prompt in the sheet of passages.
+    /// Asks for feedback on the search a moment after the article content shows, if the reader
+    /// opened it from a passage and ignored the prompt in the sheet of passages. Call it when the
+    /// article appears and when its content shows. Time spent loading doesn't count.
     func scheduleSemanticSearchFeedbackIfNeeded() {
-        guard needsSemanticSearchFeedback, semanticSearchFeedbackTask == nil else { return }
+        guard needsSemanticSearchFeedback, semanticSearchFeedbackTask == nil, isSemanticSearchContentVisible else { return }
 
         semanticSearchFeedbackTask = Task { [weak self] in
             try? await Task.sleep(for: Self.semanticSearchFeedbackDelay)
@@ -94,6 +95,12 @@ extension ArticleViewController {
             self.semanticSearchFeedbackTask = nil
             self.presentSemanticSearchFeedback()
         }
+    }
+
+    /// The article is on screen with its content loaded, and the web view isn't hidden waiting for
+    /// the scroll to the passage.
+    private var isSemanticSearchContentVisible: Bool {
+        view.window != nil && state == .loaded && webView.alpha == 1
     }
 
     /// The reader moved on, or started doing something else in the article. The prompt doesn't
@@ -139,6 +146,7 @@ extension ArticleViewController {
         )
 
         present(WMFSemanticSearchFeedbackHostingController(viewModel: viewModel), animated: true)
+        semanticSearchInstrumentation?.feedbackPromptDidAppear(placement: .article)
     }
 
     private func dismissSemanticSearchFeedback(showingThanks: Bool) {
