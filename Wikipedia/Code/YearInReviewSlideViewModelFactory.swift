@@ -218,8 +218,10 @@ struct YearInReviewSlideViewModelFactory {
 
         var slides = [topTopicSlide(topic: topic, topTopic: topTopic, illustration: slideData.illustration(for: topic))]
         if slideData.showsRunnerUps {
-            let runnerUps = slideData.runnerUps.compactMap(\.topic)
-            slides.append(runnerUpTopicsSlide(runnerUps, illustrations: runnerUps.map(slideData.illustration(for:))))
+            let runnerUps = slideData.runnerUps.compactMap { topicCount in
+                topicCount.topic.map { RunnerUpTopic(topic: $0, articleCount: topicCount.articleCount, illustration: slideData.illustration(for: $0)) }
+            }
+            slides.append(runnerUpTopicsSlide(runnerUps))
         }
         return slides
     }
@@ -265,17 +267,24 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// The runners-up show the topic name and illustration only, with no article count.
-    /// - Parameter illustrations: The image data of the illustration of each topic, in the same order.
-    private func runnerUpTopicsSlide(_ topics: [WMFArticleTopic], illustrations: [Data?]) -> WMFYearInReviewSlideViewModel {
+    /// One row on the runners-up slide.
+    private struct RunnerUpTopic {
+        let topic: WMFArticleTopic
+        let articleCount: Int
+        /// The image data of the topic illustration. `nil` keeps the placeholder in the .riv.
+        let illustration: Data?
+    }
+
+    /// Each row shows the topic name, the number of articles and the topic illustration.
+    private func runnerUpTopicsSlide(_ runnerUps: [RunnerUpTopic]) -> WMFYearInReviewSlideViewModel {
         let bodyText = CommonStrings.yearInReviewRunnerUpTopicsTitle
-        let shownTopics = topics.prefix(WMFYearInReviewTopTopicsSlideData.maximumRunnerUpCount)
-        let items = shownTopics.map { topic in
-            ListItem(title: topic.displayName, subtitle: "")
+        let shownRunnerUps = Array(runnerUps.prefix(WMFYearInReviewTopTopicsSlideData.maximumRunnerUpCount))
+        let items = shownRunnerUps.map { runnerUp in
+            ListItem(title: runnerUp.topic.displayName, subtitle: String.localizedStringWithFormat(CommonStrings.articleCountFormat, runnerUp.articleCount))
         }
         var images: [WMFRiveImage: Data] = [:]
-        for (index, illustration) in zip(shownTopics.indices, illustrations) {
-            if let illustration {
+        for (index, runnerUp) in shownRunnerUps.enumerated() {
+            if let illustration = runnerUp.illustration {
                 images[ListImagePath.icon(index + 1)] = illustration
             }
         }

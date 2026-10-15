@@ -169,7 +169,8 @@ struct YearInReviewSlideViewModelFactoryTests {
     private func topTopicsData(readCount: Int = 20, topTopicID: String? = "history", runnerUpIDs: [String] = [], illustrations: [String: Data]? = nil) throws -> WMFYearInReviewTopTopicsSlideData {
         var json: [String: Any] = [
             "readCount": readCount,
-            "runnerUps": runnerUpIDs.map { ["topicID": $0, "articleCount": 3] }
+            // Each runner-up has fewer articles than the one before it: 12, 11, 10.
+            "runnerUps": runnerUpIDs.enumerated().map { ["topicID": $0.element, "articleCount": 12 - $0.offset] }
         ]
         if let illustrations {
             json["illustrations"] = illustrations.mapValues { $0.base64EncodedString() }
@@ -242,7 +243,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     @Test
-    func theRunnersUpShowOnlyWithTwoOrMoreTopicsAndOnlyTheirNames() throws {
+    func theRunnersUpShowOnlyWithTwoOrMoreTopicsAndTheirArticleCounts() throws {
         let oneRunnerUp = factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology"]))
         #expect(oneRunnerUp.map { $0.animation?.artboardName } == ["frame6"])
 
@@ -253,9 +254,13 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(text(runnersUp, "bodyText") == CommonStrings.yearInReviewRunnerUpTopicsTitle)
         #expect(text(runnersUp, "articleTitle1") == WMFArticleTopic.biology.displayName)
         #expect(text(runnersUp, "articleTitle2") == WMFArticleTopic.sports.displayName)
-        // The unused row and all subtitles are written empty, so no .riv copy shows.
+        #expect(text(runnersUp, "subTitle1") == String.localizedStringWithFormat(CommonStrings.articleCountFormat, 12))
+        #expect(text(runnersUp, "subTitle2") == String.localizedStringWithFormat(CommonStrings.articleCountFormat, 11))
+        #expect(text(runnersUp, "subTitle1")?.contains("12") == true)
+        // The unused row is written empty, so no .riv copy shows.
         #expect(text(runnersUp, "articleTitle3") == "")
-        #expect((1...3).allSatisfy { text(runnersUp, "subTitle\($0)") == "" })
+        #expect(text(runnersUp, "subTitle3") == "")
+        #expect(runnersUp.localizedStrings.accessibilityLabel?.contains(String.localizedStringWithFormat(CommonStrings.articleCountFormat, 11)) == true)
         // The frame shows only the rows that have a topic.
         #expect(runnersUp.numbers.first { $0.key.path == "numOfListItems" }?.value == 2)
     }
