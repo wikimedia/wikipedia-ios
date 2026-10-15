@@ -190,12 +190,11 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(tap["type"], "SEMANTIC")
     }
 
-    func testClosingTheSheetWhileItAsksForFeedbackClosesTheFeedback() throws {
-        instrumentation.logResultsClose(whileAskingForFeedback: true)
-        instrumentation.logResultsClose(whileAskingForFeedback: false)
+    func testClosingTheSheetIsNeverAFeedbackClose() throws {
+        instrumentation.logResultsClose()
 
-        XCTAssertEqual(sender.events.map(\.actionSubtype), ["cardview_result", "semantic_result"])
-        XCTAssertEqual(sender.events.map(\.elementId), ["feedback_close_button", "close_result_button"])
+        XCTAssertEqual(sender.events.map(\.actionSubtype), ["semantic_result"])
+        XCTAssertEqual(sender.events.map(\.elementId), ["close_result_button"])
     }
 
     func testFeedbackSubmitInTheSheetAndInTheArticle() throws {
@@ -234,7 +233,7 @@ final class SearchInstrumentationTests: XCTestCase {
 
         XCTAssertEqual(sender.events.map(\.action), ["click", "error", "error", "error"])
         XCTAssertEqual(sender.events.map(\.actionSubtype), ["article_result", "article_result", "article_result", "article_result"])
-        XCTAssertEqual(sender.events.map(\.elementId), ["feedback_close_button", "feedback_prompt", "feedback_prompt", "feedback_prompt"])
+        XCTAssertEqual(sender.events.map(\.elementId), ["close_feedback_button", "feedback_prompt", "feedback_prompt", "feedback_prompt"])
         XCTAssertEqual(try sender.events[1...].map { try context(of: $0)["error_type"] }, ["left_article", "started_activity", "screen_covered"])
     }
 

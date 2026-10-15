@@ -177,13 +177,10 @@ final class SearchInstrumentation {
         submit(action: "impression", actionSubtype: "semantic_result_empty", elementId: "search_result")
     }
 
-    /// Closing the sheet while it asks for feedback counts as closing the feedback.
-    func logResultsClose(whileAskingForFeedback: Bool) {
-        if whileAskingForFeedback {
-            logFeedbackClose(placement: .sheet)
-        } else {
-            submit(action: "click", actionSubtype: "semantic_result", elementId: "close_result_button")
-        }
+    /// The reader closed the sheet, also while it asks for feedback: that is a search with no
+    /// click through, not a close of the feedback.
+    func logResultsClose() {
+        submit(action: "click", actionSubtype: "semantic_result", elementId: "close_result_button")
     }
 
     func logResultTap(position: Int, searchID: String?) {
@@ -206,7 +203,7 @@ final class SearchInstrumentation {
     }
 
     func logFeedbackClose(placement: FeedbackPlacement) {
-        submit(action: "click", actionSubtype: placement.actionSubtype, elementId: "feedback_close_button")
+        submit(action: "click", actionSubtype: placement.actionSubtype, elementId: "close_feedback_button")
     }
 
     /// The prompt did not get on screen: something else took the reader's attention first.
