@@ -22,6 +22,10 @@ public nonisolated struct WMFRiveTextFit: Sendable, Hashable {
     public let globalViewModelName: String
     public let fontSize: WMFRiveNumber
     public let lineHeight: WMFRiveNumber
+    /// The font size to start from, in artboard units. `nil` starts from the value in the .riv.
+    public let baseFontSize: Double?
+    /// The line height to start from, in artboard units. `nil` starts from the value in the .riv.
+    public let baseLineHeight: Double?
 
     public init(
         text: WMFRiveText,
@@ -32,7 +36,9 @@ public nonisolated struct WMFRiveTextFit: Sendable, Hashable {
         group: String? = nil,
         globalViewModelName: String,
         fontSize: WMFRiveNumber,
-        lineHeight: WMFRiveNumber
+        lineHeight: WMFRiveNumber,
+        baseFontSize: Double? = nil,
+        baseLineHeight: Double? = nil
     ) {
         self.text = text
         self.fontAssetName = fontAssetName
@@ -43,6 +49,8 @@ public nonisolated struct WMFRiveTextFit: Sendable, Hashable {
         self.globalViewModelName = globalViewModelName
         self.fontSize = fontSize
         self.lineHeight = lineHeight
+        self.baseFontSize = baseFontSize
+        self.baseLineHeight = baseLineHeight
     }
 
     /// Keep this fraction of the box free, because the shaping in Rive and in UIKit is not the same.

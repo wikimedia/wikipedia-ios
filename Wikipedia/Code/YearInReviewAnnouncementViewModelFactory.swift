@@ -39,7 +39,9 @@ struct YearInReviewAnnouncementViewModelFactory {
             group: "copy",
             globalViewModelName: "GlobalProperties",
             fontSize: WMFRiveNumber(path: "coverGlyphsFontSize"),
-            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight")
+            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight"),
+            baseFontSize: coverTitleFontSize,
+            baseLineHeight: coverTitleLineHeight
         ),
         WMFRiveTextFit(
             text: CoverTextPath.body,
@@ -60,6 +62,11 @@ struct YearInReviewAnnouncementViewModelFactory {
     /// Checked with long Russian copy (October 2026): the title made both smaller, to 3 lines.
     private static let coverTitleWidth = 290.0
     private static let coverBodyWidth = 290.0
+
+    /// The size of the title, in artboard units, instead of the size in the .riv. The font is the
+    /// `SanSerifFont` asset, which the app supplies as the system font in bold (SF Pro Bold).
+    private static let coverTitleFontSize = 36.0
+    private static let coverTitleLineHeight = 32.0
 
     @MainActor
     func makeViewModel(userDataState: UserDataState, readingDayCount: Int, delegate: WMFYearInReviewAnnouncementDelegate) -> WMFYearInReviewAnnouncementViewModel {

@@ -1,6 +1,5 @@
 import Foundation
 import RiveRuntime
-import UIKit
 
 @MainActor
 final class WMFRiveAnimationViewModel: ObservableObject {
@@ -16,11 +15,6 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             return false
         }
     }
-
-    /// How much larger the fitted text is on iPad than the size in the .riv. Applies only to text
-    /// that has a `WMFRiveTextFit`. The fit still enforces the line limits at this larger size.
-    /// Starting value, to be confirmed by design.
-    static let tabletTextSizeMultiplier = 2
 
     @Published private(set) var loadState: LoadState = .idle
     @Published private(set) var rive: Rive?
@@ -170,7 +164,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     }
 
     /// Binds a new instance of each global view model that a fit uses, also when the value fits, so a
-    /// shorter value returns to the size in the file. 
+    /// shorter value returns to the size in the file, or to the base size of the fit if it has one.
     private func applyTextFits() async {
         guard let rive, !textFits.isEmpty else { return }
 
@@ -194,8 +188,18 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                     global = try await rive.file.createViewModelInstance(.viewModelDefault(from: .name(fit.globalViewModelName)))
                     globals[fit.globalViewModelName] = global
                 }
-                let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
-                let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
+                let fontSize: Double
+                if let baseFontSize = fit.baseFontSize {
+                    fontSize = baseFontSize
+                } else {
+                    fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
+                }
+                let lineHeight: Double
+                if let baseLineHeight = fit.baseLineHeight {
+                    lineHeight = baseLineHeight
+                } else {
+                    lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
+                }
                 guard let scale = fit.scale(for: value, fontSize: fontSize) else {
                     WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "No system font for the asset \"\(fit.fontAssetName)\", so \"\(fit.text.path)\" is not fitted."))
                     continue
