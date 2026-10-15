@@ -67,6 +67,102 @@ struct SearchResultsLoaderTests {
     }
 
     @Test
+    func enoughPrefixResultsPageTheFullTextSearchFromItsStart() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseData = try searchData(pageCount: 30)
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.nextOffset == 0)
+    }
+
+    @Test
+    func fullTextResultsGiveTheNextOffset() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [try searchData(pageCount: 5), try searchData(pageCount: 30, titlePrefix: "Full text", firstPageID: 1000, nextOffset: 30)]
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.nextOffset == 30)
+    }
+
+    @Test
+    func nextPageAppendsTenFullTextResultsAndKeepsTheFirstPageIDs() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [
+            try searchData(pageCount: 5),
+            try searchData(pageCount: 30, titlePrefix: "Full text", firstPageID: 1000, nextOffset: 30),
+            try searchData(pageCount: 10, titlePrefix: "Second page", firstPageID: 2000, nextOffset: 40)
+        ]
+        harness.httpClient.responseHeadersQueue = [["x-search-id": "prefix-id"], ["x-search-id": "full-text-id"], ["x-search-id": "page-id"]]
+        let loader = SearchResultsLoader(fetcher: harness.fetcher)
+        let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
+
+        let secondPage = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+
+        #expect(firstPage.results.results?.count == 35)
+        #expect(secondPage.results.results?.count == 45)
+        #expect(secondPage.nextOffset == 40)
+        #expect(secondPage.prefixResultCount == 5)
+        #expect(secondPage.type(ofRow: 44) == .full)
+        #expect(secondPage.searchIDs.prefix == "prefix-id")
+        #expect(secondPage.searchIDs.fullText == "full-text-id")
+        let pageRequest = try #require(harness.httpClient.capturedRequests.last)
+        #expect(pageRequest.queryParameters["generator"] == "search")
+        #expect(pageRequest.queryParameters["gsrlimit"] == "10")
+        #expect(pageRequest.queryParameters["gsroffset"] == "30")
+    }
+
+    @Test
+    func nextPageSkipsAPageOfRowsAlreadyShown() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [
+            try searchData(pageCount: 30),
+            try searchData(pageCount: 10, nextOffset: 10),
+            try searchData(pageCount: 10, titlePrefix: "New", firstPageID: 2000, nextOffset: 20)
+        ]
+        let loader = SearchResultsLoader(fetcher: harness.fetcher)
+        let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
+
+        let secondPage = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+
+        #expect(secondPage.results.results?.count == 40)
+        #expect(secondPage.nextOffset == 20)
+        #expect(harness.httpClient.capturedRequests.map { $0.queryParameters["gsroffset"] } == [nil, "0", "10"])
+    }
+
+    @Test
+    func lastPageHasNoNextOffset() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [try searchData(pageCount: 30), try searchData(pageCount: 4, titlePrefix: "Last", firstPageID: 2000)]
+        let loader = SearchResultsLoader(fetcher: harness.fetcher)
+        let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
+
+        let secondPage = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+
+        #expect(secondPage.results.results?.count == 34)
+        #expect(secondPage.nextOffset == nil)
+    }
+
+    @Test
+    func nextPageLeavesTheShownResultsAlone() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [try searchData(pageCount: 30), try searchData(pageCount: 10, titlePrefix: "New", firstPageID: 2000)]
+        let loader = SearchResultsLoader(fetcher: harness.fetcher)
+        let firstPage = try await loader.fetchResults(for: "foo", siteURL: siteURL)
+
+        _ = try await loader.fetchNextPage(after: firstPage, for: "foo", siteURL: siteURL)
+
+        #expect(firstPage.results.results?.count == 30)
+    }
+
+    @Test
     func fullTextResultsKeepBothSearchIDs() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
