@@ -51,10 +51,6 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     public weak var loggingDelegate: WMFSemanticSearchResultsLoggingDelegate?
 
-    /// The banner asking for feedback is on screen and has no rating yet.
-    public var isAskingForFeedback: Bool {
-        isFeedbackVisible && !feedbackViewModel.hasRated
-    }
     @Published private(set) var isFeedbackVisible = false
 
     /// The prompt above the passages asking whether the reader found what they were looking for.

@@ -123,7 +123,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
     }
 
     private func logClose() {
-        instrumentation.logResultsClose(whileAskingForFeedback: viewModel?.isAskingForFeedback ?? false)
+        instrumentation.logResultsClose()
     }
 }
 
