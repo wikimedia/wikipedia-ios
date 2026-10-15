@@ -268,26 +268,27 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .article))
     }
 
-    func testANewFunnelCanShowTheFeedbackPromptAgain() {
+    func testANewSearchCanShowTheFeedbackPromptAgain() {
         instrumentation.feedbackPromptDidAppear(placement: .sheet)
         instrumentation.feedbackPromptDidAppear(placement: .article)
 
-        instrumentation.logLexicalResultsImpression(searchIDs: SearchInstrumentation.LexicalSearchIDs(prefix: nil, fullText: nil))
-        instrumentation.logSearchInit(searchTerm: "la lune", project: project)
+        // The reader cancelled, then focused the search field again: a new funnel.
+        instrumentation.endSearch()
+        instrumentation.logSearchScreenImpression(source: .searchTab)
 
         XCTAssertTrue(instrumentation.canShowFeedbackPrompt(placement: .sheet))
         XCTAssertTrue(instrumentation.canShowFeedbackPrompt(placement: .article))
     }
 
-    func testTheFeedbackPromptStaysWithItsFunnelUntilANewOneStarts() {
+    func testTheFeedbackPromptStaysWithItsSearchAcrossQuestions() {
         instrumentation.feedbackPromptDidAppear(placement: .sheet)
 
-        // More keystrokes and a list in the same funnel, then coming back to the screen.
-        instrumentation.logSearchInit(searchTerm: "la", project: project)
+        // Another question in the same search: more inits and a new list, same funnel.
+        instrumentation.logSearchInit(searchTerm: "la lune", project: project)
         instrumentation.logLexicalResultsImpression(searchIDs: SearchInstrumentation.LexicalSearchIDs(prefix: nil, fullText: nil))
-        instrumentation.logSearchScreenImpression(source: .searchTab)
 
         XCTAssertFalse(instrumentation.canShowFeedbackPrompt(placement: .sheet))
+        XCTAssertTrue(instrumentation.canShowFeedbackPrompt(placement: .article))
     }
 
     func testSettingsToggleHasNoFunnel() throws {
