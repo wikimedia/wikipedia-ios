@@ -170,8 +170,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     }
 
     /// Binds a new instance of each global view model that a fit uses, also when the value fits, so a
-    /// shorter value returns to the size in the file. On iPad that size is the size in the file
-    /// times `tabletTextSizeMultiplier`.
+    /// shorter value returns to the size in the file. 
     private func applyTextFits() async {
         guard let rive, !textFits.isEmpty else { return }
 
