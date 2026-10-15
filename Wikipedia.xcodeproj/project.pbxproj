@@ -366,6 +366,9 @@
 		372F048E2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
 		372F048F2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
 		373BF90A2E32A352000F6643 /* WMFFeedDidYouKnowFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */; };
+		3752FBC1307023A1000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3752FBC03070239E000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift */; };
+		3752FBC2307023A1000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3752FBC03070239E000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift */; };
+		3752FBC3307023A1000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3752FBC03070239E000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift */; };
 		37B0D0162E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0172E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0182E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
@@ -402,6 +405,7 @@
 		5EA5C0DE00000000000000C2 /* SearchResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */; };
 		5EA5C0DE00000000000000C3 /* SearchResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */; };
 		5EA5C0DE00000000000000D1 /* SearchResultsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000D0 /* SearchResultsMapperTests.swift */; };
+		5FC106217159EB610025DA07 /* LocalNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */; };
 		66BD84765EB14C81A40BD5F2 /* ArticleViewController+DonationReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36278A2AC9064C2EAA6EAE8E /* ArticleViewController+DonationReminder.swift */; };
 		67033E142A61B24800896852 /* WatchlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E132A61B24800896852 /* WatchlistController.swift */; };
 		67033E152A61B24800896852 /* WatchlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E132A61B24800896852 /* WatchlistController.swift */; };
@@ -934,8 +938,10 @@
 		70B79820257577B800C10BCA /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B7981F257577B800C10BCA /* StorageManager.swift */; };
 		70B7982B25758E6D00C10BCA /* EPEventRecord+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B7982A25758E6D00C10BCA /* EPEventRecord+CoreDataClass.swift */; };
 		70B7983625758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B7983525758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift */; };
+		72E1C387F8DB0728F4DD1041 /* LocalNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */; };
 		76F2C89F24F595530FFD066D /* EvergreenAccountCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960130C531A2414C9A6DCDF8 /* EvergreenAccountCreationCoordinator.swift */; };
 		77C367D052E2441FA4BA9479 /* VisualEditorReturnJourneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */; };
+		78139AD93B06865B3169B4C6 /* LocalNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -1372,17 +1378,14 @@
 		83796AF42C9C6EB300E55C69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AEF2C9C6EB300E55C69 /* Coordinator.swift */; };
 		83796AF52C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */; };
 		83796AF62C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */; };
-		72E1C387F8DB0728F4DD1041 /* LocalNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */; };
 		83796AF72C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */; };
 		83796AF82C9C6EB300E55C69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AEF2C9C6EB300E55C69 /* Coordinator.swift */; };
 		83796AF92C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */; };
 		83796AFA2C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */; };
-		5FC106217159EB610025DA07 /* LocalNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */; };
 		83796AFB2C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */; };
 		83796AFC2C9C6EB300E55C69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AEF2C9C6EB300E55C69 /* Coordinator.swift */; };
 		83796AFD2C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */; };
 		83796AFE2C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */; };
-		78139AD93B06865B3169B4C6 /* LocalNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */; };
 		83796AFF2C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */; };
 		837A15F328DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
 		837A15F428DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
@@ -2569,6 +2572,7 @@
 		E81A4C0426081900005CD004 /* DonationReminderSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */; };
 		E81A4C0626082000005CD006 /* FundraisingAnnouncementDismissActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */; };
 		E81A4C0826082000005CD008 /* YearInReviewSlideViewModelFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */; };
+		E81A4C0A26082000005CD00A /* YearInReviewAnnouncementViewModelFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */; };
 		E81A4D0226081900005CE002 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
 		E81A4D0326081900005CE003 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
 		E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
@@ -3101,6 +3105,7 @@
 		372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsSettingsViewController.swift; sourceTree = "<group>"; };
 		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
 		373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFFeedDidYouKnowFetcher.swift; sourceTree = "<group>"; };
+		3752FBC03070239E000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewAnnouncementViewModelFactory.swift; sourceTree = "<group>"; };
 		37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconUtility.swift; sourceTree = "<group>"; };
 		37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsOverviewCoordinator.swift; sourceTree = "<group>"; };
 		37D535952FE47D8B0023824C /* WMFWhichCameFirstArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWhichCameFirstArchiveViewController.swift; sourceTree = "<group>"; };
@@ -3499,6 +3504,7 @@
 		7D8C00052FCF000000000001 /* SearchURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchURLProtocol.swift; sourceTree = "<group>"; };
 		7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+SearchRequestTests.swift"; sourceTree = "<group>"; };
 		7D8C00202FCF000000000020 /* WMFDataTestFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WMFDataTestFixture.swift; path = WMFData/Sources/WMFDataTestSupport/WMFDataTestFixture.swift; sourceTree = SOURCE_ROOT; };
+		7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationCoordinator.swift; sourceTree = "<group>"; };
 		81B26C372E6D757400EADB09 /* OpenSourceDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OpenSourceDebug.xcconfig; sourceTree = "<group>"; };
 		830177F91FBF3E490005681C /* ReadingListsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsAPIController.swift; path = "WMF Framework/ReadingListsAPIController.swift"; sourceTree = SOURCE_ROOT; };
 		830177FB1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+WMFUtilities.swift"; sourceTree = "<group>"; };
@@ -3568,7 +3574,6 @@
 		83796AEF2C9C6EB300E55C69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCoordinator.swift; sourceTree = "<group>"; };
 		83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
-		7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationCoordinator.swift; sourceTree = "<group>"; };
 		83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		837A15F228DA591E00AAC3FC /* TalkPageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCache.swift; sourceTree = "<group>"; };
 		8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutInfo.swift; sourceTree = "<group>"; };
@@ -4253,8 +4258,8 @@
 		D8E892242176124F00587F61 /* PeriodicWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicWorker.swift; sourceTree = "<group>"; };
 		D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+JSON.swift"; sourceTree = "<group>"; };
-		D8EC3FB41E9BDA35006712EB /* Staging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Staging.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8EC3FB61E9BDAAB006712EB /* Staging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Staging-Info.plist"; sourceTree = "<group>"; };
+		D8EC3FB41E9BDA35006712EB /* Alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alpha.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8EC3FB61E9BDAAB006712EB /* Alpha-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Alpha-Info.plist"; sourceTree = "<group>"; };
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
 		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
@@ -4269,6 +4274,7 @@
 		E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationReminderSetupCoordinator.swift; sourceTree = "<group>"; };
 		E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundraisingAnnouncementDismissActionTests.swift; sourceTree = "<group>"; };
 		E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewSlideViewModelFactoryTests.swift; sourceTree = "<group>"; };
+		E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewAnnouncementViewModelFactoryTests.swift; sourceTree = "<group>"; };
 		E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchResultsCoordinator.swift; sourceTree = "<group>"; };
 		E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsCoordinator.swift; sourceTree = "<group>"; };
 		E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchPassageHighlightTests.swift; sourceTree = "<group>"; };
@@ -4314,7 +4320,7 @@
 			membershipExceptions = (
 				/Localized/InfoPlist.strings,
 			);
-			target = D8EC3DCE1E9BDA35006712EB /* Staging */;
+			target = D8EC3DCE1E9BDA35006712EB /* Alpha */;
 		};
 		67EFD34C2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -6256,6 +6262,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				3752FBC03070239E000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift */,
 				524A86D3301801AE006FA07A /* ChooseEditorSheetCoordinator.swift */,
 				960130C531A2414C9A6DCDF8 /* EvergreenAccountCreationCoordinator.swift */,
 				837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */,
@@ -7038,7 +7045,7 @@
 		BCA15AE01C0DFCC900D0A3EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D8EC3FB61E9BDAAB006712EB /* Staging-Info.plist */,
+				D8EC3FB61E9BDAAB006712EB /* Alpha-Info.plist */,
 				0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */,
 				83A422B422786E2000BA446A /* Local-Info.plist */,
 				D8CE26B01E698E2500DAE2E0 /* Experimental-Info.plist */,
@@ -7219,6 +7226,7 @@
 				E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */,
 				A04881C1695CEC2F4FDF1A89 /* MWKImageInfoFetcherTests.swift */,
 				E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */,
+				E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
 				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
 				A452F9FA24081A7200D8ED09 /* LocationManagerTests.swift */,
@@ -7295,7 +7303,7 @@
 				0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */,
 				D844D96C1D6CB2600042D692 /* WMF.framework */,
 				D8CE26AF1E698E2400DAE2E0 /* Experimental.app */,
-				D8EC3FB41E9BDA35006712EB /* Staging.app */,
+				D8EC3FB41E9BDA35006712EB /* Alpha.app */,
 				D87021601EBA63EE000D02D6 /* localization */,
 				D8479FAB1F222FE80025FD7A /* Wikipedia Stickers.appex */,
 				00021DE124D48EFD00476F97 /* WidgetsExtension.appex */,
@@ -8391,9 +8399,9 @@
 			productReference = D8CE26AF1E698E2400DAE2E0 /* Experimental.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D8EC3DCE1E9BDA35006712EB /* Staging */ = {
+		D8EC3DCE1E9BDA35006712EB /* Alpha */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Staging" */;
+			buildConfigurationList = D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Alpha" */;
 			buildPhases = (
 				00966EAB28403D4D006C6E27 /* SwiftLint */,
 				D8EC3DD71E9BDA35006712EB /* Sources */,
@@ -8410,13 +8418,13 @@
 				676C867226D416FB00A704C1 /* PBXTargetDependency */,
 				6705789A2F7D4B8900B3E02B /* PBXTargetDependency */,
 			);
-			name = Staging;
+			name = Alpha;
 			packageProductDependencies = (
 				67B14E5E3000000000000013 /* RiveRuntime */,
 				674DF84D2E84251500F58603 /* HCaptcha */,
 			);
 			productName = "Wikipedia-iOS";
-			productReference = D8EC3FB41E9BDA35006712EB /* Staging.app */;
+			productReference = D8EC3FB41E9BDA35006712EB /* Alpha.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -8660,7 +8668,7 @@
 			projectRoot = "";
 			targets = (
 				D4991434181D51DE00E6073C /* Wikipedia */,
-				D8EC3DCE1E9BDA35006712EB /* Staging */,
+				D8EC3DCE1E9BDA35006712EB /* Alpha */,
 				D8CE24D71E698E2400DAE2E0 /* Experimental */,
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
@@ -9283,6 +9291,7 @@
 				E81A4E0626082000005CE006 /* SemanticSearchPassageHighlightTests.swift in Sources */,
 				3F4CF854EA7F9FA3057C8E58 /* MWKImageInfoFetcherTests.swift in Sources */,
 				E81A4C0826082000005CD008 /* YearInReviewSlideViewModelFactoryTests.swift in Sources */,
+				E81A4C0A26082000005CD00A /* YearInReviewAnnouncementViewModelFactoryTests.swift in Sources */,
 				BC62AE621C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m in Sources */,
 				D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */,
 				B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */,
@@ -9819,6 +9828,7 @@
 				B01E3AFF21F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D818D38B1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				D8A6BAEF1E4C9C0700A981C8 /* ArticlePlaceView.swift in Sources */,
+				3752FBC2307023A1000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift in Sources */,
 				6780CF232967683800D45927 /* TalkPageArchivesViewController.swift in Sources */,
 				006ABEED2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift in Sources */,
 				83836ECC1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
@@ -10512,6 +10522,7 @@
 				0072991728AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift in Sources */,
 				7AB6F10022AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
 				00FCB2C026D8398700F5A47A /* NotificationsCenterCell.swift in Sources */,
+				3752FBC1307023A1000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift in Sources */,
 				7A393282236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -11052,6 +11063,7 @@
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				00FCB2BF26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */,
 				7AB6F10122AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift in Sources */,
+				3752FBC3307023A1000C9CCB /* YearInReviewAnnouncementViewModelFactory.swift in Sources */,
 				7A393283236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
@@ -11581,7 +11593,7 @@
 			};
 			name = LocalDebug;
 		};
-		00021DF424D48EFE00476F97 /* StagingDebug */ = {
+		00021DF424D48EFE00476F97 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -11618,7 +11630,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		00021DF624D48EFE00476F97 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -11699,7 +11711,7 @@
 			};
 			name = Release;
 		};
-		00021DF924D48EFE00476F97 /* Staging */ = {
+		00021DF924D48EFE00476F97 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -11736,7 +11748,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Staging;
+			name = Alpha;
 		};
 		00021DFB24D48EFE00476F97 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -12164,7 +12176,7 @@
 					"$(inherited)",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12564,7 +12576,7 @@
 			};
 			name = LocalDebug;
 		};
-		67623E162AFD289D007488C7 /* StagingDebug */ = {
+		67623E162AFD289D007488C7 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -12595,7 +12607,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		67623E172AFD289D007488C7 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -12664,7 +12676,7 @@
 			};
 			name = Release;
 		};
-		67623E192AFD289D007488C7 /* Staging */ = {
+		67623E192AFD289D007488C7 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -12695,7 +12707,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
-			name = Staging;
+			name = Alpha;
 		};
 		67623E1A2AFD289D007488C7 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -12840,7 +12852,7 @@
 			};
 			name = LocalDebug;
 		};
-		676C865026D40AEB00A704C1 /* StagingDebug */ = {
+		676C865026D40AEB00A704C1 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -12874,7 +12886,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		676C865126D40AEB00A704C1 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -12949,7 +12961,7 @@
 			};
 			name = Release;
 		};
-		676C865426D40AEB00A704C1 /* Staging */ = {
+		676C865426D40AEB00A704C1 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -12983,7 +12995,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Staging;
+			name = Alpha;
 		};
 		676C865526D40AEB00A704C1 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -13486,7 +13498,7 @@
 			};
 			name = Debug;
 		};
-		D8479FB61F222FE90025FD7A /* StagingDebug */ = {
+		D8479FB61F222FE90025FD7A /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -13504,7 +13516,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		D8479FB81F222FE90025FD7A /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -13548,7 +13560,7 @@
 			};
 			name = Release;
 		};
-		D8479FBC1F222FE90025FD7A /* Staging */ = {
+		D8479FBC1F222FE90025FD7A /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -13566,7 +13578,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Staging;
+			name = Alpha;
 		};
 		D8479FBE1F222FE90025FD7A /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -13757,7 +13769,7 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14389,7 +14401,7 @@
 			};
 			name = Debug;
 		};
-		D87021661EBA63EF000D02D6 /* StagingDebug */ = {
+		D87021661EBA63EF000D02D6 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14409,7 +14421,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		D87021681EBA63EF000D02D6 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -14456,7 +14468,7 @@
 			};
 			name = Release;
 		};
-		D870216B1EBA63EF000D02D6 /* Staging */ = {
+		D870216B1EBA63EF000D02D6 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14476,7 +14488,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
-			name = Staging;
+			name = Alpha;
 		};
 		D870216D1EBA63EF000D02D6 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -14523,7 +14535,7 @@
 			};
 			name = Experimental;
 		};
-		D8A42A3D1E814FAA00D8E281 /* Staging */ = {
+		D8A42A3D1E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -14577,7 +14589,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_STAGING";
+				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_ALPHA";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -14589,9 +14601,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 			};
-			name = Staging;
+			name = Alpha;
 		};
-		D8A42A3E1E814FAA00D8E281 /* Staging */ = {
+		D8A42A3E1E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14610,7 +14622,7 @@
 					"$(inherited)",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14623,9 +14635,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Staging;
+			name = Alpha;
 		};
-		D8A42A3F1E814FAA00D8E281 /* Staging */ = {
+		D8A42A3F1E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14656,9 +14668,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Staging;
+			name = Alpha;
 		};
-		D8A42A411E814FAA00D8E281 /* Staging */ = {
+		D8A42A411E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14696,9 +14708,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
-			name = Staging;
+			name = Alpha;
 		};
-		D8A42A421E814FAA00D8E281 /* Staging */ = {
+		D8A42A421E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14721,9 +14733,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = Staging;
+			name = Alpha;
 		};
-		D8A42A441E814FAA00D8E281 /* Staging */ = {
+		D8A42A441E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14762,9 +14774,9 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Staging;
+			name = Alpha;
 		};
-		D8A42A451E814FE000D8E281 /* StagingDebug */ = {
+		D8A42A451E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -14823,7 +14835,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_STAGING";
+				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_ALPHA";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -14833,9 +14845,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
-		D8A42A461E814FE000D8E281 /* StagingDebug */ = {
+		D8A42A461E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14850,7 +14862,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14865,9 +14877,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
-		D8A42A471E814FE000D8E281 /* StagingDebug */ = {
+		D8A42A471E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14896,9 +14908,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
-		D8A42A491E814FE000D8E281 /* StagingDebug */ = {
+		D8A42A491E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14935,9 +14947,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
-		D8A42A4A1E814FE000D8E281 /* StagingDebug */ = {
+		D8A42A4A1E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -14965,9 +14977,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
-		D8A42A4C1E814FE000D8E281 /* StagingDebug */ = {
+		D8A42A4C1E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -15003,7 +15015,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				VERSION_INFO_PREFIX = "";
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		D8B589AA21CD05080027083A /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -15060,7 +15072,7 @@
 			};
 			name = LocalDebug;
 		};
-		D8B589B121CD05080027083A /* StagingDebug */ = {
+		D8B589B121CD05080027083A /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -15084,7 +15096,7 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		D8B589B321CD05080027083A /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -15139,7 +15151,7 @@
 			};
 			name = Release;
 		};
-		D8B589B721CD05080027083A /* Staging */ = {
+		D8B589B721CD05080027083A /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -15163,7 +15175,7 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
-			name = Staging;
+			name = Alpha;
 		};
 		D8B589B921CD05080027083A /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -15408,7 +15420,7 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15425,7 +15437,7 @@
 			};
 			name = Debug;
 		};
-		D8EC3FAB1E9BDA35006712EB /* StagingDebug */ = {
+		D8EC3FAB1E9BDA35006712EB /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -15439,7 +15451,7 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15454,7 +15466,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
-			name = StagingDebug;
+			name = AlphaDebug;
 		};
 		D8EC3FAD1E9BDA35006712EB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
@@ -15470,7 +15482,7 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15513,7 +15525,7 @@
 					"$(inherited)",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15528,7 +15540,7 @@
 			};
 			name = Release;
 		};
-		D8EC3FB01E9BDA35006712EB /* Staging */ = {
+		D8EC3FB01E9BDA35006712EB /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -15546,7 +15558,7 @@
 					"$(inherited)",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15559,7 +15571,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Staging;
+			name = Alpha;
 		};
 		D8EC3FB21E9BDA35006712EB /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -15579,7 +15591,7 @@
 					"$(inherited)",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15612,7 +15624,7 @@
 					"$(inherited)",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
-				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Alpha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15643,10 +15655,10 @@
 			buildConfigurations = (
 				00021DEF24D48EFE00476F97 /* Debug */,
 				00021DF024D48EFE00476F97 /* LocalDebug */,
-				00021DF424D48EFE00476F97 /* StagingDebug */,
+				00021DF424D48EFE00476F97 /* AlphaDebug */,
 				00021DF624D48EFE00476F97 /* ExperimentalDebug */,
 				00021DF724D48EFE00476F97 /* Release */,
-				00021DF924D48EFE00476F97 /* Staging */,
+				00021DF924D48EFE00476F97 /* Alpha */,
 				00021DFB24D48EFE00476F97 /* Test */,
 				675BC8C62AFD2BD200771C4B /* UITests */,
 				00021DFC24D48EFE00476F97 /* Experimental */,
@@ -15659,10 +15671,10 @@
 			buildConfigurations = (
 				0E8380711D64989F0076EDE4 /* Debug */,
 				D854323B2188CC1300E895B5 /* LocalDebug */,
-				D8A42A4A1E814FE000D8E281 /* StagingDebug */,
+				D8A42A4A1E814FE000D8E281 /* AlphaDebug */,
 				D858A8051DA6DD00009C3DEB /* ExperimentalDebug */,
 				0E8380731D64989F0076EDE4 /* Release */,
-				D8A42A421E814FAA00D8E281 /* Staging */,
+				D8A42A421E814FAA00D8E281 /* Alpha */,
 				0E8380741D64989F0076EDE4 /* Test */,
 				675BC8C12AFD2BD200771C4B /* UITests */,
 				D858A7FD1DA6DBC8009C3DEB /* Experimental */,
@@ -15675,10 +15687,10 @@
 			buildConfigurations = (
 				67623E142AFD289D007488C7 /* Debug */,
 				67623E152AFD289D007488C7 /* LocalDebug */,
-				67623E162AFD289D007488C7 /* StagingDebug */,
+				67623E162AFD289D007488C7 /* AlphaDebug */,
 				67623E172AFD289D007488C7 /* ExperimentalDebug */,
 				67623E182AFD289D007488C7 /* Release */,
-				67623E192AFD289D007488C7 /* Staging */,
+				67623E192AFD289D007488C7 /* Alpha */,
 				67623E1A2AFD289D007488C7 /* Test */,
 				675BC8C82AFD2BD200771C4B /* UITests */,
 				67623E1B2AFD289D007488C7 /* Experimental */,
@@ -15691,10 +15703,10 @@
 			buildConfigurations = (
 				676C864C26D40AEB00A704C1 /* Debug */,
 				676C864D26D40AEB00A704C1 /* LocalDebug */,
-				676C865026D40AEB00A704C1 /* StagingDebug */,
+				676C865026D40AEB00A704C1 /* AlphaDebug */,
 				676C865126D40AEB00A704C1 /* ExperimentalDebug */,
 				676C865226D40AEB00A704C1 /* Release */,
-				676C865426D40AEB00A704C1 /* Staging */,
+				676C865426D40AEB00A704C1 /* Alpha */,
 				676C865526D40AEB00A704C1 /* Test */,
 				675BC8C72AFD2BD200771C4B /* UITests */,
 				676C865626D40AEB00A704C1 /* Experimental */,
@@ -15707,10 +15719,10 @@
 			buildConfigurations = (
 				BC42735B1A7C736800068882 /* Debug */,
 				D85432392188CC1300E895B5 /* LocalDebug */,
-				D8A42A491E814FE000D8E281 /* StagingDebug */,
+				D8A42A491E814FE000D8E281 /* AlphaDebug */,
 				D858A8041DA6DD00009C3DEB /* ExperimentalDebug */,
 				BC42735C1A7C736800068882 /* Release */,
-				D8A42A411E814FAA00D8E281 /* Staging */,
+				D8A42A411E814FAA00D8E281 /* Alpha */,
 				0EAB7A221D47AF8000E7CF8E /* Test */,
 				675BC8C02AFD2BD200771C4B /* UITests */,
 				D858A7FC1DA6DBC8009C3DEB /* Experimental */,
@@ -15723,10 +15735,10 @@
 			buildConfigurations = (
 				D4991468181D51DF00E6073C /* Debug */,
 				D85432322188CC1300E895B5 /* LocalDebug */,
-				D8A42A451E814FE000D8E281 /* StagingDebug */,
+				D8A42A451E814FE000D8E281 /* AlphaDebug */,
 				D858A8021DA6DD00009C3DEB /* ExperimentalDebug */,
 				D4991469181D51DF00E6073C /* Release */,
-				D8A42A3D1E814FAA00D8E281 /* Staging */,
+				D8A42A3D1E814FAA00D8E281 /* Alpha */,
 				0EAB7A201D47AF8000E7CF8E /* Test */,
 				675BC8BC2AFD2BD200771C4B /* UITests */,
 				D858A7FA1DA6DBC8009C3DEB /* Experimental */,
@@ -15739,10 +15751,10 @@
 			buildConfigurations = (
 				D499146B181D51DF00E6073C /* Debug */,
 				D85432332188CC1300E895B5 /* LocalDebug */,
-				D8A42A461E814FE000D8E281 /* StagingDebug */,
+				D8A42A461E814FE000D8E281 /* AlphaDebug */,
 				D858A8031DA6DD00009C3DEB /* ExperimentalDebug */,
 				D499146C181D51DF00E6073C /* Release */,
-				D8A42A3E1E814FAA00D8E281 /* Staging */,
+				D8A42A3E1E814FAA00D8E281 /* Alpha */,
 				0EAB7A211D47AF8000E7CF8E /* Test */,
 				675BC8BD2AFD2BD200771C4B /* UITests */,
 				D858A7FB1DA6DBC8009C3DEB /* Experimental */,
@@ -15755,10 +15767,10 @@
 			buildConfigurations = (
 				D844D9751D6CB2600042D692 /* Debug */,
 				D854323F2188CC1300E895B5 /* LocalDebug */,
-				D8A42A4C1E814FE000D8E281 /* StagingDebug */,
+				D8A42A4C1E814FE000D8E281 /* AlphaDebug */,
 				D858A8081DA6DD00009C3DEB /* ExperimentalDebug */,
 				D844D9781D6CB2600042D692 /* Release */,
-				D8A42A441E814FAA00D8E281 /* Staging */,
+				D8A42A441E814FAA00D8E281 /* Alpha */,
 				D844D9791D6CB2600042D692 /* Test */,
 				675BC8C32AFD2BD200771C4B /* UITests */,
 				D858A8001DA6DBC8009C3DEB /* Experimental */,
@@ -15771,10 +15783,10 @@
 			buildConfigurations = (
 				D8479FB31F222FE90025FD7A /* Debug */,
 				D854323E2188CC1300E895B5 /* LocalDebug */,
-				D8479FB61F222FE90025FD7A /* StagingDebug */,
+				D8479FB61F222FE90025FD7A /* AlphaDebug */,
 				D8479FB81F222FE90025FD7A /* ExperimentalDebug */,
 				D8479FB91F222FE90025FD7A /* Release */,
-				D8479FBC1F222FE90025FD7A /* Staging */,
+				D8479FBC1F222FE90025FD7A /* Alpha */,
 				D8479FBE1F222FE90025FD7A /* Test */,
 				675BC8C22AFD2BD200771C4B /* UITests */,
 				D8479FBF1F222FE90025FD7A /* Experimental */,
@@ -15787,10 +15799,10 @@
 			buildConfigurations = (
 				D87021641EBA63EF000D02D6 /* Debug */,
 				D85432402188CC1300E895B5 /* LocalDebug */,
-				D87021661EBA63EF000D02D6 /* StagingDebug */,
+				D87021661EBA63EF000D02D6 /* AlphaDebug */,
 				D87021681EBA63EF000D02D6 /* ExperimentalDebug */,
 				D87021691EBA63EF000D02D6 /* Release */,
-				D870216B1EBA63EF000D02D6 /* Staging */,
+				D870216B1EBA63EF000D02D6 /* Alpha */,
 				D870216D1EBA63EF000D02D6 /* Test */,
 				675BC8C42AFD2BD200771C4B /* UITests */,
 				D870216E1EBA63EF000D02D6 /* Experimental */,
@@ -15803,10 +15815,10 @@
 			buildConfigurations = (
 				D8B589AA21CD05080027083A /* Debug */,
 				D8B589AB21CD05080027083A /* LocalDebug */,
-				D8B589B121CD05080027083A /* StagingDebug */,
+				D8B589B121CD05080027083A /* AlphaDebug */,
 				D8B589B321CD05080027083A /* ExperimentalDebug */,
 				D8B589B421CD05080027083A /* Release */,
-				D8B589B721CD05080027083A /* Staging */,
+				D8B589B721CD05080027083A /* Alpha */,
 				D8B589B921CD05080027083A /* Test */,
 				675BC8C52AFD2BD200771C4B /* UITests */,
 				D8B589BA21CD05080027083A /* Experimental */,
@@ -15819,10 +15831,10 @@
 			buildConfigurations = (
 				D8CE26A91E698E2400DAE2E0 /* Debug */,
 				D85432342188CC1300E895B5 /* LocalDebug */,
-				D8A42A471E814FE000D8E281 /* StagingDebug */,
+				D8A42A471E814FE000D8E281 /* AlphaDebug */,
 				D8CE26AB1E698E2400DAE2E0 /* ExperimentalDebug */,
 				D8CE26AC1E698E2400DAE2E0 /* Release */,
-				D8A42A3F1E814FAA00D8E281 /* Staging */,
+				D8A42A3F1E814FAA00D8E281 /* Alpha */,
 				D8CE26AD1E698E2400DAE2E0 /* Test */,
 				675BC8BF2AFD2BD200771C4B /* UITests */,
 				D8CE26AE1E698E2400DAE2E0 /* Experimental */,
@@ -15830,15 +15842,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Staging" */ = {
+		D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Alpha" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8EC3FA91E9BDA35006712EB /* Debug */,
 				D85432352188CC1300E895B5 /* LocalDebug */,
-				D8EC3FAB1E9BDA35006712EB /* StagingDebug */,
+				D8EC3FAB1E9BDA35006712EB /* AlphaDebug */,
 				D8EC3FAD1E9BDA35006712EB /* ExperimentalDebug */,
 				D8EC3FAE1E9BDA35006712EB /* Release */,
-				D8EC3FB01E9BDA35006712EB /* Staging */,
+				D8EC3FB01E9BDA35006712EB /* Alpha */,
 				D8EC3FB21E9BDA35006712EB /* Test */,
 				675BC8BE2AFD2BD200771C4B /* UITests */,
 				D8EC3FB31E9BDA35006712EB /* Experimental */,
