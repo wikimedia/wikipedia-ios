@@ -98,6 +98,10 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?, ActionSource) -> Void
     public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
     public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
+    public typealias LoadMoreAction = @MainActor @Sendable () -> Void
+
+    /// How close to the last row a row has to appear for the next page to load.
+    static let loadMoreThreshold = 5
 
     @Published private(set) var results: [SearchResult] = []
     @Published private(set) var searchTerm: String?
@@ -106,6 +110,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published private(set) var isRightToLeft: Bool = false
     @Published public private(set) var semanticSearchEntryPointViewModel: WMFSemanticSearchEntryPointViewModel?
     @Published private(set) var accessibilityFocusRequestID = 0
+    @Published private(set) var isLoadingMore = false
+    private(set) var canLoadMore = false
     private var hasPendingAccessibilityFocusRequest = false
 
     static let semanticSearchEntryPointAccessibilityID = "semantic-search-entry-point"
@@ -125,6 +131,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     private let saveOrUnsaveAction: SaveAction
     private let shareAction: ShareAction
     private let summaryProvider: SummaryProvider
+    private let loadMoreAction: LoadMoreAction?
 
     public init(
         localizedStrings: LocalizedStrings,
@@ -137,7 +144,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         openOnMapAction: @escaping ResultAction,
         saveOrUnsaveAction: @escaping SaveAction,
         shareAction: @escaping ShareAction,
-        summaryProvider: SummaryProvider? = nil
+        summaryProvider: SummaryProvider? = nil,
+        loadMoreAction: LoadMoreAction? = nil
     ) {
         self.localizedStrings = localizedStrings
         self.noInternetConnectionImage = noInternetConnectionImage
@@ -149,6 +157,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.openOnMapAction = openOnMapAction
         self.saveOrUnsaveAction = saveOrUnsaveAction
         self.shareAction = shareAction
+        self.loadMoreAction = loadMoreAction
         self.summaryProvider = summaryProvider ?? { project, title in
             try await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title)
         }
@@ -156,22 +165,35 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
     // MARK: - Public
 
-    public func showResults(_ newResults: [SearchResult], searchTerm: String?, project: WMFProject?) {
+    public func showResults(_ newResults: [SearchResult], searchTerm: String?, project: WMFProject?, canLoadMore: Bool = false) {
         self.searchTerm = searchTerm
         self.project = project
         isRightToLeft = project?.isRTL ?? false
-        results = newResults.map { result in
-            var result = result
-            result.isSaved = isSavedAction(result)
-            return result
-        }
+        results = newResults.map(withSavedState)
         emptyState = results.isEmpty ? .noResults : nil
+        self.canLoadMore = canLoadMore
+        isLoadingMore = false
         fulfillPendingAccessibilityFocusRequest()
+    }
+
+    /// Adds the next page below the results shown. Rows already shown are left out.
+    public func appendResults(_ newResults: [SearchResult], canLoadMore: Bool) {
+        let shownIDs = Set(results.map(\.id))
+        results += newResults.filter { !shownIDs.contains($0.id) }.map(withSavedState)
+        self.canLoadMore = canLoadMore
+        isLoadingMore = false
+    }
+
+    /// Ends a page load that failed, so the next scroll to the end tries again.
+    public func failLoadingMore() {
+        isLoadingMore = false
     }
 
     public func showEmptyState(_ state: EmptyState) {
         results = []
         emptyState = state
+        canLoadMore = false
+        isLoadingMore = false
         hasPendingAccessibilityFocusRequest = false
     }
 
@@ -179,6 +201,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         results = []
         searchTerm = nil
         emptyState = nil
+        canLoadMore = false
+        isLoadingMore = false
     }
 
     public func showSemanticSearchEntryPoint(_ viewModel: WMFSemanticSearchEntryPointViewModel) {
@@ -318,6 +342,23 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         }
 
         return UIImage(cgImage: croppedCGImage, scale: image.scale, orientation: .up)
+    }
+
+    /// Asks for the next page when a row near the end of the list appears.
+    func loadMoreIfNeeded(currentResult: SearchResult) {
+        guard canLoadMore, !isLoadingMore, let loadMoreAction,
+              let index = results.firstIndex(where: { $0.id == currentResult.id }),
+              index >= results.count - Self.loadMoreThreshold else {
+            return
+        }
+        isLoadingMore = true
+        loadMoreAction()
+    }
+
+    private func withSavedState(_ result: SearchResult) -> SearchResult {
+        var result = result
+        result.isSaved = isSavedAction(result)
+        return result
     }
 
     func tap(_ result: SearchResult) {

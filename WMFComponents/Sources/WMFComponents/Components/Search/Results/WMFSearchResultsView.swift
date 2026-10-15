@@ -58,6 +58,15 @@ public struct WMFSearchResultsView: View {
             }
             ForEach(viewModel.results) { result in
                 WMFSearchResultRow(viewModel: viewModel, result: result, focusedElementID: $focusedElementID)
+                    .onAppear {
+                        viewModel.loadMoreIfNeeded(currentResult: result)
+                    }
+            }
+            if viewModel.isLoadingMore {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color(theme.paperBackground))
+                    .listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)
