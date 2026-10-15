@@ -5,5 +5,6 @@
 @property (nonatomic, copy, readwrite) NSString *searchTerm;
 @property (nonatomic, copy, nullable, readwrite) NSString *prefixSearchID;
 @property (nonatomic, copy, nullable, readwrite) NSString *fullTextSearchID;
+@property (nonatomic, strong, nullable, readwrite) NSNumber *nextOffset;
 
 @end

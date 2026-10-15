@@ -9,10 +9,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (nonatomic, copy, readwrite) NSString *searchTerm;
-@property (nonatomic, copy, nullable, readwrite) NSString *searchSuggestion;
 @property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *results;
 @property (nonatomic, copy, nullable, readwrite) NSString *prefixSearchID;
 @property (nonatomic, copy, nullable, readwrite) NSString *fullTextSearchID;
+@property (nonatomic, strong, nullable, readwrite) NSNumber *nextOffset;
 
 @end
 
@@ -27,15 +27,23 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+// The fetcher makes empty results this way when a response has no query. That skips -init, so the results are set up here too.
+- (instancetype)initWithLanguageVariantCode:(nullable NSString *)languageVariantCode {
+    self = [super initWithLanguageVariantCode:languageVariantCode];
+    if (self) {
+        _mutableResults = [NSMutableArray new];
+        _redirectMappings = @[];
+    }
+    return self;
+}
+
 - (instancetype)initWithSearchTerm:(NSString *)searchTerm
                            results:(nullable NSArray<MWKSearchResult *> *)results
-                  searchSuggestion:(nullable NSString *)suggestion
                   redirectMappings:(NSArray<MWKSearchRedirectMapping *> *)redirectMappings {
     self = [self init];
     if (self) {
         self.searchTerm = searchTerm;
         self.results = results;
-        self.searchSuggestion = suggestion;
         self.redirectMappings = redirectMappings;
     }
     return self;
@@ -82,7 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
     return @{
         WMF_SAFE_KEYPATH(WMFSearchResults.new, results): @"pages",
         WMF_SAFE_KEYPATH(WMFSearchResults.new, redirectMappings): @"redirects",
-        WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"searchinfo.suggestion",
     };
 }
 
@@ -125,12 +132,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)mergeSearchSuggestionFromModel:(WMFSearchResults *)searchResults {
-    // preserve current search suggestion if there is one
-    if (self.searchSuggestion.length) {
-        return;
-    }
-    self.searchSuggestion = searchResults.searchSuggestion;
+// Each page of the full text search says where the next one starts, so the newest offset wins, even when it is nil.
+- (void)mergeNextOffsetFromModel:(WMFSearchResults *)searchResults {
+    self.nextOffset = searchResults.nextOffset;
 }
 
 #pragma mark - KVO

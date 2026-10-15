@@ -2137,7 +2137,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
         let siteURL = self.siteURL
-        searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
+        searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: WMFDefaultSearchResultLimit, failure: { (error) in
             DispatchQueue.main.async {
                 guard text == searchBar.text else {
                     return
@@ -2149,10 +2149,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             DispatchQueue.main.async {
                 guard text == searchBar.text else {
                     return
-                }
-
-                if let suggestion = searchResult.searchSuggestion {
-                    DDLogDebug("got suggestion! \(suggestion)")
                 }
 
                 let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)

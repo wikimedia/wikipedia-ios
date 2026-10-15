@@ -53,15 +53,9 @@ final class SearchInstrumentation {
         let prefix: String?
         let fullText: String?
 
+        /// Both ids always go out, empty when the request was not made, as on Android.
         fileprivate var actionContext: [String: Any] {
-            var context: [String: Any] = [:]
-            if let prefix {
-                context["search_id_pre"] = prefix
-            }
-            if let fullText {
-                context["search_id_ful"] = fullText
-            }
-            return context
+            ["search_id_pre": prefix ?? "", "search_id_ful": fullText ?? ""]
         }
     }
 

@@ -6,6 +6,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSUInteger const WMFMaxSearchResultLimit;
+/// The limit for searches that don't set their own, like Places and Insert Media.
+extern NSUInteger const WMFDefaultSearchResultLimit;
 
 @interface WMFSearchFetcher : WMFLegacyFetcher
 
@@ -19,6 +21,16 @@ extern NSUInteger const WMFMaxSearchResultLimit;
                            siteURL:(NSURL *)siteURL
                        resultLimit:(NSUInteger)resultLimit
                     fullTextSearch:(BOOL)fullTextSearch
+           appendToPreviousResults:(nullable WMFSearchResults *)results
+                           failure:(WMFErrorHandler)failure
+                           success:(WMFSearchResultsHandler)success;
+
+/// `offset` is the `gsroffset` of the full text search, from the `nextOffset` of the previous page. It is ignored for a prefix search.
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                           siteURL:(NSURL *)siteURL
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+                            offset:(NSUInteger)offset
            appendToPreviousResults:(nullable WMFSearchResults *)results
                            failure:(WMFErrorHandler)failure
                            success:(WMFSearchResultsHandler)success;

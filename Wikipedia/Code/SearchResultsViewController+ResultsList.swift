@@ -47,7 +47,7 @@ extension SearchResultsViewController {
                     // The position is the index of the row in the response of its own request, as the
                     // Android app reports it. It restarts at 1 for the rows the full text search appended.
                     let position = self.searchResultsByArticleURL[result.id]?.index?.intValue ?? (index + 1)
-                    self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
+                    self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.searchIDs)
                 }
                 self.saveLastSearch()
                 self.articleTappedAction?(result.articleURL, false)
@@ -79,12 +79,15 @@ extension SearchResultsViewController {
                     ArticleTabsFunnel.shared.logLongPressShare()
                 }
                 self?.share(result, frame: frame)
+            },
+            loadMoreAction: { [weak self] in
+                self?.loadNextPage()
             })
     }
 
     // MARK: - Results
 
-    func displaySearchResults(_ searchResults: WMFSearchResults, siteURL: URL) {
+    func displaySearchResults(_ searchResults: WMFSearchResults, siteURL: URL, canLoadMore: Bool = false) {
         displayedSearchTerm = searchResults.searchTerm
         displayedSiteURL = siteURL
         let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: searchResults.redirectMappings ?? [])
@@ -99,8 +102,23 @@ extension SearchResultsViewController {
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
-        resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
+        resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project, canLoadMore: canLoadMore)
         updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
+    }
+
+    /// Shows the rows of `outcome` past the first `previousCount`, below the rows already shown.
+    func appendSearchResults(_ outcome: SearchResultsLoader.Outcome, after previousCount: Int, siteURL: URL) {
+        let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.results.redirectMappings ?? [])
+        let newResults = (outcome.results.results ?? []).dropFirst(previousCount).compactMap { mwkResult -> SearchResult? in
+            // A row already shown keeps its own result, so its taps report its own position.
+            guard let result = mapper.searchResult(from: mwkResult),
+                  searchResultsByArticleURL[result.id] == nil else {
+                return nil
+            }
+            searchResultsByArticleURL[result.id] = mwkResult
+            return result
+        }
+        resultsViewModel.appendResults(Array(newResults), canLoadMore: outcome.nextOffset != nil)
     }
 
     // MARK: - Semantic search entry point

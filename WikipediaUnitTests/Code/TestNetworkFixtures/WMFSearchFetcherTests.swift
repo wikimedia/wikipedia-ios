@@ -34,11 +34,91 @@ struct WMFSearchFetcherTests {
 
         let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
 
-        let query = json["query"] as? [String: Any]
-        let searchInfo = query?["searchinfo"] as? [String: Any]
-        #expect(result.searchSuggestion == searchInfo?["suggestion"] as? String)
         #expect(result.results?.count == 0)
+        #expect(result.searchTerm == "foo")
         #expect(harness.httpClient.capturedRequests.containsPrefixSearchRequest)
+    }
+
+    @Test
+    func prefixRequestDoesNotAskForASuggestion() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        _ = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        let parameters = try #require(harness.httpClient.capturedRequests.first).queryParameters
+        #expect(parameters["generator"] == "prefixsearch")
+        #expect(parameters["list"] == nil)
+        #expect(parameters.keys.allSatisfy { !$0.hasPrefix("sr") })
+    }
+
+    @Test
+    func prefixResponseWithoutQueryKeepsTheSearchTerm() async throws {
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: ["batchcomplete": true])
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        #expect(result.results?.count == 0)
+        #expect(result.searchTerm == "foo")
+    }
+
+    @Test
+    func fullTextRequestStartsAtTheOffset() async throws {
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: ["batchcomplete": true])
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        _ = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 10, fullTextSearch: true, offset: 40)
+
+        let parameters = try #require(harness.httpClient.capturedRequests.first).queryParameters
+        #expect(parameters["generator"] == "search")
+        #expect(parameters["gsroffset"] == "40")
+        #expect(parameters["gsrlimit"] == "10")
+    }
+
+    @Test
+    func responseContinuationGivesTheNextOffset() async throws {
+        var json = try jsonFixture(named: "BarackSearch")
+        json["continue"] = ["gsroffset": 30, "continue": "gsroffset||"]
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 30, fullTextSearch: true)
+
+        #expect(result.nextOffset == 30)
+    }
+
+    @Test
+    func responseWithoutContinuationHasNoNextOffset() async throws {
+        var json = try jsonFixture(named: "BarackSearch")
+        json["continue"] = nil
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 30, fullTextSearch: true)
+
+        #expect(result.nextOffset == nil)
     }
 
     @Test
@@ -71,6 +151,23 @@ struct WMFSearchFetcherTests {
         let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
 
         #expect(result.prefixSearchID == nil)
+    }
+
+    @Test
+    func fullTextResultsMergeIntoAPrefixResponseWithoutQuery() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseDataQueue = [try JSONSerialization.data(withJSONObject: ["batchcomplete": true]), try JSONSerialization.data(withJSONObject: json)]
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let prefixResults = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15, fullTextSearch: true, appendToPreviousResults: prefixResults)
+
+        let pages = (json["query"] as? [String: Any])?["pages"] as? [String: Any]
+        #expect(result.results?.count == pages?.count)
     }
 
     private func makeHarness() -> (fetcher: WMFSearchFetcher, httpClient: SearchHTTPClient) {

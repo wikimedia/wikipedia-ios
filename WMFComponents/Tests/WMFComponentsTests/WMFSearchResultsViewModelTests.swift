@@ -15,6 +15,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         var openedOnMap: [(SearchResult, Int)] = []
         var savedOrUnsaved: [(SearchResult, Int, WMFSearchResultsViewModel.ActionSource)] = []
         var shared: [(SearchResult, Int, CGRect?, WMFSearchResultsViewModel.ActionSource)] = []
+        var loadMoreCount = 0
     }
 
     private actor RequestedTitles {
@@ -70,7 +71,8 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
             openOnMapAction: { recorder.actions.openedOnMap.append(($0, $1)) },
             saveOrUnsaveAction: { recorder.actions.savedOrUnsaved.append(($0, $1, $2)) },
             shareAction: { recorder.actions.shared.append(($0, $1, $2, $3)) },
-            summaryProvider: summaryProvider)
+            summaryProvider: summaryProvider,
+            loadMoreAction: { recorder.actions.loadMoreCount += 1 })
     }
 
     // MARK: - State
@@ -218,6 +220,83 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         viewModel.refreshSavedStates()
 
         XCTAssertEqual(viewModel.results.map(\.isSaved), [false, true])
+    }
+
+    // MARK: - Load more
+
+    private func makeResults(count: Int, prefix: String = "Page") -> [SearchResult] {
+        (1...count).map { makeResult("\(prefix) \($0)") }
+    }
+
+    func testRowNearTheEndLoadsMoreOncePerPage() {
+        let recorder = Recorder()
+        let viewModel = makeViewModel(recorder: recorder)
+        let results = makeResults(count: 30)
+        viewModel.showResults(results, searchTerm: "page", project: englishProject, canLoadMore: true)
+
+        viewModel.loadMoreIfNeeded(currentResult: results[10])
+        XCTAssertEqual(recorder.actions.loadMoreCount, 0)
+
+        viewModel.loadMoreIfNeeded(currentResult: results[26])
+        viewModel.loadMoreIfNeeded(currentResult: results[29])
+        XCTAssertEqual(recorder.actions.loadMoreCount, 1)
+        XCTAssertTrue(viewModel.isLoadingMore)
+
+        viewModel.appendResults(makeResults(count: 10, prefix: "More"), canLoadMore: true)
+        XCTAssertFalse(viewModel.isLoadingMore)
+        viewModel.loadMoreIfNeeded(currentResult: viewModel.results[39])
+        XCTAssertEqual(recorder.actions.loadMoreCount, 2)
+    }
+
+    func testNothingLoadsWhenThereAreNoMorePages() {
+        let recorder = Recorder()
+        let viewModel = makeViewModel(recorder: recorder)
+        let results = makeResults(count: 5)
+        viewModel.showResults(results, searchTerm: "page", project: englishProject)
+
+        viewModel.loadMoreIfNeeded(currentResult: results[4])
+
+        XCTAssertEqual(recorder.actions.loadMoreCount, 0)
+    }
+
+    func testFailedPageCanBeRetried() {
+        let recorder = Recorder()
+        let viewModel = makeViewModel(recorder: recorder)
+        let results = makeResults(count: 30)
+        viewModel.showResults(results, searchTerm: "page", project: englishProject, canLoadMore: true)
+        viewModel.loadMoreIfNeeded(currentResult: results[29])
+
+        viewModel.failLoadingMore()
+        viewModel.loadMoreIfNeeded(currentResult: results[29])
+
+        XCTAssertEqual(recorder.actions.loadMoreCount, 2)
+    }
+
+    func testAppendKeepsShownRowsSkipsDuplicatesAndReadsSavedState() {
+        let recorder = Recorder()
+        let saved = makeResult("Saved")
+        recorder.savedURLs = [saved.articleURL]
+        let viewModel = makeViewModel(recorder: recorder)
+        viewModel.showResults([makeResult("Cat"), makeResult("Dog")], searchTerm: "a", project: englishProject, canLoadMore: true)
+
+        viewModel.appendResults([makeResult("Dog"), saved], canLoadMore: false)
+
+        XCTAssertEqual(viewModel.results.map(\.title), ["Cat", "Dog", "Saved"])
+        XCTAssertEqual(viewModel.results.map(\.isSaved), [false, false, true])
+        XCTAssertFalse(viewModel.canLoadMore)
+    }
+
+    func testResetStopsLoadingMore() {
+        let recorder = Recorder()
+        let viewModel = makeViewModel(recorder: recorder)
+        let results = makeResults(count: 30)
+        viewModel.showResults(results, searchTerm: "page", project: englishProject, canLoadMore: true)
+        viewModel.loadMoreIfNeeded(currentResult: results[29])
+
+        viewModel.reset()
+
+        XCTAssertFalse(viewModel.isLoadingMore)
+        XCTAssertFalse(viewModel.canLoadMore)
     }
 
     // MARK: - Actions carry the row position
