@@ -21,6 +21,9 @@ enum WMFRiveWorkerProvider {
     private static var buildTask: Task<Void, Never>?
     private static var suppliedFontAssets: Set<String> = []
 
+    /// Registers the system fonts once, before any slide loads its file. See `prepareSystemFonts`.
+    private static var fontsTask: Task<Void, Never>?
+
     // TEMPORARY: drop with the inventory dump below once the .riv paths are settled.
     private static var didDumpInventory = false
 
@@ -80,6 +83,11 @@ enum WMFRiveWorkerProvider {
 
     static func makeRive(for animation: WMFRiveAnimation) async throws -> Rive {
         let worker = try await sharedWorker()
+
+        // The fonts must be registered before the file loads, because Rive resolves them while
+        // loading it. The Android app does the same.
+        await prepareSystemFonts(on: worker, animation: animation)
+
         let file = try await File(source: .local(animation.resourceName, .module), worker: worker)
 
         await supplySystemFonts(for: file, on: worker, animation: animation)
@@ -112,6 +120,28 @@ enum WMFRiveWorkerProvider {
 
     static func resourceExists(for animation: WMFRiveAnimation) -> Bool {
         return Bundle.module.url(forResource: animation.resourceName, withExtension: "riv") != nil
+    }
+
+    /// The names of the font assets are only known after a file loads, so the first call loads the
+    /// file once to read them and registers the fonts. Every later load of the file then finds the
+    /// fonts already registered. Slides that load at the same time wait for the same task.
+    /// If this fails, `makeRive` still registers the fonts after its own load, as before.
+    private static func prepareSystemFonts(on worker: Worker, animation: WMFRiveAnimation) async {
+        if let fontsTask {
+            await fontsTask.value
+            return
+        }
+
+        let task = Task<Void, Never> {
+            do {
+                let probe = try await File(source: .local(animation.resourceName, .module), worker: worker)
+                await supplySystemFonts(for: probe, on: worker, animation: animation)
+            } catch {
+                log(.file, animation, "Could not register the system fonts before loading: \(error.localizedDescription)")
+            }
+        }
+        fontsTask = task
+        await task.value
     }
 
     private static func supplySystemFonts(for file: File, on worker: Worker, animation: WMFRiveAnimation) async {

@@ -83,6 +83,13 @@ open class WMFComponentNavigationController: UINavigationController {
     open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
     }
+
+    /// The screen on top decides whether the interface orientation is locked, the same as it
+    /// decides the supported orientations above. A screen that does not ask for a lock changes nothing.
+    @available(iOS 26.0, *)
+    open override var childForInterfaceOrientationLock: UIViewController? {
+        return topViewController
+    }
     
     public func turnOnForcePortrait() {
         forcePortrait = true

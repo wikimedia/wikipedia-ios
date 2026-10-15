@@ -235,7 +235,8 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// A list slide from the templates file. Pass `nil` for a text field that the frame does not
-    /// use. The file has room for three items.
+    /// use. The file has room for three items. The headline is shown in capitals. The accessibility
+    /// label keeps the text as written.
     func listSlide(
         id: String,
         artboard: String,
@@ -250,7 +251,7 @@ struct YearInReviewSlideViewModelFactory {
     ) -> WMFYearInReviewSlideViewModel {
         var text: [WMFRiveText: String] = [:]
         if let headline {
-            text[ListTextPath.headline] = headline
+            text[ListTextPath.headline] = headline.uppercased()
         }
         if let bodyText {
             text[ListTextPath.bodyText] = bodyText
@@ -297,7 +298,8 @@ struct YearInReviewSlideViewModelFactory {
     )
 
     /// A slide from the templates file that shows one number. Pass `nil` for a text field that the
-    /// frame does not use.
+    /// frame does not use. The headline is shown in capitals. The accessibility label keeps the text
+    /// as written.
     func dataSlide(
         id: String,
         artboard: String,
@@ -308,7 +310,7 @@ struct YearInReviewSlideViewModelFactory {
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text: [WMFRiveText: String] = [
-            DataTextPath.headline: headline,
+            DataTextPath.headline: headline.uppercased(),
             DataTextPath.bodyCopy: bodyText
         ]
         if let data {
@@ -410,12 +412,6 @@ extension YearInReviewSlideViewModelFactory {
 
     private var englishSlides: [WMFYearInReviewSlideViewModel] {
         [
-            sampleCoverSlide(
-                id: "cover",
-                artboard: "cover",
-                title: "Your Wikipedia Year in Review is here",
-                body: "Thanks for spending 55 days on your trusty Wikipedia app in 2026."
-            ),
             sampleDataSlide(
                 artboard: "frame1",
                 headline: "Your total article count:",
@@ -615,12 +611,6 @@ extension YearInReviewSlideViewModelFactory {
 
     private var arabicSlides: [WMFYearInReviewSlideViewModel] {
         [
-            sampleCoverSlide(
-                id: "cover",
-                artboard: "cover",
-                title: "مراجعتك السنوية لويكيبيديا جاهزة",
-                body: "شكرًا لقضاء 55 يومًا مع تطبيق ويكيبيديا في عام 2026."
-            ),
             sampleDataSlide(
                 artboard: "frame1",
                 headline: "إجمالي عدد المقالات التي قرأتها:",
@@ -674,12 +664,6 @@ extension YearInReviewSlideViewModelFactory {
 
     private var japaneseSlides: [WMFYearInReviewSlideViewModel] {
         [
-            sampleCoverSlide(
-                id: "cover",
-                artboard: "cover",
-                title: "あなたのWikipedia年間レビューが届きました",
-                body: "2026年は55日間、Wikipediaアプリをご利用いただきありがとうございました。"
-            ),
             sampleDataSlide(
                 artboard: "frame1",
                 headline: "読んだ記事の合計:",
@@ -806,14 +790,15 @@ extension YearInReviewSlideViewModelFactory {
     }
 
     /// The cover and frame 19 use `coverTitle` and `bodyCopy`. Their title font path is not known to
-    /// the app, so these slides have no text fitting.
+    /// the app, so these slides have no text fitting. The title is shown in capitals, as on Android.
+    /// VoiceOver still gets the title as written.
     private func sampleCoverSlide(id: String, artboard: String, title: String, body: String) -> WMFYearInReviewSlideViewModel {
         WMFYearInReviewSlideViewModel(
             id: id,
             loggingID: id,
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: "\(artboard)-statemachine"),
             text: [
-                WMFRiveText(path: "coverTitle"): title,
+                WMFRiveText(path: "coverTitle"): title.uppercased(),
                 WMFRiveText(path: "bodyCopy"): body
             ],
             localizedStrings: .init(accessibilityLabel: "\(title) \(body)"),

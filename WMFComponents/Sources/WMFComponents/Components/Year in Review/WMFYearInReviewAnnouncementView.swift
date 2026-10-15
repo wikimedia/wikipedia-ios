@@ -6,7 +6,7 @@ public struct WMFYearInReviewAnnouncementView: View {
     @ObservedObject var viewModel: WMFYearInReviewAnnouncementViewModel
 
     private var theme: WMFTheme {
-        appEnvironment.theme
+        WMFTheme.light
     }
 
     public init(viewModel: WMFYearInReviewAnnouncementViewModel) {
@@ -23,6 +23,7 @@ public struct WMFYearInReviewAnnouncementView: View {
             WMFLargeButton(
                 style: .primary,
                 title: viewModel.localizedStrings.exploreButtonTitle,
+                forceBackgroundColor: theme.link, forceForegroundColor: theme.paperBackground,
                 action: viewModel.tappedExplore
             )
             .padding(.horizontal, 24)
