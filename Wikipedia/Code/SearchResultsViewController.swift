@@ -90,6 +90,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private var lastSearchSiteURL: URL?
     private var _siteURL: URL?
     private var searchTask: Task<Void, Never>?
+    private var pageTask: Task<Void, Never>?
 
     var focusesFirstResultWhenKeyboardHides = false
     var displayedSearchTerm: String?
@@ -356,8 +357,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             guard !Task.isCancelled else { return }
             NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
             displayedSearchResults = outcome
-            instrumentation.logLexicalResultsImpression(searchIDs: outcome.results.lexicalSearchIDs)
-            displaySearchResults(outcome.results, siteURL: siteURL)
+            instrumentation.logLexicalResultsImpression(searchIDs: outcome.searchIDs)
+            displaySearchResults(outcome.results, siteURL: siteURL, canLoadMore: outcome.nextOffset != nil)
         } catch is CancellationError {
             return
         } catch let SearchResultsLoader.Failure.fetch(error, _) {
@@ -371,9 +372,45 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private lazy var fetcher = WMFSearchFetcher()
     private lazy var resultsLoader = SearchResultsLoader(fetcher: fetcher)
 
+    /// Appends the next page of full text results to the results shown.
+    func loadNextPage() {
+        guard pageTask == nil else {
+            return
+        }
+        guard let outcome = displayedSearchResults,
+              outcome.nextOffset != nil,
+              let searchTerm = displayedSearchTerm,
+              let siteURL = displayedSiteURL else {
+            resultsViewModel.failLoadingMore()
+            return
+        }
+
+        // A new search cancels this task and clears `pageTask` itself, so only a page for the
+        // results still shown clears it here.
+        pageTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                let nextPage = try await resultsLoader.fetchNextPage(after: outcome, for: searchTerm, siteURL: siteURL)
+                guard !Task.isCancelled, displayedSearchResults?.results === outcome.results else { return }
+                pageTask = nil
+                displayedSearchResults = nextPage
+                appendSearchResults(nextPage, after: outcome.results.results?.count ?? 0, siteURL: siteURL)
+            } catch is CancellationError {
+                return
+            } catch {
+                guard !Task.isCancelled, displayedSearchResults?.results === outcome.results else { return }
+                pageTask = nil
+                DDLogError("Failed to load the next page of search results: \(error)")
+                resultsViewModel.failLoadingMore()
+            }
+        }
+    }
+
     func resetSearchResults() {
         searchTask?.cancel()
         searchTask = nil
+        pageTask?.cancel()
+        pageTask = nil
         fetcher.cancelAllFetches()
         resultsViewModel.reset()
     }
