@@ -126,6 +126,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // Full screen from the first frame, same style as the slides.
         let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         announcementNavigationController.isModalInPresentation = true
+        // Year in Review is always light, whatever the system style is. The slides replace the
+        // announcement inside this same navigation controller, so they keep it.
+        announcementNavigationController.overrideUserInterfaceStyle = .light
         navigationController.present(announcementNavigationController, animated: true)
 
         // Marked here, when it is on screen, so an early exit above does not use it up.
@@ -169,6 +172,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
         let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
+        // Year in Review is always light, whatever the system style is.
+        presentedNavigationController.overrideUserInterfaceStyle = .light
         navigationController.present(presentedNavigationController, animated: true)
 
         // The reader has seen Year in Review, so the announcement no longer needs to show.
@@ -209,6 +214,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let copy = announcementFactory.makeLoginPromptCopy(userDataState: announcementUserDataState)
 
         let alert = UIAlertController(title: copy.title, message: copy.message, preferredStyle: .alert)
+        alert.overrideUserInterfaceStyle = .light
 
         let loginAction = UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
             self?.dismissAnnouncement {
@@ -329,6 +335,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
         let webViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
+        webNavigationController.overrideUserInterfaceStyle = .light
         presentedViewController.present(webNavigationController, animated: true)
     }
 
