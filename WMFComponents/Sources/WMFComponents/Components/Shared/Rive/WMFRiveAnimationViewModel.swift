@@ -21,12 +21,6 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     /// that has a `WMFRiveTextFit`. The fit still enforces the line limits at this larger size.
     /// Starting value, to be confirmed by design.
     static let tabletTextSizeMultiplier = 2
-    
-
-    /// 1 on iPhone, `tabletTextSizeMultiplier` on iPad.
-    private static var textSizeMultiplier: Double {
-        Double(UIDevice.current.userInterfaceIdiom == .pad ? tabletTextSizeMultiplier : 1)
-    }
 
     @Published private(set) var loadState: LoadState = .idle
     @Published private(set) var rive: Rive?
@@ -189,7 +183,6 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             let scale: Double
         }
 
-        let sizeMultiplier = Self.textSizeMultiplier
         var globals: [String: ViewModelInstance] = [:]
         var measured: [Measured] = []
         for fit in textFits {
@@ -202,8 +195,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                     global = try await rive.file.createViewModelInstance(.viewModelDefault(from: .name(fit.globalViewModelName)))
                     globals[fit.globalViewModelName] = global
                 }
-                let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path))) * sizeMultiplier
-                let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path))) * sizeMultiplier
+                let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
+                let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
                 guard let scale = fit.scale(for: value, fontSize: fontSize) else {
                     WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "No system font for the asset \"\(fit.fontAssetName)\", so \"\(fit.text.path)\" is not fitted."))
                     continue
