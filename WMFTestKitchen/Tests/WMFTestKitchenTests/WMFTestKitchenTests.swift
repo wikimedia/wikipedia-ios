@@ -57,10 +57,11 @@ final class WMFTestKitchenTests: XCTestCase {
         let sender = RecordingEventSender()
         let client = TestKitchenClient(clientDataCallback: EmptyClientData(), eventSender: sender)
 
-        client.submitExperimentExposure(experimentData: ExperimentData(enrolled: "e", assigned: "control"))
+        client.submitExperimentExposure(experimentData: ExperimentData(enrolled: "e", assigned: "control"), mediawikiDatabase: "frwiki")
 
         let event = try XCTUnwrap(sender.events.first)
         XCTAssertEqual(event.action, "experiment_exposure")
+        XCTAssertEqual(event.mediawikiData?.database, "frwiki")
         XCTAssertNil(event.instrumentName)
         XCTAssertNil(event.funnelName)
         XCTAssertEqual(event.experimentData?.enrolled, "e")

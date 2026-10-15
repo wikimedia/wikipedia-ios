@@ -6,9 +6,6 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
-// Protocol that any parent view controller that sets SearchResultsViewController as its navigationItem.searchResultsController should conform to. It ensures search cancel logging happens properly.
-// Conformers to this class should properly set this flag in their viewWillDisappear methods.
-
 /// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
 class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider {
 
@@ -19,15 +16,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         case topOfFeed
         case article
         case unknown
-
-        var stringValue: String {
-            switch self {
-            case .article: return "article"
-            case .topOfFeed: return "top_of_feed"
-            case .searchTab: return "search_tab"
-            case .unknown: return "unknown"
-            }
-        }
     }
 
     var eventLoggingCategory: EventCategoryMEP { .history }
@@ -166,7 +154,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         updateLanguageBarVisibility()
         reloadRecentSearches()
         refreshSemanticSearchEntryPointIfResultsAreShown()
-        instrumentation.logSearchScreenImpression(source: source, project: siteURL.flatMap { SearchResultsMapper.project(for: $0) })
     }
 
     override func viewDidLayoutSubviews() {
@@ -362,8 +349,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         }
         recentSearchTermPendingInit = nil
         if let languageCode = siteURL.wmf_languageCode {
-            let dataController = WMFSemanticSearchDataController.shared
-            instrumentation.logQueryEligibility(isEligible: dataController.isEligible(languageCode: languageCode))
             enrollInSemanticSearchExperimentIfNeeded(languageCode: languageCode)
         }
         do {
@@ -485,7 +470,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     private lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
         guard let self else { return }
-        self.instrumentation.logRecentSearchTap(searchTerm: term.text, project: self.siteURL.flatMap { SearchResultsMapper.project(for: $0) })
         self.recentSearchTermPendingInit = term.text
         self.resetSearchResults()
         if let pop = self.populateSearchBarAction {
@@ -559,7 +543,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
             searchTask?.cancel()
             searchTask = Task { @MainActor [weak self] in
                 guard let self else { return }
-                try? await Task.sleep(for: .milliseconds(100))
+                try? await Task.sleep(for: .milliseconds(200))
                 guard !Task.isCancelled else { return }
                 search(for: text)
             }
@@ -583,12 +567,19 @@ extension SearchResultsViewController: UISearchResultsUpdating {
 /// delegate callbacks should assign themselves to `parentSearchControllerDelegate`.
 extension SearchResultsViewController: UISearchControllerDelegate {
 
+    /// The search is active: the funnel of this search starts, as on Android when the search
+    /// activity opens. Coming back from an article does not present the search again, so it
+    /// keeps the funnel.
     func willPresentSearchController(_ searchController: UISearchController) {
+        instrumentation.logSearchScreenImpression(source: source, project: siteURL.flatMap { SearchResultsMapper.project(for: $0) })
         searchBarIPadCustomizer.willPresentSearchController(searchController)
         parentSearchControllerDelegate?.willPresentSearchController?(searchController)
     }
 
+    /// The reader cancelled or left without opening an article: the funnel ends. A push to an
+    /// article keeps the search active, so it does not come through here.
     func willDismissSearchController(_ searchController: UISearchController) {
+        instrumentation.endSearch()
         searchBarIPadCustomizer.willDismissSearchController(searchController)
         parentSearchControllerDelegate?.willDismissSearchController?(searchController)
     }

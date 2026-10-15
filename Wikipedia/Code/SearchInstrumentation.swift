@@ -66,9 +66,6 @@ final class SearchInstrumentation {
     }
 
     static let instrumentName = "apps-search"
-    /// The version of the eligibility rules: the search language is a target language and the
-    /// feature is on. Raise it when the rules change.
-    static let eligibilityRulesVersion = "1"
     /// The spec collects the search term up to this many characters.
     static let queryLimit = 256
     /// The text field already stops at this limit. The event cuts the text too, as a safety net.
@@ -82,8 +79,7 @@ final class SearchInstrumentation {
     private let instrument: InstrumentImpl
     private let dataController: WMFSemanticSearchDataController
     private(set) var project: WMFProject?
-    /// The funnel showed a results list. The next init starts a new funnel.
-    private var funnelHasResults = false
+
     /// What the feedback prompt did in the current funnel.
     private var feedbackPromptRecord = FeedbackPromptRecord(funnelToken: nil)
 
@@ -95,64 +91,46 @@ final class SearchInstrumentation {
 
     // MARK: - Experiment
 
-    /// The reader got a group. Sent once, with no instrument and outside the search funnel, as
-    /// the Android app sends it.
+    /// The reader got a group. Sent once, with no instrument and outside the search funnel, on
+    /// the wiki of the search that enrolled the reader.
     func logExperimentExposure() {
         guard let experimentData = dataController.experimentData else { return }
-        client.submitExperimentExposure(experimentData: experimentData)
-    }
-
-    /// Sent for every search, in both groups, before any Dive UI.
-    func logQueryEligibility(isEligible: Bool) {
-        submit(action: "dive_query_eligibility", actionContext: ["eligible": isEligible, "rules_version": Self.eligibilityRulesVersion])
-    }
-
-    /// The entry point rendered for an eligible search. In the control group, the same moment
-    /// counts as the opportunity the reader did not get.
-    func logDiveEntryImpression(isTreatment: Bool, searchIDs: LexicalSearchIDs) {
-        var actionContext = searchIDs.actionContext
-        actionContext["eligible"] = true
-        submit(action: "dive_entry_impression", elementId: isTreatment ? "dive_entry" : "dive_entry_opportunity", actionContext: actionContext)
+        client.submitExperimentExposure(experimentData: experimentData, mediawikiDatabase: project?.mediaWikiDatabase)
     }
 
     // MARK: - Search screen
 
-    /// The reader got to the search screen. A funnel starts here when there is none. Coming back
-    /// from an article keeps the funnel of the search. `project` is the wiki the search bar is
-    /// set to, when known.
+    /// The search became active. A funnel starts here and holds everything the reader does
+    /// from this search: every init, the result taps, the Dive sheet and the feedback in the
+    /// article, also after a return from an article. It ends with `endSearch`. This is the
+    /// life of a SearchActivity on Android. `project` is the wiki the search bar is set to.
     func logSearchScreenImpression(source: SearchResultsViewController.EventLoggingSource, project: WMFProject? = nil) {
         if let project {
             self.project = project
         }
-        if instrument.funnel == nil {
-            instrument.startFunnel(name: Self.funnelName)
-        }
+        instrument.startFunnel(name: Self.funnelName)
         submit(action: "impression", actionSubtype: source.searchActionSubtype)
     }
 
-    /// A search goes to the server. Every debounced keystroke sends one. A new funnel starts on
-    /// the first init after a results list showed, so each question has one funnel with its
-    /// inits and its list. A search from a recent search or from dictation says so in the subtype.
+    /// The reader cancelled the search or left the screen without opening an article. The next
+    /// search starts a new funnel.
+    func endSearch() {
+        instrument.stopFunnel()
+    }
+
+    /// A search goes to the server. Every debounced search sends one, in the funnel of the
+    /// screen. A search from a recent search or from dictation says so in the subtype.
     func logSearchInit(searchTerm: String, project: WMFProject, origin: SearchOrigin = .typed) {
         self.project = project
-        if instrument.funnel == nil || funnelHasResults {
-            funnelHasResults = false
+        if instrument.funnel == nil {
             instrument.startFunnel(name: Self.funnelName)
         }
         submit(action: "init", actionSubtype: origin.actionSubtype, actionContext: Self.queryContext(searchTerm))
     }
 
-    func logRecentSearchTap(searchTerm: String, project: WMFProject? = nil) {
-        if let project {
-            self.project = project
-        }
-        submit(action: "click", actionSubtype: "recent_search", elementId: "search_result", actionContext: Self.queryContext(searchTerm))
-    }
-
     // MARK: - Lexical results
 
     func logLexicalResultsImpression(searchIDs: LexicalSearchIDs) {
-        funnelHasResults = true
         submit(action: "impression", actionSubtype: "lexical_result", elementId: "search_result", actionContext: searchIDs.actionContext)
     }
 
@@ -346,7 +324,7 @@ private extension WMFSearchType {
     var searchResultType: String {
         switch self {
         case .prefix: return "PREFIX"
-        case .full: return "FULLTEXT"
+        case .full: return "FULL_TEXT"
         }
     }
 }

@@ -12,7 +12,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
     private let instrumentation: SearchInstrumentation
     /// The id is the search id of the request that gave the result, for the instrumentation. The flag
     /// tells whether the article should ask for feedback: the reader ignored the prompt in the sheet.
-    private let didSelectResult: (WMFSemanticSearchResult, String?, Bool) -> Void
+    private let didSelectResult: @MainActor @Sendable (WMFSemanticSearchResult, String?, Bool) -> Void
 
     private var viewModel: WMFSemanticSearchResultsViewModel?
     /// Kept after the sheet is dismissed to open an article, so `restore()` can show the same sheet again.
@@ -24,7 +24,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         query: String,
         project: WMFProject,
         instrumentation: SearchInstrumentation,
-        didSelectResult: @escaping (WMFSemanticSearchResult, String?, Bool) -> Void
+        didSelectResult: @escaping @MainActor @Sendable (WMFSemanticSearchResult, String?, Bool) -> Void
     ) {
         self.navigationController = navigationController
         self.query = query
