@@ -11,6 +11,14 @@ public protocol WMFSemanticSearchResultsLoggingDelegate: AnyObject {
     func logResultTap(position: Int, searchID: String?)
 }
 
+/// Decides whether the sheet may show the feedback prompt, and learns when it shows. The app side
+/// implements it, so the prompt follows the search session instead of one sheet.
+@MainActor
+public protocol WMFSemanticSearchFeedbackPromptDelegate: AnyObject {
+    var canShowSheetFeedbackPrompt: Bool { get }
+    func sheetFeedbackPromptDidAppear()
+}
+
 @MainActor
 public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
@@ -50,6 +58,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     public private(set) var searchID: String?
 
     public weak var loggingDelegate: WMFSemanticSearchResultsLoggingDelegate?
+    public weak var feedbackPromptDelegate: WMFSemanticSearchFeedbackPromptDelegate?
 
     @Published private(set) var isFeedbackVisible = false
 
@@ -70,9 +79,14 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     private let feedbackTextFieldFocusAction: Action?
     private let feedbackDelay: Duration
     private var feedbackTask: Task<Void, Never>?
-    /// The sheet has had its one chance to ask: the reader submitted the banner, or an article
-    /// opened from a passage took over asking. The banner doesn't come back and no other article asks.
-    private var hasAskedForFeedback = false
+    /// The banner got on screen in this sheet. It doesn't come back.
+    private var hasShownFeedback = false
+    private var isSheetVisible = false
+
+    /// The delegate has the last word, so the banner shows at most once per search session.
+    private var canShowFeedback: Bool {
+        !hasShownFeedback && (feedbackPromptDelegate?.canShowSheetFeedbackPrompt ?? true)
+    }
 
     private(set) lazy var betaLabel = CommonStrings.betaLabel(languageCode: languageCode)
     private(set) lazy var emptyTitle = WMFLocalizedString("search-semantic-results-empty-title", languageCode: languageCode, value: "No results for this search", comment: "Shown in the sheet of passages found inside articles when the search returns nothing.")
@@ -107,6 +121,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     public func load() {
         cancel()
+        cancelScheduledFeedback()
         state = .loading
         results = []
         searchID = nil
@@ -131,6 +146,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
             results = response.results.map { WMFSemanticSearchResultViewModel(result: $0, project: project, localizedStrings: resultLocalizedStrings, readInArticleAction: readInArticleAction) }
             state = results.isEmpty ? .empty : .results
             logImpressionIfLoaded()
+            scheduleFeedbackIfNeeded()
         } catch is CancellationError {
             return
         } catch {
@@ -187,31 +203,54 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     // MARK: - Feedback
 
-    /// Shows the feedback prompt a moment after the sheet appears. Call it when the sheet appears.
+    /// Call it when the sheet appears. The feedback prompt shows a moment after results are on screen.
     public func sheetDidAppear() {
-        guard feedbackTask == nil, !hasAskedForFeedback else { return }
+        isSheetVisible = true
+        scheduleFeedbackIfNeeded()
+    }
 
-        feedbackTask = Task { [weak self, feedbackDelay] in
-            try? await Task.sleep(for: feedbackDelay)
-            guard !Task.isCancelled else { return }
-            self?.isFeedbackVisible = true
-        }
+    /// Stops the prompt that was due, so a sheet off screen doesn't count as asking. Call it when
+    /// the sheet disappears.
+    public func sheetDidDisappear() {
+        isSheetVisible = false
+        cancelScheduledFeedback()
     }
 
     /// Call it when opening an article from a passage. Returns true when the reader neither
-    /// answered the prompt nor started to, so the article should ask instead. In that case the
-    /// sheet stops asking, so a reader who comes back to it and opens another passage isn't asked twice.
+    /// answered the prompt nor started to, so the article may ask instead. The banner hides.
     public func handOffFeedbackIfIgnored() -> Bool {
-        guard !hasAskedForFeedback, !feedbackViewModel.hasRated else { return false }
-
-        hasAskedForFeedback = true
         isFeedbackVisible = false
+        cancelScheduledFeedback()
+        return !feedbackViewModel.hasRated
+    }
+
+    /// The banner is part of the results list, so the delay starts once the sheet is on screen with
+    /// results. Time spent loading or on an error doesn't count.
+    private var isReadyForFeedback: Bool {
+        isSheetVisible && state == .results && canShowFeedback
+    }
+
+    private func scheduleFeedbackIfNeeded() {
+        guard feedbackTask == nil, isReadyForFeedback else { return }
+
+        feedbackTask = Task { [weak self, feedbackDelay] in
+            try? await Task.sleep(for: feedbackDelay)
+            guard !Task.isCancelled, let self else { return }
+
+            self.feedbackTask = nil
+            guard self.isReadyForFeedback else { return }
+            self.isFeedbackVisible = true
+            self.hasShownFeedback = true
+            self.feedbackPromptDelegate?.sheetFeedbackPromptDidAppear()
+        }
+    }
+
+    private func cancelScheduledFeedback() {
         feedbackTask?.cancel()
-        return true
+        feedbackTask = nil
     }
 
     private func submitFeedback(rating: WMFSemanticSearchFeedbackViewModel.Rating, text: String?) {
-        hasAskedForFeedback = true
         isFeedbackVisible = false
         feedbackAction?(rating, text)
         WMFToastPresenter.shared.show(WMFToastConfig(title: feedbackViewModel.thanksToastTitle))

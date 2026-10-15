@@ -1145,6 +1145,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         let block = {
             self.webView.alpha = hidden ? 0 : 1
         }
+        // The feedback prompt of a semantic search waits for the content to show.
+        defer {
+            if !hidden {
+                scheduleSemanticSearchFeedbackIfNeeded()
+            }
+        }
         guard animated else {
             block()
             completion?(true)

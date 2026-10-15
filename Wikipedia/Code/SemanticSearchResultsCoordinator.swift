@@ -60,6 +60,7 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         )
 
         viewModel.loggingDelegate = self
+        viewModel.feedbackPromptDelegate = self
         self.viewModel = viewModel
         self.sheetNavigationController = sheetNavigationController
 
@@ -94,7 +95,8 @@ final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
         viewModel?.cancel()
         selectedDetentIdentifier = sheetNavigationController?.sheetPresentationController?.selectedDetentIdentifier
         let searchID = viewModel?.searchID
-        let needsFeedback = viewModel?.handOffFeedbackIfIgnored() ?? false
+        let isFeedbackIgnored = viewModel?.handOffFeedbackIfIgnored() ?? false
+        let needsFeedback = isFeedbackIgnored && instrumentation.canShowFeedbackPrompt(placement: .article)
         sheetNavigationController?.dismiss(animated: true) { [weak self] in
             self?.didSelectResult(result, searchID, needsFeedback)
         }
@@ -150,5 +152,16 @@ extension SemanticSearchResultsCoordinator: WMFSemanticSearchResultsLoggingDeleg
 
     func logResultTap(position: Int, searchID: String?) {
         instrumentation.logResultTap(position: position, searchID: searchID)
+    }
+}
+
+extension SemanticSearchResultsCoordinator: WMFSemanticSearchFeedbackPromptDelegate {
+
+    var canShowSheetFeedbackPrompt: Bool {
+        instrumentation.canShowFeedbackPrompt(placement: .sheet)
+    }
+
+    func sheetFeedbackPromptDidAppear() {
+        instrumentation.feedbackPromptDidAppear(placement: .sheet)
     }
 }
