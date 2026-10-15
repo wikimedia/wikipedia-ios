@@ -297,7 +297,8 @@ struct YearInReviewSlideViewModelFactory {
         return listSlide(
             id: "runnerUpTopics",
             artboard: "frame7",
-            stateMachine: "frame7-statemachine",
+            // The templates file shares the frame9 state machine with frame7.
+            stateMachine: "frame9-statemachine",
             headline: nil,
             bodyText: bodyText,
             items: items,
