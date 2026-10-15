@@ -25,11 +25,14 @@ struct SearchResultsLoader {
         }
     }
 
-    static let fullTextSearchThreshold = 12
+    /// The first page asks for as many results as the Android app's first page (3 pages of 10).
+    static let initialLimit: UInt = 30
+    /// Fewer prefix results than this adds the full text results, as on Android.
+    static let fullTextSearchThreshold = Int(initialLimit)
 
     let fetcher: WMFSearchFetcher
 
-    func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = WMFMaxSearchResultLimit) async throws -> Outcome {
+    func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = Self.initialLimit) async throws -> Outcome {
         let prefixResults: WMFSearchResults
         do {
             prefixResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit)

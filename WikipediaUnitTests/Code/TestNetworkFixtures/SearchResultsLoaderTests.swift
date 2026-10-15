@@ -9,14 +9,45 @@ struct SearchResultsLoaderTests {
     func enoughPrefixResultsSkipTheFullTextSearch() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseData = try fixtureData(named: "BarackSearch")
+        harness.httpClient.responseData = try searchData(pageCount: 30)
 
         let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
 
         #expect(outcome.type == .prefix)
-        #expect(outcome.results.results?.count == 24)
-        #expect(outcome.prefixResultCount == 24)
+        #expect(outcome.results.results?.count == 30)
+        #expect(outcome.prefixResultCount == 30)
+        #expect(harness.httpClient.capturedRequests.first?.queryParameters["gpslimit"] == "30")
         #expect(!harness.httpClient.capturedRequests.containsFullTextSearchRequest)
+    }
+
+    @Test
+    func fullTextResultsAppendToAPrefixResponseWithoutQuery() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [try searchData(pageCount: 0), try searchData(pageCount: 5, titlePrefix: "Full text", firstPageID: 1000)]
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.type == .full)
+        #expect(outcome.prefixResultCount == 0)
+        #expect(outcome.results.results?.count == 5)
+    }
+
+    @Test
+    func fewerPrefixResultsThanAndroidsFirstPageTriggerTheFullTextSearch() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [try fixtureData(named: "BarackSearch"), try searchData(pageCount: 30, titlePrefix: "Full text", firstPageID: 1000)]
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.type == .full)
+        #expect(outcome.prefixResultCount == 24)
+        #expect(outcome.results.results?.count == 54)
+        let fullTextRequest = try #require(harness.httpClient.capturedRequests.last)
+        #expect(fullTextRequest.queryParameters["generator"] == "search")
+        #expect(fullTextRequest.queryParameters["gsrlimit"] == "30")
+        #expect(fullTextRequest.queryParameters["gsroffset"] == "0")
     }
 
     @Test
@@ -137,6 +168,22 @@ struct SearchResultsLoaderTests {
         let session = Session(configuration: .current, httpClientProvider: SearchHTTPClientProvider(httpClient: httpClient))
         let fetcher = WMFSearchFetcher(session: session, configuration: .current)
         return (fetcher, httpClient)
+    }
+
+    /// A response with `pageCount` pages titled "<titlePrefix> <n>", plus a `continue` when `nextOffset` is set.
+    private func searchData(pageCount: Int, titlePrefix: String = "Page", firstPageID: Int = 1, nextOffset: Int? = nil) throws -> Data {
+        var json: [String: Any] = ["batchcomplete": ""]
+        if pageCount > 0 {
+            let pages = (1...pageCount).map { index -> (String, Any) in
+                let pageID = firstPageID + index - 1
+                return ("\(pageID)", ["pageid": pageID, "ns": 0, "title": "\(titlePrefix) \(index)", "index": index])
+            }
+            json["query"] = ["pages": Dictionary(uniqueKeysWithValues: pages)]
+        }
+        if let nextOffset {
+            json["continue"] = ["gsroffset": nextOffset, "continue": "gsroffset||"]
+        }
+        return try JSONSerialization.data(withJSONObject: json)
     }
 
     private func fixtureData(named name: String, limitedTo pageLimit: Int? = nil) throws -> Data {

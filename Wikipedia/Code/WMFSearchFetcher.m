@@ -5,7 +5,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSUInteger const WMFMaxSearchResultLimit = 24;
+NSUInteger const WMFMaxSearchResultLimit = 50;
+NSUInteger const WMFDefaultSearchResultLimit = 24;
 
 #pragma mark - Fetcher Implementation
 

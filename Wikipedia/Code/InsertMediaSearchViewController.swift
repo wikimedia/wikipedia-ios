@@ -98,21 +98,21 @@ final class InsertMediaSearchViewController: UIViewController {
                 })
             }
         }
-        searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
+        searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFDefaultSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
             if let resultsArray = results.results {
                 if resultsArray.isEmpty {
-                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFDefaultSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else if resultsArray.count < 12 {
                     let searchResults = searchResults(results)
                     DispatchQueue.main.async {
                         self.delegate?.insertMediaSearchViewController(self, didFind: searchResults)
                     }
-                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFDefaultSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else {
                     success(results)
                 }
             } else {
-                self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFDefaultSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
             }
         }
     }

@@ -6,6 +6,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSUInteger const WMFMaxSearchResultLimit;
+/// The limit for searches that don't set their own, like Places and Insert Media.
+extern NSUInteger const WMFDefaultSearchResultLimit;
 
 @interface WMFSearchFetcher : WMFLegacyFetcher
 
