@@ -1079,5 +1079,21 @@
 			<string>%1$d филтри</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-biggest-reading-day-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Проведовте вкупно %1$#@v1@ на Википедија. Нели сте продуктивни?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d минута</string>
+			<key>other</key>
+			<string>%1$d минути</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
