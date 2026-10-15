@@ -98,7 +98,8 @@ final class SearchInstrumentationTests: XCTestCase {
 
         let prefixTap = try context(of: sender.events[2])
         XCTAssertEqual(prefixTap["type"], "PREFIX")
-        XCTAssertNil(prefixTap["search_id_ful"])
+        XCTAssertEqual(prefixTap["search_id_pre"], "pre")
+        XCTAssertEqual(prefixTap["search_id_ful"], "")
     }
 
     func testTheOriginOfTheSearchIsTheSubtypeOfTheInit() throws {
