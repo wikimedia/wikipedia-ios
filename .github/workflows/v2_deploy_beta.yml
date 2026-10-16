@@ -409,13 +409,27 @@ jobs:
                     print(f"Could not fetch PR #{pr_num}: {e}")
                     break
 
+              # Accept the task however the author wrote it: a full URL, a URL
+              # with no scheme, or a bare task ID. All three turn up in practice,
+              # and a near-miss used to drop the task silently - the task would be
+              # missing from the release task's Included Tasks and would never get
+              # its "Available in: TestFlight Wikipedia" comment. Normalised to
+              # canonical URLs so everything downstream is unchanged. "N/A" still
+              # matches nothing, so deliberate opt-outs keep working.
+              #
+              # The separator has to stay \s - authors often list several tasks
+              # one per line, and restricting it to spaces and tabs silently keeps
+              # only the first.
               phab_section = re.findall(
-                r'\*{0,2}Phabricator:\*{0,2}\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
+                r'\*{0,2}Phabricator:\*{0,2}\s*((?:(?:https?://)?(?:phabricator\.wikimedia\.org/)?T\d+[\s,]*)+)',
                 body, re.IGNORECASE
               )
               for section in phab_section:
-                urls = re.findall(r'https://phabricator\.wikimedia\.org/T\d+', section)
-                phab_tasks.extend(urls)
+                # IGNORECASE to match the outer pattern - otherwise a lowercase
+                # t12345 matches there and then yields nothing here. Digits only,
+                # so the URL is canonical whatever case was written.
+                ids = re.findall(r'T(\d+)', section, re.IGNORECASE)
+                phab_tasks.extend(f'https://phabricator.wikimedia.org/T{i}' for i in ids)
 
             return list(dict.fromkeys(phab_tasks))
 
