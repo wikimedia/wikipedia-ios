@@ -2024,5 +2024,14 @@
       "Content-Type": "image/webp"
     },
     "bodyResource": "46pxWikispeciesLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "path": "/api/rest_v1/feed/configuration",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "FeatureConfig/AppsFeatureConfig.json"
   }
 ]
