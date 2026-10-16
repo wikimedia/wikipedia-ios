@@ -1,3 +1,4 @@
+import CoreText
 import Foundation
 import RiveRuntime
 import UIKit
@@ -24,24 +25,54 @@ enum WMFRiveWorkerProvider {
     // TEMPORARY: drop with the inventory dump below once the .riv paths are settled.
     private static var didDumpInventory = false
 
+    /// The files export SF Pro, which the app must not bundle. Thus the app supplies the system font.
     private static let systemFontSubstitutions: [String: UIFont] = [
         "SanSerifFont": .systemFont(ofSize: 17, weight: .bold),
         // The list subtitles use this face. The export renames SF Pro Regular.
-        "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular),
-        // TEMPORARY: New York stands in for Linux Libertine to prove the mechanism.
-        // Design must either embed the real serif on export or approve this substitute.
-        "SerifFont": serifSystemFont(ofSize: 17)
+        "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular)
     ]
 
-    /// The system font that the app supplies for a font asset of the .riv, or `nil` if it supplies none.
-    static func substituteFont(forAssetNamed name: String) -> UIFont? {
-        systemFontSubstitutions[name]
+    /// A font file in the module bundle that the app supplies for a font asset of the .riv.
+    private struct BundledFont {
+        let resourceName: String
+        let fileExtension: String
+        /// The PostScript name in the file, to make a `UIFont` for text measurement.
+        let postScriptName: String
+
+        var url: URL? {
+            Bundle.module.url(forResource: resourceName, withExtension: fileExtension)
+        }
     }
 
-    private static func serifSystemFont(ofSize size: CGFloat) -> UIFont {
-        let base = UIFont.systemFont(ofSize: size)
-        guard let descriptor = base.fontDescriptor.withDesign(.serif) else { return base }
-        return UIFont(descriptor: descriptor, size: size)
+    /// Linux Libertine, under the SIL Open Font License. The export renames it "SerifFont".
+    private static let bundledFonts: [String: BundledFont] = [
+        "SerifFont": BundledFont(resourceName: "SerifFont-Regular", fileExtension: "ttf", postScriptName: "SerifFont-Regular")
+    ]
+
+    private static var registeredBundledFonts: Set<String> = []
+
+    /// The font that the app supplies for a font asset of the .riv, or `nil` if it supplies none.
+    /// Text measurement uses it, so it is the same font that Rive draws.
+    static func substituteFont(forAssetNamed name: String) -> UIFont? {
+        if let systemFont = systemFontSubstitutions[name] {
+            return systemFont
+        }
+        guard let bundledFont = bundledFonts[name] else {
+            return nil
+        }
+        registerIfNeeded(bundledFont)
+        return UIFont(name: bundledFont.postScriptName, size: 17)
+    }
+
+    /// Registers the font file for this process, so that `UIFont(name:size:)` can find it.
+    private static func registerIfNeeded(_ bundledFont: BundledFont) {
+        guard !registeredBundledFonts.contains(bundledFont.postScriptName),
+              let url = bundledFont.url else {
+            return
+        }
+        // A font that is already registered gives an error, but `UIFont(name:size:)` still finds it.
+        CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+        registeredBundledFonts.insert(bundledFont.postScriptName)
     }
 
     static func sharedWorker() async throws -> Worker {
@@ -82,7 +113,7 @@ enum WMFRiveWorkerProvider {
         let worker = try await sharedWorker()
         let file = try await File(source: .local(animation.resourceName, .module), worker: worker)
 
-        await supplySystemFonts(for: file, on: worker, animation: animation)
+        await supplyFonts(for: file, on: worker, animation: animation)
 
         #if DEBUG
         // TEMPORARY: prints the file's artboards, view models and property paths.
@@ -114,7 +145,7 @@ enum WMFRiveWorkerProvider {
         return Bundle.module.url(forResource: animation.resourceName, withExtension: "riv") != nil
     }
 
-    private static func supplySystemFonts(for file: File, on worker: Worker, animation: WMFRiveAnimation) async {
+    private static func supplyFonts(for file: File, on worker: Worker, animation: WMFRiveAnimation) async {
         let assets: [File.Asset]
         do {
             assets = try await file.getAssets()
@@ -124,15 +155,21 @@ enum WMFRiveWorkerProvider {
         }
 
         for asset in assets where asset.type == .font {
-            guard let substitute = systemFontSubstitutions[asset.name] else { continue }
             guard !suppliedFontAssets.contains(asset.uniqueName) else { continue }
 
             do {
-                let font = try await worker.decodeFont(from: substitute)
+                let font: RiveRuntime.Font
+                if let systemFont = systemFontSubstitutions[asset.name] {
+                    font = try await worker.decodeFont(from: systemFont)
+                } else if let url = bundledFonts[asset.name]?.url {
+                    font = try await worker.decodeFont(from: Data(contentsOf: url))
+                } else {
+                    continue
+                }
                 worker.addGlobalFontAsset(font, name: asset.uniqueName)
                 suppliedFontAssets.insert(asset.uniqueName)
             } catch {
-                log(.font, animation, "Could not supply a system font for \"\(asset.uniqueName)\": \(error.localizedDescription)")
+                log(.font, animation, "Could not supply a font for \"\(asset.uniqueName)\": \(error.localizedDescription)")
             }
         }
     }
