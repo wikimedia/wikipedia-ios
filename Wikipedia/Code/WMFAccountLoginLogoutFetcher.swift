@@ -140,6 +140,11 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                 return
             }
 
+            if let response, !HTTPStatusCode.isSuccessful(response.statusCode) {
+                failure(RequestError.from(response: response))
+                return
+            }
+
             guard
                 let clientlogin = result?["clientlogin"] as? [String : Any] else {
                 failure(WMFAccountLoginError.cannotExtractLoginStatus)
