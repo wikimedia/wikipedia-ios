@@ -509,6 +509,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     @objc private func appDidEnterBackgroundWithNotification(_ note: Notification) {
         guard uiIsLoaded else { return }
+        ClientErrorFunnel.shared.flushRateLimitSummaries()
         startPauseAppBackgroundTask()
         DispatchQueue.main.async {
             self.pauseApp()
