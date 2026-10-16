@@ -60,17 +60,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"pilimit": numResults,
                    //@"rrvlimit": @(1),
                    @"rvprop": @"ids",
-                   // -- Parameters causing prefix search to efficiently return suggestion.
-                   @"list": @"search",
-                   @"srsearch": searchTerm,
-                   @"srnamespace": @0,
-                   @"srwhat": @"text",
-                   @"srinfo": @"suggestion",
-                   @"srprop": @"",
-                   @"sroffset": @0,
-                   @"srlimit": @1,
                    @"redirects": @1,
-                   // --
                    @"continue": @"",
                    @"format": @"json"
                    };
@@ -116,6 +106,9 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                          NSDictionary *query = [result objectForKey:@"query"];
                          if (!query) {
                              WMFSearchResults *returnResults = previousResults == nil ? [[WMFSearchResults alloc] initWithLanguageVariantCode:url.wmf_languageVariantCode] : previousResults;
+                             if (!returnResults.searchTerm) {
+                                 returnResults.searchTerm = searchTerm;
+                             }
                              [self setSearchID:searchID onResults:returnResults fullTextSearch:fullTextSearch];
                              success(returnResults);
                              return;
@@ -184,17 +177,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils listThumbnailWidth]],
                    @"pilimit": numResults,
                    @"rvprop": @"ids",
-                   // -- Parameters causing prefix search to efficiently return suggestion.
-                   @"list": @"search",
-                   @"srsearch": searchTerm,
-                   @"srnamespace": namespace,
-                   @"srwhat": @"text",
-                   @"srinfo": @"suggestion",
-                   @"srprop": @"",
-                   @"sroffset": @0,
-                   @"srlimit": @1,
                    @"redirects": @1,
-                   // --
                    @"continue": @"",
                    @"format": @"json"
                    };

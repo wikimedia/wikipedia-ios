@@ -36,6 +36,19 @@ struct SearchResultsLoaderTests {
     }
 
     @Test
+    func noPrefixResultsStillShowTheFullTextResults() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.httpClient.responseDataQueue = [try JSONSerialization.data(withJSONObject: ["batchcomplete": true]), try fixtureData(named: "BarackSearch")]
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.type == .full)
+        #expect(outcome.prefixResultCount == 0)
+        #expect((outcome.results.results?.count ?? 0) > 0)
+    }
+
+    @Test
     func fullTextResultsKeepBothSearchIDs() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
