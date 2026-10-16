@@ -27,6 +27,9 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        // The announcement is always light, whatever the system style is.
+        overrideUserInterfaceStyle = .light
+
         // The artwork sets the color of the controls in its .riv, which is known only after it loads.
         // `@Published` sends the new value before the property changes, so use the value it sends.
         viewModel.$contentStyle
@@ -46,7 +49,7 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
 
     // MARK: - Navigation bar
 
-    /// Same navigation bar as the slides.
+    /// Same navigation bar as the slides, without the W.
     private func configureNavigationBar() {
         WMFYearInReviewNavigationItems.configure(
             self,
@@ -59,6 +62,7 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
                 shareFeedbackTitle: viewModel.localizedStrings.shareFeedbackButtonTitle
             ),
             tintColor: viewModel.contentColor,
+            showsWikipediaLogo: false,
             closeAction: #selector(tappedClose),
             onLearnMore: { [weak self] in self?.viewModel.tappedLearnMore() },
             onAboutInsights: { [weak self] in self?.viewModel.tappedAboutInsights() },
