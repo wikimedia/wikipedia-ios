@@ -26,7 +26,11 @@ public final class WidgetContentFetcher {
     /// Fetches the day's feed. The diagnostics describe what happened whether or not the result
     /// is a success, so the controller can persist them for the developer settings screen.
     public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult, WidgetFetchDiagnostics) -> Void) {
-        var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
+        // The Swift feed content fetcher returns an optional URL.
+        guard var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current) else {
+            completion(.failure(.urlFailure), WidgetFetchDiagnostics(date: Date(), url: "", outcome: .networkFailure, errorDescription: "Could not build the feed URL"))
+            return
+        }
         featuredURL.wmf_languageVariantCode = languageVariantCode
         let urlString = featuredURL.absoluteString
 

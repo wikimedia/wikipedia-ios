@@ -9,6 +9,15 @@ public protocol WMFURLSession: Sendable {
 
 public protocol WMFURLSessionDataTask {
     func resume()
+
+    /// Stops the request. URLSessionDataTask supplies this method. A mock task that does no
+    /// work gets the default, which does nothing.
+    func cancel()
+}
+
+public extension WMFURLSessionDataTask {
+    func cancel() {
+    }
 }
 
 extension URLSession: WMFURLSession {

@@ -1,0 +1,65 @@
+import Foundation
+import WMF
+import WMFData
+
+let WMFMaxSearchResultLimit: UInt = 24
+
+struct MWKSearchRedirectMapping: Hashable {
+    let redirectFromTitle: String
+    let redirectToTitle: String
+
+    init(fromTitle: String, toTitle: String) {
+        redirectFromTitle = fromTitle
+        redirectToTitle = toTitle
+    }
+
+    init(redirect: WMFArticleSearchRedirect) {
+        redirectFromTitle = redirect.from
+        redirectToTitle = redirect.to
+    }
+}
+
+/// Holds the results of a prefix search, and of a full text search for the same term.
+final class WMFSearchResults {
+    let searchTerm: String
+    private(set) var results: [MWKSearchResult]
+    private(set) var redirectMappings: [MWKSearchRedirectMapping]
+    private(set) var searchSuggestion: String?
+
+    init(searchTerm: String, results: [MWKSearchResult] = [], searchSuggestion: String? = nil, redirectMappings: [MWKSearchRedirectMapping] = []) {
+        self.searchTerm = searchTerm
+        self.results = results
+        self.searchSuggestion = searchSuggestion
+        self.redirectMappings = redirectMappings
+    }
+
+    /// - Parameter languageVariantCode: The initializer sets it on the thumbnail URLs.
+    convenience init(searchTerm: String, response: WMFArticleSearchResponse, languageVariantCode: String?) {
+        self.init(
+            searchTerm: searchTerm,
+            results: response.results.map { MWKSearchResult(result: $0, languageVariantCode: languageVariantCode) },
+            searchSuggestion: response.suggestion,
+            redirectMappings: response.redirects.map { MWKSearchRedirectMapping(redirect: $0) }
+        )
+    }
+
+    /// Appends the results of another request. A result is not added if its display title is
+    /// already present, including a repeat inside `other`.
+    func merge(_ other: WMFSearchResults) {
+        var knownDisplayTitles = Set(results.compactMap(\.displayTitle))
+        let newResults = other.results.filter { result in
+            guard let displayTitle = result.displayTitle else {
+                return false
+            }
+            return knownDisplayTitles.insert(displayTitle).inserted
+        }
+        results.append(contentsOf: newResults)
+
+        let newMappings = other.redirectMappings.filter { !redirectMappings.contains($0) }
+        redirectMappings.append(contentsOf: newMappings)
+
+        if searchSuggestion?.isEmpty ?? true {
+            searchSuggestion = other.searchSuggestion
+        }
+    }
+}

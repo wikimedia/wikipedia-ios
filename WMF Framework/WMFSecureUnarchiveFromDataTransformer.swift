@@ -4,6 +4,11 @@ import Foundation
 @objc(WMFSecureUnarchiveFromDataTransformer)
 class SecureUnarchiveFromDataTransformer: NSSecureUnarchiveFromDataTransformer {
     override class var allowedTopLevelClasses: [AnyClass] {
-        return  super.allowedTopLevelClasses + [WMFMTLModel.self, NSSet.self, CLLocation.self, CLPlacemark.self, RemoteNotificationLinks.self, RemoteNotificationLink.self]
+        // The feed and Places archive these classes into Core Data. Remove them together with the Explore feed.
+        let bridgeClasses: [AnyClass] = [WMFFeedArticlePreview.self, WMFFeedTopReadArticlePreview.self, WMFFeedNewsStory.self, WMFFeedOnThisDayEvent.self, WMFFeedImage.self, MWKSearchResult.self, MWKLocationSearchResult.self]
+        // Earlier app versions archived an announcement into a content group. The app must decode
+        // that value to delete the row. Remove this class when those rows are no longer on disk.
+        let obsoleteClasses: [AnyClass] = [WMFAnnouncement.self]
+        return super.allowedTopLevelClasses + [NSSet.self, CLLocation.self, CLPlacemark.self, RemoteNotificationLinks.self, RemoteNotificationLink.self] + bridgeClasses + obsoleteClasses
     }
 }

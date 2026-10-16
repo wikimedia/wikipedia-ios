@@ -93,7 +93,6 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 - (void)setFullContentObject:(id<NSCoding>)fullContentObject; // will automatically create or update fullContent relationship
 - (void)updateContentPreviewWithContent:(id)content;
 
-- (void)updateVisibilityForUserIsLoggedIn:(BOOL)isLoggedIn;
 - (void)markDismissed;
 
 @end
