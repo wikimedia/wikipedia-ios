@@ -178,12 +178,12 @@ extension ArticleRobot {
         let initialLabel = saveButton.label
         saveButton.tap()
 
-        let predicate = NSPredicate { _, _ in
-            saveButton.exists && saveButton.label != initialLabel
-        }
-        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
+        // Bind the predicate to the element so each poll costs one snapshot. CI runners can take
+        // seconds per accessibility query, so separate exists/label reads could miss a short timeout.
+        let predicate = NSPredicate(format: "exists == true AND label != %@", initialLabel)
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: saveButton)
         XCTAssertEqual(
-            XCTWaiter.wait(for: [expectation], timeout: 5),
+            XCTWaiter.wait(for: [expectation], timeout: 15),
             .completed,
             "Expected the article save button state to change after tapping it.",
             file: file,
