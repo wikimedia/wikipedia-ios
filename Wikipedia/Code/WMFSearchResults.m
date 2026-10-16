@@ -9,7 +9,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (nonatomic, copy, readwrite) NSString *searchTerm;
-@property (nonatomic, copy, nullable, readwrite) NSString *searchSuggestion;
 @property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *results;
 @property (nonatomic, copy, nullable, readwrite) NSString *prefixSearchID;
 @property (nonatomic, copy, nullable, readwrite) NSString *fullTextSearchID;
@@ -39,13 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSearchTerm:(NSString *)searchTerm
                            results:(nullable NSArray<MWKSearchResult *> *)results
-                  searchSuggestion:(nullable NSString *)suggestion
                   redirectMappings:(NSArray<MWKSearchRedirectMapping *> *)redirectMappings {
     self = [self init];
     if (self) {
         self.searchTerm = searchTerm;
         self.results = results;
-        self.searchSuggestion = suggestion;
         self.redirectMappings = redirectMappings;
     }
     return self;
@@ -92,7 +89,6 @@ NS_ASSUME_NONNULL_BEGIN
     return @{
         WMF_SAFE_KEYPATH(WMFSearchResults.new, results): @"pages",
         WMF_SAFE_KEYPATH(WMFSearchResults.new, redirectMappings): @"redirects",
-        WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"searchinfo.suggestion",
     };
 }
 
@@ -133,14 +129,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (searchResults.fullTextSearchID) {
         self.fullTextSearchID = searchResults.fullTextSearchID;
     }
-}
-
-- (void)mergeSearchSuggestionFromModel:(WMFSearchResults *)searchResults {
-    // preserve current search suggestion if there is one
-    if (self.searchSuggestion.length) {
-        return;
-    }
-    self.searchSuggestion = searchResults.searchSuggestion;
 }
 
 #pragma mark - KVO

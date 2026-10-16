@@ -2151,10 +2151,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                     return
                 }
 
-                if let suggestion = searchResult.searchSuggestion {
-                    DDLogDebug("got suggestion! \(suggestion)")
-                }
-
                 let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
                 self.isWaitingForSearchSuggestionUpdate = false
                 guard completions.count < 10 else {

@@ -34,9 +34,6 @@ struct WMFSearchFetcherTests {
 
         let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
 
-        let query = json["query"] as? [String: Any]
-        let searchInfo = query?["searchinfo"] as? [String: Any]
-        #expect(result.searchSuggestion == searchInfo?["suggestion"] as? String)
         #expect(result.results?.count == 0)
         #expect(harness.httpClient.capturedRequests.containsPrefixSearchRequest)
     }
