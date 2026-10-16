@@ -2594,6 +2594,9 @@
 		F1A700000000000000000012 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
 		F1A700000000000000000013 /* TestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */; };
 		FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */; };
+		FA71B2C400000003000000AA /* RequestErrorServerBusyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */; };
+		FA71B2C400000005000000AA /* SessionServerBusyFallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */; };
+		FA71B2C400000007000000AA /* RateLimitSummaryAccumulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */; };
 		FAC0D3AA00000001000000AA /* CollectionViewUpdaterCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
@@ -4293,6 +4296,9 @@
 		F1A700000000000000000011 /* TestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHTTPClientProfile.swift; sourceTree = "<group>"; };
 		F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcherTests.swift; sourceTree = "<group>"; };
+		FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestErrorServerBusyTests.swift; sourceTree = "<group>"; };
+		FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServerBusyFallbackTests.swift; sourceTree = "<group>"; };
+		FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitSummaryAccumulatorTests.swift; sourceTree = "<group>"; };
 		FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdaterCrashTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -7226,6 +7232,9 @@
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */,
+				FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */,
+				FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */,
+				FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */,
 				FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 				E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */,
@@ -9364,6 +9373,9 @@
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */,
+				FA71B2C400000003000000AA /* RequestErrorServerBusyTests.swift in Sources */,
+				FA71B2C400000005000000AA /* SessionServerBusyFallbackTests.swift in Sources */,
+				FA71B2C400000007000000AA /* RateLimitSummaryAccumulatorTests.swift in Sources */,
 				FAC0D3AA00000001000000AA /* CollectionViewUpdaterCrashTests.swift in Sources */,
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
