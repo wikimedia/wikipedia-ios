@@ -62,6 +62,66 @@ struct ClientErrorThrottle {
     }
 }
 
+/// Counts the 429s the throttle drops, per host and endpoint family, so the one 429 event
+/// that gets through can carry the volume behind it. Pure value type; the funnel's lock
+/// does the synchronization.
+struct RateLimitSummaryAccumulator {
+    struct Summary: Equatable {
+        var droppedCount = 0
+        var countsByEndpoint: [String: Int] = [:]
+
+        /// "page/mobile-html:40,page/media-list:8" — highest count first, then by name.
+        var endpointsValue: String {
+            countsByEndpoint
+                .sorted { $0.value == $1.value ? $0.key < $1.key : $0.value > $1.value }
+                .map { "\($0.key):\($0.value)" }
+                .joined(separator: ",")
+        }
+    }
+
+    private var summariesByHost: [String: Summary] = [:]
+
+    mutating func record(urlString: String?) {
+        let (host, endpoint) = Self.hostAndEndpoint(from: urlString)
+        var summary = summariesByHost[host] ?? Summary()
+        summary.droppedCount += 1
+        summary.countsByEndpoint[endpoint, default: 0] += 1
+        summariesByHost[host] = summary
+    }
+
+    mutating func take(host: String) -> Summary? {
+        summariesByHost.removeValue(forKey: host)
+    }
+
+    mutating func takeAll() -> [String: Summary] {
+        defer { summariesByHost = [:] }
+        return summariesByHost
+    }
+
+    static func hostAndEndpoint(from urlString: String?) -> (host: String, endpoint: String) {
+        guard let urlString, let url = URL(string: urlString) else {
+            return ("unknown", "unknown")
+        }
+        return (url.host ?? "unknown", endpointPattern(for: url))
+    }
+
+    /// Collapses a URL to its endpoint family. Titles, revisions and dates are dropped.
+    static func endpointPattern(for url: URL) -> String {
+        let components = url.pathComponents.filter { $0 != "/" }
+        if components.contains("api.php") {
+            let action = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first { $0.name == "action" }?.value ?? "?"
+            return "api.php?action=\(action)"
+        }
+        if let restIndex = components.firstIndex(of: "rest_v1") {
+            return components.dropFirst(restIndex + 1).prefix(2).joined(separator: "/")
+        }
+        if let restIndex = components.firstIndex(of: "rest.php") {
+            return "rest.php/" + components.dropFirst(restIndex + 1).prefix(2).joined(separator: "/")
+        }
+        return components.prefix(2).joined(separator: "/")
+    }
+}
+
 // @unchecked because NSObject is not Sendable; the only mutable state is the
 // throttle, which is guarded by its lock, and EventPlatformClient.submit handles
 // its own synchronization — so it is safe to use from any thread.
@@ -70,6 +130,7 @@ struct ClientErrorThrottle {
     @objc public static let shared = ClientErrorFunnel()
 
     private let throttle = OSAllocatedUnfairLock(initialState: ClientErrorThrottle())
+    private let rateLimitSummaries = OSAllocatedUnfairLock(initialState: RateLimitSummaryAccumulator())
 
     // The schema rejects unknown top-level fields (additionalProperties: false),
     // so the app install ID travels inside error_context, the schema's
@@ -131,6 +192,26 @@ struct ClientErrorThrottle {
         EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
     }
 
+    /// error_context is the schema's free-form field: app install ID plus what the
+    /// server asked (Retry-After) and whether the user saw cached content or the error.
+    static func httpErrorContext(for info: WMFHTTPErrorInfo) -> [String: String]? {
+        var context = appInstallIDContext ?? [:]
+        if let retryAfter = info.retryAfter {
+            context["retry_after"] = String(Int(retryAfter))
+        }
+        if info.servedFromCache {
+            context["served_from_cache"] = "true"
+        }
+        return context.isEmpty ? nil : context
+    }
+
+    static func summaryContext(_ summary: RateLimitSummaryAccumulator.Summary) -> [String: String] {
+        [
+            "dropped_429_count": String(summary.droppedCount),
+            "dropped_429_endpoints": summary.endpointsValue
+        ]
+    }
+
     public func logHTTPError(info: WMFHTTPErrorInfo) {
         // Never log errors from the event intake itself: that would emit a new event
         // to the same failing endpoint, creating a feedback loop. Intake requests
@@ -142,18 +223,50 @@ struct ClientErrorThrottle {
 
         guard throttle.withLock({ $0.shouldLog(errorClass: info.source, urlString: info.url, statusCode: info.statusCode) }) else {
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .errorThrottled)
+            if info.statusCode == 429 {
+                rateLimitSummaries.withLock { $0.record(urlString: info.url) }
+            }
             return
+        }
+
+        var context = Self.httpErrorContext(for: info) ?? [:]
+        if info.statusCode == 429 {
+            // The event that gets through carries the 429s dropped since the previous one for this host.
+            let host = RateLimitSummaryAccumulator.hostAndEndpoint(from: info.url).host
+            if let summary = rateLimitSummaries.withLock({ $0.take(host: host) }) {
+                context.merge(Self.summaryContext(summary)) { _, new in new }
+            }
         }
 
         let http = Event.Http(method: info.method, statusCode: info.statusCode)
         let event = Event(
             message: "HTTP \(info.statusCode)",
             errorClass: info.source,
-            errorContext: Self.appInstallIDContext,
+            errorContext: context.isEmpty ? nil : context,
             stackTrace: nil,
             url: info.url,
             http: http
         )
         EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
+    }
+
+    /// Sends the 429s the throttle held back and no later event carried, one event per host.
+    /// Call when the app goes to the background, so the last window is not lost.
+    public func flushRateLimitSummaries() {
+        let summaries = rateLimitSummaries.withLock { $0.takeAll() }
+        for (host, summary) in summaries where summary.droppedCount > 0 {
+            var context = Self.appInstallIDContext ?? [:]
+            context["host"] = host
+            context.merge(Self.summaryContext(summary)) { _, new in new }
+            let event = Event(
+                message: "HTTP 429 summary",
+                errorClass: "RateLimitSummary",
+                errorContext: context,
+                stackTrace: nil,
+                url: nil,
+                http: nil
+            )
+            EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
+        }
     }
 }

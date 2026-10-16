@@ -23,9 +23,14 @@ public struct Header {
 class PermanentlyPersistableURLCache: URLCache, @unchecked Sendable {
     let cacheManagedObjectContext: NSManagedObjectContext
     
+    // URLCache does not store a response larger than 5% of diskCapacity. With the
+    // shared default (10 MB) the five PCS resources above 500 KB (mathjax bundle and
+    // fonts, 4.6 MB in total) are downloaded again for every saved article.
+    static let diskCapacity = 100_000_000
+
     init(moc: NSManagedObjectContext) {
         cacheManagedObjectContext = moc
-        super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: URLCache.shared.diskCapacity, diskPath: nil)
+        super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: Self.diskCapacity, diskPath: nil)
     }
     
 // MARK: Public - Overrides
