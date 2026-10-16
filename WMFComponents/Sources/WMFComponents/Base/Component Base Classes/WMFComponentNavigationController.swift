@@ -219,17 +219,20 @@ open class WMFComponentNavigationController: UINavigationController {
 
 extension WMFComponentNavigationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard viewControllers.count > 1,
-              transitionCoordinator == nil else {
-            return false
+        guard gestureRecognizer == interactivePopGestureRecognizer else {
+            return true
         }
-        return true
+        return viewControllers.count > 1 && transitionCoordinator == nil
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == interactivePopGestureRecognizer {
+        false
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer == barHideOnSwipeGestureRecognizer else {
             return false
         }
-        return true
+        return otherGestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer.view == view
     }
 }

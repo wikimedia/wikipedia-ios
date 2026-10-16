@@ -1,7 +1,7 @@
 import Foundation
 
 extension Bundle {
-    @objc public static let wmf: Bundle = Bundle(identifier: "org.wikimedia.WMF")!
+    @objc public static let wmf: Bundle = Bundle(for: Configuration.self)
     
     @objc(wmf_assetsFolderURL)
     public var assetsFolderURL: URL {

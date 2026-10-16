@@ -3,6 +3,9 @@ import SwiftUI
 struct WMFYearInReviewSlideView: View {
 
     let slide: WMFYearInReviewSlideViewModel
+    /// Called with the value of `slide.lightContentFlag` after the slide loads.
+    var onLightContentFlag: (@MainActor (Bool) -> Void)? = nil
+    @StateObject private var thumbnailLoader = WMFYearInReviewThumbnailLoader()
 
     var body: some View {
         ZStack {
@@ -19,8 +22,15 @@ struct WMFYearInReviewSlideView: View {
                 animation,
                 text: slide.text,
                 numbers: slide.numbers,
-                accessibilityLabel: slide.localizedStrings.accessibilityLabel
+                images: thumbnailLoader.images,
+                accessibilityLabel: slide.localizedStrings.accessibilityLabel,
+                readBool: slide.lightContentFlag,
+                textFits: slide.textFits,
+                onReadBool: onLightContentFlag
             )
+            .task(id: slide.articleThumbnails) {
+                await thumbnailLoader.load(slide.articleThumbnails)
+            }
         } else {
             placeholder
         }

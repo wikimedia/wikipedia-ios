@@ -27,10 +27,12 @@ struct WMFSemanticSearchResultCardView: View {
             VStack(alignment: .leading, spacing: WMFSpacing.small) {
                 passage
                 articleRow
-                Divider()
-                    .background(Color(theme.newBorder))
-                    .frame(height: hairline)
-                attributionRow
+                if viewModel.hasAttributionSignals {
+                    Divider()
+                        .background(Color(theme.newBorder))
+                        .frame(height: hairline)
+                    attributionRow
+                }
             }
             .padding(WMFSpacing.large)
             .background(Color(cardBackground))

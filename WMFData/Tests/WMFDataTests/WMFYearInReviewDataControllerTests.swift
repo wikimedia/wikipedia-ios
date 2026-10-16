@@ -252,6 +252,20 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             XCTAssertFalse(shouldShowEntryPointRU, "RU should not show entry point for mock YiR config.")
         }
     }
+
+    func testTopReadPercentageUsesTheConfigBuckets() {
+        let config = WMFFeatureConfigResponse.Common.YearInReview.testConfig
+
+        XCTAssertNil(config.topReadPercentage(forReadCount: 0))
+        XCTAssertNil(config.topReadPercentage(forReadCount: 335), "the average reader is not in the top 50%")
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 336), 50)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 1233), 50)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 1234), 40)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 8900), 20)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 43739), 1)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 43740), 0.01)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 1_000_000), 0.01, "the top bucket has no maximum")
+    }
 }
 
 extension WMFFeatureConfigResponse.Common.YearInReview {

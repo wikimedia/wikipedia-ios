@@ -234,10 +234,11 @@ extension WMFGamesDataController {
         if let lastDate = sorted.last?.date,
            let last = DateFormatter.onThisDayAPIDateFormatter.date(from: lastDate) {
             let today = Date()
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
             let lastDay = Calendar.current.startOfDay(for: last)
-            if !Calendar.current.isDate(lastDay, inSameDayAs: today) &&
-               !Calendar.current.isDate(lastDay, inSameDayAs: yesterday) {
+            let playedToday = Calendar.current.isDate(lastDay, inSameDayAs: today)
+            let playedYesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)
+                .map { Calendar.current.isDate(lastDay, inSameDayAs: $0) } ?? false
+            if !playedToday && !playedYesterday {
                 currentStreak = 0
             }
         } else {

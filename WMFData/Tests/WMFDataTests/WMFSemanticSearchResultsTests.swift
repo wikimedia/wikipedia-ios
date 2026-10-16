@@ -99,6 +99,16 @@ final class WMFSemanticSearchResultsTests {
     }
 
     @Test
+    func attributionUsesTheTotalUniqueContributorCount() async throws {
+        try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService(jsonResourceName: "attribution-signals-get-contributor-counts")) }) {
+            let attribution = try await controller.fetchAttribution(title: "Communication", project: project)
+
+            #expect(attribution.contributorCount == 12)
+            #expect(attribution.referenceCount == 2)
+        }
+    }
+
+    @Test
     func attributionNeedsATitle() async throws {
         _ = await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService()) }) {
             await #expect(throws: WMFDataControllerError.failureCreatingRequestURL) {

@@ -354,6 +354,35 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
     }
 
+    /// Reading days (see `fetchDistinctPageViewDays(calendar:)`) for page views inside a window.
+    ///
+    /// The window is applied to the stored timestamps, as instants, in the fetch request. Only then
+    /// is each timestamp turned into a start of day in `calendar`. Comparing the start of a local day
+    /// with the window instead would be wrong away from UTC, because a local midnight can fall on the
+    /// other side of a window bound than the reads of that day.
+    ///
+    /// The window is half open: `startDate` is in and `endDate` is out. The other fetches in this
+    /// controller include `endDate`. The two differ only for a page view at exactly that instant.
+    public func fetchDistinctPageViewDays(startDate: Date, endDate: Date, calendar: Calendar = .current) async throws -> [Date] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp < %@", startDate as CVarArg, endDate as CVarArg)
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = ["timestamp"]
+            request.returnsDistinctResults = true
+
+            var days: Set<Date> = []
+            for result in try backgroundContext.fetch(request) {
+                guard let timestamp = result["timestamp"] as? Date else { continue }
+                days.insert(calendar.startOfDay(for: timestamp))
+            }
+
+            return days.sorted()
+        }
+    }
+
     public func fetchPageViewsCount(startDate: Date, endDate: Date, minimumDurationSeconds: Int = 0) async throws -> Int {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
