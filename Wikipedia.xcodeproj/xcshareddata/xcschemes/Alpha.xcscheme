@@ -15,15 +15,15 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
-               BuildableName = "Staging.app"
-               BlueprintName = "Staging"
+               BuildableName = "Alpha.app"
+               BlueprintName = "Alpha"
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "StagingDebug"
+      buildConfiguration = "AlphaDebug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "StagingDebug"
+      buildConfiguration = "AlphaDebug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       disablePerformanceAntipatternChecker = "YES"
@@ -46,14 +46,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
-            BuildableName = "Staging.app"
-            BlueprintName = "Staging"
+            BuildableName = "Alpha.app"
+            BlueprintName = "Alpha"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Staging"
+      buildConfiguration = "Alpha"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -63,17 +63,17 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D8EC3DCE1E9BDA35006712EB"
-            BuildableName = "Staging.app"
-            BlueprintName = "Staging"
+            BuildableName = "Alpha.app"
+            BlueprintName = "Alpha"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Staging">
+      buildConfiguration = "Alpha">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Staging"
+      buildConfiguration = "Alpha"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

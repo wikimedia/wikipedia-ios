@@ -30,7 +30,7 @@ import CocoaLumberjackSwift
 
         // Release status must be 1 of 2 values: dev or prod
         let releaseStatus: String
-        #if DEBUG || WMF_STAGING || WMF_EXPERIMENTAL || UITESTS || TEST || WMF_LOCAL
+        #if DEBUG || WMF_ALPHA || WMF_EXPERIMENTAL || UITESTS || TEST || WMF_LOCAL
         releaseStatus = "dev"
         #else
         releaseStatus = Bundle.main.isTestFlight() ? "dev" : "prod"
@@ -39,7 +39,7 @@ import CocoaLumberjackSwift
         let appFlavor: String
         #if DEBUG || WMF_LOCAL || UITESTS || TEST
         appFlavor = "devdebug"
-        #elseif WMF_STAGING || WMF_EXPERIMENTAL
+        #elseif WMF_ALPHA || WMF_EXPERIMENTAL
         appFlavor = "alpharelease"
         #else
         if !Bundle.main.wmf_isAppStoreBundleIdentifier() {

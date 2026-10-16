@@ -26,10 +26,17 @@ enum WMFRiveWorkerProvider {
 
     private static let systemFontSubstitutions: [String: UIFont] = [
         "SanSerifFont": .systemFont(ofSize: 17, weight: .bold),
+        // The list subtitles use this face. The export renames SF Pro Regular.
+        "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular),
         // TEMPORARY: New York stands in for Linux Libertine to prove the mechanism.
         // Design must either embed the real serif on export or approve this substitute.
         "SerifFont": serifSystemFont(ofSize: 17)
     ]
+
+    /// The system font that the app supplies for a font asset of the .riv, or `nil` if it supplies none.
+    static func substituteFont(forAssetNamed name: String) -> UIFont? {
+        systemFontSubstitutions[name]
+    }
 
     private static func serifSystemFont(ofSize size: CGFloat) -> UIFont {
         let base = UIFont.systemFont(ofSize: size)
@@ -64,6 +71,11 @@ enum WMFRiveWorkerProvider {
         }
 
         throw failure ?? WMFRiveError.workerUnavailable
+    }
+
+    /// Decodes image data on the worker that draws the files, so a view model can bind it.
+    static func decodeImage(from data: Data) async throws -> RiveRuntime.Image {
+        try await sharedWorker().decodeImage(from: data)
     }
 
     static func makeRive(for animation: WMFRiveAnimation) async throws -> Rive {

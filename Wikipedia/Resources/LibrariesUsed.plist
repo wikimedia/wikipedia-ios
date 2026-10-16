@@ -1,8 +1,8 @@
-bplist00—]LibrariesUsedÆ
-"%(+.1”	[LicenseName[LicenseTextUTitleP_DApple Maps: 
+bplist00—]LibrariesUsed≠
+"%(+.”	[LicenseTextUTitle[LicenseName_DApple Maps: 
 
 https://gspe21-ssl.ls.apple.com/html/attribution.html
-TMaps”SBSD_BSoftware License Agreement (BSD License)
+TMapsP”_BSoftware License Agreement (BSD License)
 
 Copyright (c) 2010-2016, Deusty, LLC
 All rights reserved.
@@ -19,7 +19,7 @@ with or without modification, are permitted provided that the following conditio
   derived from this software without specific prior
   written permission of Deusty, LLC.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE._CocoaLumberjack”SMIT_	ç**Copyright (c) GitHub, Inc.**
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE._CocoaLumberjackSBSD”_	ç**Copyright (c) GitHub, Inc.**
 **All rights reserved.**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -40,7 +40,7 @@ Redistribution and use in source and binary forms, with or without modification,
  * Neither the name of the Bitswift, Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-VMantle”_3**Copyright (c) 2012 - 2014 Justin Spahr-Summers**
+VMantleSMIT”_3**Copyright (c) 2012 - 2014 Justin Spahr-Summers**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -58,7 +58,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-Zlibextobjc”_9The MIT License (MIT)
+Zlibextobjc”_9The MIT License (MIT)
 
 Copyright (c) 2014-2016 Flipboard
 
@@ -79,7 +79,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-_FLAnimatedImage”ZApache 2.0_FCopyright (c) 2015-2016 The New York Times Company
+_FLAnimatedImage”_FCopyright (c) 2015-2016 The New York Times Company
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this library except in compliance with the License.
@@ -92,7 +92,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-^NYTPhotoViewer”_CCopyright (c) 2016 Sarun Wongpatcharapakorn <artwork.th@gmail.com>
+^NYTPhotoViewerZApache 2.0”_CCopyright (c) 2016 Sarun Wongpatcharapakorn <artwork.th@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -111,7 +111,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-\SWStepSlider” !_;Copyright (c) 2012 ThinkUltimate (http://thinkultimate.com).
+\SWStepSlider” !_;Copyright (c) 2012 ThinkUltimate (http://thinkultimate.com).
 
 http://github.com/davbeck/TUSafariActivity
 
@@ -134,20 +134,7 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
-_TUSafariActivity”#$_,Copyright 2018 Airbnb, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this library except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-VLottie”&'o˝ C o p y r i g h t   ©   2 0 2 0   I n t u i t i o n   M a c h i n e s ,   I n c .   < s u p p o r t @ h c a p t c h a . c o m > 
+_TUSafariActivity”#$o˝ C o p y r i g h t   ©   2 0 2 0   I n t u i t i o n   M a c h i n e s ,   I n c .   < s u p p o r t @ h c a p t c h a . c o m > 
  
  M a d e   a v a i l a b l e   f o r   u s e   b y   o u r   E n t e r p r i s e   c u s t o m e r s   u n d e r   t h e   M I T   l i c e n s e . 
  
@@ -172,7 +159,7 @@ VLottie”&'o˝ C o p y r i g h t   ©   2 0 2 0   I n t u i t i o n   M a c h
  L I A B I L I T Y ,   W H E T H E R   I N   A N   A C T I O N   O F   C O N T R A C T ,   T O R T   O R   O T H E R W I S E ,   A R I S I N G   F R O M , 
  O U T   O F   O R   I N   C O N N E C T I O N   W I T H   T H E   S O F T W A R E   O R   T H E   U S E   O R   O T H E R   D E A L I N G S   I N 
  T H E   S O F T W A R E . 
-XHCaptcha”)*_?Copyright (c) 2009-2020 Olivier Poitrey rs@dailymotion.com
+XHCaptcha”&'_?Copyright (c) 2009-2020 Olivier Poitrey rs@dailymotion.com
  
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -192,7 +179,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-ZSDWebImage”,-oT T h e   M I T   L i c e n s e 
+ZSDWebImage”)*oT T h e   M I T   L i c e n s e 
  C o p y r i g h t   ©   2 0 1 5   S h a i   M i s h a l i ,   K r u n o s l a v   Z a h e r 
  A l l   r i g h t s   r e s e r v e d . 
  
@@ -201,7 +188,7 @@ ZSDWebImage”,-oT T h e   M I T   L i c e n s e 
  T h e   a b o v e   c o p y r i g h t   n o t i c e   a n d   t h i s   p e r m i s s i o n   n o t i c e   s h a l l   b e   i n c l u d e d   i n   a l l   c o p i e s   o r   s u b s t a n t i a l   p o r t i o n s   o f   t h e   S o f t w a r e . 
  
  T H E   S O F T W A R E   I S   P R O V I D E D   " A S   I S " ,   W I T H O U T   W A R R A N T Y   O F   A N Y   K I N D ,   E X P R E S S   O R   I M P L I E D ,   I N C L U D I N G   B U T   N O T   L I M I T E D   T O   T H E   W A R R A N T I E S   O F   M E R C H A N T A B I L I T Y ,   F I T N E S S   F O R   A   P A R T I C U L A R   P U R P O S E   A N D   N O N I N F R I N G E M E N T .   I N   N O   E V E N T   S H A L L   T H E   A U T H O R S   O R   C O P Y R I G H T   H O L D E R S   B E   L I A B L E   F O R   A N Y   C L A I M ,   D A M A G E S   O R   O T H E R   L I A B I L I T Y ,   W H E T H E R   I N   A N   A C T I O N   O F   C O N T R A C T ,   T O R T   O R   O T H E R W I S E ,   A R I S I N G   F R O M ,   O U T   O F   O R   I N   C O N N E C T I O N   W I T H   T H E   S O F T W A R E   O R   T H E   U S E   O R   O T H E R   D E A L I N G S   I N   T H E   S O F T W A R E . 
-WRxSwift”/0_:Copyright 2018, 2019 The SwiftLog Project
+WRxSwift”,-_:Copyright 2018, 2019 The SwiftLog Project
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this library except in compliance with the License.
@@ -214,7 +201,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-Yswift-log”23_Copyright (c) 2020 Rive
+Yswift-log”/0_Copyright (c) 2020 Rive
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -232,4 +219,4 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.TRive    ( / ; G M N ï ö ° •Î˝ô†ßﬁÈ-?FQõ™±¯$K$^$e&ï&ú&£0°0™0±4Ù4ˇ5=≤=∫=¡?ˇ@	@D+             4              D0
+SOFTWARE.TRive    ' . : @ L ì ò ô †Ê¯¸îõü¶›ËÔ,>Eèû©∞˜$J$]$d.b.k.r2µ2¿2«;s;{;Ç=¿= =—AÏ             1              AÒ
