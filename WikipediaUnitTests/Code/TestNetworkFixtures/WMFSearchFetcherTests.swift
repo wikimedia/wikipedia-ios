@@ -73,6 +73,24 @@ struct WMFSearchFetcherTests {
         #expect(result.prefixSearchID == nil)
     }
 
+    @Test
+    func prefixRequestDoesNotAskForASuggestion() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        _ = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        let parameters = try #require(harness.httpClient.capturedRequests.first).queryParameters
+        #expect(parameters["generator"] == "prefixsearch")
+        #expect(parameters["list"] == nil)
+        #expect(parameters.keys.allSatisfy { !$0.hasPrefix("sr") })
+    }
+
     private func makeHarness() -> (fetcher: WMFSearchFetcher, httpClient: SearchHTTPClient) {
         let httpClient = SearchHTTPClient()
         let session = Session(configuration: .current, httpClientProvider: SearchHTTPClientProvider(httpClient: httpClient))
