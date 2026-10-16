@@ -1,4 +1,5 @@
 import XCTest
+import WMFComponents
 
 final class ArticleControlsUITests: XCTestCase {
     func testArticleBackButtonReturnsToExplore() throws {
@@ -75,23 +76,23 @@ final class ArticleControlsUITests: XCTestCase {
     func testArticleOverflowMenuItemsAreAvailable() throws {
         openArticle()
             .openOverflowMenu()
-            .assertOverflowMenuItemsVisible(articleControlsFixture.overflowMenuTitles)
+            .assertOverflowMenuItemsVisible()
             .dismissOverflowMenu()
     }
 
     func testArticleOverflowWatchCanBeTapped() throws {
         openArticle()
-            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowWatchTitle)
+            .tapOverflowMenuItemAndAssertMenuDismisses(identifier: AccessibilityIdentifiers.Article.overflowWatchItem)
     }
 
     func testArticleOverflowTalkPageCanBeTapped() throws {
         openArticle()
-            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowTalkPageTitle)
+            .tapOverflowMenuItemAndAssertMenuDismisses(identifier: AccessibilityIdentifiers.Article.overflowTalkPageItem)
     }
 
-    func testArticleOverflowEditSourceCanBeTapped() throws {
+    func testArticleOverflowEditCanBeTapped() throws {
         openArticle()
-            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowEditSourceTitle)
+            .tapOverflowMenuItemAndAssertMenuDismisses(identifier: AccessibilityIdentifiers.Article.overflowEditItem)
     }
 
     func testArticleOverflowBackReturnsToPreviousArticle() throws {

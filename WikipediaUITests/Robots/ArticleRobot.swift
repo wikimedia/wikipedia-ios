@@ -491,18 +491,18 @@ extension ArticleRobot {
     }
 
     @discardableResult
-    func assertOverflowMenuItemsVisible(_ titles: [String], file: StaticString = #filePath, line: UInt = #line) -> Self {
-        for title in titles {
-            let item = contextMenuItem(withTitle: title)
-            base.assertExists(item, timeout: 5, description: "\(title) overflow menu item", file: file, line: line)
-            XCTAssertTrue(item.isEnabled, "Expected \(title) overflow menu item to be enabled.", file: file, line: line)
+    func assertOverflowMenuItemsVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        for identifier in Self.overflowMenuItemIdentifiers {
+            let item = overflowMenuItem(withIdentifier: identifier)
+            base.assertExists(item, timeout: 5, description: "\(identifier) overflow menu item", file: file, line: line)
+            XCTAssertTrue(item.isEnabled, "Expected \(identifier) overflow menu item to be enabled.", file: file, line: line)
         }
         return self
     }
 
     @discardableResult
     func dismissOverflowMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let shareItem = contextMenuItem(withTitle: articleControlsFixture.overflowShareTitle)
+        let shareItem = overflowMenuItem(withIdentifier: AccessibilityIdentifiers.Article.overflowShareItem)
         base.app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08)).tap()
         base.waitForElementToDisappear(shareItem, timeout: 5, file: file, line: line)
         return assertVisible(file: file, line: line)
@@ -510,13 +510,13 @@ extension ArticleRobot {
 
     @discardableResult
     func tapOverflowMenuItemAndAssertMenuDismisses(
-        title: String,
+        identifier: String,
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
         openOverflowMenu(file: file, line: line)
-        let item = contextMenuItem(withTitle: title)
-        base.assertExists(item, timeout: 10, description: "\(title) overflow menu item", file: file, line: line)
+        let item = overflowMenuItem(withIdentifier: identifier)
+        base.assertExists(item, timeout: 10, description: "\(identifier) overflow menu item", file: file, line: line)
         item.tap()
         waitForElementToStopBeingVisible(item, timeout: 10, file: file, line: line)
         return self
@@ -534,13 +534,24 @@ extension ArticleRobot {
     @discardableResult
     func tapOverflowRevisionHistoryAndReturn(file: StaticString = #filePath, line: UInt = #line) -> Self {
         openOverflowMenu(file: file, line: line)
-        let item = contextMenuItem(withTitle: articleControlsFixture.overflowRevisionHistoryTitle)
+        let item = overflowMenuItem(withIdentifier: AccessibilityIdentifiers.Article.overflowRevisionHistoryItem)
         base.assertExists(item, timeout: 10, description: "revision history overflow menu item", file: file, line: line)
         item.tap()
         return assertHistoryVisible(file: file, line: line)
             .tapBackToArticleFromHistory(file: file, line: line)
     }
 
+    static let overflowMenuItemIdentifiers = [
+        AccessibilityIdentifiers.Article.overflowEditItem,
+        AccessibilityIdentifiers.Article.overflowRevisionHistoryItem,
+        AccessibilityIdentifiers.Article.overflowTalkPageItem,
+        AccessibilityIdentifiers.Article.overflowWatchItem,
+        AccessibilityIdentifiers.Article.overflowShareItem
+    ]
+
+    func overflowMenuItem(withIdentifier identifier: String) -> XCUIElement {
+        base.app.buttons[identifier].firstMatch
+    }
 }
 
 extension ArticleRobot {
@@ -560,22 +571,7 @@ extension ArticleRobot {
         let findSearchTerm: String
         let tableOfContentsSections: [ArticleControlsTableOfContentsSection]
         let rotatedTableOfContentsAnchor: String
-        let overflowEditSourceTitle: String
-        let overflowRevisionHistoryTitle: String
-        let overflowTalkPageTitle: String
-        let overflowWatchTitle: String
-        let overflowShareTitle: String
         let contextMenuActionTitles: [String]
-
-        var overflowMenuTitles: [String] {
-            [
-                overflowEditSourceTitle,
-                overflowRevisionHistoryTitle,
-                overflowTalkPageTitle,
-                overflowWatchTitle,
-                overflowShareTitle
-            ]
-        }
     }
 
     static func articleControlsFixture(languageCode: String) -> ArticleControlsFixture? {
@@ -595,11 +591,6 @@ extension ArticleRobot {
                     ArticleControlsTableOfContentsSection(anchor: "Origin", heading: "Origin")
                 ],
                 rotatedTableOfContentsAnchor: "Taxonomy",
-                overflowEditSourceTitle: "Edit source",
-                overflowRevisionHistoryTitle: "Article revision history",
-                overflowTalkPageTitle: "Article talk page",
-                overflowWatchTitle: "Watch",
-                overflowShareTitle: "Share",
                 contextMenuActionTitles: [
                     "Open",
                     "Open in new tab",
@@ -622,11 +613,6 @@ extension ArticleRobot {
                     ArticleControlsTableOfContentsSection(anchor: "Population", heading: "Population")
                 ],
                 rotatedTableOfContentsAnchor: "Etymologie",
-                overflowEditSourceTitle: "Quelltext bearbeiten",
-                overflowRevisionHistoryTitle: "Versionsgeschichte",
-                overflowTalkPageTitle: "Diskussion",
-                overflowWatchTitle: "Beobachten",
-                overflowShareTitle: "Teilen",
                 contextMenuActionTitles: [
                     "Öffnen",
                     "In neuem Tab öffnen",
@@ -649,11 +635,6 @@ extension ArticleRobot {
                     ArticleControlsTableOfContentsSection(anchor: "פיזיולוגיה", heading: "פיזיולוגיה")
                 ],
                 rotatedTableOfContentsAnchor: "טקסונומיה",
-                overflowEditSourceTitle: "עריכת קוד מקור",
-                overflowRevisionHistoryTitle: "היסטוריית גרסאות של ערך",
-                overflowTalkPageTitle: "דף שיחה של ערך",
-                overflowWatchTitle: "מעקב",
-                overflowShareTitle: "שיתוף",
                 contextMenuActionTitles: [
                     "פתיחה",
                     "פתיחה בלשונית חדשה",
@@ -676,11 +657,6 @@ extension ArticleRobot {
                     ArticleControlsTableOfContentsSection(anchor: "Phân_loại", heading: "Phân loại")
                 ],
                 rotatedTableOfContentsAnchor: "Nguồn_gốc",
-                overflowEditSourceTitle: "Sửa mã nguồn",
-                overflowRevisionHistoryTitle: "Lịch sử sửa đổi bài viết",
-                overflowTalkPageTitle: "Trang thảo luận bài viết",
-                overflowWatchTitle: "Watch",
-                overflowShareTitle: "Chia sẻ",
                 contextMenuActionTitles: [
                     "Mở",
                     "Mở trong thẻ mới",

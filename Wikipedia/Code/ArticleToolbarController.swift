@@ -129,24 +129,24 @@ class ArticleToolbarController: Themeable {
 
         let editElement = UIDeferredMenuElement.uncached { [weak self] completion in
             let title = WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled ? CommonStrings.editContextMenuTitle : CommonStrings.editSource
-            let action = UIAction(title: title, image: WMFIcon.pencil, handler: { [weak self] _ in self?.tappedEditArticle() })
+            let action = UIAction(title: title, image: WMFIcon.pencil, handler: { [weak self] _ in self?.tappedEditArticle() }).withAccessibilityIdentifier(AccessibilityIdentifiers.Article.overflowEditItem)
             completion([action])
         }
 
         actions.append(editElement)
-        actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
+        actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }).withAccessibilityIdentifier(AccessibilityIdentifiers.Article.overflowRevisionHistoryItem))
 
-        actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
+        actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }).withAccessibilityIdentifier(AccessibilityIdentifiers.Article.overflowTalkPageItem))
 
         if needsWatchButton {
-           actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
+           actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }).withAccessibilityIdentifier(AccessibilityIdentifiers.Article.overflowWatchItem))
         } else if needsUnwatchHalfButton {
-            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.leadinghalf.filled"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.leadinghalf.filled"), handler: { [weak self] _ in self?.tappedUnwatch()}).withAccessibilityIdentifier(AccessibilityIdentifiers.Article.overflowWatchItem))
         } else if needsUnwatchFullButton {
-            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}).withAccessibilityIdentifier(AccessibilityIdentifiers.Article.overflowWatchItem))
         }
 
-        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp), handler: { [weak self] _ in self?.share()}))
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp), handler: { [weak self] _ in self?.share()}).withAccessibilityIdentifier(AccessibilityIdentifiers.Article.overflowShareItem))
 
         if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
             let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
@@ -358,6 +358,14 @@ private extension String {
             }
         }
 
+        return self
+    }
+}
+
+private extension UIAction {
+    /// UIAction's `identifier` is not exposed to XCUITest, but `accessibilityIdentifier` is.
+    func withAccessibilityIdentifier(_ identifier: String) -> UIAction {
+        accessibilityIdentifier = identifier
         return self
     }
 }
