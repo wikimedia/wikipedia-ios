@@ -27,6 +27,16 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+// The fetcher makes empty results this way when a response has no query. That skips -init, so the results are set up here too.
+- (instancetype)initWithLanguageVariantCode:(nullable NSString *)languageVariantCode {
+    self = [super initWithLanguageVariantCode:languageVariantCode];
+    if (self) {
+        _mutableResults = [NSMutableArray new];
+        _redirectMappings = @[];
+    }
+    return self;
+}
+
 - (instancetype)initWithSearchTerm:(NSString *)searchTerm
                            results:(nullable NSArray<MWKSearchResult *> *)results
                   searchSuggestion:(nullable NSString *)suggestion

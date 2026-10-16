@@ -106,6 +106,9 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                          NSDictionary *query = [result objectForKey:@"query"];
                          if (!query) {
                              WMFSearchResults *returnResults = previousResults == nil ? [[WMFSearchResults alloc] initWithLanguageVariantCode:url.wmf_languageVariantCode] : previousResults;
+                             if (!returnResults.searchTerm) {
+                                 returnResults.searchTerm = searchTerm;
+                             }
                              [self setSearchID:searchID onResults:returnResults fullTextSearch:fullTextSearch];
                              success(returnResults);
                              return;
