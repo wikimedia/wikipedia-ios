@@ -1,7 +1,8 @@
 import CoreData
 
-/// The "top topic" slide and the "runners-up" slide. A topic counts when the user read at least
-/// `minimumTopicArticleCount` distinct articles about it.
+/// The "top topic" slide and the "runners-up" slide. The top topic needs at least
+/// `minimumTopTopicArticleCount` distinct articles, and a runner-up needs at least
+/// `minimumRunnerUpArticleCount`.
 public struct WMFYearInReviewTopTopicsSlideData: Codable, Sendable {
 
     public struct Article: Codable, Sendable, Equatable {
@@ -36,8 +37,10 @@ public struct WMFYearInReviewTopTopicsSlideData: Codable, Sendable {
 
     /// The user must read at least this number of articles to see the full top topic slide.
     public static let minimumReadCount = 5
-    /// A topic must have at least this number of articles to count.
-    public static let minimumTopicArticleCount = 3
+    /// The top topic must have at least this number of articles.
+    public static let minimumTopTopicArticleCount = 3
+    /// A runner-up topic must have at least this number of articles.
+    public static let minimumRunnerUpArticleCount = 2
     /// The runners-up slide shows at most this number of topics.
     public static let maximumRunnerUpCount = 3
     /// The runners-up slide shows only if it has at least this number of topics.
@@ -45,7 +48,7 @@ public struct WMFYearInReviewTopTopicsSlideData: Codable, Sendable {
 
     /// The number of distinct articles the user read, with or without topics.
     public let readCount: Int
-    /// The topic with the most articles. `nil` if no topic has `minimumTopicArticleCount` articles.
+    /// The topic with the most articles. `nil` if no topic has `minimumTopTopicArticleCount` articles.
     public let topTopic: TopTopic?
     /// The topics that come after the top topic, most articles first. Fewer than `minimumRunnerUpCount` is possible.
     public let runnerUps: [TopicCount]
@@ -189,15 +192,17 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
     }
 
     static func slideData(readCount: Int, articlesByTopic: [WMFArticleTopic: [SlideData.Article]]) -> SlideData {
+        // A runner-up needs fewer articles than the top topic, so this list holds every possible topic.
         let qualifyingTopics = articlesByTopic
-            .filter { $0.value.count >= SlideData.minimumTopicArticleCount }
+            .filter { $0.value.count >= SlideData.minimumRunnerUpArticleCount }
             // The topic ID breaks a tie, so the runners-up have the same order on each run.
             .sorted { ($0.value.count, $1.key.rawValue) > ($1.value.count, $0.key.rawValue) }
 
         // If topics tie for the most articles, choose one at random. The slide data is frozen,
         // so the choice does not change after the first population.
         let highestCount = qualifyingTopics.first?.value.count
-        guard let top = qualifyingTopics.filter({ $0.value.count == highestCount }).randomElement() else {
+        guard let highestCount, highestCount >= SlideData.minimumTopTopicArticleCount,
+              let top = qualifyingTopics.filter({ $0.value.count == highestCount }).randomElement() else {
             return SlideData(readCount: readCount, topTopic: nil, runnerUps: [])
         }
 

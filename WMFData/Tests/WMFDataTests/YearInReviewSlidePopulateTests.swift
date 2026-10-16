@@ -431,8 +431,23 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
         XCTAssertEqual(payload.readCount, 6)
         XCTAssertNil(payload.topTopic)
-        XCTAssertTrue(payload.runnerUps.isEmpty)
+        XCTAssertTrue(payload.runnerUps.isEmpty, "the runners-up slide needs an eligible top topic slide")
         XCTAssertFalse(payload.isEligible)
+        XCTAssertFalse(payload.showsRunnerUps)
+    }
+
+    func testRunnerUpsNeedTwoArticlesAndTheTopTopicNeedsThree() async throws {
+        try await seedArticles(["History_1", "History_2", "History_3"], labels: ["History_and_Society.History"], month: 2)
+        try await seedArticles(["Physics_1", "Physics_2"], labels: ["STEM.Physics"], month: 3)
+        try await seedArticles(["Biology_1", "Biology_2"], labels: ["STEM.Biology"], month: 4)
+        try await seedArticles(["Sports_1"], labels: ["Culture.Sports"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.biology, .physics], "a topic with one article is not a runner-up")
+        XCTAssertEqual(payload.runnerUps.map(\.articleCount), [2, 2])
+        XCTAssertTrue(payload.showsRunnerUps)
     }
 
     func testArticlesWithoutTopicsCountTowardTheReadCountOnly() async throws {
@@ -507,7 +522,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
         XCTAssertEqual(payload.readCount, 5)
         XCTAssertEqual(payload.topTopic?.topicCount.topic, .biology, "physics has two articles without the main pages")
-        XCTAssertTrue(payload.runnerUps.isEmpty)
+        XCTAssertEqual(payload.runnerUps.map(\.articleCount), [2], "physics is a runner-up with its two articles")
     }
 
     func testTopTopicsDownloadsOnlyTheIllustrationsOfTheShownTopics() async throws {
