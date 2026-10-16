@@ -416,13 +416,20 @@ jobs:
               # its "Available in: TestFlight Wikipedia" comment. Normalised to
               # canonical URLs so everything downstream is unchanged. "N/A" still
               # matches nothing, so deliberate opt-outs keep working.
+              #
+              # The separator has to stay \s - authors often list several tasks
+              # one per line, and restricting it to spaces and tabs silently keeps
+              # only the first.
               phab_section = re.findall(
-                r'\*{0,2}Phabricator:\*{0,2}\s*((?:(?:https?://)?(?:phabricator\.wikimedia\.org/)?T\d+[ \t,]*)+)',
+                r'\*{0,2}Phabricator:\*{0,2}\s*((?:(?:https?://)?(?:phabricator\.wikimedia\.org/)?T\d+[\s,]*)+)',
                 body, re.IGNORECASE
               )
               for section in phab_section:
-                ids = re.findall(r'T\d+', section)
-                phab_tasks.extend(f'https://phabricator.wikimedia.org/{i}' for i in ids)
+                # IGNORECASE to match the outer pattern - otherwise a lowercase
+                # t12345 matches there and then yields nothing here. Digits only,
+                # so the URL is canonical whatever case was written.
+                ids = re.findall(r'T(\d+)', section, re.IGNORECASE)
+                phab_tasks.extend(f'https://phabricator.wikimedia.org/T{i}' for i in ids)
 
             return list(dict.fromkeys(phab_tasks))
 
