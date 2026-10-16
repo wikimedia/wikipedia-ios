@@ -107,7 +107,7 @@ public extension HTTPURLResponse {
             return nil
         }
         if let seconds = TimeInterval(rawValue) {
-            return max(0, seconds)
+            return Self.wmf_clampedRetryAfter(seconds)
         }
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -116,6 +116,17 @@ public extension HTTPURLResponse {
         guard let date = formatter.date(from: rawValue) else {
             return nil
         }
-        return max(0, date.timeIntervalSinceNow)
+        return Self.wmf_clampedRetryAfter(date.timeIntervalSinceNow)
+    }
+
+    /// Longest wait the app accepts from a Retry-After header.
+    static let wmf_maximumRetryAfterInterval: TimeInterval = 24 * 60 * 60
+
+    /// Non-finite values are ignored; the rest is kept between 0 and one day, so the value is safe to convert to Int and to schedule.
+    static func wmf_clampedRetryAfter(_ seconds: TimeInterval) -> TimeInterval? {
+        guard seconds.isFinite else {
+            return nil
+        }
+        return min(max(0, seconds), wmf_maximumRetryAfterInterval)
     }
 }

@@ -185,6 +185,8 @@ public class Session: NSObject {
         self.defaultURLSession = Session.getURLSession(delegate: sessionDelegate)
         self.httpClientProvider = SessionHTTPClientProviderConfiguration.httpClientProvider()
         self.httpClient = httpClientProvider.httpClient(defaultURLSession: defaultURLSession, sessionDelegate: sessionDelegate)
+        super.init()
+        connectSessionDelegate()
     }
 
     init(configuration: Configuration, httpClientProvider: SessionHTTPClientProvider) {
@@ -193,6 +195,19 @@ public class Session: NSObject {
         self.httpClientProvider = httpClientProvider
         self.defaultURLSession = Session.getURLSession(delegate: sessionDelegate)
         self.httpClient = httpClientProvider.httpClient(defaultURLSession: defaultURLSession, sessionDelegate: sessionDelegate)
+        super.init()
+        connectSessionDelegate()
+    }
+
+    /// The delegate path (callback data tasks, used by the scheme handler) sees busy responses
+    /// and HTTP errors too; it routes them to this session's pause tracking and error reporting.
+    private func connectSessionDelegate() {
+        sessionDelegate.onServerBusy = { [weak self] retryAfter in
+            self?.noteServerBusy(retryAfter: retryAfter)
+        }
+        sessionDelegate.reportHTTPError = { [weak self] info in
+            self?.reportHTTPError(info)
+        }
     }
     
     @objc public static let sharedCookieStorage = HTTPCookieStorage.sharedCookieStorage(forGroupContainerIdentifier: WMFApplicationGroupIdentifier)
@@ -317,9 +332,17 @@ public class Session: NSObject {
         return httpClient.dataTask(with: request, callback: callback)
     }
     
-    /// Reports HTTP errors from completion-handler data tasks. Tests replace it to inspect what would be logged.
+    /// Reports every HTTP error exactly once, after the response path knows whether cached content answers the caller. Tests replace it to inspect what would be logged.
     var reportHTTPError: (WMFHTTPErrorInfo) -> Void = { info in
         ClientErrorFunnel.shared.logHTTPError(info: info)
+    }
+
+    /// For a non-2xx answer that is not JSON, the status is the error worth returning, not the parse failure.
+    static func nonJSONError(for response: HTTPURLResponse?) -> Error? {
+        guard let response, !HTTPStatusCode.isSuccessful(response.statusCode) else {
+            return nil
+        }
+        return RequestError.from(response: response)
     }
 
     public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
@@ -440,12 +463,6 @@ public class Session: NSObject {
             noteServerBusy(retryAfter: httpResponse.wmf_retryAfterInterval)
         default:
             break
-        }
-
-        if httpResponse.isHTTPError {
-            ClientErrorFunnel.shared.logHTTPError(
-                info: WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: method, url: response.url?.absoluteString, source: "Session", retryAfter: httpResponse.wmf_retryAfterInterval)
-            )
         }
     }
     
@@ -576,38 +593,41 @@ public class Session: NSObject {
     @discardableResult private func jsonDictionaryTask(with request: URLRequest, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         
         let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
-        
-            if let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 304 {
-                
-                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request),
-                    let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
-                    completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
-                    return
-                }
+            let httpResponse = response as? HTTPURLResponse
+            let serverIsBusy = Session.isServerBusyResponse(response)
+
+            // Decide first whether cached content answers the caller, so the error report says so.
+            var cachedFallback: (object: [String: Any], response: HTTPURLResponse?)?
+            let wantsCache = httpResponse?.statusCode == 304 || ((error != nil || serverIsBusy) && request.prefersPersistentCacheOverError)
+            if wantsCache,
+               let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request),
+               let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
+                cachedFallback = (responseObject, cachedResponse.response as? HTTPURLResponse)
             }
-            
-            if error != nil || Session.isServerBusyResponse(response), request.prefersPersistentCacheOverError {
-                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request),
-                    let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
-                    completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
-                    return
-                }
+
+            if let httpResponse, httpResponse.isHTTPError {
+                self.reportHTTPError(WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: request.httpMethod, url: request.url?.absoluteString, source: "Session", retryAfter: httpResponse.wmf_retryAfterInterval, servedFromCache: cachedFallback != nil))
             }
-            
+
+            if let cachedFallback {
+                completionHandler(cachedFallback.object, cachedFallback.response, nil)
+                return
+            }
+
             guard let data = data else {
-                completionHandler(nil, response as? HTTPURLResponse, error)
+                completionHandler(nil, httpResponse, error)
                 return
             }
             do {
                 guard !data.isEmpty, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                    completionHandler(nil, response as? HTTPURLResponse, nil)
+                    completionHandler(nil, httpResponse, Session.nonJSONError(for: httpResponse))
                     return
                 }
-                completionHandler(responseObject, response as? HTTPURLResponse, nil)
+                completionHandler(responseObject, httpResponse, nil)
             } catch let error {
                 DDLogError("Error parsing JSON: \(error)")
-                completionHandler(nil, response as? HTTPURLResponse, error)
+                // A busy server often answers with HTML. The status is the error, not the parse failure.
+                completionHandler(nil, httpResponse, Session.nonJSONError(for: httpResponse) ?? error)
             }
         }
         
@@ -778,6 +798,12 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     let delegateDispatchQueue = DispatchQueue(label: "SessionDelegateDispatchQueue", qos: .default, attributes: [], autoreleaseFrequency: .workItem, target: nil) // needs to be serial according the docs for NSURLSession
     let delegateQueue: OperationQueue
     var callbacks: [Int: Session.Callback] = [:]
+    /// Set by the owning Session: a 429 or 503 on this path must pause background work too.
+    var onServerBusy: ((TimeInterval?) -> Void)?
+    /// Set by the owning Session so every path reports through the same hook.
+    var reportHTTPError: (WMFHTTPErrorInfo) -> Void = { info in
+        ClientErrorFunnel.shared.logHTTPError(info: info)
+    }
     
     override init() {
         delegateQueue = OperationQueue()
@@ -797,16 +823,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         }
         
         if let httpResponse = response as? HTTPURLResponse {
-            if httpResponse.isHTTPError {
-                ClientErrorFunnel.shared.logHTTPError(
-                    info: WMFHTTPErrorInfo(
-                        statusCode: httpResponse.statusCode,
-                        method: dataTask.originalRequest?.httpMethod,
-                        url: dataTask.originalRequest?.url?.absoluteString,
-                        source: "SessionDelegate",
-                        retryAfter: httpResponse.wmf_retryAfterInterval
-                    )
-                )
+            if Session.isServerBusyResponse(httpResponse) {
+                onServerBusy?(httpResponse.wmf_retryAfterInterval)
             }
 
             var shouldCheckPersistentCache = false
@@ -821,10 +839,25 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             }
             
             let taskIdentifier = dataTask.taskIdentifier
-            if shouldCheckPersistentCache,
-                let callback = callbacks[taskIdentifier],
-                let request = dataTask.originalRequest,
-                let cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request) {
+            var cachedResponse: CachedURLResponse?
+            if shouldCheckPersistentCache, callbacks[taskIdentifier] != nil, let request = dataTask.originalRequest {
+                cachedResponse = (session.configuration.urlCache as? PermanentlyPersistableURLCache)?.cachedResponse(for: request)
+            }
+
+            if httpResponse.isHTTPError {
+                reportHTTPError(
+                    WMFHTTPErrorInfo(
+                        statusCode: httpResponse.statusCode,
+                        method: dataTask.originalRequest?.httpMethod,
+                        url: dataTask.originalRequest?.url?.absoluteString,
+                        source: "SessionDelegate",
+                        retryAfter: httpResponse.wmf_retryAfterInterval,
+                        servedFromCache: cachedResponse != nil
+                    )
+                )
+            }
+
+            if let cachedResponse, let callback = callbacks[taskIdentifier] {
                 callback.response?(cachedResponse.response)
                 callback.data?(cachedResponse.data)
                 callback.success(true)

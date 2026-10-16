@@ -20,6 +20,15 @@ class RequestErrorServerBusyTests: XCTestCase {
         XCTAssertNil(response(statusCode: 429, retryAfter: "soon").wmf_retryAfterInterval)
     }
 
+    func testRetryAfterRejectsNonFiniteAndCapsHugeValues() {
+        XCTAssertNil(response(statusCode: 429, retryAfter: "inf").wmf_retryAfterInterval)
+        XCTAssertNil(response(statusCode: 429, retryAfter: "nan").wmf_retryAfterInterval)
+        XCTAssertEqual(response(statusCode: 429, retryAfter: "99999999999999999999").wmf_retryAfterInterval, HTTPURLResponse.wmf_maximumRetryAfterInterval)
+        XCTAssertEqual(response(statusCode: 429, retryAfter: "-5").wmf_retryAfterInterval, 0)
+        let huge = WMFHTTPErrorInfo(statusCode: 429, method: "GET", url: nil, source: "test", retryAfter: response(statusCode: 429, retryAfter: "99999999999999999999").wmf_retryAfterInterval)
+        XCTAssertEqual(ClientErrorFunnel.httpErrorContext(for: huge)?["retry_after"], "86400", "Converting to Int must not trap")
+    }
+
     func testRetryAfterAsHTTPDate() throws {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")

@@ -202,6 +202,70 @@ class SessionServerBusyFallbackTests: XCTestCase {
         XCTAssertEqual(context?["served_from_cache"], "true")
     }
 
+    func testDecodableTaskReportsAServerBusyResponseOnce() throws {
+        let (session, permanentCache) = try makeSession(statusCode: 429, headers: ["Retry-After": "5"])
+        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/page/media-list/Once"))
+        let request = permanentCache.urlCache.urlRequestFromURL(url, type: .article)
+        var reported: [WMFHTTPErrorInfo] = []
+        session.reportHTTPError = { reported.append($0) }
+
+        let done = expectation(description: "decodable task completed")
+        var receivedError: Error?
+        let task: URLSessionDataTask? = session.jsonDecodableTask(with: request) { (result: [String: String]?, _, error) in
+            receivedError = error
+            done.fulfill()
+        }
+        XCTAssertNotNil(task)
+        wait(for: [done], timeout: 5)
+
+        XCTAssertEqual(reported.count, 1, "The wrapper and handleResponse must not both report the same response")
+        XCTAssertTrue((receivedError as? RequestError)?.isServerBusy == true)
+    }
+
+    func testDictionaryTaskTurnsANonJSONBusyBodyIntoAServerBusyError() throws {
+        let (session, _) = try makeSession(statusCode: 429, headers: ["Retry-After": "7"])
+        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/w/api.php?action=query&meta=tokens&type=login&format=json"))
+        var reported: [WMFHTTPErrorInfo] = []
+        session.reportHTTPError = { reported.append($0) }
+
+        let done = expectation(description: "dictionary task completed")
+        var receivedError: Error?
+        session.getJSONDictionary(from: url) { _, _, error in
+            receivedError = error
+            done.fulfill()
+        }
+        wait(for: [done], timeout: 5)
+
+        let requestError = try XCTUnwrap(receivedError as? RequestError, "The body is not JSON; the caller must still see the 429, not a parse error")
+        XCTAssertTrue(requestError.isServerBusy)
+        XCTAssertEqual(requestError.retryAfter, 7)
+        XCTAssertTrue(WMFAuthenticationManager.isTransientError(requestError), "Login must treat it as transient and keep the session")
+        XCTAssertEqual(reported.count, 1)
+        XCTAssertEqual(reported.first?.source, "Session")
+        XCTAssertEqual(try XCTUnwrap(session.serverBusyPauseUntil).timeIntervalSinceNow, 7, accuracy: 2)
+    }
+
+    func testDelegatePathNotesThePauseAndReportsOnce() throws {
+        let delegate = SessionDelegate()
+        var pauses: [TimeInterval?] = []
+        var reported: [WMFHTTPErrorInfo] = []
+        delegate.onServerBusy = { pauses.append($0) }
+        delegate.reportHTTPError = { reported.append($0) }
+
+        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/Delegate"))
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url))
+        delegate.callbacks[task.taskIdentifier] = Session.Callback(response: nil, data: nil, success: { _ in }, failure: { _ in }, cacheFallbackError: nil)
+        let busy = try XCTUnwrap(HTTPURLResponse(url: url, statusCode: 429, httpVersion: nil, headerFields: ["Retry-After": "30"]))
+
+        delegate.urlSession(URLSession.shared, dataTask: task, didReceive: busy) { _ in }
+
+        XCTAssertEqual(pauses.count, 1)
+        XCTAssertEqual(pauses.first ?? nil, 30)
+        XCTAssertEqual(reported.count, 1)
+        XCTAssertEqual(reported.first?.source, "SessionDelegate")
+        XCTAssertEqual(reported.first?.servedFromCache, false)
+    }
+
     func testServerBusyWithoutCacheIsReportedAsNotServedFromCache() throws {
         let (session, permanentCache) = try makeSession(statusCode: 503, headers: [:])
         let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/NotCached2"))
