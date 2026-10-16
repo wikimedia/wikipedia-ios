@@ -70,7 +70,7 @@ public final class WMFEventLoggingDiagnosticsDataController: Sendable {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.eventLoggingDiagnostics.rawValue)) ?? WMFEventLoggingDiagnostics()
     }
 
-    private func mutate(_ block: (inout WMFEventLoggingDiagnostics) -> Void) {
+    private func mutate(_ block: @Sendable (inout WMFEventLoggingDiagnostics) -> Void) {
         lock.withLock {
             var diagnostics = load()
             block(&diagnostics)
