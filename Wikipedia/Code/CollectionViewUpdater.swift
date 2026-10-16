@@ -125,8 +125,20 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         
         let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
         let currentNumberOfSections = collectionView.numberOfSections
-        let previousSectionCountsEqualCurrentNumberOfSections = previousSectionCounts.count == currentNumberOfSections
-        guard !forceReload, sectionCountsMatch, previousSectionCountsEqualCurrentNumberOfSections, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
+        var collectionViewCountsMatchPreviousSectionCounts = previousSectionCounts.count == currentNumberOfSections
+        // The changes describe the transition from previousSectionCounts to sectionCounts.
+        // The item counts in the collection view must equal previousSectionCounts, or the batch update is invalid.
+        // The counts can diverge when a previous change cycle called reloadData() and no layout pass ran before this cycle.
+        // In that case the collection view reads the data source lazily and is already in the post-change state.
+        if collectionViewCountsMatchPreviousSectionCounts {
+            for (sectionIndex, previousItemCount) in previousSectionCounts.enumerated() {
+                guard collectionView.numberOfItems(inSection: sectionIndex) == previousItemCount else {
+                    collectionViewCountsMatchPreviousSectionCounts = false
+                    break
+                }
+            }
+        }
+        guard !forceReload, sectionCountsMatch, collectionViewCountsMatchPreviousSectionCounts, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
             collectionView.reloadData()
             delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
             return

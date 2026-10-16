@@ -140,6 +140,7 @@
     }
   },
   "iosv1": {
+    "visualEditorEnabled": true,
     "hCaptcha": {
       "baseURL": "https://meta.wikimedia.org",
       "jsSrc": "https://assets-hcaptcha.wikimedia.org/1/api.js",

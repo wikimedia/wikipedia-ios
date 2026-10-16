@@ -56,15 +56,3 @@ struct WMFSearchFetcherTests {
 }
 
 private final class WMFSearchFetcherTestBundleToken {}
-
-private extension WMFSearchFetcher {
-    func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt) async throws -> WMFSearchResults {
-        try await withCheckedThrowingContinuation { continuation in
-            fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, failure: { error in
-                continuation.resume(throwing: error)
-            }, success: { result in
-                continuation.resume(returning: result)
-            })
-        }
-    }
-}

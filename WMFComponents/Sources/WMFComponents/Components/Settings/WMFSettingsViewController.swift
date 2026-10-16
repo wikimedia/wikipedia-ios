@@ -16,16 +16,23 @@ final public class WMFSettingsViewController: WMFComponentHostingController<WMFS
 
     @MainActor required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+    private var hasAppearedBefore = false
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
         if let values = coordinatorDelegate?.fetchDynamicValues() {
             viewModel.updateDynamicValues(
                 primaryLanguage: values.primaryLanguage,
-                exploreFeedStatus: values.exploreFeedStatus,
                 readingPreferenceTheme: values.readingPreferenceTheme
             )
         }
+        if hasAppearedBefore {
+            Task {
+                await viewModel.refreshSections()
+            }
+        }
+        hasAppearedBefore = true
     }
 
     private func configureNavigationBar() {

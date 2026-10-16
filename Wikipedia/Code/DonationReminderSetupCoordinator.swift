@@ -1,0 +1,181 @@
+import UIKit
+import WMF
+import WMFComponents
+import WMFData
+import WMFNativeLocalizations
+
+final class DonationReminderSetupCoordinator: Coordinator {
+
+    let navigationController: UINavigationController
+    private let currencyCode: String
+    private let theme: Theme
+    private let origin: WMFDonationReminderSetupViewModel.Origin
+    
+    private lazy var languageCode: String? = {
+        let languageCode: String?
+        switch origin {
+        case .banner(let articleURL),
+                .notNowToast(let articleURL):
+            languageCode = articleURL.wmf_languageCode
+        case .settings:
+            return nil
+        }
+        
+        return languageCode
+    }()
+    
+    private lazy var project: WikimediaProject? = {
+        switch origin {
+        case .banner, .notNowToast:
+            guard let languageCode else {
+                return nil
+            }
+            return WikimediaProject(wmfProject: WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: nil)))
+        case .settings:
+            return nil
+        }
+        
+    }()
+    
+    private var metricsID: String? {
+        
+        switch origin {
+        case .banner, .notNowToast:
+            guard let countryCode = Locale.current.region?.identifier,
+                  let languageCode else {
+                return nil
+            }
+            
+            // donation reminder metrics IDs need appmenu
+            let originalMetricsID = "\(languageCode)\(countryCode)_appmenu_iOS"
+            let resolvedMetricsID = DonateCoordinator.donationReminderMetricsID(originalMetricsID: originalMetricsID)
+            
+            return resolvedMetricsID
+        case .settings:
+            return nil
+        }
+        
+
+    }
+
+    init(
+        navigationController: UINavigationController,
+        currencyCode: String,
+        theme: Theme,
+        origin: WMFDonationReminderSetupViewModel.Origin
+    ) {
+        self.navigationController = navigationController
+        self.currencyCode = currencyCode
+        self.theme = theme
+        self.origin = origin
+    }
+
+    @discardableResult
+    func start() -> Bool {
+        let donateConfig = WMFDonateDataController.shared.loadConfigs().donateConfig
+        let minimumAmount = donateConfig?.currencyMinimumDonation[currencyCode] ?? 1
+        var maximumAmount = donateConfig?.getMaxAmount(for: currencyCode)
+        if maximumAmount?.isZero == true {
+            maximumAmount = nil
+        }
+        let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount, maximumAmount: maximumAmount)
+        let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin)
+        
+        viewModel.logSetupFormDidAppear = { [weak self] in
+            guard let self else { return }
+            
+            DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID, origin: self.origin.funnelOrigin)
+        }
+
+        viewModel.logDidTapLearnMore = { [weak self] in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapLearnMore(project: project)
+        }
+
+        viewModel.logDidTapReportProblem = { [weak self] in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapReportProblem(project: project)
+        }
+
+        viewModel.logDidTapConfirm = { [weak self] milestoneDefault, readFreq, donateAmount in
+            
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount, origin: self.origin.funnelOrigin)
+        }
+
+        viewModel.logDidTapNoThanks = { [weak self] in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project, origin: self.origin.funnelOrigin)
+        }
+
+        viewModel.logDidToggleReminder = { [weak self] isEnabled in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project, origin: self.origin.funnelOrigin)
+        }
+
+        viewModel.didConfirmReminder = { [weak self] _ in
+            self?.navigationController.popViewController(animated: true)
+        }
+
+        viewModel.didTapNoThanks = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+
+        viewModel.didTapAboutExperiment = { [weak self] in
+            self?.showAboutExperiment()
+        }
+
+        viewModel.didTapReportProblem = { [weak self] in
+            self?.showReportProblem()
+        }
+
+        let viewController = WMFDonationReminderSetupViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+        return true
+    }
+
+    private func showAboutExperiment() {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+              let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "Android", "Customizable Donation Reminder Experiment"], section: "Experiment #2", language: appLanguage)
+        else {
+            return
+        }
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        let webViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .fullScreen)
+        navigationController.present(webNavigationController, animated: true)
+    }
+
+    private func showReportProblem() {
+        let emailAddress = "ios-support@wikimedia.org"
+        let emailSubject = WMFLocalizedString("donation-reminder-email-report-subject", value: "Issue Report - Donation Reminders", comment: "Subject of the pre-filled issue report email for the donation reminders feature.")
+        let emailBodyFirstLine = WMFLocalizedString("donation-reminder-email-report-body", value: "I have encountered a problem with the donation reminders feature:", comment: "First line of the pre-filled issue report email body for the donation reminders feature.")
+        let emailBody = [
+            emailBodyFirstLine,
+            CommonStrings.issueReportEmailBodyDescribeProblem,
+            CommonStrings.issueReportEmailBodyBehavior,
+            CommonStrings.issueReportEmailBodyProposedSolution,
+            CommonStrings.issueReportEmailBodyScreenshotsOrLinks
+        ].joined(separator: "\n\n")
+        let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        guard let mailto,
+              let mailtoURL = URL(string: mailto),
+              UIApplication.shared.canOpenURL(mailtoURL)
+        else {
+            WMFToastManager.sharedInstance.showToast(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
+            return
+        }
+        UIApplication.shared.open(mailtoURL)
+    }
+}
+
+private extension WMFDonationReminderSetupViewModel.Origin {
+    var funnelOrigin: DonateFunnel.DonationReminderSetupOrigin {
+        switch self {
+        case .banner: return .banner
+        case .notNowToast: return .notNowToast
+        case .settings: return .settings
+        }
+    }
+}

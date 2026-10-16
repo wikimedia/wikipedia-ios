@@ -85,7 +85,6 @@
 "action-unsave" = "Ξεαποθήκευση";
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
 "action-update" = "Ενημέρωση";
-"activity-tab-add-images-title" = "Προσθήκη εικόνων";
 "activity-tab-articles-read" = "Λήμματα που διαβάσατε αυτόν τον μήνα";
 "activity-tab-articles-read-graph-label" = "Λήμματα";
 "activity-tab-impact-last-edited-label" = "Τελευταία επεξεργασία";
@@ -94,11 +93,9 @@
 "activity-tab-impact-total-edits-label" = "Συνολικές επεξεργασίες";
 "activity-tab-impact-views-day" = "Ημέρα";
 "activity-tab-impact-views-views" = "Προβολές";
-"activity-tab-log-in-or-create-account" = "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό για να δείτε περισσότερη δραστηριότητα επεξεργασίας και ανάγνωσης.";
 "activity-tab-logged-out-subtitle" = "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό για να δείτε τη δραστηριότητά σας στην εφαρμογή Wikipedia";
 "activity-tab-logged-out-title" = "Δείτε περισσότερες πληροφορίες ανάγνωσης και επεξεργασίας";
 "activity-tab-menu-clear-history" = "Εκκαθάριση ιστορικού ανάγνωσης";
-"activity-tab-no-edits-title" = "Δεν έχετε επεξεργαστεί κάτι αυτήν την εβδομάδα. Προσθέστε εικόνες για να βελτιώσετε την κατανόηση του άρθρου.";
 "activity-tab-onboarding-first-item-subtitle" = "Δείτε πόσο χρόνο έχετε αφιερώσει στην ανάγνωση και ποια άρθρα ή θέματα έχετε εξερευνήσει με την πάροδο του χρόνου.";
 "activity-tab-onboarding-fourth-item-subtitle" = "Επιλέξτε ποιες ενότητες θα εμφανίζονται. Όλα τα προσωπικά δεδομένα παραμένουν ιδιωτικά στη συσκευή σας και το ιστορικό περιήγησης μπορεί να διαγραφεί ανά πάσα στιγμή.";
 "activity-tab-onboarding-fourth-item-title" = "Διατηρήστε τον έλεγχο";
@@ -181,7 +178,6 @@
 "explore-because-you-read-footer" = "Πρόσθετα σχετικά άρθρα";
 "explore-continue-reading-heading" = "Συνέχεια ανάγνωσης";
 "explore-detail-back-button-title" = "Επιστροφή στη ροή Εξερεύνησης";
-"explore-enable-location-title" = "Εξερευνήστε άρθρα κοντά στην τρέχουσα τοποθεσία σας";
 "explore-featured-article-heading" = "Προβεβλημένο λήμμα";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "explore-featured-article-sub-heading-from-wikipedia" = "Από την Βικιπαίδεια";
@@ -381,7 +377,6 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ταξινόμηση λημμάτων";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Φτάστηκε το όριο για αταξινόμητα άρθρα";
 "reading-list-login-or-create-account-button-title" = "Συνδεθείτε ή δημιουργήστε λογαριασμό";
-"reading-list-login-title" = "Συγχρονισμός των αποθηκευμένων άρθρων σας;";
 "reading-list-new-list-description-placeholder" = "προαιρετική σύντομη περιγραφή";
 "reading-list-new-list-name-placeholder" = "τίτλος λίστας ανάγνωσης";
 "reading-list-sync-disabled-panel-title" = "Συγχρονισμός απενεργοποιημένων";
@@ -393,7 +388,6 @@
 "reading-lists-article-not-synced-list-limit-exceeded" = "Το όριο λίστας ξεπεράστηκε, αποτυχία στον συγχρονισμό λήμματος";
 "reading-lists-article-queued-to-be-downloaded" = "Άρθρο σε ουρά για λήψη";
 "reading-lists-conflicting-reading-list-name-updated" = "Η λίστα σας '$1' έχει μετονομαστεί σε '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 λίστα ανάγνωσης|$1 λίστες ανάγνωσης}}";
 "reading-lists-default-list-description" = "Προεπιλεγμένη λίστα για τα αποθηκευμένα λήμματά σας";
 "reading-lists-default-list-title" = "Αποθηκεύθηκε";
 "reading-lists-delete-reading-list-alert-message" = "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Οποιαδήποτε λήμματα αποθηκευμένα σε {{PLURAL:$1|αυτή τη λίστα|αυτές τις λίστες}} θα ξεαποθηκευτούν.";

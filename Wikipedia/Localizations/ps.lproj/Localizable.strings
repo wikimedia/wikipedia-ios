@@ -76,8 +76,6 @@
 "action-unsave" = "ناخوندي‌کول";
 "action-unsaved-accessibility-notification" = "ليکنه ناخوندي‌شوې";
 "action-update" = "هم‌مهالول";
-"activity-tab-add-images-subtitle" = "د پوهاوي لوړولو لپاره د ويکيپېډيا ليکنو ته وړانديز شوي انځورونه ورگډ کړئ.";
-"activity-tab-add-images-title" = "انځورونه ورگډول";
 "activity-tab-additional-thoughts" = "کوم زياتي اندونه لرئ؟";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 کتنه|$1 کتنې}}";
 "activity-tab-articles-read" = "دې مياشت کې لوستل شوې ليکنې";
@@ -98,7 +96,6 @@
 "activity-tab-email-title" = "ستونزې راپور - چارو ريښکه";
 "activity-tab-empty-subtitle" = "د خپل پېښليک جوړولو لپاره لوستل او سمول پيل کړئ";
 "activity-tab-empty-title" = "ښودلو لپاره څه نشته";
-"activity-tab-generic-no-edits" = "تاسو دا اوونۍ هېڅ ترميم نه دی کړی. د خپلو ونډو څارولو لپاره همدا اوس پيل کړئ.";
 "activity-tab-hitory-callout-close" = "د پېښليک خبرونې کارت تړل";
 "activity-tab-hours-minutes-read" = "$1hگړۍ $2دقيقې";
 "activity-tab-hours-on-wikipedia-ios" = "په ويکي‌پېډيا آی‌او‌اېس";
@@ -119,7 +116,6 @@
 "activity-tab-menu-clear-history" = "لوست پېښليک سپاکول";
 "activity-tab-most-viewed" = "ستاسو د سمون راهيسی ډېر ليدل‌شوي";
 "activity-tab-neutral" = "بې‌پلو";
-"activity-tab-no-edits-title" = "تاسو دا اوونۍ هېڅ سمون نه دی کړی. د ليکنې د پوهېدو د ښه والي لپاره انځورونه ورگډ کړئ.";
 "activity-tab-no-username-reading-title" = "ستاسو لوست";
 "activity-tab-onboarding-first-item-subtitle" = "وگورئ چې تاسو څومره وخت په لوستلو تېر کړی دی او کومې ليکنې يا سکالوگانې مو د وخت په تېرېدو سپړلې دي.";
 "activity-tab-onboarding-first-item-title" = "د لوستلو نمونې";
@@ -130,10 +126,8 @@
 "activity-tab-onboarding-second-item-subtitle" = "د خپلو ونډو او هغه پوهې د لاسرسي په اړه پوه‌ليدونه ومومئ چې تاسو شريک کړې دي.";
 "activity-tab-onboarding-second-item-title" = "اغېزمن مهم‌ټکي";
 "activity-tab-onboarding-third-item-title-updated" = "لوست پېښليک اوس په لټون کې دی";
-"activity-tab-read-title" = "د لوست پېښليک کتل";
 "activity-tab-satisfied" = "خوښ";
 "activity-tab-saved" = "دې مياشت کې خوندي‌شوې ليکنې";
-"activity-tab-start-editing" = "سمون پيلول";
 "activity-tab-survey-title" = "د ډاډ ټولپوښتنه";
 "activity-tab-time-spent-reading" = "د دې اوونۍ لوست وخت";
 "activity-tab-title" = "چاره";
@@ -143,9 +137,6 @@
 "activity-tab-usernames-reading-title" = "$1 لوستل";
 "activity-tab-very-satisfied" = "ډېره خوښ‌";
 "activity-tab-very-unsatisfied" = "ډېر ناخوښ";
-"activity-tab-view-editing-history" = "سمون پېښليک کتل";
-"activity-tab-view-reading-history" = "د لوست پېښليک کتل";
-"activity-tab-view-saved-articles" = "خوندي شوې ليکنې کتل";
 "activity-tab-week-graph-label" = "اوونۍ";
 "activity-tab-you-edited" = "تاسو په دې اوونۍ کې {{PLURAL:$1|$1 ځل|$1 ځله}} سم کړی.";
 "activity-tab-you-read" = "تاسو دې اوونۍ کې {{PLURAL:$1|$1 ليکنه ولوسته|$1ليکنې ولوستې}}.";
@@ -179,14 +170,6 @@
 "article-save-error-not-enough-space" = "ستاسو وسيله دومره ځای نه لري چې دا ليکنه خوندي کړي";
 "article-share" = "وېشل";
 "article-tabs-button-accessibility-label" = "ليکنې ريښکې";
-"article-tabs-feature-announcement-item-1-subtitle" = "ډېرې ليکنې پرانېځئ او په خپلمنځي ډول يې په اسانۍ سره بدلې کړئ.";
-"article-tabs-feature-announcement-item-1-title" = "ريښکو سره ښوول";
-"article-tabs-feature-announcement-item-2-title" = "له هغه ځايه يې پيل کړئ پرکوم ځای مو چې پرېښی و";
-"article-tabs-feature-announcement-item-3-title" = "تړوني د وروسته ليدلو لپاره خوندي‌کول";
-"article-tabs-feature-announcement-item-4-title" = "خپله نوې ريښکه ځانواله‌کول";
-"article-tabs-feature-announcement-sub-cta" = "د ريښکو په اړه نور زده‌کول";
-"article-tabs-feature-announcement-title" = "ريښکو پېژندون";
-"article-tabs-navigation" = "ريښکو چلند";
 "article-tabs-open" = "پرانېستل";
 "article-tabs-open-background-tab" = "په شاليد ريښکه کې پرانېستل";
 "article-tabs-open-new-tab" = "په نوې ريښکه کې پرانيستل";
@@ -208,14 +191,14 @@
 "cancel" = "ناگارل";
 "chinese-variants-alert-body" = "د ويکيپېډيا کاريال وسمهال په کاريال کې د لومړنيو يا دوهمي ژبو په توگه لاندې چينايي وينگونه ملاتړ کوي، ستاسو د خوښې وړ وينگ کې لوستل، پلټل او سمول اسانه کوي:\n\n简体 چينايي، ساده‌شوې (zh-hans)\n香港繁體 هانکانگ دوديزه (zh-hk)\n澳門繁體 مکايو دوديزه (zh-mo)\n大马简体 مليزيا ساده‌شوې (zh-my)\n新加坡简体 سينگاپور ساده‌شوې (zh-sg)\n臺灣正體 تايوان دوديزه (zh-tw)";
 "chinese-variants-alert-title" = "د چينايي بلبڼې ملاتړ هم‌مهالول";
+"choose-editor-visual-title" = "ليدنيز سمون";
 "clear-title-accessibility-label" = "سپينول";
 "clearing-cache-complete" = "نيونگه سپاکول بشپړ شول.";
+"clearing-cache-error" = "د نيوک سپاکولو تېروتنه.";
 "clearing-cache-in-progress" = "نيونگه سپاکول دوام لري.";
 "close-all-tabs" = "ټولې کړکۍ وتړئ";
 "close-all-tabs-confirmation-number" = "ټولې  $1 ريښکې وتړي؟";
 "close-button-accessibility-label" = "تړل";
-"close-other-tabs" = "نورې ريښکې تړل";
-"close-tab-confirmation" = "کړکۍ وتړي؟";
 "close-tabs" = "ريښکې تړل";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 ريښکه تړل‌شوې ده|$1 ريښکې تړل‌شوې دي}}.";
 "compass-direction" = "په $1 بجو";
@@ -254,7 +237,6 @@
 "developer-force-email-auth" = "اجباري برېښليک تاييد";
 "developer-settings" = "پراختياگر اوڼنې";
 "developer-settings-bypass-donation" = "بسپنې څه تېرېدل";
-"developer-settings-enable-year-in-review" = "کال بياکتنه چارنول";
 "diff-article-revision-history" = "مخ بياکتنې پېښليک";
 "diff-change-added" = "زياتي، $1، زياتي پای.";
 "diff-compare-header-from-info-heading" = "پخوانی سمون";
@@ -276,7 +258,6 @@
 "donate-success-title" = "مننه!";
 "donate-title" = "د پيسو ټاکل";
 "donate-transaction-fee-opt-in-text" = "زه به په سخاوتمندانه ډول د راکړې ورکړې فيسونو د پوره کولو لپاره $1 ورکړم؛ ترڅو تاسو زما د بسپنې ۱۰۰%% وساتئ.";
-"duplicate-tab" = "دوه‌گونې ريښکه";
 "edit-link-display-text-title" = "ليک ښکارېدنه";
 "edit-link-link-target-title" = "تړوني موخه";
 "edit-link-remove-link-title" = "تړونی لرې‌کول";
@@ -381,8 +362,7 @@
 "main-menu-title" = "نور";
 "main-page" = "لومړی مخ";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 گام";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 گام|$1 گامه}}";
 "nearby-distance-label-km" = "$1 کیلومتر";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
@@ -484,26 +464,3 @@
 "wikimedia-articletopics-topic-women" = "ژوندليک (ښځې)";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-terms-name" = "د کارولو منښتونه";
-"year-in-review-day-friday" = "هره ادينه";
-"year-in-review-day-monday" = "هره دوه‌نۍ";
-"year-in-review-day-saturday" = "هره پيلنۍ";
-"year-in-review-day-sunday" = "هره يوه‌نۍ";
-"year-in-review-day-thursday" = "هره پېنځه‌نۍ";
-"year-in-review-day-tuesday" = "هره درې‌نۍ";
-"year-in-review-day-wednesday" = "هره څلورنۍ";
-"year-in-review-donate" = "بسپنه ورکول";
-"year-in-review-donate-now" = "اوس بسپنه ورکول";
-"year-in-review-survey-neutral" = "بې‌پرې";
-"year-in-review-survey-satisfied" = "ډاډمن";
-"year-in-review-survey-title" = "د ډاډ ټولپوښتنه";
-"year-in-review-survey-unsatisfied" = "ناخوښ";
-"year-in-review-survey-very-satisfied" = "ډېره خوښ‌";
-"year-in-review-survey-very-unsatisfied" = "ډېر ناخوښ";
-"year-in-review-time-afternoon" = "ماسپښين";
-"year-in-review-time-evening" = "ماښام";
-"year-in-review-time-late-night" = "شپې ناوخته";
-"year-in-review-time-midday" = "غرمه";
-"year-in-review-time-morning" = "سهار";
-"year-in-review-time-night" = "شپه";
-"year-in-review-wikipedia-w-accessibility-label" = "ويکي‌پېډيا له نښان سره";
-"year-in-review-wmf-logo-accessibility-label" = "ويکي‌رسنۍ بنسټ نښان";

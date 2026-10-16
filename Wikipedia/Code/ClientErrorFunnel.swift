@@ -71,11 +71,24 @@ struct ClientErrorThrottle {
 
     private let throttle = OSAllocatedUnfairLock(initialState: ClientErrorThrottle())
 
+    // The schema rejects unknown top-level fields (additionalProperties: false),
+    // so the app install ID travels inside error_context, the schema's
+    // designated field for arbitrary extra data.
+    private static var appInstallIDContext: [String: String]? {
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+
+        guard let appInstallID else {
+            return nil
+        }
+
+        return ["app_install_id": appInstallID]
+    }
+
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .clientError
         let message: String?
         let errorClass: String?
-        let errorContext: String?
+        let errorContext: [String: String]?
         let stackTrace: String?
         let url: String?
         let http: Http?
@@ -109,7 +122,7 @@ struct ClientErrorThrottle {
         let event: ClientErrorFunnel.Event = ClientErrorFunnel.Event(
             message: message,
             errorClass: nil,
-            errorContext: nil,
+            errorContext: Self.appInstallIDContext,
             stackTrace: nil,
             url: nil,
             http: nil
@@ -136,7 +149,7 @@ struct ClientErrorThrottle {
         let event = Event(
             message: "HTTP \(info.statusCode)",
             errorClass: info.source,
-            errorContext: nil,
+            errorContext: Self.appInstallIDContext,
             stackTrace: nil,
             url: info.url,
             http: http

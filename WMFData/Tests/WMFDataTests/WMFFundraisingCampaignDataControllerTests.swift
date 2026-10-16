@@ -190,10 +190,165 @@ final class WMFFundraisingCampaignDataControllerTests {
         }
     }
 
+    // MARK: - Force Fundraising Campaign Banner developer setting
+
+    @Test
+    func forceBannerDeveloperSettingIgnoresCountryAndDateFilters() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let invalidCountry = "US"
+            let invalidDate = try invalidDate()
+
+            try await controller.fetchConfig(countryCode: invalidCountry, currentDate: invalidDate)
+
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: enProject, currentDate: invalidDate))
+            #expect(asset.id == "NL_2023_11")
+        }
+    }
+
+    @Test
+    func forceBannerDeveloperSettingFallsBackToAnyLanguageAsset() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let germanProject = WMFProject.wikipedia(WMFLanguage(languageCode: "de", languageVariantCode: nil))
+            let validDate = try validFirstDayDate()
+
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: germanProject, currentDate: validDate) != nil)
+        }
+    }
+
+    @Test
+    func forceBannerDeveloperSettingIgnoresPromptState() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let validDate = try validFirstDayDate()
+
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) != nil)
+        }
+    }
+
+    // MARK: - Clear fundraising campaign persistence developer action
+
+    @Test
+    func clearFundraisingCampaignPersistenceClearsPromptStateAndDonationHistory() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) == nil)
+
+            _ = WMFDonateDataController.shared.saveLocalDonationHistory(type: .oneTime, amount: 5, currencyCode: "EUR", isNative: true)
+            #expect(WMFDonateDataController.shared.loadLocalDonationHistory(startDate: nil, endDate: nil)?.isEmpty == false)
+
+            WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) != nil)
+            #expect(WMFDonateDataController.shared.loadLocalDonationHistory(startDate: nil, endDate: nil) == nil)
+        }
+    }
+
+    // MARK: - Should show campaign
+
+    @Test
+    func shouldShowCampaignIsTrueAfterFirstAppSession() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+
+            try await withAppResignActiveDate(Date()) {
+                #expect(await controller.shouldShowCampaign(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+            }
+        }
+    }
+
+    @Test
+    func shouldShowCampaignIsFalseInFirstAppSession() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+
+            try await withAppResignActiveDate(nil) {
+                #expect(await controller.shouldShowCampaign(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) == false)
+            }
+        }
+    }
+
+    @Test
+    func shouldShowCampaignIsFalseWithoutActiveAsset() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "US", currentDate: validDate)
+
+            try await withAppResignActiveDate(Date()) {
+                #expect(await controller.shouldShowCampaign(countryCode: "US", wmfProject: enProject, currentDate: validDate) == false)
+            }
+        }
+    }
+
+    @Test
+    func shouldShowCampaignIsFalseAfterBannerIsHidden() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+
+            try await withAppResignActiveDate(Date()) {
+                #expect(await controller.shouldShowCampaign(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) == false)
+            }
+        }
+    }
+
+    // MARK: - Session state
+
+    // The controller no longer listens for the app going to the background. The app calls
+    // `clearSessionState()` instead, so these tests call it directly and never post a notification.
+    // The controller is shared across tests, so each test starts from a cleared flag.
+
+    @Test
+    func markCampaignPresentedSetsSessionFlag() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.clearSessionState()
+            #expect(controller.hasPresentedCampaignThisSession == false)
+
+            controller.markCampaignPresentedThisSession()
+            #expect(controller.hasPresentedCampaignThisSession)
+        }
+    }
+
+    @Test
+    func clearSessionStateClearsSessionFlag() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.markCampaignPresentedThisSession()
+            #expect(controller.hasPresentedCampaignThisSession)
+
+            controller.clearSessionState()
+            #expect(controller.hasPresentedCampaignThisSession == false)
+        }
+    }
+
+    /// Sets the app's "last left the app" date for the length of `body`, then puts back what was there.
+    private func withAppResignActiveDate(_ date: Date?, _ body: () async throws -> Void) async throws {
+        let key = WMFUserDefaultsKey.appResignActiveDate.rawValue
+        let original = UserDefaults.standard.object(forKey: key)
+        defer { UserDefaults.standard.set(original, forKey: key) }
+        UserDefaults.standard.set(date, forKey: key)
+        try await body()
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.basicService = WMFFundraisingCampaignRequestMockService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }
 
     private func validFirstDayDate() throws -> Date {

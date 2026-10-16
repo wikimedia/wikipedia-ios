@@ -19,12 +19,10 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>ContributorAppIcon</key>
+			<key>contributor-app-icon</key>
 			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>ContributorAppIcon</string>
-				</array>
+				<key>CFBundleIconName</key>
+				<string>contributor-app-icon</string>
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>

@@ -28,6 +28,8 @@ public final class WMFHomeViewModel: ObservableObject {
     public var logDidTapCustomizeInterests: (@MainActor @Sendable (String, String) -> Void)?
     public var logEmptyViewImpression: (@MainActor @Sendable () -> Void)?
     public var logCardDidTapArticle: (@MainActor @Sendable (String, String) -> Void)?
+    public var logEndOfFeedImpression: (@MainActor @Sendable () -> Void)?
+    public var logEndOfFeedDidTapCommunity: (@MainActor @Sendable () -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -37,7 +39,10 @@ public final class WMFHomeViewModel: ObservableObject {
     let forYouTabTitle = CommonStrings.forYouTabTitle
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
-    let communityEmptyFeedSubtitle = WMFLocalizedString("home-community-empty-feed-turn-on-modules-message", value: "Turn on modules to see community content", comment: "Message shown in the Home tab Community segment when the reader has turned off every feed module.")
+    var communityEmptyFeedSubtitle: String {
+        let format = WMFLocalizedString("home-empty-community-feed-subtitle", value: "Turn on %1$@“Community”%2$@ modules to start seeing content curated by contributors across the Wikimedia movement.", comment: "Message shown on the Home tab's Community segment when the reader has turned off every Community module in settings. “Community” matches the segment name. %1$@ and %2$@ are opening and closing bold.")
+        return String.localizedStringWithFormat(format, "<b>", "</b>")
+    }
 
     let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
@@ -125,7 +130,6 @@ public final class WMFHomeViewModel: ObservableObject {
 
     /// Opens the Community feed settings from that empty state.
     public var didTapCustomizeCommunityFeed: (@MainActor @Sendable () -> Void)?
-
     // MARK: - For You view model configuration
 
     private func configureForYouViewModel() {
@@ -172,6 +176,17 @@ public final class WMFHomeViewModel: ObservableObject {
         
         forYouViewModel.onEmptyViewAppearance = { [weak self] in
             self?.logEmptyViewImpression?()
+        }
+        forYouViewModel.endOfFeedViewModel.onTapAddInterests = { [weak self] in
+            self?.logDidTapCustomizeInterests?(WMFForYouEndOfFeedCardViewModel.loggingId, "customize_feed")
+            self?.didTapCustomizeInterests?()
+        }
+        forYouViewModel.endOfFeedViewModel.onTapCommunity = { [weak self] in
+            self?.logEndOfFeedDidTapCommunity?()
+            self?.selectedTab = .community
+        }
+        forYouViewModel.endOfFeedViewModel.onShow = { [weak self] in
+            self?.logEndOfFeedImpression?()
         }
         
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }

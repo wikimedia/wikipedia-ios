@@ -27,7 +27,7 @@ private enum WMFForYouCardVariant {
 // MARK: - Card Metrics
 
 /// Where the page dots sit, and how much room a card must leave clear beneath its content.
-private enum WMFForYouCardMetrics {
+public enum WMFForYouCardMetrics {
 
     static let tabBarHeight: CGFloat = 49
     static let dotsBottomGap: CGFloat = 12
@@ -65,6 +65,50 @@ private enum WMFForYouCardMetrics {
     }
 }
 
+// MARK: - Swipe Onboarding
+
+/// How long the swipe-up hint stays on screen, and how long its fade out takes.
+private enum WMFForYouSwipeOnboardingMetrics {
+    static let displayDuration: Duration = .seconds(2)
+    static let fadeOutDuration: TimeInterval = 0.3
+}
+
+// MARK: - Feed visibility
+
+extension WMFForYouViewModel {
+
+    /// The modules the feed can show, each with the cards the user has not hidden. A module whose
+    /// cards are all hidden does not appear.
+    ///
+    /// This is the one definition of what the feed shows. `WMFForYouView` builds its pages from
+    /// it, and `WMFHomeView` reads `isFeedHiddenBySettings` to decide between the feed chrome and
+    /// the settings empty state, so the two can never disagree about whether the feed is empty.
+    var visibleArticlesByPage: [(page: WMFForYouPageViewModel, articles: [WMFForYouArticleCardViewModel])] {
+        pages.compactMap { page in
+            guard moduleVisibility.isVisible(page.module) else { return nil }
+            let articles = page.articleViewModels.filter { !hiddenCardKeys.contains($0.cardUniqueKey) }
+            guard !articles.isEmpty else { return nil }
+            return (page, articles)
+        }
+    }
+
+    /// True when the feed has nothing to show: every module is off, hidden, or fully hidden
+    /// card by card.
+    var isFeedEmpty: Bool {
+        visibleArticlesByPage.isEmpty
+    }
+
+    /// True only when content exists but the reader has turned it all off or hidden it. This is the
+    /// case the settings empty state belongs to.
+    ///
+    /// A reader with no personalized content yet also has no visible pages, but wants different
+    /// copy: `WMFForYouView` shows the end of feed card's `.emptyFeed` variant for that. So that
+    /// case must reach the feed rather than be caught by the empty state above it.
+    var isFeedHiddenBySettings: Bool {
+        !pages.isEmpty && isFeedEmpty
+    }
+}
+
 // MARK: - For You Feed View
 
 public struct WMFForYouView: View {
@@ -79,11 +123,30 @@ public struct WMFForYouView: View {
     /// The module on screen. Mirrored to the view model, which outlives this view.
     @State private var currentModuleID: UUID?
 
+    /// Whether the one-time swipe-up hint is on screen.
+    @State private var isShowingSwipeOnboarding = false
+
+    /// Set to +1 or -1 when the swipe that dismissed the hint was horizontal. The module on screen
+    /// watches it and moves its carousel one card, so a horizontal first swipe browses cards the
+    /// way it would without the hint. It changes at most once: the hint is shown at most once.
+    @State private var swipeOnboardingCardStep = 0
+
     /// The card VoiceOver is reading. Set when a module action moves the feed, so focus follows the
     /// scroll instead of staying on the card the user left behind.
     @AccessibilityFocusState private var focusedCardKey: String?
 
+    @Environment(\.accessibilityVoiceOverEnabled) private var isVoiceOverRunning
+
+    /// Decides which horizontal direction is "next card". The carousels follow the app's layout
+    /// direction (the per-card layout direction is applied inside each card, not to the scroll),
+    /// so in a right-to-left app the next card is revealed by a swipe to the right.
+    @Environment(\.layoutDirection) private var layoutDirection
+
     let scrollToTopRequestID: Int
+
+    /// Identifies the copy of the first module that sits after the end of feed card. A swipe up
+    /// from the end lands here, and the feed then hands over to the real first module.
+    private static let loopPageID = UUID()
 
     public init(viewModel: WMFForYouViewModel, scrollToTopRequestID: Int = 0) {
         self.viewModel = viewModel
@@ -97,18 +160,22 @@ public struct WMFForYouView: View {
     }
     
     private var visiblePages: [VisiblePage] {
-        viewModel.pages.compactMap { page in
-            guard viewModel.moduleVisibility.isVisible(page.module) else { return nil }
-            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.cardUniqueKey) }
-            guard !articles.isEmpty else { return nil }
-            return VisiblePage(page: page, articles: articles)
-        }
+        viewModel.visibleArticlesByPage.map { VisiblePage(page: $0.page, articles: $0.articles) }
+    }
+
+    /// Every stop of the vertical paging stack, in order: the module pages, then the end of feed card.
+    private var scrollableIDs: [UUID] {
+        visiblePages.map(\.id) + [viewModel.endOfFeedViewModel.id]
     }
 
     /// The module that fills the screen. A lazy stack also builds the modules near it, thus only the scroll gives the correct answer.
+    ///
+    /// Nil while the end of feed card is on screen: falling back to the first page there would mark
+    /// it `isOnScreen` and log a false impression for a card the user is not looking at.
     private var moduleOnScreen: VisiblePage? {
-        if let currentModuleID, let page = visiblePages.first(where: { $0.id == currentModuleID }) {
-            return page
+        if let currentModuleID {
+            if currentModuleID == viewModel.endOfFeedViewModel.id { return nil }
+            if let page = visiblePages.first(where: { $0.id == currentModuleID }) { return page }
         }
         return visiblePages.first
     }
@@ -116,34 +183,38 @@ public struct WMFForYouView: View {
     /// Puts the user back on the module they looked at last.
     ///
     /// The module must still be in the feed: the user can hide a module, or hide all the cards of a
-    /// module, while the view is away.
+    /// module, while the view is away. The end of feed card is always in the feed, so it always
+    /// restores.
     private func restoreModulePosition() {
         guard let lastViewedModuleID = viewModel.lastViewedModuleID,
-              visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
+              lastViewedModuleID == viewModel.endOfFeedViewModel.id || visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
 
         currentModuleID = lastViewedModuleID
     }
 
-    /// Moves the feed one module up or down, the way a vertical swipe does for a sighted user.
+    /// Moves the feed one page up or down, the way a vertical swipe does for a sighted user. The
+    /// end of feed card counts as the last page, so VoiceOver can reach it and leave it.
     ///
     /// VoiceOver spends its left/right flicks on the cards inside a module, so without this there is
     /// no gesture left to reach the next module.
     private func moveModule(by offset: Int) {
-        let pages = visiblePages
-        guard let currentID = currentModuleID ?? pages.first?.id,
-              let index = pages.firstIndex(where: { $0.id == currentID }) else { return }
+        let ids = scrollableIDs
+        guard let currentID = currentModuleID ?? ids.first,
+              let index = ids.firstIndex(of: currentID) else { return }
 
         let targetIndex = index + offset
-        guard pages.indices.contains(targetIndex) else { return }
+        guard ids.indices.contains(targetIndex) else { return }
 
-        let targetPage = pages[targetIndex]
+        let targetID = ids[targetIndex]
         withAnimation {
-            currentModuleID = targetPage.id
+            currentModuleID = targetID
         }
 
         // The stack builds modules lazily, so the target's cards cannot take focus until the scroll
-        // has settled. Without this hop VoiceOver keeps reading the card the user just left.
-        guard let firstCardKey = targetPage.articles.first?.cardUniqueKey else { return }
+        // has settled. Without this hop VoiceOver keeps reading the card the user just left. The
+        // end of feed card has no carousel, so it needs no hop.
+        guard let targetPage = visiblePages.first(where: { $0.id == targetID }),
+              let firstCardKey = targetPage.articles.first?.cardUniqueKey else { return }
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(400))
             focusedCardKey = firstCardKey
@@ -158,12 +229,105 @@ public struct WMFForYouView: View {
         }
     }
 
+    // MARK: - Swipe Onboarding
+
+    /// Shows the swipe-up hint once, over the first module of a first-time reader.
+    ///
+    /// The seen flag is written the moment the hint appears, so the reader never sees it a second
+    /// time, not even when the app dies while the hint is up.
+    private func presentSwipeOnboardingIfNeeded() {
+        // A VoiceOver reader moves between modules with the accessibility actions and the
+        // three-finger swipe, so a swipe-up hint would point them at the wrong gesture. Skip
+        // without writing the seen flag: a reader who later turns VoiceOver off still gets the hint.
+        guard !isVoiceOverRunning,
+              visiblePages.count > 1,
+              !WMFHomeDataController.shared.hasSeenForYouSwipeOnboarding() else { return }
+
+        WMFHomeDataController.shared.setHasSeenForYouSwipeOnboarding(true)
+        isShowingSwipeOnboarding = true
+
+        Task { @MainActor in
+            try? await Task.sleep(for: WMFForYouSwipeOnboardingMetrics.displayDuration)
+            dismissSwipeOnboarding()
+        }
+    }
+
+    /// A no-op once the hint is gone, so the two-second timer and a swipe cannot both act.
+    private func dismissSwipeOnboarding() {
+        guard isShowingSwipeOnboarding else { return }
+        withAnimation(.easeOut(duration: WMFForYouSwipeOnboardingMetrics.fadeOutDuration)) {
+            isShowingSwipeOnboarding = false
+        }
+    }
+
+    /// Sits over the whole feed and takes the first touch itself. A swipe up fades the hint out and
+    /// moves the feed to the next module, so the reader's first swipe does what the image promised.
+    ///
+    /// Taking the touch instead of letting it through also keeps the scroll view from paging at
+    /// the same time, which would move the feed two modules for one swipe.
+    ///
+    /// The background is a full-screen dimming layer: black at partial opacity over the card, the
+    /// way the system dims content behind an alert. No blur, so the card stays recognisable.
+    private var swipeOnboardingOverlay: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color(uiColor: WMFColor.black).opacity(0.42))
+                .ignoresSafeArea()
+            Image("swipe_gestures", bundle: .module)
+        }
+        .contentShape(Rectangle())
+        .gesture(
+            DragGesture(minimumDistance: 8)
+                .onChanged { value in
+                    // `onChanged` fires for every movement of the finger; the guard makes
+                    // the dismissal and the navigation happen once.
+                    guard isShowingSwipeOnboarding else { return }
+                    let translation = value.translation
+                    dismissSwipeOnboarding()
+
+                    // The dominant axis decides what the swipe meant. Without this, a card
+                    // swipe with a few points of upward drift would move the feed a module.
+                    if abs(translation.height) >= abs(translation.width) {
+                        if translation.height < 0 {
+                            moveModule(by: 1)
+                        }
+                        // A downward swipe only dismisses: above the first module there is nothing.
+                    } else {
+                        let isNextCard = layoutDirection == .rightToLeft
+                            ? translation.width > 0
+                            : translation.width < 0
+                        swipeOnboardingCardStep = isNextCard ? 1 : -1
+                    }
+                }
+        )
+        .onTapGesture { dismissSwipeOnboarding() }
+        .transition(.opacity)
+        .accessibilityHidden(true)
+    }
+
     public var body: some View {
         if visiblePages.isEmpty {
-            emptyState
-                .onAppear {
-                    viewModel.onEmptyViewAppearance?()
+            if viewModel.pages.isEmpty {
+                // No personalized content is available at all (no interests, no reading history):
+                // the end of feed card doubles as the empty state until the Random article module
+                // ships. When content exists but every module is off or every card is hidden,
+                // `WMFHomeView` shows the settings empty state instead and this view is not built;
+                // the branch below remains as a fallback for any other caller.
+                GeometryReader { geometry in
+                    ScrollView {
+                        endOfFeedPage
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    }
+                    .scrollBounceBehavior(.basedOnSize)
+                    .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
                 }
+                .ignoresSafeArea()
+            } else {
+                emptyState
+                    .onAppear {
+                        viewModel.onEmptyViewAppearance?()
+                    }
+            }
         } else {
             GeometryReader { geometry in
                 scrollView(geometry: geometry)
@@ -172,40 +336,75 @@ public struct WMFForYouView: View {
         }
     }
 
+    /// One page of the vertical stack.
+    ///
+    /// `isCopy` marks the duplicate of the first module that follows the end of feed card. It is on
+    /// screen only for the length of one swipe, so it remembers nothing and logs nothing: the real
+    /// module it hands over to does both.
+    private func modulePage(_ visiblePage: VisiblePage, index: Int, geometry: GeometryProxy, isCopy: Bool = false) -> some View {
+        WMFForYouPageView(
+            articleViewModels: visiblePage.articles,
+            theme: theme,
+            onHideModule: { viewModel.onHideModule?($0) },
+            onHideCard: { viewModel.onHideCard?($0) },
+            onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
+            onTapCard: { viewModel.onTapCard?($0) },
+            onSaveCard: { viewModel.onSaveCard?($0) },
+            onShareCard: { viewModel.onShareCard?($0) },
+            onUnsaveCard: { viewModel.onUnsaveCard?($0) },
+            lastViewedCardKey: isCopy ? nil : viewModel.lastViewedCardKey,
+            isOnScreen: isCopy ? false : visiblePage.id == moduleOnScreen?.id,
+            onViewCard: { if !isCopy { viewModel.rememberViewedCard($0) } },
+            onShowCard: { if !isCopy { viewModel.onShowCard?($0) } },
+            focusedCardKey: $focusedCardKey,
+            canGoToPreviousModule: index > 0,
+            onGoToPreviousModule: { moveModule(by: -1) },
+            onGoToNextModule: { moveModule(by: 1) },
+            swipeOnboardingCardStep: swipeOnboardingCardStep
+        )
+        .frame(width: geometry.size.width, height: geometry.size.height)
+    }
+
     @ViewBuilder
     private func scrollView(geometry: GeometryProxy) -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 0) {
                 ForEach(Array(visiblePages.enumerated()), id: \.element.id) { index, visiblePage in
-                    WMFForYouPageView(
-                        articleViewModels: visiblePage.articles,
-                        theme: theme,
-                        onHideModule: { viewModel.onHideModule?($0) },
-                        onHideCard: { viewModel.onHideCard?($0) },
-                        onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
-                        onTapCard: { viewModel.onTapCard?($0) },
-                        onSaveCard: { viewModel.onSaveCard?($0) },
-                        onShareCard: { viewModel.onShareCard?($0) },
-                        onUnsaveCard: { viewModel.onUnsaveCard?($0) },
-                        lastViewedCardKey: viewModel.lastViewedCardKey,
-                        isOnScreen: visiblePage.id == moduleOnScreen?.id,
-                        onViewCard: { viewModel.rememberViewedCard($0) },
-                        onShowCard: { viewModel.onShowCard?($0) },
-                        focusedCardKey: $focusedCardKey,
-                        canGoToPreviousModule: index > 0,
-                        canGoToNextModule: index < visiblePages.count - 1,
-                        onGoToPreviousModule: { moveModule(by: -1) },
-                        onGoToNextModule: { moveModule(by: 1) }
-                    )
+                    modulePage(visiblePage, index: index, geometry: geometry)
+                }
+                endOfFeedPage
                     .frame(width: geometry.size.width, height: geometry.size.height)
+                    .id(viewModel.endOfFeedViewModel.id)
+                if let firstPage = visiblePages.first {
+                    // Swiping up from the end of feed card carries on forwards into this, rather
+                    // than scrolling back up through the whole feed.
+                    modulePage(firstPage, index: 0, geometry: geometry, isCopy: true)
+                        .id(Self.loopPageID)
+                        // VoiceOver reaches the modules through moveModule, which does not know
+                        // about the copy, so it must not find duplicate cards here.
+                        .accessibilityHidden(true)
                 }
             }
             .scrollTargetLayout()
         }
         .scrollPosition(id: $currentModuleID)
-        .onAppear { restoreModulePosition() }
+        .onAppear {
+            restoreModulePosition()
+            presentSwipeOnboardingIfNeeded()
+        }
         .onChange(of: currentModuleID) { _, moduleID in
+            // The copy and the real first module look the same, so moving between them with no
+            // animation is invisible, and the feed is back at the top ready to scroll down again.
+            if moduleID == Self.loopPageID {
+                if let firstID = visiblePages.first?.id {
+                    currentModuleID = firstID
+                }
+                return
+            }
             viewModel.rememberViewedModule(moduleID)
+            if moduleID == viewModel.endOfFeedViewModel.id {
+                viewModel.endOfFeedViewModel.reportShownIfNeeded()
+            }
         }
         .onChange(of: scrollToTopRequestID) { _, _ in
             scrollToFirstModule()
@@ -233,8 +432,19 @@ public struct WMFForYouView: View {
                     hasReportedCurrentDrag = true
                     viewModel.onUserInteraction?()
                 }
-                .onEnded { _ in hasReportedCurrentDrag = false }
+                .onEnded { _ in
+                    hasReportedCurrentDrag = false
+                }
         )
+        .overlay {
+            if isShowingSwipeOnboarding {
+                swipeOnboardingOverlay
+            }
+        }
+    }
+
+    private var endOfFeedPage: some View {
+        WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, theme: .forYou)
     }
 
     // MARK: - Empty State
@@ -314,11 +524,15 @@ private struct WMFForYouPageView: View {
     @AccessibilityFocusState.Binding var focusedCardKey: String?
 
     /// Offered only where there is somewhere to go, so the rotor does not list a dead action on the
-    /// first and last modules.
+    /// first and last modules. Last module will always allow for going up to the start again.
     let canGoToPreviousModule: Bool
-    let canGoToNextModule: Bool
     let onGoToPreviousModule: () -> Void
     let onGoToNextModule: () -> Void
+
+    /// +1 or -1 when a horizontal swipe dismissed the swipe-up onboarding hint, so the module on
+    /// screen moves its carousel one card. The hint's overlay takes the touch itself, thus the
+    /// carousel never sees that swipe.
+    let swipeOnboardingCardStep: Int
 
     /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
@@ -338,6 +552,19 @@ private struct WMFForYouPageView: View {
               let card = articleViewModels.first(where: { $0.cardUniqueKey == currentPageKey }) else { return }
 
         onShowCard(card)
+    }
+
+    /// Moves the carousel one card forward or back, the way a horizontal swipe does.
+    private func moveCard(by offset: Int) {
+        guard let currentKey = currentPageKey,
+              let index = articleViewModels.firstIndex(where: { $0.cardUniqueKey == currentKey }) else { return }
+
+        let targetIndex = index + offset
+        guard articleViewModels.indices.contains(targetIndex) else { return }
+
+        withAnimation {
+            currentPage = articleViewModels[targetIndex].cardUniqueKey
+        }
     }
 
     /// Read after the card's title, so someone swiping through a module knows where they are.
@@ -372,9 +599,7 @@ private struct WMFForYouPageView: View {
             .accessibilityFocused($focusedCardKey, equals: article.cardUniqueKey)
             .accessibilityValue(Text(positionValue(for: article)))
             .accessibilityActions {
-                if canGoToNextModule {
-                    Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
-                }
+                Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
                 if canGoToPreviousModule {
                     Button(WMFHomeLocalizedStrings.previousModule) { onGoToPreviousModule() }
                 }
@@ -441,6 +666,12 @@ private struct WMFForYouPageView: View {
         }
         .onChange(of: isOnScreen) { _, _ in
             reportCardOnScreen()
+        }
+        // The horizontal swipe that dismissed the onboarding hint. Only the module on screen may
+        // act: a lazy stack also builds the neighbouring modules, and each of them sees the change.
+        .onChange(of: swipeOnboardingCardStep) { _, step in
+            guard isOnScreen, step != 0 else { return }
+            moveCard(by: step)
         }
         .onAppear {
             reportCardOnScreen()

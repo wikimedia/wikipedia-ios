@@ -7,11 +7,13 @@ struct WMFPriceButton: View {
         let currencyCode: String
         let canDeselect: Bool
         let accessibilityHint: String
-        
-        internal init(currencyCode: String, canDeselect: Bool = true, accessibilityHint: String) {
+        let cornerRadius: CGFloat
+
+        internal init(currencyCode: String, canDeselect: Bool = true, accessibilityHint: String, cornerRadius: CGFloat = 8) {
             self.currencyCode = currencyCode
             self.canDeselect = canDeselect
             self.accessibilityHint = accessibilityHint
+            self.cornerRadius = cornerRadius
         }
     }
     
@@ -40,12 +42,12 @@ struct WMFPriceButton: View {
                 .padding([.top, .bottom], 13)
                 .foregroundColor(isSelected ? Color(WMFColor.white) : Color(appEnvironment.theme.text))
                 .background(
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: configuration.cornerRadius)
                         .stroke(isSelected ? Color(appEnvironment.theme.link) : Color(appEnvironment.theme.baseBackground), lineWidth: 1)
                 )
         }
         .background(isSelected ? Color(appEnvironment.theme.link) : Color(appEnvironment.theme.midBackground))
-        .cornerRadius(8)
+        .cornerRadius(configuration.cornerRadius)
         .accessibilityHint(configuration.accessibilityHint)
         .accessibilityAddTraits( isSelected ? [.isSelected] : [])
     }

@@ -35,7 +35,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         return .wikipedia(language)
     }()
 
-    let year = 2025
+    let year = 2026
     let countryCode = "US"
     let username = "user"
 

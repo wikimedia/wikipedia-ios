@@ -173,7 +173,6 @@
 "reading-themes-controls-syntax-highlighting" = "Sintakses izcelšana";
 "reference-title" = "Atsauce $1";
 "relative-date-seconds-abbreviated" = "$1s";
-"reverted-edit-title" = "Atcelts labojums";
 "saved-all-articles-title" = "Visi raksti";
 // Fuzzy
 "saved-search-default-text" = "Meklēt";
@@ -201,7 +200,6 @@
 "table-of-contents-close-accessibility-hint" = "Aizvērt";
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";
 "table-of-contents-heading" = "Saturs";
-"talk-page-new-banner-title" = "Lūdzu, esi jauks";
 // Fuzzy
 "talk-page-title-article-talk" = "raksta diskusija";
 "theme-default-display-name" = "Noklusējuma";

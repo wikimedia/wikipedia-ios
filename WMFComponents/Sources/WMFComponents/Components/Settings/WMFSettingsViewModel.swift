@@ -17,14 +17,24 @@ public struct SettingsItem: Identifiable {
     let color: UIColor?
     let title: String
     let subtitle: String?
+    let showsBetaBadge: Bool
     let accessory: AccessoryType
     let action: (() -> Void)?
 
-    public init(image: UIImage?, color: UIColor?, title: String, subtitle: String?, accessory: AccessoryType, action: (() -> Void)?) {
+    public init(
+        image: UIImage?,
+        color: UIColor?,
+        title: String,
+        subtitle: String?,
+        showsBetaBadge: Bool = false,
+        accessory: AccessoryType,
+        action: (() -> Void)?
+    ) {
         self.image = image
         self.color = color
         self.title = title
         self.subtitle = subtitle
+        self.showsBetaBadge = showsBetaBadge
         self.accessory = accessory
         self.action = action
     }
@@ -72,10 +82,39 @@ final public class WMFSettingsViewModel: ObservableObject {
         let rateTheAppTitle: String
         let helpTitle: String
         let aboutTitle: String
-        let clearDonationHistoryTitle: String
         let safetyTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, homeFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
+        let donationsHeader = WMFLocalizedString("settings-donations-header", value: "Donations", comment: "Header of the donations section on the settings screen.")
+        let donationRemindersTitle = CommonStrings.donationRemindersTitle
+        let donationRemindersSubtitleFormat = WMFLocalizedString("settings-donation-reminders-subtitle", value: "Wikipedia will remind you to donate %1$@ every %2$@ articles you read.", comment: "Subtitle of the donation reminders row on the settings screen. %1$@ is the donation amount, %2$@ is the number of articles.")
+        let clearDonationHistoryTitle = WMFLocalizedString("settings-clear-donation-history", value: "Clear donation history", comment: "Title of the row on the settings screen that deletes the locally saved donation history.")
+
+        public init(
+            settingTitle: String,
+            doneButtonTitle: String,
+            cancelButtonTitle: String,
+            accountTitle: String,
+            logInTitle: String,
+            myLanguagesTitle: String,
+            searchTitle: String,
+            exploreFeedTitle: String,
+            homeFeedTitle: String,
+            onTitle: String,
+            offTitle: String,
+            yirTitle: String,
+            pushNotificationsTitle: String,
+            readingpreferences: String,
+            articleSyncing: String,
+            databasePopulation: String,
+            clearCacheTitle: String,
+            privacyHeader: String,
+            privacyPolicyTitle: String,
+            termsOfUseTitle: String,
+            rateTheAppTitle: String,
+            helpTitle: String,
+            aboutTitle: String,
+            safetyTitle: String
+        ) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -99,7 +138,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.rateTheAppTitle = rateTheAppTitle
             self.helpTitle = helpTitle
             self.aboutTitle = aboutTitle
-            self.clearDonationHistoryTitle = clearDonationHistoryTitle
             self.safetyTitle = safetyTitle
         }
     }
@@ -115,20 +153,18 @@ final public class WMFSettingsViewModel: ObservableObject {
     private var tempUsername: String?
     private var isTempAccount: Bool
     private var mainLanguage: String
-    private var exploreFeedStatus: Bool
     private var readingPreferenceTheme: String
     public weak var coordinatorDelegate: SettingsCoordinatorDelegate?
     private let dataController: WMFSettingsDataController
 
     // MARK: - Lifecycle
 
-    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataController: WMFSettingsDataController) async {
+    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataController: WMFSettingsDataController) async {
         self.localizedStrings = localizedStrings
         self.username = username
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
@@ -143,7 +179,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController
@@ -154,7 +189,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: primaryLanguage,
-            exploreFeedStatus: exploreFeedStatus,
             readingPreferenceTheme: readingPreferenceTheme,
             coordinatorDelegate: coordinatorDelegate,
             dataController: dataController
@@ -169,7 +203,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController,
@@ -180,7 +213,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
@@ -192,7 +224,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController
@@ -203,7 +234,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: primaryLanguage,
-            exploreFeedStatus: exploreFeedStatus,
             readingPreferenceTheme: readingPreferenceTheme,
             coordinatorDelegate: coordinatorDelegate,
             dataController: dataController,
@@ -214,7 +244,13 @@ final public class WMFSettingsViewModel: ObservableObject {
     // MARK: - Private methods
 
     private func buildSections() async {
-        sections = await [getAccountSection(), getMainSection(), getTermsSection(), getHelpSection()]
+        var newSections = await [getAccountSection(), getMainSection()]
+        if let donationsSection = await getDonationsSection() {
+            newSections.append(donationsSection)
+        }
+        newSections.append(await getTermsSection())
+        newSections.append(getHelpSection())
+        sections = newSections
     }
 
     public func refreshSections() async {
@@ -233,11 +269,10 @@ final public class WMFSettingsViewModel: ObservableObject {
         await refreshSections()
     }
 
-    /// Updates the language, explore feed status and reading theme synchronously
+    /// Updates the language and reading theme synchronously
     /// by patching the affected items directly in the existing sections array.
-    public func updateDynamicValues(primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
+    public func updateDynamicValues(primaryLanguage: String, readingPreferenceTheme: String) {
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
 
         // Find the main section (the one that has no header and contains the myLanguages item).
@@ -252,13 +287,6 @@ final public class WMFSettingsViewModel: ObservableObject {
                         image: existing.image, color: existing.color,
                         title: existing.title, subtitle: existing.subtitle,
                         accessory: .chevron(label: primaryLanguage),
-                        action: existing.action)
-
-                } else if title == localizedStrings.exploreFeedTitle || title == CommonStrings.communityFeedTitle {
-                    sections[sectionIndex].items[itemIndex] = SettingsItem(
-                        image: existing.image, color: existing.color,
-                        title: existing.title, subtitle: existing.subtitle,
-                        accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle),
                         action: existing.action)
 
                 } else if title == localizedStrings.readingpreferences {
@@ -289,25 +317,19 @@ final public class WMFSettingsViewModel: ObservableObject {
         })
 
         var feedItems: [SettingsItem] = []
-        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
-            if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
-                // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
-                // feed row covers customization for both segments.
-                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-                }))
-            } else {
-                // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
-                // powers the Community segment and its settings stay reachable here relabeled as Community.
-                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-                }))
-                feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
-                }))
-            }
+        if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
+            // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
+            // feed row covers customization for both segments.
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+            }))
         } else {
-            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
+            // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
+            // powers the Community segment and its settings stay reachable here relabeled as Community.
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+            }))
+            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
                 self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
             }))
         }
@@ -340,7 +362,7 @@ final public class WMFSettingsViewModel: ObservableObject {
 
         var mainItems: [SettingsItem] = [pushNotifications, readingPrefs, articleStorage]
 
-        if WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
+        if WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled {
             mainItems.append(editingPreferencesItem())
         }
 
@@ -358,12 +380,46 @@ final public class WMFSettingsViewModel: ObservableObject {
         return section
     }
 
-    /// Only shown while the visual editing journey is in development. The value reflects the mode the
-    /// user last picked, either here or in the choose editor sheet.
+    /// Only shown while the remote feature config enables the visual editor journey. The value
+    /// reflects the mode the user last picked, either here or in the choose editor sheet.
     private func editingPreferencesItem() -> SettingsItem {
         SettingsItem(image: WMFSFSymbolIcon.for(symbol: .pencil), color: WMFColor.green600, title: WMFEditingPreferencesCopy.title, subtitle: nil, accessory: .chevron(label: WMFSettingsDataController.shared.defaultEditMode().localizedShortTitle), action: {
             self.coordinatorDelegate?.handleSettingsAction(.editingPreferences)
         })
+    }
+
+    private func getDonationsSection() async -> SettingsSection? {
+        var items: [SettingsItem] = []
+
+        if WMFDonationReminderDataController.shared.isReminderSettingsEntryAvailable() {
+            let reminder = WMFDonationReminderDataController.shared.loadReminder()
+            let isReminderOn = reminder?.isEnabled == true
+            let stateLabel = isReminderOn ? localizedStrings.onTitle : localizedStrings.offTitle
+
+            var subtitle: String?
+            if let reminder, reminder.isEnabled, case .articlesRead(let articleCount) = reminder.trigger {
+                let formatter = NumberFormatter.wmfCurrencyFormatter
+                formatter.currencyCode = reminder.currencyCode
+                let formattedAmount = formatter.string(from: reminder.amount as NSNumber) ?? "\(reminder.amount)"
+                subtitle = String.localizedStringWithFormat(localizedStrings.donationRemindersSubtitleFormat, formattedAmount, "\(articleCount)")
+            }
+
+            items.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.red600, title: localizedStrings.donationRemindersTitle, subtitle: subtitle, accessory: .chevron(label: stateLabel), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.donationReminders)
+            }))
+        }
+
+        if await dataController.hasLocalDonations() {
+            items.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .trash), color: WMFColor.yellow600, title: localizedStrings.clearDonationHistoryTitle, subtitle: nil, accessory: .none, action: {
+                self.coordinatorDelegate?.handleSettingsAction(.deleteDonationHistory)
+            }))
+        }
+
+        guard !items.isEmpty else {
+            return nil
+        }
+
+        return SettingsSection(header: localizedStrings.donationsHeader, footer: nil, items: items)
     }
 
     private func getTermsSection() async -> SettingsSection {
@@ -378,15 +434,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.legalAndSafety)
         })
 
-        let deleteLocalDonations = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.gray300, title: localizedStrings.clearDonationHistoryTitle, subtitle: nil, accessory: .none, action: {
-            self.coordinatorDelegate?.handleSettingsAction(.deleteDonationHistory)
-        })
-
-        var section = SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items:[privacy, terms, safety])
-        if await dataController.hasLocalDonations() {
-            section.items.append(deleteLocalDonations)
-        }
-        return section
+        return SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items: [privacy, terms, safety])
     }
 
     func getHelpSection() -> SettingsSection {

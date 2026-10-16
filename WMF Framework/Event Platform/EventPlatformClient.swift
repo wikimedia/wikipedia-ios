@@ -188,19 +188,19 @@ import WMFTestKitchen
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static var analyticsEventIntakeURI: URL {
+    private static var analyticsEventIntakeURI: URL? {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
-            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
+            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")
         } else {
-            URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+            URL(string: "https://intake-analytics.wikimedia.org/v1/events")
         }
     }
 
-    private static var loggingEventIntakeURI: URL {
+    private static var loggingEventIntakeURI: URL? {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
-            URL(string: "https://intake-logging-beta.wmflabs.org/v1/events")!
+            URL(string: "https://intake-logging-beta.wmflabs.org/v1/events")
         } else {
-            URL(string: "https://intake-logging.wikimedia.org/v1/events")!
+            URL(string: "https://intake-logging.wikimedia.org/v1/events")
         }
     }
 
@@ -220,7 +220,7 @@ import WMFTestKitchen
      * be "eventgate-analytics-external" (to filter out irrelevant streams from
      * the returned list of stream configurations).
      */
-    private static let streamConfigsURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json")!
+    private static let streamConfigsURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json")
 
     /**
      * An individual stream's configuration.
@@ -333,9 +333,13 @@ import WMFTestKitchen
      *     every failed attempt
      */
     private func fetchStreamConfiguration(retries: Int, retryDelay: TimeInterval) {
-        self.httpGet(url: EventPlatformClient.streamConfigsURI, completion: { (data, response, error) in
+        guard let streamConfigsURI = EventPlatformClient.streamConfigsURI else {
+            assertionFailure("EPC: stream configs URI is not a valid URL")
+            return
+        }
+        self.httpGet(url: streamConfigsURI, completion: { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, let data = data, httpResponse.statusCode == 200 else {
-                DDLogWarn("EPC: Server did not respond adequately, will try \(EventPlatformClient.streamConfigsURI.absoluteString) again")
+                DDLogWarn("EPC: Server did not respond adequately, will try \(streamConfigsURI.absoluteString) again")
 
                 if retries > 0 {
                     dispatchOnMainQueueAfterDelayInSeconds(retryDelay) {
@@ -526,12 +530,18 @@ import WMFTestKitchen
         return body
     }
 
-    private static func intakeURI(for destination: EventDestination, hasty: Bool) -> URL {
+    private static func intakeURI(for destination: EventDestination, hasty: Bool) -> URL? {
         var uri: URL
         switch destination {
         case .analytics:
+            guard let analyticsEventIntakeURI else {
+                return nil
+            }
             uri = analyticsEventIntakeURI
         case .logging:
+            guard let loggingEventIntakeURI else {
+                return nil
+            }
             uri = loggingEventIntakeURI
         }
         if hasty {
@@ -666,9 +676,13 @@ import WMFTestKitchen
         }
 
         let batch = batches[index]
-        let uri = Self.intakeURI(for: batch.destination, hasty: hasty)
         let continueWithNextBatch = {
             self.sendBatches(batches, startingAt: index + 1, hasty: hasty, storageManager: storageManager, completion: completion)
+        }
+        guard let uri = Self.intakeURI(for: batch.destination, hasty: hasty) else {
+            assertionFailure("EPC: intake URI is not a valid URL")
+            continueWithNextBatch()
+            return
         }
 
         httpPost(url: uri, body: Self.encodeBatchBody(batch.events.map(\.data))) { result in

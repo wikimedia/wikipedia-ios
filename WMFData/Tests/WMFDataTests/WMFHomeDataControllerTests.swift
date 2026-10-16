@@ -509,50 +509,6 @@ final class WMFHomeDataControllerTests: XCTestCase {
             // expected
         }
     }
-    
-    // MARK: - Experiment assignment
-
-    func testPersistredHomeTabAssignmentReturnsControlWhenNoExperimentStore() {
-        let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: nil
-        )
-        XCTAssertEqual(controller.persistedHomeTabAssignment(), .control)
-    }
-
-    func testIsHomeTabGroupBIsFalseWhenControlAssigned() {
-        let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: nil
-        )
-        XCTAssertFalse(controller.isHomeTabGroupB)
-    }
-
-    func testPersistredHomeTabAssignmentIsStableAcrossMultipleCalls() {
-        let store = WMFMockKeyValueStore()
-        let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: store
-        )
-        let first = controller.persistedHomeTabAssignment()
-        let second = controller.persistedHomeTabAssignment()
-        XCTAssertEqual(first, second)
-    }
-
-    func testPersistredHomeTabAssignmentIsStableAcrossNewControllerInstancesWithSameStore() {
-        // Two controllers sharing the same store must land in the same bucket,
-        // because determineBucketForExperiment persists the result.
-        let store = WMFMockKeyValueStore()
-        let first = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: store
-        )
-        let second = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: store
-        )
-        XCTAssertEqual(first.persistedHomeTabAssignment(), second.persistedHomeTabAssignment())
-    }
 
     // MARK: - One-time onboarding state
 

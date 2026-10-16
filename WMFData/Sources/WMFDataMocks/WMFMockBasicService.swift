@@ -116,9 +116,27 @@ fileprivate extension WMFData.WMFServiceRequest {
         return true
     }
 
+    var isSemanticSearchGet: Bool {
+        guard let url,
+              url.path == "/w/api.php",
+              let parameters
+        else { return false }
+
+        return method == .GET && parameters["cirrusSemanticSearch"] != nil
+    }
+
+    var isAttributionSignalsGet: Bool {
+        guard let url,
+              url.path.contains("/attribution/"),
+              url.path.hasSuffix("/signals")
+        else { return false }
+
+        return method == .GET
+    }
+
 }
 
-public class WMFMockBasicService: WMFService {
+public final class WMFMockBasicService: WMFService {
     
     private let overrideJSONResourceName: String?
     
@@ -126,7 +144,7 @@ public class WMFMockBasicService: WMFService {
         self.overrideJSONResourceName = jsonResourceName
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
             return
@@ -135,7 +153,7 @@ public class WMFMockBasicService: WMFService {
         completion(.success(jsonData))
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -150,7 +168,7 @@ public class WMFMockBasicService: WMFService {
         completion(.success(jsonDict))
     }
     
-    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -167,7 +185,7 @@ public class WMFMockBasicService: WMFService {
         completion(.success(response))
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -247,6 +265,24 @@ public class WMFMockBasicService: WMFService {
                 return nil
             }
             
+            return jsonData
+        } else if request.isSemanticSearchGet {
+            let resourceName = "semantic-search-get"
+
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+
+            return jsonData
+        } else if request.isAttributionSignalsGet {
+            let resourceName = "attribution-signals-get"
+
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+
             return jsonData
         } else if request.isOnThisDayEventsGet {
             let resourceName = "onthisday-events-02-21-get"

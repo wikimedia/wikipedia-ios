@@ -190,6 +190,56 @@ class ArticleWebMessagingController: NSObject {
         }
     }
 
+    /// Highlights `passages` inside the section of `anchor`, or in the whole article when the
+    /// section does not have them. Reports the ids of the highlight spans. The first id is the
+    /// start of the first passage found.
+    func highlightPassages(_ passages: [String], anchor: String?, completion: @escaping ([String]) -> Void) {
+        guard let webView,
+              let passagesData = try? JSONEncoder().encode(passages),
+              let passagesJSON = String(data: passagesData, encoding: .utf8) else {
+            completion([])
+            return
+        }
+
+        let anchorJS = anchor.map { "`\($0.sanitizedForJavaScriptTemplateLiterals)`" } ?? "null"
+        webView.evaluateJavaScript("window.wmf.findInPage.highlightPassages(\(passagesJSON), \(anchorJS))") { result, error in
+            if let error {
+                DDLogWarn("Error highlighting passages: \(error)")
+            }
+            completion(result as? [String] ?? [])
+        }
+    }
+
+    /// Calls back once the Page Content Service shows the sections of the page. That happens after
+    /// the final setup: before it, the page has the height of the lead only. On an error, calls
+    /// back right away.
+    func sectionsAreShown(completion: @escaping () -> Void) {
+        guard let webView else {
+            completion()
+            return
+        }
+
+        webView.callAsyncJavaScript("await window.wmf.utilities.whenSectionsAreShown()", in: nil, in: .page) { result in
+            if case .failure(let error) = result {
+                DDLogWarn("Error waiting for the sections of the page: \(error)")
+            }
+            completion()
+        }
+    }
+
+    /// The height of the page, as the page measures it. The web view reports the same height once
+    /// it is in sync with the page.
+    func pageHeight(completion: @escaping (CGFloat) -> Void) {
+        guard let webView else {
+            completion(0)
+            return
+        }
+
+        webView.evaluateJavaScript("document.documentElement.scrollHeight") { result, _ in
+            completion((result as? NSNumber).map { CGFloat($0.doubleValue) } ?? 0)
+        }
+    }
+
     func removeElementHighlights() {
         webView?.evaluateJavaScript("pcs.c1.Page.removeHighlightsFromHighlightedElements()")
     }
@@ -198,6 +248,70 @@ class ArticleWebMessagingController: NSObject {
 
     func removeSearchTermHighlights() {
         let js = "window.wmf.findInPage.removeSearchTermHighlights()"
+        webView?.evaluateJavaScript(js)
+    }
+
+    func injectDonationReminderCard(cardHTML: String, completion: @escaping (Bool) -> Void) {
+        let sanitizedCardHTML = cardHTML.sanitizedForJavaScriptTemplateLiterals
+        let js = """
+            (function() {
+                if (document.getElementById('wmf-donation-reminder-card')) {
+                    return true;
+                }
+                var pcs = document.getElementById('pcs');
+                if (!pcs) {
+                    return false;
+                }
+                var headers = pcs.getElementsByTagName('header');
+                if (headers.length === 0) {
+                    return false;
+                }
+                headers[0].insertAdjacentHTML('beforebegin', `\(sanitizedCardHTML)`);
+                return true;
+            })();
+        """
+        webView?.evaluateJavaScript(js) { result, error in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                completion((result as? Bool) ?? false)
+            }
+        }
+    }
+
+    func fetchDonationReminderDonateButtonRect(completion: @escaping (CGRect?) -> Void) {
+        let js = """
+            (function() {
+                var button = document.querySelector('#wmf-donation-reminder-card .wmf-donation-reminder-card-donate');
+                if (!button) {
+                    return null;
+                }
+                var rect = button.getBoundingClientRect();
+                return [rect.left + window.scrollX, rect.top + window.scrollY, rect.width, rect.height];
+            })();
+        """
+        webView?.evaluateJavaScript(js) { result, _ in
+            DispatchQueue.main.async {
+                guard let values = result as? [Double], values.count == 4 else {
+                    completion(nil)
+                    return
+                }
+                completion(CGRect(x: values[0], y: values[1], width: values[2], height: values[3]))
+            }
+        }
+    }
+
+    func removeDonationReminderCard() {
+        let js = """
+            (function() {
+                var card = document.getElementById('wmf-donation-reminder-card-container') || document.getElementById('wmf-donation-reminder-card');
+                if (card) {
+                    card.remove();
+                }
+            })();
+        """
         webView?.evaluateJavaScript(js)
     }
 }

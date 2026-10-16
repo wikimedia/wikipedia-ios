@@ -10,7 +10,7 @@ public enum WMFDonateLoggingAction {
     case nativeFormDidEnterAmountInTextfield
     case nativeFormDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?)
     case nativeFormDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?)
-    case nativeFormDidTriggerPaymentSuccess
+    case nativeFormDidTriggerPaymentSuccess(recurringMonthlyIsSelected: Bool)
     case nativeFormDidTapProblemsDonating
     case nativeFormDidTapOtherWaysToGive
     case nativeFormDidTapFAQ

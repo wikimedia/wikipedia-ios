@@ -16,10 +16,10 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageControllerA
     [self wmf_cancelImageDownload];
 }
 
-- (void)wmf_setImageWithURL:(NSURL *)imageURL detectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
+- (void)wmf_setImageWithURL:(NSURL *)imageURL detectFaces:(BOOL)detectFaces failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
     [self wmf_cancelImageDownload];
     self.wmf_imageURL = imageURL;
-    [self wmf_fetchImageDetectFaces:detectFaces onGPU:onGPU failure:failure success:success];
+    [self wmf_fetchImageDetectFaces:detectFaces failure:failure success:success];
 }
 
 - (nullable NSURL *)wmf_imageURLToFetch {

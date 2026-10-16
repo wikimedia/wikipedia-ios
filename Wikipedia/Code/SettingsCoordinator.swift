@@ -26,6 +26,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private let dataController: WMFSettingsDataController
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    private var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private weak var storageAndSyncingViewModel: WMFStorageAndSyncingSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
@@ -104,13 +105,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
             safetyTitle: CommonStrings.legalAndSafety)
     }
 
     func asyncStart() async {
-
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
 
         let username = dataStore.authenticationManager.authStatePermanentUsername
@@ -118,9 +116,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled && dataStore.authenticationManager.authStateIsTemporary
 
-        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+        let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
 
-        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: dataController)
+        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, readingPreferenceTheme: themeName, dataController: dataController)
 
         self.settingsViewModel = viewModel
         let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
@@ -129,11 +127,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         registerAuthNotificationObservers()
     }
 
-    func fetchDynamicValues() -> (primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
-        let primaryLanguage = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
-        let exploreFeedStatus = UserDefaults.standard.defaultTabType == .explore
+    func fetchDynamicValues() -> (primaryLanguage: String, readingPreferenceTheme: String) {
+        let primaryLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
         let readingPreferenceTheme = UserDefaults.standard.themeDisplayName
-        return (primaryLanguage: primaryLanguage, exploreFeedStatus: exploreFeedStatus, readingPreferenceTheme: readingPreferenceTheme)
+        return (primaryLanguage: primaryLanguage, readingPreferenceTheme: readingPreferenceTheme)
     }
 
     func handleSettingsAction(_ action: SettingsAction) {
@@ -179,6 +176,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             tappedAbout()
         case .deleteDonationHistory:
             clearDonationHistory()
+        case .donationReminders:
+            showDonationReminderSetup()
         case .legalAndSafety:
             tappedExternalLink(with: CommonStrings.legalAndSafetyContactUsURLString)
         }
@@ -356,9 +355,30 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         settingsNav.pushViewController(vc, animated: true)
     }
 
+    // MARK: - Donation Reminders
+
+    private func showDonationReminderSetup() {
+        DonateFunnel.shared.logSettingsDidTapDonationReminders()
+
+        guard let settingsNav = settingsNavigationController,
+              let currencyCode = WMFDonationReminderDataController.shared.reminderSetupCurrencyCode
+        else { return }
+
+        let coordinator = DonationReminderSetupCoordinator(
+            navigationController: settingsNav,
+            currencyCode: currencyCode,
+            theme: theme,
+            origin: .settings
+        )
+        donationReminderSetupCoordinator = coordinator
+        coordinator.start()
+    }
+
     // MARK: - Donation History
 
     private func clearDonationHistory() {
+        DonateFunnel.shared.logSettingsDidTapClearDonationHistory()
+
         let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubtitle, preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { _ in
             Task {
@@ -494,10 +514,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     func handleLanguagesDidUpdate() {
-        if let newLanguage = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() {
+        if let newLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() {
             settingsViewModel?.updateDynamicValues(
                 primaryLanguage: newLanguage,
-                exploreFeedStatus: UserDefaults.standard.defaultTabType == .explore,
                 readingPreferenceTheme: UserDefaults.standard.themeDisplayName
             )
         }
@@ -542,39 +561,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let strings = WMFSearchSettingsViewModel.LocalizedStrings(
-            title: CommonStrings.searchTitle,
-            showLanguagesTitle: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"),
-            openOnSearchTabTitle: WMFLocalizedString("settings-search-open-app-on-search", value: "Open app on Search tab", comment: "Title for setting that allows users to open app on Search tab"),
-            footerText: WMFDeveloperSettingsDataController.shared.isCommunityFeedMode
-                ? WMFLocalizedString("settings-search-footer-text-home", value: "Set the app to open to the Search tab instead of the Home tab", comment: "Footer text for section that allows users to customize certain Search settings, shown while the Home tab experiment is enabled")
-                : WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
-        )
-
-        Task { [weak self] in
-            guard let self else { return }
-
-            let showLanguageBar = dataController.showSearchLanguageBar()
-            let openAppOnSearchTab = dataController.openAppOnSearchTab()
-
-            let viewModel = WMFSearchSettingsViewModel(
-                localizedStrings: strings,
-                showLanguageBar: showLanguageBar,
-                openAppOnSearchTab: openAppOnSearchTab,
-                userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
-                onToggleShowLanguageBar: { [weak self] newValue in
-                     self?.dataController.setShowSearchLanguageBar(newValue)
-                },
-                onToggleOpenAppOnSearchTab: { [weak self] newValue in
-                    Task { [weak self] in await self?.dataController.setOpenAppOnSearchTab(newValue) }
-                }
-            )
-
-            let rootView = WMFSearchSettingsView(viewModel: viewModel)
-            let hostingController = UIHostingController(rootView: rootView)
-            hostingController.title = strings.title
-            settingsNav.pushViewController(hostingController, animated: true)
-        }
+        SearchSettingsCoordinator(navigationController: settingsNav, dataController: dataController).start()
     }
 
     // MARK: - Explore Feed
@@ -796,7 +783,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 SettingsFunnel.shared.logSyncEnabledInSettings()
             }
 
-            settingsNav.wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
+            settingsNav.wmf_showLoginViewController(category: .setting, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
         } else if isPermanent {
             if isOn {
                 dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
@@ -853,7 +840,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 self.dataStore.readingListsController.fullSync({})
                 self.showSyncAlert()
             }
-            settingsNav.wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
+
+            settingsNav.wmf_showLoginViewController(category: .setting, theme: theme, loginSuccessCompletion: loginSuccessCompletion)
         } else {
             // Logged in but sync not enabled
             settingsNav.wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
