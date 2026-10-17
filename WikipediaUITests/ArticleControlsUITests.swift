@@ -54,6 +54,7 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testArticleTableOfContentsSectionSelectionWorks() throws {
+        try skipInE2E("Selects sections that only the bundled Dog fixture is guaranteed to have.")
         let fixture = articleControlsFixture
         openArticle()
             .openTableOfContents()
@@ -96,6 +97,7 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testArticleOverflowBackReturnsToPreviousArticle() throws {
+        try skipInE2E("Taps a body link that only the bundled Dog fixture is guaranteed to have.")
         openArticle()
             .tapArticleLinkAndAssertLoaded()
             .tapOverflowPreviousArticle(named: articleControlsFixture.primaryArticleTitle)
@@ -107,6 +109,7 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testArticleNonLeadImageCanBeTapped() throws {
+        try skipInE2E("Taps a body image that only the bundled Dog fixture is guaranteed to have.")
         try XCTSkipIf(
             uiTestConfiguration.languageCode == "de",
             "The German Dog fixture's configured non-lead image is inside a collapsed section."
@@ -119,6 +122,7 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testArticleLinkLongPressShowsPreviewAndMenuItems() throws {
+        try skipInE2E("Long-presses a body link that only the bundled Dog fixture is guaranteed to have.")
         try XCTSkipUnless(
             ["en", "vi"].contains(uiTestConfiguration.languageCode),
             "This test covers Dog fixtures where the linked article is visible in the body."
@@ -178,6 +182,12 @@ final class ArticleControlsUITests: XCTestCase {
     func testArticleWorksAfterRotation() throws {
         openArticle()
             .rotateAndAssertArticleWorks()
+    }
+
+    /// Live article content changes over time, so tests that depend on specific body content of the
+    /// bundled Dog fixtures only run against fixtures.
+    private func skipInE2E(_ reason: String) throws {
+        try XCTSkipIf(uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.e2e.rawValue, reason)
     }
 
     private func openExploreArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
