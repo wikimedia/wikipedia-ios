@@ -789,10 +789,29 @@ private extension ArticleRobot {
     }
 
     func scrollArticleTowardElement(_ element: XCUIElement) {
-        if element.exists, !element.frame.isEmpty, element.frame.midY < tappableArticleFrame.minY {
-            base.dragDown(articleScrollTarget)
-        } else {
-            base.dragUp(articleScrollTarget)
+        let scrollTarget = articleScrollTarget
+        guard element.exists, !element.frame.isEmpty else {
+            base.dragUp(scrollTarget)
+            return
+        }
+
+        // Each pass costs accessibility queries that take seconds on CI, so short drags alone cannot
+        // reach the end of a long article in time. Fling while the element is far away.
+        let elementMidY = element.frame.midY
+        let frame = tappableArticleFrame
+        let isAbove = elementMidY < frame.minY
+        let distance = isAbove ? frame.minY - elementMidY : elementMidY - frame.maxY
+        let isFarAway = distance > base.app.frame.height * 2
+
+        switch (isAbove, isFarAway) {
+        case (true, true):
+            scrollTarget.swipeDown(velocity: .fast)
+        case (true, false):
+            base.dragDown(scrollTarget)
+        case (false, true):
+            scrollTarget.swipeUp(velocity: .fast)
+        case (false, false):
+            base.dragUp(scrollTarget)
         }
     }
 
