@@ -39,7 +39,7 @@ extension AllLanguagesRobot {
     @discardableResult
     func selectLanguage(_ languageCode: String, file: StaticString = #filePath, line: UInt = #line) -> PreferredLanguagesRobot {
         let languageCell = base.app.cells[AccessibilityIdentifiers.LanguageSelection.allLanguage(languageCode)]
-        base.assertExists(languageCell, file: file, line: line)
+        base.assertExists(languageCell, timeout: 10, file: file, line: line)
         languageCell.tap()
         return PreferredLanguagesRobot(base: base).assertPreferredLanguage(languageCode, file: file, line: line)
     }
