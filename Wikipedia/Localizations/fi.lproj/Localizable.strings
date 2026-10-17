@@ -456,7 +456,6 @@
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin myös yhteydettömässä tilassa";
 "empty-no-saved-pages-title" = "Ei vielä tallennettuja sivua";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
-"empty-talk-page-title" = "Käyttäjälle ei ole lähetetty viestejä";
 "end-session" = "Lopeta istunto";
 "error-generic-recovery-suggestion" = "Yritä myöhemmin uudelleen";
 "error-unknown" = "Tapahtui tuntematon virhe";
@@ -1273,7 +1272,6 @@
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
-"unable-to-load-talk-page-title" = "Keskustelusivun lataaminen epäonnistui";
 "unknown-generic-text" = "Tuntematon";
 "unwatch" = "Lopeta tarkkailu";
 "user-title" = "Käyttäjä";

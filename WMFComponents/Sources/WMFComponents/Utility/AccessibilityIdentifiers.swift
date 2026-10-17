@@ -47,7 +47,6 @@ public enum AccessibilityIdentifiers {
 
     public enum RootTab {
         public static let activityButton = "Root Tab Activity Button"
-        public static let exploreButton = "Root Tab Explore Button"
         public static let homeButton = "Root Tab Home Button"
         public static let placesButton = "Root Tab Places Button"
         public static let savedButton = "Root Tab Saved Button"
@@ -56,6 +55,11 @@ public enum AccessibilityIdentifiers {
 
     public enum Home {
         public static let languagePickerButton = "Home Language Picker Button"
+        public static let view = "Home View"
+    }
+
+    public enum YearInReview {
+        public static let closeButton = "Year in Review Close Button"
     }
 
     public enum Profile {
@@ -71,6 +75,15 @@ public enum AccessibilityIdentifiers {
         public static let semanticSearchEntryPoint = "Search Semantic Search Entry Point"
         public static let semanticSearchEntryPointInfoButton = "Search Semantic Search Entry Point Info Button"
         public static let semanticSearchEntryPointHideButton = "Search Semantic Search Entry Point Hide Button"
+        public static let semanticSearchResultsView = "Search Semantic Search Results View"
+        public static let semanticSearchResultsCloseButton = "Search Semantic Search Results Close Button"
+        public static let semanticSearchResultCard = "Search Semantic Search Result Card"
+        public static let semanticSearchFeedback = "Search Semantic Search Feedback"
+        public static let semanticSearchFeedbackThumbsUpButton = "Search Semantic Search Feedback Thumbs Up Button"
+        public static let semanticSearchFeedbackThumbsDownButton = "Search Semantic Search Feedback Thumbs Down Button"
+        public static let semanticSearchFeedbackTextField = "Search Semantic Search Feedback Text Field"
+        public static let semanticSearchFeedbackSubmitButton = "Search Semantic Search Feedback Submit Button"
+        public static let semanticSearchFeedbackCloseButton = "Search Semantic Search Feedback Close Button"
         public static let searchBar = "Search Bar"
         public static let tabButton = "Search Tab Button"
         public static let view = "Search View"
@@ -99,14 +112,9 @@ public enum AccessibilityIdentifiers {
 
     public enum Onboarding {
         public static let addLanguagesButton = "App Onboarding Add Languages Button"
-        public static let analyticsLearnMoreButton = "App Onboarding Analytics Learn More Button"
-        public static let analyticsView = "App Onboarding Analytics View"
         public static let communityOptionButton = "App Onboarding Community Option Button"
         public static let dataPrivacyView = "App Onboarding Data Privacy View"
-        public static let explorationView = "App Onboarding Exploration View"
         public static let feedPreferenceView = "App Onboarding Feed Preference View"
-        public static let introductionLearnMoreButton = "App Onboarding Introduction Learn More Button"
-        public static let introductionView = "App Onboarding Introduction View"
         public static let introView = "App Onboarding Intro View"
         public static let languagesView = "App Onboarding Languages View"
         public static let learnMoreLink = "App Onboarding Learn More Link"

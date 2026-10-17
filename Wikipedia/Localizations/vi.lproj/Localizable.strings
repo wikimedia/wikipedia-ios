@@ -329,7 +329,6 @@
 "empty-no-saved-pages-message" = "Lưu trang để xem sau, thậm chí để xem ngoại tuyến.";
 "empty-no-saved-pages-title" = "Chưa lưu trang nào.";
 "empty-no-search-results-message" = "Không tìm thấy kết quả";
-"empty-talk-page-title" = "Tin nhắn chưa được đăng cho người dùng này";
 "error-generic-recovery-suggestion" = "Xin vui lòng thử lại sau";
 "error-unknown" = "Đã xuất hiện lỗi bất ngờ.";
 "explore-another-random" = "Một bài ngẫu nhiên nữa";
@@ -987,7 +986,6 @@
 "two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
 "two-factor-login-with-backup-code" = "Sử dụng một mã sao lưu của bạn";
 "two-factor-login-with-regular-code" = "Sử dụng mã xác nhận";
-"unable-to-load-talk-page-title" = "Đã xảy ra lỗi khi tải trang thảo luận";
 "unknown-generic-text" = "Không rõ";
 "uzbek-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Uzbek là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\noʻzbekcha lotin Uzbek chữ Latinh (uz-latin)\nўзбекча кирилл Uzbek chữ Kirin (uz-cyrl)";
 "uzbek-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Uzbek";

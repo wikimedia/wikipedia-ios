@@ -71,8 +71,12 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
     /// sub-steps automatically join the page dots.
     let steps: [Step] = [.intro, .dataPrivacy, .languages, .personalizationIntro, .interests, .feedPreference, .loading]
 
-    /// The Lottie loading step has no toolbar (no Skip/dots/chevron) and auto-completes.
-    let loadingAnimationName = "onboarding-loading"
+    /// The Rive loading step has no toolbar (no Skip/dots/chevron) and auto-completes.
+    let loadingAnimation = WMFRiveAnimation(resourceName: "home_feed_animation")
+
+    /// The loop length of the loading animation. The Rive runtime does not supply the duration of an
+    /// animation, so this value comes from the file: "Timeline 1" is 60 frames at 60 fps.
+    let loadingAnimationLoopDuration: TimeInterval = 1
 
     @Published public private(set) var currentStepIndex: Int = 0
     @Published public private(set) var languages: [LanguageItem]
@@ -183,7 +187,7 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
 
     /// Drives the loading step: loads the selected feed and waits for the animation to loop at
     /// least once, then completes onboarding. `minimumDisplay` is the animation's loop duration,
-    /// supplied by the view (which owns the Lottie animation). The feed load is capped by
+    /// supplied by the view (which owns the Rive animation). The feed load is capped by
     /// `maximumWait` so a slow or hung fetch can never trap the user on the loading screen.
     func completeAfterLoadingFeed(minimumDisplay: TimeInterval, maximumWait: TimeInterval = 8) {
         guard loadingTask == nil else { return }

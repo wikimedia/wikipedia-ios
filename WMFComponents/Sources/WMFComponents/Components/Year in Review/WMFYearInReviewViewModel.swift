@@ -23,6 +23,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         public let shareButtonTitle: String
         public let donateButtonTitle: String
         public let learnMoreButtonTitle: String
+        public let aboutInsightsButtonTitle: String
         public let shareFeedbackButtonTitle: String
         public let slidePositionAccessibilityValue: (Int, Int) -> String
 
@@ -33,6 +34,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             shareButtonTitle: String,
             donateButtonTitle: String,
             learnMoreButtonTitle: String,
+            aboutInsightsButtonTitle: String,
             shareFeedbackButtonTitle: String,
             slidePositionAccessibilityValue: @escaping (Int, Int) -> String
         ) {
@@ -42,6 +44,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             self.shareButtonTitle = shareButtonTitle
             self.donateButtonTitle = donateButtonTitle
             self.learnMoreButtonTitle = learnMoreButtonTitle
+            self.aboutInsightsButtonTitle = aboutInsightsButtonTitle
             self.shareFeedbackButtonTitle = shareFeedbackButtonTitle
             self.slidePositionAccessibilityValue = slidePositionAccessibilityValue
         }
@@ -59,6 +62,9 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     @Published public var isLoadingDonate: Bool = false
+
+    /// The content style that each loaded slide reads from its .riv, by slide id.
+    @Published private(set) var loadedContentStyles: [String: WMFYearInReviewSlideViewModel.ContentStyle] = [:]
 
     @Published public var topSafeAreaInset: CGFloat = 0
 
@@ -89,6 +95,18 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public var currentSlide: WMFYearInReviewSlideViewModel? {
         guard slides.indices.contains(currentSlideIndex) else { return nil }
         return slides[currentSlideIndex]
+    }
+
+    /// The color of the controls above the current slide. The value that the .riv sets wins over the
+    /// style of the slide view model.
+    public var currentContentColor: UIColor? {
+        guard let currentSlide else { return nil }
+        return (loadedContentStyles[currentSlide.id] ?? currentSlide.contentStyle).color
+    }
+
+    /// Records the style that a slide read from its .riv after it loaded.
+    func slideDidLoad(lightContent: Bool, slideID: String) {
+        loadedContentStyles[slideID] = lightContent ? .light : .dark
     }
 
     public var isLastSlide: Bool {
@@ -133,6 +151,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     func tappedLearnMore() {
         coordinatorDelegate?.handleYearInReviewAction(.learnMore(slideLoggingID: currentSlide?.loggingID ?? ""))
+    }
+
+    func tappedAboutInsights() {
+        coordinatorDelegate?.handleYearInReviewAction(.aboutInsights(slideLoggingID: currentSlide?.loggingID ?? ""))
     }
 
     func tappedShareFeedback() {

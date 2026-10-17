@@ -127,8 +127,8 @@ struct WMFRiveAnimationViewModelTests {
     }
 
     @Test
-    func theSampleAnimationIsInTheBundle() {
-        let sample = WMFRiveAnimation(resourceName: "autolayout_multiple_instances_test")
-        #expect(WMFRiveWorkerProvider.resourceExists(for: sample))
+    func theTemplatesAnimationIsInTheBundle() {
+        let templates = WMFRiveAnimation(resourceName: "all_templates")
+        #expect(WMFRiveWorkerProvider.resourceExists(for: templates))
     }
 }

@@ -49,7 +49,7 @@ open class ExtensionViewController: UIViewController, Themeable {
     
     public func openApp(with url: URL?, fallback fallbackURL: URL? = nil) {
         guard let wikipediaSchemeURL = url?.replacingSchemeWithWikipediaScheme ?? fallbackURL else {
-            openAppInActivity(with: .explore)
+            openAppInActivity(with: .home)
             return
         }
         self.extensionContext?.open(wikipediaSchemeURL)

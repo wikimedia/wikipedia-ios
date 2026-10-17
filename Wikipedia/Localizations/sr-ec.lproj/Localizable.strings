@@ -384,7 +384,6 @@
 "empty-no-saved-pages-message" = "Сачувајте странице да бисте их читали касније, чак и када сте офлајн";
 "empty-no-saved-pages-title" = "Још увек нема сачуваних страница";
 "empty-no-search-results-message" = "Резултати нису пронађени";
-"empty-talk-page-title" = "Још увек није објављена ниједна порука за овог корисника";
 "end-session" = "Заврши сесију";
 "error-generic-recovery-suggestion" = "Покушајте поново касније";
 "error-unknown" = "Дошло је до непознате грешке";
@@ -1164,7 +1163,6 @@
 "two-factor-login-title" = "Пријавите се на свој налог";
 "two-factor-login-with-backup-code" = "Користите један од резервних кодова";
 "two-factor-login-with-regular-code" = "Користите кôд за верификацију";
-"unable-to-load-talk-page-title" = "Није могуће учитати страницу за разговор";
 "unknown-generic-text" = "Непознато";
 "unwatch" = "Прекини надгледање";
 "user-title" = "Корисник";

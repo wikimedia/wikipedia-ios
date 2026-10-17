@@ -417,7 +417,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     private func evaluateEmptyState() {
         if currentView == .readingLists && activeEditableCollection == nil {
-            wmf_showEmptyView(of: .noSavedPages, theme: theme, frame: view.bounds)
+            wmf_showEmptyView(of: .noSavedPages, frame: view.bounds)
         } else {
             wmf_hideEmptyView()
         }

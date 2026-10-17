@@ -4,8 +4,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
-    var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? { get }
+    var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? { get }
     var forceYiR2026Announcement: Bool { get }
+    func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse?
+}
+
+public extension WMFDeveloperSettingsDataControlling {
+    func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse? { nil }
 }
 
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
@@ -26,9 +31,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         get { _featureConfig.value }
         set { _featureConfig.value = newValue }
     }
+    private let _testWikiFeatureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
+    private var testWikiFeatureConfig: WMFFeatureConfigResponse? {
+        get { _testWikiFeatureConfig.value }
+        set { _testWikiFeatureConfig.value = newValue }
+    }
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
 
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
+    private let cacheTestWikiFeatureConfigFileName = "AppsFeatureConfigTestWiki"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self.service = service
@@ -102,10 +113,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Year in Review
 
-    /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
-    /// as active outside its date window, and the entry point presents even with no 2026 config
-    /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
-    /// entry point and date window flags, so nothing below it is respected.
+    /// Debugging convenience: while on, 2026 Year in Review shows before its launch date. The 2026
+    /// config counts as active before its `activeStartDate`, but not after its `activeEndDate`. The
+    /// opt-out setting and the suppressed-country list still apply.
+    ///
+    /// While on, the 2026 config comes from the test wiki feature config first, also in production
+    /// builds (see `fetchTestWikiFeatureConfigIfNeeded`), so TestFlight testers see the test entry.
     public var forceYiREntryPoint2026: Bool {
         get { loadFlag(.developerSettingsForceYiREntryPoint2026) }
         set {
@@ -114,18 +127,21 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
             }
+            if newValue {
+                fetchTestWikiFeatureConfigIfNeeded()
+            }
         }
     }
 
     /// Debugging convenience: which Year in Review experience to force, regardless of how much
     /// personalized data the account has. Nil means no override. Has an effect only when
     /// `forceYiREntryPoint2026` is also true.
-    public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? {
+    public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? {
         get {
             guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
                 return nil
             }
-            return WMFYearInReviewDataController.YiRUserDataState(rawValue: rawValue)
+            return WMFYearInReviewDataController.YiRForcedExperience(rawValue: rawValue)
         }
         set {
             if let newValue {
@@ -150,8 +166,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     // MARK: - Home
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
-    /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
-    /// `enableHomeTab` is also true.
+    /// feed (replacing the embedded legacy Explore feed) and its settings.
     @objc public var enableHomePhase2: Bool {
         get { loadFlag(.developerSettingsEnableHomePhase2) }
         set {
@@ -163,10 +178,10 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
-    /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
-    /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
+    /// True while the legacy Explore feed backs the Home tab's Community segment (phase 2 off).
+    /// In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB && !enableHomePhase2
+        !enableHomePhase2
     }
 
     // MARK: - Fundraising
@@ -180,7 +195,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     /// Debugging convenience: fetches the donate and fundraising campaign configs from Test Wiki
-    /// instead of Donate wiki, so unpublished campaigns can be tested without the Staging scheme.
+    /// instead of Donate wiki, so unpublished campaigns can be tested without the Alpha scheme.
     public var useTestWikiDonateConfigs: Bool {
         get { loadFlag(.developerSettingsUseTestWikiDonateConfigs) }
         set {
@@ -306,6 +321,19 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    // MARK: - Local Notifications
+
+    /// Gates the daily top read local notification prototype. Off by default.
+    public var enableDailyTopReadNotifications: Bool {
+        get { Self.enableDailyTopReadNotifications }
+        set { saveFlag(.developerSettingsEnableDailyTopReadNotifications, newValue) }
+    }
+
+    /// Static so app launch and background refresh can read the flag without initializing `shared`.
+    public static var enableDailyTopReadNotifications: Bool {
+        (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDailyTopReadNotifications.rawValue)) ?? false
+    }
+
     // MARK: - Remote Feature Flags
 
     /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
@@ -327,6 +355,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     @objc public func fetchFeatureConfig(completion: @escaping @Sendable (Error?) -> Void) {
+        fetchTestWikiFeatureConfigIfNeeded()
+
         guard let service else {
             completion(WMFDataControllerError.basicServiceUnavailable)
             return
@@ -355,8 +385,50 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    // MARK: - Test Wiki Feature Config
+
+    /// TEMPORARY: the feature config from the test wiki, fetched only while `forceYiREntryPoint2026`
+    /// is on. Only its Year in Review entries are used (see `WMFYearInReviewDataController.config`).
+    /// Every other remote setting still comes from `loadFeatureConfig()`.
+    public func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse? {
+        guard testWikiFeatureConfig == nil else { return testWikiFeatureConfig }
+        let testWikiFeatureConfig: WMFFeatureConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheTestWikiFeatureConfigFileName)
+        guard let cachedDate = testWikiFeatureConfig?.cachedDate else { return nil }
+        let fourHours = TimeInterval(60 * 60 * 4)
+        guard (-cachedDate.timeIntervalSinceNow) < fourHours else { return nil }
+        self.testWikiFeatureConfig = testWikiFeatureConfig
+        return testWikiFeatureConfig
+    }
+
+    /// TEMPORARY: while `forceYiREntryPoint2026` is on in a production build, also fetch the test
+    /// wiki feature config. Alpha builds already fetch the test wiki in `fetchFeatureConfig`.
+    public func fetchTestWikiFeatureConfigIfNeeded() {
+        guard forceYiREntryPoint2026,
+              WMFDataEnvironment.current.serviceEnvironment == .production,
+              let service,
+              let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+              let url = URL.featureConfigURL(environment: .staging, project: WMFProject.wikipedia(primaryAppLanguage)) else {
+            return
+        }
+
+        let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .json)
+        service.performDecodableGET(request: request) { [weak self] (result: Result<WMFFeatureConfigResponse, Error>) in
+            guard let self, case .success(var response) = result else { return }
+            response.cachedDate = Date()
+            self.testWikiFeatureConfig = response
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheTestWikiFeatureConfigFileName, value: response)
+
+            // The service calls this completion on a background queue. The observers of this
+            // notification update UIKit badges, so post it on the main actor.
+            Task { @MainActor in
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+            }
+        }
+    }
+
     @_spi(Testing) public func reset() {
         featureConfig = nil
+        testWikiFeatureConfig = nil
         sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
     }
 }

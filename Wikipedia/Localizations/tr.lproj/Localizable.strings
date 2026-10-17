@@ -526,7 +526,6 @@
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
-"empty-talk-page-title" = "Bu kullanıcı için henüz hiç mesaj gönderilmedi";
 "end-session" = "Oturumu sonlandır";
 "error-generic-recovery-suggestion" = "Lütfen tekrar deneyin";
 "error-unknown" = "Bilinmeyen bir hata oluştu";
@@ -1401,7 +1400,6 @@
 "two-factor-login-title" = "Hesabınızda oturum açın";
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
-"unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "unknown-generic-text" = "Bilinmiyor";
 "unwatch" = "İzlemeyi durdur";
 "user-title" = "Kullanıcı";

@@ -44,6 +44,30 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
+    func settingsEntryFollowsTheGroupBAssignment() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.isSettingsEntryAvailable == false)
+
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .control
+
+            #expect(controller.isSettingsEntryAvailable == false)
+
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+
+            #expect(controller.isSettingsEntryAvailable)
+
+            try controller.setEntryPointHidden(true)
+
+            #expect(controller.isSettingsEntryAvailable, "The hidden entry point keeps the Settings control that restores it")
+
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = false
+
+            #expect(controller.isSettingsEntryAvailable == false)
+        }
+    }
+
+    @Test
     func entryPointUseIsRemembered() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             #expect(controller.hasUsedEntryPoint == false)

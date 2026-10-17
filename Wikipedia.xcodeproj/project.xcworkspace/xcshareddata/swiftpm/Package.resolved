@@ -1,5 +1,5 @@
 {
-  "originHash" : "4b4fabf91d50572fb7a402387459d98f2e3354f7de0d953435a38b30731beaa5",
+  "originHash" : "22288a078eb8550a2d29c1800441aefc8453a22bdc59b7f28b1a1a2dd6e71ac5",
   "pins" : [
     {
       "identity" : "cocoalumberjack",
@@ -20,21 +20,12 @@
       }
     },
     {
-      "identity" : "lottie-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/airbnb/lottie-ios.git",
-      "state" : {
-        "revision" : "f4db77d7feacba0c2360b84a40c38a6ce8ff399d",
-        "version" : "4.6.1"
-      }
-    },
-    {
       "identity" : "rive-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rive-app/rive-ios.git",
       "state" : {
-        "revision" : "a336db4b742a8a795841c9daf8a61e7b16a7ac32",
-        "version" : "6.26.0"
+        "revision" : "b9966d5effb9aece78c70934f0bd245523e47a18",
+        "version" : "6.28.0"
       }
     },
     {

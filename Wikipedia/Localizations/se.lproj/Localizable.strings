@@ -378,7 +378,6 @@
 "empty-no-saved-pages-message" = "Vurke siidduid maŋŋelaš čájeheapmái, maiddái offline.";
 "empty-no-saved-pages-title" = "Eai leat vuos lohkanlisttut.";
 "empty-no-search-results-message" = "Eai bohtosat.";
-"empty-talk-page-title" = "Dát geavaheaddji ii leat vuos ožžon ovttage dieđáhusa";
 "error-generic-recovery-suggestion" = "Geahččal fas maŋŋel";
 "error-unknown" = "Dovdameahttun meattáhus šattai";
 "explore-another-random" = "Eará soaitilmas artihkal";
@@ -1113,7 +1112,6 @@
 "two-factor-login-title" = "Čálit sisa du dovddaldahkii";
 "two-factor-login-with-backup-code" = "Geavat ovtta iežat liigekodain";
 "two-factor-login-with-regular-code" = "Geavat duođaštankoda";
-"unable-to-load-talk-page-title" = "Ii sáhttán viežžat ságastallansiiddu.";
 "unknown-generic-text" = "Dovdameahttun";
 "unwatch" = "Heaitte čuovvumis";
 "user-title" = "Geavaheaddji";

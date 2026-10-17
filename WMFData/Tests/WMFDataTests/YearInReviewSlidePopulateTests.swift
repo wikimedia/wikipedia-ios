@@ -150,23 +150,198 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    // MARK: - topArticles
+    /// A moment at the given UTC date. The data range of `testConfig` is in UTC.
+    private func utcDate(_ string: String) throws -> Date {
+        try XCTUnwrap(DateFormatter.mediaWikiAPIDateFormatter.date(from: string))
+    }
 
-    func testTopArticlesSkipsSingleViewsAndOrdersByCount() async throws {
-        var views: [WMFLegacyPageView] = []
-        for index in 0..<4 { views.append(pageView("Most_Read", at: try date(month: 4, day: 1 + index, hour: 10))) }
-        for index in 0..<2 { views.append(pageView("Second", at: try date(month: 5, day: 1 + index, hour: 10))) }
-        views.append(pageView("Read_Once", at: try date(month: 6, day: 1, hour: 10)))
+    func testReadCountIgnoresViewsOutsideTheInsightsRange() async throws {
+        try await seedPageViews([
+            pageView("December 2025", at: try utcDate("2025-12-15T12:00:00Z")),
+            pageView("January 2026", at: try utcDate("2026-01-01T00:00:00Z")),
+            pageView("November 2026", at: try utcDate("2026-11-30T23:59:59Z")),
+            pageView("December 2026", at: try utcDate("2026-12-01T12:00:00Z"))
+        ])
+
+        let controller = YearInReviewReadCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+        let payload = try decode(WMFYearInReviewReadData.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.readCount, 2, "only the January 1 and November 30 views are inside January 1 to November 30")
+    }
+
+    private func readCountPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> WMFYearInReviewReadData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewReadCountSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        return try decode(WMFYearInReviewReadData.self, from: try await populatedPayload(controller))
+    }
+
+    func testReadCountExcludesPagesOutsideTheMainNamespace() async throws {
+        let when = try date(month: 5, day: 1, hour: 10)
+        try await seedPageViews([pageView("Kept", at: when)])
+        let pageViewsDataController = try WMFPageViewsDataController()
+        _ = try await pageViewsDataController.addPageView(title: "Talk_Page", namespaceID: 1, project: enProject, previousPageViewObjectID: nil, timestamp: when)
+        _ = try await pageViewsDataController.addPageView(title: "Some_Template", namespaceID: 10, project: enProject, previousPageViewObjectID: nil, timestamp: when)
+
+        let payload = try await readCountPayload()
+
+        XCTAssertEqual(payload.readCount, 1)
+    }
+
+    func testReadCountExcludesMainPages() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        let when = try date(month: 3, day: 4, hour: 9)
+        try await seedPageViews([
+            pageView("Main_Page", at: when),
+            WMFLegacyPageView(title: "Pagina_principale", project: itProject, viewedDate: when, latitude: nil, longitude: nil),
+            // The same title on another wiki is an ordinary article.
+            pageView("Pagina_principale", at: when),
+            pageView("Kept", at: when)
+        ])
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await readCountPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.readCount, 2, "the English and Italian main pages are left out")
+    }
+
+    func testReadCountAsksForTheMainPageOnceForEachWiki() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        let when = try date(month: 3, day: 4, hour: 9)
+        var views = (1...20).map { pageView("Article_\($0)", at: when) }
+        views += (1...5).map { WMFLegacyPageView(title: "Articolo_\($0)", project: itProject, viewedDate: when, latitude: nil, longitude: nil) }
+        views.append(WMFLegacyPageView(title: "PAGINA_PRINCIPALE", project: itProject, viewedDate: when, latitude: nil, longitude: nil))
         try await seedPageViews(views)
 
-        let controller = YearInReviewTopReadArticleSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
-        let articles = try decode([String].self, from: try await populatedPayload(controller))
+        // The app returns the title in upper case, so the case of the stored title must not matter.
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await readCountPayload(mainPageIdentifier: identifier)
 
-        XCTAssertEqual(articles.first, "Most Read", "underscores become spaces and the busiest article leads")
-        XCTAssertTrue(articles.contains("Second"))
-        XCTAssertFalse(articles.contains("Read Once"), "an article read once is excluded")
-        XCTAssertLessThanOrEqual(articles.count, 5)
+        XCTAssertEqual(payload.readCount, 25)
+        XCTAssertEqual(identifier.requestedProjectIDs.sorted(), [enProject.id, itProject.id].sorted(), "one request for each wiki, not one for each article")
+    }
+
+    func testReadCountIsEligibleFromThreeArticles() async throws {
+        let when = try date(month: 3, day: 4, hour: 9)
+        try await seedPageViews([pageView("Alpha", at: when), pageView("Beta", at: when)])
+        let twoArticles = try await readCountPayload()
+        XCTAssertFalse(twoArticles.isEligible, "two articles show the empty state")
+
+        try await seedPageViews([pageView("Gamma", at: when)])
+        let threeArticles = try await readCountPayload()
+        XCTAssertTrue(threeArticles.isEligible)
+    }
+
+    // MARK: - topArticles
+
+    private typealias TopArticlesData = WMFYearInReviewTopArticlesSlideData
+
+    private final class StubMainPageIdentifier: WMFMainPageIdentifying {
+        let mainPages: [(title: String, projectID: String)]
+        init(mainPages: [(title: String, projectID: String)]) { self.mainPages = mainPages }
+        private(set) var requestedProjectIDs: [String] = []
+        func mainPageTitle(for project: WMFProject) async -> String? {
+            requestedProjectIDs.append(project.id)
+            return mainPages.first { $0.projectID == project.id }?.title
+        }
+    }
+
+    private func seedVisits(_ title: String, count: Int, month: Int, project: WMFProject? = nil) throws -> [WMFLegacyPageView] {
+        try (0..<count).map { index in
+            WMFLegacyPageView(title: title, project: project ?? enProject, viewedDate: try date(month: month, day: 1 + index, hour: 10), latitude: nil, longitude: nil)
+        }
+    }
+
+    private func topArticlesPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> TopArticlesData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewTopReadArticleSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        let payload = try decode(TopArticlesData.self, from: try await populatedPayload(controller))
         XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    func testTopArticlesSkipsSingleViewsAndOrdersByVisitCount() async throws {
+        var views = try seedVisits("Most_Read", count: 4, month: 4)
+        views += try seedVisits("Second", count: 2, month: 5)
+        views += try seedVisits("Read_Once", count: 1, month: 6)
+        try await seedPageViews(views)
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Most Read", "Second"], "underscores become spaces, the busiest article leads, and an article read once is excluded")
+        XCTAssertEqual(payload.articles.map(\.visitCount), [4, 2])
+        XCTAssertEqual(payload.articles.first?.projectID, enProject.id)
+        XCTAssertEqual(payload.articles.first?.project, enProject)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testTopArticlesShowsAtMostThreeAndBreaksTiesByTitle() async throws {
+        var views = try seedVisits("Delta", count: 5, month: 3)
+        views += try seedVisits("Charlie", count: 3, month: 4)
+        views += try seedVisits("Alpha", count: 3, month: 5)
+        views += try seedVisits("Bravo", count: 3, month: 6)
+        try await seedPageViews(views)
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Delta", "Alpha", "Bravo"])
+    }
+
+    func testTopArticlesIsNotEligibleWithOnlyOneArticleVisitedTwice() async throws {
+        var views = try seedVisits("Twice", count: 2, month: 4)
+        views += try seedVisits("Once", count: 1, month: 5)
+        try await seedPageViews(views)
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Twice"])
+        XCTAssertFalse(payload.isEligible, "two qualifying articles are necessary, so this shows the empty state")
+    }
+
+    func testTopArticlesIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await topArticlesPayload()
+
+        XCTAssertTrue(payload.articles.isEmpty)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testTopArticlesExcludesPagesOutsideTheMainNamespace() async throws {
+        try await seedPageViews(try seedVisits("Kept", count: 2, month: 4))
+        let pageViewsDataController = try WMFPageViewsDataController()
+        for index in 0..<5 {
+            _ = try await pageViewsDataController.addPageView(title: "Talk_Page", namespaceID: 1, project: enProject, previousPageViewObjectID: nil, timestamp: try date(month: 5, day: 1 + index, hour: 10))
+            _ = try await pageViewsDataController.addPageView(title: "Some_Template", namespaceID: 10, project: enProject, previousPageViewObjectID: nil, timestamp: try date(month: 6, day: 1 + index, hour: 10))
+        }
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Kept"])
+    }
+
+    func testTopArticlesExcludesTheEnglishMainPageWithoutAnIdentifier() async throws {
+        var views = try seedVisits("Main_Page", count: 9, month: 3)
+        views += try seedVisits("Kept", count: 2, month: 4)
+        try await seedPageViews(views)
+
+        let payload = try await topArticlesPayload()
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Kept"])
+    }
+
+    func testTopArticlesExcludesMainPagesTheAppIdentifies() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        var views = try seedVisits("Pagina_principale", count: 9, month: 3, project: itProject)
+        // The same title on another wiki is an ordinary article.
+        views += try seedVisits("Pagina_principale", count: 3, month: 4)
+        views += try seedVisits("Kept", count: 2, month: 5)
+        try await seedPageViews(views)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await topArticlesPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Pagina principale", "Kept"])
+        XCTAssertEqual(payload.articles.first?.projectID, enProject.id)
     }
 
     // MARK: - mostReadCategories
@@ -273,6 +448,17 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
+    func testEditCountRequestsTheContributorRange() async throws {
+        let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.basicService = service
+        let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Editor", globalUserID: 1))
+
+        _ = try await populatedPayload(controller)
+
+        let path = try XCTUnwrap(service.requestedURLs.first?.path)
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026, not the insights range: \(path)")
+    }
+
     func testEditCountIsNotEvaluatedWithoutAGlobalUserID() async throws {
         WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Editor"))
@@ -294,6 +480,37 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.editCount, 47)
         XCTAssertNil(payload.donateCount, "no local donation history was seeded")
         XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testDonateCountRequestsTheContributorRangeForItsEditCount() async throws {
+        let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.basicService = service
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+
+        _ = try await populatedPayload(controller)
+
+        let path = try XCTUnwrap(service.requestedURLs.first?.path)
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026: \(path)")
+    }
+
+    func testDonateCountCountsOnlyDonationsInTheContributorRange() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        let timestamps = [
+            "2025-11-30T23:59:59Z", // before the range
+            "2025-12-01T00:00:00Z", // first moment of the range
+            "2026-06-15T12:00:00Z",
+            "2026-11-30T23:59:59Z", // last moment of the range
+            "2026-12-02T12:00:00Z"  // after the range
+        ]
+        let donations = timestamps.map {
+            WMFDonateLocalHistory(donationTimestamp: $0, donationType: .oneTime, donationAmount: 5, currencyCode: "USD", isNative: true, isFirstDonation: false)
+        }
+        try WMFDataEnvironment.current.sharedCacheStore?.save(key: WMFSharedCacheDirectoryNames.donorExperience.rawValue, "AppLocalDonationHistory", value: donations)
+
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.donateCount, 3, "only the donations from December 1, 2025 to November 30, 2026 count")
     }
 
     // MARK: - viewCount
@@ -355,4 +572,50 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
             XCTAssertFalse(controller.isEvaluated)
         }
     }
+}
+
+/// Records the URL of each request, then answers with the JSON resource of `WMFMockBasicService`.
+private final class WMFRecordingMockBasicService: WMFService, @unchecked Sendable {
+    private let wrapped: WMFMockBasicService
+    private let lock = NSLock()
+    private var _requestedURLs: [URL] = []
+
+    var requestedURLs: [URL] {
+        lock.lock()
+        defer { lock.unlock() }
+        return _requestedURLs
+    }
+
+    init(jsonResourceName: String) {
+        self.wrapped = WMFMockBasicService(jsonResourceName: jsonResourceName)
+    }
+
+    private func record(_ request: WMFServiceRequest) {
+        guard let url = request.url else { return }
+        lock.lock()
+        _requestedURLs.append(url)
+        lock.unlock()
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        record(request)
+        wrapped.perform(request: request, completion: completion)
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        record(request)
+        wrapped.perform(request: request, completion: completion)
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        wrapped.performDecodableGET(request: request, completion: completion)
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        wrapped.performDecodablePOST(request: request, completion: completion)
+    }
+
+    func clearCachedData() {}
 }

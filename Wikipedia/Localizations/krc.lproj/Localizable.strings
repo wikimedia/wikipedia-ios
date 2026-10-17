@@ -358,7 +358,6 @@
 "empty-no-saved-pages-message" = "Бетлени артдан оффлайн болсагъыз да окъур ючюн сакъландырыгъыз";
 "empty-no-saved-pages-title" = "Алкъын сакъланнган бет джокъду";
 "empty-no-search-results-message" = "Джукъ да табылмады";
-"empty-talk-page-title" = "Бу хайырланыучу ючюн алкъын чырт билдириу басмаланмады";
 "error-generic-recovery-suggestion" = "Тилейбиз, кечирек энтда бир кере сынагъыз";
 "error-unknown" = "Белгили болмагъан халат болду";
 "explore-another-random" = "Башха рандом статья";
@@ -1103,7 +1102,6 @@
 "two-factor-login-title" = "Хыйсабыгъызгъа киригиз";
 "two-factor-login-with-backup-code" = "Резерв кодларыгъызны бирин хайырланыгъыз";
 "two-factor-login-with-regular-code" = "Верификация кодну хайырлан";
-"unable-to-load-talk-page-title" = "Сюзюу бет джюкленалмайды";
 "unknown-generic-text" = "Билинмейди";
 "unwatch" = "Кёзде тутма";
 "user-title" = "Хайырланыучу";

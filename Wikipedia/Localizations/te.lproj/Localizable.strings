@@ -225,7 +225,6 @@
 "empty-no-saved-pages-message" = "పేజీలను తరువాత చూసేలా, ఆఫ్‌లైనులో కూడా చూసేలా, భద్రపరచుకోండి";
 "empty-no-saved-pages-title" = "ఇంకా భద్రపరచిన పేజీలు ఏమీ లేవు";
 "empty-no-search-results-message" = "ఫలితాలేమీ కనబడలేదు";
-"empty-talk-page-title" = "ఈ వాడుకరికి ఇంకా సందేశాలేమీ పంపలేదు";
 "error-generic-recovery-suggestion" = "తరువాత మళ్ళీ ప్రయత్నించండి";
 "error-unknown" = "ఏదో తెలియని లోపం దొర్లింది";
 "explore-another-random" = "మరో యాదృచ్ఛిక వ్యాసం";
@@ -721,7 +720,6 @@
 "two-factor-login-continue" = "లాగిన్ అవడాన్ని కొనసాగించండి";
 "two-factor-login-title" = "మీ ఖాతాలోకి లాగినవండి";
 "two-factor-login-with-regular-code" = "నిర్థారణ కోడ్";
-"unable-to-load-talk-page-title" = "చర్చ పేజీని లోడు చెయ్యలేక పోయాం";
 "unknown-generic-text" = "తెలియని";
 "variants-alert-dismiss-button" = "వద్దులే";
 "variants-alert-preferences-button" = "మీ అభిరుచులను సమీక్షించండి";

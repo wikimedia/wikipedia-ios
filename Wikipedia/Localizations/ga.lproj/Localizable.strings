@@ -506,7 +506,6 @@
 "empty-no-saved-pages-message" = "Sábháil leathanaigh le féachaint orthu níos déanaí, fiú amháin as líne";
 "empty-no-saved-pages-title" = "Níor sábháladh aon leathanach fós";
 "empty-no-search-results-message" = "Níor aimsíodh torthaí";
-"empty-talk-page-title" = "Níl aon teachtaireachtaí postáilte don úsáideoir seo go fóill";
 "end-session" = "Deireadh seisiún";
 "error-generic-recovery-suggestion" = "Triail arís níos déanaí";
 "error-unknown" = "Tharla earráid anaithnid";
@@ -1425,7 +1424,6 @@
 "two-factor-login-title" = "Logáil isteach i do chuntas";
 "two-factor-login-with-backup-code" = "Bain úsáid as ceann de do chóid chúltaca";
 "two-factor-login-with-regular-code" = "Úsáid cód fíoraithe";
-"unable-to-load-talk-page-title" = "Ní féidir an leathanach plé a lódáil";
 "unknown-generic-text" = "Anaithnid";
 "unwatch" = "Dífhéachaint";
 "user-title" = "Úsáideoir";

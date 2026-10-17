@@ -30,7 +30,7 @@ import CocoaLumberjackSwift
 
         // Release status must be 1 of 2 values: dev or prod
         let releaseStatus: String
-        #if DEBUG || WMF_STAGING || WMF_EXPERIMENTAL || UITESTS || TEST || WMF_LOCAL
+        #if DEBUG || WMF_ALPHA || WMF_EXPERIMENTAL || UITESTS || TEST || WMF_LOCAL
         releaseStatus = "dev"
         #else
         releaseStatus = Bundle.main.isTestFlight() ? "dev" : "prod"
@@ -39,7 +39,7 @@ import CocoaLumberjackSwift
         let appFlavor: String
         #if DEBUG || WMF_LOCAL || UITESTS || TEST
         appFlavor = "devdebug"
-        #elseif WMF_STAGING || WMF_EXPERIMENTAL
+        #elseif WMF_ALPHA || WMF_EXPERIMENTAL
         appFlavor = "alpharelease"
         #else
         if !Bundle.main.wmf_isAppStoreBundleIdentifier() {
@@ -120,23 +120,18 @@ import CocoaLumberjackSwift
     // MARK: - EventSender
 
     public func sendEvents(_ events: [Event]) {
-        guard let storageManager = EventPlatformClient.shared.storageManager else {
-            DDLogError("TestKitchenAdapter: StorageManager unavailable")
-            return
-        }
-        
         let encoder = JSONEncoder()
         for event in events {
-            
+
 #if DEBUG
             encoder.outputFormatting = .prettyPrinted
 #endif
-            
+
             guard let data = try? encoder.encode(event) else {
                 DDLogError("TestKitchenAdapter: Failed to encode event")
                 continue
             }
-            
+
 #if DEBUG
             // Convert to loose dictionary so we can sort keys and print that way.
             if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
@@ -145,8 +140,11 @@ import CocoaLumberjackSwift
                 print("\(printablePayload)")
             }
 #endif
-            
-            storageManager.push(data: data, stream: .productMetricsAppBase)
+
+            /// Submitting through the client (rather than pushing straight to storage)
+            /// applies the stream's sampling configuration to TestKitchen events and
+            /// buffers them while stream configs are still loading on a first launch.
+            EventPlatformClient.shared.submitPreEncoded(data: data, stream: .productMetricsAppBase)
         }
     }
 }

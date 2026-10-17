@@ -44,6 +44,14 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// for navigating to the given URL.
     var articleTappedAction: ((URL, NeedsNewTab) -> Void)?
 
+    /// Called with the query and the project of the search when the reader taps the semantic
+    /// search entry point.
+    var semanticSearchTappedAction: ((String, WMFProject) -> Void)?
+
+    /// Called when the reader taps the button of the toast shown after hiding the semantic
+    /// search entry point. Caller is responsible for opening the Search settings.
+    var semanticSearchSettingsTappedAction: (@MainActor @Sendable () -> Void)?
+
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
     var populateSearchBarAction: ((String) -> Void)?
@@ -78,6 +86,10 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     private let contentContainerView = UIView()
     private weak var currentEmbeddedViewController: UIViewController?
+
+    var isShowingSearchResults: Bool {
+        currentEmbeddedViewController === resultsViewController
+    }
 
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
@@ -143,6 +155,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         super.viewWillAppear(animated)
         updateLanguageBarVisibility()
         reloadRecentSearches()
+        refreshSemanticSearchEntryPointIfResultsAreShown()
         SearchFunnel.shared.logSearchStart(source: source.stringValue)
     }
 
