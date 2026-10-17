@@ -26,6 +26,38 @@ final class WMFFeedDataControllerTests: XCTestCase {
         _ = try await fetchFixture()
     }
 
+    // MARK: - Accept-Language
+
+    private func acceptLanguageHeader(forLanguageCode languageCode: String, languageVariantCode: String?) async -> String? {
+        let urlSession = WMFMockNoInternetConnectionSession()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+        _ = try? await WMFFeedDataController(basicService: WMFBasicService(urlSession: urlSession)).fetchFeed(project: project, date: fixtureDate)
+        return urlSession.request?.value(forHTTPHeaderField: "Accept-Language")
+    }
+
+    func testFetchFeedSendsLegacyCodeFirstForRegionalChineseVariant() async {
+        let acceptLanguage = await acceptLanguageHeader(forLanguageCode: "zh", languageVariantCode: "zh-Hant-TW")
+        XCTAssertEqual(acceptLanguage, "zh-tw,zh-Hant-TW;q=0.9")
+    }
+
+    func testFetchFeedKeepsTheDefaultAcceptLanguageForLanguagesWithoutVariants() async {
+        let originalAcceptLanguageUtility = WMFDataEnvironment.current.acceptLanguageUtility
+        defer {
+            WMFDataEnvironment.current.acceptLanguageUtility = originalAcceptLanguageUtility
+        }
+        WMFDataEnvironment.current.acceptLanguageUtility = { "de-de, en-us;q=0.50" }
+
+        for languageCode in ["en", "de"] {
+            let acceptLanguage = await acceptLanguageHeader(forLanguageCode: languageCode, languageVariantCode: nil)
+            XCTAssertEqual(acceptLanguage, "de-de, en-us;q=0.50", languageCode)
+        }
+    }
+
+    func testFetchFeedSendsOnlyBCP47CodeForSerbianVariant() async {
+        let acceptLanguage = await acceptLanguageHeader(forLanguageCode: "sr", languageVariantCode: "sr-Latn")
+        XCTAssertEqual(acceptLanguage, "sr-Latn")
+    }
+
     // MARK: - Today's Featured Article
 
     func testParseTodaysFeaturedArticle() async throws {

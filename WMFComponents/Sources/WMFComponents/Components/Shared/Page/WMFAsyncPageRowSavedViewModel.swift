@@ -28,6 +28,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     let localizedStrings: LocalizedStrings
     
     @Published var readingListNames: [String]
+    @Published private(set) var displayTitle: String
     @Published private(set) var description: String?
     @Published private(set) var imageURL: URL?
     @Published private(set) var uiImage: UIImage?
@@ -58,6 +59,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     init(id: String, title: String, project: WMFProject, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none, localizedStrings: LocalizedStrings) {
         self.id = id
         self.title = title
+        self.displayTitle = title
         self.project = project
         self.readingListNames = readingListNames
         self.dataController = WMFArticleSummaryDataController.shared
@@ -79,6 +81,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     private func fetchArticleDetails() async {
         do {
             let summary = try await dataController.fetchArticleSummary(project: project, title: title)
+            self.displayTitle = WMFArticleDisplayTitle.displayTitle(title: title, summaryDisplayTitle: summary.displayTitle, project: project)
             
             if let description = summary.description,
                !description.isEmpty {

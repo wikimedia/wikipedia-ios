@@ -568,11 +568,17 @@ public class Session: NSObject {
 
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
     @discardableResult public func getJSONDictionary(from url: URL?, ignoreCache: Bool = false, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+        return getJSONDictionary(from: url, headers: [:], ignoreCache: ignoreCache, completionHandler: completionHandler)
+    }
+    
+    /// - Parameter headers: request headers that override the default headers, e.g. Accept-Language
+    @objc(getJSONDictionaryFromURL:headers:ignoreCache:completionHandler:)
+    @discardableResult public func getJSONDictionary(from url: URL?, headers: [String: String], ignoreCache: Bool = false, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard let url = url else {
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
-        var getRequest = request(with: url, method: .get)
+        var getRequest = request(with: url, method: .get, headers: headers)
         if ignoreCache {
             getRequest.cachePolicy = .reloadIgnoringLocalCacheData
             getRequest.prefersPersistentCacheOverError = false

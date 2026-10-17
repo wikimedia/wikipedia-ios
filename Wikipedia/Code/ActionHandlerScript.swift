@@ -45,6 +45,8 @@ final class PageContentService {
             static let fragment = "pcs-footer-container-readmore"
             let itemCount: Int
             let apiBaseURL: String
+            /// Legacy MediaWiki variant code (e.g. zh-tw) used by PCS to pick the matching title from varianttitles
+            let langCode: String?
         }
         
         struct Parameters: Codable {

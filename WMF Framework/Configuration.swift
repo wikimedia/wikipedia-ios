@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 
 /// Configuration handles the current environment - production, beta, staging, labs
@@ -249,17 +250,17 @@ public class Configuration: NSObject {
     
     /// Returns the default request headers for Page Content Service API requests
     public func pageContentServiceHeaders(for url: URL) -> [String: String] {
+        return languageVariantHeaders(for: url)
+    }
+    
+    private func languageVariantHeaders(for url: URL) -> [String: String] {
         
-        // If the language supports variants, only send a single code with variant for that language.
-        // This is a workaround for an issue with server-side Accept-Language header handling and
-        // can be removed when https://phabricator.wikimedia.org/T256491 is fixed.
-        // NOTE: In general it does not seem that most sites process multi-language Accept-Language headers.
-        // For variants, sending a single Accept-Language header is sufficient and seems the least error-prone.
-        if let languageVariantCode = url.wmf_languageVariantCode {
-            return ["Accept-Language": languageVariantCode]
-        } else {
+        // Only send the variant code, since most sites don't process multi-language Accept-Language headers (T256491).
+        // Regional Chinese variants also send the legacy code first, see WMFAcceptLanguageUtils.
+        guard let languageVariantCode = url.wmf_languageVariantCode else {
             return [:]
         }
+        return ["Accept-Language": WMFAcceptLanguageUtils.acceptLanguageHeaderValue(forLanguageVariantCode: languageVariantCode)]
     }
     
     // MARK: Metrics
@@ -280,6 +281,15 @@ public class Configuration: NSObject {
         let builder = feedContentAPIType.builder(withWikiHost: url?.host)
         let components = builder.components(byAppending: pathComponents)
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
+    }
+    
+    /// Returns the default request headers for Feed Content API requests
+    @objc(feedContentAPIHeadersForURL:)
+    public func feedContentAPIHeaders(for url: URL?) -> [String: String] {
+        guard let url else {
+            return [:]
+        }
+        return languageVariantHeaders(for: url)
     }
     
     /// Announcements are located in the wikifeeds repository. It can be run locally with: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/wikifeeds
