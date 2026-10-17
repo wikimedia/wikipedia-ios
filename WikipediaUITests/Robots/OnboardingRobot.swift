@@ -76,12 +76,23 @@ extension OnboardingRobot {
 
     @discardableResult
     func tapNext(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(
-            withIdentifier: AccessibilityIdentifiers.Onboarding.nextButton,
-            file: file,
-            line: line
-        )
-        return self
+        let tap: () -> Void = {
+            _ = base.tapButton(
+                withIdentifier: AccessibilityIdentifiers.Onboarding.nextButton,
+                file: file,
+                line: line
+            )
+        }
+
+        guard let currentPage = settledPage(),
+              let currentIndex = OnboardingPage.allCases.firstIndex(of: currentPage),
+              currentIndex + 1 < OnboardingPage.allCases.count else {
+            tap()
+            return self
+        }
+
+        let nextPage = OnboardingPage.allCases[currentIndex + 1]
+        return turnPage(from: currentPage, to: nextPage, using: tap, file: file, line: line)
     }
 
     @discardableResult
@@ -91,18 +102,56 @@ extension OnboardingRobot {
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
-        let currentElement = base.app.otherElements[currentPage.accessibilityIdentifier]
+        let currentElement = pageElement(currentPage)
         base.assertVisible(currentElement, file: file, line: line)
 
-        if configuration.isRightToLeft {
-            currentElement.swipeRight()
-        } else {
-            currentElement.swipeLeft()
+        return turnPage(from: currentPage, to: nextPage, using: {
+            if configuration.isRightToLeft {
+                currentElement.swipeRight()
+            } else {
+                currentElement.swipeLeft()
+            }
+        }, file: file, line: line)
+    }
+
+    /// The page controller ignores input while a page transition runs, and in scroll style the next
+    /// page exists as soon as a transition starts. So a page only counts as turned once the previous
+    /// page is gone, and a gesture is retried once if it was dropped before any transition started.
+    private func turnPage(
+        from currentPage: OnboardingPage,
+        to nextPage: OnboardingPage,
+        using gesture: () -> Void,
+        file: StaticString,
+        line: UInt
+    ) -> Self {
+        let currentElement = pageElement(currentPage)
+        let nextElement = pageElement(nextPage)
+
+        gesture()
+        if !waitForElementToNotExist(currentElement, timeout: 5),
+           currentElement.exists,
+           !nextElement.exists {
+            gesture()
         }
 
-        base.waitForElementToDisappear(currentElement, timeout: 10, file: file, line: line)
+        base.waitForElementToDisappear(currentElement, timeout: 15, file: file, line: line)
         assertPage(nextPage, file: file, line: line)
         return self
+    }
+
+    /// The only page left on screen once any page transition has finished.
+    private func settledPage() -> OnboardingPage? {
+        let existingPages = OnboardingPage.allCases.filter { pageElement($0).exists }
+        return existingPages.count == 1 ? existingPages.first : nil
+    }
+
+    private func pageElement(_ page: OnboardingPage) -> XCUIElement {
+        base.app.otherElements[page.accessibilityIdentifier]
+    }
+
+    private func waitForElementToNotExist(_ element: XCUIElement, timeout: TimeInterval) -> Bool {
+        let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: element)
+        return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
     }
 
     @discardableResult
