@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 fileprivate let acceptLanguageHeaderForPreferredLanguagesGlobal: String = {
     return Locale.acceptLanguageHeaderForLanguageCodes(NSLocale.wmf_preferredLanguageCodes)
@@ -131,6 +132,12 @@ extension Locale {
 extension NSLocale {
     
     fileprivate static var localeCache: [String: Locale] = [:]
+
+    /// Objective-C entry point for `Locale.localizedString(forWikipediaLanguageCode:)`.
+    @objc(wmf_localizedStringForWikipediaLanguageCode:)
+    public func wmf_localizedString(forWikipediaLanguageCode languageCode: String) -> String? {
+        return (self as Locale).localizedString(forWikipediaLanguageCode: languageCode)
+    }
     
     @objc(wmf_localeForWikipediaLanguageCode:)
     public static func wmf_locale(for wikipediaLanguageCode: String?) -> Locale {

@@ -11,23 +11,9 @@ public class CommonStrings: NSObject {
         WMFLocalizedString("about-wikipedia", languageCode: languageCode, value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
     }
 
-    @objc public static func onLangWikipedia(with languageCode: String? = nil) -> String {
-
-        var languageText: String?
-
-        if languageCode == "test" {
-            languageText = "Test"
-        } else if languageCode == "test 2" {
-            languageText = "Text 2"
-        }
-
-        if languageText == nil {
-            if let languageCode {
-                languageText = Locale.current.localizedString(forLanguageCode: languageCode)
-            }
-        }
-
-        if let languageText {
+    /// - Parameter languageName: The localized display name of the Wikipedia language, or nil when it is unknown.
+    @objc public static func onLangWikipedia(languageName: String?) -> String {
+        if let languageText = languageName {
             let format = WMFLocalizedString("explore-most-read-sub-heading-on-language-wikipedia", value: "On %1$@ Wikipedia", comment: "Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'")
             return String.localizedStringWithFormat(format, languageText)
         } else {
