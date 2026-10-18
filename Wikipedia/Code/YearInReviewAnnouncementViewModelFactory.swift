@@ -39,7 +39,9 @@ struct YearInReviewAnnouncementViewModelFactory {
             group: "copy",
             globalViewModelName: "GlobalProperties",
             fontSize: WMFRiveNumber(path: "coverGlyphsFontSize"),
-            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight")
+            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight"),
+            baseFontSize: coverTitleFontSize,
+            baseLineHeight: coverTitleLineHeight
         ),
         WMFRiveTextFit(
             text: CoverTextPath.body,
@@ -61,6 +63,11 @@ struct YearInReviewAnnouncementViewModelFactory {
     private static let coverTitleWidth = 290.0
     private static let coverBodyWidth = 290.0
 
+    /// The size of the title, in artboard units, instead of the size in the .riv. The font is the
+    /// `SanSerifFont` asset, which the app supplies as the system font in bold (SF Pro Bold).
+    private static let coverTitleFontSize = 36.0
+    private static let coverTitleLineHeight = 32.0
+
     @MainActor
     func makeViewModel(userDataState: UserDataState, readingDayCount: Int, delegate: WMFYearInReviewAnnouncementDelegate) -> WMFYearInReviewAnnouncementViewModel {
         let localizedStrings = makeLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
@@ -68,7 +75,9 @@ struct YearInReviewAnnouncementViewModelFactory {
         return WMFYearInReviewAnnouncementViewModel(
             animation: Self.animation,
             riveText: [
-                CoverTextPath.title: localizedStrings.animationAccessibilityLabel,
+                // The title is shown in capitals. VoiceOver still gets it as written, from
+                // `animationAccessibilityLabel`.
+                CoverTextPath.title: localizedStrings.animationAccessibilityLabel.uppercased(),
                 CoverTextPath.body: localizedStrings.body
             ],
             localizedStrings: localizedStrings,

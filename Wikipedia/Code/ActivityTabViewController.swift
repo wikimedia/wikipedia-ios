@@ -129,7 +129,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
             yirViewModel.onTap = { [weak self] in
-                self?.yirCoordinator?.start()
+                Task { @MainActor [weak self] in
+                    await self?.yirCoordinator?.presentFeatureAnnouncementFromEntryPoint()
+                }
             }
             viewModel.yearInReviewViewModel = yirViewModel
         }
