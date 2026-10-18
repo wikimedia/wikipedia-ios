@@ -16,15 +16,15 @@ public struct WMFYearInReviewAnnouncementView: View {
                 // The navigation bar is see-through, so the artwork runs under it.
                 .ignoresSafeArea(.container, edges: .top)
 
-            WMFLargeButton(
-                style: .primary,
+            WMFSmallButton(
+                configuration: .init(style: .primary),
                 title: viewModel.localizedStrings.exploreButtonTitle,
-                forceBackgroundColor: WMFTheme.light.link, forceForegroundColor: WMFTheme.light.paperBackground,
+                forceBackgroundColor: WMFTheme.light.link,
+                forceForegroundColor: WMFTheme.light.paperBackground,
                 action: viewModel.tappedExplore
             )
-            .padding(.horizontal, 24)
             .padding(.top, 24)
-            .padding(.bottom, 16)
+            .padding(.bottom, 2)
         }
         .background(Color(uiColor: WMFTheme.light.paperBackground))
     }
