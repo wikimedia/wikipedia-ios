@@ -159,7 +159,6 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
         if let values = coordinatorDelegate?.fetchDynamicValues() {
             viewModel.updateDynamicValues(
                 primaryLanguage: values.primaryLanguage,
-                exploreFeedStatus: values.exploreFeedStatus,
                 readingPreferenceTheme: values.readingPreferenceTheme
             )
         }
@@ -178,10 +177,6 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
            yirDataController.shouldShowYearInReviewSettingsItem(countryCode: Locale.current.region?.identifier) {
             DonateFunnel.shared.logYearInReviewSettingsDidAppear()
         }
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Navigation Bar Configuration

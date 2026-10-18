@@ -40,15 +40,42 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
-                Toggle("Show Games Version 2", isOn: $viewModel.showGamesV2)
-                Button {
-                    viewModel.clearGamesPersistence()
-                } label: {
-                    Text("Clear games persistence")
-                        .foregroundStyle(Color(theme.link))
+                captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
+                    Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
+                }
+                captionedRow(caption: "Overrides the experience the personalized data selects. All Empty States shows the empty version of each personalized slide. Switching it back to Off lets the user data dictate the experience.") {
+                    Picker("Force Experience", selection: $viewModel.forceYiRExperience) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRForcedExperience?.none)
+                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.dataRich))
+                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.lowData))
+                        Text("All Empty States").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.allEmptyStates))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "Shows the announcement on every eligible app open, without the remote config, the settings toggle, the country gate, or the already seen state.") {
+                    Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
+                if viewModel.regenerateYiR2026Report != nil {
+                    captionedRow(caption: "Deletes the report and builds it again from your current reading history, frozen slides too. To try a new state, clear your history, read some articles, then tap this.") {
+                        Button {
+                            viewModel.tappedRegenerateYiR2026Report()
+                        } label: {
+                            HStack {
+                                Text("Regenerate Year in Review 2026 Report")
+                                    .foregroundStyle(Color(theme.link))
+                                Spacer()
+                                if viewModel.isRegeneratingYiR2026Report {
+                                    ProgressView()
+                                }
+                            }
+                        }
+                    }
+                    .disabled(!viewModel.forceYiREntryPoint2026 || viewModel.isRegeneratingYiR2026Report)
                 }
             } header: {
-                sectionHeader("Games")
+                sectionHeader("Year in Review")
             }
             .listRowBackground(rowBackground)
 
@@ -106,7 +133,7 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Keeps the semantic search entry point hidden in production. Without this, no gate below is evaluated.") {
                     Toggle("Enable Semantic Search", isOn: $viewModel.enableSemanticSearch)
                 }
-                captionedRow(caption: "Overrides the persisted A/B bucket at read time and bypasses the target language gate; switching it back to Off restores the persisted bucket.") {
+                captionedRow(caption: "Overrides the persisted A/B bucket at read time; the target language gate still applies. Switching it back to Off restores the persisted bucket.") {
                     Picker("Force Experiment Group", selection: $viewModel.forceSemanticSearchExperimentAssignment) {
                         Text("Off").tag(WMFSemanticSearchDataController.ExperimentAssignment?.none)
                         Text("Control (A)").tag(WMFSemanticSearchDataController.ExperimentAssignment?.some(.control))
@@ -122,8 +149,110 @@ struct WMFDeveloperSettingsView: View {
                             .foregroundStyle(Color(theme.link))
                     }
                 }
+                captionedRow(caption: "Forgets the hidden state and the first use, so the entry point shows again with Try it now.") {
+                    Button {
+                        viewModel.resetSemanticSearchEntryPoint()
+                    } label: {
+                        Text("Reset entry point")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
             } header: {
                 sectionHeader("Semantic Search")
+            }
+            .listRowBackground(rowBackground)
+
+            if let widgetDiagnostics = viewModel.widgetDiagnostics {
+                Section {
+                    ForEach(Array(widgetDiagnostics.cacheSummaryLines.enumerated()), id: \.offset) { _, line in
+                        diagnosticLine(line)
+                    }
+                    Button {
+                        viewModel.clearWidgetCacheAndReloadWidgets()
+                    } label: {
+                        Text("Clear cache and reload widgets")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                } header: {
+                    sectionHeader("Widgets")
+                } footer: {
+                    sectionFooter("Cached feed content shared by the Featured Article, Top Read and Picture of the Day widgets.")
+                }
+                .listRowBackground(rowBackground)
+
+                Section {
+                    if widgetDiagnostics.lastFetchLines.isEmpty {
+                        diagnosticLine("No widget fetch recorded yet.")
+                    } else {
+                        ForEach(Array(widgetDiagnostics.lastFetchLines.enumerated()), id: \.offset) { _, line in
+                            diagnosticLine(line)
+                        }
+                    }
+                } header: {
+                    sectionHeader("Last widget fetch")
+                } footer: {
+                    sectionFooter("A section that failed to decode is listed with the JSON path that broke. Dropped elements are articles or events skipped inside a section.")
+                }
+                .listRowBackground(rowBackground)
+            }
+
+            Section {
+                captionedRow(caption: "Schedules a once-daily notification for today's top read article from background app refresh. Turning this off cancels any notification waiting to fire.") {
+                    Toggle("Daily Top Read Notifications", isOn: $viewModel.enableDailyTopReadNotifications)
+                }
+                ForEach(Array(viewModel.localNotificationLogSummaryLines.enumerated()), id: \.offset) { _, line in
+                    diagnosticLine(line)
+                }
+                captionedRow(caption: "Shares the full log as JSON, e.g. via AirDrop.") {
+                    Button {
+                        viewModel.exportLocalNotificationLog()
+                    } label: {
+                        Text("Export notification log")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+                captionedRow(caption: "Forgets that a notification was scheduled today, or that today's Top Read list was viewed, so the next refresh can schedule again.") {
+                    Button {
+                        viewModel.resetLocalNotificationHandledDays()
+                    } label: {
+                        Text("Reset daily notification state")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+                if viewModel.localNotificationActions != nil {
+                    captionedRow(caption: "Runs the daily top read scheduling now, the same way background app refresh does. The log records it with app state \"active\", so it is distinguishable from real background runs.") {
+                        Button {
+                            viewModel.runDailyTopReadRefreshNow()
+                        } label: {
+                            Text("Run notification refresh now")
+                                .foregroundStyle(Color(theme.link))
+                        }
+                    }
+                }
+                Button {
+                    viewModel.clearLocalNotificationLog()
+                } label: {
+                    Text("Clear notification log")
+                        .foregroundStyle(Color(theme.destructive))
+                }
+            } header: {
+                sectionHeader("Local Notifications")
+            }
+            .listRowBackground(rowBackground)
+
+            Section {
+                Text(viewModel.eventLoggingDiagnosticsText)
+                    .font(.footnote.monospaced())
+                    .foregroundStyle(Color(theme.text))
+                    .textSelection(.enabled)
+                Button {
+                    viewModel.resetEventLoggingDiagnostics()
+                } label: {
+                    Text("Reset counters")
+                        .foregroundStyle(Color(theme.link))
+                }
+            } header: {
+                sectionHeader("Event Logging")
             }
             .listRowBackground(rowBackground)
 
@@ -135,9 +264,30 @@ struct WMFDeveloperSettingsView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
+        .alert(
+            "Year in Review 2026 Report",
+            isPresented: Binding(
+                get: { viewModel.yiR2026ReportAlertMessage != nil },
+                set: { if !$0 { viewModel.yiR2026ReportAlertMessage = nil } }
+            ),
+            presenting: viewModel.yiR2026ReportAlertMessage
+        ) { _ in
+            Button("OK", role: .cancel) {}
+        } message: { message in
+            Text(message)
+        }
         .listBackgroundColor(Color(theme.baseBackground))
         .foregroundStyle(Color(theme.text))
         .toggleStyle(SwitchToggleStyle(tint: Color(theme.accent)))
+        .onAppear {
+            viewModel.refreshEventLoggingDiagnostics()
+        }
+        .task {
+            await viewModel.loadLocalNotificationLogSummary()
+        }
+        .sheet(item: $viewModel.localNotificationLogExportFile) { file in
+            WMFDeveloperSettingsShareSheet(activityItems: [file.url])
+        }
     }
 
     private var rowBackground: some View {
@@ -156,6 +306,13 @@ struct WMFDeveloperSettingsView: View {
             .foregroundStyle(Color(theme.secondaryText))
     }
 
+    private func diagnosticLine(_ line: String) -> some View {
+        Text(line)
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundStyle(Color(theme.text))
+            .textSelection(.enabled)
+    }
+
     private func captionedRow(caption: String, @ViewBuilder control: () -> some View) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             control()
@@ -164,4 +321,14 @@ struct WMFDeveloperSettingsView: View {
                 .foregroundStyle(Color(theme.secondaryText))
         }
     }
+}
+
+private struct WMFDeveloperSettingsShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) { }
 }

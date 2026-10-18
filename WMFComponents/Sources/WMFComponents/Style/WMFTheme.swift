@@ -16,6 +16,9 @@ public struct WMFTheme: Equatable {
     public let warning: UIColor
     public let border: UIColor
     public let newBorder: UIColor
+    /// `newBorder` as a translucent shade of `text`. The same tone on the paper, but it keeps
+    /// its contrast through the luminance filter iOS 26 applies to bar content.
+    public let translucentBorder: UIColor
     public let paperBackground: UIColor
     public let midBackground: UIColor
     public let addition: UIColor
@@ -74,6 +77,7 @@ public struct WMFTheme: Equatable {
         warning: WMFColor.orange600,
         border: WMFColor.gray400,
         newBorder: WMFColor.gray200,
+        translucentBorder: WMFColor.gray700.withAlphaComponent(0.08),
         paperBackground: WMFColor.white,
         midBackground: WMFColor.gray100,
         addition: WMFColor.blue300alpha15,
@@ -125,6 +129,7 @@ public struct WMFTheme: Equatable {
         warning: WMFColor.orange600,
         border: WMFColor.taupe200,
         newBorder: WMFColor.taupe200,
+        translucentBorder: WMFColor.gray700.withAlphaComponent(0.19),
         paperBackground: WMFColor.beige100,
         midBackground: WMFColor.beige300,
         addition: WMFColor.blue300alpha15,
@@ -176,6 +181,7 @@ public struct WMFTheme: Equatable {
         warning: WMFColor.yellow600,
         border: WMFColor.gray650,
         newBorder: WMFColor.gray500,
+        translucentBorder: WMFColor.gray100.withAlphaComponent(0.37),
         paperBackground: WMFColor.gray675,
         midBackground: WMFColor.gray700,
         addition: WMFColor.blue600alpha30,
@@ -227,6 +233,7 @@ public struct WMFTheme: Equatable {
         warning: WMFColor.yellow600,
         border: WMFColor.gray675,
         newBorder: WMFColor.gray500,
+        translucentBorder: WMFColor.gray100.withAlphaComponent(0.48),
         paperBackground: WMFColor.black,
         midBackground: WMFColor.gray700,
         addition: WMFColor.blue600alpha30,

@@ -117,7 +117,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         // prevent the webView flashing white on the unstyled content in the dark mode
         webView.isOpaque = false
         
-#if WMF_STAGING || WMF_EXPERIMENTAL
+#if WMF_ALPHA || WMF_EXPERIMENTAL
         webView.isInspectable = true
 #endif
         

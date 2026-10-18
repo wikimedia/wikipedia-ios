@@ -35,8 +35,7 @@ extension Notification.Name {
 extension WMFAppViewController {
 
     @objc func shouldOpenAppOnSearchTab() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+        return WMFSettingsDataController.shared.openAppOnSearchTab()
     }
 
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
@@ -778,9 +777,8 @@ extension WMFAppViewController {
             return
         }
         let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
-        let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            await settingsDataController.setOpenAppOnSearchTab(legacyValue)
+        guard WMFSettingsDataController.shared.setOpenAppOnSearchTab(legacyValue) else {
+            return
         }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
@@ -912,7 +910,7 @@ extension WMFAppViewController {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
-                try await yirDataController.deleteAllPersonalizedNetworkData()
+                try await yirDataController.deletePersonalizedData(for: .account)
             } catch {
                 DDLogError("Failure deleting personalized editing data from year in review: \(error)")
             }
@@ -1229,7 +1227,6 @@ extension WMFAppViewController {
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
-        viewModel.isExploreFeedOn = UserDefaults.standard.integer(forKey: "WMFDefaultTabTypeKey") == 0
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -1331,13 +1328,12 @@ extension WMFAppViewController {
     @objc func generateSettingsTab() -> SettingsTabViewController {
         let dataController = WMFSettingsDataController.shared
 
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
         let username = dataStore.authenticationManager.authStatePermanentUsername
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
                             dataStore.authenticationManager.authStateIsTemporary
-        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+        let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
 
         let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
             settingTitle: CommonStrings.settingsTitle,
@@ -1372,7 +1368,6 @@ extension WMFAppViewController {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: language,
-            exploreFeedStatus: isExploreFeedOn,
             readingPreferenceTheme: themeName,
             coordinatorDelegate: nil,
             dataController: dataController

@@ -92,6 +92,20 @@ public extension DateFormatter {
         formatter.dateStyle = .short
         return formatter
     }()
+
+    /// Month and year in the numeric form of the locale, e.g. `09/2026`.
+    static let monthYearNumericFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMyyyy")
+        return formatter
+    }()
+
+    /// Month and year spelled out, e.g. `September 2026`.
+    static let monthYearSpelledOutFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMMyyyy")
+        return formatter
+    }()
     
     static let monthDayFormatter: DateFormatter = {
         let formatter = DateFormatter()

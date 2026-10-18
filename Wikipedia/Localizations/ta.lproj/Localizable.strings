@@ -169,8 +169,6 @@
 "main-menu-terms-of-use" = "பயன்பாட்டு விதிமுறைகள்";
 "main-menu-title" = "மேலும்";
 "main-menu-zero-faq" = "விக்கிப்பீடியா சுழி அடிக்கடிக் கேட்கப்படும் கேள்விகள்";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title-updated" = "$1 வகைகள் சேர்க்கப்பட்டன";
 "more-languages-tooltip-title" = "மொழிகளைச் சேர்க்கவும்";
 "more-menu" = "மேலும்";
 "navbar-title-mode-edit-wikitext-preview" = "முன்தோற்றம்";
@@ -316,9 +314,4 @@
 "wikimedia-articletopics-topic-women" = "Biography (women)";
 "wikitext-upload-save" = "பதிப்பிடப்படுகின்றது...";
 "wikitext-upload-save-terms-name" = "பயன்பாட்டு விதிமுறைகள்";
-"year-in-review-time-afternoon" = "மதியம்";
-"year-in-review-time-late-night" = "பின்னிரவு";
-"year-in-review-time-midday" = "நண்பகல்";
-"year-in-review-time-morning" = "காலை";
-"year-in-review-time-night" = "இரவு";
 "yesterday-title" = "நேற்று";

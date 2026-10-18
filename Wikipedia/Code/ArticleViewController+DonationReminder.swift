@@ -265,9 +265,9 @@ extension ArticleViewController {
     private static func wrapUpFeedbackCardHTML() -> String {
         let heading = WMFLocalizedString("donation-reminder-wrap-up-card-heading", value: "That’s a wrap on donation reminders", comment: "Heading of the in-article card shown at the end of the donation reminder experiment.")
         let body = WMFLocalizedString("donation-reminder-wrap-up-card-body", value: "Thanks for testing donation reminders based on the articles you read. Your feedback decides if this becomes a permanent way to give on Wikipedia. It only takes a minute, and no donation is required.", comment: "Body of the in-article card shown at the end of the donation reminder experiment.")
-        let shareFeedbackTitle = WMFLocalizedString("donation-reminder-wrap-up-card-share-feedback", value: "Share feedback", comment: "Title of the button that opens the feedback survey, on the in-article card shown at the end of the donation reminder experiment.")
+        
 
-        return wrapUpCardHTML(heading: heading, body: body, primaryActionAnchor: "wmf-donation-reminder-share-feedback", primaryActionTitle: shareFeedbackTitle)
+        return wrapUpCardHTML(heading: heading, body: body, primaryActionAnchor: "wmf-donation-reminder-share-feedback", primaryActionTitle: CommonStrings.shareFeedbackTitle)
     }
 
     private static func wrapUpRecurringCardHTML(pledgeAmount: Decimal, currencyCode: String) -> String {
@@ -304,7 +304,7 @@ extension ArticleViewController {
     }
 
     private static func wrapUpCardHTML(heading: String, body: String, primaryActionAnchor: String, primaryActionTitle: String) -> String {
-        let betaPillText = CommonStrings.betaLabel
+        let betaPillText = CommonStrings.betaLabel()
         let learnMoreText = CommonStrings.learnMoreTitle()
         let noThanksTitle = CommonStrings.noThanksTitle
 

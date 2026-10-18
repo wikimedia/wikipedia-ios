@@ -8,7 +8,7 @@ final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataContr
     let id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = true
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account]
     static let shouldFreeze = true
     
     private var savedData: SavedArticleSlideData?

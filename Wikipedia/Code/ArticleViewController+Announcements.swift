@@ -17,7 +17,6 @@ extension ArticleViewController {
         }
 
         let fundraisingDataController = WMFFundraisingCampaignDataController.shared
-        let isForcingBannerForDevelopment = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner
 
         Task {
             let isOptedIn = await fundraisingDataController.isOptedIn(project: wmfProject)
@@ -66,37 +65,18 @@ extension ArticleViewController {
                 }
             }
 
-            let isFirstAppSession = UserDefaults.standard.wmf_appResignActiveDate() == nil
-            let hasDonationReminderOutcome = WMFDonationReminderDataController.shared.loadReminder() != nil && Date() < WMFDonationReminderDataController.reminderEndDate
-
-            guard (isOptedIn && !userDonatedWithinLast250Days() && !isFirstAppSession && !hasDonationReminderOutcome) || isForcingBannerForDevelopment else {
+            guard await fundraisingDataController.shouldShowCampaign(countryCode: countryCode, wmfProject: wmfProject) else {
                 willDisplayCampaignModal = false
                 onNothingShown?()
                 return
             }
 
-
             willDisplayCampaignModal = true
+            // Year in Review waits for the next app open, so the two are never back to back.
+            fundraisingDataController.markCampaignPresentedThisSession()
 
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, source: donateSource, project: wikimediaProject)
         }
-    }
-
-    private func userDonatedWithinLast250Days() -> Bool {
-
-        let donateDataController = WMFDonateDataController.shared
-
-        let currentDate = Date()
-        let twoFiftyDaysTimeInterval = TimeInterval(60*60*24*250)
-        let twoFiftyDaysAgo = currentDate.addingTimeInterval(-twoFiftyDaysTimeInterval)
-        let localDonationHistory = donateDataController.loadLocalDonationHistory(startDate: twoFiftyDaysAgo, endDate: Date())
-
-        if let localDonationHistory,
-           !localDonationHistory.isEmpty {
-            return true
-        }
-
-        return false
     }
 
     private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, source: DonateCoordinator.Source, project: WikimediaProject) {
@@ -233,6 +213,15 @@ extension ArticleViewController {
             return false
         }
 
+        // The announcement is suppressed on an article reached from a deep link. Same reasoning as
+        // the games announcement: `sceneDelegate.didOpenAppFromExternalLink` is not used here since
+        // it stays true for the whole session, which would also suppress internal links tapped from
+        // the deep linked article.
+        guard articleViewSource != .external_link,
+              articleViewSource != .widget else {
+            return false
+        }
+
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return false
         }
@@ -241,19 +230,25 @@ extension ArticleViewController {
             return false
         }
 
+        // The forced announcement must not open the Year in Review slides. This surface has no
+        // 2026 announcement screen yet, so it shows nothing while the force flag is on.
+        guard !yirDataController.isForcingFeatureAnnouncement else {
+            return false
+        }
+
         return true
     }
 
-    func presentYearInReviewAnnouncement() {
-
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
+    /// Loads the data and shows the announcement. Returns true only when it is on screen, so the
+    /// caller can move on to its next modal when it is not. The coordinator marks the announcement
+    /// as shown when it presents it.
+    @MainActor
+    func presentYearInReviewAnnouncement() async -> Bool {
+        guard let yirCoordinator else {
+            return false
         }
 
-        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
-        self.yirCoordinator?.start()
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-
+        return await yirCoordinator.presentFeatureAnnouncement(introSlideLoggingID: "article_prompt")
     }
 }
 

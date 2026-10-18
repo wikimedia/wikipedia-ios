@@ -1,28 +1,28 @@
 import Foundation
 
-public struct WMFImageRecommendation {
+public struct WMFImageRecommendation: Sendable {
     
     let page: Page
 
-    public struct Page {
+    public struct Page: Sendable {
         public let pageid: Int
         public let title: String
         public let growthimagesuggestiondata: [GrowthImageSuggestionData]?
         public let revisions: [Revision]
     }
 
-    public struct Revision {
+    public struct Revision: Sendable {
         public let revID: Int
         public let wikitext: String
     }
 
-    public struct GrowthImageSuggestionData {
+    public struct GrowthImageSuggestionData: Sendable {
         let titleNamespace: Int
         public let titleText: String
         public let images: [ImageSuggestion]
     }
 
-    public struct ImageSuggestion: Codable {
+    public struct ImageSuggestion: Codable, Sendable {
         public let image: String
         public let displayFilename: String
         public let source: String
@@ -30,7 +30,7 @@ public struct WMFImageRecommendation {
         public let metadata: ImageMetadata
     }
 
-    public struct ImageMetadata: Codable {
+    public struct ImageMetadata: Codable, Sendable {
         public let descriptionUrl: String
         public let thumbUrl: String
         public let fullUrl: String

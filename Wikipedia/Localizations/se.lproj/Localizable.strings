@@ -378,7 +378,6 @@
 "empty-no-saved-pages-message" = "Vurke siidduid maŋŋelaš čájeheapmái, maiddái offline.";
 "empty-no-saved-pages-title" = "Eai leat vuos lohkanlisttut.";
 "empty-no-search-results-message" = "Eai bohtosat.";
-"empty-talk-page-title" = "Dát geavaheaddji ii leat vuos ožžon ovttage dieđáhusa";
 "error-generic-recovery-suggestion" = "Geahččal fas maŋŋel";
 "error-unknown" = "Dovdameahttun meattáhus šattai";
 "explore-another-random" = "Eará soaitilmas artihkal";
@@ -1113,7 +1112,6 @@
 "two-factor-login-title" = "Čálit sisa du dovddaldahkii";
 "two-factor-login-with-backup-code" = "Geavat ovtta iežat liigekodain";
 "two-factor-login-with-regular-code" = "Geavat duođaštankoda";
-"unable-to-load-talk-page-title" = "Ii sáhttán viežžat ságastallansiiddu.";
 "unknown-generic-text" = "Dovdameahttun";
 "unwatch" = "Heaitte čuovvumis";
 "user-title" = "Geavaheaddji";
@@ -1266,8 +1264,3 @@
 "wikitext-upload-save-anonymously-warning" = "Rievdadeamit šaddet du ovttadaga IP-čujuhusa nammii. Jus don $1 háliidat buoret persovdnasuodjalusa oažžut.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Rievdadusaid almmuheami bokte mieđat $1geavahaneavttuide$2, ja mieđat eretgeassemeahttumit almmuhit iežat čállosa $3CC BY-SA 4.0$4 ja $5GFDL$6 liseanssaid vuolde. Don mieđat dasa ahte hyperliŋka dahje URL lea doarvái attribueren Creative Commons-liseanssa vuolde.";
 "wikitext-upload-save-terms-name" = "geavahaneavttuid";
-"year-in-review-survey-neutral" = "Neutrála";
-"year-in-review-survey-satisfied" = "Duhtavaš";
-"year-in-review-survey-unsatisfied" = "Duhtameahttun";
-"year-in-review-survey-very-satisfied" = "Hui duhtavaš";
-"year-in-review-survey-very-unsatisfied" = "Hui duhtameahttun";

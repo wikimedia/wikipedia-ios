@@ -82,7 +82,7 @@ public struct WMFActivityTabView: View {
             if yearInReviewCardPlacement == .top {
                 Section {
                     yearInReviewCard
-                        .padding(.top, 16)
+                        .padding(.top, 8)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color(uiColor: theme.paperBackground))
                 }
@@ -207,6 +207,10 @@ public struct WMFActivityTabView: View {
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
         .listCustomSectionSpacing(0)
+        // Grouped lists reserve space above the first section for a header this list never
+        // supplies. Every top-level section here brings its own top padding, so that reserved
+        // space is pure gap.
+        .contentMargins(.top, 0, for: .scrollContent)
     }
 
     private var exploreCTA: some View {
@@ -269,7 +273,7 @@ public struct WMFActivityTabView: View {
                 if yearInReviewCardPlacement == .inlineBottom {
                     Section {
                         yearInReviewCard
-                            .padding(.top, 16)
+                            .padding(.top, 8)
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color(uiColor: theme.paperBackground))
                     }
@@ -599,7 +603,7 @@ public struct WMFActivityTabView: View {
                 VStack(spacing: 0) {
                     if yearInReviewCardPlacement == .top {
                         yearInReviewCard
-                            .padding(.top, 16)
+                            .padding(.top, 8)
                             .padding(.bottom, 16)
                     }
 

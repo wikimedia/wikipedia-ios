@@ -4,6 +4,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMF
 
 @objc
 enum ProfileCoordinatorSource: Int {
@@ -188,6 +189,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         settingsCoordinator.start()
     }
     
+
     private func showDevSettings() {
         
         // todo: share localizations
@@ -206,6 +208,19 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             done: CommonStrings.doneTitle
         )
         let viewModel = WMFDeveloperSettingsViewModel(localizedStrings: localizedStrings)
+        let widgetController = WidgetController.shared
+        viewModel.widgetDiagnostics = WMFDeveloperSettingsWidgetDiagnostics(
+            cacheSummaryLines: widgetController.cacheDiagnosticsSummaryLines(),
+            lastFetchLines: widgetController.lastFetchDiagnostics?.summaryLines ?? [],
+            clearWidgetCacheAndReloadWidgets: {
+                widgetController.clearFeaturedContentCache()
+                widgetController.reloadAllWidgetsIfNecessary()
+            }
+        )
+        viewModel.regenerateYiR2026Report = { [dataStore] in
+            try await YearInReviewCoordinator.populateReport(dataStore: dataStore, regenerate: true) != nil
+        }
+        viewModel.configureLocalNotificationActions(dataStore: dataStore)
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 

@@ -202,7 +202,6 @@
 "empty-no-saved-pages-message" = "သိမ်းၼႃႈလိၵ်ႈတႃတူၺ်းၶဝ်ဝၢႆးလင်၊ ႁူမ်ဝႃႈ ဢမ်ႇမီးၼႅတ်ႇ";
 "empty-no-saved-pages-title" = "ဢမ်ႇပႆလႆႈသိမ်းဝႆႉ ၼႃႈလိၵ်ႈၵွၼ်ႇ";
 "empty-no-search-results-message" = "ဢမ်ႇႁၼ်ၽွၼ်းလႆႈ";
-"empty-talk-page-title" = "ဢမ်ႇပႆႇမီးၶၢဝ်ႇသၢၼ် ဢၼ်တၢင်ႇပၼ်ဝႆႉ တွၼ်ႈတႃႇ ၽူႈၸႂ်ႉတိုဝ်းၼႆႉ";
 "error-generic-recovery-suggestion" = "ၶႅၼ်းတေႃႈ ၶတ်းၸႂ်တူၺ်းထႅင်ႈလႄႈ";
 "error-unknown" = "လွင်ႈၽိတ်းပိူင်ႈ ဢၼ်ဢမ်ႇလၢမ်းလႆႈၼၼ်ႉ ဢွၵ်ႇပဵၼ်ဝႆႉ။";
 "explore-another-random" = "ပွင်ႈလိၵ်ႈ ၵမ်ႉမၢၼ် တၢင်ႇၸိူဝ်း";
@@ -620,7 +619,6 @@
 "two-factor-login-title" = "လွၵ်ႉဢိၼ်ႇၸူး ဢၶွင်ႉၸဝ်ႈၵဝ်ႇ";
 "two-factor-login-with-backup-code" = "ၸႂ်ႉပၼ် ၶူတ်ႉၵႅမ်လင်ၸဝ်ႈၵဝ်ႇ ဢၼ်ၼိုင်ႈလႄႈ";
 "two-factor-login-with-regular-code" = "ၸႂ်ႉပၼ် ၶူတ်ႉၼႄႉၼွၼ်း";
-"unable-to-load-talk-page-title" = "ဢမ်ႇၸၢင်ႈပိုတ်ႇ ၼႃႈလိၵ်ႈတႃႇဢုပ်ႇ";
 "welcome-exploration-explore-feed-description" = "ပၼ်တၢင်းၶႆႈၸႂ် လွင်ႈလူ လႄႈ ပွင်ႈၵႂၢမ်းၵူႈဝၼ်း ၵႃႈတီႈ တူင်ႇဝိူင်းႁဝ်းၶႃႈ";
 "welcome-exploration-explore-feed-title" = "ၶေႃႈမုၼ်းမႂ်ႇ";
 "welcome-exploration-on-this-day-description" = "တွၼ်ႈတႃႇလဵပ်ႈႁဵၼ်းတူၺ်းမိူဝ်းၼႆႉ ၵႃႈတီႈၼႂ်းပိုၼ်းၼၼ်ႉ ဢွၵ်ႇၶၢဝ်းတၢင်းၵႂႃႇလင်ၸွမ်းၶၢဝ်းယၢမ်းလႄႈ";

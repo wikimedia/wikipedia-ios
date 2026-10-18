@@ -134,7 +134,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        viewModel.yearInReviewViewModel?.isDataRich = viewModel.authenticationState == .loggedIn
+        // The data controller applies the developer settings override. Otherwise the slides in the stored report decide.
+        let userDataState = (try? yirDataController.fetchUserDataState()) ?? .lowData
+        viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
     }
 
     private func embedHostingController() {
@@ -245,9 +247,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
-        // The data-rich / low-data copy currently follows login state, so the card has to be
-        // rebuilt here rather than waiting for the next viewWillAppear.
-        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {
@@ -524,6 +523,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 viewModel.fetchData()
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+            }
+            do {
+                try await WMFYearInReviewDataController().deletePersonalizedData(for: .readingHistory)
+            } catch {
+                DDLogError("Failure deleting Year in Review reading data: \(error)")
             }
         }
     }

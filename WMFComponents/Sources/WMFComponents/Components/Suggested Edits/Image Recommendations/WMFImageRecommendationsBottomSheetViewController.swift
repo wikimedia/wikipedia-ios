@@ -129,13 +129,16 @@ extension WMFImageRecommendationsBottomSheetViewController: WMFImageRecommendati
                 
                 // Send feedback API call
                 self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: options, caption: nil, completion: { [weak self] result in
-                    switch result {
-                    case .success:
-                        break
-                    case .failure(let error):
-                        self?.delegate?.imageRecommendationsDidTriggerError(error)
+                    // The data controller calls back off-main; hop to the main actor
+                    // before touching the delegate.
+                    Task { @MainActor [weak self] in
+                        switch result {
+                        case .success:
+                            break
+                        case .failure(let error):
+                            self?.delegate?.imageRecommendationsDidTriggerError(error)
+                        }
                     }
-                    
                 })
                 // Dismisses Survey View
                 self.dismiss(animated: true, completion: { [weak self] in

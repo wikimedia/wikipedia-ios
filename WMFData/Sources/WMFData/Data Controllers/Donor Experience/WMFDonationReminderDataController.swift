@@ -80,7 +80,9 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
     }
 }
 
-public final class WMFDonationReminderDataController {
+// Sendable: the only stored property is the immutable `stateLock`. All other state
+// is read through the environment stores.
+public final class WMFDonationReminderDataController: Sendable {
 
     public enum ExperimentAssignment: String, Sendable {
         case control

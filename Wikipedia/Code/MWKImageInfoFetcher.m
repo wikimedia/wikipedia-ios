@@ -36,7 +36,12 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
                             fromSiteURL:siteURL
                                 success:^(NSArray *infoObjects) {
-                                    success(infoObjects.firstObject);
+                                    id imageInfo = infoObjects.firstObject;
+                                    if (!imageInfo) {
+                                        failure([WMFFetcher unexpectedResponseError]);
+                                        return;
+                                    }
+                                    success(imageInfo);
                                 }
                                 failure:failure];
 }

@@ -329,7 +329,6 @@
 "empty-no-saved-pages-message" = "Lưu trang để xem sau, thậm chí để xem ngoại tuyến.";
 "empty-no-saved-pages-title" = "Chưa lưu trang nào.";
 "empty-no-search-results-message" = "Không tìm thấy kết quả";
-"empty-talk-page-title" = "Tin nhắn chưa được đăng cho người dùng này";
 "error-generic-recovery-suggestion" = "Xin vui lòng thử lại sau";
 "error-unknown" = "Đã xuất hiện lỗi bất ngờ.";
 "explore-another-random" = "Một bài ngẫu nhiên nữa";
@@ -987,7 +986,6 @@
 "two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
 "two-factor-login-with-backup-code" = "Sử dụng một mã sao lưu của bạn";
 "two-factor-login-with-regular-code" = "Sử dụng mã xác nhận";
-"unable-to-load-talk-page-title" = "Đã xảy ra lỗi khi tải trang thảo luận";
 "unknown-generic-text" = "Không rõ";
 "uzbek-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Uzbek là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\noʻzbekcha lotin Uzbek chữ Latinh (uz-latin)\nўзбекча кирилл Uzbek chữ Kirin (uz-cyrl)";
 "uzbek-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Uzbek";
@@ -1087,14 +1085,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1Đăng nhập$2 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-terms-name" = "Điều khoản sử dụng";
-"year-in-review-day-friday" = "Thứ sáu";
-"year-in-review-day-monday" = "Thứ hai";
-"year-in-review-day-saturday" = "Thứ bảy";
-"year-in-review-day-sunday" = "Chủ nhật";
-"year-in-review-day-thursday" = "Thứ năm";
-"year-in-review-day-tuesday" = "Thứ ba";
-"year-in-review-day-wednesday" = "Thứ tư";
-"year-in-review-donate" = "Quyên góp";
-"year-in-review-donate-now" = "Quyên góp ngay";
-"year-in-review-personalized-edit-views-subtitle-format-updated" = "Độc giả trên khắp thế giới trân trọng những đóng góp của bạn. Trong 2 tháng qua, các bài viết mà bạn đã chỉnh sửa đã nhận được {{PLURAL:$1|$1 lượt xem}}. Nhờ có những biên tập viên như bạn, Wikipedia đang không ngừng cải thiện và trở thành nguồn tri thức dựa trên thực tế đáng tin cậy cho toàn thế giới.";
 "yesterday-title" = "Hôm qua";
