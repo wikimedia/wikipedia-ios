@@ -235,8 +235,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// A list slide from the templates file. Pass `nil` for a text field that the frame does not
-    /// use. The file has room for three items. The headline is shown in capitals. The accessibility
-    /// label keeps the text as written.
+    /// use. The file has room for three items. The headline is shown as written, not in capitals.
     func listSlide(
         id: String,
         artboard: String,
@@ -251,7 +250,7 @@ struct YearInReviewSlideViewModelFactory {
     ) -> WMFYearInReviewSlideViewModel {
         var text: [WMFRiveText: String] = [:]
         if let headline {
-            text[ListTextPath.headline] = headline.uppercased()
+            text[ListTextPath.headline] = headline
         }
         if let bodyText {
             text[ListTextPath.bodyText] = bodyText
@@ -298,8 +297,8 @@ struct YearInReviewSlideViewModelFactory {
     )
 
     /// A slide from the templates file that shows one number. Pass `nil` for a text field that the
-    /// frame does not use. The headline is shown in capitals. The accessibility label keeps the text
-    /// as written.
+    /// frame does not use. The data is shown in capitals, for example "WEDNESDAY EVENINGS". The
+    /// headline is shown as written. The accessibility label keeps the text as written.
     func dataSlide(
         id: String,
         artboard: String,
@@ -310,11 +309,11 @@ struct YearInReviewSlideViewModelFactory {
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text: [WMFRiveText: String] = [
-            DataTextPath.headline: headline.uppercased(),
+            DataTextPath.headline: headline,
             DataTextPath.bodyCopy: bodyText
         ]
         if let data {
-            text[DataTextPath.data] = data
+            text[DataTextPath.data] = data.uppercased()
         }
 
         return WMFYearInReviewSlideViewModel(
