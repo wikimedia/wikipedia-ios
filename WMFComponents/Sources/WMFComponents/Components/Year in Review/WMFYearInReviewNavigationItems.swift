@@ -28,7 +28,7 @@ enum WMFYearInReviewNavigationItems {
     ) {
         let titleConfig = WMFNavigationBarTitleConfig(
             title: "",
-            customView: makeTitleView(accessibilityLabel: strings.wIconAccessibilityLabel),
+            customView: showsWikipediaLogo ? makeTitleView(accessibilityLabel: strings.wIconAccessibilityLabel) : nil,
             alignment: .centerCompact
         )
 
@@ -47,10 +47,6 @@ enum WMFYearInReviewNavigationItems {
             searchBarConfig: nil,
             hideNavigationBarOnScroll: false
         )
-
-        if !showsWikipediaLogo {
-            viewController.navigationItem.titleView = nil
-        }
 
         viewController.navigationItem.rightBarButtonItem = makeMoreButton(
             strings: strings,

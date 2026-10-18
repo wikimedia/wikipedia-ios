@@ -59,6 +59,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// announcement and the log in prompt copy.
     private var announcementUserDataState: WMFYearInReviewDataController.YiRUserDataState = .lowData
 
+    /// The navigation controller the announcement is presented in. The slides replace the
+    /// announcement inside it, so it holds whichever of the two is showing.
+    private weak var announcementNavigationController: UINavigationController?
+
     private weak var viewModel: WMFYearInReviewViewModel?
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
@@ -107,7 +111,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     @MainActor
     private func presentAnnouncement() async -> Bool {
-        let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
+        let userDataState = (try? dataController.fetchUserDataState()) ?? .lowData
         let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
 
         // Something may have been presented while the data loaded.
@@ -129,6 +133,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // Year in Review is always light, whatever the system style is. The slides replace the
         // announcement inside this same navigation controller, so they keep it.
         announcementNavigationController.overrideUserInterfaceStyle = .light
+        self.announcementNavigationController = announcementNavigationController
         navigationController.present(announcementNavigationController, animated: true)
 
         // Marked here, when it is on screen, so an early exit above does not use it up.
@@ -183,7 +188,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// Replaces the announcement with the first slide inside the same full screen navigation
     /// controller, so nothing is dismissed and presented again.
     private func transitionAnnouncementToYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState?) {
-        guard let announcementNavigationController = navigationController.presentedViewController as? UINavigationController else {
+        guard let announcementNavigationController,
+              announcementNavigationController.presentingViewController != nil else {
             presentYearInReview(userDataState: userDataState)
             return
         }
@@ -333,9 +339,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
-        let webViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        let webViewController = SinglePageWebViewController(configType: .standard(config), theme: .light)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
-        webNavigationController.overrideUserInterfaceStyle = .light
         presentedViewController.present(webNavigationController, animated: true)
     }
 

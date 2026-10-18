@@ -5,10 +5,6 @@ public struct WMFYearInReviewAnnouncementView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFYearInReviewAnnouncementViewModel
 
-    private var theme: WMFTheme {
-        WMFTheme.light
-    }
-
     public init(viewModel: WMFYearInReviewAnnouncementViewModel) {
         self.viewModel = viewModel
     }
@@ -23,14 +19,14 @@ public struct WMFYearInReviewAnnouncementView: View {
             WMFLargeButton(
                 style: .primary,
                 title: viewModel.localizedStrings.exploreButtonTitle,
-                forceBackgroundColor: theme.link, forceForegroundColor: theme.paperBackground,
+                forceBackgroundColor: WMFTheme.light.link, forceForegroundColor: WMFTheme.light.paperBackground,
                 action: viewModel.tappedExplore
             )
             .padding(.horizontal, 24)
             .padding(.top, 24)
             .padding(.bottom, 16)
         }
-        .background(Color(uiColor: theme.paperBackground))
+        .background(Color(uiColor: WMFTheme.light.paperBackground))
     }
 
     // MARK: - Artwork
