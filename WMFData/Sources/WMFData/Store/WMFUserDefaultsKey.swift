@@ -82,6 +82,7 @@ public enum WMFUserDefaultsKey: String {
     // Logging
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"
+    case eventLoggingDiagnostics = "event-logging-diagnostics"
 
     // App lifecycle. Written by the app in NSUserDefaults+WMFExtensions.swift as a plain Date.
     case appResignActiveDate = "WMFAppResignActiveDateKey"

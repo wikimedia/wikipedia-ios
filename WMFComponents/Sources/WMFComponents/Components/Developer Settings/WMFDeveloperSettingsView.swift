@@ -262,6 +262,22 @@ struct WMFDeveloperSettingsView: View {
             }
             .listRowBackground(rowBackground)
 
+            Section {
+                Text(viewModel.eventLoggingDiagnosticsText)
+                    .font(.footnote.monospaced())
+                    .foregroundStyle(Color(theme.text))
+                    .textSelection(.enabled)
+                Button {
+                    viewModel.resetEventLoggingDiagnostics()
+                } label: {
+                    Text("Reset counters")
+                        .foregroundStyle(Color(theme.link))
+                }
+            } header: {
+                sectionHeader("Event Logging")
+            }
+            .listRowBackground(rowBackground)
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
@@ -285,6 +301,9 @@ struct WMFDeveloperSettingsView: View {
         .listBackgroundColor(Color(theme.baseBackground))
         .foregroundStyle(Color(theme.text))
         .toggleStyle(SwitchToggleStyle(tint: Color(theme.accent)))
+        .onAppear {
+            viewModel.refreshEventLoggingDiagnostics()
+        }
         .task {
             await viewModel.loadLocalNotificationLogSummary()
         }
