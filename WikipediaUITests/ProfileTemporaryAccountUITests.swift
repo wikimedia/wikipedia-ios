@@ -5,7 +5,7 @@ final class ProfileTemporaryAccountUITests: XCTestCase {
 
     func testPermanentUsernameCookieWithoutCredentialsShowsLoggedOutProfile() throws {
         launchWikipediaAppRobot(onboardingState: .completed, centralAuthUsername: "PermanentUsername")
-            .explore
+            .home
             .assertVisible()
             .openProfile()
             .assertShowsLoggedOutAccount()
@@ -14,7 +14,7 @@ final class ProfileTemporaryAccountUITests: XCTestCase {
     func testTemporaryAccountCookieShowsTemporaryAccountProfile() throws {
         let temporaryUsername = "~2026-12345-6"
         launchWikipediaAppRobot(onboardingState: .completed, centralAuthUsername: temporaryUsername)
-            .explore
+            .home
             .assertVisible()
             .openProfile()
             .assertShowsTemporaryAccount(username: temporaryUsername)

@@ -14,16 +14,12 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
 // MARK: - Navigation
 
 extension WikipediaAppRobot {
-    var explore: ExploreRobot {
-        ExploreRobot(base: base, configuration: configuration)
+    var home: HomeRobot {
+        HomeRobot(base: base, configuration: configuration)
     }
 
     var onboarding: OnboardingRobot {
         OnboardingRobot(base: base, configuration: configuration)
-    }
-
-    var newOnboarding: NewOnboardingRobot {
-        NewOnboardingRobot(base: base, configuration: configuration)
     }
 }
 
@@ -46,7 +42,7 @@ extension XCTestCase {
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
         suppressesGamesAnnouncement: Bool = true,
-        enablesHomeTab: Bool = false,
+        suppressesHomeOnboarding: Bool = true,
         centralAuthUsername: String? = nil
     ) -> WikipediaAppRobot {
         let app = XCUIApplication()
@@ -55,7 +51,7 @@ extension XCTestCase {
             resetsPreferredLanguages: resetsPreferredLanguages,
             suppressesActivityTabOnboarding: suppressesActivityTabOnboarding,
             suppressesGamesAnnouncement: suppressesGamesAnnouncement,
-            enablesHomeTab: enablesHomeTab,
+            suppressesHomeOnboarding: suppressesHomeOnboarding,
             centralAuthUsername: centralAuthUsername
         )
         app.configureForUITestLaunch(configuration: configuration)
