@@ -260,11 +260,13 @@ extension UITestRobot {
     }
 }
 
-// MARK: - Private helpers
+// MARK: - Failure descriptions
 
-private extension UITestRobot {
+extension UITestRobot {
+    /// Reading `identifier` on an element that does not exist records a snapshot failure, which would
+    /// replace the assertion message, so only resolve the element when it exists.
     static func describe(_ element: XCUIElement) -> String {
-        if !element.identifier.isEmpty {
+        if element.exists, !element.identifier.isEmpty {
             return "element with identifier '\(element.identifier)'"
         }
 
