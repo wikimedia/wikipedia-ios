@@ -522,16 +522,26 @@ struct YearInReviewSlideViewModelFactory {
 
 extension YearInReviewSlideViewModelFactory {
 
-    /// TEMPORARY: a `frame1` slide with a large number, to test the glyph animation (T441488).
-    /// The copy is not localized. Remove this slide when the real slide is done in its own task.
-    func glyphTestingMockSlide() -> WMFYearInReviewSlideViewModel {
-        let headline = CommonStrings.yearInReviewTotalArticlesTitle
+    /// TEMPORARY: the frames of the templates file that show a large number. Frames 5, 6, 8 and
+    /// 12 show `data` as small text, so they are not here.
+    private static let glyphTestingMockArtboards = ["frame1", "frame2", "frame3", "frame4", "frame16", "frame17"]
+
+    /// TEMPORARY: a slide with a large number for each frame in `glyphTestingMockArtboards`, to test
+    /// the glyph animation (T441488). The copy is not localized. Remove these slides when the real
+    /// slides are done in their own tasks.
+    func glyphTestingMockSlides() -> [WMFYearInReviewSlideViewModel] {
+        Self.glyphTestingMockArtboards.map { glyphTestingMockSlide(artboard: $0) }
+    }
+
+    /// The headline is the name of the artboard, so design can see which frame it is.
+    private func glyphTestingMockSlide(artboard: String) -> WMFYearInReviewSlideViewModel {
+        let headline = artboard
         let count = "1,234,567"
         let bodyText = "Mock for glyph testing. This slide will be done in another task"
         return dataSlide(
-            id: "glyphTestingMock",
-            artboard: "frame1",
-            stateMachine: "frame1-statemachine",
+            id: "glyphTestingMock-\(artboard)",
+            artboard: artboard,
+            stateMachine: "\(artboard)-statemachine",
             headline: headline,
             data: count,
             bodyText: bodyText,
