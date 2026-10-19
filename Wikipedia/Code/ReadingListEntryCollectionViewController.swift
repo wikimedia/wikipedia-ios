@@ -106,6 +106,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
         }
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.articleCell(article.displayTitle ?? "")
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         cell.alertButtonCallback = { [weak self] in

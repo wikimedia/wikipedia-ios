@@ -638,6 +638,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             button.addTarget(self, action: #selector(didPerformBatchEditToolbarAction(with:)), for: .touchUpInside)
             button.tag = index
             button.setTitle(action.title, for: UIControl.State.normal)
+            button.accessibilityIdentifier = AccessibilityIdentifiers.Saved.batchEditToolbarButton(String(describing: action.type))
             buttons.append(button)
             button.isEnabled = false
         }
