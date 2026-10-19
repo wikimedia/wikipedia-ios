@@ -152,14 +152,12 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 وکیپیڈیا کنوں";
 "explore-featured-article-sub-heading-from-wikipedia" = "وکیپیڈیا کنوں";
 "explore-feed-customize-accessibility-title" = "لوڑ مطابق بݨاؤ";
-"explore-feed-preferences-explore-tab" = "ٹیب پھلورو";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "ساریاں تے";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 تے";
 "explore-feed-preferences-global-cards-title" = "عالمی کارڈ";
 "explore-feed-preferences-hide-card-action-title" = "ایں کارڈ کوں لکاؤ";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "پھلور بند کرو";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "پھلور چالو کرو";
 "explore-hide-card-prompt" = "ایں کارڈ کوں لکاؤ";
 "explore-main-page-heading" = "اڄ وکی پیڈیا تے";
@@ -501,11 +499,8 @@
 "watchlist-user-button-user-contributions" = "ورتݨ آلے دیاں ونگاراں";
 "watchlist-user-button-user-page" = "ورتݨ آلے دا ورقہ";
 "watchlist-user-button-user-talk-page" = "ورتݨ آلے دا ڳالھ مہاڑ ورقہ";
-"welcome-exploration-on-this-day-title" = "ایں ݙینہ کوں";
 "welcome-explore-continue-button" = "شروع کرو";
 "welcome-explore-tell-me-more-done-button" = "گھن گھندا";
-"welcome-intro-free-encyclopedia-more" = "وکی پیڈیا بارے ٻیا سکھو";
-"welcome-intro-free-encyclopedia-more-about" = "وکیپیڈیا دا تعارف";
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
 "which-came-first-archive-nav-title" = "آرکائیو";
 "wikitext-preview-link-external-preview-title" = "ٻاہرلا لنک";
@@ -513,4 +508,5 @@
 "wikitext-preview-save-changes-title" = "تبدیلیاں محفوظ کرو";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
+"year-in-review-2026-announcement-explore" = "پھلورو";
 "yesterday-title" = "کل";
