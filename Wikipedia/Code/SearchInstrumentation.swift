@@ -112,6 +112,17 @@ final class SearchInstrumentation {
         submit(action: "impression", actionSubtype: source.searchActionSubtype)
     }
 
+    /// The reader tapped Cancel, or the back chevron on iPad. Send it before `endSearch`, so it
+    /// stays in the funnel of the search.
+    func logSearchBack() {
+        submit(action: "click", elementId: "search_back")
+    }
+
+    /// The reader tapped the clear button in the search bar. The search stays active.
+    func logSearchClose() {
+        submit(action: "click", elementId: "search_close")
+    }
+
     /// The reader cancelled the search or left the screen without opening an article. The next
     /// search starts a new funnel.
     func endSearch() {

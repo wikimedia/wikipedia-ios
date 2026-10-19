@@ -299,4 +299,23 @@ extension SearchResultsViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         focusesFirstResultWhenKeyboardHides = UIAccessibility.isVoiceOverRunning
     }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        instrumentation.logSearchBack()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = (searchBar.text ?? "") as NSString
+        if range.location != NSNotFound, NSMaxRange(range) <= currentText.length {
+            expectedSearchBarText = currentText.replacingCharacters(in: range, with: text)
+        }
+        return true
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        defer { expectedSearchBarText = nil }
+        if searchText.isEmpty, expectedSearchBarText != searchText {
+            instrumentation.logSearchClose()
+        }
+    }
 }

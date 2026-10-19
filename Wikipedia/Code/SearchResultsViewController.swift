@@ -68,7 +68,11 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     private lazy var searchBarIPadCustomizer: SearchBarIPadCustomizer = {
         let customizer = SearchBarIPadCustomizer(theme: theme)
-        customizer.onClearTapped = { [weak self] _ in self?.resetSearchResults() }
+        customizer.onClearTapped = { [weak self] _ in
+            self?.instrumentation.logSearchClose()
+            self?.resetSearchResults()
+        }
+        customizer.onBackTapWillDismiss = { [weak self] in self?.instrumentation.logSearchBack() }
         customizer.onWillDismiss = { [weak self] in
             guard let self else { return }
             resetSearchResults()
@@ -100,6 +104,9 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private var recentSearchTermPendingInit: String?
     /// The reader used the keyboard microphone for the text in the search bar.
     private var isDictating = false
+    /// The text an edit by the reader would leave in the search bar. The clear button empties the
+    /// bar without asking for that edit, so an empty bar that doesn't match it is a tap on clear.
+    var expectedSearchBarText: String?
     var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
 
     var siteURL: URL? {
