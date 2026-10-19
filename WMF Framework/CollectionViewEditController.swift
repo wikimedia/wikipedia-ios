@@ -470,15 +470,16 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             rightBarButtonSystemItem = .edit
         }
         
-        var rightButton: UIBarButtonItem?
-        var leftButton: UIBarButtonItem?
+        var rightButton: SystemBarButton?
+        var leftButton: SystemBarButton?
         
+        // barButtonPressed(_:) reads `systemItem` from the sender, which only SystemBarButton has.
         if let barButtonSystemItem = rightBarButtonSystemItem {
-            rightButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            rightButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         if let barButtonSystemItem = leftBarButtonSystemItem {
-            leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            leftButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         leftButton?.tag = editingState.tag
