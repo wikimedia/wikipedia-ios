@@ -18,6 +18,7 @@ struct UITestConfiguration {
     let suppressesHomeOnboarding: Bool
     let themeName: String?
     let languageCode: String
+    let readingListsSeed: UITestReadingListsSeed?
 
     var isRightToLeft: Bool {
         NSLocale.characterDirection(forLanguage: languageCode) == .rightToLeft
@@ -28,9 +29,11 @@ struct UITestConfiguration {
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
         suppressesGamesAnnouncement: Bool = true,
-        suppressesHomeOnboarding: Bool = true
+        suppressesHomeOnboarding: Bool = true,
+        readingListsSeed: UITestReadingListsSeed? = nil
     ) {
         self.onboardingState = onboardingState
+        self.readingListsSeed = readingListsSeed
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
         self.themeName = ProcessInfo.processInfo.value(for: .appThemeName)
         self.resetsPreferredLanguages = resetsPreferredLanguages
@@ -68,6 +71,10 @@ struct UITestConfiguration {
         argumentValues.append(UITestLaunchArgumentValue(.httpClientProfile, value: httpClientProfile))
         argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))
         argumentValues.append(UITestLaunchArgumentValue(.didShowOnboarding, value: onboardingState.launchArgumentValue))
+
+        if let readingListsSeed {
+            argumentValues.append(UITestLaunchArgumentValue(.readingListsSeed, value: readingListsSeed.launchArgumentValue))
+        }
 
         return argumentValues
     }
