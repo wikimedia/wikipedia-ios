@@ -411,10 +411,12 @@ struct WMFEvergreenAccountCreationDataControllerTests {
             let store = try await fixture.makeTemporaryCoreDataStore()
             let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore())
 
-            let now = Date()
-            let today = calendar.startOfDay(for: now).addingTimeInterval(3600)
-            let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
-            let longAgo = calendar.date(byAdding: .day, value: -100, to: today)!
+            // The anchor keeps the day arithmetic away from a real midnight. Before this the test
+            // built the days from Date(), and between 00:00 and 01:00 UTC the newest day landed in
+            // the future and fell outside the window.
+            let today = day(0)
+            let yesterday = day(-1)
+            let longAgo = day(-100)
 
             // Three distinct reading days, two of them inside the last thirty days.
             _ = try await pageViewsDataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: today)
@@ -422,7 +424,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
             _ = try await pageViewsDataController.addPageView(title: "Bird", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: longAgo)
 
             let dataController = WMFEvergreenAccountCreationDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore(), calendar: calendar)
-            let slideData = await dataController.slideData()
+            let slideData = await dataController.slideData(date: today.addingTimeInterval(3600))
 
             #expect(slideData.readingDayCount == 3)
             #expect(slideData.articlesReadThisMonthCount == 2, "The hundred day old read is outside the window.")

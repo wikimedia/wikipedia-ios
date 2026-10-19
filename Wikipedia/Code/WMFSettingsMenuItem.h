@@ -1,5 +1,4 @@
 @import UIKit;
-#import <WMF/WMFMTLModel.h>
 
 typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemDisclosureType) {
     WMFSettingsMenuItemDisclosureType_None,
@@ -32,7 +31,7 @@ typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_Appearance
 };
 
-@interface WMFSettingsMenuItem : WMFMTLModel
+@interface WMFSettingsMenuItem : NSObject
 
 @property (nonatomic, assign, readonly) WMFSettingsMenuItemType type;
 
