@@ -1,21 +1,31 @@
 import XCTest
+import WMFDataTestSupport
 
 @testable import WMFData
 @testable import WMFDataMocks
 
 final class WMFArticleSummaryDataControllerTests: XCTestCase {
 
+    private let fixture = WMFDataTestFixture()
+
+    override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
+    }
+
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
+    }
+
     // MARK: - Accept-Language
 
     /// Fetches a summary through a capturing session and returns the Accept-Language header it sent.
     /// Each call uses a unique title, since the shared controller caches summaries by page.
     private func acceptLanguageHeader(forLanguageCode languageCode: String, languageVariantCode: String?) async -> String? {
-        let originalBasicService = WMFDataEnvironment.current.basicService
-        defer {
-            WMFDataEnvironment.current.basicService = originalBasicService
-        }
         let urlSession = WMFMockNoInternetConnectionSession()
         WMFDataEnvironment.current.basicService = WMFBasicService(urlSession: urlSession)
+        await fixture.resetWMFDataTestState()
 
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
         _ = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: "Accept-Language test \(UUID().uuidString)")
@@ -33,10 +43,6 @@ final class WMFArticleSummaryDataControllerTests: XCTestCase {
     }
 
     func testFetchSummaryKeepsTheDefaultAcceptLanguageForLanguagesWithoutVariants() async {
-        let originalAcceptLanguageUtility = WMFDataEnvironment.current.acceptLanguageUtility
-        defer {
-            WMFDataEnvironment.current.acceptLanguageUtility = originalAcceptLanguageUtility
-        }
         WMFDataEnvironment.current.acceptLanguageUtility = { "de-de, en-us;q=0.50" }
 
         for languageCode in ["en", "de"] {

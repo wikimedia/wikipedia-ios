@@ -1,10 +1,12 @@
 import XCTest
+import WMFDataTestSupport
 
 @testable import WMFData
 @testable import WMFDataMocks
 
 final class WMFFeedDataControllerTests: XCTestCase {
 
+    private let fixture = WMFDataTestFixture()
     private let basicService = WMFMockBasicService(jsonResourceName: "feed-featured-2025-12-11-get")
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
@@ -26,6 +28,16 @@ final class WMFFeedDataControllerTests: XCTestCase {
         _ = try await fetchFixture()
     }
 
+    override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
+    }
+
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
+    }
+
     // MARK: - Accept-Language
 
     private func acceptLanguageHeader(forLanguageCode languageCode: String, languageVariantCode: String?) async -> String? {
@@ -41,11 +53,8 @@ final class WMFFeedDataControllerTests: XCTestCase {
     }
 
     func testFetchFeedKeepsTheDefaultAcceptLanguageForLanguagesWithoutVariants() async {
-        let originalAcceptLanguageUtility = WMFDataEnvironment.current.acceptLanguageUtility
-        defer {
-            WMFDataEnvironment.current.acceptLanguageUtility = originalAcceptLanguageUtility
-        }
         WMFDataEnvironment.current.acceptLanguageUtility = { "de-de, en-us;q=0.50" }
+        await fixture.resetWMFDataTestState()
 
         for languageCode in ["en", "de"] {
             let acceptLanguage = await acceptLanguageHeader(forLanguageCode: languageCode, languageVariantCode: nil)
