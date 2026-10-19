@@ -26,6 +26,9 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+#if UITEST
+private let wmfUITestCentralAuthUsername = "WMFUITestCentralAuthUsername"
+#endif
 private let wmfLegacyDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 private let wmfLegacyDefaultTabTypeSettingsValue = 1 // the old `WMFAppDefaultTabType.settings`
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
@@ -901,6 +904,19 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
         }
+
+        #if UITEST
+        // The cookie persists across launches, so an empty value clears what a previous test left behind.
+        if let centralAuthUsername = UserDefaults.standard.string(forKey: wmfUITestCentralAuthUsername) {
+            if centralAuthUsername.isEmpty {
+                dataStore.session.setCentralAuthUserCookieForTesting(nil)
+            } else {
+                KeychainCredentialsManager.shared.username = nil
+                KeychainCredentialsManager.shared.password = nil
+                dataStore.session.setCentralAuthUserCookieForTesting(centralAuthUsername)
+            }
+        }
+        #endif
 
         // The Year in Review announcement is a sheet that appears once per install, which for a
         // fresh UI-test install means once per test, at an unpredictable moment. Mark it as seen.
