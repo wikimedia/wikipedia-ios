@@ -1,5 +1,6 @@
 import Testing
 import Foundation
+import RiveRuntime
 @testable import WMFComponents
 
 @MainActor
@@ -19,7 +20,7 @@ struct WMFRiveAnimationViewModelTests {
         return WMFRiveAnimationViewModel(
             animation: animation,
             text: text,
-            loader: { animation in
+            loader: { animation, _ in
                 try await loader(animation)
                 throw StubError.cannotLoad
             }
@@ -77,7 +78,7 @@ struct WMFRiveAnimationViewModelTests {
         var attempts = 0
         let viewModel = WMFRiveAnimationViewModel(
             animation: animation,
-            loader: { _ in
+            loader: { _, _ in
                 attempts += 1
                 throw StubError.cannotLoad
             }
@@ -98,7 +99,7 @@ struct WMFRiveAnimationViewModelTests {
         var attempts = 0
         let viewModel = WMFRiveAnimationViewModel(
             animation: animation,
-            loader: { _ in
+            loader: { _, _ in
                 attempts += 1
                 try? await Task.sleep(nanoseconds: 50_000_000)
                 throw StubError.cannotLoad
@@ -132,6 +133,52 @@ struct WMFRiveAnimationViewModelTests {
     @Test
     func aMissingResourceIsReportedBeforeAnyLoad() {
         #expect(WMFRiveWorkerProvider.resourceExists(for: animation) == false)
+    }
+
+    /// A script in the .riv gets its view models when the state machine is made, and it does not see
+    /// an instance that is bound after that (T441488). So the text and the fitted size must be on the
+    /// instances that the state machine binds when it is made.
+    @Test
+    func theFittedSizeIsOnTheInstancesThatTheStateMachineBinds() async throws {
+        let data = WMFRiveText(path: "data")
+        let fontSize = NumberProperty(path: "dataNumberFontSize")
+        let fit = WMFRiveTextFit(
+            text: data,
+            fontAssetName: "SanSerifFont",
+            maximumWidth: 344,
+            maximumLines: 1,
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
+            lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight")
+        )
+        let longNumber = "1,234,567,890"
+
+        var boundData: String?
+        var boundFontSize: Float?
+        var fileFontSize: Float?
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: WMFRiveAnimation(resourceName: "all_templates", artboardName: "frame1", stateMachineName: "frame1-statemachine"),
+            text: [data: longNumber],
+            textFits: [fit],
+            loader: { animation, bindings in
+                try await WMFRiveWorkerProvider.makeRive(for: animation) { file, artboard in
+                    let made = await bindings(file, artboard)
+                    boundData = try? await made.main?.value(of: StringProperty(path: data.path))
+                    boundFontSize = try? await made.globals[fit.globalViewModelName]?.value(of: fontSize)
+                    let fromFile = try? await file.createViewModelInstance(.viewModelDefault(from: .name(fit.globalViewModelName)))
+                    fileFontSize = try? await fromFile?.value(of: fontSize)
+                    return made
+                }
+            }
+        )
+
+        await viewModel.load()
+
+        #expect(viewModel.loadState.isLoaded)
+        #expect(boundData == longNumber)
+        let bound = try #require(boundFontSize)
+        let file = try #require(fileFontSize)
+        #expect(bound < file, "the long number must be fitted before the bind")
     }
 
     @Test
