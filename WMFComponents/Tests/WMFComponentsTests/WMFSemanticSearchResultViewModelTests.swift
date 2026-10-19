@@ -52,7 +52,7 @@ final class WMFSemanticSearchResultViewModelTests: XCTestCase {
 
     func testQuotationMarkFollowsTheSearchLanguage() {
         XCTAssertEqual(makeViewModel(languageCode: "fr").quotationMark, "«")
-        XCTAssertEqual(makeViewModel(languageCode: "ar").quotationMark, "❝")
+        XCTAssertEqual(makeViewModel(languageCode: "ar").quotationMark, "❞")
         XCTAssertEqual(makeViewModel(languageCode: "ja").quotationMark, "『")
         XCTAssertEqual(makeViewModel(languageCode: "en").quotationMark, "❝", "Other languages use the default mark.")
     }

@@ -35,7 +35,7 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
 
     /// Opening quotation mark of the passage per search language. Design asked for the same
     /// marks as the Android app for now.
-    private static let quotationMarksByLanguageCode = ["ja": "\u{300E}", "ar": "\u{275D}", "fr": "\u{00AB}"]
+    private static let quotationMarksByLanguageCode = ["ja": "\u{300E}", "ar": "\u{275E}", "fr": "\u{00AB}"]
     private static let defaultQuotationMark = "\u{275D}"
     private static let quotationMarkTrailingPadding: CGFloat = 6
     /// Ink height of the mark relative to the ascender of the passage font.
