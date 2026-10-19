@@ -116,7 +116,8 @@ extension OnboardingRobot {
 
     /// The page controller ignores input while a page transition runs, and in scroll style the next
     /// page exists as soon as a transition starts. So a page only counts as turned once the previous
-    /// page is gone, and a gesture is retried once if it was dropped before any transition started.
+    /// page is gone. Gestures are not retried: on a stalled runner the first one may still be queued,
+    /// and a second one would skip a page.
     private func turnPage(
         from currentPage: OnboardingPage,
         to nextPage: OnboardingPage,
@@ -125,15 +126,8 @@ extension OnboardingRobot {
         line: UInt
     ) -> Self {
         let currentElement = pageElement(currentPage)
-        let nextElement = pageElement(nextPage)
 
         gesture()
-        if !waitForElementToNotExist(currentElement, timeout: 5),
-           currentElement.exists,
-           !nextElement.exists {
-            gesture()
-        }
-
         base.waitForElementToDisappear(currentElement, timeout: 15, file: file, line: line)
         assertPage(nextPage, file: file, line: line)
         return self
@@ -147,11 +141,6 @@ extension OnboardingRobot {
 
     private func pageElement(_ page: OnboardingPage) -> XCUIElement {
         base.app.otherElements[page.accessibilityIdentifier]
-    }
-
-    private func waitForElementToNotExist(_ element: XCUIElement, timeout: TimeInterval) -> Bool {
-        let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: element)
-        return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
     }
 
     @discardableResult
