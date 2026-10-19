@@ -131,7 +131,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(
+            // TEMPORARY: the glyph testing mock goes first (T441488). Remove it with the mock slide.
+            slides: [slideFactory.glyphTestingMockSlide()] + slideFactory.makeSlides(
                 userDataState: userDataState,
                 forcesAllEmptyStates: dataController.forcesAllEmptyStates
             ),

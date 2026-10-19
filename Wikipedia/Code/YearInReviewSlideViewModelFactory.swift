@@ -517,3 +517,25 @@ struct YearInReviewSlideViewModelFactory {
     /// The file with the frame templates.
     private let templatesResourceName = "all_templates"
 }
+
+// MARK: - TEMPORARY: glyph testing mock (T441488)
+
+extension YearInReviewSlideViewModelFactory {
+
+    /// TEMPORARY: a `frame1` slide with a large number, to test the glyph animation (T441488).
+    /// The copy is not localized. Remove this slide when the real slide is done in its own task.
+    func glyphTestingMockSlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewTotalArticlesTitle
+        let count = "1,234,567"
+        let bodyText = "Mock for glyph testing. This slide will be done in another task"
+        return dataSlide(
+            id: "glyphTestingMock",
+            artboard: "frame1",
+            stateMachine: "frame1-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+}
