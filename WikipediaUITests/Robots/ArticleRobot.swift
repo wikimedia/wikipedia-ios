@@ -982,12 +982,16 @@ private extension ArticleRobot {
         file: StaticString,
         line: UInt
     ) {
-        let predicate = NSPredicate(format: "exists == false || hittable == false")
-        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
-        XCTAssertEqual(
-            XCTWaiter.wait(for: [expectation], timeout: timeout),
-            .completed,
-            "Expected element with identifier '\(element.identifier)' to disappear or become non-hittable within \(timeout) seconds.",
+        // Reading `hittable` on an element that vanished after its `exists` check records a snapshot
+        // failure, so wait for it to be gone first and only check hittability if it is still there.
+        let goneExpectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: element)
+        if XCTWaiter.wait(for: [goneExpectation], timeout: timeout) == .completed {
+            return
+        }
+
+        XCTAssertFalse(
+            element.exists && element.isHittable,
+            "Expected \(UITestRobot.describe(element)) to disappear or become non-hittable within \(timeout) seconds.",
             file: file,
             line: line
         )
