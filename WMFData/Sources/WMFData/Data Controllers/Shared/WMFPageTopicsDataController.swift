@@ -202,7 +202,7 @@ public final class WMFPageTopicsDataController: Sendable {
     }
 
     /// The distinct articles in the user's reading history for the period that have at least one stored topic.
-    /// An article read repeatedly appears once.
+    /// An article read repeatedly appears once, also when it has more than one page row.
     public func fetchReadPagesWithTopics(startDate: Date, endDate: Date) async throws -> [WMFPageWithTopics] {
 
         let backgroundContext = try coreDataStore.newBackgroundContext
@@ -217,22 +217,25 @@ public final class WMFPageTopicsDataController: Sendable {
                 return []
             }
 
-            let pages = Set(pageViews.compactMap(\.page))
-
-            return pages.compactMap { page in
+            // CDPage has no uniqueness constraint, so one article can have more than one row. Group the
+            // rows by article and merge their labels, so each article occurs one time.
+            var topicLabelsByPage: [WMFPage: Set<String>] = [:]
+            for page in Set(pageViews.compactMap(\.page)) {
                 guard let projectID = page.projectID,
                       let title = page.title,
                       let cdTopics = page.topics as? Set<CDPageTopic> else {
-                    return nil
-                }
-
-                let topicLabels = cdTopics.compactMap(\.topic)
-                guard !topicLabels.isEmpty else {
-                    return nil
+                    continue
                 }
 
                 let wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
-                return WMFPageWithTopics(page: wmfPage, topicLabels: topicLabels)
+                topicLabelsByPage[wmfPage, default: []].formUnion(cdTopics.compactMap(\.topic))
+            }
+
+            return topicLabelsByPage.compactMap { page, topicLabels in
+                guard !topicLabels.isEmpty else {
+                    return nil
+                }
+                return WMFPageWithTopics(page: page, topicLabels: Array(topicLabels))
             }
         }
     }

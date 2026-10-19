@@ -575,6 +575,49 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertNil(payload.illustration(for: .history))
     }
 
+    /// Inserts a second CDPage row for an article, with its own page view and topics. The app does not do this on
+    /// purpose, but CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can.
+    private func insertDuplicatePageRow(title: String, project: WMFProject, viewedAt timestamp: Date, topicLabels: [String]) async throws {
+        let store = try XCTUnwrap(store)
+        let context = try store.newBackgroundContext
+        try await context.perform {
+            let page = try store.create(entityType: CDPage.self, in: context)
+            page.title = title
+            page.namespaceID = 0
+            page.projectID = project.id
+            page.timestamp = timestamp
+
+            let pageView = try store.create(entityType: CDPageView.self, in: context)
+            pageView.timestamp = timestamp
+            pageView.page = page
+
+            for label in topicLabels {
+                let topic = try store.create(entityType: CDPageTopic.self, in: context)
+                topic.topic = label
+                topic.score = 0.9
+                topic.page = page
+            }
+
+            try store.saveIfNeeded(moc: context)
+        }
+    }
+
+    /// Duplicate page rows must not count one article twice, for the read count or for a topic.
+    func testTopTopicsCountsAnArticleWithDuplicatePageRowsOnce() async throws {
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"])
+        try await seedArticles(["Gamma", "Delta"], labels: ["STEM.Biology"], month: 5)
+        let when = try date(month: 6, day: 1, hour: 10)
+        try await insertDuplicatePageRow(title: "Alpha", project: enProject, viewedAt: when, topicLabels: ["STEM.Physics"])
+        try await insertDuplicatePageRow(title: "Beta", project: enProject, viewedAt: when, topicLabels: ["STEM.Physics"])
+
+        let payload = try await topTopicsPayload()
+
+        // With each row counted, the user would have 6 articles read and 4 about physics, so the slide would be eligible.
+        XCTAssertEqual(payload.readCount, 4)
+        XCTAssertNil(payload.topTopic, "physics has 2 distinct articles, fewer than the top topic needs")
+        XCTAssertFalse(payload.isEligible)
+    }
+
     func testTopTopicsIsNotEligibleWithNoPageViews() async throws {
         let payload = try await topTopicsPayload()
 
