@@ -35,8 +35,11 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
 
     /// Opening quotation mark of the passage per search language. Design asked for the same
     /// marks as the Android app for now.
-    private static let quotationMarksByLanguageCode = ["ja": "\u{300E}", "ar": "\u{275E}", "fr": "\u{00AB}"]
+    private static let quotationMarksByLanguageCode = ["ja": "\u{300E}", "fr": "\u{00AB}"]
+    /// The default marks are dingbats without a Bidi mirror, so the right-to-left one is the
+    /// mirrored glyph, drawn by hand.
     private static let defaultQuotationMark = "\u{275D}"
+    private static let defaultRightToLeftQuotationMark = "\u{275E}"
     private static let quotationMarkTrailingPadding: CGFloat = 6
     /// Ink height of the mark relative to the ascender of the passage font.
     private static let quotationMarkHeightRatio: CGFloat = 0.85
@@ -91,10 +94,10 @@ public final class WMFSemanticSearchResultViewModel: ObservableObject, Identifia
     // MARK: - Presentation
 
     var quotationMark: String {
-        guard let languageCode = project.languageCode else {
-            return Self.defaultQuotationMark
+        if let languageCode = project.languageCode, let quotationMark = Self.quotationMarksByLanguageCode[languageCode] {
+            return quotationMark
         }
-        return Self.quotationMarksByLanguageCode[languageCode] ?? Self.defaultQuotationMark
+        return isRightToLeft ? Self.defaultRightToLeftQuotationMark : Self.defaultQuotationMark
     }
 
     var isRightToLeft: Bool {
