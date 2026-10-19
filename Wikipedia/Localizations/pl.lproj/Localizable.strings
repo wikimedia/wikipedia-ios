@@ -133,7 +133,7 @@
 "activity-tab-hours-minutes-read" = "$1 godz. $2 min";
 "activity-tab-hours-on-wikipedia-ios" = "W APLIKACJI WIKIPEDIA NA iOS-A";
 "activity-tab-impact-all-time-title" = "Wkład ogółem";
-"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|%d dzień|%d dni|%d dni|%d dnia}}";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 dzień|$1 dni|$1 dni|$1 dnia}}";
 "activity-tab-impact-best-streak-label" = "najdłuższa seria";
 "activity-tab-impact-edits-label" = "liczba edycji";
 "activity-tab-impact-last-edited-label" = "ostatnia edycja";

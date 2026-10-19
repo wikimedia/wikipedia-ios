@@ -31,11 +31,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%d dni</string>
+			<string>%1$d dni</string>
 			<key>one</key>
-			<string>%d dzień</string>
+			<string>%1$d dzień</string>
 			<key>other</key>
-			<string>%d dnia</string>
+			<string>%1$d dnia</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-edited</key>
