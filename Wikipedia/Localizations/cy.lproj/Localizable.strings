@@ -266,7 +266,6 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "Ar Wicipedia";
 "explore-feed-customize-accessibility-title" = "Addasu";
 "explore-feed-preferences-card-hidden-title" = "Cuddiwyd y cerdyn";
-"explore-feed-preferences-explore-tab" = "Tab Archwilio";
 "explore-feed-preferences-featured-article-description" = "Erthygl ddethol ddyddiol ar Wicipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Na";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ie am bopeth";
@@ -291,10 +290,6 @@
 "explore-feed-preferences-show-randomizer-title" = "Dangos cerdyn Hapiwr";
 "explore-feed-preferences-show-related-pages-title" = "Dangos cerdyn Darllenoch chi";
 "explore-feed-preferences-show-top-read-title" = "Dangos cerdyn Poblogaidd";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Diffodd ffrwd Archwilio";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Diffodd y ffrwd Archwilio?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Diffodd Archwilio";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Diffodd y tab Archwilio?";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Galluogi Archwilio";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Galluogi'r tab Archwilio?";
 "explore-hide-card-prompt" = "Cuddio'r cerdyn hwn";
@@ -762,18 +757,9 @@
 "watchlist-user-button-user-page" = "Tudalen ddefnyddiwr";
 "watchlist-user-button-user-talk-page" = "Tudalen sgwrs defnyddiwr";
 "welcome-exploration-explore-feed-title" = "Ffrwd Archwilio";
-"welcome-exploration-on-this-day-title" = "Ar y dydd hwn";
-"welcome-exploration-places-title" = "Tab Lleoliadau";
 "welcome-explore-continue-button" = "Dechrau arni";
-"welcome-explore-new-ways-title" = "Ffyrdd newydd i archwilio";
 "welcome-explore-tell-me-more-done-button" = "Iawn";
-"welcome-intro-free-encyclopedia-more" = "Dysgwch fwy am Wicipedia";
-"welcome-intro-free-encyclopedia-more-about" = "Ynglŷn â Wicipedia";
-"welcome-intro-free-encyclopedia-title" = "Y gwyddoniadur rhydd";
 "welcome-languages-add-button" = "Ychwanegu iaith arall";
-"welcome-languages-add-or-edit-button" = "Ychwanegu neu olygu hoff ieithoedd";
-"welcome-languages-description" = "Rydyn ni wedi canfod yr ieithoedd canlynol ar eich ddyfais:";
-"welcome-languages-search-title" = "Chwilio mewn dros 300 iaith";
 "widget-onthisday-placeholder-article-snippet" = "Gwyddoniadur rhydd ar-lein y gall unrhyw un olygu";
 "widget-onthisday-placeholder-event-snippet" = "Mae Wicipedia, y gwyddoniadur rhydd, yn mynd ar-lein.";
 "wikimedia-articletopics-topic-africa" = "Affrica";
