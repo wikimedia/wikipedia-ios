@@ -469,7 +469,10 @@ private extension SavedRobot {
 
     func tapMenuItem(_ title: String, file: StaticString, line: UInt) {
         let item = base.menuItem(withTitle: title)
-        base.assertVisible(item, timeout: 5, description: "menu item '\(title)'", file: file, line: line)
+        if !item.waitForExistence(timeout: 10) {
+            openMoreMenu(file: file, line: line)
+        }
+        base.assertVisible(item, timeout: 10, description: "menu item '\(title)'", file: file, line: line)
         item.tap()
     }
 }
