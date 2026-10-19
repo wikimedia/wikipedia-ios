@@ -134,7 +134,7 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
             return title != Self.englishMainPageTitle && title != mainPageTitles[page.projectID]
         }
 
-        let readCount = readPages.count(where: isArticle)
+        let readCount = Set(readPages).count(where: isArticle)
 
         var articlesByTopic: [WMFArticleTopic: [SlideData.Article]] = [:]
         for pageWithTopics in pagesWithTopics where isArticle(pageWithTopics.page) {
