@@ -182,6 +182,41 @@ struct WMFRiveAnimationViewModelTests {
     }
 
     @Test
+    func aRestartBeforeTheLoadDoesNothing() async {
+        var attempts = 0
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: animation,
+            loader: { _, _ in
+                attempts += 1
+                throw StubError.cannotLoad
+            }
+        )
+
+        #expect(viewModel.restart() == nil)
+        #expect(attempts == 0)
+    }
+
+    /// A pager restarts a page that it keeps off-screen, so the page plays again when it comes back.
+    /// The restart makes a new animation and keeps the page loaded, so the page does not go blank.
+    @Test
+    func aRestartMakesANewAnimationAndStaysLoaded() async throws {
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: WMFRiveAnimation(resourceName: "all_templates", artboardName: "frame1", stateMachineName: "frame1-statemachine"),
+            text: [WMFRiveText(path: "data"): "42"]
+        )
+        await viewModel.load()
+        let first = try #require(viewModel.rive)
+
+        let restart = viewModel.restart()
+        #expect(viewModel.loadState.isLoaded, "the current animation stays during the restart")
+        await restart?.value
+
+        let second = try #require(viewModel.rive)
+        #expect(second !== first)
+        #expect(viewModel.loadState.isLoaded)
+    }
+
+    @Test
     func theTemplatesAnimationIsInTheBundle() {
         let templates = WMFRiveAnimation(resourceName: "all_templates")
         #expect(WMFRiveWorkerProvider.resourceExists(for: templates))

@@ -94,8 +94,25 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         return task
     }
 
-    func load() async {
-        loadState = .loading
+    /// Makes a new state machine, so the animation plays again from its first frame. A state machine
+    /// cannot go back to its start. The animation on screen stays until the new one is ready.
+    @discardableResult
+    func restart() -> Task<Void, Never>? {
+        guard loadState.isLoaded else { return nil }
+        loadTask?.cancel()
+        let task = Task { [weak self] in
+            guard let self else { return }
+            await self.load(showsLoading: false)
+        }
+        loadTask = task
+        return task
+    }
+
+    /// - Parameter showsLoading: `false` keeps the current animation on screen during the load.
+    func load(showsLoading: Bool = true) async {
+        if showsLoading {
+            loadState = .loading
+        }
         do {
             var made: Bound?
             let rive = try await loader(animation) { file, artboard in
