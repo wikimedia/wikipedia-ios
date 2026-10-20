@@ -14,6 +14,17 @@ enum WMFRiveError: LocalizedError {
     }
 }
 
+/// The view model instances that a state machine binds when it is made. A `nil` main instance, or a
+/// global view model that is not in `globals`, gets the default instance of the file.
+@MainActor
+struct WMFRiveBindings {
+    let main: ViewModelInstance?
+    let globals: [String: ViewModelInstance]
+}
+
+/// Makes the instances to bind, after the file and the artboard load and before the state machine is made.
+typealias WMFRiveBindingsMaker = @MainActor (File, Artboard) async -> WMFRiveBindings
+
 @MainActor
 enum WMFRiveWorkerProvider {
 
@@ -109,7 +120,13 @@ enum WMFRiveWorkerProvider {
         try await sharedWorker().decodeImage(from: data)
     }
 
-    static func makeRive(for animation: WMFRiveAnimation) async throws -> Rive {
+    /// Loads the file and binds the instances from `bindings` when it makes the state machine.
+    /// A `nil` artboard or state machine name gives the default of the file.
+    ///
+    /// Do not bind other instances after this. A script in the .riv gets its view models in its
+    /// `init`, which runs when the state machine is made, and it keeps them. Write new values on the
+    /// instances that `bindings` returned.
+    static func makeRive(for animation: WMFRiveAnimation, bindings: WMFRiveBindingsMaker) async throws -> Rive {
         let worker = try await sharedWorker()
         let file = try await File(source: .local(animation.resourceName, .module), worker: worker)
 
@@ -120,14 +137,11 @@ enum WMFRiveWorkerProvider {
         await dumpInventory(of: file, named: animation.resourceName)
         #endif
 
-        var artboard: Artboard?
-        var stateMachine: StateMachine?
-
-        if animation.artboardName != nil || animation.stateMachineName != nil {
-            let resolved = try await file.createArtboard(animation.artboardName)
-            artboard = resolved
-            if let stateMachineName = animation.stateMachineName {
-                stateMachine = try await resolved.createStateMachine(stateMachineName)
+        let artboard = try await file.createArtboard(animation.artboardName)
+        let made = await bindings(file, artboard)
+        let stateMachine = try await artboard.createStateMachine(animation.stateMachineName, binding: made.main) {
+            for (name, instance) in made.globals {
+                (name, instance)
             }
         }
 
@@ -135,7 +149,6 @@ enum WMFRiveWorkerProvider {
             file: file,
             artboard: artboard,
             stateMachine: stateMachine,
-            dataBind: .auto,
             fit: .layout(scaleFactor: .automatic),
             backgroundColor: Color(red: 0, green: 0, blue: 0, alpha: 0)
         )

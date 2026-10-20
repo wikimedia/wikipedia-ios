@@ -46,6 +46,7 @@
 // Author: Juan Cuartas
 // Author: Koavf
 // Author: Laranxa
+// Author: Luigi Nakano
 // Author: Luisangelrg
 // Author: Luzcaru
 // Author: Macofe
@@ -534,10 +535,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Puedes añadir idiomas adicionales en la página de ajustes ‘Mis idiomas’.";
 "explore-feed-preferences-card-hidden-title" = "Tarjeta oculta";
 "explore-feed-preferences-continue-reading-description" = "Enlace rápido atrás para leer un artículo abierto";
-"explore-feed-preferences-customize-explore-feed" = "\n\nPersonalizar el canal Explorar";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalizar canal Explorar";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "\nOcultar un tipo de tarjeta hará que las tarjetas de este tipo dejen de aparecer en Explorar.";
-"explore-feed-preferences-explore-tab" = "Pestaña Explorar";
 "explore-feed-preferences-featured-article-description" = "Artículo destacado del día en Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Desactivado";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "\nEn todos";
@@ -551,7 +549,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarjeta";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todas las tarjetas «%@»";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobre acontecimientos recientes";
-"explore-feed-preferences-languages-footer-text" = "\nOcultar todas las tarjetas de Explorar en todos tus idiomas desactivará la pestaña Explorar.";
 "explore-feed-preferences-on-this-day-description" = "Eventos en la historia en un día como hoy";
 "explore-feed-preferences-places-description" = "\nArtículos de Wikipedia cercanos a tu localización";
 "explore-feed-preferences-potd-description" = "\nImagen diaria destacada de Commons";
@@ -575,16 +572,7 @@
 "explore-feed-preferences-suggested-edits-description" = "Sugerencias para añadir contenido a Wikipedia";
 "explore-feed-preferences-suggested-edits-title" = "Mostrar tarjeta de ediciones sugeridas";
 "explore-feed-preferences-top-read-description" = "Artículos más leídos del día";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "\nDesactivar Explorar";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar todas las tarjetas del canal Explorar desactivará la pestaña Explorar y la reemplazará por la pestaña Ajustes";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "\n¿Desactivar Explorar?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desactivar Explorar";
-"explore-feed-preferences-turn-off-explore-tab-message" = "\nLa pestaña Explorar se puede reactivar en los ajustes del canal Explorar";
-"explore-feed-preferences-turn-off-explore-tab-title" = "¿Quieres desactivar la pestaña Explorar?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Desactivar la pestaña Explorar la reemplazará por la pestaña Ajustes";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Al elegir mostrar tarjetas de Explorar activarás la pestaña Explorar";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Esto reemplazará la pestaña Ajustes con la pestaña Explorar, puedes acceder a Ajustes tocando el icono de la rueda dentada en la parte superior de Explorar";
 "explore-feed-preferences-turn-on-explore-tab-title" = "¿Quieres activar la pestaña Explorar?";
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
@@ -665,7 +653,6 @@
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
 "history-title" = "Historial";
-"home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más lugares cerca de tu ubicación";
@@ -1153,11 +1140,11 @@
 "search-semantic-results-error-subtitle" = "Por favor vuelva a intentarlo.";
 "search-semantic-results-error-title" = "Algo salió mal";
 "search-semantic-results-last-updated" = "Última actualización $1";
-"search-semantic-results-rate-limited-subtitle" = "Espera un momento e inténtarlo de nuevo.";
+"search-semantic-results-rate-limited-subtitle" = "Espera un momento e inténtalo de nuevo.";
 "search-semantic-results-rate-limited-title" = "Demasiadas búsquedas";
 "search-semantic-results-read-in-article" = "Leer en el artículo";
 "search-semantic-results-unavailable-subtitle" = "Por favor, vuelva a intentarlo más tarde.";
-"search-semantic-results-unavailable-title" = "La función de búsqueda no está disponible en este momento.";
+"search-semantic-results-unavailable-title" = "La función de búsqueda no está disponible en este momento";
 "search-title" = "Buscar";
 "search-widget-announcement-body" = "Añade el widget de búsqueda de Wikipedia a tu pantalla de inicio o de bloqueo para obtener respuestas más rápidas, al alcance de tu mano.";
 "search-widget-announcement-title" = "Nuevo widget de búsqueda disponible";
@@ -1407,27 +1394,10 @@
 "watchlist-user-button-user-talk-page" = "Página de discusión del usuario";
 "watchlist-watch-subtitle" = "Al tocar la estrella o la acción \"Vigilar\" en la barra de herramientas inferior de un artículo, puede agregar esa página a su Lista de seguimiento.";
 "watchlist-watch-title" = "Artículos en seguimiento";
-"welcome-data-privacy-title" = "Datos y privacidad";
-"welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
 "welcome-exploration-explore-feed-title" = "Canal Explorar";
-"welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";
-"welcome-exploration-on-this-day-title" = "Un día como hoy";
-"welcome-exploration-places-description" = "Descubre puntos de referencia cerca de ti o busca en lugares por todo el mundo";
-"welcome-exploration-places-title" = "Pestaña Lugares";
 "welcome-explore-continue-button" = "Comenzar";
-"welcome-explore-new-ways-title" = "Nuevas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Listo";
-"welcome-intro-free-encyclopedia-description" = "Un colectivo de voluntarios escribe Wikipedia, la cual consiste de más de 40 millones de artículos en más de 300 lenguas.";
-"welcome-intro-free-encyclopedia-more" = "Más información sobre Wikipedia";
-"welcome-intro-free-encyclopedia-more-about" = "Acerca de Wikipedia";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedia es un proyecto mundial para crear enciclopedias libres en todas las lenguas del planeta. Virtualmente cualquier persona que cuente con acceso a Internet está invitada a aportarnos información neutral y respaldada con referencias.";
-"welcome-intro-free-encyclopedia-title" = "La enciclopedia libre";
 "welcome-languages-add-button" = "Añadir otro idioma";
-"welcome-languages-add-or-edit-button" = "Añadir o editar idiomas preferidos";
-"welcome-languages-description" = "Encontramos estos idiomas en el dispositivo:";
-"welcome-languages-search-title" = "Busca en más de 300 lenguas";
-"welcome-privacy-subtitle" = "Creemos que no debería ser necesario proporcionar información personal para participar en el movimiento del conocimiento libre. Los datos de uso recopilados por esta aplicación son anónimos.";
-"welcome-privacy-terms-button-text" = "Obtenga más información sobre nuestra política de privacidad y términos de uso.";
 "widget-onthisday-description" = "Explora qué pasado en este día en la historia.";
 "widget-onthisday-placeholder-article-snippet" = "La enciclopedia en línea libre que cualquiera puede editar";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, una enciclopedia wiki de contenido libre, va online.";
@@ -1462,8 +1432,8 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 "year-in-review-2026-announcement-exit-toast-title" = "Podrás acceder a tu Resumen Anual más tarde en el menú de Actividad.";
-"year-in-review-2026-feedback-email-first-line" = "Tengo comentarios sobre el resumen del año:";
-"year-in-review-2026-feedback-email-subject" = "Comentarios sobre el resumen del año";
+"year-in-review-2026-feedback-email-first-line" = "Tengo comentarios sobre el Resumen Anual:";
+"year-in-review-2026-feedback-email-subject" = "Comentarios sobre el Resumen Anual";
 "year-in-review-button-title" = "Resumen del año";
 "year-in-review-feature-announcement-title-personalized" = "Consulta tu resumen anual de Wikipedia";
 "year-in-review-feature-explore-footer-v3" = "Tu historial de lectura está protegido. Los datos de lectura se calculan con datos almacenados localmente en tu dispositivo.";

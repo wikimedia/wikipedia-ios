@@ -4,7 +4,6 @@ public struct WMFYearInReviewAnnouncementView: View {
 
     @ObservedObject var viewModel: WMFYearInReviewAnnouncementViewModel
 
-
     public init(viewModel: WMFYearInReviewAnnouncementViewModel) {
         self.viewModel = viewModel
     }

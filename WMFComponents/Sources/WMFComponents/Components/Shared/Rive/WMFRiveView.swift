@@ -14,6 +14,9 @@ public struct WMFRiveView: View {
     private let layoutDirection: WMFRiveLayoutDirection?
     private let accessibilityLabel: String?
     private let frameRate: Int?
+    /// `false` keeps the animation on its first frame. A pager sets it only on the current page, so
+    /// a page that is built off-screen does not play its intro before the reader sees it.
+    private let isPlaying: Bool
     private let onReadBool: (@MainActor (Bool) -> Void)?
 
     public init(
@@ -24,6 +27,7 @@ public struct WMFRiveView: View {
         layoutDirection: WMFRiveLayoutDirection? = nil,
         accessibilityLabel: String? = nil,
         frameRate: Int? = nil,
+        isPlaying: Bool = true,
         readBool: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = [],
         onReadBool: (@MainActor (Bool) -> Void)? = nil
@@ -34,6 +38,7 @@ public struct WMFRiveView: View {
         self.layoutDirection = layoutDirection
         self.accessibilityLabel = accessibilityLabel
         self.frameRate = frameRate
+        self.isPlaying = isPlaying
         self.onReadBool = onReadBool
         _viewModel = StateObject(wrappedValue: WMFRiveAnimationViewModel(
             animation: animation,
@@ -57,6 +62,13 @@ public struct WMFRiveView: View {
             }
             .onDisappear {
                 viewModel.unload()
+            }
+            .onChange(of: isPlaying) { wasPlaying, isPlaying in
+                // A pager keeps some pages that are not current. Start such a page again while it
+                // is off-screen, so it plays from its first frame each time the reader comes back.
+                if wasPlaying && !isPlaying {
+                    viewModel.restart()
+                }
             }
             .onChange(of: text) {
                 viewModel.update(text: text, numbers: numbers)
@@ -99,7 +111,7 @@ public struct WMFRiveView: View {
 
     private var representable: RiveUIViewRepresentable {
         var representable = RiveUIViewRepresentable(rive: viewModel.rive)
-            .paused(reduceMotion || !playAnimatedImages)
+            .paused(reduceMotion || !playAnimatedImages || !isPlaying)
 
         if let frameRate {
             representable = representable.frameRate(.fps(frameRate))

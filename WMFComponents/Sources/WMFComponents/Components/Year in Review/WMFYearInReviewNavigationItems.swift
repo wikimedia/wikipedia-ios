@@ -28,7 +28,7 @@ enum WMFYearInReviewNavigationItems {
     ) {
         let titleConfig = WMFNavigationBarTitleConfig(
             title: "",
-            customView: makeTitleView(accessibilityLabel: strings.wIconAccessibilityLabel),
+            customView: showsWikipediaLogo ? makeTitleView(accessibilityLabel: strings.wIconAccessibilityLabel) : nil,
             alignment: .centerCompact
         )
 
