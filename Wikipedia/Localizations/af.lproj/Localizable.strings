@@ -221,17 +221,8 @@
 "theme-default-display-name" = "Verstek";
 "theme-sepia-display-name" = "Sepia";
 "two-factor-login-title" = "Meld aan met u rekening";
-"welcome-exploration-on-this-day-title" = "Op dié dag";
 "welcome-explore-tell-me-more-done-button" = "Het dit";
-"welcome-intro-free-encyclopedia-more" = "Meer inligting oor Wikipedia";
-"welcome-intro-free-encyclopedia-more-about" = "Oor Wikipedia";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedia is ’n wêreldwye projek om vry ensiklopedieë te bou in alle tale in die wêreld. Omtrent enigeen met Internettoegang kan deelneem deur neutrale inligting met verwysings by te dra.";
-"welcome-intro-free-encyclopedia-title" = "Die vry ensiklopedie";
 "welcome-languages-add-button" = "Voeg ’n ander taal toe";
-"welcome-languages-add-or-edit-button" = "Voeg voorkeurtale by of redigeer hulle";
-"welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
-// Fuzzy
-"welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
 "wikimedia-articletopics-topic-africa" = "Afrika";
 "wikimedia-articletopics-topic-architecture" = "Argitektuur";
 "wikimedia-articletopics-topic-art" = "Kuns";
