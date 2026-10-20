@@ -6,10 +6,12 @@ public struct WMFRiveView: View {
     @StateObject private var viewModel: WMFRiveAnimationViewModel
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityPlayAnimatedImages) private var playAnimatedImages
+    @Environment(\.layoutDirection) private var environmentLayoutDirection
 
     private let text: [WMFRiveText: String]
     private let numbers: [WMFRiveNumber: Double]
     private let images: [WMFRiveImage: Data]
+    private let layoutDirection: WMFRiveLayoutDirection?
     private let accessibilityLabel: String?
     private let frameRate: Int?
     private let onReadBool: (@MainActor (Bool) -> Void)?
@@ -19,6 +21,7 @@ public struct WMFRiveView: View {
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
         images: [WMFRiveImage: Data] = [:],
+        layoutDirection: WMFRiveLayoutDirection? = nil,
         accessibilityLabel: String? = nil,
         frameRate: Int? = nil,
         readBool: WMFRiveBool? = nil,
@@ -28,6 +31,7 @@ public struct WMFRiveView: View {
         self.text = text
         self.numbers = numbers
         self.images = images
+        self.layoutDirection = layoutDirection
         self.accessibilityLabel = accessibilityLabel
         self.frameRate = frameRate
         self.onReadBool = onReadBool
@@ -44,7 +48,12 @@ public struct WMFRiveView: View {
     public var body: some View {
         content
             .onAppear {
+                // Before the load, so the first frame already has the layout direction.
+                viewModel.update(enums: enums)
                 viewModel.loadIfNeeded()
+            }
+            .onChange(of: environmentLayoutDirection) {
+                viewModel.update(enums: enums)
             }
             .onDisappear {
                 viewModel.unload()
@@ -63,6 +72,11 @@ public struct WMFRiveView: View {
                     onReadBool?(value)
                 }
             }
+    }
+
+    private var enums: [WMFRiveEnum: String] {
+        guard let layoutDirection else { return [:] }
+        return [layoutDirection.property: layoutDirection.value(for: environmentLayoutDirection)]
     }
 
     @ViewBuilder

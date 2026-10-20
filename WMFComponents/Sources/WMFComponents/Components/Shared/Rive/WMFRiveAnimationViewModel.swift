@@ -30,6 +30,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
 
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
+    private var enums: [WMFRiveEnum: String] = [:]
     private var images: [WMFRiveImage: Data]
     private var loadTask: Task<Void, Never>?
     private var imageTask: Task<Void, Never>?
@@ -124,6 +125,14 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
     }
 
+    /// Sets enum properties, for example the layout direction. Call it before `loadIfNeeded()` so the
+    /// first frame already has the values.
+    func update(enums newEnums: [WMFRiveEnum: String]) {
+        guard newEnums != enums else { return }
+        enums = newEnums
+        applyValues()
+    }
+
     func update(images newImages: [WMFRiveImage: Data]) {
         guard newImages != images else { return }
         images = newImages
@@ -137,6 +146,9 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for (property, value) in numbers {
             instance.setValue(of: NumberProperty(path: property.path), to: Float(value))
+        }
+        for (property, value) in enums {
+            instance.setValue(of: EnumProperty(path: property.path), to: value)
         }
         applyImages()
     }

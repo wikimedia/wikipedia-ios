@@ -113,6 +113,14 @@ struct WMFRiveAnimationViewModelTests {
         #expect(attempts == 1, "three calls while one load is in flight must start one load")
     }
 
+    /// The templates name the cases of their layout direction enum "Left to Right" and "Right to Left".
+    @Test
+    func theLayoutDirectionPicksTheEnumCaseForTheDirection() {
+        let layoutDirection = WMFRiveLayoutDirection(property: WMFRiveEnum(path: "layoutDir"))
+        #expect(layoutDirection.value(for: .leftToRight) == "Left to Right")
+        #expect(layoutDirection.value(for: .rightToLeft) == "Right to Left")
+    }
+
     @Test
     func theAnimationCarriesItsArtboard() {
         let loading = WMFRiveAnimation(resourceName: "onboarding-loading", artboardName: "loading")
