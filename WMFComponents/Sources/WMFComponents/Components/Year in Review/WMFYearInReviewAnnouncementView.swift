@@ -27,7 +27,7 @@ public struct WMFYearInReviewAnnouncementView: View {
                 forceForegroundColor: theme.paperBackground,
                 action: viewModel.tappedExplore
             )
-            .padding(.bottom, 8)
+            .padding(.top, 0)
         }
         .background(Color(uiColor: theme.paperBackground))
     }

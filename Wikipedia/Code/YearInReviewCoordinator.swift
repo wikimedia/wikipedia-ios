@@ -107,7 +107,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     @MainActor
     private func presentAnnouncement() async -> Bool {
-        let userDataState = (try? await dataController.fetchUserDataState()) ?? .lowData
+        let userDataState = (try? dataController.fetchUserDataState()) ?? .lowData
         let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
 
         // Something may have been presented while the data loaded.
