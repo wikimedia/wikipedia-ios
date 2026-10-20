@@ -28,14 +28,34 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     /// Text runs to keep to a maximum number of lines. See `WMFRiveTextFit`.
     let textFits: [WMFRiveTextFit]
 
+    /// The font size and the line height of a fit in the .riv, before the fit changes them.
+    struct FileSizes {
+        let fontSize: Double
+        let lineHeight: Double
+    }
+
+    /// The instances that the state machine binds when it is made, and the values they got.
+    struct Bound {
+        let main: ViewModelInstance?
+        let globals: [String: ViewModelInstance]
+        let fileSizes: [WMFRiveTextFit: FileSizes]
+        let text: [WMFRiveText: String]
+        let numbers: [WMFRiveNumber: Double]
+        let enums: [WMFRiveEnum: String]
+
+        var bindings: WMFRiveBindings {
+            WMFRiveBindings(main: main, globals: globals)
+        }
+    }
+
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
     private var enums: [WMFRiveEnum: String] = [:]
     private var images: [WMFRiveImage: Data]
+    private var bound: Bound?
     private var loadTask: Task<Void, Never>?
     private var imageTask: Task<Void, Never>?
-    private var fitTask: Task<Void, Never>?
-    private let loader: @MainActor (WMFRiveAnimation) async throws -> Rive
+    private let loader: @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive
     private let imageDecoder: @MainActor (Data) async throws -> RiveRuntime.Image
 
     init(
@@ -45,7 +65,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         images: [WMFRiveImage: Data] = [:],
         readBool: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = [],
-        loader: @escaping @MainActor (WMFRiveAnimation) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
+        loader: @escaping @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
     ) {
         self.animation = animation
@@ -61,7 +81,6 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     deinit {
         loadTask?.cancel()
         imageTask?.cancel()
-        fitTask?.cancel()
     }
 
     @discardableResult
@@ -75,17 +94,41 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         return task
     }
 
-    func load() async {
-        loadState = .loading
+    /// Makes a new state machine, so the animation plays again from its first frame. A state machine
+    /// cannot go back to its start. The animation on screen stays until the new one is ready.
+    @discardableResult
+    func restart() -> Task<Void, Never>? {
+        guard loadState.isLoaded else { return nil }
+        loadTask?.cancel()
+        let task = Task { [weak self] in
+            guard let self else { return }
+            await self.load(showsLoading: false)
+        }
+        loadTask = task
+        return task
+    }
+
+    /// - Parameter showsLoading: `false` keeps the current animation on screen during the load.
+    func load(showsLoading: Bool = true) async {
+        if showsLoading {
+            loadState = .loading
+        }
         do {
-            let rive = try await loader(animation)
+            var made: Bound?
+            let rive = try await loader(animation) { file, artboard in
+                let bound = await self.makeBound(file: file, artboard: artboard)
+                made = bound
+                return bound.bindings
+            }
             guard !Task.isCancelled else { return }
             self.rive = rive
+            self.bound = made
+            if let made, made.text != text || made.numbers != numbers || made.enums != enums {
+                // The values changed while the file loaded.
+                applyCurrentValues()
+            }
             validatePathsInDebug()
-            applyValues()
-            // Fit the text before the animation shows, so a long value never shows at the wrong size.
-            await applyTextFits()
-            guard !Task.isCancelled else { return }
+            applyImages()
             self.loadState = .loaded
             await readBoolFromFile()
         } catch is CancellationError {
@@ -93,6 +136,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         } catch {
             guard !Task.isCancelled else { return }
             self.rive = nil
+            self.bound = nil
             self.loadTask = nil
             self.loadState = .failed
             WMFRiveLogger.log(
@@ -106,23 +150,18 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         loadTask = nil
         imageTask?.cancel()
         imageTask = nil
-        fitTask?.cancel()
-        fitTask = nil
         rive = nil
+        bound = nil
         readBoolValue = nil
         loadState = .idle
     }
 
+    /// Writes the new values on the instances that are bound. It does not bind new instances. See `makeBound`.
     func update(text newText: [WMFRiveText: String], numbers newNumbers: [WMFRiveNumber: Double]) {
         guard newText != text || newNumbers != numbers else { return }
         text = newText
         numbers = newNumbers
-        applyValues()
-        guard !textFits.isEmpty else { return }
-        fitTask?.cancel()
-        fitTask = Task { [weak self] in
-            await self?.applyTextFits()
-        }
+        applyCurrentValues()
     }
 
     /// Sets enum properties, for example the layout direction. Call it before `loadIfNeeded()` so the
@@ -130,7 +169,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     func update(enums newEnums: [WMFRiveEnum: String]) {
         guard newEnums != enums else { return }
         enums = newEnums
-        applyValues()
+        applyCurrentValues()
     }
 
     func update(images newImages: [WMFRiveImage: Data]) {
@@ -139,8 +178,48 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         applyImages()
     }
 
-    private func applyValues() {
-        guard let instance = rive?.viewModelInstance else { return }
+    /// Makes the instances that the state machine binds when it is made, with the text and the fitted
+    /// sizes already set. A script in the .riv gets its view models in its `init`, which runs when the
+    /// state machine is made. The script does not see an instance that is bound after that, so it
+    /// would lay out its glyphs for the size in the file, not the fitted size (T441488).
+    private func makeBound(file: File, artboard: Artboard) async -> Bound {
+        let main = try? await file.createViewModelInstance(.viewModelDefault(from: .artboardDefault(artboard)))
+        if let main {
+            applyValues(to: main)
+        }
+
+        var globals: [String: ViewModelInstance] = [:]
+        var fileSizes: [WMFRiveTextFit: FileSizes] = [:]
+        for fit in textFits {
+            do {
+                let global: ViewModelInstance
+                if let existing = globals[fit.globalViewModelName] {
+                    global = existing
+                } else {
+                    global = try await file.createViewModelInstance(.viewModelDefault(from: .name(fit.globalViewModelName)))
+                    globals[fit.globalViewModelName] = global
+                }
+                let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
+                let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
+                fileSizes[fit] = FileSizes(fontSize: fontSize, lineHeight: lineHeight)
+            } catch {
+                WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "Could not fit \"\(fit.text.path)\": \(error.localizedDescription)"))
+            }
+        }
+        applyTextFits(to: globals, fileSizes: fileSizes)
+
+        return Bound(main: main, globals: globals, fileSizes: fileSizes, text: text, numbers: numbers, enums: enums)
+    }
+
+    private func applyCurrentValues() {
+        guard let bound else { return }
+        if let main = bound.main {
+            applyValues(to: main)
+        }
+        applyTextFits(to: bound.globals, fileSizes: bound.fileSizes)
+    }
+
+    private func applyValues(to instance: ViewModelInstance) {
         for (property, value) in text {
             instance.setValue(of: StringProperty(path: property.path), to: value)
         }
@@ -150,14 +229,13 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         for (property, value) in enums {
             instance.setValue(of: EnumProperty(path: property.path), to: value)
         }
-        applyImages()
     }
 
     /// Decoding is async, so the images arrive after the text. An image that does not decode keeps
     /// the placeholder inside the .riv.
     private func applyImages() {
         imageTask?.cancel()
-        guard let instance = rive?.viewModelInstance, !images.isEmpty else { return }
+        guard let instance = bound?.main, !images.isEmpty else { return }
         let images = images
         imageTask = Task { [weak self] in
             for (property, data) in images {
@@ -174,41 +252,28 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
     }
 
-    /// Binds a new instance of each global view model that a fit uses, also when the value fits, so a
-    /// shorter value returns to the size in the file.
-    private func applyTextFits() async {
-        guard let rive, !textFits.isEmpty else { return }
-
+    /// Sets the size of each fit from the size in the file, also when the value fits, so a shorter
+    /// value returns to the size in the file.
+    private func applyTextFits(to globals: [String: ViewModelInstance], fileSizes: [WMFRiveTextFit: FileSizes]) {
         struct Measured {
             let fit: WMFRiveTextFit
             let global: ViewModelInstance
-            let fontSize: Double
-            let lineHeight: Double
+            let sizes: FileSizes
             let scale: Double
         }
 
-        var globals: [String: ViewModelInstance] = [:]
         var measured: [Measured] = []
         for fit in textFits {
-            guard let value = text[fit.text], !value.isEmpty else { continue }
-            do {
-                let global: ViewModelInstance
-                if let existing = globals[fit.globalViewModelName] {
-                    global = existing
-                } else {
-                    global = try await rive.file.createViewModelInstance(.viewModelDefault(from: .name(fit.globalViewModelName)))
-                    globals[fit.globalViewModelName] = global
-                }
-                let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
-                let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
-                guard let scale = fit.scale(for: value, fontSize: fontSize) else {
+            guard let global = globals[fit.globalViewModelName], let sizes = fileSizes[fit] else { continue }
+            var scale = 1.0
+            if let value = text[fit.text], !value.isEmpty {
+                guard let fitted = fit.scale(for: value, fontSize: sizes.fontSize) else {
                     WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "No system font for the asset \"\(fit.fontAssetName)\", so \"\(fit.text.path)\" is not fitted."))
                     continue
                 }
-                measured.append(Measured(fit: fit, global: global, fontSize: fontSize, lineHeight: lineHeight, scale: scale))
-            } catch {
-                WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "Could not fit \"\(fit.text.path)\": \(error.localizedDescription)"))
+                scale = fitted
             }
+            measured.append(Measured(fit: fit, global: global, sizes: sizes, scale: scale))
         }
 
         // The runs of a group use the smallest scale of the group.
@@ -219,22 +284,13 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for item in measured {
             let scale = item.fit.group.flatMap { groupScales[$0] } ?? item.scale
-            item.global.setValue(of: NumberProperty(path: item.fit.fontSize.path), to: Float(item.fontSize * scale))
-            item.global.setValue(of: NumberProperty(path: item.fit.lineHeight.path), to: Float(item.lineHeight * scale))
-        }
-
-        guard !Task.isCancelled else { return }
-        for (name, global) in globals {
-            do {
-                try await rive.stateMachine.bindViewModelInstances { (name, global) }
-            } catch {
-                WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "Could not bind the global view model \"\(name)\": \(error.localizedDescription)"))
-            }
+            item.global.setValue(of: NumberProperty(path: item.fit.fontSize.path), to: Float(item.sizes.fontSize * scale))
+            item.global.setValue(of: NumberProperty(path: item.fit.lineHeight.path), to: Float(item.sizes.lineHeight * scale))
         }
     }
 
-    /// `dataBind: .auto` binds the default instance of the artboard. The templates set their flags on
-    /// the instance that has the name of the artboard, so read that instance first.
+    /// The app binds the default instance of the artboard. The templates set their flags on the
+    /// instance that has the name of the artboard, so read that instance first.
     private func readBoolFromFile() async {
         guard let readBool, let rive else { return }
         let property = BoolProperty(path: readBool.path)
@@ -243,8 +299,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
            let named = try? await rive.file.createViewModelInstance(.name(artboardName, from: .artboardDefault(rive.artboard))) {
             value = try? await named.value(of: property)
         }
-        if value == nil, let bound = rive.viewModelInstance {
-            value = try? await bound.value(of: property)
+        if value == nil, let main = bound?.main {
+            value = try? await main.value(of: property)
         }
         guard !Task.isCancelled else { return }
         readBoolValue = value
@@ -259,12 +315,10 @@ final class WMFRiveAnimationViewModel: ObservableObject {
 
     private func validatePathsInDebug() {
         #if DEBUG
-        guard let rive, !text.isEmpty || !numbers.isEmpty else { return }
+        guard let instance = bound?.main, !text.isEmpty || !numbers.isEmpty else { return }
         let stringPaths = text.keys.map(\.path)
         let numberPaths = numbers.keys.map(\.path)
         Task { [animation] in
-            guard let instance = rive.viewModelInstance else { return }
-
             for path in stringPaths where (try? await instance.value(of: StringProperty(path: path))) == nil {
                 report(path: path, type: "string", animation: animation)
             }
