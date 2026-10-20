@@ -70,7 +70,7 @@ extension SavedRobot {
     @discardableResult
     func showReadingLists(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapScopeButton(labeled: fixture.labels.readingListsScope, file: file, line: line)
-        // The collection view is hidden while the segment is empty, so either surface counts.
+        // The segment shows either its list or its empty state, so either surface counts.
         let predicate = NSPredicate { [readingListsCollectionView, readingListsEmptyView] _, _ in
             readingListsCollectionView.exists || readingListsEmptyView.exists
         }
@@ -344,22 +344,16 @@ extension SavedRobot {
         return CreateReadingListRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
-    /// Swipes the cell open and taps the single swipe action, Delete.
     @discardableResult
     func swipeToDeleteReadingList(_ name: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
         let cell = readingListCell(name)
         base.assertVisible(cell, timeout: 15, description: "reading list cell '\(name)'", file: file, line: line)
-        let frame = cell.frame
-        let startX: CGFloat = configuration.isRightToLeft ? 0.15 : 0.85
-        let endX: CGFloat = configuration.isRightToLeft ? 0.85 : 0.15
-        let start = cell.coordinate(withNormalizedOffset: CGVector(dx: startX, dy: 0.5))
-        let end = cell.coordinate(withNormalizedOffset: CGVector(dx: endX, dy: 0.5))
-        start.press(forDuration: 0.05, thenDragTo: end)
-        // The revealed action sits at the trailing edge of the cell's frame.
-        let actionX = configuration.isRightToLeft ? frame.minX + 36 : frame.maxX - 36
-        let action = base.app.coordinate(withNormalizedOffset: .zero)
-            .withOffset(CGVector(dx: actionX, dy: frame.midY))
-        action.tap()
+        if configuration.isRightToLeft {
+            cell.swipeRight()
+        } else {
+            cell.swipeLeft()
+        }
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Saved.rowDeleteSwipeButton, timeout: 5, file: file, line: line)
         return self
     }
 
@@ -432,7 +426,7 @@ private extension SavedRobot {
     }
 
     var readingListsCollectionView: XCUIElement {
-        base.app.collectionViews[AccessibilityIdentifiers.Saved.readingListsView]
+        element(withIdentifier: AccessibilityIdentifiers.Saved.readingListsView)
     }
 
     var readingListsEmptyView: XCUIElement {

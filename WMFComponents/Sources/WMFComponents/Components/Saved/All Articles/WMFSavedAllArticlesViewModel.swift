@@ -230,11 +230,13 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         )
         
         vm.didTapAlert = { [weak self] in
-            self?.didTapArticleAlert?(article)
+            guard let self else { return }
+            didTapArticleAlert?(currentArticle(id: article.id) ?? article)
         }
         
         vm.didTapReadingListTag = { [weak self] readingListName in
-            self?.didTapReadingListTag?(article, readingListName)
+            guard let self else { return }
+            didTapReadingListTag?(currentArticle(id: article.id) ?? article, readingListName)
         }
         
         rowViewModelCache[article.id] = vm
@@ -242,6 +244,12 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     }
     
     // MARK: - Private Methods
+
+    /// The row keeps its view model across reloads, so a tap must read the article as it is now,
+    /// not as it was when the row was first built.
+    private func currentArticle(id: String) -> WMFSavedArticle? {
+        articles.first { $0.id == id }
+    }
     
     private func filterArticles(with searchText: String) {
         filteredArticles = articles.filter { article in

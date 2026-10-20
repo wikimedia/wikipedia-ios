@@ -12,6 +12,7 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
     private var dataController: WMFLegacyReadingListsDataController?
     private var dataSource: LegacyReadingListsDataSource?
     private weak var hostingController: WMFSavedAllArticlesHostingController?
+    private var readingListsCoordinator: ReadingListsCoordinator?
 
     var exitEditingModeAction: (() -> Void)?
 
@@ -129,18 +130,16 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         viewModel.didTapReadingListTag = { [weak self] savedArticle, readingListName in
             guard let self else { return }
 
-            let readingLists = readingLists(for: savedArticle)
-
-            let viewController: ThemeableViewController
             if let name = readingListName,
-               let readingList = readingList(named: name, from: readingLists) {
-                viewController = ReadingListDetailViewController(for: readingList, with: dataStore)
+               let readingList = readingList(named: name, from: readingLists(for: savedArticle)) {
+                let viewController = ReadingListDetailViewController(for: readingList, with: dataStore)
+                viewController.apply(theme: theme)
+                navigationController.pushViewController(viewController, animated: true)
             } else {
-                viewController = ReadingListsViewController(with: dataStore, readingLists: readingLists)
+                let coordinator = ReadingListsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, filter: .named(savedArticle.readingListNames))
+                self.readingListsCoordinator = coordinator
+                _ = coordinator.start()
             }
-
-            viewController.apply(theme: theme)
-            navigationController.pushViewController(viewController, animated: true)
         }
 
         let controller = WMFSavedAllArticlesHostingController(viewModel: viewModel)
