@@ -273,10 +273,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Өҫтәмә телдәрҙе \"Минең телдәр\" көйләүенә өҫтәргә мөмкин.";
 "explore-feed-preferences-card-hidden-title" = "Карточка йәшерелгән";
 "explore-feed-preferences-continue-reading-description" = "Асыҡ мәҡәләне уҡыуға күсеү өсөн тиҙ һылтанма";
-"explore-feed-preferences-customize-explore-feed" = "Теҙмәне көйләгеҙ";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Теҙмәне көйләгеҙ";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Йәшерелгән карточкалар теҙмәлә күренмәйәсәк";
-"explore-feed-preferences-explore-tab" = "\"Теҙмә\" ҡушымтаһы";
 "explore-feed-preferences-featured-article-description" = "Википедияла бөгөнгө һайланған мәҡәлә";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Һүндерелгән";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Барыһын да ҡабыҙырға";
@@ -290,7 +287,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Был карточканы йәшерергә";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Бөтә “$1\"карталарын йәшерергә";
 "explore-feed-preferences-in-the-news-description" = "Ағымдағы ваҡиғалар тураһында мәҡәләләр";
-"explore-feed-preferences-languages-footer-text" = "Әгәр һеҙ карточкаларҙы бөтә телдәрҙә лә япһағыҙ, теҙмә ябыла.";
 "explore-feed-preferences-on-this-day-description" = "Был көндәге тарихи ваҡиғалар";
 "explore-feed-preferences-places-description" = "Википедияла мәҡәлә булған яҡындағы объект";
 "explore-feed-preferences-potd-description" = "Викимилектән һайланған көн рәсеме";
@@ -312,16 +308,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "«Иң күп уҡылғандар» карточкаһын ябыу бөтә телдәрҙә лә башҡарыласаҡ";
 "explore-feed-preferences-show-top-read-title" = "«Иң күп уҡылған» карточкаһын күрһәтергә";
 "explore-feed-preferences-top-read-description" = "Бер көндә иң күп ҡаралған мәҡәләләр";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Теҙмәне һүндерергә";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Бөтә карточкаларҙы йәшергән осраҡта \"Теҙмә\" ҡушымтаһы ла йәшерелә һәм \"Көйләүҙәр\" ҡушымтаһына алышына";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Теҙмә ҡушымтаһын һүндерергәме?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Теҙмәне һүндерергә";
-"explore-feed-preferences-turn-off-explore-tab-message" = "«Күҙәтеү» ҡушымтаһын ҡарау таҫмаһы көйләүҙәрендә ҡабаттан ҡабыҙырға мөмкин";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Күҙәтеү ҡушымтаһын һүндерегәме?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "«Теҙмә» ҡушымтаһын һүндерһәгеҙ, уның урынына «Көйләүҙәр» ҡушымтаһы асыла.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "\"Теҙмә\" ҡушымтаһының берәй карточкаһын ҡабыҙһағыҙ, ҡушымта ла ҡабыҙыла";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Теҙмәне ҡабыҙырға";
-"explore-feed-preferences-turn-on-explore-tab-message" = "\"Көйләү\" ҡушымтаһы \"Теҙмә\" ҡушымтаһына алмаштырыла, өҫкө өлөштәге тешле тәгәрмәс билдәһенә баҫып көйләүҙәргә инә алаһығыҙ";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Күҙәтеү ҡушымтаһын ҡабыҙырғамы?";
 "explore-hide-card-prompt" = "Был карточканы йәшерергә";
 "explore-main-page-description" = "Викимедиа проекттарының Баш бите";
@@ -394,7 +381,6 @@
 "history-clear-confirmation-heading" = "Һеҙ ысынлап та яңыраҡ булған элементтарҙы юйырға теләйһегеҙме?";
 "history-clear-delete-all" = "Эйе, бөтәһен дә юйырға";
 "history-title" = "Тарих";
-"home-button-explore-accessibility-label" = "Википедия, теҙмәгә кире ҡайтыу";
 "home-button-saved-accessibility-label" = "Википедия, Һаҡланғандарға әйләнеп ҡайтыу";
 "home-more-like-footer" = "Тағы ла оҡшаш $1";
 "home-nearby-footer" = "Һеҙҙең урынға яҡыныраҡ урындар тураһында  күберәк";
@@ -538,20 +524,10 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Йөкмәткене ябырға";
 "table-of-contents-heading" = "Йөкмәткеһе";
-"welcome-exploration-on-this-day-description" = "Тарихта был көндә нимә булғанын белеү өсөн ваҡыт арбаһында сәйәхәт итегеҙ";
-"welcome-exploration-on-this-day-title" = "Был көндә";
 "welcome-explore-continue-button" = "Башларға";
 "welcome-explore-tell-me-more-done-button" = "Аңлашыла";
 // Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Википедия ирекмәндәр тарафынан берлектә яҙыла, һәм унда 300-гә яҡын телдә 40 миллиондан күберәк мәҡәлә бар.";
-"welcome-intro-free-encyclopedia-more" = "Википедия тураһында күберәк белегеҙ";
-"welcome-intro-free-encyclopedia-more-about" = "Википедия тураһында";
-"welcome-intro-free-encyclopedia-title" = "Ирекле энциклопедия";
-// Fuzzy
 "welcome-languages-add-button" = "Тағы өҫтәргә";
-"welcome-languages-add-or-edit-button" = "Өҫтөнлөклө телдәрҙе өҫтәргә йәки үҙгәртергә";
-// Fuzzy
-"welcome-languages-search-title" = "300-гә яҡын телдән эҙләү";
 "wikimedia-articletopics-topic-africa" = "Африка";
 "wikimedia-articletopics-topic-architecture" = "Архитектура";
 "wikimedia-articletopics-topic-art" = "Сәнғәт";
