@@ -63,6 +63,13 @@ public struct WMFRiveView: View {
             .onDisappear {
                 viewModel.unload()
             }
+            .onChange(of: isPlaying) { wasPlaying, isPlaying in
+                // A pager keeps some pages that are not current. Start such a page again while it
+                // is off-screen, so it plays from its first frame each time the reader comes back.
+                if wasPlaying && !isPlaying {
+                    viewModel.restart()
+                }
+            }
             .onChange(of: text) {
                 viewModel.update(text: text, numbers: numbers)
             }
