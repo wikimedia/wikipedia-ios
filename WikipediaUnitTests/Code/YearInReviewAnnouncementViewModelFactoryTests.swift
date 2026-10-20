@@ -65,8 +65,8 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
 
         #expect(dataRich.title.isEmpty == false)
         #expect(dataRich.message.isEmpty == false)
-        #expect(lowData.title == CommonStrings.yearInReviewCollectiveIntroTitle)
-        #expect(lowData.message == CommonStrings.yearInReviewCollectiveIntroSubtitle)
+        #expect(lowData.title == CommonStrings.yearInReviewLoginPromptCollectiveTitle)
+        #expect(lowData.message == CommonStrings.yearInReviewLoginPromptCollectiveMessage)
         #expect(dataRich.title != lowData.title)
     }
 
