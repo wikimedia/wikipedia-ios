@@ -150,6 +150,7 @@ public struct WMFWhichCameFirstView: View {
             .padding(.vertical, 12)
             .background(.regularMaterial, in: Capsule())
             .accessibilityElement(children: .ignore)
+            .accessibilityLabel(viewModel.localizedStrings.footera11y())
             
             Spacer()
 
@@ -218,8 +219,10 @@ public struct WMFWhichCameFirstView: View {
                 .transition(.opacity)
             }
         }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(viewModel.localizedStrings.footera11y())
+        // Keep the Submit/Next button as its own accessibility element so
+        // VoiceOver reads the button's label and button trait separately from
+        // the "Question x of 5" progress indicator. (T435098)
+        .accessibilityElement(children: .contain)
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .animation(.spring(duration: 0.3), value: viewModel.phase)

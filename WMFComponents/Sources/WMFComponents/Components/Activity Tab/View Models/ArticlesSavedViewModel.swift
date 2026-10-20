@@ -5,21 +5,25 @@ import SwiftUI
 public final class ArticlesSavedViewModel: ObservableObject {
     @Published public var articlesSavedAmount: Int = 0
     @Published public var dateTimeLastSaved: String = ""
+    @Published public var dateTimeLastSavedAccessibilityLabel: String = ""
     @Published public var articlesSavedThumbURLs: [URL?] = []
     @Published public var articleTitles: [String] = []
     public var onTapSaved: (() -> Void)?
 
     private var dataController: WMFSavedArticlesDataController
     private let dateFormatter: (Date) -> String
+    private let dateAccessibilityFormatter: (Date) -> String
     private let calendar: Calendar
 
     public init(
         dataController: WMFSavedArticlesDataController = .shared,
         dateFormatter: @escaping (Date) -> String,
+        dateAccessibilityFormatter: ((Date) -> String)? = nil,
         calendar: Calendar = .current
     ) {
         self.dataController = dataController
         self.dateFormatter = dateFormatter
+        self.dateAccessibilityFormatter = dateAccessibilityFormatter ?? dateFormatter
         self.calendar = calendar
     }
 
@@ -33,6 +37,7 @@ public final class ArticlesSavedViewModel: ObservableObject {
                 
                 self.articlesSavedAmount = data.savedArticlesCount
                 self.dateTimeLastSaved = data.dateLastSaved.map(self.dateFormatter) ?? ""
+                self.dateTimeLastSavedAccessibilityLabel = data.dateLastSaved.map(self.dateAccessibilityFormatter) ?? ""
                 self.articlesSavedThumbURLs = data.articleThumbURLs
                 self.articleTitles = data.articleTitles
             }

@@ -68,8 +68,6 @@
 "action-unsave" = "Отмяна на записа";
 "action-unsaved-accessibility-notification" = "Статията не е запазена";
 "action-update" = "Обновяване";
-"activity-tab-generic-no-edits" = "Не сте редактирали тази седмица. Започнете сега, за да следите приносите си.";
-"activity-tab-view-saved-articles" = "Преглед на съхранените статии";
 "announcements-dismiss" = "Затваряне";
 "app-store-subtitle" = "Свободната енциклопедия";
 "appearance-settings-image-dimming-footer" = "Намалете непрозрачността на изображенията за тъмните и черните облици";
@@ -189,7 +187,6 @@
 "empty-no-saved-pages-message" = "Запазвайте страници, за да ги видите по-късно, дори офлайн";
 "empty-no-saved-pages-title" = "Все още няма съхранени страници";
 "empty-no-search-results-message" = "Не бяха открити резултати";
-"empty-talk-page-title" = "Все още няма публикувани съобщения за този потребител";
 "error-generic-recovery-suggestion" = "Моля, опитайте по-късно";
 "error-unknown" = "Възникна неизвестна грешка";
 "explore-another-random" = "Друга случайна статия";
@@ -265,7 +262,6 @@
 "history-clear-confirmation-heading" = "Сигурни ли сте, че искате да изтриете всички скорошни елементи?";
 "history-clear-delete-all" = "Да, изтрий всички";
 "history-title" = "История";
-"home-button-explore-accessibility-label" = "Уикипедия, връщане към Изследване";
 "home-button-saved-accessibility-label" = "Уикипедия, връщане към Запазени";
 "home-community-tab-title" = "Общност";
 "home-edit-languages-title" = "Добавяне или редактиране на езици";
@@ -274,7 +270,6 @@
 "home-nearby-footer" = "Още места близо до вашето местоположение";
 "home-nearby-location-footer" = "Още близо до $1";
 "home-news-footer" = "Още актуални събития";
-"home-reading-list-prompt" = "Вашите запазени статии вече могат да бъдат организирани в списъци за четене и синхронизирани между устройствата. Влезте, за да разрешите Вашите списъци за четене да бъдат запазени в потребителските Ви предпочитания.";
 "home-tab-title" = "Начало";
 "home-themes-action-title" = "Управление на предпочитанията";
 "home-title" = "Разгледайте!";
@@ -467,7 +462,6 @@
 "reference-title" = "Източник $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Днес|1=Вчера|преди $1 дни}}";
 "relative-date-hours-ago-abbreviated" = "преди $1 час";
-"reverted-edit-title" = "Върната редакция";
 "save-view-temp-account-warning" = "Не сте влезли в системата. След като направите редакция, ще Ви бъде създадена временна сметка, за да се защити поверителността Ви.";
 "saved-all-articles-title" = "Всички статии";
 "saved-default-reading-list-tag" = "Този списък не може да бъде изтрит";
@@ -510,7 +504,6 @@
 "share-social-mention-format" = "„1“ чрез Уикипедия: $2";
 "sort-by-recently-added-action" = "Наскоро добавено";
 "sort-by-title-action" = "Заглавие";
-"survey-title" = "Причина";
 "table-of-contents-button-label" = "Съдържание";
 "table-of-contents-close-accessibility-hint" = "Затваряне";
 "table-of-contents-heading" = "Съдържание";
@@ -550,6 +543,7 @@
 "talk-pages-user-groups" = "Потребителски групи";
 "talk-pages-user-logs" = "Дневници";
 "talk-pages-view-title" = "Беседа";
+"temporary-account" = "Временна сметка";
 "theme-black-display-name" = "Черен";
 "theme-dark-display-name" = "Тъмен";
 "theme-default-display-name" = "По подразбиране";
@@ -561,7 +555,6 @@
 "top-read-widget-title" = "Най-четени";
 "two-factor-login-continue" = "Продължаване с влизането";
 "two-factor-login-with-regular-code" = "Използвайте код за потвърждение";
-"unable-to-load-talk-page-title" = "Страницата на беседата не може да бъде заредена";
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-title" = "Актуализации за поддръжка на узбекски вариант";
 "vanish-account-continue-button-title" = "Продължаване";
@@ -569,18 +562,9 @@
 "variants-alert-dismiss-button" = "Не, благодаря";
 "variants-alert-preferences-button" = "Преглед на настройките";
 "watchlist" = "Списък за наблюдение";
-"welcome-exploration-on-this-day-description" = "Пътувайте назад във времето, за да научите какво се е случило днес в историята";
-"welcome-exploration-on-this-day-title" = "На този ден";
 "welcome-explore-continue-button" = "Начало";
-"welcome-explore-new-ways-title" = "Нови начини за откриване";
 "welcome-explore-tell-me-more-done-button" = "Разбрах";
-"welcome-intro-free-encyclopedia-more" = "Научете повече за Уикипедия";
-"welcome-intro-free-encyclopedia-more-about" = "За Уикипедия";
-"welcome-intro-free-encyclopedia-title" = "Свободната енциклопедия";
 "welcome-languages-add-button" = "Добавяне на друг език";
-"welcome-languages-add-or-edit-button" = "Добавяне или редактиране на предпочитани езици";
-"welcome-languages-description" = "Намерихме следните езици на Вашето устройство:";
-"welcome-languages-search-title" = "Търсете на над 300 езика";
 "widget-onthisday-description" = "Прегледайте какво се е случило на този ден в историята.";
 "widget-onthisday-placeholder-article-snippet" = "Безплатна онлайн енциклопедия, която всеки може да редактира";
 "widget-onthisday-placeholder-event-snippet" = "Уикипедия, безплатната енциклопедия с уики съдържание, става онлайн.";

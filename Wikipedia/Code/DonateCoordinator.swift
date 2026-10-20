@@ -22,10 +22,12 @@ class DonateCoordinator: Coordinator {
 
     enum Source {
         case articleCampaignModal(ArticleURL, MetricsID, DonateURL)
+        case donationReminderCampaignModal(ArticleURL, MetricsID, DonateURL)
+        case donationReminderArticle(ArticleURL, pledgeAmount: Decimal, currencyCode: String)
+        case donationReminderWrapUp(ArticleURL, pledgeAmount: Decimal, currencyCode: String)
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
-        case donationReminderArticle(ArticleURL, pledgeAmount: Decimal, currencyCode: String)
         case yearInReview(slideLoggingID: String)
         case placesProfile
         case savedProfile
@@ -57,13 +59,16 @@ class DonateCoordinator: Coordinator {
 
     private lazy var wikimediaProject: WikimediaProject? = {
         switch source {
-        case .articleCampaignModal(let articleURL, _, _):
+        case .articleCampaignModal(let articleURL, _, _),
+                .donationReminderArticle(let articleURL, _, _),
+                .donationReminderCampaignModal(let articleURL, _, _),
+                .donationReminderWrapUp(let articleURL, _, _):
             guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
                 return nil
             }
 
             return wikimediaProject
-        case .articleProfile(let articleURL), .donationReminderArticle(let articleURL, _, _):
+        case .articleProfile(let articleURL):
             guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
                 return nil
             }
@@ -91,11 +96,27 @@ class DonateCoordinator: Coordinator {
         
         if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
             url = articleCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
+        } else if case .donationReminderCampaignModal(_, _, let donationReminderCampaignDonateURL) = source {
+            url = donationReminderCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
+        } else if case .donationReminderArticle(let articleURL, _, _) = source {
+            let donateURL = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")
+
+            url = donateURL?.replacingDonateParameters(language: languageCode, metricsId: metricsID)
+            
         } else {
             url = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")?
                 .replacingDonateParameters(language: languageCode, metricsId: metricsID)
+
+            if case .donationReminderWrapUp = source,
+               let donateURL = url,
+               var components = URLComponents(url: donateURL, resolvingAgainstBaseURL: false) {
+                var queryItems = components.queryItems ?? []
+                queryItems.append(URLQueryItem(name: "frequency", value: "monthly"))
+                components.queryItems = queryItems
+                url = components.url
+            }
         }
-        
+
         return url
     }
 
@@ -112,10 +133,39 @@ class DonateCoordinator: Coordinator {
         self.donateSuccessAction = donateSuccessAction
     }
 
+    static func donationReminderMetricsID(originalMetricsID: String) -> String? {
+        
+        guard let assignment = WMFDonationReminderDataController.shared.experimentAssignment else { return nil }
+        let suffix: String
+        switch assignment {
+        case .control: suffix = "reminderA"
+        case .groupB: suffix = "reminderB"
+        case .groupC: suffix = "reminderC"
+        }
+        
+        guard let iosRange = originalMetricsID.range(of: "_iOS") else { return nil }
+        return String(originalMetricsID[..<iosRange.lowerBound]) + "_" + suffix + "_iOS"
+    }
+
+    static func donationReminderMetricsID(articleURL: ArticleURL) -> String? {
+        guard let languageCode = articleURL.wmf_languageCode,
+              let countryCode = Locale.current.region?.identifier else {
+            return nil
+        }
+
+        // donation reminder metrics IDs need appmenu
+        let originalMetricsID = "\(languageCode)\(countryCode)_appmenu_iOS"
+        return donationReminderMetricsID(originalMetricsID: originalMetricsID)
+    }
+
     static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
+        case .donationReminderCampaignModal(_, let metricsID, _):
+            return donationReminderMetricsID(originalMetricsID: metricsID)
+        case .donationReminderArticle(let articleURL, _, _), .donationReminderWrapUp(let articleURL, _, _):
+            return donationReminderMetricsID(articleURL: articleURL)
         case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .searchProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
@@ -123,13 +173,6 @@ class DonateCoordinator: Coordinator {
             }
 
             return "\(languageCode)\(countryCode)_appmenu_iOS"
-        case .donationReminderArticle:
-            guard let languageCode,
-                  let countryCode = Locale.current.region?.identifier else {
-                return nil
-            }
-
-            return "\(languageCode)\(countryCode)_appmenu_reminder_iOS"
         case .activityTabProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
@@ -196,13 +239,22 @@ class DonateCoordinator: Coordinator {
             viewControllerToPresentActionSheet = navigationController.presentedViewController
         }
 
-        let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
-        let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
+        let title: String
+        let message: String?
+        switch source {
+        case .donationReminderWrapUp:
+            title = WMFLocalizedString("donation-reminder-wrap-up-payment-prompt-title", value: "How would you like to give monthly?", comment: "Title of the payment method prompt shown from the wrap-up card at the end of the donation reminder experiment.")
+            message = nil
+        default:
+            title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
+            message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
+        }
 
         let showsPledgeOption: Bool
-        if case .donationReminderArticle(_, _, let pledgeCurrencyCode) = source {
+        switch source {
+        case .donationReminderArticle(_, _, let pledgeCurrencyCode), .donationReminderWrapUp(_, _, let pledgeCurrencyCode):
             showsPledgeOption = pledgeCurrencyCode == Locale.current.currency?.identifier
-        } else {
+        default:
             showsPledgeOption = false
         }
 
@@ -231,7 +283,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateCancel(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateCancel(metricsID: metricsID)
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminderCampaignModal:
                guard let project = self.wikimediaProject else {
                    return
                }
@@ -248,16 +300,35 @@ class DonateCoordinator: Coordinator {
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateCancel(metricsID: metricsID)
             case .donationReminderArticle:
+                guard let project = self.wikimediaProject else {
+                    return
+                }
+
+                DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
+            case .donationReminderWrapUp:
                 break
             }
         }))
 
+        let isWrapUpSource = if case .donationReminderWrapUp = source {
+            true
+        } else {
+            false
+        }
+
         var pledgeAction: UIAlertAction?
-        if showsPledgeOption,
-           case .donationReminderArticle(_, let pledgeAmount, let currencyCode) = source {
+        let pledgeSource: (pledgeAmount: Decimal, currencyCode: String)?
+        switch source {
+        case .donationReminderArticle(_, let pledgeAmount, let currencyCode), .donationReminderWrapUp(_, let pledgeAmount, let currencyCode):
+            pledgeSource = (pledgeAmount, currencyCode)
+        default:
+            pledgeSource = nil
+        }
+
+        if showsPledgeOption, let pledgeSource {
             let amountFormatter = NumberFormatter.wmfCurrencyFormatter
-            amountFormatter.currencyCode = currencyCode
-            let formattedPledgeAmount = amountFormatter.string(from: pledgeAmount as NSNumber) ?? "\(pledgeAmount)"
+            amountFormatter.currencyCode = pledgeSource.currencyCode
+            let formattedPledgeAmount = amountFormatter.string(from: pledgeSource.pledgeAmount as NSNumber) ?? "\(pledgeSource.pledgeAmount)"
 
             let pledgeButtonTitleFormat = WMFLocalizedString("donation-reminder-payment-pledge-button-title", value: "Donate %1$@ with Apple Pay", comment: "Title of the payment prompt choice that opens the donate form with the pledged amount preselected, shown from the donation reminder card. %1$@ is the pledged amount. ")
             let pledgeButtonTitle = String.localizedStringWithFormat(pledgeButtonTitleFormat, formattedPledgeAmount)
@@ -265,7 +336,18 @@ class DonateCoordinator: Coordinator {
             let action = UIAlertAction(title: pledgeButtonTitle, style: .default, handler: { [weak self] _ in
                 guard let self else { return }
 
-                donateViewModel.preselectAmount(pledgeAmount)
+                if let project = self.wikimediaProject {
+                    if isWrapUpSource {
+                        DonateFunnel.shared.logDonationReminderRecurringEndDidTapApplePay(project: project, metricsID: metricsID)
+                    } else {
+                        DonateFunnel.shared.logDonationReminderMilestoneDidTapApplePay(project: project, metricsID: metricsID)
+                    }
+                }
+
+                donateViewModel.preselectAmount(pledgeSource.pledgeAmount)
+                if isWrapUpSource {
+                    donateViewModel.preselectRecurringMonthly()
+                }
                 self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
             })
             alert.addAction(action)
@@ -286,7 +368,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateApplePay(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateApplePay(metricsID: metricsID)
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminderCampaignModal:
                 guard let project = wikimediaProject else {
                    return
                }
@@ -302,7 +384,24 @@ class DonateCoordinator: Coordinator {
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateApplePay(metricsID: metricsID)
             case .donationReminderArticle:
-                break
+                if let project = self.wikimediaProject {
+                    if showsPledgeOption {
+                        DonateFunnel.shared.logDonationReminderMilestoneDidTapOtherApplePay(project: project, metricsID: metricsID)
+                    } else {
+                        DonateFunnel.shared.logDonationReminderMilestoneDidTapApplePay(project: project, metricsID: metricsID)
+                    }
+                }
+            case .donationReminderWrapUp:
+                if let project = self.wikimediaProject {
+                    if showsPledgeOption {
+                        DonateFunnel.shared.logDonationReminderRecurringEndDidTapOtherApplePay(project: project, metricsID: metricsID)
+                    } else {
+                        DonateFunnel.shared.logDonationReminderRecurringEndDidTapApplePay(project: project, metricsID: metricsID)
+                    }
+                }
+            }
+            if isWrapUpSource {
+                donateViewModel.preselectRecurringMonthly()
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -322,7 +421,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateWebPay(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateWebPay(metricsID: metricsID)
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminderCampaignModal:
                 guard let project = wikimediaProject else {
                     return
                 }
@@ -338,7 +437,13 @@ class DonateCoordinator: Coordinator {
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateWebPay(metricsID: metricsID)
             case .donationReminderArticle:
-                break
+                if let project = self.wikimediaProject {
+                    DonateFunnel.shared.logDonationReminderMilestoneDidTapOtherMethod(project: project, metricsID: metricsID)
+                }
+            case .donationReminderWrapUp:
+                if let project = self.wikimediaProject {
+                    DonateFunnel.shared.logDonationReminderRecurringEndDidTapOtherMethod(project: project, metricsID: metricsID)
+                }
             }
             navigateToOtherPaymentMethod()
         }))
@@ -443,9 +548,16 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
+        let reminderPledgeCurrencyCode: String?
+        switch source {
+        case .donationReminderArticle(_, _, let pledgeCurrencyCode), .donationReminderWrapUp(_, _, let pledgeCurrencyCode):
+            reminderPledgeCurrencyCode = pledgeCurrencyCode
+        default:
+            reminderPledgeCurrencyCode = nil
+        }
+
         var presetAmountsOverride: [Decimal]?
-        if case .donationReminderArticle(_, _, let pledgeCurrencyCode) = source,
-           pledgeCurrencyCode == currencyCode,
+        if reminderPledgeCurrencyCode == currencyCode,
            let configAmounts = donateConfig.currencyAmountPresets[currencyCode] {
             var mergedAmounts = WMFDonationReminderDataController.experimentPresetAmounts
             for amount in configAmounts.dropFirst(mergedAmounts.count) where !mergedAmounts.contains(amount) {
@@ -489,7 +601,7 @@ class DonateCoordinator: Coordinator {
 
         let completeButtonTitle: String
         switch source {
-        case .articleCampaignModal, .articleProfile, .donationReminderArticle:
+        case .articleCampaignModal, .donationReminderCampaignModal, .articleProfile, .donationReminderArticle, .donationReminderWrapUp:
             completeButtonTitle = CommonStrings.returnToArticle
         case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
@@ -593,8 +705,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popAndShowSuccessToastFromNativeForm() {
         let showToastBlock: () -> Void = {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                let image = WMFSFSymbolIcon.for(symbol: .heartFilled)
-                WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: image, duration: 10, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, duration: 10, dismissPreviousToasts: true)
             }
         }
 
@@ -638,7 +749,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
 
     private func displayThankYouToastAfterDelay(completion: (() -> Void)? = nil) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: WMFSFSymbolIcon.for(symbol: .heartFilled), duration: 10, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, duration: 10, dismissPreviousToasts: true)
             completion?()
         }
     }
@@ -661,8 +772,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             logNativeFormDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected)
         case .nativeFormDidAuthorizeApplePayPaymentSheet(let amount, let presetIsSelected, let recurringMonthlyIsSelected, let donorEmail, let metricsID):
             logNativeFormDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, metricsID: metricsID)
-        case .nativeFormDidTriggerPaymentSuccess:
-            logNativeFormDidTriggerPaymentSuccess()
+        case .nativeFormDidTriggerPaymentSuccess(let recurringMonthlyIsSelected):
+            logNativeFormDidTriggerPaymentSuccess(recurringMonthlyIsSelected: recurringMonthlyIsSelected)
         case .nativeFormDidTapProblemsDonating:
             logNativeFormDidTapProblemsDonating()
         case .nativeFormDidTapOtherWaysToGive:
@@ -758,7 +869,11 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         DonateFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: wikimediaProject)
     }
 
-    private func logNativeFormDidTriggerPaymentSuccess() {
+    private func logNativeFormDidTriggerPaymentSuccess(recurringMonthlyIsSelected: Bool) {
+        if recurringMonthlyIsSelected, case .donationReminderWrapUp = source {
+            DonateFunnel.shared.logDonationReminderRecurringDonationConfirmed(project: wikimediaProject)
+        }
+
         guard let metricsID else {
             return
         }
@@ -772,7 +887,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
         case .settingsProfile:
             DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-        case .articleCampaignModal:
+        case .articleCampaignModal, .donationReminderCampaignModal:
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
@@ -786,8 +901,10 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .activityTabProfile:
             DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-        case .donationReminderArticle:
-            break
+        case .donationReminderArticle, .donationReminderWrapUp:
+            if let wikimediaProject = self.wikimediaProject {
+                DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
+            }
         }
     }
 
@@ -846,7 +963,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         }
 
         switch source {
-        case .articleCampaignModal:
+        case .articleCampaignModal, .donationReminderCampaignModal:
 
             guard let wikimediaProject else {
                 return
@@ -861,8 +978,12 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
         case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
-        case .donationReminderArticle:
-            break
+        case .donationReminderArticle, .donationReminderWrapUp:
+            guard let wikimediaProject else {
+                return
+            }
+
+            DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
         }
     }
 
@@ -879,7 +1000,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
 
             switch self.source {
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminderCampaignModal:
                 guard let wikimediaProject else {
                     return
                 }
@@ -905,8 +1026,12 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-            case .donationReminderArticle:
-                break
+            case .donationReminderArticle, .donationReminderWrapUp:
+                guard let wikimediaProject else {
+                    return
+                }
+
+                DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
         }
     }

@@ -51,6 +51,7 @@ jobs:
           xcodebuild test \
             -scheme "${{ matrix.scheme }}" \
             -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -destination "${{ steps.simulator.outputs.destination }}" \
             -resultBundlePath "${{ matrix.scheme }}_TestResults" \
             | xcpretty

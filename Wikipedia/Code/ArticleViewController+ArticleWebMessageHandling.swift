@@ -80,11 +80,25 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         addToHistory()
         persistPageViewsForWikipediaInReview()
+        recordEvergreenAccountCreationAppOpen()
         saveTopics(topics)
         loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
         showDonationReminderCardIfNeeded()
+        highlightSemanticSearchPassages()
+        showWebViewIfStillHiddenForSection()
+    }
+
+    /// The web view stays hidden until the scroll to the section lands. If the section is not in
+    /// the article, the scroll never lands: show the article anyway a moment after it is set up.
+    private func showWebViewIfStillHiddenForSection() {
+        guard opensAtSection else { return }
+
+        Task { @MainActor [weak self] in
+            try? await Task.sleep(for: .seconds(1))
+            self?.setWebViewHidden(false, animated: true)
+        }
     }
 
     /// Persists the topics the Page Content Service reported for this article, so that reading history can later be grouped by topic.

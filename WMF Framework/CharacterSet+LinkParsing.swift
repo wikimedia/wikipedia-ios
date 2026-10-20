@@ -1,8 +1,4 @@
 extension CharacterSet {
-    public static var encodeURIComponentAllowed: CharacterSet {
-        return NSCharacterSet.wmf_encodeURIComponentAllowed()
-    }
-    
     public static var relativePathAndFragmentAllowed: CharacterSet {
         return NSCharacterSet.wmf_relativePathAndFragmentAllowed()
     }

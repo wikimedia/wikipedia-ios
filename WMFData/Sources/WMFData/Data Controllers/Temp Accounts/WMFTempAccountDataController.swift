@@ -1,16 +1,30 @@
 import Foundation
 
-@objc public class WMFTempAccountDataController: NSObject {
+// @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
+// cannot be an actor. All mutable state lives in WMFLockIsolated boxes below.
+@objc public final class WMFTempAccountDataController: NSObject, @unchecked Sendable {
     @objc public static let shared = WMFTempAccountDataController()
-    
-    private var mediaWikiService = WMFDataEnvironment.current.mediaWikiService
 
-    private var _primaryWikiHasTempAccountsEnabled: Bool?
+    private let _mediaWikiService = WMFLockIsolated(WMFDataEnvironment.current.mediaWikiService)
+    private var mediaWikiService: WMFService? {
+        get { _mediaWikiService.value }
+        set { _mediaWikiService.value = newValue }
+    }
+
+    private let _primaryWikiHasTempAccountsEnabledBox = WMFLockIsolated<Bool?>(nil)
+    private var _primaryWikiHasTempAccountsEnabled: Bool? {
+        get { _primaryWikiHasTempAccountsEnabledBox.value }
+        set { _primaryWikiHasTempAccountsEnabledBox.value = newValue }
+    }
     @objc public var primaryWikiHasTempAccountsEnabled: Bool {
         return _primaryWikiHasTempAccountsEnabled ?? false
     }
 
-    public var wikisWithTempAccountsEnabled: [String] = []
+    private let _wikisWithTempAccountsEnabled = WMFLockIsolated<[String]>([])
+    public var wikisWithTempAccountsEnabled: [String] {
+        get { _wikisWithTempAccountsEnabled.value }
+        set { _wikisWithTempAccountsEnabled.value = newValue }
+    }
 
     @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
         Task {
@@ -61,7 +75,7 @@ import Foundation
         }
     }
 
-    private func fetchWikiTempStatus(project: WMFProject, completion: ((Result<Bool, Error>) -> Void)? = nil) {
+    private func fetchWikiTempStatus(project: WMFProject, completion: (@Sendable (Result<Bool, Error>) -> Void)? = nil) {
         guard let mediaWikiService else {
             completion?(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return

@@ -41,7 +41,8 @@ extension URL {
             return nil
         }
         
-        components.path = baseMediaWikiRestAPIPathComponents + additionalPathComponents.joined(separator: "/")
+        let encodedPathComponents = additionalPathComponents.compactMap { $0.addingPercentEncoding(withAllowedCharacters: .encodeURIComponentAllowed) }
+        components.percentEncodedPath = baseMediaWikiRestAPIPathComponents + encodedPathComponents.joined(separator: "/")
         
         return components.url
     }

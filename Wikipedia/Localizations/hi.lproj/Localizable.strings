@@ -224,7 +224,6 @@
 "explore-another-random" = "दूसरा बेतरतीब लेख";
 "explore-because-you-read" = "क्योंकि आपने पढ़ा";
 "explore-continue-reading-heading" = "पढ़ना जारी रखें";
-"explore-enable-location-title" = "अपने वर्तमान स्थान के पास आलेख खोजें";
 "explore-featured-article-heading" = "निर्वाचित लेख";
 "explore-main-page-description" = "विकिमीडिया परियोजनाओं का मुख्यपृष्ठ";
 "explore-main-page-heading" = "विकिपीडिया पर आज";
@@ -270,7 +269,6 @@
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
 "history-clear-delete-all" = "हाँ, सभी मिटायें";
 "history-title" = "इतिहास";
-"home-button-explore-accessibility-label" = "विकिपीडिया, खोज पर लौटें";
 "home-button-saved-accessibility-label" = "विकिपीडिया, सहेजे गए पर लौटें";
 "home-card-more-options-accessibility-label" = "अधिक विकल्प";
 "home-more-like-footer" = "$1 के समान";
@@ -391,7 +389,6 @@
 "reading-list-keep-button-title" = "हाँ, डिवाइस पर आलेख रखें";
 "reading-list-keep-title" = "डिवाइस पर सहेजे गए लेखों को रखें?";
 "reading-list-login-or-create-account-button-title" = "लॉग इन करें या खाता बनाएं";
-"reading-list-login-or-create-account-title" = "सहेजे गए लेख समन्वयित करने के लिए लॉग इन करें";
 "reading-list-sync-enable-button-title" = "समन्वयन सक्षम करें";
 "reading-list-sync-enable-subtitle" = "आपके सहेजे गए लेख और पठन सूचियों को अब आपके विकिपीडिया खाते में सहेजा जा सकता है और विकिपीडिया एप्स में समन्वयित किया जा सकता है।";
 "reading-list-sync-enable-title" = "पठन सूची को सिंक करना चालू करें?";
@@ -452,10 +449,7 @@
 "share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
-"survey-instructions" = "एक या अधिक विकल्प चुनें";
-"survey-other-placeholder" = "अन्य";
 "survey-submit" = "जमा करें";
-"survey-title" = "कारण";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
@@ -469,7 +463,6 @@
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
 "theme-sepia-display-name" = "लाल-भूरा रंग";
-"try-now-title" = "अब कोशिश करें";
 "tutorial-title" = "अनुशिक्षण";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
@@ -480,24 +473,10 @@
 "vanish-account-continue-button-title" = "जारी रखें";
 "watch" = "ध्यान रखें";
 "watchlist-user-button-thank" = "धन्यवाद";
-"welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";
 "welcome-exploration-explore-feed-title" = "फीड में खोजें";
-"welcome-exploration-on-this-day-description" = "समय में वापस जाएं और जाने इतिहास में आज के दिन क्या हुआ";
-"welcome-exploration-on-this-day-title" = "आज के दिन";
-"welcome-exploration-places-description" = "आपने आस-पास लैंडमार्क को खोजें या दुनियाभर में कोई जगह खोजें";
-"welcome-exploration-places-title" = "जगह टैब";
 "welcome-explore-continue-button" = "शुरू करें";
-"welcome-explore-new-ways-title" = "खोजने के नए तरीके";
 "welcome-explore-tell-me-more-done-button" = "समझ में आया";
-"welcome-intro-free-encyclopedia-description" = "विकिपीडिया स्वयंसेवकों द्वारा सहयोग से लिखा गया है और इसमें 300 से अधिक भाषाओं में 40 मिलियन से अधिक लेख शामिल हैं।";
-"welcome-intro-free-encyclopedia-more" = "विकिपीडिया के बारे में अधिक जानें";
-"welcome-intro-free-encyclopedia-more-about" = "विकिपीडिया के बारे में";
-"welcome-intro-free-encyclopedia-more-description" = "विश्व की सभी भाषाओं में मुक्त ज्ञानकोश बनाने के लिए विकिपीडिया एक वैश्विक प्रोजेक्ट है। लगभग कोई भी जिसके पास इंटरनेट कनेक्शन है वो पक्षपात रहित, उद्धरण युक्त जानकारी के साथ इससे जुड़ने के लिए मुक्त है।";
-"welcome-intro-free-encyclopedia-title" = "मुक्त ज्ञानकोष";
 "welcome-languages-add-button" = "दूसरी भाषा जोड़ें";
-"welcome-languages-add-or-edit-button" = "पसंदीदा भाषाओं को जोड़ें या संपादित करें";
-"welcome-languages-description" = "हमें आपकी डिवाइस पर निम्न भाषाएँ मिली हैं:";
-"welcome-languages-search-title" = "300 से अधिक भाषाओं में खोजें";
 "wikimedia-articletopics-topic-africa" = "अफ्रीका";
 "wikimedia-articletopics-topic-art" = "कला";
 "wikimedia-articletopics-topic-asia" = "एशिया";
@@ -526,4 +505,4 @@
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
-"year-in-review-donate" = "दान करें";
+"year-in-review-2026-announcement-explore" = "अन्वेषण करें";

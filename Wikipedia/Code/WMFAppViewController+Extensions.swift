@@ -35,8 +35,7 @@ extension Notification.Name {
 extension WMFAppViewController {
 
     @objc func shouldOpenAppOnSearchTab() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+        return WMFSettingsDataController.shared.openAppOnSearchTab()
     }
 
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
@@ -778,9 +777,8 @@ extension WMFAppViewController {
             return
         }
         let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
-        let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            await settingsDataController.setOpenAppOnSearchTab(legacyValue)
+        guard WMFSettingsDataController.shared.setOpenAppOnSearchTab(legacyValue) else {
+            return
         }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
@@ -886,6 +884,8 @@ extension WMFAppViewController {
     }
 
     @objc func performWMFDataHousekeeping() {
+        WMFExperimentsDataController.pruneRetiredExperiments()
+
         let coreDataStore = WMFDataEnvironment.current.coreDataStore
         Task {
             do {
@@ -910,7 +910,7 @@ extension WMFAppViewController {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
-                try await yirDataController.deleteAllPersonalizedNetworkData()
+                try await yirDataController.deletePersonalizedData(for: .account)
             } catch {
                 DDLogError("Failure deleting personalized editing data from year in review: \(error)")
             }
@@ -1227,7 +1227,6 @@ extension WMFAppViewController {
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
-        viewModel.isExploreFeedOn = UserDefaults.standard.integer(forKey: "WMFDefaultTabTypeKey") == 0
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -1329,13 +1328,12 @@ extension WMFAppViewController {
     @objc func generateSettingsTab() -> SettingsTabViewController {
         let dataController = WMFSettingsDataController.shared
 
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
         let username = dataStore.authenticationManager.authStatePermanentUsername
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
                             dataStore.authenticationManager.authStateIsTemporary
-        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+        let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
 
         let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
             settingTitle: CommonStrings.settingsTitle,
@@ -1370,7 +1368,6 @@ extension WMFAppViewController {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: language,
-            exploreFeedStatus: isExploreFeedOn,
             readingPreferenceTheme: themeName,
             coordinatorDelegate: nil,
             dataController: dataController
@@ -1385,5 +1382,85 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+}
+
+// MARK: - Evergreen Account Creation
+
+extension WMFAppViewController {
+
+    /// Starts the prompt's session, then records the app open the session was launched by.
+    ///
+    /// `startSession` only weighs days before today, so it does not matter that the open being
+    /// recorded here belongs to the session it is deciding about.
+    @objc func startEvergreenAccountCreationSession() {
+        Task {
+            let dataController = WMFEvergreenAccountCreationDataController.shared
+            await dataController.startSession()
+
+            // Ordered deliberately: this session's app open has to be recorded before eligibility is
+            // weighed, or a reader crossing the "two more app open days" line is passed over until
+            // their next launch. Prompts presented synchronously by the resume have already taken the
+            // screen by the time these awaits resolve, so this one still yields to them.
+            if isViewingEligibleMainTab {
+                await dataController.recordAppOpen()
+            }
+
+            presentEvergreenAccountCreationPromptIfNeeded()
+        }
+    }
+
+    /// App opens are proxied by an impression of one of the main tabs, or of an article view.
+    @objc func recordEvergreenAccountCreationAppOpenIfNeeded() {
+        guard isViewingEligibleMainTab else { return }
+
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.recordAppOpen()
+        }
+    }
+
+    /// Attempts the prompt on Home or Saved, from the currently selected tab.
+    ///
+    /// Deliberately last in the app's prompt chain — after the logged out panel and the one time
+    /// Home onboarding — and it bails if any of them took the screen.
+    @objc func presentEvergreenAccountCreationPromptIfNeeded() {
+        guard presentedViewController == nil,
+              let navigationController = currentTabNavigationController,
+              let context = evergreenAccountCreationContextForSelectedTab else {
+            return
+        }
+
+        let coordinator = EvergreenAccountCreationCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, context: context)
+        evergreenAccountCreationCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private var evergreenAccountCreationContextForSelectedTab: WMFEvergreenAccountCreationDataController.PresentationContext? {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first,
+              currentTabNavigationController?.viewControllers.count == 1 else {
+            return nil
+        }
+
+        if rootViewController is HomeViewController || rootViewController is ExploreViewController {
+            return .home
+        }
+
+        if rootViewController is SavedViewController {
+            return .saved
+        }
+
+        return nil
+    }
+
+    /// Settings can take the first tab's place for some readers, and is not one of the main tabs.
+    private var isViewingEligibleMainTab: Bool {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first else { return false }
+
+        return rootViewController is HomeViewController
+            || rootViewController is ExploreViewController
+            || rootViewController is PlacesViewController
+            || rootViewController is SavedViewController
+            || rootViewController is WMFActivityTabViewController
+            || rootViewController is SearchViewController
     }
 }

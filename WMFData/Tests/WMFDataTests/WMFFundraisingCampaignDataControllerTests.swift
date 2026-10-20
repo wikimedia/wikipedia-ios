@@ -255,6 +255,95 @@ final class WMFFundraisingCampaignDataControllerTests {
         }
     }
 
+    // MARK: - Should show campaign
+
+    @Test
+    func shouldShowCampaignIsTrueAfterFirstAppSession() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+
+            try await withAppResignActiveDate(Date()) {
+                #expect(await controller.shouldShowCampaign(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+            }
+        }
+    }
+
+    @Test
+    func shouldShowCampaignIsFalseInFirstAppSession() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+
+            try await withAppResignActiveDate(nil) {
+                #expect(await controller.shouldShowCampaign(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) == false)
+            }
+        }
+    }
+
+    @Test
+    func shouldShowCampaignIsFalseWithoutActiveAsset() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "US", currentDate: validDate)
+
+            try await withAppResignActiveDate(Date()) {
+                #expect(await controller.shouldShowCampaign(countryCode: "US", wmfProject: enProject, currentDate: validDate) == false)
+            }
+        }
+    }
+
+    @Test
+    func shouldShowCampaignIsFalseAfterBannerIsHidden() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+
+            try await withAppResignActiveDate(Date()) {
+                #expect(await controller.shouldShowCampaign(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) == false)
+            }
+        }
+    }
+
+    // MARK: - Session state
+
+    // The controller no longer listens for the app going to the background. The app calls
+    // `clearSessionState()` instead, so these tests call it directly and never post a notification.
+    // The controller is shared across tests, so each test starts from a cleared flag.
+
+    @Test
+    func markCampaignPresentedSetsSessionFlag() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.clearSessionState()
+            #expect(controller.hasPresentedCampaignThisSession == false)
+
+            controller.markCampaignPresentedThisSession()
+            #expect(controller.hasPresentedCampaignThisSession)
+        }
+    }
+
+    @Test
+    func clearSessionStateClearsSessionFlag() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.markCampaignPresentedThisSession()
+            #expect(controller.hasPresentedCampaignThisSession)
+
+            controller.clearSessionState()
+            #expect(controller.hasPresentedCampaignThisSession == false)
+        }
+    }
+
+    /// Sets the app's "last left the app" date for the length of `body`, then puts back what was there.
+    private func withAppResignActiveDate(_ date: Date?, _ body: () async throws -> Void) async throws {
+        let key = WMFUserDefaultsKey.appResignActiveDate.rawValue
+        let original = UserDefaults.standard.object(forKey: key)
+        defer { UserDefaults.standard.set(original, forKey: key) }
+        UserDefaults.standard.set(date, forKey: key)
+        try await body()
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.basicService = WMFFundraisingCampaignRequestMockService()
         WMFDataEnvironment.current.serviceEnvironment = .staging

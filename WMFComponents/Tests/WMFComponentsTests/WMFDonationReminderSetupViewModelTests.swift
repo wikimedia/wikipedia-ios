@@ -9,11 +9,13 @@ import WMFDataTestSupport
 final class WMFDonationReminderSetupViewModelTests {
 
     private let fixture = WMFDataTestFixture()
+    private let catURL = URL(string: "https://en.wikipedia.org/wiki/Cat")!
 
-    private func makeViewModel(origin: WMFDonationReminderSetupViewModel.Origin = .banner) -> WMFDonationReminderSetupViewModel {
-        WMFDonationReminderSetupViewModel(
+    private func makeViewModel(origin: WMFDonationReminderSetupViewModel.Origin? = nil) -> WMFDonationReminderSetupViewModel {
+        let resolvedOrigin = origin ?? .banner(catURL)
+        return WMFDonationReminderSetupViewModel(
             configuration: WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: "EUR"),
-            origin: origin
+            origin: resolvedOrigin
         )
     }
 
@@ -102,7 +104,7 @@ final class WMFDonationReminderSetupViewModelTests {
     func selectedPresetIsConfirmableEvenBelowCurrencyMinimum() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: "BRL", minimumAmount: 5)
-            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner)
+            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner(catURL))
 
             #expect(viewModel.selectedPresetAmount == 1)
             #expect(viewModel.canConfirm)
@@ -130,7 +132,7 @@ final class WMFDonationReminderSetupViewModelTests {
     func customAmountAboveMaximumShowsErrorAndBlocksConfirm() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: "EUR", minimumAmount: 1, maximumAmount: 25_000)
-            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner)
+            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner(catURL))
 
             viewModel.customAmount = 30_000
             viewModel.customAmountDidChange()
@@ -148,7 +150,7 @@ final class WMFDonationReminderSetupViewModelTests {
     func customAmountAtMaximumHasNoErrorAndCanConfirm() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: "EUR", minimumAmount: 1, maximumAmount: 25_000)
-            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner)
+            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner(catURL))
 
             viewModel.customAmount = 25_000
             viewModel.customAmountDidChange()
@@ -265,7 +267,7 @@ final class WMFDonationReminderSetupViewModelTests {
     @Test
     func bannerStartsEnabled() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let viewModel = makeViewModel(origin: .banner)
+            let viewModel = makeViewModel(origin: .banner(catURL))
 
             #expect(viewModel.isReminderEnabled)
         }
@@ -364,7 +366,7 @@ final class WMFDonationReminderSetupViewModelTests {
     @Test
     func primaryButtonTitleFollowsSavedReminder() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let bannerViewModel = makeViewModel(origin: .banner)
+            let bannerViewModel = makeViewModel(origin: .banner(catURL))
             let settingsWithoutReminderViewModel = makeViewModel(origin: .settings)
 
             #expect(bannerViewModel.primaryButtonTitle == bannerViewModel.localizedStrings.confirmButtonTitle)
@@ -380,7 +382,7 @@ final class WMFDonationReminderSetupViewModelTests {
     @Test
     func declineSavesDisabledReminderAndNotifies() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let viewModel = makeViewModel(origin: .banner)
+            let viewModel = makeViewModel(origin: .banner(catURL))
             var didNotify = false
             viewModel.didTapNoThanks = {
                 didNotify = true

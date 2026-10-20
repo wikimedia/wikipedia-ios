@@ -1,6 +1,6 @@
 import UIKit
+import WMF
 import WMFComponents
-import SwiftUI
 import WMFData
 import CocoaLumberjackSwift
 import WMFNativeLocalizations
@@ -122,18 +122,15 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     readMoreButtonTitle: CommonStrings.tempAccountsReadMoreTitle
                 )
 
-                let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
-                toastView = toastController.view
-
-                addChild(toastController)
-                view.addSubview(toastController.view)
-                toastController.didMove(toParent: self)
-                toastController.view.translatesAutoresizingMaskIntoConstraints = false
+                let toast = WMFTempAccountsToastView(viewModel: viewModel)
+                toast.translatesAutoresizingMaskIntoConstraints = false
+                toastView = toast
+                view.addSubview(toast)
 
                 NSLayoutConstraint.activate([
-                    toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-                    toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-                    toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+                    toast.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    toast.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    toast.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
                 ])
             }
         }
@@ -335,7 +332,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 return
             }
 
-            changePasswordVC.userName = self.usernameField!.text
+            changePasswordVC.userName = self.usernameField.text
             changePasswordVC.apply(theme: self.theme)
             let navigationController = WMFComponentNavigationController(rootViewController: changePasswordVC, modalPresentationStyle: .overFullScreen)
             presenter.present(navigationController, animated: true, completion: nil)
@@ -363,8 +360,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             
             guard let self else { return }
             
-            twoFactorViewController.userName = self.usernameField!.text
-            twoFactorViewController.password = self.passwordField!.text
+            twoFactorViewController.userName = self.usernameField.text
+            twoFactorViewController.password = self.passwordField.text
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.classicInfo?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
             twoFactorViewController.apply(theme: self.theme)
@@ -423,9 +420,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             }
         }
-        let siteURL = dataStore.primarySiteURL
-        loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
-            DispatchQueue.main.async { [weak self] in
+        loginInfoFetcher.fetchLoginInfoForSiteURL(captchaSiteURL(), success: { [weak self] info in
+            DispatchQueue.main.async {
 
                 guard let self else { return }
 
@@ -529,7 +525,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     public func captchaSiteURL() -> URL {
-        return (dataStore.primarySiteURL)!
+        return dataStore.primarySiteURL ?? Configuration.current.defaultSiteURL
     }
 
     func captchaKeyboardReturnKeyTapped() {

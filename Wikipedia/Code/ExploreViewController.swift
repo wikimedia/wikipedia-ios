@@ -109,6 +109,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
             return existingYirCoordinator
     }
+    
+    private var isPresentingModals = false
+
+    /// True when this session was started by a deep link. Set from outside: by `WMFAppViewController`
+    /// for the Explore tab, and by the Home tab for the embedded feed. Modals are suppressed in that
+    /// case so we do not interrupt whatever the link was pointing at.
+    var didOpenAppFromExternalLink = false
 
     // MARK: - Lifecycle
 
@@ -123,14 +130,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -224,12 +227,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     open override func refresh() {
         updateFeedSources(with: nil, userInitiated: true) {
-        }
-    }
-
-    @objc private func databaseHousekeeperDidComplete() {
-        DispatchQueue.main.async {
-            self.refresh()
         }
     }
 
@@ -515,7 +512,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         resetRefreshControl()
-        wmf_showEmptyView(of: .noFeed, theme: theme, frame: view.bounds)
+        wmf_showEmptyView(of: .noFeed, frame: view.bounds)
     }
 
     var isLoadingNewContent = false
@@ -1075,35 +1072,58 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
-
 // MARK: - Modal Presentation Logic
 
 extension ExploreViewController {
-    
-    /// Modal presentation priority chain for the Explore view:
-    ///   1. Reading challenge  →  if shown, stop.
-    ///   2. Year in Review     →  if shown, stop.
-    ///   3. Games announcement →  shown only when both of the above decline.
-    ///
-    /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
-    /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        guard let navigationController, let dataStore else {
-            presentYearInReviewAnnouncementOrTooltipsIfNeeded()
-            return
+        guard !isPresentingModals else { return }
+
+        // Cold launch: the store is not ready yet. coreDataStoreSetup() runs this again.
+        guard WMFDataEnvironment.current.coreDataStore != nil else { return }
+
+        isPresentingModals = true
+        Task { [weak self] in
+            guard let self else { return }
+            defer { isPresentingModals = false }
+
+            if await presentYearInReviewAnnouncementIfNeeded() {
+                updateProfileButton()
+                return
+            }
+            presentTooltipsAndGamesAnnouncementIfNeeded()
         }
     }
 
-    /// Called at the tail of the modal chain (after RC and YIR have both declined).
+    private func presentYearInReviewAnnouncementIfNeeded() async -> Bool {
+        guard canShowModalNow, let yirCoordinator else { return false }
+        return await yirCoordinator.presentFeatureAnnouncement(introSlideLoggingID: "") // TODO: confirm with analytics
+    }
+
+    private var canShowModalNow: Bool {
+        guard WMFYearInReviewDataController.AnnouncementPresentationContext.explore(isFromDeepLink: didOpenAppFromExternalLink).allowsAnnouncement else {
+            return false
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .pad, navigationController?.navigationBar.isHidden == true {
+            return false
+        }
+
+        guard let navigationController,
+              presentedViewController == nil,
+              navigationController.presentedViewController == nil,
+              isViewLoaded, view.window != nil else {
+            return false
+        }
+        return true
+    }
+
+    /// Called at the tail of the modal chain (after Year in Review has declined).
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
-#if !TEST
-        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
-           sceneDelegate.didOpenAppFromExternalLink {
+        guard !didOpenAppFromExternalLink else {
             return
         }
-#endif
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
@@ -1177,46 +1197,15 @@ extension ExploreViewController {
         return formatter.string(from: Date())
     }
 
-    private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-            // YIR showed — games deferred to next launch.
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
-            presentGamesAnnouncementIfNeeded()
-        }
+    private func presentTooltipsAndGamesAnnouncementIfNeeded() {
+        perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+        presentGamesAnnouncementIfNeeded()
     }
-    
+
     @objc func listenForTooltips() {
         if let appViewController = tabBarController as? WMFAppViewController {
             appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
-    }
-
-    private func needsYearInReviewAnnouncement() -> Bool {
-
-        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
-            return false
-        }
-
-        guard let yirDataController else {
-                  return false
-        }
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
-            return false
-        }
-
-        guard presentedViewController == nil else {
-            return false
-        }
-
-        guard self.isViewLoaded && self.view.window != nil else {
-            return false
-        }
-
-        return true
     }
 
     private func displayURLWebView(url: URL) {
@@ -1233,16 +1222,6 @@ extension ExploreViewController {
         let newNavigationVC =
         WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
         presentedViewController.present(newNavigationVC, animated: true, completion: { })
-    }
-
-    // TODO: Remove after expiry date (1 March 2025)
-    private func presentYearInReviewAnnouncement() {
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
-        }
-        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
-        self.yirCoordinator?.start()
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
 
     private func shouldShowSearchWidgetAnnouncement() -> Bool {
@@ -1458,25 +1437,15 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
     
     @objc func whichCameFirstSessionDidUpdate(_ note: Notification) {
-        guard let projectID = note.userInfo?["projectID"] as? String,
-              let date = note.userInfo?["dailyGameDate"] as? String else { return }
+        guard let date = note.userInfo?["dailyGameDate"] as? String else { return }
 
         let todayDateString = DateFormatter.onThisDayAPIDateFormatter.string(from: Date())
         guard date == todayDateString else { return }
 
+        // WMFAppViewController updates the card preview. Animate that change as a delete and insert.
         wantsDeleteInsertOnNextItemUpdate = true
-
-        dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
     }
     
-    @objc func gamesAllSessionsCleared() {
-        DispatchQueue.main.async {
-            self.layoutCache.reset()
-            self.collectionView.collectionViewLayout.invalidateLayout()
-            self.dataStore.feedContentController.resetDailyGameContentGroups()
-        }
-    }
-
     @objc func articleDeleted(_ note: Notification) {
         guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? WMFInMemoryURLKey else {
             return
@@ -1566,10 +1535,6 @@ extension ExploreViewController {
         notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
     }
 
-    @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
-        dataStore.remoteNotificationsController.loadNotifications(force: true)
-    }
-
     @objc func applicationDidBecomeActive() {
         // The Explore view controller stays alive in the tab bar even when another tab is on screen.
         // Only run the modal chain on foreground when Explore is actually visible, otherwise the
@@ -1580,10 +1545,10 @@ extension ExploreViewController {
 
     @objc func coreDataStoreSetup() {
         configureNavigationBar()
-    }
 
-    @objc func refreshExploreForGamesCard() {
-        updateFeedSources(userInitiated: false)
+        // Retry the modal chain now that the store exists. Same visibility check as applicationDidBecomeActive().
+        guard viewIfLoaded?.window != nil else { return }
+        presentModalsIfNeeded()
     }
 }
 

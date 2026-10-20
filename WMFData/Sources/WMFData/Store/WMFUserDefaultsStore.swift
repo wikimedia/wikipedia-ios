@@ -27,6 +27,14 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
            defaults.removeObject(forKey: defaultsKey)
        }
 
+    func keys(inDirectory directory: String) throws -> [String] {
+        let prefix = directory + "."
+        return defaults.dictionaryRepresentation()
+            .keys
+            .filter { $0.hasPrefix(prefix) }
+            .map { String($0.dropFirst(prefix.count)) }
+    }
+
     private func load<T: Codable>(defaultsKey: String) throws -> T? {
         do {
             guard let data = defaults.value(forKey: defaultsKey) as? Data else {

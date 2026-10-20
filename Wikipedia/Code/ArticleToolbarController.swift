@@ -23,6 +23,8 @@ protocol ArticleToolbarHandling: AnyObject {
     var isTableOfContentsVisible: Bool { get }
     var navigationToolbar: UIToolbar? { get }
     func updateToolbarItems()
+    /// Any toolbar button was touched, including the More menu opening and a long press starting.
+    func toolbarWasTouched(from controller: ArticleToolbarController)
 }
 
 @MainActor
@@ -126,7 +128,7 @@ class ArticleToolbarController: Themeable {
         var actions: [UIMenuElement] = []
 
         let editElement = UIDeferredMenuElement.uncached { [weak self] completion in
-            let title = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney ? CommonStrings.editContextMenuTitle : CommonStrings.editSource
+            let title = WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled ? CommonStrings.editContextMenuTitle : CommonStrings.editSource
             let action = UIAction(title: title, image: WMFIcon.pencil, handler: { [weak self] _ in self?.tappedEditArticle() })
             completion([action])
         }
@@ -330,8 +332,16 @@ class ArticleToolbarController: Themeable {
             ]
         }
 
+        // UIControl ignores a target-action pair it already has, so repeated updates add it once.
+        for item in currentItems {
+            (item.customView as? UIButton)?.addTarget(self, action: #selector(toolbarWasTouched), for: .touchDown)
+        }
 
         delegate?.updateToolbarItems()
+    }
+
+    @objc private func toolbarWasTouched() {
+        delegate?.toolbarWasTouched(from: self)
     }
 
     func setToolbarButtons(enabled: Bool) {

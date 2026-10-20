@@ -164,6 +164,16 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
 
     var yourImpactOnWikipediaSubtitle: String?
+    private var yearInReviewCancellable: AnyCancellable?
+
+    @Published public var yearInReviewViewModel: WMFActivityTabYearInReviewViewModel? {
+        didSet {
+            yearInReviewCancellable = yearInReviewViewModel?.objectWillChange
+                .sink { [weak self] _ in
+                    self?.objectWillChange.send()
+                }
+        }
+    }
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
     @Published var contributionsViewModel: ContributionsViewModel?
     @Published var allTimeImpactViewModel: AllTimeImpactViewModel?
@@ -219,15 +229,24 @@ public final class WMFActivityTabViewModel: ObservableObject {
             DateFormatter.wmfLastReadFormatter(for: date)
         }
 
+        // Accessibility-friendly variant used to build VoiceOver labels. Avoids reading
+        // "15:40" as "fifteen forty" by spelling out hours and minutes when the
+        // date is today, and reusing the already-speech-friendly month/day rendering otherwise.
+        let dateAccessibilityFormatter: (Date) -> String = { date in
+            DateFormatter.wmfLastReadAccessibilityLabel(for: date)
+        }
+
         self.articlesReadViewModel = ArticlesReadViewModel(
             dataController: dataController,
             dateFormatter: dateFormatter,
+            dateAccessibilityFormatter: dateAccessibilityFormatter,
             makeUsernamesReading: localizedStrings.userNamesReading,
             noUsernameReading: localizedStrings.noUsernameReading
         )
 
         self.articlesSavedViewModel = ArticlesSavedViewModel(
-            dateFormatter: dateFormatter
+            dateFormatter: dateFormatter,
+            dateAccessibilityFormatter: dateAccessibilityFormatter
         )
 
         self.timelineViewModel = TimelineViewModel(

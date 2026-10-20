@@ -190,6 +190,56 @@ class ArticleWebMessagingController: NSObject {
         }
     }
 
+    /// Highlights `passages` inside the section of `anchor`, or in the whole article when the
+    /// section does not have them. Reports the ids of the highlight spans. The first id is the
+    /// start of the first passage found.
+    func highlightPassages(_ passages: [String], anchor: String?, completion: @escaping ([String]) -> Void) {
+        guard let webView,
+              let passagesData = try? JSONEncoder().encode(passages),
+              let passagesJSON = String(data: passagesData, encoding: .utf8) else {
+            completion([])
+            return
+        }
+
+        let anchorJS = anchor.map { "`\($0.sanitizedForJavaScriptTemplateLiterals)`" } ?? "null"
+        webView.evaluateJavaScript("window.wmf.findInPage.highlightPassages(\(passagesJSON), \(anchorJS))") { result, error in
+            if let error {
+                DDLogWarn("Error highlighting passages: \(error)")
+            }
+            completion(result as? [String] ?? [])
+        }
+    }
+
+    /// Calls back once the Page Content Service shows the sections of the page. That happens after
+    /// the final setup: before it, the page has the height of the lead only. On an error, calls
+    /// back right away.
+    func sectionsAreShown(completion: @escaping () -> Void) {
+        guard let webView else {
+            completion()
+            return
+        }
+
+        webView.callAsyncJavaScript("await window.wmf.utilities.whenSectionsAreShown()", in: nil, in: .page) { result in
+            if case .failure(let error) = result {
+                DDLogWarn("Error waiting for the sections of the page: \(error)")
+            }
+            completion()
+        }
+    }
+
+    /// The height of the page, as the page measures it. The web view reports the same height once
+    /// it is in sync with the page.
+    func pageHeight(completion: @escaping (CGFloat) -> Void) {
+        guard let webView else {
+            completion(0)
+            return
+        }
+
+        webView.evaluateJavaScript("document.documentElement.scrollHeight") { result, _ in
+            completion((result as? NSNumber).map { CGFloat($0.doubleValue) } ?? 0)
+        }
+    }
+
     func removeElementHighlights() {
         webView?.evaluateJavaScript("pcs.c1.Page.removeHighlightsFromHighlightedElements()")
     }
@@ -256,7 +306,7 @@ class ArticleWebMessagingController: NSObject {
     func removeDonationReminderCard() {
         let js = """
             (function() {
-                var card = document.getElementById('wmf-donation-reminder-card');
+                var card = document.getElementById('wmf-donation-reminder-card-container') || document.getElementById('wmf-donation-reminder-card');
                 if (card) {
                     card.remove();
                 }
