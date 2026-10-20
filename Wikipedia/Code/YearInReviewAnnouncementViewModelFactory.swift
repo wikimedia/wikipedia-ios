@@ -113,7 +113,7 @@ struct YearInReviewAnnouncementViewModelFactory {
             let message = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-message", value: "Log in to see your top topics, articles, longest rabbit hole, and more. You can still see collective insights without logging in.", comment: "Message of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
             return (title, message)
         case .lowData:
-            return (CommonStrings.yearInReviewCollectiveIntroTitle, CommonStrings.yearInReviewCollectiveIntroSubtitle)
+            return (CommonStrings.yearInReviewLoginPromptCollectiveTitle, CommonStrings.yearInReviewLoginPromptCollectiveMessage)
         }
     }
 }
