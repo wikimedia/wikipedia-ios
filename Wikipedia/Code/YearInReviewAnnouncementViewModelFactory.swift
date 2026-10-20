@@ -68,7 +68,9 @@ struct YearInReviewAnnouncementViewModelFactory {
         return WMFYearInReviewAnnouncementViewModel(
             animation: Self.animation,
             riveText: [
-                CoverTextPath.title: localizedStrings.animationAccessibilityLabel,
+                // The title is shown in capitals. VoiceOver still gets it as written, from
+                // `animationAccessibilityLabel`.
+                CoverTextPath.title: localizedStrings.animationAccessibilityLabel.localizedUppercase,
                 CoverTextPath.body: localizedStrings.body
             ],
             localizedStrings: localizedStrings,
