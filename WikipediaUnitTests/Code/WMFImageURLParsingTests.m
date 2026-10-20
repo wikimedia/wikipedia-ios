@@ -259,6 +259,16 @@
     XCTAssert([result isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/1280px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original"]);
 }
 
+- (void)testImageNameFromOriginalURLIgnoresQueryItems {
+    NSString *result = WMFParseImageNameFromSourceURL(@"https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original");
+    XCTAssertEqualObjects(result, @"Cat_August_2010-4.jpg");
+}
+
+- (void)testImageNameFromThumbURLIgnoresQueryItems {
+    NSString *result = WMFParseImageNameFromSourceURL(@"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/500px-Cat_August_2010-4.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail");
+    XCTAssertEqualObjects(result, @"Cat_August_2010-4.jpg");
+}
+
 - (void)testSizePrefixChangeOnThumbURLWithQueryItems {
     NSString *result = WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/960px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original", 1280);
     XCTAssert([result isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/1280px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original"]);
