@@ -222,6 +222,27 @@ class SessionServerBusyFallbackTests: XCTestCase {
         XCTAssertTrue((receivedError as? RequestError)?.isServerBusy == true)
     }
 
+    func testDecodableTaskByURLReportsOnce() throws {
+        let (session, _) = try makeSession(statusCode: 429, headers: ["Retry-After": "9"])
+        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/feed/featured/2026/10/20"))
+        var reported: [WMFHTTPErrorInfo] = []
+        session.reportHTTPError = { reported.append($0) }
+
+        let done = expectation(description: "decodable task by url completed")
+        var receivedError: Error?
+        let task: URLSessionDataTask? = session.jsonDecodableTask(with: url) { (result: [String: String]?, _, error) in
+            receivedError = error
+            done.fulfill()
+        }
+        XCTAssertNotNil(task)
+        wait(for: [done], timeout: 5)
+
+        XCTAssertEqual(reported.count, 1, "jsonDecodableTask(with url:) goes to the transport directly; dataTask(with url:) must report once")
+        XCTAssertEqual(reported.first?.retryAfter, 9)
+        XCTAssertEqual(reported.first?.url, url.absoluteString)
+        XCTAssertTrue((receivedError as? RequestError)?.isServerBusy == true)
+    }
+
     func testDictionaryTaskTurnsANonJSONBusyBodyIntoAServerBusyError() throws {
         let (session, _) = try makeSession(statusCode: 429, headers: ["Retry-After": "7"])
         let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/w/api.php?action=query&meta=tokens&type=login&format=json"))

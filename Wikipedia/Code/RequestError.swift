@@ -109,11 +109,7 @@ public extension HTTPURLResponse {
         if let seconds = TimeInterval(rawValue) {
             return Self.wmf_clampedRetryAfter(seconds)
         }
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
-        guard let date = formatter.date(from: rawValue) else {
+        guard let date = DateFormatter.wmf_httpDateFormatter().date(from: rawValue) else {
             return nil
         }
         return Self.wmf_clampedRetryAfter(date.timeIntervalSinceNow)

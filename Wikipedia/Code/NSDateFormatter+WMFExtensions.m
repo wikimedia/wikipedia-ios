@@ -29,6 +29,18 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return wmf_rfc3339LocalTimeZoneFormatter;
 }
 
++ (NSDateFormatter *)wmf_httpDateFormatter {
+    static NSDateFormatter *httpDateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        httpDateFormatter = [NSDateFormatter new];
+        httpDateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        httpDateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+        httpDateFormatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss zzz";
+    });
+    return httpDateFormatter;
+}
+
 + (NSDateFormatter *)wmf_shortTimeFormatter {
     static dispatch_once_t onceToken;
     static NSDateFormatter *shortTimeFormatter = nil;

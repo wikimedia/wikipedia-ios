@@ -403,7 +403,14 @@ public class Session: NSObject {
             return nil
         }
         let dataRequest = request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers, cachePolicy: cachePolicy)
-        let task = httpClient.dataTask(with: dataRequest, completionHandler: completionHandler)
+        // This path goes to the transport directly and has no cache fallback, so it reports here.
+        // handleResponse no longer logs: every path reports exactly once.
+        let task = httpClient.dataTask(with: dataRequest, completionHandler: { [weak self] data, response, error in
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.isHTTPError {
+                self?.reportHTTPError(WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: method.stringValue, url: url.absoluteString, source: "Session", retryAfter: httpResponse.wmf_retryAfterInterval))
+            }
+            completionHandler(data, response, error)
+        })
         task.priority = priority
         return task
     }
