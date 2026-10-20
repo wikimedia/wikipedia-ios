@@ -74,7 +74,7 @@ struct SavedFixture {
         [Self.latestArticleTitle, Self.accentedArticleTitle, Self.lowercaseArticleTitle, openableArticleTitle]
     }
 
-    /// Localized, case- and accent-insensitive order. Hebrew sorts after Latin.
+    /// Localized, case- and accent-insensitive order. In Hebrew the device's own script sorts first.
     let allArticlesByTitle: [String]
 
     var firstListArticlesByRecentlyAdded: [String] {
@@ -116,7 +116,7 @@ struct SavedFixture {
             return SavedFixture(
                 openableArticleTitle: "כלב הבית",
                 labels: Labels(allArticlesScope: "כל הערכים", readingListsScope: "רשימות קריאה", sort: "מיון", sortByTitle: "כותרת", sortByRecentlyAdded: "נוספו לאחרונה", edit: "עריכה", cancel: "ביטול", unsave: "ביטול שמירה", delete: "מחיקה", removeFromSaved: "להסיר משמורים", createNewList: "יצירת רשימה חדשה"),
-                allArticlesByTitle: ["apple", "Émile Zola", "Zebra", "כלב הבית"]
+                allArticlesByTitle: ["כלב הבית", "apple", "Émile Zola", "Zebra"]
             )
         case "vi":
             return SavedFixture(

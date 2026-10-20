@@ -199,7 +199,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             self?.reset()
         }
 
-        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: handler)
+        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:)))], handler: handler)
         let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: handler)
 
         return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]
