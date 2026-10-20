@@ -2,12 +2,8 @@ import SwiftUI
 
 public struct WMFYearInReviewAnnouncementView: View {
 
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFYearInReviewAnnouncementViewModel
 
-    private var theme: WMFTheme {
-        appEnvironment.theme
-    }
 
     public init(viewModel: WMFYearInReviewAnnouncementViewModel) {
         self.viewModel = viewModel
@@ -20,16 +16,16 @@ public struct WMFYearInReviewAnnouncementView: View {
                 // The navigation bar is see-through, so the artwork runs under it.
                 .ignoresSafeArea(.container, edges: .top)
 
-            WMFLargeButton(
-                style: .primary,
+            WMFSmallButton(
+                configuration: .init(style: .primary),
                 title: viewModel.localizedStrings.exploreButtonTitle,
+                forceBackgroundColor: WMFTheme.light.link,
+                forceForegroundColor: WMFTheme.light.paperBackground,
                 action: viewModel.tappedExplore
             )
-            .padding(.horizontal, 24)
-            .padding(.top, 24)
-            .padding(.bottom, 16)
+            .padding(.top, 0)
         }
-        .background(Color(uiColor: theme.paperBackground))
+        .background(Color(uiColor: WMFTheme.light.paperBackground))
     }
 
     // MARK: - Artwork
