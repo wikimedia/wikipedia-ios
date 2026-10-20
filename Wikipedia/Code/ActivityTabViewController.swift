@@ -118,6 +118,28 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
+    
+    private func configureYearInReviewEntryPoint() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+            viewModel.yearInReviewViewModel = nil
+            return
+        }
+
+        if viewModel.yearInReviewViewModel == nil {
+            let yirViewModel = WMFActivityTabYearInReviewViewModel()
+            yirViewModel.onTap = { [weak self] in
+                Task { @MainActor [weak self] in
+                    await self?.yirCoordinator?.presentFeatureAnnouncementFromEntryPoint()
+                }
+            }
+            viewModel.yearInReviewViewModel = yirViewModel
+        }
+
+        // The data controller applies the developer settings override. Otherwise the slides in the stored report decide.
+        let userDataState = (try? yirDataController.fetchUserDataState()) ?? .lowData
+        viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
+    }
 
     private func embedHostingController() {
         addChild(hostingController)
@@ -163,6 +185,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        markYearInReviewAsSeen()
+
         reachabilityNotifier.start()
 
         if !reachabilityNotifier.isReachable {
@@ -208,6 +233,18 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         } else {
             viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
         }
+    }
+
+    /// Clears the Activity tab's Year in Review badge. Called on every appearance; writes once, so
+    /// repeat calls are cheap.
+    private func markYearInReviewAsSeen() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
+              !yirDataController.hasTappedActivityTabAfterYiRReady else {
+            return
+        }
+        yirDataController.hasTappedActivityTabAfterYiRReady = true
+        NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
     }
 
     @objc private func updateLoginState() {
@@ -318,6 +355,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
+        
+        configureYearInReviewEntryPoint()
 
         configureNavigationBar()
     }
@@ -486,6 +525,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 viewModel.fetchData()
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+            }
+            do {
+                try await WMFYearInReviewDataController().deletePersonalizedData(for: .readingHistory)
+            } catch {
+                DDLogError("Failure deleting Year in Review reading data: \(error)")
             }
         }
     }
@@ -876,7 +920,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             imageType: .plainX,
             target: self,
             action: #selector(closeTapped),
-            alignment: .trailing
+            alignment: .leading
         )
 
         configureNavigationBar(

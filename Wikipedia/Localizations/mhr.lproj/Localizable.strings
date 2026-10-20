@@ -343,7 +343,6 @@
 "empty-no-saved-pages-message" = "Варарак ончаш манын, офлайн режимыштат, велыж-влакым арален кодо";
 "empty-no-saved-pages-title" = "Аралыме велыж эше уке";
 "empty-no-search-results-message" = "Нимом мумо огыл";
-"empty-talk-page-title" = "Ушнышо каҥашымашым эше савыктен огыл";
 "error-generic-recovery-suggestion" = "Порылий, варарак уэштаре";
 "error-unknown" = "Палыдыме йоҥылыш лийын";
 "explore-another-random" = "Эше ик радам деч посна лекше статья";
@@ -351,7 +350,6 @@
 "explore-because-you-read-footer" = "Лудмо негызеш шукырак статья";
 "explore-continue-reading-heading" = "Лудмым шуяш";
 "explore-detail-back-button-title" = "Материал шымлымаш дек пӧртылаш";
-"explore-enable-location-title" = "Кызыт тыйын воктенент верланыше статья-влакым шымле";
 "explore-featured-article-heading" = "Ойырен налме статья";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Википедий ужаш гыч";
 "explore-featured-article-sub-heading-from-wikipedia" = "Википедий гыч";
@@ -360,10 +358,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Ешартыш йылмым «Мыйын йылме-влак» ужашыш ешараш лиеш.";
 "explore-feed-preferences-card-hidden-title" = "Картычкым шылтыме";
 "explore-feed-preferences-continue-reading-description" = "Почмо стаьям лудашлан шеҥгек писе кылвер";
-"explore-feed-preferences-customize-explore-feed" = "Тасмам келыштараш";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Тасмам келыштараш";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Картычкым шылташ гын, тудо тасмаште огеш ончыкталт.";
-"explore-feed-preferences-explore-tab" = "«Тасма» ушештартыш";
 "explore-feed-preferences-featured-article-description" = "Википедийыште кечылан ойырен налме статья";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "йӧрт.";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "чыла йӧрт.";
@@ -393,11 +388,6 @@
 "explore-feed-preferences-suggested-edits-description" = "Википедийыш материалым ешарыме ден темлымаш-влак";
 "explore-feed-preferences-suggested-edits-title" = "Темлыме тӧрлымаш-влакын картыштым ончыкташ";
 "explore-feed-preferences-top-read-description" = "Тиде кечылан эн шуко ончымо статья-влак";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Тасман ушештартышыжым йӧрташ";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Тасман ушештартышыжым йӧрташ?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Тасмам йӧрташ";
-"explore-feed-preferences-turn-off-explore-tab-message" = "«Тасма» ушештартышым келыштарымаш ужашыште пӧртылташ лиеш";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Тасмам йӧрташ?";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Тасмам чӱкташ";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Тасмам чӱкташ?";
 "explore-hide-card-prompt" = "Тиде картычкым шылташ";
@@ -468,7 +458,6 @@
 "history-clear-confirmation-heading" = "Тый чынжымак чыла шкендын шукерте огылсо элемент-влакым кораҥдынет?";
 "history-clear-delete-all" = "Туге, чыла кораҥдаш";
 "history-title" = "Историй";
-"home-button-explore-accessibility-label" = "Википедий, тасма дек пӧртылаш";
 "home-button-saved-accessibility-label" = "Википедий, аралыме дек пӧртылаш";
 "home-more-like-footer" = "$1 гай эше статья-влакым";
 "home-nearby-footer" = "Тыйын воктенет утларак вер-влак";

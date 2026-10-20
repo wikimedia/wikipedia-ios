@@ -75,6 +75,7 @@ jobs:
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -testPlan UITests \
             -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             "${only_testing_args[@]}" \

@@ -31,7 +31,7 @@ extension ArticleViewController {
     }
 
     private func presentEditingFlow(with sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
-        guard WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney, let navigationController else {
+        guard WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled, let navigationController else {
             presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
             return
         }
@@ -95,14 +95,17 @@ extension ArticleViewController {
 
         var queryItems = [
             URLQueryItem(name: "useformat", value: "mobile"),
-            URLQueryItem(name: "veaction", value: "edit")
-            // TODO: Restore URLQueryItem(name: "returntoapp", value: "1") once the web's tap-to-return
-            // banner replaces the automatic redirect it currently triggers
+            URLQueryItem(name: "veaction", value: "edit"),
+            URLQueryItem(name: "returntoapp", value: "1")
         ]
 
         if let sectionID {
             queryItems.append(URLQueryItem(name: "section", value: String(sectionID)))
         }
+        if let appInstallId: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue), !appInstallId.isEmpty {
+            queryItems.append(URLQueryItem(name: "appinstallid", value: appInstallId))
+        }
+        
         components?.queryItems = queryItems
         navigate(to: components?.url, useSafari: true)
     }

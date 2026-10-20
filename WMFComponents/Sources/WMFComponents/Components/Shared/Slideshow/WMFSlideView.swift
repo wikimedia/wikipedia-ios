@@ -45,7 +45,7 @@ struct WMFSlideView: View {
             text
         }
         .padding(Metrics.contentPadding)
-        .frame(maxWidth: .infinity, maxHeight: fillsAvailableHeight ? .infinity : nil, alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: fillsAvailableHeight ? .infinity : nil, alignment: .center)
         .background(
             RoundedRectangle(cornerRadius: Metrics.cornerRadius, style: .continuous)
                 .fill(Color(uiColor: slide.backgroundColor))

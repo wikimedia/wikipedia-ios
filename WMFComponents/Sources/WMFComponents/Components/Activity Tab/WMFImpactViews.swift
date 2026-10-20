@@ -332,18 +332,32 @@ struct ArticleViewsView: View {
             CombinedImpactTitleView(text: viewModel.localizedStrings.viewsOnArticlesYouveEdited)
 
             VStack(alignment: .leading, spacing: 12) {
-                    Text(formatViewCount(viewModel.views.reduce(0) { $0 + $1.count }))
-                        .font(Font(WMFFont.for(.boldTitle1)))
-                        .foregroundStyle(Color(theme.text))
+                let totalViews = viewModel.views.reduce(0) { $0 + $1.count }
 
-                    if !viewModel.views.isEmpty {
-                        LineChartView(data: viewModel.views.map { $0.count }, xLabel: viewModel.localizedStrings.lineGraphDay, yLabel: viewModel.localizedStrings.lineGraphViews)
-                            .frame(height: 15)
-                    }
+                Text(formatViewCount(totalViews))
+                    .font(Font(WMFFont.for(.boldTitle1)))
+                    .foregroundStyle(Color(theme.text))
+                    .accessibilityLabel(forgeVocalizableCount(totalViews))
+
+                if !viewModel.views.isEmpty {
+                    LineChartView(
+                        data: viewModel.views.map { $0.count },
+                        xLabel: viewModel.localizedStrings.lineGraphDay,
+                        yLabel: viewModel.localizedStrings.lineGraphViews
+                    )
+                    .frame(height: 15)
+                    .accessibilityHidden(true)
                 }
+            }
         }
     }
 
+    private func forgeVocalizableCount(_ totalViews: Int) -> String {
+        let spellFormatter = NumberFormatter()
+        spellFormatter.numberStyle = .spellOut
+        return spellFormatter.string(from: NSNumber(value: totalViews)) ?? "\(totalViews)"
+    }
+    
     private func formatViewCount(_ count: Int) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal

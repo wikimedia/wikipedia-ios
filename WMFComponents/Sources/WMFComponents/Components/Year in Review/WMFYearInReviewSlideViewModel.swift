@@ -1,0 +1,100 @@
+import UIKit
+import WMFData
+
+public struct WMFYearInReviewSlideViewModel: Identifiable {
+
+    public struct LocalizedStrings {
+        public var accessibilityLabel: String?
+
+        public init(accessibilityLabel: String? = nil) {
+            self.accessibilityLabel = accessibilityLabel
+        }
+    }
+
+    /// An article whose thumbnail fills an image property in the .riv.
+    public struct ArticleThumbnail: Hashable, Sendable {
+        public let project: WMFProject
+        public let title: String
+
+        public init(project: WMFProject, title: String) {
+            self.project = project
+            self.title = title
+        }
+    }
+
+    /// Which color the app draws its own controls in above the animation.
+    public enum ContentStyle {
+        /// Light controls, for dark artwork.
+        case light
+        /// Dark controls, for light artwork.
+        case dark
+
+        public var color: UIColor {
+            self == .light ? WMFColor.white : WMFColor.gray700
+        }
+    }
+
+    public let id: String
+    public let loggingID: String
+    public let animation: WMFRiveAnimation?
+    public let text: [WMFRiveText: String]
+    public let numbers: [WMFRiveNumber: Double]
+    /// Loaded when the slide shows. A property with no thumbnail keeps the placeholder in the .riv.
+    public let articleThumbnails: [WMFRiveImage: ArticleThumbnail]
+    /// Image data that the slide already has, for example a downloaded topic illustration. A property
+    /// with no data keeps the placeholder in the .riv.
+    public let images: [WMFRiveImage: Data]
+    /// The property that lays the frame out from right to left for a right-to-left language. `nil`
+    /// for a frame without it.
+    public let layoutDirection: WMFRiveLayoutDirection?
+    public let localizedStrings: LocalizedStrings
+    public let showsShareButton: Bool
+    public let showsDonateButton: Bool
+    /// The style until the slide loads, and the style if the .riv does not set `lightContentFlag`.
+    public let contentStyle: ContentStyle
+    /// A boolean in the .riv that the artwork sets. True asks for light controls. When the slide
+    /// loads, its value replaces `contentStyle`.
+    public let lightContentFlag: WMFRiveBool?
+    /// Text runs that the slide keeps to a maximum number of lines.
+    public let textFits: [WMFRiveTextFit]
+
+    public init(
+        id: String,
+        loggingID: String,
+        animation: WMFRiveAnimation? = nil,
+        text: [WMFRiveText: String] = [:],
+        numbers: [WMFRiveNumber: Double] = [:],
+        articleThumbnails: [WMFRiveImage: ArticleThumbnail] = [:],
+        images: [WMFRiveImage: Data] = [:],
+        layoutDirection: WMFRiveLayoutDirection? = nil,
+        localizedStrings: LocalizedStrings = LocalizedStrings(),
+        showsShareButton: Bool = true,
+        showsDonateButton: Bool = true,
+        contentStyle: ContentStyle = .light,
+        lightContentFlag: WMFRiveBool? = nil,
+        textFits: [WMFRiveTextFit] = []
+    ) {
+        self.id = id
+        self.loggingID = loggingID
+        self.animation = animation
+        self.text = text
+        self.numbers = numbers
+        self.articleThumbnails = articleThumbnails
+        self.images = images
+        self.layoutDirection = layoutDirection
+        self.localizedStrings = localizedStrings
+        self.showsShareButton = showsShareButton
+        self.showsDonateButton = showsDonateButton
+        self.contentStyle = contentStyle
+        self.lightContentFlag = lightContentFlag
+        self.textFits = textFits
+    }
+
+    public var prefersLightContent: Bool {
+        contentStyle == .light
+    }
+
+    public var contentColor: UIColor {
+        contentStyle.color
+    }
+}

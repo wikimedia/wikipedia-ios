@@ -69,7 +69,7 @@ struct WMFForYouEndOfFeedCardView: View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 32) {
                 illustration
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .frame(height: variant == .endOfFeed ? 175 : 105)
                     .accessibilityHidden(true)
 
@@ -90,7 +90,7 @@ struct WMFForYouEndOfFeedCardView: View {
                             .foregroundStyle(Color(uiColor: theme.text))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .minimumScaleFactor(0.3)
+                    .minimumScaleFactor(0.25)
                     .accessibilityElement(children: .combine)
 
                     linkRow(
@@ -108,14 +108,29 @@ struct WMFForYouEndOfFeedCardView: View {
                     )
                     .minimumScaleFactor(0.3)
                 }
+                // Two lines for every one of them: the title, the three sentences and both link
+                // rows. Applied to the stack so it reaches each `Text` inside it.
+                .lineLimit(2)
+                // Asks for its natural height first, so a stack that is briefly short of room
+                // during a scroll does not squeeze the words.
+                .layoutPriority(1)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            // The card is one fixed page of a paging feed, so it cannot grow or scroll to fit the
+            // largest text sizes. Capping here keeps every word on screen at its own size rather
+            // than shrinking all of it to fit. Roughly twice the default: body runs 17pt at
+            // `.large` and 33pt at `.accessibility2`.
+            .dynamicTypeSize(...DynamicTypeSize.accessibility2)
             .padding(.horizontal, 20)
             .padding(.top, WMFForYouCardMetrics.contentTopInset(
                 headerBottom: headerBottom,
                 cardTop: geometry.frame(in: .global).minY
             ))
             .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
-            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .bottomLeading)
+            // `.leading` centres the block down the card and keeps it against the leading edge.
+            // The two insets are inside the block, so it settles between the header bar and the
+            // tab bar rather than in the middle of the screen.
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
             .background(Color(uiColor: WMFColor.green800))
             .ignoresSafeArea()
         }
@@ -136,6 +151,10 @@ struct WMFForYouEndOfFeedCardView: View {
                 label(format: format, linkText: linkText)
                     .multilineTextAlignment(.leading)
             }
+            // Without this the row is only as wide as its sentence, which on a large screen
+            // leaves a tap target far smaller than the text it sits beside.
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
             .foregroundStyle(Color(uiColor: theme.text))
         }
     }

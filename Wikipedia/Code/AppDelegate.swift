@@ -37,6 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.registerForRemoteNotifications()
         
         updateDynamicIconShortcutItems()
+
+
+        // Background launches can run refresh tasks before setupWMFDataEnvironment() finishes, so configure the
+        // shared cache store up front. Local notification logging depends on it during background refresh.
+        if WMFDeveloperSettingsDataController.enableDailyTopReadNotifications,
+           WMFDataEnvironment.current.sharedCacheStore == nil {
+            WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        }
         registerBackgroundTasks()
 
         return true
@@ -118,57 +126,110 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return !shouldOpenAppOnSearchTab
     }
 
-    private func registerBackgroundTasks() {
+    /// Background app refresh without the daily top read notification prototype.
+    private func performBackgroundAppRefresh(task: BGTask) {
+        let completion = BackgroundTaskCompletion(task: task) { [weak self] in
+            self?.scheduleBackgroundAppRefreshTask()
+        }
 
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundAppRefreshTaskIdentifier, using: .main) { [weak self] task in
-            let completion = BackgroundTaskCompletion(task: task)
-
-            // iOS stops the app if the task uses all of its time and reports no completion.
-            task.expirationHandler = {
+        // Completes the task before iOS terminates the app if the fetch runs past the background time budget.
+        task.expirationHandler = {
+            Task { @MainActor in
                 completion.complete(success: false)
             }
+        }
 
-            self?.appViewController.performBackgroundFetch { [weak self] result in
+        appViewController.performBackgroundFetch { result in
+            Task { @MainActor in
                 completion.complete(success: result != .failed)
-                self?.scheduleBackgroundAppRefreshTask()
             }
         }
-        
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundDatabaseHousekeeperTaskIdentifier, using: .main) { [weak self] task in
-            let completion = BackgroundTaskCompletion(task: task)
+    }
 
-            // iOS stops the app if the task uses all of its time and reports no completion.
-            task.expirationHandler = { [weak self] in
+    /// Runs the database housekeeping pass for the background task.
+    private func performDatabaseHousekeeping(task: BGTask) {
+        let completion = BackgroundTaskCompletion(task: task)
+
+        // Completes the task before iOS terminates the app if the pass runs past the background time budget.
+        task.expirationHandler = { [weak self] in
+            Task { @MainActor in
                 self?.appViewController.cancelDatabaseHousekeeping()
                 completion.complete(success: false)
             }
+        }
 
-            self?.appViewController.performDatabaseHousekeeping { error in
+        appViewController.performDatabaseHousekeeping { error in
+            Task { @MainActor in
                 completion.complete(success: error == nil)
             }
         }
     }
+
+    /// Background app refresh with the daily top read notification prototype enabled. Local notifications are only
+    /// scheduled from here, to re-engage users who haven't opened the app.
+    private func performBackgroundAppRefreshWithLocalNotifications(task: BGTask) {
+        let completion = BackgroundTaskCompletion(task: task) { [weak self] in
+            self?.scheduleBackgroundAppRefreshTask()
+        }
+
+        let work = Task { @MainActor in
+            async let localNotifications: Void = self.appViewController.performLocalNotificationsBackgroundRefresh()
+            let result = await withCheckedContinuation { continuation in
+                self.appViewController.performBackgroundFetch { result in
+                    continuation.resume(returning: result)
+                }
+            }
+            await localNotifications
+            completion.complete(success: result != .failed)
+        }
+
+        // Completes the task before iOS terminates the app if the fetches run past the background time budget.
+        task.expirationHandler = {
+            work.cancel()
+            Task { @MainActor in
+                completion.complete(success: false)
+            }
+        }
+    }
+
+    private func registerBackgroundTasks() {
+
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundAppRefreshTaskIdentifier, using: .main) { [weak self] task in
+            guard WMFDeveloperSettingsDataController.enableDailyTopReadNotifications else {
+                self?.performBackgroundAppRefresh(task: task)
+                return
+            }
+
+            guard let self else {
+                task.setTaskCompleted(success: false)
+                return
+            }
+            self.performBackgroundAppRefreshWithLocalNotifications(task: task)
+        }
+        
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundDatabaseHousekeeperTaskIdentifier, using: .main) { [weak self] task in
+            self?.performDatabaseHousekeeping(task: task)
+        }
+    }
 }
 
-/// Reports the completion of a background task one time only.
-///
-/// iOS stops the app if the code reports completion two times. Both the expiration handler
-/// and the work of the task can report completion, thus the code must count the reports.
-/// The task uses the main queue, therefore this class needs no lock.
+/// Completes a background task exactly once, whether its work finishes or its time expires first.
+@MainActor
 private final class BackgroundTaskCompletion {
     private let task: BGTask
-    private var isComplete = false
+    private let didComplete: @MainActor () -> Void
+    private var isCompleted = false
 
-    init(task: BGTask) {
+    init(task: BGTask, didComplete: @escaping @MainActor () -> Void = {}) {
         self.task = task
+        self.didComplete = didComplete
     }
 
     func complete(success: Bool) {
-        guard !isComplete else {
-            return
-        }
-        isComplete = true
+        guard !isCompleted else { return }
+        isCompleted = true
         task.setTaskCompleted(success: success)
+        didComplete()
     }
 }
 #endif

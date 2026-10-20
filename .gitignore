@@ -23,6 +23,7 @@ Carthage Cache
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
+Wikipedia.xcodeproj/xcshareddata/xcodecloud/
 *.xccheckout
 *.moved-aside
 DerivedData
@@ -80,4 +81,5 @@ fastlane/snapshot_derived_data/
 WikipediaUITests/Snapshots/
 OpenSourceDebug.xcconfig
 
-.claude/
+.claude/*
+!.claude/skills/

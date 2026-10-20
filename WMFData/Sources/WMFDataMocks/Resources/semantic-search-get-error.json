@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "code": "cirrussearch-backend-error",
+      "html": "An error has occurred while searching: Search is currently too busy. Please try again later.",
+      "module": "query+search"
+    }
+  ],
+  "docref": "See https://fr.wikipedia.org/w/api.php for API usage.",
+  "servedby": "mw-api-ext.codfw.main-5f8d7c9b7d-abcde"
+}

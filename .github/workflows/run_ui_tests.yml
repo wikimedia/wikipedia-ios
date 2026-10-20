@@ -50,6 +50,7 @@ jobs:
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -testPlan UITests \
             -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             -destination "${{ steps.simulator.outputs.destination }}" \

@@ -310,7 +310,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             ? AccessibilityIdentifiers.Explore.pictureOfTheDayCell
             : nil
         if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore, viewSize: view.bounds.size)?.first {
-            cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+            cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         if !imageInfo.imageDescription.isEmpty {
             cell.captionIsRTL = imageInfo.imageDescriptionIsRTL
@@ -336,7 +336,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             if let imageURL = announcement.imageURL {
                 cell.isImageViewHidden = false
                 if !layoutOnly {
-                    cell.imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: false, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+                    cell.imageView.wmf_setImage(with: imageURL, detectFaces: false, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
                 }
             } else {
                 cell.isImageViewHidden = true

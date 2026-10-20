@@ -18,6 +18,9 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     private let dataStore: MWKDataStore
     private let context: WMFEvergreenAccountCreationDataController.PresentationContext
 
+    /// Gives the reader a moment on the surface they opened before the prompt takes the screen.
+    private static let presentationDelay: TimeInterval = 2
+
     private weak var promptNavigationController: WMFComponentNavigationController?
 
     /// The close button and the presentation delegate can both land here, so the first outcome wins.
@@ -54,6 +57,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
 
     /// Presents the prompt only if the reader is eligible right now.
     func startIfEligible() async {
+        try? await Task.sleep(for: .seconds(Self.presentationDelay))
+
         let presenter = navigationController.presentedViewController ?? navigationController
 
         guard await dataController.shouldShowPrompt(
@@ -94,6 +99,10 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
 
         let viewController = WMFSlideshowViewController(viewModel: viewModel)
         let promptNavigationController = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .fullScreen)
+
+        // The slides are laid out for portrait, and this navigation controller is thrown away on
+        // dismissal, so the lock needs no unwinding.
+        promptNavigationController.turnOnForcePortrait()
 
         // Full screen cannot be swiped away, so the close button is the only way out. The delegate
         // stays as a safety net for a dismissal from anywhere else.
@@ -138,7 +147,9 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             navigationController: navigationController,
             theme: theme,
             loggingCategory: loggingCategory,
-            startsOnAccountCreation: true
+            startsOnAccountCreation: true,
+            // Keeps the orientation the prompt was locked to across the hand-off.
+            forcePortrait: true
         )
 
         loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in

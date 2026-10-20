@@ -9,12 +9,19 @@ struct WMFDonationReminderSetupView: View {
 
     private let customAmountErrorIdentifier = "custom-amount-error"
 
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @ScaledMetric private var scaledTriggerDetailPopoverWidth: CGFloat = 240
+
+    private var triggerDetailPopoverWidth: CGFloat {
+        horizontalSizeClass == .regular ? scaledTriggerDetailPopoverWidth : 240
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { scrollProxy in
                 scrollContent(scrollProxy: scrollProxy)
             }
-            if viewModel.isReminderEnabled || viewModel.origin == .banner {
+            if viewModel.isReminderEnabled || viewModel.origin.isBanner {
                 footerButtons
                     .padding(.horizontal)
                     .padding(.top, 12)
@@ -36,7 +43,7 @@ struct WMFDonationReminderSetupView: View {
                     WMFBetaBadge()
                 }
                 header
-                if viewModel.origin == .settings {
+                if viewModel.origin.needsToggle {
                     reminderToggle
                 }
                 if viewModel.isReminderEnabled {
@@ -105,7 +112,7 @@ struct WMFDonationReminderSetupView: View {
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding()
-                        .frame(maxWidth: 240)
+                        .frame(width: triggerDetailPopoverWidth)
                         .presentationCompactAdaptation(.popover)
                         .presentationBackground(Color(theme.popoverBackground))
                 }
@@ -204,7 +211,7 @@ struct WMFDonationReminderSetupView: View {
                 .disabled(!viewModel.isConfirmButtonEnabled)
             }
 
-            if viewModel.origin == .banner {
+            if viewModel.origin.isBanner {
                 WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.localizedStrings.noThanksButtonTitle) {
                     viewModel.declineReminder()
                 }

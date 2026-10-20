@@ -183,7 +183,7 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
 
     open func isEmptyDidChange() {
         if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: emptyViewFrame)
+            wmf_showEmptyView(of: emptyViewType, frame: emptyViewFrame)
             showingEmptyViewType = emptyViewType
         } else {
             wmf_hideEmptyView()
