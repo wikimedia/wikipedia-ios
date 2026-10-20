@@ -89,7 +89,7 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
         let text = Self.textByPath(viewModel)
 
         #expect(Set(text.keys) == ["coverTitle", "bodyCopy"])
-        #expect(text["coverTitle"] == viewModel.localizedStrings.animationAccessibilityLabel.uppercased())
+        #expect(text["coverTitle"] == viewModel.localizedStrings.animationAccessibilityLabel.localizedUppercase)
         #expect(text["bodyCopy"] == viewModel.localizedStrings.body)
     }
 

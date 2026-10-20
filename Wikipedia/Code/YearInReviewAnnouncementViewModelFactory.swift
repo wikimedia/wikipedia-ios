@@ -70,7 +70,7 @@ struct YearInReviewAnnouncementViewModelFactory {
             riveText: [
                 // The title is shown in capitals. VoiceOver still gets it as written, from
                 // `animationAccessibilityLabel`.
-                CoverTextPath.title: localizedStrings.animationAccessibilityLabel.uppercased(),
+                CoverTextPath.title: localizedStrings.animationAccessibilityLabel.localizedUppercase,
                 CoverTextPath.body: localizedStrings.body
             ],
             localizedStrings: localizedStrings,
