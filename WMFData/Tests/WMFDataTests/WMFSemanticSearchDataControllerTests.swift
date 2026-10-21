@@ -149,11 +149,11 @@ final class WMFSemanticSearchDataControllerTests {
 
             #expect(controller.experimentData == nil)
 
-            let enrollment = try #require(try controller.enrollIfNeeded(languageCode: "fr"))
+            let assignment = try #require(try controller.enrollIfNeeded(languageCode: "fr"))
             let data = try #require(controller.experimentData)
 
             #expect(data.enrolled == "semantic-search-phase-2")
-            #expect(data.assigned == (enrollment.assignment == .groupB ? "treatment" : "control"))
+            #expect(data.assigned == (assignment == .groupB ? "treatment" : "control"))
             #expect(data.coordinator == "custom")
             #expect(data.subjectId == "install-1")
 
@@ -165,19 +165,33 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
-    func enrollmentIsNewOnlyTheFirstTime() async throws {
+    func exposureIsRecordedOncePerInstall() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
             try saveRemoteTargetLanguages(["fr", "ar", "ja"])
 
-            #expect(try controller.enrollIfNeeded(languageCode: "en") == nil)
+            #expect(try controller.recordExposureIfNeeded(languageCode: "fr") == false, "No exposure before the reader has a group")
 
-            let first = try #require(try controller.enrollIfNeeded(languageCode: "fr"))
-            let second = try #require(try controller.enrollIfNeeded(languageCode: "ja"))
+            try controller.enrollIfNeeded(languageCode: "fr")
 
-            #expect(first.isNew)
-            #expect(second.isNew == false)
-            #expect(second.assignment == first.assignment)
+            #expect(try controller.recordExposureIfNeeded(languageCode: "en") == false)
+            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
+            #expect(try controller.recordExposureIfNeeded(languageCode: "ja") == false)
+        }
+    }
+
+    @Test
+    func clearingTheAssignmentAllowsANewExposure() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr"])
+            try controller.enrollIfNeeded(languageCode: "fr")
+            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
+
+            try controller.clearExperimentAssignment()
+            try controller.enrollIfNeeded(languageCode: "fr")
+
+            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
         }
     }
 
@@ -191,8 +205,8 @@ final class WMFSemanticSearchDataControllerTests {
                 #expect(controller.isEligible(languageCode: languageCode))
             }
 
-            let firstAssignment = try #require(try controller.enrollIfNeeded(languageCode: "fr")).assignment
-            let secondAssignment = try #require(try controller.enrollIfNeeded(languageCode: "ar")).assignment
+            let firstAssignment = try #require(try controller.enrollIfNeeded(languageCode: "fr"))
+            let secondAssignment = try #require(try controller.enrollIfNeeded(languageCode: "ar"))
 
             #expect(secondAssignment == firstAssignment)
             #expect(controller.experimentAssignment == firstAssignment)
@@ -231,7 +245,7 @@ final class WMFSemanticSearchDataControllerTests {
             #expect(controller.experimentAssignment == .groupB)
             #expect(controller.isEligible(languageCode: "fr"))
             #expect(controller.isEntryPointAvailable(languageCode: "fr"))
-            let forcedAssignment = try controller.enrollIfNeeded(languageCode: "fr")?.assignment
+            let forcedAssignment = try controller.enrollIfNeeded(languageCode: "fr")
             #expect(forcedAssignment == .groupB)
             #expect(controller.isEligible(languageCode: "en") == false)
             #expect(controller.isEntryPointAvailable(languageCode: "en") == false)

@@ -386,10 +386,12 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     }
 
     /// The group is rolled on the first eligible search, before any result shows. The exposure
-    /// event goes out with it.
+    /// event goes out once per install, on the first eligible search with a group.
     private func enrollInSemanticSearchExperimentIfNeeded(languageCode: String) {
+        let dataController = WMFSemanticSearchDataController.shared
         do {
-            if try WMFSemanticSearchDataController.shared.enrollIfNeeded(languageCode: languageCode)?.isNew == true {
+            try dataController.enrollIfNeeded(languageCode: languageCode)
+            if try dataController.recordExposureIfNeeded(languageCode: languageCode) {
                 instrumentation.logExperimentExposure()
             }
         } catch {
