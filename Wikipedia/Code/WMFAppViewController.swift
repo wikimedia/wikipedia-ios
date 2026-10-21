@@ -106,7 +106,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     var syncStartDate: Date?
     
-    var savedTabBarItemProgressBadgeManager: SavedTabBarItemProgressBadgeManager?
+    var savedTabBadgeController: SavedTabBadgeController?
     
     private var hasSyncErrorBeenShownThisSession: Bool = false
     
@@ -367,7 +367,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         searchTabViewController.apply(theme: theme)
 
         if let savedTabBarItem = savedViewController.tabBarItem {
-            savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+            savedTabBadgeController = SavedTabBadgeController(tabBarItem: savedTabBarItem, tabBar: tabBar, theme: theme)
         }
 
         updateActivityTabYearInReviewBadge()
@@ -471,6 +471,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        savedTabBadgeController?.refreshDiscoverAnnouncement()
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()
@@ -2024,6 +2025,7 @@ extension WMFAppViewController: Themeable {
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
         tabBar.apply(theme: theme)
+        savedTabBadgeController?.apply(theme: theme)
 
         UISwitch.appearance().onTintColor = theme.colors.accent
 
@@ -2417,7 +2419,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
 
 // MARK: - Year in Review badge glyph
 
-/// Matches `SavedTabBarItemProgressBadgeManager`, which badges its tab with this same glyph.
+/// Matches `SavedTabBadgeController`, which badges its tab with this same glyph.
 private let wmfYearInReviewTabBadgeGlyph = "\u{2605}"
 
 private extension UITabBarItem {
