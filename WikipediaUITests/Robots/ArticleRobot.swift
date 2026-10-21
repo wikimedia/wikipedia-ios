@@ -109,6 +109,28 @@ extension ArticleRobot {
     }
 
     @discardableResult
+    func tapBackToSaved(file: StaticString = #filePath, line: UInt = #line) -> SavedRobot {
+        let navigationBar = navigationBar(file: file, line: line)
+        base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.tapCenter(of: backButton, file: file, line: line)
+        base.waitForElementToDisappear(articleView, timeout: 10, file: file, line: line)
+        return SavedRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func tapBackToReadingListDetail(file: StaticString = #filePath, line: UInt = #line) -> ReadingListDetailRobot {
+        let navigationBar = navigationBar(file: file, line: line)
+        base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.tapCenter(of: backButton, file: file, line: line)
+        base.waitForElementToDisappear(articleView, timeout: 10, file: file, line: line)
+        return ReadingListDetailRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
     func tapHomeButtonToHome(file: StaticString = #filePath, line: UInt = #line) -> HomeRobot {
         let navigationHomeButton = navigationBar(file: file, line: line)
             .buttons

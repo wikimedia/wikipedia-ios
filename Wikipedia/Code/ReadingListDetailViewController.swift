@@ -106,6 +106,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.view
         setUpArticlesViewController()
         apply(theme: theme)
     }
@@ -158,7 +159,9 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     }
 
     private lazy var sortBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
+        let item = UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
+        item.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.sortButton
+        return item
     }()
 
     @objc func didTapSort(_ sender: UIBarButtonItem) {
@@ -197,12 +200,14 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
 
         if let editButton = rightBarButton {
+            editButton.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.editButton
             navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem]
             rightBarButton?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
             sortBarButtonItem.tintColor = theme.colors.link
         }
 
         if let rightBarButton, newEditingState == .open {
+            rightBarButton.accessibilityIdentifier = AccessibilityIdentifiers.Saved.editingCancelButton
             navigationItem.rightBarButtonItems = [rightBarButton]
             navigationItem.leftBarButtonItem = nil
         } else {

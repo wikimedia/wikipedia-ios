@@ -891,6 +891,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dataStore.languageLinkController.resetPreferredLanguages()
         }
 
+        #if TEST || UITEST
+        UITestReadingListsSeeder(dataStore: dataStore).applyIfNeeded()
+        #endif
+
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
             try? WMFDataEnvironment.current.userDefaultsStore?.save(
                 key: WMFUserDefaultsKey.hasSeenActivityTabOnboarding.rawValue,
