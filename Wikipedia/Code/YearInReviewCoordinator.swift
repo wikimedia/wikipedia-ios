@@ -162,6 +162,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(
                 userDataState: userDataState,
+                isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
                 forcesAllEmptyStates: dataController.forcesAllEmptyStates
             ),
             localizedStrings: slideFactory.makeLocalizedStrings(),
