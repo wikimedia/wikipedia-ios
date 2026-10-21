@@ -23,6 +23,7 @@ public struct WMFYearInReviewAnnouncementView: View {
                 action: viewModel.tappedExplore
             )
             .padding(.top, 0)
+            Spacer()
         }
         .background(Color(uiColor: WMFTheme.light.paperBackground))
     }
