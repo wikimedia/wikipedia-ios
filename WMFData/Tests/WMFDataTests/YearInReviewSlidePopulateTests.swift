@@ -575,6 +575,96 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertNil(payload.illustration(for: .history))
     }
 
+    // MARK: - daysVisited
+
+    private typealias DaysVisitedData = WMFYearInReviewDaysVisitedSlideData
+
+    private func daysVisitedPayload() async throws -> DaysVisitedData {
+        let controller = YearInReviewDaysVisitedSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+        let payload = try decode(DaysVisitedData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    func testDaysVisitedCountsDistinctDaysAndThePeakMonth() async throws {
+        try await seedPageViews([
+            // Two reads on one day count as one day.
+            pageView("Alpha", at: try date(month: 3, day: 4, hour: 9)),
+            pageView("Beta", at: try date(month: 3, day: 4, hour: 15)),
+            pageView("Gamma", at: try date(month: 3, day: 9, hour: 9)),
+            pageView("Delta", at: try date(month: 3, day: 20, hour: 9)),
+            pageView("Epsilon", at: try date(month: 7, day: 1, hour: 9)),
+            pageView("Zeta", at: try date(month: 7, day: 2, hour: 9))
+        ])
+
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 5)
+        XCTAssertEqual(payload.peakMonth, DaysVisitedData.PeakMonth(month: 3, dayCount: 3))
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testDaysVisitedIgnoresViewsOutsideTheInsightsRange() async throws {
+        let outside = try XCTUnwrap(Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 1, hour: 9)))
+        try await seedPageViews([
+            pageView("Alpha", at: try date(month: 3, day: 4, hour: 9)),
+            pageView("Beta", at: outside)
+        ])
+
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 1)
+        XCTAssertFalse(payload.isEligible, "one day is not enough for the slide")
+    }
+
+    func testDaysVisitedHasNoPeakMonthWithoutTwoDaysInOneMonth() async throws {
+        try await seedPageViews([
+            pageView("Alpha", at: try date(month: 3, day: 4, hour: 9)),
+            pageView("Beta", at: try date(month: 5, day: 4, hour: 9))
+        ])
+
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 2)
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertNil(payload.peakMonth)
+    }
+
+    func testDaysVisitedPeakMonthTieIsOneOfTheTiedMonths() throws {
+        let calendar = Calendar.current
+        let days = try [(3, 1), (3, 2), (8, 1), (8, 2), (10, 1)].map { month, day in
+            try XCTUnwrap(calendar.date(from: DateComponents(year: 2026, month: month, day: day)))
+        }
+
+        let payload = YearInReviewDaysVisitedSlideDataController.slideData(days: days, calendar: calendar)
+
+        XCTAssertEqual(payload.dayCount, 5)
+        let peakMonth = try XCTUnwrap(payload.peakMonth)
+        XCTAssertTrue([3, 8].contains(peakMonth.month))
+        XCTAssertEqual(peakMonth.dayCount, 2)
+    }
+
+    /// The same month in two years does not add up to one peak month. Together, the two Decembers have
+    /// four days and would be the peak month.
+    func testDaysVisitedCountsTheSameMonthOfTwoYearsApart() throws {
+        let calendar = Calendar.current
+        let days = try [(2025, 12, 1), (2025, 12, 2), (2026, 12, 1), (2026, 12, 2), (2026, 1, 1), (2026, 1, 2), (2026, 1, 3)].map { year, month, day in
+            try XCTUnwrap(calendar.date(from: DateComponents(year: year, month: month, day: day)))
+        }
+
+        let payload = YearInReviewDaysVisitedSlideDataController.slideData(days: days, calendar: calendar)
+
+        XCTAssertEqual(payload.peakMonth, DaysVisitedData.PeakMonth(month: 1, dayCount: 3))
+    }
+
+    func testDaysVisitedIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 0)
+        XCTAssertNil(payload.peakMonth)
+        XCTAssertFalse(payload.isEligible)
+    }
+
     /// Inserts a second CDPage row for an article, with its own page view and topics. The app does not do this on
     /// purpose, but CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can.
     private func insertDuplicatePageRow(title: String, project: WMFProject, viewedAt timestamp: Date, topicLabels: [String]) async throws {

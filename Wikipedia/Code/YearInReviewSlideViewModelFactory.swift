@@ -27,8 +27,9 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, articles visited multiple times and topic slides have real data so far.
+    /// Only the total articles, days visited, articles visited multiple times and topic slides have real data so far.
     /// A data-rich user sees their data, but a slide without enough data shows its empty version.
+    /// The days visited slide has no empty version, so it does not show without enough data.
     /// - Parameter forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
     func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
         switch userDataState {
@@ -43,14 +44,18 @@ struct YearInReviewSlideViewModelFactory {
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
             let readCount = storedReadCount() ?? 0
-            return [
+            var slides = [
                 totalArticlesSlide(
                     readCount: readCount,
                     topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
                     averageReadCount: config?.averageArticlesReadPerYear
-                ),
-                rereadArticlesSlide(storedRereadArticles() ?? [])
-            ] + topicSlides(storedTopTopics())
+                )
+            ]
+            if let daysVisited = daysVisitedSlide(storedDaysVisited()) {
+                slides.append(daysVisited)
+            }
+            slides.append(rereadArticlesSlide(storedRereadArticles() ?? []))
+            return slides + topicSlides(storedTopTopics())
         }
     }
 
@@ -123,6 +128,57 @@ struct YearInReviewSlideViewModelFactory {
         formatter.numberStyle = .percent
         formatter.maximumFractionDigits = 2
         return formatter.string(from: NSNumber(value: percentage / 100)) ?? "\(percentage)%"
+    }
+
+    // MARK: - Days visited
+
+    /// The reading days, from the report the app fills in the background. `nil` when the report
+    /// does not have this slide yet.
+    private func storedDaysVisited() -> WMFYearInReviewDaysVisitedSlideData? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .daysVisited })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(WMFYearInReviewDaysVisitedSlideData.self, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review days visited: \(error)")
+            return nil
+        }
+    }
+
+    /// `nil` unless the reader read on at least `WMFYearInReviewDaysVisitedSlideData.minimumDayCount`
+    /// days. The slide has no empty version. Without a peak month, the slide shows only the number.
+    func daysVisitedSlide(_ slideData: WMFYearInReviewDaysVisitedSlideData?) -> WMFYearInReviewSlideViewModel? {
+        guard let slideData, slideData.isEligible else {
+            return nil
+        }
+
+        let headline = CommonStrings.yearInReviewDaysVisitedTitle
+        let count = NumberFormatter.localizedString(from: NSNumber(value: slideData.dayCount), number: .decimal)
+        // Write an empty body copy without a peak month, so that the copy inside the .riv does not show.
+        var bodyText = ""
+        if let peakMonth = slideData.peakMonth, let monthName = monthName(peakMonth.month) {
+            bodyText = CommonStrings.yearInReviewDaysVisitedSubtitle(month: monthName, dayCount: peakMonth.dayCount)
+        }
+        return dataSlide(
+            id: "daysVisited",
+            artboard: "frame2",
+            stateMachine: "frame2-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: bodyText.isEmpty ? "\(headline) \(count)." : "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    /// The standalone name of the month, for example "December". `month` is from 1 to 12.
+    private func monthName(_ month: Int) -> String? {
+        let monthSymbols = Calendar.current.standaloneMonthSymbols
+        guard monthSymbols.indices.contains(month - 1) else {
+            return nil
+        }
+        return monthSymbols[month - 1]
     }
 
     // MARK: - Articles visited multiple times
