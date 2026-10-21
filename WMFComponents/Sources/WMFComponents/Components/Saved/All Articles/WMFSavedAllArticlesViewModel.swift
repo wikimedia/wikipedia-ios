@@ -220,7 +220,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         
         let vm = WMFAsyncPageRowSavedViewModel(
             id: article.id,
-            title: article.title,
+            title: article.displayTitle,
             project: article.project,
             description: article.description,
             thumbnailURL: article.thumbnailURL,
@@ -245,7 +245,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     
     private func filterArticles(with searchText: String) {
         filteredArticles = articles.filter { article in
-            WMFLegacyReadingListsDataController.matches(article.title, searchText: searchText)
+            WMFLegacyReadingListsDataController.matches(article.displayTitle, searchText: searchText)
         }
     }
 }

@@ -265,10 +265,10 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
             }
 
             let savedDate = (article?.savedDate) ?? (entry.createdDate as Date?)
-            let title = article?.displayTitle ?? titleAndProject.title
             let savedArticle = WMFSavedArticle(
                 id: id,
-                title: title,
+                title: titleAndProject.title,
+                displayTitle: article?.displayTitle,
                 project: titleAndProject.project,
                 savedDate: restrictedToListID == nil ? savedDate : (entry.createdDate as Date?) ?? savedDate,
                 description: article?.capitalizedWikidataDescriptionOrSnippet,
