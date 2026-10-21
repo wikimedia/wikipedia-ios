@@ -72,6 +72,11 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .topTopics, data: data)
     }
 
+    private func daysVisitedSlide(dayCount: Int) throws -> WMFYearInReviewSlide {
+        let data = try JSONEncoder().encode(WMFYearInReviewDaysVisitedSlideData(dayCount: dayCount, peakMonth: nil))
+        return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
+    }
+
     private func saveReport(_ slides: [WMFYearInReviewSlide], year: Int? = nil) async throws {
         try await dataController.createNewYearInReviewReport(year: year ?? self.year, slides: slides)
     }
@@ -100,6 +105,18 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         try await saveReport([try readCountSlide(500), try topTopicsSlide(readCount: 500, hasTopTopic: false)])
         let state = try await dataController.fetchUserDataState()
         XCTAssertEqual(state, .lowData, "the top topic slide shows its empty version")
+    }
+
+    func testDaysVisitedSlideWithEnoughDataCountsTowardDataRich() async throws {
+        try await saveReport([try readCountSlide(3), try daysVisitedSlide(dayCount: 2)])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .dataRich)
+    }
+
+    func testDaysVisitedSlideWithOneDayIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(500), try daysVisitedSlide(dayCount: 1)])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .lowData, "the days visited slide does not show")
     }
 
     func testSlidesBelowTheirMinimumAreLowData() async throws {
