@@ -208,18 +208,23 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
-    func exposureIsRecordedOncePerInstall() async throws {
+    func exposureIsSentOncePerInstall() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
             try saveRemoteTargetLanguages(["fr", "ar", "ja"])
 
-            #expect(try controller.recordExposureIfNeeded(languageCode: "fr") == false, "No exposure before the reader has a group")
+            #expect(controller.shouldSendExposure(languageCode: "fr") == false, "No exposure before the reader has a group")
 
             try controller.enrollIfNeeded(languageCode: "fr")
 
-            #expect(try controller.recordExposureIfNeeded(languageCode: "en") == false)
-            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
-            #expect(try controller.recordExposureIfNeeded(languageCode: "ja") == false)
+            #expect(controller.shouldSendExposure(languageCode: "en") == false)
+            #expect(controller.shouldSendExposure(languageCode: "fr"))
+            #expect(controller.shouldSendExposure(languageCode: "fr"), "Checking does not use up the exposure")
+
+            try controller.markExposureSent()
+
+            #expect(controller.hasSentExposure)
+            #expect(controller.shouldSendExposure(languageCode: "ja") == false)
         }
     }
 
@@ -231,11 +236,11 @@ final class WMFSemanticSearchDataControllerTests {
             try controller.enrollIfNeeded(languageCode: "fr")
             try controller.setEntryPointHidden(true)
 
-            #expect(try controller.recordExposureIfNeeded(languageCode: "fr") == false)
+            #expect(controller.shouldSendExposure(languageCode: "fr") == false)
 
             try controller.setEntryPointHidden(false)
 
-            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
+            #expect(controller.shouldSendExposure(languageCode: "fr"))
         }
     }
 
@@ -245,12 +250,13 @@ final class WMFSemanticSearchDataControllerTests {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
             try saveRemoteTargetLanguages(["fr"])
             try controller.enrollIfNeeded(languageCode: "fr")
-            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
+            try controller.markExposureSent()
 
             try controller.clearExperimentAssignment()
             try controller.enrollIfNeeded(languageCode: "fr")
 
-            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
+            #expect(controller.hasSentExposure == false)
+            #expect(controller.shouldSendExposure(languageCode: "fr"))
         }
     }
 

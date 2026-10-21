@@ -38,6 +38,15 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(event.mediawikiData?.database, "frwiki")
     }
 
+    func testSendingTheExposureMarksItSent() throws {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil }
+
+        instrumentation.logExperimentExposure()
+
+        XCTAssertTrue(WMFSemanticSearchDataController.shared.hasSentExposure)
+    }
+
     func testExperimentExposureNeedsAGroup() throws {
         WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil
 

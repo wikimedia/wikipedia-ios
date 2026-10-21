@@ -3,6 +3,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFTestKitchen
+import CocoaLumberjackSwift
 
 /// Sends the events of the search funnel to the `apps-search` instrument. One instance follows a
 /// search from the search screen, through the sheet of passages, to the feedback card in the
@@ -91,11 +92,16 @@ final class SearchInstrumentation {
 
     // MARK: - Experiment
 
-    /// The reader got a group. Sent once, with no instrument and outside the search funnel, on
-    /// the wiki of the search that enrolled the reader.
+    /// The reader could see the feature. Sent once per install, with no instrument and outside
+    /// the search funnel, on the wiki of the search. Call it when `shouldSendExposure` says so.
     func logExperimentExposure() {
         guard let experimentData = dataController.experimentData else { return }
         client.submitExperimentExposure(experimentData: experimentData, mediawikiDatabase: project?.mediaWikiDatabase)
+        do {
+            try dataController.markExposureSent()
+        } catch {
+            DDLogError("Recording the semantic search exposure failed: \(error)")
+        }
     }
 
     // MARK: - Search screen

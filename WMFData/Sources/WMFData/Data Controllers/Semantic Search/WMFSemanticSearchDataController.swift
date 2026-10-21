@@ -200,23 +200,19 @@ public final class WMFSemanticSearchDataController: Sendable {
     // MARK: - Exposure
 
     /// True when a search in `languageCode` should send the exposure event: the reader has a
-    /// group and no exposure went out before. Each install sends one, and this call records it.
-    /// A reader who hid the entry point in Settings before their first search on a target wiki
-    /// is not exposed, as on Android.
-    public func recordExposureIfNeeded(languageCode: String) throws -> Bool {
-        stateLock.lock()
-        defer { stateLock.unlock() }
-
-        guard isEligible(languageCode: languageCode), experimentAssignment != nil, !isEntryPointHidden, !hasSentExposure else {
-            return false
-        }
-
-        try setHasSentExposure(true)
-        return true
+    /// group and no exposure went out before. Each install sends one. A reader who hid the entry
+    /// point in Settings before their first search on a target wiki is not exposed, as on Android.
+    public func shouldSendExposure(languageCode: String) -> Bool {
+        isEligible(languageCode: languageCode) && experimentAssignment != nil && !isEntryPointHidden && !hasSentExposure
     }
 
-    private var hasSentExposure: Bool {
+    /// True after the exposure event went out on this install.
+    public var hasSentExposure: Bool {
         (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.semanticSearchExposureSent.rawValue)) ?? false
+    }
+
+    public func markExposureSent() throws {
+        try setHasSentExposure(true)
     }
 
     private func setHasSentExposure(_ hasSentExposure: Bool) throws {

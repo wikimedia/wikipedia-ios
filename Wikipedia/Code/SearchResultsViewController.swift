@@ -400,7 +400,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         let dataController = WMFSemanticSearchDataController.shared
         do {
             try dataController.enrollIfNeeded(languageCode: languageCode)
-            if try dataController.recordExposureIfNeeded(languageCode: languageCode) {
+            if dataController.shouldSendExposure(languageCode: languageCode) {
                 instrumentation.logExperimentExposure()
             }
         } catch {
