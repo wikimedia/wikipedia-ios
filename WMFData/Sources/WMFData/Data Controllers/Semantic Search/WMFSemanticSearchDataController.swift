@@ -117,14 +117,28 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     // MARK: - Experiment Assignment
 
-    /// Rolls the experiment bucket the first time a reader runs an eligible search, and returns
-    /// the persisted bucket after that. Returns nil when the search is not eligible.
+    /// Rolls the experiment bucket when search opens for a reader with a target wiki among their
+    /// app languages, as on Android, and returns the persisted bucket after that. The search can
+    /// then be on any wiki: every event of it carries the group. Returns nil for other readers.
+    @discardableResult
+    public func enrollIfNeeded() throws -> ExperimentAssignment? {
+        let appLanguageCodes = WMFDataEnvironment.current.appData.appLanguages.map(\.languageCode)
+        return try enroll(isEligible: appLanguageCodes.contains { isEligible(languageCode: $0) })
+    }
+
+    /// Rolls the experiment bucket for a search in a target language when the reader has none
+    /// yet, for example a search on a wiki outside their app languages, and returns the persisted
+    /// bucket after that. Returns nil when the search is not eligible.
     @discardableResult
     public func enrollIfNeeded(languageCode: String) throws -> ExperimentAssignment? {
+        try enroll(isEligible: isEligible(languageCode: languageCode))
+    }
+
+    private func enroll(isEligible: Bool) throws -> ExperimentAssignment? {
         stateLock.lock()
         defer { stateLock.unlock() }
 
-        guard isEligible(languageCode: languageCode) else {
+        guard isEligible else {
             return nil
         }
 
