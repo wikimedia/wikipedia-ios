@@ -2,6 +2,20 @@ import UIKit
 import Combine
 
 open class WMFComponentNavigationController: UINavigationController {
+    
+    /// Year in Review: portrait on iPad too, where multitasking ignores `supportedInterfaceOrientations`.
+    public var locksToPortrait = false
+
+    private weak var presenterToRestore: UIViewController?
+
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return (forcePortrait || locksToPortrait) ? .portrait : topViewController?.supportedInterfaceOrientations ?? .all
+    }
+
+    @available(iOS 26.0, *)
+    open override var prefersInterfaceOrientationLocked: Bool {
+        return locksToPortrait
+    }
 
     // MARK: - Private Properties
 
@@ -35,11 +49,27 @@ open class WMFComponentNavigationController: UINavigationController {
         super.viewWillAppear(animated)
         
         setBarAppearance(customLargeTitleFont: self.customLargeTitleFont)
+        
+        requestPortraitIfLocked()
     }
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         triggerNavigationBarRender()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if locksToPortrait && isBeingDismissed {
+            presenterToRestore = presentingViewController
+        }
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Lets the screen under it rotate back to match the device.
+        presenterToRestore?.setNeedsUpdateOfSupportedInterfaceOrientations()
+        presenterToRestore = nil
     }
     
     private var shouldUseTransparentAppearance: Bool = false
@@ -75,10 +105,6 @@ open class WMFComponentNavigationController: UINavigationController {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return forcePortrait ? .portrait : topViewController?.supportedInterfaceOrientations ?? .all
-    }
 
     open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
@@ -90,6 +116,19 @@ open class WMFComponentNavigationController: UINavigationController {
     
     public func turnOffForcePortrait() {
         forcePortrait = false
+    }
+    
+    private func requestPortraitIfLocked() {
+        guard locksToPortrait else { return }
+        // Before the presentation, `view.window` can still be nil. The presenter's window is the same scene.
+        guard let scene = view.window?.windowScene ?? presentingViewController?.view.window?.windowScene else { return }
+
+        scene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait)) { error in
+            debugPrint("Year in Review portrait request failed: \(error)")
+        }
+        if #available(iOS 26.0, *) {
+            setNeedsUpdateOfPrefersInterfaceOrientationLocked()
+        }
     }
     
     // MARK: - AppEnvironment Subscription

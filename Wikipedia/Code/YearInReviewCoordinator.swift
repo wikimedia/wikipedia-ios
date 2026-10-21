@@ -133,6 +133,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // Year in Review is always light, whatever the system style is. The slides replace the
         // announcement inside this same navigation controller, so they keep it.
         announcementNavigationController.overrideUserInterfaceStyle = .light
+        announcementNavigationController.locksToPortrait = true
         self.announcementNavigationController = announcementNavigationController
         navigationController.present(announcementNavigationController, animated: true)
 
@@ -179,6 +180,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         // Year in Review is always light, whatever the system style is.
         presentedNavigationController.overrideUserInterfaceStyle = .light
+        presentedNavigationController.locksToPortrait = true
         navigationController.present(presentedNavigationController, animated: true)
 
         // The reader has seen Year in Review, so the announcement no longer needs to show.
