@@ -106,7 +106,7 @@ extension SearchResultsViewController {
     // MARK: - Semantic search entry point
 
     private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
-        guard let query, !query.isEmpty, let languageCode, let project else {
+        guard takesPartInSemanticSearchExperiment, let query, !query.isEmpty, let languageCode, let project else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }

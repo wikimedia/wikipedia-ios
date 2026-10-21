@@ -16,6 +16,9 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         case topOfFeed
         case article
         case unknown
+        /// Picking a link target in the editor. It stays out of the search instrumentation and
+        /// the semantic search experiment.
+        case editor
     }
 
     var eventLoggingCategory: EventCategoryMEP { .history }
@@ -32,7 +35,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// Called with the query and the project of the search when the reader taps the semantic
     /// search entry point.
     /// Follows the search into the sheet of passages and the article. The search screen owns it.
-    let instrumentation = SearchInstrumentation()
+    let instrumentation: SearchInstrumentation
 
     var semanticSearchTappedAction: (@MainActor @Sendable (String, WMFProject) -> Void)?
 
@@ -123,6 +126,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     init(source: EventLoggingSource, dataStore: MWKDataStore) {
         self.source = source
         self.dataStore = dataStore
+        self.instrumentation = SearchInstrumentation(isEnabled: source != .editor)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -385,11 +389,29 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         resultsViewModel.reset()
     }
 
-    /// The group is rolled on the first eligible search, before any result shows. The exposure
-    /// event goes out with it.
-    private func enrollInSemanticSearchExperimentIfNeeded(languageCode: String) {
+    /// Searches from the editor neither enroll the reader nor show the entry point.
+    var takesPartInSemanticSearchExperiment: Bool {
+        source != .editor
+    }
+
+    /// A reader with a target wiki among their app languages gets a group when search opens.
+    private func enrollInSemanticSearchExperimentIfNeeded() {
+        guard takesPartInSemanticSearchExperiment else { return }
         do {
-            if try WMFSemanticSearchDataController.shared.enrollIfNeeded(languageCode: languageCode)?.isNew == true {
+            try WMFSemanticSearchDataController.shared.enrollIfNeeded()
+        } catch {
+            DDLogError("Semantic search experiment assignment failed: \(error)")
+        }
+    }
+
+    /// A search on a target wiki gets the reader a group if they have none yet. The exposure
+    /// event goes out once per install, on the first such search.
+    private func enrollInSemanticSearchExperimentIfNeeded(languageCode: String) {
+        guard takesPartInSemanticSearchExperiment else { return }
+        let dataController = WMFSemanticSearchDataController.shared
+        do {
+            try dataController.enrollIfNeeded(languageCode: languageCode)
+            if dataController.shouldSendExposure(languageCode: languageCode) {
                 instrumentation.logExperimentExposure()
             }
         } catch {
@@ -576,8 +598,9 @@ extension SearchResultsViewController: UISearchControllerDelegate {
 
     /// The search is active: the funnel of this search starts, as on Android when the search
     /// activity opens. Coming back from an article does not present the search again, so it
-    /// keeps the funnel.
+    /// keeps the funnel. The reader gets a group first, so the impression carries it.
     func willPresentSearchController(_ searchController: UISearchController) {
+        enrollInSemanticSearchExperimentIfNeeded()
         instrumentation.logSearchScreenImpression(source: source, project: siteURL.flatMap { SearchResultsMapper.project(for: $0) })
         searchBarIPadCustomizer.willPresentSearchController(searchController)
         parentSearchControllerDelegate?.willPresentSearchController?(searchController)
