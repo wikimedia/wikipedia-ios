@@ -27,8 +27,7 @@ final class WMFSavedViewModelTests: XCTestCase {
         delegate.savedArticles = articles
         delegate.readingLists = lists
         let dataController = WMFLegacyReadingListsDataController(delegate: delegate, userDefaultsStore: WMFMockKeyValueStore())
-        let strings = WMFSavedAllArticlesViewModel.LocalizedStrings(emptyStateTitle: "", emptyStateMessage: "", addToList: "", unsave: "", open: "", openInNewTab: "", openInBackgroundTab: "", removeFromSaved: "", share: "", listLimitExceeded: "", entryLimitExceeded: "", notSynced: "", articleQueuedToBeDownloaded: "")
-        let allArticlesViewModel = WMFSavedAllArticlesViewModel(dataController: dataController, localizedStrings: strings)
+        let allArticlesViewModel = WMFSavedAllArticlesViewModel(dataController: dataController)
         let readingListsViewModel = WMFReadingListsViewModel(dataController: dataController)
         let viewModel = WMFSavedViewModel(allArticlesViewModel: allArticlesViewModel, readingListsViewModel: readingListsViewModel, progressViewModel: WMFSavedProgressViewModel())
         viewModel.loggingDelegate = loggingDelegate

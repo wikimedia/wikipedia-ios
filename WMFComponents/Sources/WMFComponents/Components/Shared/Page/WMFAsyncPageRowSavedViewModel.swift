@@ -10,23 +10,9 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
         case noImage
     }
     
-    struct LocalizedStrings {
-        let open: String
-        let openInNewTab: String
-        let openInBackgroundTab: String
-        let removeFromSaved: String
-        let share: String
-        let listLimitExceeded: String
-        let entryLimitExceeded: String
-        let notSynced: String
-        let articleQueuedToBeDownloaded: String
-    }
-    
     let id: String
     let title: String
     let project: WMFProject
-    let localizedStrings: LocalizedStrings
-    
     @Published var readingListNames: [String]
     @Published private(set) var description: String?
     @Published private(set) var imageURL: URL?
@@ -62,8 +48,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
         description: String?,
         thumbnailURL: URL?,
         readingListNames: [String],
-        alertType: WMFSavedArticleAlertType = .none,
-        localizedStrings: LocalizedStrings
+        alertType: WMFSavedArticleAlertType = .none
     ) {
         self.id = id
         self.title = title
@@ -72,7 +57,6 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
         self.imageURL = thumbnailURL
         self.readingListNames = readingListNames
         self.alertType = alertType
-        self.localizedStrings = localizedStrings
         self.imageLoadingState = thumbnailURL == nil ? .noImage : .loading
         if thumbnailURL != nil {
             Task {
