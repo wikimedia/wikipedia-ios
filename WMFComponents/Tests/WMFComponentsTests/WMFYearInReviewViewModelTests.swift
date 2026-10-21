@@ -319,6 +319,40 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.showsDonateButton == false)
     }
 
+    // MARK: - Replacing a slide
+
+    /// After a donation the "You matter" slide becomes "Thank you", and the reader stays on it.
+    @Test
+    func replacingTheCurrentSlideKeepsTheReaderOnIt() {
+        let viewModel = makeViewModel()
+        viewModel.currentSlideID = "slide2"
+
+        viewModel.replaceSlide(id: "slide2", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "contributor"])
+        #expect(viewModel.currentSlideID == "contributor")
+        #expect(viewModel.showsDonateButton)
+    }
+
+    @Test
+    func replacingAnotherSlideDoesNotMoveTheReader() {
+        let viewModel = makeViewModel()
+
+        viewModel.replaceSlide(id: "slide2", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "contributor"])
+        #expect(viewModel.currentSlideID == "slide0")
+    }
+
+    @Test
+    func replacingAMissingSlideChangesNothing() {
+        let viewModel = makeViewModel()
+
+        viewModel.replaceSlide(id: "nonContributor", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "slide2"])
+    }
+
     /// A slide with its own donate button does not show the toolbar button too.
     @Test
     func aSlideWithAPrimaryDonateButtonHidesTheToolbarButton() {

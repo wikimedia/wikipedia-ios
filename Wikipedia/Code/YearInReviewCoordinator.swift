@@ -303,11 +303,27 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             },
             getDonateButtonGlobalRect: {
                 MainActor.assumeIsolated { getSourceRect() }
+            },
+            donateSuccessAction: { [weak self] in
+                MainActor.assumeIsolated {
+                    self?.showThankYouSlideAfterDonation()
+                }
             }
         )
 
         self.donateCoordinator = donateCoordinator
         donateCoordinator.start()
+    }
+
+    /// The donation is saved on the device before this runs, so the rebuilt slide reads it. The
+    /// reader stays on the same slide, which becomes the "Thank you" version.
+    private func showThankYouSlideAfterDonation() {
+        guard let viewModel,
+              let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
+              slide.id == YearInReviewSlideViewModelFactory.contributorSlideID else {
+            return
+        }
+        viewModel.replaceSlide(id: YearInReviewSlideViewModelFactory.nonContributorSlideID, with: slide)
     }
 
     /// The pages are translated per app language, so the URLs are built rather than hardcoded.
