@@ -98,6 +98,7 @@ public struct WMFSavedAllArticlesView: View {
                 }
             }
             .listStyle(.plain)
+            .wmfReportsScrollToTop()
             .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesList)
             .refreshable {
                 await viewModel.didPullToRefresh?()

@@ -528,6 +528,12 @@
 		675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
 		7A4414420000000000000021 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
+		7A4414420000000000000031 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
+		7A4414420000000000000032 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
+		7A4414420000000000000033 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
+		7A4414420000000000000035 /* SavedArticleDownloadProgressObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */; };
+		7A4414420000000000000036 /* SavedArticleDownloadProgressObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */; };
+		7A4414420000000000000037 /* SavedArticleDownloadProgressObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */; };
 		7A4414420000000000000022 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
 		7A4414420000000000000023 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
 		675C97142F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
@@ -1031,6 +1037,7 @@
 		7A4414420000000000000002 /* UITestReadingListsSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000001 /* UITestReadingListsSeeder.swift */; };
 		7A4414420000000000000005 /* SavedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000004 /* SavedUITests.swift */; };
 		7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */; };
+		7A4414420000000000000039 /* SavedArticleDownloadProgressObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */; };
 		7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */; };
 		7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */; };
 		7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
@@ -1212,12 +1219,6 @@
 		7ADEAB031FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */; };
 		7ADEAB041FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */; };
 		7ADEAB051FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */; };
-		7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
-		7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
-		7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
-		7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
-		7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
-		7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
 		7AE5248D21383D9C00CDC817 /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE5248C21383D9C00CDC817 /* WikidataFetcher.swift */; };
 		7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */; };
 		7AEBAD462102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */; };
@@ -3194,6 +3195,8 @@
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		7A4414420000000000000020 /* ReadingListsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCoordinator.swift; sourceTree = "<group>"; };
+		7A4414420000000000000030 /* SavedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCoordinator.swift; sourceTree = "<group>"; };
+		7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticleDownloadProgressObserver.swift; sourceTree = "<group>"; };
 		675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAllArticlesCoordinator.swift; sourceTree = "<group>"; };
 		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
 		675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFSuggestedEditsContentSource.m; sourceTree = "<group>"; };
@@ -3441,6 +3444,7 @@
 		7A4414420000000000000001 /* UITestReadingListsSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestReadingListsSeeder.swift; sourceTree = "<group>"; };
 		7A4414420000000000000004 /* SavedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedUITests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabCharacterizationTests.swift; sourceTree = "<group>"; };
+		7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticleDownloadProgressObserverTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestReadingListsSeederTests.swift; sourceTree = "<group>"; };
 		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
 		7A49A20021231510005C574C /* CollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFooter.swift; sourceTree = "<group>"; };
@@ -3506,8 +3510,6 @@
 		7AD5D452223874F600C01164 /* RelatedSearchFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedSearchFetcher.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
-		7AE1D3321FCD057200393471 /* Saved.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Saved.storyboard; sourceTree = "<group>"; };
-		7AE1D3381FCD10B900393471 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		7AE5248C21383D9C00CDC817 /* WikidataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikidataFetcher.swift; path = Wikipedia/Code/WikidataFetcher.swift; sourceTree = SOURCE_ROOT; };
 		7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+IndexPathValidation.swift"; sourceTree = "<group>"; };
 		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
@@ -6302,6 +6304,8 @@
 				837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */,
 				675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */,
 				7A4414420000000000000020 /* ReadingListsCoordinator.swift */,
+				7A4414420000000000000030 /* SavedCoordinator.swift */,
+				7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */,
 				37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				AB0NB0A160E0E9F600ABCD01 /* AppOnboardingCoordinator.swift */,
@@ -7255,6 +7259,7 @@
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */,
+				7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */,
 				7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */,
 				E7430460A0000000000000A1 /* WMFAuthenticationManagerTests.swift */,
 				FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */,
@@ -7450,7 +7455,6 @@
 				83E52BB31F681F940045E776 /* ShareAFactViewController.xib */,
 				7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */,
 				7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */,
-				7AE1D3381FCD10B900393471 /* SavedViewController.swift */,
 				B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */,
 				B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */,
 				7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */,
@@ -7481,7 +7485,6 @@
 		D83F5C051F0E5111006130FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7AE1D3321FCD057200393471 /* Saved.storyboard */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
 				7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */,
@@ -8846,7 +8849,6 @@
 				7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
-				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D022665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -8959,7 +8961,6 @@
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC182347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
-				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
 				B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D122665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -9063,7 +9064,6 @@
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				6782DC192347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
-				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
 				B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
 				7A9524D222665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
@@ -9400,6 +9400,7 @@
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */,
+				7A4414420000000000000039 /* SavedArticleDownloadProgressObserverTests.swift in Sources */,
 				7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */,
 				E7430460A0000000000000A2 /* WMFAuthenticationManagerTests.swift in Sources */,
 				FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */,
@@ -9655,6 +9656,8 @@
 				B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */,
 				675C97152F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */,
 				7A4414420000000000000022 /* ReadingListsCoordinator.swift in Sources */,
+				7A4414420000000000000032 /* SavedCoordinator.swift in Sources */,
+				7A4414420000000000000036 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				FF921857252E8F4F00C39A8F /* ThanksGiving.swift in Sources */,
 				BAA0D91C1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				8397601B2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift in Sources */,
@@ -9944,7 +9947,6 @@
 				67DC5BE323A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */,
 				00FCB2C326D839A500F5A47A /* NotificationsCenterCellViewModel.swift in Sources */,
-				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
 				00D46DA52889B7F50015DE9B /* TalkPageView.swift in Sources */,
 				83B01F9A23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
@@ -10518,6 +10520,8 @@
 				D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */,
 				675C97162F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */,
 				7A4414420000000000000023 /* ReadingListsCoordinator.swift in Sources */,
+				7A4414420000000000000033 /* SavedCoordinator.swift in Sources */,
+				7A4414420000000000000037 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				7A16C4E7212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
@@ -10795,7 +10799,6 @@
 				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				0042812325E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
-				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
 				67D9D1F22970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				7A2BB1D521F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
@@ -11059,6 +11062,8 @@
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				675C97142F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */,
 				7A4414420000000000000021 /* ReadingListsCoordinator.swift in Sources */,
+				7A4414420000000000000031 /* SavedCoordinator.swift in Sources */,
+				7A4414420000000000000035 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				7A16C4E8212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
@@ -11335,7 +11340,6 @@
 				009C8EC329071E720056A3AC /* NSString+Range.swift in Sources */,
 				0042812225E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
-				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				67D9D1F12970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,

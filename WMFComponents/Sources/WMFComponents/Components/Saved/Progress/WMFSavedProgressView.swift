@@ -24,18 +24,20 @@ public struct WMFSavedProgressView: View {
         .animation(.easeInOut(duration: 0.3), value: viewModel.isVisible)
     }
 
+    // Same metrics as the storyboard pill: centered label, 10 pt insets, 260 pt bar.
     private var pill: some View {
-        VStack(alignment: .leading, spacing: WMFSpacing.small) {
+        VStack(spacing: 10) {
             Text(title)
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(uiColor: appEnvironment.theme.text))
+                .multilineTextAlignment(.center)
             ProgressView(value: viewModel.fractionCompleted)
                 .progressViewStyle(.linear)
                 .tint(Color(uiColor: appEnvironment.theme.accent))
+                .frame(width: 260)
         }
-        .padding(.horizontal, WMFSpacing.large)
-        .padding(.vertical, WMFSpacing.medium)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(10)
+        .frame(maxWidth: .infinity)
         .background(pillBackground)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .circular))
         .padding(.horizontal, WMFSpacing.large)

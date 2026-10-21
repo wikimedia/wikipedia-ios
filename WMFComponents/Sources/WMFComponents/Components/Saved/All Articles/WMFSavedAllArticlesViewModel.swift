@@ -76,6 +76,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     @Published public var isEditing: Bool = false
     @Published public var hasSelection = false
     @Published public var searchText: String = ""
+    @Published public private(set) var sortOrder: WMFReadingListSortOrder = .byRecentlyAdded
     
     // MARK: - Properties
     
@@ -130,12 +131,21 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         
         Task {
             let fetchedArticles = (try? await dataController.fetchSavedArticles()) ?? []
+            self.sortOrder = (try? await dataController.savedArticlesSortOrder()) ?? .byRecentlyAdded
             self.articles = fetchedArticles
             self.filterArticles(with: self.searchText)
             self.state = fetchedArticles.isEmpty ? .empty : .data
         }
     }
     
+    public func setSortOrder(_ sortOrder: WMFReadingListSortOrder) {
+        self.sortOrder = sortOrder
+        Task {
+            try? await dataController.setSavedArticlesSortOrder(sortOrder)
+            loadArticles()
+        }
+    }
+
     public func toggleEditing() {
         isEditing.toggle()
         rowViewModelCache.values.forEach {
