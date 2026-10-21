@@ -124,6 +124,48 @@ final class SavedUITests: XCTestCase {
             .openTabs()
     }
 
+    // MARK: - Discover announcement
+
+    func testDiscoverAnnouncementShowsOnBothSegments() throws {
+        openSavedWithDiscover()
+            .assertDiscoverAnnouncementVisible()
+            .showReadingLists()
+            .assertDiscoverAnnouncementVisible()
+    }
+
+    func testDiscoverAnnouncementShowsAboveTheEmptyStates() throws {
+        openSavedWithDiscover(seed: fixture.seedWithoutArticlesOrLists)
+            .assertAllArticlesEmptyStateVisible()
+            .assertDiscoverAnnouncementVisible()
+            .showReadingLists()
+            .assertReadingListsEmptyStateVisible()
+            .assertDiscoverAnnouncementVisible()
+    }
+
+    func testDiscoverAnnouncementNoThanksHidesItOnBothSegmentsAndAfterRelaunch() throws {
+        openSavedWithDiscover()
+            .tapDiscoverNoThanks()
+            .assertDiscoverAnnouncementAbsent()
+            .showReadingLists()
+            .assertDiscoverAnnouncementAbsent()
+        relaunchKeepingData()
+            .assertDiscoverAnnouncementAbsent()
+    }
+
+    func testDiscoverAnnouncementGetStartedHidesIt() throws {
+        openSavedWithDiscover()
+            .showReadingLists()
+            .tapDiscoverGetStarted()
+            .assertDiscoverAnnouncementAbsent()
+            .showAllArticles()
+            .assertDiscoverAnnouncementAbsent()
+    }
+
+    func testDiscoverAnnouncementStaysHiddenWithoutTheFeature() throws {
+        openSaved()
+            .assertDiscoverAnnouncementAbsent()
+    }
+
     // MARK: - Reading lists
 
     func testSavedReadingListsShowsSeededLists() throws {
@@ -360,6 +402,13 @@ final class SavedUITests: XCTestCase {
             .openSaved(file: file, line: line)
     }
 
+    private func openSavedWithDiscover(seed: UITestReadingListsSeed? = nil, file: StaticString = #filePath, line: UInt = #line) -> SavedRobot {
+        launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: seed ?? fixture.seed, discoverState: .groupB)
+            .home
+            .assertVisible(file: file, line: line)
+            .openSaved(file: file, line: line)
+    }
+
     private func openFirstList(file: StaticString = #filePath, line: UInt = #line) -> ReadingListDetailRobot {
         openSaved(file: file, line: line)
             .showReadingLists(file: file, line: line)
@@ -369,7 +418,7 @@ final class SavedUITests: XCTestCase {
     /// Terminates the app and launches it again without a seed, so the data on device is kept.
     private func relaunchKeepingData(file: StaticString = #filePath, line: UInt = #line) -> SavedRobot {
         XCUIApplication().terminate()
-        return launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: nil)
+        return launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: nil, discoverState: .keep)
             .home
             .assertVisible(file: file, line: line)
             .openSaved(file: file, line: line)
