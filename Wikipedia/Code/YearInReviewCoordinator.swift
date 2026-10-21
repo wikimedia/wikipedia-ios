@@ -456,3 +456,52 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
     }
 }
+
+// MARK: - End screen
+
+extension YearInReviewCoordinator {
+
+    /// The store page with the contributor discount already applied.
+    private static let storeDiscountURL = URL(string: "https://store.wikimedia.org/discount/WikiLove?utm_campaign=bf45f7&utm_source=discount_shareable_link")
+
+    /// The languages the quiz site is available in. Any other language gets English.
+    private static let whichWikipediaLanguageCodes: Set<String> = ["ar", "en", "es", "fr", "ja", "ms", "pt"]
+
+    /// The quiz page in the reader's primary app language, or English if the site does not have it.
+    private var whichWikipediaURL: URL? {
+        let appLanguageCode = WMFDataEnvironment.current.primaryAppLanguage?.languageCode.lowercased() ?? "en"
+        let languageCode = Self.whichWikipediaLanguageCodes.contains(appLanguageCode) ? appLanguageCode : "en"
+        return URL(string: "https://wikipedia25.org/\(languageCode)/which-wikipedia-of-the-future-are-you")
+    }
+
+    @MainActor
+    func makeEndViewController(isContributor: Bool, showsShareHighlights: Bool) -> WMFYearInReviewEndHostingController {
+        let viewModel = WMFYearInReviewEndViewModel(
+            isContributor: isContributor,
+            showsShareHighlights: showsShareHighlights
+        )
+        buildEndViewModel(viewModel)
+        return WMFYearInReviewEndHostingController(viewModel: viewModel)
+    }
+
+    /// Attaches the coordinator callbacks to the end screen view model.
+    @MainActor
+    private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
+        viewModel.didTapShareHighlights = {
+            // Covered on a separate task.
+        }
+        viewModel.didTapStore = { [weak self] in
+            self?.showStore()
+        }
+        viewModel.didTapWhichWikipedia = { [weak self] in
+            self?.showHelpPage(url: self?.whichWikipediaURL)
+        }
+    }
+
+    private func showStore() {
+        guard let url = Self.storeDiscountURL else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
+}

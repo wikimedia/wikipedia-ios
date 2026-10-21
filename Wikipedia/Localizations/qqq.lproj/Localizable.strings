@@ -1729,6 +1729,15 @@
 "year-in-review-2026-edits-empty-title" = "Title of the Year in Review slide shown when the user did not make edits this year.";
 "year-in-review-2026-edits-subtitle" = "Subtitle of the Year in Review slide that shows the number of edits the user made this year.";
 "year-in-review-2026-edits-title" = "Title of the Year in Review slide that shows the number of edits the user made this year. The number follows it.";
+"year-in-review-2026-end-body" = "Body text of the last Year in Review screen.";
+"year-in-review-2026-end-contributor-gift-body" = "Body of the Year in Review end screen card that thanks contributors with a store discount.";
+"year-in-review-2026-end-contributor-gift-button" = "Button on the Year in Review end screen card that opens the Wikipedia store.";
+"year-in-review-2026-end-contributor-gift-title" = "Title of the Year in Review end screen card that thanks contributors with a store discount.";
+"year-in-review-2026-end-headline" = "Headline of the last Year in Review screen.";
+"year-in-review-2026-end-share-highlights" = "Button on the last Year in Review screen that shares the reader's highlights.";
+"year-in-review-2026-end-which-wikipedia-body" = "Body of the Year in Review end screen card that opens a quiz about Wikipedia's history.";
+"year-in-review-2026-end-which-wikipedia-button" = "Button on the Year in Review end screen card that opens a quiz about Wikipedia's history.";
+"year-in-review-2026-end-which-wikipedia-title" = "Title of the Year in Review end screen card that opens a quiz about Wikipedia's history.";
 "year-in-review-2026-favorite-time-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader does not have one time of day when they read most.";
 "year-in-review-2026-favorite-time-empty-title" = "Title of the Year in Review slide shown when the reader does not have one time of day when they read most.";
 "year-in-review-2026-favorite-time-subtitle" = "Subtitle of the Year in Review slide that shows the time of day when the reader read most. $1 is replaced with a percentage, for example \"50%\".";
