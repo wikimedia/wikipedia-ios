@@ -342,7 +342,9 @@ import WMFTestKitchen
                             }
                         } else {
                             self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
-                            self.logout(initiatedBy: .app)
+                            if !WMFAuthenticationManager.isTransientError(error) {
+                                self.logout(initiatedBy: .app)
+                            }
                             completion(.failure(error))
                         }
                     }
@@ -416,6 +418,10 @@ import WMFTestKitchen
             switch result {
             case .failure(let error):
                 DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                guard !WMFAuthenticationManager.isTransientError(error) else {
+                    completion()
+                    return
+                }
                 self.logout(initiatedBy: .server) {
                     completion()
                 }
@@ -424,6 +430,24 @@ import WMFTestKitchen
                 break
             }
         }
+    }
+
+    /// A network or server failure says nothing about the credentials. The session stays and the next attempt retries.
+    static func isTransientError(_ error: Error) -> Bool {
+        if error is URLError {
+            return true
+        }
+        if let requestError = error as? RequestError {
+            switch requestError {
+            case .serverBusy:
+                return true
+            case .http(let statusCode):
+                return statusCode == 429 || statusCode >= 500
+            default:
+                return false
+            }
+        }
+        return (error as NSError).domain == NSURLErrorDomain
     }
 
     // MARK: Logout
