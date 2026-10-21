@@ -319,6 +319,25 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.showsDonateButton == false)
     }
 
+    /// A slide with its own donate button does not show the toolbar button too.
+    @Test
+    func aSlideWithAPrimaryDonateButtonHidesTheToolbarButton() {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: [
+                WMFYearInReviewSlideViewModel(
+                    id: "nonContributor",
+                    loggingID: "nonContributor",
+                    showsPrimaryDonateButton: true
+                )
+            ],
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging
+        )
+
+        #expect(viewModel.showsDonateButton == false)
+    }
+
     // MARK: - Content color
 
     /// The slides in this suite use the default `.light` style.

@@ -136,9 +136,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         coordinatorDelegate?.handleYearInReviewAction(.close)
     }
 
-    /// Matches 2025 behavior
+    /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
     var showsDonateButton: Bool {
-        guard currentSlide?.showsDonateButton ?? false else {
+        guard let currentSlide,
+              currentSlide.showsDonateButton,
+              !currentSlide.showsPrimaryDonateButton else {
             return false
         }
 
