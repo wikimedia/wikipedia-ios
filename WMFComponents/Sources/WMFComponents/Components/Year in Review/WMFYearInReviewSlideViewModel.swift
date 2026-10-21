@@ -51,7 +51,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     public let showsShareButton: Bool
     public let showsDonateButton: Bool
     /// Shows a primary donate button below the animation. A slide with this button hides the
-    /// donate button in the toolbar.
+    /// share and donate buttons in the toolbar.
     public let showsPrimaryDonateButton: Bool
     /// The style until the slide loads, and the style if the .riv does not set `lightContentFlag`.
     public let contentStyle: ContentStyle

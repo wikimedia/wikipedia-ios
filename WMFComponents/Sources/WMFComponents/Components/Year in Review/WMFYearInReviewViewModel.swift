@@ -148,6 +148,15 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         coordinatorDelegate?.handleYearInReviewAction(.close)
     }
 
+    /// A slide with its own donate button does not show the share button, so the donate button is
+    /// the only action on the slide.
+    var showsShareButton: Bool {
+        guard let currentSlide else {
+            return false
+        }
+        return currentSlide.showsShareButton && !currentSlide.showsPrimaryDonateButton
+    }
+
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
     var showsDonateButton: Bool {
         guard let currentSlide,

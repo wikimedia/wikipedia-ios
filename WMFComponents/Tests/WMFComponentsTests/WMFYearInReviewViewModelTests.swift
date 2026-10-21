@@ -353,9 +353,9 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "slide2"])
     }
 
-    /// A slide with its own donate button does not show the toolbar button too.
+    /// A slide with its own donate button does not show the toolbar buttons.
     @Test
-    func aSlideWithAPrimaryDonateButtonHidesTheToolbarButton() {
+    func aSlideWithAPrimaryDonateButtonHidesTheToolbarButtons() {
         let viewModel = WMFYearInReviewViewModel(
             slides: [
                 WMFYearInReviewSlideViewModel(
@@ -370,6 +370,14 @@ struct WMFYearInReviewViewModelTests {
         )
 
         #expect(viewModel.showsDonateButton == false)
+        #expect(viewModel.showsShareButton == false)
+    }
+
+    @Test
+    func aSlideWithoutAPrimaryDonateButtonShowsTheShareButton() {
+        let viewModel = makeViewModel()
+
+        #expect(viewModel.showsShareButton)
     }
 
     // MARK: - Content color
