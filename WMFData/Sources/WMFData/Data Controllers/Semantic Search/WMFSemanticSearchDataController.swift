@@ -201,11 +201,13 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     /// True when a search in `languageCode` should send the exposure event: the reader has a
     /// group and no exposure went out before. Each install sends one, and this call records it.
+    /// A reader who hid the entry point in Settings before their first search on a target wiki
+    /// is not exposed, as on Android.
     public func recordExposureIfNeeded(languageCode: String) throws -> Bool {
         stateLock.lock()
         defer { stateLock.unlock() }
 
-        guard isEligible(languageCode: languageCode), experimentAssignment != nil, !hasSentExposure else {
+        guard isEligible(languageCode: languageCode), experimentAssignment != nil, !isEntryPointHidden, !hasSentExposure else {
             return false
         }
 

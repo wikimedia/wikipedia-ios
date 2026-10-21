@@ -224,6 +224,22 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
+    func hiddenEntryPointSkipsTheExposure() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr"])
+            try controller.enrollIfNeeded(languageCode: "fr")
+            try controller.setEntryPointHidden(true)
+
+            #expect(try controller.recordExposureIfNeeded(languageCode: "fr") == false)
+
+            try controller.setEntryPointHidden(false)
+
+            #expect(try controller.recordExposureIfNeeded(languageCode: "fr"))
+        }
+    }
+
+    @Test
     func clearingTheAssignmentAllowsANewExposure() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
