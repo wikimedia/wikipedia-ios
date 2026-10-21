@@ -321,6 +321,36 @@ public extension WMFDeveloperSettingsDataControlling {
         }
     }
 
+    // MARK: - Discover
+
+    /// Gates the whole Discover feature while its user stories ship one by one. Off in production.
+    public var enableDiscover: Bool {
+        get { loadFlag(.developerSettingsEnableDiscover) }
+        set {
+            saveFlag(.developerSettingsEnableDiscover, newValue)
+            NotificationCenter.default.post(name: WMFNSNotification.discoverAnnouncementStateDidChange, object: nil)
+        }
+    }
+
+    /// Debugging convenience: overrides the persisted Discover experiment bucket at read time
+    /// without re-rolling it. Nil means no override.
+    public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFDiscoverDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue)
+            }
+            NotificationCenter.default.post(name: WMFNSNotification.discoverAnnouncementStateDidChange, object: nil)
+        }
+    }
+
     // MARK: - Local Notifications
 
     /// Gates the daily top read local notification prototype. Off by default.
