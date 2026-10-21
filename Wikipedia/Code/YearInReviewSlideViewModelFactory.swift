@@ -228,7 +228,7 @@ struct YearInReviewSlideViewModelFactory {
         return listSlide(
             id: "rereadArticles",
             artboard: "frame13",
-            stateMachine: "frame12-statemachine",
+            stateMachine: "frame13-statemachine",
             headline: nil,
             bodyText: bodyText,
             items: items,
@@ -243,7 +243,7 @@ struct YearInReviewSlideViewModelFactory {
         return listSlide(
             id: "rereadArticlesEmpty",
             artboard: "frame13-empty",
-            stateMachine: "frame12-empty-statemachine",
+            stateMachine: "frame13-empty-statemachine",
             headline: headline,
             bodyText: bodyText,
             items: [],
@@ -353,8 +353,7 @@ struct YearInReviewSlideViewModelFactory {
         return listSlide(
             id: "runnerUpTopics",
             artboard: "frame7",
-            // The templates file shares the frame9 state machine with frame7.
-            stateMachine: "frame9-statemachine",
+            stateMachine: "frame7-statemachine",
             headline: nil,
             bodyText: bodyText,
             items: items,
