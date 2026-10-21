@@ -155,6 +155,10 @@ import CoreData
             return (try? decoder.decode(WMFYearInReviewReadData.self, from: data))?.isEligible ?? false
         case .topArticles:
             return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible ?? false
+        case .topTopics:
+            return (try? decoder.decode(WMFYearInReviewTopTopicsSlideData.self, from: data))?.isEligible ?? false
+        case .daysVisited:
+            return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible ?? false
         case .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
             return false

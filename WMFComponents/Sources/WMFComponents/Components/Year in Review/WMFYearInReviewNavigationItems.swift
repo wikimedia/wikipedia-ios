@@ -14,11 +14,13 @@ enum WMFYearInReviewNavigationItems {
     }
 
     /// Sets up the whole navigation bar. `closeAction` is called on `viewController`.
+    /// - Parameter showsWikipediaLogo: shows the W in the middle. The announcement turns it off.
     @MainActor
     static func configure<ViewController: UIViewController & WMFNavigationBarConfiguring>(
         _ viewController: ViewController,
         strings: Strings,
         tintColor: UIColor,
+        showsWikipediaLogo: Bool = true,
         closeAction: Selector,
         onLearnMore: @escaping () -> Void,
         onAboutInsights: @escaping () -> Void,
@@ -26,7 +28,7 @@ enum WMFYearInReviewNavigationItems {
     ) {
         let titleConfig = WMFNavigationBarTitleConfig(
             title: "",
-            customView: makeTitleView(accessibilityLabel: strings.wIconAccessibilityLabel),
+            customView: showsWikipediaLogo ? makeTitleView(accessibilityLabel: strings.wIconAccessibilityLabel) : nil,
             alignment: .centerCompact
         )
 
