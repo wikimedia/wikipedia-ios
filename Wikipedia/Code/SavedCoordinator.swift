@@ -62,7 +62,8 @@ final class SavedCoordinator: NSObject, Coordinator {
         let viewModel = WMFSavedViewModel(
             allArticlesViewModel: allArticlesCoordinator.viewModel,
             readingListsViewModel: readingListsCoordinator.viewModel,
-            progressViewModel: progressViewModel
+            progressViewModel: progressViewModel,
+            announcementViewModel: makeDiscoverAnnouncementViewModel()
         )
         viewModel.loggingDelegate = self
         viewModel.didTapProfile = { [weak self] in
@@ -83,6 +84,25 @@ final class SavedCoordinator: NSObject, Coordinator {
         self.viewModel = viewModel
         self.savedViewController = hostingController
         return hostingController
+    }
+
+    // MARK: - Discover
+
+    private let discoverNoThanksToastTitle = WMFLocalizedString("discover-announcement-no-thanks-toast", value: "To set up your recommended reading list later, go to Settings.", comment: "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.")
+
+    /// The card decides for itself whether it shows, and rechecks every time Saved appears, so a
+    /// developer setting flipped while the app runs takes effect without a relaunch.
+    private func makeDiscoverAnnouncementViewModel() -> WMFDiscoverAnnouncementViewModel {
+        let viewModel = WMFDiscoverAnnouncementViewModel()
+        viewModel.loggingDelegate = self
+        viewModel.didTapGetStarted = {
+            // The Discover setup flow lands with T440007.
+        }
+        viewModel.didTapNoThanks = { [weak self] in
+            guard let self else { return }
+            WMFToastPresenter.shared.show(WMFToastConfig(title: self.discoverNoThanksToastTitle))
+        }
+        return viewModel
     }
 
     // MARK: - Profile, tabs and Year in Review
@@ -173,6 +193,15 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
     func savedDidTapTabs() {
         ArticleTabsFunnel.shared.logIconClick(interface: .saved, project: nil)
     }
+}
+
+// MARK: - WMFDiscoverAnnouncementLoggingDelegate
+
+extension SavedCoordinator: WMFDiscoverAnnouncementLoggingDelegate {
+    // Instrumentation lands with T440585.
+    func discoverAnnouncementDidAppear() {}
+    func discoverAnnouncementDidTapGetStarted() {}
+    func discoverAnnouncementDidTapNoThanks() {}
 }
 
 // MARK: - YearInReviewBadgeDelegate

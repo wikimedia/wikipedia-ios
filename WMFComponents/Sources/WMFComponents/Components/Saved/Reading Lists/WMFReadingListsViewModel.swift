@@ -27,8 +27,15 @@ public final class WMFReadingListsViewModel: ObservableObject {
     @Published public private(set) var sortOrder: WMFReadingListSortOrder
     /// The lists the user asked to delete and is being asked to confirm. Set only for lists with articles.
     @Published public var pendingDeletion: [WMFReadingList]?
+    /// Mirrors the shared Discover card so the list re-renders when the card is answered.
+    @Published public private(set) var isAnnouncementVisible = false
 
     public let filter: WMFReadingListsFilter
+    /// The Discover onboarding card shown above the list. Shared with the All articles segment.
+    public var announcementViewModel: WMFDiscoverAnnouncementViewModel? {
+        didSet { bindAnnouncement() }
+    }
+    private var announcementCancellable: AnyCancellable?
 
     public var didTapReadingList: ((WMFReadingList) -> Void)?
     public var didTapCreateList: (() -> Void)?
@@ -56,6 +63,16 @@ public final class WMFReadingListsViewModel: ObservableObject {
 
     deinit {
         loadTask?.cancel()
+    }
+
+    private func bindAnnouncement() {
+        announcementCancellable = announcementViewModel?.$isVisible
+            .sink { [weak self] isVisible in
+                self?.isAnnouncementVisible = isVisible
+            }
+        if announcementViewModel == nil {
+            isAnnouncementVisible = false
+        }
     }
 
     public var hasSelection: Bool {

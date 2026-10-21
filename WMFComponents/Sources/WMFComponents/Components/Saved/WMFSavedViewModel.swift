@@ -56,6 +56,8 @@ public final class WMFSavedViewModel: ObservableObject {
     public let allArticlesViewModel: WMFSavedAllArticlesViewModel
     public let readingListsViewModel: WMFReadingListsViewModel
     public let progressViewModel: WMFSavedProgressViewModel
+    /// The Discover onboarding card, shared by both segments. Nil when Discover is off.
+    public let announcementViewModel: WMFDiscoverAnnouncementViewModel?
 
     public var didTapProfile: (() -> Void)?
     public var didTapTabs: (() -> Void)?
@@ -67,11 +69,14 @@ public final class WMFSavedViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    public init(allArticlesViewModel: WMFSavedAllArticlesViewModel, readingListsViewModel: WMFReadingListsViewModel, progressViewModel: WMFSavedProgressViewModel) {
+    public init(allArticlesViewModel: WMFSavedAllArticlesViewModel, readingListsViewModel: WMFReadingListsViewModel, progressViewModel: WMFSavedProgressViewModel, announcementViewModel: WMFDiscoverAnnouncementViewModel? = nil) {
         self.allArticlesViewModel = allArticlesViewModel
         self.readingListsViewModel = readingListsViewModel
         self.progressViewModel = progressViewModel
+        self.announcementViewModel = announcementViewModel
         self.sortOrder = allArticlesViewModel.sortOrder
+        allArticlesViewModel.announcementViewModel = announcementViewModel
+        readingListsViewModel.announcementViewModel = announcementViewModel
         bind()
     }
 
@@ -131,6 +136,7 @@ public final class WMFSavedViewModel: ObservableObject {
 
     public func viewWillAppear() {
         refreshProfileButtonBadge()
+        announcementViewModel?.refresh()
     }
 
     public func viewDidAppear() {

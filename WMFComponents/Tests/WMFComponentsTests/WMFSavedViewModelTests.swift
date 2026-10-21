@@ -1,4 +1,5 @@
 import XCTest
+import WMFDataTestSupport
 @testable import WMFComponents
 @testable import WMFData
 import WMFDataMocks
@@ -6,13 +7,21 @@ import WMFDataMocks
 @MainActor
 final class WMFSavedViewModelTests: XCTestCase {
 
+    private let fixture = WMFDataTestFixture()
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private var delegate: MockDelegate!
     private var loggingDelegate: MockLoggingDelegate!
 
     override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
         delegate = MockDelegate()
         loggingDelegate = MockLoggingDelegate()
+    }
+
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     private func article(_ title: String) -> WMFSavedArticle {
@@ -41,6 +50,37 @@ final class WMFSavedViewModelTests: XCTestCase {
         for _ in 0..<50 where !condition() {
             try? await Task.sleep(nanoseconds: 10_000_000)
         }
+    }
+
+    // MARK: - Discover announcement
+
+    func testTheAnnouncementIsSharedByBothSegmentsAndHidesOnBoth() async {
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        await fixture.resetWMFDataTestState()
+        WMFDeveloperSettingsDataController.shared.enableDiscover = true
+        WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+        let announcementViewModel = WMFDiscoverAnnouncementViewModel()
+        let dataController = WMFLegacyReadingListsDataController(delegate: delegate, userDefaultsStore: WMFMockKeyValueStore())
+        let allArticlesViewModel = WMFSavedAllArticlesViewModel(dataController: dataController)
+        let readingListsViewModel = WMFReadingListsViewModel(dataController: dataController)
+        let viewModel = WMFSavedViewModel(allArticlesViewModel: allArticlesViewModel, readingListsViewModel: readingListsViewModel, progressViewModel: WMFSavedProgressViewModel(), announcementViewModel: announcementViewModel)
+
+        XCTAssertTrue(viewModel.announcementViewModel === announcementViewModel)
+        XCTAssertTrue(allArticlesViewModel.isAnnouncementVisible)
+        XCTAssertTrue(readingListsViewModel.isAnnouncementVisible)
+
+        announcementViewModel.tapNoThanks()
+
+        XCTAssertFalse(allArticlesViewModel.isAnnouncementVisible)
+        XCTAssertFalse(readingListsViewModel.isAnnouncementVisible)
+    }
+
+    func testWithoutAnAnnouncementTheSegmentsShowNoCard() async {
+        let viewModel = await makeViewModel()
+        XCTAssertNil(viewModel.announcementViewModel)
+        XCTAssertFalse(viewModel.allArticlesViewModel.isAnnouncementVisible)
+        XCTAssertFalse(viewModel.readingListsViewModel.isAnnouncementVisible)
     }
 
     // MARK: - Segments
