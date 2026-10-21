@@ -52,6 +52,10 @@ struct YearInReviewSlideViewModelFactoryTests {
                     #expect(byPath["articleTitle\(number)"] != nil, "row \(number) has no title")
                     #expect(byPath["subTitle\(number)"] != nil, "row \(number) has no subtitle")
                 }
+            case "frame2":
+                #expect(byPath["headline"]?.isEmpty == false)
+                #expect(byPath["data"]?.isEmpty == false)
+                #expect(byPath["bodyCopy"] != nil)
             case "frame6-empty":
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
@@ -175,6 +179,58 @@ struct YearInReviewSlideViewModelFactoryTests {
     func slideIdsAreUnique(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
         let ids = factory.makeSlides(userDataState: userDataState).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
+    }
+
+    // MARK: - Days visited
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func daysVisitedData(dayCount: Int, peakMonth: Int? = nil, peakMonthDayCount: Int = 20) throws -> WMFYearInReviewDaysVisitedSlideData {
+        var json: [String: Any] = ["dayCount": dayCount]
+        if let peakMonth {
+            json["peakMonth"] = ["month": peakMonth, "dayCount": peakMonthDayCount]
+        }
+        let data = try JSONSerialization.data(withJSONObject: json)
+        return try JSONDecoder().decode(WMFYearInReviewDaysVisitedSlideData.self, from: data)
+    }
+
+    @Test
+    func theDaysVisitedSlideShowsTheDayCountAndThePeakMonth() throws {
+        let slide = try #require(factory.daysVisitedSlide(try daysVisitedData(dayCount: 55, peakMonth: 12)))
+
+        #expect(slide.animation?.artboardName == "frame2")
+        #expect(slide.animation?.stateMachineName == "frame2-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewDaysVisitedTitle)
+        #expect(text(slide, "data") == "55")
+        let december = Calendar.current.standaloneMonthSymbols[11]
+        let bodyCopy = try #require(text(slide, "bodyCopy"))
+        #expect(bodyCopy == CommonStrings.yearInReviewDaysVisitedSubtitle(month: december, dayCount: 20))
+        #expect(bodyCopy.contains(december))
+        #expect(bodyCopy.contains("20"))
+        // VoiceOver reads all of the text on the slide.
+        let accessibilityLabel = try #require(slide.localizedStrings.accessibilityLabel)
+        #expect(accessibilityLabel.contains(CommonStrings.yearInReviewDaysVisitedTitle))
+        #expect(accessibilityLabel.contains("55"))
+        #expect(accessibilityLabel.contains(bodyCopy))
+        // The day count uses the large number style.
+        #expect(slide.textFits.first { $0.text.path == "data" }?.fontSize.path == "dataNumberFontSize")
+    }
+
+    /// Without a peak month, the body copy is written empty, so the copy inside the .riv does not show.
+    @Test
+    func withoutAPeakMonthTheDaysVisitedSlideShowsOnlyTheDayCount() throws {
+        let slide = try #require(factory.daysVisitedSlide(try daysVisitedData(dayCount: 2)))
+
+        #expect(text(slide, "data") == "2")
+        #expect(text(slide, "bodyCopy") == "")
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewDaysVisitedTitle) 2.")
+    }
+
+    /// The slide has no empty version, so it does not show with fewer than two days or without stored data.
+    @Test
+    func theDaysVisitedSlideNeedsTwoDays() throws {
+        #expect(factory.daysVisitedSlide(nil) == nil)
+        #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 0)) == nil)
+        #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 1, peakMonth: 3, peakMonthDayCount: 1)) == nil)
     }
 
     // MARK: - Topics
