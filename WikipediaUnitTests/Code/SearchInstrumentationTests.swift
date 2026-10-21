@@ -55,6 +55,21 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertTrue(sender.events.isEmpty)
     }
 
+    func testDisabledInstrumentationSendsNothing() throws {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil }
+        let editorSearch = SearchInstrumentation(client: client, isEnabled: false)
+
+        editorSearch.logSearchScreenImpression(source: .editor, project: project)
+        editorSearch.logSearchInit(searchTerm: "la lune", project: project)
+        editorSearch.logLexicalResultsImpression(searchIDs: SearchInstrumentation.LexicalSearchIDs(prefix: "pre", fullText: "ful"))
+        editorSearch.logSearchClose()
+        editorSearch.logSearchBack()
+        editorSearch.logExperimentExposure()
+
+        XCTAssertTrue(sender.events.isEmpty)
+    }
+
     func testEachSearchActivationStartsAFunnel() throws {
         sender.events.removeAll()
         let fresh = SearchInstrumentation(client: client)

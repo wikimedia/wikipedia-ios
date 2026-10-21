@@ -79,15 +79,19 @@ final class SearchInstrumentation {
     private let client: TestKitchenClient
     private let instrument: InstrumentImpl
     private let dataController: WMFSemanticSearchDataController
+    /// Off for searches that are not reading, like picking a link target in the editor. Then
+    /// nothing goes out.
+    private let isEnabled: Bool
     private(set) var project: WMFProject?
 
     /// What the feedback prompt did in the current funnel.
     private var feedbackPromptRecord = FeedbackPromptRecord(funnelToken: nil)
 
-    init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared) {
+    init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared, isEnabled: Bool = true) {
         self.client = client
         self.instrument = client.getInstrument(name: Self.instrumentName)
         self.dataController = dataController
+        self.isEnabled = isEnabled
     }
 
     // MARK: - Experiment
@@ -95,7 +99,7 @@ final class SearchInstrumentation {
     /// The reader could see the feature. Sent once per install, with no instrument and outside
     /// the search funnel, on the wiki of the search. Call it when `shouldSendExposure` says so.
     func logExperimentExposure() {
-        guard let experimentData = dataController.experimentData else { return }
+        guard isEnabled, let experimentData = dataController.experimentData else { return }
         client.submitExperimentExposure(experimentData: experimentData, mediawikiDatabase: project?.mediaWikiDatabase)
         do {
             try dataController.markExposureSent()
@@ -303,6 +307,7 @@ final class SearchInstrumentation {
     }
 
     private func submit(action: String, actionSubtype: String? = nil, elementId: String? = nil, actionContext: [String: Any] = [:]) {
+        guard isEnabled else { return }
         instrument.submitInteraction(
             action: action,
             actionSource: Self.actionSource,
@@ -328,7 +333,7 @@ private extension SearchResultsViewController.EventLoggingSource {
         case .article: return "toolbar"
         case .topOfFeed: return "feed_bar"
         case .searchTab: return "nav_menu"
-        case .unknown: return nil
+        case .unknown, .editor: return nil
         }
     }
 }
