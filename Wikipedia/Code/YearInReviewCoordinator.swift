@@ -173,7 +173,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // reader is a contributor, and the collective slides do not exist yet, so the data state
         // stands in for "saw the personalized slides".
         viewModel.endViewModel = makeEndViewModel(
-            isContributor: false,
+            isContributor: true,
             showsShareHighlights: userDataState == .dataRich
         )
 
