@@ -14,6 +14,13 @@ public struct WMFYearInReviewEndView: View {
         appEnvironment.theme
     }
 
+    // The design is SF Pro bold 36. xxlTitleBold is 40, the closest style.
+    private let headlineFont = WMFFont.for(.xxlTitleBold)
+    // The design is EB Garamond 16. georgiaCallout is Georgia 16, the closest serif in the app.
+    private let bodyFont = WMFFont.for(.georgiaCallout)
+    // The design is SF Pro bold 26. boldTitle1 is 28, the closest style.
+    private let cardTitleFont = WMFFont.for(.boldTitle1)
+
     /// The width of the puzzle piece, from the design: the width of the box around the tilted piece.
     /// The height follows from the aspect ratio of the image.
     private static let illustrationWidth: CGFloat = 141.73
@@ -55,15 +62,13 @@ public struct WMFYearInReviewEndView: View {
                 .padding(.top, 16)
 
             Text(viewModel.headline.localizedUppercase)
-                // The design is SF Pro bold 36. xxlTitleBold is 40, the closest style.
-                .font(Font(WMFFont.for(.xxlTitleBold)))
+                .font(Font(headlineFont))
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
                 .padding(.top, 32)
 
             Text(viewModel.body)
-                // The design is EB Garamond 16. georgiaCallout is Georgia 16, the closest serif in the app.
-                .font(Font(WMFFont.for(.georgiaCallout)))
+                .font(Font(bodyFont))
                 .kerning(0.5)
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
@@ -164,14 +169,12 @@ public struct WMFYearInReviewEndView: View {
     private func cardView(_ card: WMFYearInReviewEndViewModel.Card) -> some View {
         VStack(spacing: 18) {
             Text(card.title.localizedUppercase)
-                // The design is SF Pro bold 26. boldTitle1 is 28, the closest style.
-                .font(Font(WMFFont.for(.boldTitle1)))
+                .font(Font(cardTitleFont))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
 
             Text(card.body)
-                // The design is EB Garamond 16. georgiaCallout is Georgia 16, the closest serif in the app.
-                .font(Font(WMFFont.for(.georgiaCallout)))
+                .font(Font(bodyFont))
                 .kerning(0.5)
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
