@@ -148,11 +148,12 @@ public struct WMFYearInReviewEndView: View {
     }
 
     private var shareButton: some View {
-        ctaButton(
+        WMFSmallButton(
+            configuration: .init(style: .primary),
             title: viewModel.shareHighlightsButtonTitle,
-            icon: WMFSFSymbolIcon.for(symbol: .share),
-            fill: Color(uiColor: WMFYearInReviewEndViewModel.shareButtonColor),
-            foreground: Color(uiColor: WMFColor.white)
+            image: WMFSFSymbolIcon.for(symbol: .share),
+            forceBackgroundColor: WMFYearInReviewEndViewModel.shareButtonColor,
+            forceForegroundColor: WMFColor.white
         ) {
             viewModel.didTapShareHighlights?()
         }
@@ -189,25 +190,5 @@ public struct WMFYearInReviewEndView: View {
             RoundedRectangle(cornerRadius: 24)
                 .fill(Color(uiColor: theme.midBackground))
         )
-    }
-
-    // MARK: - Button
-
-    private func ctaButton(title: String, icon: UIImage?, fill: Color, foreground: Color, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack(spacing: 8) {
-                if let icon {
-                    Image(uiImage: icon)
-                        .renderingMode(.template)
-                }
-                Text(title)
-                    .font(Font(WMFFont.for(.boldCallout)))
-            }
-            .foregroundColor(foreground)
-            .padding(.horizontal, 24)
-            .padding(.vertical, 12)
-            .background(Capsule().fill(fill))
-        }
-        .buttonStyle(.plain)
     }
 }
