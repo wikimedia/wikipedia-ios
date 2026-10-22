@@ -388,6 +388,13 @@ struct YearInReviewSlideViewModelFactory {
     private struct ContributorStatus {
         let isEditor: Bool
         let isDonor: Bool
+
+        /// A contributor edited or donated in the contributor period.
+        var isContributor: Bool { isEditor || isDonor }
+    }
+    
+    public func isContributor() -> Bool {
+        storedContributorStatus().isContributor
     }
 
     /// Edits come from the report, which has them only for a logged-in reader. Donations are stored
@@ -462,7 +469,7 @@ struct YearInReviewSlideViewModelFactory {
     /// - Parameter hidesDonate: True where donations are not accepted. Then the "You matter" slide does not show.
     /// - Returns: `nil` when no slide shows.
     func contributorSlide(isEditor: Bool, isDonor: Bool, isLoggedIn: Bool, hidesDonate: Bool) -> WMFYearInReviewSlideViewModel? {
-        guard isEditor || isDonor else {
+        guard ContributorStatus(isEditor: isEditor, isDonor: isDonor).isContributor else {
             guard !hidesDonate else {
                 return nil
             }

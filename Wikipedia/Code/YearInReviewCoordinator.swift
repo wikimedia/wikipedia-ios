@@ -170,11 +170,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
-        // TODO: Replace both values when their data sources exist. Nothing tells us yet whether the
-        // reader is a contributor, and the collective slides do not exist yet, so the data state
-        // stands in for "saw the personalized slides".
+        // TODO: Replace `showsShareHighlights` when the collective slides exist. Until then, the
+        // data state stands in for "saw the personalized slides".
         viewModel.endViewModel = makeEndViewModel(
-            isContributor: true,
+            isContributor: slideFactory.isContributor(),
             showsShareHighlights: userDataState == .dataRich
         )
 
