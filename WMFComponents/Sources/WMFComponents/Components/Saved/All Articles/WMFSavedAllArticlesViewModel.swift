@@ -223,6 +223,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             title: article.displayTitle,
             project: article.project,
             description: article.description,
+            snippet: article.snippet,
             thumbnailURL: article.thumbnailURL,
             readingListNames: article.readingListNames,
             alertType: article.alertType,

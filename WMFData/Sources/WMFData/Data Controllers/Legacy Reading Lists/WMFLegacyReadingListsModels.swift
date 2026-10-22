@@ -35,6 +35,8 @@ public struct WMFSavedArticle: Identifiable, Equatable, Sendable {
     public let project: WMFProject
     public let savedDate: Date?
     public let description: String?
+    /// The first lines of the article, shown in the long-press preview.
+    public let snippet: String?
     public let thumbnailURL: URL?
     public var readingListNames: [String]
     public var alertType: WMFSavedArticleAlertType
@@ -46,6 +48,7 @@ public struct WMFSavedArticle: Identifiable, Equatable, Sendable {
         project: WMFProject,
         savedDate: Date?,
         description: String? = nil,
+        snippet: String? = nil,
         thumbnailURL: URL? = nil,
         readingListNames: [String],
         alertType: WMFSavedArticleAlertType = .none
@@ -56,6 +59,7 @@ public struct WMFSavedArticle: Identifiable, Equatable, Sendable {
         self.project = project
         self.savedDate = savedDate
         self.description = description
+        self.snippet = snippet
         self.thumbnailURL = thumbnailURL
         self.readingListNames = readingListNames
         self.alertType = alertType

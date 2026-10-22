@@ -272,6 +272,7 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
                 project: titleAndProject.project,
                 savedDate: restrictedToListID == nil ? savedDate : (entry.createdDate as Date?) ?? savedDate,
                 description: article?.capitalizedWikidataDescriptionOrSnippet,
+                snippet: article?.snippet,
                 thumbnailURL: article?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth()),
                 readingListNames: restrictedToListID == nil ? (customListName.map { [$0] } ?? []) : (article?.sortedNonDefaultReadingLists.compactMap { $0.name } ?? []),
                 alertType: alertType

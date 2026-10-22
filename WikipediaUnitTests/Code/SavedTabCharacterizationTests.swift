@@ -85,6 +85,16 @@ final class SavedTabCharacterizationTests: XCTestCase {
     }
 
     @MainActor
+    func testAllArticlesFetchCarriesTheSnippetForTheLongPressPreview() async throws {
+        try saveArticle(titled: "Zebra", snippet: "Zebras are African equines with striped coats.", minutesAgo: 1)
+
+        let savedArticles = try await makeDataController(sortOrder: .byTitle).fetchSavedArticles()
+        let savedArticle = try XCTUnwrap(savedArticles.first)
+
+        XCTAssertEqual(savedArticle.snippet, "Zebras are African equines with striped coats.")
+    }
+
+    @MainActor
     func testAllArticlesAlertFollowsDownloadState() async throws {
         let queued = try saveArticle(titled: "Queued", minutesAgo: 3)
         queued.isDownloaded = false
@@ -240,10 +250,11 @@ final class SavedTabCharacterizationTests: XCTestCase {
     // MARK: - Helpers
 
     @discardableResult
-    private func saveArticle(titled title: String, displayTitle: String? = nil, minutesAgo: Int) throws -> WMFArticle {
+    private func saveArticle(titled title: String, displayTitle: String? = nil, snippet: String? = nil, minutesAgo: Int) throws -> WMFArticle {
         let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/wiki/\(title.replacingOccurrences(of: " ", with: "_"))"))
         let article = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: url))
         article.displayTitleHTML = displayTitle ?? title
+        article.snippet = snippet
         dataStore.savedPageList.addSavedPage(with: url)
         let date = Date(timeIntervalSinceNow: -TimeInterval(minutesAgo * 60))
         article.savedDate = date
