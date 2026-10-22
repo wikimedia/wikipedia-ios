@@ -24,6 +24,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         return .portrait
     }
 
+    /// On iPad, the supported orientations above are not enough when the app supports multitasking.
+    /// iPadOS 26 and later honors this preference instead, but only while this screen is visible,
+    /// and the system may not honor it.
+    @available(iOS 26.0, *)
+    public override var prefersInterfaceOrientationLocked: Bool {
+        return true
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
@@ -71,6 +79,24 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         configureToolbar()
         navigationController?.setToolbarHidden(false, animated: animated)
         refreshToolbarItems()
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        lockToPortraitOnIPad()
+    }
+
+    // MARK: - Orientation
+
+    /// Asks for portrait, then asks the system to keep it while this screen shows.
+    private func lockToPortraitOnIPad() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+
+        view.window?.windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait)) { _ in }
+
+        if #available(iOS 26.0, *) {
+            setNeedsUpdateOfPrefersInterfaceOrientationLocked()
+        }
     }
 
     // MARK: - Toolbar

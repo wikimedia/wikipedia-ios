@@ -116,6 +116,12 @@ extension HomeRobot {
     }
 
     @discardableResult
+    func openSaved(file: StaticString = #filePath, line: UInt = #line) -> SavedRobot {
+        tapRootTab(.saved, file: file, line: line)
+        return SavedRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
     func openTabs(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Tabs.button, file: file, line: line)
         return ArticleRobot(base: base, configuration: configuration)

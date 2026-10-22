@@ -156,6 +156,24 @@ extension UITestRobot {
     }
 }
 
+// MARK: - Menus and ordering
+
+extension UITestRobot {
+    /// A context-menu, pull-down-menu, action-sheet or alert item with this visible title.
+    func menuItem(withTitle title: String) -> XCUIElement {
+        let predicate = NSPredicate(format: "label == %@ OR identifier == %@", title, title)
+        return app.descendants(matching: .any).matching(predicate).firstMatch
+    }
+
+    /// The identifiers of the given elements that exist on screen, in top-to-bottom order.
+    func identifiersOrderedTopToBottom(of elements: [XCUIElement]) -> [String] {
+        elements
+            .filter { $0.exists && !$0.frame.isEmpty }
+            .sorted { $0.frame.minY < $1.frame.minY }
+            .map { $0.identifier }
+    }
+}
+
 // MARK: - Gestures
 
 extension UITestRobot {
