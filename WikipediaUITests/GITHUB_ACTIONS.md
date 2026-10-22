@@ -30,6 +30,7 @@ The `UITests` test plan selects that target and defines the checked-in configura
 | --- | --- | --- | --- | --- | --- | --- |
 | Run Unit Tests | `.github/workflows/run_unit_tests.yml` | `pull_request` to `main`, `push` to `main`, manual dispatch | `Wikipedia`, `WMFComponents`, `WMFData` matrix | Scheme defaults | Full scheme tests | PR and main-branch unit test signal for app, components, and data layers |
 | Run UI Tests | `.github/workflows/run_ui_tests.yml` | Nightly cron (02:00 UTC against `main`), manual dispatch from any branch | `WikipediaUITests` | `UITests`, `English (Light)` | Full configuration | Deterministic fixture-backed UI regression signal on a nightly cadence |
+| Run Saved Tab UI Tests | `.github/workflows/run_saved_ui_tests.yml` | `pull_request` to `main`, manual dispatch from any branch | `WikipediaUITests` | `UITests`, `English (Light)` | `WikipediaUITests/SavedUITests` | Fixture-backed parity net for the Saved tab while it is rewritten in SwiftUI (T441442) |
 | Run E2E Tests | `.github/workflows/run_e2e_ui_tests.yml` | `pull_request` to `main`, manual dispatch from any branch | `WikipediaUITests` | `UITests`, `English (Light, E2E)` | Identifiers in `WikipediaUITests/E2ESmokeTests.txt` | Small live-network smoke signal for flows where integration matters |
 | Run Full UI Test Plan | `.github/workflows/run_full_ui_test_plan.yml` | Manual dispatch from any branch | `WikipediaUITests` | Every checked-in `UITests.xctestplan` configuration | Full selected configuration per matrix job | Branch confidence across fixture, E2E, language, RTL, and theme configurations |
 
@@ -130,6 +131,7 @@ before changing source code.
 Update this document when any of these change:
 
 - `.github/workflows/run_ui_tests.yml`
+- `.github/workflows/run_saved_ui_tests.yml`
 - `.github/workflows/run_e2e_ui_tests.yml`
 - `.github/workflows/run_full_ui_test_plan.yml`
 - `.github/actions/prepare-simulator`

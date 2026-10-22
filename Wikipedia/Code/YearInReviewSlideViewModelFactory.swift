@@ -322,12 +322,13 @@ struct YearInReviewSlideViewModelFactory {
         )
         let bodyText = "\(subtitle) \(topic.yearInReviewSentence)"
 
+        // `dataSlide` shows the data in capitals, so the topic name is passed as written.
         return dataSlide(
             id: "topTopic",
             artboard: "frame6",
             stateMachine: "frame6-statemachine",
             headline: headline,
-            data: topicName.localizedUppercase,
+            data: topicName,
             dataFit: Self.dataTextFit,
             bodyText: bodyText,
             images: illustration.map { [Self.topicIcon: $0] } ?? [:],
@@ -551,6 +552,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// A list slide from the templates file. Pass `nil` for a text field that the frame does not
     /// use. The file has room for three items. Pass no items for a frame without rows.
+    /// The headline is shown as written, not in capitals.
     private func listSlide(
         id: String,
         artboard: String,
@@ -633,7 +635,9 @@ struct YearInReviewSlideViewModelFactory {
     )
 
     /// A slide from the templates file that shows one number or one short text. Pass `nil` for a
-    /// text field that the frame does not use.
+    /// text field that the frame does not use. The data is shown in capitals, for example
+    /// "WEDNESDAY EVENINGS". The headline is shown as written. The accessibility label keeps the
+    /// text as written.
     /// - Parameter dataFit: The fit of `data`. A number uses `dataNumberFit`, and a text uses `dataTextFit`.
     private func dataSlide(
         id: String,
@@ -651,7 +655,7 @@ struct YearInReviewSlideViewModelFactory {
             DataTextPath.bodyCopy: bodyText
         ]
         if let data {
-            text[DataTextPath.data] = data
+            text[DataTextPath.data] = data.localizedUppercase
         }
 
         return WMFYearInReviewSlideViewModel(

@@ -191,6 +191,7 @@ struct WMFAsyncPageRowSaved: View {
                     }) {
                         Image(uiImage: deleteIcon)
                     }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowDeleteSwipeButton)
                     .tint(Color(uiColor: appEnvironment.theme.destructive))
 
                     Button(action: {
@@ -198,6 +199,7 @@ struct WMFAsyncPageRowSaved: View {
                     }) {
                         Image(uiImage: shareIcon)
                     }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowShareSwipeButton)
                     .tint(Color(uiColor: appEnvironment.theme.secondaryAction))
                 }
             }
@@ -311,6 +313,7 @@ struct WMFAsyncPageRowSaved: View {
                         .fixedSize(horizontal: true, vertical: true)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.readingListTag(text))
             }
         }
     }
