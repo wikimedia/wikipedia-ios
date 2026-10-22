@@ -18,6 +18,8 @@ enum WMFYearInReviewLocalConfig {
         languages: 300,
         articles: 65667790,
         savedArticlesApps: 46392587,
+        // Not in the production entry yet. The value is from the collective copy.
+        volunteerEditors: 250000,
         viewsApps: 14085467928,
         editsApps: 1936242,
         editsPerMinute: 324,

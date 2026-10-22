@@ -35,6 +35,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
             languages: testConfig.languages,
             articles: testConfig.articles,
             savedArticlesApps: testConfig.savedArticlesApps,
+            volunteerEditors: testConfig.volunteerEditors,
             viewsApps: testConfig.viewsApps,
             editsApps: testConfig.editsApps,
             editsPerMinute: testConfig.editsPerMinute,

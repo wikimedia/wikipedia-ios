@@ -21,6 +21,8 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let languages: Int
             public let articles: Int
             public let savedArticlesApps: Int
+            /// Not in the 2025 config, so it is optional.
+            public let volunteerEditors: Int?
             public let viewsApps: Int
             public let editsApps: Int
             public let editsPerMinute: Int
@@ -44,6 +46,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
                 case languages
                 case articles
                 case savedArticlesApps
+                case volunteerEditors
                 case viewsApps
                 case editsApps
                 case editsPerMinute

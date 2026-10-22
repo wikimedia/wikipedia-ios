@@ -27,6 +27,8 @@ final class WMFDeveloperSettingsDataControllerTests {
             #expect(yirConfig.languages == 300)
             #expect(yirConfig.articles == 10000000)
             #expect(yirConfig.savedArticlesApps == 37574993)
+            // The mock config has no volunteer editors value, the same as the 2025 config.
+            #expect(yirConfig.volunteerEditors == nil)
             #expect(yirConfig.viewsApps == 1000000000)
             #expect(yirConfig.editsApps == 124356)
             #expect(yirConfig.editsPerMinute == 342)
@@ -164,7 +166,7 @@ final class WMFDeveloperSettingsDataControllerTests {
         await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
             let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
             let common = WMFFeatureConfigResponse.Common.YearInReview.testConfig
-            let config = WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z", dataStartDateString: common.dataStartDateString, dataEndDateString: common.dataEndDateString, languages: common.languages, articles: common.articles, savedArticlesApps: common.savedArticlesApps, viewsApps: common.viewsApps, editsApps: common.editsApps, editsPerMinute: common.editsPerMinute, averageArticlesReadPerYear: common.averageArticlesReadPerYear, edits: common.edits, editsEN: common.editsEN, hoursReadEN: common.hoursReadEN, yearsReadEN: common.yearsReadEN, topReadEN: common.topReadEN, topReadPercentages: common.topReadPercentages, bytesAddedEN: common.bytesAddedEN, hideCountryCodes: common.hideCountryCodes, hideDonateCountryCodes: common.hideDonateCountryCodes)
+            let config = WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z", dataStartDateString: common.dataStartDateString, dataEndDateString: common.dataEndDateString, languages: common.languages, articles: common.articles, savedArticlesApps: common.savedArticlesApps, volunteerEditors: common.volunteerEditors, viewsApps: common.viewsApps, editsApps: common.editsApps, editsPerMinute: common.editsPerMinute, averageArticlesReadPerYear: common.averageArticlesReadPerYear, edits: common.edits, editsEN: common.editsEN, hoursReadEN: common.hoursReadEN, yearsReadEN: common.yearsReadEN, topReadEN: common.topReadEN, topReadPercentages: common.topReadPercentages, bytesAddedEN: common.bytesAddedEN, hideCountryCodes: common.hideCountryCodes, hideDonateCountryCodes: common.hideDonateCountryCodes)
             let beforeStart = dateFormatter.date(from: "2026-10-01T00:00:00Z")!
             let afterEnd = dateFormatter.date(from: "2027-02-01T00:00:01Z")!
 
