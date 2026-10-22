@@ -4,15 +4,10 @@ import SwiftUI
 /// button, and a row of cards.
 public struct WMFYearInReviewEndView: View {
 
-    @ObservedObject private var appEnvironment = WMFAppEnvironment.current
     @ObservedObject private var viewModel: WMFYearInReviewEndViewModel
 
     /// The space the navigation bar takes at the top. The sky still runs under the bar.
     private let topInset: CGFloat
-
-    private var theme: WMFTheme {
-        appEnvironment.theme
-    }
 
     // The design is SF Pro bold 36. xxlTitleBold is 40, the closest style.
     private let headlineFont = WMFFont.for(.xxlTitleBold)
@@ -170,18 +165,23 @@ public struct WMFYearInReviewEndView: View {
         VStack(spacing: 18) {
             Text(card.title.localizedUppercase)
                 .font(Font(cardTitleFont))
-                .foregroundColor(Color(uiColor: theme.text))
+                .foregroundColor(Color(uiColor: WMFTheme.light.text))
                 .multilineTextAlignment(.center)
 
             Text(card.body)
                 .font(Font(bodyFont))
                 .kerning(0.5)
-                .foregroundColor(Color(uiColor: theme.text))
+                .foregroundColor(Color(uiColor: WMFTheme.light.text))
                 .multilineTextAlignment(.center)
 
             Spacer(minLength: 0)
 
-            WMFSmallButton(configuration: .init(style: .primary), title: card.buttonTitle) {
+            WMFSmallButton(
+                configuration: .init(style: .primary),
+                title: card.buttonTitle,
+                forceBackgroundColor: WMFTheme.light.link,
+                forceForegroundColor: WMFTheme.light.paperBackground
+            ) {
                 viewModel.didTap(card)
             }
         }
@@ -191,7 +191,7 @@ public struct WMFYearInReviewEndView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 24)
-                .fill(Color(uiColor: theme.midBackground))
+                .fill(Color(uiColor: WMFTheme.light.midBackground))
         )
     }
 }
