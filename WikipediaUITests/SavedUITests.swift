@@ -1,8 +1,7 @@
 import XCTest
 
 /// Characterization tests for the Saved tab, written against the UIKit screens before the SwiftUI rewrite (T441442).
-/// The seeded data comes from `SavedFixture`. Tests marked with `XCTExpectFailure` encode the
-/// sorting behavior the rewrite must deliver; the legacy screens do not pass them yet.
+/// The seeded data comes from `SavedFixture`.
 final class SavedUITests: XCTestCase {
 
     // MARK: - All articles
@@ -35,10 +34,9 @@ final class SavedUITests: XCTestCase {
     }
 
     func testSavedAllArticlesSortsByLocalizedTitle() throws {
-        let saved = openSaved().sort(by: .byTitle)
-        XCTExpectFailure("T441442: the legacy All articles title sort compares strings byte by byte, not by locale.") {
-            saved.assertArticleRowsOrdered(fixture.allArticlesByTitle)
-        }
+        openSaved()
+            .sort(by: .byTitle)
+            .assertArticleRowsOrdered(fixture.allArticlesByTitle)
     }
 
     /// `apple` sits above `Émile Zola` under any title sort, binary or localized, and below it under "recently added".
@@ -112,6 +110,7 @@ final class SavedUITests: XCTestCase {
     func testSavedAllArticlesLongPressShowsContextMenu() throws {
         openSaved()
             .longPressArticleRow(SavedFixture.latestArticleTitle)
+            .assertContextMenuPreviewShows(SavedFixture.latestArticleSnippet)
             .dismissContextMenu()
             .assertArticleRowVisible(SavedFixture.latestArticleTitle)
     }
@@ -160,10 +159,10 @@ final class SavedUITests: XCTestCase {
     }
 
     func testSavedReadingListsSortsByLocalizedTitle() throws {
-        let saved = openSaved().showReadingLists().sort(by: .byTitle)
-        XCTExpectFailure("T441442: the legacy reading lists title sort compares names byte by byte, not by locale.") {
-            saved.assertReadingListsOrdered(fixture.readingListsByTitle)
-        }
+        openSaved()
+            .showReadingLists()
+            .sort(by: .byTitle)
+            .assertReadingListsOrdered(fixture.readingListsByTitle)
     }
 
     func testSavedReadingListsSortSurvivesRelaunch() throws {
@@ -171,10 +170,9 @@ final class SavedUITests: XCTestCase {
             .showReadingLists()
             .sort(by: .byRecentlyAdded)
             .assertReadingList(SavedFixture.accentedListName, isAbove: SavedFixture.lowercaseListName)
-        let saved = relaunchKeepingData().showReadingLists()
-        XCTExpectFailure("T441442: the legacy reading lists sort is not persisted and goes back to title on relaunch.") {
-            saved.assertReadingList(SavedFixture.accentedListName, isAbove: SavedFixture.lowercaseListName)
-        }
+        relaunchKeepingData()
+            .showReadingLists()
+            .assertReadingList(SavedFixture.accentedListName, isAbove: SavedFixture.lowercaseListName)
     }
 
     func testSavedReadingListsCellOpensDetail() throws {
@@ -239,10 +237,9 @@ final class SavedUITests: XCTestCase {
     }
 
     func testReadingListDetailSortsByLocalizedTitle() throws {
-        let detail = openFirstList().sort(by: .byTitle)
-        XCTExpectFailure("T441442: the legacy reading list title sort compares titles byte by byte, not by locale.") {
-            detail.assertArticlesOrdered(fixture.firstListArticlesByTitle)
-        }
+        openFirstList()
+            .sort(by: .byTitle)
+            .assertArticlesOrdered(fixture.firstListArticlesByTitle)
     }
 
     /// Whatever order the title sort gives, the top two rows must be the same after a relaunch,

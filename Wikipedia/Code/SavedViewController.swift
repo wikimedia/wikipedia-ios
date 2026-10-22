@@ -25,11 +25,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     private var allArticlesCoordinator: SavedAllArticlesCoordinator?
     private weak var allArticlesHostingController: UIViewController?
-    private var allArticlesSortType: SortActionType = .byRecentlyAdded {
-        didSet {
-            allArticlesCoordinator?.sortType = allArticlesSortType
-        }
-    }
+    private var allArticlesSortType: SortActionType = .byRecentlyAdded
 
     @objc weak var tabBarDelegate: AppTabBarDelegate?
 

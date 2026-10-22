@@ -8,7 +8,6 @@ import WMFNativeLocalizations
 
 /// Characterization tests for the Saved tab rules that survive the SwiftUI rewrite (T441442):
 /// the saved-articles fetch, search and sort semantics, alert gates and list-name validation.
-/// Tests wrapped in `XCTExpectFailure` encode the sorting behavior the rewrite must deliver.
 final class SavedTabCharacterizationTests: XCTestCase {
 
     private var dataStore: MWKDataStore!
@@ -23,6 +22,7 @@ final class SavedTabCharacterizationTests: XCTestCase {
 
     override func tearDown() {
         window = nil
+        dataSources = []
         dataStore.removeFolderAtBasePath()
         super.tearDown()
     }
@@ -38,7 +38,7 @@ final class SavedTabCharacterizationTests: XCTestCase {
         try dataStore.readingListsController.add(articles: [article], to: animals)
         try dataStore.viewContext.save()
 
-        let savedArticles = try await makeCoordinator(sortType: .byTitle).fetchAllSavedArticles()
+        let savedArticles = try await makeDataController(sortOrder: .byTitle).fetchSavedArticles()
 
         XCTAssertEqual(savedArticles.map { $0.title }, ["Dog"])
         XCTAssertEqual(Set(savedArticles[0].readingListNames), ["Zoology", "animals"])
@@ -51,7 +51,7 @@ final class SavedTabCharacterizationTests: XCTestCase {
         try saveArticle(titled: "Émile Zola", minutesAgo: 2)
         try saveArticle(titled: "Zebra", minutesAgo: 1)
 
-        let savedArticles = try await makeCoordinator(sortType: .byRecentlyAdded).fetchAllSavedArticles()
+        let savedArticles = try await makeDataController(sortOrder: .byRecentlyAdded).fetchSavedArticles()
 
         XCTAssertEqual(savedArticles.map { $0.title }, ["Zebra", "Émile Zola", "apple", "Dog"])
     }
@@ -63,11 +63,35 @@ final class SavedTabCharacterizationTests: XCTestCase {
         try saveArticle(titled: "Émile Zola", minutesAgo: 2)
         try saveArticle(titled: "Zebra", minutesAgo: 1)
 
-        let savedArticles = try await makeCoordinator(sortType: .byTitle).fetchAllSavedArticles()
+        let savedArticles = try await makeDataController(sortOrder: .byTitle).fetchSavedArticles()
 
-        XCTExpectFailure("T441442: the legacy All articles title sort compares strings byte by byte, not by locale.") {
-            XCTAssertEqual(savedArticles.map { $0.title }, ["apple", "Dog", "Émile Zola", "Zebra"])
-        }
+        XCTAssertEqual(savedArticles.map { $0.title }, ["apple", "Dog", "Émile Zola", "Zebra"])
+    }
+
+    /// A page can carry a display title that differs from its canonical title (DISPLAYTITLE).
+    /// Article URLs come from the canonical title; the display title is for the row only.
+    @MainActor
+    func testAllArticlesFetchKeepsTheCanonicalTitleNextToTheDisplayTitle() async throws {
+        try saveArticle(titled: "IPhone", displayTitle: "iPhone", minutesAgo: 1)
+
+        let savedArticles = try await makeDataController(sortOrder: .byTitle).fetchSavedArticles()
+        let savedArticle = try XCTUnwrap(savedArticles.first)
+
+        XCTAssertEqual(savedArticle.title, "IPhone")
+        XCTAssertEqual(savedArticle.displayTitle, "iPhone")
+
+        let articleURL = try XCTUnwrap(savedArticle.project.siteURL?.wmf_URL(withTitle: savedArticle.title))
+        XCTAssertNotNil(dataStore.fetchArticle(with: articleURL), "The Saved tab rebuilds the article URL from the title to share and open the article.")
+    }
+
+    @MainActor
+    func testAllArticlesFetchCarriesTheSnippetForTheLongPressPreview() async throws {
+        try saveArticle(titled: "Zebra", snippet: "Zebras are African equines with striped coats.", minutesAgo: 1)
+
+        let savedArticles = try await makeDataController(sortOrder: .byTitle).fetchSavedArticles()
+        let savedArticle = try XCTUnwrap(savedArticles.first)
+
+        XCTAssertEqual(savedArticle.snippet, "Zebras are African equines with striped coats.")
     }
 
     @MainActor
@@ -81,7 +105,7 @@ final class SavedTabCharacterizationTests: XCTestCase {
         failed.error = .apiFailed
         try dataStore.viewContext.save()
 
-        let savedArticles = try await makeCoordinator(sortType: .byRecentlyAdded).fetchAllSavedArticles()
+        let savedArticles = try await makeDataController(sortOrder: .byRecentlyAdded).fetchSavedArticles()
         let alertsByTitle = Dictionary(uniqueKeysWithValues: savedArticles.map { ($0.title, $0.alertType) })
 
         XCTAssertEqual(alertsByTitle["Queued"], .downloading)
@@ -97,7 +121,7 @@ final class SavedTabCharacterizationTests: XCTestCase {
         defaultEntry.errorCode = APIReadingListError.entryLimit.rawValue
         try dataStore.viewContext.save()
 
-        var savedArticles = try await makeCoordinator(sortType: .byTitle).fetchAllSavedArticles()
+        var savedArticles = try await makeDataController(sortOrder: .byTitle).fetchSavedArticles()
         XCTAssertEqual(savedArticles.first?.alertType, .genericNotSynced, "An entry limit on the default list is reported as a generic sync problem.")
 
         defaultEntry.errorCode = nil
@@ -105,7 +129,7 @@ final class SavedTabCharacterizationTests: XCTestCase {
         defaultList.errorCode = APIReadingListError.listLimit.rawValue
         try dataStore.viewContext.save()
 
-        savedArticles = try await makeCoordinator(sortType: .byTitle).fetchAllSavedArticles()
+        savedArticles = try await makeDataController(sortOrder: .byTitle).fetchSavedArticles()
         let listLimit = dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser
         XCTAssertEqual(savedArticles.first?.alertType, .listLimitExceeded(limit: listLimit))
     }
@@ -226,10 +250,11 @@ final class SavedTabCharacterizationTests: XCTestCase {
     // MARK: - Helpers
 
     @discardableResult
-    private func saveArticle(titled title: String, minutesAgo: Int) throws -> WMFArticle {
+    private func saveArticle(titled title: String, displayTitle: String? = nil, snippet: String? = nil, minutesAgo: Int) throws -> WMFArticle {
         let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/wiki/\(title.replacingOccurrences(of: " ", with: "_"))"))
         let article = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: url))
-        article.displayTitleHTML = title
+        article.displayTitleHTML = displayTitle ?? title
+        article.snippet = snippet
         dataStore.savedPageList.addSavedPage(with: url)
         let date = Date(timeIntervalSinceNow: -TimeInterval(minutesAgo * 60))
         article.savedDate = date
@@ -246,12 +271,19 @@ final class SavedTabCharacterizationTests: XCTestCase {
         return try dataStore.viewContext.fetch(request)
     }
 
+    /// The All articles sort is stored on the default reading list, which is what the data source reads.
     @MainActor
-    private func makeCoordinator(sortType: SortActionType) -> SavedAllArticlesCoordinator {
-        let coordinator = SavedAllArticlesCoordinator(navigationController: UINavigationController(), dataStore: dataStore, theme: .standard)
-        coordinator.sortType = sortType
-        return coordinator
+    private func makeDataController(sortOrder: WMFReadingListSortOrder) async throws -> WMFLegacyReadingListsDataController {
+        let dataSource = LegacyReadingListsDataSource(dataStore: dataStore)
+        dataSource.unsaveConfirmation = nil
+        dataSources.append(dataSource)
+        let controller = WMFLegacyReadingListsDataController(delegate: dataSource)
+        try await controller.setSavedArticlesSortOrder(sortOrder)
+        return controller
     }
+
+    /// The controller holds its delegate weakly; keep the data sources alive for the test.
+    private var dataSources: [LegacyReadingListsDataSource] = []
 
     private func makePresenter() -> UIViewController {
         let presenter = UIViewController()
