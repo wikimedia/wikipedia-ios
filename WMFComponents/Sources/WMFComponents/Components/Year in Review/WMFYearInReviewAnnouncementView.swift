@@ -2,7 +2,6 @@ import SwiftUI
 
 public struct WMFYearInReviewAnnouncementView: View {
 
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFYearInReviewAnnouncementViewModel
 
     public init(viewModel: WMFYearInReviewAnnouncementViewModel) {
@@ -23,7 +22,8 @@ public struct WMFYearInReviewAnnouncementView: View {
                 forceForegroundColor: WMFTheme.light.paperBackground,
                 action: viewModel.tappedExplore
             )
-            .padding(.bottom, 8)
+            .padding(.top, 0)
+            Spacer()
         }
         .background(Color(uiColor: WMFTheme.light.paperBackground))
     }
