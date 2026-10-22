@@ -79,7 +79,7 @@ public struct WMFYearInReviewView: View {
     @ViewBuilder
     private var slideViews: some View {
         ForEach(viewModel.slides) { slide in
-            WMFYearInReviewSlideView(slide: slide) { lightContent in
+            WMFYearInReviewSlideView(slide: slide, isCurrent: slide.id == viewModel.currentSlideID) { lightContent in
                 viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
             }
                 .containerRelativeFrame(.vertical)

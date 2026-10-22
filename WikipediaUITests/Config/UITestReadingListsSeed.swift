@@ -12,6 +12,7 @@ struct UITestReadingListsSeed: Codable {
     struct Article: Codable {
         let title: String
         let description: String?
+        let snippet: String?
         let savedMinutesAgo: Int
         let readingListNames: [String]
     }

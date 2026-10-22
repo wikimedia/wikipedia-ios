@@ -82,7 +82,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     public let localizedStrings: LocalizedStrings
     private let dataController: WMFLegacyReadingListsDataController
     
-    private var rowViewModelCache: [String: WMFAsyncPageRowSavedViewModel] = [:]
+    private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
     
     // MARK: - Closures
     
@@ -195,7 +195,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         didTapAddToList?(selectedArticles)
     }
     
-    func rowViewModel(for article: WMFSavedArticle) -> WMFAsyncPageRowSavedViewModel {
+    func rowViewModel(for article: WMFSavedArticle) -> WMFPageRowSavedViewModel {
         if let cached = rowViewModelCache[article.id] {
             // reading list names may have changed
             // Defer the update to avoid publishing during view evaluation
@@ -207,7 +207,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             return cached
         }
         
-        let localizedStrings = WMFAsyncPageRowSavedViewModel.LocalizedStrings(
+        let localizedStrings = WMFPageRowSavedViewModel.LocalizedStrings(
             open: localizedStrings.open,
             openInNewTab: localizedStrings.openInNewTab,
             openInBackgroundTab: localizedStrings.openInBackgroundTab,
@@ -218,11 +218,12 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             notSynced: localizedStrings.notSynced,
             articleQueuedToBeDownloaded: localizedStrings.articleQueuedToBeDownloaded)
         
-        let vm = WMFAsyncPageRowSavedViewModel(
+        let vm = WMFPageRowSavedViewModel(
             id: article.id,
-            title: article.title,
+            title: article.displayTitle,
             project: article.project,
             description: article.description,
+            snippet: article.snippet,
             thumbnailURL: article.thumbnailURL,
             readingListNames: article.readingListNames,
             alertType: article.alertType,
@@ -253,7 +254,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     
     private func filterArticles(with searchText: String) {
         filteredArticles = articles.filter { article in
-            WMFLegacyReadingListsDataController.matches(article.title, searchText: searchText)
+            WMFLegacyReadingListsDataController.matches(article.displayTitle, searchText: searchText)
         }
     }
 }

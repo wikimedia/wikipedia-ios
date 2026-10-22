@@ -59,6 +59,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// announcement and the log in prompt copy.
     private var announcementUserDataState: WMFYearInReviewDataController.YiRUserDataState = .lowData
 
+    /// The navigation controller the announcement is presented in. The slides replace the
+    /// announcement inside it, so it holds whichever of the two is showing.
+    private weak var announcementNavigationController: UINavigationController?
+
     private weak var viewModel: WMFYearInReviewViewModel?
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
@@ -94,6 +98,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         self.introSlideLoggingID = introSlideLoggingID
 
+        return await presentAnnouncement()
+    }
+
+    /// Opens the announcement from an entry point the reader tapped, such as the Activity tab card.
+    /// It skips the "should the pop-up show" check, because the reader asked for it.
+    @discardableResult
+    @MainActor
+    func presentFeatureAnnouncementFromEntryPoint() async -> Bool {
+        return await presentAnnouncement()
+    }
+
+    @MainActor
+    private func presentAnnouncement() async -> Bool {
         let userDataState = (try? dataController.fetchUserDataState()) ?? .lowData
         let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
 
@@ -110,8 +127,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
 
         let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
-        let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
+        // Full screen from the first frame, same style as the slides.
+        let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         announcementNavigationController.isModalInPresentation = true
+        // Year in Review is always light, whatever the system style is. The slides replace the
+        // announcement inside this same navigation controller, so they keep it.
+        announcementNavigationController.overrideUserInterfaceStyle = .light
+        self.announcementNavigationController = announcementNavigationController
         navigationController.present(announcementNavigationController, animated: true)
 
         // Marked here, when it is on screen, so an early exit above does not use it up.
@@ -121,9 +143,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Presentation
 
+    /// Builds the slides and their hosting controller. Shared by the direct presentation and the
+    /// in place transition from the announcement.
+    ///
     /// `userDataState` is nil for the profile entry point, which does not pick slides here. The data
     /// controller picks it then, and the developer settings can override it.
-    private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
+    ///
+    /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
+    /// has data. `userDataState` is a temporary proxy for that (see `dataRichEligibleSlideThreshold`
+    /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
+    private func makeYearInReviewHostingController(userDataState: WMFYearInReviewDataController.YiRUserDataState?) -> WMFYearInReviewHostingController {
         // `fetchUserDataState()` runs on the main actor. This method only runs on the main thread,
         // because it presents view controllers.
         let userDataState = userDataState ?? MainActor.assumeIsolated {
@@ -142,9 +171,37 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         self.viewModel = viewModel
 
-        let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
+        return WMFYearInReviewHostingController(viewModel: viewModel)
+    }
+
+    private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
+        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
+        // Year in Review is always light, whatever the system style is.
+        presentedNavigationController.overrideUserInterfaceStyle = .light
         navigationController.present(presentedNavigationController, animated: true)
+
+        // The reader has seen Year in Review, so the announcement no longer needs to show.
+        dataController.hasSeenYiRIntroSlide = true
+    }
+
+    /// Replaces the announcement with the first slide inside the same full screen navigation
+    /// controller, so nothing is dismissed and presented again.
+    private func transitionAnnouncementToYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState?) {
+        guard let announcementNavigationController,
+              announcementNavigationController.presentingViewController != nil else {
+            presentYearInReview(userDataState: userDataState)
+            return
+        }
+
+        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
+
+        // The announcement blocks swipe to dismiss. The slides never did.
+        announcementNavigationController.isModalInPresentation = false
+
+        UIView.transition(with: announcementNavigationController.view, duration: 0.3, options: .transitionCrossDissolve) {
+            announcementNavigationController.setViewControllers([hostingController], animated: false)
+        }
 
         // The reader has seen Year in Review, so the announcement no longer needs to show.
         dataController.hasSeenYiRIntroSlide = true
@@ -163,6 +220,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let copy = announcementFactory.makeLoginPromptCopy(userDataState: announcementUserDataState)
 
         let alert = UIAlertController(title: copy.title, message: copy.message, preferredStyle: .alert)
+        alert.overrideUserInterfaceStyle = .light
 
         let loginAction = UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
             self?.dismissAnnouncement {
@@ -171,9 +229,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
-            self?.dismissAnnouncement {
-                self?.presentYearInReview(userDataState: .lowData)
-            }
+            self?.transitionAnnouncementToYearInReview(userDataState: .lowData)
         }
 
         alert.addAction(loginAction)
@@ -283,7 +339,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
-        let webViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        let webViewController = SinglePageWebViewController(configType: .standard(config), theme: .light)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
         presentedViewController.present(webNavigationController, animated: true)
     }
@@ -347,9 +403,7 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
             return
         }
 
-        dismissAnnouncement { [weak self] in
-            self?.presentYearInReview(userDataState: userDataState)
-        }
+        transitionAnnouncementToYearInReview(userDataState: userDataState)
     }
 
     func yearInReviewAnnouncementDidTapClose() {

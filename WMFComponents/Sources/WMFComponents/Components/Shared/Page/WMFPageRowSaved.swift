@@ -1,9 +1,9 @@
 import SwiftUI
 import WMFData
 
-struct WMFAsyncPageRowSavedAlertView: View {
+struct WMFPageRowSavedAlertView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let viewModel: WMFAsyncPageRowSavedViewModel
+    let viewModel: WMFPageRowSavedViewModel
 
     private var alertString: String? {
         switch viewModel.alertType {
@@ -41,10 +41,10 @@ struct WMFAsyncPageRowSavedAlertView: View {
         }
 }
 
-struct WMFAsyncPageRowSaved: View {
+struct WMFPageRowSaved: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
+    @ObservedObject var viewModel: WMFPageRowSavedViewModel
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     typealias FromLongPress = Bool
@@ -103,7 +103,7 @@ struct WMFAsyncPageRowSaved: View {
                                     readingListTags
                                 }
                             } else {
-                                WMFAsyncPageRowSavedAlertView(viewModel: viewModel)
+                                WMFPageRowSavedAlertView(viewModel: viewModel)
                             }
 
                         }
@@ -318,7 +318,7 @@ struct WMFAsyncPageRowSaved: View {
         }
     }
 
-    private func getPreviewViewModel(from viewModel: WMFAsyncPageRowSavedViewModel) -> WMFArticlePreviewViewModel {
+    private func getPreviewViewModel(from viewModel: WMFPageRowSavedViewModel) -> WMFArticlePreviewViewModel {
         var url: URL? = nil
         if let siteURL = viewModel.project.siteURL {
             var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)

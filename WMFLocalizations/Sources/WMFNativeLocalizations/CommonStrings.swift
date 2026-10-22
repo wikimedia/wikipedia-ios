@@ -1110,6 +1110,21 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, url)
     }
 
+    // Highlights image
+
+    public static let yearInReviewHighlightsTitle = WMFLocalizedString("year-in-review-2026-highlights-title", value: "Wikipedia Year in Review 2026", comment: "Title of the image the reader shares with their Year in Review highlights.")
+    public static let yearInReviewHighlightsArticlesRead = WMFLocalizedString("year-in-review-2026-highlights-articles-read", value: "Number of articles read:", comment: "Label on the Year in Review highlights image. The number of articles the reader read this year follows it.")
+    public static let yearInReviewHighlightsMinutesRead = WMFLocalizedString("year-in-review-2026-highlights-minutes-read", value: "Total minutes read:", comment: "Label on the Year in Review highlights image. The number of minutes the reader spent reading this year follows it.")
+    public static let yearInReviewHighlightsRotation = WMFLocalizedString("year-in-review-2026-highlights-rotation", value: "Articles in my rotation:", comment: "Label on the Year in Review highlights image. A list of the articles the reader read many times this year follows it.")
+    public static let yearInReviewHighlightsRabbitHole = WMFLocalizedString("year-in-review-2026-highlights-rabbit-hole", value: "Longest rabbit hole:", comment: "Label on the Year in Review highlights image. The articles in the longest chain of links the reader followed this year follow it.")
+    public static let yearInReviewHighlightsNicheCategory = WMFLocalizedString("year-in-review-2026-highlights-niche-category", value: "Niche category explored:", comment: "Label on the Year in Review highlights image. The name of an unusual category the reader read about this year follows it.")
+    public static let yearInReviewHighlightsCreatedWith = WMFLocalizedString("year-in-review-2026-highlights-created-with", value: "Created with the Wikipedia App", comment: "Footer of the Year in Review highlights image.")
+
+    // Log in prompt
+
+    public static let yearInReviewLoginPromptCollectiveTitle = WMFLocalizedString("year-in-review-2026-login-prompt-collective-title", value: "Wikipedia is best with an account", comment: "Title of the prompt that asks logged-out readers without enough reading data for a personalized Year in Review to log in or create an account.")
+    public static let yearInReviewLoginPromptCollectiveMessage = WMFLocalizedString("year-in-review-2026-login-prompt-collective-message", value: "Logging in gives you access to the best parts of the app. Start building next year’s Year in Review by creating an account today.", comment: "Message of the prompt that asks logged-out readers without enough reading data for a personalized Year in Review to log in or create an account.")
+
     // Outro cards
 
     public static let yearInReviewStoreCardTitle = WMFLocalizedString("year-in-review-2026-store-card-title", value: "A small thank-you", comment: "Title of the Year in Review card that gives a discount on the Wikipedia store.")

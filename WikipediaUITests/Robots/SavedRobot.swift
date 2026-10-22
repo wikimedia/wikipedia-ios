@@ -157,6 +157,21 @@ extension SavedRobot {
         return self
     }
 
+    /// The context menu preview shows the article snippet from the saved record. It must not need the network.
+    /// The preview window exposes its texts as plain elements with a label, not as static texts.
+    @discardableResult
+    func assertContextMenuPreviewShows(_ text: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let previewText = base.app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", text)).firstMatch
+        base.assertExists(
+            previewText,
+            timeout: 5,
+            description: "context menu preview text '\(text)'",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
     @discardableResult
     func dismissContextMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
         let item = base.menuItem(withTitle: fixture.labels.removeFromSaved)
