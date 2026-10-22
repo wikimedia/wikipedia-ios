@@ -55,7 +55,8 @@ struct SearchResultsMapper {
 
     func description(for result: MWKSearchResult) -> String? {
         let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: siteURL.wmf_languageCode)
-        let mapping = redirectMappings.first(where: { $0.redirectToTitle == result.displayTitle })
+        // Redirect targets are canonical titles, so match the title rather than the display title, which can be a variant title
+        let mapping = redirectMappings.first(where: { $0.redirectToTitle == result.title })
         guard let redirectFromTitle = mapping?.redirectFromTitle else {
             return capitalizedWikidataDescription
         }

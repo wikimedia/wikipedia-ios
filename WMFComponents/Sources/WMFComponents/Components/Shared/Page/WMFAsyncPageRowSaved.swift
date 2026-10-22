@@ -84,7 +84,7 @@ struct WMFAsyncPageRowSaved: View {
                     HStack(spacing: 12) {
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.title)
+                            Text(viewModel.displayTitle)
                                 .font(Font(WMFFont.for(.semiboldHeadline)))
                                 .foregroundColor(Color(uiColor: appEnvironment.theme.text))
                                 .lineLimit(1)
@@ -122,7 +122,7 @@ struct WMFAsyncPageRowSaved: View {
             }
         }
         .accessibilityElement()
-        .accessibilityLabel("\(viewModel.title) - \(viewModel.description ?? "")")
+        .accessibilityLabel("\(viewModel.displayTitle) - \(viewModel.description ?? "")")
         .accessibilityAddTraits(.isButton)
         .overlay(
             GeometryReader { geometry in
@@ -326,6 +326,6 @@ struct WMFAsyncPageRowSaved: View {
             url = components?.url
         }
 
-        return WMFArticlePreviewViewModel(url: url, titleHtml: viewModel.title, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
+        return WMFArticlePreviewViewModel(url: url, titleHtml: viewModel.displayTitle, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
     }
 }

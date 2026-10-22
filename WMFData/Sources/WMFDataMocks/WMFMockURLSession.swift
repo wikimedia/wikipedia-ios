@@ -48,8 +48,13 @@ final class WMFMockServerErrorSession: WMFURLSession, @unchecked Sendable {
     }
 }
 
+// @unchecked Sendable: test-only; the recorded request var is written and read serially by tests.
 final class WMFMockNoInternetConnectionSession: WMFURLSession, @unchecked Sendable {
+
+    var request: URLRequest?
+
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
+        self.request = request
 
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
         completionHandler(nil, nil, error)

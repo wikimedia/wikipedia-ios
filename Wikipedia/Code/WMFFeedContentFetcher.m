@@ -85,7 +85,9 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     }
 
     NSURL *feedURL = [[self class] feedContentURLForSiteURL:siteURL onDate:date configuration:self.configuration];
+    NSDictionary<NSString *, NSString *> *headers = [self.configuration feedContentAPIHeadersForURL:feedURL];
     [self.session getJSONDictionaryFromURL:feedURL
+                                   headers:headers
                                ignoreCache:NO
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable jsonDictionary, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                              if (error) {

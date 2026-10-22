@@ -5,6 +5,7 @@
 #import <WMF/WMFComparison.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/NSString+WMFExtras.h>
+#import <WMF/WMF-Swift.h>
 
 @interface MWKSearchResult ()
 
@@ -29,6 +30,9 @@
 @property (nonatomic, copy, readwrite) NSNumber *titleNamespace;
 
 @property (nonatomic, copy, readwrite) CLLocation *location;
+
+/// Display titles keyed by legacy MediaWiki variant code (e.g. zh-tw), from inprop=varianttitles
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *variantTitles;
 
 @end
 
@@ -122,6 +126,13 @@
     return [MTLValueTransformer
         transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
             return [self displayTitleFromValue:value];
+        }];
+}
+
++ (NSValueTransformer *)variantTitlesJSONTransformer {
+    return [MTLValueTransformer
+        transformerUsingForwardBlock:^id(NSDictionary *value, BOOL *success, NSError **error) {
+            return [value isKindOfClass:[NSDictionary class]] ? value : nil;
         }];
 }
 
@@ -236,7 +247,20 @@
              WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoDimension): @"coordinates",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoType): @"coordinates",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns"};
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, variantTitles): @"varianttitles"};
+}
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
+    // variantTitles is only needed to pick the display title, which is encoded on its own
+    NSMutableDictionary *behaviors = [[super encodingBehaviorsByPropertyKey] mutableCopy];
+    behaviors[WMF_SAFE_KEYPATH(MWKSearchResult.new, variantTitles)] = @(MTLModelEncodingBehaviorExcluded);
+    return behaviors;
+}
+
+- (id)decodeVariantTitlesWithCoder:(NSCoder *)coder modelVersion:(NSUInteger)modelVersion {
+    // variantTitles isn't encoded. Without this, Mantle still decodes it and asserts that it has no allowed secure coding classes.
+    return nil;
 }
 
 - (nullable NSURL *)articleURLForSiteURL:(nullable NSURL *)siteURL {
@@ -259,6 +283,22 @@
 
 + (NSArray<NSString *> *)languageVariantCodePropagationURLKeys {
     return @[@"thumbnailURL"];
+}
+
+- (void)propagateLanguageVariantCode:(nullable NSString *)languageVariantCode {
+    [super propagateLanguageVariantCode:languageVariantCode];
+
+    // The API doesn't convert titles to the user's variant (Linux内核 on zh-tw), so use varianttitles, keyed by the legacy code (zh-tw)
+    if (!languageVariantCode || self.variantTitles.count == 0) {
+        return;
+    }
+    NSString *legacyLanguageVariantCode = [WikipediaLookup legacyLanguageVariantCodeForLanguageVariantCode:languageVariantCode];
+    NSString *variantTitle = legacyLanguageVariantCode ? self.variantTitles[legacyLanguageVariantCode] : nil;
+    if (![variantTitle isKindOfClass:[NSString class]] || variantTitle.length == 0) {
+        return;
+    }
+    self.displayTitle = [variantTitle wmf_stringByRemovingHTML];
+    self.displayTitleHTML = variantTitle;
 }
 
 @end

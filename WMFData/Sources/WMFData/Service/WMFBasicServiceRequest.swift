@@ -15,14 +15,17 @@ public struct WMFBasicServiceRequest: WMFServiceRequest {
     public let url: URL?
     public let method: WMFServiceRequestMethod
     public let languageVariantCode: String?
+    /// Overrides the Accept-Language header, which otherwise defaults to languageVariantCode
+    public let acceptLanguage: String?
     public let parameters: [String: Any]?
     public var contentType: ContentType?
     public var acceptType: AcceptType
 
-    internal init(url: URL? = nil, method: WMFServiceRequestMethod, languageVariantCode: String? = nil, parameters: [String : Any]? = nil, contentType: ContentType? = nil, acceptType: AcceptType) {
+    internal init(url: URL? = nil, method: WMFServiceRequestMethod, languageVariantCode: String? = nil, acceptLanguage: String? = nil, parameters: [String : Any]? = nil, contentType: ContentType? = nil, acceptType: AcceptType) {
         self.url = url
         self.method = method
         self.languageVariantCode = languageVariantCode
+        self.acceptLanguage = acceptLanguage
         self.parameters = parameters
         self.contentType = contentType
         self.acceptType = acceptType
