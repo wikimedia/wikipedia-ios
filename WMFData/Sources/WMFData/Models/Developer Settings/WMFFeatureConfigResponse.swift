@@ -114,6 +114,19 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         public init(yir: [YearInReview]) {
             self.yir = yir
         }
+
+        // Older apps read `yir`, which is now empty, so they do not show an incomplete 2026 Year
+        // in Review. This app reads only `yirv2`.
+        enum CodingKeys: String, CodingKey {
+            case yir = "yirv2"
+        }
+
+        // A config without `yirv2`, such as the test wiki config, must still decode, because the
+        // other features read the same response.
+        public init(from decoder: any Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            yir = try container.decodeIfPresent([YearInReview].self, forKey: .yir) ?? []
+        }
     }
     
     public struct IOS: Codable, Sendable {

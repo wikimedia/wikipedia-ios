@@ -1,22 +1,20 @@
 import Foundation
 
-/// TEMPORARY: a local copy of the 2026 `yir` entry of the remote feature config
-/// (`commonv1.yir` in `MediaWiki:AppsFeatureConfig.json` on test and `feed/configuration` on
-/// production). `WMFYearInReviewDataController.config` uses it only while the
-/// `forceYiREntryPoint2026` developer setting is on and the remote config has no 2026 entry.
-///
-// TODO: Remove this file when the 2026 entry is published on wikifeeds.
+/// TEMPORARY: a local copy of the 2026 entry of the remote feature config (`commonv1.yirv2` in
+/// `feed/configuration`). `WMFYearInReviewDataController.config` uses it only while the
+/// `forceYiREntryPoint2026` developer setting is on and the remote config has no 2026 entry, for
+/// example in a staging build or before the first fetch.
 enum WMFYearInReviewLocalConfig {
 
     typealias YearInReview = WMFFeatureConfigResponse.Common.YearInReview
 
     static let year2026 = YearInReview(
         year: 2026,
-        activeStartDateString: "2026-12-02T20:00:00Z",
+        activeStartDateString: "2026-12-02T18:00:00Z",
         activeEndDateString: "2027-02-01T00:00:00Z",
         dataStartDateString: "2026-01-01T00:00:00Z",
         dataEndDateString: "2026-12-01T00:00:00Z",
-        // The global stats below are the 2025 production values (checked 2026-09-28), as placeholders until the 2026 values are known.
+        // Same values as the production `yirv2` entry (checked 2026-10-22).
         languages: 300,
         articles: 65667790,
         savedArticlesApps: 46392587,

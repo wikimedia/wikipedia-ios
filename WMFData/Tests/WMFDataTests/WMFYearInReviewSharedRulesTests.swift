@@ -84,7 +84,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         let dataController = try makeDataController(remoteYearInReviewConfigs: [], forceYiR2026: true)
         let config = try XCTUnwrap(dataController.config)
         XCTAssertEqual(config.year, 2026)
-        XCTAssertEqual(config.activeStartDateString, "2026-12-02T20:00:00Z")
+        XCTAssertEqual(config.activeStartDateString, "2026-12-02T18:00:00Z")
         XCTAssertEqual(config.activeEndDateString, "2027-02-01T00:00:00Z")
         XCTAssertEqual(config.dataStartDateString, "2026-01-01T00:00:00Z")
         XCTAssertEqual(config.dataEndDateString, "2026-12-01T00:00:00Z")

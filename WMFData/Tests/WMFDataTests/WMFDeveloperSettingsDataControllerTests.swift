@@ -55,6 +55,19 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
+    /// Older apps read `yir`. This app reads only `yirv2`, so an entry in `yir` does not count.
+    @Test
+    func yearInReviewEntriesComeOnlyFromYirV2() throws {
+        let entry = #"{"year": 2026, "activeStartDate": "2026-12-02T18:00:00Z", "activeEndDate": "2027-02-01T00:00:00Z", "dataStartDate": "2026-01-01T00:00:00Z", "dataEndDate": "2026-12-01T00:00:00Z", "languages": 300, "articles": 1, "savedArticlesApps": 1, "viewsApps": 1, "editsApps": 1, "editsPerMinute": 1, "averageArticlesReadPerYear": 1, "edits": 1, "editsEN": 1, "hoursReadEN": 1, "yearsReadEN": 1, "topReadEN": [], "topReadPercentages": [], "bytesAddedEN": 1, "hideCountryCodes": [], "hideDonateCountryCodes": []}"#
+
+        let v2 = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: Data(#"{"commonv1": {"yir": [], "yirv2": [\#(entry)]}, "iosv1": {}}"#.utf8))
+        let v1Only = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: Data(#"{"commonv1": {"yir": [\#(entry)]}, "iosv1": {}}"#.utf8))
+
+        #expect(v2.common.yir(year: 2026)?.languages == 300)
+        // The test wiki config has only `yir`. The other features still get their settings.
+        #expect(v1Only.common.yir.isEmpty)
+    }
+
     @Test
     func visualEditorIsDisabledWhenTheFeatureConfigOmitsTheKey() throws {
         let json = Data("""
