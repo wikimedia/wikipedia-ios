@@ -161,7 +161,7 @@ public struct WMFYearInReviewEndView: View {
     // MARK: - Cards
 
     private func cardView(_ card: WMFYearInReviewEndViewModel.Card) -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 18) {
             Text(card.title.localizedUppercase)
                 // The design is SF Pro bold 26. boldTitle1 is 28, the closest style.
                 .font(Font(WMFFont.for(.boldTitle1)))
@@ -181,7 +181,9 @@ public struct WMFYearInReviewEndView: View {
                 viewModel.didTap(card)
             }
         }
-        .padding(24)
+        .padding(.horizontal, 20)
+        .padding(.top, 24)
+        .padding(.bottom, 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 24)

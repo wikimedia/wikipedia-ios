@@ -13,7 +13,7 @@ public struct WMFCardCarouselView<Item: Identifiable, Card: View>: View {
     ///   - cardWidthFraction: How much of the screen width one card takes. Less than 1 lets the next card peek in.
     public init(
         items: [Item],
-        cardSpacing: CGFloat = 16,
+        cardSpacing: CGFloat = 24,
         cardWidthFraction: CGFloat = 0.8,
         @ViewBuilder card: @escaping (Item) -> Card
     ) {
