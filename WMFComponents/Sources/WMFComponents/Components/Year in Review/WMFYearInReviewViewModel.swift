@@ -124,6 +124,18 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return (loadedContentStyles[currentSlide.id] ?? currentSlide.contentStyle).color
     }
 
+    /// Puts `slide` in the place of the slide with `id`, for example the contributor slide after a
+    /// donation. If the reader is on that slide, they stay on it.
+    public func replaceSlide(id: String, with slide: WMFYearInReviewSlideViewModel) {
+        guard let index = slides.firstIndex(where: { $0.id == id }) else { return }
+        let wasCurrent = currentSlideID == id
+        slides[index] = slide
+        loadedContentStyles[id] = nil
+        if wasCurrent {
+            currentSlideID = slide.id
+        }
+    }
+
     /// Records the style that a slide read from its .riv after it loaded.
     func slideDidLoad(lightContent: Bool, slideID: String) {
         loadedContentStyles[slideID] = lightContent ? .light : .dark
@@ -166,9 +178,20 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         coordinatorDelegate?.handleYearInReviewAction(.close)
     }
 
-    /// Matches 2025 behavior
+    /// A slide with its own donate button does not show the share button, so the donate button is
+    /// the only action on the slide.
+    var showsShareButton: Bool {
+        guard let currentSlide else {
+            return false
+        }
+        return currentSlide.showsShareButton && !currentSlide.showsPrimaryDonateButton
+    }
+
+    /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
     var showsDonateButton: Bool {
-        guard currentSlide?.showsDonateButton ?? false else {
+        guard let currentSlide,
+              currentSlide.showsDonateButton,
+              !currentSlide.showsPrimaryDonateButton else {
             return false
         }
 

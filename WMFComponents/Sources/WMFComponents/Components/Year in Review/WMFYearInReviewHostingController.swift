@@ -132,7 +132,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     private func refreshToolbarItems() {
         var items: [UIBarButtonItem] = []
 
-        if viewModel.currentSlide?.showsShareButton == true {
+        if viewModel.showsShareButton {
             items.append(
                 makeToolbarItem(
                     title: viewModel.localizedStrings.shareButtonTitle,

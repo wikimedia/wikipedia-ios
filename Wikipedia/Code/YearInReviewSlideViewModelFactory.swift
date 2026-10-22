@@ -27,11 +27,31 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times and topic slides have real data so far.
+    /// Only the total articles, days visited, articles visited multiple times, topic and contributor slides have real data so far.
     /// A data-rich user sees their data, but a slide without enough data shows its empty version.
     /// The days visited slide has no empty version, so it does not show without enough data.
-    /// - Parameter forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
-    func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+    /// Every flow ends with the contributor slide.
+    /// - Parameters:
+    ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
+    ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
+    func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+        let contributorSlides = makeContributorSlide(isLoggedIn: isLoggedIn).map { [$0] } ?? []
+        return personalizedSlides(userDataState: userDataState, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+    }
+
+    /// The contributor slide from the stored edits and the donations on the device. Also used to
+    /// refresh the slide after a donation.
+    func makeContributorSlide(isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
+        let contributor = storedContributorStatus()
+        return contributorSlide(
+            isEditor: contributor.isEditor,
+            isDonor: contributor.isDonor,
+            isLoggedIn: isLoggedIn,
+            hidesDonate: (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? false
+        )
+    }
+
+    private func personalizedSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
         switch userDataState {
         case .lowData:
             // TODO: Show the collective slides when the templates file has them. Until then, a
@@ -228,7 +248,7 @@ struct YearInReviewSlideViewModelFactory {
         return listSlide(
             id: "rereadArticles",
             artboard: "frame13",
-            stateMachine: "frame12-statemachine",
+            stateMachine: "frame13-statemachine",
             headline: nil,
             bodyText: bodyText,
             items: items,
@@ -243,7 +263,7 @@ struct YearInReviewSlideViewModelFactory {
         return listSlide(
             id: "rereadArticlesEmpty",
             artboard: "frame13-empty",
-            stateMachine: "frame12-empty-statemachine",
+            stateMachine: "frame13-empty-statemachine",
             headline: headline,
             bodyText: bodyText,
             items: [],
@@ -354,13 +374,134 @@ struct YearInReviewSlideViewModelFactory {
         return listSlide(
             id: "runnerUpTopics",
             artboard: "frame7",
-            // The templates file shares the frame9 state machine with frame7.
-            stateMachine: "frame9-statemachine",
+            stateMachine: "frame7-statemachine",
             headline: nil,
             bodyText: bodyText,
             items: items,
             images: images,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
+    // MARK: - Contributor
+
+    private struct ContributorStatus {
+        let isEditor: Bool
+        let isDonor: Bool
+    }
+
+    /// Edits come from the report, which has them only for a logged-in reader. Donations are stored
+    /// on the device, so they are read now, and a donation made a moment ago counts.
+    private func storedContributorStatus() -> ContributorStatus {
+        let isDonor: Bool
+        if let dateRange = WMFYearInReviewDataController.contributorDateRange(year: WMFYearInReviewDataController.targetYear),
+           let donations = WMFDonateDataController.shared.loadLocalDonationHistory(startDate: dateRange.start, endDate: dateRange.end) {
+            isDonor = !donations.isEmpty
+        } else {
+            isDonor = false
+        }
+        return ContributorStatus(isEditor: (storedEditCount() ?? 0) > 0, isDonor: isDonor)
+    }
+
+    /// The edits in the contributor period, from the report the app fills in the background. `nil`
+    /// when the report does not have them.
+    private func storedEditCount() -> Int? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            let slides = report?.slides ?? []
+            if let data = slides.first(where: { $0.id == .editCount })?.data,
+               let editCount = try JSONDecoder().decode(Int?.self, from: data) {
+                return editCount
+            }
+            if let data = slides.first(where: { $0.id == .donateCount })?.data {
+                return try JSONDecoder().decode(DonateAndEditCounts.self, from: data).editCount
+            }
+            return nil
+        } catch {
+            DDLogError("Error reading the Year in Review edit count: \(error)")
+            return nil
+        }
+    }
+
+    /// Text fields on the `DataTemplate` view model of the `end` frame. `headline` and `data` are not used.
+    private enum EndTextPath {
+        static let title = WMFRiveText(path: "coverTitle")
+        static let bodyCopy = WMFRiveText(path: "bodyCopy")
+    }
+
+    /// The title and the body copy grow, so long copy can push the content past the bottom of the
+    /// slide. Same rule as the copy on the other slides.
+    private static let endTextFits: [WMFRiveTextFit] = [
+        WMFRiveTextFit(
+            text: EndTextPath.title,
+            fontAssetName: "SanSerifFont",
+            maximumWidth: copyWidth,
+            maximumLines: 3,
+            minimumScale: copyMinimumScale,
+            group: "copy",
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "coverGlyphsFontSize"),
+            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight")
+        ),
+        WMFRiveTextFit(
+            text: EndTextPath.bodyCopy,
+            fontAssetName: "SerifFont",
+            maximumWidth: copyWidth,
+            maximumLines: 6,
+            minimumScale: copyMinimumScale,
+            group: "copy",
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
+            lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
+        )
+    ]
+
+    /// "Thank you" for a reader who edited or donated in the contributor period, with the donate
+    /// button in the toolbar. Otherwise "You matter", with a primary donate button below the
+    /// animation in place of the toolbar button.
+    /// - Parameter hidesDonate: True where donations are not accepted. Then the "You matter" slide does not show.
+    /// - Returns: `nil` when no slide shows.
+    func contributorSlide(isEditor: Bool, isDonor: Bool, isLoggedIn: Bool, hidesDonate: Bool) -> WMFYearInReviewSlideViewModel? {
+        guard isEditor || isDonor else {
+            guard !hidesDonate else {
+                return nil
+            }
+            let bodyText = isLoggedIn
+                ? CommonStrings.yearInReviewYouMatterSubtitle
+                : "\(CommonStrings.yearInReviewYouMatterSubtitle) \(CommonStrings.yearInReviewYouMatterLogInSubtitle)"
+            return endSlide(id: Self.nonContributorSlideID, title: CommonStrings.yearInReviewYouMatterTitle, bodyText: bodyText, showsPrimaryDonateButton: true)
+        }
+
+        let bodyText: String
+        switch (isEditor, isDonor) {
+        case (true, true):
+            bodyText = CommonStrings.yearInReviewThankYouEditorAndDonorSubtitle
+        case (true, false):
+            bodyText = CommonStrings.yearInReviewThankYouEditorSubtitle
+        default:
+            bodyText = CommonStrings.yearInReviewThankYouDonorSubtitle
+        }
+        return endSlide(id: Self.contributorSlideID, title: CommonStrings.yearInReviewThankYouTitle, bodyText: bodyText, showsPrimaryDonateButton: false)
+    }
+
+    static let contributorSlideID = "contributor"
+    static let nonContributorSlideID = "nonContributor"
+
+    private func endSlide(id: String, title: String, bodyText: String, showsPrimaryDonateButton: Bool) -> WMFYearInReviewSlideViewModel {
+        WMFYearInReviewSlideViewModel(
+            id: id,
+            loggingID: id,
+            animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: "end", stateMachineName: "end-statemachine"),
+            text: [
+                // The title is shown in capitals. VoiceOver gets it as written.
+                EndTextPath.title: title.localizedUppercase,
+                EndTextPath.bodyCopy: bodyText
+            ],
+            localizedStrings: .init(accessibilityLabel: "\(title) \(bodyText)"),
+            showsPrimaryDonateButton: showsPrimaryDonateButton,
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.endTextFits
         )
     }
 

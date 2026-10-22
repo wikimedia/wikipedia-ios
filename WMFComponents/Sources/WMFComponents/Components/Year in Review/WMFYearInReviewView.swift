@@ -92,9 +92,18 @@ public struct WMFYearInReviewView: View {
     @ViewBuilder
     private var slideViews: some View {
         ForEach(viewModel.slides) { slide in
-            WMFYearInReviewSlideView(slide: slide, isCurrent: slide.id == viewModel.currentSlideID) { lightContent in
-                viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
-            }
+            WMFYearInReviewSlideView(
+                slide: slide,
+                isCurrent: slide.id == viewModel.currentSlideID,
+                onLightContentFlag: { lightContent in
+                    viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
+                },
+                donateButtonTitle: viewModel.localizedStrings.donateButtonTitle,
+                isLoadingDonate: viewModel.isLoadingDonate,
+                onTapDonate: { sourceRect in
+                    viewModel.tappedDonate(sourceRect: sourceRect)
+                }
+            )
                 .containerRelativeFrame(.vertical)
                 .id(slide.id)
         }
