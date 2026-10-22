@@ -22,6 +22,9 @@ public nonisolated struct WMFRiveTextFit: Sendable, Hashable {
     public let globalViewModelName: String
     public let fontSize: WMFRiveNumber
     public let lineHeight: WMFRiveNumber
+    /// Used in place of the font size in the file when the file size is larger. The line height
+    /// keeps its proportion to the font size.
+    public let maximumFontSize: Double?
 
     public init(
         text: WMFRiveText,
@@ -32,7 +35,8 @@ public nonisolated struct WMFRiveTextFit: Sendable, Hashable {
         group: String? = nil,
         globalViewModelName: String,
         fontSize: WMFRiveNumber,
-        lineHeight: WMFRiveNumber
+        lineHeight: WMFRiveNumber,
+        maximumFontSize: Double? = nil
     ) {
         self.text = text
         self.fontAssetName = fontAssetName
@@ -43,6 +47,7 @@ public nonisolated struct WMFRiveTextFit: Sendable, Hashable {
         self.globalViewModelName = globalViewModelName
         self.fontSize = fontSize
         self.lineHeight = lineHeight
+        self.maximumFontSize = maximumFontSize
     }
 
     /// Keep this fraction of the box free, because the shaping in Rive and in UIKit is not the same.
