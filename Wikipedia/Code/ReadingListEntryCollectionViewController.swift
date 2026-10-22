@@ -106,6 +106,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
         }
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.articleCell(article.displayTitle ?? "")
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         cell.alertButtonCallback = { [weak self] in
@@ -198,7 +199,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             self?.reset()
         }
 
-        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: handler)
+        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:)))], handler: handler)
         let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: handler)
 
         return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]

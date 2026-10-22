@@ -25,10 +25,17 @@
     XCTAssertEqualObjects(activity.webpageURL.absoluteString, @"https://en.wikipedia.org/wiki/Foo");
 }
 
-- (void)testExploreURL {
+// Existing links and activities use "explore", so it must keep opening Home.
+- (void)testLegacyExploreURLOpensHome {
     NSURL *url = [NSURL URLWithString:@"wikipedia://explore"];
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
-    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeExplore);
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeHome);
+}
+
+- (void)testHomeURL {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://home"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeHome);
 }
 
 - (void)testSavedURL {

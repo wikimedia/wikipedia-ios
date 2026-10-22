@@ -134,7 +134,14 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
         performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response:  reattemptOn401Response) { [weak self] (result, response, error) in
             
             guard let self else { return }
-            
+
+            // A busy or failing server often answers with HTML. The status is the error worth
+            // reporting, and it must come before any parse error so the caller sees it as transient.
+            if let response, !HTTPStatusCode.isSuccessful(response.statusCode) {
+                failure(RequestError.from(response: response))
+                return
+            }
+
             if let error = error {
                 failure(error)
                 return

@@ -50,6 +50,8 @@ public struct WMFSavedAllArticlesView: View {
         }
         .padding()
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEmptyView)
     }
     
     // MARK: - Article List
@@ -61,7 +63,7 @@ public struct WMFSavedAllArticlesView: View {
                     let rowModel = viewModel.rowViewModel(for: article)
                     
                     VStack(spacing: 0) {
-                        WMFAsyncPageRowSaved(
+                        WMFPageRowSaved(
                             viewModel: rowModel,
                             onTap: { fromLongPress in
                                 if viewModel.isEditing {
@@ -83,6 +85,7 @@ public struct WMFSavedAllArticlesView: View {
                                 viewModel.didTapOpenInBackgroundTab?(article)
                             }
                         )
+                        .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesRow(article.title))
                         
                         Divider()
                             .background(Color(uiColor: appEnvironment.theme.border))
@@ -95,6 +98,7 @@ public struct WMFSavedAllArticlesView: View {
                 }
             }
             .listStyle(.plain)
+            .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesList)
             .refreshable {
                 await viewModel.didPullToRefresh?()
             }
@@ -119,6 +123,7 @@ public struct WMFSavedAllArticlesView: View {
                 }) {
                     editingToolbarText(text: viewModel.localizedStrings.addToList, isEnabled: viewModel.hasSelection)
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEditingToolbarAddToListButton)
                 .disabled(!viewModel.hasSelection)
                 .frame(maxWidth: .infinity)
                 
@@ -129,6 +134,7 @@ public struct WMFSavedAllArticlesView: View {
                 }) {
                     editingToolbarText(text: viewModel.localizedStrings.unsave, isEnabled: viewModel.hasSelection)
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEditingToolbarUnsaveButton)
                 .disabled(!viewModel.hasSelection)
                 .frame(maxWidth: .infinity)
             }

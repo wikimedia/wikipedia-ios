@@ -3,6 +3,11 @@ import SwiftUI
 struct WMFYearInReviewSlideView: View {
 
     let slide: WMFYearInReviewSlideViewModel
+    /// Only the current slide plays. The pager builds the next slide before the reader swipes to it.
+    var isCurrent: Bool = true
+    /// Called with the value of `slide.lightContentFlag` after the slide loads.
+    var onLightContentFlag: (@MainActor (Bool) -> Void)? = nil
+    @StateObject private var thumbnailLoader = WMFYearInReviewThumbnailLoader()
 
     var body: some View {
         ZStack {
@@ -19,8 +24,17 @@ struct WMFYearInReviewSlideView: View {
                 animation,
                 text: slide.text,
                 numbers: slide.numbers,
-                accessibilityLabel: slide.localizedStrings.accessibilityLabel
+                images: slide.images.merging(thumbnailLoader.images) { _, loaded in loaded },
+                layoutDirection: slide.layoutDirection,
+                accessibilityLabel: slide.localizedStrings.accessibilityLabel,
+                isPlaying: isCurrent,
+                readBool: slide.lightContentFlag,
+                textFits: slide.textFits,
+                onReadBool: onLightContentFlag
             )
+            .task(id: slide.articleThumbnails) {
+                await thumbnailLoader.load(slide.articleThumbnails)
+            }
         } else {
             placeholder
         }

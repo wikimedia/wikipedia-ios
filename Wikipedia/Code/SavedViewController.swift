@@ -25,11 +25,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     private var allArticlesCoordinator: SavedAllArticlesCoordinator?
     private weak var allArticlesHostingController: UIViewController?
-    private var allArticlesSortType: SortActionType = .byRecentlyAdded {
-        didSet {
-            allArticlesCoordinator?.sortType = allArticlesSortType
-        }
-    }
+    private var allArticlesSortType: SortActionType = .byRecentlyAdded
 
     @objc weak var tabBarDelegate: AppTabBarDelegate?
 
@@ -255,6 +251,8 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         super.viewDidLoad()
 
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Saved.view
+        progressContainerView.accessibilityIdentifier = AccessibilityIdentifiers.Saved.progressView
 
         if activeEditableCollection == nil {
             currentView = .savedArticles
@@ -456,6 +454,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     private lazy var moreBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
+        button.accessibilityIdentifier = AccessibilityIdentifiers.Saved.moreButton
         if #available(iOS 26.0, *) {
             button.sharesBackground = false
         }
@@ -478,6 +477,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 if self.allArticlesCoordinator?.contentViewController.viewModel.isEditing == true {
                     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.userDidTapCancelEditingAllArticles))
                     cancelButton.tintColor = theme.colors.primaryText
+                    cancelButton.accessibilityIdentifier = AccessibilityIdentifiers.Saved.editingCancelButton
 
                     self.navigationItem.rightBarButtonItems = [cancelButton]
                     ReadingListsFunnel.shared.logTappedEditButton()
@@ -512,6 +512,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     
     private func presentAllArticlesSortAlert() {
         let alert = UIAlertController(title: CommonStrings.sortAlertTitle, message: nil, preferredStyle: .actionSheet)
+        alert.view.accessibilityIdentifier = AccessibilityIdentifiers.Saved.sortSheet
         
         let titleAction = UIAlertAction(title: CommonStrings.sortAlertOptionByTitle, style: .default) { [weak self] action in
             self?.allArticlesSortType = .byTitle
@@ -587,6 +588,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
 
         let moreBarButtonItem = self.moreBarButtonItem
         if newEditingState == .open {
+            editButton.accessibilityIdentifier = AccessibilityIdentifiers.Saved.editingCancelButton
             navigationItem.rightBarButtonItems = [editButton]
         } else {
             configureNavigationBar() // Switches back to More and Profile

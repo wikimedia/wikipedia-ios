@@ -47,7 +47,6 @@ public enum AccessibilityIdentifiers {
 
     public enum RootTab {
         public static let activityButton = "Root Tab Activity Button"
-        public static let exploreButton = "Root Tab Explore Button"
         public static let homeButton = "Root Tab Home Button"
         public static let placesButton = "Root Tab Places Button"
         public static let savedButton = "Root Tab Saved Button"
@@ -56,11 +55,81 @@ public enum AccessibilityIdentifiers {
 
     public enum Home {
         public static let languagePickerButton = "Home Language Picker Button"
+        public static let view = "Home View"
+    }
+
+    public enum Saved {
+        public static let allArticlesEditingToolbarAddToListButton = "Saved All Articles Editing Toolbar Add To List Button"
+        public static let allArticlesEditingToolbarUnsaveButton = "Saved All Articles Editing Toolbar Unsave Button"
+        public static let allArticlesEmptyView = "Saved All Articles Empty View"
+        public static let allArticlesList = "Saved All Articles List"
+        public static let deleteReadingListsAlert = "Saved Delete Reading Lists Alert"
+        public static let editingCancelButton = "Saved Editing Cancel Button"
+        public static let moreButton = "Saved More Button"
+        public static let progressView = "Saved Progress View"
+        public static let readingListsEmptyView = "Saved Reading Lists Empty View"
+        public static let readingListsView = "Saved Reading Lists View"
+        public static let rowDeleteSwipeButton = "Saved Row Delete Swipe Button"
+        public static let rowShareSwipeButton = "Saved Row Share Swipe Button"
+        public static let sortSheet = "Saved Sort Sheet"
+        public static let unsaveArticlesAlert = "Saved Unsave Articles Alert"
+        public static let view = "Saved View"
+
+        public static func allArticlesRow(_ title: String) -> String {
+            "Saved All Articles Row \(title)"
+        }
+
+        public static func batchEditToolbarButton(_ actionName: String) -> String {
+            "Saved Batch Edit Toolbar \(actionName) Button"
+        }
+
+        public static func readingListCell(_ name: String) -> String {
+            "Saved Reading List Cell \(name)"
+        }
+
+        public static func readingListTag(_ name: String) -> String {
+            "Saved Reading List Tag \(name)"
+        }
+    }
+
+    public enum ReadingListDetail {
+        public static let articleCountLabel = "Reading List Detail Article Count Label"
+        public static let descriptionTextField = "Reading List Detail Description Text Field"
+        public static let editButton = "Reading List Detail Edit Button"
+        public static let emptyView = "Reading List Detail Empty View"
+        public static let sortButton = "Reading List Detail Sort Button"
+        public static let titleTextField = "Reading List Detail Title Text Field"
+        public static let view = "Reading List Detail View"
+
+        public static func articleCell(_ title: String) -> String {
+            "Reading List Detail Article Cell \(title)"
+        }
+    }
+
+    public enum CreateReadingList {
+        public static let closeButton = "Create Reading List Close Button"
+        public static let createButton = "Create Reading List Create Button"
+        public static let descriptionTextField = "Create Reading List Description Text Field"
+        public static let nameErrorLabel = "Create Reading List Name Error Label"
+        public static let nameTextField = "Create Reading List Name Text Field"
+        public static let view = "Create Reading List View"
+    }
+
+    public enum AddToReadingList {
+        public static let closeButton = "Add To Reading List Close Button"
+        public static let createNewListButton = "Add To Reading List Create New List Button"
+        public static let view = "Add To Reading List View"
+    }
+
+    public enum YearInReview {
+        public static let closeButton = "Year in Review Close Button"
     }
 
     public enum Profile {
         public static let button = "profile-button"
         public static let view = "Profile View"
+        public static let temporaryAccountUserPageRow = "Profile Temporary Account User Page Row"
+        public static let joinWikipediaRow = "Profile Join Wikipedia Row"
     }
 
     public enum Search {
@@ -111,14 +180,9 @@ public enum AccessibilityIdentifiers {
 
     public enum Onboarding {
         public static let addLanguagesButton = "App Onboarding Add Languages Button"
-        public static let analyticsLearnMoreButton = "App Onboarding Analytics Learn More Button"
-        public static let analyticsView = "App Onboarding Analytics View"
         public static let communityOptionButton = "App Onboarding Community Option Button"
         public static let dataPrivacyView = "App Onboarding Data Privacy View"
-        public static let explorationView = "App Onboarding Exploration View"
         public static let feedPreferenceView = "App Onboarding Feed Preference View"
-        public static let introductionLearnMoreButton = "App Onboarding Introduction Learn More Button"
-        public static let introductionView = "App Onboarding Introduction View"
         public static let introView = "App Onboarding Intro View"
         public static let languagesView = "App Onboarding Languages View"
         public static let learnMoreLink = "App Onboarding Learn More Link"

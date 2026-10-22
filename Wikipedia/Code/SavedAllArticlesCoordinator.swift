@@ -9,9 +9,9 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     private let dataStore: MWKDataStore
     var theme: Theme
-    private var dataController: WMFLegacySavedArticlesDataController?
+    private var dataController: WMFLegacyReadingListsDataController?
+    private var dataSource: LegacyReadingListsDataSource?
     private weak var hostingController: WMFSavedAllArticlesHostingController?
-    var sortType: SortActionType = .byRecentlyAdded
 
     var exitEditingModeAction: (() -> Void)?
 
@@ -38,7 +38,12 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             return existingController
         }
 
-        let dataController = WMFLegacySavedArticlesDataController(delegate: self)
+        let dataSource = LegacyReadingListsDataSource(dataStore: dataStore)
+        dataSource.unsaveConfirmation = { [weak self] articles, fromLongPress, completion in
+            self?.deleteSavedArticles(articles: articles, fromLongPress: fromLongPress, completion: completion)
+        }
+        let dataController = WMFLegacyReadingListsDataController(delegate: dataSource)
+        self.dataSource = dataSource
         self.dataController = dataController
 
         let localizedStrings = WMFSavedAllArticlesViewModel.LocalizedStrings(
@@ -346,66 +351,14 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             let title = titleAndProject.title
             let project = titleAndProject.project
 
-            let alertType = determineAlertType(for: readingListEntry, article: article, readingList: list, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+            let alertType = LegacyReadingListsDataSource.determineAlertType(for: readingListEntry, article: article, readingList: list, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
 
-            let identifier = identifier(for: title, project: project)
+            let identifier = LegacyReadingListsDataSource.articleID(title: title, project: project)
             hostingController?.viewModel.updateAlertType(id: identifier, alertType: alertType)
 
         } catch {
             // nothing
         }
-    }
-
-    private func determineAlertType(
-        for entry: ReadingListEntry,
-        article: WMFArticle,
-        readingList: ReadingList,
-        listLimit: Int,
-        entryLimit: Int
-    ) -> WMFSavedArticleAlertType {
-        var alertType: WMFSavedArticleAlertType = .none
-
-        // 1. Check entry-level API errors
-        if let entryError = entry.APIError {
-            switch entryError {
-            case .entryLimit:
-                if readingList.isDefault {
-                    alertType = .genericNotSynced
-                } else {
-                    alertType = .entryLimitExceeded(limit: entryLimit)
-                }
-            default:
-                break
-            }
-        }
-
-        // 2. Check list-level API errors
-        if let listError = readingList.APIError {
-            switch listError {
-            case .listLimit:
-                alertType = .listLimitExceeded(limit: listLimit)
-            default:
-                break
-            }
-        }
-
-        // 3. Check article download state (only if no sync errors).
-        // A download error is only relevant while the article isn't downloaded —
-        // a stale error from a failed earlier attempt must not outlive a successful retry.
-        switch alertType {
-        case .none, .downloading, .articleError:
-            if article.isDownloaded {
-                return .none
-            } else if article.error != .none {
-                return .articleError(article.error.localizedDescription)
-            } else {
-                return .downloading
-            }
-        default:
-            break
-        }
-
-        return alertType
     }
 
     private func fullSync() async {
@@ -424,109 +377,12 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func identifier(for title: String, project: WMFProject) -> String {
-        return "\(project.id)|\(title)"
-    }
 }
 
-// MARK: - WMFLegacySavedArticlesDataControllerDelegate
+// MARK: - Unsave with confirmation
 
-extension SavedAllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
-    func fetchAllSavedArticles() async throws -> [WMFSavedArticle] {
-
-        let sortType = self.sortType
-
-        return try await dataStore.performBackgroundCoreDataOperationAsync { [weak self] moc in
-            guard let self else { return [] }
-
-            let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "isDeletedLocally == NO")
-
-            do {
-                let entries = try moc.fetch(fetchRequest)
-
-                var articlesDict: [String: WMFSavedArticle] = [:]
-
-                let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
-                let entryLimit = moc.wmf_readingListsConfigMaxEntriesPerList.intValue
-
-                for entry in entries {
-
-                    guard let inMemoryKey = entry.inMemoryKey,
-                          let titleAndProject = entry.titleAndProject() else {
-                        continue
-                    }
-
-                    let title = titleAndProject.title
-                    let project = titleAndProject.project
-                    let id = self.identifier(for: title, project: project)
-
-                    var nonDefaultName: String? = entry.list?.name
-                    if entry.list?.isDefault ?? false {
-                        nonDefaultName = nil
-                    }
-
-                    if var existingArticle = articlesDict[id] {
-                        if let listName = entry.list?.name, !existingArticle.readingListNames.contains(listName) {
-                            if let nonDefaultName {
-                                existingArticle.readingListNames.append(nonDefaultName)
-                            }
-                            articlesDict[id] = existingArticle
-                        }
-                    } else {
-                        let article = self.fetchArticle(inContext: moc, databaseKey: inMemoryKey.databaseKey, languageVariantCode: inMemoryKey.languageVariantCode)
-
-                        let alertType: WMFSavedArticleAlertType
-                        if let article = article,
-                           let list = entry.list {
-                            alertType = self.determineAlertType(
-                                for: entry,
-                                article: article,
-                                readingList: list,
-                                listLimit: listLimit,
-                                entryLimit: entryLimit
-                            )
-                        } else {
-                            alertType = .none
-                        }
-
-                        var readingListNames: [String] = []
-                        if let nonDefaultName {
-                            readingListNames = [nonDefaultName]
-                        }
-
-                        let savedArticle = WMFSavedArticle(
-                            id: id,
-                            title: title,
-                            project: project,
-                            savedDate: entry.createdDate as Date?,
-                            readingListNames: readingListNames,
-                            alertType: alertType
-                        )
-                        articlesDict[id] = savedArticle
-                    }
-                }
-
-                switch sortType {
-                case .byRecentlyAdded:
-                    return articlesDict.values.sorted { ($0.savedDate ?? Date()) > ($1.savedDate ?? Date()) }
-                case .byTitle:
-                    return articlesDict.values.sorted { $0.title < $1.title }
-                }
-
-            } catch {
-                return []
-            }
-        }
-    }
-
-    private func fetchArticle(inContext moc: NSManagedObjectContext, databaseKey: String, languageVariantCode: String?) -> WMFArticle? {
-        let fetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "key == %@", databaseKey)
-        fetchRequest.fetchLimit = 1
-        return try? moc.fetch(fetchRequest).first
-    }
-
+extension SavedAllArticlesCoordinator {
+    /// Transitional: the SwiftUI list asks before unsaving an article that is in a custom list.
     func deleteSavedArticles(articles: [WMFSavedArticle], fromLongPress: Bool, completion: @escaping (Bool) -> Void) {
 
         if fromLongPress {
@@ -534,7 +390,6 @@ extension SavedAllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDeleg
         }
 
         let wmfArticles = wmfArticlesFromSavedArticles(articles)
-
 
         let alertController = ReadingListsAlertController()
         let unsave = ReadingListsAlertActionType.unsave.action { [weak self] in
@@ -553,7 +408,6 @@ extension SavedAllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDeleg
                 completion(true)
             }
         }
-
     }
 
     private func unsaveAndAnnounceAndLog(articles: [WMFArticle]) {
@@ -563,22 +417,6 @@ extension SavedAllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDeleg
         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
         let language = articles.count == 1 ? articles.first?.url?.wmf_languageCode : nil
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
-    }
-}
-
-private extension ReadingListEntry {
-    func titleAndProject() -> (title: String, project: WMFProject)? {
-        guard let inMemoryKey = inMemoryKey,
-              let url = inMemoryKey.url,
-              let title = url.wmf_title,
-              let siteURL = url.wmf_site,
-              let languageCode = siteURL.wmf_languageCode else {
-            return nil
-        }
-
-        let languageVariantCode = inMemoryKey.languageVariantCode
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
-        return (title, project)
     }
 }
 

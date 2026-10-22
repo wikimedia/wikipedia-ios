@@ -35,46 +35,32 @@ for PLIST in "${PLISTS[@]}"; do
 done
 
 # GitHub Actions is the primary deploy path; these Xcode Cloud workflows are
-# the manual fallback for when it is unavailable, so the prefixes below have
-# to stay in step with it - betas/ for production, alphas/ for Alpha, exp/
-# for design review.
+# the manual fallback for when it is unavailable, so the prefixes used when
+# tagging have to stay in step with it - betas/ for production, alphas/ for
+# Alpha, exp/ for design review.
 #
-# Compute CFBundleVersion the same way the GitHub Actions deploy workflows
-# do: highest existing tag for this workflow's prefix, plus one. Requires
-# "Manage Version and Build Number" to be turned off for this workflow in
-# the Xcode Cloud workflow settings, otherwise Xcode Cloud will overwrite
-# the build number during the archive step. That setting only governs the
-# build number, not CFBundleShortVersionString above, which stays
-# date-based regardless.
+# Xcode Cloud owns the build number. It keeps its own counter, exposed here as
+# CI_BUILD_NUMBER, and that is what the archive ships with - so write that into
+# the plist rather than deriving a number from the tag list. Nothing here reads
+# existing tags: set the workflow's next build number in its Xcode Cloud
+# settings before a fallback run, to one above the highest tag for its prefix.
 if [[ ${CI_WORKFLOW} == "Beta Build" ]]; then
-    TAG_PREFIX="betas"
     BUILD_PLIST="../Wikipedia/Wikipedia-Info.plist"
 elif [[ ${CI_WORKFLOW} == "Alpha Build" ]]; then
-    TAG_PREFIX="alphas"
     BUILD_PLIST="../Wikipedia/Alpha-Info.plist"
 elif [[ ${CI_WORKFLOW} == "Experimental Build" ]]; then
-    TAG_PREFIX="exp"
     BUILD_PLIST="../Wikipedia/Experimental-Info.plist"
 else
-    TAG_PREFIX=""
+    BUILD_PLIST=""
 fi
 
-if [[ -n "${TAG_PREFIX}" ]]; then
-    # Xcode Cloud's default clone can be shallow, which risks an incomplete
-    # tag list here - fetch tags explicitly rather than trust it. A failed
-    # fetch isn't fatal on its own: a stale tag list just risks a duplicate
-    # build number, which the tag push in tag_script_xcodebuild.sh will
-    # catch and fail on instead.
-    git fetch --tags origin || echo "Warning: tag fetch failed, tag list may be stale"
-
-    LATEST=$(git tag --list "${TAG_PREFIX}/*" \
-        | sed "s|${TAG_PREFIX}/||" \
-        | grep -E '^[0-9]+$' \
-        | sort -n \
-        | tail -1)
-    BUILD=$(( ${LATEST:-0} + 1 ))
-    echo "Setting CFBundleVersion to ${BUILD}"
-    /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${BUILD}" "${BUILD_PLIST}"
+if [[ -n "${BUILD_PLIST}" ]]; then
+    if [[ -z "${CI_BUILD_NUMBER}" ]]; then
+        echo "CI_BUILD_NUMBER is empty - cannot set a build number"
+        exit 1
+    fi
+    echo "Setting CFBundleVersion to ${CI_BUILD_NUMBER}"
+    /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${CI_BUILD_NUMBER}" "${BUILD_PLIST}"
 fi
 
 exit 0

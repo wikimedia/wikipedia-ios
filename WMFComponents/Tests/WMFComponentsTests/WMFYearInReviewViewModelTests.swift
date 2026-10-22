@@ -43,6 +43,7 @@ struct WMFYearInReviewViewModelTests {
             shareButtonTitle: "Share",
             donateButtonTitle: "Donate",
             learnMoreButtonTitle: "Learn more",
+            aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
             slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
         )
@@ -216,6 +217,20 @@ struct WMFYearInReviewViewModelTests {
     }
 
     @Test
+    func tappedAboutInsightsCarriesTheSlideLoggingID() {
+        let viewModel = makeViewModel()
+        viewModel.currentSlideID = "slide2"
+
+        viewModel.tappedAboutInsights()
+
+        if case .aboutInsights(let slideLoggingID) = coordinator.actions.last {
+            #expect(slideLoggingID == "logging2")
+        } else {
+            Issue.record("expected an aboutInsights action")
+        }
+    }
+
+    @Test
     func tappedShareFeedbackCarriesTheSlideLoggingID() {
         let viewModel = makeViewModel()
 
@@ -302,5 +317,38 @@ struct WMFYearInReviewViewModelTests {
         )
 
         #expect(viewModel.showsDonateButton == false)
+    }
+
+    // MARK: - Content color
+
+    /// The slides in this suite use the default `.light` style.
+    @Test
+    func theSlideStyleSetsTheColorBeforeTheSlideLoads() {
+        let viewModel = makeViewModel()
+        #expect(viewModel.currentContentColor == WMFColor.white)
+    }
+
+    /// The flag that the .riv sets wins over the style of the slide view model.
+    @Test
+    func theLoadedFlagSetsTheColor() {
+        let viewModel = makeViewModel()
+
+        viewModel.slideDidLoad(lightContent: false, slideID: "slide0")
+        #expect(viewModel.currentContentColor == WMFColor.gray700)
+
+        viewModel.slideDidLoad(lightContent: true, slideID: "slide0")
+        #expect(viewModel.currentContentColor == WMFColor.white)
+    }
+
+    /// A slide that loads off screen must not change the color of the current slide.
+    @Test
+    func anotherSlideFlagDoesNotChangeTheCurrentColor() {
+        let viewModel = makeViewModel()
+
+        viewModel.slideDidLoad(lightContent: false, slideID: "slide1")
+
+        #expect(viewModel.currentContentColor == WMFColor.white)
+        viewModel.currentSlideID = "slide1"
+        #expect(viewModel.currentContentColor == WMFColor.gray700)
     }
 }

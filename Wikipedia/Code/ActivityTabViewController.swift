@@ -15,7 +15,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         return try? WMFYearInReviewDataController()
     }
     private let dataStore: MWKDataStore?
-    private var yirUserDataStateTask: Task<Void, Never>?
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
@@ -130,18 +129,25 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
             yirViewModel.onTap = { [weak self] in
-                self?.yirCoordinator?.start()
+                Task { @MainActor [weak self] in
+                    self?.requestPortraitOnIPad()
+                    await self?.yirCoordinator?.presentFeatureAnnouncementFromEntryPoint()
+                }
             }
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        // The data controller applies the developer settings override using a reading history of 10+ articles, until we can fullfil the original requirements.
-        yirUserDataStateTask?.cancel()
-        yirUserDataStateTask = Task { [weak self] in
-            let userDataState = (try? await yirDataController.fetchUserDataState()) ?? .lowData
-            guard !Task.isCancelled else { return }
-            self?.viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
-        }
+        // The data controller applies the developer settings override. Otherwise the slides in the stored report decide.
+        let userDataState = (try? yirDataController.fetchUserDataState()) ?? .lowData
+        viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
+    }
+    
+    /// On iPad, asks the window to switch to portrait before Year in Review opens, so it does not
+    /// open in landscape first. The Year in Review screens keep it there while they are visible.
+    private func requestPortraitOnIPad() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+
+        view.window?.windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait)) { _ in }
     }
 
     private func embedHostingController() {
