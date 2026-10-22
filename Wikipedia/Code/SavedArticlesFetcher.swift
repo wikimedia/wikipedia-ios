@@ -27,6 +27,10 @@ final class SavedArticlesFetcher: NSObject {
     private var isUpdating = false
     
     private var currentlyFetchingArticleKeys: [String] = []
+
+    /// Start times of recent downloads. Used to keep background downloads under the per-user API budget.
+    private var recentDownloadStartDates: [Date] = []
+    private var consecutiveServerBusyCount = 0
     
     @objc init?(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -50,18 +54,71 @@ final class SavedArticlesFetcher: NSObject {
         unobserveSavedPages()
     }
 
-    private static let rateLimitCooldown: TimeInterval = 60
+    // MARK: - API budget
 
-    func stopAndRestartAfterRateLimitCooldown() {
-        assert(Thread.isMainThread)
-        stop()
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restartAfterRateLimitCooldown), object: nil)
-        perform(#selector(restartAfterRateLimitCooldown), with: nil, afterDelay: Self.rateLimitCooldown)
+    // Wikimedia rate limits are per user and per minute (200 req/min for most readers).
+    // One saved article costs about five API calls plus images. Twelve articles per minute
+    // leaves most of the budget to what the user does in the foreground.
+    static let maximumDownloadsPerMinute = 12
+    static let downloadBudgetWindow: TimeInterval = 60
+
+    static let defaultServerBusyCooldown: TimeInterval = 60
+    static let maximumServerBusyCooldown: TimeInterval = 15 * 60
+    static let minimumServerBusyCooldown: TimeInterval = 5
+
+    /// Seconds to wait before the next download slot, or nil when a slot is free now.
+    static func delayUntilNextDownloadSlot(startDates: [Date], now: Date, limit: Int = maximumDownloadsPerMinute) -> TimeInterval? {
+        let windowStart = now.addingTimeInterval(-downloadBudgetWindow)
+        let recent = startDates.filter { $0 > windowStart }
+        guard recent.count >= limit, let oldest = recent.min() else {
+            return nil
+        }
+        return oldest.addingTimeInterval(downloadBudgetWindow).timeIntervalSince(now)
     }
 
-    @objc private func restartAfterRateLimitCooldown() {
+    /// Cooldown after a 429 or 503. Retry-After is the base when the server sends it. Each consecutive failure doubles the wait.
+    static func serverBusyCooldown(retryAfter: TimeInterval?, consecutiveFailures: Int) -> TimeInterval {
+        let base = retryAfter ?? defaultServerBusyCooldown
+        let multiplier = pow(2.0, Double(max(0, consecutiveFailures - 1)))
+        return min(max(base * multiplier, minimumServerBusyCooldown), maximumServerBusyCooldown)
+    }
+
+    func stopAndRestartAfterServerBusy(retryAfter: TimeInterval?) {
+        assert(Thread.isMainThread)
+        consecutiveServerBusyCount += 1
+        let cooldown = Self.serverBusyCooldown(retryAfter: retryAfter, consecutiveFailures: consecutiveServerBusyCount)
+        DDLogWarn("SavedArticlesFetcher: server busy, pausing downloads for \(Int(cooldown))s (failure #\(consecutiveServerBusyCount))")
+        stop()
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restartAfterServerBusyCooldown), object: nil)
+        perform(#selector(restartAfterServerBusyCooldown), with: nil, afterDelay: cooldown)
+    }
+
+    @objc private func restartAfterServerBusyCooldown() {
         start()
         update()
+    }
+
+    /// Reschedules the next download when the server asked the app to wait or the per-minute budget is spent. Returns true when a wait was scheduled.
+    private func deferUpdateIfOverBudget() -> Bool {
+        let now = Date()
+        var delay: TimeInterval?
+        if let pauseUntil = dataStore.session.serverBusyPauseUntil {
+            delay = pauseUntil.timeIntervalSince(now)
+        } else if let slotDelay = Self.delayUntilNextDownloadSlot(startDates: recentDownloadStartDates, now: now) {
+            delay = slotDelay
+        }
+        guard let delay, delay > 0 else {
+            return false
+        }
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
+        perform(#selector(_update), with: nil, afterDelay: delay + 0.1)
+        return true
+    }
+
+    private func noteDownloadStarted() {
+        let windowStart = Date().addingTimeInterval(-Self.downloadBudgetWindow)
+        recentDownloadStartDates = recentDownloadStartDates.filter { $0 > windowStart }
+        recentDownloadStartDates.append(Date())
     }
 }
 
@@ -166,6 +223,10 @@ private extension SavedArticlesFetcher {
             updateCountOfFetchesInProcess()
             return
         }
+
+        if deferUpdateIfOverBudget() {
+            return
+        }
         
         isUpdating = true
         
@@ -200,7 +261,8 @@ private extension SavedArticlesFetcher {
         if let articleURL = article?.url,
             let articleKey = article?.key,
             let articleObjectID = article?.objectID {
-            
+
+            noteDownloadStarted()
             articleCacheController.add(url: articleURL, groupKey: articleKey, individualCompletion: { (itemResult) in
                 switch itemResult {
                 case .success:
@@ -289,6 +351,7 @@ private extension SavedArticlesFetcher {
 // Internal (not private) for unit testing
 extension SavedArticlesFetcher {
     func didFetchArticle(with managedObjectID: NSManagedObjectID) {
+        consecutiveServerBusyCount = 0
         operateOnArticle(with: managedObjectID) { (article) in
             article.isDownloaded = true
             // A failure on an earlier attempt is no longer relevant — without this
@@ -329,11 +392,11 @@ extension SavedArticlesFetcher {
             }
         }
         DDLogError("SavedArticlesFetcher: failed to download article \(article.key ?? "unknown"): \(underlyingError)")
-        if let requestError = underlyingError as? RequestError, case .http(429) = requestError {
-            // Rate limited — a global condition, not this article's fault. Pause all
+        if let requestError = underlyingError as? RequestError, requestError.isServerBusy {
+            // Rate limited or overloaded — a global condition, not this article's fault. Pause all
             // downloading and retry the article as-is when the fetcher restarts,
             // instead of branding it with an error and escalating its backoff.
-            stopAndRestartAfterRateLimitCooldown()
+            stopAndRestartAfterServerBusy(retryAfter: requestError.retryAfter)
             return
         }
         if underlyingError is RequestError {

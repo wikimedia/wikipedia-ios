@@ -512,6 +512,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     @objc private func appDidEnterBackgroundWithNotification(_ note: Notification) {
         guard uiIsLoaded else { return }
+        ClientErrorFunnel.shared.flushRateLimitSummaries()
         startPauseAppBackgroundTask()
         DispatchQueue.main.async {
             self.pauseApp()
@@ -889,6 +890,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if UserDefaults.standard.bool(forKey: wmfResetPreferredLanguages) {
             dataStore.languageLinkController.resetPreferredLanguages()
         }
+
+        #if TEST || UITEST
+        UITestReadingListsSeeder(dataStore: dataStore).applyIfNeeded()
+        #endif
 
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
             try? WMFDataEnvironment.current.userDefaultsStore?.save(

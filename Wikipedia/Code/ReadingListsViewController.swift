@@ -150,6 +150,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
         setupEditController()
         isRefreshControlEnabled = true
+        collectionView.accessibilityIdentifier = AccessibilityIdentifiers.Saved.readingListsView
     }
 
     override func refresh() {
@@ -222,6 +223,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? [WMFArticle] ?? []
 
         cell.layoutMargins = layout.itemLayoutMargins
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.Saved.readingListCell(readingList.name ?? "")
 
         cell.configureAlert(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
 
@@ -292,6 +294,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         )
 
         let emptyVC = WMFEmptyViewController(viewModel: viewModel, type: .noItems, delegate: self)
+        emptyVC.view.accessibilityIdentifier = AccessibilityIdentifiers.Saved.readingListsEmptyView
         addChild(emptyVC)
         view.insertSubview(emptyVC.view, belowSubview: collectionView)
         emptyVC.view.frame = view.bounds
