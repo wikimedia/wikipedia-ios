@@ -487,7 +487,7 @@ struct YearInReviewSlideViewModelFactory {
             artboard: "frame12",
             stateMachine: "frame12-statemachine",
             headline: headline,
-            data: reach.localizedUppercase,
+            data: reach,
             dataFit: Self.globalReachFit,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(reach). \(bodyText)"
