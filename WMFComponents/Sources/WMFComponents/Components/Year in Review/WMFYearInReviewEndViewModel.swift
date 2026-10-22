@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import WMFNativeLocalizations
 
 @MainActor
@@ -17,6 +18,28 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
         public let buttonTitle: String
         public let action: Action
     }
+
+    // MARK: - Design colors
+
+    /// Sampled from the Figma design. The page below the sky.
+    public static let pageBackgroundColor = UIColor(0x1C223B)
+
+    /// Sampled from the Figma design. The "Share highlights" button.
+    public static let shareButtonColor = UIColor(0x7198F8)
+
+    /// Sampled from the Figma design. The sky runs from the top of the screen to the dark navy of the
+    /// page. `location` is 0 at the top and 1 at the bottom of the sky.
+    public static let skyGradientStops: [(color: UIColor, location: CGFloat)] = [
+        (UIColor(0xF7F9FA), 0.0),
+        (UIColor(0xCDEEF6), 0.08),
+        (UIColor(0x9ADEF0), 0.17),
+        (UIColor(0x70CFEC), 0.26),
+        (UIColor(0x499FD8), 0.43),
+        (UIColor(0x2F6BA1), 0.61),
+        (UIColor(0x1A3864), 0.78),
+        (UIColor(0x15254C), 0.87),
+        (UIColor(0x1B2441), 1.0)
+    ]
 
     // MARK: - Localized strings
 

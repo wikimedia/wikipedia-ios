@@ -14,15 +14,16 @@ public struct WMFYearInReviewView: View {
             .clipShape(
                 UnevenRoundedRectangle(
                     cornerRadii: RectangleCornerRadii(
-                        bottomLeading: WMFYearInReviewViewModel.slideCornerRadius,
-                        bottomTrailing: WMFYearInReviewViewModel.slideCornerRadius
+                        // The end screen fills the page, so it has no rounded corners.
+                        bottomLeading: viewModel.isOnEnd ? 0 : WMFYearInReviewViewModel.slideCornerRadius,
+                        bottomTrailing: viewModel.isOnEnd ? 0 : WMFYearInReviewViewModel.slideCornerRadius
                     )
                 )
             )
             .overlay(alignment: .topTrailing) {
                 WMFYearInReviewProgressView(
-                    slideCount: viewModel.slides.count,
-                    currentIndex: viewModel.currentSlideIndex,
+                    slideCount: viewModel.pageCount,
+                    currentIndex: viewModel.currentPageIndex,
                     color: Color(uiColor: viewModel.currentContentColor ?? WMFColor.white)
                 )
                 .padding(.trailing, WMFYearInReviewViewModel.progressBarEdgeInset)
@@ -49,6 +50,7 @@ public struct WMFYearInReviewView: View {
             ScrollView(.vertical) {
                 VStack(spacing: 0) {
                     slideViews
+                    endPage
                 }
                 .scrollTargetLayout()
             }
@@ -62,6 +64,7 @@ public struct WMFYearInReviewView: View {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     slideViews
+                    endPage
                 }
                 .scrollTargetLayout()
             }
@@ -71,6 +74,16 @@ public struct WMFYearInReviewView: View {
                     positionAccessibilityValue: viewModel.slidePositionAccessibilityValue
                 )
             )
+        }
+    }
+
+    /// The end screen, one page after the last slide. It scrolls on its own inside its page.
+    @ViewBuilder
+    private var endPage: some View {
+        if let endViewModel = viewModel.endViewModel {
+            WMFYearInReviewEndView(viewModel: endViewModel, topInset: viewModel.topSafeAreaInset)
+                .containerRelativeFrame(.vertical)
+                .id(WMFYearInReviewViewModel.endPageID)
         }
     }
 

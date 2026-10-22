@@ -169,6 +169,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
+        // TODO: Replace both values when their data sources exist. Nothing tells us yet whether the
+        // reader is a contributor, and the collective slides do not exist yet, so the data state
+        // stands in for "saw the personalized slides".
+        viewModel.endViewModel = makeEndViewModel(
+            isContributor: false,
+            showsShareHighlights: userDataState == .dataRich
+        )
+
         self.viewModel = viewModel
 
         return WMFYearInReviewHostingController(viewModel: viewModel)
@@ -474,14 +482,16 @@ extension YearInReviewCoordinator {
         return URL(string: "https://wikipedia25.org/\(languageCode)/which-wikipedia-of-the-future-are-you")
     }
 
-    @MainActor
-    func makeEndViewController(isContributor: Bool, showsShareHighlights: Bool) -> WMFYearInReviewEndHostingController {
-        let viewModel = WMFYearInReviewEndViewModel(
-            isContributor: isContributor,
-            showsShareHighlights: showsShareHighlights
-        )
-        buildEndViewModel(viewModel)
-        return WMFYearInReviewEndHostingController(viewModel: viewModel)
+    /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
+    private func makeEndViewModel(isContributor: Bool, showsShareHighlights: Bool) -> WMFYearInReviewEndViewModel {
+        MainActor.assumeIsolated {
+            let viewModel = WMFYearInReviewEndViewModel(
+                isContributor: isContributor,
+                showsShareHighlights: showsShareHighlights
+            )
+            buildEndViewModel(viewModel)
+            return viewModel
+        }
     }
 
     /// Attaches the coordinator callbacks to the end screen view model.
