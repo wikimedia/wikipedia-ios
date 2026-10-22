@@ -2,7 +2,7 @@ import SwiftUI
 import WMFData
 
 @MainActor
-final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
+final class WMFPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
     
     enum ImageLoadingState {
         case loading
@@ -42,7 +42,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     public var didTapAlert: (() -> Void)?
     public var didTapReadingListTag: ((_ readingListName: String?) -> Void)?
     
-    public static func == (lhs: WMFAsyncPageRowSavedViewModel, rhs: WMFAsyncPageRowSavedViewModel) -> Bool {
+    public static func == (lhs: WMFPageRowSavedViewModel, rhs: WMFPageRowSavedViewModel) -> Bool {
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
         lhs.project == rhs.project &&
