@@ -6,8 +6,8 @@ final class WMFLegacyReadingListsDataControllerTests: XCTestCase {
 
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
-    private func article(_ title: String, minutesAgo: Int?, lists: [String] = []) -> WMFSavedArticle {
-        WMFSavedArticle(id: "\(project.id)|\(title)", title: title, project: project, savedDate: minutesAgo.map { Date(timeIntervalSince1970: 1_000_000 - TimeInterval($0 * 60)) }, readingListNames: lists)
+    private func article(_ title: String, displayTitle: String? = nil, minutesAgo: Int?, lists: [String] = []) -> WMFSavedArticle {
+        WMFSavedArticle(id: "\(project.id)|\(title)", title: title, displayTitle: displayTitle, project: project, savedDate: minutesAgo.map { Date(timeIntervalSince1970: 1_000_000 - TimeInterval($0 * 60)) }, readingListNames: lists)
     }
 
     private func list(_ name: String, minutesAgo: Int?, isDefault: Bool = false, articleIDs: Set<String> = []) -> WMFReadingList {
@@ -24,6 +24,17 @@ final class WMFLegacyReadingListsDataControllerTests: XCTestCase {
         let articles = [article("Zebra", minutesAgo: 1), article("apple", minutesAgo: 3), article("Émile Zola", minutesAgo: 2), article("Dog", minutesAgo: 10)]
         let sorted = WMFLegacyReadingListsDataController.sorted(articles, by: .byTitle)
         XCTAssertEqual(sorted.map { $0.title }, ["apple", "Dog", "Émile Zola", "Zebra"])
+    }
+
+    func testTitleSortAndSearchUseTheDisplayTitle() {
+        let phone = article("IPhone", displayTitle: "iPhone", minutesAgo: 1)
+        let articles = [article("Zebra", minutesAgo: 2), phone, article("Apple", minutesAgo: 3)]
+
+        let sorted = WMFLegacyReadingListsDataController.sorted(articles, by: .byTitle)
+        XCTAssertEqual(sorted.map { $0.displayTitle }, ["Apple", "iPhone", "Zebra"])
+
+        XCTAssertEqual(WMFLegacyReadingListsDataController.filtered(articles, searchText: "iph").map { $0.id }, [phone.id])
+        XCTAssertEqual(phone.title, "IPhone", "The canonical title stays as it is; the display title is only for display.")
     }
 
     func testTitleSortBreaksTiesWithTheNewest() {

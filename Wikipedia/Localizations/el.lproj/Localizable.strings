@@ -64,7 +64,7 @@
 "action-discard-edit" = "Απόρριψη επεξεργασιών";
 "action-discard-edits" = "Απόρριψη επεξεργασιών";
 "action-find-in-page" = "Βρείτε στην σελίδα";
-"action-keep-editing" = "Συνέχεια επεξεργασίας";
+"action-keep-editing" = "Συνέχιση επεξεργασίας";
 "action-language-accessibility" = "Αλλαγή γλώσσας";
 "action-move-to" = "Μετακίνηση σε...";
 "action-move-to-reading-list" = "Μετακίνηση στη λίστα ανάγνωσης";
@@ -451,7 +451,7 @@
 "talk-pages-archives-view-title" = "Αρχεία";
 "talk-pages-coffee-roll-read-more" = "Διαβάστε περισσότερα";
 "talk-pages-comment-added-alert-title" = "Το σχόλιό σας προστέθηκε";
-"talk-pages-compose-close-confirmation-keep" = "Συνέχεια επεξεργασίας";
+"talk-pages-compose-close-confirmation-keep" = "Συνέχιση επεξεργασίας";
 "talk-pages-edit-source" = "Επεξεργασία κώδικα";
 "talk-pages-empty-view-body-article" = "Οι σελίδες συζήτησης είναι οι σελίδες όπου οι άνθρωποι συζητούν πώς να κάνουν το περιεχόμενο στη Βικιπαίδεια όσο το δυνατόν καλύτερο. **Ξεκινήστε προσθέτοντας ένα νέο θέμα συζήτησης** για να συνδεθείτε και να συνεργαστείτε με μια κοινότητα Βικιπαιδιστών.";
 "theme-black-display-name" = "Μαύρο";

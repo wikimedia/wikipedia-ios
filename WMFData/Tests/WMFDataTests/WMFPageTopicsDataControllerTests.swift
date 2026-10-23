@@ -258,6 +258,50 @@ final class WMFPageTopicsDataControllerTests: XCTestCase {
         XCTAssertEqual(results.count, 0)
     }
 
+    /// Inserts a second CDPage row for an article, with its own page view and topics. The app does not do this on
+    /// purpose, but CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can.
+    private func insertDuplicatePageRow(title: String, project: WMFProject, viewedAt timestamp: Date, topicLabels: [String]) async throws {
+        let store = try XCTUnwrap(store)
+        let context = try store.newBackgroundContext
+        try await context.perform {
+            let page = try store.create(entityType: CDPage.self, in: context)
+            page.title = title
+            page.namespaceID = 0
+            page.projectID = project.id
+            page.timestamp = timestamp
+
+            let pageView = try store.create(entityType: CDPageView.self, in: context)
+            pageView.timestamp = timestamp
+            pageView.page = page
+
+            for label in topicLabels {
+                let topic = try store.create(entityType: CDPageTopic.self, in: context)
+                topic.topic = label
+                topic.score = 0.9
+                topic.page = page
+            }
+
+            try store.saveIfNeeded(moc: context)
+        }
+    }
+
+    func testFetchReadPagesWithTopicsMergesDuplicatePageRows() async throws {
+
+        guard let dataController, let pageViewsDataController else {
+            throw TestsError.missingDataController
+        }
+
+        _ = try await pageViewsDataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: yesterdayDate)
+        try await dataController.savePageTopics(title: "Cat", namespaceID: 0, project: enProject, topics: [WMFPageTopic(topic: "STEM.Biology", score: 0.9)])
+        try await insertDuplicatePageRow(title: "Cat", project: enProject, viewedAt: yesterdayDate, topicLabels: ["STEM.STEM*"])
+
+        let results = try await dataController.fetchReadPagesWithTopics(startDate: lastWeekDate, endDate: Date())
+
+        XCTAssertEqual(results.count, 1, "two rows for one article are one article")
+        XCTAssertEqual(results.first?.page.title, "Cat")
+        XCTAssertEqual(Set(results.first?.topicLabels ?? []), ["STEM.Biology", "STEM.STEM*"], "the labels of both rows are merged")
+    }
+
     func testFetchPagesForTopic() async throws {
 
         guard let dataController, let pageViewsDataController else {

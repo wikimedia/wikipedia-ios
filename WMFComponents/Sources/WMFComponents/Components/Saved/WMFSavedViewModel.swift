@@ -49,8 +49,6 @@ public final class WMFSavedViewModel: ObservableObject {
     @Published public var isSearchPresented = false
     @Published public private(set) var isEditing = false
     @Published public private(set) var sortOrder: WMFReadingListSortOrder
-    /// The navigation bar stays put while the Reading lists segment shows its empty state.
-    @Published public private(set) var hidesNavigationBarOnScroll = true
     @Published public private(set) var profileButtonNeedsBadge = false
 
     public let allArticlesViewModel: WMFSavedAllArticlesViewModel
@@ -61,8 +59,6 @@ public final class WMFSavedViewModel: ObservableObject {
     public var didTapTabs: (() -> Void)?
     /// Answers whether the profile button needs its badge. Asked on every appearance and on request.
     public var profileButtonNeedsBadgeProvider: (() -> Bool)?
-    /// Set by the hosting controller to show the navigation bar again.
-    public var didScrollToTop: (@MainActor @Sendable () -> Void)?
     public weak var loggingDelegate: WMFSavedLoggingDelegate?
 
     private var cancellables = Set<AnyCancellable>()
@@ -115,12 +111,6 @@ public final class WMFSavedViewModel: ObservableObject {
                 self?.updateSortOrder(sortOrder, from: .readingLists)
             }
             .store(in: &cancellables)
-
-        readingListsViewModel.$state
-            .sink { [weak self] state in
-                self?.updateHidesNavigationBarOnScroll(readingListsState: state)
-            }
-            .store(in: &cancellables)
     }
 
     // MARK: - Lifecycle
@@ -150,7 +140,6 @@ public final class WMFSavedViewModel: ObservableObject {
         segment = newSegment
         updateIsEditing(activeIsEditing, from: newSegment)
         updateSortOrder(activeSortOrder, from: newSegment)
-        updateHidesNavigationBarOnScroll(readingListsState: readingListsViewModel.state)
         loggingDelegate?.savedDidShowSegment(newSegment)
         loggingDelegate?.savedDidSelectSegment(newSegment)
     }
@@ -237,10 +226,6 @@ public final class WMFSavedViewModel: ObservableObject {
     }
 
     // MARK: - Navigation bar
-
-    private func updateHidesNavigationBarOnScroll(readingListsState: WMFReadingListsViewModel.State) {
-        hidesNavigationBarOnScroll = !(segment == .readingLists && readingListsState == .empty)
-    }
 
     public func refreshProfileButtonBadge() {
         profileButtonNeedsBadge = profileButtonNeedsBadgeProvider?() ?? false

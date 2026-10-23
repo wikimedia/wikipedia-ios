@@ -101,8 +101,9 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: mustHaveURLRequests, niceToHaveURLRequests: []) { (result) in
                     switch result {
                     case .success:
-                        let result = CacheDBWritingResultWithURLRequests.success(mustHaveURLRequests)
-                        completion(result)
+                        self.requestsNeedingDownload(from: mustHaveURLRequests) { needed in
+                            completion(.success(needed))
+                        }
                     case .failure(let error):
                         let result = CacheDBWritingResultWithURLRequests.failure(error)
                         completion(result)
@@ -116,6 +117,25 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
+    /// The PCS resources (css, js, mathjax fonts) are the same for every article of a wiki.
+    /// Once one article downloaded them the file is on disk, and CacheFileWriter keeps the
+    /// existing file anyway. Only requests whose item is not downloaded, or whose file is
+    /// missing, go back to the network. The group is already linked to every item.
+    func requestsNeedingDownload(from urlRequests: [URLRequest], completion: @escaping ([URLRequest]) -> Void) {
+        context.perform {
+            let needed = urlRequests.filter { urlRequest in
+                guard let itemKey = self.fetcher.itemKeyForURLRequest(urlRequest),
+                      let item = CacheDBWriterHelper.cacheItem(with: itemKey, variant: nil, in: self.context),
+                      item.isDownloaded,
+                      let fileName = self.fetcher.uniqueFileNameForItemKey(itemKey, variant: item.variant) else {
+                    return true
+                }
+                return !FileManager.default.fileExists(atPath: CacheFileWriterHelper.fileURL(for: fileName).path)
+            }
+            completion(needed)
+        }
+    }
+
     func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {

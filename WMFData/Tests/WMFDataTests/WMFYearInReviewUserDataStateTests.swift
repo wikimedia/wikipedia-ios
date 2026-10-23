@@ -64,6 +64,19 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .topArticles, data: data)
     }
 
+    private func topTopicsSlide(readCount: Int, hasTopTopic: Bool) throws -> WMFYearInReviewSlide {
+        typealias SlideData = WMFYearInReviewTopTopicsSlideData
+        let article = SlideData.Article(title: "Article", projectID: "wikipedia~en")
+        let topTopic = hasTopTopic ? SlideData.TopTopic(topicCount: SlideData.TopicCount(topicID: WMFArticleTopic.history.rawValue, articleCount: 3), firstArticle: article, lastArticle: article) : nil
+        let data = try JSONEncoder().encode(SlideData(readCount: readCount, topTopic: topTopic, runnerUps: []))
+        return WMFYearInReviewSlide(year: year, id: .topTopics, data: data)
+    }
+
+    private func daysVisitedSlide(dayCount: Int) throws -> WMFYearInReviewSlide {
+        let data = try JSONEncoder().encode(WMFYearInReviewDaysVisitedSlideData(dayCount: dayCount, peakMonth: nil))
+        return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
+    }
+
     private func saveReport(_ slides: [WMFYearInReviewSlide], year: Int? = nil) async throws {
         try await dataController.createNewYearInReviewReport(year: year ?? self.year, slides: slides)
     }
@@ -80,6 +93,30 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         try await saveReport([try readCountSlide(500), try topArticlesSlide(articleCount: 1)])
         let state = try await dataController.fetchUserDataState()
         XCTAssertEqual(state, .lowData, "the articles visited multiple times slide shows its empty version")
+    }
+
+    func testTopTopicSlideWithEnoughDataCountsTowardDataRich() async throws {
+        try await saveReport([try readCountSlide(5), try topTopicsSlide(readCount: 5, hasTopTopic: true)])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .dataRich)
+    }
+
+    func testTopTopicSlideWithoutATopTopicIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(500), try topTopicsSlide(readCount: 500, hasTopTopic: false)])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .lowData, "the top topic slide shows its empty version")
+    }
+
+    func testDaysVisitedSlideWithEnoughDataCountsTowardDataRich() async throws {
+        try await saveReport([try readCountSlide(3), try daysVisitedSlide(dayCount: 2)])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .dataRich)
+    }
+
+    func testDaysVisitedSlideWithOneDayIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(500), try daysVisitedSlide(dayCount: 1)])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .lowData, "the days visited slide does not show")
     }
 
     func testSlidesBelowTheirMinimumAreLowData() async throws {

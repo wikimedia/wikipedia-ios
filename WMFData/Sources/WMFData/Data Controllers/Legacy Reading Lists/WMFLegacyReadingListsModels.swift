@@ -24,12 +24,19 @@ public enum WMFReadingListAlertType: Equatable, Sendable {
 
 /// A saved article as the Saved tab shows it. The description and thumbnail come from the
 /// article record on device; the rows do not call the network.
+///
+/// `title` is the canonical page title. Use it to build article URLs and database keys.
+/// `displayTitle` can differ from it (for example "iPhone" for the page "IPhone"). Use it
+/// only to show, search and sort.
 public struct WMFSavedArticle: Identifiable, Equatable, Sendable {
     public let id: String
     public let title: String
+    public let displayTitle: String
     public let project: WMFProject
     public let savedDate: Date?
     public let description: String?
+    /// The first lines of the article, shown in the long-press preview.
+    public let snippet: String?
     public let thumbnailURL: URL?
     public var readingListNames: [String]
     public var alertType: WMFSavedArticleAlertType
@@ -37,18 +44,22 @@ public struct WMFSavedArticle: Identifiable, Equatable, Sendable {
     public init(
         id: String,
         title: String,
+        displayTitle: String? = nil,
         project: WMFProject,
         savedDate: Date?,
         description: String? = nil,
+        snippet: String? = nil,
         thumbnailURL: URL? = nil,
         readingListNames: [String],
         alertType: WMFSavedArticleAlertType = .none
     ) {
         self.id = id
         self.title = title
+        self.displayTitle = displayTitle ?? title
         self.project = project
         self.savedDate = savedDate
         self.description = description
+        self.snippet = snippet
         self.thumbnailURL = thumbnailURL
         self.readingListNames = readingListNames
         self.alertType = alertType

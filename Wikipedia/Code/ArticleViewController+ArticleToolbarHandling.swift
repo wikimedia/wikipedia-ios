@@ -55,7 +55,7 @@ extension ArticleViewController: ArticleToolbarHandling {
     }
     
     func toolbarWasTouched(from controller: ArticleToolbarController) {
-        skipSemanticSearchFeedback()
+        skipSemanticSearchFeedback(reason: .startedActivity)
     }
 
     func toggleSave(from controller: ArticleToolbarController) {

@@ -101,7 +101,6 @@ public struct WMFReadingListsView: View {
                 }
             }
             .listStyle(.plain)
-            .wmfReportsScrollToTop()
             .accessibilityIdentifier(AccessibilityIdentifiers.Saved.readingListsView)
             .refreshable {
                 await viewModel.refresh()

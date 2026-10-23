@@ -35,7 +35,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     private let dataController: WMFLegacyReadingListsDataController
     public weak var loggingDelegate: WMFSavedAllArticlesLoggingDelegate?
     
-    private var rowViewModelCache: [String: WMFAsyncPageRowSavedViewModel] = [:]
+    private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
     
     // MARK: - Closures
     
@@ -170,7 +170,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         didTapShare?(article, cgRect, fromLongPress)
     }
     
-    func rowViewModel(for article: WMFSavedArticle) -> WMFAsyncPageRowSavedViewModel {
+    func rowViewModel(for article: WMFSavedArticle) -> WMFPageRowSavedViewModel {
         if let cached = rowViewModelCache[article.id] {
             // reading list names may have changed
             // Defer the update to avoid publishing during view evaluation
@@ -182,11 +182,12 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             return cached
         }
         
-        let vm = WMFAsyncPageRowSavedViewModel(
+        let vm = WMFPageRowSavedViewModel(
             id: article.id,
-            title: article.title,
+            title: article.displayTitle,
             project: article.project,
             description: article.description,
+            snippet: article.snippet,
             thumbnailURL: article.thumbnailURL,
             readingListNames: article.readingListNames,
             alertType: article.alertType
@@ -216,7 +217,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     
     private func filterArticles(with searchText: String) {
         filteredArticles = articles.filter { article in
-            WMFLegacyReadingListsDataController.matches(article.title, searchText: searchText)
+            WMFLegacyReadingListsDataController.matches(article.displayTitle, searchText: searchText)
         }
     }
 }
