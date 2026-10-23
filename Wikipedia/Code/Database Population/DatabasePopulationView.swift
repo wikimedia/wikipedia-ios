@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFComponents
+import WMFData
 
 struct ToggleTextFieldRow: View {
     let title: String
@@ -103,6 +104,47 @@ struct DatabasePopulationView: View {
                     .pickerStyle(.automatic)
                 }
             }
+
+            // MARK: - Discover Section
+            Section {
+                Picker("Source", selection: $viewModel.discoverSource) {
+                    ForEach(WMFDiscoverSource.allCases, id: \.rawValue) { source in
+                        Text(source.rawValue).tag(source)
+                    }
+                }
+
+                HStack {
+                    Text("Articles per list")
+                    Spacer()
+                    TextField("", text: $viewModel.discoverArticleCountString)
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 55)
+                }
+
+                Button("Generate now") {
+                    Task { await viewModel.generateDiscoverListNow() }
+                }
+
+                Button("Expire current list") {
+                    Task { await viewModel.expireDiscoverList() }
+                }
+
+                Button("Reset Discover", role: .destructive) {
+                    Task { await viewModel.resetDiscoverList() }
+                }
+            } header: {
+                HStack {
+                    Text("Discover")
+                    if viewModel.isDiscoverLoading {
+                        ProgressView()
+                            .controlSize(.small)
+                    }
+                }
+            } footer: {
+                Text(viewModel.discoverStatus)
+            }
+            .disabled(viewModel.isDiscoverLoading)
 
             // MARK: - Centered Button Section
             Section {
