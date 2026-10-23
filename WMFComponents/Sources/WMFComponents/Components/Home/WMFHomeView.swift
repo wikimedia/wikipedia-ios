@@ -21,19 +21,10 @@ public struct WMFHomeView: View {
         self.viewModel = viewModel
     }
 
-    private var safeAreaTop: CGFloat {
-        UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?
-            .windows
-            .first(where: \.isKeyWindow)?
-            .safeAreaInsets.top ?? 0
-    }
-
-
     private static let tabSwitcherCornerRadius: CGFloat = 8
 
-    private var headerBarTopInset: CGFloat { safeAreaTop + 52 }
+    /// The top safe area of the hosting view: status bar plus the navigation bar, as the system lays them out.
+    @State private var headerBarTopInset: CGFloat = 0
     private var refreshIndicatorTopInset: CGFloat { headerBarTopInset + 60 }
 
     private var isForYou: Bool { viewModel.selectedTab == .forYou }
@@ -52,8 +43,14 @@ public struct WMFHomeView: View {
     }
 
     public var body: some View {
-        mainContent
-            .animation(.easeInOut(duration: 0.2), value: viewModel.isRefreshingForYou)
+        GeometryReader { proxy in
+            mainContent
+                .onAppear { headerBarTopInset = proxy.safeAreaInsets.top }
+                .onChange(of: proxy.safeAreaInsets.top) { _, newValue in
+                    headerBarTopInset = newValue
+                }
+        }
+        .animation(.easeInOut(duration: 0.2), value: viewModel.isRefreshingForYou)
             .ignoresSafeArea(.keyboard)
             .task { viewModel.loadCurrentTabFeedIfNeeded() }
             .onChange(of: viewModel.selectedTab) {
