@@ -176,7 +176,8 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
     // MARK: - Article changes and downloads
 
     private func articleDidChange(_ notification: Notification) {
-        guard let article = notification.object as? WMFArticle,
+        guard savedArticleAlertDidChange != nil,
+              let article = notification.object as? WMFArticle,
               article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
               let articleKey = article.inMemoryKey else {
             return

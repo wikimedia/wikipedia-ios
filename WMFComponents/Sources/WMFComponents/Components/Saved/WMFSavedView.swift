@@ -29,7 +29,6 @@ public struct WMFSavedView: View {
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: Text(viewModel.searchPrompt)
         )
-        .environment(\.wmfDidScrollToTop, viewModel.didScrollToTop)
     }
 
     private var segmentPicker: some View {

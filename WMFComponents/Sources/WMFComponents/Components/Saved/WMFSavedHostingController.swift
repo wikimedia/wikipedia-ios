@@ -4,26 +4,20 @@ import Combine
 import WMFData
 import WMFNativeLocalizations
 
-public final class WMFSavedHostingController: WMFComponentHostingController<WMFSavedView>, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+public final class WMFSavedHostingController: WMFComponentHostingController<WMFSavedView>, WMFNavigationBarConfiguring {
 
     public let viewModel: WMFSavedViewModel
-    public var topSafeAreaOverlayView: UIView?
-    public var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
 
     private var cancellables = Set<AnyCancellable>()
 
     // Copies of the view model state the navigation bar depends on. `@Published` emits before the
     // property changes, so a sink reads the values it receives, not the view model.
     private var isEditingArticles = false
-    private var hidesNavigationBarOnScroll = true
     private var profileButtonNeedsBadge = false
 
     public init(viewModel: WMFSavedViewModel) {
         self.viewModel = viewModel
         super.init(rootView: WMFSavedView(viewModel: viewModel))
-        viewModel.didScrollToTop = { [weak self] in
-            self?.showNavigationBarIfHidden()
-        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,9 +30,7 @@ public final class WMFSavedHostingController: WMFComponentHostingController<WMFS
         super.viewDidLoad()
         view.backgroundColor = theme.paperBackground
         view.accessibilityIdentifier = AccessibilityIdentifiers.Saved.view
-        setupTopSafeAreaOverlay()
         isEditingArticles = viewModel.isEditing
-        hidesNavigationBarOnScroll = viewModel.hidesNavigationBarOnScroll
         profileButtonNeedsBadge = viewModel.profileButtonNeedsBadge
         bindViewModel()
 
@@ -77,18 +69,10 @@ public final class WMFSavedHostingController: WMFComponentHostingController<WMFS
         }
     }
 
-    public override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.calculateTopSafeAreaOverlayHeight()
-        }
-    }
-
     public override func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
         view.backgroundColor = theme.paperBackground
         themeNavigationBarCustomLeadingLargeTitle()
-        themeTopSafeAreaOverlay()
         navigationItem.rightBarButtonItems?.forEach { $0.tintColor = theme.text }
         updateProfileButton()
     }
@@ -119,16 +103,6 @@ public final class WMFSavedHostingController: WMFComponentHostingController<WMFS
                 } else {
                     configureNavigationBar()
                 }
-            }
-            .store(in: &cancellables)
-
-        viewModel.$hidesNavigationBarOnScroll
-            .removeDuplicates()
-            .dropFirst()
-            .sink { [weak self] hidesNavigationBarOnScroll in
-                guard let self else { return }
-                self.hidesNavigationBarOnScroll = hidesNavigationBarOnScroll
-                configureNavigationBar()
             }
             .store(in: &cancellables)
 
@@ -167,7 +141,7 @@ public final class WMFSavedHostingController: WMFComponentHostingController<WMFS
             leadingBarButtonItem: moreBarButtonItem
         )
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
 
         if isEditingArticles {
             showCancelEditingButton()
@@ -184,11 +158,6 @@ public final class WMFSavedHostingController: WMFComponentHostingController<WMFS
     private func updateProfileButton() {
         guard !isEditingArticles else { return }
         updateNavigationBarProfileButton(needsBadge: profileButtonNeedsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
-    }
-
-    private func showNavigationBarIfHidden() {
-        guard let navigationController, navigationController.isNavigationBarHidden else { return }
-        navigationController.setNavigationBarHidden(false, animated: true)
     }
 
     // MARK: - More menu
@@ -228,30 +197,6 @@ public final class WMFSavedHostingController: WMFComponentHostingController<WMFS
         case .byRecentlyAdded:
             return CommonStrings.sortAlertOptionByRecentlyAdded
         }
-    }
-
-    // MARK: - Top safe area overlay
-
-    /// Same overlay as `setupTopSafeAreaOverlay(scrollView:)`, added above the hosted SwiftUI
-    /// content since its scroll view is not reachable from here.
-    private func setupTopSafeAreaOverlay() {
-        let overlayView = UIView()
-        overlayView.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.isUserInteractionEnabled = false
-        view.addSubview(overlayView)
-
-        let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: 0)
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: overlayView.topAnchor),
-            view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
-            overlayHeightConstraint
-        ])
-
-        topSafeAreaOverlayView = overlayView
-        topSafeAreaOverlayHeightConstraint = overlayHeightConstraint
-        calculateTopSafeAreaOverlayHeight()
-        themeTopSafeAreaOverlay()
     }
 
     // MARK: - Actions
