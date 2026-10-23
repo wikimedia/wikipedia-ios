@@ -97,11 +97,10 @@ final class WMFPageRowSavedViewModel: ObservableObject, Identifiable, Equatable 
             return
         }
 
-        do {
-            let data = try await WMFImageDataController.shared.fetchImageData(url: imageURL)
-            self.uiImage = UIImage(data: data)
+        if let image = await UIImage.loadFaceCropped(from: imageURL) {
+            self.uiImage = image
             self.imageLoadingState = .loaded
-        } catch {
+        } else {
             self.imageLoadingState = .noImage
         }
     }

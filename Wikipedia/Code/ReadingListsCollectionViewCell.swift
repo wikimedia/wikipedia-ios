@@ -27,9 +27,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             var alertLabelText: String? = nil
             switch alertType {
             case .listLimitExceeded:
-                alertLabelText = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsListNotSyncedLimitExceeded
             case .entryLimitExceeded:
-                alertLabelText = WMFLocalizedString("reading-lists-articles-not-synced-limit-exceeded", value: "Some articles not synced, limit exceeded", comment: "Text of the alert label informing the user that some articles couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsArticlesNotSyncedLimitExceeded
             default:
                 break
             }
@@ -288,7 +288,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         self.articleCount = articleCount
 
         articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
-        defaultListTag.text = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
+        defaultListTag.text = CommonStrings.readingListsDefaultListTag
         titleLabel.text = name
         descriptionLabel.text = description
 

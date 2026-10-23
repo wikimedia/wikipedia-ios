@@ -332,3 +332,12 @@ public extension ReadingListEntry {
         return (title, project)
     }
 }
+
+// MARK: - Legacy objects for screens that still take managed objects
+
+public extension LegacyReadingListsDataSource {
+    /// The managed object behind a `WMFReadingList.id`, on the view context.
+    func readingList(withID readingListID: String) -> ReadingList? {
+        Self.readingList(withID: readingListID, in: dataStore.viewContext)
+    }
+}
