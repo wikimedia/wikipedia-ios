@@ -80,17 +80,24 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     private weak var coordinatorDelegate: WMFYearInReviewCoordinating?
     private weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
 
+    /// True where donations are not accepted. Tests pass a fixed value.
+    private let hidesDonate: () -> Bool
+
+    /// - Parameter hidesDonate: Without the data controller, the country check cannot run. Then the
+    ///   donate button hides, so it never shows where donations are not accepted.
     public init(
         slides: [WMFYearInReviewSlideViewModel],
         localizedStrings: LocalizedStrings,
         coordinatorDelegate: WMFYearInReviewCoordinating?,
-        loggingDelegate: WMFYearInReviewLoggingDelegate?
+        loggingDelegate: WMFYearInReviewLoggingDelegate?,
+        hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }
     ) {
         self.slides = slides
         self.currentSlideID = slides.first?.id
         self.localizedStrings = localizedStrings
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
+        self.hidesDonate = hidesDonate
     }
 
     /// Whether the reader is on the end screen, not on a slide.
@@ -195,11 +202,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             return false
         }
 
-        guard let dataController = try? WMFYearInReviewDataController() else {
-            return true
-        }
-
-        return !dataController.shouldHideDonateButton()
+        return !hidesDonate()
     }
 
     func tappedLearnMore() {

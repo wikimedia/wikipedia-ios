@@ -8,7 +8,7 @@ import WMFNativeLocalizations
 @Suite
 struct YearInReviewSlideViewModelFactoryTests {
 
-    private let factory = YearInReviewSlideViewModelFactory()
+    private let factory = YearInReviewSlideViewModelFactory(hidesDonate: { false })
 
     /// Only the total articles, articles visited multiple times, top topic and contributor slides have
     /// real data so far. Each always shows, in its full or its empty version, so Year in Review never
@@ -416,5 +416,14 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func theContributorSlideCanBeRebuiltOnItsOwn() {
         #expect(factory.makeContributorSlide(isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+    }
+
+    /// The country check decides whether the "You matter" slide shows.
+    @Test
+    func theYouMatterSlideFollowsTheCountryCheck() {
+        let hidingFactory = YearInReviewSlideViewModelFactory(hidesDonate: { true })
+
+        #expect(hidingFactory.makeContributorSlide(isLoggedIn: true) == nil)
+        #expect(hidingFactory.makeSlides(userDataState: .lowData, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
     }
 }

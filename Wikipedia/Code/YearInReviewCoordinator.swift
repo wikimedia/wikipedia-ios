@@ -80,6 +80,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.dataStore = dataStore
         self.dataController = dataController
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(localDonationHistoryDidChange), name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
     }
     
     @discardableResult
@@ -305,11 +306,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             },
             getDonateButtonGlobalRect: {
                 MainActor.assumeIsolated { getSourceRect() }
-            },
-            donateSuccessAction: { [weak self] in
-                MainActor.assumeIsolated {
-                    self?.showThankYouSlideAfterDonation()
-                }
             }
         )
 
@@ -317,8 +313,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         donateCoordinator.start()
     }
 
-    /// The donation is saved on the device before this runs, so the rebuilt slide reads it. The
-    /// reader stays on the same slide, which becomes the "Thank you" version.
+    /// Apple Pay reports success on a timer, before the payment request returns. The donation is
+    /// saved only when the request succeeds, so wait for the save, not for the success action.
+    @objc private func localDonationHistoryDidChange() {
+        Task { @MainActor [weak self] in
+            self?.showThankYouSlideAfterDonation()
+        }
+    }
+
+    /// The rebuilt slide reads the saved donation. The reader stays on the same slide, which
+    /// becomes the "Thank you" version. Does nothing when Year in Review is closed.
     private func showThankYouSlideAfterDonation() {
         guard let viewModel,
               let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
