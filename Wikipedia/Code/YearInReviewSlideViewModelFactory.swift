@@ -8,6 +8,15 @@ import WMFNativeLocalizations
 /// Makes the content that the Year in Review view model is built from.
 struct YearInReviewSlideViewModelFactory {
 
+    /// True where donations are not accepted. Tests pass a fixed value.
+    private let hidesDonate: () -> Bool
+
+    /// Without the data controller, the country check cannot run. Then the donate slide hides, so
+    /// it never shows where donations are not accepted.
+    init(hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }) {
+        self.hidesDonate = hidesDonate
+    }
+
     /// Shared with the announcement's more menu.
     static var aboutInsightsButtonTitle: String {
         WMFLocalizedString("year-in-review-2026-about-insights", value: "About your insights", comment: "Title of the Year in Review more menu item that opens the Frequently Asked Questions page.")
@@ -47,7 +56,7 @@ struct YearInReviewSlideViewModelFactory {
             isEditor: contributor.isEditor,
             isDonor: contributor.isDonor,
             isLoggedIn: isLoggedIn,
-            hidesDonate: (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? false
+            hidesDonate: hidesDonate()
         )
     }
 
