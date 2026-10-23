@@ -393,7 +393,7 @@ struct YearInReviewSlideViewModelFactory {
         var isContributor: Bool { isEditor || isDonor }
     }
     
-    public func isContributor() -> Bool {
+    func isContributor() -> Bool {
         storedContributorStatus().isContributor
     }
 
