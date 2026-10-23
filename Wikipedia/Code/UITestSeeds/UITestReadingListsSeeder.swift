@@ -15,6 +15,7 @@ public struct UITestReadingListsSeed: Codable {
     public struct Article: Codable {
         public let title: String
         public let description: String?
+        public let snippet: String?
         public let savedMinutesAgo: Int
         public let readingListNames: [String]
     }
@@ -99,6 +100,7 @@ public final class UITestReadingListsSeeder {
             }
             article.displayTitleHTML = seedArticle.title
             article.wikidataDescription = seedArticle.description
+            article.snippet = seedArticle.snippet
             article.isDownloaded = true
 
             dataStore.savedPageList.addSavedPage(with: url)

@@ -30,7 +30,21 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         let notSynced: String
         let articleQueuedToBeDownloaded: String
         
-        public init(emptyStateTitle: String, emptyStateMessage: String, addToList: String, unsave: String, open: String, openInNewTab: String, openInBackgroundTab: String, removeFromSaved: String, share: String, listLimitExceeded: String, entryLimitExceeded: String, notSynced: String, articleQueuedToBeDownloaded: String) {
+        public init(
+            emptyStateTitle: String,
+            emptyStateMessage: String,
+            addToList: String,
+            unsave: String,
+            open: String,
+            openInNewTab: String,
+            openInBackgroundTab: String,
+            removeFromSaved: String,
+            share: String,
+            listLimitExceeded: String,
+            entryLimitExceeded: String,
+            notSynced: String,
+            articleQueuedToBeDownloaded: String
+        ) {
             self.emptyStateTitle = emptyStateTitle
             self.emptyStateMessage = emptyStateMessage
             self.addToList = addToList
@@ -66,9 +80,9 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     // MARK: - Properties
     
     public let localizedStrings: LocalizedStrings
-    private let dataController: WMFLegacySavedArticlesDataController
+    private let dataController: WMFLegacyReadingListsDataController
     
-    private var rowViewModelCache: [String: WMFAsyncPageRowSavedViewModel] = [:]
+    private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
     
     // MARK: - Closures
     
@@ -86,7 +100,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     // MARK: - Initialization
     
     public init(
-        dataController: WMFLegacySavedArticlesDataController,
+        dataController: WMFLegacyReadingListsDataController,
         localizedStrings: LocalizedStrings
     ) {
         self.dataController = dataController
@@ -115,7 +129,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         }
         
         Task {
-            let fetchedArticles = await dataController.fetchAllSavedArticles()
+            let fetchedArticles = (try? await dataController.fetchSavedArticles()) ?? []
             self.articles = fetchedArticles
             self.filterArticles(with: self.searchText)
             self.state = fetchedArticles.isEmpty ? .empty : .data
@@ -181,7 +195,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         didTapAddToList?(selectedArticles)
     }
     
-    func rowViewModel(for article: WMFSavedArticle) -> WMFAsyncPageRowSavedViewModel {
+    func rowViewModel(for article: WMFSavedArticle) -> WMFPageRowSavedViewModel {
         if let cached = rowViewModelCache[article.id] {
             // reading list names may have changed
             // Defer the update to avoid publishing during view evaluation
@@ -193,7 +207,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             return cached
         }
         
-        let localizedStrings = WMFAsyncPageRowSavedViewModel.LocalizedStrings(
+        let localizedStrings = WMFPageRowSavedViewModel.LocalizedStrings(
             open: localizedStrings.open,
             openInNewTab: localizedStrings.openInNewTab,
             openInBackgroundTab: localizedStrings.openInBackgroundTab,
@@ -204,7 +218,17 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             notSynced: localizedStrings.notSynced,
             articleQueuedToBeDownloaded: localizedStrings.articleQueuedToBeDownloaded)
         
-        let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames, alertType: article.alertType, localizedStrings: localizedStrings)
+        let vm = WMFPageRowSavedViewModel(
+            id: article.id,
+            title: article.displayTitle,
+            project: article.project,
+            description: article.description,
+            snippet: article.snippet,
+            thumbnailURL: article.thumbnailURL,
+            readingListNames: article.readingListNames,
+            alertType: article.alertType,
+            localizedStrings: localizedStrings
+        )
         
         vm.didTapAlert = { [weak self] in
             self?.didTapArticleAlert?(article)
@@ -221,12 +245,8 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     // MARK: - Private Methods
     
     private func filterArticles(with searchText: String) {
-        if searchText.isEmpty {
-            filteredArticles = articles
-        } else {
-            filteredArticles = articles.filter { article in
-                article.title.localizedCaseInsensitiveContains(searchText)
-            }
+        filteredArticles = articles.filter { article in
+            WMFLegacyReadingListsDataController.matches(article.displayTitle, searchText: searchText)
         }
     }
 }

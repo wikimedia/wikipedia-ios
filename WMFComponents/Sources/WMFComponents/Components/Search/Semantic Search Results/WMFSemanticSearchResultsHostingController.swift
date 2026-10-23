@@ -28,6 +28,11 @@ public final class WMFSemanticSearchResultsHostingController: WMFComponentHostin
         viewModel.sheetDidAppear()
     }
 
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.sheetDidDisappear()
+    }
+
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
         let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(tappedClose), alignment: .trailing)

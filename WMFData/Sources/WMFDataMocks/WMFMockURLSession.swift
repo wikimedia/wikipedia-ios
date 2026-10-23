@@ -34,6 +34,28 @@ final class WMFMockSuccessURLSession: WMFURLSession, @unchecked Sendable {
     }
 }
 
+/// Answers with the mock data and the given response headers.
+final class WMFMockHeadersURLSession: WMFURLSession {
+
+    private let headerFields: [String: String]
+
+    init(headerFields: [String: String]) {
+        self.headerFields = headerFields
+    }
+
+    func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
+        let data = try? JSONEncoder().encode(WMFMockData(oneInt: 1, twoString: "two"))
+        let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 200, httpVersion: nil, headerFields: headerFields)
+
+        completionHandler(data, response, nil)
+        return WMFMockURLSessionDataTask()
+    }
+
+    func clearCachedData() {
+        // no-op
+    }
+}
+
 final class WMFMockServerErrorSession: WMFURLSession, @unchecked Sendable {
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
 

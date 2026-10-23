@@ -1,5 +1,6 @@
 import Foundation
 import WMFComponents
+import WMFData
 import WMFNativeLocalizations
 
 enum ReadingListsDisplayType {
@@ -43,12 +44,18 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 
     // MARK: - Sorting
 
-    private var sortActionType = SortActionType.byTitle
+    private var sortActionType: SortActionType = {
+        SortActionType(rawValue: WMFLegacyReadingListsDataController().readingListsSortOrder.rawValue) ?? .byTitle
+    }()
 
     lazy var sortActions: [SortActionType: SortAction] = {
         let moc = dataStore.viewContext
         let updateSortOrder: (Int) -> Void = { [weak self] (rawValue: Int) in
-            self?.sortActionType = SortActionType(rawValue: rawValue) ?? .byTitle
+            let sortActionType = SortActionType(rawValue: rawValue) ?? .byTitle
+            self?.sortActionType = sortActionType
+            if let sortOrder = WMFReadingListSortOrder(rawValue: sortActionType.rawValue) {
+                WMFLegacyReadingListsDataController().setReadingListsSortOrder(sortOrder)
+            }
         }
 
         let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { [weak self] (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
@@ -56,7 +63,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             self?.reset()
         }
 
-        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)], handler: handler)
+        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:)))], handler: handler)
         let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingList.createdDate, ascending: false)], handler: handler)
 
         return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]
