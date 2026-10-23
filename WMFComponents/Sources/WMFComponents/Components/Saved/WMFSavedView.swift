@@ -13,22 +13,39 @@ public struct WMFSavedView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-            segmentPicker
+        segmentContentUnderPicker
+            .overlay(alignment: .bottom) {
+                WMFSavedProgressView(viewModel: viewModel.progressViewModel)
+                    .allowsHitTesting(false)
+            }
+            .background(Color(uiColor: appEnvironment.theme.paperBackground))
+            .searchable(
+                text: $viewModel.searchText,
+                isPresented: $viewModel.isSearchPresented,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: Text(viewModel.searchPrompt)
+            )
+    }
+
+    /// The segment content fills the screen and scrolls under the picker, so the system
+    /// scroll edge effect of the navigation bar continues under the picker as it did when the
+    /// picker was a scope bar in the UIKit navigation bar.
+    @ViewBuilder
+    private var segmentContentUnderPicker: some View {
+        if #available(iOS 26.0, *) {
             segmentContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .safeAreaBar(edge: .top, spacing: 0) {
+                    segmentPicker
+                }
+        } else {
+            segmentContent
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    segmentPicker
+                        .background(.bar)
+                }
         }
-        .overlay(alignment: .bottom) {
-            WMFSavedProgressView(viewModel: viewModel.progressViewModel)
-                .allowsHitTesting(false)
-        }
-        .background(Color(uiColor: appEnvironment.theme.paperBackground))
-        .searchable(
-            text: $viewModel.searchText,
-            isPresented: $viewModel.isSearchPresented,
-            placement: .navigationBarDrawer(displayMode: .always),
-            prompt: Text(viewModel.searchPrompt)
-        )
     }
 
     private var segmentPicker: some View {
