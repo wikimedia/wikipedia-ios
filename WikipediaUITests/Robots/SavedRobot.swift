@@ -243,12 +243,11 @@ extension SavedRobot {
         case .byRecentlyAdded:
             label = fixture.labels.sortByRecentlyAdded
         }
-        let sheet = base.app.sheets.firstMatch
-        base.assertExists(sheet, timeout: 5, description: "sort sheet", file: file, line: line)
-        let optionButton = sheet.buttons[label]
-        base.assertVisible(optionButton, timeout: 5, description: "sort option '\(label)'", file: file, line: line)
-        optionButton.tap()
-        base.waitForElementToDisappear(sheet, timeout: 5, file: file, line: line)
+        // "Sort" is a submenu of the more menu; its options carry a checkmark on the current order.
+        let optionItem = base.menuItem(withTitle: label)
+        base.assertVisible(optionItem, timeout: 5, description: "sort option '\(label)'", file: file, line: line)
+        optionItem.tap()
+        base.waitForElementToDisappear(optionItem, timeout: 5, file: file, line: line)
         return self
     }
 
@@ -269,6 +268,8 @@ extension SavedRobot {
     @discardableResult
     func cancelEditMode(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Saved.editingCancelButton, timeout: 5, file: file, line: line)
+        base.waitForElementToDisappear(base.app.buttons[AccessibilityIdentifiers.Saved.editingCancelButton], timeout: 5, file: file, line: line)
+        base.assertExists(base.app.buttons[AccessibilityIdentifiers.Saved.moreButton], timeout: 5, description: "more button after cancelling edit mode", file: file, line: line)
         return self
     }
 
@@ -462,10 +463,10 @@ private extension SavedRobot {
         return identified.exists ? identified : base.app.alerts.firstMatch
     }
 
-    /// The scope bar is a system segmented control with no identifiers, and its button order
-    /// follows the layout direction, so the button is found by its localized title.
+    /// The segment picker's button order follows the layout direction, so the button is found
+    /// by its localized title.
     func tapScopeButton(labeled title: String, file: StaticString, line: UInt) {
-        let scopeBar = base.app.segmentedControls.firstMatch
+        let scopeBar = base.app.segmentedControls[AccessibilityIdentifiers.Saved.segmentPicker]
         base.assertExists(scopeBar, timeout: 15, description: "Saved scope bar", file: file, line: line)
         let button = scopeBar.buttons[title]
         base.assertVisible(button, timeout: 15, description: "scope button '\(title)'", file: file, line: line)
