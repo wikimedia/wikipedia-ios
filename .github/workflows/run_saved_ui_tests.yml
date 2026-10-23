@@ -1,13 +1,19 @@
 name: Run Saved Tab UI Tests
 
 # The Saved tab is being rewritten in SwiftUI (T441442). These fixture-backed journeys
-# are the parity net for that work, so they run on every pull request.
+# are the parity net for that work. The job takes about one hour, so it is opt-in:
+# add the "Saved UI Tests" label to a pull request to run it on each push.
 # Delete this workflow when the rewrite ships. The nightly run keeps the coverage.
 
 on:
   pull_request:
     branches:
       - 'main'
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
   workflow_dispatch:
 
 permissions:
@@ -27,6 +33,15 @@ concurrency:
 
 jobs:
   run-saved-ui-tests:
+    # Run on manual dispatch, or when the pull request carries the opt-in label.
+    # When a different label is added, do not start a duplicate run.
+    # The env context is not available here, so the label name is a literal.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        contains(github.event.pull_request.labels.*.name, 'Saved UI Tests') &&
+        (github.event.action != 'labeled' || github.event.label.name == 'Saved UI Tests')
+      )
     runs-on: macos-26
     name: Test SavedUITests
     steps:
