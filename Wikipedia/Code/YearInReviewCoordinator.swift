@@ -170,12 +170,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
-        // TODO: Replace `showsShareHighlights` when the collective slides exist. Until then, the
-        // data state stands in for "saw the personalized slides".
-        viewModel.endViewModel = makeEndViewModel(
-            isContributor: slideFactory.isContributor(),
-            showsShareHighlights: userDataState == .dataRich
-        )
+        viewModel.endViewModel = makeEndViewModel(isContributor: slideFactory.isContributor())
 
         self.viewModel = viewModel
 
@@ -331,6 +326,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
         viewModel.replaceSlide(id: YearInReviewSlideViewModelFactory.nonContributorSlideID, with: slide)
+
+        // The reader is now a contributor. Make the end screen again to add the gift card.
+        viewModel.endViewModel = makeEndViewModel(isContributor: true)
     }
 
     /// The pages are translated per app language, so the URLs are built rather than hardcoded.
@@ -499,12 +497,9 @@ extension YearInReviewCoordinator {
     }
 
     /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
-    private func makeEndViewModel(isContributor: Bool, showsShareHighlights: Bool) -> WMFYearInReviewEndViewModel {
+    private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
         MainActor.assumeIsolated {
-            let viewModel = WMFYearInReviewEndViewModel(
-                isContributor: isContributor,
-                showsShareHighlights: showsShareHighlights
-            )
+            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor)
             buildEndViewModel(viewModel)
             return viewModel
         }
@@ -513,9 +508,6 @@ extension YearInReviewCoordinator {
     /// Attaches the coordinator callbacks to the end screen view model.
     @MainActor
     private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
-        viewModel.didTapShareHighlights = {
-            // Covered on a separate task.
-        }
         viewModel.didTapStore = { [weak self] in
             self?.showStore()
         }

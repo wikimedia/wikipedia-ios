@@ -1,7 +1,6 @@
 import SwiftUI
 
-/// The last screen of Year in Review: a sky with an illustration, a thank you, an optional share
-/// button, and a row of cards.
+/// The last screen of Year in Review: a sky with an illustration, a thank you, and a row of cards.
 public struct WMFYearInReviewEndView: View {
 
     @ObservedObject private var viewModel: WMFYearInReviewEndViewModel
@@ -56,7 +55,9 @@ public struct WMFYearInReviewEndView: View {
             glow
                 .padding(.top, 16)
 
+            // The text shows in capital letters. VoiceOver reads the text as written.
             Text(viewModel.headline.localizedUppercase)
+                .accessibilityLabel(viewModel.headline)
                 .font(Font(headlineFont))
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
@@ -68,11 +69,6 @@ public struct WMFYearInReviewEndView: View {
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
                 .padding(.top, 24)
-
-            if viewModel.showsShareHighlights {
-                shareButton
-                    .padding(.top, 40)
-            }
         }
         .padding(.horizontal, 32)
         .frame(maxWidth: .infinity)
@@ -147,23 +143,13 @@ public struct WMFYearInReviewEndView: View {
             .accessibilityHidden(true)
     }
 
-    private var shareButton: some View {
-        WMFSmallButton(
-            configuration: .init(style: .primary),
-            title: viewModel.shareHighlightsButtonTitle,
-            image: WMFSFSymbolIcon.for(symbol: .share),
-            forceBackgroundColor: WMFYearInReviewEndViewModel.shareButtonColor,
-            forceForegroundColor: WMFColor.white
-        ) {
-            viewModel.didTapShareHighlights?()
-        }
-    }
-
     // MARK: - Cards
 
     private func cardView(_ card: WMFYearInReviewEndViewModel.Card) -> some View {
         VStack(spacing: 18) {
+            // The text shows in capital letters. VoiceOver reads the text as written.
             Text(card.title.localizedUppercase)
+                .accessibilityLabel(card.title)
                 .font(Font(cardTitleFont))
                 .foregroundColor(Color(uiColor: WMFTheme.light.text))
                 .multilineTextAlignment(.center)

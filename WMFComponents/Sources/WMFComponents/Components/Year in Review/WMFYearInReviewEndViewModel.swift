@@ -27,9 +27,6 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     /// From the Figma design. The bottom of the gradient in the glow under the illustration. The top is white.
     public static let glowBottomColor = UIColor(red: 0.82, green: 0.82, blue: 0.82, alpha: 1)
 
-    /// Sampled from the Figma design. The "Share highlights" button.
-    public static let shareButtonColor = UIColor(0x7198F8)
-
     /// From Figma's elliptical gradient. `location` is 0 at the center of the ellipse and 1 at its edge.
     public static let skyGradientStops: [(color: UIColor, location: CGFloat)] = [
         (UIColor(red: 0.11, green: 0.13, blue: 0.24, alpha: 1), 0.15),
@@ -60,7 +57,6 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
 
     public let headline = CommonStrings.yearInReviewOutroTitle
     public let body = CommonStrings.yearInReviewOutroSubtitle
-    public let shareHighlightsButtonTitle = CommonStrings.yearInReviewOutroShareButtonTitle
 
     private let contributorGiftTitle = CommonStrings.yearInReviewStoreCardTitle
     private let contributorGiftBody = CommonStrings.yearInReviewStoreCardSubtitle(percent: NumberFormatter.localizedString(from: NSNumber(value: storeDiscount), number: .percent))
@@ -72,23 +68,17 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
 
     // MARK: - State
 
-    /// `false` for readers who saw the collective slides. They do not get the share button.
-    public let showsShareHighlights: Bool
-
     /// The cards in display order. The contributor gift card is only here for contributors.
     public let cards: [Card]
 
     // MARK: - Callbacks
 
-    public var didTapShareHighlights: (() -> Void)?
     public var didTapStore: (() -> Void)?
     public var didTapWhichWikipedia: (() -> Void)?
 
     public init(
         isContributor: Bool,
-        showsShareHighlights: Bool
     ) {
-        self.showsShareHighlights = showsShareHighlights
 
         var cards: [Card] = []
         if isContributor {
