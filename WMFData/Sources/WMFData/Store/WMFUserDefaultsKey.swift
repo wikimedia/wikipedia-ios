@@ -142,4 +142,10 @@ public enum WMFUserDefaultsKey: String {
     // Local notifications
     case localNotificationsHandledDays = "local-notifications-handled-days"
     case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"
+
+    // Discover
+    case discoverSettings = "discover-settings"
+    case discoverLastGeneratedDate = "discover-last-generated-date"
+    case discoverNeedsRegeneration = "discover-needs-regeneration"
+    case discoverSeedOffsets = "discover-seed-offsets"
 }
