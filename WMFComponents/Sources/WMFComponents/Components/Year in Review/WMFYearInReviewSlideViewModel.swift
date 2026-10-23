@@ -50,6 +50,9 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     public let localizedStrings: LocalizedStrings
     public let showsShareButton: Bool
     public let showsDonateButton: Bool
+    /// Shows a primary donate button below the animation. A slide with this button hides the
+    /// share and donate buttons in the toolbar.
+    public let showsPrimaryDonateButton: Bool
     /// The style until the slide loads, and the style if the .riv does not set `lightContentFlag`.
     public let contentStyle: ContentStyle
     /// A boolean in the .riv that the artwork sets. True asks for light controls. When the slide
@@ -70,6 +73,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         showsShareButton: Bool = true,
         showsDonateButton: Bool = true,
+        showsPrimaryDonateButton: Bool = false,
         contentStyle: ContentStyle = .light,
         lightContentFlag: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = []
@@ -85,6 +89,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         self.localizedStrings = localizedStrings
         self.showsShareButton = showsShareButton
         self.showsDonateButton = showsDonateButton
+        self.showsPrimaryDonateButton = showsPrimaryDonateButton
         self.contentStyle = contentStyle
         self.lightContentFlag = lightContentFlag
         self.textFits = textFits
