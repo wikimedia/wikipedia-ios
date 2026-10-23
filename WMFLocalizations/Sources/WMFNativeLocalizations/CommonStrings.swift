@@ -266,6 +266,21 @@ public class CommonStrings: NSObject {
 
     @objc public static let unknownError = WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
 
+    public static func deleteReadingListsAlertTitle(readingListsCount: Int) -> String {
+        String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists. %1$d is replaced with number of lists to be deleted. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
+    }
+
+    public static func deleteReadingListsAlertMessage(readingListsCount: Int) -> String {
+        String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-message", value: "This action cannot be undone. Any articles saved only to {{PLURAL:%1$d|this list|these lists}} will be unsaved.", comment: "Title of the altert shown before deleting selected reading lists. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
+    }
+
+    public static let readingListsEmptyTitle = WMFLocalizedString("empty-no-reading-lists-title", value: "Organize saved articles with reading lists", comment: "Title of a blank screen shown when a user has no reading lists")
+    public static let readingListsEmptyMessage = WMFLocalizedString("empty-no-reading-lists-message", value: "Create lists for places to travel to, favorite topics and much more", comment: "Message of a blank screen shown when a user has no reading lists")
+    public static let readingListsDefaultListTag = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
+    public static let readingListsListNotSyncedLimitExceeded = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
+    public static let readingListsArticlesNotSyncedLimitExceeded = WMFLocalizedString("reading-lists-articles-not-synced-limit-exceeded", value: "Some articles not synced, limit exceeded", comment: "Text of the alert label informing the user that some articles couldn't be synced.")
+    public static let readingListDeletedAccessibilityNotification = WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list.")
+
     @objc public static let readingListsDefaultListTitle = WMFLocalizedString("reading-lists-default-list-title", value: "Saved", comment: "The title of the default saved pages list {{Identical|Saved}}")
 
     @objc public static let localizedEnableLocationTitle = WMFLocalizedString("places-enable-location-title", value:"Explore articles near your location by enabling Location Access", comment:"Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".")

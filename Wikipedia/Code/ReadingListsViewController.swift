@@ -286,8 +286,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         guard emptyViewController == nil else { return }
 
         let localizedStrings = WMFEmptyViewModel.LocalizedStrings(
-            title: WMFLocalizedString("empty-no-reading-lists-title", value: "Organize saved articles with reading lists", comment: "Title of a blank screen shown when a user has no reading lists"),
-            subtitle: WMFLocalizedString("empty-no-reading-lists-message", value: "Create lists for places to travel to, favorite topics and much more", comment: "Message of a blank screen shown when a user has no reading lists"),
+            title: CommonStrings.readingListsEmptyTitle,
+            subtitle: CommonStrings.readingListsEmptyMessage,
             titleFilter: nil,
             buttonTitle: CommonStrings.createNewListTitle,
             attributedFilterString: nil
@@ -538,7 +538,7 @@ extension ReadingListsViewController: ActionDelegate {
         switch action.type {
         case .delete:
             self.deleteReadingLists([readingList])
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.readingListDeletedAccessibilityNotification)
             return true
         default:
             return false
@@ -549,43 +549,6 @@ extension ReadingListsViewController: ActionDelegate {
         return [ActionType.delete.action(with: self, indexPath: indexPath)]
     }
 
-}
-
-// MARK: - SavedViewControllerDelegate
-
-extension ReadingListsViewController: SavedViewControllerDelegate {
-    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem) {
-        presentSortAlert(from: button)
-    }
-
-    func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String) {
-        updateSearchString(searchText)
-
-        if searchText.isEmpty {
-            makeSearchBarResignFirstResponder(searchBar)
-        }
-    }
-
-    func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
-        makeSearchBarResignFirstResponder(searchBar)
-    }
-
-    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-    }
-
-    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
-        updateSearchString("")
-        makeSearchBarResignFirstResponder(searchBar)
-    }
-
-    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-
-    func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar) {
-        updateSearchString("")
-        makeSearchBarResignFirstResponder(searchBar)
-    }
 }
 
 // MARK: - SortableCollection
