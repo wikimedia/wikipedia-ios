@@ -158,12 +158,12 @@ public final class WMFLegacyReadingListsDataController: @unchecked Sendable {
 
     // MARK: - Rules
 
-    /// Title order ignores case and accents and follows the device locale. Ties go to the newest.
+    /// Title order uses the display title, ignores case and accents and follows the device locale. Ties go to the newest.
     public static func sorted(_ articles: [WMFSavedArticle], by sortOrder: WMFReadingListSortOrder) -> [WMFSavedArticle] {
         articles.sorted { lhs, rhs in
             switch sortOrder {
             case .byTitle:
-                let comparison = lhs.title.localizedStandardCompare(rhs.title)
+                let comparison = lhs.displayTitle.localizedStandardCompare(rhs.displayTitle)
                 if comparison != .orderedSame {
                     return comparison == .orderedAscending
                 }
@@ -172,7 +172,7 @@ public final class WMFLegacyReadingListsDataController: @unchecked Sendable {
                 if lhs.savedDate != rhs.savedDate {
                     return isNewer(lhs.savedDate, than: rhs.savedDate)
                 }
-                return lhs.title.localizedStandardCompare(rhs.title) == .orderedAscending
+                return lhs.displayTitle.localizedStandardCompare(rhs.displayTitle) == .orderedAscending
             }
         }
     }
@@ -209,7 +209,7 @@ public final class WMFLegacyReadingListsDataController: @unchecked Sendable {
     }
 
     static func filtered(_ articles: [WMFSavedArticle], searchText: String) -> [WMFSavedArticle] {
-        articles.filter { matches($0.title, searchText: searchText) }
+        articles.filter { matches($0.displayTitle, searchText: searchText) }
     }
 
     static func filtered(_ lists: [WMFReadingList], searchText: String) -> [WMFReadingList] {

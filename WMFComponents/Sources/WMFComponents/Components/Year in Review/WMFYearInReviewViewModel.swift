@@ -73,17 +73,24 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     private weak var coordinatorDelegate: WMFYearInReviewCoordinating?
     private weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
 
+    /// True where donations are not accepted. Tests pass a fixed value.
+    private let hidesDonate: () -> Bool
+
+    /// - Parameter hidesDonate: Without the data controller, the country check cannot run. Then the
+    ///   donate button hides, so it never shows where donations are not accepted.
     public init(
         slides: [WMFYearInReviewSlideViewModel],
         localizedStrings: LocalizedStrings,
         coordinatorDelegate: WMFYearInReviewCoordinating?,
-        loggingDelegate: WMFYearInReviewLoggingDelegate?
+        loggingDelegate: WMFYearInReviewLoggingDelegate?,
+        hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }
     ) {
         self.slides = slides
         self.currentSlideID = slides.first?.id
         self.localizedStrings = localizedStrings
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
+        self.hidesDonate = hidesDonate
     }
 
     public var currentSlideIndex: Int {
@@ -102,6 +109,18 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public var currentContentColor: UIColor? {
         guard let currentSlide else { return nil }
         return (loadedContentStyles[currentSlide.id] ?? currentSlide.contentStyle).color
+    }
+
+    /// Puts `slide` in the place of the slide with `id`, for example the contributor slide after a
+    /// donation. If the reader is on that slide, they stay on it.
+    public func replaceSlide(id: String, with slide: WMFYearInReviewSlideViewModel) {
+        guard let index = slides.firstIndex(where: { $0.id == id }) else { return }
+        let wasCurrent = currentSlideID == id
+        slides[index] = slide
+        loadedContentStyles[id] = nil
+        if wasCurrent {
+            currentSlideID = slide.id
+        }
     }
 
     /// Records the style that a slide read from its .riv after it loaded.
@@ -136,17 +155,24 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         coordinatorDelegate?.handleYearInReviewAction(.close)
     }
 
-    /// Matches 2025 behavior
+    /// A slide with its own donate button does not show the share button, so the donate button is
+    /// the only action on the slide.
+    var showsShareButton: Bool {
+        guard let currentSlide else {
+            return false
+        }
+        return currentSlide.showsShareButton && !currentSlide.showsPrimaryDonateButton
+    }
+
+    /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
     var showsDonateButton: Bool {
-        guard currentSlide?.showsDonateButton ?? false else {
+        guard let currentSlide,
+              currentSlide.showsDonateButton,
+              !currentSlide.showsPrimaryDonateButton else {
             return false
         }
 
-        guard let dataController = try? WMFYearInReviewDataController() else {
-            return true
-        }
-
-        return !dataController.shouldHideDonateButton()
+        return !hidesDonate()
     }
 
     func tappedLearnMore() {

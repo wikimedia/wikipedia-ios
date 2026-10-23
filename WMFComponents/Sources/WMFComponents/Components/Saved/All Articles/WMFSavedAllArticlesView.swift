@@ -63,7 +63,7 @@ public struct WMFSavedAllArticlesView: View {
                     let rowModel = viewModel.rowViewModel(for: article)
                     
                     VStack(spacing: 0) {
-                        WMFAsyncPageRowSaved(
+                        WMFPageRowSaved(
                             viewModel: rowModel,
                             onTap: { fromLongPress in
                                 if viewModel.isEditing {

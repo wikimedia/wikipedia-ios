@@ -29,8 +29,8 @@ final class UITestReadingListsSeederTests: XCTestCase {
                 .init(name: "Égypte", description: "Empty", createdMinutesAgo: 10)
             ],
             articles: [
-                .init(title: "Dog", description: "domesticated animal", savedMinutesAgo: 10, readingListNames: ["Zoology"]),
-                .init(title: "Zebra", description: nil, savedMinutesAgo: 1, readingListNames: [])
+                .init(title: "Dog", description: "domesticated animal", snippet: "The dog is a domesticated descendant of the wolf.", savedMinutesAgo: 10, readingListNames: ["Zoology"]),
+                .init(title: "Zebra", description: nil, snippet: nil, savedMinutesAgo: 1, readingListNames: [])
             ]
         )
         let data = try JSONEncoder().encode(seed)
@@ -52,6 +52,7 @@ final class UITestReadingListsSeederTests: XCTestCase {
 
             let dog = try XCTUnwrap(savedArticles.first { $0.displayTitle == "Dog" })
             XCTAssertEqual(dog.sortedNonDefaultReadingLists.compactMap { $0.name }, ["Zoology"])
+            XCTAssertEqual(dog.snippet, "The dog is a domesticated descendant of the wolf.")
         }
     }
 }

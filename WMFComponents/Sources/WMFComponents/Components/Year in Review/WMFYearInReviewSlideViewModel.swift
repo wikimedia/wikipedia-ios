@@ -41,9 +41,18 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     public let numbers: [WMFRiveNumber: Double]
     /// Loaded when the slide shows. A property with no thumbnail keeps the placeholder in the .riv.
     public let articleThumbnails: [WMFRiveImage: ArticleThumbnail]
+    /// Image data that the slide already has, for example a downloaded topic illustration. A property
+    /// with no data keeps the placeholder in the .riv.
+    public let images: [WMFRiveImage: Data]
+    /// The property that lays the frame out from right to left for a right-to-left language. `nil`
+    /// for a frame without it.
+    public let layoutDirection: WMFRiveLayoutDirection?
     public let localizedStrings: LocalizedStrings
     public let showsShareButton: Bool
     public let showsDonateButton: Bool
+    /// Shows a primary donate button below the animation. A slide with this button hides the
+    /// share and donate buttons in the toolbar.
+    public let showsPrimaryDonateButton: Bool
     /// The style until the slide loads, and the style if the .riv does not set `lightContentFlag`.
     public let contentStyle: ContentStyle
     /// A boolean in the .riv that the artwork sets. True asks for light controls. When the slide
@@ -59,9 +68,12 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
         articleThumbnails: [WMFRiveImage: ArticleThumbnail] = [:],
+        images: [WMFRiveImage: Data] = [:],
+        layoutDirection: WMFRiveLayoutDirection? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         showsShareButton: Bool = true,
         showsDonateButton: Bool = true,
+        showsPrimaryDonateButton: Bool = false,
         contentStyle: ContentStyle = .light,
         lightContentFlag: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = []
@@ -72,9 +84,12 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         self.text = text
         self.numbers = numbers
         self.articleThumbnails = articleThumbnails
+        self.images = images
+        self.layoutDirection = layoutDirection
         self.localizedStrings = localizedStrings
         self.showsShareButton = showsShareButton
         self.showsDonateButton = showsDonateButton
+        self.showsPrimaryDonateButton = showsPrimaryDonateButton
         self.contentStyle = contentStyle
         self.lightContentFlag = lightContentFlag
         self.textFits = textFits

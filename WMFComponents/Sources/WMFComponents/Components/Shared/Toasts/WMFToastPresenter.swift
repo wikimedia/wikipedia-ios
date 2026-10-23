@@ -40,6 +40,10 @@ public final class WMFToastPresenter {
     private var cancellables = Set<AnyCancellable>()
 
     private var currentCard: WMFToastCardView?
+    private var currentCardBottomConstraint: NSLayoutConstraint?
+    /// The frame of the keyboard in screen coordinates, or nil when the keyboard is hidden.
+    private var keyboardFrame: CGRect?
+    private var isObservingKeyboard = false
     private var showAnimator: UIViewPropertyAnimator?
     private var dismissTask: Task<Void, Never>?
     private var dismissAction: ((DismissEvent) -> Void)?
@@ -50,6 +54,54 @@ public final class WMFToastPresenter {
         WMFAppEnvironment.publisher
             .sink { [weak self] _ in self?.currentCard?.applyTheme() }
             .store(in: &cancellables)
+    }
+
+    // MARK: - Keyboard
+
+    /// Starts to follow the keyboard. Call this one time at launch, before a keyboard can appear.
+    /// The presenter learns the keyboard frame only from the notifications it observes, so a toast
+    /// shown over a keyboard that opened earlier would otherwise sit behind it.
+    public func startObservingKeyboard() {
+        guard !isObservingKeyboard else { return }
+        isObservingKeyboard = true
+
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
+            .sink { [weak self] notification in self?.keyboardWillChangeFrame(notification) }
+            .store(in: &cancellables)
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .sink { [weak self] notification in self?.keyboardWillHide(notification) }
+            .store(in: &cancellables)
+    }
+
+    private func keyboardWillChangeFrame(_ notification: Notification) {
+        guard let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        keyboardFrame = endFrame
+        repositionCurrentCard(with: notification)
+    }
+
+    private func keyboardWillHide(_ notification: Notification) {
+        keyboardFrame = nil
+        repositionCurrentCard(with: notification)
+    }
+
+    private func repositionCurrentCard(with notification: Notification) {
+        guard let currentCard, let window = currentCard.window, let currentCardBottomConstraint else { return }
+
+        currentCardBottomConstraint.constant = bottomConstant(in: window)
+        let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? Animation.dismissDuration
+        let animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) {
+            window.layoutIfNeeded()
+        }
+        animator.startAnimation()
+    }
+
+    /// The height of the keyboard over the bottom edge of `window`, or 0 when the keyboard is
+    /// hidden. A floating keyboard on iPad does not reach the window edges and counts as hidden.
+    private func keyboardOverlap(in window: UIWindow) -> CGFloat {
+        guard let keyboardFrame else { return 0 }
+        let frameInWindow = window.convert(keyboardFrame, from: window.screen.coordinateSpace)
+        guard frameInWindow.width >= window.bounds.width else { return 0 }
+        return max(0, window.bounds.maxY - frameInWindow.minY)
     }
 
     // MARK: - Public API
@@ -200,27 +252,29 @@ public final class WMFToastPresenter {
             .first { $0.isKeyWindow }
     }
 
+    /// The distance from the bottom of the safe area to the bottom of the card. The card sits
+    /// above the keyboard when one covers the window, else above the tab bar with a margin. When
+    /// there is no tab bar, it keeps the same margin from the safe area, so it does not touch the edge.
+    private func bottomConstant(in window: UIWindow) -> CGFloat {
+        let keyboardOverlap = keyboardOverlap(in: window)
+        if keyboardOverlap > 0 {
+            let keyboardAboveSafeArea = max(0, keyboardOverlap - window.safeAreaInsets.bottom)
+            return -(keyboardAboveSafeArea + Layout.keyboardMargin)
+        }
+
+        let toolbarOffset = window.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
+        return -(Layout.bottomMargin + toolbarOffset)
+    }
+
     private func activateConstraints(for card: UIView, in window: UIWindow) {
         let safeArea = window.safeAreaLayoutGuide
-
-        // Sit above the tab bar with a margin. When there is no tab bar, keep the same
-        // margin from the bottom of the safe area, so the card does not touch the edge.
-        let toolbarOffset = window.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
-        let bottomConstant = -(Layout.bottomMargin + toolbarOffset)
-        let restingBottom = card.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: bottomConstant)
-        restingBottom.priority = .defaultHigh
-
-        // Stay above the keyboard. The keyboard layout guide follows the keyboard, so the
-        // card moves with it. When the keyboard is hidden, the guide sits on the bottom edge
-        // of the window and this constraint has no effect on the resting position.
-        window.keyboardLayoutGuide.usesBottomSafeArea = false
-        let aboveKeyboard = card.bottomAnchor.constraint(lessThanOrEqualTo: window.keyboardLayoutGuide.topAnchor, constant: -Layout.keyboardMargin)
+        let bottom = card.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: bottomConstant(in: window))
+        currentCardBottomConstraint = bottom
 
         NSLayoutConstraint.activate([
             card.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Layout.horizontalMargin),
             card.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Layout.horizontalMargin),
-            restingBottom,
-            aboveKeyboard
+            bottom
         ])
 
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -282,6 +336,7 @@ public final class WMFToastPresenter {
         dismissTask?.cancel()
         dismissTask = nil
         currentCard = nil
+        currentCardBottomConstraint = nil
 
         let action = dismissAction
         dismissAction = nil
