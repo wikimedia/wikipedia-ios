@@ -101,6 +101,13 @@ extension UITestRobot {
         )
         return self
     }
+
+    /// Like `assertSelected`, but reports the result instead of failing the test.
+    func isSelected(_ element: XCUIElement, within timeout: TimeInterval) -> Bool {
+        let predicate = NSPredicate(format: "selected == true")
+        let expectation = testCase.expectation(for: predicate, evaluatedWith: element)
+        return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
+    }
 }
 
 // MARK: - Element resolution

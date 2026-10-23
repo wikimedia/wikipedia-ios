@@ -142,4 +142,7 @@ public enum WMFUserDefaultsKey: String {
     // Local notifications
     case localNotificationsHandledDays = "local-notifications-handled-days"
     case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"
+
+    // Reading list
+    case readingListsSortOrder = "reading-lists-sort-order"
 }
