@@ -36,9 +36,9 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times, topic and contributor slides have real data so far.
+    /// Only the total articles, days visited, articles visited multiple times, niche interest, topic and contributor slides have real data so far.
     /// A data-rich user sees their data, but a slide without enough data shows its empty version.
-    /// The days visited slide has no empty version, so it does not show without enough data.
+    /// The days visited slide and the niche interest slide have no empty version, so they do not show without enough data.
     /// Every flow ends with the contributor slide.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
@@ -84,7 +84,11 @@ struct YearInReviewSlideViewModelFactory {
                 slides.append(daysVisited)
             }
             slides.append(rereadArticlesSlide(storedRereadArticles() ?? []))
-            return slides + topicSlides(storedTopTopics())
+            if let nicheInterest = nicheInterestSlide(storedNicheCategory()) {
+                slides.append(nicheInterest)
+            }
+            slides.append(contentsOf: topicSlides(storedTopTopics()))
+            return slides
         }
     }
 
@@ -277,6 +281,47 @@ struct YearInReviewSlideViewModelFactory {
             bodyText: bodyText,
             items: [],
             accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    // MARK: - Niche interest
+
+    /// The category that the reader read in a niche way, from the report the app fills in the
+    /// background. `nil` when the report does not have this slide yet.
+    private func storedNicheCategory() -> WMFYearInReviewMostReadCategorySlideData? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .mostReadCategories })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(WMFYearInReviewMostReadCategorySlideData.self, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review niche interest: \(error)")
+            return nil
+        }
+    }
+
+    /// Shows one category name. The data controller picks the category when it builds the report,
+    /// so the same category shows each time. `nil` when the reader has no category to show.
+    /// The slide has no empty version.
+    func nicheInterestSlide(_ slideData: WMFYearInReviewMostReadCategorySlideData?) -> WMFYearInReviewSlideViewModel? {
+        guard let slideData, slideData.isEligible, let categoryName = slideData.categoryName else {
+            return nil
+        }
+
+        let headline = CommonStrings.yearInReviewNicheInterestTitle
+        let bodyText = CommonStrings.yearInReviewNicheInterestSubtitle
+
+        // `dataSlide` shows the data in capitals, so the category name is passed as written.
+        return dataSlide(
+            id: "nicheInterest",
+            artboard: "frame12",
+            stateMachine: "frame12-statemachine",
+            headline: headline,
+            data: categoryName,
+            dataFit: Self.dataTextFit,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(categoryName). \(bodyText)"
         )
     }
 

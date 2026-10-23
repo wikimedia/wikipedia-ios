@@ -46,13 +46,11 @@ import CoreData
     public var config: WMFFeatureConfigResponse.Common.YearInReview? {
         let remoteConfig = developerSettingsDataController.loadFeatureConfig()?.common.yir(year: Self.targetYear)
 
-        // TEMPORARY: while the developer force flag is on, use the test wiki entry first, then the
-        // remote entry of this build's environment, then the local copy. Builds without the flag
-        // use only the remote entry, so the remote config still controls launch.
+        // TEMPORARY: while the developer force flag is on, use the remote entry, then the local copy.
+        // The test wiki config has no `yirv2` entry, so a staging build uses the local copy. Builds
+        // without the flag use only the remote entry, so the remote config still controls launch.
         if developerSettingsDataController.forceYiREntryPoint2026 {
-            return developerSettingsDataController.loadTestWikiFeatureConfig()?.common.yir(year: Self.targetYear)
-                ?? remoteConfig
-                ?? WMFYearInReviewLocalConfig.year2026
+            return remoteConfig ?? WMFYearInReviewLocalConfig.year2026
         }
 
         return remoteConfig
@@ -159,7 +157,9 @@ import CoreData
             return (try? decoder.decode(WMFYearInReviewTopTopicsSlideData.self, from: data))?.isEligible ?? false
         case .daysVisited:
             return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible ?? false
-        case .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
+        case .mostReadCategories:
+            return (try? decoder.decode(WMFYearInReviewMostReadCategorySlideData.self, from: data))?.isEligible ?? false
+        case .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
             return false
         }
@@ -841,6 +841,25 @@ public struct WMFYearInReviewReadData: Codable {
     /// If false, show the empty state of the total articles slide.
     public var isEligible: Bool {
         readCount >= Self.minimumReadCount
+    }
+}
+
+/// The data of the niche interest slide: the one category that the reader read the most
+/// niche articles in. The category is picked once, when the report is built.
+public struct WMFYearInReviewMostReadCategorySlideData: Codable {
+    /// The category name with spaces, not underscores. It is nil when no category is a candidate.
+    public let categoryName: String?
+
+    public init(categoryName: String?) {
+        self.categoryName = categoryName
+    }
+
+    /// If false, do not show the niche interest slide. This slide has no empty version.
+    public var isEligible: Bool {
+        guard let categoryName else {
+            return false
+        }
+        return !categoryName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 
