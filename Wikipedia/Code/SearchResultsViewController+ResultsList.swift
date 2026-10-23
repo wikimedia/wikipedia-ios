@@ -12,11 +12,11 @@ extension SearchResultsViewController {
     private static let noSearchResultsMessage = WMFLocalizedString("empty-no-search-results-message", value: "No results found", comment: "Shown when there are no search results")
 
     private static func semanticSearchHiddenToastTitle(languageCode: String) -> String {
-        WMFLocalizedString("search-semantic-entry-point-hidden-toast-title", languageCode: languageCode, value: "Module hidden.", comment: "Title of the toast shown after the reader hides the semantic search entry point on the search screen.")
+        WMFLocalizedString("search-semantic-entry-point-hidden-toast-title", languageCode: languageCode, value: "Module hidden", comment: "Title of the toast shown after the reader hides the semantic search entry point on the search screen.")
     }
 
     private static func semanticSearchHiddenToastSubtitle(languageCode: String) -> String {
-        WMFLocalizedString("search-semantic-entry-point-hidden-toast-subtitle", languageCode: languageCode, value: "You can make it visible again via Settings.", comment: "Subtitle of the toast shown after the reader hides the semantic search entry point on the search screen.")
+        WMFLocalizedString("search-semantic-entry-point-hidden-toast-subtitle", languageCode: languageCode, value: "You can make it visible again via Settings", comment: "Subtitle of the toast shown after the reader hides the semantic search entry point on the search screen.")
     }
 
     private static func semanticSearchHiddenToastButtonTitle(languageCode: String) -> String {
@@ -43,9 +43,14 @@ extension SearchResultsViewController {
             },
             tapAction: { [weak self] result, index in
                 guard let self else { return }
-                SearchFunnel.shared.logSearchResultTap(position: index, source: source.stringValue)
-                saveLastSearch()
-                articleTappedAction?(result.articleURL, false)
+                if let displayedSearchResults = self.displayedSearchResults {
+                    // The position is the index of the row in the response of its own request, as the
+                    // Android app reports it. It restarts at 1 for the rows the full text search appended.
+                    let position = self.searchResultsByArticleURL[result.id]?.index?.intValue ?? (index + 1)
+                    self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
+                }
+                self.saveLastSearch()
+                self.articleTappedAction?(result.articleURL, false)
             },
             openAction: { [weak self] result, _ in
                 ArticleTabsFunnel.shared.logLongPressOpen()
@@ -101,17 +106,12 @@ extension SearchResultsViewController {
     // MARK: - Semantic search entry point
 
     private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
-        guard let query, !query.isEmpty, let languageCode, let project else {
+        guard takesPartInSemanticSearchExperiment, let query, !query.isEmpty, let languageCode, let project else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
         }
         let dataController = WMFSemanticSearchDataController.shared
 
-        do {
-            try dataController.assignExperimentIfNeeded(languageCode: languageCode)
-        } catch {
-            DDLogError("Semantic search experiment assignment failed: \(error)")
-        }
         guard dataController.isEntryPointAvailable(languageCode: languageCode) else {
             resultsViewModel.hideSemanticSearchEntryPoint()
             return
@@ -161,12 +161,19 @@ extension SearchResultsViewController {
             showsTryItNow: showsTryItNow,
             tapAction: { [weak self] query in
                 guard let self else { return }
-                saveLastSearch()
-                semanticSearchTappedAction?(query, project)
+                self.instrumentation.logEntryPointTap(isTryItNow: showsTryItNow)
+                self.saveLastSearch()
+                self.semanticSearchTappedAction?(query, project)
             },
-            infoAction: { _ in },
+            infoAction: { [weak self] _ in
+                guard let self else { return }
+                self.instrumentation.logEntryPointInfoTap()
+                self.semanticSearchInfoTappedAction?(languageCode)
+            },
             hideAction: { [weak self] _ in
-                self?.hideSemanticSearchEntryPoint(languageCode: languageCode)
+                guard let self else { return }
+                self.instrumentation.logEntryPointClose()
+                self.hideSemanticSearchEntryPoint(languageCode: languageCode)
             }
         )
     }
@@ -291,5 +298,24 @@ extension SearchResultsViewController {
 extension SearchResultsViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         focusesFirstResultWhenKeyboardHides = UIAccessibility.isVoiceOverRunning
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        instrumentation.logSearchBack()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = (searchBar.text ?? "") as NSString
+        if range.location != NSNotFound, NSMaxRange(range) <= currentText.length {
+            expectedSearchBarText = currentText.replacingCharacters(in: range, with: text)
+        }
+        return true
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        defer { expectedSearchBarText = nil }
+        if searchText.isEmpty, expectedSearchBarText != searchText {
+            instrumentation.logSearchClose()
+        }
     }
 }

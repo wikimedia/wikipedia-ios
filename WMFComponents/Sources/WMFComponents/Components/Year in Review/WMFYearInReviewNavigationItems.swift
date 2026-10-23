@@ -48,6 +48,10 @@ enum WMFYearInReviewNavigationItems {
             hideNavigationBarOnScroll: false
         )
 
+        if !showsWikipediaLogo {
+            viewController.navigationItem.titleView = nil
+        }
+
         viewController.navigationItem.rightBarButtonItem = makeMoreButton(
             strings: strings,
             onLearnMore: onLearnMore,
