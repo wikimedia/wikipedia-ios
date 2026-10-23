@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - 'main'
+      - 'release-candidate/**'
   workflow_dispatch:
 
 env:
