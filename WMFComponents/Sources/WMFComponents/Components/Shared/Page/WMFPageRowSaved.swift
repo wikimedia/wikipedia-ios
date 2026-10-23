@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 struct WMFPageRowSavedAlertView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -8,13 +9,13 @@ struct WMFPageRowSavedAlertView: View {
     private var alertString: String? {
         switch viewModel.alertType {
         case .listLimitExceeded:
-            return viewModel.localizedStrings.listLimitExceeded
+            return CommonStrings.readingListsErrorListLimitExceeded
         case .entryLimitExceeded:
-            return viewModel.localizedStrings.entryLimitExceeded
+            return CommonStrings.readingListsErrorArticleLimitExceeded
         case .genericNotSynced:
-            return viewModel.localizedStrings.notSynced
+            return CommonStrings.readingListsErrorNotSynced
         case .downloading:
-            return viewModel.localizedStrings.articleQueuedToBeDownloaded
+            return CommonStrings.readingListsWarningArticleQueuedToBeDownloaded
         case .articleError(let errorDescription):
             return errorDescription
         case .none:
@@ -140,7 +141,7 @@ struct WMFPageRowSaved: View {
             Button {
                 onTap(true)
             } label: {
-                Text(viewModel.localizedStrings.open)
+                Text(CommonStrings.articleTabsOpen)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -148,7 +149,7 @@ struct WMFPageRowSaved: View {
             Button {
                 onDelete(true)
             } label: {
-                Text(viewModel.localizedStrings.removeFromSaved)
+                Text(CommonStrings.unsaveTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -156,7 +157,7 @@ struct WMFPageRowSaved: View {
             Button {
                 onOpenInNewTab()
             } label: {
-                Text(viewModel.localizedStrings.openInNewTab)
+                Text(CommonStrings.articleTabsOpenInNewTab)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -164,7 +165,7 @@ struct WMFPageRowSaved: View {
             Button {
                 onOpenInBackgroundTab()
             } label: {
-                Text(viewModel.localizedStrings.openInBackgroundTab)
+                Text(CommonStrings.articleTabsOpenInBackgroundTab)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -172,7 +173,7 @@ struct WMFPageRowSaved: View {
             Button {
                 onShare(viewModel.geometryFrame, true)
             } label: {
-                Text(viewModel.localizedStrings.share)
+                Text(CommonStrings.shortShareTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)

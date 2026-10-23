@@ -49,43 +49,15 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         let dataController = WMFLegacyReadingListsDataController(delegate: dataSource)
         self.dataSource = dataSource
 
-        let localizedStrings = WMFSavedAllArticlesViewModel.LocalizedStrings(
-            emptyStateTitle: CommonStrings.allArticlesEmptySavedTitle,
-            emptyStateMessage: CommonStrings.allArticlesEmptySavedSubtitle,
-            addToList: CommonStrings.addToReadingListShortActionTitle,
-            unsave: CommonStrings.shortUnsaveTitle,
-            open: CommonStrings.articleTabsOpen,
-            openInNewTab: CommonStrings.articleTabsOpenInNewTab,
-            openInBackgroundTab: CommonStrings.articleTabsOpenInBackgroundTab,
-            removeFromSaved: CommonStrings.unsaveTitle,
-            share: CommonStrings.shortShareTitle,
-            listLimitExceeded: CommonStrings.readingListsErrorListLimitExceeded,
-            entryLimitExceeded: CommonStrings.readingListsErrorArticleLimitExceeded,
-            notSynced: CommonStrings.readingListsErrorNotSynced,
-            articleQueuedToBeDownloaded: CommonStrings.readingListsWarningArticleQueuedToBeDownloaded)
+        let viewModel = WMFSavedAllArticlesViewModel(dataController: dataController)
+        viewModel.loggingDelegate = self
 
-        let viewModel = WMFSavedAllArticlesViewModel(
-            dataController: dataController,
-            localizedStrings: localizedStrings
-        )
-
-        viewModel.didTapArticle = { [weak self] article, fromLongPress in
-
-            guard let siteURL = article.project.siteURL,
-                  let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
-                return
-            }
-
-            ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
-            if fromLongPress {
-                ArticleTabsFunnel.shared.logLongPressOpen()
-            }
+        viewModel.didTapArticle = { [weak self] article, _ in
             self?.showArticle(title: article.title, project: article.project, inNewTab: false)
         }
 
         viewModel.didTapOpenInNewTab = { [weak self] article in
             WMFArticleTabsDataController.shared.didTapOpenNewTab()
-            ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
             self?.showArticle(title: article.title, project: article.project, inNewTab: true)
         }
 
@@ -93,10 +65,7 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             self?.openArticleInBackgroundTab(title: article.title, project: article.project)
         }
 
-        viewModel.didTapShare = { [weak self] article, cgRect, fromLongPress in
-            if fromLongPress {
-                ArticleTabsFunnel.shared.logLongPressShare()
-            }
+        viewModel.didTapShare = { [weak self] article, cgRect, _ in
             self?.shareArticle(article, cgRect: cgRect)
         }
 
@@ -309,6 +278,29 @@ extension SavedAllArticlesCoordinator {
         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
         let language = articles.count == 1 ? articles.first?.url?.wmf_languageCode : nil
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
+    }
+}
+
+// MARK: - WMFSavedAllArticlesLoggingDelegate
+
+extension SavedAllArticlesCoordinator: WMFSavedAllArticlesLoggingDelegate {
+    func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool) {
+        if let siteURL = article.project.siteURL, let articleURL = siteURL.wmf_URL(withTitle: article.title) {
+            ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
+        }
+        if fromLongPress {
+            ArticleTabsFunnel.shared.logLongPressOpen()
+        }
+    }
+
+    func savedAllArticlesDidTapOpenInNewTab() {
+        ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
+    }
+
+    func savedAllArticlesDidTapShare(fromLongPress: Bool) {
+        if fromLongPress {
+            ArticleTabsFunnel.shared.logLongPressShare()
+        }
     }
 }
 

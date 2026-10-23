@@ -6,38 +6,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()
     private var topSeparator = UIView()
 
-    private var articleCountLabel = UILabel()
-    var articleCount: Int64 = 0
-
     private let imageGrid = UIView()
     private var gridImageViews: [UIImageView] = []
 
     private var isDefault: Bool = false
-    private let defaultListTag = UILabel() // explains that the default list cannot be deleted
 
     private var singlePixelDimension: CGFloat = 0.5
-
-    private var displayType: ReadingListsDisplayType = .readingListsTab
-
-    override var alertType: ReadingListAlertType? {
-        didSet {
-            guard let alertType = alertType else {
-                return
-            }
-            var alertLabelText: String? = nil
-            switch alertType {
-            case .listLimitExceeded:
-                alertLabelText = CommonStrings.readingListsListNotSyncedLimitExceeded
-            case .entryLimitExceeded:
-                alertLabelText = CommonStrings.readingListsArticlesNotSyncedLimitExceeded
-            default:
-                break
-            }
-            alertButton.setTitle(alertLabelText, for: .normal)
-            alertButton.setImage(UIImage(named: "error-icon"), for: .normal)
-            setNeedsLayout()
-        }
-    }
 
     override func setup() {
         imageView.layer.cornerRadius = 3
@@ -46,9 +20,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         contentView.addSubview(bottomSeparator)
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
-
-        contentView.addSubview(articleCountLabel)
-        contentView.addSubview(defaultListTag)
 
         let topRow = UIStackView(arrangedSubviews: [UIImageView(), UIImageView()])
         topRow.axis = NSLayoutConstraint.Axis.horizontal
@@ -99,18 +70,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         styles = HtmlUtils.Styles(font: WMFFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
-    override func updateFonts(with traitCollection: UITraitCollection) {
-        super.updateFonts(with: traitCollection)
-        articleCountLabel.font = WMFFont.for(.caption1, compatibleWith: traitCollection)
-        defaultListTag.font = WMFFont.for(.italicCaption1, compatibleWith: traitCollection)
-    }
-
-    override func updateBackgroundColorOfLabels() {
-        super.updateBackgroundColorOfLabels()
-        articleCountLabel.backgroundColor = labelBackgroundColor
-        defaultListTag.backgroundColor = labelBackgroundColor
-    }
-
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let layoutMargins = calculatedLayoutMargins
@@ -130,43 +89,16 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
 
-        if displayType == .readingListsTab {
-            let articleCountLabelSize = articleCountLabel.intrinsicContentSize
-            var x = origin.x
-            if isArticleRTL {
-                x = size.width - articleCountLabelSize.width - layoutMargins.left
-            }
-            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), maximumSize: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
-            articleCountLabel.isHidden = false
-        } else {
-            articleCountLabel.isHidden = true
-        }
-
         let labelHorizontalAlignment: HorizontalAlignment = isArticleRTL ? .right : .left
 
-        if displayType == .addArticlesToReadingList {
-            if isDefault {
-                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += titleLabelFrame.layoutHeight(with: 0)
-                let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            } else {
-                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
-                origin.y += titleLabelFrame.layoutHeight(with: 0)
-            }
-        } else if descriptionLabel.wmf_hasText || !isImageGridHidden || !isImageViewHidden {
+        if isDefault {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += titleLabelFrame.layoutHeight(with: spacing)
-
+            origin.y += titleLabelFrame.layoutHeight(with: 0)
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
         } else {
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
-            if !isAlertButtonHidden {
-                origin.y += titleLabelFrame.layoutHeight(with: spacing) + spacing * 2
-            }
         }
 
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
@@ -205,35 +137,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
 
-        let yAlignedWithImageBottom = imageGrid.frame.maxY - layoutMargins.bottom - (0.5 * spacing)
-
-        if apply && !isAlertButtonHidden {
-            let effectiveImageDimension = isImageViewHidden ? 0 : imageViewDimension + spacing
-            let xPosition = isArticleRTL ? layoutMargins.right + effectiveImageDimension : layoutMargins.left
-            let maxButtonHeight: CGFloat = 44
-            let yPosition = height - layoutMargins.bottom - maxButtonHeight
-            let availableWidth = layoutWidth(for: size) - spacing - effectiveImageDimension // don't reuse widthMinusMargins
-            let origin = CGPoint(x: xPosition, y: yPosition)
-            alertButton.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: availableWidth, height: maxButtonHeight), minimumSize: .zero, horizontalAlignment: isArticleRTL ? .right : .left, verticalAlignment: .bottom, apply: apply)
-        }
-
-        if displayType == .readingListsTab && isDefault {
-            let defaultListTagSize = defaultListTag.intrinsicContentSize
-            var x = origin.x
-            if isArticleRTL {
-                x = size.width - defaultListTagSize.width - layoutMargins.right
-            }
-            var y = yAlignedWithImageBottom
-            if !isAlertButtonHidden {
-                let alertMinY = alertButton.frame.minY
-                y = descriptionLabel.frame.maxY + ((alertMinY - descriptionLabel.frame.maxY) * 0.25)
-            }
-            _ = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: y), maximumSize: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
-            defaultListTag.isHidden = false
-        } else {
-            defaultListTag.isHidden = true
-        }
-
         return CGSize(width: size.width, height: height)
     }
 
@@ -253,42 +156,17 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
     }
 
-    func configureAlert(for readingList: ReadingList, listLimit: Int, entryLimit: Int) {
-        guard let error = readingList.APIError else {
-            return
-        }
-
-        switch error {
-        case .listLimit:
-            isAlertButtonHidden = false
-            alertType = .listLimitExceeded(limit: listLimit)
-        case .entryLimit:
-            isAlertButtonHidden = false
-            alertType = .entryLimitExceeded(limit: entryLimit)
-        default:
-            isAlertButtonHidden = true
-        }
-
-        let isAddArticlesToReadingListDisplayType = displayType == .addArticlesToReadingList
-        isAlertButtonHidden = isAddArticlesToReadingListDisplayType
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
     }
 
-    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
-        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-    }
-
-    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
 
         articleSemanticContentAttribute = .unspecified
 
-        imageViewDimension = 100
-
-        self.displayType = displayType
         self.isDefault = isDefault
-        self.articleCount = articleCount
+        isAlertButtonHidden = true
 
-        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
-        defaultListTag.text = CommonStrings.readingListsDefaultListTag
         titleLabel.text = name
         descriptionLabel.text = description
 
@@ -310,9 +188,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             isImageViewHidden = true
         }
 
-        if displayType == .addArticlesToReadingList {
-            configureForCompactList(at: index)
-        }
+        configureForCompactList(at: index)
 
         if shouldShowSeparators {
             topSeparator.isHidden = true
@@ -331,8 +207,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.apply(theme: theme)
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
-        articleCountLabel.textColor = theme.colors.secondaryText
-        defaultListTag.textColor = theme.colors.secondaryText
     }
 }
 

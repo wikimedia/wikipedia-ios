@@ -13,9 +13,8 @@ final class WMFSavedAllArticlesViewModelTests: XCTestCase {
     }
 
     private func makeViewModel(delegate: MockDelegate) -> WMFSavedAllArticlesViewModel {
-        let strings = WMFSavedAllArticlesViewModel.LocalizedStrings(emptyStateTitle: "", emptyStateMessage: "", addToList: "", unsave: "", open: "", openInNewTab: "", openInBackgroundTab: "", removeFromSaved: "", share: "", listLimitExceeded: "", entryLimitExceeded: "", notSynced: "", articleQueuedToBeDownloaded: "")
         let dataController = WMFLegacyReadingListsDataController(delegate: delegate, userDefaultsStore: WMFMockKeyValueStore())
-        return WMFSavedAllArticlesViewModel(dataController: dataController, localizedStrings: strings)
+        return WMFSavedAllArticlesViewModel(dataController: dataController)
     }
 
     private func load(_ viewModel: WMFSavedAllArticlesViewModel, from delegate: MockDelegate) async {
