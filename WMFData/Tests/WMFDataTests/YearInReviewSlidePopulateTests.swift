@@ -716,28 +716,105 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertFalse(payload.isEligible)
     }
 
-    // MARK: - mostReadCategories
+    // MARK: - mostReadCategories (niche interest)
 
-    func testMostReadCategoriesPrefersNamesWithTwoUnderscoresAndCapsAtFive() async throws {
-        // addCategories requires the article's page to exist already, so seed views first.
-        let titles = (1...6).map { "Article\($0)" } + ["ArticlePlain"]
+    /// Reads `articleCount` different articles and puts each one in the category.
+    /// `addCategories` needs the page to exist, so the page views come first.
+    private func seedCategory(_ categoryName: String, articleCount: Int) async throws {
+        let titles = (1...articleCount).map { "\(categoryName)_Article_\($0)" }
         try await seedPageViews(try titles.enumerated().map { index, title in
             pageView(title, at: try date(month: 8, day: 1 + index, hour: 11))
         })
 
         let categoriesDataController = try WMFCategoriesDataController()
-        for index in 1...6 {
-            try await categoriesDataController.addCategories(categories: ["Category_Number_\(index)"], articleTitle: "Article\(index)", project: enProject)
+        for title in titles {
+            try await categoriesDataController.addCategories(categories: [categoryName], articleTitle: title, project: enProject)
         }
-        try await categoriesDataController.addCategories(categories: ["Plain"], articleTitle: "ArticlePlain", project: enProject)
+    }
 
+    private func nicheCategoryPayload() async throws -> WMFYearInReviewMostReadCategorySlideData {
         let controller = YearInReviewMostReadCategoriesSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
-        let categories = try decode([String].self, from: try await populatedPayload(controller))
-
-        XCTAssertEqual(categories.count, 5, "the slide shows at most five categories")
-        XCTAssertFalse(categories.contains("Plain"), "a name with fewer than two underscores is filtered out")
-        XCTAssertTrue(categories.allSatisfy { !$0.contains("_") }, "underscores become spaces")
+        let payload = try decode(WMFYearInReviewMostReadCategorySlideData.self, from: try await populatedPayload(controller))
         XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    /// Only one category has 2 or more articles and 2 or more spaces, so the pick is not random here.
+    func testNicheInterestPrefersACategoryWithTwoSpacesAndTwoArticles() async throws {
+        try await seedCategory("Executed_female_serial_killers", articleCount: 2)
+        try await seedCategory("Plain", articleCount: 3)
+        try await seedCategory("Two_Words", articleCount: 3)
+        try await seedCategory("Single_Article_Category", articleCount: 1)
+
+        let payload = try await nicheCategoryPayload()
+
+        XCTAssertEqual(payload.categoryName, "Executed female serial killers", "underscores become spaces")
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testNicheInterestFallsBackToAnyCategoryWithTwoArticles() async throws {
+        try await seedCategory("Plain", articleCount: 2)
+        try await seedCategory("Two_Words", articleCount: 2)
+        try await seedCategory("Single_Article_Category", articleCount: 1)
+
+        let payload = try await nicheCategoryPayload()
+
+        let categoryName = try XCTUnwrap(payload.categoryName)
+        XCTAssertTrue(["Plain", "Two Words"].contains(categoryName), "a category with one article is never picked: \(categoryName)")
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testNicheInterestIsNotEligibleWhenNoCategoryHasTwoArticles() async throws {
+        try await seedCategory("Single_Article_Category", articleCount: 1)
+        try await seedCategory("Another_Single_Category", articleCount: 1)
+
+        let payload = try await nicheCategoryPayload()
+
+        XCTAssertNil(payload.categoryName)
+        XCTAssertFalse(payload.isEligible, "the slide does not show")
+    }
+
+    func testNicheInterestIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await nicheCategoryPayload()
+
+        XCTAssertNil(payload.categoryName)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testNicheInterestSelectionIgnoresCategoriesWithOneArticle() {
+        var generator = SeededRandomNumberGenerator(seed: 1)
+        let counts: [(name: String, count: Int)] = [
+            (name: "One article with many words", count: 1),
+            (name: "Plain", count: 5)
+        ]
+
+        let name = YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: counts, using: &generator)
+
+        XCTAssertEqual(name, "Plain", "the category with many words has only one article, so the fallback uses Plain")
+    }
+
+    func testNicheInterestSelectionReturnsNilForNoCandidates() {
+        var generator = SeededRandomNumberGenerator(seed: 1)
+
+        XCTAssertNil(YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: [], using: &generator))
+        XCTAssertNil(YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: [(name: "Only one", count: 1)], using: &generator))
+    }
+
+    func testNicheInterestSelectionGivesTheSameResultForTheSameSeed() {
+        let counts: [(name: String, count: Int)] = [
+            (name: "Category one two", count: 2),
+            (name: "Category three four", count: 4),
+            (name: "Category five six", count: 3)
+        ]
+        let reversedCounts = Array(counts.reversed())
+
+        var first = SeededRandomNumberGenerator(seed: 42)
+        var second = SeededRandomNumberGenerator(seed: 42)
+        let firstName = YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: counts, using: &first)
+        let secondName = YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: reversedCounts, using: &second)
+
+        XCTAssertNotNil(firstName)
+        XCTAssertEqual(firstName, secondName, "the order of the input does not change the result")
     }
 
     // MARK: - saveCount
@@ -943,6 +1020,23 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         } catch {
             XCTAssertFalse(controller.isEvaluated)
         }
+    }
+}
+
+/// A random number generator that gives the same numbers for the same seed. Tests use it to make a random pick repeatable.
+private struct SeededRandomNumberGenerator: RandomNumberGenerator {
+    private var state: UInt64
+
+    init(seed: UInt64) {
+        state = seed
+    }
+
+    mutating func next() -> UInt64 {
+        state &+= 0x9E3779B97F4A7C15
+        var value = state
+        value = (value ^ (value >> 30)) &* 0xBF58476D1CE4E5B9
+        value = (value ^ (value >> 27)) &* 0x94D049BB133111EB
+        return value ^ (value >> 31)
     }
 }
 
