@@ -63,7 +63,8 @@ struct WMFYearInReviewViewModelTests {
             slides: Self.slides(slideCount),
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: { false }
         )
     }
 
@@ -299,8 +300,7 @@ struct WMFYearInReviewViewModelTests {
 
     // MARK: - Donate button
 
-    /// Only the slide-level half of the rule is covered here. The region half calls
-    /// WMFYearInReviewDataController directly, so it cannot be exercised without a seam.
+    /// The slide-level half of the rule. `theCountryCheckHidesTheToolbarDonateButton` covers the region half.
     @Test
     func aSlideThatHidesDonateIsRespected() {
         let viewModel = WMFYearInReviewViewModel(
@@ -313,7 +313,8 @@ struct WMFYearInReviewViewModelTests {
             ],
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: { false }
         )
 
         #expect(viewModel.showsDonateButton == false)
@@ -366,7 +367,8 @@ struct WMFYearInReviewViewModelTests {
             ],
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: { false }
         )
 
         #expect(viewModel.showsDonateButton == false)
@@ -377,6 +379,22 @@ struct WMFYearInReviewViewModelTests {
     func aSlideWithoutAPrimaryDonateButtonShowsTheShareButton() {
         let viewModel = makeViewModel()
 
+        #expect(viewModel.showsShareButton)
+    }
+
+    /// Where donations are not accepted, or when the country check cannot run, the toolbar does
+    /// not show the donate button.
+    @Test
+    func theCountryCheckHidesTheToolbarDonateButton() {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: Self.slides(1),
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { true }
+        )
+
+        #expect(viewModel.showsDonateButton == false)
         #expect(viewModel.showsShareButton)
     }
 
