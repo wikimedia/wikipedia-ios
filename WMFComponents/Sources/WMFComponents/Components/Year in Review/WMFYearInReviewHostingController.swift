@@ -41,6 +41,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
+                self?.configureToolbar()
                 self?.refreshToolbarItems()
             }
             .store(in: &cancellables)
@@ -106,7 +107,8 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
         let appearance = UIToolbarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
+        // The end screen has no toolbar buttons, so the empty toolbar takes the color of its page.
+        appearance.backgroundColor = viewModel.isOnEnd ? WMFYearInReviewEndViewModel.pageBackgroundColor : WMFYearInReviewViewModel.chromeBackgroundColor
         appearance.shadowColor = .clear
 
         toolbar.standardAppearance = appearance

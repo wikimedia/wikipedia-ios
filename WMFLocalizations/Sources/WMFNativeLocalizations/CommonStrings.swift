@@ -1130,6 +1130,7 @@ public class CommonStrings: NSObject {
     public static let yearInReviewQuizCardSubtitle = WMFLocalizedString("year-in-review-2026-quiz-card-subtitle", value: "From dial-up days to now, travel through Wikipedia's history.", comment: "Subtitle of the Year in Review card that opens a quiz about the history of Wikipedia. \"Dial-up\" is an old type of internet connection.")
     public static let yearInReviewQuizCardButtonTitle = WMFLocalizedString("year-in-review-2026-quiz-card-button-title", value: "Take the quiz", comment: "Button on the Year in Review card that opens a quiz about the history of Wikipedia.")
     public static let yearInReviewTabsCardTitle = WMFLocalizedString("year-in-review-2026-tabs-card-title", value: "Revisit your open tabs", comment: "Title of the Year in Review card that opens the open tabs of the reader.")
+    public static let yearInReviewStoreCardButtonTitle = WMFLocalizedString("year-in-review-2026-store-card-button-title", value: "Visit the store", comment: "Button on the Year in Review card that gives a discount on the Wikipedia store.")
 }
 
 // Language variant strings
