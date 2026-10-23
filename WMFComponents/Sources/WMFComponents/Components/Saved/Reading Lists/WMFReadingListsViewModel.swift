@@ -34,7 +34,6 @@ public final class WMFReadingListsViewModel: ObservableObject {
     public var didTapCreateList: (() -> Void)?
     public var didPullToRefresh: (() async -> Void)?
     public var didUpdateEditingMode: ((Bool) -> Void)?
-    public var didChangeState: ((State) -> Void)?
     public weak var loggingDelegate: WMFReadingListsLoggingDelegate?
 
     private let dataController: WMFLegacyReadingListsDataController
@@ -91,7 +90,6 @@ public final class WMFReadingListsViewModel: ObservableObject {
             let newState: State = isEmpty ? .empty : .data
             if newState != self.state {
                 self.state = newState
-                didChangeState?(newState)
             }
         }
     }

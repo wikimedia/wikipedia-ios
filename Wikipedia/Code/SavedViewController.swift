@@ -203,9 +203,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 self?.configureNavigationBar()
             }
         }
-        readingListsVC.viewModel.didChangeState = { [weak self] _ in
-            self?.configureNavigationBar()
-        }
 
         addChild(readingListsVC)
         containerView.wmf_addSubviewWithConstraintsToEdges(readingListsVC.view)
@@ -317,17 +314,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchBarIPadCustomizer, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: allArticlesSearchBarPlaceholder, showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
 
-        var hidesNavigationBarOnScroll = true
-        switch self.currentView {
-        case .savedArticles:
-            break
-        case .readingLists:
-            if readingListsViewModel?.state == .empty {
-                hidesNavigationBarOnScroll = false
-            }
-        }
-
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
         
         searchBarIPadCustomizer.onClearTapped = { [weak self] searchController in
             guard let self,
