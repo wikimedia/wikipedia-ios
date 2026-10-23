@@ -153,6 +153,9 @@ public final class WMFCoreDataStore: @unchecked Sendable {
         }
     }
 
+    /// The maximum number of records that one housekeeping step deletes.
+    private static let housekeepingFetchLimit = 2000
+
     public func performDatabaseHousekeeping() async throws {
 
         let currentYear = Calendar.current.component(.year, from: Date())
@@ -175,12 +178,10 @@ public final class WMFCoreDataStore: @unchecked Sendable {
                 // Delete CDPageViews that were added > one year ago
                 let timestamp = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
 
-                guard let pageViewsToDelete = try self.fetch(entityType: CDPageView.self, predicate: timestamp, fetchLimit: 2000, in: backgroundContext) else {
-                    return
-                }
-
-                for pageView in pageViewsToDelete {
-                    backgroundContext.delete(pageView)
+                if let pageViewsToDelete = try self.fetch(entityType: CDPageView.self, predicate: timestamp, fetchLimit: Self.housekeepingFetchLimit, in: backgroundContext) {
+                    for pageView in pageViewsToDelete {
+                        backgroundContext.delete(pageView)
+                    }
                 }
 
                 let emptyPageViewsPredicate = NSPredicate(format: "pageViews.@count == 0")
@@ -193,32 +194,26 @@ public final class WMFCoreDataStore: @unchecked Sendable {
                 let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate, savedPageInfoPredicate, pageInterestPredicate])
 
                 // Delete CDPages that have no page views, no article tab items, no saved info, no interest, and were added > one year ago
-                guard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: 2000, in: backgroundContext) else {
-                    return
-                }
-
-                for page in pagesToDelete {
-                    backgroundContext.delete(page)
+                if let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: Self.housekeepingFetchLimit, in: backgroundContext) {
+                    for page in pagesToDelete {
+                        backgroundContext.delete(page)
+                    }
                 }
 
                 // Delete CDPageInterests that lost their page. These are unreachable to callers, and leaving one behind would fail every future save
                 let orphanedPagePredicate = NSPredicate(format: "page == nil")
-                guard let interestsToDelete = try self.fetch(entityType: CDPageInterest.self, predicate: orphanedPagePredicate, fetchLimit: nil, in: backgroundContext) else {
-                    return
-                }
-
-                for interest in interestsToDelete {
-                    backgroundContext.delete(interest)
+                if let interestsToDelete = try self.fetch(entityType: CDPageInterest.self, predicate: orphanedPagePredicate, fetchLimit: Self.housekeepingFetchLimit, in: backgroundContext) {
+                    for interest in interestsToDelete {
+                        backgroundContext.delete(interest)
+                    }
                 }
 
                 // Delete CDCategorys that have empty pages
                 let emptyPagesPredicate = NSPredicate(format: "pages.@count == 0")
-                guard let categoriesToDelete = try self.fetch(entityType: CDCategory.self, predicate: emptyPagesPredicate, fetchLimit: nil, in: backgroundContext) else {
-                    return
-                }
-
-                for category in categoriesToDelete {
-                    backgroundContext.delete(category)
+                if let categoriesToDelete = try self.fetch(entityType: CDCategory.self, predicate: emptyPagesPredicate, fetchLimit: Self.housekeepingFetchLimit, in: backgroundContext) {
+                    for category in categoriesToDelete {
+                        backgroundContext.delete(category)
+                    }
                 }
 
                 try self.saveIfNeeded(moc: backgroundContext)

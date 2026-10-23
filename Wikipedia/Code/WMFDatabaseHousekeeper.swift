@@ -2,16 +2,45 @@ import Foundation
 import WMF
 
 @objc class WMFDatabaseHousekeeper : NSObject {
-    
+
+    /// The maximum number of articles that one pass deletes.
+    private static let articleDeletionLimit = 2000
+
+    /// The number of managed objects that Core Data reads from the store at one time.
+    private static let fetchBatchSize = 100
+
+    /// Gets the keys of the articles that are in use. Call this on the main thread.
+    @objc func articleKeysToPreserve(in dataStore: MWKDataStore, navigationStateController: NavigationStateController) -> Set<String> {
+        assert(Thread.isMainThread, "Read the view context on the main thread.")
+
+        let viewContext = dataStore.viewContext
+
+        var keys = Set<String>()
+
+        for object in viewContext.registeredObjects {
+            guard let article = object as? WMFArticle, !article.isFault, let key = article.key else {
+                continue
+            }
+            keys.insert(key)
+        }
+
+        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: viewContext) {
+            keys.formUnion(preservedArticleKeys)
+        }
+
+        return keys
+    }
+
     // Returns deleted URLs
     // Note: A cleanupLevel of high will attempt to do additional scrubbing in the case of vandalism.
-    @discardableResult @objc func performHousekeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController, cleanupLevel: WMFCleanupLevel) throws -> [URL] {
+    // The caller must own the queue of the context. Do not use the main queue view context.
+    @discardableResult @objc func performHousekeeping(on moc: NSManagedObjectContext, excludedArticleKeys: Set<String>, cleanupLevel: WMFCleanupLevel) throws -> [URL] {
         
         if cleanupLevel == .high {
             moc.navigationState = nil
         }
         
-        let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController, cleanupLevel: cleanupLevel)
+        let urls = try deleteStaleUnreferencedArticles(moc, excludedArticleKeys: excludedArticleKeys, cleanupLevel: cleanupLevel)
 
         try deleteStaleAnnouncements(moc)
 
@@ -37,7 +66,7 @@ import WMF
         }
     }
 
-    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController, cleanupLevel: WMFCleanupLevel = .low) throws -> [URL] {
+    private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, excludedArticleKeys: Set<String>, cleanupLevel: WMFCleanupLevel = .low) throws -> [URL] {
         
         /**
  
@@ -53,9 +82,12 @@ import WMF
         }
         
         let allContentGroupFetchRequest = WMFContentGroup.fetchRequest()
+        // Read all of the groups in batches. Each group can hold the only reference to an article.
+        allContentGroupFetchRequest.fetchBatchSize = Self.fetchBatchSize
         
         let allContentGroups = try moc.fetch(allContentGroupFetchRequest)
         var referencedArticleKeys = Set<String>(minimumCapacity: allContentGroups.count * 5 + 1)
+        referencedArticleKeys.formUnion(excludedArticleKeys)
         
         for group in allContentGroups {
             if cleanupLevel == .high && (group.midnightUTCDate?.compare(oldestFeedDateMidnightUTC) == .orderedAscending ||
@@ -139,25 +171,26 @@ import WMF
             - Items with `isExcludedFromFeed == YES` need to stay in the database so that they will continue to be excluded from the feed
         */
         
+        var urls: [URL] = []
+
+        // The high level deletes no articles. The earlier `isFault` test gave the same result.
+        guard cleanupLevel != .high else {
+            if moc.hasChanges {
+                try moc.save()
+            }
+            postDidCompleteNotification()
+            return urls
+        }
+
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
         // savedDate == NULL && isDownloaded == YES will be picked up by SavedArticlesFetcher for deletion
-        let articlesToDeletePredicate = cleanupLevel == .high ? NSPredicate(format: "savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO") : NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
-        
-        if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {
-            referencedArticleKeys.formUnion(preservedArticleKeys)
-        }
-        
-        articlesToDeleteFetchRequest.propertiesToFetch = ["key"]
-        articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
+        articlesToDeleteFetchRequest.predicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
+        articlesToDeleteFetchRequest.fetchLimit = Self.articleDeletionLimit
+        articlesToDeleteFetchRequest.fetchBatchSize = Self.fetchBatchSize
 
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         
-        var urls: [URL] = []
         for obj in articlesToDelete {
-            guard cleanupLevel != .high && obj.isFault else { // only delete articles that are faults. prevents deletion of articles that are being actively viewed. repro steps: open disambiguation pages view -> exit app -> re-enter app
-                continue
-            }
-            
             guard let key = obj.key, !referencedArticleKeys.contains(key) else {
                 continue
             }
@@ -173,8 +206,15 @@ import WMF
             try moc.save()
         }
         
-        NotificationCenter.default.post(name: .databaseHousekeeperDidComplete, object: nil)
+        postDidCompleteNotification()
         
         return urls
+    }
+
+    private func postDidCompleteNotification() {
+        // The observers change the UI, therefore send the notification on the main actor.
+        Task { @MainActor in
+            NotificationCenter.default.post(name: .databaseHousekeeperDidComplete, object: nil)
+        }
     }
 }

@@ -126,10 +126,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return !shouldOpenAppOnSearchTab
     }
 
+    /// Background app refresh without the daily top read notification prototype.
+    private func performBackgroundAppRefresh(task: BGTask) {
+        let completion = BackgroundTaskCompletion(task: task) { [weak self] in
+            self?.scheduleBackgroundAppRefreshTask()
+        }
+
+        // Completes the task before iOS terminates the app if the fetch runs past the background time budget.
+        task.expirationHandler = {
+            Task { @MainActor in
+                completion.complete(success: false)
+            }
+        }
+
+        appViewController.performBackgroundFetch { result in
+            Task { @MainActor in
+                completion.complete(success: result != .failed)
+            }
+        }
+    }
+
+    /// Runs the database housekeeping pass for the background task.
+    private func performDatabaseHousekeeping(task: BGTask) {
+        let completion = BackgroundTaskCompletion(task: task)
+
+        // Completes the task before iOS terminates the app if the pass runs past the background time budget.
+        task.expirationHandler = { [weak self] in
+            Task { @MainActor in
+                self?.appViewController.cancelDatabaseHousekeeping()
+                completion.complete(success: false)
+            }
+        }
+
+        appViewController.performDatabaseHousekeeping { error in
+            Task { @MainActor in
+                completion.complete(success: error == nil)
+            }
+        }
+    }
+
     /// Background app refresh with the daily top read notification prototype enabled. Local notifications are only
     /// scheduled from here, to re-engage users who haven't opened the app.
     private func performBackgroundAppRefreshWithLocalNotifications(task: BGTask) {
-        let completion = BackgroundAppRefreshCompletion(task: task) { [weak self] in
+        let completion = BackgroundTaskCompletion(task: task) { [weak self] in
             self?.scheduleBackgroundAppRefreshTask()
         }
 
@@ -157,16 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundAppRefreshTaskIdentifier, using: .main) { [weak self] task in
             guard WMFDeveloperSettingsDataController.enableDailyTopReadNotifications else {
-                self?.appViewController.performBackgroundFetch { [weak self] result in
-                    switch result {
-                    case .failed:
-                        task.setTaskCompleted(success: false)
-                    default:
-                        task.setTaskCompleted(success: true)
-                    }
-
-                    self?.scheduleBackgroundAppRefreshTask()
-                }
+                self?.performBackgroundAppRefresh(task: task)
                 return
             }
 
@@ -178,26 +208,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundDatabaseHousekeeperTaskIdentifier, using: .main) { [weak self] task in
-            self?.appViewController.performDatabaseHousekeeping { error in
-                
-                if error != nil {
-                    task.setTaskCompleted(success: false)
-                } else {
-                    task.setTaskCompleted(success: true)
-                }
-            }
+            self?.performDatabaseHousekeeping(task: task)
         }
     }
 }
 
 /// Completes a background task exactly once, whether its work finishes or its time expires first.
 @MainActor
-private final class BackgroundAppRefreshCompletion {
+private final class BackgroundTaskCompletion {
     private let task: BGTask
     private let didComplete: @MainActor () -> Void
     private var isCompleted = false
 
-    init(task: BGTask, didComplete: @escaping @MainActor () -> Void) {
+    init(task: BGTask, didComplete: @escaping @MainActor () -> Void = {}) {
         self.task = task
         self.didComplete = didComplete
     }
