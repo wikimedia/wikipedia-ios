@@ -2,7 +2,7 @@ import SwiftUI
 import WMFData
 
 @MainActor
-final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
+final class WMFPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
     
     enum ImageLoadingState {
         case loading
@@ -37,14 +37,12 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     @Published private(set) var imageLoadingState: ImageLoadingState = .loading
     
     var geometryFrame: CGRect = .zero
-    var snippet: String?
+    let snippet: String?
     
     public var didTapAlert: (() -> Void)?
     public var didTapReadingListTag: ((_ readingListName: String?) -> Void)?
     
-    private let dataController: WMFArticleSummaryDataController
-    
-    public static func == (lhs: WMFAsyncPageRowSavedViewModel, rhs: WMFAsyncPageRowSavedViewModel) -> Bool {
+    public static func == (lhs: WMFPageRowSavedViewModel, rhs: WMFPageRowSavedViewModel) -> Bool {
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
         lhs.project == rhs.project &&
@@ -55,19 +53,36 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
         return alertType == .none
     }
     
-    init(id: String, title: String, project: WMFProject, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none, localizedStrings: LocalizedStrings) {
+    /// The description, snippet and thumbnail come from the saved article record on device. The row
+    /// only loads the thumbnail bytes; it does not ask the network for a summary.
+    init(
+        id: String,
+        title: String,
+        project: WMFProject,
+        description: String?,
+        snippet: String? = nil,
+        thumbnailURL: URL?,
+        readingListNames: [String],
+        alertType: WMFSavedArticleAlertType = .none,
+        localizedStrings: LocalizedStrings
+    ) {
         self.id = id
         self.title = title
         self.project = project
+        self.description = description
+        self.snippet = snippet
+        self.imageURL = thumbnailURL
         self.readingListNames = readingListNames
-        self.dataController = WMFArticleSummaryDataController.shared
         self.alertType = alertType
         self.localizedStrings = localizedStrings
-        Task {
-            await self.fetchArticleDetails()
+        self.imageLoadingState = thumbnailURL == nil ? .noImage : .loading
+        if thumbnailURL != nil {
+            Task {
+                await self.loadThumbnail()
+            }
         }
     }
-    
+
     // MARK: - Update Methods
     public func updateAlertType(_ newAlertType: WMFSavedArticleAlertType) {
         if alertType != newAlertType {
@@ -76,28 +91,14 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     }
     
     @MainActor
-    private func fetchArticleDetails() async {
+    private func loadThumbnail() async {
+        guard let imageURL else {
+            imageLoadingState = .noImage
+            return
+        }
+
         do {
-            let summary = try await dataController.fetchArticleSummary(project: project, title: title)
-            
-            if let description = summary.description,
-               !description.isEmpty {
-                self.description = description
-            } else {
-                self.description = summary.extract?.replacingOccurrences(of: "\n", with: "")
-            }
-            
-            self.snippet = summary.extract
-            
-            guard let thumbnailURL = summary.thumbnailURL else {
-                self.imageLoadingState = .noImage
-                return
-            }
-            self.imageURL = thumbnailURL
-            
-            let imageDataController = WMFImageDataController()
-            let data = try await imageDataController.fetchImageData(url: thumbnailURL)
-            
+            let data = try await WMFImageDataController.shared.fetchImageData(url: imageURL)
             self.uiImage = UIImage(data: data)
             self.imageLoadingState = .loaded
         } catch {

@@ -156,9 +156,11 @@ extension HomeRobot {
                 )
             }
         case .places:
+            tapAgainIfNotSelected(button, file: file, line: line)
             base.assertSelected(button, timeout: 10, description: tab.description, file: file, line: line)
             dismissPlacesLocationPromptIfNeeded(file: file, line: line)
         default:
+            tapAgainIfNotSelected(button, file: file, line: line)
             base.assertSelected(button, timeout: 10, description: tab.description, file: file, line: line)
         }
 
@@ -167,6 +169,16 @@ extension HomeRobot {
 }
 
 // MARK: - Private helpers
+
+private extension HomeRobot {
+    /// On a slow runner the first tap after launch can land while the tab bar still settles, and the tab
+    /// never gets selected. Tap once more before the assert fails the test.
+    func tapAgainIfNotSelected(_ button: XCUIElement, timeout: TimeInterval = 10, file: StaticString, line: UInt) {
+        if !base.isSelected(button, within: timeout) {
+            base.tapCenter(of: button, file: file, line: line)
+        }
+    }
+}
 
 private extension HomeRobot {
     func rootTabButton(for tab: RootTab) -> XCUIElement {

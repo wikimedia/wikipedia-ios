@@ -30,6 +30,8 @@ struct SavedFixture {
     static let lowercaseArticleTitle = "apple"
     static let accentedArticleTitle = "Émile Zola"
     static let latestArticleTitle = "Zebra"
+    /// Shown in the long-press preview of the latest article.
+    static let latestArticleSnippet = "Zebras are African equines with striped coats."
 
     // Reading lists. `firstListName` holds the three Latin titles; `lowercaseListName` holds the openable article.
     static let firstListName = "Zoology"
@@ -45,10 +47,10 @@ struct SavedFixture {
                 .init(name: Self.accentedListName, description: "Empty on purpose", createdMinutesAgo: 10)
             ],
             articles: [
-                .init(title: openableArticleTitle, description: "domesticated animal", savedMinutesAgo: 10, readingListNames: [Self.lowercaseListName]),
-                .init(title: Self.lowercaseArticleTitle, description: "fruit", savedMinutesAgo: 3, readingListNames: [Self.firstListName]),
-                .init(title: Self.accentedArticleTitle, description: "French writer", savedMinutesAgo: 2, readingListNames: [Self.firstListName]),
-                .init(title: Self.latestArticleTitle, description: "striped mammal", savedMinutesAgo: 1, readingListNames: [Self.firstListName])
+                .init(title: openableArticleTitle, description: "domesticated animal", snippet: nil, savedMinutesAgo: 10, readingListNames: [Self.lowercaseListName]),
+                .init(title: Self.lowercaseArticleTitle, description: "fruit", snippet: nil, savedMinutesAgo: 3, readingListNames: [Self.firstListName]),
+                .init(title: Self.accentedArticleTitle, description: "French writer", snippet: nil, savedMinutesAgo: 2, readingListNames: [Self.firstListName]),
+                .init(title: Self.latestArticleTitle, description: "striped mammal", snippet: Self.latestArticleSnippet, savedMinutesAgo: 1, readingListNames: [Self.firstListName])
             ]
         )
     }
@@ -62,7 +64,7 @@ struct SavedFixture {
     var seedWithoutLists: UITestReadingListsSeed {
         UITestReadingListsSeed(
             readingLists: [],
-            articles: seed.articles.map { .init(title: $0.title, description: $0.description, savedMinutesAgo: $0.savedMinutesAgo, readingListNames: []) }
+            articles: seed.articles.map { .init(title: $0.title, description: $0.description, snippet: $0.snippet, savedMinutesAgo: $0.savedMinutesAgo, readingListNames: []) }
         )
     }
 
@@ -74,7 +76,7 @@ struct SavedFixture {
         [Self.latestArticleTitle, Self.accentedArticleTitle, Self.lowercaseArticleTitle, openableArticleTitle]
     }
 
-    /// Localized, case- and accent-insensitive order. Hebrew sorts after Latin.
+    /// Localized, case- and accent-insensitive order. In Hebrew the device's own script sorts first.
     let allArticlesByTitle: [String]
 
     var firstListArticlesByRecentlyAdded: [String] {
@@ -116,7 +118,7 @@ struct SavedFixture {
             return SavedFixture(
                 openableArticleTitle: "כלב הבית",
                 labels: Labels(allArticlesScope: "כל הערכים", readingListsScope: "רשימות קריאה", sort: "מיון", sortByTitle: "כותרת", sortByRecentlyAdded: "נוספו לאחרונה", edit: "עריכה", cancel: "ביטול", unsave: "ביטול שמירה", delete: "מחיקה", removeFromSaved: "להסיר משמורים", createNewList: "יצירת רשימה חדשה"),
-                allArticlesByTitle: ["apple", "Émile Zola", "Zebra", "כלב הבית"]
+                allArticlesByTitle: ["כלב הבית", "apple", "Émile Zola", "Zebra"]
             )
         case "vi":
             return SavedFixture(

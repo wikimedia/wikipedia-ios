@@ -80,6 +80,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.dataStore = dataStore
         self.dataController = dataController
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(localDonationHistoryDidChange), name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
     }
     
     @discardableResult
@@ -162,6 +163,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(
                 userDataState: userDataState,
+                isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
                 forcesAllEmptyStates: dataController.forcesAllEmptyStates
             ),
             localizedStrings: slideFactory.makeLocalizedStrings(),
@@ -307,6 +309,25 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         self.donateCoordinator = donateCoordinator
         donateCoordinator.start()
+    }
+
+    /// Apple Pay reports success on a timer, before the payment request returns. The donation is
+    /// saved only when the request succeeds, so wait for the save, not for the success action.
+    @objc private func localDonationHistoryDidChange() {
+        Task { @MainActor [weak self] in
+            self?.showThankYouSlideAfterDonation()
+        }
+    }
+
+    /// The rebuilt slide reads the saved donation. The reader stays on the same slide, which
+    /// becomes the "Thank you" version. Does nothing when Year in Review is closed.
+    private func showThankYouSlideAfterDonation() {
+        guard let viewModel,
+              let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
+              slide.id == YearInReviewSlideViewModelFactory.contributorSlideID else {
+            return
+        }
+        viewModel.replaceSlide(id: YearInReviewSlideViewModelFactory.nonContributorSlideID, with: slide)
     }
 
     /// The pages are translated per app language, so the URLs are built rather than hardcoded.

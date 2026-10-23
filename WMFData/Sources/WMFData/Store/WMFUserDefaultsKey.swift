@@ -138,10 +138,14 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsForceYiRUserDataState = "dev-settings-force-yir-user-data-state"
     case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
+    case semanticSearchExposureSent = "semantic-search-exposure-sent"
 
     // Local notifications
     case localNotificationsHandledDays = "local-notifications-handled-days"
     case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"
+
+    // Reading list
+    case readingListsSortOrder = "reading-lists-sort-order"
 
     // Discover
     case discoverSettings = "discover-settings"
