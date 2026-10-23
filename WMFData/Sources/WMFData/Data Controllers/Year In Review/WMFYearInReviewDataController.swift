@@ -46,13 +46,11 @@ import CoreData
     public var config: WMFFeatureConfigResponse.Common.YearInReview? {
         let remoteConfig = developerSettingsDataController.loadFeatureConfig()?.common.yir(year: Self.targetYear)
 
-        // TEMPORARY: while the developer force flag is on, use the test wiki entry first, then the
-        // remote entry of this build's environment, then the local copy. Builds without the flag
-        // use only the remote entry, so the remote config still controls launch.
+        // TEMPORARY: while the developer force flag is on, use the remote entry, then the local copy.
+        // The test wiki config has no `yirv2` entry, so a staging build uses the local copy. Builds
+        // without the flag use only the remote entry, so the remote config still controls launch.
         if developerSettingsDataController.forceYiREntryPoint2026 {
-            return developerSettingsDataController.loadTestWikiFeatureConfig()?.common.yir(year: Self.targetYear)
-                ?? remoteConfig
-                ?? WMFYearInReviewLocalConfig.year2026
+            return remoteConfig ?? WMFYearInReviewLocalConfig.year2026
         }
 
         return remoteConfig
