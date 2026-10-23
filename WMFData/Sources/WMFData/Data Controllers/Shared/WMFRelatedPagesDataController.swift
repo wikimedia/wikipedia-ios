@@ -48,7 +48,8 @@ public actor WMFRelatedPagesDataController {
 
     // MARK: - Public API
 
-    public func fetchRelatedPages(title: String, project: WMFProject) async throws -> [WMFRelatedPage] {
+    /// - Parameter offset: Skips this many search results, so a caller that already used the first page of results can ask for the next one.
+    public func fetchRelatedPages(title: String, project: WMFProject, offset: Int = 0) async throws -> [WMFRelatedPage] {
         guard let service else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -57,7 +58,7 @@ public actor WMFRelatedPagesDataController {
             throw WMFDataControllerError.failureCreatingRequestURL
         }
 
-        let parameters: [String: Any] = [
+        var parameters: [String: Any] = [
             "action": "query",
             "format": "json",
             "formatversion": "2",
@@ -78,6 +79,10 @@ public actor WMFRelatedPagesDataController {
             "smaxage": "86400",
             "origin": "*"
         ]
+
+        if offset > 0 {
+            parameters["gsroffset"] = String(offset)
+        }
 
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
 
