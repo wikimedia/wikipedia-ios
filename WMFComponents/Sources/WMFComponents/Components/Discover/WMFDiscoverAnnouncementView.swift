@@ -63,20 +63,15 @@ public struct WMFDiscoverAnnouncementView: View {
 
     private var buttons: some View {
         HStack(spacing: WMFSpacing.small) {
-            Button(getStartedTitle) {
+            WMFSmallButton(configuration: .init(style: .primary), title: getStartedTitle) {
                 viewModel.tapGetStarted()
             }
-            .buttonStyle(.borderedProminent)
             .accessibilityIdentifier(AccessibilityIdentifiers.Discover.announcementGetStartedButton)
 
-            Button(noThanksTitle) {
+            WMFSmallButton(configuration: .init(style: .neutral), title: noThanksTitle) {
                 viewModel.tapNoThanks()
             }
-            .buttonStyle(.bordered)
             .accessibilityIdentifier(AccessibilityIdentifiers.Discover.announcementNoThanksButton)
         }
-        .font(Font(WMFFont.for(.subheadline)))
-        .buttonBorderShape(.capsule)
-        .tint(Color(uiColor: theme.link))
     }
 }
