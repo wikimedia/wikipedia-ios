@@ -10,12 +10,25 @@ struct WMFArticlePreviewView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
-    var screenWidth: CGFloat {
-        UIDevice.current.userInterfaceIdiom == .pad ? 380 : UIScreen.main.bounds.width
+    var previewWidth: CGFloat {
+        let window = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+        return Self.previewWidth(windowWidth: window?.bounds.width, horizontalSizeClass: window?.traitCollection.horizontalSizeClass ?? .unspecified)
+    }
+
+    /// Regular width windows (iPad, iPhone Duo's inner display) get a fixed width. Compact windows
+    /// fill the window, not the main screen, which can be a different display on iPhone Duo.
+    static func previewWidth(windowWidth: CGFloat?, horizontalSizeClass: UIUserInterfaceSizeClass) -> CGFloat {
+        guard horizontalSizeClass == .compact, let windowWidth else {
+            return 380
+        }
+        return windowWidth
     }
 
     var body: some View {
-        let width = screenWidth - 32
+        let width = previewWidth - 32
         let hasTopVisual = (viewModel.imageURL != nil) || (viewModel.image != nil && viewModel.backgroundImage != nil)
         let headerHeight = width * 0.5
         let finalHeight = hasTopVisual ? width : width / 2
