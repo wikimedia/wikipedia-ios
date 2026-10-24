@@ -54,6 +54,7 @@ final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
             backButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronBackward), for: .normal)
             backButton.tintColor = theme.colors.link
             backButton.addAction(UIAction { [weak searchController, weak self] _ in
+                self?.onBackTapWillDismiss?()
                 searchController?.isActive = false
                 self?.onBackTapped?(searchController)
             }, for: .touchUpInside)
@@ -100,6 +101,9 @@ final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
     /// Called when the custom < back button is tapped, after the search controller has been deactivated.
     /// Use this to reset any additional state the host VC owns
     var onBackTapped: ((UISearchController?) -> Void)?
+
+    /// Called when the custom < back button is tapped, before the search controller is deactivated.
+    var onBackTapWillDismiss: (() -> Void)?
     
     /// Called when the custom ✕ clear button is tapped, after the bar text has been cleared.
     /// Use this to reset any additional state the host VC owns (e.g. clearing a results list or suggestion model).

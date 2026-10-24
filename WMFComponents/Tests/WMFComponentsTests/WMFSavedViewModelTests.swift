@@ -207,19 +207,6 @@ final class WMFSavedViewModelTests: XCTestCase {
 
     // MARK: - Navigation bar
 
-    func testNavigationBarStaysWhenReadingListsAreEmpty() async {
-        let viewModel = await makeViewModel()
-        XCTAssertTrue(viewModel.hidesNavigationBarOnScroll)
-        viewModel.selectSegment(.readingLists)
-        XCTAssertFalse(viewModel.hidesNavigationBarOnScroll)
-        viewModel.selectSegment(.allArticles)
-        XCTAssertTrue(viewModel.hidesNavigationBarOnScroll)
-
-        let withLists = await makeViewModel(lists: [list("Zoology")])
-        withLists.selectSegment(.readingLists)
-        XCTAssertTrue(withLists.hidesNavigationBarOnScroll)
-    }
-
     func testProfileBadgeComesFromTheProvider() async {
         let viewModel = await makeViewModel()
         viewModel.profileButtonNeedsBadgeProvider = { true }

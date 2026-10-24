@@ -285,7 +285,7 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         let title: String
         do {
             try WMFSemanticSearchDataController.shared.clearExperimentAssignment()
-            title = "Semantic search bucket cleared. The next eligible search re-rolls the assignment."
+            title = "Semantic search bucket cleared. Opening search re-rolls the assignment for readers with a target app language."
         } catch {
             title = "Could not clear the semantic search bucket: \(error)"
         }

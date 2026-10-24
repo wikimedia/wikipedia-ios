@@ -112,6 +112,15 @@ public final class WMFExperimentsDataController {
     
     // MARK: Public
     
+    /// True when `determineBucketForExperiment` returns the persisted bucket instead of rolling
+    /// a new one: a bucket is stored, and it was rolled with the same percentage.
+    func hasPersistedBucket(for experiment: Experiment, withPercentage percentage: Int) -> Bool {
+        guard let oldPercentage = percentageForExperiment(experiment), bucketForExperiment(experiment) != nil else {
+            return false
+        }
+        return oldPercentage == percentage
+    }
+
     // this will only generate a new bucket as needed (i.e. if the percentage is different than the last time bucket was generated)
     // forceValue: optional forcing of bucket assignment (i.e. developer settings menu assignments)
     @discardableResult

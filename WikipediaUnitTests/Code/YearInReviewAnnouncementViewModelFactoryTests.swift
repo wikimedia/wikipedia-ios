@@ -65,8 +65,8 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
 
         #expect(dataRich.title.isEmpty == false)
         #expect(dataRich.message.isEmpty == false)
-        #expect(lowData.title == CommonStrings.yearInReviewCollectiveIntroTitle)
-        #expect(lowData.message == CommonStrings.yearInReviewCollectiveIntroSubtitle)
+        #expect(lowData.title == CommonStrings.yearInReviewLoginPromptCollectiveTitle)
+        #expect(lowData.message == CommonStrings.yearInReviewLoginPromptCollectiveMessage)
         #expect(dataRich.title != lowData.title)
     }
 
@@ -89,7 +89,7 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
         let text = Self.textByPath(viewModel)
 
         #expect(Set(text.keys) == ["coverTitle", "bodyCopy"])
-        #expect(text["coverTitle"] == viewModel.localizedStrings.animationAccessibilityLabel)
+        #expect(text["coverTitle"] == viewModel.localizedStrings.animationAccessibilityLabel.localizedUppercase)
         #expect(text["bodyCopy"] == viewModel.localizedStrings.body)
     }
 

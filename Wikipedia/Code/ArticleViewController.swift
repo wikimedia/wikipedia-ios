@@ -50,6 +50,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Passages of a semantic search result to highlight once the article is set up. Used once.
     var semanticSearchPassages: [String] = []
     var pendingSemanticSearchScroll: SemanticSearchScroll?
+    /// The id of the semantic search request that gave the passage, for the instrumentation.
+    var semanticSearchID: String?
+    /// The instrumentation of the search that opened the article, for the feedback card.
+    var semanticSearchInstrumentation: SearchInstrumentation?
     /// The reader opened the article from a passage found by the search and ignored the feedback prompt there.
     var needsSemanticSearchFeedback = false
     var semanticSearchFeedbackTask: Task<Void, Never>?
@@ -695,7 +699,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         NotificationCenter.default.post(name: NSNotification.articleViewControllerDidDisappear, object: nil)
         wTipObservationTask?.cancel()
         wTipObservationTask = nil
-        skipSemanticSearchFeedback()
+        skipSemanticSearchFeedback(reason: .leftArticle)
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         trackArticleWillDisappear()
@@ -1157,6 +1161,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let block = {
             self.webView.alpha = hidden ? 0 : 1
+        }
+        // The feedback prompt of a semantic search waits for the content to show.
+        defer {
+            if !hidden {
+                scheduleSemanticSearchFeedbackIfNeeded()
+            }
         }
         guard animated else {
             block()
@@ -1715,26 +1725,29 @@ extension ArticleViewController {
 
 extension ArticleViewController: WKNavigationDelegate {
 
+    static func shouldAllowNavigation(type navigationType: WKNavigationType) -> Bool {
+        switch navigationType {
+        case .backForward, .reload, .other:
+            return true
+        default:
+            return false
+        }
+    }
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow)
-        default:
+        } else {
             decisionHandler(.cancel)
         }
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow, preferences)
-        default:
+        } else {
             decisionHandler(.cancel, preferences)
         }
     }

@@ -2,7 +2,7 @@ import SwiftUI
 import WMFData
 
 @MainActor
-final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
+final class WMFPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
     
     enum ImageLoadingState {
         case loading
@@ -23,12 +23,12 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     @Published private(set) var imageLoadingState: ImageLoadingState = .loading
     
     var geometryFrame: CGRect = .zero
-    var snippet: String?
+    let snippet: String?
     
     public var didTapAlert: (() -> Void)?
     public var didTapReadingListTag: ((_ readingListName: String?) -> Void)?
     
-    public static func == (lhs: WMFAsyncPageRowSavedViewModel, rhs: WMFAsyncPageRowSavedViewModel) -> Bool {
+    public static func == (lhs: WMFPageRowSavedViewModel, rhs: WMFPageRowSavedViewModel) -> Bool {
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
         lhs.project == rhs.project &&
@@ -39,13 +39,14 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
         return alertType == .none
     }
     
-    /// The description and thumbnail come from the saved article record on device. The row only
-    /// loads the thumbnail bytes; it does not ask the network for a summary.
+    /// The description, snippet and thumbnail come from the saved article record on device. The row
+    /// only loads the thumbnail bytes; it does not ask the network for a summary.
     init(
         id: String,
         title: String,
         project: WMFProject,
         description: String?,
+        snippet: String? = nil,
         thumbnailURL: URL?,
         readingListNames: [String],
         alertType: WMFSavedArticleAlertType = .none
@@ -54,6 +55,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
         self.title = title
         self.project = project
         self.description = description
+        self.snippet = snippet
         self.imageURL = thumbnailURL
         self.readingListNames = readingListNames
         self.alertType = alertType

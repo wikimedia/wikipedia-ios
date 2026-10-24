@@ -120,6 +120,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         public let hCaptcha: HCaptcha?
         public let visualEditorEnabled: Bool?
         public let semanticSearchLanguages: [String]
+        public let semanticSearchEnabled: Bool?
         /// The share of readers in the Discover experiment's control group, 0 to 100. Nil keeps
         /// the app default.
         public let discoverExperimentControlPercentage: Int?
@@ -135,17 +136,19 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let apiKey: String
         }
 
-        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], discoverExperimentControlPercentage: Int? = nil) {
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) {
             self.hCaptcha = hCaptcha
             self.visualEditorEnabled = visualEditorEnabled
             self.semanticSearchLanguages = semanticSearchLanguages
+            self.semanticSearchEnabled = semanticSearchEnabled
             self.discoverExperimentControlPercentage = discoverExperimentControlPercentage
         }
 
         private enum CodingKeys: String, CodingKey {
             case hCaptcha
             case visualEditorEnabled
-            case semanticSearchLanguages
+            case semanticSearchLanguages = "semanticSearchLanguagesv2"
+            case semanticSearchEnabled = "semanticSearchEnabledv2"
             case discoverExperimentControlPercentage
         }
 
@@ -154,6 +157,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             hCaptcha = try container.decodeIfPresent(HCaptcha.self, forKey: .hCaptcha)
             visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
             semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
+            semanticSearchEnabled = try container.decodeIfPresent(Bool.self, forKey: .semanticSearchEnabled)
             discoverExperimentControlPercentage = try container.decodeIfPresent(Int.self, forKey: .discoverExperimentControlPercentage)
         }
     }

@@ -110,6 +110,7 @@ final class SavedUITests: XCTestCase {
     func testSavedAllArticlesLongPressShowsContextMenu() throws {
         openSaved()
             .longPressArticleRow(SavedFixture.latestArticleTitle)
+            .assertContextMenuPreviewShows(SavedFixture.latestArticleSnippet)
             .dismissContextMenu()
             .assertArticleRowVisible(SavedFixture.latestArticleTitle)
     }

@@ -109,7 +109,7 @@ public struct WMFSavedAllArticlesView: View {
                     let rowModel = viewModel.rowViewModel(for: article)
                     
                     VStack(spacing: 0) {
-                        WMFAsyncPageRowSaved(
+                        WMFPageRowSaved(
                             viewModel: rowModel,
                             onTap: { fromLongPress in
                                 if viewModel.isEditing {
@@ -144,7 +144,6 @@ public struct WMFSavedAllArticlesView: View {
                 }
             }
             .listStyle(.plain)
-            .wmfReportsScrollToTop()
             .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesList)
             .refreshable {
                 await viewModel.didPullToRefresh?()

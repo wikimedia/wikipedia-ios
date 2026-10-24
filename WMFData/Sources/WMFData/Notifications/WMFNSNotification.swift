@@ -14,6 +14,8 @@ public enum WMFNSNotification {
     public static let forYouInterestsDidChange = Notification.Name(WMFNotificationName.forYouInterestsDidChange.rawValue)
     public static let pageViewHistoryDidChange = Notification.Name(WMFNotificationName.pageViwHistoryDidChange.rawValue)
     public static let yearInReviewActivityTabBadgeNeedsUpdate = Notification.Name(WMFNotificationName.yirActivity2026.rawValue)
+    /// Posted after the local donation history is saved or deleted.
+    public static let localDonationHistoryDidChange = Notification.Name(WMFNotificationName.localDonationHistoryDidChange.rawValue)
     /// The Discover onboarding card was answered or reset, or its gates changed, so the Saved tab badge needs an update.
     public static let discoverAnnouncementStateDidChange = Notification.Name(WMFNotificationName.discoverAnnouncementStateDidChange.rawValue)
 
@@ -37,5 +39,6 @@ private enum WMFNotificationName: String {
     case forYouInterestsDidChange = "WMFDataForYouInterestsDidChange"
     case pageViwHistoryDidChange = "WMFPageViewHistoryDidChange"
     case yirActivity2026 = "WMFYearInReviewActivityTabBadgeNeedsUpdate"
+    case localDonationHistoryDidChange = "WMFDataLocalDonationHistoryDidChange"
     case discoverAnnouncementStateDidChange = "WMFDataDiscoverAnnouncementStateDidChange"
 }

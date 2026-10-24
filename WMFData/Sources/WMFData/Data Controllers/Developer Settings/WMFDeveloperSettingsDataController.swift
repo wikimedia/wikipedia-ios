@@ -372,6 +372,13 @@ public extension WMFDeveloperSettingsDataControlling {
         loadFeatureConfig()?.ios.visualEditorEnabled ?? false
     }
 
+    /// True while the "Enable Semantic Search" developer setting is on. While it is off, comes from
+    /// `iosv1.semanticSearchEnabledv2` in the remote feature config. A missing key or a missing
+    /// config keeps the feature off.
+    public var isSemanticSearchEnabled: Bool {
+        enableSemanticSearch || (loadFeatureConfig()?.ios.semanticSearchEnabled ?? false)
+    }
+
     // MARK: - Remote Settings
 
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {

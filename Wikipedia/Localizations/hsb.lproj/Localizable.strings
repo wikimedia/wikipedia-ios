@@ -466,6 +466,7 @@
 "notifications-center-title" = "Zdźělenki";
 "notifications-center-type-item-description-mentions" = "Naspomnjenja";
 "notifications-center-type-item-description-notice" = "Zdźělenka";
+"notifications-center-type-title-connection-with-wikidata" = "zwjazanje z Wikidatami";
 "notifications-center-type-title-other" = "Druhe";
 "notifications-center-type-title-thanks" = "Wulki dźak";
 "notifications-center-type-title-welcome" = "Witaj";
