@@ -192,10 +192,8 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         customActivities.append(addToReadingListActivity)
 
         let shareActivityController = ShareActivityController(article: article, customActivities: customActivities)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            shareActivityController.popoverPresentationController?.sourceView = navigationController.view
-            shareActivityController.popoverPresentationController?.sourceRect = cgRect
-        }
+        shareActivityController.popoverPresentationController?.sourceView = navigationController.view
+        shareActivityController.popoverPresentationController?.sourceRect = cgRect
         navigationController.present(shareActivityController, animated: true, completion: nil)
 
     }
