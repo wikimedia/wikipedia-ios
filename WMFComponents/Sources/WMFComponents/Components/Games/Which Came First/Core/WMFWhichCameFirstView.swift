@@ -254,6 +254,11 @@ public struct WMFWhichCameFirstView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
+        // Prevent vertical compression: on the final question the taller
+        // "See Results" footer button squeezes this banner, and the texts'
+        // minimumScaleFactor would shrink them to an unreadable size.
+        // Keep the banner at its ideal height instead. (T439671)
+        .fixedSize(horizontal: false, vertical: true)
         .padding(.vertical, 8)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.updatesFrequently)
