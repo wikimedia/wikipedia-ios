@@ -6,6 +6,8 @@ public struct WMFReadingListsView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFReadingListsViewModel
+    /// Mirrors `showsAnnouncement` so the card fades in and out instead of popping.
+    @State private var isAnnouncementShown = false
 
     private let deleteTitle = CommonStrings.deleteActionTitle
     private let cancelTitle = CommonStrings.cancelActionTitle
@@ -23,7 +25,10 @@ public struct WMFReadingListsView: View {
             case .loading:
                 ProgressView()
             case .empty:
-                emptyState
+                VStack(spacing: 0) {
+                    announcementCard
+                    emptyState
+                }
             case .data:
                 listView
             }
@@ -31,6 +36,12 @@ public struct WMFReadingListsView: View {
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadReadingLists()
+            isAnnouncementShown = showsAnnouncement
+        }
+        .onChange(of: showsAnnouncement) { _, shows in
+            withAnimation {
+                isAnnouncementShown = shows
+            }
         }
         .alert(
             CommonStrings.deleteReadingListsAlertTitle(readingListsCount: viewModel.pendingDeletion?.count ?? 1),
@@ -50,6 +61,33 @@ public struct WMFReadingListsView: View {
         }
     }
 
+    // MARK: - Discover Announcement
+
+    /// The card shows while the reader is not editing or searching.
+    private var showsAnnouncement: Bool {
+        viewModel.isAnnouncementVisible && !viewModel.isEditing && viewModel.searchText.isEmpty
+    }
+
+    @ViewBuilder
+    private var announcementCard: some View {
+        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
+            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
+                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .transition(.opacity)
+        }
+    }
+
+    @ViewBuilder
+    private var announcementRow: some View {
+        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
+            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
+                .listRowInsets(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
+                .transition(.opacity)
+        }
+    }
+
     private var emptyState: some View {
         let emptyViewModel = WMFEmptyViewModel(
             localizedStrings: WMFEmptyViewModel.LocalizedStrings(title: emptyTitle, subtitle: emptyMessage, titleFilter: nil, buttonTitle: createNewListTitle, attributedFilterString: nil),
@@ -65,6 +103,7 @@ public struct WMFReadingListsView: View {
     private var listView: some View {
         VStack(spacing: 0) {
             List {
+                announcementRow
                 ForEach(viewModel.rows) { row in
                     let readingList = row.readingList
                     let isSelected = viewModel.selectedIDs.contains(readingList.id)

@@ -146,4 +146,9 @@ public enum WMFUserDefaultsKey: String {
 
     // Reading list
     case readingListsSortOrder = "reading-lists-sort-order"
+
+    // Discover
+    case developerSettingsEnableDiscover = "dev-settings-enable-discover"
+    case developerSettingsForceDiscoverExperimentAssignment = "dev-settings-force-discover-experiment-assignment"
+    case discoverOnboardingAnnouncementDismissed = "discover-onboarding-announcement-dismissed"
 }

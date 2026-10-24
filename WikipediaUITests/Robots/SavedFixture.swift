@@ -60,6 +60,11 @@ struct SavedFixture {
         UITestReadingListsSeed(readingLists: seed.readingLists, articles: [])
     }
 
+    /// Nothing saved and no list: both segments show their empty state.
+    var seedWithoutArticlesOrLists: UITestReadingListsSeed {
+        UITestReadingListsSeed(readingLists: [], articles: [])
+    }
+
     /// Only the saved articles, in no list: the Reading lists segment is empty.
     var seedWithoutLists: UITestReadingListsSeed {
         UITestReadingListsSeed(
