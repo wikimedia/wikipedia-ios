@@ -8,6 +8,11 @@ extension ArticleViewController: UIPageViewControllerDelegate {
 
 
 extension ArticleViewController: ReferenceBackLinksViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, ReferenceShowing {
+    
+    var referenceRectVerticalOffset: CGFloat {
+        return webView.safeAreaInsets.top
+    }
+
     func referenceViewControllerUserDidTapClose(_ vc: ReferenceViewController) {
         if vc is ReferenceBackLinksViewController {
             dismissReferenceBackLinksViewController()
