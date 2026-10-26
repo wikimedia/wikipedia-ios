@@ -117,7 +117,10 @@ jobs:
             echo "Hotfix $VERSION ($BUILD)"
             echo
             echo "Changes on top of $BASE_TAG:"
-            git log --format='- %s' "$BASE_TAG..HEAD"
+            # --no-merges so a "Merge pull request #N from ..." subject does not
+            # end up in the notes testers read. A no-op when the fix was
+            # cherry-picked straight onto the branch.
+            git log --no-merges --format='- %s' "$BASE_TAG..HEAD"
           } > /tmp/what_to_test.txt
 
           cat /tmp/what_to_test.txt
