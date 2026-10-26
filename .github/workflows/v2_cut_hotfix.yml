@@ -124,9 +124,10 @@ jobs:
           echo
           echo "  git fetch origin"
           echo "  git checkout -b fix/T12345/short-description origin/hotfix/$VERSION"
-          echo "  git cherry-pick -x <sha>    # -x matters: it records where the commit came from,"
-          echo "                              # which is what lets wrap up tell whether the active"
-          echo "                              # release candidate is missing this fix"
+          echo "  git cherry-pick -x <sha>    # -x matters: it records which commit this came from,"
+          echo "                              # which is how wrap up tells that main already has the"
+          echo "                              # fix (so it opens no pointless merge-back PR) and"
+          echo "                              # whether an in-flight release candidate is missing it"
           echo "  git push origin fix/T12345/short-description"
           echo
           echo "  then open a PR targeting hotfix/$VERSION and merge it."
