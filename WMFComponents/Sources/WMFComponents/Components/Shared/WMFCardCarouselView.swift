@@ -28,7 +28,11 @@ public struct WMFCardCarouselView<Item: Identifiable, Card: View>: View {
     public var body: some View {
         // Each branch is a full carousel. Do not put a condition between the scroll view
         // and the stack that has scrollTargetLayout. WMFForYouView uses the same structure.
-        if isVoiceOverRunning {
+        if items.count == 1 {
+            // One card does not need a scroll view. Show the card in the center.
+            cards
+                .frame(maxWidth: .infinity)
+        } else if isVoiceOverRunning {
             // A lazy stack makes only the visible card and the next card. VoiceOver can only
             // move to a card that exists. Thus, while VoiceOver runs, make all the cards.
             carousel {

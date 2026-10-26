@@ -12,6 +12,8 @@ public struct WMFYearInReviewEndView: View {
     private let headlineFont = WMFFont.for(.xxlTitleBold)
     // The design is EB Garamond 16. georgiaCallout is Georgia 16, the closest serif in the app.
     private let bodyFont = WMFFont.for(.georgiaCallout)
+    // The design sets the line height of the body copy to 1.25 times the font size.
+    private static let bodyLineHeightMultiple: CGFloat = 1.25
     // The design is SF Pro bold 26. boldTitle1 is 28, the closest style.
     private let cardTitleFont = WMFFont.for(.boldTitle1)
 
@@ -27,6 +29,20 @@ public struct WMFYearInReviewEndView: View {
     /// right for any width and any screen. Negative is to the left.
     private static let illustrationOffsetRatio: CGFloat = ((96.22 - 122.05) / 2) / 141.73
 
+    /// The part of the screen width that one card uses. On iPad, the hero text uses the same width.
+    /// The space on each side is 10%. Thus, on iPad the text lines up with the cards.
+    private static let contentWidthFraction: CGFloat = 0.8
+
+    /// SwiftUI `lineSpacing` adds space between the lines. Thus, the value is the line height
+    /// from the design minus the line height of the font.
+    private var bodyLineSpacing: CGFloat {
+        max(0, bodyFont.pointSize * Self.bodyLineHeightMultiple - bodyFont.lineHeight)
+    }
+
+    private var isPad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+
     public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0) {
         self.viewModel = viewModel
         self.topInset = topInset
@@ -36,7 +52,10 @@ public struct WMFYearInReviewEndView: View {
         ScrollView {
             VStack(spacing: 40) {
                 hero
-                WMFCardCarouselView(items: viewModel.cards) { card in
+                WMFCardCarouselView(
+                    items: viewModel.cards,
+                    cardWidthFraction: Self.contentWidthFraction
+                ) { card in
                     cardView(card)
                 }
             }
@@ -52,6 +71,29 @@ public struct WMFYearInReviewEndView: View {
     // MARK: - Hero
 
     private var hero: some View {
+        horizontalInset(heroContent)
+            .frame(maxWidth: .infinity)
+            .background(alignment: .top) {
+                sky
+            }
+    }
+
+    /// On iPad, the content uses `contentWidthFraction` of the width, in the center.
+    /// On iPhone, the content has 32 points of space on each side.
+    @ViewBuilder
+    private func horizontalInset(_ content: some View) -> some View {
+        if isPad {
+            content
+                .containerRelativeFrame(.horizontal) { width, _ in
+                    width * Self.contentWidthFraction
+                }
+        } else {
+            content
+                .padding(.horizontal, 32)
+        }
+    }
+
+    private var heroContent: some View {
         VStack(spacing: 0) {
             illustrationView
                 .padding(.top, topInset + 80)
@@ -70,14 +112,10 @@ public struct WMFYearInReviewEndView: View {
             Text(viewModel.body)
                 .font(Font(bodyFont))
                 .kerning(0.5)
+                .lineSpacing(bodyLineSpacing)
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
                 .padding(.top, 24)
-        }
-        .padding(.horizontal, 32)
-        .frame(maxWidth: .infinity)
-        .background(alignment: .top) {
-            sky
         }
     }
 
@@ -161,6 +199,7 @@ public struct WMFYearInReviewEndView: View {
             Text(card.body)
                 .font(Font(bodyFont))
                 .kerning(0.5)
+                .lineSpacing(bodyLineSpacing)
                 .foregroundColor(Color(uiColor: WMFTheme.light.text))
                 .multilineTextAlignment(.center)
 
