@@ -84,6 +84,21 @@ public actor WMFDiscoverReadingListDataController {
         }
     }
 
+    // MARK: - Onboarding
+
+    /// True after the reader has seen the toast that explains the list on their first visit.
+    public var hasShownOnboardingToast: Bool {
+        let storedFlag: Bool? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverOnboardingToastShown.rawValue)
+        return storedFlag ?? false
+    }
+
+    public func markOnboardingToastShown() throws {
+        guard let userDefaultsStore else {
+            throw DiscoverReadingListError.missingUserDefaultsStore
+        }
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverOnboardingToastShown.rawValue, value: true)
+    }
+
     // MARK: - Schedule
 
     public var lastGeneratedDate: Date? {
