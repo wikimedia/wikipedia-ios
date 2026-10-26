@@ -71,7 +71,8 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
     }
 
-    /// A low-data user sees the empty version of each slide, whatever data is stored.
+    /// A low-data user sees the empty version of each slide. The test host has no stored report, so
+    /// the niche interest slide does not show.
     @Test
     func aLowDataUserSeesOnlyEmptySlides() {
         let artboards = factory.makeSlides(userDataState: .lowData, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }

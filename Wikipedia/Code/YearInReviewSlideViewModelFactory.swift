@@ -38,6 +38,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// Only the total articles, days visited, articles visited multiple times, niche interest, topic and contributor slides have real data so far.
     /// A data-rich user sees their data, but a slide without enough data shows its empty version.
+    /// A low-data user sees the empty version of each slide. A low-data user who read 2 or more articles in one category also sees the niche interest slide.
     /// The days visited slide and the niche interest slide have no empty version, so they do not show without enough data.
     /// Every flow ends with the contributor slide.
     /// - Parameters:
@@ -66,7 +67,9 @@ struct YearInReviewSlideViewModelFactory {
             // TODO: Show the collective slides when the templates file has them. Until then, a
             // low-data user sees the empty version of each personalized slide, so Year in Review
             // never opens with no slides.
-            return personalizedEmptySlides()
+            // The niche interest slide needs only 2 or more articles in one category, so it also
+            // shows to a low-data user.
+            return personalizedEmptySlides(nicheInterest: nicheInterestSlide(storedNicheCategory()))
         case .dataRich where forcesAllEmptyStates:
             return personalizedEmptySlides()
         case .dataRich:
@@ -92,8 +95,10 @@ struct YearInReviewSlideViewModelFactory {
         }
     }
 
-    private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), rereadArticlesEmptySlide(), topTopicEmptySlide()]
+    /// - Parameter nicheInterest: The niche interest slide. It has no empty version, so it shows only
+    ///   when the reader has a category. It is in the same position as in the data-rich flow.
+    private func personalizedEmptySlides(nicheInterest: WMFYearInReviewSlideViewModel? = nil) -> [WMFYearInReviewSlideViewModel] {
+        [totalArticlesEmptySlide(), rereadArticlesEmptySlide()] + (nicheInterest.map { [$0] } ?? []) + [topTopicEmptySlide()]
     }
 
     // MARK: - Stored slide data
