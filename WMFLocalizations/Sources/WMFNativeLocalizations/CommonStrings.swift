@@ -77,6 +77,11 @@ public class CommonStrings: NSObject {
     @objc public static let communityFeedTitle = WMFLocalizedString("settings-community-feed-title", value: "Community", comment: "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
+    public static let savedAllArticlesTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
+    public static let savedReadingListsTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
+    public static let savedAllArticlesSearchPlaceholder = WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved. Displayed in All Articles list.")
+    public static let savedReadingListsSearchPlaceholder = WMFLocalizedString("saved-reading-lists-search-placeholder", value: "Search reading lists", comment: "Search bar placeholder on Saved articles tab. Displayed in Reading Lists list.")
+    public static let savedArticleDownloadInProgress = WMFLocalizedString("saved-pages-progress-syncing", value: "Article download in progress...", comment: "Text for article download progress bar label")
 
     public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
 

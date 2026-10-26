@@ -2,64 +2,16 @@ import Foundation
 import Combine
 import WMFData
 
+public protocol WMFSavedAllArticlesLoggingDelegate: AnyObject {
+    @MainActor func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool)
+    @MainActor func savedAllArticlesDidTapOpenInNewTab()
+    @MainActor func savedAllArticlesDidTapShare(fromLongPress: Bool)
+}
+
 @MainActor
 public final class WMFSavedAllArticlesViewModel: ObservableObject {
     
     // MARK: - Nested Types
-    
-    public struct LocalizedStrings {
-        
-        // empty state
-        let emptyStateTitle: String
-        let emptyStateMessage: String
-        
-        // bottom toolbar in editing mode
-        let addToList: String
-        let unsave: String
-        
-        // contextual menu
-        let open: String
-        let openInNewTab: String
-        let openInBackgroundTab: String
-        let removeFromSaved: String
-        let share: String
-        
-        // alert error messages
-        let listLimitExceeded: String
-        let entryLimitExceeded: String
-        let notSynced: String
-        let articleQueuedToBeDownloaded: String
-        
-        public init(
-            emptyStateTitle: String,
-            emptyStateMessage: String,
-            addToList: String,
-            unsave: String,
-            open: String,
-            openInNewTab: String,
-            openInBackgroundTab: String,
-            removeFromSaved: String,
-            share: String,
-            listLimitExceeded: String,
-            entryLimitExceeded: String,
-            notSynced: String,
-            articleQueuedToBeDownloaded: String
-        ) {
-            self.emptyStateTitle = emptyStateTitle
-            self.emptyStateMessage = emptyStateMessage
-            self.addToList = addToList
-            self.unsave = unsave
-            self.open = open
-            self.openInNewTab = openInNewTab
-            self.openInBackgroundTab = openInBackgroundTab
-            self.removeFromSaved = removeFromSaved
-            self.share = share
-            self.listLimitExceeded = listLimitExceeded
-            self.entryLimitExceeded = entryLimitExceeded
-            self.notSynced = notSynced
-            self.articleQueuedToBeDownloaded = articleQueuedToBeDownloaded
-        }
-    }
     
     public enum State {
         case loading
@@ -76,11 +28,12 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     @Published public var isEditing: Bool = false
     @Published public var hasSelection = false
     @Published public var searchText: String = ""
+    @Published public private(set) var sortOrder: WMFReadingListSortOrder = .byRecentlyAdded
     
     // MARK: - Properties
     
-    public let localizedStrings: LocalizedStrings
     private let dataController: WMFLegacyReadingListsDataController
+    public weak var loggingDelegate: WMFSavedAllArticlesLoggingDelegate?
     
     private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
     
@@ -99,12 +52,8 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     
     // MARK: - Initialization
     
-    public init(
-        dataController: WMFLegacyReadingListsDataController,
-        localizedStrings: LocalizedStrings
-    ) {
+    public init(dataController: WMFLegacyReadingListsDataController) {
         self.dataController = dataController
-        self.localizedStrings = localizedStrings
         setupSearchBinding()
     }
     
@@ -130,12 +79,21 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         
         Task {
             let fetchedArticles = (try? await dataController.fetchSavedArticles()) ?? []
+            self.sortOrder = (try? await dataController.savedArticlesSortOrder()) ?? .byRecentlyAdded
             self.articles = fetchedArticles
             self.filterArticles(with: self.searchText)
             self.state = fetchedArticles.isEmpty ? .empty : .data
         }
     }
     
+    public func setSortOrder(_ sortOrder: WMFReadingListSortOrder) {
+        self.sortOrder = sortOrder
+        Task {
+            try? await dataController.setSavedArticlesSortOrder(sortOrder)
+            loadArticles()
+        }
+    }
+
     public func toggleEditing() {
         isEditing.toggle()
         rowViewModelCache.values.forEach {
@@ -194,6 +152,23 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     public func addSelectedToList() {
         didTapAddToList?(selectedArticles)
     }
+
+    // MARK: - Taps
+
+    public func tapArticle(_ article: WMFSavedArticle, fromLongPress: Bool) {
+        loggingDelegate?.savedAllArticlesDidTapArticle(article, fromLongPress: fromLongPress)
+        didTapArticle?(article, fromLongPress)
+    }
+
+    public func tapOpenInNewTab(_ article: WMFSavedArticle) {
+        loggingDelegate?.savedAllArticlesDidTapOpenInNewTab()
+        didTapOpenInNewTab?(article)
+    }
+
+    public func tapShare(_ article: WMFSavedArticle, cgRect: CGRect, fromLongPress: Bool) {
+        loggingDelegate?.savedAllArticlesDidTapShare(fromLongPress: fromLongPress)
+        didTapShare?(article, cgRect, fromLongPress)
+    }
     
     func rowViewModel(for article: WMFSavedArticle) -> WMFPageRowSavedViewModel {
         if let cached = rowViewModelCache[article.id] {
@@ -207,17 +182,6 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             return cached
         }
         
-        let localizedStrings = WMFPageRowSavedViewModel.LocalizedStrings(
-            open: localizedStrings.open,
-            openInNewTab: localizedStrings.openInNewTab,
-            openInBackgroundTab: localizedStrings.openInBackgroundTab,
-            removeFromSaved: localizedStrings.removeFromSaved,
-            share: localizedStrings.share,
-            listLimitExceeded: localizedStrings.listLimitExceeded,
-            entryLimitExceeded: localizedStrings.entryLimitExceeded,
-            notSynced: localizedStrings.notSynced,
-            articleQueuedToBeDownloaded: localizedStrings.articleQueuedToBeDownloaded)
-        
         let vm = WMFPageRowSavedViewModel(
             id: article.id,
             title: article.displayTitle,
@@ -226,8 +190,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             snippet: article.snippet,
             thumbnailURL: article.thumbnailURL,
             readingListNames: article.readingListNames,
-            alertType: article.alertType,
-            localizedStrings: localizedStrings
+            alertType: article.alertType
         )
         
         vm.didTapAlert = { [weak self] in

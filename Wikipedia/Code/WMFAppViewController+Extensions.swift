@@ -1280,7 +1280,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .feed, action: action)
         } else if currentVC is PlacesViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
-        } else if currentVC is SavedViewController {
+        } else if currentVC is WMFSavedHostingController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
         } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
@@ -1445,7 +1445,7 @@ extension WMFAppViewController {
             return .home
         }
 
-        if rootViewController is SavedViewController {
+        if rootViewController is WMFSavedHostingController {
             return .saved
         }
 
@@ -1459,7 +1459,7 @@ extension WMFAppViewController {
         return rootViewController is HomeViewController
             || rootViewController is ExploreViewController
             || rootViewController is PlacesViewController
-            || rootViewController is SavedViewController
+            || rootViewController is WMFSavedHostingController
             || rootViewController is WMFActivityTabViewController
             || rootViewController is SearchViewController
     }

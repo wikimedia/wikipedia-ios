@@ -136,15 +136,19 @@ final class SavedTabCharacterizationTests: XCTestCase {
 
     // MARK: - Search semantics
 
-    func testReadingListsSearchIgnoresCaseAndDiacritics() throws {
+    @MainActor
+    func testReadingListsSearchIgnoresCaseAndDiacritics() async throws {
         _ = try dataStore.readingListsController.createReadingList(named: "Zoology")
         _ = try dataStore.readingListsController.createReadingList(named: "Égypte")
         try dataStore.viewContext.save()
 
-        let viewController = ReadingListsViewController(with: dataStore)
-        XCTAssertEqual(try readingListNames(matching: "égy", in: viewController), ["Égypte"])
-        XCTAssertEqual(try readingListNames(matching: "ZOO", in: viewController), ["Zoology"])
-        XCTAssertEqual(try readingListNames(matching: "nothing", in: viewController), [])
+        let dataController = try await makeDataController(sortOrder: .byTitle)
+        let accented = try await readingListNames(matching: "égy", in: dataController)
+        let uppercase = try await readingListNames(matching: "ZOO", in: dataController)
+        let none = try await readingListNames(matching: "nothing", in: dataController)
+        XCTAssertEqual(accented, ["Égypte"])
+        XCTAssertEqual(uppercase, ["Zoology"])
+        XCTAssertEqual(none, [])
     }
 
     func testReadingListDetailSearchIgnoresCaseAndDiacritics() throws {
@@ -293,11 +297,9 @@ final class SavedTabCharacterizationTests: XCTestCase {
         return presenter
     }
 
-    private func readingListNames(matching searchString: String, in viewController: ReadingListsViewController) throws -> [String] {
-        viewController.searchString = searchString
-        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [viewController.basePredicate, try XCTUnwrap(viewController.searchPredicate)])
-        return try dataStore.viewContext.fetch(request).compactMap { $0.name }
+    private func readingListNames(matching searchText: String, in dataController: WMFLegacyReadingListsDataController) async throws -> [String] {
+        let lists = try await dataController.fetchReadingLists(filter: .all, searchText: searchText)
+        return lists.filter { !$0.isDefault }.map { $0.name }
     }
 
     private func entryTitles(matching searchString: String, in viewController: ReadingListEntryCollectionViewController) throws -> [String] {

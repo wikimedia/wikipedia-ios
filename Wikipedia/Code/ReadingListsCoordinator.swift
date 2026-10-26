@@ -5,15 +5,25 @@ import WMFNativeLocalizations
 
 final class ReadingListsCoordinator: NSObject, Coordinator {
 
-    var navigationController: UINavigationController
+    private let navigationControllerProvider: () -> UINavigationController
+    var navigationController: UINavigationController {
+        navigationControllerProvider()
+    }
     private let dataStore: MWKDataStore
     var theme: Theme
     private let filter: WMFReadingListsFilter
     private var dataSource: LegacyReadingListsDataSource?
+    private var _viewModel: WMFReadingListsViewModel?
     private weak var hostingController: WMFReadingListsHostingController?
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, filter: WMFReadingListsFilter = .all) {
-        self.navigationController = navigationController
+    convenience init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, filter: WMFReadingListsFilter = .all) {
+        self.init(navigationControllerProvider: { navigationController }, dataStore: dataStore, theme: theme, filter: filter)
+    }
+
+    /// The Saved tab builds its segments before its navigation controller exists, so the
+    /// navigation controller is resolved when first needed.
+    init(navigationControllerProvider: @escaping () -> UINavigationController, dataStore: MWKDataStore, theme: Theme, filter: WMFReadingListsFilter = .all) {
+        self.navigationControllerProvider = navigationControllerProvider
         self.dataStore = dataStore
         self.theme = theme
         self.filter = filter
@@ -28,11 +38,11 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
         return true
     }
 
-    // MARK: - Embedded view controller
+    // MARK: - View model and embedded view controller
 
-    var contentViewController: WMFReadingListsHostingController {
-        if let existingController = hostingController {
-            return existingController
+    var viewModel: WMFReadingListsViewModel {
+        if let _viewModel {
+            return _viewModel
         }
 
         let dataSource = LegacyReadingListsDataSource(dataStore: dataStore)
@@ -54,13 +64,21 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
             await self?.fullSync()
         }
 
+        _viewModel = viewModel
+        return viewModel
+    }
+
+    var contentViewController: WMFReadingListsHostingController {
+        if let existingController = hostingController {
+            return existingController
+        }
         let controller = WMFReadingListsHostingController(viewModel: viewModel)
         hostingController = controller
         return controller
     }
 
     func reload() {
-        hostingController?.viewModel.loadReadingLists()
+        _viewModel?.loadReadingLists()
     }
 
     // MARK: - Navigation
