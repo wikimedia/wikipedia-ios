@@ -96,21 +96,33 @@ struct YearInReviewSlideViewModelFactory {
         [totalArticlesEmptySlide(), rereadArticlesEmptySlide(), topTopicEmptySlide()]
     }
 
+    // MARK: - Stored slide data
+
+    /// Reads the data of one slide from the report that the app fills in the background.
+    /// Returns `nil` when the report does not have the slide, or when the data does not decode.
+    /// - Parameters:
+    ///   - id: The slide to read.
+    ///   - type: The type that the slide data decodes into.
+    ///   - logName: The slide name that the error log shows.
+    private func storedSlideData<SlideData: Decodable>(_ id: WMFYearInReviewPersonalizedSlideID, as type: SlideData.Type, logName: String) -> SlideData? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == id })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(type, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review \(logName): \(error)")
+            return nil
+        }
+    }
+
     // MARK: - Total articles
 
     /// The number of unique articles read, from the report the app fills in the background.
     /// `nil` when the report does not have this slide yet.
     private func storedReadCount() -> Int? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .readCount })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data).readCount
-        } catch {
-            DDLogError("Error reading the Year in Review total articles: \(error)")
-            return nil
-        }
+        storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles")?.readCount
     }
 
     /// Shows the empty version unless the reader read at least `WMFYearInReviewReadData.minimumReadCount` articles.
@@ -168,16 +180,7 @@ struct YearInReviewSlideViewModelFactory {
     /// The reading days, from the report the app fills in the background. `nil` when the report
     /// does not have this slide yet.
     private func storedDaysVisited() -> WMFYearInReviewDaysVisitedSlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .daysVisited })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewDaysVisitedSlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review days visited: \(error)")
-            return nil
-        }
+        storedSlideData(.daysVisited, as: WMFYearInReviewDaysVisitedSlideData.self, logName: "days visited")
     }
 
     /// `nil` unless the reader read on at least `WMFYearInReviewDaysVisitedSlideData.minimumDayCount`
@@ -226,20 +229,13 @@ struct YearInReviewSlideViewModelFactory {
     /// The articles visited multiple times, from the report the app fills in the background.
     /// `nil` when the report does not have this slide yet.
     private func storedRereadArticles() -> [RereadArticle]? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .topArticles })?.data else {
-                return nil
-            }
-            let slideData = try JSONDecoder().decode(WMFYearInReviewTopArticlesSlideData.self, from: data)
-            guard slideData.isEligible else {
-                return []
-            }
-            return slideData.articles.map { RereadArticle(title: $0.title, visitCount: $0.visitCount, project: $0.project) }
-        } catch {
-            DDLogError("Error reading the Year in Review articles visited multiple times: \(error)")
+        guard let slideData = storedSlideData(.topArticles, as: WMFYearInReviewTopArticlesSlideData.self, logName: "articles visited multiple times") else {
             return nil
         }
+        guard slideData.isEligible else {
+            return []
+        }
+        return slideData.articles.map { RereadArticle(title: $0.title, visitCount: $0.visitCount, project: $0.project) }
     }
 
     /// Shows the empty version unless at least two articles were visited multiple times.
@@ -289,16 +285,7 @@ struct YearInReviewSlideViewModelFactory {
     /// The category that the reader read in a niche way, from the report the app fills in the
     /// background. `nil` when the report does not have this slide yet.
     private func storedNicheCategory() -> WMFYearInReviewMostReadCategorySlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .mostReadCategories })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewMostReadCategorySlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review niche interest: \(error)")
-            return nil
-        }
+        storedSlideData(.mostReadCategories, as: WMFYearInReviewMostReadCategorySlideData.self, logName: "niche interest")
     }
 
     /// Shows one category name. The data controller picks the category when it builds the report,
@@ -330,16 +317,7 @@ struct YearInReviewSlideViewModelFactory {
     /// The topic slides, from the report the app fills in the background. `nil` when the report
     /// does not have these slides yet.
     private func storedTopTopics() -> WMFYearInReviewTopTopicsSlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .topTopics })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewTopTopicsSlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review top topics: \(error)")
-            return nil
-        }
+        storedSlideData(.topTopics, as: WMFYearInReviewTopTopicsSlideData.self, logName: "top topics")
     }
 
     /// The top topic slide, then the runners-up slide if there are enough runners-up. Shows the

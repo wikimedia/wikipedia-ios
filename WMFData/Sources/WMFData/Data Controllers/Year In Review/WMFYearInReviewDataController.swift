@@ -844,8 +844,9 @@ public struct WMFYearInReviewReadData: Codable {
     }
 }
 
-/// The data of the niche interest slide: the one category that the reader read the most
-/// niche articles in. The category is picked once, when the report is built.
+/// The data of the niche interest slide: one category that the reader read 2 or more articles in.
+/// The data controller picks the category at random when it builds the report. After that, the
+/// slide always shows the same category.
 public struct WMFYearInReviewMostReadCategorySlideData: Codable, Sendable {
     /// The category name with spaces, not underscores. It is nil when no category is a candidate.
     public let categoryName: String?
