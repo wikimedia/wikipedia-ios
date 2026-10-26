@@ -83,7 +83,7 @@ jobs:
           COUNT=$(git rev-list --count "$BASE_TAG..HEAD")
 
           if [ "$COUNT" -eq 0 ]; then
-            echo "::error::$BRANCH has no commits beyond $BASE_TAG. Cherry-pick the fix onto it before building."
+            echo "::error::$BRANCH has no commits beyond $BASE_TAG. Merge a PR carrying the cherry-picked fix into it before building."
             exit 1
           fi
 

@@ -119,12 +119,18 @@ jobs:
 
           echo "::notice::Cut hotfix/$VERSION from $BASE_TAG ($SHA)"
           echo
-          echo "Next:"
+          echo "Next - work on a branch and open a PR into the hotfix branch,"
+          echo "do not push to it directly:"
+          echo
           echo "  git fetch origin"
-          echo "  git checkout hotfix/$VERSION"
+          echo "  git checkout -b fix/T12345/short-description origin/hotfix/$VERSION"
           echo "  git cherry-pick -x <sha>    # -x matters: it records where the commit came from,"
           echo "                              # which is what lets wrap up tell whether the active"
           echo "                              # release candidate is missing this fix"
-          echo "  git push origin hotfix/$VERSION"
+          echo "  git push origin fix/T12345/short-description"
+          echo
+          echo "  then open a PR targeting hotfix/$VERSION and merge it."
+          echo "  Name the working branch anything except hotfix/* - that prefix is"
+          echo "  what the one-hotfix-at-a-time check looks at."
           echo
           echo "Then dispatch V2 Deploy Hotfix with version $VERSION."
