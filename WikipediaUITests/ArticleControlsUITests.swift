@@ -184,12 +184,6 @@ final class ArticleControlsUITests: XCTestCase {
             .rotateAndAssertArticleWorks()
     }
 
-    /// Live article content changes over time, so tests that depend on specific body content of the
-    /// bundled Dog fixtures only run against fixtures.
-    private func skipInE2E(_ reason: String) throws {
-        try XCTSkipIf(uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.e2e.rawValue, reason)
-    }
-
     private func openHomeArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
         launchWikipediaAppRobot(onboardingState: .completed)
             .home
