@@ -42,6 +42,10 @@ public struct WMFYearInReviewEndView: View {
             }
             .padding(.bottom, 24)
         }
+        // This scroll view is in the vertical pager. If the content fits, it does not bounce.
+        // Thus, a pull down goes to the pager, and the pager shows the last slide.
+        // This applies only to the vertical axis. The horizontal card carousel does not change.
+        .scrollBounceBehavior(.basedOnSize)
         .background(Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).ignoresSafeArea())
     }
 

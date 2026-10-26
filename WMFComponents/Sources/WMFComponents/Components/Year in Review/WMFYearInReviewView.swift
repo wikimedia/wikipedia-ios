@@ -30,7 +30,7 @@ public struct WMFYearInReviewView: View {
                 .padding(.top, viewModel.progressBarTopInset)
             }
             .ignoresSafeArea(edges: .top)
-            .background(Color(uiColor: WMFYearInReviewViewModel.chromeBackgroundColor))
+            .background(Color(uiColor: viewModel.currentChromeColor))
             .animation(.easeInOut(duration: 0.2), value: viewModel.currentSlideID)
             .onAppear {
                 viewModel.onAppear()
@@ -120,7 +120,7 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         let paged = content
-            .scrollTargetBehavior(.paging)
+            .scrollTargetBehavior(.viewAligned(limitBehavior: pageLimit))
             .scrollPosition(id: $currentSlideID)
             .scrollIndicators(.hidden)
             .accessibilityElement(children: .contain)
@@ -131,5 +131,16 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
         } else {
             paged
         }
+    }
+
+    /// The scroll view stops at the top of each page view. It does not use the height of the
+    /// scroll view, because that height includes the bottom inset below the toolbar.
+    /// Thus, the stop position stays correct on each page and the error does not increase.
+    /// One swipe moves a maximum of one page.
+    private var pageLimit: ViewAlignedScrollTargetBehavior.LimitBehavior {
+        if #available(iOS 18.0, *) {
+            return .alwaysByOne
+        }
+        return .always
     }
 }

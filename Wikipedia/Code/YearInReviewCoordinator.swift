@@ -160,10 +160,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             (try? dataController.fetchUserDataState()) ?? .lowData
         }
 
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(
                 userDataState: userDataState,
-                isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
+                isLoggedIn: isLoggedIn,
                 forcesAllEmptyStates: dataController.forcesAllEmptyStates
             ),
             localizedStrings: slideFactory.makeLocalizedStrings(),
@@ -171,7 +173,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
-        viewModel.endViewModel = makeEndViewModel(isContributor: slideFactory.isContributor())
+        viewModel.endViewModel = makeEndViewModel(isContributor: slideFactory.isContributor(isLoggedIn: isLoggedIn))
 
         self.viewModel = viewModel
 
