@@ -522,6 +522,25 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(slide.localizedStrings.accessibilityLabel?.contains(CommonStrings.yearInReviewYouMatterLogInSubtitle) == true)
     }
 
+    /// The donor recognition requires log in, so a logged-out contributor sees "You matter" and is
+    /// asked to log in, also with a donation on the device.
+    @Test(arguments: [(true, true), (true, false), (false, true)])
+    func aLoggedOutContributorSeesTheYouMatterSlide(isEditor: Bool, isDonor: Bool) throws {
+        let slide = try #require(factory.contributorSlide(isEditor: isEditor, isDonor: isDonor, isLoggedIn: false, hidesDonate: false))
+
+        #expect(slide.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+        #expect(text(slide, "coverTitle") == CommonStrings.yearInReviewYouMatterTitle.localizedUppercase)
+        #expect(text(slide, "bodyCopy")?.hasSuffix(CommonStrings.yearInReviewYouMatterLogInSubtitle) == true)
+        #expect(slide.showsPrimaryDonateButton)
+    }
+
+    /// Where donations are not accepted, a logged-out contributor sees no contributor slide, the
+    /// same as a non-contributor.
+    @Test
+    func aLoggedOutContributorSeesNoSlideWhereDonationsAreNotAccepted() {
+        #expect(factory.contributorSlide(isEditor: true, isDonor: true, isLoggedIn: false, hidesDonate: true) == nil)
+    }
+
     @Test
     func theYouMatterSlideDoesNotShowWhereDonationsAreNotAccepted() {
         #expect(factory.contributorSlide(isEditor: false, isDonor: false, isLoggedIn: true, hidesDonate: true) == nil)

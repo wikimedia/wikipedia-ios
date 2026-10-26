@@ -327,7 +327,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// The rebuilt slide reads the saved donation. The reader stays on the same slide, which
-    /// becomes the "Thank you" version. Does nothing when Year in Review is closed.
+    /// becomes the "Thank you" version. Does nothing when Year in Review is closed, or for a
+    /// logged-out reader, who always sees "You matter".
     private func showThankYouSlideAfterDonation() {
         guard let viewModel,
               let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),

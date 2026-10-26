@@ -580,13 +580,16 @@ struct YearInReviewSlideViewModelFactory {
         )
     ]
 
-    /// "Thank you" for a reader who edited or donated in the contributor period, with the donate
-    /// button in the toolbar. Otherwise "You matter", with a primary donate button below the
+    /// "Thank you" for a logged-in reader who edited or donated in the contributor period, with the
+    /// donate button in the toolbar. Otherwise "You matter", with a primary donate button below the
     /// animation in place of the toolbar button.
+    ///
+    /// A logged-out reader always sees "You matter", also with a donation on the device, because the
+    /// donor recognition requires log in (T441430).
     /// - Parameter hidesDonate: True where donations are not accepted. Then the "You matter" slide does not show.
     /// - Returns: `nil` when no slide shows.
     func contributorSlide(isEditor: Bool, isDonor: Bool, isLoggedIn: Bool, hidesDonate: Bool) -> WMFYearInReviewSlideViewModel? {
-        guard isEditor || isDonor else {
+        guard isLoggedIn, isEditor || isDonor else {
             guard !hidesDonate else {
                 return nil
             }
