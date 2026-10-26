@@ -89,7 +89,12 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
         let hasShownOnboardingToast = await dataController.hasShownOnboardingToast
         guard !hasShownOnboardingToast else { return }
         try? await dataController.markOnboardingToastShown()
-        WMFToastPresenter.shared.show(WMFToastConfig(title: onboardingToastTitle, duration: 5))
+        WMFToastPresenter.shared.show(WMFToastConfig(
+            title: onboardingToastTitle,
+            duration: 5,
+            buttonTitle: Self.customizeTitle,
+            buttonAction: { [weak self] in self?.didTapCustomize?() }
+        ))
     }
 
     private var onboardingToastTitle: String {
@@ -124,6 +129,7 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
 
     // MARK: - Strings
 
+    static let customizeTitle = WMFLocalizedString("discover-list-customize", value: "Customize Discover", comment: "Label of the menu item and of the first-open toast button on the Discover reading list screen. Both open the Discover settings.")
     private static let onboardingToastDailyFormat = WMFLocalizedString("discover-list-onboarding-toast-daily", value: "{{PLURAL:%1$d|Discover will update with %1$d new article each day|Discover will update with %1$d new articles each day}}. Your recommendations are stored locally on your device.", comment: "Toast shown on the first visit to the Discover reading list when the list updates daily. %1$d is replaced with the number of articles in each list.")
     private static let onboardingToastWeeklyFormat = WMFLocalizedString("discover-list-onboarding-toast-weekly", value: "{{PLURAL:%1$d|Discover will update with %1$d new article each week|Discover will update with %1$d new articles each week}}. Your recommendations are stored locally on your device.", comment: "Toast shown on the first visit to the Discover reading list when the list updates weekly. %1$d is replaced with the number of articles in each list.")
     private static let onboardingToastMonthlyFormat = WMFLocalizedString("discover-list-onboarding-toast-monthly", value: "{{PLURAL:%1$d|Discover will update with %1$d new article each month|Discover will update with %1$d new articles each month}}. Your recommendations are stored locally on your device.", comment: "Toast shown on the first visit to the Discover reading list when the list updates monthly. %1$d is replaced with the number of articles in each list.")
