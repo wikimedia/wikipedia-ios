@@ -494,7 +494,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             profileButtonConfig: profileButtonConfig,
             tabsButtonConfig: tabsButtonConfig,
             searchBarConfig: searchConfig,
-            hideNavigationBarOnScroll: !isSearchActive
+            hideNavigationBarOnScroll: !isSearchActive && !isRootTabView
         )
         
         if !isRootTabView, !shouldHideHistory {
@@ -657,7 +657,7 @@ extension SearchViewController: UISearchControllerDelegate {
 
     func didDismissSearchController(_ searchController: UISearchController) {
         isSearchActive = false
-        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnSwipe = !isRootTabView
         
         if !shouldHideHistory {
             historyViewController.view.isHidden = false

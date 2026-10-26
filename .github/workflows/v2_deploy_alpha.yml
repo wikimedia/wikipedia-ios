@@ -1,15 +1,10 @@
 name: V2 Deploy Alpha
 
 on:
-  # Alpha builds every merge into main rather than nightly. The trigger is
-  # commented out until this branch merges: while it lives on a feature
-  # branch the push trigger cannot fire anyway, and once it is on main it
-  # would run alongside deploy_testflight_internal, which is still scheduled
-  # nightly - doubling the archive and upload. Uncomment at cutover, and
-  # disable the schedule on deploy_testflight_internal at the same time.
-  # push:
-  #   branches:
-  #     - main
+  # Alpha builds on every merge into main and skips the build when the latest commit is already tagged.
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 # Serialize runs. The build number is read from the highest alphas/ tag at
@@ -24,27 +19,34 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  XCODE_VERSION: "26.6"
+  XCODE_VERSION: "27.1"
 
 jobs:
   build-and-upload:
-    runs-on: macos-26
+    runs-on: xcode-27
 
     steps:
+      # fetch-depth: 0 is needed for the tag list and the PR lookback, but
+      # a full clone of this repo is ~1.4GB of pack. blob:none makes it a
+      # partial clone - all commits and trees, no historical file contents -
+      # and git fetches the blobs it actually needs on demand. Nothing here
+      # reads old file contents: the tag and branch lookups are refs, the PR
+      # lookback is commit metadata, and only the checked-out commit needs
+      # real files. Measured on design review: 71s checkout down to 15s.
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          filter: blob:none
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # -------------------------------------------------------
       # 0. Fail fast if the bot token is missing
       #
       #    Pushes below use wmf-apps-ci. If the secret resolves empty the
-      #    push URL still looks valid but carries no credentials, so git
-      #    falls back to the AUTHORIZATION header actions/checkout leaves
-      #    configured - GITHUB_TOKEN - which cannot push a ref touching
-      #    .github/workflows. That surfaces as a confusing "GitHub App"
-      #    rejection after the build has already uploaded, so check here.
+      #    push URL still looks valid but carries no credentials, and the
+      #    push is rejected as "a GitHub App" - GITHUB_TOKEN, which cannot
+      #    push a ref touching .github/workflows. That only surfaces after
+      #    the build has already uploaded, so check it up front instead.
       # -------------------------------------------------------
       - name: Check bot token is available
         env:
@@ -238,13 +240,27 @@ jobs:
                     print(f"Could not fetch PR #{pr_num}: {e}")
                     break
 
+              # Accept the task however the author wrote it: a full URL, a URL
+              # with no scheme, or a bare task ID. All three turn up in practice,
+              # and a near-miss used to drop the task silently - the task would be
+              # missing from the What to Test notes and would never get its
+              # "Available in: TestFlight Wikipedia Alpha" comment. Normalised to
+              # canonical URLs so everything downstream is unchanged. "N/A" still
+              # matches nothing, so deliberate opt-outs keep working.
+              #
+              # The separator has to stay \s - authors often list several tasks
+              # one per line, and restricting it to spaces and tabs silently keeps
+              # only the first.
               phab_section = re.findall(
-                r'\*{0,2}Phabricator:\*{0,2}\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
+                r'\*{0,2}Phabricator:\*{0,2}\s*((?:(?:https?://)?(?:phabricator\.wikimedia\.org/)?T\d+[\s,]*)+)',
                 body, re.IGNORECASE
               )
               for section in phab_section:
-                urls = re.findall(r'https://phabricator\.wikimedia\.org/T\d+', section)
-                phab_tasks.extend(urls)
+                # IGNORECASE to match the outer pattern - otherwise a lowercase
+                # t12345 matches there and then yields nothing here. Digits only,
+                # so the URL is canonical whatever case was written.
+                ids = re.findall(r'T(\d+)', section, re.IGNORECASE)
+                phab_tasks.extend(f'https://phabricator.wikimedia.org/T{i}' for i in ids)
 
             return list(dict.fromkeys(phab_tasks))
 
@@ -363,6 +379,12 @@ jobs:
           git tag "alphas/$BUILD"
           # Push as wmf-apps-ci like our other automated repo writes;
           # GITHUB_TOKEN cannot push a ref whose tree touches .github/workflows/**.
+          # The -c clears the AUTHORIZATION header actions/checkout leaves
+          # configured for github.com, so the URL's credentials are the only
+          # ones in play. Belt and braces: on 2026-10-07 a branch push with
+          # this same URL was still rejected as "a GitHub App" and started
+          # working once the -c was added, but a tag push had already
+          # succeeded without it, so the mechanism is not fully understood.
           git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "alphas/$BUILD"
 
       # -------------------------------------------------------

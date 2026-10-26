@@ -43,6 +43,7 @@ struct WMFYearInReviewViewModelTests {
             shareButtonTitle: "Share",
             donateButtonTitle: "Donate",
             learnMoreButtonTitle: "Learn more",
+            aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
             slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
         )
@@ -62,7 +63,8 @@ struct WMFYearInReviewViewModelTests {
             slides: Self.slides(slideCount),
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: { false }
         )
     }
 
@@ -216,6 +218,20 @@ struct WMFYearInReviewViewModelTests {
     }
 
     @Test
+    func tappedAboutInsightsCarriesTheSlideLoggingID() {
+        let viewModel = makeViewModel()
+        viewModel.currentSlideID = "slide2"
+
+        viewModel.tappedAboutInsights()
+
+        if case .aboutInsights(let slideLoggingID) = coordinator.actions.last {
+            #expect(slideLoggingID == "logging2")
+        } else {
+            Issue.record("expected an aboutInsights action")
+        }
+    }
+
+    @Test
     func tappedShareFeedbackCarriesTheSlideLoggingID() {
         let viewModel = makeViewModel()
 
@@ -284,8 +300,7 @@ struct WMFYearInReviewViewModelTests {
 
     // MARK: - Donate button
 
-    /// Only the slide-level half of the rule is covered here. The region half calls
-    /// WMFYearInReviewDataController directly, so it cannot be exercised without a seam.
+    /// The slide-level half of the rule. `theCountryCheckHidesTheToolbarDonateButton` covers the region half.
     @Test
     func aSlideThatHidesDonateIsRespected() {
         let viewModel = WMFYearInReviewViewModel(
@@ -298,9 +313,121 @@ struct WMFYearInReviewViewModelTests {
             ],
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: { false }
         )
 
         #expect(viewModel.showsDonateButton == false)
+    }
+
+    // MARK: - Replacing a slide
+
+    /// After a donation the "You matter" slide becomes "Thank you", and the reader stays on it.
+    @Test
+    func replacingTheCurrentSlideKeepsTheReaderOnIt() {
+        let viewModel = makeViewModel()
+        viewModel.currentSlideID = "slide2"
+
+        viewModel.replaceSlide(id: "slide2", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "contributor"])
+        #expect(viewModel.currentSlideID == "contributor")
+        #expect(viewModel.showsDonateButton)
+    }
+
+    @Test
+    func replacingAnotherSlideDoesNotMoveTheReader() {
+        let viewModel = makeViewModel()
+
+        viewModel.replaceSlide(id: "slide2", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "contributor"])
+        #expect(viewModel.currentSlideID == "slide0")
+    }
+
+    @Test
+    func replacingAMissingSlideChangesNothing() {
+        let viewModel = makeViewModel()
+
+        viewModel.replaceSlide(id: "nonContributor", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "slide2"])
+    }
+
+    /// A slide with its own donate button does not show the toolbar buttons.
+    @Test
+    func aSlideWithAPrimaryDonateButtonHidesTheToolbarButtons() {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: [
+                WMFYearInReviewSlideViewModel(
+                    id: "nonContributor",
+                    loggingID: "nonContributor",
+                    showsPrimaryDonateButton: true
+                )
+            ],
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { false }
+        )
+
+        #expect(viewModel.showsDonateButton == false)
+        #expect(viewModel.showsShareButton == false)
+    }
+
+    @Test
+    func aSlideWithoutAPrimaryDonateButtonShowsTheShareButton() {
+        let viewModel = makeViewModel()
+
+        #expect(viewModel.showsShareButton)
+    }
+
+    /// Where donations are not accepted, or when the country check cannot run, the toolbar does
+    /// not show the donate button.
+    @Test
+    func theCountryCheckHidesTheToolbarDonateButton() {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: Self.slides(1),
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { true }
+        )
+
+        #expect(viewModel.showsDonateButton == false)
+        #expect(viewModel.showsShareButton)
+    }
+
+    // MARK: - Content color
+
+    /// The slides in this suite use the default `.light` style.
+    @Test
+    func theSlideStyleSetsTheColorBeforeTheSlideLoads() {
+        let viewModel = makeViewModel()
+        #expect(viewModel.currentContentColor == WMFColor.white)
+    }
+
+    /// The flag that the .riv sets wins over the style of the slide view model.
+    @Test
+    func theLoadedFlagSetsTheColor() {
+        let viewModel = makeViewModel()
+
+        viewModel.slideDidLoad(lightContent: false, slideID: "slide0")
+        #expect(viewModel.currentContentColor == WMFColor.gray700)
+
+        viewModel.slideDidLoad(lightContent: true, slideID: "slide0")
+        #expect(viewModel.currentContentColor == WMFColor.white)
+    }
+
+    /// A slide that loads off screen must not change the color of the current slide.
+    @Test
+    func anotherSlideFlagDoesNotChangeTheCurrentColor() {
+        let viewModel = makeViewModel()
+
+        viewModel.slideDidLoad(lightContent: false, slideID: "slide1")
+
+        #expect(viewModel.currentContentColor == WMFColor.white)
+        viewModel.currentSlideID = "slide1"
+        #expect(viewModel.currentContentColor == WMFColor.gray700)
     }
 }

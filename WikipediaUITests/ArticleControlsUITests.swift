@@ -2,18 +2,18 @@ import XCTest
 import WMFComponents
 
 final class ArticleControlsUITests: XCTestCase {
-    func testArticleBackButtonReturnsToExplore() throws {
-        openExploreArticle()
-            .tapBackToExplore()
+    func testArticleBackButtonReturnsToHome() throws {
+        openHomeArticle()
+            .tapBackToHome()
     }
 
-    func testArticleHomeButtonReturnsToExplore() throws {
-        openExploreArticle()
-            .tapHomeButtonToExplore()
+    func testArticleHomeButtonReturnsToHome() throws {
+        openHomeArticle()
+            .tapHomeButtonToHome()
     }
 
     func testArticleSearchButtonOpensSearch() throws {
-        openExploreArticle()
+        openHomeArticle()
             .tapSearch()
     }
 
@@ -190,9 +190,9 @@ final class ArticleControlsUITests: XCTestCase {
         try XCTSkipIf(uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.e2e.rawValue, reason)
     }
 
-    private func openExploreArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
+    private func openHomeArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible(file: file, line: line)
             .openFirstArticle(file: file, line: line)
     }
@@ -211,7 +211,7 @@ final class ArticleControlsUITests: XCTestCase {
 
     private func openArticle(named title: String, file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible(file: file, line: line)
             .openSearch(file: file, line: line)
             .focusSearchField(file: file, line: line)

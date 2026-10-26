@@ -117,22 +117,28 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     // MARK: - Experiment Assignment
 
-    /// The group of the reader, and whether this call is the one that rolled it.
-    public struct ExperimentEnrollment: Sendable, Equatable {
-        public let assignment: ExperimentAssignment
-        /// True the first time: the instrumentation sends the exposure event then.
-        public let isNew: Bool
+    /// Rolls the experiment bucket when search opens for a reader with a target wiki among their
+    /// app languages, as on Android, and returns the persisted bucket after that. The search can
+    /// then be on any wiki: every event of it carries the group. Returns nil for other readers.
+    @discardableResult
+    public func enrollIfNeeded() throws -> ExperimentAssignment? {
+        let appLanguageCodes = WMFDataEnvironment.current.appData.appLanguages.map(\.languageCode)
+        return try enroll(isEligible: appLanguageCodes.contains { isEligible(languageCode: $0) })
     }
 
-    /// Rolls the experiment bucket the first time a reader runs an eligible search, and returns
-    /// the persisted bucket after that, saying whether this call rolled it. Returns nil when the
-    /// search is not eligible.
+    /// Rolls the experiment bucket for a search in a target language when the reader has none
+    /// yet, for example a search on a wiki outside their app languages, and returns the persisted
+    /// bucket after that. Returns nil when the search is not eligible.
     @discardableResult
-    public func enrollIfNeeded(languageCode: String) throws -> ExperimentEnrollment? {
+    public func enrollIfNeeded(languageCode: String) throws -> ExperimentAssignment? {
+        try enroll(isEligible: isEligible(languageCode: languageCode))
+    }
+
+    private func enroll(isEligible: Bool) throws -> ExperimentAssignment? {
         stateLock.lock()
         defer { stateLock.unlock() }
 
-        guard isEligible(languageCode: languageCode) else {
+        guard isEligible else {
             return nil
         }
 
@@ -141,14 +147,13 @@ public final class WMFSemanticSearchDataController: Sendable {
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
-        let isNew = !experimentsDataController.hasPersistedBucket(for: .semanticSearch, withPercentage: Self.experimentControlPercentage)
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.semanticSearch, withPercentage: Self.experimentControlPercentage)
 
         guard let assignment = ExperimentAssignment(bucketValue: bucketValue) else {
             throw ExperimentError.unexpectedBucketValue
         }
 
-        return ExperimentEnrollment(assignment: developerSettingsForcedAssignment ?? assignment, isNew: isNew)
+        return developerSettingsForcedAssignment ?? assignment
     }
 
     /// The experiment fields of every search event, in the shape the Android app sends. Nil before
@@ -189,6 +194,33 @@ public final class WMFSemanticSearchDataController: Sendable {
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         try experimentsDataController.resetExperiment(.semanticSearch)
+        try setHasSentExposure(false)
+    }
+
+    // MARK: - Exposure
+
+    /// True when a search in `languageCode` should send the exposure event: the reader has a
+    /// group and no exposure went out before. Each install sends one. A reader who hid the entry
+    /// point in Settings before their first search on a target wiki is not exposed, as on Android.
+    public func shouldSendExposure(languageCode: String) -> Bool {
+        isEligible(languageCode: languageCode) && experimentAssignment != nil && !isEntryPointHidden && !hasSentExposure
+    }
+
+    /// True after the exposure event went out on this install.
+    public var hasSentExposure: Bool {
+        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.semanticSearchExposureSent.rawValue)) ?? false
+    }
+
+    public func markExposureSent() throws {
+        try setHasSentExposure(true)
+    }
+
+    private func setHasSentExposure(_ hasSentExposure: Bool) throws {
+        guard let userDefaultsStore else {
+            throw ExperimentError.missingUserDefaultsStore
+        }
+
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.semanticSearchExposureSent.rawValue, value: hasSentExposure)
     }
 
     // Overrides assignment at read time only, so the persisted bucket survives

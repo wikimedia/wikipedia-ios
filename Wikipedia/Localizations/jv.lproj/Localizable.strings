@@ -146,7 +146,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Dhelikaké kertu iki";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Dhelikaké kabèh kertu “$1”";
 "explore-feed-preferences-in-the-news-description" = "Artikel bab kadadéan dinané iki";
-"explore-feed-preferences-languages-footer-text" = "Ndhelikaké kabèh kertu pakan Dlajah ing kabèh basa bakal matèni tab Dlajah.";
 "explore-feed-preferences-on-this-day-description" = "Kadadéan duk nguni ing tanggal iki";
 "explore-feed-preferences-places-description" = "Artikel Wikipédia ing cedhak panjenengan";
 "explore-feed-preferences-potd-description" = "Gambar pinilih padinan saka Commons";
@@ -203,7 +202,6 @@
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
 "history-clear-delete-all" = "Ha'a, busak kabèh";
 "history-title" = "Sajarah";
-"home-button-explore-accessibility-label" = "Wikipédia, bali ing Dlajah";
 "home-button-saved-accessibility-label" = "Wikipédia, bali menyang Kasimpen";
 "home-more-like-footer" = "Liyané kang mèmper $1";
 "home-nearby-footer" = "Panggonan liyané ing pernahé panjenengan";
@@ -362,18 +360,9 @@
 "two-factor-login-title" = "Mlebu log ing akun panjenengan";
 "two-factor-login-with-backup-code" = "Anggonen salah siji kodhe sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Anggonen kodhe vèrifikasi";
-"welcome-exploration-on-this-day-title" = "Ing dina iki";
 "welcome-explore-continue-button" = "Miwiti";
-"welcome-explore-new-ways-title" = "Cara anyar ndlajah";
 "welcome-explore-tell-me-more-done-button" = "Mudheng";
-"welcome-intro-free-encyclopedia-more" = "Sinaoni liyané bab Wikipédia";
-"welcome-intro-free-encyclopedia-more-about" = "Bab Wikipédia";
-"welcome-intro-free-encyclopedia-title" = "Bauwarna bébas";
 "welcome-languages-add-button" = "Tambah basa liyané";
-"welcome-languages-add-or-edit-button" = "Tambah utawa besut basa-basa pinilih";
-"welcome-languages-description" = "Basa-basa ing ngisor iki ana ing pirantiné panjenengan:";
-// Fuzzy
-"welcome-languages-search-title" = "Golèk ing mèh 300 basa";
 "wikimedia-articletopics-topic-central-america" = "Amerika Tengah";
 "wikimedia-articletopics-topic-education" = "Pendidikan";
 "wikimedia-articletopics-topic-entertainment" = "Hiburan";

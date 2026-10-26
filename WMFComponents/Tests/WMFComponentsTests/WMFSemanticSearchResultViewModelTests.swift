@@ -52,9 +52,10 @@ final class WMFSemanticSearchResultViewModelTests: XCTestCase {
 
     func testQuotationMarkFollowsTheSearchLanguage() {
         XCTAssertEqual(makeViewModel(languageCode: "fr").quotationMark, "«")
-        XCTAssertEqual(makeViewModel(languageCode: "ar").quotationMark, "❝")
+        XCTAssertEqual(makeViewModel(languageCode: "ar").quotationMark, "❞")
         XCTAssertEqual(makeViewModel(languageCode: "ja").quotationMark, "『")
         XCTAssertEqual(makeViewModel(languageCode: "en").quotationMark, "❝", "Other languages use the default mark.")
+        XCTAssertEqual(makeViewModel(languageCode: "he").quotationMark, "❞", "Other right-to-left languages use the mirrored default mark.")
     }
 
     func testLayoutDirectionFollowsTheSearchLanguage() {

@@ -38,10 +38,34 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(event.mediawikiData?.database, "frwiki")
     }
 
+    func testSendingTheExposureMarksItSent() throws {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil }
+
+        instrumentation.logExperimentExposure()
+
+        XCTAssertTrue(WMFSemanticSearchDataController.shared.hasSentExposure)
+    }
+
     func testExperimentExposureNeedsAGroup() throws {
         WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil
 
         instrumentation.logExperimentExposure()
+
+        XCTAssertTrue(sender.events.isEmpty)
+    }
+
+    func testDisabledInstrumentationSendsNothing() throws {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil }
+        let editorSearch = SearchInstrumentation(client: client, isEnabled: false)
+
+        editorSearch.logSearchScreenImpression(source: .editor, project: project)
+        editorSearch.logSearchInit(searchTerm: "la lune", project: project)
+        editorSearch.logLexicalResultsImpression(searchIDs: SearchInstrumentation.LexicalSearchIDs(prefix: "pre", fullText: "ful"))
+        editorSearch.logSearchClose()
+        editorSearch.logSearchBack()
+        editorSearch.logExperimentExposure()
 
         XCTAssertTrue(sender.events.isEmpty)
     }

@@ -89,6 +89,6 @@ struct WMFSemanticSearchInfoExample {
             thumbnailURL: nil
         ),
         thumbnail: japaneseMoonThumbnail,
-        attribution: WMFSemanticSearchAttribution(contributorCount: nil, referenceCount: 71, lastUpdated: Date(timeIntervalSince1970: 1_790_592_983))
+        attribution: WMFSemanticSearchAttribution(contributorCount: 709, referenceCount: 71, lastUpdated: Date(timeIntervalSince1970: 1_790_592_983))
     )
 }

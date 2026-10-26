@@ -86,6 +86,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
+    /// True while the Year in Review announcement loads and shows, so a second appearance of the
+    /// article does not start it twice.
+    private var isPresentingYearInReview = false
+
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
         return TabsOverviewCoordinator(
@@ -644,23 +648,36 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentFundraisingOrYearInReviewOrGamesIfNeeded() {
-        if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
-            listenForTooltips()
-        }
-
         // Fundraising outranks Year in Review, and resolves asynchronously, so the rest of the
         // chain runs from its callback.
         showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
             guard let self else { return }
 
-            if self.needsYearInReviewAnnouncement() {
-                self.willDisplayYearInReviewModal = true
-                self.updateProfileButton()
-                self.presentYearInReviewAnnouncement()
-                // YIR showed — games deferred to next launch.
-            } else {
+            guard self.needsYearInReviewAnnouncement() else {
                 self.willDisplayYearInReviewModal = false
                 self.presentGamesAnnouncementIfNeeded()
+                return
+            }
+
+            // A second appearance while the first one is still loading must not start it again.
+            guard !self.isPresentingYearInReview else { return }
+            self.isPresentingYearInReview = true
+
+            // Held true while the announcement loads, so a tooltip does not appear under it.
+            self.willDisplayYearInReviewModal = true
+
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                defer { self.isPresentingYearInReview = false }
+
+                if await self.presentYearInReviewAnnouncement() {
+                    // YIR showed — games deferred to next launch.
+                    self.updateProfileButton()
+                } else {
+                    // It did not show, so the next prompt gets its turn.
+                    self.willDisplayYearInReviewModal = false
+                    self.presentGamesAnnouncementIfNeeded()
+                }
             }
         })
     }
@@ -1512,10 +1529,6 @@ private extension ArticleViewController {
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
-        // The Year in Review announcement defers to the fundraising banner for the rest of the
-        // session. Coming back from the background is the next app open, so clear it here.
-        Self.didShowFundraisingBannerThisSession = false
-
         startSignificantlyViewedTimer()
         trackAppDidBecomeActive()
     }
@@ -1712,26 +1725,29 @@ extension ArticleViewController {
 
 extension ArticleViewController: WKNavigationDelegate {
 
+    static func shouldAllowNavigation(type navigationType: WKNavigationType) -> Bool {
+        switch navigationType {
+        case .backForward, .reload, .other:
+            return true
+        default:
+            return false
+        }
+    }
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow)
-        default:
+        } else {
             decisionHandler(.cancel)
         }
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow, preferences)
-        default:
+        } else {
             decisionHandler(.cancel, preferences)
         }
     }

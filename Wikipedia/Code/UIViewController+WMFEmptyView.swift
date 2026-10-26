@@ -68,7 +68,19 @@ extension WMFEmptyViewType {
         guard let viewModel else {
             return nil
         }
-        return WMFEmptyHostingView(viewModel: viewModel)
+        let view = WMFEmptyHostingView(viewModel: viewModel)
+        view.accessibilityIdentifier = accessibilityIdentifier
+        return view
+    }
+
+    /// The UI-test identifier for this type. The value is nil for types the UI tests do not query.
+    private var accessibilityIdentifier: String? {
+        switch self {
+        case .noSavedPagesInReadingList:
+            return AccessibilityIdentifiers.ReadingListDetail.emptyView
+        default:
+            return nil
+        }
     }
 }
 

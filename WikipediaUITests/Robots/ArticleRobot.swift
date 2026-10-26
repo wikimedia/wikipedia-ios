@@ -96,11 +96,11 @@ extension ArticleRobot {
 
 extension ArticleRobot {
     @discardableResult
-    func tapBackToExplore(file: StaticString = #filePath, line: UInt = #line) -> ExploreRobot {
+    func tapBackToHome(file: StaticString = #filePath, line: UInt = #line) -> HomeRobot {
         let navigationBar = navigationBar(file: file, line: line)
         base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
         let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
-        return tapArticleNavigationButtonReturningToExplore(
+        return tapArticleNavigationButtonReturningToHome(
             backButton,
             description: "article back button",
             file: file,
@@ -109,7 +109,29 @@ extension ArticleRobot {
     }
 
     @discardableResult
-    func tapHomeButtonToExplore(file: StaticString = #filePath, line: UInt = #line) -> ExploreRobot {
+    func tapBackToSaved(file: StaticString = #filePath, line: UInt = #line) -> SavedRobot {
+        let navigationBar = navigationBar(file: file, line: line)
+        base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.tapCenter(of: backButton, file: file, line: line)
+        base.waitForElementToDisappear(articleView, timeout: 10, file: file, line: line)
+        return SavedRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func tapBackToReadingListDetail(file: StaticString = #filePath, line: UInt = #line) -> ReadingListDetailRobot {
+        let navigationBar = navigationBar(file: file, line: line)
+        base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.tapCenter(of: backButton, file: file, line: line)
+        base.waitForElementToDisappear(articleView, timeout: 10, file: file, line: line)
+        return ReadingListDetailRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func tapHomeButtonToHome(file: StaticString = #filePath, line: UInt = #line) -> HomeRobot {
         let navigationHomeButton = navigationBar(file: file, line: line)
             .buttons
             .matching(identifier: AccessibilityIdentifiers.Article.homeButton)
@@ -117,7 +139,7 @@ extension ArticleRobot {
         let button = navigationHomeButton.waitForExistence(timeout: 5)
             ? navigationHomeButton
             : homeButton
-        return tapArticleNavigationButtonReturningToExplore(
+        return tapArticleNavigationButtonReturningToHome(
             button,
             description: "article W home button",
             file: file,
@@ -952,12 +974,12 @@ private extension ArticleRobot {
         control.coordinate(withNormalizedOffset: CGVector(dx: xOffset, dy: 0.5)).tap()
     }
 
-    func tapArticleNavigationButtonReturningToExplore(
+    func tapArticleNavigationButtonReturningToHome(
         _ button: XCUIElement,
         description: String,
         file: StaticString,
         line: UInt
-    ) -> ExploreRobot {
+    ) -> HomeRobot {
         let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
         base.assertExists(button, timeout: 15, description: description, file: file, line: line)
 
@@ -967,7 +989,7 @@ private extension ArticleRobot {
             base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
         }
 
-        return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+        return HomeRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
     func waitForArticleViewToDisappear(_ articleView: XCUIElement, timeout: TimeInterval) -> Bool {
