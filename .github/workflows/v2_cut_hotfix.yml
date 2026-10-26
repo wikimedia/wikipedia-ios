@@ -123,12 +123,23 @@ jobs:
           echo "do not push to it directly:"
           echo
           echo "  git fetch origin"
-          echo "  git checkout -b fix/T12345/short-description origin/hotfix/$VERSION"
-          echo "  git cherry-pick -x <sha>    # -x matters: it records which commit this came from,"
-          echo "                              # which is how wrap up tells that main already has the"
-          echo "                              # fix (so it opens no pointless merge-back PR) and"
-          echo "                              # whether an in-flight release candidate is missing it"
-          echo "  git push origin fix/T12345/short-description"
+          echo "  git checkout -b fix/T12345/short-description --no-track origin/hotfix/$VERSION"
+          echo "                              # --no-track matters: without it the new branch is set"
+          echo "                              # to track hotfix/$VERSION, and a bare git push then"
+          echo "                              # pushes your work straight onto the hotfix branch"
+          echo "                              # instead of creating a branch of its own"
+          echo
+          echo "  # if the fix is already on main, pick it across with -x:"
+          echo "  git cherry-pick -x <sha>    # -x records which commit this came from, which is how"
+          echo "                              # wrap up tells that main already has the fix (so it"
+          echo "                              # opens no pointless merge-back PR) and whether an"
+          echo "                              # in-flight release candidate is missing it"
+          echo
+          echo "  # if the fix is new - written against the released code rather than"
+          echo "  # picked from main - just commit it here. Wrap up will open a PR to"
+          echo "  # carry it back to main, since that is the only way main gets it."
+          echo
+          echo "  git push -u origin fix/T12345/short-description"
           echo
           echo "  then open a PR targeting hotfix/$VERSION and merge it."
           echo "  Name the working branch anything except hotfix/* - that prefix is"

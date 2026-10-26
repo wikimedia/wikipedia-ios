@@ -302,8 +302,8 @@ jobs:
           for sha in missing:
             print(f"  {describe(sha)}")
           if unverified:
-            print(f"  ({len(unverified)} of those carry no 'cherry picked from' trailer, so they "
-                  f"could be resolved picks rather than new work - cherry-pick with -x to remove the doubt)")
+            print(f"  ({len(unverified)} of those carry no 'cherry picked from' trailer - either new work "
+                  f"written here, or a pick made without -x. Picking with -x removes the ambiguity.)")
           out(new_commits=len(missing))
 
           # A hotfix patches the live release, so the fix is usually not on the
