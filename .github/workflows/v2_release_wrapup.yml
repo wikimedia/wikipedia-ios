@@ -136,6 +136,7 @@ jobs:
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           VERSION: ${{ github.event.inputs.version }}
+          KIND: ${{ github.event.inputs.kind }}
           SHA: ${{ steps.resolve.outputs.sha }}
         run: |
           python3 << 'EOF'
@@ -148,6 +149,8 @@ jobs:
 
           token = os.environ['PHAB_TOKEN']
           version = os.environ['VERSION']
+          # A hotfix task is titled "Hotfix <version>"; see V2 Deploy Hotfix for why.
+          label = 'Hotfix' if os.environ.get('KIND') == 'hotfix' else 'Release'
           sha = os.environ['SHA']
           release_tag = f"releases/{version}"
           release_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
@@ -169,12 +172,12 @@ jobs:
 
           tasks = data.get('result', {}).get('data', [])
           release_task = next(
-            (t for t in tasks if t.get('fields', {}).get('name', '') == f"Release {version}"),
+            (t for t in tasks if t.get('fields', {}).get('name', '') == f"{label} {version}"),
             None
           )
 
           if not release_task:
-            print(f"No open task titled 'Release {version}' found, skipping")
+            print(f"No open task titled '{label} {version}' found, skipping")
             exit(0)
 
           task_phid = release_task['phid']
@@ -220,8 +223,13 @@ jobs:
         id: check_branch
         env:
           VERSION: ${{ github.event.inputs.version }}
+          KIND: ${{ github.event.inputs.kind }}
         run: |
-          BRANCH="release-candidate/$VERSION"
+          if [ "$KIND" = "hotfix" ]; then
+            BRANCH="hotfix/$VERSION"
+          else
+            BRANCH="release-candidate/$VERSION"
+          fi
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 
           # A completed run deletes this branch in step 7, so a re-run finds it
