@@ -225,28 +225,111 @@ jobs:
           VERSION: ${{ github.event.inputs.version }}
           KIND: ${{ github.event.inputs.kind }}
         run: |
-          if [ "$KIND" = "hotfix" ]; then
-            BRANCH="hotfix/$VERSION"
-          else
-            BRANCH="release-candidate/$VERSION"
-          fi
-          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          python3 << 'EOF'
+          import os
+          import re
+          import subprocess
+
+          version = os.environ['VERSION']
+          kind = os.environ.get('KIND') or 'release'
+          branch = f"hotfix/{version}" if kind == 'hotfix' else f"release-candidate/{version}"
+
+          def git(*args):
+            return subprocess.run(['git', *args], capture_output=True, text=True)
+
+          def out(**kw):
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              for k, v in kw.items():
+                f.write(f"{k}={v}\n")
+
+          def describe(sha):
+            return git('log', '-1', '--format=%h %s', sha).stdout.strip()
+
+          def unmerged(target, head):
+            """Commits on head whose change is not already present on target.
+
+            git cherry compares patch ids, so a clean cherry-pick is recognised
+            even though its sha differs - which plain rev-list would not do, and
+            a hotfix is all cherry-picks. A pick that needed conflict resolution
+            has a different patch id and would look new, so fall back to the
+            "(cherry picked from commit ...)" trailer that -x records and ask
+            whether that original is on the target instead. Without a trailer
+            there is no way to tell a genuinely new commit from a resolved pick,
+            so it counts as missing and is reported as unverified.
+            """
+            res = git('cherry', target, head)
+            if res.returncode != 0:
+              return None, None
+            missing, unverified = [], []
+            for line in res.stdout.splitlines():
+              mark, _, sha = line.partition(' ')
+              sha = sha.strip()
+              if mark == '-':
+                continue
+              body = git('log', '-1', '--format=%B', sha).stdout
+              m = re.search(r'^\(cherry picked from commit ([0-9a-f]{7,40})\)\s*$', body, re.M)
+              if m:
+                probe = git('merge-base', '--is-ancestor', m.group(1), target)
+                if probe.returncode == 0:
+                  continue
+                if probe.returncode > 1:
+                  unverified.append(sha)
+              else:
+                unverified.append(sha)
+              missing.append(sha)
+            return missing, unverified
+
+          out(branch=branch)
 
           # A completed run deletes this branch in step 7, so a re-run finds it
           # gone. That means the cycle was already cleaned up, not that anything
           # is wrong - skip the merge-back check instead of failing the fetch.
-          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
-            echo "::warning::$BRANCH no longer exists - already cleaned up, skipping steps 6 and 7"
-            echo "branch_exists=false" >> $GITHUB_OUTPUT
-            echo "new_commits=0" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-          echo "branch_exists=true" >> $GITHUB_OUTPUT
+          if git('ls-remote', '--exit-code', '--heads', 'origin', branch).returncode != 0:
+            print(f"::warning::{branch} no longer exists - already cleaned up, skipping steps 6 and 7")
+            out(branch_exists='false', new_commits='0', rc_missing='0')
+            raise SystemExit(0)
 
-          git fetch origin main "$BRANCH"
-          NEW_COMMITS=$(git rev-list "origin/main..origin/$BRANCH" | wc -l | tr -d ' ')
-          echo "new_commits=$NEW_COMMITS" >> $GITHUB_OUTPUT
-          echo "$BRANCH has $NEW_COMMITS commit(s) not on main"
+          out(branch_exists='true')
+          git('fetch', 'origin', '--prune', '+refs/heads/*:refs/remotes/origin/*')
+
+          missing, unverified = unmerged('origin/main', f'origin/{branch}')
+          if missing is None:
+            print(f"::warning::Could not compare {branch} against main, assuming nothing to merge back")
+            out(new_commits='0', rc_missing='0')
+            raise SystemExit(0)
+
+          print(f"{branch} has {len(missing)} commit(s) whose change is not on main")
+          for sha in missing:
+            print(f"  {describe(sha)}")
+          if unverified:
+            print(f"  ({len(unverified)} of those carry no 'cherry picked from' trailer, so they "
+                  f"could be resolved picks rather than new work - cherry-pick with -x to remove the doubt)")
+          out(new_commits=len(missing))
+
+          # A hotfix patches the live release, so the fix is usually not on the
+          # release candidate that is still in flight. If nobody carries it
+          # across, that release ships without the fix and silently regresses it.
+          rc_missing = 0
+          if kind == 'hotfix':
+            rcs = [l.split('refs/heads/', 1)[1]
+                   for l in git('ls-remote', '--heads', 'origin', 'refs/heads/release-candidate/*').stdout.splitlines()
+                   if 'refs/heads/' in l]
+            lines = []
+            for rc in rcs:
+              rc_gone, _ = unmerged(f'origin/{rc}', f'origin/{branch}')
+              if not rc_gone:
+                print(f"{rc} already contains every commit from {branch}")
+                continue
+              rc_missing += len(rc_gone)
+              lines.append(f"{rc}\t" + "\t".join(describe(sha) for sha in rc_gone))
+            if lines:
+              with open('/tmp/rc_missing.txt', 'w') as f:
+                f.write("\n".join(lines))
+            if not rcs:
+              print("No release candidate is in flight, nothing to regress")
+
+          out(rc_missing=rc_missing)
+          EOF
 
       # -------------------------------------------------------
       # 6. Open a PR for any changes not yet on main
@@ -270,6 +353,85 @@ jobs:
             --title "Merge $BRANCH back to main" \
             --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back."
           echo "Opened PR to merge $BRANCH into main - branch left in place until it merges"
+
+      # -------------------------------------------------------
+      # 6b. Tell the in-flight release candidate it is missing this hotfix
+      # -------------------------------------------------------
+      - name: Warn that the release candidate is missing hotfix commits
+        if: steps.check_branch.outputs.rc_missing != '0'
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          import urllib.parse
+          import urllib.request
+
+          token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
+          PROJECT = 'PHID-PROJ-ojylfmfiogxrvnxoiwlp'
+
+          try:
+            with open('/tmp/rc_missing.txt') as f:
+              rows = [l.split('\t') for l in f.read().splitlines() if l.strip()]
+          except FileNotFoundError:
+            rows = []
+
+          def conduit(method, params):
+            req = urllib.request.Request(
+              f'https://phabricator.wikimedia.org/api/{method}',
+              headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+              data=urllib.parse.urlencode(params).encode()
+            )
+            with urllib.request.urlopen(req) as resp:
+              return json.loads(resp.read())
+
+          tasks = []
+          data = conduit('maniphest.search', {
+            'api.token': token,
+            'constraints[projects][0]': PROJECT,
+            'constraints[statuses][0]': 'open',
+            'order': 'newest',
+            'limit': '100',
+          })
+          if data.get('error_code'):
+            print(f"::warning::Could not search Phabricator to post the regression notice: {data.get('error_info')}")
+          else:
+            tasks = data.get('result', {}).get('data', [])
+
+          for rc, *commits in rows:
+            rc_version = rc.split('/', 1)[1]
+            body = (f"Hotfix {version} shipped with {len(commits)} commit(s) that are not on {rc}. "
+                    f"That release will go out without these fixes unless they are cherry-picked across:")
+            listing = "\n".join(f"  {c}" for c in commits)
+
+            # The run log is not where anyone will see this - a green wrap up
+            # scrolls away. The release task is what whoever ships this release
+            # candidate actually opens, so put it there too.
+            print(f"::warning::{body}%0A{'%0A'.join('  ' + c for c in commits)}")
+            print(body)
+            print(listing)
+
+            task = next((t for t in tasks
+                         if t.get('fields', {}).get('name', '') == f"Release {rc_version}"), None)
+            if not task:
+              print(f"::warning::No open task titled 'Release {rc_version}' to comment on - tell that release's owner by hand")
+              continue
+
+            result = conduit('maniphest.edit', {
+              'api.token': token,
+              'objectIdentifier': task['phid'],
+              'transactions[0][type]': 'comment',
+              'transactions[0][value]': f"{body}\n\n```\n{listing}\n```",
+            })
+            if result.get('error_code'):
+              # The hotfix is already live; failing here would misreport that.
+              print(f"::warning::Could not comment on 'Release {rc_version}': {result.get('error_info')}")
+            else:
+              print(f"Commented on 'Release {rc_version}'")
+          EOF
 
       # -------------------------------------------------------
       # 7. Delete release branch (only if nothing to merge back)
