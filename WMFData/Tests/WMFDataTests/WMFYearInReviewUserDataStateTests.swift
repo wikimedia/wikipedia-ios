@@ -77,6 +77,11 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
     }
 
+    private func nicheInterestSlide(categoryName: String?) throws -> WMFYearInReviewSlide {
+        let data = try JSONEncoder().encode(WMFYearInReviewMostReadCategorySlideData(categoryName: categoryName))
+        return WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
+    }
+
     private func saveReport(_ slides: [WMFYearInReviewSlide], year: Int? = nil) async throws {
         try await dataController.createNewYearInReviewReport(year: year ?? self.year, slides: slides)
     }
@@ -117,6 +122,18 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         try await saveReport([try readCountSlide(500), try daysVisitedSlide(dayCount: 1)])
         let state = try await dataController.fetchUserDataState()
         XCTAssertEqual(state, .lowData, "the days visited slide does not show")
+    }
+
+    func testNicheInterestSlideWithACategoryCountsTowardDataRich() async throws {
+        try await saveReport([try readCountSlide(3), try nicheInterestSlide(categoryName: "Executed female serial killers")])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .dataRich)
+    }
+
+    func testNicheInterestSlideWithoutACategoryIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(500), try nicheInterestSlide(categoryName: nil)])
+        let state = try await dataController.fetchUserDataState()
+        XCTAssertEqual(state, .lowData, "the niche interest slide does not show")
     }
 
     func testSlidesBelowTheirMinimumAreLowData() async throws {

@@ -240,6 +240,40 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 1, peakMonth: 3, peakMonthDayCount: 1)) == nil)
     }
 
+    // MARK: - Niche interest
+
+    @Test
+    func theNicheInterestSlideShowsTheCategoryName() throws {
+        let categoryName = "Executed female serial killers"
+        let slide = try #require(factory.nicheInterestSlide(WMFYearInReviewMostReadCategorySlideData(categoryName: categoryName)))
+
+        #expect(slide.id == "nicheInterest")
+        #expect(slide.animation?.artboardName == "frame12")
+        #expect(slide.animation?.stateMachineName == "frame12-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewNicheInterestTitle)
+        #expect(text(slide, "data") == categoryName.localizedUppercase)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewNicheInterestSubtitle)
+        // VoiceOver reads the category name as written, not in capitals.
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewNicheInterestTitle) \(categoryName). \(CommonStrings.yearInReviewNicheInterestSubtitle)")
+        // The category name uses the data text style, not the large number style.
+        let categoryNameFit = slide.textFits.first { $0.text.path == "data" }
+        #expect(categoryNameFit?.maximumLines == 1)
+        #expect(categoryNameFit?.fontSize.path == "dataTextFontSize")
+        #expect(categoryNameFit?.lineHeight.path == "dataTextLineHeight")
+    }
+
+    /// The slide has no empty version, so it does not show without a category name.
+    @Test(arguments: [nil, "", "   "] as [String?])
+    func theNicheInterestSlideNeedsACategoryName(categoryName: String?) {
+        #expect(factory.nicheInterestSlide(WMFYearInReviewMostReadCategorySlideData(categoryName: categoryName)) == nil)
+    }
+
+    /// The slide does not show when the report does not have its data.
+    @Test
+    func theNicheInterestSlideNeedsStoredData() {
+        #expect(factory.nicheInterestSlide(nil) == nil)
+    }
+
     // MARK: - Topics
 
     /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
