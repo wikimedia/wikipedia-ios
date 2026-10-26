@@ -1,15 +1,15 @@
 name: V2 Cut Hotfix Branch
 
-# STUB. This file exists on main only so the workflow shows up in the Actions
-# "Run workflow" dropdown - GitHub offers workflow_dispatch only for workflows
-# present on the default branch. The on: block below is copied verbatim from
-# the real workflow so the dispatch form asks for the right inputs; keep the
-# two in sync if the real one's inputs change.
+# Cuts a hotfix branch from the release that is currently in the App Store.
 #
-# Running this against main does nothing but print its inputs. Pick the
-# feature branch in the Run workflow dropdown to get the real workflow.
+# This exists because the base commit is the easy thing to get wrong, and
+# getting it wrong means shipping unreleased work to everyone. There is no
+# base-tag input on purpose: the only correct base is the highest releases/
+# tag, and an override is exactly the lever that would let a rushed hotfix
+# be cut from the wrong place.
 #
-# Delete this file and land the real one when that branch merges.
+# After this runs you cherry-pick onto the branch yourself, with -x, then
+# dispatch V2 Deploy Hotfix.
 
 on:
   workflow_dispatch:
@@ -19,19 +19,112 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write
+
+# Serialize, so two people reacting to the same incident cannot both create a
+# branch and race each other's pushes.
+concurrency:
+  group: v2-cut-hotfix
+  cancel-in-progress: false
+
 jobs:
-  stub:
+  cut:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Explain that this is a stub
+      # Fail in seconds if the secret is missing rather than after the checkout.
+      - name: Check bot token is available
         env:
-          INPUTS: ${{ toJSON(github.event.inputs) }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
-          echo "This is the stub copy of ${{ github.workflow }} on ${{ github.ref_name }}."
-          echo "It creates no branch and pushes nothing."
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is not available to this run. The branch could not be pushed."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
+      # fetch-depth: 0 for the full tag list; blob:none keeps it a partial
+      # clone, since nothing here reads file contents.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve the base release and validate
+        id: base
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          if ! printf '%s' "$VERSION" | grep -qE '^[0-9]{4}\.[0-9]{2}\.[0-9]{2}$'; then
+            echo "::error::Version '$VERSION' is not YYYY.MM.DD."
+            exit 1
+          fi
+
+          BASE_TAG=$(git tag --list 'releases/*' --sort=-version:refname | head -1)
+          if [ -z "$BASE_TAG" ]; then
+            echo "::error::No releases/* tag exists, so there is no shipped release to patch."
+            exit 1
+          fi
+
+          SHA=$(git rev-parse "refs/tags/$BASE_TAG")
+          BASE_VERSION="${BASE_TAG#releases/}"
+
+          # Printed before anything is created, because a wrong base is the
+          # failure this workflow exists to prevent and the log is where you
+          # would notice it.
+          echo "Base release : $BASE_TAG"
+          echo "Commit       : $SHA"
+          echo "Committed    : $(git log -1 --format=%ci "$SHA")"
+          echo "Subject      : $(git log -1 --format=%s "$SHA")"
+          echo "Cutting      : hotfix/$VERSION"
+
+          # App Store versions have to increase, and a hotfix that cannot be
+          # submitted is worth catching now rather than after it is built.
+          if [[ ! "$VERSION" > "$BASE_VERSION" ]]; then
+            echo "::error::Version $VERSION is not later than $BASE_VERSION, the release it would be cut from. The App Store will not accept it."
+            exit 1
+          fi
+
+          if git ls-remote --exit-code --heads origin "refs/heads/hotfix/$VERSION" >/dev/null 2>&1; then
+            echo "::error::hotfix/$VERSION already exists. Delete it, or dispatch V2 Deploy Hotfix if you meant to build it."
+            exit 1
+          fi
+
+          # One at a time, same rule as release candidates - two open hotfix
+          # branches means it is ambiguous which one is being shipped.
+          OTHERS=$(git ls-remote --heads origin 'refs/heads/hotfix/*' | sed 's|.*refs/heads/||' | tr '\n' ' ')
+          if [ -n "$OTHERS" ]; then
+            echo "::error::A hotfix branch is already open: $OTHERS. Finish and delete it before cutting another."
+            exit 1
+          fi
+
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+          echo "base_tag=$BASE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Create and push the hotfix branch
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          SHA: ${{ steps.base.outputs.sha }}
+          BASE_TAG: ${{ steps.base.outputs.base_tag }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          # Pushed as wmf-apps-ci like every other automated write here. The -c
+          # clears the AUTHORIZATION header actions/checkout leaves configured
+          # for github.com, so the URL's credentials are the only ones in play.
+          git -c http.https://github.com/.extraheader= push \
+            https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} \
+            "$SHA:refs/heads/hotfix/$VERSION"
+
+          echo "::notice::Cut hotfix/$VERSION from $BASE_TAG ($SHA)"
           echo
-          echo "To run the real workflow, dispatch it again and pick the branch"
-          echo "that carries the hotfix workflows in the Run workflow dropdown."
+          echo "Next:"
+          echo "  git fetch origin"
+          echo "  git checkout hotfix/$VERSION"
+          echo "  git cherry-pick -x <sha>    # -x matters: it records where the commit came from,"
+          echo "                              # which is what lets wrap up tell whether the active"
+          echo "                              # release candidate is missing this fix"
+          echo "  git push origin hotfix/$VERSION"
           echo
-          echo "Inputs received: $INPUTS"
+          echo "Then dispatch V2 Deploy Hotfix with version $VERSION."
