@@ -1,15 +1,18 @@
 name: V2 Deploy Hotfix
 
-# STUB. This file exists on main only so the workflow shows up in the Actions
-# "Run workflow" dropdown - GitHub offers workflow_dispatch only for workflows
-# present on the default branch. The on: block below is copied verbatim from
-# the real workflow so the dispatch form asks for the right inputs; keep the
-# two in sync if the real one's inputs change.
+# Builds a hotfix from an existing hotfix/ branch and uploads it to internal
+# TestFlight. Cut the branch with V2 Cut Hotfix Branch first, then cherry-pick
+# onto it with -x.
 #
-# Running this against main does nothing but print its inputs. Pick the
-# feature branch in the Run workflow dropdown to get the real workflow.
+# Internal distribution on purpose: external TestFlight needs Apple's beta
+# review, which is a bad dependency when you are fixing something urgent, and
+# a release candidate's betas are usually flowing to external testers at the
+# same time - a second version train there only confuses them.
 #
-# Delete this file and land the real one when that branch merges.
+# The Phabricator task is titled "Hotfix <version>", never "Release <version>",
+# because V2 Deploy Beta refuses to run when it sees more than one open task
+# matching ^Release. Titling it anything else keeps an in-flight release
+# candidate working while a hotfix ships.
 
 on:
   workflow_dispatch:
@@ -19,19 +22,250 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write
+
+# Shares V2 Deploy Beta's group rather than having its own. Both take the next
+# betas/ number, and a release candidate is normally building betas during the
+# window a hotfix is being shipped - overlapping runs would compute the same
+# build number and App Store Connect would reject the second upload.
+concurrency:
+  group: v2-deploy-beta
+  cancel-in-progress: false
+
+env:
+  XCODE_VERSION: "26.6"
+
 jobs:
-  stub:
-    runs-on: ubuntu-latest
+  build-and-upload:
+    runs-on: macos-26
 
     steps:
-      - name: Explain that this is a stub
+      - name: Check bot token is available
         env:
-          INPUTS: ${{ toJSON(github.event.inputs) }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
-          echo "This is the stub copy of ${{ github.workflow }} on ${{ github.ref_name }}."
-          echo "It builds, uploads and tags nothing."
-          echo
-          echo "To run the real workflow, dispatch it again and pick the branch"
-          echo "that carries the hotfix workflows in the Run workflow dropdown."
-          echo
-          echo "Inputs received: $INPUTS"
+          if [ -z "$APPS_BOT_TOKEN" ]; then
+            echo "::error::APPS_BOT_TOKEN is not available to this run. The build tag could not be pushed."
+            exit 1
+          fi
+          echo "APPS_BOT_TOKEN is present"
+
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+          xcodebuild -version
+
+      - name: Check out the hotfix branch
+        id: branch
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          BRANCH="hotfix/$VERSION"
+          git fetch origin --prune '+refs/heads/*:refs/remotes/origin/*'
+
+          if ! git rev-parse --verify "refs/remotes/origin/$BRANCH" >/dev/null 2>&1; then
+            echo "::error::$BRANCH does not exist. Dispatch V2 Cut Hotfix Branch first, then cherry-pick onto it."
+            exit 1
+          fi
+
+          git checkout -B "$BRANCH" "origin/$BRANCH"
+
+          # The nearest releases/ tag reachable from here is what the branch was
+          # cut from, whatever has happened to the tag list since.
+          BASE_TAG=$(git describe --tags --abbrev=0 --match 'releases/*' HEAD)
+          COUNT=$(git rev-list --count "$BASE_TAG..HEAD")
+
+          if [ "$COUNT" -eq 0 ]; then
+            echo "::error::$BRANCH has no commits beyond $BASE_TAG. Cherry-pick the fix onto it before building."
+            exit 1
+          fi
+
+          echo "Branch   : $BRANCH at $(git rev-parse HEAD)"
+          echo "Cut from : $BASE_TAG"
+          echo "Carrying : $COUNT commit(s)"
+          git log --oneline "$BASE_TAG..HEAD" | sed 's/^/  /'
+
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "base_tag=$BASE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Compute build number
+        id: versioning
+        run: |
+          LATEST=$(git tag --list 'betas/*' \
+            | sed 's|betas/||' \
+            | grep -E '^[0-9]+$' \
+            | sort -n \
+            | tail -1)
+          BUILD=$(( ${LATEST:-0} + 1 ))
+          echo "build=$BUILD" >> $GITHUB_OUTPUT
+          echo "Version: ${{ github.event.inputs.version }}, Build: $BUILD"
+
+      - name: Write TestFlight notes
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+          BASE_TAG: ${{ steps.branch.outputs.base_tag }}
+        run: |
+          {
+            echo "Hotfix $VERSION ($BUILD)"
+            echo
+            echo "Changes on top of $BASE_TAG:"
+            git log --format='- %s' "$BASE_TAG..HEAD"
+          } > /tmp/what_to_test.txt
+
+          cat /tmp/what_to_test.txt
+
+      - name: Update version and build number
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          PLISTS=(
+            "WMF Framework/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Alpha-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "ContinueReadingWidget/Info.plist"
+            "WikipediaUnitTests/Info.plist"
+            "Widgets/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+          )
+
+          for PLIST in "${PLISTS[@]}"; do
+            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
+          done
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Wikipedia-Info.plist"
+
+          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
+
+      - name: Install fastlane
+        run: bundle install
+
+      - name: Write App Store API Key
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build and upload to internal TestFlight
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
+        run: |
+          bundle exec fastlane internal_beta
+
+      - name: Tag build
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+          APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "betas/$BUILD"
+          # Pushed as wmf-apps-ci like every other automated write here; the -c
+          # clears the AUTHORIZATION header actions/checkout leaves configured.
+          git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "betas/$BUILD"
+
+      - name: Create or update the hotfix task
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          VERSION: ${{ github.event.inputs.version }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import re
+          import os
+
+          token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
+          branch = os.environ['BRANCH']
+          build = os.environ['BUILD']
+
+          PROJECT = 'PHID-PROJ-ojylfmfiogxrvnxoiwlp'
+          title = f'Hotfix {version}'
+
+          def conduit(method, params):
+            req = urllib.request.Request(
+              f'https://phabricator.wikimedia.org/api/{method}',
+              headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+              data=urllib.parse.urlencode(params).encode()
+            )
+            with urllib.request.urlopen(req) as resp:
+              return json.loads(resp.read())
+
+          data = conduit('maniphest.search', {
+            'api.token': token,
+            'constraints[projects][0]': PROJECT,
+            'constraints[statuses][0]': 'open',
+            'order': 'newest',
+            'limit': '100',
+          })
+          if data.get('error_code'):
+            print(f"::error::Could not search Phabricator: {data.get('error_info')}")
+            exit(1)
+
+          existing = next(
+            (t for t in data.get('result', {}).get('data', [])
+             if t.get('fields', {}).get('name', '') == title),
+            None
+          )
+
+          def set_field(description, field, value):
+            pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
+            if pattern.search(description):
+              return pattern.sub(rf'\1 {value}', description, count=1)
+            return description.rstrip() + f"\n**{field}**: {value}"
+
+          # Same field names as a release task, so V2 Submit App Store and
+          # V2 Release Wrap Up can read and stamp a hotfix task unchanged.
+          TEMPLATE = ('**Release version**:\n**Release branch**:\n**Release tag**:\n'
+                      '**Release SHA1**:\n**App Store Submission Date**:\n'
+                      '**App Store Release Date**:')
+
+          description = existing.get('fields', {}).get('description', {}).get('raw', '') if existing else TEMPLATE
+          description = set_field(description, 'Release version', version)
+          description = set_field(description, 'Release branch', branch)
+
+          params = {
+            'api.token': token,
+            'transactions[0][type]': 'description',
+            'transactions[0][value]': description,
+            'transactions[1][type]': 'comment',
+            'transactions[1][value]': f'Available in: TestFlight Wikipedia {version} ({build})',
+          }
+
+          if existing:
+            params['objectIdentifier'] = existing['phid']
+          else:
+            params['transactions[2][type]'] = 'title'
+            params['transactions[2][value]'] = title
+            params['transactions[3][type]'] = 'projects.add'
+            params['transactions[3][value][0]'] = PROJECT
+
+          result = conduit('maniphest.edit', params)
+
+          if result.get('error_code'):
+            # The branch and the build already exist by this point, so a green
+            # run here would hide a hotfix with no task to track it.
+            print(f"::error::Failed to write the hotfix task for {version}: {result.get('error_info')}")
+            print(f"::error::{branch} is built and tagged as betas/{build}. Create a task titled '{title}' by hand before submitting.")
+            exit(1)
+
+          print(f"✓ {'Updated' if existing else 'Created'} '{title}' (branch={branch}, build={build})")
+          EOF
