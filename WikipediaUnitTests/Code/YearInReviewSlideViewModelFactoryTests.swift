@@ -575,4 +575,63 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(hidingFactory.makeContributorSlide(experience: .collective, isLoggedIn: true) == nil)
         #expect(hidingFactory.makeSlides(experience: .collective, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
     }
+
+    // MARK: - Rabbit holes
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    /// - Parameter rabbitHoles: The first and the last title and the article count of each rabbit hole, deepest first.
+    private func rabbitHolesData(_ rabbitHoles: [(String, String, Int)], deepestIsOnTop: Bool) throws -> WMFYearInReviewRabbitHolesSlideData {
+        let json: [String: Any] = [
+            "rabbitHoles": rabbitHoles.map { first, last, count in
+                [
+                    "firstArticle": ["title": first, "projectID": "wikipedia~en"],
+                    "lastArticle": ["title": last, "projectID": "wikipedia~en"],
+                    "articleCount": count
+                ]
+            },
+            "deepestIsOnTop": deepestIsOnTop
+        ]
+        return try JSONDecoder().decode(WMFYearInReviewRabbitHolesSlideData.self, from: JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test(arguments: [true, false])
+    func theRabbitHoleSlidesShowTheGuessThenTheDeepestRabbitHole(deepestIsOnTop: Bool) throws {
+        let slideData = try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: deepestIsOnTop)
+
+        let slides = factory.rabbitHoleSlides(slideData)
+
+        #expect(slides.map { $0.animation?.artboardName } == ["frame11a", "frame11b"])
+        let guess = try #require(slides.first)
+        #expect(text(guess, "headline") == CommonStrings.yearInReviewRabbitHoleTitle)
+        let (top, bottom) = deepestIsOnTop ? (("Moon", "Cat"), ("Paris", "Europe")) : (("Paris", "Europe"), ("Moon", "Cat"))
+        #expect(text(guess, "articleTitleTopT") == top.0)
+        #expect(text(guess, "articleTitleTopB") == top.1)
+        #expect(text(guess, "articleTitleBotT") == bottom.0)
+        #expect(text(guess, "articleTitleBotB") == bottom.1)
+
+        let reveal = try #require(slides.last)
+        #expect(text(reveal, "headline") == CommonStrings.yearInReviewRabbitHoleRevealTitle(linkCount: 5))
+        #expect(text(reveal, "bodyText") == CommonStrings.yearInReviewRabbitHoleRevealSubtitle)
+        #expect(text(reveal, "resultTitleTop") == "Moon")
+        #expect(text(reveal, "resultTitleBot") == "Cat")
+    }
+
+    /// Each article thumbnail has a flag that hides the placeholder image while the thumbnail is missing.
+    @Test
+    func eachRabbitHoleThumbnailHasAMissingImageFlag() throws {
+        let slides = factory.rabbitHoleSlides(try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true))
+
+        let guess = try #require(slides.first)
+        #expect(Set(guess.articleThumbnails.keys.map(\.path)) == ["thumbnailTopT", "thumbnailTopB", "thumbnailBotT", "thumbnailBotB"])
+        #expect(guess.missingImageFlags.first { $0.key.path == "thumbnailBotB" }?.value.path == "noImgBotB")
+        let reveal = try #require(slides.last)
+        #expect(Set(reveal.missingImageFlags.map { "\($0.key.path):\($0.value.path)" }) == ["resultThumbnailTop:resultNoImgT", "resultThumbnailBot:resultNoImgB"])
+        #expect(reveal.articleThumbnails.first { $0.key.path == "resultThumbnailBot" }?.value.title == "Cat")
+    }
+
+    @Test
+    func withOneRabbitHoleTheRabbitHoleSlidesDoNotShow() throws {
+        #expect(factory.rabbitHoleSlides(try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true)).isEmpty)
+        #expect(factory.rabbitHoleSlides(nil).isEmpty)
+    }
 }

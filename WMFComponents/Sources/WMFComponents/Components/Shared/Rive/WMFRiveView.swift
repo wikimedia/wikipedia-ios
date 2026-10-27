@@ -10,6 +10,7 @@ public struct WMFRiveView: View {
 
     private let text: [WMFRiveText: String]
     private let numbers: [WMFRiveNumber: Double]
+    private let bools: [WMFRiveBool: Bool]
     private let images: [WMFRiveImage: Data]
     private let layoutDirection: WMFRiveLayoutDirection?
     private let accessibilityLabel: String?
@@ -23,6 +24,7 @@ public struct WMFRiveView: View {
         _ animation: WMFRiveAnimation,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
+        bools: [WMFRiveBool: Bool] = [:],
         images: [WMFRiveImage: Data] = [:],
         layoutDirection: WMFRiveLayoutDirection? = nil,
         accessibilityLabel: String? = nil,
@@ -34,6 +36,7 @@ public struct WMFRiveView: View {
     ) {
         self.text = text
         self.numbers = numbers
+        self.bools = bools
         self.images = images
         self.layoutDirection = layoutDirection
         self.accessibilityLabel = accessibilityLabel
@@ -44,6 +47,7 @@ public struct WMFRiveView: View {
             animation: animation,
             text: text,
             numbers: numbers,
+            bools: bools,
             images: images,
             readBool: readBool,
             textFits: textFits
@@ -75,6 +79,9 @@ public struct WMFRiveView: View {
             }
             .onChange(of: numbers) {
                 viewModel.update(text: text, numbers: numbers)
+            }
+            .onChange(of: bools) {
+                viewModel.update(bools: bools)
             }
             .onChange(of: images) {
                 viewModel.update(images: images)

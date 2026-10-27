@@ -39,11 +39,15 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     public let animation: WMFRiveAnimation?
     public let text: [WMFRiveText: String]
     public let numbers: [WMFRiveNumber: Double]
+    public let bools: [WMFRiveBool: Bool]
     /// Loaded when the slide shows. A property with no thumbnail keeps the placeholder in the .riv.
     public let articleThumbnails: [WMFRiveImage: ArticleThumbnail]
     /// Image data that the slide already has, for example a downloaded topic illustration. A property
     /// with no data keeps the placeholder in the .riv.
     public let images: [WMFRiveImage: Data]
+    /// For each image property, a boolean property that is true while the image property has no
+    /// image. The .riv then hides the placeholder image.
+    public let missingImageFlags: [WMFRiveImage: WMFRiveBool]
     /// The property that lays the frame out from right to left for a right-to-left language. `nil`
     /// for a frame without it.
     public let layoutDirection: WMFRiveLayoutDirection?
@@ -67,8 +71,10 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         animation: WMFRiveAnimation? = nil,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
+        bools: [WMFRiveBool: Bool] = [:],
         articleThumbnails: [WMFRiveImage: ArticleThumbnail] = [:],
         images: [WMFRiveImage: Data] = [:],
+        missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
         layoutDirection: WMFRiveLayoutDirection? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         showsShareButton: Bool = true,
@@ -83,8 +89,10 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         self.animation = animation
         self.text = text
         self.numbers = numbers
+        self.bools = bools
         self.articleThumbnails = articleThumbnails
         self.images = images
+        self.missingImageFlags = missingImageFlags
         self.layoutDirection = layoutDirection
         self.localizedStrings = localizedStrings
         self.showsShareButton = showsShareButton

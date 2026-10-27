@@ -90,6 +90,16 @@ public struct WMFPageWithTimestamp: Sendable {
     public let timestamp: Date
 }
 
+/// A page view and the page view that the reader came from by a link in the app.
+public struct WMFPageViewLink: Sendable {
+    /// Identifies the page view. It is the URI of the Core Data object.
+    public let id: URL
+    /// The page view that had the link. `nil` if the reader did not come from a link.
+    public let previousID: URL?
+    public let page: WMFPage
+    public let timestamp: Date
+}
+
 public final class WMFLegacyPageView: Codable, @unchecked Sendable {
     public let title: String
     let project: WMFProject
@@ -449,6 +459,33 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
 
         return results
+    }
+
+    /// The page views inside the window, oldest first, with the page view that each came from.
+    /// The window includes `startDate` and `endDate`.
+    public func fetchPageViewLinks(startDate: Date, endDate: Date) async throws -> [WMFPageViewLink] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+            let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: backgroundContext) ?? []
+
+            return pageViews.compactMap { pageView in
+                guard let page = pageView.page,
+                      let projectID = page.projectID,
+                      let title = page.title,
+                      let timestamp = pageView.timestamp else {
+                    return nil
+                }
+                return WMFPageViewLink(
+                    id: pageView.objectID.uriRepresentation(),
+                    previousID: pageView.previousPageView?.objectID.uriRepresentation(),
+                    page: WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title),
+                    timestamp: timestamp
+                )
+            }
+        }
     }
 
     public func fetchLinkedPageViews() async throws -> [[CDPageView]] {
