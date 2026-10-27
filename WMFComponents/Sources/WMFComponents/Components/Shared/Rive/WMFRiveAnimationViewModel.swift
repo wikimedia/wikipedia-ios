@@ -20,11 +20,14 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     @Published private(set) var rive: Rive?
     /// The value of `readBool` in the loaded file. `nil` until the file loads, or if the file has no such property.
     @Published private(set) var readBoolValue: Bool?
+    /// Goes up by one each time the loaded file fires `watchedTrigger`.
+    @Published private(set) var watchedTriggerCount = 0
 
     let animation: WMFRiveAnimation
     /// A boolean property to read after the file loads, from the view model instance that has the name
     /// of the artboard if there is one, otherwise from the bound instance.
     let readBool: WMFRiveBool?
+    let watchedTrigger: WMFRiveTrigger?
     /// Text runs to keep to a maximum number of lines. See `WMFRiveTextFit`.
     let textFits: [WMFRiveTextFit]
 
@@ -57,6 +60,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private var bound: Bound?
     private var loadTask: Task<Void, Never>?
     private var imageTask: Task<Void, Never>?
+    private var triggerTask: Task<Void, Never>?
     private let loader: @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive
     private let imageDecoder: @MainActor (Data) async throws -> RiveRuntime.Image
 
@@ -67,6 +71,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         bools: [WMFRiveBool: Bool] = [:],
         images: [WMFRiveImage: Data] = [:],
         readBool: WMFRiveBool? = nil,
+        watchedTrigger: WMFRiveTrigger? = nil,
         textFits: [WMFRiveTextFit] = [],
         loader: @escaping @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
@@ -77,6 +82,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.bools = bools
         self.images = images
         self.readBool = readBool
+        self.watchedTrigger = watchedTrigger
         self.textFits = textFits
         self.loader = loader
         self.imageDecoder = imageDecoder
@@ -85,6 +91,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     deinit {
         loadTask?.cancel()
         imageTask?.cancel()
+        triggerTask?.cancel()
     }
 
     @discardableResult
@@ -133,6 +140,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             }
             validatePathsInDebug()
             applyImages()
+            watchTrigger()
             self.loadState = .loaded
             await readBoolFromFile()
         } catch is CancellationError {
@@ -154,6 +162,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         loadTask = nil
         imageTask?.cancel()
         imageTask = nil
+        triggerTask?.cancel()
+        triggerTask = nil
         rive = nil
         bound = nil
         readBoolValue = nil
@@ -245,6 +255,24 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for (property, value) in enums {
             instance.setValue(of: EnumProperty(path: property.path), to: value)
+        }
+    }
+
+    /// A restart binds a new instance, so this watches the new instance.
+    private func watchTrigger() {
+        triggerTask?.cancel()
+        guard let watchedTrigger, let instance = bound?.main else { return }
+        let property = TriggerProperty(path: watchedTrigger.path)
+        triggerTask = Task { [weak self] in
+            do {
+                for try await _ in instance.stream(of: property) {
+                    guard let self, !Task.isCancelled else { return }
+                    self.watchedTriggerCount += 1
+                }
+            } catch {
+                guard let self, !Task.isCancelled else { return }
+                WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not watch \"\(watchedTrigger.path)\": \(error.localizedDescription)"))
+            }
         }
     }
 

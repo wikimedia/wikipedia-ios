@@ -52,9 +52,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     @Published public var slides: [WMFYearInReviewSlideViewModel]
 
-    /// Bound to `.scrollPosition(id:)`. The slide id is the source of truth, not an index:
-    /// `.scrollPosition` resolves by identity, and an index binding does not survive a
-    /// LazyVStack recycling its rows.
+    /// The slide that the pager rests on. `WMFYearInReviewView` sets it from the scroll view. Setting
+    /// it does not scroll.
     @Published public var currentSlideID: String? {
         didSet {
             guard currentSlideID != oldValue else { return }

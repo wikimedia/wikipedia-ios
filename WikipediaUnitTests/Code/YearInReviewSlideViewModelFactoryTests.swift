@@ -608,12 +608,14 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(text(guess, "articleTitleTopB") == top.1)
         #expect(text(guess, "articleTitleBotT") == bottom.0)
         #expect(text(guess, "articleTitleBotB") == bottom.1)
+        #expect(guess.nextSlideTrigger?.path == "frameComplete", "after the reader taps a card, the reveal slide shows")
 
         let reveal = try #require(slides.last)
         #expect(text(reveal, "headline") == CommonStrings.yearInReviewRabbitHoleRevealTitle(linkCount: 5))
         #expect(text(reveal, "bodyText") == CommonStrings.yearInReviewRabbitHoleRevealSubtitle)
         #expect(text(reveal, "resultTitleTop") == "Moon")
         #expect(text(reveal, "resultTitleBot") == "Cat")
+        #expect(reveal.nextSlideTrigger == nil)
     }
 
     /// Each article thumbnail has a flag that hides the placeholder image while the thumbnail is missing.
