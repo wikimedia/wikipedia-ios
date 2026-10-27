@@ -1063,4 +1063,12 @@
 "wikitext-upload-save-anonymously-or-login" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1się zalogujesz$2 otrzymasz wyższy poziom prywatności.";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
 "wikitext-upload-save-terms-name" = "warunki korzystania";
+"year-in-review-2026-highlights-articles-read" = "Liczba przeczytanych artykułów:";
+"year-in-review-2026-highlights-created-with" = "Stworzono za pomocą aplikacji Wikipedii";
+"year-in-review-2026-highlights-minutes-read" = "Minuty spędzone na czytaniu:";
+"year-in-review-2026-highlights-niche-category" = "Odkryta nisza:";
+"year-in-review-2026-highlights-rabbit-hole" = "Najbardziej wciągający temat:";
+"year-in-review-2026-highlights-rotation" = "Artykuły, do których wracam:";
+"year-in-review-2026-highlights-title" = "Podsumowanie roku 2026 w Wikipedii";
+"year-in-review-2026-login-prompt-collective-title" = "Odkryj pełnię możliwości Wikipedii z kontem";
 "year-in-review-feature-announcement-title-personalized" = "Zobacz swoje Podsumowanie roku w Wikipedii.";

@@ -151,7 +151,7 @@
 "activity-tab-year-in-review-cta" = "Започнете";
 "activity-tab-year-in-review-data-rich-subtitle" = "Навратете се на вашата година на Википедија.";
 "activity-tab-year-in-review-data-rich-title" = "Пристигна вашиот Преглед на годината";
-"activity-tab-year-in-review-low-data-subtitle" = "Навратете се годината на Википедија.";
+"activity-tab-year-in-review-low-data-subtitle" = "Навратете се на годината на Википедија.";
 "activity-tab-year-in-review-low-data-title" = "Пристигна нашиот Преглед на годината";
 "activity-tab-you-edited" = "Неделава уредивте {{PLURAL:$1|еднаш|$1 пати}}.";
 "activity-tab-you-read" = "Неделава прочитавте {{PLURAL:$1|$1 статија|$1 статии}}.";
@@ -1296,9 +1296,12 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-semantic-entry-point-accessibility-hint" = "Пребарува во статии за вашето побарување";
+// Fuzzy
 "search-semantic-entry-point-description" = "Пребарајте во статии и веднаш прејдете на релевантната страница";
 "search-semantic-entry-point-hidden-toast-modify" = "Измени";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "Можете пак да го направите видливо преку Поставките.";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "Модулот е скриен.";
 "search-semantic-entry-point-hide-accessibility-label" = "Скриј пребарување во статии";
 "search-semantic-entry-point-info-accessibility-label" = "За пребарувањето во статии";
@@ -1307,6 +1310,7 @@
 "search-semantic-results-empty-title" = "Ова пребарување не даде ништо";
 "search-semantic-results-error-subtitle" = "Обидете се подоцна.";
 "search-semantic-results-error-title" = "Нешто не е во ред";
+// Fuzzy
 "search-semantic-results-last-updated" = "Последна поднова $1";
 "search-semantic-results-rate-limited-subtitle" = "Почекајте малку, па обидете се пак.";
 "search-semantic-results-rate-limited-title" = "Премногу пребарувања";
@@ -1385,7 +1389,7 @@
 "settings-temp-accounts-talk-page-footer" = "Привремената сметка ќе истече за 90 дена";
 "settings-title" = "Нагодувања";
 "settings-year-in-review-header" = "Ако го исклучите Прегледот на годината, тоа ќе ги исчисти сите складирани персонализирани увиди и ќе го скрие Прегледот на годината";
-"share-a-fact-made-with" = "Направено до прилогот на Википедија";
+"share-a-fact-made-with" = "Направено со прилогот на Википедија";
 "share-article-name-on-wikipedia" = "„$1“ на Википедија:";
 "share-building" = "Создавам карта за споделување факт...";
 "share-default-format" = "„$1“ од „$2“: $3";
@@ -1752,11 +1756,20 @@
 "year-in-review-2026-games-card-button-title" = "Започни игра";
 "year-in-review-2026-games-card-subtitle" = "Проверете го вашето знаење стекнато на Википедија низ брзите игри поттикнати од светското знаење.";
 "year-in-review-2026-games-card-title" = "Подготвени за друг предизвик?";
+"year-in-review-2026-highlights-articles-read" = "Број на прочитани статии:";
+"year-in-review-2026-highlights-created-with" = "Направено со прилогот на Википедија";
+"year-in-review-2026-highlights-minutes-read" = "Вкупно минути проведени во читање:";
+"year-in-review-2026-highlights-niche-category" = "Посебно истражена категорија:";
+"year-in-review-2026-highlights-rabbit-hole" = "Најдолго вовлекување:";
+"year-in-review-2026-highlights-rotation" = "Статии на кои се навраќам:";
+"year-in-review-2026-highlights-title" = "Преглед на годината 2026 на Википедија";
 "year-in-review-2026-interests-card-button-title" = "Прилагоди интереси";
 "year-in-review-2026-interests-card-subtitle" = "Изаберете теми што ве пленат и добивајте препораки прилагодени на вашите интереси.";
 "year-in-review-2026-interests-card-title" = "Прилагодете си ја Почетната";
 "year-in-review-2026-intro-subtitle" = "Ви благодариме што проведовте {{PLURAL:$1|$1 ден|$1 дена}} на нашиот сакан Википедиин прилог во 2026 година.";
 "year-in-review-2026-intro-title" = "Пристигна вашиот Преглед на годината на Википедија";
+"year-in-review-2026-login-prompt-collective-message" = "Најавата ви дава пристап до најдобрите делови на прилогот. Започнете да го градите прегледот на следната година со тоа што ќе направите сметка денес.";
+"year-in-review-2026-login-prompt-collective-title" = "Википедија е подобра со сметка";
 "year-in-review-2026-minutes-read-comparison-days" = "Тоа е подолго од {{PLURAL:$1|цел еден ден|$1 цели денови}}.";
 "year-in-review-2026-minutes-read-comparison-egg" = "Тоа е подолго отколку што е е потребно да се свари тврдо варено јајце.";
 "year-in-review-2026-minutes-read-comparison-fall-asleep" = "Тоа е подолго од просечното време што име е потребно на луѓето за да заспијат.";

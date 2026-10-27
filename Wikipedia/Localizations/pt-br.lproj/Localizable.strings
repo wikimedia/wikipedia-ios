@@ -1325,9 +1325,12 @@
 "search-recent-title" = "recentemente Procurado";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-semantic-entry-point-accessibility-hint" = "Pesquisas dentro dos artigos relacionadas à sua consulta";
+// Fuzzy
 "search-semantic-entry-point-description" = "Pesquise nos artigos e vá direto para a passagem relevante";
 "search-semantic-entry-point-hidden-toast-modify" = "Modificar";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "Você pode torná-lo visível novamente em Configurações.";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "Módulo oculto.";
 "search-semantic-entry-point-hide-accessibility-label" = "Ocultar a pesquisa dentro dos artigosv";
 "search-semantic-entry-point-info-accessibility-label" = "Sobre como fazer buscas dentro dos artigos";
@@ -1335,6 +1338,7 @@
 "search-semantic-results-empty-title" = "Nenhum resultado para esta pesquisa";
 "search-semantic-results-error-subtitle" = "Por favor, tente novamente.";
 "search-semantic-results-error-title" = "Algo deu errado";
+// Fuzzy
 "search-semantic-results-last-updated" = "Última atualização $1";
 "search-title" = "Pesquisar";
 "search-widget-announcement-body" = "Adicione o widget de Pesquisa da Wikipédia à sua tela inicial ou tela de bloqueio para obter respostas mais rápidas, na ponta dos dedos.";
