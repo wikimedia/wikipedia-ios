@@ -115,6 +115,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             saveFlag(.developerSettingsForceYiREntryPoint2026, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
             }
         }
     }
@@ -124,7 +125,10 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// `forceYiREntryPoint2026` is also true.
     public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? {
         get { loadRawValue(.developerSettingsForceYiRDataState) }
-        set { saveRawValue(.developerSettingsForceYiRDataState, newValue) }
+        set {
+            saveRawValue(.developerSettingsForceYiRDataState, newValue)
+            NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
+        }
     }
 
     /// Debugging convenience: which Year in Review slides to force, regardless of the log in state

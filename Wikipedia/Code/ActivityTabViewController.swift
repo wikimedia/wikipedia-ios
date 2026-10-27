@@ -42,6 +42,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(yearInReviewEntryPointNeedsUpdate), name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
 
         embedHostingController()
 
@@ -263,6 +264,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
+    }
+
+    @objc private func yearInReviewEntryPointNeedsUpdate() {
+        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {

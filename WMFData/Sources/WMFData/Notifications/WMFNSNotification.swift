@@ -14,6 +14,8 @@ public enum WMFNSNotification {
     public static let forYouInterestsDidChange = Notification.Name(WMFNotificationName.forYouInterestsDidChange.rawValue)
     public static let pageViewHistoryDidChange = Notification.Name(WMFNotificationName.pageViwHistoryDidChange.rawValue)
     public static let yearInReviewActivityTabBadgeNeedsUpdate = Notification.Name(WMFNotificationName.yirActivity2026.rawValue)
+    /// Posted when a developer setting changes which Year in Review entry point shows.
+    public static let yearInReviewEntryPointNeedsUpdate = Notification.Name(WMFNotificationName.yirEntryPointNeedsUpdate.rawValue)
     /// Posted after the local donation history is saved or deleted.
     public static let localDonationHistoryDidChange = Notification.Name(WMFNotificationName.localDonationHistoryDidChange.rawValue)
 
@@ -37,5 +39,6 @@ private enum WMFNotificationName: String {
     case forYouInterestsDidChange = "WMFDataForYouInterestsDidChange"
     case pageViwHistoryDidChange = "WMFPageViewHistoryDidChange"
     case yirActivity2026 = "WMFYearInReviewActivityTabBadgeNeedsUpdate"
+    case yirEntryPointNeedsUpdate = "WMFYearInReviewEntryPointNeedsUpdate"
     case localDonationHistoryDidChange = "WMFDataLocalDonationHistoryDidChange"
 }
