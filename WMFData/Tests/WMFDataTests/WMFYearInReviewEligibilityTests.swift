@@ -75,11 +75,12 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .topArticles, data: data)
     }
 
-    private func topTopicsSlide(readCount: Int, hasTopTopic: Bool) throws -> WMFYearInReviewSlide {
+    private func topTopicsSlide(readCount: Int, hasTopTopic: Bool, runnerUpCount: Int = 0) throws -> WMFYearInReviewSlide {
         typealias SlideData = WMFYearInReviewTopTopicsSlideData
         let article = SlideData.Article(title: "Article", projectID: "wikipedia~en")
         let topTopic = hasTopTopic ? SlideData.TopTopic(topicCount: SlideData.TopicCount(topicID: WMFArticleTopic.history.rawValue, articleCount: 3), firstArticle: article, lastArticle: article) : nil
-        let data = try JSONEncoder().encode(SlideData(readCount: readCount, topTopic: topTopic, runnerUps: []))
+        let runnerUps = [WMFArticleTopic.biology, .sports, .music].prefix(runnerUpCount).map { SlideData.TopicCount(topicID: $0.rawValue, articleCount: 2) }
+        let data = try JSONEncoder().encode(SlideData(readCount: readCount, topTopic: topTopic, runnerUps: runnerUps))
         return WMFYearInReviewSlide(year: year, id: .topTopics, data: data)
     }
 
@@ -192,6 +193,18 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         try await saveReport([try readCountSlide(5), try topTopicsSlide(readCount: 5, hasTopTopic: true)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .personalized)
+    }
+
+    func testTopTopicAndRunnersUpCountAsTwoSlides() async throws {
+        try await saveReport([try readCountSlide(2), try topTopicsSlide(readCount: 2, hasTopTopic: true, runnerUpCount: 2)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized, "the top topic and the runners-up are two slides, the same as on Android")
+    }
+
+    func testTopTopicWithOneRunnerUpCountsAsOneSlide() async throws {
+        try await saveReport([try readCountSlide(2), try topTopicsSlide(readCount: 2, hasTopTopic: true, runnerUpCount: 1)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "one runner-up does not show the runners-up slide")
     }
 
     func testTopTopicSlideWithoutATopTopicIsNotEnoughData() async throws {

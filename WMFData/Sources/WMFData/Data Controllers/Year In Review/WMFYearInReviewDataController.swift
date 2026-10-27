@@ -166,7 +166,7 @@ import CoreData
               let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
             return .collective
         }
-        let eligibleSlideCount = report.slides.count(where: Self.hasEnoughData)
+        let eligibleSlideCount = report.slides.reduce(0) { $0 + Self.fullSlideCount(for: $1) }
         return eligibleSlideCount >= Self.personalizedEligibleSlideThreshold ? .personalized : .collective
     }
 
@@ -182,24 +182,29 @@ import CoreData
         return developerSettingsDataController.forceYiRSlidesExperience
     }
 
-    /// True if the slide can show its full version, not its empty version.
-    static func hasEnoughData(_ slide: WMFYearInReviewSlide) -> Bool {
+    /// The number of slides that this report entry shows in their full version, not their empty
+    /// version. The top topics entry holds two slides, the top topic and the runners-up, and Android
+    /// counts each of them.
+    static func fullSlideCount(for slide: WMFYearInReviewSlide) -> Int {
         guard let data = slide.data else {
-            return false
+            return 0
         }
         let decoder = JSONDecoder()
         switch slide.id {
         case .readCount:
-            return (try? decoder.decode(WMFYearInReviewReadData.self, from: data))?.isEligible ?? false
+            return (try? decoder.decode(WMFYearInReviewReadData.self, from: data))?.isEligible == true ? 1 : 0
         case .topArticles:
-            return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible ?? false
+            return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .topTopics:
-            return (try? decoder.decode(WMFYearInReviewTopTopicsSlideData.self, from: data))?.isEligible ?? false
+            guard let topTopics = try? decoder.decode(WMFYearInReviewTopTopicsSlideData.self, from: data) else {
+                return 0
+            }
+            return (topTopics.isEligible ? 1 : 0) + (topTopics.showsRunnerUps ? 1 : 0)
         case .daysVisited:
-            return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible ?? false
+            return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
-            return false
+            return 0
         }
     }
 
