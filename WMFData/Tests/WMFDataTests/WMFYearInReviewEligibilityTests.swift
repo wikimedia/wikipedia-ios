@@ -3,11 +3,12 @@ import XCTest
 @testable import WMFDataMocks
 import CoreData
 
-final class WMFYearInReviewUserDataStateTests: XCTestCase {
+final class WMFYearInReviewEligibilityTests: XCTestCase {
 
     private final class MockDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
         var forceYiREntryPoint2026 = false
-        var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience?
+        var forceYiRDataState: WMFYearInReviewDataController.YiRDataState?
+        var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience?
         var forceMaxArticleTabsTo5: Bool { false }
         var forceYiR2026Announcement = false
         func loadFeatureConfig() -> WMFFeatureConfigResponse? {
@@ -43,10 +44,20 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         return calendar.date(from: components) ?? Date(timeIntervalSince1970: 0)
     }
 
-    private func addPageViews(distinctArticles: Int, on date: Date, prefix: String = "Article") async throws {
+    private func addPageViews(distinctArticles: Int, on date: Date, prefix: String = "Article", namespaceID: Int16 = 0) async throws {
         for index in 0..<distinctArticles {
-            _ = try await pageViewsDataController.addPageView(title: "\(prefix) \(index)", namespaceID: 0, project: project, previousPageViewObjectID: nil, timestamp: date)
+            _ = try await pageViewsDataController.addPageView(title: "\(prefix) \(index)", namespaceID: namespaceID, project: project, previousPageViewObjectID: nil, timestamp: date)
         }
+    }
+
+    private final class StubMainPageIdentifier: WMFMainPageIdentifying {
+        let title: String
+        init(title: String) { self.title = title }
+        func mainPageTitle(for project: WMFProject) async -> String? { title }
+    }
+
+    private func fetchDataState(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> WMFYearInReviewDataController.YiRDataState {
+        try await dataController.fetchDataState(mainPageIdentifier: mainPageIdentifier)
     }
 
     // MARK: - Slides
@@ -81,48 +92,130 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
         try await dataController.createNewYearInReviewReport(year: year ?? self.year, slides: slides)
     }
 
-    // MARK: - Slides with enough data
+    // MARK: - Data state
 
-    func testTwoSlidesWithEnoughDataIsDataRich() async throws {
+    func testThreeArticlesReadIsDataRich() async throws {
+        try await addPageViews(distinctArticles: 3, on: date(month: 3, day: 10))
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .dataRich)
+    }
+
+    func testTwoArticlesReadIsLowData() async throws {
+        try await addPageViews(distinctArticles: 2, on: date(month: 3, day: 10))
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testNoReadingHistoryIsLowData() async throws {
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testOneArticleReadManyTimesCountsOnce() async throws {
+        for day in 1...5 {
+            try await addPageViews(distinctArticles: 1, on: date(month: 3, day: day))
+        }
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testArticlesOutsideJanuaryThroughNovemberDoNotCount() async throws {
+        try await addPageViews(distinctArticles: 2, on: date(month: 11, day: 30))
+        try await addPageViews(distinctArticles: 1, on: date(month: 12, day: 1), prefix: "December")
+        try await addPageViews(distinctArticles: 1, on: date(month: 12, day: 31, year: year - 1), prefix: "Last Year")
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testPagesOutsideTheMainNamespaceDoNotCount() async throws {
+        try await addPageViews(distinctArticles: 2, on: date(month: 3, day: 10))
+        try await addPageViews(distinctArticles: 1, on: date(month: 3, day: 10), prefix: "Talk", namespaceID: 1)
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testTheMainPageDoesNotCount() async throws {
+        try await addPageViews(distinctArticles: 3, on: date(month: 3, day: 10))
+        let state = try await fetchDataState(mainPageIdentifier: StubMainPageIdentifier(title: "Article 0"))
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testDataStateIgnoresSlideEligibility() async throws {
+        try await saveReport([try readCountSlide(500), try topArticlesSlide(articleCount: 5), try daysVisitedSlide(dayCount: 30)])
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData, "only the local reading history decides the data state")
+    }
+
+    func testForcedDataStateWinsWhenYiRToggleIsOn() async throws {
+        try await addPageViews(distinctArticles: 3, on: date(month: 3, day: 10))
+        developerSettings.forceYiREntryPoint2026 = true
+        developerSettings.forceYiRDataState = .lowData
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testForcedDataStateIsIgnoredWhenYiRToggleIsOff() async throws {
+        developerSettings.forceYiREntryPoint2026 = false
+        developerSettings.forceYiRDataState = .dataRich
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    func testForcedSlidesExperienceDoesNotChangeTheDataState() async throws {
+        developerSettings.forceYiREntryPoint2026 = true
+        developerSettings.forceYiRSlidesExperience = .personalized
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
+    // MARK: - Slides experience
+
+    func testTwoSlidesWithEnoughDataIsPersonalized() async throws {
         try await saveReport([try readCountSlide(3), try topArticlesSlide(articleCount: 2)])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .dataRich)
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
     }
 
-    func testOneSlideWithEnoughDataIsLowData() async throws {
+    func testLoggedOutIsAlwaysCollective() async throws {
+        try await saveReport([try readCountSlide(500), try topArticlesSlide(articleCount: 5), try daysVisitedSlide(dayCount: 30)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: false)
+        XCTAssertEqual(experience, .collective)
+    }
+
+    func testOneSlideWithEnoughDataIsCollective() async throws {
         try await saveReport([try readCountSlide(500), try topArticlesSlide(articleCount: 1)])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData, "the articles visited multiple times slide shows its empty version")
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the articles visited multiple times slide shows its empty version")
     }
 
-    func testTopTopicSlideWithEnoughDataCountsTowardDataRich() async throws {
+    func testTopTopicSlideWithEnoughDataCountsTowardPersonalized() async throws {
         try await saveReport([try readCountSlide(5), try topTopicsSlide(readCount: 5, hasTopTopic: true)])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .dataRich)
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
     }
 
     func testTopTopicSlideWithoutATopTopicIsNotEnoughData() async throws {
         try await saveReport([try readCountSlide(500), try topTopicsSlide(readCount: 500, hasTopTopic: false)])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData, "the top topic slide shows its empty version")
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the top topic slide shows its empty version")
     }
 
-    func testDaysVisitedSlideWithEnoughDataCountsTowardDataRich() async throws {
+    func testDaysVisitedSlideWithEnoughDataCountsTowardPersonalized() async throws {
         try await saveReport([try readCountSlide(3), try daysVisitedSlide(dayCount: 2)])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .dataRich)
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
     }
 
     func testDaysVisitedSlideWithOneDayIsNotEnoughData() async throws {
         try await saveReport([try readCountSlide(500), try daysVisitedSlide(dayCount: 1)])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData, "the days visited slide does not show")
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the days visited slide does not show")
     }
 
-    func testSlidesBelowTheirMinimumAreLowData() async throws {
+    func testSlidesBelowTheirMinimumAreCollective() async throws {
         try await saveReport([try readCountSlide(2), try topArticlesSlide(articleCount: 1)])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData)
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
     }
 
     func testSlidesWithoutDataDoNotCount() async throws {
@@ -131,82 +224,89 @@ final class WMFYearInReviewUserDataStateTests: XCTestCase {
             WMFYearInReviewSlide(year: year, id: .topArticles, data: nil),
             WMFYearInReviewSlide(year: year, id: .saveCount, data: try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 50, articleTitles: ["A", "B", "C"])))
         ])
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData, "slides that are not in the 2026 flow do not count")
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "slides that are not in the 2026 flow do not count")
     }
 
-    func testNoReportIsLowData() async throws {
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData)
+    func testNoReportIsCollective() async throws {
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
     }
 
     func testAReportForAnotherYearIsIgnored() async throws {
         try await saveReport([try readCountSlide(3, year: year - 1), try topArticlesSlide(articleCount: 2)], year: year - 1)
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData)
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
+    }
+
+    func testSlidesExperienceIgnoresTheDataState() async throws {
+        try await addPageViews(distinctArticles: 3, on: date(month: 3, day: 10))
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "a data-rich reader without slide data sees the collective slides")
     }
 
     // MARK: - Developer settings override
 
-    func testForcedStateWinsWhenYiRToggleIsOn() async throws {
+    func testForcedSlidesExperienceWinsWhenYiRToggleIsOn() async throws {
         try await saveReport([try readCountSlide(3), try topArticlesSlide(articleCount: 2)])
         developerSettings.forceYiREntryPoint2026 = true
-        developerSettings.forceYiRExperience = .lowData
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData)
+        developerSettings.forceYiRSlidesExperience = .collective
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
     }
 
-    func testForcedDataRichWinsWithoutAReport() async throws {
+    func testForcedPersonalizedWinsForALoggedOutReader() async throws {
         developerSettings.forceYiREntryPoint2026 = true
-        developerSettings.forceYiRExperience = .dataRich
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .dataRich)
+        developerSettings.forceYiRSlidesExperience = .personalized
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: false)
+        XCTAssertEqual(experience, .personalized)
     }
 
-    func testForcedStateIsIgnoredWhenYiRToggleIsOff() async throws {
+    func testForcedSlidesExperienceIsIgnoredWhenYiRToggleIsOff() async throws {
         developerSettings.forceYiREntryPoint2026 = false
-        developerSettings.forceYiRExperience = .dataRich
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData)
+        developerSettings.forceYiRSlidesExperience = .personalized
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
     }
 
-    func testNoForcedStateFallsBackToTheReportWhenYiRToggleIsOn() async throws {
+    func testNoForcedSlidesExperienceFallsBackToTheReportWhenYiRToggleIsOn() async throws {
         try await saveReport([try readCountSlide(3), try topArticlesSlide(articleCount: 2)])
         developerSettings.forceYiREntryPoint2026 = true
-        developerSettings.forceYiRExperience = nil
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .dataRich)
+        developerSettings.forceYiRSlidesExperience = nil
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
     }
 
-    func testAllEmptyStatesIsDataRichWithEmptySlides() async throws {
+    func testForcedDataStateDoesNotChangeTheSlides() async throws {
+        developerSettings.forceYiREntryPoint2026 = true
+        developerSettings.forceYiRDataState = .dataRich
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
+    }
+
+    func testAllEmptyStatesIsPersonalizedWithEmptySlides() async throws {
         try await saveReport([try readCountSlide(2)])
         developerSettings.forceYiREntryPoint2026 = true
-        developerSettings.forceYiRExperience = .allEmptyStates
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .dataRich, "the empty states belong to the personalized slides")
+        developerSettings.forceYiRSlidesExperience = .allEmptyStates
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized, "the empty states belong to the personalized slides")
         XCTAssertTrue(dataController.forcesAllEmptyStates)
     }
 
     func testAllEmptyStatesIsIgnoredWhenYiRToggleIsOff() async throws {
         developerSettings.forceYiREntryPoint2026 = false
-        developerSettings.forceYiRExperience = .allEmptyStates
-        let state = try await dataController.fetchUserDataState()
-        XCTAssertEqual(state, .lowData)
+        developerSettings.forceYiRSlidesExperience = .allEmptyStates
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
         XCTAssertFalse(dataController.forcesAllEmptyStates)
     }
 
-    func testOtherForcedExperiencesDoNotForceEmptyStates() {
+    func testOtherForcedSlidesExperiencesDoNotForceEmptyStates() {
         developerSettings.forceYiREntryPoint2026 = true
-        for experience in [WMFYearInReviewDataController.YiRForcedExperience.dataRich, .lowData] {
-            developerSettings.forceYiRExperience = experience
+        for experience in [WMFYearInReviewDataController.YiRForcedSlidesExperience.personalized, .collective] {
+            developerSettings.forceYiRSlidesExperience = experience
             XCTAssertFalse(dataController.forcesAllEmptyStates, "\(experience)")
         }
-    }
-
-    /// Values saved before the All Empty States option still decode.
-    func testForcedExperienceKeepsTheStoredRawValues() {
-        XCTAssertEqual(WMFYearInReviewDataController.YiRForcedExperience(rawValue: "data-rich"), .dataRich)
-        XCTAssertEqual(WMFYearInReviewDataController.YiRForcedExperience(rawValue: "low-data"), .lowData)
     }
 
     // MARK: - Reading day count

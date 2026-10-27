@@ -24,18 +24,25 @@ import CoreData
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
     
-    /// The Year in Review experience for the user. A data-rich user sees the personalized slides. A
-    /// low-data user sees the collective slides.
-    public enum YiRUserDataState: String, Sendable {
+    /// Which entry point and announcement to show. Only the local reading history decides it.
+    /// Use "data-rich" and "low-data" only for the entry points and the announcement.
+    public enum YiRDataState: String, Sendable, CaseIterable {
         case dataRich = "data-rich"
         case lowData = "low-data"
     }
 
-    /// The experience that the developer settings force, regardless of the personalized data.
-    public enum YiRForcedExperience: String, Sendable, CaseIterable {
-        case dataRich = "data-rich"
-        case lowData = "low-data"
-        /// A data-rich user whose personalized slides all show their empty version. Use it to check the empty states.
+    /// Which slides to show after the reader taps Explore. Use "personalized" and "collective"
+    /// only for the slides.
+    public enum YiRSlidesExperience: String, Sendable {
+        case personalized
+        case collective
+    }
+
+    /// The slides that the developer settings force, regardless of the personalized data.
+    public enum YiRForcedSlidesExperience: String, Sendable, CaseIterable {
+        case personalized
+        case collective
+        /// The personalized slides, each in its empty version. Use it to check the empty states.
         case allEmptyStates = "all-empty-states"
     }
 
@@ -102,44 +109,77 @@ import CoreData
         return calendar.date(from: DateComponents(year: year, month: month, day: day))
     }
 
-    // MARK: - User Data State
+    // MARK: - Data State
 
-    /// A user is data rich when at least this number of personalized slides have enough data to
-    /// show their full version.
-    static let dataRichEligibleSlideThreshold = 2
+    /// A reader is data rich when they read at least this number of articles in the data window.
+    static let dataRichArticleThreshold = 3
 
-    /// Which Year in Review experience to show. The developer settings override wins, but only when
-    /// `forceYiREntryPoint2026` is on. Otherwise the slides in the stored report decide. Without a
-    /// report, the user is low data.
-    @MainActor
-    public func fetchUserDataState() throws -> YiRUserDataState {
-        switch forcedExperience {
-        case .dataRich, .allEmptyStates:
-            return .dataRich
-        case .lowData:
+    /// Which entry point and announcement to show. The developer settings override wins, but only
+    /// when `forceYiREntryPoint2026` is on. Otherwise the number of articles read in the data window
+    /// decides, with the same rule as the read count slide. Only local data is used: no slide
+    /// eligibility and no API calls.
+    public func fetchDataState(mainPageIdentifier: WMFMainPageIdentifying?) async throws -> YiRDataState {
+        if let forcedDataState {
+            return forcedDataState
+        }
+
+        guard let config,
+              let startDate = config.dataStartDate,
+              let endDate = config.dataEndDate else {
             return .lowData
+        }
+
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let readCount = try await YearInReviewReadCountSlideDataController.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
+        return readCount >= Self.dataRichArticleThreshold ? .dataRich : .lowData
+    }
+
+    private var forcedDataState: YiRDataState? {
+        guard developerSettingsDataController.forceYiREntryPoint2026 else {
+            return nil
+        }
+        return developerSettingsDataController.forceYiRDataState
+    }
+
+    // MARK: - Slides Experience
+
+    /// A logged-in reader sees the personalized slides when at least this number of personalized
+    /// slides have enough data to show their full version.
+    static let personalizedEligibleSlideThreshold = 2
+
+    /// Which slides to show. Call it after the reader taps Explore and after any log in. The
+    /// developer settings override wins, but only when `forceYiREntryPoint2026` is on. A logged-out
+    /// reader always sees the collective slides. Otherwise the slides in the stored report decide.
+    /// Without a report, the reader sees the collective slides.
+    @MainActor
+    public func fetchSlidesExperience(isLoggedIn: Bool) throws -> YiRSlidesExperience {
+        switch forcedSlidesExperience {
+        case .personalized, .allEmptyStates:
+            return .personalized
+        case .collective:
+            return .collective
         case nil:
             break
         }
 
-        guard let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
-            return .lowData
+        guard isLoggedIn,
+              let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
+            return .collective
         }
         let eligibleSlideCount = report.slides.count(where: Self.hasEnoughData)
-        return eligibleSlideCount >= Self.dataRichEligibleSlideThreshold ? .dataRich : .lowData
+        return eligibleSlideCount >= Self.personalizedEligibleSlideThreshold ? .personalized : .collective
     }
 
     /// True if the developer settings force the empty version of each personalized slide.
     public var forcesAllEmptyStates: Bool {
-        forcedExperience == .allEmptyStates
+        forcedSlidesExperience == .allEmptyStates
     }
 
-    /// The developer settings override. It has an effect only when `forceYiREntryPoint2026` is on.
-    private var forcedExperience: YiRForcedExperience? {
+    private var forcedSlidesExperience: YiRForcedSlidesExperience? {
         guard developerSettingsDataController.forceYiREntryPoint2026 else {
             return nil
         }
-        return developerSettingsDataController.forceYiRExperience
+        return developerSettingsDataController.forceYiRSlidesExperience
     }
 
     /// True if the slide can show its full version, not its empty version.
@@ -164,7 +204,7 @@ import CoreData
     }
 
     /// How many distinct days the reader opened at least one article, in the same data window as
-    /// `fetchUserDataState()`. The announcement copy shows this number.
+    /// `fetchDataState(mainPageIdentifier:)`. The announcement copy shows this number.
     ///
     /// The window is applied to the page view timestamps in the fetch, then each is turned into a
     /// day in `calendar`. The window bounds are UTC instants, so comparing local starts of day with
