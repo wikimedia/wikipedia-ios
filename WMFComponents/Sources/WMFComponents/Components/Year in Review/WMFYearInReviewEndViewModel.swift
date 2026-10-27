@@ -73,12 +73,10 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
 
     // MARK: - Callbacks
 
-    public var didTapStore: (() -> Void)?
-    public var didTapWhichWikipedia: (() -> Void)?
+    public var didTapStore: (@MainActor @Sendable () -> Void)?
+    public var didTapWhichWikipedia: (@MainActor @Sendable () -> Void)?
 
-    public init(
-        isContributor: Bool,
-    ) {
+    public init(isContributor: Bool) {
 
         var cards: [Card] = []
         if isContributor {
