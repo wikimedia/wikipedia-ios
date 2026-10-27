@@ -14,9 +14,11 @@ public struct WMFYearInReviewView: View {
             .clipShape(
                 UnevenRoundedRectangle(
                     cornerRadii: RectangleCornerRadii(
-                        // The end screen fills the page, so it has no rounded corners.
-                        bottomLeading: viewModel.isOnEnd ? 0 : WMFYearInReviewViewModel.slideCornerRadius,
-                        bottomTrailing: viewModel.isOnEnd ? 0 : WMFYearInReviewViewModel.slideCornerRadius
+                        // The radius does not change on the end screen. If it changed, the corners of
+                        // the last slide could change during the swipe. On the end screen, the color
+                        // behind the corners is the page color, thus the corners do not show.
+                        bottomLeading: WMFYearInReviewViewModel.slideCornerRadius,
+                        bottomTrailing: WMFYearInReviewViewModel.slideCornerRadius
                     )
                 )
             )
