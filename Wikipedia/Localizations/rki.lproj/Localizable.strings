@@ -1289,9 +1289,12 @@
 "search-recent-title" = "မကြာသိမ့်ခင်က ယှာဖွီခရေ";
 "search-result-redirected-from" = "$1 က ပြန်ညွှန်းထားရေ";
 "search-semantic-entry-point-accessibility-hint" = "သင့်မီးမြန်းချက်အတွက် ဆောင်းပါးတိအတွင်း ယှာဖွီမှုတိ";
+// Fuzzy
 "search-semantic-entry-point-description" = "ဆောင်းပါးတိအတွင်း ယှာဖွီပြီး သက်ဆိုင်ရာ စာပိုဒ်သို့ တိုက်ရိုက်လားပါ";
 "search-semantic-entry-point-hidden-toast-modify" = "ပြင်ဆင်ပါ";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "ဆက်တင်တိမှတဆင့် ယင်းကို ပြန်ပနာမြင်သာယောင် ပြုလုပ်နိုင်ပါရေ။";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "မော်ဂျူးကို ဝှက်ထားရေ။";
 "search-semantic-entry-point-hide-accessibility-label" = "ဆောင်းပါးတိအတွင်း ယှာဖွီမှုကို ဝှက်ထားပါ";
 "search-semantic-entry-point-info-accessibility-label" = "ဆောင်းပါးတိအတွင်း ယှာဖွီခြင်းအကြောင်း";
@@ -1300,6 +1303,7 @@
 "search-semantic-results-empty-title" = "ဒေယှာဖွီမှုအတွက် ရလဒ်မဟိပါ";
 "search-semantic-results-error-subtitle" = "ထပ်ကြိုးစားပါ။";
 "search-semantic-results-error-title" = "တခုခု မှားလားရေ";
+// Fuzzy
 "search-semantic-results-last-updated" = "နောက်ဆုံးပြင်ခချိန် $1";
 "search-semantic-results-rate-limited-subtitle" = "တအောင့်စောင့်ပြီး ထပ်ကြိုးစားပါ။";
 "search-semantic-results-rate-limited-title" = "ယှာဖွီမှုများလွန်းရေ";

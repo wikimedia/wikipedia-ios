@@ -1139,6 +1139,7 @@
 "search-semantic-results-empty-title" = "No hay resultados para esta búsqueda";
 "search-semantic-results-error-subtitle" = "Por favor vuelva a intentarlo.";
 "search-semantic-results-error-title" = "Algo salió mal";
+// Fuzzy
 "search-semantic-results-last-updated" = "Última actualización $1";
 "search-semantic-results-rate-limited-subtitle" = "Espera un momento e inténtalo de nuevo.";
 "search-semantic-results-rate-limited-title" = "Demasiadas búsquedas";

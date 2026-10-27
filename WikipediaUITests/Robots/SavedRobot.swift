@@ -70,7 +70,7 @@ extension SavedRobot {
     @discardableResult
     func showReadingLists(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapScopeButton(labeled: fixture.labels.readingListsScope, file: file, line: line)
-        // The collection view is hidden while the segment is empty, so either surface counts.
+        // The segment shows either its list or its empty state, so either surface counts.
         let predicate = NSPredicate { [readingListsCollectionView, readingListsEmptyView] _, _ in
             readingListsCollectionView.exists || readingListsEmptyView.exists
         }
@@ -243,12 +243,11 @@ extension SavedRobot {
         case .byRecentlyAdded:
             label = fixture.labels.sortByRecentlyAdded
         }
-        let sheet = base.app.sheets.firstMatch
-        base.assertExists(sheet, timeout: 5, description: "sort sheet", file: file, line: line)
-        let optionButton = sheet.buttons[label]
-        base.assertVisible(optionButton, timeout: 5, description: "sort option '\(label)'", file: file, line: line)
-        optionButton.tap()
-        base.waitForElementToDisappear(sheet, timeout: 5, file: file, line: line)
+        // "Sort" is a submenu of the more menu; its options carry a checkmark on the current order.
+        let optionItem = base.menuItem(withTitle: label)
+        base.assertVisible(optionItem, timeout: 5, description: "sort option '\(label)'", file: file, line: line)
+        optionItem.tap()
+        base.waitForElementToDisappear(optionItem, timeout: 5, file: file, line: line)
         return self
     }
 
@@ -269,6 +268,8 @@ extension SavedRobot {
     @discardableResult
     func cancelEditMode(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Saved.editingCancelButton, timeout: 5, file: file, line: line)
+        base.waitForElementToDisappear(base.app.buttons[AccessibilityIdentifiers.Saved.editingCancelButton], timeout: 5, file: file, line: line)
+        base.assertExists(base.app.buttons[AccessibilityIdentifiers.Saved.moreButton], timeout: 5, description: "more button after cancelling edit mode", file: file, line: line)
         return self
     }
 
@@ -359,22 +360,16 @@ extension SavedRobot {
         return CreateReadingListRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
-    /// Swipes the cell open and taps the single swipe action, Delete.
     @discardableResult
     func swipeToDeleteReadingList(_ name: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
         let cell = readingListCell(name)
         base.assertVisible(cell, timeout: 15, description: "reading list cell '\(name)'", file: file, line: line)
-        let frame = cell.frame
-        let startX: CGFloat = configuration.isRightToLeft ? 0.15 : 0.85
-        let endX: CGFloat = configuration.isRightToLeft ? 0.85 : 0.15
-        let start = cell.coordinate(withNormalizedOffset: CGVector(dx: startX, dy: 0.5))
-        let end = cell.coordinate(withNormalizedOffset: CGVector(dx: endX, dy: 0.5))
-        start.press(forDuration: 0.05, thenDragTo: end)
-        // The revealed action sits at the trailing edge of the cell's frame.
-        let actionX = configuration.isRightToLeft ? frame.minX + 36 : frame.maxX - 36
-        let action = base.app.coordinate(withNormalizedOffset: .zero)
-            .withOffset(CGVector(dx: actionX, dy: frame.midY))
-        action.tap()
+        if configuration.isRightToLeft {
+            cell.swipeRight()
+        } else {
+            cell.swipeLeft()
+        }
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Saved.rowDeleteSwipeButton, timeout: 5, file: file, line: line)
         return self
     }
 
@@ -447,7 +442,7 @@ private extension SavedRobot {
     }
 
     var readingListsCollectionView: XCUIElement {
-        base.app.collectionViews[AccessibilityIdentifiers.Saved.readingListsView]
+        element(withIdentifier: AccessibilityIdentifiers.Saved.readingListsView)
     }
 
     var readingListsEmptyView: XCUIElement {
@@ -468,10 +463,10 @@ private extension SavedRobot {
         return identified.exists ? identified : base.app.alerts.firstMatch
     }
 
-    /// The scope bar is a system segmented control with no identifiers, and its button order
-    /// follows the layout direction, so the button is found by its localized title.
+    /// The segment picker's button order follows the layout direction, so the button is found
+    /// by its localized title.
     func tapScopeButton(labeled title: String, file: StaticString, line: UInt) {
-        let scopeBar = base.app.segmentedControls.firstMatch
+        let scopeBar = base.app.segmentedControls[AccessibilityIdentifiers.Saved.segmentPicker]
         base.assertExists(scopeBar, timeout: 15, description: "Saved scope bar", file: file, line: line)
         let button = scopeBar.buttons[title]
         base.assertVisible(button, timeout: 15, description: "scope button '\(title)'", file: file, line: line)

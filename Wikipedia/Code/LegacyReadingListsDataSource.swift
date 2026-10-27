@@ -16,8 +16,22 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
     /// Transitional: the Saved tab coordinator shows the "remove from lists?" alert and unsaves on confirmation.
     public var unsaveConfirmation: UnsaveConfirmation?
 
+    /// Fires on the main queue when a saved article's download or sync state changes, with the
+    /// alert its row should show.
+    public var savedArticleAlertDidChange: ((_ articleID: String, _ alertType: WMFSavedArticleAlertType) -> Void)?
+    private var articleUpdatedObserver: NSObjectProtocol?
+
     public init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
+        articleUpdatedObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFArticleUpdated, object: nil, queue: .main) { [weak self] notification in
+            self?.articleDidChange(notification)
+        }
+    }
+
+    deinit {
+        if let articleUpdatedObserver {
+            NotificationCenter.default.removeObserver(articleUpdatedObserver)
+        }
     }
 
     // MARK: - Reads
@@ -157,6 +171,47 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
             return
         }
         unsaveConfirmation(articles, fromLongPress, completion)
+    }
+
+    // MARK: - Article changes and downloads
+
+    private func articleDidChange(_ notification: Notification) {
+        guard savedArticleAlertDidChange != nil,
+              let article = notification.object as? WMFArticle,
+              article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
+              let articleKey = article.inMemoryKey else {
+            return
+        }
+
+        let moc = dataStore.viewContext
+        let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "articleKey == %@", articleKey.databaseKey)
+        guard let entry = try? moc.fetch(fetchRequest).first,
+              let list = entry.list,
+              let titleAndProject = entry.titleAndProject() else {
+            return
+        }
+
+        let alertType = Self.determineAlertType(for: entry, article: article, readingList: list, listLimit: moc.wmf_readingListsConfigMaxListsPerUser, entryLimit: moc.wmf_readingListsConfigMaxEntriesPerList.intValue)
+        savedArticleAlertDidChange?(Self.articleID(title: titleAndProject.title, project: titleAndProject.project), alertType)
+    }
+
+    /// Queues every saved article whose download failed for another try.
+    public func retryFailedArticleDownloads() async {
+        do {
+            try await dataStore.performBackgroundCoreDataOperationAsync { (moc: NSManagedObjectContext) in
+                let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+                request.predicate = NSPredicate(format: "isDeletedLocally == NO")
+                request.propertiesToFetch = ["articleKey"]
+                let keys = try moc.fetch(request).compactMap { $0.articleKey }
+                guard !keys.isEmpty else {
+                    return
+                }
+                try moc.retryFailedArticleDownloads(with: keys)
+            }
+        } catch {
+            DDLogError("Error retrying failed articles: \(error)")
+        }
     }
 
     // MARK: - Mapping
@@ -330,5 +385,19 @@ public extension ReadingListEntry {
         let languageVariantCode = inMemoryKey.languageVariantCode
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
         return (title, project)
+    }
+}
+
+// MARK: - Legacy objects for screens that still take managed objects
+
+public extension LegacyReadingListsDataSource {
+    /// The managed object behind a `WMFReadingList.id`, on the view context.
+    func readingList(withID readingListID: String) -> ReadingList? {
+        Self.readingList(withID: readingListID, in: dataStore.viewContext)
+    }
+
+    /// The custom lists that hold an article, in the order the legacy screens show them.
+    func customReadingLists(forArticleID articleID: String) -> [ReadingList] {
+        articles(withIDs: [articleID]).first?.sortedNonDefaultReadingLists ?? []
     }
 }

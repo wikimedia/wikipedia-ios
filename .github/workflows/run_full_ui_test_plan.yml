@@ -8,8 +8,8 @@ permissions:
   contents: read
 
 env:
-  XCODE_VERSION: "26.5"
-  IOS_VERSION: "26.5"
+  XCODE_VERSION: "27.1"
+  IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
 
 concurrency:
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   build-uitests:
-    runs-on: macos-26
+    runs-on: xcode-27
     name: Build WikipediaUITests
     outputs:
       test-configurations: ${{ steps.test-configurations.outputs.matrix }}
@@ -76,7 +76,7 @@ jobs:
 
   test-uitests-configuration:
     needs: build-uitests
-    runs-on: macos-latest
+    runs-on: xcode-27
     name: Test ${{ matrix.configuration }}
     strategy:
       fail-fast: false
