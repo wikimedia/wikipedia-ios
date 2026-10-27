@@ -448,6 +448,10 @@ struct YearInReviewSlideViewModelFactory {
     private enum RabbitHolePath {
         static let headline = WMFRiveText(path: "headline")
         static let bodyText = WMFRiveText(path: "bodyText")
+        /// The guess frame fires it after the reader taps a card and the exit animation ends.
+        static let frameComplete = WMFRiveTrigger(path: "frameComplete")
+        /// The guess frame sets it when the reader taps a card.
+        static let articleTapped = WMFRiveBool(path: "articleTapped")
 
         struct Article {
             let title: WMFRiveText
@@ -490,6 +494,8 @@ struct YearInReviewSlideViewModelFactory {
             headline: headline,
             bodyText: nil,
             articles: articles,
+            nextSlideTrigger: RabbitHolePath.frameComplete,
+            nextSlideFlag: RabbitHolePath.articleTapped,
             accessibilityLabel: ([headline] + cardLabels).joined(separator: " ")
         )
     }
@@ -520,6 +526,8 @@ struct YearInReviewSlideViewModelFactory {
         headline: String,
         bodyText: String?,
         articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)],
+        nextSlideTrigger: WMFRiveTrigger? = nil,
+        nextSlideFlag: WMFRiveBool? = nil,
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text = [RabbitHolePath.headline: headline]
@@ -542,6 +550,8 @@ struct YearInReviewSlideViewModelFactory {
             text: text,
             articleThumbnails: thumbnails,
             missingImageFlags: missingImageFlags,
+            nextSlideTrigger: nextSlideTrigger,
+            nextSlideFlag: nextSlideFlag,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,

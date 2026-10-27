@@ -48,6 +48,12 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     /// For each image property, a boolean property that is true while the image property has no
     /// image. The .riv then hides the placeholder image.
     public let missingImageFlags: [WMFRiveImage: WMFRiveBool]
+    /// A trigger that the .riv fires when the slide is done, for example after the reader taps an
+    /// answer and the exit animation ends. It moves to the next slide.
+    public let nextSlideTrigger: WMFRiveTrigger?
+    /// A boolean that the .riv sets to true when the reader taps an answer. It moves to the next slide
+    /// at once, before `nextSlideTrigger`, so the reader does not wait on the exit animation.
+    public let nextSlideFlag: WMFRiveBool?
     /// The property that lays the frame out from right to left for a right-to-left language. `nil`
     /// for a frame without it.
     public let layoutDirection: WMFRiveLayoutDirection?
@@ -75,6 +81,8 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         articleThumbnails: [WMFRiveImage: ArticleThumbnail] = [:],
         images: [WMFRiveImage: Data] = [:],
         missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
+        nextSlideTrigger: WMFRiveTrigger? = nil,
+        nextSlideFlag: WMFRiveBool? = nil,
         layoutDirection: WMFRiveLayoutDirection? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         showsShareButton: Bool = true,
@@ -93,6 +101,8 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         self.articleThumbnails = articleThumbnails
         self.images = images
         self.missingImageFlags = missingImageFlags
+        self.nextSlideTrigger = nextSlideTrigger
+        self.nextSlideFlag = nextSlideFlag
         self.layoutDirection = layoutDirection
         self.localizedStrings = localizedStrings
         self.showsShareButton = showsShareButton

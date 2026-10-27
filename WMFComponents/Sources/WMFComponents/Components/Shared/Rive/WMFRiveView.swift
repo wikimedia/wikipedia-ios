@@ -19,6 +19,7 @@ public struct WMFRiveView: View {
     /// a page that is built off-screen does not play its intro before the reader sees it.
     private let isPlaying: Bool
     private let onReadBool: (@MainActor (Bool) -> Void)?
+    private let onWatchedEvent: (@MainActor () -> Void)?
 
     public init(
         _ animation: WMFRiveAnimation,
@@ -32,7 +33,10 @@ public struct WMFRiveView: View {
         isPlaying: Bool = true,
         readBool: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = [],
-        onReadBool: (@MainActor (Bool) -> Void)? = nil
+        onReadBool: (@MainActor (Bool) -> Void)? = nil,
+        watchedTrigger: WMFRiveTrigger? = nil,
+        watchedBool: WMFRiveBool? = nil,
+        onWatchedEvent: (@MainActor () -> Void)? = nil
     ) {
         self.text = text
         self.numbers = numbers
@@ -43,6 +47,7 @@ public struct WMFRiveView: View {
         self.frameRate = frameRate
         self.isPlaying = isPlaying
         self.onReadBool = onReadBool
+        self.onWatchedEvent = onWatchedEvent
         _viewModel = StateObject(wrappedValue: WMFRiveAnimationViewModel(
             animation: animation,
             text: text,
@@ -50,6 +55,8 @@ public struct WMFRiveView: View {
             bools: bools,
             images: images,
             readBool: readBool,
+            watchedTrigger: watchedTrigger,
+            watchedBool: watchedBool,
             textFits: textFits
         ))
     }
@@ -85,6 +92,9 @@ public struct WMFRiveView: View {
             }
             .onChange(of: images) {
                 viewModel.update(images: images)
+            }
+            .onChange(of: viewModel.watchedEventCount) {
+                onWatchedEvent?()
             }
             .onChange(of: viewModel.readBoolValue) {
                 if let value = viewModel.readBoolValue {

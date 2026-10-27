@@ -16,6 +16,30 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     ///
     /// - Parameter regenerate: deletes the report first, so every slide is built again from the
     ///   current data, frozen slides too. Only the developer settings use it.
+    @MainActor
+    private static var reportTask: Task<Void, Never>?
+
+    /// Builds the report, or waits for the build that is already running. The build is not tied to a
+    /// screen, so it finishes when the reader closes the announcement. Like Android, the report is
+    /// built when the reader asks for Year in Review, not at launch, and after any log in.
+    @MainActor
+    static func buildReport(dataStore: MWKDataStore) async {
+        if let reportTask {
+            await reportTask.value
+            return
+        }
+        let task = Task { @MainActor in
+            do {
+                try await populateReport(dataStore: dataStore)
+            } catch {
+                DDLogError("Error populating the Year in Review report: \(error)")
+            }
+            reportTask = nil
+        }
+        reportTask = task
+        await task.value
+    }
+
     @discardableResult
     static func populateReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
@@ -66,6 +90,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private weak var announcementNavigationController: UINavigationController?
 
     private weak var viewModel: WMFYearInReviewViewModel?
+    private weak var announcementViewModel: WMFYearInReviewAnnouncementViewModel?
 
     /// The slides that `viewModel` shows. A donation turns "You matter" into "Thank you" only in the
     /// personalized slides.
@@ -91,8 +116,21 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     @discardableResult
     func start() -> Bool {
-        presentYearInReview()
+        afterReportIsBuilt { [weak self] in
+            self?.presentYearInReview()
+        }
         return true
+    }
+
+    /// Builds the report, then runs `action`. The Explore button shows a spinner while it waits.
+    private func afterReportIsBuilt(_ action: @escaping @MainActor () -> Void) {
+        announcementViewModel?.isLoadingExplore = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            await Self.buildReport(dataStore: dataStore)
+            announcementViewModel?.isLoadingExplore = false
+            action()
+        }
     }
 
     /// Loads the announcement data and shows the announcement. Returns true only when it is on screen.
@@ -133,6 +171,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             delegate: self
         )
 
+        announcementViewModel = viewModel
         let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
         // Full screen from the first frame, same style as the slides.
         let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
@@ -236,7 +275,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
-            self?.transitionAnnouncementToYearInReview()
+            self?.afterReportIsBuilt { [weak self] in
+                self?.transitionAnnouncementToYearInReview()
+            }
         }
 
         alert.addAction(loginAction)
@@ -271,22 +312,25 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 return
             }
             accountCreation.dismiss(animated: true) { [weak self] in
-                self?.presentYearInReview()
+                self?.presentYearInReviewAfterCurrentDismissal()
             }
         }
 
         loginCoordinator.start()
     }
 
-    /// Presents the slides once any dismissal in progress is done.
+    /// Builds the report after the log in, then presents the slides once any dismissal in progress is done.
     private func presentYearInReviewAfterCurrentDismissal() {
-        guard let transitionCoordinator = navigationController.transitionCoordinator else {
-            presentYearInReview()
-            return
-        }
+        afterReportIsBuilt { [weak self] in
+            guard let self else { return }
+            guard let transitionCoordinator = navigationController.transitionCoordinator else {
+                presentYearInReview()
+                return
+            }
 
-        transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.presentYearInReview()
+            transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
+                self?.presentYearInReview()
+            }
         }
     }
 
@@ -494,12 +538,19 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
             return
         }
 
-        transitionAnnouncementToYearInReview()
+        afterReportIsBuilt { [weak self] in
+            self?.transitionAnnouncementToYearInReview()
+        }
     }
 
     func yearInReviewAnnouncementDidTapClose() {
         navigationController.presentedViewController?.dismiss(animated: true) {
             WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
+        }
+        // So the slides open at once the next time.
+        let dataStore = dataStore
+        Task { @MainActor in
+            await Self.buildReport(dataStore: dataStore)
         }
     }
 

@@ -54,8 +54,7 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
 
-    private static let articleNamespaceID = 0
-    private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
+    private static let englishMainPageTitle = "Main Page"
 
     private var slideData: SlideData?
 
@@ -74,80 +73,75 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
 
-        let links = try await WMFPageViewsDataController().fetchPageViewLinks(startDate: startDate, endDate: endDate)
+        let pageViewsDataController = try WMFPageViewsDataController()
 
         // Get the main page title once for each wiki. Each request can go to the main actor.
-        var mainPageTitles: [String: String] = [:]
-        for projectID in Set(links.map(\.page.projectID)) {
+        // The app does not record the English main page, but older data can contain it.
+        var excludedTitles: [String?: [String]] = [nil: [Self.englishMainPageTitle]]
+        for projectID in try await pageViewsDataController.fetchPageViewProjectIDs(startDate: startDate, endDate: endDate) {
             if let project = WMFProject(id: projectID),
                let title = await mainPageIdentifier?.mainPageTitle(for: project) {
-                mainPageTitles[projectID] = WMFMainPageTitle.canonicalized(title)
+                excludedTitles[projectID] = [title]
             }
         }
 
-        let rabbitHoles = Self.deepestRabbitHoles(in: links) { page in
-            guard page.namespaceID == Self.articleNamespaceID else {
-                return false
+        // Pages that are not articles, and main pages, are not in the links, so they end a chain.
+        let links = try await pageViewsDataController.fetchArticlePageViewLinks(startDate: startDate, endDate: endDate, excludedTitles: excludedTitles)
+        let chains = Self.deepestChains(in: links)
+        let pages = try await pageViewsDataController.fetchPages(ofPageViews: chains.flatMap { [$0.firstID, $0.lastID] })
+
+        let rabbitHoles = chains.compactMap { chain -> SlideData.RabbitHole? in
+            guard let first = pages[chain.firstID], let last = pages[chain.lastID] else {
+                return nil
             }
-            let title = WMFMainPageTitle.canonicalized(page.title)
-            // The app does not record the English main page, but older data can contain it.
-            return title != Self.englishMainPageTitle && title != mainPageTitles[page.projectID]
+            return SlideData.RabbitHole(firstArticle: Self.article(first), lastArticle: Self.article(last), articleCount: chain.articleCount)
         }
         slideData = SlideData(rabbitHoles: rabbitHoles, deepestIsOnTop: Bool.random())
 
         isEvaluated = true
     }
 
-    /// One chain of articles while the chains are built.
-    private struct Chain {
-        let first: WMFPageViewLink
-        let last: WMFPageViewLink
+    /// One chain of page views.
+    struct Chain: Equatable {
+        let firstID: NSManagedObjectID
+        let lastID: NSManagedObjectID
         let articleCount: Int
+        let lastTimestamp: Date
     }
 
-    /// The deepest rabbit holes, deepest first, at most `SlideData.minimumRabbitHoleCount`.
+    /// The deepest chains, deepest first, at most `SlideData.minimumRabbitHoleCount`.
     ///
-    /// A page view continues the chain of the page view that it came from, if that page view is an
-    /// article and less than `maximumTimeBetweenArticles` before it. Otherwise it starts a chain.
-    /// A page that is not an article, such as a main page, ends the chain, so a rabbit hole cannot
-    /// start or end on it. Two articles opened from the same article are two branches of one rabbit
-    /// hole, so each first article gives at most one rabbit hole: its deepest branch. A tie goes to
-    /// the more recent rabbit hole.
+    /// A page view continues the chain of the page view that it came from, if that page view is in
+    /// `links` and less than `maximumTimeBetweenArticles` before it. Otherwise it starts a chain. So
+    /// a page that is not in `links`, such as a main page, ends the chain. Two articles opened from
+    /// the same article are two branches of one rabbit hole, so each first article gives at most one
+    /// rabbit hole: its deepest branch. A tie goes to the more recent rabbit hole.
     /// - Parameter links: Oldest first.
-    static func deepestRabbitHoles(in links: [WMFPageViewLink], isArticle: (WMFPage) -> Bool) -> [SlideData.RabbitHole] {
-        var chainsByLastID: [URL: Chain] = [:]
-        for link in links where isArticle(link.page) {
+    static func deepestChains(in links: [WMFPageViewLink]) -> [Chain] {
+        var chainsByLastID: [NSManagedObjectID: Chain] = [:]
+        for link in links {
             if let previousID = link.previousID,
                let previous = chainsByLastID[previousID],
-               link.timestamp.timeIntervalSince(previous.last.timestamp) <= SlideData.maximumTimeBetweenArticles {
-                chainsByLastID[link.id] = Chain(first: previous.first, last: link, articleCount: previous.articleCount + 1)
+               link.timestamp.timeIntervalSince(previous.lastTimestamp) <= SlideData.maximumTimeBetweenArticles {
+                chainsByLastID[link.id] = Chain(firstID: previous.firstID, lastID: link.id, articleCount: previous.articleCount + 1, lastTimestamp: link.timestamp)
             } else {
-                chainsByLastID[link.id] = Chain(first: link, last: link, articleCount: 1)
+                chainsByLastID[link.id] = Chain(firstID: link.id, lastID: link.id, articleCount: 1, lastTimestamp: link.timestamp)
             }
         }
 
         func isDeeper(_ lhs: Chain, than rhs: Chain) -> Bool {
-            (lhs.articleCount, lhs.last.timestamp) > (rhs.articleCount, rhs.last.timestamp)
+            (lhs.articleCount, lhs.lastTimestamp) > (rhs.articleCount, rhs.lastTimestamp)
         }
 
-        var deepestByFirstID: [URL: Chain] = [:]
+        var deepestByFirstID: [NSManagedObjectID: Chain] = [:]
         for chain in chainsByLastID.values where chain.articleCount >= SlideData.minimumArticleCount {
-            if let deepest = deepestByFirstID[chain.first.id], !isDeeper(chain, than: deepest) {
+            if let deepest = deepestByFirstID[chain.firstID], !isDeeper(chain, than: deepest) {
                 continue
             }
-            deepestByFirstID[chain.first.id] = chain
+            deepestByFirstID[chain.firstID] = chain
         }
 
-        return deepestByFirstID.values
-            .sorted(by: isDeeper)
-            .prefix(SlideData.minimumRabbitHoleCount)
-            .map { chain in
-                SlideData.RabbitHole(
-                    firstArticle: article(chain.first.page),
-                    lastArticle: article(chain.last.page),
-                    articleCount: chain.articleCount
-                )
-            }
+        return Array(deepestByFirstID.values.sorted(by: isDeeper).prefix(SlideData.minimumRabbitHoleCount))
     }
 
     private static func article(_ page: WMFPage) -> SlideData.Article {

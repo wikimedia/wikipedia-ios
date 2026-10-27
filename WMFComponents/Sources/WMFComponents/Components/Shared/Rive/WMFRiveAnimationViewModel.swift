@@ -20,11 +20,15 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     @Published private(set) var rive: Rive?
     /// The value of `readBool` in the loaded file. `nil` until the file loads, or if the file has no such property.
     @Published private(set) var readBoolValue: Bool?
+    /// Goes up by one each time the loaded file fires `watchedTrigger`, or sets `watchedBool` from false to true.
+    @Published private(set) var watchedEventCount = 0
 
     let animation: WMFRiveAnimation
     /// A boolean property to read after the file loads, from the view model instance that has the name
     /// of the artboard if there is one, otherwise from the bound instance.
     let readBool: WMFRiveBool?
+    let watchedTrigger: WMFRiveTrigger?
+    let watchedBool: WMFRiveBool?
     /// Text runs to keep to a maximum number of lines. See `WMFRiveTextFit`.
     let textFits: [WMFRiveTextFit]
 
@@ -62,6 +66,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private var bound: Bound?
     private var loadTask: Task<Void, Never>?
     private var imageTask: Task<Void, Never>?
+    private var triggerTask: Task<Void, Never>?
+    private var boolTask: Task<Void, Never>?
     private let loader: @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive
     private let imageDecoder: @MainActor (Data) async throws -> RiveRuntime.Image
 
@@ -72,6 +78,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         bools: [WMFRiveBool: Bool] = [:],
         images: [WMFRiveImage: Data] = [:],
         readBool: WMFRiveBool? = nil,
+        watchedTrigger: WMFRiveTrigger? = nil,
+        watchedBool: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = [],
         loader: @escaping @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
@@ -82,6 +90,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.bools = bools
         self.images = images
         self.readBool = readBool
+        self.watchedTrigger = watchedTrigger
+        self.watchedBool = watchedBool
         self.textFits = textFits
         self.loader = loader
         self.imageDecoder = imageDecoder
@@ -90,6 +100,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     deinit {
         loadTask?.cancel()
         imageTask?.cancel()
+        triggerTask?.cancel()
+        boolTask?.cancel()
     }
 
     @discardableResult
@@ -138,6 +150,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             }
             validatePathsInDebug()
             applyImages()
+            watchTrigger()
+            watchBool()
             self.loadState = .loaded
             await readBoolFromFile()
         } catch is CancellationError {
@@ -159,6 +173,10 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         loadTask = nil
         imageTask?.cancel()
         imageTask = nil
+        triggerTask?.cancel()
+        triggerTask = nil
+        boolTask?.cancel()
+        boolTask = nil
         rive = nil
         bound = nil
         readBoolValue = nil
@@ -250,6 +268,47 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for (property, value) in enums {
             instance.setValue(of: EnumProperty(path: property.path), to: value)
+        }
+    }
+
+    /// A restart binds a new instance, so this watches the new instance.
+    private func watchTrigger() {
+        triggerTask?.cancel()
+        guard let watchedTrigger, let instance = bound?.main else { return }
+        let property = TriggerProperty(path: watchedTrigger.path)
+        triggerTask = Task { [weak self] in
+            do {
+                for try await _ in instance.stream(of: property) {
+                    guard let self, !Task.isCancelled else { return }
+                    self.watchedEventCount += 1
+                }
+            } catch {
+                guard let self, !Task.isCancelled else { return }
+                WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not watch \"\(watchedTrigger.path)\": \(error.localizedDescription)"))
+            }
+        }
+    }
+
+    /// A restart binds a new instance, so this watches the new instance. The stream can send the
+    /// same value again, so only a change to true counts.
+    private func watchBool() {
+        boolTask?.cancel()
+        guard let watchedBool, let instance = bound?.main else { return }
+        let property = BoolProperty(path: watchedBool.path)
+        boolTask = Task { [weak self] in
+            do {
+                var previousValue = false
+                for try await value in instance.valueStream(of: property) {
+                    guard let self, !Task.isCancelled else { return }
+                    if value && !previousValue {
+                        self.watchedEventCount += 1
+                    }
+                    previousValue = value
+                }
+            } catch {
+                guard let self, !Task.isCancelled else { return }
+                WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not watch \"\(watchedBool.path)\": \(error.localizedDescription)"))
+            }
         }
     }
 
