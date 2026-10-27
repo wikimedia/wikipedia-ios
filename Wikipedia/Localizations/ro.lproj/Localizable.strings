@@ -21,6 +21,7 @@
 // Author: Strainu
 // Author: TiberiuFr25
 // Author: Valentin JJ.
+// Author: Vellion Eagle
 // Author: WebSourceContentRO
 
 "about-content-license" = "Licență conținut";
@@ -90,6 +91,7 @@
 "action-update" = "Actualizați";
 "activity-tab-customize-footer" = "Informațiile despre lectură se bazează pe limbile aplicației din setări, iar informațiile despre editare sunt limitate la limba principală a aplicației. Informațiile utilizează date locale, cu excepția editărilor, care sunt publice.";
 "activity-tab-customize-reading-insights" = "Informații despre lectură";
+"activity-tab-your-impact" = "Impactul dvs.";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
 "announcements-dismiss" = "Respinge";
 "app-onboarding-data-privacy-policy-link" = "politica de confidențialitate";

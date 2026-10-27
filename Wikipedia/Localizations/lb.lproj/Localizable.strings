@@ -1012,12 +1012,14 @@
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "search-semantic-entry-point-hidden-toast-modify" = "Änneren";
-"search-semantic-entry-point-hidden-toast-title" = "Modul verstoppt.";
+"search-semantic-entry-point-hidden-toast-title" = "Modul verstoppt";
 "search-semantic-entry-point-try-it-now" = "Elo probéieren";
+"search-semantic-info-title" = "Wat ass dat fir eng Funktioun?";
 "search-semantic-results-contributors" = "{{PLURAL:$1|$1 Contributeur|$1 Contributeuren}}";
 "search-semantic-results-empty-title" = "Keng Resultater fir dës Sich";
 "search-semantic-results-error-subtitle" = "Probéiert wgl. nach eng Kéier.";
 "search-semantic-results-error-title" = "Et ass eppes schif gaangen";
+// Fuzzy
 "search-semantic-results-last-updated" = "Lescht Aktualiséierung $1";
 "search-semantic-results-rate-limited-title" = "Ze vill Sichufroen";
 "search-semantic-results-read-in-article" = "Am Artikel liesen";
@@ -1342,7 +1344,10 @@
 "year-in-review-2026-edits-title" = "Ännerungen, déi Dir gemaach gutt:";
 "year-in-review-2026-feedback-email-first-line" = "Ech hu Feedback fir de Joresréckbléck:";
 "year-in-review-2026-feedback-email-subject" = "Feedback fir de Joresréckbléck";
+"year-in-review-2026-highlights-created-with" = "Mat der Wikipedia-App generéiert";
+"year-in-review-2026-highlights-title" = "Wikipedia-Joresréckbléck 2026";
 "year-in-review-2026-intro-title" = "Äre Wikipedia-Joresréckbléck ass do";
+"year-in-review-2026-login-prompt-collective-title" = "Wikipedia ass am beschte mat engem Benotzerkont";
 "year-in-review-2026-minutes-read-comparison-days" = "Dat ass méi laang wéi {{PLURAL:$1|$1 ganzen Dag|$1 ganzer Deeg}}.";
 "year-in-review-2026-minutes-read-comparison-egg" = "Dat ass méi laang wéi et dauert, fir en Ee haart ze kachen.";
 "year-in-review-2026-minutes-read-comparison-fall-asleep" = "Dat ass méi laang wéi d'Leit am Duerchschnëtt brauche fir anzeschlofen.";
