@@ -431,8 +431,12 @@ struct YearInReviewSlideViewModelFactoryTests {
     func noStoredTopTopicShowsTheEmptyState() throws {
         #expect(factory.topicSlides(nil).map { $0.animation?.artboardName } == ["frame6-empty"])
         #expect(factory.topicSlides(try topTopicsData(topTopicID: nil)).map { $0.animation?.artboardName } == ["frame6-empty"])
-        // A top topic with fewer than five articles read in total is not eligible.
-        #expect(factory.topicSlides(try topTopicsData(readCount: 4)).map { $0.animation?.artboardName } == ["frame6-empty"])
+    }
+
+    /// The total number of articles read does not matter. Only the top topic decides, the same as on Android.
+    @Test
+    func aTopTopicShowsTheFullSlideWithFewArticlesRead() throws {
+        #expect(factory.topicSlides(try topTopicsData(readCount: 3)).map { $0.animation?.artboardName } == ["frame6"])
     }
 
     @Test
