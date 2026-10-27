@@ -15,6 +15,16 @@ public struct WMFYearInReviewAnnouncementView: View {
                 // The navigation bar is see-through, so the artwork runs under it.
                 .ignoresSafeArea(.container, edges: .top)
 
+            exploreButton
+                .padding(.top, 0)
+            Spacer()
+        }
+        .background(Color(uiColor: WMFTheme.light.paperBackground))
+    }
+
+    /// Same as the primary donate button on the slides: a spinner replaces the title while it loads.
+    private var exploreButton: some View {
+        ZStack {
             WMFSmallButton(
                 configuration: .init(style: .primary),
                 title: viewModel.localizedStrings.exploreButtonTitle,
@@ -22,10 +32,13 @@ public struct WMFYearInReviewAnnouncementView: View {
                 forceForegroundColor: WMFTheme.light.paperBackground,
                 action: viewModel.tappedExplore
             )
-            .padding(.top, 0)
-            Spacer()
+            .opacity(viewModel.isLoadingExplore ? 0 : 1)
+            .disabled(viewModel.isLoadingExplore)
+
+            if viewModel.isLoadingExplore {
+                ProgressView()
+            }
         }
-        .background(Color(uiColor: WMFTheme.light.paperBackground))
     }
 
     // MARK: - Artwork
