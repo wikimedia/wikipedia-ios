@@ -43,12 +43,21 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
                     Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
                 }
-                captionedRow(caption: "Overrides the experience the personalized data selects. All Empty States shows the empty version of each personalized slide. Switching it back to Off lets the user data dictate the experience.") {
-                    Picker("Force Experience", selection: $viewModel.forceYiRExperience) {
-                        Text("Off").tag(WMFYearInReviewDataController.YiRForcedExperience?.none)
-                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.dataRich))
-                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.lowData))
-                        Text("All Empty States").tag(WMFYearInReviewDataController.YiRForcedExperience?.some(.allEmptyStates))
+                captionedRow(caption: "Overrides the entry points and the announcement that the reading history selects. Data-rich is 3 or more articles read from January 1 to November 30.") {
+                    Picker("Force Entry Point", selection: $viewModel.forceYiRDataState) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRDataState?.none)
+                        Text("Data-rich").tag(WMFYearInReviewDataController.YiRDataState?.some(.dataRich))
+                        Text("Low-data").tag(WMFYearInReviewDataController.YiRDataState?.some(.lowData))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "Overrides the slides that the log in state and the personalized data select, also for logged-out users. All Empty States shows the empty version of each personalized slide.") {
+                    Picker("Force Slides", selection: $viewModel.forceYiRSlidesExperience) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.none)
+                        Text("Personalized").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.some(.personalized))
+                        Text("Collective").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.some(.collective))
+                        Text("All Empty States").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.some(.allEmptyStates))
                     }
                     .tint(Color(theme.secondaryText))
                 }
