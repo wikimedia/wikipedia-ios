@@ -20,6 +20,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let dataController: WMFActivityTabDataController
 
     @objc var disableModalsOnAppearance: Bool = false
+    private var yearInReviewDataStateTask: Task<Void, Never>?
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
@@ -137,9 +138,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        // The data controller applies the developer settings override. Otherwise the slides in the stored report decide.
-        let userDataState = (try? yirDataController.fetchUserDataState()) ?? .lowData
-        viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
+        // The data controller applies the developer settings override. Otherwise the local reading history decides.
+        yearInReviewDataStateTask?.cancel()
+        yearInReviewDataStateTask = Task { @MainActor [weak self, dataStore] in
+            let dataState = (try? await yirDataController.fetchDataState(mainPageIdentifier: dataStore)) ?? .lowData
+            guard !Task.isCancelled else { return }
+            self?.viewModel.yearInReviewViewModel?.isDataRich = dataState == .dataRich
+        }
     }
     
     /// On iPad, asks the window to switch to portrait before Year in Review opens, so it does not
