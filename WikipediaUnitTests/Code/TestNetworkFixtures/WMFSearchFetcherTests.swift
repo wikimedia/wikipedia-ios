@@ -34,11 +34,91 @@ struct WMFSearchFetcherTests {
 
         let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
 
-        let query = json["query"] as? [String: Any]
-        let searchInfo = query?["searchinfo"] as? [String: Any]
-        #expect(result.searchSuggestion == searchInfo?["suggestion"] as? String)
         #expect(result.results?.count == 0)
         #expect(harness.httpClient.capturedRequests.containsPrefixSearchRequest)
+    }
+
+    @Test
+    func prefixResponseKeepsItsSearchID() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        harness.httpClient.responseHeadersQueue = [["X-Search-Id": "292nfmbhub08hd5are0cajr22"]]
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        #expect(result.prefixSearchID == "292nfmbhub08hd5are0cajr22")
+        #expect(result.fullTextSearchID == nil)
+    }
+
+    @Test
+    func responseWithoutTheHeaderHasNoSearchID() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        #expect(result.prefixSearchID == nil)
+    }
+
+    @Test
+    func prefixRequestDoesNotAskForASuggestion() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: json)
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        _ = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        let parameters = try #require(harness.httpClient.capturedRequests.first).queryParameters
+        #expect(parameters["generator"] == "prefixsearch")
+        #expect(parameters["list"] == nil)
+        #expect(parameters.keys.allSatisfy { !$0.hasPrefix("sr") })
+    }
+
+    @Test
+    func prefixResponseWithoutQueryKeepsTheSearchTerm() async throws {
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseData = try JSONSerialization.data(withJSONObject: ["batchcomplete": true])
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+
+        #expect(result.results?.count == 0)
+        #expect(result.searchTerm == "foo")
+    }
+
+    @Test
+    func fullTextResultsMergeIntoAPrefixResponseWithoutQuery() async throws {
+        let json = try jsonFixture(named: "BarackSearch")
+        let harness = makeHarness()
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        harness.httpClient.responseDataQueue = [try JSONSerialization.data(withJSONObject: ["batchcomplete": true]), try JSONSerialization.data(withJSONObject: json)]
+        let siteURL = try #require(URL(string: "https://en.wikipedia.org"))
+
+        let prefixResults = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15)
+        let result = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15, fullTextSearch: true, appendToPreviousResults: prefixResults)
+
+        let pages = (json["query"] as? [String: Any])?["pages"] as? [String: Any]
+        #expect(result.results?.count == pages?.count)
+        #expect(result.searchTerm == "foo")
     }
 
     @Test(arguments: [("zh-Hant-TW", "臺北車站"), (nil, "台北车站")] as [(String?, String)])

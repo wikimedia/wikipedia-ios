@@ -35,6 +35,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
             languages: testConfig.languages,
             articles: testConfig.articles,
             savedArticlesApps: testConfig.savedArticlesApps,
+            volunteerEditors: testConfig.volunteerEditors,
             viewsApps: testConfig.viewsApps,
             editsApps: testConfig.editsApps,
             editsPerMinute: testConfig.editsPerMinute,
@@ -71,10 +72,9 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: yearInReviewConfigs), ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
     }
 
-    private func makeDataController(remoteYearInReviewConfigs: [YearInReview], testWikiYearInReviewConfigs: [YearInReview]? = nil, forceYiR2026: Bool) throws -> WMFYearInReviewDataController {
+    private func makeDataController(remoteYearInReviewConfigs: [YearInReview], forceYiR2026: Bool) throws -> WMFYearInReviewDataController {
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(
             featureConfig: makeFeatureConfig(remoteYearInReviewConfigs),
-            testWikiFeatureConfig: testWikiYearInReviewConfigs.map(makeFeatureConfig),
             forceYiR2026: forceYiR2026
         )
         return try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: userDefaultsStore, developerSettingsDataController: developerSettingsDataController)
@@ -84,7 +84,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         let dataController = try makeDataController(remoteYearInReviewConfigs: [], forceYiR2026: true)
         let config = try XCTUnwrap(dataController.config)
         XCTAssertEqual(config.year, 2026)
-        XCTAssertEqual(config.activeStartDateString, "2026-12-02T20:00:00Z")
+        XCTAssertEqual(config.activeStartDateString, "2026-12-02T18:00:00Z")
         XCTAssertEqual(config.activeEndDateString, "2027-02-01T00:00:00Z")
         XCTAssertEqual(config.dataStartDateString, "2026-01-01T00:00:00Z")
         XCTAssertEqual(config.dataEndDateString, "2026-12-01T00:00:00Z")
@@ -97,23 +97,6 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
 
     func testRemoteConfigWinsOverLocalConfig() throws {
         let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], forceYiR2026: true)
-        XCTAssertEqual(dataController.config?.activeStartDateString, YearInReview.testConfig.activeStartDateString)
-    }
-
-    func testTestWikiConfigWinsWithForceFlag() throws {
-        let testWikiConfig = makeConfig(activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z")
-        let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], testWikiYearInReviewConfigs: [testWikiConfig], forceYiR2026: true)
-        XCTAssertEqual(dataController.config?.activeStartDateString, "2026-12-02T20:00:00Z")
-    }
-
-    func testTestWikiConfigIsIgnoredWithoutForceFlag() throws {
-        let testWikiConfig = makeConfig(activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z")
-        let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], testWikiYearInReviewConfigs: [testWikiConfig], forceYiR2026: false)
-        XCTAssertEqual(dataController.config?.activeStartDateString, YearInReview.testConfig.activeStartDateString)
-    }
-
-    func testRemoteConfigIsUsedWithForceFlagWhenTestWikiHasNo2026Entry() throws {
-        let dataController = try makeDataController(remoteYearInReviewConfigs: [.testConfig], testWikiYearInReviewConfigs: [], forceYiR2026: true)
         XCTAssertEqual(dataController.config?.activeStartDateString, YearInReview.testConfig.activeStartDateString)
     }
 
@@ -194,7 +177,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
 
     // MARK: - Clearing data
 
-    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles]
+    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited]
 
     private func storedSlideIDs(year: Int) async throws -> Set<WMFYearInReviewPersonalizedSlideID> {
         let store = try XCTUnwrap(store)
@@ -226,7 +209,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         try await dataController.deletePersonalizedData(for: .account)
 
         let remaining = try await storedSlideIDs(year: 2026)
-        XCTAssertEqual(remaining, [.readCount, .mostReadDate, .mostReadCategories, .location, .topArticles])
+        XCTAssertEqual(remaining, [.readCount, .mostReadDate, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited])
     }
 
     func testDeletingDonationHistoryDeletesOnlyDonateSlide() async throws {

@@ -93,6 +93,13 @@ struct WMFRiveTextFitTests {
         #expect(lines <= 4 || scale == 0.75)
     }
 
+    /// The serif copy uses the bundled Linux Libertine, so text measurement uses the font that Rive draws.
+    @Test
+    func theSerifFontIsTheBundledFont() throws {
+        let font = try #require(WMFRiveWorkerProvider.substituteFont(forAssetNamed: "SerifFont"))
+        #expect(font.fontName == "SerifFont-Regular")
+    }
+
     @Test
     func anAssetWithoutASystemFontHasNoScale() {
         #expect(fit(fontAssetName: "NotInTheFile").scale(for: "14", fontSize: 90) == nil)

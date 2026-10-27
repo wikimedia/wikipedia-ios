@@ -1,20 +1,21 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
-struct WMFAsyncPageRowSavedAlertView: View {
+struct WMFPageRowSavedAlertView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let viewModel: WMFAsyncPageRowSavedViewModel
+    let viewModel: WMFPageRowSavedViewModel
 
     private var alertString: String? {
         switch viewModel.alertType {
         case .listLimitExceeded:
-            return viewModel.localizedStrings.listLimitExceeded
+            return CommonStrings.readingListsErrorListLimitExceeded
         case .entryLimitExceeded:
-            return viewModel.localizedStrings.entryLimitExceeded
+            return CommonStrings.readingListsErrorArticleLimitExceeded
         case .genericNotSynced:
-            return viewModel.localizedStrings.notSynced
+            return CommonStrings.readingListsErrorNotSynced
         case .downloading:
-            return viewModel.localizedStrings.articleQueuedToBeDownloaded
+            return CommonStrings.readingListsWarningArticleQueuedToBeDownloaded
         case .articleError(let errorDescription):
             return errorDescription
         case .none:
@@ -41,10 +42,10 @@ struct WMFAsyncPageRowSavedAlertView: View {
         }
 }
 
-struct WMFAsyncPageRowSaved: View {
+struct WMFPageRowSaved: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
+    @ObservedObject var viewModel: WMFPageRowSavedViewModel
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     typealias FromLongPress = Bool
@@ -84,7 +85,7 @@ struct WMFAsyncPageRowSaved: View {
                     HStack(spacing: 12) {
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.displayTitle)
+                            Text(viewModel.title)
                                 .font(Font(WMFFont.for(.semiboldHeadline)))
                                 .foregroundColor(Color(uiColor: appEnvironment.theme.text))
                                 .lineLimit(1)
@@ -103,7 +104,7 @@ struct WMFAsyncPageRowSaved: View {
                                     readingListTags
                                 }
                             } else {
-                                WMFAsyncPageRowSavedAlertView(viewModel: viewModel)
+                                WMFPageRowSavedAlertView(viewModel: viewModel)
                             }
 
                         }
@@ -122,7 +123,7 @@ struct WMFAsyncPageRowSaved: View {
             }
         }
         .accessibilityElement()
-        .accessibilityLabel("\(viewModel.displayTitle) - \(viewModel.description ?? "")")
+        .accessibilityLabel("\(viewModel.title) - \(viewModel.description ?? "")")
         .accessibilityAddTraits(.isButton)
         .overlay(
             GeometryReader { geometry in
@@ -140,7 +141,7 @@ struct WMFAsyncPageRowSaved: View {
             Button {
                 onTap(true)
             } label: {
-                Text(viewModel.localizedStrings.open)
+                Text(CommonStrings.articleTabsOpen)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -148,7 +149,7 @@ struct WMFAsyncPageRowSaved: View {
             Button {
                 onDelete(true)
             } label: {
-                Text(viewModel.localizedStrings.removeFromSaved)
+                Text(CommonStrings.unsaveTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -156,7 +157,7 @@ struct WMFAsyncPageRowSaved: View {
             Button {
                 onOpenInNewTab()
             } label: {
-                Text(viewModel.localizedStrings.openInNewTab)
+                Text(CommonStrings.articleTabsOpenInNewTab)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -164,7 +165,7 @@ struct WMFAsyncPageRowSaved: View {
             Button {
                 onOpenInBackgroundTab()
             } label: {
-                Text(viewModel.localizedStrings.openInBackgroundTab)
+                Text(CommonStrings.articleTabsOpenInBackgroundTab)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -172,7 +173,7 @@ struct WMFAsyncPageRowSaved: View {
             Button {
                 onShare(viewModel.geometryFrame, true)
             } label: {
-                Text(viewModel.localizedStrings.share)
+                Text(CommonStrings.shortShareTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
@@ -191,6 +192,7 @@ struct WMFAsyncPageRowSaved: View {
                     }) {
                         Image(uiImage: deleteIcon)
                     }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowDeleteSwipeButton)
                     .tint(Color(uiColor: appEnvironment.theme.destructive))
 
                     Button(action: {
@@ -198,6 +200,7 @@ struct WMFAsyncPageRowSaved: View {
                     }) {
                         Image(uiImage: shareIcon)
                     }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowShareSwipeButton)
                     .tint(Color(uiColor: appEnvironment.theme.secondaryAction))
                 }
             }
@@ -311,11 +314,12 @@ struct WMFAsyncPageRowSaved: View {
                         .fixedSize(horizontal: true, vertical: true)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.readingListTag(text))
             }
         }
     }
 
-    private func getPreviewViewModel(from viewModel: WMFAsyncPageRowSavedViewModel) -> WMFArticlePreviewViewModel {
+    private func getPreviewViewModel(from viewModel: WMFPageRowSavedViewModel) -> WMFArticlePreviewViewModel {
         var url: URL? = nil
         if let siteURL = viewModel.project.siteURL {
             var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
@@ -323,6 +327,6 @@ struct WMFAsyncPageRowSaved: View {
             url = components?.url
         }
 
-        return WMFArticlePreviewViewModel(url: url, titleHtml: viewModel.displayTitle, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
+        return WMFArticlePreviewViewModel(url: url, titleHtml: viewModel.title, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
     }
 }

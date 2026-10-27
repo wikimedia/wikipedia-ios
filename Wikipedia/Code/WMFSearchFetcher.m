@@ -61,17 +61,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"pilimit": numResults,
                    //@"rrvlimit": @(1),
                    @"rvprop": @"ids",
-                   // -- Parameters causing prefix search to efficiently return suggestion.
-                   @"list": @"search",
-                   @"srsearch": searchTerm,
-                   @"srnamespace": @0,
-                   @"srwhat": @"text",
-                   @"srinfo": @"suggestion",
-                   @"srprop": @"",
-                   @"sroffset": @0,
-                   @"srlimit": @1,
                    @"redirects": @1,
-                   // --
                    @"continue": @"",
                    @"format": @"json"
                    };
@@ -102,10 +92,10 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                  };
     }
 
-    [self performSearchRequestForSearchTerm:searchTerm url:siteURL queryParameters:params appendToPreviousResults:previousResults failure:failure success:success];
+    [self performSearchRequestForSearchTerm:searchTerm url:siteURL queryParameters:params fullTextSearch:fullTextSearch appendToPreviousResults:previousResults failure:failure success:success];
 }
 
-- (void)performSearchRequestForSearchTerm:(NSString *)searchTerm url:(NSURL *)url queryParameters:(NSDictionary *)queryParameters appendToPreviousResults:(nullable WMFSearchResults *)previousResults failure:(WMFErrorHandler)failure success:(WMFSearchResultsHandler)success {
+- (void)performSearchRequestForSearchTerm:(NSString *)searchTerm url:(NSURL *)url queryParameters:(NSDictionary *)queryParameters fullTextSearch:(BOOL)fullTextSearch appendToPreviousResults:(nullable WMFSearchResults *)previousResults failure:(WMFErrorHandler)failure success:(WMFSearchResultsHandler)success {
     [self performMediaWikiAPIGETForURL:url
                    withQueryParameters:queryParameters
                      completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {                         if (error) {
@@ -113,9 +103,15 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                              return;
                          }
 
+                         NSString *searchID = [response valueForHTTPHeaderField:@"x-search-id"];
+
                          NSDictionary *query = [result objectForKey:@"query"];
                          if (!query) {
                              WMFSearchResults *returnResults = previousResults == nil ? [[WMFSearchResults alloc] initWithLanguageVariantCode:url.wmf_languageVariantCode] : previousResults;
+                             if (!returnResults.searchTerm) {
+                                 returnResults.searchTerm = searchTerm;
+                             }
+                             [self setSearchID:searchID onResults:returnResults fullTextSearch:fullTextSearch];
                              success(returnResults);
                              return;
                          }
@@ -127,6 +123,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                              return;
                          }
                          searchResults.searchTerm = searchTerm;
+                         [self setSearchID:searchID onResults:searchResults fullTextSearch:fullTextSearch];
 
                          if (!previousResults) {
                              success(searchResults);
@@ -137,6 +134,14 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
                          success(previousResults);
                      }];
+}
+
+- (void)setSearchID:(nullable NSString *)searchID onResults:(WMFSearchResults *)results fullTextSearch:(BOOL)fullTextSearch {
+    if (fullTextSearch) {
+        results.fullTextSearchID = searchID;
+    } else {
+        results.prefixSearchID = searchID;
+    }
 }
 
 - (void)fetchFilesForSearchTerm:(NSString *)searchTerm
@@ -174,17 +179,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils listThumbnailWidth]],
                    @"pilimit": numResults,
                    @"rvprop": @"ids",
-                   // -- Parameters causing prefix search to efficiently return suggestion.
-                   @"list": @"search",
-                   @"srsearch": searchTerm,
-                   @"srnamespace": namespace,
-                   @"srwhat": @"text",
-                   @"srinfo": @"suggestion",
-                   @"srprop": @"",
-                   @"sroffset": @0,
-                   @"srlimit": @1,
                    @"redirects": @1,
-                   // --
                    @"continue": @"",
                    @"format": @"json"
                    };
@@ -211,7 +206,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"redirects": @1,
                    };
     }
-    [self performSearchRequestForSearchTerm:searchTerm url:url queryParameters:params appendToPreviousResults:results failure:failure success:success];
+    [self performSearchRequestForSearchTerm:searchTerm url:url queryParameters:params fullTextSearch:fullTextSearch appendToPreviousResults:results failure:failure success:success];
 }
 
 @end

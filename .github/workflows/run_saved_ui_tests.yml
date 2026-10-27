@@ -1,0 +1,91 @@
+name: Run Saved Tab UI Tests
+
+# The Saved tab is being rewritten in SwiftUI (T441442). These fixture-backed journeys
+# are the parity net for that work. The job takes about one hour, so it is opt-in:
+# add the "Saved UI Tests" label to a pull request to run it on each push.
+# Delete this workflow when the rewrite ships. The nightly run keeps the coverage.
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  XCODE_VERSION: "27.1"
+  IOS_VERSION: "27.0"
+  SIMULATOR_NAME: "iPhone 17"
+  UI_TEST_CONFIGURATION: "English (Light)"
+  UI_TEST_CLASS: "WikipediaUITests/SavedUITests"
+
+concurrency:
+  group: "saved-ui-tests-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  run-saved-ui-tests:
+    # Run on manual dispatch, or when the pull request carries the opt-in label.
+    # When a different label is added, do not start a duplicate run.
+    # The env context is not available here, so the label name is a literal.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        contains(github.event.pull_request.labels.*.name, 'Saved UI Tests') &&
+        (github.event.action != 'labeled' || github.event.label.name == 'Saved UI Tests')
+      )
+    runs-on: xcode-27
+    name: Test SavedUITests
+    steps:
+      - name: Check out selected ref
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Ensure UI tests use test-plan appearance and language
+        run: scripts/lint-ui-tests.sh
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
+      - name: Run SavedUITests
+        run: |
+          echo "Running ${UI_TEST_CLASS} ${UI_TEST_CONFIGURATION} [Mocked] on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          xcodebuild test \
+            -scheme WikipediaUITests \
+            -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
+            -testPlan UITests \
+            -only-test-configuration "${UI_TEST_CONFIGURATION}" \
+            -only-testing:"${UI_TEST_CLASS}" \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            -resultBundlePath "SavedUITests_TestResults" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
+
+      - name: Upload UI test result bundle
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: SavedUITests-TestResults
+          path: SavedUITests_TestResults.xcresult
+          if-no-files-found: ignore

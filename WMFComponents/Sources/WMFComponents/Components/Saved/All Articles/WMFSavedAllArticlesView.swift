@@ -1,11 +1,17 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 public struct WMFSavedAllArticlesView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSavedAllArticlesViewModel
     @Environment(\.verticalSizeClass) var verticalSizeClass
+
+    private let emptyStateTitle = CommonStrings.allArticlesEmptySavedTitle
+    private let emptyStateMessage = CommonStrings.allArticlesEmptySavedSubtitle
+    private let addToListTitle = CommonStrings.addToReadingListShortActionTitle
+    private let unsaveTitle = CommonStrings.shortUnsaveTitle
     
     public init(viewModel: WMFSavedAllArticlesViewModel) {
         self.viewModel = viewModel
@@ -39,17 +45,19 @@ public struct WMFSavedAllArticlesView: View {
                     .frame(width: 150, height: 150)
             }
             
-            Text(viewModel.localizedStrings.emptyStateTitle)
+            Text(emptyStateTitle)
                 .font(Font(WMFFont.for(.semiboldHeadline)))
                 .foregroundColor(Color(uiColor: appEnvironment.theme.text))
             
-            Text(viewModel.localizedStrings.emptyStateMessage)
+            Text(emptyStateMessage)
                 .font(Font(WMFFont.for(.footnote)))
                 .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
                 .multilineTextAlignment(.center)
         }
         .padding()
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEmptyView)
     }
     
     // MARK: - Article List
@@ -61,28 +69,29 @@ public struct WMFSavedAllArticlesView: View {
                     let rowModel = viewModel.rowViewModel(for: article)
                     
                     VStack(spacing: 0) {
-                        WMFAsyncPageRowSaved(
+                        WMFPageRowSaved(
                             viewModel: rowModel,
                             onTap: { fromLongPress in
                                 if viewModel.isEditing {
                                     viewModel.toggleSelection(for: article)
                                 } else {
-                                    viewModel.didTapArticle?(article, fromLongPress)
+                                    viewModel.tapArticle(article, fromLongPress: fromLongPress)
                                 }
                             },
                             onDelete: { fromLongPress in
                                 viewModel.deleteArticles([article], fromLongPress: fromLongPress)
                             },
                             onShare: { cgRect, fromLongPress in
-                                viewModel.didTapShare?(article, cgRect, fromLongPress)
+                                viewModel.tapShare(article, cgRect: cgRect, fromLongPress: fromLongPress)
                             },
                             onOpenInNewTab: {
-                                viewModel.didTapOpenInNewTab?(article)
+                                viewModel.tapOpenInNewTab(article)
                             },
                             onOpenInBackgroundTab: {
                                 viewModel.didTapOpenInBackgroundTab?(article)
                             }
                         )
+                        .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesRow(article.title))
                         
                         Divider()
                             .background(Color(uiColor: appEnvironment.theme.border))
@@ -95,6 +104,7 @@ public struct WMFSavedAllArticlesView: View {
                 }
             }
             .listStyle(.plain)
+            .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesList)
             .refreshable {
                 await viewModel.didPullToRefresh?()
             }
@@ -117,8 +127,9 @@ public struct WMFSavedAllArticlesView: View {
                 Button(action: {
                     viewModel.addSelectedToList()
                 }) {
-                    editingToolbarText(text: viewModel.localizedStrings.addToList, isEnabled: viewModel.hasSelection)
+                    editingToolbarText(text: addToListTitle, isEnabled: viewModel.hasSelection)
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEditingToolbarAddToListButton)
                 .disabled(!viewModel.hasSelection)
                 .frame(maxWidth: .infinity)
                 
@@ -127,8 +138,9 @@ public struct WMFSavedAllArticlesView: View {
                 Button(action: {
                     viewModel.deleteSelectedArticles()
                 }) {
-                    editingToolbarText(text: viewModel.localizedStrings.unsave, isEnabled: viewModel.hasSelection)
+                    editingToolbarText(text: unsaveTitle, isEnabled: viewModel.hasSelection)
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEditingToolbarUnsaveButton)
                 .disabled(!viewModel.hasSelection)
                 .frame(maxWidth: .infinity)
             }

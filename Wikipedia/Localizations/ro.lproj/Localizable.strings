@@ -21,6 +21,7 @@
 // Author: Strainu
 // Author: TiberiuFr25
 // Author: Valentin JJ.
+// Author: Vellion Eagle
 // Author: WebSourceContentRO
 
 "about-content-license" = "Licență conținut";
@@ -90,6 +91,7 @@
 "action-update" = "Actualizați";
 "activity-tab-customize-footer" = "Informațiile despre lectură se bazează pe limbile aplicației din setări, iar informațiile despre editare sunt limitate la limba principală a aplicației. Informațiile utilizează date locale, cu excepția editărilor, care sunt publice.";
 "activity-tab-customize-reading-insights" = "Informații despre lectură";
+"activity-tab-your-impact" = "Impactul dvs.";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
 "announcements-dismiss" = "Respinge";
 "app-onboarding-data-privacy-policy-link" = "politica de confidențialitate";
@@ -288,10 +290,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "În pagina de setări „Limbile mele” se pot adăuga limbi suplimentare.";
 "explore-feed-preferences-card-hidden-title" = "Card ascuns";
 "explore-feed-preferences-continue-reading-description" = "Legătură rapid înapoi la citirea unui articol deschis";
-"explore-feed-preferences-customize-explore-feed" = "Personalizează Explorare flux";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalizează fluxul Explorează";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Ascunderea unui tip de card va opri acest tip de card să apară în fluxul Explore.";
-"explore-feed-preferences-explore-tab" = "Fila Explore";
 "explore-feed-preferences-featured-article-description" = "Articol de calitate zilnic pe Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Oprit";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Pe toate";
@@ -305,7 +304,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Ascunde acest card";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ascunde toate cardurile “$1”";
 "explore-feed-preferences-in-the-news-description" = "Articole despre evenimente actuale";
-"explore-feed-preferences-languages-footer-text" = "Ascunderea tuturor cardurilor de fluxuri Explore în toate limbile dvs. va dezactiva fila Explore.";
 "explore-feed-preferences-on-this-day-description" = "Evenimente din istorie în această zi";
 "explore-feed-preferences-places-description" = "Articole Wikipedia în apropierea locației dvs.";
 "explore-feed-preferences-potd-description" = "Imagine recomandată zilnic de la Commons";
@@ -328,16 +326,7 @@
 "explore-feed-preferences-show-top-read-title" = "Afișează cardul Cele mai citite";
 "explore-feed-preferences-suggested-edits-title" = "Arată cardul Modificări sugerate";
 "explore-feed-preferences-top-read-description" = "Cele mai citite articole zilnic";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Dezactivați fluxul Explorează";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ascunderea tuturor cardurilor de fluxuri Explore va dezactiva fila Explore și o va înlocui cu o filă Setări";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Dezactivați fluxul Explore?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Dezactivați fluxul Explore";
-"explore-feed-preferences-turn-off-explore-tab-message" = "Fila Explorare poate fi reactivată în setările fluxului Explore";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Dezactivați fila Explorare?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Dezactivarea filei Explore va înlocui fila Explore cu o filă Setări.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Dacă alegeți să afișați cardul fluxului Explore, activați fila Explorare";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activați Explore";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Aceasta va înlocui fila Setări cu fila Explorer; puteți accesa Setări în partea de sus a filei Explore, făcând click pe pictograma volanului.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Activați fila Explorare?";
 "explore-hide-card-prompt" = "Ascunde acest card";
 "explore-main-page-description" = "Pagina principală a proiectelor Wikimedia";
@@ -406,7 +395,6 @@
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-delete-all" = "Da, șterge tot";
 "history-title" = "Istoric";
-"home-button-explore-accessibility-label" = "Wikipedia, reveniți la Explore";
 "home-button-saved-accessibility-label" = "Wikipedia, reveniți la Salvat";
 "home-feed-interests-deselect-all" = "Deselectează tot";
 "home-feed-interests-header-title" = "Ce te interesează?";
@@ -941,25 +929,10 @@
 "watchlist-updates-title" = "Vezi actualizările";
 "watchlist-watch-subtitle" = "Dacă apăsați pe stea sau pe acțiunea \"Urmărește\" din toolbarul din partea de jos a articolului, puteți adăuga acea pagină în lista de pagini urmărite.";
 "watchlist-watch-title" = "Urmărește articole";
-"welcome-data-privacy-title" = "Confidențialitatea datelor";
-"welcome-exploration-explore-feed-description" = "Recomandări de citire și articole zilnice din comunitatea noastră";
 "welcome-exploration-explore-feed-title" = "Fluxul Explore";
-"welcome-exploration-on-this-day-description" = "Călătoriți înapoi în timp pentru a afla ce s-a întâmplat astăzi în istorie";
-"welcome-exploration-on-this-day-title" = "Astăzi în istorie";
-"welcome-exploration-places-description" = "Descoperiți repere în apropierea dvs. sau căutați locuri din întreaga lume";
-"welcome-exploration-places-title" = "Fila Locuri";
 "welcome-explore-continue-button" = "Să începem";
-"welcome-explore-new-ways-title" = "Noi modalități de explorare";
 "welcome-explore-tell-me-more-done-button" = "Am înțeles";
-"welcome-intro-free-encyclopedia-description" = "Wikipedia este scrisă în colaborare de voluntari și constă din peste 40 de milioane de articole în peste 300 de limbi.";
-"welcome-intro-free-encyclopedia-more" = "Aflați mai multe despre Wikipedia";
-"welcome-intro-free-encyclopedia-more-about" = "Despre Wikipedia";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedia este un proiect global pentru construirea de enciclopedii gratuite în toate limbile lumii. Practic, oricine are acces la Internet este liber să participe contribuind cu informații neutre și citate.";
-"welcome-intro-free-encyclopedia-title" = "Enciclopedia liberă";
 "welcome-languages-add-button" = "Adaugă încă o limbă";
-"welcome-languages-add-or-edit-button" = "Adăugați sau editați limbile preferate";
-"welcome-languages-description" = "Am găsit următoarele limbi pe dispozitiv:";
-"welcome-languages-search-title" = "Căutați în peste 300 de limbi";
 "widget-onthisday-description" = "Explorează ce s-a întâmplat în această zi din istorie.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedie online gratuită pe care oricine o poate modifica";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, o enciclopedie gratuită de conținut wiki, intră online.";

@@ -21,6 +21,8 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let languages: Int
             public let articles: Int
             public let savedArticlesApps: Int
+            /// Not in the 2025 config, so it is optional.
+            public let volunteerEditors: Int?
             public let viewsApps: Int
             public let editsApps: Int
             public let editsPerMinute: Int
@@ -44,6 +46,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
                 case languages
                 case articles
                 case savedArticlesApps
+                case volunteerEditors
                 case viewsApps
                 case editsApps
                 case editsPerMinute
@@ -114,12 +117,26 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         public init(yir: [YearInReview]) {
             self.yir = yir
         }
+
+        // Older apps read `yir`, which is now empty, so they do not show an incomplete 2026 Year
+        // in Review. This app reads only `yirv2`.
+        enum CodingKeys: String, CodingKey {
+            case yir = "yirv2"
+        }
+
+        // A config without `yirv2`, such as the test wiki config, must still decode, because the
+        // other features read the same response.
+        public init(from decoder: any Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            yir = try container.decodeIfPresent([YearInReview].self, forKey: .yir) ?? []
+        }
     }
     
     public struct IOS: Codable, Sendable {
         public let hCaptcha: HCaptcha?
         public let visualEditorEnabled: Bool?
         public let semanticSearchLanguages: [String]
+        public let semanticSearchEnabled: Bool?
         
         public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
@@ -132,16 +149,18 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let apiKey: String
         }
 
-        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = []) {
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil) {
             self.hCaptcha = hCaptcha
             self.visualEditorEnabled = visualEditorEnabled
             self.semanticSearchLanguages = semanticSearchLanguages
+            self.semanticSearchEnabled = semanticSearchEnabled
         }
 
         private enum CodingKeys: String, CodingKey {
             case hCaptcha
             case visualEditorEnabled
-            case semanticSearchLanguages
+            case semanticSearchLanguages = "semanticSearchLanguagesv2"
+            case semanticSearchEnabled = "semanticSearchEnabledv2"
         }
 
         public init(from decoder: Decoder) throws {
@@ -149,6 +168,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             hCaptcha = try container.decodeIfPresent(HCaptcha.self, forKey: .hCaptcha)
             visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
             semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
+            semanticSearchEnabled = try container.decodeIfPresent(Bool.self, forKey: .semanticSearchEnabled)
         }
     }
     
