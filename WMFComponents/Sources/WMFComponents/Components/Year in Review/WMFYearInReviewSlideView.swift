@@ -7,7 +7,7 @@ struct WMFYearInReviewSlideView: View {
     var isCurrent: Bool = true
     /// Called with the value of `slide.lightContentFlag` after the slide loads.
     var onLightContentFlag: (@MainActor (Bool) -> Void)? = nil
-    /// Called when the .riv fires `slide.nextSlideTrigger`.
+    /// Called when the .riv fires `slide.nextSlideTrigger` or sets `slide.nextSlideFlag`.
     var onNextSlideTrigger: (@MainActor () -> Void)? = nil
     var donateButtonTitle: String = ""
     var isLoadingDonate: Bool = false
@@ -78,7 +78,8 @@ struct WMFYearInReviewSlideView: View {
                 textFits: slide.textFits,
                 onReadBool: onLightContentFlag,
                 watchedTrigger: slide.nextSlideTrigger,
-                onWatchedTrigger: onNextSlideTrigger
+                watchedBool: slide.nextSlideFlag,
+                onWatchedEvent: onNextSlideTrigger
             )
             .task(id: slide.articleThumbnails) {
                 await thumbnailLoader.load(slide.articleThumbnails)
