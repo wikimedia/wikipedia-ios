@@ -95,9 +95,18 @@ public struct WMFReadingListsView: View {
             imageColor: nil,
             numberOfFilters: nil
         )
-        return WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true, mainAction: { viewModel.didTapCreateList?() })
-            .accessibilityElement(children: .contain)
-            .accessibilityIdentifier(AccessibilityIdentifiers.Saved.readingListsEmptyView)
+
+        return WMFEmptyView(
+            viewModel: emptyViewModel,
+            type: .noItems,
+            isScrollable: false,
+            mainAction: { viewModel.didTapCreateList?() }
+        )
+        .padding(.horizontal, WMFSpacing.xxLarge)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: appEnvironment.theme.paperBackground))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Saved.readingListsEmptyView)
     }
 
     private var listView: some View {
