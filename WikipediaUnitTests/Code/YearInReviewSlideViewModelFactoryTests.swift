@@ -16,7 +16,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// slide does not show and the contributor slide is the "You matter" version.
     @Test
     func makesTheTotalArticlesTheArticlesVisitedMultipleTimesTheTopTopicAndTheContributorSlides() {
-        let slides = factory.makeSlides(userDataState: .dataRich, isLoggedIn: true)
+        let slides = factory.makeSlides(experience: .personalized, isLoggedIn: true)
 
         #expect(slides.count == 4)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
@@ -28,9 +28,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// A Rive text run that the app does not write keeps the copy inside the .riv. Nothing on the
     /// screen shows that the app missed a run, so the slide must write each run that it owns.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func theSlidesWriteAllOfTheirTextRuns(userDataState: WMFYearInReviewDataController.YiRUserDataState) throws {
-        let slides = factory.makeSlides(userDataState: userDataState, isLoggedIn: true) + factory.collectiveSlides(config: try config())
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func theSlidesWriteAllOfTheirTextRuns(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
+        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.collectiveSlides(config: try config())
         for slide in slides {
             let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
 
@@ -76,28 +76,28 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
     }
 
-    /// The test host has no config, so a low-data user sees the empty version of each personalized
+    /// The test host has no config, so the collective flow shows the empty version of each personalized
     /// slide, never zero slides.
     @Test
-    func withoutAConfigALowDataUserSeesTheEmptySlides() {
-        let artboards = factory.makeSlides(userDataState: .lowData, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }
+    func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
+        let artboards = factory.makeSlides(experience: .collective, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }
 
         #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty", "end"])
     }
 
-    /// The developer settings can force the empty version of each personalized slide for a data-rich user.
+    /// The developer settings can force the empty version of each personalized slide.
     @Test
     func allEmptyStatesShowsOnlyEmptySlides() {
-        let artboards = factory.makeSlides(userDataState: .dataRich, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
+        let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
         #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty", "end"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func onlyListSlidesSetTheLayoutDirection(userDataState: WMFYearInReviewDataController.YiRUserDataState) throws {
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func onlyListSlidesSetTheLayoutDirection(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty"]
-        let slides = factory.makeSlides(userDataState: userDataState, isLoggedIn: true) + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
         for slide in slides {
             let artboard = slide.animation?.artboardName ?? ""
             if listFrames.contains(artboard) {
@@ -109,9 +109,9 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     /// Each template sets `isUIWhite` for the contrast of the controls above it, so every slide must read it.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func everySlideReadsTheContrastFlag(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        for slide in factory.makeSlides(userDataState: userDataState, isLoggedIn: true) {
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func everySlideReadsTheContrastFlag(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
+        for slide in factory.makeSlides(experience: experience, isLoggedIn: true) {
             #expect(slide.lightContentFlag?.path == "isUIWhite", "\(slide.id)")
         }
     }
@@ -267,9 +267,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// Long copy can push the content past the bottom of the slide, so every slide limits the
     /// headline and the body copy, and both shrink together.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func everySlideLimitsItsCopy(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        for slide in factory.makeSlides(userDataState: userDataState, isLoggedIn: true) {
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func everySlideLimitsItsCopy(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
+        for slide in factory.makeSlides(experience: experience, isLoggedIn: true) {
             let copy = slide.textFits.filter { $0.text.path != "data" }
             // The end frame has a glyph title in place of a headline, the same as the cover.
             let titleFontSize = slide.animation?.artboardName == "end" ? "coverGlyphsFontSize" : "headlineFontSize"
@@ -297,9 +297,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// The pager keys `.scrollPosition(id:)` on the slide id. Two slides with one id stop the
     /// paging from resolving.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func slideIdsAreUnique(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        let ids = factory.makeSlides(userDataState: userDataState, isLoggedIn: true).map(\.id)
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func slideIdsAreUnique(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
+        let ids = factory.makeSlides(experience: experience, isLoggedIn: true).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
     }
 
@@ -558,6 +558,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         let hidingFactory = YearInReviewSlideViewModelFactory(hidesDonate: { true })
 
         #expect(hidingFactory.makeContributorSlide(isLoggedIn: true) == nil)
-        #expect(hidingFactory.makeSlides(userDataState: .lowData, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
+        #expect(hidingFactory.makeSlides(experience: .collective, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
     }
 }

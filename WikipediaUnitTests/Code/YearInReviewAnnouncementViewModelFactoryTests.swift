@@ -32,7 +32,7 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
     /// The cover uses the intro copy of the slides, so there is one set of strings to translate.
     @Test
     func dataRichUsesTheIntroCopyWithTheDayCount() {
-        let strings = factory.makeLocalizedStrings(userDataState: .dataRich, readingDayCount: 5)
+        let strings = factory.makeLocalizedStrings(dataState: .dataRich, readingDayCount: 5)
 
         #expect(strings.animationAccessibilityLabel == CommonStrings.yearInReviewIntroTitle)
         #expect(strings.body == CommonStrings.yearInReviewIntroSubtitle(dayCount: 5))
@@ -41,15 +41,15 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
 
     @Test
     func lowDataUsesTheCollectiveIntroCopy() {
-        let strings = factory.makeLocalizedStrings(userDataState: .lowData, readingDayCount: 5)
+        let strings = factory.makeLocalizedStrings(dataState: .lowData, readingDayCount: 5)
 
         #expect(strings.animationAccessibilityLabel == CommonStrings.yearInReviewCollectiveIntroTitle)
         #expect(strings.body == CommonStrings.yearInReviewCollectiveIntroSubtitle)
     }
 
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func theMoreMenuMatchesTheSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        let strings = factory.makeLocalizedStrings(userDataState: userDataState, readingDayCount: 1)
+    @Test(arguments: [WMFYearInReviewDataController.YiRDataState.dataRich, .lowData])
+    func theMoreMenuMatchesTheSlides(dataState: WMFYearInReviewDataController.YiRDataState) {
+        let strings = factory.makeLocalizedStrings(dataState: dataState, readingDayCount: 1)
         let slideStrings = YearInReviewSlideViewModelFactory().makeLocalizedStrings()
 
         #expect(strings.learnMoreButtonTitle == slideStrings.learnMoreButtonTitle)
@@ -60,8 +60,8 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
 
     @Test
     func theLoginPromptCopyDependsOnTheDataState() {
-        let dataRich = factory.makeLoginPromptCopy(userDataState: .dataRich)
-        let lowData = factory.makeLoginPromptCopy(userDataState: .lowData)
+        let dataRich = factory.makeLoginPromptCopy(dataState: .dataRich)
+        let lowData = factory.makeLoginPromptCopy(dataState: .lowData)
 
         #expect(dataRich.title.isEmpty == false)
         #expect(dataRich.message.isEmpty == false)
@@ -74,7 +74,7 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
 
     @Test
     func theAnnouncementUsesTheCoverOfTheTemplatesFile() {
-        let viewModel = factory.makeViewModel(userDataState: .dataRich, readingDayCount: 3, delegate: delegate)
+        let viewModel = factory.makeViewModel(dataState: .dataRich, readingDayCount: 3, delegate: delegate)
 
         #expect(viewModel.animation.resourceName == "all_templates")
         #expect(viewModel.animation.artboardName == "cover")
@@ -83,9 +83,9 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
 
     /// A Rive text run that the app does not write keeps the copy inside the .riv, and nothing on
     /// the screen shows it. So the cover writes both of its runs, with the text VoiceOver reads.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func theCoverWritesTheTitleAndTheBody(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        let viewModel = factory.makeViewModel(userDataState: userDataState, readingDayCount: 3, delegate: delegate)
+    @Test(arguments: [WMFYearInReviewDataController.YiRDataState.dataRich, .lowData])
+    func theCoverWritesTheTitleAndTheBody(dataState: WMFYearInReviewDataController.YiRDataState) {
+        let viewModel = factory.makeViewModel(dataState: dataState, readingDayCount: 3, delegate: delegate)
         let text = Self.textByPath(viewModel)
 
         #expect(Set(text.keys) == ["coverTitle", "bodyCopy"])
@@ -96,7 +96,7 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
     /// Same as the slides: the .riv decides the color of the controls above it.
     @Test
     func theCoverReadsTheLightContentFlag() {
-        let viewModel = factory.makeViewModel(userDataState: .dataRich, readingDayCount: 3, delegate: delegate)
+        let viewModel = factory.makeViewModel(dataState: .dataRich, readingDayCount: 3, delegate: delegate)
 
         #expect(viewModel.lightContentFlag?.path == "isUIWhite")
     }
@@ -105,7 +105,7 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
     /// below the minimum scale of the slides.
     @Test
     func theTitleAndTheBodyAreFittedTogether() {
-        let viewModel = factory.makeViewModel(userDataState: .dataRich, readingDayCount: 3, delegate: delegate)
+        let viewModel = factory.makeViewModel(dataState: .dataRich, readingDayCount: 3, delegate: delegate)
         let fits = viewModel.textFits
 
         #expect(Set(fits.map(\.text.path)) == ["coverTitle", "bodyCopy"])
@@ -131,7 +131,7 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
     @Test
     func everyNameTheCoverUsesIsInTheRiveFile() throws {
         let data = try #require(Self.templatesFileData())
-        let viewModel = factory.makeViewModel(userDataState: .dataRich, readingDayCount: 3, delegate: delegate)
+        let viewModel = factory.makeViewModel(dataState: .dataRich, readingDayCount: 3, delegate: delegate)
 
         var names: [String] = [
             viewModel.animation.artboardName,

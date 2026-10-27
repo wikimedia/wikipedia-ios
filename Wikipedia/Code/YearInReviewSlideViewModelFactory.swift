@@ -37,15 +37,15 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// Only the total articles, days visited, articles visited multiple times, topic and contributor slides have real data so far.
-    /// A data-rich user sees their data, but a slide without enough data shows its empty version.
+    /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
     /// The days visited slide has no empty version, so it does not show without enough data.
-    /// A low-data user sees the collective slides. Every flow ends with the contributor slide.
+    /// The collective slides show data for all readers. Every flow ends with the contributor slide.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
-    func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+    func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
         let contributorSlides = makeContributorSlide(isLoggedIn: isLoggedIn).map { [$0] } ?? []
-        return personalizedSlides(userDataState: userDataState, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+        return experienceSlides(experience, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
@@ -60,17 +60,17 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func personalizedSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
-        switch userDataState {
-        case .lowData:
+    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+        switch experience {
+        case .collective:
             // Without a config, Year in Review does not open, but never show zero slides.
             guard let config = try? WMFYearInReviewDataController().config else {
                 return personalizedEmptySlides()
             }
             return collectiveSlides(config: config)
-        case .dataRich where forcesAllEmptyStates:
+        case .personalized where forcesAllEmptyStates:
             return personalizedEmptySlides()
-        case .dataRich:
+        case .personalized:
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
             let readCount = storedReadCount() ?? 0
