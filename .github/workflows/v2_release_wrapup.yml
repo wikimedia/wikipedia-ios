@@ -3,6 +3,14 @@ name: V2 Release Wrap Up
 on:
   workflow_dispatch:
     inputs:
+      kind:
+        description: 'Release or hotfix. Picks the branch prefix (release-candidate/ or hotfix/) and the Phabricator task title to match.'
+        required: true
+        type: choice
+        default: release
+        options:
+          - release
+          - hotfix
       version:
         description: 'Release version (YYYY.MM.DD) that was approved and released'
         required: true

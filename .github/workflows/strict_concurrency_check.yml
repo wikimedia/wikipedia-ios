@@ -22,8 +22,8 @@ on:
   workflow_dispatch:
 
 env:
-  XCODE_VERSION: "26.5"
-  IOS_VERSION: "26.5"
+  XCODE_VERSION: "27.1"
+  IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
   # Schemes that have completed their strict-concurrency burn-down. For these, the
   # job FAILS if any concurrency warning appears in the scheme's own sources.
@@ -37,7 +37,7 @@ concurrency:
 
 jobs:
   strict-concurrency:
-    runs-on: macos-26
+    runs-on: xcode-27
     permissions:
       actions: read
       contents: read
