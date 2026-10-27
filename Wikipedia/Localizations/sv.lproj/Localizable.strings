@@ -1317,9 +1317,12 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-semantic-entry-point-accessibility-hint" = "Sökningar inom artiklar för din fråga";
+// Fuzzy
 "search-semantic-entry-point-description" = "Sök i artiklar och gå direkt till relevant avsnitt";
 "search-semantic-entry-point-hidden-toast-modify" = "Modifiera";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "Du kan göra den synlig igen via Inställningar.";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "Modul har dolts.";
 "search-semantic-entry-point-hide-accessibility-label" = "Dölj sökning i artiklar";
 "search-semantic-entry-point-info-accessibility-label" = "Om att söka i artiklar";
@@ -1328,6 +1331,7 @@
 "search-semantic-results-empty-title" = "Inga resultat för den här sökningen";
 "search-semantic-results-error-subtitle" = "Försök igen.";
 "search-semantic-results-error-title" = "Någonting gick fel";
+// Fuzzy
 "search-semantic-results-last-updated" = "Senast uppdaterad $1";
 "search-semantic-results-rate-limited-subtitle" = "Vänta en stund och försök igen.";
 "search-semantic-results-rate-limited-title" = "För många sökningar";

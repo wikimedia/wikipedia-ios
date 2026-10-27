@@ -1329,9 +1329,12 @@
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "search-semantic-entry-point-accessibility-hint" = "Durchsucht Artikelinhalte nach deiner Suchanfrage";
+// Fuzzy
 "search-semantic-entry-point-description" = "Innerhalb von Artikeln suchen und direkt zur passenden Textstelle springen";
 "search-semantic-entry-point-hidden-toast-modify" = "Ändern";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "Du kannst es in den Einstellungen wieder einblenden.";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "Modul ausgeblendet.";
 "search-semantic-entry-point-hide-accessibility-label" = "Suche in Artikeln ausblenden";
 "search-semantic-entry-point-info-accessibility-label" = "Über die Suche in Artikeln";
@@ -1340,6 +1343,7 @@
 "search-semantic-results-empty-title" = "Für diese Suche wurden keine Ergebnisse gefunden.";
 "search-semantic-results-error-subtitle" = "Bitte versuchen Sie es noch einmal.";
 "search-semantic-results-error-title" = "Etwas ist schiefgelaufen";
+// Fuzzy
 "search-semantic-results-last-updated" = "Zuletzt aktualisiert am $1";
 "search-semantic-results-rate-limited-subtitle" = "Warte einen Moment und versuche es erneut.";
 "search-semantic-results-rate-limited-title" = "Zu viele Suchanfragen";

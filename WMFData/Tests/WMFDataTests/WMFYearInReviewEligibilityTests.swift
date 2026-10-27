@@ -124,6 +124,30 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(state, .lowData)
     }
 
+    func testADuplicatePageRowCountsOnce() async throws {
+        try await addPageViews(distinctArticles: 2, on: date(month: 3, day: 10))
+        // CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can make a second row.
+        let store = try XCTUnwrap(store)
+        let context = try store.newBackgroundContext
+        let timestamp = date(month: 3, day: 11)
+        let projectID = project.id
+        try await context.perform {
+            let page = try store.create(entityType: CDPage.self, in: context)
+            page.title = "Article 0".normalizedForCoreData
+            page.namespaceID = 0
+            page.projectID = projectID
+            page.timestamp = timestamp
+
+            let pageView = try store.create(entityType: CDPageView.self, in: context)
+            pageView.timestamp = timestamp
+            pageView.page = page
+
+            try store.saveIfNeeded(moc: context)
+        }
+        let state = try await fetchDataState()
+        XCTAssertEqual(state, .lowData)
+    }
+
     func testArticlesOutsideJanuaryThroughNovemberDoNotCount() async throws {
         try await addPageViews(distinctArticles: 2, on: date(month: 11, day: 30))
         try await addPageViews(distinctArticles: 1, on: date(month: 12, day: 1), prefix: "December")
