@@ -71,6 +71,7 @@ public enum AccessibilityIdentifiers {
         public static let readingListsView = "Saved Reading Lists View"
         public static let rowDeleteSwipeButton = "Saved Row Delete Swipe Button"
         public static let rowShareSwipeButton = "Saved Row Share Swipe Button"
+        public static let segmentPicker = "Saved Segment Picker"
         public static let sortSheet = "Saved Sort Sheet"
         public static let unsaveArticlesAlert = "Saved Unsave Articles Alert"
         public static let view = "Saved View"

@@ -77,6 +77,11 @@ public class CommonStrings: NSObject {
     @objc public static let communityFeedTitle = WMFLocalizedString("settings-community-feed-title", value: "Community", comment: "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
+    public static let savedAllArticlesTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
+    public static let savedReadingListsTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
+    public static let savedAllArticlesSearchPlaceholder = WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved. Displayed in All Articles list.")
+    public static let savedReadingListsSearchPlaceholder = WMFLocalizedString("saved-reading-lists-search-placeholder", value: "Search reading lists", comment: "Search bar placeholder on Saved articles tab. Displayed in Reading Lists list.")
+    public static let savedArticleDownloadInProgress = WMFLocalizedString("saved-pages-progress-syncing", value: "Article download in progress...", comment: "Text for article download progress bar label")
 
     public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
 
@@ -265,6 +270,21 @@ public class CommonStrings: NSObject {
     @objc public static let wikipediaLanguages = WMFLocalizedString("languages-wikipedia", value: "Wikipedia languages", comment: "Title for list of Wikipedia languages")
 
     @objc public static let unknownError = WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
+
+    public static func deleteReadingListsAlertTitle(readingListsCount: Int) -> String {
+        String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists. %1$d is replaced with number of lists to be deleted. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
+    }
+
+    public static func deleteReadingListsAlertMessage(readingListsCount: Int) -> String {
+        String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-message", value: "This action cannot be undone. Any articles saved only to {{PLURAL:%1$d|this list|these lists}} will be unsaved.", comment: "Title of the altert shown before deleting selected reading lists. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
+    }
+
+    public static let readingListsEmptyTitle = WMFLocalizedString("empty-no-reading-lists-title", value: "Organize saved articles with reading lists", comment: "Title of a blank screen shown when a user has no reading lists")
+    public static let readingListsEmptyMessage = WMFLocalizedString("empty-no-reading-lists-message", value: "Create lists for places to travel to, favorite topics and much more", comment: "Message of a blank screen shown when a user has no reading lists")
+    public static let readingListsDefaultListTag = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
+    public static let readingListsListNotSyncedLimitExceeded = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
+    public static let readingListsArticlesNotSyncedLimitExceeded = WMFLocalizedString("reading-lists-articles-not-synced-limit-exceeded", value: "Some articles not synced, limit exceeded", comment: "Text of the alert label informing the user that some articles couldn't be synced.")
+    public static let readingListDeletedAccessibilityNotification = WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list.")
 
     @objc public static let readingListsDefaultListTitle = WMFLocalizedString("reading-lists-default-list-title", value: "Saved", comment: "The title of the default saved pages list {{Identical|Saved}}")
 

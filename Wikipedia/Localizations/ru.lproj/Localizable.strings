@@ -1267,6 +1267,7 @@
 "search-recent-empty" = "В истории поиска пока ничего нет";
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
+// Fuzzy
 "search-semantic-results-last-updated" = "Последнее обновление: $1";
 "search-semantic-results-rate-limited-title" = "Слишком много поисковых запросов";
 "search-title" = "Поиск";
