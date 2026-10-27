@@ -44,7 +44,8 @@ extension XCTestCase {
         suppressesGamesAnnouncement: Bool = true,
         suppressesHomeOnboarding: Bool = true,
         readingListsSeed: UITestReadingListsSeed? = nil,
-        centralAuthUsername: String? = nil
+        centralAuthUsername: String? = nil,
+        discoverState: UITestConfiguration.DiscoverState = .off
     ) -> WikipediaAppRobot {
         let app = XCUIApplication()
         let configuration = UITestConfiguration(
@@ -54,7 +55,8 @@ extension XCTestCase {
             suppressesGamesAnnouncement: suppressesGamesAnnouncement,
             suppressesHomeOnboarding: suppressesHomeOnboarding,
             readingListsSeed: readingListsSeed,
-            centralAuthUsername: centralAuthUsername
+            centralAuthUsername: centralAuthUsername,
+            discoverState: discoverState
         )
         app.configureForUITestLaunch(configuration: configuration)
         app.launch()

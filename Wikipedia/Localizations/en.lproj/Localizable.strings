@@ -355,6 +355,12 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 line unedited|$1 lines unedited}}";
 "diff-user-button-accessibility-text" = "Double tap to open menu";
 "dim-images" = "Dim images";
+"discover-announcement-body" = "Your weekly reading list of Wikipedia articles curated just for you.";
+"discover-announcement-get-started" = "Get started";
+"discover-announcement-new-tag" = "New";
+"discover-announcement-no-thanks" = "No thanks";
+"discover-announcement-no-thanks-toast" = "To set up your recommended reading list later, go to Settings.";
+"discover-announcement-title" = "Discover articles picked for you";
 "donate-accessibility-amount-button-hint" = "Double tap to select donation amount.";
 "donate-accessibility-donate-hint-format" = "Double tap to donate $1 to the Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Double tap to give the Wikimedia Foundation permission to email you.";
