@@ -146,4 +146,10 @@ public enum WMFUserDefaultsKey: String {
 
     // Reading list
     case readingListsSortOrder = "reading-lists-sort-order"
+
+    // Discover
+    case discoverSettings = "discover-settings"
+    case discoverLastGeneratedDate = "discover-last-generated-date"
+    case discoverNeedsRegeneration = "discover-needs-regeneration"
+    case discoverSeedOffsets = "discover-seed-offsets"
 }
