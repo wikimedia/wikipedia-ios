@@ -184,7 +184,7 @@ import CoreData
 
     /// The number of slides that this report entry shows in their full version, not their empty
     /// version. The top topics entry holds two slides, the top topic and the runners-up, and Android
-    /// counts each of them.
+    /// counts each of them. The rabbit holes entry also holds two slides, the guess and the reveal.
     static func fullSlideCount(for slide: WMFYearInReviewSlide) -> Int {
         guard let data = slide.data else {
             return 0
@@ -202,6 +202,8 @@ import CoreData
             return (topTopics.isEligible ? 1 : 0) + (topTopics.showsRunnerUps ? 1 : 0)
         case .daysVisited:
             return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .rabbitHoles:
+            return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 2 : 0
         case .editCount:
             // Android counts its total edits slide from one edit, also before the edit slides are built here.
             return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0

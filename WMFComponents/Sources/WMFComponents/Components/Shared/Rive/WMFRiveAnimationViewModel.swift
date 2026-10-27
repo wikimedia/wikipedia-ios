@@ -41,6 +41,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         let fileSizes: [WMFRiveTextFit: FileSizes]
         let text: [WMFRiveText: String]
         let numbers: [WMFRiveNumber: Double]
+        let bools: [WMFRiveBool: Bool]
         let enums: [WMFRiveEnum: String]
 
         var bindings: WMFRiveBindings {
@@ -50,6 +51,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
 
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
+    private var bools: [WMFRiveBool: Bool]
     private var enums: [WMFRiveEnum: String] = [:]
     private var images: [WMFRiveImage: Data]
     private var bound: Bound?
@@ -62,6 +64,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         animation: WMFRiveAnimation,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
+        bools: [WMFRiveBool: Bool] = [:],
         images: [WMFRiveImage: Data] = [:],
         readBool: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = [],
@@ -71,6 +74,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.animation = animation
         self.text = text
         self.numbers = numbers
+        self.bools = bools
         self.images = images
         self.readBool = readBool
         self.textFits = textFits
@@ -123,7 +127,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             guard !Task.isCancelled else { return }
             self.rive = rive
             self.bound = made
-            if let made, made.text != text || made.numbers != numbers || made.enums != enums {
+            if let made, made.text != text || made.numbers != numbers || made.bools != bools || made.enums != enums {
                 // The values changed while the file loaded.
                 applyCurrentValues()
             }
@@ -161,6 +165,12 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         guard newText != text || newNumbers != numbers else { return }
         text = newText
         numbers = newNumbers
+        applyCurrentValues()
+    }
+
+    func update(bools newBools: [WMFRiveBool: Bool]) {
+        guard newBools != bools else { return }
+        bools = newBools
         applyCurrentValues()
     }
 
@@ -212,7 +222,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         applyTextFits(to: globals, fileSizes: fileSizes)
 
-        return Bound(main: main, globals: globals, fileSizes: fileSizes, text: text, numbers: numbers, enums: enums)
+        return Bound(main: main, globals: globals, fileSizes: fileSizes, text: text, numbers: numbers, bools: bools, enums: enums)
     }
 
     private func applyCurrentValues() {
@@ -229,6 +239,9 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for (property, value) in numbers {
             instance.setValue(of: NumberProperty(path: property.path), to: Float(value))
+        }
+        for (property, value) in bools {
+            instance.setValue(of: BoolProperty(path: property.path), to: value)
         }
         for (property, value) in enums {
             instance.setValue(of: EnumProperty(path: property.path), to: value)
