@@ -175,11 +175,13 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
         var slideIDs: [String] = []
         var onPageChange: (@MainActor (String) -> Void)?
         private var observation: NSKeyValueObservation?
+        private var sizeObservation: NSKeyValueObservation?
         private var lastSlideID: String?
 
         override func didMoveToWindow() {
             super.didMoveToWindow()
             observation = nil
+            sizeObservation = nil
             guard window != nil else { return }
             var superview = superview
             while let view = superview, !(view is UIScrollView) {
@@ -191,6 +193,29 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
                     self?.scrollViewDidMove(scrollView)
                 }
             }
+            sizeObservation = scrollView.observe(\.contentSize, options: [.old, .new]) { [weak self] scrollView, change in
+                guard change.oldValue != change.newValue else { return }
+                MainActor.assumeIsolated {
+                    self?.keepCurrentSlide(in: scrollView)
+                }
+            }
+        }
+
+        /// The slides change height when the space around the pager changes, for example while a
+        /// share sheet with a keyboard is on screen, or when the toolbar comes back. The offset does
+        /// not follow, and the scroll view clamps it at the end of shorter content, so the pager would
+        /// rest on another slide. `.scrollPosition(id:)` used to keep the slide; this does it now.
+        private func keepCurrentSlide(in scrollView: UIScrollView) {
+            guard !scrollView.isTracking, !scrollView.isDecelerating,
+                  let lastSlideID,
+                  let index = slideIDs.firstIndex(of: lastSlideID) else {
+                return
+            }
+            let pageHeight = scrollView.contentSize.height / CGFloat(slideIDs.count)
+            guard pageHeight > 0 else { return }
+            let offset = CGFloat(index) * pageHeight - scrollView.adjustedContentInset.top
+            guard abs(scrollView.contentOffset.y - offset) >= 1 else { return }
+            scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offset), animated: false)
         }
 
         private func scrollViewDidMove(_ scrollView: UIScrollView) {
