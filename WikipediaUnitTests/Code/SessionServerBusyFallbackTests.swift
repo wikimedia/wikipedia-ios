@@ -3,10 +3,11 @@ import WMFData
 @testable import Wikipedia
 @testable import WMF
 
-/// Replays a fixed HTTP status and headers for requests tagged by `request(_:statusCode:headers:)`.
+/// Replays a fixed HTTP status, headers and body for requests tagged by `request(_:statusCode:headers:body:)`.
 final class ServerBusyURLProtocol: URLProtocol, @unchecked Sendable {
     private static let statusCodeKey = "ServerBusyURLProtocol.statusCode"
     private static let headersKey = "ServerBusyURLProtocol.headers"
+    private static let bodyKey = "ServerBusyURLProtocol.body"
 
     static var configuration: URLSessionConfiguration {
         let configuration = URLSessionConfiguration.ephemeral
@@ -14,12 +15,13 @@ final class ServerBusyURLProtocol: URLProtocol, @unchecked Sendable {
         return configuration
     }
 
-    static func request(_ request: URLRequest, statusCode: Int, headers: [String: String]) -> URLRequest {
+    static func request(_ request: URLRequest, statusCode: Int, headers: [String: String], body: Data = Data("busy".utf8)) -> URLRequest {
         guard let mutableRequest = (request as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
             preconditionFailure("URLRequest should bridge to NSMutableURLRequest")
         }
         URLProtocol.setProperty(statusCode, forKey: statusCodeKey, in: mutableRequest)
         URLProtocol.setProperty(headers, forKey: headersKey, in: mutableRequest)
+        URLProtocol.setProperty(body, forKey: bodyKey, in: mutableRequest)
         return mutableRequest as URLRequest
     }
 
@@ -38,8 +40,9 @@ final class ServerBusyURLProtocol: URLProtocol, @unchecked Sendable {
             client?.urlProtocol(self, didFailWithError: URLError(.badURL))
             return
         }
+        let body = URLProtocol.property(forKey: Self.bodyKey, in: request) as? Data ?? Data()
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-        client?.urlProtocol(self, didLoad: Data("busy".utf8))
+        client?.urlProtocol(self, didLoad: body)
         client?.urlProtocolDidFinishLoading(self)
     }
 
@@ -47,15 +50,40 @@ final class ServerBusyURLProtocol: URLProtocol, @unchecked Sendable {
     }
 }
 
-/// `SessionHTTPClient` that answers every completion-handler data task with the same status.
+/// `SessionHTTPClient` that answers every completion-handler data task from a responder closure. The default responder answers every request with the same status.
 final class ServerBusyHTTPClient: SessionHTTPClient {
-    let statusCode: Int
-    let headers: [String: String]
+    struct ScriptedResponse {
+        let statusCode: Int
+        let headers: [String: String]
+        let body: Data
+
+        init(statusCode: Int, headers: [String: String] = [:], body: Data = Data("busy".utf8)) {
+            self.statusCode = statusCode
+            self.headers = headers
+            self.body = body
+        }
+    }
+
+    typealias Responder = (URLRequest, _ requestIndex: Int) -> ScriptedResponse
+
+    private let responder: Responder
+    private let requestsLock = NSLock()
+    private var recordedRequests: [URLRequest] = []
     private lazy var urlSession = URLSession(configuration: ServerBusyURLProtocol.configuration)
 
-    init(statusCode: Int, headers: [String: String]) {
-        self.statusCode = statusCode
-        self.headers = headers
+    /// Every request made through this client, in call order.
+    var requests: [URLRequest] {
+        requestsLock.withLock { recordedRequests }
+    }
+
+    init(responder: @escaping Responder) {
+        self.responder = responder
+    }
+
+    convenience init(statusCode: Int, headers: [String: String]) {
+        self.init { _, _ in
+            ScriptedResponse(statusCode: statusCode, headers: headers)
+        }
     }
 
     func dataTask(with request: URLRequest, callback: Session.Callback) -> URLSessionTask {
@@ -63,7 +91,12 @@ final class ServerBusyHTTPClient: SessionHTTPClient {
     }
 
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        urlSession.dataTask(with: ServerBusyURLProtocol.request(request, statusCode: statusCode, headers: headers), completionHandler: completionHandler)
+        let requestIndex = requestsLock.withLock {
+            recordedRequests.append(request)
+            return recordedRequests.count - 1
+        }
+        let response = responder(request, requestIndex)
+        return urlSession.dataTask(with: ServerBusyURLProtocol.request(request, statusCode: response.statusCode, headers: response.headers, body: response.body), completionHandler: completionHandler)
     }
 
     func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
@@ -263,6 +296,29 @@ class SessionServerBusyFallbackTests: XCTestCase {
         XCTAssertTrue(WMFAuthenticationManager.isTransientError(requestError), "Login must treat it as transient and keep the session")
         XCTAssertEqual(reported.count, 1)
         XCTAssertEqual(reported.first?.source, "Session")
+        XCTAssertEqual(try XCTUnwrap(session.serverBusyPauseUntil).timeIntervalSinceNow, 7, accuracy: 2)
+    }
+
+    func testDecodableTaskWithDecodableErrorTurnsANonJSONBusyBodyIntoAServerBusyError() throws {
+        let (session, _) = try makeSession(statusCode: 429, headers: ["Retry-After": "7"])
+        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/data/lists/"))
+
+        let done = expectation(description: "decodable task with decodable error completed")
+        var receivedErrorResult: [String: String]?
+        var receivedError: Error?
+        let task = session.jsonDecodableTaskWithDecodableError(with: url, method: .get) { (result: [String: String]?, errorResult: [String: String]?, _, error) in
+            XCTAssertNil(result)
+            receivedErrorResult = errorResult
+            receivedError = error
+            done.fulfill()
+        }
+        try XCTUnwrap(task).resume()
+        wait(for: [done], timeout: 5)
+
+        XCTAssertNil(receivedErrorResult)
+        let requestError = try XCTUnwrap(receivedError as? RequestError, "The body is not JSON; the caller must see the 429, not a decoding error. Got \(String(describing: receivedError))")
+        XCTAssertTrue(requestError.isServerBusy)
+        XCTAssertEqual(requestError.retryAfter, 7)
         XCTAssertEqual(try XCTUnwrap(session.serverBusyPauseUntil).timeIntervalSinceNow, 7, accuracy: 2)
     }
 

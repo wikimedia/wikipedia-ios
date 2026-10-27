@@ -519,15 +519,17 @@ public class Session: NSObject {
                 completionHandler(nil, nil, response, error)
                 return
             }
+            let httpResponse = response as? HTTPURLResponse
             let handleErrorResponse = {
                 do {
                     let errorResult: E = try self.jsonDecodeData(data: data)
                     completionHandler(nil, errorResult, response, nil)
                 } catch let errorResultParsingError {
-                    completionHandler(nil, nil, response, errorResultParsingError)
+                    // A busy server answers with text. The status is the error, not the parse failure.
+                    completionHandler(nil, nil, response, Session.nonJSONError(for: httpResponse) ?? errorResultParsingError)
                 }
             }
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            guard let httpResponse, httpResponse.statusCode == 200 else {
                 handleErrorResponse()
                 return
             }
