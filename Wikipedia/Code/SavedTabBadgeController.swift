@@ -35,17 +35,25 @@ final class SavedTabBadgeController {
             case .syncInProgress:
                 return "\u{2605}"
             case .discoverAnnouncement:
-                // An empty value renders as a plain dot.
-                return ""
+                // The dot is drawn into the tab icon, not into the badge.
+                return nil
             }
         }
     }
+
+    /// Diameter of the Discover dot, in points.
+    static let discoverDotDiameter: CGFloat = 10
+    /// Room added around the tab icon so the dot can sit on its corner. Equal on every side, so the
+    /// glyph stays centered in the tab.
+    private static let discoverDotInset: CGFloat = 4
 
     private(set) var badge: Badge = .none
 
     private weak var tabBarItem: UITabBarItem?
     private weak var tabBar: UITabBar?
     private var theme: Theme
+    /// The tab icon as the app set it, restored when the Discover dot goes away.
+    private let baseImage: UIImage?
     private let discoverDataController: SavedTabDiscoverAnnouncementProviding
 
     private var isSyncInProgress = false
@@ -60,6 +68,7 @@ final class SavedTabBadgeController {
         self.tabBarItem = tabBarItem
         self.tabBar = tabBar
         self.theme = theme
+        self.baseImage = tabBarItem.image
         self.discoverDataController = discoverDataController
         beginProgressObservations()
         discoverObservation = NotificationCenter.default.publisher(for: WMFNSNotification.discoverAnnouncementStateDidChange)
@@ -184,6 +193,48 @@ final class SavedTabBadgeController {
             tabBar.layoutIfNeeded()
         }
         tabBarItem?.badgeValue = newBadge.value
+        renderIcon(for: newBadge)
+    }
+
+    /// Swaps the tab icon for a copy with the Discover dot, or puts the plain icon back.
+    private func renderIcon(for badge: Badge) {
+        guard let tabBarItem else { return }
+        guard badge == .discoverAnnouncement, let baseImage else {
+            tabBarItem.image = baseImage
+            tabBarItem.selectedImage = nil
+            return
+        }
+        tabBarItem.image = Self.dottedIcon(baseImage, iconColor: Self.unselectedIconColor(for: theme), dotColor: theme.colors.destructive)
+        tabBarItem.selectedImage = Self.dottedIcon(baseImage, iconColor: theme.colors.link, dotColor: theme.colors.destructive)
+    }
+
+    /// Color of the other tab icons when they are not selected. The Liquid Glass tab bar ignores
+    /// the normal `iconColor` of the appearance and draws template icons in the label color.
+    private static func unselectedIconColor(for theme: Theme) -> UIColor {
+        if #available(iOS 26.0, *) {
+            return theme.colors.primaryText
+        }
+        return theme.colors.unselected
+    }
+
+    /// Draws `icon` in `iconColor` with a dot on its top trailing corner. The result keeps its own
+    /// colors, so the tab bar does not tint it.
+    static func dottedIcon(_ icon: UIImage, iconColor: UIColor, dotColor: UIColor) -> UIImage {
+        let inset = discoverDotInset
+        let diameter = discoverDotDiameter
+        let canvasSize = CGSize(width: icon.size.width + inset * 2, height: icon.size.height + inset * 2)
+        let iconRect = CGRect(origin: CGPoint(x: inset, y: inset), size: icon.size)
+        let isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
+        let dotCenterX = isRightToLeft ? iconRect.minX + inset / 2 : iconRect.maxX - inset / 2
+        let dotRect = CGRect(x: dotCenterX - diameter / 2, y: iconRect.minY + inset / 2 - diameter / 2, width: diameter, height: diameter)
+
+        let renderer = UIGraphicsImageRenderer(size: canvasSize)
+        let image = renderer.image { _ in
+            icon.withTintColor(iconColor).draw(in: iconRect)
+            dotColor.setFill()
+            UIBezierPath(ovalIn: dotRect).fill()
+        }
+        return image.withRenderingMode(.alwaysOriginal)
     }
 
     private func badgeColor(for badge: Badge) -> UIColor? {
