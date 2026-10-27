@@ -1,9 +1,12 @@
 import SwiftUI
+import UIKit
 
 public struct WMFYearInReviewView: View {
 
     @ObservedObject var viewModel: WMFYearInReviewViewModel
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
+    /// The slide that asked to move to the next slide. See `WMFYearInReviewNextSlideScroller`.
+    @State private var nextSlideRequest: String?
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
@@ -51,10 +54,14 @@ public struct WMFYearInReviewView: View {
                     slideViews
                 }
                 .scrollTargetLayout()
+                .background {
+                    WMFYearInReviewPageObserver(slideIDs: viewModel.slides.map(\.id)) { slideID in
+                        viewModel.currentSlideID = slideID
+                    }
+                }
             }
             .modifier(
                 WMFYearInReviewPagingModifier(
-                    currentSlideID: $viewModel.currentSlideID,
                     positionAccessibilityValue: viewModel.slidePositionAccessibilityValue
                 )
             )
@@ -64,18 +71,21 @@ public struct WMFYearInReviewView: View {
                     slideViews
                 }
                 .scrollTargetLayout()
+                .background {
+                    WMFYearInReviewPageObserver(slideIDs: viewModel.slides.map(\.id)) { slideID in
+                        viewModel.currentSlideID = slideID
+                    }
+                }
             }
             .modifier(
                 WMFYearInReviewPagingModifier(
-                    currentSlideID: $viewModel.currentSlideID,
                     positionAccessibilityValue: viewModel.slidePositionAccessibilityValue
                 )
             )
         }
     }
 
-    /// `ForEach` iterates the slides directly. Wrapping them in `enumerated()` makes the element
-    /// a tuple, identity cannot resolve, and `.scrollPosition(id:)` silently stops updating.
+    /// `ForEach` iterates the slides directly, so that each slide keeps its identity.
     @ViewBuilder
     private var slideViews: some View {
         ForEach(viewModel.slides) { slide in
@@ -85,21 +95,121 @@ public struct WMFYearInReviewView: View {
                 onLightContentFlag: { lightContent in
                     viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
                 },
+                onNextSlideTrigger: {
+                    guard slide.id == viewModel.currentSlideID else { return }
+                    nextSlideRequest = slide.id
+                },
                 donateButtonTitle: viewModel.localizedStrings.donateButtonTitle,
                 isLoadingDonate: viewModel.isLoadingDonate,
                 onTapDonate: { sourceRect in
                     viewModel.tappedDonate(sourceRect: sourceRect)
                 }
             )
+                .background {
+                    WMFYearInReviewNextSlideScroller(isRequested: nextSlideRequest == slide.id) {
+                        nextSlideRequest = nil
+                    }
+                }
                 .containerRelativeFrame(.vertical)
                 .id(slide.id)
         }
     }
 }
 
-private struct WMFYearInReviewPagingModifier: ViewModifier {
+/// Moves the pager to the next slide, the same as a swipe. `WMFYearInReviewPageObserver` then
+/// updates `currentSlideID`.
+private struct WMFYearInReviewNextSlideScroller: UIViewRepresentable {
 
-    @Binding var currentSlideID: String?
+    let isRequested: Bool
+    let onScroll: @MainActor () -> Void
+
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView()
+        view.isUserInteractionEnabled = false
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {
+        guard isRequested else { return }
+        // Not during the view update, which must not change state.
+        Task { @MainActor in onScroll() }
+
+        var superview = uiView.superview
+        while let view = superview, !(view is UIScrollView) {
+            superview = view.superview
+        }
+        guard let scrollView = superview as? UIScrollView else { return }
+
+        let slideFrame = uiView.convert(uiView.bounds, to: scrollView)
+        let maximumOffset = scrollView.contentSize.height + scrollView.adjustedContentInset.bottom - scrollView.bounds.height
+        let offset = min(slideFrame.maxY - scrollView.adjustedContentInset.top, maximumOffset)
+        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut) {
+            scrollView.contentOffset.y = offset
+        }
+    }
+}
+
+/// Sets the current slide when the pager rests on a page: after a swipe, a VoiceOver scroll or a
+/// move from code. It reads the `UIScrollView`, not `.scrollPosition(id:)`. That binding does not
+/// see a scroll from code, and a change of the binding from code stops about a third of a slide past
+/// the slide (the scroll view has a bottom content inset under the toolbar; seen on iOS 26.5).
+private struct WMFYearInReviewPageObserver: UIViewRepresentable {
+
+    let slideIDs: [String]
+    let onPageChange: @MainActor (String) -> Void
+
+    func makeUIView(context: Context) -> ObserverView {
+        let view = ObserverView()
+        view.isUserInteractionEnabled = false
+        return view
+    }
+
+    func updateUIView(_ uiView: ObserverView, context: Context) {
+        uiView.slideIDs = slideIDs
+        uiView.onPageChange = onPageChange
+    }
+
+    final class ObserverView: UIView {
+        var slideIDs: [String] = []
+        var onPageChange: (@MainActor (String) -> Void)?
+        private var observation: NSKeyValueObservation?
+        private var lastSlideID: String?
+
+        override func didMoveToWindow() {
+            super.didMoveToWindow()
+            observation = nil
+            guard window != nil else { return }
+            var superview = superview
+            while let view = superview, !(view is UIScrollView) {
+                superview = view.superview
+            }
+            guard let scrollView = superview as? UIScrollView else { return }
+            observation = scrollView.observe(\.contentOffset, options: [.new]) { [weak self] scrollView, _ in
+                MainActor.assumeIsolated {
+                    self?.scrollViewDidMove(scrollView)
+                }
+            }
+        }
+
+        private func scrollViewDidMove(_ scrollView: UIScrollView) {
+            // Only when the finger is up and the pager is exactly on a page, so not in the middle of a swipe.
+            guard !scrollView.isTracking, !slideIDs.isEmpty else { return }
+            let pageHeight = scrollView.contentSize.height / CGFloat(slideIDs.count)
+            guard pageHeight > 0 else { return }
+            let page = ((scrollView.contentOffset.y + scrollView.adjustedContentInset.top) / pageHeight).rounded()
+            guard abs(scrollView.contentOffset.y + scrollView.adjustedContentInset.top - page * pageHeight) < 1,
+                  slideIDs.indices.contains(Int(page)) else {
+                return
+            }
+            let slideID = slideIDs[Int(page)]
+            guard slideID != lastSlideID else { return }
+            lastSlideID = slideID
+            onPageChange?(slideID)
+        }
+    }
+}
+
+private struct WMFYearInReviewPagingModifier: ViewModifier {
 
     /// Carries the position to VoiceOver, which cannot read it off the progress bar.
     let positionAccessibilityValue: String
@@ -108,7 +218,6 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
     func body(content: Content) -> some View {
         let paged = content
             .scrollTargetBehavior(.paging)
-            .scrollPosition(id: $currentSlideID)
             .scrollIndicators(.hidden)
             .accessibilityElement(children: .contain)
             .accessibilityValue(positionAccessibilityValue)
@@ -120,3 +229,4 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
         }
     }
 }
+
