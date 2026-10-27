@@ -569,7 +569,18 @@ import CoreData
                 fetchLimit: 1,
                 in: backgroundContext
             )?.first
-            return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
+            let cdSlides = cdReport?.slides as? Set<CDYearInReviewSlide> ?? []
+            return Set(cdSlides.compactMap { cdSlide -> String? in
+                guard let id = cdSlide.id else {
+                    return nil
+                }
+                // A slide in an older format counts as missing. Thus, the report builds it again.
+                if let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: id),
+                   !slideID.dataController().hasCurrentFormat(cdSlide.data) {
+                    return nil
+                }
+                return id
+            })
         }
 
         // For any slide IDs missing, create associated slide data controllers and populate their data. Set evaluated flag if population succeeds
@@ -603,12 +614,13 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
-            // Only preserve existing slides that should freeze
+            // Only preserve existing slides that should freeze and use the current format.
+            // A slide in an older format is deleted. The data controller above built it again.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    if dataController.shouldFreeze {
+                    if dataController.shouldFreeze && dataController.hasCurrentFormat(slide.data) {
                         finalCDSlides.insert(slide)
                     } else {
                         backgroundContext.delete(slide)

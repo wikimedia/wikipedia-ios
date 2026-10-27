@@ -74,4 +74,14 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
         return config.isActive(for: Date())
     }
+
+    /// An older build stored this slide as an array of category names. That data does not decode as
+    /// `WMFYearInReviewMostReadCategorySlideData`, so the report builds the slide again with the
+    /// current rules. Data in the current format keeps its category, also when the category is nil.
+    static func hasCurrentFormat(_ data: Data?) -> Bool {
+        guard let data else {
+            return false
+        }
+        return (try? JSONDecoder().decode(WMFYearInReviewMostReadCategorySlideData.self, from: data)) != nil
+    }
 }
