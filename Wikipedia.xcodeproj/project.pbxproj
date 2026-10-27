@@ -2613,6 +2613,7 @@
 		FA71B2C40000000B000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C40000000C000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift */; };
 		FA71B2C400000003000000AA /* RequestErrorServerBusyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */; };
 		FA71B2C400000005000000AA /* SessionServerBusyFallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */; };
+		FA71B2C40000000D000000AA /* ReadingListsSyncServerBusyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C40000000E000000AA /* ReadingListsSyncServerBusyTests.swift */; };
 		FA71B2C400000007000000AA /* RateLimitSummaryAccumulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */; };
 		FAC0D3AA00000001000000AA /* CollectionViewUpdaterCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
@@ -4328,6 +4329,7 @@
 		FA71B2C40000000C000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCacheImageKeyTests.swift; sourceTree = "<group>"; };
 		FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestErrorServerBusyTests.swift; sourceTree = "<group>"; };
 		FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServerBusyFallbackTests.swift; sourceTree = "<group>"; };
+		FA71B2C40000000E000000AA /* ReadingListsSyncServerBusyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsSyncServerBusyTests.swift; sourceTree = "<group>"; };
 		FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitSummaryAccumulatorTests.swift; sourceTree = "<group>"; };
 		FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdaterCrashTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -7284,6 +7286,7 @@
 				FA71B2C40000000C000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift */,
 				FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */,
 				FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */,
+				FA71B2C40000000E000000AA /* ReadingListsSyncServerBusyTests.swift */,
 				FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */,
 				FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
@@ -9432,6 +9435,7 @@
 				FA71B2C40000000B000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift in Sources */,
 				FA71B2C400000003000000AA /* RequestErrorServerBusyTests.swift in Sources */,
 				FA71B2C400000005000000AA /* SessionServerBusyFallbackTests.swift in Sources */,
+				FA71B2C40000000D000000AA /* ReadingListsSyncServerBusyTests.swift in Sources */,
 				FA71B2C400000007000000AA /* RateLimitSummaryAccumulatorTests.swift in Sources */,
 				FAC0D3AA00000001000000AA /* CollectionViewUpdaterCrashTests.swift in Sources */,
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,

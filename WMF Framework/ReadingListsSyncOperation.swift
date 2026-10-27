@@ -1,13 +1,25 @@
 import CocoaLumberjackSwift
 
-internal enum ReadingListsOperationError: Error {
+internal enum ReadingListsOperationError: Error, Equatable {
     case cancelled
+    /// The server answered 429 or 503. The sync stops and the next sync continues from the same point.
+    case serverBusy(pauseUntil: Date)
 }
 
 internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Sendable {
     var syncedReadingListsCount = 0
     var syncedReadingListEntriesCount = 0
-    
+
+    /// Number of article summary requests in flight at the same time during a sync.
+    static let summaryFetchBatchSize = 10
+
+    /// Result of one pass of local entry creation.
+    internal enum LocalCreationResult {
+        case complete
+        /// The server asked the app to wait. The entries without a summary stay for the next sync.
+        case interruptedByServerBusy(pauseUntil: Date)
+    }
+
     override func execute() {
         syncedReadingListsCount = 0
         syncedReadingListEntriesCount = 0
@@ -227,6 +239,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
             }
         }
         
+        // A 429 or 503 applies to every reading list request. Wait instead of adding more requests.
+        if let pauseUntil = apiController.session.serverBusyPauseUntil {
+            throw ReadingListsOperationError.serverBusy(pauseUntil: pauseUntil)
+        }
+
         if syncState.contains(.needsSync) {
            try executeFullSync(on: moc)
             syncState.remove(.needsSync)
@@ -750,23 +767,56 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         return variantAwareArticleURL
     }
     
+    /// Fetches article summaries in batches of `summaryFetchBatchSize`.
+    /// Stops before the next batch when the server asked the app to wait (429 or 503).
+    private func fetchSummaries(for articleKeys: [WMFInMemoryURLKey]) throws -> (summariesByArticleKey: [WMFInMemoryURLKey: ArticleSummary], serverBusyPauseUntil: Date?) {
+        let summaryFetcher = ArticleFetcher(session: apiController.session, configuration: Configuration.current)
+        let semaphore = DispatchSemaphore(value: 1)
+        var summariesByArticleKey: [WMFInMemoryURLKey: ArticleSummary] = [:]
+        var start = 0
+        while start < articleKeys.count {
+            if let pauseUntil = apiController.session.serverBusyPauseUntil {
+                DDLogWarn("Reading list sync: server busy until \(pauseUntil), \(articleKeys.count - start) article summaries wait for the next sync")
+                return (summariesByArticleKey, pauseUntil)
+            }
+            let end = min(articleKeys.count, start + ReadingListsSyncOperation.summaryFetchBatchSize)
+            let group = WMFTaskGroup()
+            for articleKey in articleKeys[start..<end] {
+                group.enter()
+                summaryFetcher.fetchSummaryForArticle(with: articleKey, completion: { (summary, _, _) in
+                    defer {
+                        group.leave()
+                    }
+                    guard let summary else {
+                        return
+                    }
+                    semaphore.wait()
+                    summariesByArticleKey[articleKey] = summary
+                    semaphore.signal()
+                })
+            }
+            group.wait()
+            guard !isCancelled else {
+                throw ReadingListsOperationError.cancelled
+            }
+            start = end
+        }
+        return (summariesByArticleKey, nil)
+    }
+
     // Code using RemoteReadingListArticleKey as a key coordinate between remote and local readling list entries.
     // This key is the articleKey value which *does not* take language variants into account.
     // Collections using the WMFInMemoryURLKey *do* take language variants into account.
-    internal func locallyCreate(_ readingListEntries: [APIReadingListEntry], with readingListsByEntryID: [Int64: ReadingList]? = nil, in moc: NSManagedObjectContext) throws {
+    internal func locallyCreate(_ readingListEntries: [APIReadingListEntry], with readingListsByEntryID: [Int64: ReadingList]? = nil, in moc: NSManagedObjectContext) throws -> LocalCreationResult {
         guard !readingListEntries.isEmpty else {
-            return
+            return .complete
         }
 
         var newlySavedArticleIDs = Set<URL>()
 
-        let summaryFetcher = ArticleFetcher(session: apiController.session, configuration: Configuration.current)
-        let group = WMFTaskGroup()
-        let semaphore = DispatchSemaphore(value: 1)
         var remoteEntriesToCreateLocallyByArticleKey: [WMFInMemoryURLKey: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<RemoteReadingListArticleKey> = []
-        var articleSummariesByArticleKey: [WMFInMemoryURLKey: ArticleSummary] = [:]
-        var entryCount = 0
+        var articleKeysToFetch: [WMFInMemoryURLKey] = []
         var articlesByKey: [WMFInMemoryURLKey: WMFArticle] = [:]
         for remoteEntry in readingListEntries {
             autoreleasepool {
@@ -789,28 +839,14 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                 if let article = dataStore.fetchArticle(with: variantAwareArticleURL, in: moc) {
                     articlesByKey[variantAwareArticleKey] = article
                 } else {
-                    group.enter()
-                    summaryFetcher.fetchSummaryForArticle(with: variantAwareArticleKey, completion: { (result, response, error) in
-                        guard let result = result else {
-                            group.leave()
-                            return
-                        }
-                        semaphore.wait()
-                        articleSummariesByArticleKey[variantAwareArticleKey] = result
-                        semaphore.signal()
-                        group.leave()
-                    })
-                    entryCount += 1
+                    articleKeysToFetch.append(variantAwareArticleKey)
                 }
             }
         }
-        
-        group.wait()
-        guard !isCancelled  else {
-            throw ReadingListsOperationError.cancelled
-        }
-        
-        let updatedArticlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
+
+        let fetchedSummaries = try fetchSummaries(for: articleKeysToFetch)
+
+        let updatedArticlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: fetchedSummaries.summariesByArticleKey)
         articlesByKey.merge(updatedArticlesByKey, uniquingKeysWith: { (a, b) in return a })
         var finalReadingListsByEntryID: [Int64: ReadingList]
         if let readingListsByEntryID = readingListsByEntryID {
@@ -909,6 +945,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
             WMFArticleSavedStateMigrationManager.shared
                 .migrateNewlySyncedArticles(withURLs: Array(newlySavedArticleIDs))
         }
+
+        if let pauseUntil = fetchedSummaries.serverBusyPauseUntil {
+            return .interruptedByServerBusy(pauseUntil: pauseUntil)
+        }
+        return .complete
     }
 
     internal func createOrUpdate(remoteReadingLists: [APIReadingList], deleteMissingLocalLists: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Int {
@@ -1083,11 +1124,15 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                 let entries = Array(remoteEntriesMissingLocally.values)
                 while end < entries.count {
                     end = min(entries.count, start + WMFReadingListCoreDataBatchSize)
-                    try locallyCreate(Array(entries[start..<end]), in: moc)
+                    let localCreationResult = try locallyCreate(Array(entries[start..<end]), in: moc)
                     start = end
                     try moc.save()
                     moc.reset()
                     createdOrUpdatedReadingListEntriesCount += 1
+                    // The entries created so far are saved. The sync stops here and the next sync fetches the rest.
+                    if case .interruptedByServerBusy(let pauseUntil) = localCreationResult {
+                        throw ReadingListsOperationError.serverBusy(pauseUntil: pauseUntil)
+                    }
                 }
             }
         }
