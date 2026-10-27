@@ -143,9 +143,11 @@ private struct WMFYearInReviewNextSlideScroller: UIViewRepresentable {
         let slideFrame = uiView.convert(uiView.bounds, to: scrollView)
         let maximumOffset = scrollView.contentSize.height + scrollView.adjustedContentInset.bottom - scrollView.bounds.height
         let offset = min(slideFrame.maxY - scrollView.adjustedContentInset.top, maximumOffset)
-        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut) {
-            scrollView.contentOffset.y = offset
-        }
+        // Animated by the scroll view, so the offset moves step by step, as in a swipe. The page
+        // observer then changes the current slide only when the pager arrives. Before that, the
+        // slide that is moving away keeps drawing: a slide that is no longer current restarts, and
+        // it draws nothing until its next frame, which showed the dark chrome color.
+        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offset), animated: true)
     }
 }
 
