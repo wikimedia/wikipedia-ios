@@ -146,7 +146,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             "hideDonateCountryCodes": [String]()
         ]
         if let volunteerEditors {
-            json["volunteerEditors"] = volunteerEditors
+            json["editors"] = volunteerEditors
         }
         let data = try JSONSerialization.data(withJSONObject: json)
         return try JSONDecoder().decode(WMFFeatureConfigResponse.Common.YearInReview.self, from: data)
