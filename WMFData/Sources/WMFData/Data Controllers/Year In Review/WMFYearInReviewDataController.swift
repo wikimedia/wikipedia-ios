@@ -202,7 +202,10 @@ import CoreData
             return (topTopics.isEligible ? 1 : 0) + (topTopics.showsRunnerUps ? 1 : 0)
         case .daysVisited:
             return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible == true ? 1 : 0
-        case .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
+        case .editCount:
+            // Android counts its total edits slide from one edit, also before the edit slides are built here.
+            return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0
+        case .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
             return 0
         }

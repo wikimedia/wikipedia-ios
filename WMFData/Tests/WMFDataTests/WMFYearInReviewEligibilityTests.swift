@@ -84,6 +84,10 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .topTopics, data: data)
     }
 
+    private func editCountSlide(_ editCount: Int) throws -> WMFYearInReviewSlide {
+        WMFYearInReviewSlide(year: year, id: .editCount, data: try JSONEncoder().encode(editCount))
+    }
+
     private func daysVisitedSlide(dayCount: Int) throws -> WMFYearInReviewSlide {
         let data = try JSONEncoder().encode(WMFYearInReviewDaysVisitedSlideData(dayCount: dayCount, peakMonth: nil))
         return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
@@ -193,6 +197,24 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         try await saveReport([try readCountSlide(5), try topTopicsSlide(readCount: 5, hasTopTopic: true)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .personalized)
+    }
+
+    func testAnEditCountsAsAPersonalizedSlide() async throws {
+        try await saveReport([try readCountSlide(3), try editCountSlide(1)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized, "an editor with one reading slide gets the personalized slides, the same as on Android")
+    }
+
+    func testZeroEditsDoNotCount() async throws {
+        try await saveReport([try readCountSlide(3), try editCountSlide(0)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
+    }
+
+    func testEditsDoNotChangeTheLoggedOutSlides() async throws {
+        try await saveReport([try readCountSlide(3), try editCountSlide(10)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: false)
+        XCTAssertEqual(experience, .collective)
     }
 
     func testTopTopicAndRunnersUpCountAsTwoSlides() async throws {
