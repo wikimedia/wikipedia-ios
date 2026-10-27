@@ -216,7 +216,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     // MARK: - Announcement log in prompt
 
     /// Asks logged-out readers to log in first. Logging in or creating an account opens the slides
-    /// for `userDataStateAfterLogin`. Continuing without logging in always opens the low data slides.
+    /// for `userDataStateAfterLogin`. Continuing without logging in, or closing the log in screen,
+    /// always opens the low data slides.
     private func presentAnnouncementLoginPrompt(userDataStateAfterLogin: WMFYearInReviewDataController.YiRUserDataState) {
         guard let announcement = navigationController.presentedViewController else {
             presentYearInReview(userDataState: .lowData)
@@ -253,6 +254,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         loginCoordinator.loginSuccessCompletion = { [weak self] in
             Task { @MainActor [weak self] in
                 self?.presentYearInReviewAfterCurrentDismissal(userDataState: userDataStateAfterLogin)
+            }
+        }
+
+        loginCoordinator.loginDismissedCompletion = { [weak self] in
+            Task { @MainActor [weak self] in
+                self?.presentYearInReviewAfterCurrentDismissal(userDataState: .lowData)
             }
         }
 
@@ -324,7 +331,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// The rebuilt slide reads the saved donation. The reader stays on the same slide, which
-    /// becomes the "Thank you" version. Does nothing when Year in Review is closed.
+    /// becomes the "Thank you" version. Does nothing when Year in Review is closed, or for a
+    /// logged-out reader, who always sees "You matter".
     private func showThankYouSlideAfterDonation() {
         guard let viewModel,
               let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
