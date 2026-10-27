@@ -115,7 +115,7 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
     /// the more recent rabbit hole.
     /// - Parameter links: Oldest first.
     static func deepestRabbitHoles(in links: [WMFPageViewLink], isArticle: (WMFPage) -> Bool) -> [SlideData.RabbitHole] {
-        var chainsByLastID: [URL: Chain] = [:]
+        var chainsByLastID: [NSManagedObjectID: Chain] = [:]
         for link in links where isArticle(link.page) {
             if let previousID = link.previousID,
                let previous = chainsByLastID[previousID],
@@ -130,7 +130,7 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
             (lhs.articleCount, lhs.last.timestamp) > (rhs.articleCount, rhs.last.timestamp)
         }
 
-        var deepestByFirstID: [URL: Chain] = [:]
+        var deepestByFirstID: [NSManagedObjectID: Chain] = [:]
         for chain in chainsByLastID.values where chain.articleCount >= SlideData.minimumArticleCount {
             if let deepest = deepestByFirstID[chain.first.id], !isDeeper(chain, than: deepest) {
                 continue

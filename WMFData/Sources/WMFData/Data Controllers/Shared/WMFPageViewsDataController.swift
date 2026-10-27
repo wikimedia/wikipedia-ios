@@ -92,10 +92,10 @@ public struct WMFPageWithTimestamp: Sendable {
 
 /// A page view and the page view that the reader came from by a link in the app.
 public struct WMFPageViewLink: Sendable {
-    /// Identifies the page view. It is the URI of the Core Data object.
-    public let id: URL
+    /// Identifies the page view.
+    public let id: NSManagedObjectID
     /// The page view that had the link. `nil` if the reader did not come from a link.
-    public let previousID: URL?
+    public let previousID: NSManagedObjectID?
     public let page: WMFPage
     public let timestamp: Date
 }
@@ -463,25 +463,36 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
     /// The page views inside the window, oldest first, with the page view that each came from.
     /// The window includes `startDate` and `endDate`.
+    ///
+    /// Reads plain values, not managed objects. A year of reading can have many page views, and
+    /// the report is built at launch, while other screens also need memory.
     public func fetchPageViewLinks(startDate: Date, endDate: Date) async throws -> [WMFPageViewLink] {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         return try await backgroundContext.perform {
-            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
-            let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: backgroundContext) ?? []
+            let objectID = NSExpressionDescription()
+            objectID.name = "objectID"
+            objectID.expression = NSExpression.expressionForEvaluatedObject()
+            objectID.expressionResultType = .objectIDAttributeType
 
-            return pageViews.compactMap { pageView in
-                guard let page = pageView.page,
-                      let projectID = page.projectID,
-                      let title = page.title,
-                      let timestamp = pageView.timestamp else {
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = [objectID, "timestamp", "previousPageView", "page.namespaceID", "page.projectID", "page.title"]
+
+            return try backgroundContext.fetch(request).compactMap { result in
+                guard let id = result["objectID"] as? NSManagedObjectID,
+                      let timestamp = result["timestamp"] as? Date,
+                      let namespaceID = result["page.namespaceID"] as? Int,
+                      let projectID = result["page.projectID"] as? String,
+                      let title = result["page.title"] as? String else {
                     return nil
                 }
                 return WMFPageViewLink(
-                    id: pageView.objectID.uriRepresentation(),
-                    previousID: pageView.previousPageView?.objectID.uriRepresentation(),
-                    page: WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title),
+                    id: id,
+                    previousID: result["previousPageView"] as? NSManagedObjectID,
+                    page: WMFPage(namespaceID: namespaceID, projectID: projectID, title: title),
                     timestamp: timestamp
                 )
             }
