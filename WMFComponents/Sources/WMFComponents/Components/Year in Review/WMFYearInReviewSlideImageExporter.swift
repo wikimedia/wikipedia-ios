@@ -4,13 +4,13 @@ import SwiftUI
 import UIKit
 
 /// Draws one Year in Review slide to a still image for sharing, from its own copy of the Rive
-/// artboard, then adds the Wikipedia logo and a caption. The slide on screen does not change.
+/// artboard, then adds the Wikipedia wordmark and a caption. The slide on screen does not change.
 ///
 /// 1. Loads a second copy of the artboard with the same text, numbers, booleans, images and text
 ///    fits as the slide on screen.
 /// 2. Moves the animation forward to `poseTime` in small steps.
 /// 3. Draws the artboard into a Metal texture and reads the pixels back.
-/// 4. Draws the logo and the caption on top.
+/// 4. Draws the wordmark at the top and the caption at the bottom.
 @MainActor
 public enum WMFYearInReviewSlideImageExporter {
 
@@ -52,19 +52,22 @@ public enum WMFYearInReviewSlideImageExporter {
     /// The animation moves forward in steps of this length, so that each state change can run.
     private static let stepInterval: TimeInterval = 1.0 / 60.0
 
-    // MARK: - Footer
+    // MARK: - Wordmark and caption
+    // From the Figma frame of the share image (T437468).
 
-    /// The footer is laid out as on a phone this many points wide, then scaled up to the image. The
+    /// The wordmark and the caption are laid out as on a phone this many points wide, then scaled up to the image. The
     /// same width as `WMFWhichCameFirstShareView`.
     private static let referenceWidth: CGFloat = 360
-    private static let logoAssetName = "W-share-logo"
-    private static let logoHeight: CGFloat = 20
-    private static let logoToCaptionSpacing: CGFloat = 6
-    private static let bottomMargin: CGFloat = 24
+    private static let wordmarkAssetName = "wikipedia"
+    private static let wordmarkHeight: CGFloat = 22
+    private static let wordmarkTopMargin: CGFloat = 24
+    private static let captionBottomMargin: CGFloat = 18
+    /// The letter spacing of Caption2 in Figma.
+    private static let captionKerning: CGFloat = 0.06
     private static let sideMargin: CGFloat = 24
 
     /// - Parameters:
-    ///   - caption: The localized line under the logo, for example "Created with the Wikipedia app".
+    ///   - caption: The localized line at the bottom, "Created with the Wikipedia app".
     ///   - layoutDirection: The direction of the app language, for the frames that mirror.
     public static func image(
         for slide: WMFYearInReviewSlideViewModel,
@@ -109,7 +112,7 @@ public enum WMFYearInReviewSlideImageExporter {
         advance(rive, by: poseTime)
 
         let artwork = try await render(rive, size: imageSize)
-        return addFooter(to: artwork, caption: caption)
+        return addWordmarkAndCaption(to: artwork, caption: caption)
     }
 
     // MARK: - Images
@@ -223,11 +226,11 @@ public enum WMFYearInReviewSlideImageExporter {
         return UIImage(cgImage: cgImage, scale: 1, orientation: .up)
     }
 
-    // MARK: - Footer
+    // MARK: - Drawing the wordmark and the caption
 
-    /// Draws the logo and the caption at the bottom center. The image is opaque, so a part of the
-    /// artwork that is transparent shows the chrome color, as on screen.
-    private static func addFooter(to artwork: UIImage, caption: String) -> UIImage {
+    /// Draws the wordmark at the top center and the caption at the bottom center. The image is
+    /// opaque, so a part of the artwork that is transparent shows the chrome color, as on screen.
+    private static func addWordmarkAndCaption(to artwork: UIImage, caption: String) -> UIImage {
         let format = UIGraphicsImageRendererFormat()
         format.scale = 1
         format.opaque = true
@@ -240,24 +243,39 @@ public enum WMFYearInReviewSlideImageExporter {
             context.fill(CGRect(origin: .zero, size: pixelSize))
             artwork.draw(in: CGRect(origin: .zero, size: pixelSize))
 
-            // `isUIWhite` describes the top of the artwork, where the controls are, so the footer
-            // takes its color from the artwork behind it.
-            let footerHeight = (bottomMargin + 40 + logoToCaptionSpacing + logoHeight) * pixelSize.width / referenceWidth
-            let footerArea = CGRect(x: 0, y: pixelSize.height - footerHeight, width: pixelSize.width, height: footerHeight)
-            let color = isDark(context.cgContext, in: footerArea) ? WMFColor.white : WMFColor.gray700
+            // Black, as in Figma, or white on dark artwork. `isUIWhite` describes only the top of the
+            // artwork, so each one takes its color from the artwork behind it.
+            let scale = pixelSize.width / referenceWidth
+            let wordmarkArea = CGRect(x: 0, y: 0, width: pixelSize.width, height: (wordmarkTopMargin + wordmarkHeight + 8) * scale)
+            let captionArea = CGRect(x: 0, y: pixelSize.height - (captionBottomMargin + 24) * scale, width: pixelSize.width, height: (captionBottomMargin + 24) * scale)
+            let wordmarkColor = isDark(context.cgContext, in: wordmarkArea) ? WMFColor.white : WMFColor.black
+            let captionColor = isDark(context.cgContext, in: captionArea) ? WMFColor.white : WMFColor.black
 
             // From here, draw in points of a phone that is `referenceWidth` wide.
-            let scale = pixelSize.width / referenceWidth
             context.cgContext.scaleBy(x: scale, y: scale)
             let canvas = CGSize(width: referenceWidth, height: pixelSize.height / scale)
 
             // A fixed text size, so the image does not depend on the Dynamic Type setting of the reader.
             let traits = UITraitCollection(preferredContentSizeCategory: .large)
+
+            if let wordmark = UIImage(named: wordmarkAssetName, in: .module, compatibleWith: traits)?
+                .withTintColor(wordmarkColor, renderingMode: .alwaysOriginal),
+               wordmark.size.height > 0 {
+                let wordmarkWidth = wordmarkHeight * wordmark.size.width / wordmark.size.height
+                wordmark.draw(in: CGRect(
+                    x: (canvas.width - wordmarkWidth) / 2,
+                    y: wordmarkTopMargin,
+                    width: wordmarkWidth,
+                    height: wordmarkHeight
+                ))
+            }
+
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             let attributes: [NSAttributedString.Key: Any] = [
-                .font: WMFFont.for(.caption1, compatibleWith: traits),
-                .foregroundColor: color,
+                .font: WMFFont.for(.caption2, compatibleWith: traits),
+                .kern: captionKerning,
+                .foregroundColor: captionColor,
                 .paragraphStyle: paragraphStyle
             ]
 
@@ -271,25 +289,11 @@ public enum WMFYearInReviewSlideImageExporter {
             let captionHeight = ceil(captionBounds.height)
             let captionRect = CGRect(
                 x: sideMargin,
-                y: canvas.height - bottomMargin - captionHeight,
+                y: canvas.height - captionBottomMargin - captionHeight,
                 width: maximumWidth,
                 height: captionHeight
             )
             (caption as NSString).draw(with: captionRect, options: [.usesLineFragmentOrigin], attributes: attributes, context: nil)
-
-            guard let logo = UIImage(named: logoAssetName, in: .module, compatibleWith: traits)?
-                .withTintColor(color, renderingMode: .alwaysOriginal),
-                  logo.size.height > 0 else {
-                return
-            }
-            let logoWidth = logoHeight * logo.size.width / logo.size.height
-            let logoRect = CGRect(
-                x: (canvas.width - logoWidth) / 2,
-                y: captionRect.minY - logoToCaptionSpacing - logoHeight,
-                width: logoWidth,
-                height: logoHeight
-            )
-            logo.draw(in: logoRect)
         }
     }
 }
