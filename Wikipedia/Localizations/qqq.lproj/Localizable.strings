@@ -355,6 +355,12 @@
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "diff-user-button-accessibility-text" = "Accessibility text to provide more context to users of assistive tecnologies about the user button actions";
 "dim-images" = "Label for image dimming setting";
+"discover-announcement-body" = "Body of the card that introduces the Discover reading list on the Saved tab.";
+"discover-announcement-get-started" = "Title of the button on the Discover card that opens the Discover setup.";
+"discover-announcement-new-tag" = "Tag on the card that introduces the Discover reading list on the Saved tab. Marks the feature as new.";
+"discover-announcement-no-thanks" = "Title of the button on the Discover card that dismisses the card.";
+"discover-announcement-no-thanks-toast" = "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.";
+"discover-announcement-title" = "Title of the card that introduces the Discover reading list on the Saved tab.";
 "discover-list-about" = "Menu item on the Discover reading list screen that explains how Discover works.";
 "discover-list-byline" = "Byline under the title of the Discover reading list. $1 is replaced with the account name of the reader or the word for 'you', $2 with the number of articles in the list.";
 "discover-list-byline-you" = "Word used in the Discover reading list byline in place of the account name when the reader is logged out. Appears as 'Made for you'.";
@@ -1735,6 +1741,7 @@
 "year-in-review-2026-collective-hours-read-title" = "Title of the Year in Review slide that shows the number of hours all readers spent reading Wikipedia this year. The number follows it.";
 "year-in-review-2026-collective-intro-subtitle" = "Subtitle of the first Year in Review slide, for readers without enough data for a personalized Year in Review.";
 "year-in-review-2026-collective-intro-title" = "Title of the first Year in Review slide, for readers without enough data for a personalized Year in Review.";
+"year-in-review-2026-collective-languages-data" = "The number of languages Wikipedia is available in, shown as a large number on the Year in Review slide, for example \"300+\". The plus sign means \"more than\". $1 is replaced with the number.";
 "year-in-review-2026-collective-languages-subtitle" = "Subtitle of the Year in Review slide that shows the number of languages Wikipedia is available in.";
 "year-in-review-2026-collective-languages-title" = "Title of the Year in Review slide that shows the number of languages Wikipedia is available in. The number follows it, for example \"300+\".";
 "year-in-review-2026-collective-saved-articles-subtitle" = "Subtitle of the Year in Review slide that shows the number of articles all readers saved this year.";

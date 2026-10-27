@@ -532,8 +532,11 @@
 		7A4414420000000000000032 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
 		7A4414420000000000000033 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
 		7A4414420000000000000035 /* SavedArticleDownloadProgressObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */; };
+		7A441442000000000000003B /* SavedTabBadgeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000003A /* SavedTabBadgeController.swift */; };
 		7A4414420000000000000036 /* SavedArticleDownloadProgressObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */; };
+		7A441442000000000000003C /* SavedTabBadgeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000003A /* SavedTabBadgeController.swift */; };
 		7A4414420000000000000037 /* SavedArticleDownloadProgressObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */; };
+		7A441442000000000000003D /* SavedTabBadgeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000003A /* SavedTabBadgeController.swift */; };
 		7A4414420000000000000022 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
 		7A4414420000000000000023 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
 		675C97142F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
@@ -1038,6 +1041,7 @@
 		7A4414420000000000000005 /* SavedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000004 /* SavedUITests.swift */; };
 		7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */; };
 		7A4414420000000000000039 /* SavedArticleDownloadProgressObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */; };
+		7A441442000000000000003F /* SavedTabBadgeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000003E /* SavedTabBadgeControllerTests.swift */; };
 		7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */; };
 		7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */; };
 		7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
@@ -1688,9 +1692,6 @@
 		B0408C552127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientViews.swift */; };
 		B0408C562127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientViews.swift */; };
 		B0408C572127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientViews.swift */; };
-		B0421AA2206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */; };
-		B0421AA3206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */; };
-		B0421AA4206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */; };
 		B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0432343210680A800A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */; };
 		B0432345210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0432343210680A800A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */; };
 		B0432346210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0432343210680A800A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */; };
@@ -3209,6 +3210,7 @@
 		7A4414420000000000000020 /* ReadingListsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCoordinator.swift; sourceTree = "<group>"; };
 		7A4414420000000000000030 /* SavedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCoordinator.swift; sourceTree = "<group>"; };
 		7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticleDownloadProgressObserver.swift; sourceTree = "<group>"; };
+		7A441442000000000000003A /* SavedTabBadgeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabBadgeController.swift; sourceTree = "<group>"; };
 		675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAllArticlesCoordinator.swift; sourceTree = "<group>"; };
 		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
 		675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFSuggestedEditsContentSource.m; sourceTree = "<group>"; };
@@ -3457,6 +3459,7 @@
 		7A4414420000000000000004 /* SavedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedUITests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabCharacterizationTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticleDownloadProgressObserverTests.swift; sourceTree = "<group>"; };
+		7A441442000000000000003E /* SavedTabBadgeControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabBadgeControllerTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestReadingListsSeederTests.swift; sourceTree = "<group>"; };
 		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
 		7A49A20021231510005C574C /* CollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFooter.swift; sourceTree = "<group>"; };
@@ -3773,7 +3776,6 @@
 		B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B0408C542127F2C100AC76CE /* WMFImageGalleryGradientViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryGradientViews.swift; sourceTree = "<group>"; };
-		B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabBarItemProgressBadgeManager.swift; sourceTree = "<group>"; };
 		B0432343210680A800A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroupKind+FeedCustomization.swift"; sourceTree = "<group>"; };
 		B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array<UITextField>+WMFAllFieldsFilled.swift"; path = "Wikipedia/Code/Array<UITextField>+WMFAllFieldsFilled.swift"; sourceTree = SOURCE_ROOT; };
 		B0524AEF2144D7BE00D8FD8D /* DescriptionHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionHelpViewController.swift; sourceTree = "<group>"; };
@@ -6325,6 +6327,7 @@
 				7A4414420000000000000020 /* ReadingListsCoordinator.swift */,
 				7A4414420000000000000030 /* SavedCoordinator.swift */,
 				7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */,
+				7A441442000000000000003A /* SavedTabBadgeController.swift */,
 				37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				AB0NB0A160E0E9F600ABCD01 /* AppOnboardingCoordinator.swift */,
@@ -6699,7 +6702,6 @@
 				67CA58832F6066DA006F6EEA /* AppViewControllerTipWrapper.swift */,
 				53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */,
 				8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */,
-				B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */,
 				FFE891452445150B0058B642 /* AppTabBarDelegate.swift */,
 			);
 			name = "App View Controller";
@@ -7282,6 +7284,7 @@
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */,
 				7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */,
+				7A441442000000000000003E /* SavedTabBadgeControllerTests.swift */,
 				7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */,
 				E7430460A0000000000000A1 /* WMFAuthenticationManagerTests.swift */,
 				FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */,
@@ -9430,6 +9433,7 @@
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */,
 				7A4414420000000000000039 /* SavedArticleDownloadProgressObserverTests.swift in Sources */,
+				7A441442000000000000003F /* SavedTabBadgeControllerTests.swift in Sources */,
 				7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */,
 				E7430460A0000000000000A2 /* WMFAuthenticationManagerTests.swift in Sources */,
 				FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */,
@@ -9605,7 +9609,6 @@
 				00E2EA8926E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				830795202C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
-				B0421AA2206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				B0F4761B21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
 				7A2BB1D421F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
@@ -9691,6 +9694,7 @@
 				7A4414420000000000000022 /* ReadingListsCoordinator.swift in Sources */,
 				7A4414420000000000000032 /* SavedCoordinator.swift in Sources */,
 				7A4414420000000000000036 /* SavedArticleDownloadProgressObserver.swift in Sources */,
+				7A441442000000000000003C /* SavedTabBadgeController.swift in Sources */,
 				FF921857252E8F4F00C39A8F /* ThanksGiving.swift in Sources */,
 				BAA0D91C1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				8397601B2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift in Sources */,
@@ -10533,7 +10537,6 @@
 				6707C039237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
 				00841DE524477805003CF74A /* AppTabBarDelegate.swift in Sources */,
 				D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */,
-				B0421AA3206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				7A6ED52220ADBF950001849F /* LoginFunnel.swift in Sources */,
 				67DB49C02BD1CED9006E64CE /* ImageRecommendationsFunnel.swift in Sources */,
 				83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
@@ -10558,6 +10561,7 @@
 				7A4414420000000000000023 /* ReadingListsCoordinator.swift in Sources */,
 				7A4414420000000000000033 /* SavedCoordinator.swift in Sources */,
 				7A4414420000000000000037 /* SavedArticleDownloadProgressObserver.swift in Sources */,
+				7A441442000000000000003D /* SavedTabBadgeController.swift in Sources */,
 				7A16C4E7212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
@@ -11090,7 +11094,6 @@
 				D8EC3E1E1E9BDA35006712EB /* WMFChangePasswordViewController.swift in Sources */,
 				00E75B5E27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift in Sources */,
 				83C0656D23D23220001821BC /* TableOfContentsItem.swift in Sources */,
-				B0421AA4206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				7A6ED51E20ADBF950001849F /* LoginFunnel.swift in Sources */,
 				677D8A612B75948200DD9B7D /* EditorButton.swift in Sources */,
 				D8EC3E251E9BDA35006712EB /* WMFArticleRevisionFetcher.m in Sources */,
@@ -11102,6 +11105,7 @@
 				7A4414420000000000000021 /* ReadingListsCoordinator.swift in Sources */,
 				7A4414420000000000000031 /* SavedCoordinator.swift in Sources */,
 				7A4414420000000000000035 /* SavedArticleDownloadProgressObserver.swift in Sources */,
+				7A441442000000000000003B /* SavedTabBadgeController.swift in Sources */,
 				6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				7A16C4E8212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
