@@ -1012,12 +1012,14 @@
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "search-semantic-entry-point-hidden-toast-modify" = "Änneren";
-"search-semantic-entry-point-hidden-toast-title" = "Modul verstoppt.";
+"search-semantic-entry-point-hidden-toast-title" = "Modul verstoppt";
 "search-semantic-entry-point-try-it-now" = "Elo probéieren";
+"search-semantic-info-title" = "Wat ass dat fir eng Funktioun?";
 "search-semantic-results-contributors" = "{{PLURAL:$1|$1 Contributeur|$1 Contributeuren}}";
 "search-semantic-results-empty-title" = "Keng Resultater fir dës Sich";
 "search-semantic-results-error-subtitle" = "Probéiert wgl. nach eng Kéier.";
 "search-semantic-results-error-title" = "Et ass eppes schif gaangen";
+// Fuzzy
 "search-semantic-results-last-updated" = "Lescht Aktualiséierung $1";
 "search-semantic-results-rate-limited-title" = "Ze vill Sichufroen";
 "search-semantic-results-read-in-article" = "Am Artikel liesen";
