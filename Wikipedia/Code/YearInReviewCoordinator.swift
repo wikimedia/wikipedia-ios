@@ -65,6 +65,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     private weak var viewModel: WMFYearInReviewViewModel?
 
+    /// The slides that `viewModel` shows. A donation turns "You matter" into "Thank you" only in the
+    /// personalized slides.
+    private var slidesExperience: WMFYearInReviewDataController.YiRSlidesExperience = .collective
+
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
     private let slideFactory = YearInReviewSlideViewModelFactory()
 
@@ -169,6 +173,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
 
         self.viewModel = viewModel
+        self.slidesExperience = experience
 
         return WMFYearInReviewHostingController(viewModel: viewModel)
     }
@@ -324,11 +329,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// The rebuilt slide reads the saved donation. The reader stays on the same slide, which
-    /// becomes the "Thank you" version. Does nothing when Year in Review is closed, or for a
-    /// logged-out reader, who always sees "You matter".
+    /// becomes the "Thank you" version. Does nothing when Year in Review is closed, in the
+    /// collective slides, or for a logged-out reader, who always sees "You matter".
     private func showThankYouSlideAfterDonation() {
         guard let viewModel,
-              let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
+              let slide = slideFactory.makeContributorSlide(experience: slidesExperience, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
               slide.id == YearInReviewSlideViewModelFactory.contributorSlideID else {
             return
         }

@@ -553,7 +553,18 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// The test host has no donations and no report, so the refreshed slide is still "You matter".
     @Test
     func theContributorSlideCanBeRebuiltOnItsOwn() {
-        #expect(factory.makeContributorSlide(isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+        #expect(factory.makeContributorSlide(experience: .personalized, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+    }
+
+    /// Only the personalized slides end with "Thank you". The collective slides always end with
+    /// "You matter", the same as on Android.
+    @Test
+    func aContributorSeesThankYouOnlyInThePersonalizedSlides() {
+        let editorFactory = YearInReviewSlideViewModelFactory(hidesDonate: { false }, contributorStatus: { .init(isEditor: true, isDonor: true) })
+
+        #expect(editorFactory.makeContributorSlide(experience: .personalized, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.contributorSlideID)
+        #expect(editorFactory.makeContributorSlide(experience: .collective, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+        #expect(editorFactory.makeSlides(experience: .collective, isLoggedIn: true).last?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
     }
 
     /// The country check decides whether the "You matter" slide shows.
@@ -561,7 +572,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func theYouMatterSlideFollowsTheCountryCheck() {
         let hidingFactory = YearInReviewSlideViewModelFactory(hidesDonate: { true })
 
-        #expect(hidingFactory.makeContributorSlide(isLoggedIn: true) == nil)
+        #expect(hidingFactory.makeContributorSlide(experience: .collective, isLoggedIn: true) == nil)
         #expect(hidingFactory.makeSlides(experience: .collective, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
     }
 }

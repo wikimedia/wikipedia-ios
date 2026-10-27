@@ -11,10 +11,14 @@ struct YearInReviewSlideViewModelFactory {
     /// True where donations are not accepted. Tests pass a fixed value.
     private let hidesDonate: () -> Bool
 
+    /// Tests pass a fixed value. `nil` reads the stored edits and the donations on the device.
+    private let contributorStatus: (() -> ContributorStatus)?
+
     /// Without the data controller, the country check cannot run. Then the donate slide hides, so
     /// it never shows where donations are not accepted.
-    init(hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }) {
+    init(hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }, contributorStatus: (() -> ContributorStatus)? = nil) {
         self.hidesDonate = hidesDonate
+        self.contributorStatus = contributorStatus
     }
 
     /// Shared with the announcement's more menu.
@@ -39,19 +43,22 @@ struct YearInReviewSlideViewModelFactory {
     /// Only the total articles, days visited, articles visited multiple times, topic and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
     /// The days visited slide has no empty version, so it does not show without enough data.
-    /// The collective slides show data for all readers. Every flow ends with the contributor slide.
+    /// The collective slides show data for all readers. Every flow ends with the contributor slide,
+    /// but only the personalized flow can end with "Thank you", the same as on Android.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
     func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
-        let contributorSlides = makeContributorSlide(isLoggedIn: isLoggedIn).map { [$0] } ?? []
+        let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn).map { [$0] } ?? []
         return experienceSlides(experience, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
-    /// refresh the slide after a donation.
-    func makeContributorSlide(isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
-        let contributor = storedContributorStatus()
+    /// refresh the slide after a donation. The collective flow always ends with "You matter".
+    func makeContributorSlide(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
+        let contributor = experience == .personalized
+            ? (contributorStatus?() ?? storedContributorStatus())
+            : ContributorStatus(isEditor: false, isDonor: false)
         return contributorSlide(
             isEditor: contributor.isEditor,
             isDonor: contributor.isDonor,
@@ -509,7 +516,7 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Contributor
 
-    private struct ContributorStatus {
+    struct ContributorStatus {
         let isEditor: Bool
         let isDonor: Bool
     }
