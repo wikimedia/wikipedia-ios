@@ -93,11 +93,11 @@ struct WMFRiveTextFitTests {
         #expect(lines <= 4 || scale == 0.75)
     }
 
-    /// The serif copy uses the bundled Linux Libertine, so text measurement uses the font that Rive draws.
+    /// The serif copy uses the bundled EB Garamond, so text measurement uses the font that Rive draws.
     @Test
     func theSerifFontIsTheBundledFont() throws {
         let font = try #require(WMFRiveWorkerProvider.substituteFont(forAssetNamed: "SerifFont"))
-        #expect(font.fontName == "SerifFont-Regular")
+        #expect(font.fontName == "EBGaramond-Regular")
     }
 
     @Test
