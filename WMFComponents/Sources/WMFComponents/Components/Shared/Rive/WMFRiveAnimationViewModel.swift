@@ -201,7 +201,11 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                 }
                 let fontSize = Double(try await global.value(of: NumberProperty(path: fit.fontSize.path)))
                 let lineHeight = Double(try await global.value(of: NumberProperty(path: fit.lineHeight.path)))
-                fileSizes[fit] = FileSizes(fontSize: fontSize, lineHeight: lineHeight)
+                if let maximumFontSize = fit.maximumFontSize, fontSize > maximumFontSize {
+                    fileSizes[fit] = FileSizes(fontSize: maximumFontSize, lineHeight: lineHeight * maximumFontSize / fontSize)
+                } else {
+                    fileSizes[fit] = FileSizes(fontSize: fontSize, lineHeight: lineHeight)
+                }
             } catch {
                 WMFRiveLogger.log(WMFRiveFailure(animation: animation, stage: .binding, reason: "Could not fit \"\(fit.text.path)\": \(error.localizedDescription)"))
             }

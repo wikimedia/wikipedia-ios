@@ -1726,6 +1726,7 @@
 "year-in-review-2026-collective-hours-read-title" = "Title of the Year in Review slide that shows the number of hours all readers spent reading Wikipedia this year. The number follows it.";
 "year-in-review-2026-collective-intro-subtitle" = "Subtitle of the first Year in Review slide, for readers without enough data for a personalized Year in Review.";
 "year-in-review-2026-collective-intro-title" = "Title of the first Year in Review slide, for readers without enough data for a personalized Year in Review.";
+"year-in-review-2026-collective-languages-data" = "The number of languages Wikipedia is available in, shown as a large number on the Year in Review slide, for example \"300+\". The plus sign means \"more than\". $1 is replaced with the number.";
 "year-in-review-2026-collective-languages-subtitle" = "Subtitle of the Year in Review slide that shows the number of languages Wikipedia is available in.";
 "year-in-review-2026-collective-languages-title" = "Title of the Year in Review slide that shows the number of languages Wikipedia is available in. The number follows it, for example \"300+\".";
 "year-in-review-2026-collective-saved-articles-subtitle" = "Subtitle of the Year in Review slide that shows the number of articles all readers saved this year.";

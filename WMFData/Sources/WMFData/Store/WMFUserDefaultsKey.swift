@@ -151,4 +151,8 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsEnableDiscover = "dev-settings-enable-discover"
     case developerSettingsForceDiscoverExperimentAssignment = "dev-settings-force-discover-experiment-assignment"
     case discoverOnboardingAnnouncementDismissed = "discover-onboarding-announcement-dismissed"
+    case discoverSettings = "discover-settings"
+    case discoverLastGeneratedDate = "discover-last-generated-date"
+    case discoverNeedsRegeneration = "discover-needs-regeneration"
+    case discoverSeedOffsets = "discover-seed-offsets"
 }
