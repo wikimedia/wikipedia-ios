@@ -81,23 +81,48 @@ struct YearInReviewSlideViewModelFactory {
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
             let readCount = storedReadCount() ?? 0
-            var slides = [
-                totalArticlesSlide(
-                    readCount: readCount,
-                    topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
-                    averageReadCount: config?.averageArticlesReadPerYear
-                )
-            ]
-            if let daysVisited = daysVisitedSlide(storedDaysVisited()) {
-                slides.append(daysVisited)
-            }
-            slides.append(rereadArticlesSlide(storedRereadArticles() ?? []))
-            return slides + topicSlides(storedTopTopics()) + rabbitHoleSlides(storedRabbitHoles())
+            return personalizedSlides(PersonalizedData(
+                readCount: readCount,
+                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
+                averageReadCount: config?.averageArticlesReadPerYear,
+                daysVisited: storedDaysVisited(),
+                topTopics: storedTopTopics(),
+                rabbitHoles: storedRabbitHoles(),
+                rereadArticles: storedRereadArticles() ?? []
+            ))
         }
     }
 
+    /// The stored data of the personalized slides.
+    struct PersonalizedData {
+        var readCount = 0
+        var topReadPercentage: Double?
+        var averageReadCount: Int?
+        var daysVisited: WMFYearInReviewDaysVisitedSlideData?
+        var topTopics: WMFYearInReviewTopTopicsSlideData?
+        var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
+        var rereadArticles: [RereadArticle] = []
+    }
+
+    /// The personalized slides in the order of T438549. These slides are not built yet, so they are
+    /// not in the flow: time spent, longest reading streak, reading pattern, biggest reading day,
+    /// longest read, category, geography, saved, the edit slides and the end screen.
+    func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
+        var slides = [
+            totalArticlesSlide(readCount: data.readCount, topReadPercentage: data.topReadPercentage, averageReadCount: data.averageReadCount)
+        ]
+        if let daysVisited = daysVisitedSlide(data.daysVisited) {
+            slides.append(daysVisited)
+        }
+        slides += topicSlides(data.topTopics)
+        slides += rabbitHoleSlides(data.rabbitHoles)
+        slides.append(rereadArticlesSlide(data.rereadArticles))
+        return slides
+    }
+
+    /// In the same order as `personalizedSlides(_:)`.
     private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), rereadArticlesEmptySlide(), topTopicEmptySlide()]
+        [totalArticlesEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
     }
 
     // MARK: - Total articles
@@ -220,7 +245,7 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Articles visited multiple times
 
-    private struct RereadArticle {
+    struct RereadArticle {
         let title: String
         let visitCount: Int
         /// The wiki of the article, for its thumbnail. `nil` shows the placeholder in the .riv.
@@ -247,7 +272,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// Shows the empty version unless at least two articles were visited multiple times.
-    private func rereadArticlesSlide(_ articles: [RereadArticle]) -> WMFYearInReviewSlideViewModel {
+    func rereadArticlesSlide(_ articles: [RereadArticle]) -> WMFYearInReviewSlideViewModel {
         guard articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount else {
             return rereadArticlesEmptySlide()
         }
