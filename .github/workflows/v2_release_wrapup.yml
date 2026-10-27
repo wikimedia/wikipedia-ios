@@ -286,7 +286,7 @@ jobs:
           # is wrong - skip the merge-back check instead of failing the fetch.
           if git('ls-remote', '--exit-code', '--heads', 'origin', branch).returncode != 0:
             print(f"::warning::{branch} no longer exists - already cleaned up, skipping steps 6 and 7")
-            out(branch_exists='false', new_commits='0', rc_missing='0')
+            out(branch_exists='false', new_commits='0')
             raise SystemExit(0)
 
           out(branch_exists='true')
@@ -295,7 +295,7 @@ jobs:
           missing, unverified = unmerged('origin/main', f'origin/{branch}')
           if missing is None:
             print(f"::warning::Could not compare {branch} against main, assuming nothing to merge back")
-            out(new_commits='0', rc_missing='0')
+            out(new_commits='0')
             raise SystemExit(0)
 
           print(f"{branch} has {len(missing)} commit(s) whose change is not on main")
@@ -305,30 +305,6 @@ jobs:
             print(f"  ({len(unverified)} of those carry no 'cherry picked from' trailer - either new work "
                   f"written here, or a pick made without -x. Picking with -x removes the ambiguity.)")
           out(new_commits=len(missing))
-
-          # A hotfix patches the live release, so the fix is usually not on the
-          # release candidate that is still in flight. If nobody carries it
-          # across, that release ships without the fix and silently regresses it.
-          rc_missing = 0
-          if kind == 'hotfix':
-            rcs = [l.split('refs/heads/', 1)[1]
-                   for l in git('ls-remote', '--heads', 'origin', 'refs/heads/release-candidate/*').stdout.splitlines()
-                   if 'refs/heads/' in l]
-            lines = []
-            for rc in rcs:
-              rc_gone, _ = unmerged(f'origin/{rc}', f'origin/{branch}')
-              if not rc_gone:
-                print(f"{rc} already contains every commit from {branch}")
-                continue
-              rc_missing += len(rc_gone)
-              lines.append(f"{rc}\t" + "\t".join(describe(sha) for sha in rc_gone))
-            if lines:
-              with open('/tmp/rc_missing.txt', 'w') as f:
-                f.write("\n".join(lines))
-            if not rcs:
-              print("No release candidate is in flight, nothing to regress")
-
-          out(rc_missing=rc_missing)
           EOF
 
       # -------------------------------------------------------
@@ -353,85 +329,6 @@ jobs:
             --title "Merge $BRANCH back to main" \
             --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back."
           echo "Opened PR to merge $BRANCH into main - branch left in place until it merges"
-
-      # -------------------------------------------------------
-      # 6b. Tell the in-flight release candidate it is missing this hotfix
-      # -------------------------------------------------------
-      - name: Warn that the release candidate is missing hotfix commits
-        if: steps.check_branch.outputs.rc_missing != '0'
-        env:
-          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
-          VERSION: ${{ github.event.inputs.version }}
-        run: |
-          python3 << 'EOF'
-          import json
-          import os
-          import urllib.parse
-          import urllib.request
-
-          token = os.environ['PHAB_TOKEN']
-          version = os.environ['VERSION']
-          PROJECT = 'PHID-PROJ-ojylfmfiogxrvnxoiwlp'
-
-          try:
-            with open('/tmp/rc_missing.txt') as f:
-              rows = [l.split('\t') for l in f.read().splitlines() if l.strip()]
-          except FileNotFoundError:
-            rows = []
-
-          def conduit(method, params):
-            req = urllib.request.Request(
-              f'https://phabricator.wikimedia.org/api/{method}',
-              headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
-              data=urllib.parse.urlencode(params).encode()
-            )
-            with urllib.request.urlopen(req) as resp:
-              return json.loads(resp.read())
-
-          tasks = []
-          data = conduit('maniphest.search', {
-            'api.token': token,
-            'constraints[projects][0]': PROJECT,
-            'constraints[statuses][0]': 'open',
-            'order': 'newest',
-            'limit': '100',
-          })
-          if data.get('error_code'):
-            print(f"::warning::Could not search Phabricator to post the regression notice: {data.get('error_info')}")
-          else:
-            tasks = data.get('result', {}).get('data', [])
-
-          for rc, *commits in rows:
-            rc_version = rc.split('/', 1)[1]
-            body = (f"Hotfix {version} shipped with {len(commits)} commit(s) that are not on {rc}. "
-                    f"That release will go out without these fixes unless they are cherry-picked across:")
-            listing = "\n".join(f"  {c}" for c in commits)
-
-            # The run log is not where anyone will see this - a green wrap up
-            # scrolls away. The release task is what whoever ships this release
-            # candidate actually opens, so put it there too.
-            print(f"::warning::{body}%0A{'%0A'.join('  ' + c for c in commits)}")
-            print(body)
-            print(listing)
-
-            task = next((t for t in tasks
-                         if t.get('fields', {}).get('name', '') == f"Release {rc_version}"), None)
-            if not task:
-              print(f"::warning::No open task titled 'Release {rc_version}' to comment on - tell that release's owner by hand")
-              continue
-
-            result = conduit('maniphest.edit', {
-              'api.token': token,
-              'objectIdentifier': task['phid'],
-              'transactions[0][type]': 'comment',
-              'transactions[0][value]': f"{body}\n\n```\n{listing}\n```",
-            })
-            if result.get('error_code'):
-              # The hotfix is already live; failing here would misreport that.
-              print(f"::warning::Could not comment on 'Release {rc_version}': {result.get('error_info')}")
-            else:
-              print(f"Commented on 'Release {rc_version}'")
-          EOF
 
       # -------------------------------------------------------
       # 7. Delete release branch (only if nothing to merge back)
