@@ -329,15 +329,15 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
     // MARK: - Face crop
 
     func testSquareCropRectCentersOnTheFace() {
-        let rect = WMFSearchResultsViewModel.squareCropRect(imageSize: CGSize(width: 120, height: 200), faceUnitRect: CGRect(x: 0.3, y: 0.4, width: 0.4, height: 0.2))
+        let rect = UIImage.squareCropRect(imageSize: CGSize(width: 120, height: 200), faceUnitRect: CGRect(x: 0.3, y: 0.4, width: 0.4, height: 0.2))
 
         XCTAssertEqual(rect, CGRect(x: 0, y: 40, width: 120, height: 120))
     }
 
     func testSquareCropRectClampsToTheImageEdges() {
-        let top = WMFSearchResultsViewModel.squareCropRect(imageSize: CGSize(width: 120, height: 200), faceUnitRect: CGRect(x: 0.3, y: 0.0, width: 0.4, height: 0.2))
-        let bottom = WMFSearchResultsViewModel.squareCropRect(imageSize: CGSize(width: 120, height: 200), faceUnitRect: CGRect(x: 0.3, y: 0.8, width: 0.4, height: 0.2))
-        let landscape = WMFSearchResultsViewModel.squareCropRect(imageSize: CGSize(width: 300, height: 100), faceUnitRect: CGRect(x: 0.9, y: 0.2, width: 0.1, height: 0.5))
+        let top = UIImage.squareCropRect(imageSize: CGSize(width: 120, height: 200), faceUnitRect: CGRect(x: 0.3, y: 0.0, width: 0.4, height: 0.2))
+        let bottom = UIImage.squareCropRect(imageSize: CGSize(width: 120, height: 200), faceUnitRect: CGRect(x: 0.3, y: 0.8, width: 0.4, height: 0.2))
+        let landscape = UIImage.squareCropRect(imageSize: CGSize(width: 300, height: 100), faceUnitRect: CGRect(x: 0.9, y: 0.2, width: 0.1, height: 0.5))
 
         XCTAssertEqual(top, CGRect(x: 0, y: 0, width: 120, height: 120))
         XCTAssertEqual(bottom, CGRect(x: 0, y: 80, width: 120, height: 120))

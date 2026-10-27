@@ -1196,6 +1196,7 @@
 "search-semantic-entry-point-description" = "ابحث داخل المقالات وانتقل مباشرةً إلى المقطع ذي الصلة";
 "search-semantic-entry-point-hidden-toast-modify" = "تعديل";
 "search-semantic-entry-point-hidden-toast-subtitle" = "يمكنك إظهارها مرة أخرى من خلال الإعدادات";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "الوحدة مخفية";
 "search-semantic-entry-point-hide-accessibility-label" = "إخفاء البحث داخل المقالات";
 "search-semantic-entry-point-info-accessibility-label" = "حول البحث داخل المقالات";
