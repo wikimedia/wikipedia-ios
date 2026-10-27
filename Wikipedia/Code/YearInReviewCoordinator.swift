@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+import SwiftUI
 import UIKit
 import WMF
 import WMFComponents
@@ -399,6 +401,66 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         UIApplication.shared.open(mailtoURL)
     }
 
+    private var isExportingShareImage = false
+
+    /// Shares a still image of the slide, with the share text and the app link.
+    private func shareSlide(slideID: String) {
+        guard !isExportingShareImage,
+              let slide = viewModel?.slides.first(where: { $0.id == slideID }) else {
+            return
+        }
+        isExportingShareImage = true
+        let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+
+        Task { @MainActor [weak self] in
+            defer { self?.isExportingShareImage = false }
+            do {
+                let image = try await WMFYearInReviewSlideImageExporter.image(
+                    for: slide,
+                    caption: CommonStrings.yearInReviewHighlightsCreatedWith,
+                    layoutDirection: layoutDirection
+                )
+                self?.presentShareSheet(image: image)
+            } catch {
+                DDLogError("Could not make the Year in Review share image for \(slideID): \(error)")
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
+            }
+        }
+    }
+
+    private func presentShareSheet(image: UIImage) {
+        guard let presenter = navigationController.presentedViewController else { return }
+        let text = YearInReviewShareTextItem(text: CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink))
+        let activityViewController = UIActivityViewController(activityItems: [image, text], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = presenter.view
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        presenter.present(activityViewController, animated: true)
+    }
+}
+
+/// The share text, left out where only the image can go. Instagram and TikTok share one item, and
+/// the image is the priority.
+private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+
+    private static let imageOnlyActivityPrefixes = ["com.burbn.instagram", "com.zhiliaoapp.musically", "com.ss.iphone.ugc.Ame"]
+
+    private let text: String
+
+    init(text: String) {
+        self.text = text
+    }
+
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        text
+    }
+
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        guard let activityType,
+              Self.imageOnlyActivityPrefixes.contains(where: { activityType.rawValue.hasPrefix($0) }) else {
+            return text
+        }
+        return nil
+    }
 }
 
 // MARK: - WMFYearInReviewCoordinating
@@ -414,8 +476,8 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
             showAboutInsights()
         case .shareFeedback:
             shareFeedback()
-        case .share:
-            break
+        case .share(let slideID):
+            shareSlide(slideID: slideID)
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }

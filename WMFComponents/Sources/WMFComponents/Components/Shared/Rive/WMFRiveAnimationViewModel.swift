@@ -49,6 +49,11 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
     }
 
+    /// The view model instance that the state machine binds. `nil` until the file loads.
+    var boundInstance: ViewModelInstance? {
+        bound?.main
+    }
+
     private var text: [WMFRiveText: String]
     private var numbers: [WMFRiveNumber: Double]
     private var bools: [WMFRiveBool: Bool]
