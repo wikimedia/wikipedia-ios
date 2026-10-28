@@ -43,11 +43,10 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
 
     /// The number of distinct articles read in the date range. Pages outside the main namespace and
-    /// main pages do not count. The Year in Review entry point uses the same count.
+    /// main pages do not count. The Year in Review entry point calls this, and it uses the same query
+    /// and rules as `fetchReadData`, so the entry point and the total articles slide always agree.
     static func fetchReadCount(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> Int {
-        let pageViewCounts = try await pageViewsDataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
-        // A page can have more than one stored row, so count each page once.
-        return await articles(from: Set(pageViewCounts.map(\.page)), mainPageIdentifier: mainPageIdentifier).count
+        try await fetchReadData(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier).readCount
     }
 
     /// The articles read and the whole minutes spent reading them in the date range. Both count the same

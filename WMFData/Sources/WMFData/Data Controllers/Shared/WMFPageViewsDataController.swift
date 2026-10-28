@@ -413,9 +413,10 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
             var secondsByPage: [WMFPage: Int] = [:]
             for dict in try backgroundContext.fetch(request) {
                 guard let objectID = dict["page"] as? NSManagedObjectID,
-                      let totalSeconds = dict["totalSeconds"] as? Int64,
                       let page = backgroundContext.object(with: objectID) as? CDPage,
                       let projectID = page.projectID, let title = page.title else { continue }
+                // A page with no stored seconds still counts as a page read, with zero seconds.
+                let totalSeconds = dict["totalSeconds"] as? Int64 ?? 0
                 secondsByPage[WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title), default: 0] += Int(totalSeconds)
             }
             return secondsByPage
