@@ -595,28 +595,30 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     @Test(arguments: [true, false])
-    func theRabbitHoleSlidesShowTheGuessThenTheDeepestRabbitHole(deepestIsOnTop: Bool) throws {
+    func theRabbitHoleSlideShowsTheGuessThenTheDeepestRabbitHoleInPlace(deepestIsOnTop: Bool) throws {
         let slideData = try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: deepestIsOnTop)
 
         let slides = factory.rabbitHoleSlides(slideData)
 
-        #expect(slides.map { $0.animation?.artboardName } == ["frame11a", "frame11b"])
+        #expect(slides.count == 1, "the guess and the reveal take one position in the pager")
         let guess = try #require(slides.first)
+        #expect(guess.animation?.artboardName == "frame11a")
         #expect(text(guess, "headline") == CommonStrings.yearInReviewRabbitHoleTitle)
         let (top, bottom) = deepestIsOnTop ? (("Moon", "Cat"), ("Paris", "Europe")) : (("Paris", "Europe"), ("Moon", "Cat"))
         #expect(text(guess, "articleTitleTopT") == top.0)
         #expect(text(guess, "articleTitleTopB") == top.1)
         #expect(text(guess, "articleTitleBotT") == bottom.0)
         #expect(text(guess, "articleTitleBotB") == bottom.1)
-        #expect(guess.nextSlideTrigger?.path == "frameComplete", "after the reader taps a card, the reveal slide shows")
-        #expect(guess.nextSlideFlag?.path == "articleTapped", "the reveal slide shows as soon as the reader taps a card")
+        #expect(guess.answerTrigger?.path == "frameComplete", "after the reader taps a card and the cards exit, the reveal replaces the guess")
 
-        let reveal = try #require(slides.last)
+        let reveal = try #require(guess.answer)
+        #expect(reveal.animation?.artboardName == "frame11b")
         #expect(text(reveal, "headline") == CommonStrings.yearInReviewRabbitHoleRevealTitle(articleCount: 5))
         #expect(text(reveal, "bodyText") == CommonStrings.yearInReviewRabbitHoleRevealSubtitle)
         #expect(text(reveal, "resultTitleTop") == "Moon")
         #expect(text(reveal, "resultTitleBot") == "Cat")
-        #expect(reveal.nextSlideTrigger == nil)
+        #expect(reveal.answer == nil)
+        #expect(reveal.answerTrigger == nil)
     }
 
     /// Each article thumbnail has a flag that hides the placeholder image while the thumbnail is missing.
@@ -627,7 +629,7 @@ struct YearInReviewSlideViewModelFactoryTests {
         let guess = try #require(slides.first)
         #expect(Set(guess.articleThumbnails.keys.map(\.path)) == ["thumbnailTopT", "thumbnailTopB", "thumbnailBotT", "thumbnailBotB"])
         #expect(guess.missingImageFlags.first { $0.key.path == "thumbnailBotB" }?.value.path == "noImgBotB")
-        let reveal = try #require(slides.last)
+        let reveal = try #require(guess.answer)
         #expect(Set(reveal.missingImageFlags.map { "\($0.key.path):\($0.value.path)" }) == ["resultThumbnailTop:resultNoImgT", "resultThumbnailBot:resultNoImgB"])
         #expect(reveal.articleThumbnails.first { $0.key.path == "resultThumbnailBot" }?.value.title == "Cat")
     }

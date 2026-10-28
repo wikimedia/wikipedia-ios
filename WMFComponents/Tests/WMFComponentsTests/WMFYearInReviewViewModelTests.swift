@@ -430,4 +430,53 @@ struct WMFYearInReviewViewModelTests {
         viewModel.currentSlideID = "slide1"
         #expect(viewModel.currentContentColor == WMFColor.gray700)
     }
+
+    // MARK: - Answers
+
+    private func makeViewModelWithAnswer() -> WMFYearInReviewViewModel {
+        let guess = WMFYearInReviewSlideViewModel(
+            id: "guess",
+            loggingID: "guess",
+            answer: WMFYearInReviewSlideViewModel(id: "reveal", loggingID: "reveal")
+        )
+        return WMFYearInReviewViewModel(
+            slides: [guess, WMFYearInReviewSlideViewModel(id: "last", loggingID: "last")],
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { false }
+        )
+    }
+
+    @Test
+    func aSlideAndItsAnswerTakeOnePagerPosition() {
+        let viewModel = makeViewModelWithAnswer()
+
+        #expect(viewModel.pagerSlides.map(\.id) == ["guess", "last"])
+    }
+
+    /// A VoiceOver reader cannot tap an answer in the .riv, so the answer is the next slide.
+    @Test
+    func withVoiceOverTheAnswerIsTheNextSlide() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.showsAnswersAsSlides = true
+
+        #expect(viewModel.pagerSlides.map(\.id) == ["guess", "reveal", "last"])
+        viewModel.currentSlideID = "reveal"
+        #expect(viewModel.currentSlideIndex == 1)
+        #expect(viewModel.slidePositionAccessibilityValue == "2 of 3")
+    }
+
+    /// When VoiceOver turns off on the answer, the position is the slide that has the answer.
+    @Test
+    func anAnswerThatIsNotASlideKeepsThePositionOfItsSlide() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.showsAnswersAsSlides = true
+        viewModel.currentSlideID = "reveal"
+
+        viewModel.showsAnswersAsSlides = false
+
+        #expect(viewModel.currentSlideIndex == 0)
+        #expect(viewModel.currentSlide?.id == "guess")
+    }
 }

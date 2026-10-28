@@ -417,16 +417,14 @@ struct YearInReviewSlideViewModelFactory {
         }
     }
 
-    /// Properties on the `Interaction2` view model in the templates file. On the guess slide, the
+    /// Properties on the `Interaction2` view model in the templates file. On the guess frame, the
     /// top card and the bottom card each show the first article (T) and the last article (B) of
-    /// a rabbit hole. The reveal slide shows the deepest rabbit hole with the result properties.
+    /// a rabbit hole. The reveal frame shows the deepest rabbit hole with the result properties.
     private enum RabbitHolePath {
         static let headline = WMFRiveText(path: "headline")
         static let bodyText = WMFRiveText(path: "bodyText")
         /// The guess frame fires it after the reader taps a card and the exit animation ends.
         static let frameComplete = WMFRiveTrigger(path: "frameComplete")
-        /// The guess frame sets it when the reader taps a card.
-        static let articleTapped = WMFRiveBool(path: "articleTapped")
 
         struct Article {
             let title: WMFRiveText
@@ -442,7 +440,8 @@ struct YearInReviewSlideViewModelFactory {
         static let resultLast = Article(title: WMFRiveText(path: "resultTitleBot"), thumbnail: WMFRiveImage(path: "resultThumbnailBot"), noImage: WMFRiveBool(path: "resultNoImgB"))
     }
 
-    /// The guess slide, then the reveal slide. No slides without two rabbit holes.
+    /// One slide: the guess, with the reveal as its answer. A tap on a card replaces the guess with the
+    /// reveal in place. No slide without two rabbit holes.
     func rabbitHoleSlides(_ slideData: WMFYearInReviewRabbitHolesSlideData?) -> [WMFYearInReviewSlideViewModel] {
         guard let slideData,
               slideData.isEligible,
@@ -451,10 +450,10 @@ struct YearInReviewSlideViewModelFactory {
             return []
         }
         let (topCard, bottomCard) = slideData.deepestIsOnTop ? (deepest, other) : (other, deepest)
-        return [rabbitHoleGuessSlide(topCard: topCard, bottomCard: bottomCard), rabbitHoleRevealSlide(deepest)]
+        return [rabbitHoleGuessSlide(topCard: topCard, bottomCard: bottomCard, reveal: rabbitHoleRevealSlide(deepest))]
     }
 
-    private func rabbitHoleGuessSlide(topCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole, bottomCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole) -> WMFYearInReviewSlideViewModel {
+    private func rabbitHoleGuessSlide(topCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole, bottomCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole, reveal: WMFYearInReviewSlideViewModel) -> WMFYearInReviewSlideViewModel {
         let headline = CommonStrings.yearInReviewRabbitHoleTitle
         let articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)] = [
             (RabbitHolePath.topCardFirst, topCard.firstArticle),
@@ -469,8 +468,8 @@ struct YearInReviewSlideViewModelFactory {
             headline: headline,
             bodyText: nil,
             articles: articles,
-            nextSlideTrigger: RabbitHolePath.frameComplete,
-            nextSlideFlag: RabbitHolePath.articleTapped,
+            answer: reveal,
+            answerTrigger: RabbitHolePath.frameComplete,
             accessibilityLabel: ([headline] + cardLabels).joined(separator: " ")
         )
     }
@@ -501,8 +500,8 @@ struct YearInReviewSlideViewModelFactory {
         headline: String,
         bodyText: String?,
         articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)],
-        nextSlideTrigger: WMFRiveTrigger? = nil,
-        nextSlideFlag: WMFRiveBool? = nil,
+        answer: WMFYearInReviewSlideViewModel? = nil,
+        answerTrigger: WMFRiveTrigger? = nil,
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text = [RabbitHolePath.headline: headline]
@@ -525,8 +524,8 @@ struct YearInReviewSlideViewModelFactory {
             text: text,
             articleThumbnails: thumbnails,
             missingImageFlags: missingImageFlags,
-            nextSlideTrigger: nextSlideTrigger,
-            nextSlideFlag: nextSlideFlag,
+            answer: answer,
+            answerTrigger: answerTrigger,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,

@@ -52,6 +52,18 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     @Published public var slides: [WMFYearInReviewSlideViewModel]
 
+    /// True while VoiceOver runs. `WMFYearInReviewView` sets it. A VoiceOver reader cannot tap an
+    /// answer in the .riv, so the answer of a slide is the next slide in the pager.
+    @Published var showsAnswersAsSlides = false
+
+    /// The slides in the pager, in order. Without VoiceOver, a slide and its answer take one position.
+    var pagerSlides: [WMFYearInReviewSlideViewModel] {
+        guard showsAnswersAsSlides else { return slides }
+        return slides.flatMap { slide in
+            [slide] + (slide.answer.map { [$0] } ?? [])
+        }
+    }
+
     /// The slide that the pager rests on. `WMFYearInReviewView` sets it from the scroll view. Setting
     /// it does not scroll.
     @Published public var currentSlideID: String? {
@@ -92,15 +104,20 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         self.hidesDonate = hidesDonate
     }
 
+    /// The index in `pagerSlides`. The pager can rest on an answer that is no longer its own slide,
+    /// for example after VoiceOver turns off. Then this is the index of the slide with that answer.
     public var currentSlideIndex: Int {
-        guard let currentSlideID,
-              let index = slides.firstIndex(where: { $0.id == currentSlideID }) else { return 0 }
-        return index
+        guard let currentSlideID else { return 0 }
+        let pagerSlides = pagerSlides
+        return pagerSlides.firstIndex { $0.id == currentSlideID }
+            ?? pagerSlides.firstIndex { $0.answer?.id == currentSlideID }
+            ?? 0
     }
 
     public var currentSlide: WMFYearInReviewSlideViewModel? {
-        guard slides.indices.contains(currentSlideIndex) else { return nil }
-        return slides[currentSlideIndex]
+        let pagerSlides = pagerSlides
+        guard pagerSlides.indices.contains(currentSlideIndex) else { return nil }
+        return pagerSlides[currentSlideIndex]
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
@@ -128,11 +145,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     public var isLastSlide: Bool {
-        return currentSlideIndex == max(slides.count - 1, 0)
+        return currentSlideIndex == max(pagerSlides.count - 1, 0)
     }
 
     var slidePositionAccessibilityValue: String {
-        localizedStrings.slidePositionAccessibilityValue(currentSlideIndex + 1, slides.count)
+        localizedStrings.slidePositionAccessibilityValue(currentSlideIndex + 1, pagerSlides.count)
     }
 
     var progressBarTopInset: CGFloat {
@@ -146,7 +163,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     func tappedNext() {
         guard !isLastSlide else { return }
         loggingDelegate?.logYearInReviewDidTapNext(slideLoggingID: currentSlide?.loggingID ?? "")
-        currentSlideID = slides[currentSlideIndex + 1].id
+        currentSlideID = pagerSlides[currentSlideIndex + 1].id
     }
 
     func tappedClose() {
