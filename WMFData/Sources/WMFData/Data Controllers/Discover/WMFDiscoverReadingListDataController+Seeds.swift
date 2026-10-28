@@ -2,6 +2,24 @@ import Foundation
 
 extension WMFDiscoverReadingListDataController {
 
+    /// The sources the setup screen offers. Interests is always offered. Saved articles and
+    /// reading history are offered only when they hold at least one article to seed from.
+    public func availableSources() async throws -> [WMFDiscoverSource] {
+        var availableSources: [WMFDiscoverSource] = []
+        for source in WMFDiscoverSource.allCases {
+            if source == .interests {
+                availableSources.append(source)
+                continue
+            }
+
+            let seeds = try await fetchSeeds(source: source, count: 1)
+            if !seeds.isEmpty {
+                availableSources.append(source)
+            }
+        }
+        return availableSources
+    }
+
     /// Samples up to `count` seed articles from the selected source, like the Android app does.
     func fetchSeeds(source: WMFDiscoverSource, count: Int) async throws -> [Seed] {
         guard let coreDataStore else {
