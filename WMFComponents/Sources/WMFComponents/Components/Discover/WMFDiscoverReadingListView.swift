@@ -9,8 +9,6 @@ public struct WMFDiscoverReadingListView: View {
 
     @StateObject private var menuButtonHandler: WMFDiscoverMenuButtonHandler
 
-    private static let maximumContentWidth: CGFloat = 700
-
     static let title = WMFLocalizedString("discover-list-title", value: "Discover", comment: "Title of the Discover reading list screen.")
     private static let errorTitle = WMFLocalizedString("discover-list-error-title", value: "Network error", comment: "Title of the error view on the Discover reading list screen when the list cannot be loaded.")
     private static let errorSubtitle = WMFLocalizedString("discover-list-error-subtitle", value: "Unable to load reading list.", comment: "Subtitle of the error view on the Discover reading list screen when the list cannot be loaded.")
@@ -87,7 +85,7 @@ public struct WMFDiscoverReadingListView: View {
                             rows
                         }
                     }
-                    .frame(maxWidth: Self.maximumContentWidth)
+                    .readableWidth()
                 }
                 .frame(minHeight: viewModel.pages.isEmpty ? geometry.size.height + geometry.safeAreaInsets.top : nil)
             }

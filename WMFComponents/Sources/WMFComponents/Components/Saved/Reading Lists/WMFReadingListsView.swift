@@ -73,6 +73,7 @@ public struct WMFReadingListsView: View {
         if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
             WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
                 .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .readableWidth()
                 .transition(.opacity)
         }
     }
@@ -81,7 +82,9 @@ public struct WMFReadingListsView: View {
     private var announcementRow: some View {
         if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
             WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
-                .listRowInsets(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .readableWidth()
+                .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
                 .transition(.opacity)
@@ -132,6 +135,7 @@ public struct WMFReadingListsView: View {
                         Divider()
                             .background(Color(uiColor: appEnvironment.theme.border))
                     }
+                    .readableWidth()
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color(uiColor: isSelected ? appEnvironment.theme.batchSelectionBackground : appEnvironment.theme.paperBackground))
