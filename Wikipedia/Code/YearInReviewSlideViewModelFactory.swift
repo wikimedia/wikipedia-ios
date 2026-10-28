@@ -476,7 +476,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     private func rabbitHoleRevealSlide(_ rabbitHole: WMFYearInReviewRabbitHolesSlideData.RabbitHole) -> WMFYearInReviewSlideViewModel {
-        let headline = CommonStrings.yearInReviewRabbitHoleRevealTitle(linkCount: rabbitHole.articleCount)
+        let headline = CommonStrings.yearInReviewRabbitHoleRevealTitle(articleCount: rabbitHole.articleCount)
         let bodyText = CommonStrings.yearInReviewRabbitHoleRevealSubtitle
         return rabbitHoleSlide(
             id: "rabbitHoleReveal",

@@ -612,7 +612,7 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(guess.nextSlideFlag?.path == "articleTapped", "the reveal slide shows as soon as the reader taps a card")
 
         let reveal = try #require(slides.last)
-        #expect(text(reveal, "headline") == CommonStrings.yearInReviewRabbitHoleRevealTitle(linkCount: 5))
+        #expect(text(reveal, "headline") == CommonStrings.yearInReviewRabbitHoleRevealTitle(articleCount: 5))
         #expect(text(reveal, "bodyText") == CommonStrings.yearInReviewRabbitHoleRevealSubtitle)
         #expect(text(reveal, "resultTitleTop") == "Moon")
         #expect(text(reveal, "resultTitleBot") == "Cat")

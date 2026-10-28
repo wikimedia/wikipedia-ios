@@ -1789,7 +1789,7 @@
 "year-in-review-2026-quiz-card-subtitle" = "Subtitle of the Year in Review card that opens a quiz about the history of Wikipedia. \"Dial-up\" is an old type of internet connection.";
 "year-in-review-2026-quiz-card-title" = "Title of the Year in Review card that opens a quiz about the history of Wikipedia.";
 "year-in-review-2026-rabbit-hole-reveal-subtitle" = "Subtitle of the Year in Review slide that reveals the deepest rabbit hole of the reader.";
-"year-in-review-2026-rabbit-hole-reveal-title" = "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. $1 is replaced with the number of links the reader followed one after the other.";
+"year-in-review-2026-rabbit-hole-reveal-title" = "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. $1 is replaced with the number of articles in the rabbit hole, including the first article. For example, Moon, then Earth from a link, then Cat from a link is 3.";
 "year-in-review-2026-rabbit-hole-title" = "Title of the Year in Review slide that asks the reader which of the listed rabbit holes was the deepest. A rabbit hole is a series of articles the reader opened one after the other from links. The list follows it.";
 "year-in-review-2026-reading-streak-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not read on 3 or more consecutive days this year.";
 "year-in-review-2026-reading-streak-empty-title" = "Title of the Year in Review slide shown when the reader did not read on 3 or more consecutive days this year.";

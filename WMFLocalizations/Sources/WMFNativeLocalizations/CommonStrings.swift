@@ -1025,9 +1025,9 @@ public class CommonStrings: NSObject {
     // Deepest rabbit hole
 
     public static let yearInReviewRabbitHoleTitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-title", value: "Which of your rabbit holes was the deepest?", comment: "Title of the Year in Review slide that asks the reader which of the listed rabbit holes was the deepest. A rabbit hole is a series of articles the reader opened one after the other from links. The list follows it.")
-    public static func yearInReviewRabbitHoleRevealTitle(linkCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-title", value: "{{PLURAL:%1$d|%1$d link|%1$d links}} deep is impressive.", comment: "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. %1$d is replaced with the number of links the reader followed one after the other.")
-        return String.localizedStringWithFormat(format, linkCount)
+    public static func yearInReviewRabbitHoleRevealTitle(articleCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-title", value: "{{PLURAL:%1$d|%1$d link|%1$d links}} deep is impressive.", comment: "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. %1$d is replaced with the number of articles in the rabbit hole, including the first article. For example, Moon, then Earth from a link, then Cat from a link is 3.")
+        return String.localizedStringWithFormat(format, articleCount)
     }
     public static let yearInReviewRabbitHoleRevealSubtitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-subtitle", value: "Which rabbit hole will you fall down next?", comment: "Subtitle of the Year in Review slide that reveals the deepest rabbit hole of the reader.")
 
