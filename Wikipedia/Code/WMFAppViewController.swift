@@ -35,6 +35,7 @@ private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTab
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
 private let wmfSuppressYearInReviewAnnouncementForTesting = "WMFSuppressYearInReviewAnnouncementForTesting"
 private let wmfSuppressHomeOnboardingForTesting = "WMFSuppressHomeOnboardingForTesting"
+private let wmfUITestDiscoverState = "WMFUITestDiscoverState"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -105,7 +106,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     var syncStartDate: Date?
     
-    var savedTabBarItemProgressBadgeManager: SavedTabBarItemProgressBadgeManager?
+    var savedTabBadgeController: SavedTabBadgeController?
     
     private var hasSyncErrorBeenShownThisSession: Bool = false
     
@@ -366,7 +367,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         searchTabViewController.apply(theme: theme)
 
         if let savedTabBarItem = savedViewController.tabBarItem {
-            savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+            savedTabBadgeController = SavedTabBadgeController(tabBarItem: savedTabBarItem, tabBar: tabBar, theme: theme)
         }
 
         updateActivityTabYearInReviewBadge()
@@ -470,6 +471,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        savedTabBadgeController?.refreshDiscoverAnnouncement()
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()
@@ -894,6 +896,21 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         #if TEST || UITEST
         UITestReadingListsSeeder(dataStore: dataStore).applyIfNeeded()
+        #endif
+
+        #if UITEST
+        // The flags persist in user defaults, so each launch states what it needs: "groupB" shows
+        // the onboarding card again, "off" turns Discover off, and no value keeps the previous state.
+        switch UserDefaults.standard.string(forKey: wmfUITestDiscoverState) {
+        case "groupB":
+            WMFDeveloperSettingsDataController.shared.enableDiscover = true
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+            try? WMFDiscoverDataController.shared.resetAnnouncement()
+        case "off":
+            WMFDeveloperSettingsDataController.shared.enableDiscover = false
+        default:
+            break
+        }
         #endif
 
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
@@ -2006,6 +2023,7 @@ extension WMFAppViewController: Themeable {
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
         tabBar.apply(theme: theme)
+        savedTabBadgeController?.apply(theme: theme)
 
         UISwitch.appearance().onTintColor = theme.colors.accent
 
@@ -2399,7 +2417,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
 
 // MARK: - Year in Review badge glyph
 
-/// Matches `SavedTabBarItemProgressBadgeManager`, which badges its tab with this same glyph.
+/// Matches `SavedTabBadgeController`, which badges its tab with this same glyph.
 private let wmfYearInReviewTabBadgeGlyph = "\u{2605}"
 
 private extension UITabBarItem {
