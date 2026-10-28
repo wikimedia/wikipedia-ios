@@ -458,8 +458,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         isExportingShareImage = true
         let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+        let presenter = hostingController?.navigationController
 
-        Task { @MainActor [weak self] in
+        Task { @MainActor [weak self, weak presenter] in
             defer { self?.isExportingShareImage = false }
             do {
                 let image = try await WMFYearInReviewSlideImageExporter.image(
@@ -467,7 +468,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     caption: CommonStrings.yearInReviewHighlightsCreatedWith,
                     layoutDirection: layoutDirection
                 )
-                self?.presentShareSheet(image: image)
+                self?.presentShareSheet(image: image, from: presenter)
             } catch {
                 DDLogError("Could not make the Year in Review share image for \(slideID): \(error)")
                 WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
@@ -475,11 +476,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    /// The export takes about a second. If the reader closed the slides or opened another screen
-    /// from them in that time, the share sheet does not open.
-    private func presentShareSheet(image: UIImage) {
-        guard let hostingController,
-              let presenter = hostingController.navigationController,
+    /// The export takes about a second. If the reader closed the slides, opened them again, or opened
+    /// another screen from them in that time, the share sheet does not open.
+    private func presentShareSheet(image: UIImage, from presenter: UIViewController?) {
+        guard let presenter,
+              presenter === hostingController?.navigationController,
               presenter.viewIfLoaded?.window != nil,
               presenter.presentedViewController == nil else {
             return

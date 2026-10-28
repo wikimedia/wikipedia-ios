@@ -187,6 +187,9 @@ public enum WMFYearInReviewSlideImageExporter {
                 }
             )
         }
+        // The queued draw holds the renderer weakly. Without this, an optimized build can release it
+        // after `draw` and the draw fails with "Invalid renderer for drawing."
+        withExtendedLifetime(renderer) {}
 
         return try makeImage(from: texture, width: width, height: height)
     }
