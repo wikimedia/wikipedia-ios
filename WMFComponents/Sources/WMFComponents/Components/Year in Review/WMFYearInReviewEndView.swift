@@ -10,8 +10,8 @@ public struct WMFYearInReviewEndView: View {
 
     // The design is SF Pro bold 36. xxlTitleBold is 40, the closest style.
     private let headlineFont = WMFFont.for(.xxlTitleBold)
-    // The design is EB Garamond 16. georgiaCallout is Georgia 16, the closest serif in the app.
-    private let bodyFont = WMFFont.for(.georgiaCallout)
+    // The design is EB Garamond 16. Georgia is the fallback if the font cannot load.
+    private let bodyFont = WMFYearInReviewEndFont.body()
     // The design sets the line height of the body copy to 1.25 times the font size.
     private static let bodyLineHeightMultiple: CGFloat = 1.25
     // The design is SF Pro bold 26. boldTitle1 is 28, the closest style.
@@ -276,5 +276,30 @@ private struct ScrollOffsetKey: PreferenceKey {
 
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
+    }
+}
+
+
+/// EB Garamond for the body copy of the end screen. It is the file that the slides use (#6328).
+/// It is registered for this process the first time it is used.
+private enum WMFYearInReviewEndFont {
+
+    private static let postScriptName = "EBGaramond-Regular"
+
+    private static let isRegistered: Bool = {
+        guard let url = Bundle.module.url(forResource: "EBGaramond-Regular", withExtension: "ttf") else {
+            return false
+        }
+        // A font that is already registered gives an error, but `UIFont(name:size:)` still finds it.
+        CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+        return true
+    }()
+
+    /// 16 pt, scaled with Dynamic Type like the callout style.
+    static func body(compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection) -> UIFont {
+        guard isRegistered, let font = UIFont(name: postScriptName, size: 16) else {
+            return WMFFont.for(.georgiaCallout, compatibleWith: traitCollection)
+        }
+        return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font, compatibleWith: traitCollection)
     }
 }
