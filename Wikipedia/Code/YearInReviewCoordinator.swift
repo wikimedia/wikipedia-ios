@@ -172,6 +172,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
+        // The gift card follows the slides that were built, so the end screen agrees with the last slide.
+        let hasContributorSlide = viewModel.slides.contains { $0.id == YearInReviewSlideViewModelFactory.contributorSlideID }
+        viewModel.endViewModel = makeEndViewModel(isContributor: hasContributorSlide)
+
         self.viewModel = viewModel
         self.slidesExperience = experience
 
@@ -338,6 +342,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
         viewModel.replaceSlide(id: YearInReviewSlideViewModelFactory.nonContributorSlideID, with: slide)
+
+        // The reader is now a contributor. Make the end screen again to add the gift card.
+        viewModel.endViewModel = makeEndViewModel(isContributor: true)
     }
 
     /// The pages are translated per app language, so the URLs are built rather than hardcoded.
@@ -483,5 +490,50 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 
     func logYearInReviewDidTapShare(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
+    }
+}
+
+// MARK: - End screen
+
+extension YearInReviewCoordinator {
+
+    /// The store page with the contributor discount already applied.
+    private static let storeDiscountURL = URL(string: "https://store.wikimedia.org/discount/WikiLove?utm_campaign=bf45f7&utm_source=discount_shareable_link")
+
+    /// The languages the quiz site is available in. Any other language gets English.
+    private static let whichWikipediaLanguageCodes: Set<String> = ["ar", "en", "es", "fr", "ja", "ms", "pt"]
+
+    /// The quiz page in the reader's primary app language, or English if the site does not have it.
+    private var whichWikipediaURL: URL? {
+        let appLanguageCode = WMFDataEnvironment.current.primaryAppLanguage?.languageCode.lowercased() ?? "en"
+        let languageCode = Self.whichWikipediaLanguageCodes.contains(appLanguageCode) ? appLanguageCode : "en"
+        return URL(string: "https://wikipedia25.org/\(languageCode)/which-wikipedia-of-the-future-are-you")
+    }
+
+    /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
+    private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
+        MainActor.assumeIsolated {
+            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor)
+            buildEndViewModel(viewModel)
+            return viewModel
+        }
+    }
+
+    /// Attaches the coordinator callbacks to the end screen view model.
+    @MainActor
+    private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
+        viewModel.didTapStore = { [weak self] in
+            self?.showStore()
+        }
+        viewModel.didTapWhichWikipedia = { [weak self] in
+            self?.showHelpPage(url: self?.whichWikipediaURL)
+        }
+    }
+
+    private func showStore() {
+        guard let url = Self.storeDiscountURL else {
+            return
+        }
+        UIApplication.shared.open(url)
     }
 }

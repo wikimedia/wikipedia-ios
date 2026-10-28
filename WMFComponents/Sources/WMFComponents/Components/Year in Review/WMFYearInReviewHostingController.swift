@@ -41,12 +41,21 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
+                self?.configureToolbar()
                 self?.refreshToolbarItems()
             }
             .store(in: &cancellables)
 
         // A slide can set the color of the controls in its .riv, which is known only after it loads.
         viewModel.$loadedContentStyles
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applyContentColor()
+            }
+            .store(in: &cancellables)
+
+        // The end screen scrolls its light sky away from under the bar items, then they turn light.
+        viewModel.$endUsesLightContent
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
@@ -106,7 +115,8 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
         let appearance = UIToolbarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
+        // The toolbar and the space around the page use the same color.
+        appearance.backgroundColor = viewModel.currentChromeColor
         appearance.shadowColor = .clear
 
         toolbar.standardAppearance = appearance
@@ -159,8 +169,35 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             }
         }
 
+        // If the page has no toolbar buttons, add a placeholder.
+        // The placeholder keeps the toolbar at the same height on all pages.
+        if !viewModel.showsShareButton && !viewModel.showsDonateButton {
+            items.append(makeToolbarPlaceholderItem())
+        }
+
         setToolbarItems(items, animated: false)
     }
+
+    /// Makes an item that has the same size as a toolbar button, but the user cannot see it or use it.
+    /// It uses the same button configuration, thus the height is always correct.
+    private func makeToolbarPlaceholderItem() -> UIBarButtonItem {
+        let item = makeToolbarItem(
+            title: viewModel.localizedStrings.shareButtonTitle,
+            symbol: .share,
+            action: #selector(tappedToolbarPlaceholder)
+        )
+
+        if let button = item.customView {
+            button.alpha = 0
+            button.isUserInteractionEnabled = false
+            button.accessibilityElementsHidden = true
+        }
+
+        return item
+    }
+
+    /// The placeholder item cannot receive taps. This method does nothing.
+    @objc private func tappedToolbarPlaceholder() {}
 
 
     private func makeToolbarItem(title: String, symbol: WMFSFSymbolIcon, action: Selector) -> UIBarButtonItem {
