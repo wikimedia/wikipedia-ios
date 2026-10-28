@@ -127,6 +127,10 @@ public actor WMFDiscoverReadingListDataController {
 
     /// Generates a new list when one is due, and returns the current list either way.
     public func generateRecommendationsIfNeeded(now: Date = Date()) async throws -> [WMFDiscoverRecommendedPage] {
+        if let generationTask {
+            return try await generationTask.value
+        }
+
         guard try await isGenerationDue(now: now) else {
             return try await fetchCurrentRecommendations()
         }
@@ -150,13 +154,29 @@ public actor WMFDiscoverReadingListDataController {
 
     // MARK: - Generation
 
+    /// The generation in flight. Overlapping callers wait for it instead of starting a second one.
+    private var generationTask: Task<[WMFDiscoverRecommendedPage], Error>?
+
     /// Replaces the current list with a new one.
     ///
     /// The previous list is expired, not deleted, so its articles are not recommended again and can
     /// fill the new list when the network gives too few new articles. Throws without touching the
-    /// previous list when the source has nothing to seed from.
+    /// previous list when the source has nothing to seed from. The actor is reentrant at every
+    /// `await`, so a call that arrives while a generation runs joins that run and gets its list.
     @discardableResult
     public func generateRecommendations(now: Date = Date()) async throws -> [WMFDiscoverRecommendedPage] {
+        if let generationTask {
+            return try await generationTask.value
+        }
+
+        let generationTask = Task { try await performGeneration(now: now) }
+        self.generationTask = generationTask
+        defer { self.generationTask = nil }
+
+        return try await generationTask.value
+    }
+
+    private func performGeneration(now: Date) async throws -> [WMFDiscoverRecommendedPage] {
         let settings = settings
         let targetCount = settings.articleCount
 
