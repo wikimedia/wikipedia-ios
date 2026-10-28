@@ -16,7 +16,8 @@ public enum WMFYearInReviewMinutesReadComparison: Equatable, Sendable {
 
     static let minutesPerDay = 1440
 
-    /// The most days that the comparison names.
+    /// The most days that the comparison names. The slide hides above `WMFYearInReviewReadData.maximumMinutesRead`, which is
+    /// about 208 days, so a visible slide never reaches this. It matches the shared copy spreadsheet, which Android also follows.
     public static let maximumDayCount = 300
 
     /// The smallest number of minutes that shows the days comparison. The day count is the minutes

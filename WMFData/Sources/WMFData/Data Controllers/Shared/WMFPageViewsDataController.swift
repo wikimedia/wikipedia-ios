@@ -393,6 +393,35 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
     }
 
+    /// The total seconds spent on each page in the date range. A page can have more than one stored row,
+    /// so this groups them.
+    public func fetchPageViewSeconds(startDate: Date, endDate: Date) async throws -> [WMFPage: Int] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let sumExpression = NSExpressionDescription()
+            sumExpression.name = "totalSeconds"
+            sumExpression.expression = NSExpression(forFunction: "sum:", arguments: [NSExpression(forKeyPath: "numberOfSeconds")])
+            sumExpression.expressionResultType = .integer64AttributeType
+
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            request.resultType = .dictionaryResultType
+            request.propertiesToGroupBy = ["page"]
+            request.propertiesToFetch = ["page", sumExpression]
+
+            var secondsByPage: [WMFPage: Int] = [:]
+            for dict in try backgroundContext.fetch(request) {
+                guard let objectID = dict["page"] as? NSManagedObjectID,
+                      let totalSeconds = dict["totalSeconds"] as? Int64,
+                      let page = backgroundContext.object(with: objectID) as? CDPage,
+                      let projectID = page.projectID, let title = page.title else { continue }
+                secondsByPage[WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title), default: 0] += Int(totalSeconds)
+            }
+            return secondsByPage
+        }
+    }
+
     public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
         let backgroundContext = try coreDataStore.newBackgroundContext
 

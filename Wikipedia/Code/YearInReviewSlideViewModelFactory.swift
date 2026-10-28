@@ -183,9 +183,9 @@ struct YearInReviewSlideViewModelFactory {
 
         let headline = CommonStrings.yearInReviewMinutesReadTitle
         let count = NumberFormatter.localizedString(from: NSNumber(value: readData.minutesRead), number: .decimal)
-        let bodyText = [minutesReadComparison(forMinutes: readData.minutesRead), CommonStrings.yearInReviewMinutesReadSubtitle]
-            .compactMap { $0 }
-            .joined(separator: " ")
+        // An eligible reader has at least one minute, so there is always a comparison.
+        let comparison = minutesReadComparison(forMinutes: readData.minutesRead) ?? ""
+        let bodyText = "\(comparison) \(CommonStrings.yearInReviewMinutesReadSubtitle)".trimmingCharacters(in: .whitespaces)
         return dataSlide(
             id: "minutesRead",
             artboard: "frame3",

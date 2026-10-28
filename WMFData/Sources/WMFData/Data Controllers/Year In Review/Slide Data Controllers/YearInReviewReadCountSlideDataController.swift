@@ -35,10 +35,7 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         
         let dataController = try WMFPageViewsDataController()
 
-        let readCount = try await Self.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: dataController, mainPageIdentifier: mainPageIdentifier)
-        let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
-        
-        readData = WMFYearInReviewReadData(readCount: readCount, minutesRead: minutesRead)
+        readData = try await Self.fetchReadData(startDate: startDate, endDate: endDate, pageViewsDataController: dataController, mainPageIdentifier: mainPageIdentifier)
         
         isEvaluated = true
     }
@@ -50,7 +47,22 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     static func fetchReadCount(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> Int {
         let pageViewCounts = try await pageViewsDataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
         // A page can have more than one stored row, so count each page once.
-        let articles = Set(pageViewCounts.map(\.page)).filter { $0.namespaceID == articleNamespaceID }
+        return await articles(from: Set(pageViewCounts.map(\.page)), mainPageIdentifier: mainPageIdentifier).count
+    }
+
+    /// The articles read and the whole minutes spent reading them in the date range. Both count the same
+    /// pages, so the total articles slide and the minutes read slide match. The wiki main page lookups
+    /// run once for both.
+    static func fetchReadData(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> WMFYearInReviewReadData {
+        let secondsByPage = try await pageViewsDataController.fetchPageViewSeconds(startDate: startDate, endDate: endDate)
+        let articles = await articles(from: Set(secondsByPage.keys), mainPageIdentifier: mainPageIdentifier)
+        let totalSeconds = articles.reduce(0) { $0 + (secondsByPage[$1] ?? 0) }
+        return WMFYearInReviewReadData(readCount: articles.count, minutesRead: totalSeconds / 60)
+    }
+
+    /// The pages that count as articles: pages in the main namespace that are not a main page.
+    private static func articles(from pages: Set<WMFPage>, mainPageIdentifier: WMFMainPageIdentifying?) async -> Set<WMFPage> {
+        let articles = pages.filter { $0.namespaceID == articleNamespaceID }
 
         // Get the main page title once for each wiki, not once for each article. Each request can go to the main actor.
         var mainPageTitles: [String: String] = [:]
@@ -61,11 +73,11 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
             }
         }
 
-        return articles.count(where: { page in
+        return articles.filter { page in
             let title = WMFMainPageTitle.canonicalized(page.title)
             // The app does not record the English main page, but older data can contain it.
             return title != englishMainPageTitle && title != mainPageTitles[page.projectID]
-        })
+        }
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
