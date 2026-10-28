@@ -890,16 +890,23 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
     private struct StubUserImpactProvider: YearInReviewUserImpactDataProviding {
         let totalPageviewsCount: Int?
+        let mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article]
         let error: (any Error)?
 
-        init(totalPageviewsCount: Int?, error: (any Error)? = nil) {
+        init(totalPageviewsCount: Int?, mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article] = [], error: (any Error)? = nil) {
             self.totalPageviewsCount = totalPageviewsCount
+            self.mostViewedArticles = mostViewedArticles
             self.error = error
         }
 
         func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
             if let error { throw error }
             return totalPageviewsCount
+        }
+
+        func fetchMostViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFYearInReviewMostViewedArticlesSlideData.Article] {
+            if let error { throw error }
+            return mostViewedArticles
         }
     }
 
@@ -915,6 +922,26 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         let payload = try decode(Int.self, from: try await populatedPayload(controller))
 
         XCTAssertEqual(payload, 1234)
+        XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testMostViewedArticlesKeepsTheTopThreeByViews() async throws {
+        let articles = [
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "B", projectID: "wikipedia~en", viewsCount: 10),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "A", projectID: "wikipedia~en", viewsCount: 10),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "C", projectID: "wikipedia~en", viewsCount: 500),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "D", projectID: "wikipedia~en", viewsCount: 1),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "E", projectID: "wikipedia~en", viewsCount: 0)
+        ]
+        let controller = YearInReviewMostViewedArticlesSlideDataController(
+            year: year,
+            yirConfig: config,
+            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: nil, mostViewedArticles: articles))
+        )
+
+        let payload = try decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.articles.map(\.title), ["C", "A", "B"])
         XCTAssertTrue(controller.isEvaluated)
     }
 

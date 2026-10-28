@@ -37,10 +37,21 @@ struct YearInReviewSlideDataControllerDependencies {
 
 protocol YearInReviewUserImpactDataProviding: Sendable {
     func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int?
+    func fetchMostViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFYearInReviewMostViewedArticlesSlideData.Article]
 }
 
 extension WMFUserImpactDataController: YearInReviewUserImpactDataProviding {
     func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
         try await fetch(userID: userID, project: project, language: language).totalPageviewsCount
+    }
+
+    func fetchMostViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFYearInReviewMostViewedArticlesSlideData.Article] {
+        try await fetch(userID: userID, project: project, language: language).topViewedArticles.map {
+            WMFYearInReviewMostViewedArticlesSlideData.Article(
+                title: $0.title.replacingOccurrences(of: "_", with: " "),
+                projectID: project.id,
+                viewsCount: $0.viewsCount
+            )
+        }
     }
 }

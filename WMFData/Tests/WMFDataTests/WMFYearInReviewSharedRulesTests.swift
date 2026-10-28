@@ -177,7 +177,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
 
     // MARK: - Clearing data
 
-    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited]
+    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited, .mostViewedArticles]
 
     private func storedSlideIDs(year: Int) async throws -> Set<WMFYearInReviewPersonalizedSlideID> {
         let store = try XCTUnwrap(store)
@@ -199,7 +199,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         try await dataController.deletePersonalizedData(for: .readingHistory)
 
         let remaining = try await storedSlideIDs(year: 2026)
-        XCTAssertEqual(remaining, [.editCount, .donateCount, .saveCount, .viewCount])
+        XCTAssertEqual(remaining, [.editCount, .donateCount, .saveCount, .viewCount, .mostViewedArticles])
     }
 
     func testLogoutDeletesAccountSlidesIncludingDonateSlide() async throws {

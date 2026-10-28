@@ -50,7 +50,7 @@ struct YearInReviewSlideViewModelFactory {
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
     func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
         let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn).map { [$0] } ?? []
-        return experienceSlides(experience, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+        return experienceSlides(experience, isLoggedIn: isLoggedIn, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
@@ -67,16 +67,16 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
         switch experience {
         case .collective:
             // Without a config, Year in Review does not open, but never show zero slides.
             guard let config = try? WMFYearInReviewDataController().config else {
-                return personalizedEmptySlides()
+                return personalizedEmptySlides(isLoggedIn: isLoggedIn)
             }
             return collectiveSlides(config: config)
         case .personalized where forcesAllEmptyStates:
-            return personalizedEmptySlides()
+            return personalizedEmptySlides(isLoggedIn: isLoggedIn)
         case .personalized:
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
@@ -92,12 +92,20 @@ struct YearInReviewSlideViewModelFactory {
                 slides.append(daysVisited)
             }
             slides.append(rereadArticlesSlide(storedRereadArticles() ?? []))
-            return slides + topicSlides(storedTopTopics())
+            slides += topicSlides(storedTopTopics())
+            if isLoggedIn {
+                slides += editorSlides()
+            }
+            return slides
         }
     }
 
-    private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), rereadArticlesEmptySlide(), topTopicEmptySlide()]
+    private func personalizedEmptySlides(isLoggedIn: Bool) -> [WMFYearInReviewSlideViewModel] {
+        var slides = [totalArticlesEmptySlide(), rereadArticlesEmptySlide(), topTopicEmptySlide()]
+        if isLoggedIn {
+            slides.append(editsEmptySlide())
+        }
+        return slides
     }
 
     // MARK: - Total articles
@@ -512,6 +520,134 @@ struct YearInReviewSlideViewModelFactory {
 
     private func decimalString(_ number: Int) -> String {
         NumberFormatter.localizedString(from: NSNumber(value: number), number: .decimal)
+    }
+
+    // MARK: - Edits
+
+    /// The edits slide always shows, with its empty version for a reader without edits. The views
+    /// slide and the most-viewed articles slide hide without enough views.
+    private func editorSlides() -> [WMFYearInReviewSlideViewModel] {
+        var slides = [editsSlide(editCount: storedEditCount() ?? 0)]
+        if let editViews = editViewsSlide(viewCount: storedViewCount()) {
+            slides.append(editViews)
+        }
+        if let mostViewed = mostViewedArticlesSlide(storedMostViewedArticles()) {
+            slides.append(mostViewed)
+        }
+        return slides
+    }
+
+    /// The edits slide, or its empty version for fewer than one edit.
+    func editsSlide(editCount: Int) -> WMFYearInReviewSlideViewModel {
+        guard editCount >= 1 else {
+            return editsEmptySlide()
+        }
+        let headline = CommonStrings.yearInReviewEditsTitle
+        let count = decimalString(editCount)
+        let bodyText = CommonStrings.yearInReviewEditsSubtitle
+        return dataSlide(
+            id: "edits",
+            artboard: "frame16",
+            stateMachine: "frame16-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    private func editsEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewEditsEmptyTitle
+        let bodyText = CommonStrings.yearInReviewEditsEmptySubtitle
+        return dataSlide(
+            id: "editsEmpty",
+            artboard: "frame16-empty",
+            stateMachine: "frame16-empty-statemachine",
+            headline: headline,
+            data: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    // MARK: - Edit views
+
+    /// The views on the articles the reader edited, from the report the app fills in the background.
+    /// `nil` when the report does not have them.
+    private func storedViewCount() -> Int? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .viewCount })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(Int?.self, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review edit views: \(error)")
+            return nil
+        }
+    }
+
+    /// `nil` unless the edited articles have more than `WMFYearInReviewViewCountSlideRules.minimumViewCount` views.
+    /// The slide has no empty version.
+    func editViewsSlide(viewCount: Int?) -> WMFYearInReviewSlideViewModel? {
+        guard let viewCount, viewCount > WMFYearInReviewViewCountSlideRules.minimumViewCount else {
+            return nil
+        }
+        let headline = CommonStrings.yearInReviewEditViewsTitle
+        let count = decimalString(viewCount)
+        let bodyText = CommonStrings.yearInReviewEditViewsSubtitle
+        return dataSlide(
+            id: "editViews",
+            artboard: "frame17",
+            stateMachine: "frame17-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    // MARK: - Most-viewed articles
+
+    private func storedMostViewedArticles() -> [WMFYearInReviewMostViewedArticlesSlideData.Article] {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .mostViewedArticles })?.data else {
+                return []
+            }
+            return try JSONDecoder().decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: data).articles
+        } catch {
+            DDLogError("Error reading the Year in Review most-viewed articles: \(error)")
+            return []
+        }
+    }
+
+    /// `nil` without articles. The slide has no empty version.
+    func mostViewedArticlesSlide(_ articles: [WMFYearInReviewMostViewedArticlesSlideData.Article]) -> WMFYearInReviewSlideViewModel? {
+        let shownArticles = Array(articles.prefix(Self.maximumListItems))
+        guard !shownArticles.isEmpty else {
+            return nil
+        }
+
+        let bodyText = CommonStrings.yearInReviewMostViewedEditedArticlesTitle
+        let items = shownArticles.map { article in
+            ListItem(title: article.title, subtitle: decimalString(article.viewsCount))
+        }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        for (index, article) in shownArticles.enumerated() {
+            guard let project = article.project else { continue }
+            thumbnails[ListImagePath.icon(index + 1)] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+        }
+        return listSlide(
+            id: "mostViewedArticles",
+            artboard: "frame18",
+            stateMachine: "frame18-statemachine",
+            headline: nil,
+            bodyText: bodyText,
+            items: items,
+            articleThumbnails: thumbnails,
+            accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
     }
 
     // MARK: - Contributor

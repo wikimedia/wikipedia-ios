@@ -1,5 +1,11 @@
 import CoreData
 
+/// Eligibility for the "views your edits received" slide.
+public enum WMFYearInReviewViewCountSlideRules {
+    /// The edited articles must have more than this number of views to show the slide.
+    public static let minimumViewCount = 25
+}
+
 // @unchecked: `isEvaluated` is mutable, but instances are confined to the sequential
 // populate flow in WMFYearInReviewDataController (mutated in a loop, then read in a
 // single Core Data perform closure) — see YearInReviewSlideDataControllerProtocol.
