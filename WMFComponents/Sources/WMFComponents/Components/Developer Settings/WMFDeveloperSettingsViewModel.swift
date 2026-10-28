@@ -99,9 +99,15 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
-    @Published public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? = WMFDeveloperSettingsDataController.shared.forceYiRExperience {
+    @Published public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? = WMFDeveloperSettingsDataController.shared.forceYiRDataState {
         didSet {
-            WMFDeveloperSettingsDataController.shared.forceYiRExperience = forceYiRExperience
+            WMFDeveloperSettingsDataController.shared.forceYiRDataState = forceYiRDataState
+        }
+    }
+
+    @Published public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? = WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience = forceYiRSlidesExperience
         }
     }
 

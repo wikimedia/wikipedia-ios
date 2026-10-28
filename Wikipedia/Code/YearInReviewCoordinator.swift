@@ -55,15 +55,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// TODO: add when data ticket is available
     private var introSlideLoggingID: String = ""
 
-    /// The data state the announcement was built with. It picks the slides opened from the
-    /// announcement and the log in prompt copy.
-    private var announcementUserDataState: WMFYearInReviewDataController.YiRUserDataState = .lowData
+    /// The data state the announcement was built with. It picks the log in prompt copy. It does not
+    /// pick the slides: those are chosen after the reader taps Explore and logs in.
+    private var announcementDataState: WMFYearInReviewDataController.YiRDataState = .lowData
 
     /// The navigation controller the announcement is presented in. The slides replace the
     /// announcement inside it, so it holds whichever of the two is showing.
     private weak var announcementNavigationController: UINavigationController?
 
     private weak var viewModel: WMFYearInReviewViewModel?
+
+    /// The slides that `viewModel` shows. A donation turns "You matter" into "Thank you" only in the
+    /// personalized slides.
+    private var slidesExperience: WMFYearInReviewDataController.YiRSlidesExperience = .collective
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
     private let slideFactory = YearInReviewSlideViewModelFactory()
@@ -112,7 +116,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     @MainActor
     private func presentAnnouncement() async -> Bool {
-        let userDataState = (try? dataController.fetchUserDataState()) ?? .lowData
+        let dataState = (try? await dataController.fetchDataState(mainPageIdentifier: dataStore)) ?? .lowData
         let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
 
         // Something may have been presented while the data loaded.
@@ -120,9 +124,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return false
         }
 
-        announcementUserDataState = userDataState
+        announcementDataState = dataState
         let viewModel = announcementFactory.makeViewModel(
-            userDataState: userDataState,
+            dataState: dataState,
             readingDayCount: readingDayCount,
             delegate: self
         )
@@ -147,23 +151,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// Builds the slides and their hosting controller. Shared by the direct presentation and the
     /// in place transition from the announcement.
     ///
-    /// `userDataState` is nil for the profile entry point, which does not pick slides here. The data
-    /// controller picks it then, and the developer settings can override it.
-    ///
-    /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
-    /// has data. `userDataState` is a temporary proxy for that (see `dataRichEligibleSlideThreshold`
-    /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
-    private func makeYearInReviewHostingController(userDataState: WMFYearInReviewDataController.YiRUserDataState?) -> WMFYearInReviewHostingController {
-        // `fetchUserDataState()` runs on the main actor. This method only runs on the main thread,
-        // because it presents view controllers.
-        let userDataState = userDataState ?? MainActor.assumeIsolated {
-            (try? dataController.fetchUserDataState()) ?? .lowData
+    /// The slides are chosen here, so after any log in. A logged-out reader always gets the
+    /// collective slides.
+    private func makeYearInReviewHostingController() -> WMFYearInReviewHostingController {
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        // `fetchSlidesExperience(isLoggedIn:)` runs on the main actor. This method only runs on the
+        // main thread, because it presents view controllers.
+        let experience = MainActor.assumeIsolated {
+            (try? dataController.fetchSlidesExperience(isLoggedIn: isLoggedIn)) ?? .collective
         }
 
         let viewModel = WMFYearInReviewViewModel(
             slides: slideFactory.makeSlides(
-                userDataState: userDataState,
-                isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
+                experience: experience,
+                isLoggedIn: isLoggedIn,
                 forcesAllEmptyStates: dataController.forcesAllEmptyStates
             ),
             localizedStrings: slideFactory.makeLocalizedStrings(),
@@ -172,12 +173,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
 
         self.viewModel = viewModel
+        self.slidesExperience = experience
 
         return WMFYearInReviewHostingController(viewModel: viewModel)
     }
 
-    private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
-        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
+    private func presentYearInReview() {
+        let hostingController = makeYearInReviewHostingController()
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         // Year in Review is always light, whatever the system style is.
         presentedNavigationController.overrideUserInterfaceStyle = .light
@@ -189,14 +191,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     /// Replaces the announcement with the first slide inside the same full screen navigation
     /// controller, so nothing is dismissed and presented again.
-    private func transitionAnnouncementToYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState?) {
+    private func transitionAnnouncementToYearInReview() {
         guard let announcementNavigationController,
               announcementNavigationController.presentingViewController != nil else {
-            presentYearInReview(userDataState: userDataState)
+            presentYearInReview()
             return
         }
 
-        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
+        let hostingController = makeYearInReviewHostingController()
 
         // The announcement blocks swipe to dismiss. The slides never did.
         announcementNavigationController.isModalInPresentation = false
@@ -211,28 +213,28 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Announcement log in prompt
 
-    /// Asks logged-out readers to log in first. Logging in or creating an account opens the slides
-    /// for `userDataStateAfterLogin`. Continuing without logging in, or closing the log in screen,
-    /// always opens the low data slides.
-    private func presentAnnouncementLoginPrompt(userDataStateAfterLogin: WMFYearInReviewDataController.YiRUserDataState) {
+    /// Asks logged-out readers to log in first. The slides open after the log in screen closes, and
+    /// they are chosen then: logging in can open the personalized slides. Continuing without logging
+    /// in, or closing the log in screen, opens the collective slides.
+    private func presentAnnouncementLoginPrompt() {
         guard let announcement = navigationController.presentedViewController else {
-            presentYearInReview(userDataState: .lowData)
+            presentYearInReview()
             return
         }
 
-        let copy = announcementFactory.makeLoginPromptCopy(userDataState: announcementUserDataState)
+        let copy = announcementFactory.makeLoginPromptCopy(dataState: announcementDataState)
 
         let alert = UIAlertController(title: copy.title, message: copy.message, preferredStyle: .alert)
         alert.overrideUserInterfaceStyle = .light
 
         let loginAction = UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
             self?.dismissAnnouncement {
-                self?.startAnnouncementLogin(userDataStateAfterLogin: userDataStateAfterLogin)
+                self?.startAnnouncementLogin()
             }
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
-            self?.transitionAnnouncementToYearInReview(userDataState: .lowData)
+            self?.transitionAnnouncementToYearInReview()
         }
 
         alert.addAction(loginAction)
@@ -243,19 +245,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         announcement.present(alert, animated: true)
     }
 
-    private func startAnnouncementLogin(userDataStateAfterLogin: WMFYearInReviewDataController.YiRUserDataState) {
+    private func startAnnouncementLogin() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme, loggingCategory: .yir)
 
         // The log in screen calls this before it dismisses itself, so wait for that to finish.
         loginCoordinator.loginSuccessCompletion = { [weak self] in
             Task { @MainActor [weak self] in
-                self?.presentYearInReviewAfterCurrentDismissal(userDataState: userDataStateAfterLogin)
+                self?.presentYearInReviewAfterCurrentDismissal()
             }
         }
 
         loginCoordinator.loginDismissedCompletion = { [weak self] in
             Task { @MainActor [weak self] in
-                self?.presentYearInReviewAfterCurrentDismissal(userDataState: .lowData)
+                self?.presentYearInReviewAfterCurrentDismissal()
             }
         }
 
@@ -263,11 +265,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
             guard let self else { return }
             guard let accountCreation = navigationController.presentedViewController else {
-                presentYearInReview(userDataState: userDataStateAfterLogin)
+                presentYearInReview()
                 return
             }
             accountCreation.dismiss(animated: true) { [weak self] in
-                self?.presentYearInReview(userDataState: userDataStateAfterLogin)
+                self?.presentYearInReview()
             }
         }
 
@@ -275,14 +277,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// Presents the slides once any dismissal in progress is done.
-    private func presentYearInReviewAfterCurrentDismissal(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
+    private func presentYearInReviewAfterCurrentDismissal() {
         guard let transitionCoordinator = navigationController.transitionCoordinator else {
-            presentYearInReview(userDataState: userDataState)
+            presentYearInReview()
             return
         }
 
         transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.presentYearInReview(userDataState: userDataState)
+            self?.presentYearInReview()
         }
     }
 
@@ -327,11 +329,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// The rebuilt slide reads the saved donation. The reader stays on the same slide, which
-    /// becomes the "Thank you" version. Does nothing when Year in Review is closed, or for a
-    /// logged-out reader, who always sees "You matter".
+    /// becomes the "Thank you" version. Does nothing when Year in Review is closed, in the
+    /// collective slides, or for a logged-out reader, who always sees "You matter".
     private func showThankYouSlideAfterDonation() {
         guard let viewModel,
-              let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
+              let slide = slideFactory.makeContributorSlide(experience: slidesExperience, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
               slide.id == YearInReviewSlideViewModelFactory.contributorSlideID else {
             return
         }
@@ -425,14 +427,12 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
 extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
 
     func yearInReviewAnnouncementDidTapExplore() {
-        let userDataState = announcementUserDataState
-
         guard dataStore.authenticationManager.authStateIsPermanent else {
-            presentAnnouncementLoginPrompt(userDataStateAfterLogin: userDataState)
+            presentAnnouncementLoginPrompt()
             return
         }
 
-        transitionAnnouncementToYearInReview(userDataState: userDataState)
+        transitionAnnouncementToYearInReview()
     }
 
     func yearInReviewAnnouncementDidTapClose() {
