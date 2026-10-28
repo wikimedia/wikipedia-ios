@@ -90,6 +90,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private weak var announcementNavigationController: UINavigationController?
 
     private weak var viewModel: WMFYearInReviewViewModel?
+    private weak var hostingController: WMFYearInReviewHostingController?
     private weak var announcementViewModel: WMFYearInReviewAnnouncementViewModel?
 
     /// The slides that `viewModel` shows. A donation turns "You matter" into "Thank you" only in the
@@ -216,7 +217,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.viewModel = viewModel
         self.slidesExperience = experience
 
-        return WMFYearInReviewHostingController(viewModel: viewModel)
+        let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
+        self.hostingController = hostingController
+        return hostingController
     }
 
     private func presentYearInReview() {
@@ -467,13 +470,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 self?.presentShareSheet(image: image)
             } catch {
                 DDLogError("Could not make the Year in Review share image for \(slideID): \(error)")
-                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
             }
         }
     }
 
+    /// The export takes about a second. If the reader closed the slides or opened another screen
+    /// from them in that time, the share sheet does not open.
     private func presentShareSheet(image: UIImage) {
-        guard let presenter = navigationController.presentedViewController else { return }
+        guard let hostingController,
+              let presenter = hostingController.navigationController,
+              presenter.viewIfLoaded?.window != nil,
+              presenter.presentedViewController == nil else {
+            return
+        }
         let text = YearInReviewShareTextItem(text: CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink))
         let activityViewController = UIActivityViewController(activityItems: [image, text], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = presenter.view

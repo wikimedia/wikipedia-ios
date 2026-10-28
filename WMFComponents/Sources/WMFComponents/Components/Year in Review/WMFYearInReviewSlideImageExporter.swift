@@ -238,61 +238,72 @@ public enum WMFYearInReviewSlideImageExporter {
         let pixelSize = artwork.size
         let renderer = UIGraphicsImageRenderer(size: pixelSize, format: format)
 
+        // Lay out in points of a phone that is `referenceWidth` wide.
+        let scale = pixelSize.width / referenceWidth
+        let canvas = CGSize(width: referenceWidth, height: pixelSize.height / scale)
+
+        // A fixed text size, so the image does not depend on the Dynamic Type setting of the reader.
+        let traits = UITraitCollection(preferredContentSizeCategory: .large)
+
+        let wordmark = UIImage(named: wordmarkAssetName, in: .module, compatibleWith: traits)
+        var wordmarkRect: CGRect?
+        if let wordmark, wordmark.size.height > 0 {
+            let wordmarkWidth = wordmarkHeight * wordmark.size.width / wordmark.size.height
+            wordmarkRect = CGRect(
+                x: (canvas.width - wordmarkWidth) / 2,
+                y: wordmarkTopMargin,
+                width: wordmarkWidth,
+                height: wordmarkHeight
+            )
+        }
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        var attributes: [NSAttributedString.Key: Any] = [
+            .font: WMFFont.for(.caption2, compatibleWith: traits),
+            .kern: captionKerning,
+            .paragraphStyle: paragraphStyle
+        ]
+
+        let maximumWidth = canvas.width - 2 * sideMargin
+        let captionBounds = (caption as NSString).boundingRect(
+            with: CGSize(width: maximumWidth, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin],
+            attributes: attributes,
+            context: nil
+        )
+        let captionHeight = ceil(captionBounds.height)
+        let captionRect = CGRect(
+            x: sideMargin,
+            y: canvas.height - captionBottomMargin - captionHeight,
+            width: maximumWidth,
+            height: captionHeight
+        )
+        // The text is centered in `captionRect`, so measure only the part it covers.
+        let captionTextWidth = min(ceil(captionBounds.width), maximumWidth)
+        let captionTextRect = captionRect.insetBy(dx: (maximumWidth - captionTextWidth) / 2, dy: 0)
+
         return renderer.image { context in
             WMFYearInReviewViewModel.chromeBackgroundColor.setFill()
             context.fill(CGRect(origin: .zero, size: pixelSize))
             artwork.draw(in: CGRect(origin: .zero, size: pixelSize))
 
             // Black, as in Figma, or white on dark artwork. `isUIWhite` describes only the top of the
-            // artwork, so each one takes its color from the artwork behind it.
-            let scale = pixelSize.width / referenceWidth
-            let wordmarkArea = CGRect(x: 0, y: 0, width: pixelSize.width, height: (wordmarkTopMargin + wordmarkHeight + 8) * scale)
-            let captionArea = CGRect(x: 0, y: pixelSize.height - (captionBottomMargin + 24) * scale, width: pixelSize.width, height: (captionBottomMargin + 24) * scale)
-            let wordmarkColor = isDark(context.cgContext, in: wordmarkArea) ? WMFColor.white : WMFColor.black
-            let captionColor = isDark(context.cgContext, in: captionArea) ? WMFColor.white : WMFColor.black
+            // artwork, so each one takes its color from the artwork directly behind it.
+            let background = context.cgContext.makeImage()
+            let toPixels = CGAffineTransform(scaleX: scale, y: scale)
+            let wordmarkColor = wordmarkRect.map { isDark(background, in: $0.applying(toPixels)) } == true ? WMFColor.white : WMFColor.black
+            let captionColor = isDark(background, in: captionTextRect.applying(toPixels)) ? WMFColor.white : WMFColor.black
 
-            // From here, draw in points of a phone that is `referenceWidth` wide.
             context.cgContext.scaleBy(x: scale, y: scale)
-            let canvas = CGSize(width: referenceWidth, height: pixelSize.height / scale)
 
-            // A fixed text size, so the image does not depend on the Dynamic Type setting of the reader.
-            let traits = UITraitCollection(preferredContentSizeCategory: .large)
-
-            if let wordmark = UIImage(named: wordmarkAssetName, in: .module, compatibleWith: traits)?
-                .withTintColor(wordmarkColor, renderingMode: .alwaysOriginal),
-               wordmark.size.height > 0 {
-                let wordmarkWidth = wordmarkHeight * wordmark.size.width / wordmark.size.height
-                wordmark.draw(in: CGRect(
-                    x: (canvas.width - wordmarkWidth) / 2,
-                    y: wordmarkTopMargin,
-                    width: wordmarkWidth,
-                    height: wordmarkHeight
-                ))
+            if let wordmark, let wordmarkRect {
+                wordmark
+                    .withTintColor(wordmarkColor, renderingMode: .alwaysOriginal)
+                    .draw(in: wordmarkRect)
             }
 
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .center
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: WMFFont.for(.caption2, compatibleWith: traits),
-                .kern: captionKerning,
-                .foregroundColor: captionColor,
-                .paragraphStyle: paragraphStyle
-            ]
-
-            let maximumWidth = canvas.width - 2 * sideMargin
-            let captionBounds = (caption as NSString).boundingRect(
-                with: CGSize(width: maximumWidth, height: .greatestFiniteMagnitude),
-                options: [.usesLineFragmentOrigin],
-                attributes: attributes,
-                context: nil
-            )
-            let captionHeight = ceil(captionBounds.height)
-            let captionRect = CGRect(
-                x: sideMargin,
-                y: canvas.height - captionBottomMargin - captionHeight,
-                width: maximumWidth,
-                height: captionHeight
-            )
+            attributes[.foregroundColor] = captionColor
             (caption as NSString).draw(with: captionRect, options: [.usesLineFragmentOrigin], attributes: attributes, context: nil)
         }
     }
@@ -300,27 +311,41 @@ public enum WMFYearInReviewSlideImageExporter {
 
 extension WMFYearInReviewSlideImageExporter {
 
-    /// True if the average brightness of the area is below the middle. `area` is in pixels.
-    fileprivate static func isDark(_ context: CGContext, in area: CGRect) -> Bool {
-        guard let image = context.makeImage()?.cropping(to: area) else {
+    /// True if the mean luminance of all the pixels in the area is below the middle. `area` is in pixels.
+    fileprivate static func isDark(_ image: CGImage?, in area: CGRect) -> Bool {
+        guard let crop = image?.cropping(to: area.integral) else {
             return false
         }
-        var pixel = [UInt8](repeating: 0, count: 4)
-        guard let averaging = CGContext(
-            data: &pixel,
-            width: 1,
-            height: 1,
-            bitsPerComponent: 8,
-            bytesPerRow: 4,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else {
+        let width = crop.width
+        let height = crop.height
+        guard width > 0, height > 0 else {
             return false
         }
-        averaging.interpolationQuality = .medium
-        averaging.draw(image, in: CGRect(x: 0, y: 0, width: 1, height: 1))
-        let luminance = 0.2126 * Double(pixel[0]) + 0.7152 * Double(pixel[1]) + 0.0722 * Double(pixel[2])
-        return luminance < 128
+        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+        let drawn = pixels.withUnsafeMutableBytes { buffer -> Bool in
+            // Same size as the crop, so each pixel is copied and none is sampled away.
+            guard let context = CGContext(
+                data: buffer.baseAddress,
+                width: width,
+                height: height,
+                bitsPerComponent: 8,
+                bytesPerRow: width * 4,
+                space: CGColorSpaceCreateDeviceRGB(),
+                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
+            ) else {
+                return false
+            }
+            context.draw(crop, in: CGRect(x: 0, y: 0, width: width, height: height))
+            return true
+        }
+        guard drawn else {
+            return false
+        }
+        var total = 0.0
+        for index in stride(from: 0, to: pixels.count, by: 4) {
+            total += 0.2126 * Double(pixels[index]) + 0.7152 * Double(pixels[index + 1]) + 0.0722 * Double(pixels[index + 2])
+        }
+        return total / Double(width * height) < 128
     }
 }
 
