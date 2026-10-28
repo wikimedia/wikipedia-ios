@@ -18,6 +18,8 @@ public enum WMFNSNotification {
     public static let yearInReviewEntryPointNeedsUpdate = Notification.Name(WMFNotificationName.yirEntryPointNeedsUpdate.rawValue)
     /// Posted after the local donation history is saved or deleted.
     public static let localDonationHistoryDidChange = Notification.Name(WMFNotificationName.localDonationHistoryDidChange.rawValue)
+    /// The Discover onboarding card was answered or reset, or its gates changed, so the Saved tab badge needs an update.
+    public static let discoverAnnouncementStateDidChange = Notification.Name(WMFNotificationName.discoverAnnouncementStateDidChange.rawValue)
 
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -41,4 +43,5 @@ private enum WMFNotificationName: String {
     case yirActivity2026 = "WMFYearInReviewActivityTabBadgeNeedsUpdate"
     case yirEntryPointNeedsUpdate = "WMFYearInReviewEntryPointNeedsUpdate"
     case localDonationHistoryDidChange = "WMFDataLocalDonationHistoryDidChange"
+    case discoverAnnouncementStateDidChange = "WMFDataDiscoverAnnouncementStateDidChange"
 }

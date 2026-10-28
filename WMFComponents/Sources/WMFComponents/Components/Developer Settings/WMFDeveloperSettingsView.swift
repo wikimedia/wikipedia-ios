@@ -171,6 +171,39 @@ struct WMFDeveloperSettingsView: View {
             }
             .listRowBackground(rowBackground)
 
+            Section {
+                captionedRow(caption: "Keeps Discover hidden in production while its user stories ship. Without this, no gate below is evaluated.") {
+                    Toggle("Enable Discover", isOn: $viewModel.enableDiscover)
+                }
+                captionedRow(caption: "Overrides the persisted A/B bucket at read time. Switching it back to Off restores the persisted bucket.") {
+                    Picker("Force Experiment Group", selection: $viewModel.forceDiscoverExperimentAssignment) {
+                        Text("Off").tag(WMFDiscoverDataController.ExperimentAssignment?.none)
+                        Text("Control (A)").tag(WMFDiscoverDataController.ExperimentAssignment?.some(.control))
+                        Text("Group B").tag(WMFDiscoverDataController.ExperimentAssignment?.some(.groupB))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                captionedRow(caption: "Removes the persisted bucket so the next visit to Saved re-rolls the A/B assignment.") {
+                    Button {
+                        viewModel.clearDiscoverExperimentAssignment()
+                    } label: {
+                        Text("Clear experiment assignment")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+                captionedRow(caption: "Forgets the answer to the onboarding card, so the card and the Saved tab badge show again.") {
+                    Button {
+                        viewModel.resetDiscoverAnnouncement()
+                    } label: {
+                        Text("Reset onboarding card")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+            } header: {
+                sectionHeader("Discover")
+            }
+            .listRowBackground(rowBackground)
+
             if let widgetDiagnostics = viewModel.widgetDiagnostics {
                 Section {
                     ForEach(Array(widgetDiagnostics.cacheSummaryLines.enumerated()), id: \.offset) { _, line in

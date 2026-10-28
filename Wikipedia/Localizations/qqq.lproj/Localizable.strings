@@ -355,6 +355,12 @@
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "diff-user-button-accessibility-text" = "Accessibility text to provide more context to users of assistive tecnologies about the user button actions";
 "dim-images" = "Label for image dimming setting";
+"discover-announcement-body" = "Body of the card that introduces the Discover reading list on the Saved tab.";
+"discover-announcement-get-started" = "Title of the button on the Discover card that opens the Discover setup.";
+"discover-announcement-new-tag" = "Tag on the card that introduces the Discover reading list on the Saved tab. Marks the feature as new.";
+"discover-announcement-no-thanks" = "Title of the button on the Discover card that dismisses the card.";
+"discover-announcement-no-thanks-toast" = "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.";
+"discover-announcement-title" = "Title of the card that introduces the Discover reading list on the Saved tab.";
 "donate-accessibility-amount-button-hint" = "Accessibility hint on donate form amount option button for screen readers.";
 "donate-accessibility-donate-hint-format" = "Accessibility hint on donate form Apple Pay button for screen readers. Parameters: * $1 - the donation amount entered by the user.";
 "donate-accessibility-email-opt-in-hint" = "Accessibility hint on donate form email opt in checkbox for screen readers.";
@@ -1798,6 +1804,7 @@
 "year-in-review-2026-saved-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-title" = "Title of the Year in Review slide that shows the number of articles the reader saved this year. The number follows it.";
 "year-in-review-2026-share-text" = "Text the reader shares with their Year in Review highlights. $1 is replaced with a link to the Wikipedia app.";
+"year-in-review-2026-store-card-button-title" = "Button on the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-store-card-subtitle" = "Subtitle of the Year in Review card that gives a discount on the Wikipedia store. $1 is replaced with a percentage, for example \"15%\".";
 "year-in-review-2026-store-card-title" = "Title of the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-tabs-card-title" = "Title of the Year in Review card that opens the open tabs of the reader.";
