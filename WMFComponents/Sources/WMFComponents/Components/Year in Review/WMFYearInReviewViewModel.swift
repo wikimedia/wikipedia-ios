@@ -160,12 +160,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         logSlideAppearance()
     }
 
-    func tappedNext() {
-        guard !isLastSlide else { return }
-        loggingDelegate?.logYearInReviewDidTapNext(slideLoggingID: currentSlide?.loggingID ?? "")
-        currentSlideID = pagerSlides[currentSlideIndex + 1].id
-    }
-
     func tappedClose() {
         loggingDelegate?.logYearInReviewDidTapDone(slideLoggingID: currentSlide?.loggingID ?? "")
         coordinatorDelegate?.handleYearInReviewAction(.close)

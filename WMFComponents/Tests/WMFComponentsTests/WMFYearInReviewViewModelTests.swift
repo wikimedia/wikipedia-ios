@@ -112,48 +112,17 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.isLastSlide)
     }
 
-    /// One slide is simultaneously the first and the last, so `tappedNext` must not run off
-    /// the end of the array.
+    /// One slide is the first and the last slide.
     @Test
     func aSingleSlideIsTheLastSlide() {
         let viewModel = makeViewModel(slideCount: 1)
         #expect(viewModel.isLastSlide)
-
-        viewModel.tappedNext()
-        #expect(viewModel.currentSlideID == "slide0")
     }
 
     @Test
     func anEmptySlideSetIsTreatedAsTheLastSlide() {
         let viewModel = makeViewModel(slideCount: 0)
         #expect(viewModel.isLastSlide)
-
-        viewModel.tappedNext()
-        #expect(viewModel.currentSlideID == nil)
-    }
-
-    // MARK: - Advancing
-
-    @Test
-    func tappedNextAdvancesByIdAndLogs() {
-        let viewModel = makeViewModel()
-
-        viewModel.tappedNext()
-
-        #expect(viewModel.currentSlideID == "slide1")
-        #expect(logging.next == ["logging0"])
-    }
-
-    @Test
-    func tappedNextStopsOnTheLastSlide() {
-        let viewModel = makeViewModel()
-        viewModel.currentSlideID = "slide2"
-        logging.next.removeAll()
-
-        viewModel.tappedNext()
-
-        #expect(viewModel.currentSlideID == "slide2")
-        #expect(logging.next.isEmpty)
     }
 
     // MARK: - Slide appearance logging
