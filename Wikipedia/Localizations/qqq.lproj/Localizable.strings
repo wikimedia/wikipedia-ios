@@ -1819,6 +1819,7 @@
 "year-in-review-2026-saved-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-title" = "Title of the Year in Review slide that shows the number of articles the reader saved this year. The number follows it.";
 "year-in-review-2026-share-text" = "Text the reader shares with their Year in Review highlights. $1 is replaced with a link to the Wikipedia app.";
+"year-in-review-2026-store-card-button-title" = "Button on the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-store-card-subtitle" = "Subtitle of the Year in Review card that gives a discount on the Wikipedia store. $1 is replaced with a percentage, for example \"15%\".";
 "year-in-review-2026-store-card-title" = "Title of the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-tabs-card-title" = "Title of the Year in Review card that opens the open tabs of the reader.";

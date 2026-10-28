@@ -4,7 +4,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
-    var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? { get }
+    var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? { get }
+    var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? { get }
     var forceYiR2026Announcement: Bool { get }
 }
 
@@ -114,26 +115,42 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             saveFlag(.developerSettingsForceYiREntryPoint2026, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
             }
         }
     }
 
-    /// Debugging convenience: which Year in Review experience to force, regardless of how much
-    /// personalized data the account has. Nil means no override. Has an effect only when
+    /// Debugging convenience: which Year in Review entry point and announcement to force,
+    /// regardless of the reading history. Nil means no override. Has an effect only when
     /// `forceYiREntryPoint2026` is also true.
-    public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? {
-        get {
-            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
-                return nil
-            }
-            return WMFYearInReviewDataController.YiRForcedExperience(rawValue: rawValue)
-        }
+    public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? {
+        get { loadRawValue(.developerSettingsForceYiRDataState) }
         set {
-            if let newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
-            } else {
-                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
-            }
+            saveRawValue(.developerSettingsForceYiRDataState, newValue)
+            NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
+        }
+    }
+
+    /// Debugging convenience: which Year in Review slides to force, regardless of the log in state
+    /// and the personalized data. Nil means no override. Has an effect only when
+    /// `forceYiREntryPoint2026` is also true.
+    public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? {
+        get { loadRawValue(.developerSettingsForceYiRSlidesExperience) }
+        set { saveRawValue(.developerSettingsForceYiRSlidesExperience, newValue) }
+    }
+
+    private func loadRawValue<Value: RawRepresentable>(_ key: WMFUserDefaultsKey) -> Value? where Value.RawValue == String {
+        guard let rawValue: String = try? userDefaultsStore?.load(key: key.rawValue) else {
+            return nil
+        }
+        return Value(rawValue: rawValue)
+    }
+
+    private func saveRawValue<Value: RawRepresentable>(_ key: WMFUserDefaultsKey, _ value: Value?) where Value.RawValue == String {
+        if let value {
+            try? userDefaultsStore?.save(key: key.rawValue, value: value.rawValue)
+        } else {
+            try? userDefaultsStore?.remove(key: key.rawValue)
         }
     }
 

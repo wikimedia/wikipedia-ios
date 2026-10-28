@@ -20,6 +20,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let dataController: WMFActivityTabDataController
 
     @objc var disableModalsOnAppearance: Bool = false
+    private var yearInReviewDataStateTask: Task<Void, Never>?
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
@@ -41,6 +42,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(yearInReviewEntryPointNeedsUpdate), name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
 
         embedHostingController()
 
@@ -137,9 +139,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        // The data controller applies the developer settings override. Otherwise the slides in the stored report decide.
-        let userDataState = (try? yirDataController.fetchUserDataState()) ?? .lowData
-        viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
+        // The data controller applies the developer settings override. Otherwise the local reading history decides.
+        yearInReviewDataStateTask?.cancel()
+        yearInReviewDataStateTask = Task { @MainActor [weak self, dataStore] in
+            let dataState = (try? await yirDataController.fetchDataState(mainPageIdentifier: dataStore)) ?? .lowData
+            guard !Task.isCancelled else { return }
+            self?.viewModel.yearInReviewViewModel?.isDataRich = dataState == .dataRich
+        }
     }
     
     /// On iPad, asks the window to switch to portrait before Year in Review opens, so it does not
@@ -258,6 +264,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
+    }
+
+    @objc private func yearInReviewEntryPointNeedsUpdate() {
+        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {
