@@ -21,8 +21,8 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         ProgressContainer.shared.articleFetcherProgress = nil
     }
 
-    private func makeController() -> SavedTabBadgeController {
-        SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: nil, theme: .light, discoverDataController: discover)
+    private func makeController(userInterfaceIdiom: UIUserInterfaceIdiom = .phone) -> SavedTabBadgeController {
+        SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: nil, theme: .light, userInterfaceIdiom: userInterfaceIdiom, discoverDataController: discover)
     }
 
     private func wait(seconds: Double) async {
@@ -48,7 +48,7 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         discover.shouldShowAnnouncement = true
         controller = makeController()
         XCTAssertEqual(controller.badge, .discoverAnnouncement)
-        XCTAssertEqual(tabBarItem.badgeValue, "")
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
         XCTAssertEqual(discover.assignments, 1)
 
         discover.shouldShowAnnouncement = false
@@ -70,7 +70,15 @@ final class SavedTabBadgeControllerTests: XCTestCase {
 
         controller.setSyncInProgress(false)
         XCTAssertEqual(controller.badge, .discoverAnnouncement)
-        XCTAssertEqual(tabBarItem.badgeValue, "")
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
+    }
+
+    func testTheDotIsABlankGlyphOnTheIPad() {
+        discover.isEnabled = true
+        discover.shouldShowAnnouncement = true
+        controller = makeController(userInterfaceIdiom: .pad)
+        XCTAssertEqual(controller.badge, .discoverAnnouncement)
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{2800}")
     }
 
     func testTheStarFollowsTheDownloadProgress() async {

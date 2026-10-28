@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 import WMF
+import WMFComponents
 import WMFData
 
 /// What the badge needs to know about the Discover announcement. `WMFDiscoverDataController` is the
@@ -17,7 +18,7 @@ extension WMFDiscoverDataController: SavedTabDiscoverAnnouncementProviding {
     }
 }
 
-/// The one owner of the Saved tab bar badge. Two states compete for the single badge slot: the
+/// The one owner of the Saved tab badge. Two states compete for the single badge slot: the
 /// star that shows while saved articles download, and the dot that announces Discover until the
 /// reader answers the onboarding card. The star wins while a download runs, because it is temporary.
 @MainActor
@@ -28,15 +29,14 @@ final class SavedTabBadgeController {
         case syncInProgress
         case discoverAnnouncement
 
-        var value: String? {
+        func value(for userInterfaceIdiom: UIUserInterfaceIdiom) -> String? {
             switch self {
             case .none:
                 return nil
             case .syncInProgress:
                 return "\u{2605}"
             case .discoverAnnouncement:
-                // An empty value renders as a plain dot.
-                return ""
+                return userInterfaceIdiom == .pad ? "\u{2800}" : "\u{25CF}"
             }
         }
     }
@@ -45,6 +45,7 @@ final class SavedTabBadgeController {
 
     private weak var tabBarItem: UITabBarItem?
     private weak var tabBar: UITabBar?
+    private let userInterfaceIdiom: UIUserInterfaceIdiom
     private var theme: Theme
     private let discoverDataController: SavedTabDiscoverAnnouncementProviding
 
@@ -56,9 +57,10 @@ final class SavedTabBadgeController {
     private var showStarTask: Task<Void, Never>?
     private var discoverObservation: AnyCancellable?
 
-    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, discoverDataController: SavedTabDiscoverAnnouncementProviding = WMFDiscoverDataController.shared) {
+    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, discoverDataController: SavedTabDiscoverAnnouncementProviding = WMFDiscoverDataController.shared) {
         self.tabBarItem = tabBarItem
         self.tabBar = tabBar
+        self.userInterfaceIdiom = userInterfaceIdiom
         self.theme = theme
         self.discoverDataController = discoverDataController
         beginProgressObservations()
@@ -169,31 +171,47 @@ final class SavedTabBadgeController {
         guard force || newBadge != badge else { return }
         badge = newBadge
 
-        // The badge color comes from the tab bar appearance, and a badge that is already on
-        // screen keeps its color. Clear it, apply the color, then set the value.
+        // The badge colors come from the tab bar appearance, and a badge that is already on
+        // screen keeps its colors. Clear it, apply the colors, then set the value.
         tabBarItem?.badgeValue = nil
-        if let tabBar, let color = badgeColor(for: newBadge) {
+        if let tabBar, let style = badgeStyle(for: newBadge) {
             let appearance = tabBar.standardAppearance.copy()
             for layout in [appearance.stackedLayoutAppearance, appearance.inlineLayoutAppearance, appearance.compactInlineLayoutAppearance] {
-                layout.normal.badgeBackgroundColor = color
-                layout.selected.badgeBackgroundColor = color
+                for state in [layout.normal, layout.selected] {
+                    state.badgeBackgroundColor = style.background
+                    state.badgeTextAttributes = style.textAttributes
+                    state.badgePositionAdjustment = style.positionAdjustment
+                }
             }
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
             tabBar.setNeedsLayout()
             tabBar.layoutIfNeeded()
         }
-        tabBarItem?.badgeValue = newBadge.value
+        tabBarItem?.badgeValue = newBadge.value(for: userInterfaceIdiom)
     }
 
-    private func badgeColor(for badge: Badge) -> UIColor? {
+    private struct BadgeStyle {
+        let background: UIColor
+        let textAttributes: [NSAttributedString.Key: Any]
+        var positionAdjustment: UIOffset = .zero
+    }
+
+    private func badgeStyle(for badge: Badge) -> BadgeStyle? {
         switch badge {
         case .none:
             return nil
         case .syncInProgress:
-            return theme.colors.accent
+            return BadgeStyle(background: theme.colors.accent, textAttributes: theme.tabBarItemBadgeTextAttributes)
         case .discoverAnnouncement:
-            return theme.colors.destructive
+            if userInterfaceIdiom == .pad {
+                return BadgeStyle(background: theme.colors.destructive, textAttributes: theme.tabBarItemBadgeTextAttributes)
+            }
+            return BadgeStyle(
+                background: .clear,
+                textAttributes: [.foregroundColor: theme.colors.destructive],
+                positionAdjustment: UIOffset(horizontal: WMFSpacing.xSmall, vertical: -WMFSpacing.xSmall)
+            )
         }
     }
 }
