@@ -64,13 +64,12 @@ struct WMFYearInReviewSlideView: View {
     @ViewBuilder
     private var content: some View {
         if let animation = slide.animation {
-            let images = slide.images.merging(thumbnailLoader.images) { _, loaded in loaded }
             WMFRiveView(
                 animation,
                 text: slide.text,
                 numbers: slide.numbers,
-                bools: bools(images: images),
-                images: images,
+                bools: slide.bools,
+                images: slide.images.merging(thumbnailLoader.images) { _, loaded in loaded },
                 layoutDirection: slide.layoutDirection,
                 accessibilityLabel: slide.localizedStrings.accessibilityLabel,
                 isPlaying: isCurrent,
@@ -79,6 +78,7 @@ struct WMFYearInReviewSlideView: View {
                 onReadBool: onLightContentFlag,
                 watchedTrigger: slide.nextSlideTrigger,
                 watchedBool: slide.nextSlideFlag,
+                missingImageFlags: slide.missingImageFlags,
                 onWatchedEvent: onNextSlideTrigger
             )
             .task(id: slide.articleThumbnails) {
@@ -87,14 +87,6 @@ struct WMFYearInReviewSlideView: View {
         } else {
             placeholder
         }
-    }
-
-    private func bools(images: [WMFRiveImage: Data]) -> [WMFRiveBool: Bool] {
-        var bools = slide.bools
-        for (image, flag) in slide.missingImageFlags {
-            bools[flag] = images[image] == nil
-        }
-        return bools
     }
 
     private var placeholder: some View {
