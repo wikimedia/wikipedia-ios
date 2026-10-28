@@ -8,6 +8,14 @@ name: V2 Submit App Store
 on:
   workflow_dispatch:
     inputs:
+      kind:
+        description: 'Release or hotfix. Picks the branch prefix (release-candidate/ or hotfix/) and the Phabricator task title to match.'
+        required: true
+        type: choice
+        default: release
+        options:
+          - release
+          - hotfix
       version:
         description: 'Version (YYYY.MM.DD) of the existing TestFlight build to submit'
         required: true

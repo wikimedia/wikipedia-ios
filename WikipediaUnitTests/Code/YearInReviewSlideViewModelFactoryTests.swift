@@ -14,9 +14,9 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// real data so far. Each always shows, in its full or its empty version, so Year in Review never
     /// opens with no slides. The test host has no stored report and no donations, so the runners-up
     /// slide does not show and the contributor slide is the "You matter" version.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func makesTheTotalArticlesTheArticlesVisitedMultipleTimesTheTopTopicAndTheContributorSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        let slides = factory.makeSlides(userDataState: userDataState, isLoggedIn: true)
+    @Test
+    func makesTheTotalArticlesTheArticlesVisitedMultipleTimesTheTopTopicAndTheContributorSlides() {
+        let slides = factory.makeSlides(experience: .personalized, isLoggedIn: true)
 
         #expect(slides.count == 4)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
@@ -28,9 +28,10 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// A Rive text run that the app does not write keeps the copy inside the .riv. Nothing on the
     /// screen shows that the app missed a run, so the slide must write each run that it owns.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func theSlidesWriteAllOfTheirTextRuns(userDataState: WMFYearInReviewDataController.YiRUserDataState) throws {
-        for slide in factory.makeSlides(userDataState: userDataState, isLoggedIn: true) {
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func theSlidesWriteAllOfTheirTextRuns(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
+        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.collectiveSlides(config: try config())
+        for slide in slides {
             let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
 
             switch slide.animation?.artboardName {
@@ -65,34 +66,38 @@ struct YearInReviewSlideViewModelFactoryTests {
             case "end":
                 #expect(byPath["coverTitle"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
+            case let artboard? where Self.collectiveArtboards.contains(artboard):
+                #expect(byPath["headline"]?.isEmpty == false)
+                #expect(byPath["data"]?.isEmpty == false)
+                #expect(byPath["bodyCopy"]?.isEmpty == false)
             default:
                 Issue.record("unexpected artboard \(slide.animation?.artboardName ?? "nil")")
             }
         }
     }
 
-    /// A low-data user sees the empty version of each slide. The test host has no stored report, so
-    /// the niche interest slide does not show.
+    /// The test host has no config, so the collective flow shows the empty version of each personalized
+    /// slide, never zero slides.
     @Test
-    func aLowDataUserSeesOnlyEmptySlides() {
-        let artboards = factory.makeSlides(userDataState: .lowData, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }
+    func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
+        let artboards = factory.makeSlides(experience: .collective, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }
 
         #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty", "end"])
     }
 
-    /// The developer settings can force the empty version of each personalized slide for a data-rich user.
+    /// The developer settings can force the empty version of each personalized slide.
     @Test
     func allEmptyStatesShowsOnlyEmptySlides() {
-        let artboards = factory.makeSlides(userDataState: .dataRich, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
+        let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
         #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty", "end"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func onlyListSlidesSetTheLayoutDirection(userDataState: WMFYearInReviewDataController.YiRUserDataState) throws {
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func onlyListSlidesSetTheLayoutDirection(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty"]
-        let slides = factory.makeSlides(userDataState: userDataState, isLoggedIn: true) + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
         for slide in slides {
             let artboard = slide.animation?.artboardName ?? ""
             if listFrames.contains(artboard) {
@@ -104,10 +109,119 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     /// Each template sets `isUIWhite` for the contrast of the controls above it, so every slide must read it.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func everySlideReadsTheContrastFlag(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        for slide in factory.makeSlides(userDataState: userDataState, isLoggedIn: true) {
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func everySlideReadsTheContrastFlag(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
+        for slide in factory.makeSlides(experience: experience, isLoggedIn: true) {
             #expect(slide.lightContentFlag?.path == "isUIWhite", "\(slide.id)")
+        }
+    }
+
+    // MARK: - Collective
+
+    private static let collectiveArtboards = ["frame3", "frame4", "frame17", "frame8", "frame16", "frame5", "frame12"]
+
+    /// The config's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func config(volunteerEditors: Int? = 250000) throws -> WMFFeatureConfigResponse.Common.YearInReview {
+        var json: [String: Any] = [
+            "year": 2026,
+            "activeStartDate": "2026-12-02T20:00:00Z",
+            "activeEndDate": "2027-02-01T00:00:00Z",
+            "dataStartDate": "2026-01-01T00:00:00Z",
+            "dataEndDate": "2026-12-01T00:00:00Z",
+            "languages": 300,
+            "articles": 65667790,
+            "savedArticlesApps": 46392587,
+            "viewsApps": 14085467928,
+            "editsApps": 1936242,
+            "editsPerMinute": 324,
+            "averageArticlesReadPerYear": 335,
+            "edits": 78952894,
+            "editsEN": 31004338,
+            "hoursReadEN": 2376881343,
+            "yearsReadEN": 270000,
+            "topReadEN": [String](),
+            "topReadPercentages": [[String: Any]](),
+            "bytesAddedEN": 3471067588,
+            "hideCountryCodes": [String](),
+            "hideDonateCountryCodes": [String]()
+        ]
+        if let volunteerEditors {
+            json["editors"] = volunteerEditors
+        }
+        let data = try JSONSerialization.data(withJSONObject: json)
+        return try JSONDecoder().decode(WMFFeatureConfigResponse.Common.YearInReview.self, from: data)
+    }
+
+    @Test
+    func theCollectiveSlidesShowInTheOrderOfTheDesign() throws {
+        let slides = factory.collectiveSlides(config: try config())
+
+        #expect(slides.map { $0.animation?.artboardName } == Self.collectiveArtboards)
+        #expect(slides.allSatisfy { $0.animation?.stateMachineName == "\($0.animation?.artboardName ?? "")-statemachine" })
+        #expect(Set(slides.map(\.id)).count == slides.count)
+        #expect(slides.allSatisfy { $0.lightContentFlag?.path == "isUIWhite" })
+    }
+
+    @Test
+    func theCollectiveSlidesShowTheNumbersFromTheConfig() throws {
+        let slides = factory.collectiveSlides(config: try config())
+        let data = slides.map { text($0, "data") }
+
+        #expect(data == [
+            decimal(2376881343),
+            CommonStrings.yearInReviewCollectiveLanguagesData(languageCount: decimal(300)),
+            decimal(65667790),
+            decimal(46392587),
+            decimal(250000),
+            decimal(78952894),
+            CommonStrings.yearInReviewCollectiveGlobalReachData.localizedUppercase
+        ])
+        #expect(text(slides[0], "bodyCopy") == CommonStrings.yearInReviewCollectiveHoursReadSubtitle(yearCount: 270000))
+        #expect(text(slides[0], "bodyCopy")?.contains(decimal(270000)) == true)
+        // VoiceOver reads all of the text on the slide.
+        for slide in slides {
+            let label = try #require(slide.localizedStrings.accessibilityLabel)
+            #expect(label.contains(try #require(text(slide, "headline"))), "\(slide.id)")
+            #expect(label.contains(try #require(text(slide, "bodyCopy"))), "\(slide.id)")
+        }
+    }
+
+    private func decimal(_ number: Int) -> String {
+        NumberFormatter.localizedString(from: NSNumber(value: number), number: .decimal)
+    }
+
+    /// A config without the number of volunteer editors, such as the 2025 config, leaves that slide out.
+    @Test
+    func withoutVolunteerEditorsInTheConfigThatSlideDoesNotShow() throws {
+        let artboards = factory.collectiveSlides(config: try config(volunteerEditors: nil)).map { $0.animation?.artboardName }
+
+        #expect(artboards == Self.collectiveArtboards.filter { $0 != "frame16" })
+    }
+
+    /// The design sets the number to 40 on the hours, articles and volunteer editors frames.
+    @Test
+    func theLongNumbersAreAtMostFortyPoints() throws {
+        for slide in factory.collectiveSlides(config: try config()) {
+            let fit = try #require(slide.textFits.first { $0.text.path == "data" }, "\(slide.id)")
+            let artboard = slide.animation?.artboardName ?? ""
+            // The global reach text uses the data text style on three lines, as in the design.
+            if artboard == "frame12" {
+                #expect(fit.maximumLines == 3)
+                #expect(fit.fontSize.path == "dataTextFontSize")
+            } else {
+                #expect(fit.maximumLines == 1, "\(slide.id)")
+                #expect(fit.fontSize.path == "dataNumberFontSize", "\(slide.id)")
+            }
+            #expect(fit.maximumFontSize == (["frame3", "frame17", "frame16"].contains(artboard) ? 40 : nil), "\(slide.id)")
+        }
+    }
+
+    @Test
+    func theCollectiveSlidesLimitTheirCopy() throws {
+        for slide in factory.collectiveSlides(config: try config()) {
+            let copy = slide.textFits.filter { $0.text.path != "data" }
+            #expect(copy.map(\.fontSize.path) == ["headlineFontSize", "bodyCopyFontSize"], "\(slide.id)")
+            #expect(copy.allSatisfy { $0.minimumScale == YearInReviewSlideViewModelFactory.copyMinimumScale }, "\(slide.id)")
         }
     }
 
@@ -153,9 +267,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// Long copy can push the content past the bottom of the slide, so every slide limits the
     /// headline and the body copy, and both shrink together.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func everySlideLimitsItsCopy(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        for slide in factory.makeSlides(userDataState: userDataState, isLoggedIn: true) {
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func everySlideLimitsItsCopy(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
+        for slide in factory.makeSlides(experience: experience, isLoggedIn: true) {
             let copy = slide.textFits.filter { $0.text.path != "data" }
             // The end frame has a glyph title in place of a headline, the same as the cover.
             let titleFontSize = slide.animation?.artboardName == "end" ? "coverGlyphsFontSize" : "headlineFontSize"
@@ -183,9 +297,9 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// The pager keys `.scrollPosition(id:)` on the slide id. Two slides with one id stop the
     /// paging from resolving.
-    @Test(arguments: [WMFYearInReviewDataController.YiRUserDataState.dataRich, .lowData])
-    func slideIdsAreUnique(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        let ids = factory.makeSlides(userDataState: userDataState, isLoggedIn: true).map(\.id)
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func slideIdsAreUnique(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
+        let ids = factory.makeSlides(experience: experience, isLoggedIn: true).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
     }
 
@@ -351,8 +465,12 @@ struct YearInReviewSlideViewModelFactoryTests {
     func noStoredTopTopicShowsTheEmptyState() throws {
         #expect(factory.topicSlides(nil).map { $0.animation?.artboardName } == ["frame6-empty"])
         #expect(factory.topicSlides(try topTopicsData(topTopicID: nil)).map { $0.animation?.artboardName } == ["frame6-empty"])
-        // A top topic with fewer than five articles read in total is not eligible.
-        #expect(factory.topicSlides(try topTopicsData(readCount: 4)).map { $0.animation?.artboardName } == ["frame6-empty"])
+    }
+
+    /// The total number of articles read does not matter. Only the top topic decides, the same as on Android.
+    @Test
+    func aTopTopicShowsTheFullSlideWithFewArticlesRead() throws {
+        #expect(factory.topicSlides(try topTopicsData(readCount: 3)).map { $0.animation?.artboardName } == ["frame6"])
     }
 
     @Test
@@ -442,6 +560,25 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(slide.localizedStrings.accessibilityLabel?.contains(CommonStrings.yearInReviewYouMatterLogInSubtitle) == true)
     }
 
+    /// The donor recognition requires log in, so a logged-out contributor sees "You matter" and is
+    /// asked to log in, also with a donation on the device.
+    @Test(arguments: [(true, true), (true, false), (false, true)])
+    func aLoggedOutContributorSeesTheYouMatterSlide(isEditor: Bool, isDonor: Bool) throws {
+        let slide = try #require(factory.contributorSlide(isEditor: isEditor, isDonor: isDonor, isLoggedIn: false, hidesDonate: false))
+
+        #expect(slide.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+        #expect(text(slide, "coverTitle") == CommonStrings.yearInReviewYouMatterTitle.localizedUppercase)
+        #expect(text(slide, "bodyCopy")?.hasSuffix(CommonStrings.yearInReviewYouMatterLogInSubtitle) == true)
+        #expect(slide.showsPrimaryDonateButton)
+    }
+
+    /// Where donations are not accepted, a logged-out contributor sees no contributor slide, the
+    /// same as a non-contributor.
+    @Test
+    func aLoggedOutContributorSeesNoSlideWhereDonationsAreNotAccepted() {
+        #expect(factory.contributorSlide(isEditor: true, isDonor: true, isLoggedIn: false, hidesDonate: true) == nil)
+    }
+
     @Test
     func theYouMatterSlideDoesNotShowWhereDonationsAreNotAccepted() {
         #expect(factory.contributorSlide(isEditor: false, isDonor: false, isLoggedIn: true, hidesDonate: true) == nil)
@@ -450,7 +587,18 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// The test host has no donations and no report, so the refreshed slide is still "You matter".
     @Test
     func theContributorSlideCanBeRebuiltOnItsOwn() {
-        #expect(factory.makeContributorSlide(isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+        #expect(factory.makeContributorSlide(experience: .personalized, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+    }
+
+    /// Only the personalized slides end with "Thank you". The collective slides always end with
+    /// "You matter", the same as on Android.
+    @Test
+    func aContributorSeesThankYouOnlyInThePersonalizedSlides() {
+        let editorFactory = YearInReviewSlideViewModelFactory(hidesDonate: { false }, contributorStatus: { .init(isEditor: true, isDonor: true) })
+
+        #expect(editorFactory.makeContributorSlide(experience: .personalized, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.contributorSlideID)
+        #expect(editorFactory.makeContributorSlide(experience: .collective, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+        #expect(editorFactory.makeSlides(experience: .collective, isLoggedIn: true).last?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
     }
 
     /// The country check decides whether the "You matter" slide shows.
@@ -458,7 +606,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func theYouMatterSlideFollowsTheCountryCheck() {
         let hidingFactory = YearInReviewSlideViewModelFactory(hidesDonate: { true })
 
-        #expect(hidingFactory.makeContributorSlide(isLoggedIn: true) == nil)
-        #expect(hidingFactory.makeSlides(userDataState: .lowData, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
+        #expect(hidingFactory.makeContributorSlide(experience: .collective, isLoggedIn: true) == nil)
+        #expect(hidingFactory.makeSlides(experience: .collective, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
     }
 }

@@ -907,7 +907,9 @@
 "search-semantic-entry-point-accessibility-hint" = "記事内で検索する";
 "search-semantic-entry-point-description" = "記事内を検索して、関連する箇所に直接移動";
 "search-semantic-entry-point-hidden-toast-modify" = "変更";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "設定から再度表示できます";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "モジュールは非表示になっています";
 "search-semantic-entry-point-hide-accessibility-label" = "記事内検索を非表示にする";
 "search-semantic-entry-point-info-accessibility-label" = "記事内検索について";
@@ -919,6 +921,7 @@
 "search-semantic-results-empty-title" = "検索結果がありません";
 "search-semantic-results-error-subtitle" = "もう一度お試しください";
 "search-semantic-results-error-title" = "エラーが発生しました";
+// Fuzzy
 "search-semantic-results-last-updated" = "最終更新 $1";
 "search-semantic-results-rate-limited-subtitle" = "しばらく待ってから、もう一度お試しください。";
 "search-semantic-results-rate-limited-title" = "検索回数が多すぎます";

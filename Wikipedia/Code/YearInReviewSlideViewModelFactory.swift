@@ -11,10 +11,14 @@ struct YearInReviewSlideViewModelFactory {
     /// True where donations are not accepted. Tests pass a fixed value.
     private let hidesDonate: () -> Bool
 
+    /// Tests pass a fixed value. `nil` reads the stored edits and the donations on the device.
+    private let contributorStatus: (() -> ContributorStatus)?
+
     /// Without the data controller, the country check cannot run. Then the donate slide hides, so
     /// it never shows where donations are not accepted.
-    init(hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }) {
+    init(hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }, contributorStatus: (() -> ContributorStatus)? = nil) {
         self.hidesDonate = hidesDonate
+        self.contributorStatus = contributorStatus
     }
 
     /// Shared with the announcement's more menu.
@@ -37,22 +41,24 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// Only the total articles, days visited, articles visited multiple times, niche interest, topic and contributor slides have real data so far.
-    /// A data-rich user sees their data, but a slide without enough data shows its empty version.
-    /// A low-data user sees the empty version of each slide. A low-data user who read 2 or more articles in one category also sees the niche interest slide.
+    /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
     /// The days visited slide and the niche interest slide have no empty version, so they do not show without enough data.
-    /// Every flow ends with the contributor slide.
+    /// The collective slides show data for all readers. Every flow ends with the contributor slide,
+    /// but only the personalized flow can end with "Thank you", the same as on Android.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
-    func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
-        let contributorSlides = makeContributorSlide(isLoggedIn: isLoggedIn).map { [$0] } ?? []
-        return personalizedSlides(userDataState: userDataState, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+    func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+        let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn).map { [$0] } ?? []
+        return experienceSlides(experience, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
-    /// refresh the slide after a donation.
-    func makeContributorSlide(isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
-        let contributor = storedContributorStatus()
+    /// refresh the slide after a donation. The collective flow always ends with "You matter".
+    func makeContributorSlide(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
+        let contributor = experience == .personalized
+            ? (contributorStatus?() ?? storedContributorStatus())
+            : ContributorStatus(isEditor: false, isDonor: false)
         return contributorSlide(
             isEditor: contributor.isEditor,
             isDonor: contributor.isDonor,
@@ -61,18 +67,17 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func personalizedSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
-        switch userDataState {
-        case .lowData:
-            // TODO: Show the collective slides when the templates file has them. Until then, a
-            // low-data user sees the empty version of each personalized slide, so Year in Review
-            // never opens with no slides.
-            // The niche interest slide needs only 2 or more articles in one category, so it also
-            // shows to a low-data user.
-            return personalizedEmptySlides(nicheInterest: nicheInterestSlide(storedNicheCategory()))
-        case .dataRich where forcesAllEmptyStates:
+    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+        switch experience {
+        case .collective:
+            // Without a config, Year in Review does not open, but never show zero slides.
+            guard let config = try? WMFYearInReviewDataController().config else {
+                return personalizedEmptySlides()
+            }
+            return collectiveSlides(config: config)
+        case .personalized where forcesAllEmptyStates:
             return personalizedEmptySlides()
-        case .dataRich:
+        case .personalized:
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
             let readCount = storedReadCount() ?? 0
@@ -420,9 +425,123 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
+    // MARK: - Collective
+
+    /// The slides about all readers and editors. The numbers come from the config, so they can
+    /// change without an app release. The volunteer editors slide does not show without its number.
+    func collectiveSlides(config: WMFFeatureConfigResponse.Common.YearInReview) -> [WMFYearInReviewSlideViewModel] {
+        var slides = [
+            collectiveNumberSlide(
+                id: "collectiveHoursRead",
+                artboard: "frame3",
+                headline: CommonStrings.yearInReviewCollectiveHoursReadTitle,
+                data: decimalString(config.hoursReadEN),
+                dataFit: Self.collectiveDataNumberFit,
+                bodyText: CommonStrings.yearInReviewCollectiveHoursReadSubtitle(yearCount: config.yearsReadEN)
+            ),
+            collectiveNumberSlide(
+                id: "collectiveLanguages",
+                artboard: "frame4",
+                headline: CommonStrings.yearInReviewCollectiveLanguagesTitle,
+                data: CommonStrings.yearInReviewCollectiveLanguagesData(languageCount: decimalString(config.languages)),
+                bodyText: CommonStrings.yearInReviewCollectiveLanguagesSubtitle
+            ),
+            collectiveNumberSlide(
+                id: "collectiveArticles",
+                artboard: "frame17",
+                headline: CommonStrings.yearInReviewCollectiveArticlesTitle,
+                data: decimalString(config.articles),
+                dataFit: Self.collectiveDataNumberFit,
+                bodyText: CommonStrings.yearInReviewCollectiveArticlesSubtitle
+            ),
+            collectiveNumberSlide(
+                id: "collectiveSavedArticles",
+                artboard: "frame8",
+                headline: CommonStrings.yearInReviewCollectiveSavedArticlesTitle,
+                data: decimalString(config.savedArticlesApps),
+                bodyText: CommonStrings.yearInReviewCollectiveSavedArticlesSubtitle
+            )
+        ]
+        if let volunteerEditors = config.volunteerEditors {
+            slides.append(collectiveNumberSlide(
+                id: "collectiveEditors",
+                artboard: "frame16",
+                headline: CommonStrings.yearInReviewCollectiveEditorsTitle,
+                data: decimalString(volunteerEditors),
+                dataFit: Self.collectiveDataNumberFit,
+                bodyText: CommonStrings.yearInReviewCollectiveEditorsSubtitle
+            ))
+        }
+        slides.append(collectiveNumberSlide(
+            id: "collectiveEdits",
+            artboard: "frame5",
+            headline: CommonStrings.yearInReviewCollectiveEditsTitle,
+            data: decimalString(config.edits),
+            bodyText: CommonStrings.yearInReviewCollectiveEditsSubtitle
+        ))
+        slides.append(globalReachSlide())
+        return slides
+    }
+
+    /// The design sets a smaller number on these frames, so long numbers keep the same size.
+    private static let collectiveDataNumberFit = WMFRiveTextFit(
+        text: DataTextPath.data,
+        fontAssetName: "SanSerifFont",
+        maximumWidth: 344,
+        maximumLines: 1,
+        globalViewModelName: "GlobalProperties",
+        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
+        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight"),
+        maximumFontSize: 40
+    )
+
+    private func collectiveNumberSlide(id: String, artboard: String, headline: String, data: String, dataFit: WMFRiveTextFit = Self.dataNumberFit, bodyText: String) -> WMFYearInReviewSlideViewModel {
+        dataSlide(
+            id: id,
+            artboard: artboard,
+            stateMachine: "\(artboard)-statemachine",
+            headline: headline,
+            data: data,
+            dataFit: dataFit,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(data). \(bodyText)"
+        )
+    }
+
+    /// The design shows the reach on three lines.
+    private static let globalReachFit = WMFRiveTextFit(
+        text: DataTextPath.data,
+        fontAssetName: "SanSerifFont",
+        maximumWidth: 344,
+        maximumLines: 3,
+        globalViewModelName: "GlobalProperties",
+        fontSize: WMFRiveNumber(path: "dataTextFontSize"),
+        lineHeight: WMFRiveNumber(path: "dataTextLineHeight")
+    )
+
+    private func globalReachSlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewCollectiveGlobalReachTitle
+        let reach = CommonStrings.yearInReviewCollectiveGlobalReachData
+        let bodyText = CommonStrings.yearInReviewCollectiveGlobalReachSubtitle
+        return dataSlide(
+            id: "collectiveGlobalReach",
+            artboard: "frame12",
+            stateMachine: "frame12-statemachine",
+            headline: headline,
+            data: reach,
+            dataFit: Self.globalReachFit,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(reach). \(bodyText)"
+        )
+    }
+
+    private func decimalString(_ number: Int) -> String {
+        NumberFormatter.localizedString(from: NSNumber(value: number), number: .decimal)
+    }
+
     // MARK: - Contributor
 
-    private struct ContributorStatus {
+    struct ContributorStatus {
         let isEditor: Bool
         let isDonor: Bool
     }
@@ -493,13 +612,16 @@ struct YearInReviewSlideViewModelFactory {
         )
     ]
 
-    /// "Thank you" for a reader who edited or donated in the contributor period, with the donate
-    /// button in the toolbar. Otherwise "You matter", with a primary donate button below the
+    /// "Thank you" for a logged-in reader who edited or donated in the contributor period, with the
+    /// donate button in the toolbar. Otherwise "You matter", with a primary donate button below the
     /// animation in place of the toolbar button.
+    ///
+    /// A logged-out reader always sees "You matter", also with a donation on the device, because the
+    /// donor recognition requires log in (T441430).
     /// - Parameter hidesDonate: True where donations are not accepted. Then the "You matter" slide does not show.
     /// - Returns: `nil` when no slide shows.
     func contributorSlide(isEditor: Bool, isDonor: Bool, isLoggedIn: Bool, hidesDonate: Bool) -> WMFYearInReviewSlideViewModel? {
-        guard isEditor || isDonor else {
+        guard isLoggedIn, isEditor || isDonor else {
             guard !hidesDonate else {
                 return nil
             }

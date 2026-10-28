@@ -29,10 +29,17 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     @Published public var hasSelection = false
     @Published public var searchText: String = ""
     @Published public private(set) var sortOrder: WMFReadingListSortOrder = .byRecentlyAdded
+    /// Mirrors the shared Discover card so the list re-renders when the card is answered.
+    @Published public private(set) var isAnnouncementVisible = false
     
     // MARK: - Properties
     
     private let dataController: WMFLegacyReadingListsDataController
+    /// The Discover onboarding card shown above the list. Shared with the Reading lists segment.
+    public var announcementViewModel: WMFDiscoverAnnouncementViewModel? {
+        didSet { bindAnnouncement() }
+    }
+    private var announcementCancellable: AnyCancellable?
     public weak var loggingDelegate: WMFSavedAllArticlesLoggingDelegate?
     
     private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
@@ -55,6 +62,16 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     public init(dataController: WMFLegacyReadingListsDataController) {
         self.dataController = dataController
         setupSearchBinding()
+    }
+    
+    private func bindAnnouncement() {
+        announcementCancellable = announcementViewModel?.$isVisible
+            .sink { [weak self] isVisible in
+                self?.isAnnouncementVisible = isVisible
+            }
+        if announcementViewModel == nil {
+            isAnnouncementVisible = false
+        }
     }
     
     private func setupSearchBinding() {
