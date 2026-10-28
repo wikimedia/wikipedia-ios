@@ -57,7 +57,7 @@ public struct WMFYearInReviewEndView: View {
     private static let lightContentSkyFraction: CGFloat = 0.2
 
     /// The height of the fade at the bottom of the screen, which hides the cut of the text.
-    private static let bottomFadeHeight: CGFloat = 20
+    private static let bottomFadeHeight: CGFloat = 36
 
     public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0, onUsesLightContentChange: ((Bool) -> Void)? = nil) {
         self.viewModel = viewModel
@@ -95,9 +95,10 @@ public struct WMFYearInReviewEndView: View {
         .overlay(alignment: .bottom) {
             // The toolbar has the color of the page, so nothing else marks the bottom edge.
             LinearGradient(
-                colors: [
-                    Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).opacity(0),
-                    Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor)
+                stops: [
+                    Gradient.Stop(color: Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).opacity(0), location: 0),
+                    Gradient.Stop(color: Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).opacity(0.6), location: 0.6),
+                    Gradient.Stop(color: Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor), location: 1)
                 ],
                 startPoint: .top,
                 endPoint: .bottom
