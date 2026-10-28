@@ -2,6 +2,7 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 import CoreData
+import WMFDataTestSupport
 
 fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataController, @unchecked Sendable {
     var shouldCreateOrRetrieve = true
@@ -27,6 +28,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         case missingDataController
     }
     
+    private let fixture = WMFDataTestFixture()
     var store: WMFCoreDataStore?
     fileprivate var dataController: WMFMockYearInReviewDataController?
     
@@ -40,15 +42,21 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     let username = "user"
 
     override func setUp() async throws {
-        
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
-        
-        self.store = store
-        
-        self.dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
-        
         try await super.setUp()
+        await fixture.setUp()
+
+        let store = try await fixture.makeTemporaryCoreDataStore()
+        self.store = store
+
+        self.dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
+    }
+
+    override func tearDown() async throws {
+        dataController = nil
+        store = nil
+        await fixture.resetWMFDataTestState()
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     func testShouldNotCreateOrRetrieveYearInReview() async throws {
@@ -111,17 +119,13 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     // MARK: - Niche interest slide format
 
     /// Saves a report with only a niche interest slide, then populates the report again.
-    /// The categories data controller reads the store from the environment, so this sets it for the test.
     private func populateReport(withNicheInterestData data: Data) async throws -> WMFYearInReviewReport? {
         guard let dataController else {
             throw TestsError.missingDataController
         }
 
-        let previousStore = WMFDataEnvironment.current.coreDataStore
+        // The categories data controller reads the store from the environment. The fixture restores it in tearDown.
         WMFDataEnvironment.current.coreDataStore = store
-        defer {
-            WMFDataEnvironment.current.coreDataStore = previousStore
-        }
 
         let slide = WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
         try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [slide]))
