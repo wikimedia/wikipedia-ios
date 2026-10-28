@@ -61,23 +61,6 @@ enum WMFRiveWorkerProvider {
         "SerifFont": BundledFont(resourceName: "EBGaramond-Regular", fileExtension: "ttf", postScriptName: "EBGaramond-Regular")
     ]
 
-    private static var didSetFallbackFonts = false
-
-    /// For a glyph that the supplied font does not have, for example in a script that EB Garamond
-    /// does not cover. The serif copy is regular and falls back to the system serif. The bold numbers
-    /// and labels are SF Pro and keep the system sans serif.
-    private static func setFallbackFontsIfNeeded() {
-        guard !didSetFallbackFonts else { return }
-        didSetFallbackFonts = true
-        // Rive calls it while it draws, off the main actor.
-        RiveFont.fallbackFontsCallback = { @Sendable (style: RiveFontStyle) -> [any RiveFallbackFontProvider] in
-            if style.weight == .regular {
-                return [RiveFallbackFontDescriptor(design: .serif), RiveFallbackFontDescriptor()]
-            }
-            return [RiveFallbackFontDescriptor(weight: .bold)]
-        }
-    }
-
     private static var registeredBundledFonts: Set<String> = []
 
     /// The font that the app supplies for a font asset of the .riv, or `nil` if it supplies none.
@@ -146,7 +129,6 @@ enum WMFRiveWorkerProvider {
     /// instances that `bindings` returned.
     static func makeRive(for animation: WMFRiveAnimation, bindings: WMFRiveBindingsMaker) async throws -> Rive {
         let worker = try await sharedWorker()
-        setFallbackFontsIfNeeded()
         let file = try await File(source: .local(animation.resourceName, .module), worker: worker)
 
         await supplyFonts(for: file, on: worker, animation: animation)
