@@ -121,6 +121,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
     
+    private static let yearInReviewEntryPointSource = "activity_tab_entry_point"
+
     private func configureYearInReviewEntryPoint() {
         guard let yirDataController,
               yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
@@ -130,7 +132,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
-            yirViewModel.onTap = { [weak self] in
+            yirViewModel.onTap = { [weak self, weak yirViewModel] in
+                YearInReviewInstrument.shared.logClick(elementID: "get_started_button", actionSource: Self.yearInReviewEntryPointSource, personalized: yirViewModel?.isDataRich ?? false)
                 Task { @MainActor [weak self] in
                     self?.requestPortraitOnIPad()
                     await self?.yirCoordinator?.presentFeatureAnnouncementFromEntryPoint()
@@ -202,6 +205,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         super.viewDidAppear(animated)
 
         markYearInReviewAsSeen()
+        logYearInReviewEntryPointImpression()
 
         reachabilityNotifier.start()
 
@@ -252,6 +256,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     /// Clears the Activity tab's Year in Review badge. Called on every appearance; writes once, so
     /// repeat calls are cheap.
+    private func logYearInReviewEntryPointImpression() {
+        guard viewModel.yearInReviewViewModel != nil else { return }
+        // `isDataRich` is right only after the data state is read.
+        Task { @MainActor [weak self] in
+            await self?.yearInReviewDataStateTask?.value
+            guard let yirViewModel = self?.viewModel.yearInReviewViewModel else { return }
+            YearInReviewInstrument.shared.logImpression(actionSource: Self.yearInReviewEntryPointSource, personalized: yirViewModel.isDataRich)
+        }
+    }
+
     private func markYearInReviewAsSeen() {
         guard let yirDataController,
               yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),

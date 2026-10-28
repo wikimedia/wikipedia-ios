@@ -287,7 +287,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             dataController: dataController,
             localizedStrings: strings,
             onToggle: { isOn in
-                DonateFunnel.shared.logYearInReviewSettingsDidToggle(isOn: isOn)
+                // There is no confirmation alert, so the plan's switch_off_confirm and switch_off_cancel do not apply.
+                YearInReviewInstrument.shared.logClick(elementID: isOn ? "switch_on" : "switch_off", actionSource: "settings")
             }
         )
 
