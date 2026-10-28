@@ -355,6 +355,12 @@
 "diff-unedited-lines-format" = "Label in diff to indicate how many lines are not displayed because they were not changed. $1 is replaced by the number of unedited lines.";
 "diff-user-button-accessibility-text" = "Accessibility text to provide more context to users of assistive tecnologies about the user button actions";
 "dim-images" = "Label for image dimming setting";
+"discover-announcement-body" = "Body of the card that introduces the Discover reading list on the Saved tab.";
+"discover-announcement-get-started" = "Title of the button on the Discover card that opens the Discover setup.";
+"discover-announcement-new-tag" = "Tag on the card that introduces the Discover reading list on the Saved tab. Marks the feature as new.";
+"discover-announcement-no-thanks" = "Title of the button on the Discover card that dismisses the card.";
+"discover-announcement-no-thanks-toast" = "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.";
+"discover-announcement-title" = "Title of the card that introduces the Discover reading list on the Saved tab.";
 "donate-accessibility-amount-button-hint" = "Accessibility hint on donate form amount option button for screen readers.";
 "donate-accessibility-donate-hint-format" = "Accessibility hint on donate form Apple Pay button for screen readers. Parameters: * $1 - the donation amount entered by the user.";
 "donate-accessibility-email-opt-in-hint" = "Accessibility hint on donate form email opt in checkbox for screen readers.";

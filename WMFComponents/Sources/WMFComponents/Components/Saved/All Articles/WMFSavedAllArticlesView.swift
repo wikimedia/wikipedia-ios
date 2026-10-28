@@ -6,6 +6,8 @@ public struct WMFSavedAllArticlesView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSavedAllArticlesViewModel
+    /// Mirrors `showsAnnouncement` so the card fades in and out instead of popping.
+    @State private var isAnnouncementShown = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
     private let emptyStateTitle = CommonStrings.allArticlesEmptySavedTitle
@@ -23,7 +25,11 @@ public struct WMFSavedAllArticlesView: View {
             case .loading, .undefined:
                 ProgressView()
             case .empty:
-                emptyStateView
+                VStack(spacing: 0) {
+                    announcementCard
+                    emptyStateView
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             case .data:
                 articleListView
             }
@@ -31,6 +37,12 @@ public struct WMFSavedAllArticlesView: View {
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadArticles()
+            isAnnouncementShown = showsAnnouncement
+        }
+        .onChange(of: showsAnnouncement) { _, shows in
+            withAnimation {
+                isAnnouncementShown = shows
+            }
         }
     }
     
@@ -60,11 +72,39 @@ public struct WMFSavedAllArticlesView: View {
         .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEmptyView)
     }
     
+    // MARK: - Discover Announcement
+
+    /// The card shows while the reader is not editing or searching.
+    private var showsAnnouncement: Bool {
+        viewModel.isAnnouncementVisible && !viewModel.isEditing && viewModel.searchText.isEmpty
+    }
+
+    @ViewBuilder
+    private var announcementCard: some View {
+        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
+            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
+                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .transition(.opacity)
+        }
+    }
+
+    @ViewBuilder
+    private var announcementRow: some View {
+        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
+            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
+                .listRowInsets(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
+                .transition(.opacity)
+        }
+    }
+
     // MARK: - Article List
     
     private var articleListView: some View {
         VStack(spacing: 0) {
             List {
+                announcementRow
                 ForEach(viewModel.filteredArticles, id: \.id) { article in
                     let rowModel = viewModel.rowViewModel(for: article)
                     

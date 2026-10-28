@@ -21,7 +21,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let languages: Int
             public let articles: Int
             public let savedArticlesApps: Int
-            /// Not in the 2025 config, so it is optional.
+            /// Not in the 2025 config, so it is optional. The config key is `editors`, the same key Android reads.
             public let volunteerEditors: Int?
             public let viewsApps: Int
             public let editsApps: Int
@@ -46,7 +46,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
                 case languages
                 case articles
                 case savedArticlesApps
-                case volunteerEditors
+                case volunteerEditors = "editors"
                 case viewsApps
                 case editsApps
                 case editsPerMinute
@@ -137,6 +137,9 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         public let visualEditorEnabled: Bool?
         public let semanticSearchLanguages: [String]
         public let semanticSearchEnabled: Bool?
+        /// The share of readers in the Discover experiment's control group, 0 to 100. Nil keeps
+        /// the app default.
+        public let discoverExperimentControlPercentage: Int?
         
         public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
@@ -149,11 +152,12 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let apiKey: String
         }
 
-        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil) {
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) {
             self.hCaptcha = hCaptcha
             self.visualEditorEnabled = visualEditorEnabled
             self.semanticSearchLanguages = semanticSearchLanguages
             self.semanticSearchEnabled = semanticSearchEnabled
+            self.discoverExperimentControlPercentage = discoverExperimentControlPercentage
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -161,6 +165,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             case visualEditorEnabled
             case semanticSearchLanguages = "semanticSearchLanguagesv2"
             case semanticSearchEnabled = "semanticSearchEnabledv2"
+            case discoverExperimentControlPercentage
         }
 
         public init(from decoder: Decoder) throws {
@@ -169,6 +174,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
             semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
             semanticSearchEnabled = try container.decodeIfPresent(Bool.self, forKey: .semanticSearchEnabled)
+            discoverExperimentControlPercentage = try container.decodeIfPresent(Int.self, forKey: .discoverExperimentControlPercentage)
         }
     }
     
