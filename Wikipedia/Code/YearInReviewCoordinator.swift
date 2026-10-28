@@ -172,7 +172,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
-        viewModel.endViewModel = makeEndViewModel(isContributor: slideFactory.isContributor(isLoggedIn: isLoggedIn))
+        viewModel.endViewModel = makeEndViewModel(isContributor: slideFactory.isContributor(experience: experience, isLoggedIn: isLoggedIn))
 
         self.viewModel = viewModel
         self.slidesExperience = experience

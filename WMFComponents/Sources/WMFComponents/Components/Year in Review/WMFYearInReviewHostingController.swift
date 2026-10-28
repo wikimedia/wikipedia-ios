@@ -54,6 +54,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             }
             .store(in: &cancellables)
 
+        // The end screen scrolls its light sky away from under the bar items, then they turn light.
+        viewModel.$endUsesLightContent
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applyContentColor()
+            }
+            .store(in: &cancellables)
+
         // The donate button becomes a spinner while the donate configuration loads.
         viewModel.$isLoadingDonate
             .receive(on: DispatchQueue.main)

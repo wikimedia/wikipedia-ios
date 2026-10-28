@@ -83,7 +83,15 @@ public struct WMFYearInReviewView: View {
     @ViewBuilder
     private var endPage: some View {
         if let endViewModel = viewModel.endViewModel {
-            WMFYearInReviewEndView(viewModel: endViewModel, topInset: viewModel.topSafeAreaInset)
+            WMFYearInReviewEndView(
+                viewModel: endViewModel,
+                topInset: viewModel.topSafeAreaInset,
+                onUsesLightContentChange: { usesLightContent in
+                    if viewModel.endUsesLightContent != usesLightContent {
+                        viewModel.endUsesLightContent = usesLightContent
+                    }
+                }
+            )
                 .containerRelativeFrame(.vertical)
                 .id(WMFYearInReviewViewModel.endPageID)
         }

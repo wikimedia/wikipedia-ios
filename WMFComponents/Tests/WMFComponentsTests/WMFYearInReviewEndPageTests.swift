@@ -109,6 +109,16 @@ struct WMFYearInReviewEndPageTests {
     }
 
     @Test
+    func theEndScreenUsesLightControlsAfterTheSkyScrolledAway() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.endUsesLightContent = true
+
+        #expect(viewModel.currentContentColor == WMFYearInReviewSlideViewModel.ContentStyle.light.color)
+    }
+
+    @Test
     func goingToTheEndScreenLogsNoSlideAppearance() {
         let viewModel = makeViewModel()
         logging.appeared.removeAll()

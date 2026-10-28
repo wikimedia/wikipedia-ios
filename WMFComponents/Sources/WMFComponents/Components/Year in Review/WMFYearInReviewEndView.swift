@@ -29,8 +29,8 @@ public struct WMFYearInReviewEndView: View {
     /// right for any width and any screen. Negative is to the left.
     private static let illustrationOffsetRatio: CGFloat = ((96.22 - 122.05) / 2) / 141.73
 
-    /// The part of the screen width that one card uses. On iPad, the hero text uses the same width.
-    /// The space on each side is 10%. Thus, on iPad the text lines up with the cards.
+    /// The part of the screen width that one card uses. On a wide screen, the hero text uses the same width.
+    /// The space on each side is 10%. Thus, on a wide screen the text lines up with the cards.
     private static let contentWidthFraction: CGFloat = 0.8
 
     /// SwiftUI `lineSpacing` adds space between the lines. Thus, the value is the line height
@@ -39,13 +39,30 @@ public struct WMFYearInReviewEndView: View {
         max(0, bodyFont.pointSize * Self.bodyLineHeightMultiple - bodyFont.lineHeight)
     }
 
-    private var isPad: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad
+    /// A regular width covers iPad full screen, and not iPad Split View with a narrow window.
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    private var isWide: Bool {
+        horizontalSizeClass == .regular
     }
 
-    public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0) {
+    /// Called when the controls above the screen need another color, because the light part of the
+    /// sky scrolled away from under them.
+    private let onUsesLightContentChange: ((Bool) -> Void)?
+
+    private static let scrollSpaceName = "yearInReviewEndScroll"
+
+    /// The controls are dark on the light top of the sky. They become light when the part of the sky
+    /// under them is darker than this fraction of the sky height, measured from the top.
+    private static let lightContentSkyFraction: CGFloat = 0.2
+
+    /// The height of the fade at the bottom of the screen, which hides the cut of the text.
+    private static let bottomFadeHeight: CGFloat = 20
+
+    public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0, onUsesLightContentChange: ((Bool) -> Void)? = nil) {
         self.viewModel = viewModel
         self.topInset = topInset
+        self.onUsesLightContentChange = onUsesLightContentChange
     }
 
     public var body: some View {
@@ -59,7 +76,35 @@ public struct WMFYearInReviewEndView: View {
                     cardView(card)
                 }
             }
-            .padding(.bottom, 24)
+            .padding(.bottom, Self.bottomFadeHeight + 24)
+            .background(alignment: .top) {
+                GeometryReader { proxy in
+                    Color.clear.preference(
+                        key: ScrollOffsetKey.self,
+                        value: -proxy.frame(in: .named(Self.scrollSpaceName)).minY
+                    )
+                }
+            }
+        }
+        .coordinateSpace(name: Self.scrollSpaceName)
+        .onPreferenceChange(ScrollOffsetKey.self) { offset in
+            // The controls sit about `topInset` below the top of the screen.
+            let usesLightContent = offset + topInset > WMFYearInReviewEndViewModel.skyHeight * Self.lightContentSkyFraction
+            onUsesLightContentChange?(usesLightContent)
+        }
+        .overlay(alignment: .bottom) {
+            // The toolbar has the color of the page, so nothing else marks the bottom edge.
+            LinearGradient(
+                colors: [
+                    Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).opacity(0),
+                    Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(height: Self.bottomFadeHeight)
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
         }
         // This scroll view is in the vertical pager. If the content fits, it does not bounce.
         // Thus, a pull down goes to the pager, and the pager shows the last slide.
@@ -78,11 +123,11 @@ public struct WMFYearInReviewEndView: View {
             }
     }
 
-    /// On iPad, the content uses `contentWidthFraction` of the width, in the center.
-    /// On iPhone, the content has 32 points of space on each side.
+    /// On a wide screen, the content uses `contentWidthFraction` of the width, in the center.
+    /// On a narrow screen, the content has 32 points of space on each side.
     @ViewBuilder
     private func horizontalInset(_ content: some View) -> some View {
-        if isPad {
+        if isWide {
             content
                 .containerRelativeFrame(.horizontal) { width, _ in
                     width * Self.contentWidthFraction
@@ -222,5 +267,13 @@ public struct WMFYearInReviewEndView: View {
             RoundedRectangle(cornerRadius: 24)
                 .fill(Color(uiColor: WMFTheme.light.midBackground))
         )
+    }
+}
+
+private struct ScrollOffsetKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }

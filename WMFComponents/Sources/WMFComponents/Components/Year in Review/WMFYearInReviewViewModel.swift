@@ -75,6 +75,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     @Published public var topSafeAreaInset: CGFloat = 0
 
+    /// Set by the end screen when its sky scrolled away from under the controls. Then the controls
+    /// are light, because they sit on the dark page.
+    @Published public var endUsesLightContent = false
+
     public let localizedStrings: LocalizedStrings
 
     private weak var coordinatorDelegate: WMFYearInReviewCoordinating?
@@ -122,10 +126,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
-    /// style of the slide view model. The end screen has a light top, so its controls are always dark.
+    /// style of the slide view model. The end screen has a light top, so its controls are dark until
+    /// the sky scrolls away from under them.
     public var currentContentColor: UIColor? {
         if isOnEnd {
-            return WMFYearInReviewSlideViewModel.ContentStyle.dark.color
+            return (endUsesLightContent ? WMFYearInReviewSlideViewModel.ContentStyle.light : .dark).color
         }
         guard let currentSlide else { return nil }
         return (loadedContentStyles[currentSlide.id] ?? currentSlide.contentStyle).color
