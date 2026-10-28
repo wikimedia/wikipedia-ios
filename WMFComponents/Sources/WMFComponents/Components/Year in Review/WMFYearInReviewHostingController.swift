@@ -46,16 +46,16 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             }
             .store(in: &cancellables)
 
-        // A slide can set the color of the controls in its .riv, which is known only after it loads.
-        viewModel.$loadedContentStyles
+        // The end screen scrolls its light sky away from under the bar items, then they turn light.
+        viewModel.$endUsesLightContent
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
             }
             .store(in: &cancellables)
 
-        // The end screen scrolls its light sky away from under the bar items, then they turn light.
-        viewModel.$endUsesLightContent
+        // A slide can set the color of the controls in its .riv, which is known only after it loads.
+        viewModel.$loadedContentStyles
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
@@ -264,7 +264,21 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
     /// Each slide says whether its artwork is light or dark, so the bar items follow the current slide.
     private func applyContentColor() {
-        WMFYearInReviewNavigationItems.applyTintColor(contentColor, to: navigationItem)
+        let color = contentColor
+        print("[YiR-tint] applyContentColor isOnEnd=\(viewModel.isOnEnd) endUsesLight=\(viewModel.endUsesLightContent) color=\(color)")
+        WMFYearInReviewNavigationItems.applyTintColor(color, to: navigationItem)
+
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        navigationBar.tintColor = color
+
+        // Liquid glass bar button items keep their old glyph color after a tint change, until the bar
+        // lays out again. This happens when the end screen scrolls, so nudge the bar to lay out now.
+        if #available(iOS 26.0, *) {
+            let frame = navigationBar.frame
+            navigationBar.frame = frame.insetBy(dx: 0, dy: 0.1)
+            navigationBar.frame = frame
+            navigationBar.layoutIfNeeded()
+        }
     }
 
     /// The color from the .riv once the slide has loaded, otherwise the style the factory gave it.
