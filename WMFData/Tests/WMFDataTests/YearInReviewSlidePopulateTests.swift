@@ -411,14 +411,14 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertFalse(payload.showsRunnerUps, "one runner-up does not show the runners-up slide")
     }
 
-    func testTopTopicIsNotEligibleWithFewerThanFiveArticles() async throws {
-        try await seedArticles(["Alpha", "Beta", "Gamma", "Delta"], labels: ["STEM.Physics"])
+    func testTopTopicIsEligibleWithFewerThanFiveArticles() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
 
         let payload = try await topTopicsPayload()
 
-        XCTAssertEqual(payload.readCount, 4)
+        XCTAssertEqual(payload.readCount, 3)
         XCTAssertEqual(payload.topTopic?.topicCount.topic, .physics)
-        XCTAssertFalse(payload.isEligible, "five articles are necessary, so this shows the empty state")
+        XCTAssertTrue(payload.isEligible, "a top topic with three articles is enough, the same as on Android")
         XCTAssertFalse(payload.showsRunnerUps)
     }
 
@@ -557,7 +557,8 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     }
 
     func testTopTopicsDoesNotDownloadIllustrationsForTheEmptyState() async throws {
-        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
+        // No topic has three articles, so there is no top topic.
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"])
 
         let fetcher = StubIllustrationFetcher()
         let payload = try await topTopicsPayload(illustrationFetcher: fetcher)

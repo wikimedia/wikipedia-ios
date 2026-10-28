@@ -8,7 +8,7 @@ import WMFNativeLocalizations
 /// it shares its low data text with the announcement.
 struct YearInReviewAnnouncementViewModelFactory {
 
-    typealias UserDataState = WMFYearInReviewDataController.YiRUserDataState
+    typealias DataState = WMFYearInReviewDataController.YiRDataState
 
     /// The announcement uses the cover artboard of the templates file.
     static let animation = WMFRiveAnimation(
@@ -62,8 +62,8 @@ struct YearInReviewAnnouncementViewModelFactory {
     private static let coverBodyWidth = 290.0
 
     @MainActor
-    func makeViewModel(userDataState: UserDataState, readingDayCount: Int, delegate: WMFYearInReviewAnnouncementDelegate) -> WMFYearInReviewAnnouncementViewModel {
-        let localizedStrings = makeLocalizedStrings(userDataState: userDataState, readingDayCount: readingDayCount)
+    func makeViewModel(dataState: DataState, readingDayCount: Int, delegate: WMFYearInReviewAnnouncementDelegate) -> WMFYearInReviewAnnouncementViewModel {
+        let localizedStrings = makeLocalizedStrings(dataState: dataState, readingDayCount: readingDayCount)
 
         return WMFYearInReviewAnnouncementViewModel(
             animation: Self.animation,
@@ -80,10 +80,10 @@ struct YearInReviewAnnouncementViewModelFactory {
         )
     }
 
-    func makeLocalizedStrings(userDataState: UserDataState, readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
+    func makeLocalizedStrings(dataState: DataState, readingDayCount: Int) -> WMFYearInReviewAnnouncementViewModel.LocalizedStrings {
         let headline: String
         let body: String
-        switch userDataState {
+        switch dataState {
         case .dataRich:
             headline = CommonStrings.yearInReviewIntroTitle
             body = CommonStrings.yearInReviewIntroSubtitle(dayCount: readingDayCount)
@@ -106,8 +106,8 @@ struct YearInReviewAnnouncementViewModelFactory {
     }
 
     /// The text of the prompt shown to logged-out readers after they tap Explore on the announcement.
-    func makeLoginPromptCopy(userDataState: UserDataState) -> (title: String, message: String) {
-        switch userDataState {
+    func makeLoginPromptCopy(dataState: DataState) -> (title: String, message: String) {
+        switch dataState {
         case .dataRich:
             let title = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-title", value: "Your Year in Review is best with an account", comment: "Title of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")
             let message = WMFLocalizedString("year-in-review-2026-announcement-login-personalized-message", value: "Log in to see your top topics, articles, longest rabbit hole, and more. You can still see collective insights without logging in.", comment: "Message of the prompt shown to logged-out readers with enough reading data after they tap Explore on the Year in Review announcement.")

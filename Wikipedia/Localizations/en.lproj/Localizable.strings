@@ -355,6 +355,12 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 line unedited|$1 lines unedited}}";
 "diff-user-button-accessibility-text" = "Double tap to open menu";
 "dim-images" = "Dim images";
+"discover-announcement-body" = "Your weekly reading list of Wikipedia articles curated just for you.";
+"discover-announcement-get-started" = "Get started";
+"discover-announcement-new-tag" = "New";
+"discover-announcement-no-thanks" = "No thanks";
+"discover-announcement-no-thanks-toast" = "To set up your recommended reading list later, go to Settings.";
+"discover-announcement-title" = "Discover articles picked for you";
 "donate-accessibility-amount-button-hint" = "Double tap to select donation amount.";
 "donate-accessibility-donate-hint-format" = "Double tap to donate $1 to the Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Double tap to give the Wikimedia Foundation permission to email you.";
@@ -1720,6 +1726,7 @@
 "year-in-review-2026-collective-hours-read-title" = "Hours we spent reading Wikipedia in 2026:";
 "year-in-review-2026-collective-intro-subtitle" = "There wasn’t enough activity to generate your own Year in Review this time, but you can still explore what the world discovered together.";
 "year-in-review-2026-collective-intro-title" = "Our Year in Review is here";
+"year-in-review-2026-collective-languages-data" = "$1+";
 "year-in-review-2026-collective-languages-subtitle" = "Wikipedia is written and maintained by volunteer communities from around the world—proof that human knowledge speaks way more than one language.";
 "year-in-review-2026-collective-languages-title" = "Languages Wikipedia is available in:";
 "year-in-review-2026-collective-saved-articles-subtitle" = "Readers bookmarked thousands and thousands of articles to read for the first, third, or hundredth time.";

@@ -606,6 +606,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         WMFRelatedPagesDataController.WMFRelatedPage(
             pageid: title.hashValue,
             title: title,
+            displayTitle: nil,
             description: nil,
             thumbnailURL: hasThumbnail ? URL(string: "https://example.com/\(title).jpg") : nil,
             extract: nil

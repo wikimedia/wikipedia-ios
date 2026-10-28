@@ -35,8 +35,6 @@ public struct WMFYearInReviewTopTopicsSlideData: Codable, Sendable {
         public let lastArticle: Article
     }
 
-    /// The user must read at least this number of articles to see the full top topic slide.
-    public static let minimumReadCount = 5
     /// The top topic must have at least this number of articles.
     public static let minimumTopTopicArticleCount = 3
     /// A runner-up topic must have at least this number of articles.
@@ -62,9 +60,10 @@ public struct WMFYearInReviewTopTopicsSlideData: Codable, Sendable {
         illustrations?[topic.yearInReviewIllustrationFileName]
     }
 
-    /// If false, show the empty state ("Your #1 topic of 2026 is... all of them").
+    /// If false, show the empty state ("Your #1 topic of 2026 is... all of them"). Only the top topic
+    /// decides, the same as on Android: there is no minimum for the total number of articles read.
     public var isEligible: Bool {
-        readCount >= Self.minimumReadCount && topTopic != nil
+        topTopic != nil
     }
 
     /// If false, do not show the runners-up slide.

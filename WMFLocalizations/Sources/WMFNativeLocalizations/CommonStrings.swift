@@ -1092,6 +1092,10 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, yearCount)
     }
     public static let yearInReviewCollectiveLanguagesTitle = WMFLocalizedString("year-in-review-2026-collective-languages-title", value: "Languages Wikipedia is available in:", comment: "Title of the Year in Review slide that shows the number of languages Wikipedia is available in. The number follows it, for example \"300+\".")
+    public static func yearInReviewCollectiveLanguagesData(languageCount: String) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-collective-languages-data", value: "%1$@+", comment: "The number of languages Wikipedia is available in, shown as a large number on the Year in Review slide, for example \"300+\". The plus sign means \"more than\". %1$@ is replaced with the number.")
+        return String.localizedStringWithFormat(format, languageCount)
+    }
     public static let yearInReviewCollectiveLanguagesSubtitle = WMFLocalizedString("year-in-review-2026-collective-languages-subtitle", value: "Wikipedia is written and maintained by volunteer communities from around the world—proof that human knowledge speaks way more than one language.", comment: "Subtitle of the Year in Review slide that shows the number of languages Wikipedia is available in.")
     public static let yearInReviewCollectiveArticlesTitle = WMFLocalizedString("year-in-review-2026-collective-articles-title", value: "Articles on Wikipedia:", comment: "Title of the Year in Review slide that shows the number of articles on Wikipedia. The number follows it.")
     public static let yearInReviewCollectiveArticlesSubtitle = WMFLocalizedString("year-in-review-2026-collective-articles-subtitle", value: "Wikipedia continues to be built by humans—volunteers from all over the world who use reliable sources to create and curate all of its content.", comment: "Subtitle of the Year in Review slide that shows the number of articles on Wikipedia.")
