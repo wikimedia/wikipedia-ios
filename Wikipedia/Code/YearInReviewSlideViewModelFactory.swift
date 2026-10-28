@@ -519,16 +519,6 @@ struct YearInReviewSlideViewModelFactory {
     struct ContributorStatus {
         let isEditor: Bool
         let isDonor: Bool
-
-        /// A contributor edited or donated in the contributor period.
-        var isContributor: Bool { isEditor || isDonor }
-    }
-    
-    /// Uses the same rule as `makeContributorSlide`. The collective flow never ends with "Thank you",
-    /// and a reader who is not logged in is not a contributor, also with a donation on the device.
-    /// Thus, the end screen agrees with the last slide.
-    func isContributor(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool) -> Bool {
-        experience == .personalized && isLoggedIn && storedContributorStatus().isContributor
     }
 
     /// Edits come from the report, which has them only for a logged-in reader. Donations are stored

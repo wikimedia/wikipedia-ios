@@ -172,7 +172,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
-        viewModel.endViewModel = makeEndViewModel(isContributor: slideFactory.isContributor(experience: experience, isLoggedIn: isLoggedIn))
+        // The gift card follows the slides that were built, so the end screen agrees with the last slide.
+        let hasContributorSlide = viewModel.slides.contains { $0.id == YearInReviewSlideViewModelFactory.contributorSlideID }
+        viewModel.endViewModel = makeEndViewModel(isContributor: hasContributorSlide)
 
         self.viewModel = viewModel
         self.slidesExperience = experience

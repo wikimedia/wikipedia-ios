@@ -77,7 +77,6 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     public var didTapWhichWikipedia: (@MainActor @Sendable () -> Void)?
 
     public init(isContributor: Bool) {
-
         var cards: [Card] = []
         if isContributor {
             cards.append(Card(
