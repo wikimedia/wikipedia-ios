@@ -181,7 +181,7 @@ private extension SchemeHandler {
                     return
                 }
                 if let httpResponse = response as? HTTPURLResponse, !HTTPStatusCode.isSuccessful(httpResponse.statusCode) {
-                    let error = RequestError.from(code: httpResponse.statusCode)
+                    let error = RequestError.from(response: httpResponse)
                     self.removeSessionTask(request: urlSchemeTask.request)
                     urlSchemeTask.didFailWithError(error)
                     self.removeSchemeTask(urlSchemeTask: urlSchemeTask)

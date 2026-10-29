@@ -23,9 +23,14 @@ public struct Header {
 class PermanentlyPersistableURLCache: URLCache, @unchecked Sendable {
     let cacheManagedObjectContext: NSManagedObjectContext
     
+    // URLCache does not store a response larger than 5% of diskCapacity. With the
+    // shared default (10 MB) the five PCS resources above 500 KB (mathjax bundle and
+    // fonts, 4.6 MB in total) are downloaded again for every saved article.
+    static let diskCapacity = 100_000_000
+
     init(moc: NSManagedObjectContext) {
         cacheManagedObjectContext = moc
-        super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: URLCache.shared.diskCapacity, diskPath: nil)
+        super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: Self.diskCapacity, diskPath: nil)
     }
     
 // MARK: Public - Overrides
@@ -191,7 +196,23 @@ private extension PermanentlyPersistableURLCache {
         guard let host = url.host, let imageName = WMFParseImageNameFromSourceURL(url) else {
             return url.absoluteString.precomposedStringWithCanonicalMapping
         }
-        return (host + "__" + imageName).precomposedStringWithCanonicalMapping
+        return (Self.canonicalImageHost(host) + "__" + imageName).precomposedStringWithCanonicalMapping
+    }
+
+    /// Thumbnails moved from upload.wikimedia.org to thumb.wikimedia.org (T427465).
+    /// The media list and the image info API name the same file on different hosts, so both hosts share one key.
+    static func canonicalImageHost(_ host: String) -> String {
+        return host == Configuration.Domain.thumbs ? Configuration.Domain.uploads : host
+    }
+
+    /// Keys written for the same image before the host was normalized.
+    func legacyImageItemKeysForURL(_ url: URL) -> [String] {
+        guard let host = url.host,
+              let imageName = WMFParseImageNameFromSourceURL(url),
+              Self.canonicalImageHost(host) == Configuration.Domain.uploads else {
+            return []
+        }
+        return [(Configuration.Domain.thumbs + "__" + imageName).precomposedStringWithCanonicalMapping]
     }
     
     func articleItemKeyForURL(_ url: URL) -> String? {
@@ -614,6 +635,14 @@ private extension PermanentlyPersistableURLCache {
         var response: CachedURLResponse? = nil
         moc.performAndWait {
             var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc)
+            if allVariantItems.isEmpty, type == .image {
+                for legacyItemKey in legacyImageItemKeysForURL(url) {
+                    allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: legacyItemKey, in: moc)
+                    if !allVariantItems.isEmpty {
+                        break
+                    }
+                }
+            }
             
             switch type {
             case .image:

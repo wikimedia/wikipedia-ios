@@ -265,10 +265,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "လိက်မချူလဝ် နကဵုဘာသာတအ်ဏအ် စုတ် ပ္ဍဲ မုက်လိက် ဒၞာဲ 'အရေဝ်ဘာသာ အဲ' ဂွံ၊၊";
 "explore-feed-preferences-card-hidden-title" = "ကာတ် ဗဒန်အာ";
 "explore-feed-preferences-continue-reading-description" = "ကလေင်အာလေန် သွက်ဂွံ ဗှ် လိက်ပရေင် မပံက်လဝ်မွဲ";
-"explore-feed-preferences-customize-explore-feed" = "Customize the Explore feed";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Customize Explore feed";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "ပၞုက်ထောအ် ဂကူကာတ် မွဲမ္ဂး ဂကူကာတ်ဏအ် ဟွံမံက် ပ္ဍဲကာလမဂၠိုင်ရ၊၊";
-"explore-feed-preferences-explore-tab" = "ဂၠာဲသ္ၚေဝ် တေပ်";
 "explore-feed-preferences-featured-article-description" = "လိက်ပရေင်မုက်ဂတ လၟေင်တ္ၚဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "ကၟာတ်";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "ပ္ဍဲ အိုတ်သီု";
@@ -282,7 +279,6 @@
 "explore-feed-preferences-hide-card-action-title" = "ဗဒန် ကာတ် ဏအ်";
 "explore-feed-preferences-hide-feed-cards-action-title" = "ပၞုက်ဗဒန် “%@” ကာတ် သီုဖအိုတ်";
 "explore-feed-preferences-in-the-news-description" = "လိက်ပရေင် ပရူ အရာမဒှ်ဒၟံင် လၟုဟ်";
-"explore-feed-preferences-languages-footer-text" = "မၞး ပၞုက်ဗဒန်ထောအ် ပ္ဍဲဒၞာဲ ဘာသာမၞးမ္ဂး ဍေဟ်ကၟာတ်အာ ပ္ဍဲဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊၊";
 "explore-feed-preferences-on-this-day-description" = "အရာ မကတဵုဒှ်လဝ် ပ္ဍဲဝင် ပ္ဍဲတ္ၚဲဏအ်";
 "explore-feed-preferences-places-description" = "လိက်ပရေင် ဝဳကဳပဳဒဳယာ ဗဒဲါဒၞာဲ မၞး မပဒတဴ";
 "explore-feed-preferences-potd-description" = "ဗီုရုပ်မုက်ဂတ နူ Commons";
@@ -304,16 +300,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "ကၟာတ်ထောအ် ကာတ်လိက်ညးမဗှ်ဂၠိုင်မ္ဂး ကာတ်ဂှ် ကၠေအ်ဗဒန်အာ ပ္ဍဲ အရေဝ်ဘာသာတအ်ရောင်၊၊";
 "explore-feed-preferences-show-top-read-title" = "ထ္ၜး ကာတ်လိက်ညးဗှ်ဂၠိုင်";
 "explore-feed-preferences-top-read-description" = "လိက်ပရေင် မၞိဟ်မဗှ်ဂၠိုင်အိုတ် လၟေင်တ္ၚဲ";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "ကၟာတ် ဒၞာဲမဂၠာဲသ္ၚေဝ်";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "ကၟာတ်ထောအ် ကာတ် Explore feed သီုဖအိုတ်မ္ဂး တေပ် Explore ကၟာတ်အာ၊ ယဝ်ရ မိက်ဂွံ ကလေင်စွံပၠန်မ္ဂး ဒးလုပ် ပ္ဍဲဒၞာဲတေပ် မဖျေဟ်ဒၞာဲ";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "ကၟာတ် ဒၞာဲ Explore feed?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "ကၟာတ် ဒၞာဲမဂၠာဲသ္ၚေဝ် Explore";
-"explore-feed-preferences-turn-off-explore-tab-message" = "မိက်ဂွံ ကလေင်ပံက် တေပ် Explore မ္ဂး ဒးလုပ်ပံက် ပ္ဍဲ ဒၞာဲမဖျေဟ်ဒၞာဲ Explore feed settings";
-"explore-feed-preferences-turn-off-explore-tab-title" = "ကၟာတ် တေပ် Explore?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "တေပ် Explore ကၟာတ်ဒၟံင်မ္ဂး ကလေင်ပံက်ကေတ် တေပ် Explore နကဵု တေပ် မဖျေဟ်ဒၞာဲ၊၊";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "နကဵု မရုဲစှ် ထ္ၜး ကာတ် ဒၞာဲမဂၠာဲသ္ၚေဝ်ဂှ် ဒှ်အရာ မၞး မပံက် တေပ် ဒၞာဲမဂၠာဲသ္ၚေဝ်ရ";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "ပံက် ဒၞာဲမဂၠာဲသ္ၚေဝ် Explore";
-"explore-feed-preferences-turn-on-explore-tab-message" = "တေပ် ဒၞာဲမဖျေဟ်ဒၞာဲ လုပ်ကေတ်ထောအ် ဒၞာဲ တေပ် ဒၞာဲမဂၠာဲသ္ၚေဝ်ရောင်၊ မိက်ဂွံကလေင် ဖျေဟ်ဒၞာဲတၟိမ္ဂး လုပ်ပ္ဍဲဒၞာဲ မဖျေဟ်ဒၞာဲ နကဵု မဍဵု ပ္ဍဲရုပ်အာင်ကန် ၚေက်က";
 "explore-feed-preferences-turn-on-explore-tab-title" = "ပံက် တေပ် Explore?";
 "explore-hide-card-prompt" = "ဗဒန် ကာတ် ဏအ်";
 "explore-main-page-description" = "မုက်လိက်တမ် ပရဝ်ဂျေတ် ဝဳကဳပဳဒဳယာ";
@@ -381,7 +368,6 @@
 "history-clear-confirmation-heading" = "မၞး မိက်ဂွံ ပလီုထောအ် item မၞး သီုဖအိုတ် ကွေဟ်ဟ်ရဟာ？";
 "history-clear-delete-all" = "ယွံ၊ ပလီုထောအ် ဖအိုတ်";
 "history-title" = "အရာမဗှ်လဝ်တုဲ";
-"home-button-explore-accessibility-label" = "ဝဳကဳပဳဒဳယာ ကလေင် ဂၠာဲသ္ၚေဝ်";
 "home-button-saved-accessibility-label" = "ဝဳကဳပဳဒဳယာ ကလေင် ဂိုင်သိပ်";
 "home-feed-for-you-settings-title" = "မဝ်ဂျူဂမၠိုၚ်";
 "home-feed-interests-selected-count" = "{{PLURAL:$1|$1 ရုဲကေတ်လဝ်|$1 ပရေၚ်မရုဲကေတ်လဝ်}}";
@@ -525,8 +511,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 နူ $2 ဝဳကဳပဳဒဳယာ";
 "on-this-day-title" = "ပ္ဍဲ တ္ၚဲဏအ်";
 "original-tab-button-popover-description" = "ဍဵု လတူ W သွက်ဂွံ ပ္ဍဲတေပ် မၞးမစကၠုင်လဝ်";
-// Fuzzy
-"page-history-bot-edits" = "ပလေဝ်ဒါန်လဝ် နကဵုစက်ဗောတ်";
+"page-history-bot-edits" = "ဗောတ်";
 "page-history-compare-accessibility-hint" = "ကေတ် မူမရုဲစှ်လဝ်ၜါ သွက်ဂွံ ၜတ်ကၞာတ်";
 "page-history-compare-title" = "ၜတ်ကၞာတ်";
 "page-history-graph-accessibility-label" = "ခံက်အင် မထ္ၜး ပလေဝ်ဒါန် မတုဲကၠုင်လဝ်";
@@ -768,26 +753,10 @@
 "two-factor-login-with-backup-code" = "သုင်စောဲ ကုတ် အရီုအဗင် မၞးညိ";
 "two-factor-login-with-regular-code" = "သုင်စောဲ ကုတ် ဍာံဍာံညိ";
 "unknown-generic-text" = "ဟွံတီ";
-"welcome-exploration-explore-feed-description" = "လိက်ပရေင် လၟေင်တ္ၚဲ မကဵုကသပ် နကဵု ဂကောံပိုယ်";
 "welcome-exploration-explore-feed-title" = "ဒၞာဲမထ္ၜး";
-"welcome-exploration-on-this-day-description" = "ပ္ဍဲတ္ၚဲဏအ် ပ္ဍဲ ဝင် မုမကတဵုဒှ်လဝ်ဂှ် ကလေင်အာ ပ္ဍဲအခိင်အတိက်တေအ်၊၊";
-"welcome-exploration-on-this-day-title" = "ပ္ဍဲ တ္ၚဲဏအ်";
-"welcome-exploration-places-description" = "ဂၠာဲလ္ၚတ် ဒၞာဲတၟေင် ဗဒဲါမၞး ဟွံသေင်မ္ဂး ဂၠာဲ ဒၞာဲတၟေင် အလုံမွဲ ဂၠးကဝ်";
-"welcome-exploration-places-title" = "ဒၞာဲ";
 "welcome-explore-continue-button" = "စဂွံရ၊၊";
-"welcome-explore-new-ways-title" = "ဂၠာဲ နကဵု နဲကဲတၟိ";
 "welcome-explore-tell-me-more-done-button" = "ကလိဂွံ";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "ဝဳကဳပဳဒဳယာ ဂှ် နကဵုမပံင်တောဲ ကုညးတၠစေတနာတအ်တုဲ ချူဂွံလဝ် လိက်ပရေင် ဂၠိုင်နူ ၄၀ မဳလဳယာန် နကဵုအရေဝ်ဘာသာ ၃၀၀ ပြင်င်၊၊";
-"welcome-intro-free-encyclopedia-more" = "ဆက်လ္ၚတ် ပရူ ဝဳကဳပဳဒဳယာ";
-"welcome-intro-free-encyclopedia-more-about" = "ပရူ ဝဳကဳပဳဒဳယာ";
-"welcome-intro-free-encyclopedia-more-description" = "ဝဳကဳပဳဒဳယာဝွံ ဒှ်ပရဝ်ဂျက် အလုံလိုက် သွက်ဂွံ ခၞံဗဒှ် ပြကိုဟ်ဗိသ္တာ သက္ကုၚုဟ် နကဵုအရေဝ်ဘာသာ သီုဖအိုတ် ပ္ဍဲဂၠးတိဏအ်ရ၊၊ ညးလဵုမွဲဟွံဟီု နကဵုဂၠံင် အေန်တာနေတ်ဂှ် ဗွဲမဗၠးၜး ပါလုပ်ချူ လိက်ပရေင် ပရူမွဲမွဲ နကဵု မဟွံဗက်မုက်ရ၊၊";
-"welcome-intro-free-encyclopedia-title" = "ပြကိုဟ်ဗိသ္တာ သက္ကုၚုဟ်";
 "welcome-languages-add-button" = "စုတ် နကဵု အရေဝ်ဘာသာတၞဟ်";
-"welcome-languages-add-or-edit-button" = "စုတ် ဟွံသေင်မ္ဂး ပလေဝ် အရေဝ်ဘာသာ မဒးဂၞပ်ဂမၠိုင်";
-"welcome-languages-description" = "ပ္ဍဲ device မၞးဂှ် ပိုယ်ဂွံဆဵုကေတ် အရေဝ်ဘာသာ အတိုင် ဗွဲသၟဝ်ဝွံရ";
-// Fuzzy
-"welcome-languages-search-title" = "ဂၠာဲ နကဵုအရေဝ်ဘာသာ ဗဒဲါ ၃၀၀";
 "wikimedia-articletopics-topic-art" = "အနုပညာ";
 "wikimedia-articletopics-topic-education" = "ပညာရေး";
 "wikimedia-articletopics-topic-food-and-drink" = "အစားအသောက်";

@@ -9,6 +9,8 @@ final class LoginCoordinator: Coordinator {
 
     var loginSuccessCompletion: (() -> Void)?
     var createAccountSuccessCustomDismissBlock: (() -> Void)?
+    /// Only the close button of the log in screen calls this, not the screens that log in opens.
+    var loginDismissedCompletion: (() -> Void)?
 
     // MARK: Properties
 
@@ -48,6 +50,7 @@ final class LoginCoordinator: Coordinator {
         let loginNavVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen)
         loginVC.loginSuccessCompletion = loginSuccessCompletion
         loginVC.createAccountSuccessCustomDismissBlock = createAccountSuccessCustomDismissBlock
+        loginVC.loginDismissedCompletion = loginDismissedCompletion
 
         present(loginNavVC)
 

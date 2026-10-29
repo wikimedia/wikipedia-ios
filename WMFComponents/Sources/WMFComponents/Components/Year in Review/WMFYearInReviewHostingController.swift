@@ -24,6 +24,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         return .portrait
     }
 
+    /// On iPad, the supported orientations above are not enough when the app supports multitasking.
+    /// iPadOS 26 and later honors this preference instead, but only while this screen is visible,
+    /// and the system may not honor it.
+    @available(iOS 26.0, *)
+    public override var prefersInterfaceOrientationLocked: Bool {
+        return true
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
@@ -33,7 +41,24 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
+                self?.configureToolbar()
                 self?.refreshToolbarItems()
+            }
+            .store(in: &cancellables)
+
+        // A slide can set the color of the controls in its .riv, which is known only after it loads.
+        viewModel.$loadedContentStyles
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applyContentColor()
+            }
+            .store(in: &cancellables)
+
+        // The end screen scrolls its light sky away from under the bar items, then they turn light.
+        viewModel.$endUsesLightContent
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applyContentColor()
             }
             .store(in: &cancellables)
 
@@ -65,6 +90,24 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         refreshToolbarItems()
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        lockToPortraitOnIPad()
+    }
+
+    // MARK: - Orientation
+
+    /// Asks for portrait, then asks the system to keep it while this screen shows.
+    private func lockToPortraitOnIPad() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+
+        view.window?.windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait)) { _ in }
+
+        if #available(iOS 26.0, *) {
+            setNeedsUpdateOfPrefersInterfaceOrientationLocked()
+        }
+    }
+
     // MARK: - Toolbar
 
     private func configureToolbar() {
@@ -72,7 +115,8 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
         let appearance = UIToolbarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
+        // The toolbar and the space around the page use the same color.
+        appearance.backgroundColor = viewModel.currentChromeColor
         appearance.shadowColor = .clear
 
         toolbar.standardAppearance = appearance
@@ -96,7 +140,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     private func refreshToolbarItems() {
         var items: [UIBarButtonItem] = []
 
-        if viewModel.currentSlide?.showsShareButton == true {
+        if viewModel.showsShareButton {
             items.append(
                 makeToolbarItem(
                     title: viewModel.localizedStrings.shareButtonTitle,
@@ -125,8 +169,35 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             }
         }
 
+        // If the page has no toolbar buttons, add a placeholder.
+        // The placeholder keeps the toolbar at the same height on all pages.
+        if !viewModel.showsShareButton && !viewModel.showsDonateButton {
+            items.append(makeToolbarPlaceholderItem())
+        }
+
         setToolbarItems(items, animated: false)
     }
+
+    /// Makes an item that has the same size as a toolbar button, but the user cannot see it or use it.
+    /// It uses the same button configuration, thus the height is always correct.
+    private func makeToolbarPlaceholderItem() -> UIBarButtonItem {
+        let item = makeToolbarItem(
+            title: viewModel.localizedStrings.shareButtonTitle,
+            symbol: .share,
+            action: #selector(tappedToolbarPlaceholder)
+        )
+
+        if let button = item.customView {
+            button.alpha = 0
+            button.isUserInteractionEnabled = false
+            button.accessibilityElementsHidden = true
+        }
+
+        return item
+    }
+
+    /// The placeholder item cannot receive taps. This method does nothing.
+    @objc private func tappedToolbarPlaceholder() {}
 
 
     private func makeToolbarItem(title: String, symbol: WMFSFSymbolIcon, action: Selector) -> UIBarButtonItem {
@@ -170,72 +241,35 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         })
     }
 
+    // MARK: - Navigation bar
+
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(
-            title: "",
-            customView: makeTitleView(),
-            alignment: .centerCompact
+        WMFYearInReviewNavigationItems.configure(
+            self,
+            strings: WMFYearInReviewNavigationItems.Strings(
+                wIconAccessibilityLabel: viewModel.localizedStrings.wIconAccessibilityLabel,
+                closeButtonAccessibilityLabel: viewModel.localizedStrings.closeButtonAccessibilityLabel,
+                moreButtonAccessibilityLabel: viewModel.localizedStrings.moreButtonAccessibilityLabel,
+                learnMoreTitle: viewModel.localizedStrings.learnMoreButtonTitle,
+                aboutInsightsTitle: viewModel.localizedStrings.aboutInsightsButtonTitle,
+                shareFeedbackTitle: viewModel.localizedStrings.shareFeedbackButtonTitle
+            ),
+            tintColor: contentColor,
+            closeAction: #selector(tappedClose),
+            onLearnMore: { [weak self] in self?.viewModel.tappedLearnMore() },
+            onAboutInsights: { [weak self] in self?.viewModel.tappedAboutInsights() },
+            onShareFeedback: { [weak self] in self?.viewModel.tappedShareFeedback() }
         )
-
-        let closeConfig = WMFLargeCloseButtonConfig(
-            imageType: .plainX,
-            target: self,
-            action: #selector(tappedClose),
-            alignment: .leading
-        )
-
-        configureNavigationBar(
-            titleConfig: titleConfig,
-            closeButtonConfig: closeConfig,
-            profileButtonConfig: nil,
-            tabsButtonConfig: nil,
-            searchBarConfig: nil,
-            hideNavigationBarOnScroll: false
-        )
-
-        navigationItem.rightBarButtonItem = makeMoreButton()
-        applyContentColor()
     }
 
+    /// Each slide says whether its artwork is light or dark, so the bar items follow the current slide.
     private func applyContentColor() {
-        let color = viewModel.currentSlide?.contentColor ?? theme.text
-        navigationItem.rightBarButtonItem?.tintColor = color
-        navigationItem.leftBarButtonItem?.tintColor = color
-        (navigationItem.titleView as? UIImageView)?.tintColor = color
+        WMFYearInReviewNavigationItems.applyTintColor(contentColor, to: navigationItem)
     }
 
-    private func makeTitleView() -> UIView {
-        let imageView = UIImageView(image: UIImage(named: "W", in: .module, with: nil))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = viewModel.currentSlide?.contentColor ?? theme.text
-        imageView.isAccessibilityElement = true
-        imageView.accessibilityLabel = viewModel.localizedStrings.wIconAccessibilityLabel
-        imageView.frame = CGRect(x: 0, y: 0, width: 24, height: 20)
-        return imageView
-    }
-
-    private func makeMoreButton() -> UIBarButtonItem {
-        let learnMore = UIAction(
-            title: viewModel.localizedStrings.learnMoreButtonTitle,
-            image: WMFSFSymbolIcon.for(symbol: .infoCircle)
-        ) { [weak self] _ in
-            self?.viewModel.tappedLearnMore()
-        }
-
-        let shareFeedback = UIAction(
-            title: viewModel.localizedStrings.shareFeedbackButtonTitle,
-            image: WMFSFSymbolIcon.for(symbol: .ellipsisBubble)
-        ) { [weak self] _ in
-            self?.viewModel.tappedShareFeedback()
-        }
-
-        let item = UIBarButtonItem(
-            image: WMFSFSymbolIcon.for(symbol: .ellipsis),
-            menu: UIMenu(children: [learnMore, shareFeedback])
-        )
-        item.accessibilityLabel = viewModel.localizedStrings.moreButtonAccessibilityLabel
-        item.tintColor = viewModel.currentSlide?.contentColor ?? theme.text
-        return item
+    /// The color from the .riv once the slide has loaded, otherwise the style the factory gave it.
+    private var contentColor: UIColor {
+        viewModel.currentContentColor ?? theme.text
     }
 
     @objc private func tappedClose() {

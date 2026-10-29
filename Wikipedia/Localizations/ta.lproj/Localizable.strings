@@ -138,7 +138,6 @@
 "forgot-password-username-or-email-title" = "அல்லது";
 "history-clear-delete-all" = "ஆம், யாவையும் நீக்கு";
 "history-title" = "வரலாறு";
-"home-button-explore-accessibility-label" = "விக்கிப்பீடியா, சுற்றிப்பார்க்க திரும்புக";
 "home-button-saved-accessibility-label" = "விக்கிப்பீடியா, சேமிக்கபட்டதற்கு திரும்புக";
 "home-more-like-footer" = "$1 போல மேலும்";
 "home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் இருக்கும் மேலும் இடங்கள்";
@@ -264,13 +263,8 @@
 "two-factor-login-title" = "உங்கள் கணக்கிற்கு பகுபதியவும்";
 "watchlist-change-expiry-option-one-month" = "1 மாதம்";
 "watchlist-change-expiry-option-one-week" = "1 வாரம்";
-"welcome-exploration-on-this-day-title" = "இந்த நாளில்";
 "welcome-explore-continue-button" = "தொடங்கவும்";
-"welcome-explore-new-ways-title" = "சுற்றிப்பார்பதற்கான புதிய வழிகள்";
 "welcome-explore-tell-me-more-done-button" = "புரிந்துகொண்டேன்";
-"welcome-intro-free-encyclopedia-more" = "விக்கிப்பீடியாவைப்பற்றி மேலும் அறி";
-"welcome-intro-free-encyclopedia-more-about" = "விக்கிப்பீடியாவைப் பற்றி";
-"welcome-intro-free-encyclopedia-title" = "இலவச கலை கலஞ்சியம்";
 "welcome-languages-add-button" = "மற்றொரு மொழி சேர்க்கவும்";
 "wikimedia-articletopics-topic-africa" = "Africa";
 "wikimedia-articletopics-topic-architecture" = "Architecture";

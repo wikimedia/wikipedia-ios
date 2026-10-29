@@ -43,11 +43,21 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Always show the entry point. When this is off, the other Year in Review settings have no effect.") {
                     Toggle("Show Year in Review 2026", isOn: $viewModel.forceYiREntryPoint2026)
                 }
-                captionedRow(caption: "Overrides the experience the personalized data selects. Switching it back to Off lets the user data dictate the experience.") {
-                    Picker("Force Experience", selection: $viewModel.forceYiRUserDataState) {
-                        Text("Off").tag(WMFYearInReviewDataController.YiRUserDataState?.none)
-                        Text("Data Rich Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.dataRich))
-                        Text("Data Low Experience").tag(WMFYearInReviewDataController.YiRUserDataState?.some(.lowData))
+                captionedRow(caption: "Overrides the entry points and the announcement that the reading history selects. Data-rich is 3 or more articles read from January 1 to November 30.") {
+                    Picker("Force Entry Point", selection: $viewModel.forceYiRDataState) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRDataState?.none)
+                        Text("Data-rich").tag(WMFYearInReviewDataController.YiRDataState?.some(.dataRich))
+                        Text("Low-data").tag(WMFYearInReviewDataController.YiRDataState?.some(.lowData))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "Overrides the slides that the log in state and the personalized data select, also for logged-out users. All Empty States shows the empty version of each personalized slide.") {
+                    Picker("Force Slides", selection: $viewModel.forceYiRSlidesExperience) {
+                        Text("Off").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.none)
+                        Text("Personalized").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.some(.personalized))
+                        Text("Collective").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.some(.collective))
+                        Text("All Empty States").tag(WMFYearInReviewDataController.YiRForcedSlidesExperience?.some(.allEmptyStates))
                     }
                     .tint(Color(theme.secondaryText))
                 }
@@ -56,6 +66,23 @@ struct WMFDeveloperSettingsView: View {
                     Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026)
+                if viewModel.regenerateYiR2026Report != nil {
+                    captionedRow(caption: "Deletes the report and builds it again from your current reading history, frozen slides too. To try a new state, clear your history, read some articles, then tap this.") {
+                        Button {
+                            viewModel.tappedRegenerateYiR2026Report()
+                        } label: {
+                            HStack {
+                                Text("Regenerate Year in Review 2026 Report")
+                                    .foregroundStyle(Color(theme.link))
+                                Spacer()
+                                if viewModel.isRegeneratingYiR2026Report {
+                                    ProgressView()
+                                }
+                            }
+                        }
+                    }
+                    .disabled(!viewModel.forceYiREntryPoint2026 || viewModel.isRegeneratingYiR2026Report)
+                }
             } header: {
                 sectionHeader("Year in Review")
             }
@@ -144,6 +171,39 @@ struct WMFDeveloperSettingsView: View {
             }
             .listRowBackground(rowBackground)
 
+            Section {
+                captionedRow(caption: "Keeps Discover hidden in production while its user stories ship. Without this, no gate below is evaluated.") {
+                    Toggle("Enable Discover", isOn: $viewModel.enableDiscover)
+                }
+                captionedRow(caption: "Overrides the persisted A/B bucket at read time. Switching it back to Off restores the persisted bucket.") {
+                    Picker("Force Experiment Group", selection: $viewModel.forceDiscoverExperimentAssignment) {
+                        Text("Off").tag(WMFDiscoverDataController.ExperimentAssignment?.none)
+                        Text("Control (A)").tag(WMFDiscoverDataController.ExperimentAssignment?.some(.control))
+                        Text("Group B").tag(WMFDiscoverDataController.ExperimentAssignment?.some(.groupB))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                captionedRow(caption: "Removes the persisted bucket so the next visit to Saved re-rolls the A/B assignment.") {
+                    Button {
+                        viewModel.clearDiscoverExperimentAssignment()
+                    } label: {
+                        Text("Clear experiment assignment")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+                captionedRow(caption: "Forgets the answer to the onboarding card, so the card and the Saved tab badge show again.") {
+                    Button {
+                        viewModel.resetDiscoverAnnouncement()
+                    } label: {
+                        Text("Reset onboarding card")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+            } header: {
+                sectionHeader("Discover")
+            }
+            .listRowBackground(rowBackground)
+
             if let widgetDiagnostics = viewModel.widgetDiagnostics {
                 Section {
                     ForEach(Array(widgetDiagnostics.cacheSummaryLines.enumerated()), id: \.offset) { _, line in
@@ -222,6 +282,22 @@ struct WMFDeveloperSettingsView: View {
             }
             .listRowBackground(rowBackground)
 
+            Section {
+                Text(viewModel.eventLoggingDiagnosticsText)
+                    .font(.footnote.monospaced())
+                    .foregroundStyle(Color(theme.text))
+                    .textSelection(.enabled)
+                Button {
+                    viewModel.resetEventLoggingDiagnostics()
+                } label: {
+                    Text("Reset counters")
+                        .foregroundStyle(Color(theme.link))
+                }
+            } header: {
+                sectionHeader("Event Logging")
+            }
+            .listRowBackground(rowBackground)
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
@@ -230,9 +306,24 @@ struct WMFDeveloperSettingsView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
+        .alert(
+            "Year in Review 2026 Report",
+            isPresented: Binding(
+                get: { viewModel.yiR2026ReportAlertMessage != nil },
+                set: { if !$0 { viewModel.yiR2026ReportAlertMessage = nil } }
+            ),
+            presenting: viewModel.yiR2026ReportAlertMessage
+        ) { _ in
+            Button("OK", role: .cancel) {}
+        } message: { message in
+            Text(message)
+        }
         .listBackgroundColor(Color(theme.baseBackground))
         .foregroundStyle(Color(theme.text))
         .toggleStyle(SwitchToggleStyle(tint: Color(theme.accent)))
+        .onAppear {
+            viewModel.refreshEventLoggingDiagnostics()
+        }
         .task {
             await viewModel.loadLocalNotificationLogSummary()
         }

@@ -137,7 +137,6 @@
 "history-clear-confirmation-heading" = "আপুনি আপোনাৰ সকলো শেহতীয়া বস্তু মচিবলৈ বিচৰাটো নিশ্চিতনে?";
 "history-clear-delete-all" = "হয়, সকলো মচক";
 "history-title" = "ইতিহাস";
-"home-button-explore-accessibility-label" = "ৱিকিপিডিয়া, অন্বেষণলৈ উভতি যাওক";
 "home-button-saved-accessibility-label" = "ৱিকিপিডিয়া, সংৰক্ষণলৈ উভতি যাওক";
 "home-more-like-footer" = "$1-ৰ দৰে অধিক";
 "home-nearby-footer" = "আপোনাৰ অৱস্থানৰ ওচৰত অধিক স্থান";
@@ -247,15 +246,7 @@
 "unknown-generic-text" = "অজ্ঞাত";
 "variants-alert-dismiss-button" = "নালাগে দিয়ক";
 "welcome-explore-tell-me-more-done-button" = "বুজিছোঁ";
-"welcome-intro-free-encyclopedia-description" = "স্বেচ্ছাসেৱকসকলৰ দ্বাৰা সহযোগিতামূলক ভাবে ৱিকিপিডিয়াক লিখা হৈছে আৰু ইয়াত ৩০০টাৰো অধিক ভাষাত ৪ কোটিৰো অধিক প্ৰবন্ধ আছে।";
-"welcome-intro-free-encyclopedia-more" = "ৱিকিপিডয়াৰ বিষয়ে অধিক জানক";
-"welcome-intro-free-encyclopedia-more-about" = "ৱিকিপিডিয়াৰ বিষয়ে";
-"welcome-intro-free-encyclopedia-more-description" = "ৱিকিপিডিয়া হৈছে বিশ্বৰ সকলো ভাষাতে মুক্ত বিশ্বকোষ নিৰ্মাণ কৰাৰ এক গোলকীয় প্ৰকল্প। ইণ্টাৰনেটৰ সংযোগ থকা যিকোনো লোকেই নিৰপেক্ষ তথা উদ্ধৃতিযুক্ত তথ্যৰ বৰঙণি আগবঢ়াই ইয়াত অংশগ্ৰহণ কৰিব পাৰে।";
-"welcome-intro-free-encyclopedia-title" = "মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "অন্য ভাষা যোগ কৰক";
-"welcome-languages-add-or-edit-button" = "পছন্দৰ ভাষা যোগ বা সম্পাদনা কৰক";
-"welcome-languages-description" = "আমি আপোনাৰ ডিভাইচত নিম্নলিখিত ভাষাবোৰ পাইছোঁ:";
-"welcome-languages-search-title" = "৩০০ৰো অধিক ভাষাত সন্ধান কৰক";
 "wikimedia-articletopics-topic-africa" = "আফ্ৰিকা";
 "wikimedia-articletopics-topic-architecture" = "স্থাপত্য";
 "wikimedia-articletopics-topic-art" = "কলা";

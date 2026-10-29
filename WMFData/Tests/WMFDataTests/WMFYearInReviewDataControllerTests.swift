@@ -252,6 +252,20 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             XCTAssertFalse(shouldShowEntryPointRU, "RU should not show entry point for mock YiR config.")
         }
     }
+
+    func testTopReadPercentageUsesTheConfigBuckets() {
+        let config = WMFFeatureConfigResponse.Common.YearInReview.testConfig
+
+        XCTAssertNil(config.topReadPercentage(forReadCount: 0))
+        XCTAssertNil(config.topReadPercentage(forReadCount: 335), "the average reader is not in the top 50%")
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 336), 50)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 1233), 50)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 1234), 40)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 8900), 20)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 43739), 1)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 43740), 0.01)
+        XCTAssertEqual(config.topReadPercentage(forReadCount: 1_000_000), 0.01, "the top bucket has no maximum")
+    }
 }
 
 extension WMFFeatureConfigResponse.Common.YearInReview {
@@ -349,6 +363,6 @@ extension WMFFeatureConfigResponse.Common.YearInReview {
         let activeStartDateString = dateFormatter.string(from: Date().addingTimeInterval(-oneDay))
         let activeEndDateString = dateFormatter.string(from: Date().addingTimeInterval(oneDay))
         
-        return WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: activeStartDateString, activeEndDateString: activeEndDateString, dataStartDateString: "2026-01-01T00:00:00Z", dataEndDateString: "2026-12-01T00:00:00Z", languages: 300, articles: 10000000, savedArticlesApps: 37574993, viewsApps: 1000000000, editsApps: 124356, editsPerMinute: 342, averageArticlesReadPerYear: 335, edits: 81987181, editsEN: 31000000, hoursReadEN: 2423171000, yearsReadEN: 275000, topReadEN: testTopReadEN, topReadPercentages:testTopReadPercentages, bytesAddedEN: 1000000000, hideCountryCodes: testHideCountryCodes, hideDonateCountryCodes: testHideDonateCountryCodes)
+        return WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: activeStartDateString, activeEndDateString: activeEndDateString, dataStartDateString: "2026-01-01T00:00:00Z", dataEndDateString: "2026-12-01T00:00:00Z", languages: 300, articles: 10000000, savedArticlesApps: 37574993, volunteerEditors: 250000, viewsApps: 1000000000, editsApps: 124356, editsPerMinute: 342, averageArticlesReadPerYear: 335, edits: 81987181, editsEN: 31000000, hoursReadEN: 2423171000, yearsReadEN: 275000, topReadEN: testTopReadEN, topReadPercentages:testTopReadPercentages, bytesAddedEN: 1000000000, hideCountryCodes: testHideCountryCodes, hideDonateCountryCodes: testHideDonateCountryCodes)
     }
 }

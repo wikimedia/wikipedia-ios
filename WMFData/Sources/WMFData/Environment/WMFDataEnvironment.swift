@@ -14,12 +14,25 @@ public struct WMFHTTPErrorInfo: Sendable {
     public let method: String?
     public let url: String?
     public let source: String?
+    /// Seconds the server asked the client to wait (Retry-After), when it said so.
+    public let retryAfter: TimeInterval?
+    /// True when the app answered the caller from its cache instead of surfacing the error.
+    public let servedFromCache: Bool
 
-    public init(statusCode: Int, method: String?, url: String?, source: String?) {
+    public init(
+        statusCode: Int,
+        method: String?,
+        url: String?,
+        source: String?,
+        retryAfter: TimeInterval? = nil,
+        servedFromCache: Bool = false
+    ) {
         self.statusCode = statusCode
         self.method = method
         self.url = url
         self.source = source
+        self.retryAfter = retryAfter
+        self.servedFromCache = servedFromCache
     }
 }
 

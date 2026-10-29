@@ -48,6 +48,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(createNewReadingListButtonPressed), for: .touchUpInside)
+        button.accessibilityIdentifier = AccessibilityIdentifiers.AddToReadingList.createNewListButton
 
         button.configuration = createNewListButtonConfig
         return button
@@ -123,6 +124,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.AddToReadingList.view
         
         // Add reading lists view controller
         addChild(readingListsViewController)
@@ -171,6 +173,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
         let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPressed), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.AddToReadingList.closeButton
     }
 
     // MARK: Themeable
@@ -190,10 +193,6 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
 // MARK: ReadingListsViewControllerDelegate
 
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        // no-op
-    }
-    
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         if let moveFromReadingList = moveFromReadingList {
             do {

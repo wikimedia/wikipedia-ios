@@ -15,9 +15,12 @@ struct UITestConfiguration {
     let resetsPreferredLanguages: Bool
     let suppressesActivityTabOnboarding: Bool
     let suppressesGamesAnnouncement: Bool
-    let enablesHomeTab: Bool
+    let suppressesHomeOnboarding: Bool
+    let centralAuthUsername: String?
     let themeName: String?
     let languageCode: String
+    let readingListsSeed: UITestReadingListsSeed?
+    let discoverState: DiscoverState
 
     var isRightToLeft: Bool {
         NSLocale.characterDirection(forLanguage: languageCode) == .rightToLeft
@@ -28,15 +31,21 @@ struct UITestConfiguration {
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
         suppressesGamesAnnouncement: Bool = true,
-        enablesHomeTab: Bool = false
+        suppressesHomeOnboarding: Bool = true,
+        readingListsSeed: UITestReadingListsSeed? = nil,
+        centralAuthUsername: String? = nil,
+        discoverState: DiscoverState = .off
     ) {
         self.onboardingState = onboardingState
+        self.readingListsSeed = readingListsSeed
+        self.discoverState = discoverState
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
         self.themeName = ProcessInfo.processInfo.value(for: .appThemeName)
         self.resetsPreferredLanguages = resetsPreferredLanguages
         self.suppressesActivityTabOnboarding = suppressesActivityTabOnboarding
         self.suppressesGamesAnnouncement = suppressesGamesAnnouncement
-        self.enablesHomeTab = enablesHomeTab
+        self.suppressesHomeOnboarding = suppressesHomeOnboarding
+        self.centralAuthUsername = centralAuthUsername
         self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? defaultLanguageCode
     }
 
@@ -59,16 +68,40 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.suppressGamesAnnouncement, value: "YES"))
         }
 
-        // Always passed explicitly: the developer-settings flag persists across launches,
-        // so a test that omitted it would inherit whatever the previous test set.
-        argumentValues.append(UITestLaunchArgumentValue(.enableHomeTab, value: enablesHomeTab ? "YES" : "NO"))
+        if suppressesHomeOnboarding {
+            argumentValues.append(UITestLaunchArgumentValue(.suppressHomeOnboarding, value: "YES"))
+        }
+
+        argumentValues.append(UITestLaunchArgumentValue(.suppressYearInReviewAnnouncement, value: "YES"))
+
+        // Always passed explicitly: the cookie persists across launches, so an empty value
+        // clears the centralauth_User cookie a previous test seeded.
+        argumentValues.append(UITestLaunchArgumentValue(.centralAuthUsername, value: centralAuthUsername ?? ""))
 
         argumentValues.append(UITestLaunchArgumentValue(.appleLanguages, value: "(\(languageCode))"))
         argumentValues.append(UITestLaunchArgumentValue(.httpClientProfile, value: httpClientProfile))
         argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))
         argumentValues.append(UITestLaunchArgumentValue(.didShowOnboarding, value: onboardingState.launchArgumentValue))
 
+        if let readingListsSeed {
+            argumentValues.append(UITestLaunchArgumentValue(.readingListsSeed, value: readingListsSeed.launchArgumentValue))
+        }
+
+        if discoverState != .keep {
+            argumentValues.append(UITestLaunchArgumentValue(.discoverState, value: discoverState.rawValue))
+        }
+
         return argumentValues
+    }
+
+    /// What the launch does with the Discover flags, which persist across launches.
+    enum DiscoverState: String {
+        /// Discover off, the production default.
+        case off
+        /// Discover on, group B, and the onboarding card shown again.
+        case groupB
+        /// Leaves the flags as the previous launch left them.
+        case keep
     }
 
     /// Models the persisted onboarding flag that tests need to set before launch.

@@ -142,7 +142,7 @@ public final class MediaWikiFetcher: Fetcher, WMFService, @unchecked Sendable {
             }
             
             guard HTTPStatusCode.isSuccessful(response.statusCode) else {
-                completion(.failure(RequestError.http(response.statusCode)))
+                completion(.failure(RequestError.from(response: response)))
                 return
             }
             
@@ -164,7 +164,7 @@ public final class MediaWikiFetcher: Fetcher, WMFService, @unchecked Sendable {
             }
             
             guard HTTPStatusCode.isSuccessful(response.statusCode) else {
-                completion(.failure(RequestError.http(response.statusCode)))
+                completion(.failure(RequestError.from(response: response)))
                 return
             }
             

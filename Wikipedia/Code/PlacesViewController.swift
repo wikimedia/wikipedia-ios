@@ -944,8 +944,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
 
-        SearchFunnel.shared.logSearchDidYouMean(source: "places")
-
         performSearch(search)
     }
 
@@ -2102,10 +2100,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             DispatchQueue.main.async {
                 guard text == searchBar.text else {
                     return
-                }
-
-                if let suggestion = searchResult.searchSuggestion {
-                    DDLogDebug("got suggestion! \(suggestion)")
                 }
 
                 let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)

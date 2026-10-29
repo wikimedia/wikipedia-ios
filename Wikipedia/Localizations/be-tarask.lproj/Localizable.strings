@@ -37,6 +37,7 @@
 "action-discard-edits" = "Адкінуць рэдагаваньні";
 "action-read" = "Чытаць";
 "action-redo" = "Паўтарыць";
+"action-remove" = "Прыбраць";
 "action-save" = "Захаваць";
 "action-saved" = "Захаваны";
 "action-sort" = "Сартаваць";
@@ -92,6 +93,7 @@
 "history-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя нядаўнія элемэнты?";
 "history-clear-delete-all" = "Так, выдаліць усё";
 "history-title" = "Гісторыя";
+"home-feed-interests-deselect-all" = "Зьняць выбар з усіх";
 "home-more-like-footer" = "Болей падобна на $1";
 "home-nearby-footer" = "Болей месцаў побач з вамі";
 "home-title" = "Дасьледаваньне";

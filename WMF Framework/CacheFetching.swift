@@ -50,7 +50,7 @@ extension CacheFetching where Self:Fetcher {
             }
             
             if let httpResponse = unwrappedResponse as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                completion(.failure(RequestError.unexpectedResponse))
+                completion(.failure(RequestError.from(response: httpResponse)))
                 return
             }
             

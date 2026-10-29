@@ -8,7 +8,7 @@ import Combine
 import WMFTestKitchen
 
 /// Standalone view controller for searching Wikipedia articles. Designed to be used within a navigation controller, as its search bar leans on navigationItem.searchController behavior.
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider, SearchResultsHosting {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider {
     
     let source: SearchResultsViewController.EventLoggingSource
 
@@ -36,7 +36,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var pushedArticleSource: PushedArticleSource?
     private var cancellables = Set<AnyCancellable>()
     
-    var disableSearchCancelLogging: Bool = false
     
     // MARK: - Public configuration (set before pushing)
 
@@ -73,6 +72,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Coordinators
 
     private var semanticSearchResultsCoordinator: SemanticSearchResultsCoordinator?
+    private var semanticSearchInfoCoordinator: SemanticSearchInfoCoordinator?
     private var _yirCoordinator: YearInReviewCoordinator?
     private var yirCoordinator: YearInReviewCoordinator? {
         guard let navigationController, let yirDataController, let dataStore else { return nil }
@@ -138,6 +138,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         vc.semanticSearchSettingsTappedAction = { [weak self] in
             self?.showSearchSettings()
         }
+        vc.semanticSearchInfoTappedAction = { [weak self] languageCode in
+            self?.showSemanticSearchInfo(languageCode: languageCode)
+        }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             
@@ -173,8 +176,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             navigationController: navigationController,
             query: query,
             project: project,
-            didSelectResult: { [weak self] result, needsFeedback in
-                self?.openSemanticSearchResult(result, project: project, needsFeedback: needsFeedback)
+            instrumentation: searchResultsVC.instrumentation,
+            didSelectResult: { [weak self] result, searchID, needsFeedback in
+                self?.openSemanticSearchResult(result, project: project, searchID: searchID, needsFeedback: needsFeedback)
             }
         )
 
@@ -190,7 +194,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     /// Opens the article at the section of the passage and highlights the passage in it.
-    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject, needsFeedback: Bool) {
+    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject, searchID: String?, needsFeedback: Bool) {
         guard let dataStore, let navigationController,
               let siteURL = project.siteURL,
               var articleURL = siteURL.wmf_URL(withTitle: result.title)?.wmf_URL(withOptionalFragment: result.sectionTitle.map(Self.sectionAnchor))
@@ -205,6 +209,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             theme: theme,
             source: .search,
             semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML),
+            semanticSearchID: searchID,
+            semanticSearchInstrumentation: searchResultsVC.instrumentation,
             needsSemanticSearchFeedback: needsFeedback
         )
         pushedArticleSource = .semanticSearchSheet
@@ -216,6 +222,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     /// The id MediaWiki gives the heading of a section: the title with underscores for spaces.
     private static func sectionAnchor(for sectionTitle: String) -> String {
         sectionTitle.replacingOccurrences(of: " ", with: "_")
+    }
+
+    // MARK: - Semantic search info
+
+    private func showSemanticSearchInfo(languageCode: String) {
+        guard let navigationController else { return }
+
+        let coordinator = SemanticSearchInfoCoordinator(navigationController: navigationController, languageCode: languageCode, instrumentation: searchResultsVC.instrumentation)
+        semanticSearchInfoCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - History
@@ -385,8 +401,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        disableSearchCancelLogging = !isMovingFromParent
-
         // Keep the search active under the pushed article, so the reader returns to it.
         if pushedArticleSource == nil {
             if navigationItem.searchController?.isActive == true {
@@ -396,7 +410,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             navigationItem.searchController = nil
             navigationItem.title = nil
         }
-        disableSearchCancelLogging = false
         hideCustomLeadingLargeTitleLabel()
     }
 
@@ -481,7 +494,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             profileButtonConfig: profileButtonConfig,
             tabsButtonConfig: tabsButtonConfig,
             searchBarConfig: searchConfig,
-            hideNavigationBarOnScroll: !isSearchActive
+            hideNavigationBarOnScroll: !isSearchActive && !isRootTabView
         )
         
         if !isRootTabView, !shouldHideHistory {
@@ -644,7 +657,7 @@ extension SearchViewController: UISearchControllerDelegate {
 
     func didDismissSearchController(_ searchController: UISearchController) {
         isSearchActive = false
-        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnSwipe = !isRootTabView
         
         if !shouldHideHistory {
             historyViewController.view.isHidden = false

@@ -146,7 +146,6 @@
 "history-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh poin kiwari anjeun?";
 "history-clear-delete-all" = "Nya, hapus sadayana";
 "history-title" = "Jujutan";
-"home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
 "home-button-saved-accessibility-label" = "Wikipédia, balik deui ka nu Kasimpen";
 "home-more-like-footer" = "Lianna nu siga $1";
 // Fuzzy
@@ -305,26 +304,10 @@
 "two-factor-login-title" = "Asup log kana akun anjeun";
 "two-factor-login-with-backup-code" = "Paké kode cadangan anjeun";
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
-"welcome-exploration-explore-feed-description" = "Bacaan nu disarankeun jeung artikel poéan ti komunitas kami";
 "welcome-exploration-explore-feed-title" = "Langlang eupan";
-"welcome-exploration-on-this-day-description" = "Liar deui ka bihari pikeun nyangkem naon nu kajadian poé ayeuna dina sejarah";
-"welcome-exploration-on-this-day-title" = "Dina poé ieu";
-"welcome-exploration-places-description" = "Panggihan tangara di deukeut anjeun atawa paluruh tempat di sakuliah dunya";
-"welcome-exploration-places-title" = "Tab Tempat";
 "welcome-explore-continue-button" = "Mitembeyan";
-"welcome-explore-new-ways-title" = "Cara anyar pikeun ngalanglang";
 "welcome-explore-tell-me-more-done-button" = "Ngarti";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipédia ditulis sacara kolaboratif ku sukarélawan jeung ngawengku leuwih ti 40 yuta artikel dina ampir 300 basa.";
-"welcome-intro-free-encyclopedia-more" = "Teuleuman ngeunaan Wikipédia";
-"welcome-intro-free-encyclopedia-more-about" = "Ngeunaan Wikipedia";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipédia mangrupa proyék global pikeun ngawangun énsiklopedi bébas dina sadaya basa di dunya. Ampir sakumna jalma kalawan aksés internét bébas ilubiung dina méré kontribusi informasi nu nétral jeung dicutat.";
-"welcome-intro-free-encyclopedia-title" = "Énsiklopédi Bébas";
 "welcome-languages-add-button" = "Tambahkeun basa lianna";
-"welcome-languages-add-or-edit-button" = "Tambahan atawa édit basa pinilih";
-"welcome-languages-description" = "Kami geus manggihan basa di handap dina pakakas anjeun:";
-// Fuzzy
-"welcome-languages-search-title" = "Paluruh di ampir 300 basa";
 "wikimedia-articletopics-topic-africa" = "Afrika";
 "wikimedia-articletopics-topic-architecture" = "Arsitektur";
 "wikimedia-articletopics-topic-art" = "Seni";

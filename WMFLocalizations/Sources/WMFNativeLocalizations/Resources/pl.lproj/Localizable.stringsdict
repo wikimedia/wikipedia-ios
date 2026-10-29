@@ -2,23 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>add-articles-to-reading-list</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Dodaj %1$#@v1@ do listy do przeczytania</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d artykuł</string>
-			<key>other</key>
-			<string>%1$d artykuły</string>
-		</dict>
-	</dict>
-	<key>article-deleted-accessibility-notification</key>
+	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%1$#@v1@</string>
@@ -28,10 +12,200 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d odsłony</string>
 			<key>one</key>
-			<string>artykuł usunięty</string>
+			<string>%1$d odsłona</string>
 			<key>other</key>
-			<string>artykuły usunięte</string>
+			<string>%1$d odsłony</string>
+		</dict>
+	</dict>
+	<key>activity-tab-impact-best-streak-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d dni</string>
+			<key>one</key>
+			<string>%1$d dzień</string>
+			<key>other</key>
+			<string>%1$d dnia</string>
+		</dict>
+	</dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dodaj %1$#@v1@ do kolekcji</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d artykuły</string>
+			<key>one</key>
+			<string>%1$d artykuł</string>
+			<key>other</key>
+			<string>%1$d artykułu</string>
+		</dict>
+	</dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Usunięto %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d artykuły</string>
+			<key>one</key>
+			<string>jeden artykuł</string>
+			<key>other</key>
+			<string>%1$d artykułu</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Czy na pewno chcesz zamknąć %1$#@v1@? Tej czynności nie można cofnąć.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d karty</string>
+			<key>one</key>
+			<string>jedną kartę</string>
+			<key>other</key>
+			<string>%1$d karty</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Zamknąć %1$#@v1@?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d karty</string>
+			<key>one</key>
+			<string>jedną kartę</string>
+			<key>other</key>
+			<string>%1$d karty</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Zamknięto %1$#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d karty</string>
+			<key>one</key>
+			<string>jedną kartę</string>
+			<key>other</key>
+			<string>%1$d karty</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Akapit przesunięto w dół o %1$d wiersze. Przejdź do nowej lokalizacji.</string>
+			<key>one</key>
+			<string>Akapit przesunięto w dół o jeden wiersz. Przejdź do nowej lokalizacji.</string>
+			<key>other</key>
+			<string>Akapit przesunięto w dół o %1$d wiersza. Przejdź do nowej lokalizacji.</string>
+			<key>zero</key>
+			<string>Nie przesunięto akapitu w dół.</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Akapit przesunięto w górę o %1$d wiersze. Przejdź do nowej lokalizacji.</string>
+			<key>one</key>
+			<string>Akapit przesunięto w górę o jeden wiersz. Przejdź do nowej lokalizacji.</string>
+			<key>other</key>
+			<string>Akapit przesunięto w górę o %1$d wiersza. Przejdź do nowej lokalizacji.</string>
+			<key>zero</key>
+			<string>Nie przesunięto akapitu w górę.</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Akapit przesunięto w dół o %1$d sekcje. Przejdź do nowej lokalizacji.</string>
+			<key>one</key>
+			<string>Akapit przesunięto w dół o jedną sekcję. Przejdź do nowej lokalizacji.</string>
+			<key>other</key>
+			<string>Akapit przesunięto w dół o %1$d sekcji. Przejdź do nowej lokalizacji.</string>
+			<key>zero</key>
+			<string>Nie przesunięto akapitu w dół.</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Akapit przesunięto w górę o %1$d sekcje. Przejdź do nowej lokalizacji.</string>
+			<key>one</key>
+			<string>Akapit przesunięto w górę o jedną sekcję. Przejdź do nowej lokalizacji.</string>
+			<key>other</key>
+			<string>Akapit przesunięto w górę o %1$d sekcji. Przejdź do nowej lokalizacji.</string>
+			<key>zero</key>
+			<string>Nie przesunięto akapitu w górę.</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -45,11 +219,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%1$d linie</string>
+			<string>%1$d linie</string>
 			<key>one</key>
-			<string>%1$d linia</string>
+			<string>%1$d linia</string>
 			<key>other</key>
-			<string>%1$d linii</string>
+			<string>%1$d linii</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-section</key>
@@ -63,11 +237,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%1$d sekcje</string>
+			<string>%1$d sekcje</string>
 			<key>one</key>
-			<string>%1$d sekcja</string>
+			<string>%1$d sekcja</string>
 			<key>other</key>
-			<string>%1$d sekcji</string>
+			<string>%1$d sekcji</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
@@ -81,11 +255,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%1$d edycje</string>
+			<string>%1$d edycje</string>
 			<key>one</key>
-			<string>%1$d edycja</string>
+			<string>%1$d edycja</string>
 			<key>other</key>
-			<string>%1$d edycji</string>
+			<string>%1$d edycji</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-added</key>
@@ -117,11 +291,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%1$d bajty</string>
+			<string>%1$d bajty</string>
 			<key>one</key>
-			<string>%1$d bajt</string>
+			<string>%1$d bajt</string>
 			<key>other</key>
-			<string>%1$d bajtów</string>
+			<string>%1$d bajta</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>

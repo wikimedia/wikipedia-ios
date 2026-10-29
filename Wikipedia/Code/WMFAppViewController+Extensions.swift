@@ -27,8 +27,7 @@ extension Notification.Name {
 extension WMFAppViewController {
 
     @objc func shouldOpenAppOnSearchTab() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+        return WMFSettingsDataController.shared.openAppOnSearchTab()
     }
 
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
@@ -766,9 +765,8 @@ extension WMFAppViewController {
             return
         }
         let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
-        let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            await settingsDataController.setOpenAppOnSearchTab(legacyValue)
+        guard WMFSettingsDataController.shared.setOpenAppOnSearchTab(legacyValue) else {
+            return
         }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
@@ -1217,7 +1215,6 @@ extension WMFAppViewController {
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
-        viewModel.isExploreFeedOn = UserDefaults.standard.integer(forKey: "WMFDefaultTabTypeKey") == 0
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -1271,7 +1268,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .feed, action: action)
         } else if currentVC is PlacesViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
-        } else if currentVC is SavedViewController {
+        } else if currentVC is WMFSavedHostingController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
         } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
@@ -1319,7 +1316,6 @@ extension WMFAppViewController {
     @objc func generateSettingsTab() -> SettingsTabViewController {
         let dataController = WMFSettingsDataController.shared
 
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
         let username = dataStore.authenticationManager.authStatePermanentUsername
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
@@ -1360,7 +1356,6 @@ extension WMFAppViewController {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: language,
-            exploreFeedStatus: isExploreFeedOn,
             readingPreferenceTheme: themeName,
             coordinatorDelegate: nil,
             dataController: dataController
@@ -1438,7 +1433,7 @@ extension WMFAppViewController {
             return .home
         }
 
-        if rootViewController is SavedViewController {
+        if rootViewController is WMFSavedHostingController {
             return .saved
         }
 
@@ -1452,7 +1447,7 @@ extension WMFAppViewController {
         return rootViewController is HomeViewController
             || rootViewController is ExploreViewController
             || rootViewController is PlacesViewController
-            || rootViewController is SavedViewController
+            || rootViewController is WMFSavedHostingController
             || rootViewController is WMFActivityTabViewController
             || rootViewController is SearchViewController
     }

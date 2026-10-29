@@ -181,7 +181,6 @@
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-delete-all" = "Оннук, барытын сот";
 "history-title" = "Устуоруйата";
-"home-button-explore-accessibility-label" = "Бикипиэдьийэ, Устуоруйатыгар төнүн";
 "home-button-saved-accessibility-label" = "Бикипиэдьийэ, бигэргэтиигэ төнүн.";
 "home-more-like-footer" = "Эбии манна $1 майгынныыр";
 // Fuzzy
@@ -315,7 +314,6 @@
 "two-factor-login-title" = "Бэлиэ-ааккынан киир";
 "two-factor-login-with-regular-code" = "Куоду бигэргэт";
 "welcome-explore-continue-button" = "Саҕалыырга";
-"welcome-explore-new-ways-title" = "Чинчийии саҥа ньымалара";
 "welcome-explore-tell-me-more-done-button" = "Бу өйдөнөр";
 "welcome-languages-add-button" = "Атын тылла эп";
 "wikimedia-articletopics-topic-africa" = "Африка";

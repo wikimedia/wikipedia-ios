@@ -10,16 +10,20 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
-    
+
+    private static let articleNamespaceID = 0
+
     private var readData: WMFYearInReviewReadData?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    private weak var mainPageIdentifier: WMFMainPageIdentifying?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
+        self.mainPageIdentifier = dependencies.mainPageIdentifier
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
@@ -30,13 +34,38 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         }
         
         let dataController = try WMFPageViewsDataController()
-        
-        let readCount = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate).count
+
+        let readCount = try await Self.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: dataController, mainPageIdentifier: mainPageIdentifier)
         let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
         
         readData = WMFYearInReviewReadData(readCount: readCount, minutesRead: minutesRead)
         
         isEvaluated = true
+    }
+
+    private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
+
+    /// The number of distinct articles read in the date range. Pages outside the main namespace and
+    /// main pages do not count. The Year in Review entry point uses the same count.
+    static func fetchReadCount(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> Int {
+        let pageViewCounts = try await pageViewsDataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
+        // A page can have more than one stored row, so count each page once.
+        let articles = Set(pageViewCounts.map(\.page)).filter { $0.namespaceID == articleNamespaceID }
+
+        // Get the main page title once for each wiki, not once for each article. Each request can go to the main actor.
+        var mainPageTitles: [String: String] = [:]
+        for projectID in Set(articles.map(\.projectID)) {
+            if let project = WMFProject(id: projectID),
+               let title = await mainPageIdentifier?.mainPageTitle(for: project) {
+                mainPageTitles[projectID] = WMFMainPageTitle.canonicalized(title)
+            }
+        }
+
+        return articles.count(where: { page in
+            let title = WMFMainPageTitle.canonicalized(page.title)
+            // The app does not record the English main page, but older data can contain it.
+            return title != englishMainPageTitle && title != mainPageTitles[page.projectID]
+        })
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {

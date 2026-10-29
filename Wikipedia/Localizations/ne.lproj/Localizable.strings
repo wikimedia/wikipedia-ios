@@ -408,7 +408,7 @@
 "table-of-contents-hide-button-label" = "विषयसूची बन्द गर्नहोस्";
 "talk-page-discussion-read-accessibility-label" = "पढिएकाे";
 "talk-page-reply-button" = "उत्तर दिनुहोस्";
-"talk-page-reply-placeholder-format" = "$1लाई जवाफ दिनुहोस्";
+"talk-page-reply-placeholder-format" = "$1लाई उत्तर दिनुहोस्";
 "talk-page-subscribe-to-topic" = "सदस्यता लिनुहोस्";
 "talk-page-unsubscribe-to-topic" = "सदस्यता खारेज गर्नुहोस्";
 "talk-page-user-contributions" = "योगदानहरू";
@@ -436,13 +436,8 @@
 "vanish-account-continue-button-title" = "जारी राख्नुहोस्";
 "vanish-account-warning-title" = "चेतावनी";
 "watchlist-change-expiry-option-permanent" = "स्थायी";
-"welcome-exploration-on-this-day-title" = "आजको दिनमा";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
-"welcome-explore-new-ways-title" = "अन्वेषण गर्ने नयाँ तरिका";
 "welcome-explore-tell-me-more-done-button" = "मैले बुझेँ";
-"welcome-intro-free-encyclopedia-more" = "विकिपिडियाको बारेमा थप जान्नुहोस्";
-"welcome-intro-free-encyclopedia-more-about" = "विकिपिडियाको बारेमा";
-"welcome-intro-free-encyclopedia-title" = "एक स्वतन्त्र विश्वकोष";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";
 "wikimedia-articletopics-topic-art" = "कला";
 "wikimedia-articletopics-topic-education" = "शिक्षा";

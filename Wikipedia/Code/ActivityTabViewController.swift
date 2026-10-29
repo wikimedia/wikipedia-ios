@@ -15,12 +15,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         return try? WMFYearInReviewDataController()
     }
     private let dataStore: MWKDataStore?
-    private var yirUserDataStateTask: Task<Void, Never>?
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
 
     @objc var disableModalsOnAppearance: Bool = false
+    private var yearInReviewDataStateTask: Task<Void, Never>?
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
@@ -42,6 +42,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(yearInReviewEntryPointNeedsUpdate), name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
 
         embedHostingController()
 
@@ -130,18 +131,29 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
             yirViewModel.onTap = { [weak self] in
-                self?.yirCoordinator?.start()
+                Task { @MainActor [weak self] in
+                    self?.requestPortraitOnIPad()
+                    await self?.yirCoordinator?.presentFeatureAnnouncementFromEntryPoint()
+                }
             }
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        // The data controller applies the developer settings override using a reading history of 10+ articles, until we can fullfil the original requirements.
-        yirUserDataStateTask?.cancel()
-        yirUserDataStateTask = Task { [weak self] in
-            let userDataState = (try? await yirDataController.fetchUserDataState()) ?? .lowData
+        // The data controller applies the developer settings override. Otherwise the local reading history decides.
+        yearInReviewDataStateTask?.cancel()
+        yearInReviewDataStateTask = Task { @MainActor [weak self, dataStore] in
+            let dataState = (try? await yirDataController.fetchDataState(mainPageIdentifier: dataStore)) ?? .lowData
             guard !Task.isCancelled else { return }
-            self?.viewModel.yearInReviewViewModel?.isDataRich = userDataState == .dataRich
+            self?.viewModel.yearInReviewViewModel?.isDataRich = dataState == .dataRich
         }
+    }
+    
+    /// On iPad, asks the window to switch to portrait before Year in Review opens, so it does not
+    /// open in landscape first. The Year in Review screens keep it there while they are visible.
+    private func requestPortraitOnIPad() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+
+        view.window?.windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait)) { _ in }
     }
 
     private func embedHostingController() {
@@ -252,6 +264,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
+    }
+
+    @objc private func yearInReviewEntryPointNeedsUpdate() {
+        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {

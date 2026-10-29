@@ -202,7 +202,6 @@
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "history-title" = "ইতিহাস";
-"home-button-explore-accessibility-label" = "উইকিপিডিয়া, অন্বেষণে ফেরত যান";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
 "home-empty-feed-manage-modules-button" = "মডিউল পরিচালনা করুন";
 "home-feed-for-you-continue-reading-subtitle" = "আপনার শেষ না করা নিবন্ধগুলোতে ফিরে যান";
@@ -422,16 +421,10 @@
 "watchlist-change-expiry-option-one-year" = "১ বছর";
 "watchlist-filter-automated-contributions-options-bot" = "বট";
 "watchlist-user-button-thank" = "ধন্যবাদ";
-"welcome-exploration-explore-feed-description" = "আমাদের সম্প্রদায়ের প্রস্তাবিত পাঠ এবং দৈনিক নিবন্ধ";
 "welcome-exploration-explore-feed-title" = "ফিড অন্বেষণ করুন";
-"welcome-exploration-on-this-day-title" = "আজকের এই দিনে";
 "welcome-explore-continue-button" = "শুরু করুন";
-"welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
-"welcome-intro-free-encyclopedia-more-about" = "উইকিপিডিয়া সম্পর্কে";
-"welcome-intro-free-encyclopedia-title" = "একটি মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
-"welcome-languages-search-title" = "৩০০টি অধিক ভাষায় অন্বেষণ করুন";
 "which-came-first-archive-nav-title" = "সংগ্রহশালা";
 "which-came-first-archive-title" = "কোনটি আগে এসেছে?";
 "wikimedia-articletopics-topic-architecture" = "স্থাপত্য";

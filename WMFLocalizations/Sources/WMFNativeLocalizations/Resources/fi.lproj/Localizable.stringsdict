@@ -822,5 +822,37 @@
 			<string>%1$d tavua</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-reread-articles-visit-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d vierailu</string>
+			<key>other</key>
+			<string>%1$d vierailua</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Olet Wikipedian %1$@ ahkerimman lukijan joukossa maailmanlaajuisesti. Keskimääräinen käyttäjä lukee %2$#@v2@ vuodessa.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d artikkelin</string>
+			<key>other</key>
+			<string>%2$d artikkelia</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

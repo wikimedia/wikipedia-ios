@@ -439,10 +439,7 @@
 "explore-feed-language-settings" = "Tutki-feedan kieliazetukset";
 "explore-feed-preferences-additional-languages-footer-text" = "Ližiä kielii voibi ližätä Omat kielet -nägymäs.";
 "explore-feed-preferences-card-hidden-title" = "Karti peitetty";
-"explore-feed-preferences-customize-explore-feed" = "Sobivuta Tutki-feedua";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Sobivuta Tutki-feedua";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Tämän kartitiipan peittämine loppiu niilöin tariččemizen Tutki-feedah.";
-"explore-feed-preferences-explore-tab" = "Tutki-välilehti";
 "explore-feed-preferences-featured-article-description" = "Piäteldy kirjutus Wikipedies";
 "explore-feed-preferences-feed-cards-hidden-title" = "Kai $1 kartii peitetty";
 "explore-feed-preferences-global-card-footer-text" = "Tämä karti eule ripu kieles, da sen otandu käytös ottau sen iäre omassas Tutki-feedas.";
@@ -452,7 +449,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Peitä tämä karti";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Peitä kai $1-kartit";
 "explore-feed-preferences-in-the-news-description" = "Kirjutukset aijankohtazis tapahtumis";
-"explore-feed-preferences-languages-footer-text" = "Kaikkien Tutki-feedukartiloin otandu käytös kaikil kielil ottau Tutki-välilehten käytös.";
 "explore-feed-preferences-on-this-day-description" = "Tapahtumat histouries täl päivymiäräl";
 "explore-feed-preferences-places-description" = "Wikipedii-kirjutukset lähäl sinuu";
 "explore-feed-preferences-potd-description" = "Päivän piäteldy foto Commonsas";
@@ -474,16 +470,7 @@
 "explore-feed-preferences-suggested-edits-description" = "Ehtotuksii syväindön ližiämizekse Wikipedieh";
 "explore-feed-preferences-suggested-edits-title" = "Ozuta Ehtotetut kohendukset -karti";
 "explore-feed-preferences-top-read-description" = "Päivän eniten lugietut kirjutukset";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Ota käytös Tutki-feedu";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Kaikkien Tutki-feedan kartiloin peittämine ottau nägymän kogonah iäre da korvuau sen Azetukset-nägymäl";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Tahtotgo varmah ottua Tutki-feedan iäre?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Ota Tutki-feedu iäre";
-"explore-feed-preferences-turn-off-explore-tab-message" = "Tutki-välilehten voibi ottua uvvessah käyttöh Tutki-feedan azetuksis";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Tahtotgo varmah ottua Tutki-välilehten iäre?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Tutki-välilehten iärestämine korvuau sen Azetukset-välilehtel.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Gu vallinnet Tutki-feedan kartiloi, otat Tukti-feedan käyttöh";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ota Tutki-välilehti käyttöh";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Azetukset-knopku korvatah Tutki-knopkal, Azetuksih piäzöy n’apsahuttamal gaikan kuvua Tutki-nägymän ylälaijas";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Tahtotgo ottua Tutki-välilehten käyttöh?";
 "explore-hide-card-prompt" = "Peitä tämä karti";
 "explore-main-page-description" = "Wikimedii-projektan piäsivu";

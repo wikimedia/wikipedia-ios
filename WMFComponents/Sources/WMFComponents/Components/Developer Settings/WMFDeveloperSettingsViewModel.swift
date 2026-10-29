@@ -57,6 +57,12 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
     /// Set by the app after init. Nil hides the Widgets section.
     @Published public var widgetDiagnostics: WMFDeveloperSettingsWidgetDiagnostics?
 
+    /// Set by the app. Builds the 2026 Year in Review report again from the current data, and
+    /// returns false when the report could not be built.
+    public var regenerateYiR2026Report: (@MainActor () async throws -> Bool)?
+    @Published public private(set) var isRegeneratingYiR2026Report = false
+    @Published public var yiR2026ReportAlertMessage: String?
+
     /// Set by the app after init. Nil hides the "Run notification refresh now" button.
     @Published public var localNotificationActions: WMFDeveloperSettingsLocalNotificationActions?
     @Published var localNotificationLogSummaryLines: [String] = []
@@ -93,9 +99,15 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
-    @Published public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? = WMFDeveloperSettingsDataController.shared.forceYiRUserDataState {
+    @Published public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? = WMFDeveloperSettingsDataController.shared.forceYiRDataState {
         didSet {
-            WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = forceYiRUserDataState
+            WMFDeveloperSettingsDataController.shared.forceYiRDataState = forceYiRDataState
+        }
+    }
+
+    @Published public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? = WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience = forceYiRSlidesExperience
         }
     }
 
@@ -160,6 +172,18 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var enableDiscover: Bool = WMFDeveloperSettingsDataController.shared.enableDiscover {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDiscover = enableDiscover
+        }
+    }
+
+    @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment
+        }
+    }
+
     var fundraisingOverrideDateRange: ClosedRange<Date> {
         let lowerBound = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
         let upperBound = WMFDonationReminderDataController.wrapUpEndDate.addingTimeInterval(86_400)
@@ -219,6 +243,32 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
             .store(in: &subscribers)
     }
 
+    @Published public var eventLoggingDiagnosticsText: String = ""
+
+    public func refreshEventLoggingDiagnostics() {
+        let diagnostics = WMFEventLoggingDiagnosticsDataController.shared.snapshot()
+
+        var lines: [String] = [
+            "Flushes: \(diagnostics.flushCount)",
+            "POST requests: \(diagnostics.postCount)",
+            "Events sent: \(diagnostics.eventsSentCount)",
+            "Events in last flush: \(diagnostics.eventsInLastFlush)"
+        ]
+        if let lastFlushDate = diagnostics.lastFlushDate {
+            lines.append("Last flush: \(lastFlushDate.formatted(date: .omitted, time: .standard))")
+        }
+        if !diagnostics.dropCounts.isEmpty {
+            let drops = diagnostics.dropCounts.sorted { $0.key < $1.key }.map { "\($0.key): \($0.value)" }
+            lines.append("Drops — " + drops.joined(separator: ", "))
+        }
+        eventLoggingDiagnosticsText = lines.joined(separator: "\n")
+    }
+
+    public func resetEventLoggingDiagnostics() {
+        WMFEventLoggingDiagnosticsDataController.shared.reset()
+        refreshEventLoggingDiagnostics()
+    }
+
     public var appInstallID: String? {
         try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
     }
@@ -241,12 +291,30 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         let title: String
         do {
             try WMFSemanticSearchDataController.shared.clearExperimentAssignment()
-            title = "Semantic search bucket cleared. The next eligible search re-rolls the assignment."
+            title = "Semantic search bucket cleared. Opening search re-rolls the assignment for readers with a target app language."
         } catch {
             title = "Could not clear the semantic search bucket: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    @discardableResult
+    public func tappedRegenerateYiR2026Report() -> Task<Void, Never>? {
+        guard let regenerateYiR2026Report, !isRegeneratingYiR2026Report else { return nil }
+        isRegeneratingYiR2026Report = true
+        return Task { [weak self] in
+            let message: String
+            do {
+                message = try await regenerateYiR2026Report()
+                    ? "The Year in Review 2026 report was built again. Open Year in Review to see it."
+                    : "The report was not built. Check the Year in Review setting in Settings, the 2026 config and the country of the device."
+            } catch {
+                message = "The report was not built: \(error.localizedDescription)"
+            }
+            self?.isRegeneratingYiR2026Report = false
+            self?.yiR2026ReportAlertMessage = message
         }
     }
 
@@ -262,6 +330,34 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
             title = "Semantic search entry point reset. It shows again with Try it now on the next search."
         } catch {
             title = "Could not reset the semantic search entry point: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    // MARK: - Discover
+
+    public func clearDiscoverExperimentAssignment() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.clearExperimentAssignment()
+            title = "Discover bucket cleared. The next visit to Saved re-rolls the assignment."
+        } catch {
+            title = "Could not clear the Discover bucket: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    public func resetDiscoverAnnouncement() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.resetAnnouncement()
+            title = "Discover announcement reset. The card and the Saved badge show again."
+        } catch {
+            title = "Could not reset the Discover announcement: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
