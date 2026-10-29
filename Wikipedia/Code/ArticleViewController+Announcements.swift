@@ -201,7 +201,7 @@ extension ArticleViewController {
 
     func donateAlreadyDonated() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its and other free knowledge projects thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
+            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and other free knowledge projects thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
 
             WMFToastManager.sharedInstance.showRichToast(title, duration: nil, dismissPreviousToasts: true)
         }
