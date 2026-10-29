@@ -153,7 +153,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func start() -> Bool {
         YearInReviewInstrument.shared.startFunnel()
         afterReportIsBuilt { [weak self] in
-            guard let self, navigationController.presentedViewController == nil else { return }
+            guard let self, navigationController.presentedViewController == nil else {
+                YearInReviewInstrument.shared.stopFunnel()
+                return
+            }
             presentYearInReview()
         }
         return true
@@ -282,9 +285,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             // Neighbor slides load too, and some slides share an artboard, so the current slide wins.
             let currentSlide = viewModel.currentSlide
             let slide = currentSlide?.animation == failure.animation ? currentSlide : viewModel.slides.first { $0.animation == failure.animation }
+            // Other Rive views, such as the announcement, use the same handler.
+            guard let slide else { return }
             YearInReviewInstrument.shared.logError(
                 elementID: "rive",
-                page: slide?.loggingID,
+                page: slide.loggingID,
                 personalized: areSlidesPersonalized,
                 message: "\(failure.stage.rawValue): \(failure.reason)"
             )
@@ -610,6 +615,7 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
     func handleYearInReviewAction(_ action: WMFYearInReviewAction) {
         switch action {
         case .close:
+            WMFRiveLogger.failureHandler = nil
             navigationController.presentedViewController?.dismiss(animated: true)
             YearInReviewInstrument.shared.stopFunnel()
         case .learnMore:

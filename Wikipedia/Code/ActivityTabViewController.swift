@@ -254,8 +254,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-    /// Clears the Activity tab's Year in Review badge. Called on every appearance; writes once, so
-    /// repeat calls are cheap.
+    /// Logs an impression of the Year in Review card each time the Activity tab appears with it.
     private func logYearInReviewEntryPointImpression() {
         guard viewModel.yearInReviewViewModel != nil else { return }
         // `isDataRich` is right only after the data state is read.
