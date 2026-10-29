@@ -65,6 +65,9 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
     /// until the artwork loads and reports `lightContentFlag`.
     @Published public private(set) var contentStyle: WMFYearInReviewSlideViewModel.ContentStyle
 
+    /// True while the app builds the report after the reader tapped Explore. The button shows a spinner.
+    @Published public var isLoadingExplore = false
+
     private weak var delegate: WMFYearInReviewAnnouncementDelegate?
 
     public init(
@@ -97,6 +100,7 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
     }
 
     func tappedExplore() {
+        guard !isLoadingExplore else { return }
         delegate?.yearInReviewAnnouncementDidTapExplore()
     }
 

@@ -52,6 +52,16 @@ public nonisolated struct WMFRiveBool: Sendable, Hashable {
     }
 }
 
+/// A trigger property in the .riv that the artwork fires, such as when an animation ends.
+public nonisolated struct WMFRiveTrigger: Sendable, Hashable {
+
+    public let path: String
+
+    public init(path: String) {
+        self.path = path
+    }
+}
+
 /// An enum property in the .riv. Its value is the name of one of the enum cases in the file.
 public nonisolated struct WMFRiveEnum: Sendable, Hashable {
 

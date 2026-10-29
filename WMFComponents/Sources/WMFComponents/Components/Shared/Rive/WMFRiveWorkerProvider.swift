@@ -55,9 +55,10 @@ enum WMFRiveWorkerProvider {
         }
     }
 
-    /// Linux Libertine, under the SIL Open Font License. The export renames it "SerifFont".
+    /// EB Garamond, under the SIL Open Font License, replaces the Linux Libertine of the export
+    /// ("SerifFont"). It is the same file as on Android.
     private static let bundledFonts: [String: BundledFont] = [
-        "SerifFont": BundledFont(resourceName: "SerifFont-Regular", fileExtension: "ttf", postScriptName: "SerifFont-Regular")
+        "SerifFont": BundledFont(resourceName: "EBGaramond-Regular", fileExtension: "ttf", postScriptName: "EBGaramond-Regular")
     ]
 
     private static var registeredBundledFonts: Set<String> = []

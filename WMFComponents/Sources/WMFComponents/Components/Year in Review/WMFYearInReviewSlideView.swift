@@ -7,12 +7,18 @@ struct WMFYearInReviewSlideView: View {
     var isCurrent: Bool = true
     /// Called with the value of `slide.lightContentFlag` after the slide loads.
     var onLightContentFlag: (@MainActor (Bool) -> Void)? = nil
+    /// False while VoiceOver runs. The pager then shows `slide.answer` as the next slide, because a
+    /// VoiceOver reader cannot tap an answer in the .riv.
+    var showsAnswerInPlace: Bool = true
     var donateButtonTitle: String = ""
     var isLoadingDonate: Bool = false
     /// Called with the frame of the primary donate button in window coordinates.
     var onTapDonate: (@MainActor (@escaping @MainActor () -> CGRect) -> Void)? = nil
     @StateObject private var thumbnailLoader = WMFYearInReviewThumbnailLoader()
     @State private var donateButtonFrame: CGRect = .zero
+    /// True after the .riv fires `slide.answerTrigger`. It goes back to false when the slide is no
+    /// longer current, so the reader sees the first state again when they come back.
+    @State private var isShowingAnswer = false
 
     var body: some View {
         ZStack {
@@ -62,24 +68,67 @@ struct WMFYearInReviewSlideView: View {
     @ViewBuilder
     private var content: some View {
         if let animation = slide.animation {
-            WMFRiveView(
-                animation,
-                text: slide.text,
-                numbers: slide.numbers,
-                images: slide.images.merging(thumbnailLoader.images) { _, loaded in loaded },
-                layoutDirection: slide.layoutDirection,
-                accessibilityLabel: slide.localizedStrings.accessibilityLabel,
-                isPlaying: isCurrent,
-                readBool: slide.lightContentFlag,
-                textFits: slide.textFits,
-                onReadBool: onLightContentFlag
-            )
-            .task(id: slide.articleThumbnails) {
-                await thumbnailLoader.load(slide.articleThumbnails)
+            // The answer loads with the slide, under it, so it is ready when the reader taps.
+            ZStack {
+                if let answer, let answerAnimation = answer.animation {
+                    riveView(answer, animation: answerAnimation, isShown: isShowingAnswer)
+                }
+                riveView(slide, animation: animation, isShown: !isShowingAnswer)
+            }
+            .task(id: articleThumbnails) {
+                await thumbnailLoader.load(articleThumbnails)
+            }
+            .onChange(of: isCurrent) {
+                if !isCurrent {
+                    isShowingAnswer = false
+                }
             }
         } else {
             placeholder
         }
+    }
+
+    private var answer: WMFYearInReviewSlideViewModel? {
+        showsAnswerInPlace ? slide.answer : nil
+    }
+
+    private var articleThumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] {
+        slide.articleThumbnails.merging(answer?.articleThumbnails ?? [:]) { first, _ in first }
+    }
+
+    /// A state that is not shown does not play. When it shows again, it plays from its first frame.
+    private func riveView(_ state: WMFYearInReviewSlideViewModel, animation: WMFRiveAnimation, isShown: Bool) -> some View {
+        let isAnswer = state.id != slide.id
+        let loadedImages: [WMFRiveImage: Data] = thumbnailLoader.images.filter { state.articleThumbnails[$0.key] != nil }
+        let images: [WMFRiveImage: Data] = state.images.merging(loadedImages) { _, loaded in loaded }
+        let readBool: WMFRiveBool? = isAnswer ? nil : state.lightContentFlag
+        var onReadBool: (@MainActor (Bool) -> Void)?
+        if !isAnswer {
+            onReadBool = onLightContentFlag
+        }
+        let watchedTrigger: WMFRiveTrigger? = (answer == nil || isAnswer) ? nil : state.answerTrigger
+        let onAnswerTrigger: @MainActor () -> Void = {
+            guard isCurrent, answer != nil else { return }
+            isShowingAnswer = true
+        }
+        return WMFRiveView(
+            animation,
+            text: state.text,
+            numbers: state.numbers,
+            bools: state.bools,
+            images: images,
+            layoutDirection: state.layoutDirection,
+            accessibilityLabel: state.localizedStrings.accessibilityLabel,
+            isPlaying: isCurrent && isShown,
+            readBool: readBool,
+            textFits: state.textFits,
+            onReadBool: onReadBool,
+            watchedTrigger: watchedTrigger,
+            missingImageFlags: state.missingImageFlags,
+            onWatchedEvent: onAnswerTrigger
+        )
+        .opacity(isShown ? 1 : 0)
+        .accessibilityHidden(!isShown)
     }
 
     private var placeholder: some View {

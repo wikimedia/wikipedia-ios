@@ -10,19 +10,19 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory(hidesDonate: { false })
 
-    /// Only the total articles, articles visited multiple times, top topic, edits and contributor slides
-    /// have real data so far. Each always shows, in its full or its empty version, so Year in Review never
-    /// opens with no slides. The test host has no stored report and no donations, so the runners-up,
+    /// The total articles, top topic, articles visited multiple times, edits and contributor slides always
+    /// show, in their full or their empty version, so Year in Review never opens with no slides. The
+    /// test host has no stored report and no donations, so the days visited, runners-up, rabbit hole,
     /// edit views and most-viewed articles slides do not show and the contributor slide is the
     /// "You matter" version.
     @Test
-    func makesTheTotalArticlesTheArticlesVisitedMultipleTimesTheTopTopicTheEditsAndTheContributorSlides() {
+    func makesTheTotalArticlesTheTopTopicTheArticlesVisitedMultipleTimesTheEditsAndTheContributorSlides() {
         let slides = factory.makeSlides(experience: .personalized, isLoggedIn: true)
 
         #expect(slides.count == 5)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
-        #expect(["frame13", "frame13-empty"].contains(slides[1].animation?.artboardName ?? ""))
-        #expect(["frame6", "frame6-empty"].contains(slides[2].animation?.artboardName ?? ""))
+        #expect(["frame6", "frame6-empty"].contains(slides[1].animation?.artboardName ?? ""))
+        #expect(["frame13", "frame13-empty"].contains(slides[2].animation?.artboardName ?? ""))
         #expect(["frame16", "frame16-empty"].contains(slides[3].animation?.artboardName ?? ""))
         #expect(slides.last?.animation?.artboardName == "end")
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
@@ -84,7 +84,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
         let artboards = factory.makeSlides(experience: .collective, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty", "frame16-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "frame16-empty", "end"])
     }
 
     /// The developer settings can force the empty version of each personalized slide.
@@ -92,7 +92,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame13-empty", "frame6-empty", "frame16-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "frame16-empty", "end"])
     }
 
     /// The edits slides need an account, so a logged-out reader does not get the empty edits slide.
@@ -101,6 +101,31 @@ struct YearInReviewSlideViewModelFactoryTests {
         let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: false, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
         #expect(!artboards.contains("frame16-empty"))
+    }
+
+    /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, the articles
+    /// visited multiple times, then the edit slides. The rabbit hole reveal is the answer of its guess
+    /// slide, not a slide.
+    @Test
+    func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(
+            readCount: 20,
+            daysVisited: try daysVisitedData(dayCount: 30),
+            topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
+            rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
+            rereadArticles: [
+                .init(title: "Dam", visitCount: 3, project: nil),
+                .init(title: "Gravity dam", visitCount: 2, project: nil)
+            ],
+            isLoggedIn: true,
+            editCount: 12,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
+        )
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame13", "frame16", "frame17", "frame18"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
@@ -664,5 +689,69 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         #expect(hidingFactory.makeContributorSlide(experience: .collective, isLoggedIn: true) == nil)
         #expect(hidingFactory.makeSlides(experience: .collective, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
+    }
+
+    // MARK: - Rabbit holes
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    /// - Parameter rabbitHoles: The first and the last title and the article count of each rabbit hole, deepest first.
+    private func rabbitHolesData(_ rabbitHoles: [(String, String, Int)], deepestIsOnTop: Bool) throws -> WMFYearInReviewRabbitHolesSlideData {
+        let json: [String: Any] = [
+            "rabbitHoles": rabbitHoles.map { first, last, count in
+                [
+                    "firstArticle": ["title": first, "projectID": "wikipedia~en"],
+                    "lastArticle": ["title": last, "projectID": "wikipedia~en"],
+                    "articleCount": count
+                ]
+            },
+            "deepestIsOnTop": deepestIsOnTop
+        ]
+        return try JSONDecoder().decode(WMFYearInReviewRabbitHolesSlideData.self, from: JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test(arguments: [true, false])
+    func theRabbitHoleSlideShowsTheGuessThenTheDeepestRabbitHoleInPlace(deepestIsOnTop: Bool) throws {
+        let slideData = try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: deepestIsOnTop)
+
+        let slides = factory.rabbitHoleSlides(slideData)
+
+        #expect(slides.count == 1, "the guess and the reveal take one position in the pager")
+        let guess = try #require(slides.first)
+        #expect(guess.animation?.artboardName == "frame11a")
+        #expect(text(guess, "headline") == CommonStrings.yearInReviewRabbitHoleTitle)
+        let (top, bottom) = deepestIsOnTop ? (("Moon", "Cat"), ("Paris", "Europe")) : (("Paris", "Europe"), ("Moon", "Cat"))
+        #expect(text(guess, "articleTitleTopT") == top.0)
+        #expect(text(guess, "articleTitleTopB") == top.1)
+        #expect(text(guess, "articleTitleBotT") == bottom.0)
+        #expect(text(guess, "articleTitleBotB") == bottom.1)
+        #expect(guess.answerTrigger?.path == "frameComplete", "after the reader taps a card and the cards exit, the reveal replaces the guess")
+
+        let reveal = try #require(guess.answer)
+        #expect(reveal.animation?.artboardName == "frame11b")
+        #expect(text(reveal, "headline") == CommonStrings.yearInReviewRabbitHoleRevealTitle(articleCount: 5))
+        #expect(text(reveal, "bodyText") == CommonStrings.yearInReviewRabbitHoleRevealSubtitle)
+        #expect(text(reveal, "resultTitleTop") == "Moon")
+        #expect(text(reveal, "resultTitleBot") == "Cat")
+        #expect(reveal.answer == nil)
+        #expect(reveal.answerTrigger == nil)
+    }
+
+    /// Each article thumbnail has a flag that hides the placeholder image while the thumbnail is missing.
+    @Test
+    func eachRabbitHoleThumbnailHasAMissingImageFlag() throws {
+        let slides = factory.rabbitHoleSlides(try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true))
+
+        let guess = try #require(slides.first)
+        #expect(Set(guess.articleThumbnails.keys.map(\.path)) == ["thumbnailTopT", "thumbnailTopB", "thumbnailBotT", "thumbnailBotB"])
+        #expect(guess.missingImageFlags.first { $0.key.path == "thumbnailBotB" }?.value.path == "noImgBotB")
+        let reveal = try #require(guess.answer)
+        #expect(Set(reveal.missingImageFlags.map { "\($0.key.path):\($0.value.path)" }) == ["resultThumbnailTop:resultNoImgT", "resultThumbnailBot:resultNoImgB"])
+        #expect(reveal.articleThumbnails.first { $0.key.path == "resultThumbnailBot" }?.value.title == "Cat")
+    }
+
+    @Test
+    func withOneRabbitHoleTheRabbitHoleSlidesDoNotShow() throws {
+        #expect(factory.rabbitHoleSlides(try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true)).isEmpty)
+        #expect(factory.rabbitHoleSlides(nil).isEmpty)
     }
 }

@@ -972,6 +972,133 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
             XCTAssertFalse(controller.isEvaluated)
         }
     }
+
+    // MARK: - rabbitHoles
+
+    private typealias RabbitHolesData = WMFYearInReviewRabbitHolesSlideData
+
+    private func rabbitHolesPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> RabbitHolesData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        let payload = try decode(RabbitHolesData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    /// Opens each title from a link in the one before it, `minutesApart` apart, and returns the last page view.
+    @discardableResult
+    private func followLinks(_ titles: [String], from start: Date, minutesApart: Double = 5, namespaceIDs: [String: Int16] = [:], after previous: NSManagedObjectID? = nil) async throws -> NSManagedObjectID? {
+        let pageViewsDataController = try WMFPageViewsDataController()
+        var previousID = previous
+        for (index, title) in titles.enumerated() {
+            previousID = try await pageViewsDataController.addPageView(title: title, namespaceID: namespaceIDs[title] ?? 0, project: enProject, previousPageViewObjectID: previousID, timestamp: start.addingTimeInterval(Double(index) * minutesApart * 60))
+        }
+        return previousID
+    }
+
+    func testRabbitHolesAreTheTwoDeepestChainsDeepestFirst() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal", "Felidae", "Cat"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+        try await followLinks(["Rome", "Italy", "Pasta", "Wheat"], from: try date(month: 5, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Moon", "Rome"])
+        XCTAssertEqual(payload.rabbitHoles.map(\.lastArticle.title), ["Cat", "Wheat"])
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [5, 4], "the count includes the first and the last article")
+        XCTAssertEqual(payload.rabbitHoles.first?.firstArticle.project, enProject)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testRabbitHolesNeedThreeArticlesAndTwoRabbitHoles() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Paris", "France"], from: try date(month: 4, day: 1, hour: 9))
+        try await followLinks(["Rome"], from: try date(month: 5, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Moon"], "two articles are not a rabbit hole")
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testRabbitHolesAreNotEligibleWithNoPageViews() async throws {
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertTrue(payload.rabbitHoles.isEmpty)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testMoreThanAnHourBetweenArticlesEndsTheRabbitHole() async throws {
+        let last = try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        // Continues from Mammal 61 minutes later, so Felidae starts a new rabbit hole.
+        try await followLinks(["Felidae", "Cat", "Lion"], from: try date(month: 3, day: 1, hour: 9).addingTimeInterval(10 * 60 + 61 * 60), after: last)
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [3, 3])
+        XCTAssertEqual(Set(payload.rabbitHoles.map(\.firstArticle.title)), ["Moon", "Felidae"])
+    }
+
+    func testAnHourBetweenArticlesContinuesTheRabbitHole() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9), minutesApart: 60)
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [3])
+    }
+
+    func testAPageOutsideTheMainNamespaceEndsTheRabbitHole() async throws {
+        try await followLinks(["Moon", "Earth", "Talk:Earth", "Mammal", "Felidae", "Cat"], from: try date(month: 3, day: 1, hour: 9), namespaceIDs: ["Talk:Earth": 1])
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Mammal"], "a rabbit hole cannot start or end on a talk page")
+        XCTAssertEqual(payload.rabbitHoles.map(\.lastArticle.title), ["Cat"])
+    }
+
+    func testMainPagesEndTheRabbitHole() async throws {
+        try await followLinks(["Main_Page", "Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Hauptseite", "Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let payload = try await rabbitHolesPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(Set(payload.rabbitHoles.map(\.firstArticle.title)), ["Moon", "Paris"])
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [3, 3])
+        XCTAssertEqual(identifier.requestedProjectIDs, [enProject.id], "the main page is asked once for each wiki")
+    }
+
+    func testTwoBranchesFromOneArticleAreOneRabbitHole() async throws {
+        let earth = try await followLinks(["Moon", "Earth"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Mammal", "Felidae", "Cat"], from: try date(month: 3, day: 1, hour: 9).addingTimeInterval(10 * 60), after: earth)
+        try await followLinks(["Ocean", "Whale"], from: try date(month: 3, day: 1, hour: 9).addingTimeInterval(30 * 60), after: earth)
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.lastArticle.title), ["Cat"], "the deepest branch is the rabbit hole")
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [5])
+    }
+
+    func testATieGoesToTheMoreRecentRabbitHole() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+        try await followLinks(["Rome", "Italy", "Pasta"], from: try date(month: 5, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Rome", "Paris"])
+    }
+
+    func testRabbitHolesIgnoreViewsOutsideTheInsightsRange() async throws {
+        let outside = try XCTUnwrap(Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 1, hour: 9)))
+        try await followLinks(["Moon", "Earth", "Mammal"], from: outside)
+        try await followLinks(["Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Paris"])
+    }
 }
 
 /// Records the URL of each request, then answers with the JSON resource of `WMFMockBasicService`.
