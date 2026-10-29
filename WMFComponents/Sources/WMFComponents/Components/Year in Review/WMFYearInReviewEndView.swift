@@ -94,7 +94,7 @@ public struct WMFYearInReviewEndView: View {
         // Thus, a pull down goes to the pager, and the pager shows the last slide.
         // This applies only to the vertical axis. The horizontal card carousel does not change.
         .scrollBounceBehavior(.basedOnSize)
-        .background(Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).ignoresSafeArea())
+        .background(Color(uiColor: WMFYearInReviewEndViewModel.skyBottomColor).ignoresSafeArea())
     }
 
     /// The controls sit about `topInset` below the top of the screen.
@@ -155,14 +155,14 @@ public struct WMFYearInReviewEndView: View {
         }
     }
 
-    /// The sky, then the page color below it. This screen sits inside the slides, which already run
+    /// The sky, then its dark end color below it. This screen sits inside the slides, which already run
     /// under the status bar and navigation bar, so the sky starts at the top of the page.
     private var sky: some View {
         VStack(spacing: 0) {
             skyGradient
                 .frame(height: WMFYearInReviewEndViewModel.skyHeight)
 
-            Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor)
+            Color(uiColor: WMFYearInReviewEndViewModel.skyBottomColor)
         }
     }
 

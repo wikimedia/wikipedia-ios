@@ -138,11 +138,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return (loadedContentStyles[currentSlide.id] ?? currentSlide.contentStyle).color
     }
 
-    /// The color around the page and of the toolbar. On a slide, it is the dark chrome color.
-    /// The end screen has no rounded corners, so this color is the color of its page.
-    /// Then the space between the page and the toolbar does not show a dark bar.
+    /// The color around the page and of the toolbar. It is the dark chrome color on every page,
+    /// including the end screen, where only the toolbar shows it. The end screen covers the rest.
     public var currentChromeColor: UIColor {
-        isOnEnd ? WMFYearInReviewEndViewModel.pageBackgroundColor : Self.chromeBackgroundColor
+        Self.chromeBackgroundColor
     }
 
     /// Puts `slide` in the place of the slide with `id`, for example the contributor slide after a
