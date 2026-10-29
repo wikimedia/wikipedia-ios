@@ -22,7 +22,7 @@
 # - "build-for-testing" compiles the test targets, with the Test configuration
 #   ("#if TEST").
 # - "build" of Wikipedia compiles the Debug configuration ("#if DEBUG").
-# - "build" of Staging compiles "#if WMF_STAGING".
+# - "build" of Alpha compiles "#if WMF_ALPHA".
 
 set -euo pipefail
 
@@ -36,7 +36,7 @@ fi
 DERIVED_DATA="build/periphery/DerivedData"
 LOG_DIR="build/periphery/logs"
 # Each step is "<xcodebuild action>:<scheme>".
-BUILD_STEPS="build-for-testing:Wikipedia build-for-testing:WMFData build-for-testing:WMFComponents build:Wikipedia build:Staging"
+BUILD_STEPS="build-for-testing:Wikipedia build-for-testing:WMFData build-for-testing:WMFComponents build:Wikipedia build:Alpha"
 mkdir -p "$LOG_DIR"
 
 if [ "${PERIPHERY_SKIP_BUILD:-0}" != "1" ]; then

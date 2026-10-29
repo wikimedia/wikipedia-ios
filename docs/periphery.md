@@ -20,7 +20,7 @@ brew install periphery
 scripts/periphery
 ```
 
-The script builds the `Wikipedia`, `WMFData` and `WMFComponents` schemes for testing. Then it builds the `Wikipedia` scheme in Debug and the `Staging` scheme, and scans the index. Each build compiles a different variant of the code (`#if TEST`, `#if DEBUG` and `#if WMF_STAGING`). If the index does not have a variant, the code that only that variant calls shows as unused.
+The script builds the `Wikipedia`, `WMFData` and `WMFComponents` schemes for testing. Then it builds the `Wikipedia` scheme in Debug and the `Alpha` scheme, and scans the index. Each build compiles a different variant of the code (`#if TEST`, `#if DEBUG` and `#if WMF_ALPHA`). If the index does not have a variant, the code that only that variant calls shows as unused.
 
 The first run makes full builds into `build/periphery/DerivedData` and takes some minutes. Later runs are incremental. The settings are in [`.periphery.yml`](../.periphery.yml).
 
