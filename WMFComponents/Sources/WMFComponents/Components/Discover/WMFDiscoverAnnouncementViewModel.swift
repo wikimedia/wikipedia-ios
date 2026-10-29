@@ -8,7 +8,8 @@ public protocol WMFDiscoverAnnouncementLoggingDelegate: AnyObject {
 }
 
 /// The onboarding card that introduces Discover on the Saved tab. One instance is shared by the
-/// All articles and Reading lists segments, so answering the card on one hides it on both.
+/// All articles and Reading lists segments, so No thanks on one hides it on both. Get started
+/// keeps the card: it only opens the setup flow, and the card goes away once Discover is on.
 @MainActor
 public final class WMFDiscoverAnnouncementViewModel: ObservableObject {
 
@@ -41,7 +42,6 @@ public final class WMFDiscoverAnnouncementViewModel: ObservableObject {
 
     public func tapGetStarted() {
         loggingDelegate?.discoverAnnouncementDidTapGetStarted()
-        dismiss()
         didTapGetStarted?()
     }
 
