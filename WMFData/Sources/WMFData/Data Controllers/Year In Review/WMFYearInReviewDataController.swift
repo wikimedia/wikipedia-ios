@@ -93,7 +93,7 @@ import CoreData
     /// The period for the contributor slide and for donor and editor rewards: December 1 of the
     /// previous year to December 1 of `year`, at 00:00 UTC. The end date is the first instant
     /// outside the period. This is set in the app, not in the remote config. Edits use
-    /// `editCountDateRange(year:)` instead.
+    /// `editCountDateRange(config:)` instead.
     public static func contributorDateRange(year: Int) -> DateInterval? {
         guard let start = utcDate(year: year - 1, month: 12, day: 1),
               let end = utcDate(year: year, month: 12, day: 1) else {
@@ -102,15 +102,16 @@ import CoreData
         return DateInterval(start: start, end: end)
     }
 
-    /// The period for the edit count: January 1 to December 31 of `year`, at 00:00 UTC, the same as
-    /// Android. The monthly metrics API rounds the end down to the start of its month, so December is
-    /// not counted.
-    public static func editCountDateRange(year: Int) -> DateInterval? {
-        guard let start = utcDate(year: year, month: 1, day: 1),
-              let end = utcDate(year: year, month: 12, day: 31) else {
-            return nil
+    /// The period for the edit count: `contribStartDate` to `contribEndDate` of the remote config, or
+    /// `contributorDateRange(year:)` when the config does not have them. The monthly metrics API
+    /// rounds the end down to the start of its month, so the end date is the first month not counted.
+    public static func editCountDateRange(config: WMFFeatureConfigResponse.Common.YearInReview) -> DateInterval? {
+        if let start = config.contribStartDate,
+           let end = config.contribEndDate,
+           start < end {
+            return DateInterval(start: start, end: end)
         }
-        return DateInterval(start: start, end: end)
+        return contributorDateRange(year: config.year)
     }
 
     private static func utcDate(year: Int, month: Int, day: Int) -> Date? {

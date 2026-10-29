@@ -10,20 +10,18 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory(hidesDonate: { false })
 
-    /// The total articles, top topic, articles visited multiple times, edits and contributor slides always
+    /// The total articles, top topic, articles visited multiple times and contributor slides always
     /// show, in their full or their empty version, so Year in Review never opens with no slides. The
-    /// test host has no stored report and no donations, so the days visited, runners-up, rabbit hole,
-    /// edit views and most-viewed articles slides do not show and the contributor slide is the
-    /// "You matter" version.
+    /// test host has no stored report and no donations, so the days visited, runners-up, rabbit hole
+    /// and edit slides do not show and the contributor slide is the "You matter" version.
     @Test
-    func makesTheTotalArticlesTheTopTopicTheArticlesVisitedMultipleTimesTheEditsAndTheContributorSlides() {
+    func makesTheTotalArticlesTheTopTopicTheArticlesVisitedMultipleTimesAndTheContributorSlides() {
         let slides = factory.makeSlides(experience: .personalized, isLoggedIn: true)
 
-        #expect(slides.count == 5)
+        #expect(slides.count == 4)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
         #expect(["frame6", "frame6-empty"].contains(slides[1].animation?.artboardName ?? ""))
         #expect(["frame13", "frame13-empty"].contains(slides[2].animation?.artboardName ?? ""))
-        #expect(["frame16", "frame16-empty"].contains(slides[3].animation?.artboardName ?? ""))
         #expect(slides.last?.animation?.artboardName == "end")
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
     }
@@ -93,6 +91,32 @@ struct YearInReviewSlideViewModelFactoryTests {
         let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
         #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "frame16-empty", "end"])
+    }
+
+    /// Without a fetched edit count, for example after a failed request, no edit slide shows, so an
+    /// editor is never told they made 0 edits.
+    @Test
+    func withoutAnEditCountNoEditSlideShows() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(
+            isLoggedIn: true,
+            editCount: nil,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
+        )
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(!artboards.contains { ["frame16", "frame16-empty", "frame17", "frame18"].contains($0) })
+    }
+
+    /// A fetched edit count of 0 shows the empty edits slide.
+    @Test
+    func aFetchedEditCountOfZeroShowsTheEmptyEditsSlide() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(isLoggedIn: true, editCount: 0)
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards.last == "frame16-empty")
     }
 
     /// The edits slides need an account, so a logged-out reader does not get the empty edits slide.

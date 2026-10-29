@@ -35,7 +35,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
         donateCount = getDonateCount(startDate: dateRange.start, endDate: dateRange.end)
         
         if let globalUserID,
-           let editCountDateRange = WMFYearInReviewDataController.editCountDateRange(year: year) {
+           let editCountDateRange = WMFYearInReviewDataController.editCountDateRange(config: yirConfig) {
             do {
                 let dataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
                 editCount = try await dataController.fetchEditCount(startDate: editCountDateRange.start, endDate: editCountDateRange.end)

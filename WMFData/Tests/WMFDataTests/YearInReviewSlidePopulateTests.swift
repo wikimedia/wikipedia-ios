@@ -821,15 +821,22 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testEditCountRequestsTheCalendarYear() async throws {
+    private var configWithContribDates: WMFFeatureConfigResponse.Common.YearInReview {
+        var config = config
+        config.contribStartDateString = "2025-12-01T00:00:00Z"
+        config.contribEndDateString = "2026-12-01T00:00:00Z"
+        return config
+    }
+
+    func testEditCountRequestsTheContribDatesOfTheConfig() async throws {
         let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.basicService = service
-        let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Editor", globalUserID: 1))
+        let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: configWithContribDates, dependencies: makeDependencies(username: "Editor", globalUserID: 1))
 
         _ = try await populatedPayload(controller)
 
         let path = try XCTUnwrap(service.requestedURLs.first?.path)
-        XCTAssertTrue(path.hasSuffix("/monthly/20260101/20261231"), "January 1 to December 31, 2026, the same as Android: \(path)")
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "contribStartDate to contribEndDate: \(path)")
     }
 
     func testEditCountIsNotEvaluatedWithoutAGlobalUserID() async throws {
@@ -855,15 +862,15 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testDonateCountRequestsTheCalendarYearForItsEditCount() async throws {
+    func testDonateCountRequestsTheContribDatesForItsEditCount() async throws {
         let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.basicService = service
-        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: configWithContribDates, dependencies: makeDependencies(globalUserID: 1))
 
         _ = try await populatedPayload(controller)
 
         let path = try XCTUnwrap(service.requestedURLs.first?.path)
-        XCTAssertTrue(path.hasSuffix("/monthly/20260101/20261231"), "January 1 to December 31, 2026: \(path)")
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "contribStartDate to contribEndDate: \(path)")
     }
 
     func testDonateCountCountsOnlyDonationsInTheContributorRange() async throws {

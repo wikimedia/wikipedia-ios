@@ -90,7 +90,7 @@ struct YearInReviewSlideViewModelFactory {
                 rabbitHoles: storedRabbitHoles(),
                 rereadArticles: storedRereadArticles() ?? [],
                 isLoggedIn: isLoggedIn,
-                editCount: storedEditCount() ?? 0,
+                editCount: storedEditCount(),
                 editViewCount: storedViewCount(),
                 mostViewedArticles: storedMostViewedArticles()
             ))
@@ -108,7 +108,9 @@ struct YearInReviewSlideViewModelFactory {
         var rereadArticles: [RereadArticle] = []
         /// The edit slides need an account.
         var isLoggedIn = false
-        var editCount = 0
+        /// `nil` when the edit count was never fetched, for example after a failed request. Then no
+        /// edit slide shows, so an editor is never told they made 0 edits.
+        var editCount: Int?
         var editViewCount: Int?
         var mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article] = []
     }
@@ -126,8 +128,8 @@ struct YearInReviewSlideViewModelFactory {
         slides += topicSlides(data.topTopics)
         slides += rabbitHoleSlides(data.rabbitHoles)
         slides.append(rereadArticlesSlide(data.rereadArticles))
-        if data.isLoggedIn {
-            slides += editorSlides(editCount: data.editCount, viewCount: data.editViewCount, mostViewedArticles: data.mostViewedArticles)
+        if data.isLoggedIn, let editCount = data.editCount {
+            slides += editorSlides(editCount: editCount, viewCount: data.editViewCount, mostViewedArticles: data.mostViewedArticles)
         }
         return slides
     }
@@ -690,8 +692,8 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Edits
 
-    /// The edits slide always shows, with its empty version for a reader without edits. The views
-    /// slide and the most-viewed articles slide hide without enough views.
+    /// The edits slide shows with its empty version for a reader without edits. The views slide and
+    /// the most-viewed articles slide hide without enough views.
     private func editorSlides(editCount: Int, viewCount: Int?, mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article]) -> [WMFYearInReviewSlideViewModel] {
         var slides = [editsSlide(editCount: editCount)]
         if let editViews = editViewsSlide(viewCount: viewCount) {
@@ -836,7 +838,7 @@ struct YearInReviewSlideViewModelFactory {
         return ContributorStatus(isEditor: (storedEditCount() ?? 0) > 0, isDonor: isDonor)
     }
 
-    /// The edits in the calendar year, from the report the app fills in the background. `nil`
+    /// The edits in the contributor period, from the report the app fills in the background. `nil`
     /// when the report does not have them.
     private func storedEditCount() -> Int? {
         do {
@@ -889,7 +891,7 @@ struct YearInReviewSlideViewModelFactory {
         )
     ]
 
-    /// "Thank you" for a logged-in reader who edited in the calendar year or donated in the contributor period, with the
+    /// "Thank you" for a logged-in reader who edited or donated in the contributor period, with the
     /// donate button in the toolbar. Otherwise "You matter", with a primary donate button below the
     /// animation in place of the toolbar button.
     ///

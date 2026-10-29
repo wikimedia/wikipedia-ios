@@ -30,7 +30,7 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let globalUserID else { return }
         
-        guard let dateRange = WMFYearInReviewDataController.editCountDateRange(year: year) else {
+        guard let dateRange = WMFYearInReviewDataController.editCountDateRange(config: yirConfig) else {
             return
         }
         
