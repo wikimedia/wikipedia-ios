@@ -279,10 +279,16 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(experience, .collective, "the days visited slide does not show")
     }
 
-    func testTwoRabbitHolesCountAsTwoSlides() async throws {
+    func testTwoRabbitHolesCountAsOneSlide() async throws {
         try await saveReport([try readCountSlide(2), try rabbitHolesSlide(count: 2)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
-        XCTAssertEqual(experience, .personalized, "the guess and the reveal are two slides, the same as on Android")
+        XCTAssertEqual(experience, .collective, "the reveal replaces the guess in place, so they are one slide")
+    }
+
+    func testRabbitHolesCountTowardPersonalized() async throws {
+        try await saveReport([try readCountSlide(3), try rabbitHolesSlide(count: 2)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
     }
 
     func testOneRabbitHoleIsNotEnoughData() async throws {

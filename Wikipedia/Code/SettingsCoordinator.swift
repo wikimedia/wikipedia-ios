@@ -309,7 +309,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 // Turning it off deleted the reports. Turning it on builds the report again, or keeps the stored one.
                 if isEnabled, let dataStore = self?.dataStore {
                     Task { @MainActor in
-                        await YearInReviewCoordinator.buildReport(dataStore: dataStore)
+                        await YearInReviewCoordinator.buildReportLoggingError(dataStore: dataStore)
                     }
                 }
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)

@@ -20,7 +20,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     @Published private(set) var rive: Rive?
     /// The value of `readBool` in the loaded file. `nil` until the file loads, or if the file has no such property.
     @Published private(set) var readBoolValue: Bool?
-    /// Goes up by one each time the loaded file fires `watchedTrigger`, or sets `watchedBool` from false to true.
+    /// Goes up by one each time the loaded file fires `watchedTrigger`.
     @Published private(set) var watchedEventCount = 0
 
     let animation: WMFRiveAnimation
@@ -28,7 +28,9 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     /// of the artboard if there is one, otherwise from the bound instance.
     let readBool: WMFRiveBool?
     let watchedTrigger: WMFRiveTrigger?
-    let watchedBool: WMFRiveBool?
+    /// For each image property, a boolean property that is true until an image is bound to it. A
+    /// file that has no image keeps its sample image, so the flag lets it show a no-image design.
+    let missingImageFlags: [WMFRiveImage: WMFRiveBool]
     /// Text runs to keep to a maximum number of lines. See `WMFRiveTextFit`.
     let textFits: [WMFRiveTextFit]
 
@@ -64,10 +66,11 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private var enums: [WMFRiveEnum: String] = [:]
     private var images: [WMFRiveImage: Data]
     private var bound: Bound?
+    /// The images that are bound to `bound.main`. A decoded image only, not the data.
+    private var boundImages: Set<WMFRiveImage> = []
     private var loadTask: Task<Void, Never>?
     private var imageTask: Task<Void, Never>?
     private var triggerTask: Task<Void, Never>?
-    private var boolTask: Task<Void, Never>?
     private let loader: @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive
     private let imageDecoder: @MainActor (Data) async throws -> RiveRuntime.Image
 
@@ -79,7 +82,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         images: [WMFRiveImage: Data] = [:],
         readBool: WMFRiveBool? = nil,
         watchedTrigger: WMFRiveTrigger? = nil,
-        watchedBool: WMFRiveBool? = nil,
+        missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
         textFits: [WMFRiveTextFit] = [],
         loader: @escaping @MainActor (WMFRiveAnimation, WMFRiveBindingsMaker) async throws -> Rive = WMFRiveWorkerProvider.makeRive,
         imageDecoder: @escaping @MainActor (Data) async throws -> RiveRuntime.Image = WMFRiveWorkerProvider.decodeImage
@@ -91,7 +94,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         self.images = images
         self.readBool = readBool
         self.watchedTrigger = watchedTrigger
-        self.watchedBool = watchedBool
+        self.missingImageFlags = missingImageFlags
         self.textFits = textFits
         self.loader = loader
         self.imageDecoder = imageDecoder
@@ -101,7 +104,6 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         loadTask?.cancel()
         imageTask?.cancel()
         triggerTask?.cancel()
-        boolTask?.cancel()
     }
 
     @discardableResult
@@ -144,6 +146,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             guard !Task.isCancelled else { return }
             self.rive = rive
             self.bound = made
+            boundImages = []
             if let made, made.text != text || made.numbers != numbers || made.bools != bools || made.enums != enums {
                 // The values changed while the file loaded.
                 applyCurrentValues()
@@ -151,7 +154,6 @@ final class WMFRiveAnimationViewModel: ObservableObject {
             validatePathsInDebug()
             applyImages()
             watchTrigger()
-            watchBool()
             self.loadState = .loaded
             await readBoolFromFile()
         } catch is CancellationError {
@@ -175,10 +177,9 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         imageTask = nil
         triggerTask?.cancel()
         triggerTask = nil
-        boolTask?.cancel()
-        boolTask = nil
         rive = nil
         bound = nil
+        boundImages = []
         readBoolValue = nil
         loadState = .idle
     }
@@ -218,7 +219,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private func makeBound(file: File, artboard: Artboard) async -> Bound {
         let main = try? await file.createViewModelInstance(.viewModelDefault(from: .artboardDefault(artboard)))
         if let main {
-            applyValues(to: main)
+            applyValues(to: main, boundImages: [])
         }
 
         var globals: [String: ViewModelInstance] = [:]
@@ -251,12 +252,12 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private func applyCurrentValues() {
         guard let bound else { return }
         if let main = bound.main {
-            applyValues(to: main)
+            applyValues(to: main, boundImages: boundImages)
         }
         applyTextFits(to: bound.globals, fileSizes: bound.fileSizes)
     }
 
-    private func applyValues(to instance: ViewModelInstance) {
+    private func applyValues(to instance: ViewModelInstance, boundImages: Set<WMFRiveImage>) {
         for (property, value) in text {
             instance.setValue(of: StringProperty(path: property.path), to: value)
         }
@@ -268,6 +269,9 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for (property, value) in enums {
             instance.setValue(of: EnumProperty(path: property.path), to: value)
+        }
+        for (image, flag) in missingImageFlags {
+            instance.setValue(of: BoolProperty(path: flag.path), to: !boundImages.contains(image))
         }
     }
 
@@ -289,31 +293,8 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
     }
 
-    /// A restart binds a new instance, so this watches the new instance. The stream can send the
-    /// same value again, so only a change to true counts.
-    private func watchBool() {
-        boolTask?.cancel()
-        guard let watchedBool, let instance = bound?.main else { return }
-        let property = BoolProperty(path: watchedBool.path)
-        boolTask = Task { [weak self] in
-            do {
-                var previousValue = false
-                for try await value in instance.valueStream(of: property) {
-                    guard let self, !Task.isCancelled else { return }
-                    if value && !previousValue {
-                        self.watchedEventCount += 1
-                    }
-                    previousValue = value
-                }
-            } catch {
-                guard let self, !Task.isCancelled else { return }
-                WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not watch \"\(watchedBool.path)\": \(error.localizedDescription)"))
-            }
-        }
-    }
-
     /// Decoding is async, so the images arrive after the text. An image that does not decode keeps
-    /// the placeholder inside the .riv.
+    /// the placeholder inside the .riv, and its missing-image flag stays true.
     private func applyImages() {
         imageTask?.cancel()
         guard let instance = bound?.main, !images.isEmpty else { return }
@@ -325,6 +306,10 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                     let image = try await self.imageDecoder(data)
                     guard !Task.isCancelled else { return }
                     instance.setValue(of: ImageProperty(path: property.path), to: image)
+                    self.boundImages.insert(property)
+                    if let flag = self.missingImageFlags[property] {
+                        instance.setValue(of: BoolProperty(path: flag.path), to: false)
+                    }
                 } catch {
                     guard !Task.isCancelled else { return }
                     WMFRiveLogger.log(WMFRiveFailure(animation: self.animation, stage: .binding, reason: "Could not decode the image for \"\(property.path)\": \(error.localizedDescription)"))
