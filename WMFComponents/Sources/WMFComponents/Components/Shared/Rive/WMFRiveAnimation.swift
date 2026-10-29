@@ -26,6 +26,10 @@ public nonisolated struct WMFRiveText: Sendable, Hashable {
 public nonisolated struct WMFRiveNumber: Sendable, Hashable {
 
     public let path: String
+
+    public init(path: String) {
+        self.path = path
+    }
 }
 
 /// An image property in the .riv, such as an article thumbnail.
