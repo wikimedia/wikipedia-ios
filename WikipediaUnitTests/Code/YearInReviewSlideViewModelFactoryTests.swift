@@ -323,6 +323,43 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
     }
 
+    // MARK: - Minutes read
+
+    private func readData(minutesRead: Int) throws -> WMFYearInReviewReadData {
+        let data = try JSONSerialization.data(withJSONObject: ["readCount": 10, "minutesRead": minutesRead])
+        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data)
+    }
+
+    @Test
+    func theMinutesReadSlideShowsTheMinutesAndTheComparison() throws {
+        let slide = try #require(factory.minutesReadSlide(try readData(minutesRead: 924)))
+
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewMinutesReadTitle)
+        #expect(text(slide, "data") == "924")
+        let bodyCopy = try #require(text(slide, "bodyCopy"))
+        #expect(bodyCopy == "\(CommonStrings.yearInReviewMinutesReadComparisonNightSleep) \(CommonStrings.yearInReviewMinutesReadSubtitle)")
+        let accessibilityLabel = try #require(slide.localizedStrings.accessibilityLabel)
+        #expect(accessibilityLabel.contains("924"))
+        #expect(accessibilityLabel.contains(bodyCopy))
+    }
+
+    @Test
+    func theMinutesReadSlideNamesTheDaysForAVeryLongReadingTime() throws {
+        let slide = try #require(factory.minutesReadSlide(try readData(minutesRead: 2880)))
+
+        #expect(text(slide, "bodyCopy")?.hasPrefix(CommonStrings.yearInReviewMinutesReadComparisonDays(dayCount: 2)) == true)
+    }
+
+    @Test(arguments: [0, 300_001])
+    func theMinutesReadSlideDoesNotShowWithoutEnoughOrWithTooManyMinutes(minutesRead: Int) throws {
+        #expect(factory.minutesReadSlide(try readData(minutesRead: minutesRead)) == nil)
+    }
+
+    @Test
+    func theMinutesReadSlideDoesNotShowWithoutStoredData() {
+        #expect(factory.minutesReadSlide(nil) == nil)
+    }
+
     // MARK: - Days visited
 
     /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.

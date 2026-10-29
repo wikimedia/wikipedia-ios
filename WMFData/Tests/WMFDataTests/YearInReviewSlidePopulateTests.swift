@@ -221,6 +221,31 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(identifier.requestedProjectIDs.sorted(), [enProject.id, itProject.id].sorted(), "one request for each wiki, not one for each article")
     }
 
+    func testMinutesReadCountsOnlyArticlesThatAreNotMainPages() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        let when = try date(month: 3, day: 4, hour: 9)
+        let pageViewsDataController = try WMFPageViewsDataController()
+
+        func addView(_ title: String, namespaceID: Int16 = 0, project: WMFProject, seconds: Double) async throws {
+            let addedObjectID = try await pageViewsDataController.addPageView(title: title, namespaceID: namespaceID, project: project, previousPageViewObjectID: nil, timestamp: when)
+            let objectID = try XCTUnwrap(addedObjectID)
+            try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: seconds)
+        }
+
+        try await addView("Kept", project: enProject, seconds: 90)
+        // A second view of the same article adds to it.
+        try await addView("Kept", project: enProject, seconds: 90)
+        try await addView("Talk_Page", namespaceID: 1, project: enProject, seconds: 600)
+        try await addView("Main_Page", project: enProject, seconds: 600)
+        try await addView("Pagina_principale", project: itProject, seconds: 600)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await readCountPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.readCount, 1)
+        XCTAssertEqual(payload.minutesRead, 3, "180 seconds on the article, and nothing from the talk page or the main pages")
+    }
+
     func testReadCountIsEligibleFromThreeArticles() async throws {
         let when = try date(month: 3, day: 4, hour: 9)
         try await seedPageViews([pageView("Alpha", at: when), pageView("Beta", at: when)])
