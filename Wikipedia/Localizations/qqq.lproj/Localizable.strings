@@ -1749,7 +1749,7 @@
 "year-in-review-2026-games-card-subtitle" = "Subtitle of the Year in Review card that opens the games.";
 "year-in-review-2026-games-card-title" = "Title of the Year in Review card that opens the games.";
 "year-in-review-2026-highlights-articles-read" = "Label on the Year in Review highlights image. The number of articles the reader read this year follows it.";
-"year-in-review-2026-highlights-created-with" = "Footer of the Year in Review highlights image.";
+"year-in-review-2026-highlights-created-with" = "Footer of the Year in Review highlights image and of the image of a shared Year in Review slide.";
 "year-in-review-2026-highlights-minutes-read" = "Label on the Year in Review highlights image. The number of minutes the reader spent reading this year follows it.";
 "year-in-review-2026-highlights-niche-category" = "Label on the Year in Review highlights image. The name of an unusual category the reader read about this year follows it.";
 "year-in-review-2026-highlights-rabbit-hole" = "Label on the Year in Review highlights image. The articles in the longest chain of links the reader followed this year follow it.";
@@ -1789,7 +1789,7 @@
 "year-in-review-2026-quiz-card-subtitle" = "Subtitle of the Year in Review card that opens a quiz about the history of Wikipedia. \"Dial-up\" is an old type of internet connection.";
 "year-in-review-2026-quiz-card-title" = "Title of the Year in Review card that opens a quiz about the history of Wikipedia.";
 "year-in-review-2026-rabbit-hole-reveal-subtitle" = "Subtitle of the Year in Review slide that reveals the deepest rabbit hole of the reader.";
-"year-in-review-2026-rabbit-hole-reveal-title" = "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. $1 is replaced with the number of links the reader followed one after the other.";
+"year-in-review-2026-rabbit-hole-reveal-title" = "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. $1 is replaced with the number of articles in the rabbit hole, including the first article. For example, Moon, then Earth from a link, then Cat from a link is 3.";
 "year-in-review-2026-rabbit-hole-title" = "Title of the Year in Review slide that asks the reader which of the listed rabbit holes was the deepest. A rabbit hole is a series of articles the reader opened one after the other from links. The list follows it.";
 "year-in-review-2026-reading-streak-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not read on 3 or more consecutive days this year.";
 "year-in-review-2026-reading-streak-empty-title" = "Title of the Year in Review slide shown when the reader did not read on 3 or more consecutive days this year.";
@@ -1804,6 +1804,7 @@
 "year-in-review-2026-saved-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-title" = "Title of the Year in Review slide that shows the number of articles the reader saved this year. The number follows it.";
 "year-in-review-2026-share-text" = "Text the reader shares with their Year in Review highlights. $1 is replaced with a link to the Wikipedia app.";
+"year-in-review-2026-store-card-button-title" = "Button on the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-store-card-subtitle" = "Subtitle of the Year in Review card that gives a discount on the Wikipedia store. $1 is replaced with a percentage, for example \"15%\".";
 "year-in-review-2026-store-card-title" = "Title of the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-tabs-card-title" = "Title of the Year in Review card that opens the open tabs of the reader.";

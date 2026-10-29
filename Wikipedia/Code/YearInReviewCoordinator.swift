@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+import SwiftUI
 import UIKit
 import WMF
 import WMFComponents
@@ -8,14 +10,56 @@ import WMFNativeLocalizations
 /// navigation bar, the toolbar and the injected text.
 final class YearInReviewCoordinator: NSObject, Coordinator {
 
+    /// A report build and the user it was started for.
+    private struct ReportBuild {
+        let username: String?
+        let task: Task<WMFYearInReviewReport?, Error>
+    }
+
+    /// Only one build runs at a time, so two builds never write the report at the same time.
+    @MainActor
+    private static var reportBuild: ReportBuild?
+
+    /// Builds the report, or waits for the build that is already running. The build is not tied to a
+    /// screen, so it finishes when the reader closes the announcement. Like Android, the report is
+    /// built when the reader asks for Year in Review, not at launch, and after any log in.
+    ///
+    /// A running build for another user, such as one started before a log in, does not count: this
+    /// waits for it, then builds again.
+    ///
+    /// - Parameter regenerate: deletes the report first, so every slide is built again from the
+    ///   current data, frozen slides too. Only the developer settings use it. It always builds again.
+    @MainActor
+    @discardableResult
+    static func buildReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        while let running = reportBuild {
+            let result = await running.task.result
+            if !regenerate, running.username == username {
+                return try result.get()
+            }
+        }
+        let task = Task { @MainActor in
+            defer { reportBuild = nil }
+            return try await populateReport(dataStore: dataStore, regenerate: regenerate)
+        }
+        reportBuild = ReportBuild(username: username, task: task)
+        return try await task.value
+    }
+
+    @MainActor
+    private static func buildReportLoggingError(dataStore: MWKDataStore) async {
+        do {
+            try await buildReport(dataStore: dataStore)
+        } catch {
+            DDLogError("Error populating the Year in Review report: \(error)")
+        }
+    }
+
     /// Fills the Year in Review report for the target year. The data controller checks the remote
     /// config, the active dates, the Settings toggle and the country, and returns `nil` when one of
     /// them stops the population.
-    ///
-    /// - Parameter regenerate: deletes the report first, so every slide is built again from the
-    ///   current data, frozen slides too. Only the developer settings use it.
-    @discardableResult
-    static func populateReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+    private static func populateReport(dataStore: MWKDataStore, regenerate: Bool) async throws -> WMFYearInReviewReport? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
               let countryCode = Locale.current.region?.identifier else {
             return nil
@@ -64,6 +108,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private weak var announcementNavigationController: UINavigationController?
 
     private weak var viewModel: WMFYearInReviewViewModel?
+    private weak var hostingController: WMFYearInReviewHostingController?
+    private weak var announcementViewModel: WMFYearInReviewAnnouncementViewModel?
 
     /// The slides that `viewModel` shows. A donation turns "You matter" into "Thank you" only in the
     /// personalized slides.
@@ -87,10 +133,42 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         NotificationCenter.default.addObserver(self, selector: #selector(localDonationHistoryDidChange), name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
     }
     
+    /// The profile calls this after its sheet closes, so nothing shows while the report is built. If
+    /// the reader opened another screen in that time, the slides do not open.
     @discardableResult
     func start() -> Bool {
-        presentYearInReview()
+        afterReportIsBuilt { [weak self] in
+            guard let self, navigationController.presentedViewController == nil else { return }
+            presentYearInReview()
+        }
         return true
+    }
+
+    /// True from a request to open the slides until the report is built. Other requests in that time
+    /// are ignored, so the slides open only once.
+    private var isWaitingForReport = false
+
+    /// Builds the report, then runs `action`. The Explore button shows a spinner while it waits.
+    private func afterReportIsBuilt(_ action: @escaping @MainActor () -> Void) {
+        announcementViewModel?.isLoadingExplore = true
+        guard !isWaitingForReport else { return }
+        isWaitingForReport = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            await Self.buildReportLoggingError(dataStore: dataStore)
+            isWaitingForReport = false
+            announcementViewModel?.isLoadingExplore = false
+            action()
+        }
+    }
+
+    /// Builds the report, then replaces the announcement with the slides. If the reader closed the
+    /// announcement while the report was built, the slides do not open.
+    private func transitionAnnouncementAfterReportIsBuilt() {
+        afterReportIsBuilt { [weak self] in
+            guard let self, announcementNavigationController?.presentingViewController != nil else { return }
+            transitionAnnouncementToYearInReview()
+        }
     }
 
     /// Loads the announcement data and shows the announcement. Returns true only when it is on screen.
@@ -131,6 +209,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             delegate: self
         )
 
+        announcementViewModel = viewModel
         let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
         // Full screen from the first frame, same style as the slides.
         let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
@@ -172,10 +251,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self
         )
 
+        // The gift card follows the slides that were built, so the end screen agrees with the last slide.
+        let hasContributorSlide = viewModel.slides.contains { $0.id == YearInReviewSlideViewModelFactory.contributorSlideID }
+        viewModel.endViewModel = makeEndViewModel(isContributor: hasContributorSlide)
+
         self.viewModel = viewModel
         self.slidesExperience = experience
 
-        return WMFYearInReviewHostingController(viewModel: viewModel)
+        let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
+        self.hostingController = hostingController
+        return hostingController
     }
 
     private func presentYearInReview() {
@@ -234,7 +319,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
-            self?.transitionAnnouncementToYearInReview()
+            self?.transitionAnnouncementAfterReportIsBuilt()
         }
 
         alert.addAction(loginAction)
@@ -269,22 +354,25 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 return
             }
             accountCreation.dismiss(animated: true) { [weak self] in
-                self?.presentYearInReview()
+                self?.presentYearInReviewAfterCurrentDismissal()
             }
         }
 
         loginCoordinator.start()
     }
 
-    /// Presents the slides once any dismissal in progress is done.
+    /// Builds the report after the log in, then presents the slides once any dismissal in progress is done.
     private func presentYearInReviewAfterCurrentDismissal() {
-        guard let transitionCoordinator = navigationController.transitionCoordinator else {
-            presentYearInReview()
-            return
-        }
+        afterReportIsBuilt { [weak self] in
+            guard let self else { return }
+            guard let transitionCoordinator = navigationController.transitionCoordinator else {
+                presentYearInReview()
+                return
+            }
 
-        transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.presentYearInReview()
+            transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
+                self?.presentYearInReview()
+            }
         }
     }
 
@@ -338,6 +426,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
         viewModel.replaceSlide(id: YearInReviewSlideViewModelFactory.nonContributorSlideID, with: slide)
+
+        // The reader is now a contributor. Make the end screen again to add the gift card.
+        viewModel.endViewModel = makeEndViewModel(isContributor: true)
     }
 
     /// The pages are translated per app language, so the URLs are built rather than hardcoded.
@@ -358,9 +449,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         showHelpPage(url: yearInReviewHelpURL(pathComponents: [], section: nil))
     }
 
-    /// "About your insights" in the more menu opens the FAQ.
+    /// "About your insights" in the more menu opens the FAQ. The section link skips the page banners.
     private func showAboutInsights() {
-        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: nil))
+        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: "Frequently asked questions"))
     }
 
     private func showHelpPage(url: URL?) {
@@ -399,6 +490,74 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         UIApplication.shared.open(mailtoURL)
     }
 
+    private var isExportingShareImage = false
+
+    /// Shares a still image of the slide, with the share text and the app link.
+    private func shareSlide(slideID: String) {
+        guard !isExportingShareImage,
+              let slide = viewModel?.slides.first(where: { $0.id == slideID }) else {
+            return
+        }
+        isExportingShareImage = true
+        let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+        let presenter = hostingController?.navigationController
+
+        Task { @MainActor [weak self, weak presenter] in
+            defer { self?.isExportingShareImage = false }
+            do {
+                let image = try await WMFYearInReviewSlideImageExporter.image(
+                    for: slide,
+                    caption: CommonStrings.yearInReviewHighlightsCreatedWith,
+                    layoutDirection: layoutDirection
+                )
+                self?.presentShareSheet(image: image, from: presenter)
+            } catch {
+                DDLogError("Could not make the Year in Review share image for \(slideID): \(error)")
+                WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
+            }
+        }
+    }
+
+    /// The export takes about a second. If the reader closed the slides, opened them again, or opened
+    /// another screen from them in that time, the share sheet does not open.
+    private func presentShareSheet(image: UIImage, from presenter: UIViewController?) {
+        guard let presenter,
+              presenter === hostingController?.navigationController,
+              presenter.viewIfLoaded?.window != nil,
+              presenter.presentedViewController == nil else {
+            return
+        }
+        let text = YearInReviewShareTextItem(text: CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink))
+        let activityViewController = UIActivityViewController(activityItems: [image, text], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = presenter.view
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        presenter.present(activityViewController, animated: true)
+    }
+}
+
+/// The share text, left out where only the image can go. Instagram and TikTok share one item, and
+/// the image is the priority.
+private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+
+    private static let imageOnlyActivityPrefixes = ["com.burbn.instagram", "com.zhiliaoapp.musically", "com.ss.iphone.ugc.Ame"]
+
+    private let text: String
+
+    init(text: String) {
+        self.text = text
+    }
+
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        text
+    }
+
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        guard let activityType,
+              Self.imageOnlyActivityPrefixes.contains(where: { activityType.rawValue.hasPrefix($0) }) else {
+            return text
+        }
+        return nil
+    }
 }
 
 // MARK: - WMFYearInReviewCoordinating
@@ -414,8 +573,8 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
             showAboutInsights()
         case .shareFeedback:
             shareFeedback()
-        case .share:
-            break
+        case .share(let slideID):
+            shareSlide(slideID: slideID)
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }
@@ -432,12 +591,17 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
             return
         }
 
-        transitionAnnouncementToYearInReview()
+        transitionAnnouncementAfterReportIsBuilt()
     }
 
     func yearInReviewAnnouncementDidTapClose() {
         navigationController.presentedViewController?.dismiss(animated: true) {
             WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
+        }
+        // So the slides open at once the next time.
+        let dataStore = dataStore
+        Task { @MainActor in
+            await Self.buildReportLoggingError(dataStore: dataStore)
         }
     }
 
@@ -483,5 +647,50 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 
     func logYearInReviewDidTapShare(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
+    }
+}
+
+// MARK: - End screen
+
+extension YearInReviewCoordinator {
+
+    /// The store page with the contributor discount already applied.
+    private static let storeDiscountURL = URL(string: "https://store.wikimedia.org/discount/WikiLove?utm_campaign=bf45f7&utm_source=discount_shareable_link")
+
+    /// The languages the quiz site is available in. Any other language gets English.
+    private static let whichWikipediaLanguageCodes: Set<String> = ["ar", "en", "es", "fr", "ja", "ms", "pt"]
+
+    /// The quiz page in the reader's primary app language, or English if the site does not have it.
+    private var whichWikipediaURL: URL? {
+        let appLanguageCode = WMFDataEnvironment.current.primaryAppLanguage?.languageCode.lowercased() ?? "en"
+        let languageCode = Self.whichWikipediaLanguageCodes.contains(appLanguageCode) ? appLanguageCode : "en"
+        return URL(string: "https://wikipedia25.org/\(languageCode)/which-wikipedia-of-the-future-are-you")
+    }
+
+    /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
+    private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
+        MainActor.assumeIsolated {
+            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor)
+            buildEndViewModel(viewModel)
+            return viewModel
+        }
+    }
+
+    /// Attaches the coordinator callbacks to the end screen view model.
+    @MainActor
+    private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
+        viewModel.didTapStore = { [weak self] in
+            self?.showStore()
+        }
+        viewModel.didTapWhichWikipedia = { [weak self] in
+            self?.showHelpPage(url: self?.whichWikipediaURL)
+        }
+    }
+
+    private func showStore() {
+        guard let url = Self.storeDiscountURL else {
+            return
+        }
+        UIApplication.shared.open(url)
     }
 }
