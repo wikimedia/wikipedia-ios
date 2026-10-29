@@ -391,11 +391,10 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewNicheInterestSubtitle)
         // VoiceOver reads the category name as written, not in capitals.
         #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewNicheInterestTitle) \(categoryName). \(CommonStrings.yearInReviewNicheInterestSubtitle)")
-        // The category name uses the data text style, not the large number style. A long name can wrap.
-        let categoryNameFit = slide.textFits.first { $0.text.path == "data" }
-        #expect(categoryNameFit?.maximumLines == 3)
-        #expect(categoryNameFit?.fontSize.path == "dataTextFontSize")
-        #expect(categoryNameFit?.lineHeight.path == "dataTextLineHeight")
+        // The category name has no fit, so it keeps the size and line count that the .riv gives it.
+        #expect(slide.textFits.contains { $0.text.path == "data" } == false)
+        // The headline and the body copy still fit.
+        #expect(slide.textFits.map(\.text.path).sorted() == ["bodyCopy", "headline"])
     }
 
     /// The slide has no empty version, so it does not show without a category name.

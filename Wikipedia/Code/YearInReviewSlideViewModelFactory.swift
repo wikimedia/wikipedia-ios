@@ -340,16 +340,13 @@ struct YearInReviewSlideViewModelFactory {
             stateMachine: "frame12-statemachine",
             headline: headline,
             data: categoryName,
-            dataFit: Self.nicheInterestFit,
+            // No fit for the category name, so it keeps the size and line count that the .riv
+            // gives it. The .riv will handle long category names itself.
+            dataFit: nil,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(categoryName). \(bodyText)"
         )
     }
-
-    /// A category name can be long, for example "Executed female serial killers", so it can use up to
-    /// three lines. Over three lines, the text gets smaller. The global reach slide shows three lines
-    /// on the same frame.
-    private static let nicheInterestFit = globalReachFit
 
     // MARK: - Topics
 
@@ -951,13 +948,14 @@ struct YearInReviewSlideViewModelFactory {
     /// "WEDNESDAY EVENINGS". The headline is shown as written. The accessibility label keeps the
     /// text as written.
     /// - Parameter dataFit: The fit of `data`. A number uses `dataNumberFit`, and a text uses `dataTextFit`.
+    ///   `nil` leaves `data` as the .riv sizes it.
     private func dataSlide(
         id: String,
         artboard: String,
         stateMachine: String,
         headline: String,
         data: String?,
-        dataFit: WMFRiveTextFit = Self.dataNumberFit,
+        dataFit: WMFRiveTextFit? = Self.dataNumberFit,
         bodyText: String,
         images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String
@@ -979,7 +977,7 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit])
+            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit].compactMap { $0 })
         )
     }
 
