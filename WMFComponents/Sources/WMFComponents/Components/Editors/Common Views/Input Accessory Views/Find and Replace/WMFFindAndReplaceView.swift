@@ -5,6 +5,8 @@ protocol WMFFindAndReplaceViewDelegate: AnyObject {
     func findAndReplaceView(_ view: WMFFindAndReplaceView, didChangeFindText text: String)
     func findAndReplaceView(_ view: WMFFindAndReplaceView, didTapReplaceSingle replaceText: String)
     func findAndReplaceView(_ view: WMFFindAndReplaceView, didTapReplaceAll replaceText: String)
+    func findAndReplaceViewDidTapNext(_ view: WMFFindAndReplaceView)
+    func findAndReplaceViewDidTapPrevious(_ view: WMFFindAndReplaceView)
 }
 
 class WMFFindAndReplaceView: WMFComponentView {
@@ -204,6 +206,29 @@ class WMFFindAndReplaceView: WMFComponentView {
       }
 
     // MARK: - Button Actions
+    
+    @IBAction private func tappedFindClear() {
+        findTextField.text = ""
+        debouncedFindTextfieldDidChange()
+    }
+    
+    @IBAction private func tappedReplaceClear() {
+        replaceTextField.text = ""
+        if let viewModel {
+            update(viewModel: viewModel)
+        }
+    }
+    
+    @IBAction private func tappedClose() {
+    }
+    
+    @IBAction private func tappedNext() {
+        delegate?.findAndReplaceViewDidTapNext(self)
+    }
+    
+    @IBAction private func tappedPrevious() {
+        delegate?.findAndReplaceViewDidTapPrevious(self)
+    }
     
     @IBAction private func tappedReplace() {
         guard let replaceText = replaceTextField.text,

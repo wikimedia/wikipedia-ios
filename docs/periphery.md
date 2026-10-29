@@ -48,6 +48,7 @@ Periphery uses the compiler index. Thus it is correct about overloads: a call to
 - **Calls from Objective-C.** Periphery cannot see them. The `retain_objc_accessible` setting keeps every `@objc` declaration and every `NSObject` member. Thus Periphery does not report unused Objective-C-visible code. Find that code by hand.
 - **Code in an inactive `#if` block.** The Debug build does not compile `#if WMF_LOCAL` or release-only code, so the index does not see calls there. Search for the name in `#if` blocks.
 - **Calls by name.** Code that a string, a selector name or a JavaScript message calls does not show in the index.
+- **Interface Builder actions in a Swift package.** Periphery does not read the xib and storyboard files in WMFComponents. Thus it reports their `@IBAction` methods as unused. If you remove one, the build does not fail, but the app crashes with an unrecognized selector when someone taps the control. Before you remove an `@IBAction`, search the xib and storyboard files for `selector="<name>`.
 - **Protocol requirements.** A conformance can need a function that nothing calls. An example is `Coordinator.start()`.
 - **Classes with only unused initializers.** Periphery reports the initializer, but it keeps the `NSObject` class. If you remove the only initializer, the class does not compile. Remove the whole class instead.
 

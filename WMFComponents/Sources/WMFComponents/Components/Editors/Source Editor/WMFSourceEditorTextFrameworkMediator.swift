@@ -246,6 +246,16 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
         self.delegate?.scrollToCurrentMatch()
     }
     
+    func findPrevious() {
+        guard let fullAttributedString else {
+            return
+        }
+        textView.textLayoutManager?.textContentManager?.performEditingTransaction {
+            self.findAndReplaceFormatter?.highlightPreviousMatch(in: fullAttributedString)
+        }
+        self.delegate?.scrollToCurrentMatch()
+    }
+    
     func replaceSingle(replaceText: String) {
         guard let fullAttributedString else {
             return
