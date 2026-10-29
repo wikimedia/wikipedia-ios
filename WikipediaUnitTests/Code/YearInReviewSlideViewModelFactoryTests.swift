@@ -93,8 +93,8 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "end"])
     }
 
-    /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, then the
-    /// articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
+    /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, niche interest,
+    /// then the articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
@@ -102,6 +102,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
+            nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"),
             rereadArticles: [
                 .init(title: "Dam", visitCount: 3, project: nil),
                 .init(title: "Gravity dam", visitCount: 2, project: nil)
@@ -110,7 +111,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame13"])
+        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame12", "frame13"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
@@ -373,6 +374,39 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.daysVisitedSlide(nil) == nil)
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 0)) == nil)
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 1, peakMonth: 3, peakMonthDayCount: 1)) == nil)
+    }
+
+    // MARK: - Niche interest
+
+    @Test
+    func theNicheInterestSlideShowsTheCategoryName() throws {
+        let categoryName = "Executed female serial killers"
+        let slide = try #require(factory.nicheInterestSlide(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName)))
+
+        #expect(slide.id == "nicheInterest")
+        #expect(slide.animation?.artboardName == "frame12")
+        #expect(slide.animation?.stateMachineName == "frame12-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewNicheInterestTitle)
+        #expect(text(slide, "data") == categoryName.localizedUppercase)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewNicheInterestSubtitle)
+        // VoiceOver reads the category name as written, not in capitals.
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewNicheInterestTitle) \(categoryName). \(CommonStrings.yearInReviewNicheInterestSubtitle)")
+        // The category name has no fit, so it keeps the size and line count that the .riv gives it.
+        #expect(slide.textFits.contains { $0.text.path == "data" } == false)
+        // The headline and the body copy still fit.
+        #expect(slide.textFits.map(\.text.path).sorted() == ["bodyCopy", "headline"])
+    }
+
+    /// The slide has no empty version, so it does not show without a category name.
+    @Test(arguments: [nil, "", "   "] as [String?])
+    func theNicheInterestSlideNeedsACategoryName(categoryName: String?) {
+        #expect(factory.nicheInterestSlide(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName)) == nil)
+    }
+
+    /// The slide does not show when the report does not have its data.
+    @Test
+    func theNicheInterestSlideNeedsStoredData() {
+        #expect(factory.nicheInterestSlide(nil) == nil)
     }
 
     // MARK: - Topics
