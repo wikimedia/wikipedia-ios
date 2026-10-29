@@ -33,22 +33,6 @@ import CocoaLumberjackSwift
         }
     }
 
-    public func migrateIncremental() async {
-        guard shouldRunMigration() else { return }
-        
-        await withCheckedContinuation { continuation in
-            serialQueue.async {
-                let semaphore = DispatchSemaphore(value: 0)
-                Task {
-                    await self.runMigration(limit: 20)
-                    semaphore.signal()
-                }
-                semaphore.wait()
-                continuation.resume()
-            }
-        }
-    }
-
     @objc(removeFromSavedWithURLs:)
     public func removeFromSaved(withUrls urls: [URL]) {
         guard shouldRunMigration() else { return }
@@ -63,19 +47,6 @@ import CocoaLumberjackSwift
                 } catch {
                     DDLogError("[SavedPagesMigration] Reset migration flag failed: \(error)")
                 }
-                semaphore.signal()
-            }
-            semaphore.wait()
-        }
-    }
-
-    public func clearAll() {
-        guard shouldRunMigration() else { return }
-        
-        serialQueue.async {
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                await self.clearAllSavedData()
                 semaphore.signal()
             }
             semaphore.wait()
@@ -415,57 +386,6 @@ import CocoaLumberjackSwift
     }
 
     // MARK: - Delete all
-
-    private func clearAllSavedData() async {
-        guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
-            DDLogError("[SavedPagesMigration] Missing WMFData store")
-            return
-        }
-
-        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-            DDLogError("[SavedPagesMigration] Could not create WMFData background context")
-            return
-        }
-        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
-        await wmfContext.perform {
-            do {
-                let pagesFR: NSFetchRequest<CDPage> = CDPage.fetchRequest()
-                pagesFR.predicate = NSPredicate(format: "savedInfo != nil")
-                pagesFR.fetchBatchSize = 500
-
-                let pagesWithSavedInfo = try wmfContext.fetch(pagesFR)
-
-                if !pagesWithSavedInfo.isEmpty {
-                    for page in pagesWithSavedInfo {
-                        page.savedInfo = nil
-                    }
-
-                    if wmfContext.hasChanges {
-                        try wmfContext.save()
-                    }
-                }
-
-                let savedInfoFR = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageSavedInfo")
-                let deleteSavedInfo = NSBatchDeleteRequest(fetchRequest: savedInfoFR)
-                deleteSavedInfo.resultType = .resultTypeObjectIDs
-
-                if let result = try wmfContext.execute(deleteSavedInfo) as? NSBatchDeleteResult,
-                   let deletedIDs = result.result as? [NSManagedObjectID],
-                   !deletedIDs.isEmpty {
-
-                    let viewContext = try? wmfDataStore.viewContext
-
-                    NSManagedObjectContext.mergeChanges(
-                        fromRemoteContextSave: [NSDeletedObjectsKey: deletedIDs],
-                        into: [viewContext].compactMap { $0 }
-                    )
-                }
-            } catch {
-                DDLogError("[SavedPagesMigration] Batch clear in WMFData failed: \(error)")
-            }
-        }
-    }
 
     // MARK: - Legacy helpers
 

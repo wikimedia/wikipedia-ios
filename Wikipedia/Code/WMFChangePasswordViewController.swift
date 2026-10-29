@@ -56,15 +56,6 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable, WMFNa
         enableProgressiveButton(false)
     }
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == passwordField {
-            retypeField.becomeFirstResponder()
-        } else if textField == retypeField {
-            save()
-        }
-        return true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

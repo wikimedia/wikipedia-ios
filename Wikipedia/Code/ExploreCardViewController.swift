@@ -560,10 +560,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
     }
 
-    func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
-        return true
-    }
-
     func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool {
         return false
     }

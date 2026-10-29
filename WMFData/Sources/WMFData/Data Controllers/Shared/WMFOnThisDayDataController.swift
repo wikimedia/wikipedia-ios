@@ -117,10 +117,6 @@ public actor WMFOnThisDayDataController {
 public struct WMFOnThisDayResponse: Codable, Sendable {
     /// General historical events.
     public let events: [WMFOnThisDayEvent]
-
-    public init(events: [WMFOnThisDayEvent]) {
-        self.events = events
-    }
 }
 
 /// A single on-this-day event.
@@ -179,30 +175,15 @@ public struct WMFOnThisDayThumbnail: Codable, Sendable {
     public let source: URL
     public let width: Int
     public let height: Int
-
-    public init(source: URL, width: Int, height: Int) {
-        self.source = source
-        self.width = width
-        self.height = height
-    }
 }
 
 /// Desktop and mobile URL pair for a page.
 public struct WMFOnThisDayContentURLs: Codable, Sendable {
     public let desktop: WMFOnThisDayURLPair?
     public let mobile: WMFOnThisDayURLPair?
-
-    public init(desktop: WMFOnThisDayURLPair?, mobile: WMFOnThisDayURLPair?) {
-        self.desktop = desktop
-        self.mobile = mobile
-    }
 }
 
 /// A single canonical page URL.
 public struct WMFOnThisDayURLPair: Codable, Sendable {
     public let page: URL?
-
-    public init(page: URL?) {
-        self.page = page
-    }
 }

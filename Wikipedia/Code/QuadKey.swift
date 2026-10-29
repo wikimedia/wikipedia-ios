@@ -19,17 +19,6 @@ public extension QuadKeyPrecision {
         return QuadKeyDegrees.longitudeRangeLength/QuadKeyDegrees(1 << QuadKey(self))
     }
     
-    init(deltaLatitude: QuadKeyDegrees) {
-        var delta = deltaLatitude
-        if delta.isInfinite || delta > QuadKeyDegrees.latitudeRangeLength {
-            delta = QuadKeyDegrees.latitudeRangeLength
-        } else if delta.isNaN || delta <= 0.0001 {
-            delta = 0.0001
-        }
-        let precision = (log(QuadKeyDegrees.latitudeRangeLength/delta)/log(2)).rounded()
-        self.init(precision)
-    }
-    
     init(deltaLongitude: QuadKeyDegrees) {
         var delta = deltaLongitude
         if delta.isInfinite || delta > QuadKeyDegrees.longitudeRangeLength {
@@ -77,14 +66,6 @@ public extension QuadKeyDegrees {
     
     var longitudePart: QuadKeyPart {
         return QuadKeyPart(longitude: self)
-    }
-    
-    func latitudePart(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
-        return QuadKeyPart(latitude: self, precision: precision)
-    }
-    
-    func longitudePart(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
-        return QuadKeyPart(longitude: self, precision: precision)
     }
     
     static func max(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {

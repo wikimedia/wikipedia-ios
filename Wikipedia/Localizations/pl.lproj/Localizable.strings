@@ -179,9 +179,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Podsumowanie roku społeczności już tu jest!";
 "activity-tab-year-in-review-low-data-subtitle" = "Odkryj na nowo ten rok w Wikipedii.";
 "activity-tab-year-in-review-low-data-title" = "Podsumowanie roku społeczności już tu jest!";
-"activity-tab-you-edited" = "{{PLURAL:$1|Jedna edycja|$1 edycje|$1 edycji}} w tym tygodniu";
-"activity-tab-you-read" = "{{PLURAL:$1|Jeden przeczytany artykuł|$1 przeczytane artykuły|$1 przeczytanych artykułów|$1 przeczytanego artykułu}} w tym tygodniu";
-"activity-tab-you-saved" = "{{PLURAL:$1|Jeden zapisany artykuł|$1 zapisane artykuły|$1 zapisanych artykułów|$1 zapisanego artykułu}} w tym tygodniu";
 "activity-tab-your-impact" = "Twój wpływ";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów|$1 artykułu}} do kolekcji";
 "advanced-settings-title" = "Ustawienia zaawansowane";
@@ -278,8 +275,6 @@
 "clearing-cache-error" = "Wystąpił błąd podczas czyszczenia pamięci podręcznej";
 "clearing-cache-in-progress" = "Trwa czyszczenie pamięci podręcznej.";
 "close-all-tabs" = "Zamknij wszystkie karty";
-"close-all-tabs-confirmation" = "Czy na pewno chcesz zamknąć wszystkie karty (łącznie $1)? Tej czynności nie można cofnąć.";
-"close-all-tabs-confirmation-number" = "Zamknąć wszystkie karty (łącznie $1)?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Czy na pewno chcesz zamknąć {{PLURAL:$1|jedną kartę|$1 karty|$1 kart|$1 karty}}? Tej czynności nie można cofnąć.";
 "close-all-tabs-confirmation-title-with-value" = "Zamknąć {{PLURAL:$1|jedną kartę|$1 karty|$1 kart|$1 karty}}?";
 "close-button-accessibility-label" = "Zamknij";
@@ -802,7 +797,6 @@
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "potd-widget-description" = "Ciesz się pięknym codziennym zdjęciem wybranym przez naszą społeczność.";
 "potd-widget-title" = "Grafika dnia";
-"preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 // Fuzzy
 "profile-year-in-review-login-subtitle" = "Zaloguj się lub utwórz konto, aby ponownie zobaczyć Podsumowanie roku i uzyskać dostęp do bardziej spersonalizowanych informacji.";
 "project-name-mediawiki" = "MediaWiki";
@@ -917,7 +911,6 @@
 "settings-clear-cache" = "Wyczyść dane z pamięci podręcznej";
 "settings-clear-cache-are-you-sure-message" = "Wyczyszczenie danych z pamięci podręcznej zwolni około $1 miejsca. Nie spowoduje to usunięcia zapisanych stron.";
 "settings-clear-cache-are-you-sure-title" = "Czy wyczyścić dane z pamięci podręcznej?";
-"settings-clear-cache-cancel" = "Anuluj";
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-language-bar" = "Pokaż języki w wyszukiwarce";

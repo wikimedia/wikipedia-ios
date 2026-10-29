@@ -80,14 +80,6 @@ import WMF
         EventPlatformClient.shared.submit(stream: .appTabsInteraction, event: event)
     }
 
-    func logTabIconFirstImpression(project: WikimediaProject) {
-        logEvent(activeInterface: .icon, action: .impression, project: project)
-    }
-
-    func logTabTooltipImpression(project: WikimediaProject) {
-        logEvent(activeInterface: .tooltip, action: .impression, project: project)
-    }
-
     func logTabsOverviewImpression() {
         logEvent(activeInterface: .overview, action: .impression, project: nil)
     }
@@ -158,14 +150,6 @@ import WMF
     
     func logLongPressShare() {
         logEvent(activeInterface: .articleMenu, action: .shareClick, project: nil)
-    }
-    
-    func logTabsOverflowHideArticleSuggestionsTap() {
-        logEvent(activeInterface: .tabsOverflow, action: .hideSuggestClick, project: nil)
-    }
-    
-    func logTabsOverflowShowArticleSuggestionsTap() {
-        logEvent(activeInterface: .tabsOverflow, action: .showSuggestClick, project: nil)
     }
     
     func logTabsOverflowCloseAllTabsTap() {

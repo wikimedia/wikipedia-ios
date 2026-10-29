@@ -262,7 +262,6 @@
 "places-unknown-distance" = "ameccaq arussin";
 "potd-description-prefix" = "Tugna n wass i $1";
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
-"preference-summary-eventlogging-opt-in" = "Eǧǧ Tasbeddit Wikimedia ad telqeḍ talɣut ɣef wamek tseqdaceḍ asnas akken ad yuɣal igarrez ugar.";
 "profile-button-accessibility-label" = "Amaɣnu";
 "profile-page-join-title" = "Qqen / Jerred di Wikipidya";
 "project-name-mediawiki" = "MediaWiki";
@@ -305,7 +304,6 @@
 "settings-clear-cache" = "Sfeḍ akk isefka yeffren";
 "settings-clear-cache-are-you-sure-message" = "Asfaḍ n isefka n tuffirt ad iserreḥ azal n $1 n umḍiq. Ayagi ur itekkes ara isebtar-ik yettwaskelsen.";
 "settings-clear-cache-are-you-sure-title" = "Sfeḍ isefka yeffren?";
-"settings-clear-cache-cancel" = "Sefsex";
 "settings-clear-cache-ok" = "Sfeḍ tuffirt";
 "settings-donate" = "Mudd tawsa";
 "settings-help-and-feedback" = "Tallelt d iwenniten";

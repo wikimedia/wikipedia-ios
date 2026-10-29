@@ -33,11 +33,6 @@ public final class ArticlesReadViewModel: ObservableObject {
         self.noUsernameReading = noUsernameReading
     }
 
-    public func updateUsername(_ username: String) {
-        self.username = username
-        self.usernamesReading = username.isEmpty ? noUsernameReading : makeUsernamesReading(username)
-    }
-
     public func fetch() async {
             async let t = dataController.getTimeReadPast7Days()
             async let total = dataController.getArticlesRead()

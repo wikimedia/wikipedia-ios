@@ -106,17 +106,6 @@ public final class TimelineViewModel: ObservableObject {
         }
     }
 
-    public func loadImage(imageURLString: String?) async throws -> UIImage? {
-        let imageDataController = WMFImageDataController()
-        guard let imageURLString,
-              let url = URL(string: imageURLString) else {
-            return nil
-        }
-
-        let data = try await imageDataController.fetchImageData(url: url)
-        return UIImage(data: data)
-    }
-
     public func deletePage(item: TimelineItem, section: TimelineSection) {
         Task {
             do {

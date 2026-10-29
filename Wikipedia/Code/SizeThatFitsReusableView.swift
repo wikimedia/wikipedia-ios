@@ -24,11 +24,6 @@ class SizeThatFitsReusableView: UICollectionReusableView {
 
     }
 
-    // Subclassers should call super
-    open func updateBackgroundColorOfLabels() {
-
-    }
-
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.
     // In this method, subclassers should calculate the appropriate layout size and if apply is `true`,
     // apply the layout to the subviews.

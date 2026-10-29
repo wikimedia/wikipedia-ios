@@ -212,14 +212,6 @@ class ViewControllerRouter: NSObject {
         return source
     }
 
-    private func articleSource(from userInfo:[AnyHashable: Any]?) -> ArticleSource {
-        guard let sourceString = userInfo?[ArticleSourceUserInfoKeys.articleSource] as? Int,
-              let source = ArticleSource(rawValue: sourceString) else {
-            return .undefined
-        }
-        return source
-    }
-
     private func watchlistTargetNavigationController() -> UINavigationController? {
         var targetNavigationController: UINavigationController? = appViewController.currentTabNavigationController
         if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,

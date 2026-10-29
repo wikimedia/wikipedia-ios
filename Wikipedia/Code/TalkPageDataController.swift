@@ -25,10 +25,6 @@ class TalkPageDataController {
         self.pageTitle = pageTitle
     }
     
-    enum TalkPageError: Error {
-        case unableToDetermineWikimediaProject
-    }
-    
     // MARK: Public
     
     typealias TalkPageResult = Result<(articleSummary: WMFArticle?, items: [TalkPageItem], subscribedTopicNames: [String], latestRevisionID: Int?), Error>

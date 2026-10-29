@@ -1,9 +1,6 @@
 import WMFNativeLocalizations
 
 protocol InsertMediaSearchViewControllerDelegate: InsertMediaViewController {
-    func insertMediaSearchViewController(_ insertMediaSearchViewController: InsertMediaSearchViewController, didFailWithError error: Error)
-    func insertMediaSearchViewController(_ insertMediaSearchViewController: InsertMediaSearchViewController, didFind searchResults: [InsertMediaSearchResult])
-    func insertMediaSearchViewController(_ insertMediaSearchViewController: InsertMediaSearchViewController, didFind imageInfo: MWKImageInfo, for searchResult: InsertMediaSearchResult, at index: Int)
 }
 
 final class InsertMediaSearchViewController: UIViewController {

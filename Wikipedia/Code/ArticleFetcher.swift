@@ -24,14 +24,6 @@ enum ArticleFetcherError: LocalizedError {
 @objc(WMFArticleFetcher)
 final public class ArticleFetcher: Fetcher, CacheFetching {    
     
-    public enum EndpointType: String {
-        case summary
-        case mediaList = "media-list"
-        case mobileHtmlOfflineResources = "mobile-html-offline-resources"
-        case mobileHTML = "mobile-html"
-        case references = "references"
-    }
-
     public enum MobileHTMLType: String {
         case contentAndReferences = "contentAndReferences"
         case content = "content"
@@ -490,17 +482,6 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             
         }
     }()
-    
-    func bundledOfflineResourceURLs() -> BundledOfflineResources? {
-        guard
-            let baseCSS = URL(string: "https:\(ArticleFetcher.pcsBaseURI)data/css/mobile/base"),
-            let pcsCSS = URL(string: "https:\(ArticleFetcher.pcsBaseURI)data/css/mobile/pcs"),
-            let pcsJS = URL(string: "https:\(ArticleFetcher.pcsBaseURI)data/javascript/mobile/pcs")
-        else {
-            return nil
-        }
-        return BundledOfflineResources(baseCSS: baseCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
-    }
     
     // MARK: - Article Summaries from /api/rest_v1/page/summary
     

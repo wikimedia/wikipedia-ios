@@ -615,9 +615,6 @@ final class WMFHomeDataControllerTests: XCTestCase {
 }
 
 private extension Array {
-    subscript(safe index: Int) -> Element? {
-        indices.contains(index) ? self[index] : nil
-    }
 }
 
 /// Counts the requests that reach the service. The responses come from the standard mock.
