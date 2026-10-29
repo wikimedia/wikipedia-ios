@@ -372,12 +372,22 @@ final public class WMFSettingsViewModel: ObservableObject {
             section.items.insert(yearInReview, at: 2 + feedItems.count)
         }
 
-#if DEBUG
-        // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
-        let clearCacheIndex = section.items.firstIndex { $0.title == localizedStrings.clearCacheTitle } ?? section.items.count
-        section.items.insert(dangerZone, at: clearCacheIndex)
-#endif
+        if showsDatabasePopulation {
+            // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
+            let clearCacheIndex = section.items.firstIndex { $0.title == localizedStrings.clearCacheTitle } ?? section.items.count
+            section.items.insert(dangerZone, at: clearCacheIndex)
+        }
         return section
+    }
+
+    /// Always on in Xcode builds. TestFlight builds show the row only with developer mode on, so
+    /// the Experimental app can also seed its database.
+    private var showsDatabasePopulation: Bool {
+#if DEBUG
+        return true
+#else
+        return WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode
+#endif
     }
 
     /// Only shown while the remote feature config enables the visual editor journey. The value
