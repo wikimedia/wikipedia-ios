@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFData
 import WMFNativeLocalizations
 
 protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
@@ -28,6 +29,9 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     let viewModel: TalkPageTopicComposeViewModel
 
     internal var preselectedTextRange = UITextRange()
+
+    // Localized "protected by hCaptcha" notice (HTML), appended to the fine print once fetched.
+    private var hCaptchaFinePrintHTML: String?
 
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -187,6 +191,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         setupContainerStackView()
         updateFonts()
         apply(theme: theme)
+        fetchHCaptchaFinePrint()
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
 
@@ -485,7 +490,29 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
 
         let styles = HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldCaption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
 
-        return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
+        let attributedString = NSMutableAttributedString(attributedString: NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles))
+
+        if let hCaptchaFinePrintHTML, !hCaptchaFinePrintHTML.isEmpty {
+            attributedString.append(NSAttributedString(string: "\n"))
+            attributedString.append(NSAttributedString.attributedStringFromHtml(hCaptchaFinePrintHTML, styles: styles))
+        }
+
+        return attributedString
+    }
+
+    /// Fetches the localized "protected by hCaptcha" notice and appends it to the fine print.
+    /// Best-effort: a failed fetch leaves the existing Terms/license text unchanged.
+    private func fetchHCaptchaFinePrint() {
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: viewModel.siteURL.wmf_languageCode ?? "en", languageVariantCode: viewModel.siteURL.wmf_languageVariantCode))
+        Task { [weak self] in
+            let html = try? await MessagesDataController().fetchMessages(keys: ["hcaptcha-privacy-policy"], parseLinks: true, project: project).first?.content
+            guard let html, !html.isEmpty else { return }
+            await MainActor.run { [weak self] in
+                guard let self else { return }
+                self.hCaptchaFinePrintHTML = html
+                self.finePrintTextView.attributedText = self.licenseTitleTextViewAttributedString
+            }
+        }
     }
 
     private func evaluatePublishButtonEnabledState() {
