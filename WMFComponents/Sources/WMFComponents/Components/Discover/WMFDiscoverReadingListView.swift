@@ -105,7 +105,7 @@ public struct WMFDiscoverReadingListView: View {
                     onShare: { sourceRect in viewModel.tapShareArticle(page, sourceRect: sourceRect) }
                 )
                 Divider()
-                    .overlay(Color(uiColor: theme.newBorder))
+                    .background(Color(uiColor: theme.border))
                     .padding(.leading, WMFSpacing.large)
             }
         }
