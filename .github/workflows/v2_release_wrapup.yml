@@ -316,6 +316,7 @@ jobs:
           GH_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
           VERSION: ${{ github.event.inputs.version }}
           BRANCH: ${{ steps.check_branch.outputs.branch }}
+          KIND: ${{ github.event.inputs.kind }}
         run: |
           EXISTING=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq 'length')
           if [ "$EXISTING" -gt 0 ]; then
@@ -323,11 +324,22 @@ jobs:
             exit 0
           fi
 
+          # On a hotfix these commits are the cherry-picked fix itself, so this
+          # PR is the expected end of the cycle. On a release they mean someone
+          # committed to the release branch after it was cut, which is not.
+          if [ "$KIND" = "hotfix" ]; then
+            LABEL="Hotfix"
+            WHY="These are the fixes that were cherry-picked onto the hotfix branch."
+          else
+            LABEL="Release"
+            WHY="These are usually fixes made on the release branch after a rejection."
+          fi
+
           gh pr create \
             --base main \
             --head "$BRANCH" \
             --title "Merge $BRANCH back to main" \
-            --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back."
+            --body "$LABEL $VERSION shipped with changes on $BRANCH that aren't on main yet. $WHY This PR brings them back."
           echo "Opened PR to merge $BRANCH into main - branch left in place until it merges"
 
       # -------------------------------------------------------
