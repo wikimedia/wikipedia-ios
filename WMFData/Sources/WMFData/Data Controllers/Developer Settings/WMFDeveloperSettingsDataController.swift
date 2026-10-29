@@ -4,13 +4,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
-    var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? { get }
+    var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? { get }
+    var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? { get }
     var forceYiR2026Announcement: Bool { get }
-    func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse?
-}
-
-public extension WMFDeveloperSettingsDataControlling {
-    func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse? { nil }
 }
 
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
@@ -22,39 +18,24 @@ public extension WMFDeveloperSettingsDataControlling {
 
     private let service: WMFService?
     private let _sharedCacheStore: WMFLockIsolated<WMFKeyValueStore?>
+    /// Falls back to the environment's store because `shared` can be created during launch before
+    /// the app assigns `WMFDataEnvironment.current.sharedCacheStore`.
     private var sharedCacheStore: WMFKeyValueStore? {
-        get { _sharedCacheStore.value }
-        set { _sharedCacheStore.value = newValue }
+        _sharedCacheStore.value ?? WMFDataEnvironment.current.sharedCacheStore
     }
     private let _featureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
     private var featureConfig: WMFFeatureConfigResponse? {
         get { _featureConfig.value }
         set { _featureConfig.value = newValue }
     }
-    private let _testWikiFeatureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
-    private var testWikiFeatureConfig: WMFFeatureConfigResponse? {
-        get { _testWikiFeatureConfig.value }
-        set { _testWikiFeatureConfig.value = newValue }
-    }
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
 
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
-    private let cacheTestWikiFeatureConfigFileName = "AppsFeatureConfigTestWiki"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self.service = service
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
         super.init()
-        NotificationCenter.default.addObserver(forName: WMFNSNotification.coreDataStoreSetup, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.handleSharedCacheStoreSetup()
-        }
-    }
-
-    private func handleSharedCacheStoreSetup() {
-        if sharedCacheStore == nil {
-            self.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
-        }
     }
 
     // MARK: - Local Settings
@@ -117,8 +98,7 @@ public extension WMFDeveloperSettingsDataControlling {
     /// config counts as active before its `activeStartDate`, but not after its `activeEndDate`. The
     /// opt-out setting and the suppressed-country list still apply.
     ///
-    /// While on, the 2026 config comes from the test wiki feature config first, also in production
-    /// builds (see `fetchTestWikiFeatureConfigIfNeeded`), so TestFlight testers see the test entry.
+    /// While on, the 2026 config comes from the remote config, then from `WMFYearInReviewLocalConfig`.
     public var forceYiREntryPoint2026: Bool {
         get { loadFlag(.developerSettingsForceYiREntryPoint2026) }
         set {
@@ -126,29 +106,42 @@ public extension WMFDeveloperSettingsDataControlling {
             saveFlag(.developerSettingsForceYiREntryPoint2026, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
-            }
-            if newValue {
-                fetchTestWikiFeatureConfigIfNeeded()
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
             }
         }
     }
 
-    /// Debugging convenience: which Year in Review experience to force, regardless of how much
-    /// personalized data the account has. Nil means no override. Has an effect only when
+    /// Debugging convenience: which Year in Review entry point and announcement to force,
+    /// regardless of the reading history. Nil means no override. Has an effect only when
     /// `forceYiREntryPoint2026` is also true.
-    public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? {
-        get {
-            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
-                return nil
-            }
-            return WMFYearInReviewDataController.YiRForcedExperience(rawValue: rawValue)
-        }
+    public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? {
+        get { loadRawValue(.developerSettingsForceYiRDataState) }
         set {
-            if let newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
-            } else {
-                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
-            }
+            saveRawValue(.developerSettingsForceYiRDataState, newValue)
+            NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
+        }
+    }
+
+    /// Debugging convenience: which Year in Review slides to force, regardless of the log in state
+    /// and the personalized data. Nil means no override. Has an effect only when
+    /// `forceYiREntryPoint2026` is also true.
+    public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? {
+        get { loadRawValue(.developerSettingsForceYiRSlidesExperience) }
+        set { saveRawValue(.developerSettingsForceYiRSlidesExperience, newValue) }
+    }
+
+    private func loadRawValue<Value: RawRepresentable>(_ key: WMFUserDefaultsKey) -> Value? where Value.RawValue == String {
+        guard let rawValue: String = try? userDefaultsStore?.load(key: key.rawValue) else {
+            return nil
+        }
+        return Value(rawValue: rawValue)
+    }
+
+    private func saveRawValue<Value: RawRepresentable>(_ key: WMFUserDefaultsKey, _ value: Value?) where Value.RawValue == String {
+        if let value {
+            try? userDefaultsStore?.save(key: key.rawValue, value: value.rawValue)
+        } else {
+            try? userDefaultsStore?.remove(key: key.rawValue)
         }
     }
 
@@ -321,6 +314,36 @@ public extension WMFDeveloperSettingsDataControlling {
         }
     }
 
+    // MARK: - Discover
+
+    /// Gates the whole Discover feature while its user stories ship one by one. Off in production.
+    public var enableDiscover: Bool {
+        get { loadFlag(.developerSettingsEnableDiscover) }
+        set {
+            saveFlag(.developerSettingsEnableDiscover, newValue)
+            NotificationCenter.default.post(name: WMFNSNotification.discoverAnnouncementStateDidChange, object: nil)
+        }
+    }
+
+    /// Debugging convenience: overrides the persisted Discover experiment bucket at read time
+    /// without re-rolling it. Nil means no override.
+    public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFDiscoverDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue)
+            }
+            NotificationCenter.default.post(name: WMFNSNotification.discoverAnnouncementStateDidChange, object: nil)
+        }
+    }
+
     // MARK: - Local Notifications
 
     /// Gates the daily top read local notification prototype. Off by default.
@@ -362,8 +385,6 @@ public extension WMFDeveloperSettingsDataControlling {
     }
 
     @objc public func fetchFeatureConfig(completion: @escaping @Sendable (Error?) -> Void) {
-        fetchTestWikiFeatureConfigIfNeeded()
-
         guard let service else {
             completion(WMFDataControllerError.basicServiceUnavailable)
             return
@@ -392,50 +413,8 @@ public extension WMFDeveloperSettingsDataControlling {
         }
     }
 
-    // MARK: - Test Wiki Feature Config
-
-    /// TEMPORARY: the feature config from the test wiki, fetched only while `forceYiREntryPoint2026`
-    /// is on. Only its Year in Review entries are used (see `WMFYearInReviewDataController.config`).
-    /// Every other remote setting still comes from `loadFeatureConfig()`.
-    public func loadTestWikiFeatureConfig() -> WMFFeatureConfigResponse? {
-        guard testWikiFeatureConfig == nil else { return testWikiFeatureConfig }
-        let testWikiFeatureConfig: WMFFeatureConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheTestWikiFeatureConfigFileName)
-        guard let cachedDate = testWikiFeatureConfig?.cachedDate else { return nil }
-        let fourHours = TimeInterval(60 * 60 * 4)
-        guard (-cachedDate.timeIntervalSinceNow) < fourHours else { return nil }
-        self.testWikiFeatureConfig = testWikiFeatureConfig
-        return testWikiFeatureConfig
-    }
-
-    /// TEMPORARY: while `forceYiREntryPoint2026` is on in a production build, also fetch the test
-    /// wiki feature config. Alpha builds already fetch the test wiki in `fetchFeatureConfig`.
-    public func fetchTestWikiFeatureConfigIfNeeded() {
-        guard forceYiREntryPoint2026,
-              WMFDataEnvironment.current.serviceEnvironment == .production,
-              let service,
-              let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage,
-              let url = URL.featureConfigURL(environment: .staging, project: WMFProject.wikipedia(primaryAppLanguage)) else {
-            return
-        }
-
-        let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .json)
-        service.performDecodableGET(request: request) { [weak self] (result: Result<WMFFeatureConfigResponse, Error>) in
-            guard let self, case .success(var response) = result else { return }
-            response.cachedDate = Date()
-            self.testWikiFeatureConfig = response
-            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheTestWikiFeatureConfigFileName, value: response)
-
-            // The service calls this completion on a background queue. The observers of this
-            // notification update UIKit badges, so post it on the main actor.
-            Task { @MainActor in
-                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
-            }
-        }
-    }
-
     @_spi(Testing) public func reset() {
         featureConfig = nil
-        testWikiFeatureConfig = nil
-        sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+        _sharedCacheStore.value = WMFDataEnvironment.current.sharedCacheStore
     }
 }
