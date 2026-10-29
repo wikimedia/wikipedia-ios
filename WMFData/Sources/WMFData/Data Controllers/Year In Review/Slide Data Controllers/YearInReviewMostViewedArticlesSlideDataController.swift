@@ -56,7 +56,7 @@ final class YearInReviewMostViewedArticlesSlideDataController: YearInReviewSlide
         self.userID = dependencies.userID
         self.languageCode = dependencies.languageCode
         self.project = dependencies.project
-        self.userImpactDataProvider = dependencies.userImpactDataProvider ?? WMFUserImpactDataController.shared
+        self.userImpactDataProvider = dependencies.userImpactDataProvider ?? YearInReviewUserImpactDataProvider()
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {

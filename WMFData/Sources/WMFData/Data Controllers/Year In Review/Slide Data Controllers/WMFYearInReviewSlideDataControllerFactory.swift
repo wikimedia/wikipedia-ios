@@ -63,7 +63,7 @@ final class YearInReviewSlideDataControllerFactory {
             .rabbitHoles
         ]
         
-        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: WMFUserImpactDataController.shared, mainPageIdentifier: mainPageIdentifier)
+        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: YearInReviewUserImpactDataProvider(), mainPageIdentifier: mainPageIdentifier)
         
         var dataControllers: [YearInReviewSlideDataControllerProtocol] = []
         

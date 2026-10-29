@@ -945,6 +945,69 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
+    private actor FetchCounter {
+        private(set) var count = 0
+        func increment() { count += 1 }
+    }
+
+    private func userImpactData(totalPageviewsCount: Int?, topViewedTitles: [String] = []) -> WMFUserImpactData {
+        WMFUserImpactData(
+            totalPageviewsCount: totalPageviewsCount,
+            topViewedArticles: topViewedTitles.map { .init(title: $0, views: [:], viewsCount: 10) },
+            editCountByDay: [:],
+            totalEditsCount: nil,
+            receivedThanksCount: nil,
+            longestEditingStreak: nil,
+            lastEditTimestamp: nil,
+            dailyTotalViews: [:]
+        )
+    }
+
+    func testTheViewCountAndMostViewedArticlesSlidesShareOneUserImpactRequest() async throws {
+        let counter = FetchCounter()
+        let data = userImpactData(totalPageviewsCount: 1234, topViewedTitles: ["Gravity_dam"])
+        let provider = YearInReviewUserImpactDataProvider { _, _, _ in
+            await counter.increment()
+            return data
+        }
+        let dependencies = makeDependencies(userID: 42, userImpactDataProvider: provider)
+
+        let viewCount = try decode(Int.self, from: try await populatedPayload(
+            YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        ))
+        let mostViewed = try decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: try await populatedPayload(
+            YearInReviewMostViewedArticlesSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        ))
+
+        XCTAssertEqual(viewCount, 1234)
+        XCTAssertEqual(mostViewed.articles.map(\.title), ["Gravity dam"])
+        let fetchCount = await counter.count
+        XCTAssertEqual(fetchCount, 1)
+    }
+
+    func testTheUserImpactProviderTriesAgainAfterAFailedRequest() async throws {
+        let counter = FetchCounter()
+        let data = userImpactData(totalPageviewsCount: 1234)
+        let provider = YearInReviewUserImpactDataProvider { _, _, _ in
+            await counter.increment()
+            if await counter.count == 1 {
+                throw StubUserImpactError()
+            }
+            return data
+        }
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+
+        do {
+            _ = try await provider.fetchTotalPageViewsCount(userID: 42, project: project, language: "en")
+            XCTFail("the first request fails")
+        } catch {}
+        let viewCount = try await provider.fetchTotalPageViewsCount(userID: 42, project: project, language: "en")
+
+        XCTAssertEqual(viewCount, 1234)
+        let fetchCount = await counter.count
+        XCTAssertEqual(fetchCount, 2)
+    }
+
     func testViewCountIsNotEvaluatedWithoutAUserID() async throws {
         let controller = YearInReviewViewCountSlideDataController(
             year: year,
