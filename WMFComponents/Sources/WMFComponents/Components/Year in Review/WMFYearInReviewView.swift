@@ -121,6 +121,9 @@ public struct WMFYearInReviewView: View {
                     viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
                 },
                 showsAnswerInPlace: !voiceOverEnabled,
+                onAnswerShown: {
+                    viewModel.answerDidShow(slideID: slide.id)
+                },
                 donateButtonTitle: viewModel.localizedStrings.donateButtonTitle,
                 isLoadingDonate: viewModel.isLoadingDonate,
                 onTapDonate: { sourceRect in

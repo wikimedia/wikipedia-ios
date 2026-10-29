@@ -448,4 +448,45 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.currentSlideIndex == 0)
         #expect(viewModel.currentSlide?.id == "guess")
     }
+
+    @Test
+    func anAnswerShownInPlaceLogsItsImpressionAndItsPageForTaps() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "guess"
+
+        viewModel.answerDidShow(slideID: "guess")
+        viewModel.answerDidShow(slideID: "guess")
+        viewModel.tappedShare()
+        viewModel.tappedDonate { .zero }
+        viewModel.tappedClose()
+
+        #expect(logging.appeared == ["reveal"])
+        #expect(logging.share == ["reveal"])
+        #expect(logging.donate == ["reveal"])
+        #expect(logging.done == ["reveal"])
+    }
+
+    @Test
+    func theAnswerPageEndsWhenTheReaderLeavesTheSlide() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "guess"
+        viewModel.answerDidShow(slideID: "guess")
+
+        viewModel.currentSlideID = "last"
+        viewModel.currentSlideID = "guess"
+        viewModel.tappedShare()
+
+        #expect(logging.appeared == ["reveal", "last", "guess"])
+        #expect(logging.share == ["guess"])
+    }
+
+    @Test
+    func anAnswerOfASlideThatIsNotCurrentLogsNothing() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "last"
+
+        viewModel.answerDidShow(slideID: "guess")
+
+        #expect(logging.appeared == ["last"])
+    }
 }
