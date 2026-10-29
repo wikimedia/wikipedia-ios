@@ -449,9 +449,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         showHelpPage(url: yearInReviewHelpURL(pathComponents: [], section: nil))
     }
 
-    /// "About your insights" in the more menu opens the FAQ.
+    /// "About your insights" in the more menu opens the FAQ. The section link skips the page banners.
     private func showAboutInsights() {
-        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: nil))
+        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: "Frequently asked questions"))
     }
 
     private func showHelpPage(url: URL?) {
