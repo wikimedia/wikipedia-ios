@@ -34,7 +34,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  XCODE_VERSION: "26.6"
+  XCODE_VERSION: "27.1"
 
 jobs:
   build-and-upload:
