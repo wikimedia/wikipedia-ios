@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import SwiftUI
 import UIKit
 import WMF
 import WMFComponents
@@ -107,6 +108,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private weak var announcementNavigationController: UINavigationController?
 
     private weak var viewModel: WMFYearInReviewViewModel?
+    private weak var hostingController: WMFYearInReviewHostingController?
     private weak var announcementViewModel: WMFYearInReviewAnnouncementViewModel?
 
     /// The slides that `viewModel` shows. A donation turns "You matter" into "Thank you" only in the
@@ -256,7 +258,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.viewModel = viewModel
         self.slidesExperience = experience
 
-        return WMFYearInReviewHostingController(viewModel: viewModel)
+        let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
+        self.hostingController = hostingController
+        return hostingController
     }
 
     private func presentYearInReview() {
@@ -486,6 +490,74 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         UIApplication.shared.open(mailtoURL)
     }
 
+    private var isExportingShareImage = false
+
+    /// Shares a still image of the slide, with the share text and the app link.
+    private func shareSlide(slideID: String) {
+        guard !isExportingShareImage,
+              let slide = viewModel?.slides.first(where: { $0.id == slideID }) else {
+            return
+        }
+        isExportingShareImage = true
+        let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+        let presenter = hostingController?.navigationController
+
+        Task { @MainActor [weak self, weak presenter] in
+            defer { self?.isExportingShareImage = false }
+            do {
+                let image = try await WMFYearInReviewSlideImageExporter.image(
+                    for: slide,
+                    caption: CommonStrings.yearInReviewHighlightsCreatedWith,
+                    layoutDirection: layoutDirection
+                )
+                self?.presentShareSheet(image: image, from: presenter)
+            } catch {
+                DDLogError("Could not make the Year in Review share image for \(slideID): \(error)")
+                WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
+            }
+        }
+    }
+
+    /// The export takes about a second. If the reader closed the slides, opened them again, or opened
+    /// another screen from them in that time, the share sheet does not open.
+    private func presentShareSheet(image: UIImage, from presenter: UIViewController?) {
+        guard let presenter,
+              presenter === hostingController?.navigationController,
+              presenter.viewIfLoaded?.window != nil,
+              presenter.presentedViewController == nil else {
+            return
+        }
+        let text = YearInReviewShareTextItem(text: CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink))
+        let activityViewController = UIActivityViewController(activityItems: [image, text], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = presenter.view
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        presenter.present(activityViewController, animated: true)
+    }
+}
+
+/// The share text, left out where only the image can go. Instagram and TikTok share one item, and
+/// the image is the priority.
+private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+
+    private static let imageOnlyActivityPrefixes = ["com.burbn.instagram", "com.zhiliaoapp.musically", "com.ss.iphone.ugc.Ame"]
+
+    private let text: String
+
+    init(text: String) {
+        self.text = text
+    }
+
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        text
+    }
+
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        guard let activityType,
+              Self.imageOnlyActivityPrefixes.contains(where: { activityType.rawValue.hasPrefix($0) }) else {
+            return text
+        }
+        return nil
+    }
 }
 
 // MARK: - WMFYearInReviewCoordinating
@@ -501,8 +573,8 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
             showAboutInsights()
         case .shareFeedback:
             shareFeedback()
-        case .share:
-            break
+        case .share(let slideID):
+            shareSlide(slideID: slideID)
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }
