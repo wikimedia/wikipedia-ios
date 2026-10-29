@@ -56,9 +56,20 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     @Published public var slides: [WMFYearInReviewSlideViewModel]
 
-    /// Bound to `.scrollPosition(id:)`. The slide id is the source of truth, not an index:
-    /// `.scrollPosition` resolves by identity, and an index binding does not survive a
-    /// LazyVStack recycling its rows.
+    /// True while VoiceOver runs. `WMFYearInReviewView` sets it. A VoiceOver reader cannot tap an
+    /// answer in the .riv, so the answer of a slide is the next slide in the pager.
+    @Published var showsAnswersAsSlides = false
+
+    /// The slides in the pager, in order. Without VoiceOver, a slide and its answer take one position.
+    var pagerSlides: [WMFYearInReviewSlideViewModel] {
+        guard showsAnswersAsSlides else { return slides }
+        return slides.flatMap { slide in
+            [slide] + (slide.answer.map { [$0] } ?? [])
+        }
+    }
+
+    /// The slide that the pager rests on. `WMFYearInReviewView` sets it from the scroll view. Setting
+    /// it does not scroll.
     @Published public var currentSlideID: String? {
         didSet {
             guard currentSlideID != oldValue else { return }
@@ -109,20 +120,25 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         currentSlideID == Self.endPageID
     }
 
+    /// The index in `pagerSlides`. The pager can rest on an answer that is no longer its own slide,
+    /// for example after VoiceOver turns off. Then this is the index of the slide with that answer.
     public var currentSlideIndex: Int {
+        let pagerSlides = pagerSlides
         // The end screen is not a slide. Count it as the last slide for the position.
         if isOnEnd {
-            return max(slides.count - 1, 0)
+            return max(pagerSlides.count - 1, 0)
         }
-        guard let currentSlideID,
-              let index = slides.firstIndex(where: { $0.id == currentSlideID }) else { return 0 }
-        return index
+        guard let currentSlideID else { return 0 }
+        return pagerSlides.firstIndex { $0.id == currentSlideID }
+            ?? pagerSlides.firstIndex { $0.answer?.id == currentSlideID }
+            ?? 0
     }
 
     /// `nil` on the end screen, so it has no share or donate button and logs no slide impression.
     public var currentSlide: WMFYearInReviewSlideViewModel? {
-        guard !isOnEnd, slides.indices.contains(currentSlideIndex) else { return nil }
-        return slides[currentSlideIndex]
+        let pagerSlides = pagerSlides
+        guard !isOnEnd, pagerSlides.indices.contains(currentSlideIndex) else { return nil }
+        return pagerSlides[currentSlideIndex]
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
@@ -162,16 +178,21 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     /// The number of pages: the slides, plus the end screen if there is one. The progress bar counts pages.
     public var pageCount: Int {
-        slides.count + (endViewModel == nil ? 0 : 1)
+        pageIDs.count
+    }
+
+    /// The ids of the pages in the pager, in order: the pager slides, then the end screen if there is one.
+    var pageIDs: [String] {
+        pagerSlides.map(\.id) + (endViewModel == nil ? [] : [Self.endPageID])
     }
 
     /// The position of the current page. The end screen is the page after the last slide.
     public var currentPageIndex: Int {
-        isOnEnd ? slides.count : currentSlideIndex
+        isOnEnd ? pagerSlides.count : currentSlideIndex
     }
 
     public var isLastSlide: Bool {
-        return currentSlideIndex == max(slides.count - 1, 0)
+        return currentSlideIndex == max(pagerSlides.count - 1, 0)
     }
 
     var slidePositionAccessibilityValue: String {
@@ -184,12 +205,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     public func onAppear() {
         logSlideAppearance()
-    }
-
-    func tappedNext() {
-        guard !isLastSlide else { return }
-        loggingDelegate?.logYearInReviewDidTapNext(slideLoggingID: currentSlide?.loggingID ?? "")
-        currentSlideID = slides[currentSlideIndex + 1].id
     }
 
     func tappedClose() {

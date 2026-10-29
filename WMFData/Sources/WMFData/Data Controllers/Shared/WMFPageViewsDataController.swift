@@ -90,6 +90,14 @@ public struct WMFPageWithTimestamp: Sendable {
     public let timestamp: Date
 }
 
+/// A page view and the page view that the reader came from by a link in the app.
+public struct WMFPageViewLink: Sendable {
+    public let id: NSManagedObjectID
+    /// The page view that had the link. `nil` if the reader did not come from a link.
+    public let previousID: NSManagedObjectID?
+    public let timestamp: Date
+}
+
 public final class WMFLegacyPageView: Codable, @unchecked Sendable {
     public let title: String
     let project: WMFProject
@@ -449,6 +457,84 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
 
         return results
+    }
+
+    /// The wikis of the page views inside the window. The window includes `startDate` and `endDate`.
+    public func fetchPageViewProjectIDs(startDate: Date, endDate: Date) async throws -> Set<String> {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = ["page.projectID"]
+            request.returnsDistinctResults = true
+            return Set(try backgroundContext.fetch(request).compactMap { $0["page.projectID"] as? String })
+        }
+    }
+
+    /// The article page views inside the window, oldest first, with the page view that each came
+    /// from. Only the IDs and the time are read, because a year of reading can have many page views.
+    /// The window includes `startDate` and `endDate`.
+    /// - Parameter excludedTitles: Titles to leave out, such as main pages, by `WMFProject.id`. A
+    ///   title under `nil` is left out on every wiki. The case and underscores do not matter.
+    public func fetchArticlePageViewLinks(startDate: Date, endDate: Date, excludedTitles: [String?: [String]]) async throws -> [WMFPageViewLink] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            var predicates = [
+                NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg),
+                NSPredicate(format: "page.namespaceID == 0")
+            ]
+            for (projectID, titles) in excludedTitles {
+                for title in titles {
+                    let titlePredicate = NSPredicate(format: "page.title ==[c] %@", title.normalizedForCoreData)
+                    if let projectID {
+                        predicates.append(NSCompoundPredicate(notPredicateWithSubpredicate: NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "page.projectID == %@", projectID), titlePredicate])))
+                    } else {
+                        predicates.append(NSCompoundPredicate(notPredicateWithSubpredicate: titlePredicate))
+                    }
+                }
+            }
+
+            let objectID = NSExpressionDescription()
+            objectID.name = "objectID"
+            objectID.expression = NSExpression.expressionForEvaluatedObject()
+            objectID.expressionResultType = .objectIDAttributeType
+
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+            request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = [objectID, "timestamp", "previousPageView"]
+
+            return try backgroundContext.fetch(request).compactMap { result in
+                guard let id = result["objectID"] as? NSManagedObjectID,
+                      let timestamp = result["timestamp"] as? Date else {
+                    return nil
+                }
+                return WMFPageViewLink(id: id, previousID: result["previousPageView"] as? NSManagedObjectID, timestamp: timestamp)
+            }
+        }
+    }
+
+    /// The page of each page view. A page view that no longer exists is left out.
+    public func fetchPages(ofPageViews pageViewIDs: [NSManagedObjectID]) async throws -> [NSManagedObjectID: WMFPage] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return await backgroundContext.perform {
+            var pages: [NSManagedObjectID: WMFPage] = [:]
+            for pageViewID in pageViewIDs {
+                guard let pageView = try? backgroundContext.existingObject(with: pageViewID) as? CDPageView,
+                      let page = pageView.page,
+                      let projectID = page.projectID,
+                      let title = page.title else {
+                    continue
+                }
+                pages[pageViewID] = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
+            }
+            return pages
+        }
     }
 
     public func fetchLinkedPageViews() async throws -> [[CDPageView]] {

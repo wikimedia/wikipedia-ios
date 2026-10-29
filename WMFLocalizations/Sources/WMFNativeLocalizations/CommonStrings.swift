@@ -1025,9 +1025,9 @@ public class CommonStrings: NSObject {
     // Deepest rabbit hole
 
     public static let yearInReviewRabbitHoleTitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-title", value: "Which of your rabbit holes was the deepest?", comment: "Title of the Year in Review slide that asks the reader which of the listed rabbit holes was the deepest. A rabbit hole is a series of articles the reader opened one after the other from links. The list follows it.")
-    public static func yearInReviewRabbitHoleRevealTitle(linkCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-title", value: "{{PLURAL:%1$d|%1$d link|%1$d links}} deep is impressive.", comment: "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. %1$d is replaced with the number of links the reader followed one after the other.")
-        return String.localizedStringWithFormat(format, linkCount)
+    public static func yearInReviewRabbitHoleRevealTitle(articleCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-title", value: "{{PLURAL:%1$d|%1$d link|%1$d links}} deep is impressive.", comment: "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. %1$d is replaced with the number of articles in the rabbit hole, including the first article. For example, Moon, then Earth from a link, then Cat from a link is 3.")
+        return String.localizedStringWithFormat(format, articleCount)
     }
     public static let yearInReviewRabbitHoleRevealSubtitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-subtitle", value: "Which rabbit hole will you fall down next?", comment: "Subtitle of the Year in Review slide that reveals the deepest rabbit hole of the reader.")
 
@@ -1127,7 +1127,7 @@ public class CommonStrings: NSObject {
     public static let yearInReviewHighlightsRotation = WMFLocalizedString("year-in-review-2026-highlights-rotation", value: "Articles in my rotation:", comment: "Label on the Year in Review highlights image. A list of the articles the reader read many times this year follows it.")
     public static let yearInReviewHighlightsRabbitHole = WMFLocalizedString("year-in-review-2026-highlights-rabbit-hole", value: "Longest rabbit hole:", comment: "Label on the Year in Review highlights image. The articles in the longest chain of links the reader followed this year follow it.")
     public static let yearInReviewHighlightsNicheCategory = WMFLocalizedString("year-in-review-2026-highlights-niche-category", value: "Niche category explored:", comment: "Label on the Year in Review highlights image. The name of an unusual category the reader read about this year follows it.")
-    public static let yearInReviewHighlightsCreatedWith = WMFLocalizedString("year-in-review-2026-highlights-created-with", value: "Created with the Wikipedia App", comment: "Footer of the Year in Review highlights image.")
+    public static let yearInReviewHighlightsCreatedWith = WMFLocalizedString("year-in-review-2026-highlights-created-with", value: "Created with the Wikipedia app", comment: "Footer of the Year in Review highlights image and of the image of a shared Year in Review slide.")
 
     // Log in prompt
 
