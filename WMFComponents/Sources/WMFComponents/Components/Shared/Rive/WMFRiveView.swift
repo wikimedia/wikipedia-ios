@@ -35,7 +35,7 @@ public struct WMFRiveView: View {
         textFits: [WMFRiveTextFit] = [],
         onReadBool: (@MainActor (Bool) -> Void)? = nil,
         watchedTrigger: WMFRiveTrigger? = nil,
-        watchedBool: WMFRiveBool? = nil,
+        missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
         onWatchedEvent: (@MainActor () -> Void)? = nil
     ) {
         self.text = text
@@ -56,7 +56,7 @@ public struct WMFRiveView: View {
             images: images,
             readBool: readBool,
             watchedTrigger: watchedTrigger,
-            watchedBool: watchedBool,
+            missingImageFlags: missingImageFlags,
             textFits: textFits
         ))
     }
