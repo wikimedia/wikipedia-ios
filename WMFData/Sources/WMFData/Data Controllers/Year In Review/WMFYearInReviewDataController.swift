@@ -183,8 +183,10 @@ import CoreData
     }
 
     /// The number of slides that this report entry shows in their full version, not their empty
-    /// version. The top topics entry holds two slides, the top topic and the runners-up, and Android
-    /// counts each of them. The rabbit holes entry is one slide: the reveal replaces the guess in place.
+    /// version. The read count entry holds two slides, the total articles and the minutes read, and
+    /// each counts on its own. The top topics entry holds two slides, the top topic and the runners-up,
+    /// and Android counts each of them. The rabbit holes entry is one slide: the reveal replaces the
+    /// guess in place.
     static func fullSlideCount(for slide: WMFYearInReviewSlide) -> Int {
         guard let data = slide.data else {
             return 0
@@ -192,7 +194,10 @@ import CoreData
         let decoder = JSONDecoder()
         switch slide.id {
         case .readCount:
-            return (try? decoder.decode(WMFYearInReviewReadData.self, from: data))?.isEligible == true ? 1 : 0
+            guard let readData = try? decoder.decode(WMFYearInReviewReadData.self, from: data) else {
+                return 0
+            }
+            return (readData.isEligible ? 1 : 0) + (readData.isMinutesReadEligible ? 1 : 0)
         case .topArticles:
             return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .topTopics:
