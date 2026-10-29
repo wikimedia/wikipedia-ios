@@ -15,6 +15,9 @@ public struct WMFYearInReviewView: View {
             .clipShape(
                 UnevenRoundedRectangle(
                     cornerRadii: RectangleCornerRadii(
+                        // The radius does not change on the end screen. If it changed, the corners of
+                        // the last slide could change during the swipe. On the end screen, the color
+                        // behind the corners is the page color, thus the corners do not show.
                         bottomLeading: WMFYearInReviewViewModel.slideCornerRadius,
                         bottomTrailing: WMFYearInReviewViewModel.slideCornerRadius
                     )
@@ -22,15 +25,15 @@ public struct WMFYearInReviewView: View {
             )
             .overlay(alignment: .topTrailing) {
                 WMFYearInReviewProgressView(
-                    slideCount: viewModel.pagerSlides.count,
-                    currentIndex: viewModel.currentSlideIndex,
+                    slideCount: viewModel.pageCount,
+                    currentIndex: viewModel.currentPageIndex,
                     color: Color(uiColor: viewModel.currentContentColor ?? WMFColor.white)
                 )
                 .padding(.trailing, WMFYearInReviewViewModel.progressBarEdgeInset)
                 .padding(.top, viewModel.progressBarTopInset)
             }
             .ignoresSafeArea(edges: .top)
-            .background(Color(uiColor: WMFYearInReviewViewModel.chromeBackgroundColor))
+            .background(Color(uiColor: viewModel.currentChromeColor))
             .animation(.easeInOut(duration: 0.2), value: viewModel.currentSlideID)
             .onAppear {
                 viewModel.showsAnswersAsSlides = voiceOverEnabled
@@ -54,10 +57,11 @@ public struct WMFYearInReviewView: View {
             ScrollView(.vertical) {
                 VStack(spacing: 0) {
                     slideViews
+                    endPage
                 }
                 .scrollTargetLayout()
                 .background {
-                    WMFYearInReviewPageObserver(slideIDs: viewModel.pagerSlides.map(\.id)) { slideID in
+                    WMFYearInReviewPageObserver(slideIDs: viewModel.pageIDs) { slideID in
                         viewModel.currentSlideID = slideID
                     }
                 }
@@ -71,10 +75,11 @@ public struct WMFYearInReviewView: View {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     slideViews
+                    endPage
                 }
                 .scrollTargetLayout()
                 .background {
-                    WMFYearInReviewPageObserver(slideIDs: viewModel.pagerSlides.map(\.id)) { slideID in
+                    WMFYearInReviewPageObserver(slideIDs: viewModel.pageIDs) { slideID in
                         viewModel.currentSlideID = slideID
                     }
                 }
@@ -84,6 +89,24 @@ public struct WMFYearInReviewView: View {
                     positionAccessibilityValue: viewModel.slidePositionAccessibilityValue
                 )
             )
+        }
+    }
+
+    /// The end screen, one page after the last slide. It scrolls on its own inside its page.
+    @ViewBuilder
+    private var endPage: some View {
+        if let endViewModel = viewModel.endViewModel {
+            WMFYearInReviewEndView(
+                viewModel: endViewModel,
+                topInset: viewModel.topSafeAreaInset,
+                onUsesLightContentChange: { usesLightContent in
+                    if viewModel.endUsesLightContent != usesLightContent {
+                        viewModel.endUsesLightContent = usesLightContent
+                    }
+                }
+            )
+                .containerRelativeFrame(.vertical)
+                .id(WMFYearInReviewViewModel.endPageID)
         }
     }
 
@@ -203,7 +226,7 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         let paged = content
-            .scrollTargetBehavior(.paging)
+            .scrollTargetBehavior(.viewAligned(limitBehavior: pageLimit))
             .scrollIndicators(.hidden)
             .accessibilityElement(children: .contain)
             .accessibilityValue(positionAccessibilityValue)
@@ -213,6 +236,17 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
         } else {
             paged
         }
+    }
+
+    /// The scroll view stops at the top of each page view. It does not use the height of the
+    /// scroll view, because that height includes the bottom inset below the toolbar.
+    /// Thus, the stop position stays correct on each page and the error does not increase.
+    /// One swipe moves a maximum of one page.
+    private var pageLimit: ViewAlignedScrollTargetBehavior.LimitBehavior {
+        if #available(iOS 18.0, *) {
+            return .alwaysByOne
+        }
+        return .always
     }
 }
 
