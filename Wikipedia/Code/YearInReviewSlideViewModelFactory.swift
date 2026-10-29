@@ -631,7 +631,7 @@ struct YearInReviewSlideViewModelFactory {
 
         let bodyText = CommonStrings.yearInReviewMostViewedEditedArticlesTitle
         let items = shownArticles.map { article in
-            ListItem(title: article.title, subtitle: decimalString(article.viewsCount))
+            ListItem(title: article.title, subtitle: CommonStrings.yearInReviewMostViewedEditedArticlesViewCount(article.viewsCount))
         }
         var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
         for (index, article) in shownArticles.enumerated() {
@@ -670,7 +670,7 @@ struct YearInReviewSlideViewModelFactory {
         return ContributorStatus(isEditor: (storedEditCount() ?? 0) > 0, isDonor: isDonor)
     }
 
-    /// The edits in the contributor period, from the report the app fills in the background. `nil`
+    /// The edits in the calendar year, from the report the app fills in the background. `nil`
     /// when the report does not have them.
     private func storedEditCount() -> Int? {
         do {
@@ -723,7 +723,7 @@ struct YearInReviewSlideViewModelFactory {
         )
     ]
 
-    /// "Thank you" for a logged-in reader who edited or donated in the contributor period, with the
+    /// "Thank you" for a logged-in reader who edited in the calendar year or donated in the contributor period, with the
     /// donate button in the toolbar. Otherwise "You matter", with a primary donate button below the
     /// animation in place of the toolbar button.
     ///

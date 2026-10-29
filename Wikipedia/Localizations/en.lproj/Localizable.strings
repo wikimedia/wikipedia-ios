@@ -1777,6 +1777,7 @@
 "year-in-review-2026-most-time-article-subtitle" = "You spent a total of {{PLURAL:$1|$1 minute|$1 minutes}} on this article throughout 2026!";
 "year-in-review-2026-most-time-article-title" = "On which did you spend the most time?";
 "year-in-review-2026-most-viewed-edited-articles-title" = "The articles most-viewed since your edit:";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "{{PLURAL:$1|$1 view|$1 views}}";
 "year-in-review-2026-niche-interest-subtitle" = "For one reason or another, when it came to this category, you went all in!";
 "year-in-review-2026-niche-interest-title" = "Talk about having niche interests, like:";
 "year-in-review-2026-outro-share-button-title" = "Share highlights";

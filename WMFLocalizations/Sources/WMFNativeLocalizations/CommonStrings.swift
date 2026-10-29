@@ -1070,6 +1070,10 @@ public class CommonStrings: NSObject {
     public static let yearInReviewEditViewsTitle = WMFLocalizedString("year-in-review-2026-edit-views-title", value: "Views your edits received:", comment: "Title of the Year in Review slide that shows the number of views the edits of the user received this year. The number follows it.")
     public static let yearInReviewEditViewsSubtitle = WMFLocalizedString("year-in-review-2026-edit-views-subtitle", value: "In 2026, readers from around the world saw the changes you made.", comment: "Subtitle of the Year in Review slide that shows the number of views the edits of the user received this year.")
     public static let yearInReviewMostViewedEditedArticlesTitle = WMFLocalizedString("year-in-review-2026-most-viewed-edited-articles-title", value: "The articles most-viewed since your edit:", comment: "Title of the Year in Review slide that lists the articles the user edited that received the most views after the edit. The list of articles follows it.")
+    public static func yearInReviewMostViewedEditedArticlesViewCount(_ viewCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-most-viewed-edited-articles-view-count", value: "{{PLURAL:%1$d|%1$d view|%1$d views}}", comment: "Shown under each article on the Year in Review slide of the articles the user edited that received the most views. %1$d is replaced with the number of views the article received.")
+        return String.localizedStringWithFormat(format, viewCount)
+    }
 
     // Contributor thank-you
 

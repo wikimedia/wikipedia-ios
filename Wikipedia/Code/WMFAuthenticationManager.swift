@@ -145,6 +145,32 @@ import WMFTestKitchen
         })
     }
 
+    /// Returns the permanent user for the given site. If the cache has no entry for that host and the
+    /// app has saved credentials, it fetches and caches the user first, so a caller that runs before
+    /// anything else filled the cache still gets the user. Returns `nil` for a logged-out or temporary user.
+    @MainActor
+    public func fetchPermanentUserIfNeeded(siteURL: URL) async -> WMFCurrentUser? {
+        guard let host = siteURL.host else {
+            return nil
+        }
+        guard currentUserCache[host] == nil,
+              KeychainCredentialsManager.shared.username != nil else {
+            return permanentUser(siteURL: siteURL)
+        }
+
+        let fetchedUser: WMFCurrentUser? = await withCheckedContinuation { continuation in
+            currentUserFetcher.fetch(siteURL: siteURL, success: { user in
+                continuation.resume(returning: user)
+            }, failure: { _ in
+                continuation.resume(returning: nil)
+            })
+        }
+        if let fetchedUser, currentUserCache[host] == nil {
+            currentUserCache[host] = fetchedUser
+        }
+        return permanentUser(siteURL: siteURL)
+    }
+
     /// Loops through all current user objects across the various siteURLs we have cached, and returns the username of the first username with authState == .permanent
     @objc public var authStatePermanentUsername: String? {
         

@@ -22,7 +22,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
+        // The report fills in the background at launch, which can be before anything else fetched the
+        // user. Without the user, the edits slides have no ids and would be stored empty.
+        let permanentUser = await dataStore.authenticationManager.fetchPermanentUserIfNeeded(siteURL: appLanguage.siteURL)
         let dataController = try WMFYearInReviewDataController()
 
         if regenerate {

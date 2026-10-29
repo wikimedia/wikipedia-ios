@@ -821,7 +821,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testEditCountRequestsTheContributorRange() async throws {
+    func testEditCountRequestsTheCalendarYear() async throws {
         let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.basicService = service
         let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Editor", globalUserID: 1))
@@ -829,7 +829,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         _ = try await populatedPayload(controller)
 
         let path = try XCTUnwrap(service.requestedURLs.first?.path)
-        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026, not the insights range: \(path)")
+        XCTAssertTrue(path.hasSuffix("/monthly/20260101/20261231"), "January 1 to December 31, 2026, the same as Android: \(path)")
     }
 
     func testEditCountIsNotEvaluatedWithoutAGlobalUserID() async throws {
@@ -855,7 +855,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testDonateCountRequestsTheContributorRangeForItsEditCount() async throws {
+    func testDonateCountRequestsTheCalendarYearForItsEditCount() async throws {
         let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.basicService = service
         let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
@@ -863,7 +863,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         _ = try await populatedPayload(controller)
 
         let path = try XCTUnwrap(service.requestedURLs.first?.path)
-        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026: \(path)")
+        XCTAssertTrue(path.hasSuffix("/monthly/20260101/20261231"), "January 1 to December 31, 2026: \(path)")
     }
 
     func testDonateCountCountsOnlyDonationsInTheContributorRange() async throws {

@@ -88,7 +88,10 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 6)
+        // The six stored slides stay: a slide that this run did not evaluate again keeps its last data.
+        let slideIDs = Set(report?.slides.map(\.id) ?? [])
+        XCTAssertTrue(slideIDs.isSuperset(of: [.readCount, .saveCount, .mostReadDate, .editCount, .viewCount, .donateCount]))
+        XCTAssertEqual(report?.slides.count, 7)
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
@@ -105,7 +108,30 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 3)
+        // The most read date slide has no reading history to evaluate, so it is not stored.
+        XCTAssertEqual(report?.slides.count, 2)
+    }
+
+    /// The report can fill before the app knows the user. That run must not replace the stored edit
+    /// count with an empty one.
+    func testARunWithoutTheUserKeepsTheStoredEditCount() async throws {
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: 1, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        XCTAssertEqual(try editCount(in: report), 47)
+
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        XCTAssertEqual(try editCount(in: report), 47, "the run without a global user id keeps the last edit count")
+    }
+
+    private func editCount(in report: WMFYearInReviewReport?) throws -> Int? {
+        guard let data = report?.slides.first(where: { $0.id == .editCount })?.data else {
+            return nil
+        }
+        return try JSONDecoder().decode(Int.self, from: data)
     }
 }
 

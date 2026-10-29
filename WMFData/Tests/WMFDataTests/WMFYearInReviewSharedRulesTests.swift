@@ -66,6 +66,12 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         XCTAssertEqual(range.end, date("2026-12-01T00:00:00Z"))
     }
 
+    func testEditCountDateRangeIsTheCalendarYear() throws {
+        let range = try XCTUnwrap(WMFYearInReviewDataController.editCountDateRange(year: 2026))
+        XCTAssertEqual(range.start, date("2026-01-01T00:00:00Z"))
+        XCTAssertEqual(range.end, date("2026-12-31T00:00:00Z"))
+    }
+
     // MARK: - Local config
 
     private func makeFeatureConfig(_ yearInReviewConfigs: [YearInReview]) -> WMFFeatureConfigResponse {

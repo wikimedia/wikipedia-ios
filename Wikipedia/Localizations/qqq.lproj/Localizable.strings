@@ -1777,6 +1777,7 @@
 "year-in-review-2026-most-time-article-subtitle" = "Shown on the Year in Review slide that reveals the article the reader spent the most time on this year. $1 is replaced with the number of minutes the reader spent on that article.";
 "year-in-review-2026-most-time-article-title" = "Title of the Year in Review slide that asks the reader which of the listed articles they spent the most time on. The list of articles follows it.";
 "year-in-review-2026-most-viewed-edited-articles-title" = "Title of the Year in Review slide that lists the articles the user edited that received the most views after the edit. The list of articles follows it.";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "Shown under each article on the Year in Review slide of the articles the user edited that received the most views. $1 is replaced with the number of views the article received.";
 "year-in-review-2026-niche-interest-subtitle" = "Subtitle of the Year in Review slide that shows an uncommon article category the reader read a lot.";
 "year-in-review-2026-niche-interest-title" = "Title of the Year in Review slide that shows an uncommon article category the reader read a lot. The name of the category follows it.";
 "year-in-review-2026-outro-share-button-title" = "Button on the last Year in Review slide. Tapping it shares the highlights of the Year in Review of the reader.";

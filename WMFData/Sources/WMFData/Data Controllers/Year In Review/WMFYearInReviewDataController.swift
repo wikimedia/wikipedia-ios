@@ -92,10 +92,22 @@ import CoreData
 
     /// The period for the contributor slide and for donor and editor rewards: December 1 of the
     /// previous year to December 1 of `year`, at 00:00 UTC. The end date is the first instant
-    /// outside the period. This is set in the app, not in the remote config.
+    /// outside the period. This is set in the app, not in the remote config. Edits use
+    /// `editCountDateRange(year:)` instead.
     public static func contributorDateRange(year: Int) -> DateInterval? {
         guard let start = utcDate(year: year - 1, month: 12, day: 1),
               let end = utcDate(year: year, month: 12, day: 1) else {
+            return nil
+        }
+        return DateInterval(start: start, end: end)
+    }
+
+    /// The period for the edit count: January 1 to December 31 of `year`, at 00:00 UTC, the same as
+    /// Android. The monthly metrics API rounds the end down to the start of its month, so December is
+    /// not counted.
+    public static func editCountDateRange(year: Int) -> DateInterval? {
+        guard let start = utcDate(year: year, month: 1, day: 1),
+              let end = utcDate(year: year, month: 12, day: 31) else {
             return nil
         }
         return DateInterval(start: start, end: end)
@@ -620,12 +632,13 @@ import CoreData
             return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
         }
 
-        // For any slide IDs missing, create associated slide data controllers and populate their data. Set evaluated flag if population succeeds
+        // For any slide IDs missing, create associated slide data controllers and populate their data.
+        // Each controller sets its own evaluated flag. One that returns early, for example without a
+        // user id, stays unevaluated, so its empty data is not stored.
         var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
         for index in slideDataControllers.indices {
             do {
                 try await slideDataControllers[index].populateSlideData(in: backgroundContext)
-                slideDataControllers[index].isEvaluated = true
             } catch {
                 slideDataControllers[index].isEvaluated = false
             }
@@ -635,6 +648,7 @@ import CoreData
         // closure below captures an immutable binding rather than the mutable
         // `slideDataControllers` var.
         let evaluatedSlideDataControllers = slideDataControllers.filter { $0.isEvaluated }
+        let evaluatedSlideIDs = Set(evaluatedSlideDataControllers.map(\.id))
 
         // Create new core data slides from evaluated data controllers, save to core data report and return generic report struct
         let report = try await backgroundContext.perform {
@@ -651,12 +665,13 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
-            // Only preserve existing slides that should freeze
+            // Preserve existing slides that should freeze. Replace the others only when this run
+            // evaluated them again, so a failed fetch keeps the last good data.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    if dataController.shouldFreeze {
+                    if dataController.shouldFreeze || !evaluatedSlideIDs.contains(cdSlideID) {
                         finalCDSlides.insert(slide)
                     } else {
                         backgroundContext.delete(slide)
