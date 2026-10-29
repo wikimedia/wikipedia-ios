@@ -28,7 +28,7 @@ public struct WMFWhichCameFirstArticlesView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(viewModel.sectionTitle)
-                .font(Font(WMFFont.for(.semiboldHeadline)))
+                .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .semiboldTitle3 : .semiboldHeadline)))
                 .foregroundStyle(Color(uiColor: theme.text))
 
             LazyVGrid(
@@ -165,7 +165,7 @@ private struct WMFWhichCameFirstArticleCardView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var imageHeight: CGFloat {
-        horizontalSizeClass == .regular ? 110 : 95
+        horizontalSizeClass == .regular ? 160 : 95
     }
 
     var body: some View {
@@ -173,7 +173,7 @@ private struct WMFWhichCameFirstArticleCardView: View {
             thumbnailArea
 
             Text(item.title)
-                .font(Font(WMFFont.for(.georgiaCallout)))
+                .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .georgiaTitle3 : .georgiaCallout)))
                 .foregroundStyle(Color(uiColor: theme.text))
                 .lineLimit(2)
                 .padding(.horizontal, 10)
@@ -182,7 +182,7 @@ private struct WMFWhichCameFirstArticleCardView: View {
 
             if let snippet = item.snippetText {
                 Text(snippet)
-                    .font(Font(WMFFont.for(.caption1)))
+                    .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .subheadline : .caption1)))
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
                     .lineLimit(3)
                     .lineSpacing(1.4)
