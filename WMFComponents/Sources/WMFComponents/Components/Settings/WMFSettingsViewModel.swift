@@ -352,7 +352,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.articleSyncing)
         })
 
-        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: nil), action: {
+        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: Self.databasePopulationLabel), action: {
             self.coordinatorDelegate?.handleSettingsAction(.databasePopulation)
         })
 
@@ -379,6 +379,9 @@ final public class WMFSettingsViewModel: ObservableObject {
         }
         return section
     }
+
+    /// The row is for developers only, so the label is not translated.
+    private static let databasePopulationLabel = "Dev mode"
 
     /// Always on in Xcode builds. TestFlight builds show the row only with developer mode on, so
     /// the Experimental app can also seed its database.
