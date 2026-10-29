@@ -40,9 +40,9 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times, topic and contributor slides have real data so far.
+    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
-    /// The days visited slide has no empty version, so it does not show without enough data.
+    /// The days visited and rabbit hole slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
     /// - Parameters:
@@ -92,7 +92,7 @@ struct YearInReviewSlideViewModelFactory {
                 slides.append(daysVisited)
             }
             slides.append(rereadArticlesSlide(storedRereadArticles() ?? []))
-            return slides + topicSlides(storedTopTopics())
+            return slides + topicSlides(storedTopTopics()) + rabbitHoleSlides(storedRabbitHoles())
         }
     }
 
@@ -397,6 +397,139 @@ struct YearInReviewSlideViewModelFactory {
             items: items,
             images: images,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
+    // MARK: - Rabbit holes
+
+    /// The rabbit holes, from the report the app fills in the background. `nil` when the report
+    /// does not have these slides yet.
+    private func storedRabbitHoles() -> WMFYearInReviewRabbitHolesSlideData? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .rabbitHoles })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(WMFYearInReviewRabbitHolesSlideData.self, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review rabbit holes: \(error)")
+            return nil
+        }
+    }
+
+    /// Properties on the `Interaction2` view model in the templates file. On the guess frame, the
+    /// top card and the bottom card each show the first article (T) and the last article (B) of
+    /// a rabbit hole. The reveal frame shows the deepest rabbit hole with the result properties.
+    private enum RabbitHolePath {
+        static let headline = WMFRiveText(path: "headline")
+        static let bodyText = WMFRiveText(path: "bodyText")
+        /// The guess frame fires it after the reader taps a card and the exit animation ends.
+        static let frameComplete = WMFRiveTrigger(path: "frameComplete")
+
+        struct Article {
+            let title: WMFRiveText
+            let thumbnail: WMFRiveImage
+            let noImage: WMFRiveBool
+        }
+
+        static let topCardFirst = Article(title: WMFRiveText(path: "articleTitleTopT"), thumbnail: WMFRiveImage(path: "thumbnailTopT"), noImage: WMFRiveBool(path: "noImgTopT"))
+        static let topCardLast = Article(title: WMFRiveText(path: "articleTitleTopB"), thumbnail: WMFRiveImage(path: "thumbnailTopB"), noImage: WMFRiveBool(path: "noImgTopB"))
+        static let bottomCardFirst = Article(title: WMFRiveText(path: "articleTitleBotT"), thumbnail: WMFRiveImage(path: "thumbnailBotT"), noImage: WMFRiveBool(path: "noImgBotT"))
+        static let bottomCardLast = Article(title: WMFRiveText(path: "articleTitleBotB"), thumbnail: WMFRiveImage(path: "thumbnailBotB"), noImage: WMFRiveBool(path: "noImgBotB"))
+        static let resultFirst = Article(title: WMFRiveText(path: "resultTitleTop"), thumbnail: WMFRiveImage(path: "resultThumbnailTop"), noImage: WMFRiveBool(path: "resultNoImgT"))
+        static let resultLast = Article(title: WMFRiveText(path: "resultTitleBot"), thumbnail: WMFRiveImage(path: "resultThumbnailBot"), noImage: WMFRiveBool(path: "resultNoImgB"))
+    }
+
+    /// One slide: the guess, with the reveal as its answer. A tap on a card replaces the guess with the
+    /// reveal in place. No slide without two rabbit holes.
+    func rabbitHoleSlides(_ slideData: WMFYearInReviewRabbitHolesSlideData?) -> [WMFYearInReviewSlideViewModel] {
+        guard let slideData,
+              slideData.isEligible,
+              let deepest = slideData.rabbitHoles.first,
+              let other = slideData.rabbitHoles.dropFirst().first else {
+            return []
+        }
+        let (topCard, bottomCard) = slideData.deepestIsOnTop ? (deepest, other) : (other, deepest)
+        return [rabbitHoleGuessSlide(topCard: topCard, bottomCard: bottomCard, reveal: rabbitHoleRevealSlide(deepest))]
+    }
+
+    private func rabbitHoleGuessSlide(topCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole, bottomCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole, reveal: WMFYearInReviewSlideViewModel) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewRabbitHoleTitle
+        let articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)] = [
+            (RabbitHolePath.topCardFirst, topCard.firstArticle),
+            (RabbitHolePath.topCardLast, topCard.lastArticle),
+            (RabbitHolePath.bottomCardFirst, bottomCard.firstArticle),
+            (RabbitHolePath.bottomCardLast, bottomCard.lastArticle)
+        ]
+        let cardLabels = [topCard, bottomCard].map { rabbitHoleAccessibilityLabel($0) }
+        return rabbitHoleSlide(
+            id: "rabbitHoleGuess",
+            artboard: "frame11a",
+            headline: headline,
+            bodyText: nil,
+            articles: articles,
+            answer: reveal,
+            answerTrigger: RabbitHolePath.frameComplete,
+            accessibilityLabel: ([headline] + cardLabels).joined(separator: " ")
+        )
+    }
+
+    private func rabbitHoleRevealSlide(_ rabbitHole: WMFYearInReviewRabbitHolesSlideData.RabbitHole) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewRabbitHoleRevealTitle(articleCount: rabbitHole.articleCount)
+        let bodyText = CommonStrings.yearInReviewRabbitHoleRevealSubtitle
+        return rabbitHoleSlide(
+            id: "rabbitHoleReveal",
+            artboard: "frame11b",
+            headline: headline,
+            bodyText: bodyText,
+            articles: [
+                (RabbitHolePath.resultFirst, rabbitHole.firstArticle),
+                (RabbitHolePath.resultLast, rabbitHole.lastArticle)
+            ],
+            accessibilityLabel: "\(headline) \(rabbitHoleAccessibilityLabel(rabbitHole)) \(bodyText)"
+        )
+    }
+
+    private func rabbitHoleAccessibilityLabel(_ rabbitHole: WMFYearInReviewRabbitHolesSlideData.RabbitHole) -> String {
+        "\(rabbitHole.firstArticle.title), \(rabbitHole.lastArticle.title)."
+    }
+
+    private func rabbitHoleSlide(
+        id: String,
+        artboard: String,
+        headline: String,
+        bodyText: String?,
+        articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)],
+        answer: WMFYearInReviewSlideViewModel? = nil,
+        answerTrigger: WMFRiveTrigger? = nil,
+        accessibilityLabel: String
+    ) -> WMFYearInReviewSlideViewModel {
+        var text = [RabbitHolePath.headline: headline]
+        if let bodyText {
+            text[RabbitHolePath.bodyText] = bodyText
+        }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        var missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:]
+        for (path, article) in articles {
+            text[path.title] = article.title
+            missingImageFlags[path.thumbnail] = path.noImage
+            if let project = article.project {
+                thumbnails[path.thumbnail] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+            }
+        }
+        return WMFYearInReviewSlideViewModel(
+            id: id,
+            loggingID: id,
+            animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: "\(artboard)-statemachine"),
+            text: text,
+            articleThumbnails: thumbnails,
+            missingImageFlags: missingImageFlags,
+            answer: answer,
+            answerTrigger: answerTrigger,
+            localizedStrings: .init(accessibilityLabel: accessibilityLabel),
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.copyFits(headline: RabbitHolePath.headline, bodyText: RabbitHolePath.bodyText)
         )
     }
 
