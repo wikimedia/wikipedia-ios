@@ -94,7 +94,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, then the
-    /// articles visited multiple times.
+    /// articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
@@ -110,7 +110,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame11b", "frame13"])
+        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame13"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
