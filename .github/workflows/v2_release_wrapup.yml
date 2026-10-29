@@ -332,7 +332,7 @@ jobs:
             WHY="These are the fixes that were cherry-picked onto the hotfix branch."
           else
             LABEL="Release"
-            WHY="These are usually fixes made on the release branch after a rejection."
+            WHY="These are changes that landed on the release branch after it was cut."
           fi
 
           gh pr create \
