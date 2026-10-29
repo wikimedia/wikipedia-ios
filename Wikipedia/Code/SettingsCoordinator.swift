@@ -227,10 +227,12 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
             // Show the result after the work ends. A delay is not a signal of completion.
             Task { @MainActor [weak self] in
+                // The complete toast dismisses the toasts before it. Show only one of the two.
                 if cleanupError != nil {
                     self?.showClearCacheErrorBanner()
+                } else {
+                    self?.showClearCacheComplete()
                 }
-                self?.showClearCacheComplete()
             }
         }
     }

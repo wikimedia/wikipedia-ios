@@ -182,16 +182,33 @@ import WMF
             return urls
         }
 
-        let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
-        // savedDate == NULL && isDownloaded == YES will be picked up by SavedArticlesFetcher for deletion
-        articlesToDeleteFetchRequest.predicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
-        articlesToDeleteFetchRequest.fetchLimit = Self.articleDeletionLimit
-        articlesToDeleteFetchRequest.fetchBatchSize = Self.fetchBatchSize
+        // Read only the key and the object ID of each candidate, and apply the limit after the referenced keys are removed.
+        // A fetch limit on the managed objects can return only referenced articles, and then no pass deletes an article.
+        let objectIDDescription = NSExpressionDescription()
+        objectIDDescription.name = "objectID"
+        objectIDDescription.expression = NSExpression.expressionForEvaluatedObject()
+        objectIDDescription.expressionResultType = .objectIDAttributeType
 
-        let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
-        
-        for obj in articlesToDelete {
-            guard let key = obj.key, !referencedArticleKeys.contains(key) else {
+        let candidatesFetchRequest = NSFetchRequest<NSDictionary>(entityName: "WMFArticle")
+        // savedDate == NULL && isDownloaded == YES will be picked up by SavedArticlesFetcher for deletion
+        candidatesFetchRequest.predicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
+        candidatesFetchRequest.resultType = .dictionaryResultType
+        candidatesFetchRequest.propertiesToFetch = ["key", objectIDDescription]
+
+        var objectIDsToDelete: [NSManagedObjectID] = []
+        for candidate in try moc.fetch(candidatesFetchRequest) {
+            guard let key = candidate["key"] as? String, !referencedArticleKeys.contains(key),
+                  let objectID = candidate["objectID"] as? NSManagedObjectID else {
+                continue
+            }
+            objectIDsToDelete.append(objectID)
+            if objectIDsToDelete.count >= Self.articleDeletionLimit {
+                break
+            }
+        }
+
+        for objectID in objectIDsToDelete {
+            guard let obj = try? moc.existingObject(with: objectID) as? WMFArticle else {
                 continue
             }
             moc.delete(obj)

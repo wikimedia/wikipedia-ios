@@ -92,9 +92,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     private var isWaitingToResumeApp: Bool = false
     private var isMigrationComplete: Bool = false
-
-    /// The task that prunes the WMFData database. Keep it, to let the caller stop it.
-    private var wmfDataHousekeepingTask: Task<Error?, Never>?
     private var isMigrationActive: Bool = false
     private var isResumeComplete: Bool = false
     private var isCheckingRemoteConfig: Bool = false
@@ -696,20 +693,34 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     // MARK: - Background Processing
 
+    /// The task that prunes the WMFData database. Keep it, to let the caller stop it.
+    private var wmfDataHousekeepingTask: Task<Error?, Never>?
+
+    /// The completions of the pass that runs now. Nil when no pass runs.
+    private var databaseHousekeepingCompletions: [(Error?) -> Void]?
+
     /// Does a housekeeping pass on a background context if sufficient time went by after the last pass.
     func performDatabaseHousekeepingIfNeeded() {
         guard isMigrationComplete else {
             return
         }
 
-        guard UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping else {
+        guard databaseHousekeepingCompletions == nil,
+              UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping else {
             return
         }
 
         // Let the first screen appear first. The pass uses the same SQLite store.
         Task { @MainActor [weak self] in
             try? await Task.sleep(nanoseconds: Self.databaseHousekeepingLaunchDelay)
-            self?.performDatabaseHousekeeping { _ in }
+
+            // The app can become active again during the delay. Do the checks again, to start only one pass.
+            guard let self,
+                  self.databaseHousekeepingCompletions == nil,
+                  UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping else {
+                return
+            }
+            self.performDatabaseHousekeeping { _ in }
         }
     }
 
@@ -722,6 +733,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
+        // Two passes at the same time delete the same objects on two contexts. Give a second caller the result of the pass that runs now.
+        if databaseHousekeepingCompletions != nil {
+            databaseHousekeepingCompletions?.append(completion)
+            return
+        }
+        databaseHousekeepingCompletions = [completion]
+
         let housekeeper = WMFDatabaseHousekeeper()
 
         // Read the view context on the main thread. A background context cannot find these articles.
@@ -758,7 +776,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                     UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = Date()
                 }
 
-                completion(error)
+                let completions = self.databaseHousekeepingCompletions ?? []
+                self.databaseHousekeepingCompletions = nil
+                for completion in completions {
+                    completion(error)
+                }
             }
         }
     }

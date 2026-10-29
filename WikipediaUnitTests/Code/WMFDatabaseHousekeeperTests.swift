@@ -62,6 +62,22 @@ class WMFDatabaseHousekeeperTests: XCTestCase {
         XCTAssertNotNil(dataStore.fetchArticle(withKey: key))
     }
 
+    /// A pass deletes the unreferenced article and keeps the excluded article in the same pass.
+    func testOnlyUnreferencedArticleIsDeletedWhenBothExist() throws {
+        let moc = dataStore.viewContext
+        let excluded = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "https://en.wikipedia.org/wiki/InUse")!))
+        let stale = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "https://en.wikipedia.org/wiki/Stale")!))
+        let excludedKey = try XCTUnwrap(excluded.key)
+        let staleKey = try XCTUnwrap(stale.key)
+        try moc.save()
+
+        let deletedURLs = try WMFDatabaseHousekeeper().performHousekeeping(on: moc, excludedArticleKeys: [excludedKey], cleanupLevel: .low)
+
+        XCTAssertEqual(deletedURLs.count, 1)
+        XCTAssertNotNil(dataStore.fetchArticle(withKey: excludedKey))
+        XCTAssertNil(dataStore.fetchArticle(withKey: staleKey))
+    }
+
     /// The preserved keys hold an article that is realized in the view context.
     func testArticleKeysToPreserveIncludesRealizedArticles() throws {
         let article = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "https://en.wikipedia.org/wiki/Realized")!))
