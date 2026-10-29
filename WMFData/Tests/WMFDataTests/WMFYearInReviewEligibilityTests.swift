@@ -94,7 +94,7 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
     }
 
     private func nicheInterestSlide(categoryName: String?) throws -> WMFYearInReviewSlide {
-        let data = try JSONEncoder().encode(WMFYearInReviewMostReadCategorySlideData(categoryName: categoryName))
+        let data = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName))
         return WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
     }
 

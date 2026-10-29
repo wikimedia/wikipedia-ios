@@ -102,7 +102,7 @@ struct YearInReviewSlideViewModelFactory {
         var daysVisited: WMFYearInReviewDaysVisitedSlideData?
         var topTopics: WMFYearInReviewTopTopicsSlideData?
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
-        var nicheCategory: WMFYearInReviewMostReadCategorySlideData?
+        var nicheCategory: WMFYearInReviewNicheCategorySlideData?
         var rereadArticles: [RereadArticle] = []
     }
 
@@ -318,14 +318,14 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The category that the reader read in a niche way, from the report the app fills in the
     /// background. `nil` when the report does not have this slide yet.
-    private func storedNicheCategory() -> WMFYearInReviewMostReadCategorySlideData? {
-        storedSlideData(.mostReadCategories, as: WMFYearInReviewMostReadCategorySlideData.self, logName: "niche interest")
+    private func storedNicheCategory() -> WMFYearInReviewNicheCategorySlideData? {
+        storedSlideData(.mostReadCategories, as: WMFYearInReviewNicheCategorySlideData.self, logName: "niche interest")
     }
 
     /// Shows one category name. The data controller picks the category when it builds the report,
     /// so the same category shows each time. `nil` when the reader has no category to show.
     /// The slide has no empty version.
-    func nicheInterestSlide(_ slideData: WMFYearInReviewMostReadCategorySlideData?) -> WMFYearInReviewSlideViewModel? {
+    func nicheInterestSlide(_ slideData: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewSlideViewModel? {
         guard let slideData, slideData.isEligible, let categoryName = slideData.categoryName else {
             return nil
         }

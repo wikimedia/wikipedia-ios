@@ -146,27 +146,27 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         let slides = report?.slides.filter { $0.id == .mostReadCategories } ?? []
         XCTAssertEqual(slides.count, 1, "The legacy slide is replaced, not kept next to the new slide")
         let data = try XCTUnwrap(slides.first?.data)
-        XCTAssertNoThrow(try JSONDecoder().decode(WMFYearInReviewMostReadCategorySlideData.self, from: data))
+        XCTAssertNoThrow(try JSONDecoder().decode(WMFYearInReviewNicheCategorySlideData.self, from: data))
     }
 
     /// A slide in the current format keeps its category. No categories are in the store, so a
     /// new pick would have no category.
     func testCurrentNicheInterestSlideKeepsItsCategory() async throws {
-        let storedData = try JSONEncoder().encode(WMFYearInReviewMostReadCategorySlideData(categoryName: "Executed female serial killers"))
+        let storedData = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"))
 
         let report = try await populateReport(withNicheInterestData: storedData)
 
         let slides = report?.slides.filter { $0.id == .mostReadCategories } ?? []
         XCTAssertEqual(slides.count, 1)
         let data = try XCTUnwrap(slides.first?.data)
-        let payload = try JSONDecoder().decode(WMFYearInReviewMostReadCategorySlideData.self, from: data)
+        let payload = try JSONDecoder().decode(WMFYearInReviewNicheCategorySlideData.self, from: data)
         XCTAssertEqual(payload.categoryName, "Executed female serial killers")
     }
 
     func testNicheInterestFormatCheck() throws {
         let legacyData = try JSONEncoder().encode(["Cats", "Dogs"])
-        let currentData = try JSONEncoder().encode(WMFYearInReviewMostReadCategorySlideData(categoryName: "Cats"))
-        let currentDataWithoutCategory = try JSONEncoder().encode(WMFYearInReviewMostReadCategorySlideData(categoryName: nil))
+        let currentData = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: "Cats"))
+        let currentDataWithoutCategory = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: nil))
 
         XCTAssertFalse(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(legacyData))
         XCTAssertFalse(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(nil))

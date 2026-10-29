@@ -67,7 +67,7 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.data = try JSONEncoder().encode(WMFYearInReviewMostReadCategorySlideData(categoryName: selectedCategoryName))
+        slide.data = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: selectedCategoryName))
         return slide
     }
 
@@ -76,12 +76,12 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
     }
 
     /// An older build stored this slide as an array of category names. That data does not decode as
-    /// `WMFYearInReviewMostReadCategorySlideData`, so the report builds the slide again with the
+    /// `WMFYearInReviewNicheCategorySlideData`, so the report builds the slide again with the
     /// current rules. Data in the current format keeps its category, also when the category is nil.
     static func hasCurrentFormat(_ data: Data?) -> Bool {
         guard let data else {
             return false
         }
-        return (try? JSONDecoder().decode(WMFYearInReviewMostReadCategorySlideData.self, from: data)) != nil
+        return (try? JSONDecoder().decode(WMFYearInReviewNicheCategorySlideData.self, from: data)) != nil
     }
 }

@@ -102,7 +102,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
-            nicheCategory: WMFYearInReviewMostReadCategorySlideData(categoryName: "Executed female serial killers"),
+            nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"),
             rereadArticles: [
                 .init(title: "Dam", visitCount: 3, project: nil),
                 .init(title: "Gravity dam", visitCount: 2, project: nil)
@@ -381,7 +381,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func theNicheInterestSlideShowsTheCategoryName() throws {
         let categoryName = "Executed female serial killers"
-        let slide = try #require(factory.nicheInterestSlide(WMFYearInReviewMostReadCategorySlideData(categoryName: categoryName)))
+        let slide = try #require(factory.nicheInterestSlide(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName)))
 
         #expect(slide.id == "nicheInterest")
         #expect(slide.animation?.artboardName == "frame12")
@@ -401,7 +401,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// The slide has no empty version, so it does not show without a category name.
     @Test(arguments: [nil, "", "   "] as [String?])
     func theNicheInterestSlideNeedsACategoryName(categoryName: String?) {
-        #expect(factory.nicheInterestSlide(WMFYearInReviewMostReadCategorySlideData(categoryName: categoryName)) == nil)
+        #expect(factory.nicheInterestSlide(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName)) == nil)
     }
 
     /// The slide does not show when the report does not have its data.

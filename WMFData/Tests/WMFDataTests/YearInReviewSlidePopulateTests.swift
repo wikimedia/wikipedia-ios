@@ -733,9 +733,9 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         }
     }
 
-    private func nicheCategoryPayload() async throws -> WMFYearInReviewMostReadCategorySlideData {
+    private func nicheCategoryPayload() async throws -> WMFYearInReviewNicheCategorySlideData {
         let controller = YearInReviewMostReadCategoriesSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
-        let payload = try decode(WMFYearInReviewMostReadCategorySlideData.self, from: try await populatedPayload(controller))
+        let payload = try decode(WMFYearInReviewNicheCategorySlideData.self, from: try await populatedPayload(controller))
         XCTAssertTrue(controller.isEvaluated)
         return payload
     }

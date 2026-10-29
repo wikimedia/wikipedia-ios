@@ -203,7 +203,7 @@ import CoreData
         case .daysVisited:
             return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .mostReadCategories:
-            return (try? decoder.decode(WMFYearInReviewMostReadCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
+            return (try? decoder.decode(WMFYearInReviewNicheCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .rabbitHoles:
             return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .editCount:
@@ -909,7 +909,7 @@ public struct WMFYearInReviewReadData: Codable {
 /// The data of the niche interest slide: one category that the reader read 2 or more articles in.
 /// The data controller picks the category at random when it builds the report. After that, the
 /// slide always shows the same category.
-public struct WMFYearInReviewMostReadCategorySlideData: Codable, Sendable {
+public struct WMFYearInReviewNicheCategorySlideData: Codable, Sendable {
     /// The category name with spaces, not underscores. It is nil when no category is a candidate.
     public let categoryName: String?
 
