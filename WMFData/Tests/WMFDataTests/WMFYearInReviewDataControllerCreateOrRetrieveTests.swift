@@ -120,17 +120,20 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
     /// Saves a report with only a niche interest slide, then populates the report again.
     private func populateReport(withNicheInterestData data: Data) async throws -> WMFYearInReviewReport? {
-        guard let dataController else {
-            throw TestsError.missingDataController
+        // The categories data controller reads the store from the environment. The fixture changes
+        // the environment under the global test lock, then restores it. The store is made here,
+        // because taking the lock removes the stores that the fixture made in setUp.
+        return try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
+        }) {
+            let store = try XCTUnwrap(WMFDataEnvironment.current.coreDataStore)
+            let dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
+
+            let slide = WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
+            try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [slide]))
+
+            return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
         }
-
-        // The categories data controller reads the store from the environment. The fixture restores it in tearDown.
-        WMFDataEnvironment.current.coreDataStore = store
-
-        let slide = WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
-        try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [slide]))
-
-        return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
     }
 
     /// An older build stored the niche interest slide as an array of category names.
