@@ -63,6 +63,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewLocationSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.location.rawValue)
         XCTAssertEqual(YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.topTopics.rawValue)
         XCTAssertEqual(YearInReviewDaysVisitedSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.daysVisited.rawValue)
+        XCTAssertEqual(YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.rabbitHoles.rawValue)
     }
 
     func testSlideYearIsRetained() {
@@ -81,6 +82,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewTopReadArticleSlideDataController.personalizationSources, [.readingHistory])
         XCTAssertEqual(YearInReviewTopTopicsSlideDataController.personalizationSources, [.readingHistory])
         XCTAssertEqual(YearInReviewDaysVisitedSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewRabbitHolesSlideDataController.personalizationSources, [.readingHistory])
 
         XCTAssertEqual(YearInReviewEditCountSlideDataController.personalizationSources, [.account])
         XCTAssertEqual(YearInReviewViewCountSlideDataController.personalizationSources, [.account])
@@ -103,6 +105,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewTopTopicsSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldFreeze)
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldFreeze)
     }
 
     // MARK: - shouldPopulate
@@ -121,6 +124,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewTopTopicsSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
     }
 
     func testViewCountSlideRequiresUserID() {

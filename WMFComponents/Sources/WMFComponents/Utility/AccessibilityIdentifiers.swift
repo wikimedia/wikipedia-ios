@@ -58,6 +58,12 @@ public enum AccessibilityIdentifiers {
         public static let searchButton = Search.tabButton
     }
 
+    public enum Discover {
+        public static let announcementCard = "Discover Announcement Card"
+        public static let announcementGetStartedButton = "Discover Announcement Get Started Button"
+        public static let announcementNoThanksButton = "Discover Announcement No Thanks Button"
+    }
+
     public enum Home {
         public static let languagePickerButton = "Home Language Picker Button"
         public static let view = "Home View"
