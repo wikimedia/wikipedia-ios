@@ -106,7 +106,6 @@ public struct WMFDiscoverReadingListView: View {
                 )
                 Divider()
                     .background(Color(uiColor: theme.border))
-                    .padding(.leading, WMFSpacing.large)
             }
         }
     }
