@@ -237,6 +237,8 @@ import WMFTestKitchen
                     
                     KeychainCredentialsManager.shared.username = username
                     KeychainCredentialsManager.shared.password = password
+                    // Logging back in answers the logged-out alert, even when the user never saw it.
+                    self.isUserUnawareOfLogout = false
                     self.session.cloneCentralAuthCookies()
                     self.delegate?.authenticationManagerDidLogin()
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
@@ -363,10 +365,12 @@ import WMFTestKitchen
                 if user.authState == .ip || user.authState == .temporary {
                     performLogin()
                 } else {
-                    
+
                     self.backgroundAuthInstrument?.submitInteraction(action: "success")
                     self.backgroundAuthInstrument = nil
-                    
+
+                    // The server confirms a permanent account, so an earlier logout no longer applies.
+                    self.isUserUnawareOfLogout = false
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     completion(.success(user))
                 }
@@ -534,6 +538,12 @@ import WMFTestKitchen
 
     @objc public func userDidAcknowledgeUnintentionalLogout() {
         isUserUnawareOfLogout = false
+    }
+
+    /// The logged-out alert is only true while no permanent account is logged in. A flag left over from an
+    /// earlier logout (the alert was dismissed by a link, then the user logged in from Settings) must not show it.
+    public static func shouldShowLoggedOutAlert(isUserUnawareOfLogout: Bool, isPermanentAccountLoggedIn: Bool) -> Bool {
+        return isUserUnawareOfLogout && !isPermanentAccountLoggedIn
     }
 
     @objc public var isUserUnawareOfLogout: Bool {
