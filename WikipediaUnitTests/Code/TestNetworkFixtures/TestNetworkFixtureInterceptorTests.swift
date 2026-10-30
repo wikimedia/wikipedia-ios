@@ -208,8 +208,7 @@ final class TestNetworkFixtureInterceptorTests {
         let request = URLRequest(url: url)
 
         let result = try await downloadTaskResult(session: session, request: request)
-        let data = try Data(contentsOf: result.fileURL)
-        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let json = try #require(JSONSerialization.jsonObject(with: result.data) as? [String: Any])
 
         #expect(result.response?.statusCode == 200)
         #expect(json["title"] as? String == "Dog")
@@ -229,7 +228,7 @@ final class TestNetworkFixtureInterceptorTests {
 
     private struct DownloadTaskResult {
         let response: HTTPURLResponse?
-        let fileURL: URL
+        let data: Data
     }
 
     private func callbackDataTaskResult(session: Session, request: URLRequest) async throws -> CallbackDataTaskResult {
@@ -275,7 +274,13 @@ final class TestNetworkFixtureInterceptorTests {
                     return
                 }
 
-                continuation.resume(returning: DownloadTaskResult(response: response as? HTTPURLResponse, fileURL: fileURL))
+                // URLSession deletes the downloaded file when this handler returns. Read it here.
+                do {
+                    let data = try Data(contentsOf: fileURL)
+                    continuation.resume(returning: DownloadTaskResult(response: response as? HTTPURLResponse, data: data))
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }) else {
                 continuation.resume(throwing: URLError(.unknown))
                 return
