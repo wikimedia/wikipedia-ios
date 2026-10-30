@@ -41,14 +41,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         let task = Task { @MainActor in
             defer { reportBuild = nil }
-            return try await populateReport(dataStore: dataStore, regenerate: regenerate)
+            do {
+                return try await populateReport(dataStore: dataStore, regenerate: regenerate)
+            } catch {
+                YearInReviewInstrument.shared.logError(message: String(describing: error))
+                throw error
+            }
         }
         reportBuild = ReportBuild(username: username, task: task)
         return try await task.value
     }
 
     @MainActor
-    private static func buildReportLoggingError(dataStore: MWKDataStore) async {
+    static func buildReportLoggingError(dataStore: MWKDataStore) async {
         do {
             try await buildReport(dataStore: dataStore)
         } catch {
@@ -115,6 +120,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// personalized slides.
     private var slidesExperience: WMFYearInReviewDataController.YiRSlidesExperience = .collective
 
+    /// The "Your Year in Review" announcement is for readers with enough reading history.
+    private var isAnnouncementPersonalized: Bool {
+        announcementDataState == .dataRich
+    }
+
+    private var areSlidesPersonalized: Bool {
+        slidesExperience == .personalized
+    }
+
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
     private let slideFactory = YearInReviewSlideViewModelFactory()
 
@@ -137,8 +151,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// the reader opened another screen in that time, the slides do not open.
     @discardableResult
     func start() -> Bool {
+        YearInReviewInstrument.shared.startFunnel()
         afterReportIsBuilt { [weak self] in
-            guard let self, navigationController.presentedViewController == nil else { return }
+            guard let self, navigationController.presentedViewController == nil else {
+                YearInReviewInstrument.shared.stopFunnel()
+                return
+            }
             presentYearInReview()
         }
         return true
@@ -220,6 +238,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.announcementNavigationController = announcementNavigationController
         navigationController.present(announcementNavigationController, animated: true)
 
+        let instrument = YearInReviewInstrument.shared
+        instrument.startFunnel()
+        instrument.logImpression(page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
+
         // Marked here, when it is on screen, so an early exit above does not use it up.
         dataController.hasPresentedYiRFeatureAnnouncement = true
         return true
@@ -233,6 +255,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// The slides are chosen here, so after any log in. A logged-out reader always gets the
     /// collective slides.
     private func makeYearInReviewHostingController() -> WMFYearInReviewHostingController {
+        // The slides get a funnel of their own, separate from the announcement, as on Android.
+        YearInReviewInstrument.shared.stopFunnel()
+        YearInReviewInstrument.shared.startFunnel()
+
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         // `fetchSlidesExperience(isLoggedIn:)` runs on the main actor. This method only runs on the
         // main thread, because it presents view controllers.
@@ -257,6 +283,21 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         self.viewModel = viewModel
         self.slidesExperience = experience
+
+        WMFRiveLogger.failureHandler = { [weak self, weak viewModel] failure in
+            guard let self, let viewModel else { return }
+            // Neighbor slides load too, and some slides share an artboard, so the current slide wins.
+            let currentSlide = viewModel.currentSlide
+            let slide = currentSlide?.animation == failure.animation ? currentSlide : viewModel.slides.first { $0.animation == failure.animation }
+            // Other Rive views, such as the announcement, use the same handler.
+            guard let slide else { return }
+            YearInReviewInstrument.shared.logError(
+                elementID: "rive",
+                page: slide.loggingID,
+                personalized: areSlidesPersonalized,
+                message: "\(failure.stage.rawValue): \(failure.reason)"
+            )
+        }
 
         let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
         self.hostingController = hostingController
@@ -313,12 +354,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         alert.overrideUserInterfaceStyle = .light
 
         let loginAction = UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
+            self?.logLoginPromptClick(elementID: "login_button")
             self?.dismissAnnouncement {
                 self?.startAnnouncementLogin()
             }
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
+            self?.logLoginPromptClick(elementID: "continue_button")
             self?.transitionAnnouncementAfterReportIsBuilt()
         }
 
@@ -328,6 +371,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         alert.view.tintColor = theme.colors.link
 
         announcement.present(alert, animated: true)
+    }
+
+    private func logLoginPromptClick(elementID: String) {
+        YearInReviewInstrument.shared.logClick(
+            elementID: elementID,
+            actionSource: "login_dialog",
+            page: YearInReviewInstrument.announcementPage,
+            personalized: isAnnouncementPersonalized
+        )
     }
 
     private func startAnnouncementLogin() {
@@ -513,6 +565,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 self?.presentShareSheet(image: image, from: presenter)
             } catch {
                 DDLogError("Could not make the Year in Review share image for \(slideID): \(error)")
+                YearInReviewInstrument.shared.logError(elementID: "rive", page: slide.loggingID, personalized: self?.areSlidesPersonalized ?? false, message: String(describing: error))
                 WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
             }
         }
@@ -566,12 +619,17 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
     func handleYearInReviewAction(_ action: WMFYearInReviewAction) {
         switch action {
         case .close:
+            WMFRiveLogger.failureHandler = nil
             navigationController.presentedViewController?.dismiss(animated: true)
+            YearInReviewInstrument.shared.stopFunnel()
         case .learnMore:
+            YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: areSlidesPersonalized)
             showProjectPage()
         case .aboutInsights:
+            YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", personalized: areSlidesPersonalized)
             showAboutInsights()
         case .shareFeedback:
+            YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", personalized: areSlidesPersonalized)
             shareFeedback()
         case .share(let slideID):
             shareSlide(slideID: slideID)
@@ -586,6 +644,7 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
 extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
 
     func yearInReviewAnnouncementDidTapExplore() {
+        logAnnouncementClick(elementID: "explore_button")
         guard dataStore.authenticationManager.authStateIsPermanent else {
             presentAnnouncementLoginPrompt()
             return
@@ -595,6 +654,8 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
     }
 
     func yearInReviewAnnouncementDidTapClose() {
+        logAnnouncementClick(elementID: "close_button")
+        YearInReviewInstrument.shared.stopFunnel()
         navigationController.presentedViewController?.dismiss(animated: true) {
             WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
         }
@@ -606,15 +667,22 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
     }
 
     func yearInReviewAnnouncementDidTapLearnMore() {
+        YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: isAnnouncementPersonalized)
         showProjectPage()
     }
 
     func yearInReviewAnnouncementDidTapAboutInsights() {
+        YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", personalized: isAnnouncementPersonalized)
         showAboutInsights()
     }
 
     func yearInReviewAnnouncementDidTapShareFeedback() {
+        YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", personalized: isAnnouncementPersonalized)
         shareFeedback()
+    }
+
+    private func logAnnouncementClick(elementID: String) {
+        YearInReviewInstrument.shared.logClick(elementID: elementID, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
     }
 }
 
@@ -622,31 +690,104 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
 
 extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 
-    func logYearInReviewIntroDidTapLearnMore() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(slideLoggingID: introSlideLoggingID)
-    }
+    /// The 2026 plan has no event for the intro learn more button.
+    func logYearInReviewIntroDidTapLearnMore() {}
 
     func logYearInReviewSlideDidAppear(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewSlideImpression(slideLoggingID: slideLoggingID)
+        // The pager can settle on a slide while the slides close.
+        guard YearInReviewInstrument.shared.isFunnelRunning else { return }
+        YearInReviewInstrument.shared.logImpression(page: slideLoggingID, personalized: areSlidesPersonalized)
     }
 
     func logYearInReviewDidTapDone(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
+        YearInReviewInstrument.shared.logClick(elementID: "close_button", page: slideLoggingID, personalized: areSlidesPersonalized)
     }
 
-    func logYearInReviewDidTapNext(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
-    }
+    /// The 2026 plan has no event for the next button.
+    func logYearInReviewDidTapNext(slideLoggingID: String) {}
 
     func logYearInReviewDidTapDonate(slideLoggingID: String) {
-        guard let metricsID = DonateCoordinator.metricsID(for: .yearInReview(slideLoggingID: slideLoggingID), languageCode: dataStore.languageLinkController.appLanguage?.languageCode) else {
-            return
-        }
-        DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
+        YearInReviewInstrument.shared.logClick(
+            elementID: "donate_button",
+            page: slideLoggingID,
+            personalized: areSlidesPersonalized,
+            campaignID: YearInReviewInstrument.campaignID(page: slideLoggingID)
+        )
     }
 
     func logYearInReviewDidTapShare(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
+        YearInReviewInstrument.shared.logClick(elementID: "share_button", page: slideLoggingID, personalized: areSlidesPersonalized)
+    }
+}
+
+// MARK: - Instrumentation
+
+/// Sends the Year in Review 2026 events to Test Kitchen. One funnel runs from the announcement, or
+/// from the first slide when there is no announcement, until the reader closes Year in Review. The
+/// funnel adds `time_spent_ms` to each event.
+@MainActor
+final class YearInReviewInstrument {
+
+    static let shared = YearInReviewInstrument()
+
+    static let announcementPage = "announcement"
+
+    /// The donate flow sends the same value to `app_donor_experience`.
+    nonisolated static func campaignID(page: String) -> String {
+        "appmenu_yir_\(page)"
+    }
+
+    private let instrument = TestKitchenAdapter.shared.client
+        .getInstrument(name: "apps-year-in-review")
+        .setDefaultActionSource("main")
+
+    func startFunnel() {
+        instrument.startFunnel(name: "year-in-review")
+    }
+
+    func stopFunnel() {
+        instrument.stopFunnel()
+    }
+
+    var isFunnelRunning: Bool {
+        instrument.funnel != nil
+    }
+
+    func logImpression(actionSource: String? = nil, page: String? = nil, personalized: Bool?) {
+        instrument.submitInteraction(
+            action: "impression",
+            actionSource: actionSource,
+            actionContext: actionContext(page: page, personalized: personalized)
+        )
+    }
+
+    func logClick(elementID: String, actionSource: String? = nil, page: String? = nil, personalized: Bool? = nil, campaignID: String? = nil) {
+        var context = actionContext(page: page, personalized: personalized)
+        context["campaign_id"] = campaignID
+        instrument.submitInteraction(
+            action: "click",
+            actionSource: actionSource,
+            elementId: elementID,
+            actionContext: context
+        )
+    }
+
+    /// `elementID` is `rive` for a failure on a Rive page. A report that does not build has none.
+    func logError(elementID: String? = nil, page: String? = nil, personalized: Bool? = nil, message: String) {
+        var context = actionContext(page: page, personalized: personalized)
+        context["message"] = message
+        instrument.submitInteraction(
+            action: "error",
+            elementId: elementID,
+            actionContext: context
+        )
+    }
+
+    private func actionContext(page: String?, personalized: Bool?) -> [String: Any] {
+        var context: [String: Any] = [:]
+        context["page"] = page
+        context["personalized"] = personalized
+        return context
     }
 }
 

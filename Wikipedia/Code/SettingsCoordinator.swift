@@ -281,13 +281,38 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func goToYearInReviewSettings() {
 
-        let strings = WMFYearInReviewSettingsViewModel.LocalizedStrings(title: CommonStrings.yirTitle, description: WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature."), toggleTitle: CommonStrings.yirTitle)
+        let description = WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature.")
+        let strings = WMFYearInReviewSettingsViewModel.LocalizedStrings(
+            title: CommonStrings.yirTitle,
+            description: description,
+            toggleTitle: CommonStrings.yirTitle,
+            turnOffAlertTitle: WMFLocalizedString("settings-year-in-review-turn-off-alert-title", value: "Are you sure you want to turn off Year in Review?", comment: "Title of the alert that asks the user to confirm that they want to turn off Year in Review in Settings."),
+            turnOffAlertMessage: description,
+            turnOffAlertConfirmTitle: WMFLocalizedString("settings-year-in-review-turn-off-alert-confirm", value: "Yes, I'm sure", comment: "Button in the alert that turns off Year in Review in Settings and clears the stored personalized insights."),
+            turnOffAlertCancelTitle: WMFLocalizedString("settings-year-in-review-turn-off-alert-cancel", value: "No, thanks", comment: "Button in the alert that keeps Year in Review turned on in Settings.")
+        )
 
         let viewModel = WMFYearInReviewSettingsViewModel(
             dataController: dataController,
             localizedStrings: strings,
-            onToggle: { isOn in
-                DonateFunnel.shared.logYearInReviewSettingsDidToggle(isOn: isOn)
+            onAction: { action in
+                let elementID: String
+                switch action {
+                case .switchOn: elementID = "switch_on"
+                case .switchOff: elementID = "switch_off"
+                case .switchOffConfirm: elementID = "switch_off_confirm"
+                case .switchOffCancel: elementID = "switch_off_cancel"
+                }
+                YearInReviewInstrument.shared.logClick(elementID: elementID, actionSource: "settings")
+            },
+            onEnabledChange: { [weak self] isEnabled in
+                // Turning it off deleted the reports. Turning it on builds the report again, or keeps the stored one.
+                if isEnabled, let dataStore = self?.dataStore {
+                    Task { @MainActor in
+                        await YearInReviewCoordinator.buildReportLoggingError(dataStore: dataStore)
+                    }
+                }
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
             }
         )
 

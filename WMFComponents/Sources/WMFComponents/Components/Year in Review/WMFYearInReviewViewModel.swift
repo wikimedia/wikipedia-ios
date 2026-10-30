@@ -56,6 +56,9 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     @Published public var slides: [WMFYearInReviewSlideViewModel]
 
+    /// The slide that shows its answer in place. The answer has its own logging ID.
+    private var answerShownSlideID: String?
+
     /// True while VoiceOver runs. `WMFYearInReviewView` sets it. A VoiceOver reader cannot tap an
     /// answer in the .riv, so the answer of a slide is the next slide in the pager.
     @Published var showsAnswersAsSlides = false
@@ -73,6 +76,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     @Published public var currentSlideID: String? {
         didSet {
             guard currentSlideID != oldValue else { return }
+            answerShownSlideID = nil
             logSlideAppearance()
         }
     }
@@ -139,6 +143,14 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         let pagerSlides = pagerSlides
         guard !isOnEnd, pagerSlides.indices.contains(currentSlideIndex) else { return nil }
         return pagerSlides[currentSlideIndex]
+    }
+
+    private var currentLoggingID: String {
+        guard let currentSlide else { return "" }
+        if currentSlide.id == answerShownSlideID, let answer = currentSlide.answer {
+            return answer.loggingID
+        }
+        return currentSlide.loggingID
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
@@ -208,7 +220,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedClose() {
-        loggingDelegate?.logYearInReviewDidTapDone(slideLoggingID: currentSlide?.loggingID ?? "")
+        loggingDelegate?.logYearInReviewDidTapDone(slideLoggingID: currentLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.close)
     }
 
@@ -233,31 +245,38 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedLearnMore() {
-        coordinatorDelegate?.handleYearInReviewAction(.learnMore(slideLoggingID: currentSlide?.loggingID ?? ""))
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(slideLoggingID: currentLoggingID))
     }
 
     func tappedAboutInsights() {
-        coordinatorDelegate?.handleYearInReviewAction(.aboutInsights(slideLoggingID: currentSlide?.loggingID ?? ""))
+        coordinatorDelegate?.handleYearInReviewAction(.aboutInsights(slideLoggingID: currentLoggingID))
     }
 
     func tappedShareFeedback() {
-        coordinatorDelegate?.handleYearInReviewAction(.shareFeedback(slideLoggingID: currentSlide?.loggingID ?? ""))
+        coordinatorDelegate?.handleYearInReviewAction(.shareFeedback(slideLoggingID: currentLoggingID))
     }
 
     func tappedShare() {
         guard let slide = currentSlide else { return }
-        loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: slide.loggingID)
+        loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: currentLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
     }
 
     func tappedDonate(sourceRect: @escaping @MainActor () -> CGRect) {
-        guard let slide = currentSlide else { return }
-        loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slide.loggingID)
-        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slide.loggingID))
+        guard currentSlide != nil else { return }
+        let slideLoggingID = currentLoggingID
+        loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
+        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slideLoggingID))
+    }
+
+    func answerDidShow(slideID: String) {
+        guard slideID == currentSlide?.id, slideID != answerShownSlideID else { return }
+        answerShownSlideID = slideID
+        logSlideAppearance()
     }
 
     private func logSlideAppearance() {
-        guard let slide = currentSlide else { return }
-        loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: slide.loggingID)
+        guard currentSlide != nil else { return }
+        loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: currentLoggingID)
     }
 }
