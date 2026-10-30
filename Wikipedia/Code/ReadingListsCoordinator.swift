@@ -15,6 +15,7 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
     private var dataSource: LegacyReadingListsDataSource?
     private var _viewModel: WMFReadingListsViewModel?
     private weak var hostingController: WMFReadingListsHostingController?
+    private var createReadingListCoordinator: CreateReadingListCoordinator?
 
     convenience init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, filter: WMFReadingListsFilter = .all) {
         self.init(navigationControllerProvider: { navigationController }, dataStore: dataStore, theme: theme, filter: filter)
@@ -93,10 +94,13 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
     }
 
     func presentCreateReadingList() {
-        let createReadingListViewController = CreateReadingListViewController(theme: theme, articles: [])
-        createReadingListViewController.delegate = self
-        let navigationController = WMFComponentNavigationController(rootViewController: createReadingListViewController, modalPresentationStyle: .overFullScreen)
-        self.navigationController.present(navigationController, animated: true)
+        let coordinator = CreateReadingListCoordinator(presentingViewController: navigationController)
+        coordinator.delegate = self
+        coordinator.didDismiss = { [weak self] in
+            self?.createReadingListCoordinator = nil
+        }
+        createReadingListCoordinator = coordinator
+        coordinator.start()
     }
 
     private func fullSync() async {
@@ -116,21 +120,26 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
     }
 }
 
-// MARK: - CreateReadingListDelegate
+// MARK: - CreateReadingListCoordinatorDelegate
 
-extension ReadingListsCoordinator: CreateReadingListDelegate {
-    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
+extension ReadingListsCoordinator: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(
+        _ coordinator: CreateReadingListCoordinator,
+        didCreateReadingListWith name: String,
+        description: String,
+        articles: [WMFArticle]
+    ) {
         do {
             _ = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
-            createReadingListViewController.dismiss(animated: true)
+            coordinator.dismiss(animated: true)
             ReadingListsFunnel.shared.logCreateInReadingLists()
             reload()
         } catch {
             switch error {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
-                createReadingListViewController.handleReadingListNameError(readingListError)
+                coordinator.handleReadingListNameError(readingListError)
             default:
-                createReadingListViewController.dismiss(animated: true) { [weak self] in
+                coordinator.dismiss(animated: true) { [weak self] in
                     self?.handleReadingListError(error)
                 }
                 reload()

@@ -630,10 +630,10 @@ extension WMFAppViewController: WMFWatchlistLoggingDelegate {
 
 }
 
-// MARK: Importing Reading Lists - CreateReadingListDelegate
+// MARK: Importing Reading Lists - CreateReadingListCoordinatorDelegate
 
-extension WMFAppViewController: CreateReadingListDelegate {
-    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
+extension WMFAppViewController: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(_ coordinator: CreateReadingListCoordinator, didCreateReadingListWith name: String, description: String, articles: [WMFArticle]) {
 
         guard !articles.isEmpty else {
             WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
@@ -641,7 +641,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
         }
 
         do {
-            createReadingListViewController.createReadingListButton.isEnabled = false
+            coordinator.setCreating(true)
             let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
             ReadingListsFunnel.shared.logCompletedImport(articlesCount: articles.count)
             showImportedReadingList(readingList)
@@ -649,11 +649,11 @@ extension WMFAppViewController: CreateReadingListDelegate {
         } catch let error {
             switch error {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
-                createReadingListViewController.handleReadingListNameError(readingListError)
+                coordinator.handleReadingListNameError(readingListError)
             default:
                 WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
-                createReadingListViewController.createReadingListButton.isEnabled = true
             }
+            coordinator.setCreating(false)
         }
     }
 

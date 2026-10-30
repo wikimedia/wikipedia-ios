@@ -528,6 +528,8 @@
 		675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
 		7A4414420000000000000021 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
+		7A4414420000000000000051 /* CreateReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000050 /* CreateReadingListCoordinator.swift */; };
+		7A4414420000000000000061 /* ReadingListImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000060 /* ReadingListImporter.swift */; };
 		7A4414420000000000000031 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
 		7A4414420000000000000032 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
 		7A4414420000000000000033 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000030 /* SavedCoordinator.swift */; };
@@ -541,7 +543,11 @@
 		7A441442000000000000003D /* SavedTabBadgeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000003A /* SavedTabBadgeController.swift */; };
 		7A4414420000000000000043 /* DiscoverSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000040 /* DiscoverSetupCoordinator.swift */; };
 		7A4414420000000000000022 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
+		7A4414420000000000000052 /* CreateReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000050 /* CreateReadingListCoordinator.swift */; };
+		7A4414420000000000000062 /* ReadingListImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000060 /* ReadingListImporter.swift */; };
 		7A4414420000000000000023 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
+		7A4414420000000000000053 /* CreateReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000050 /* CreateReadingListCoordinator.swift */; };
+		7A4414420000000000000063 /* ReadingListImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000060 /* ReadingListImporter.swift */; };
 		675C97142F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
 		675C97152F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
 		675C97162F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
@@ -999,12 +1005,6 @@
 		7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */; };
 		7A20AE092057F39C005FB5DF /* UIView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */; };
 		7A20AE0A2057F39C005FB5DF /* UIView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */; };
-		7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
-		7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
-		7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
-		7A2432C31FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
-		7A2432C41FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
-		7A2432C51FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432EC1FCF469100FB4BA5 /* SetupView.swift */; };
 		7A27EDA22279F5270010CB24 /* InsertLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */; };
 		7A27EDA32279F5270010CB24 /* InsertLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */; };
@@ -3212,6 +3212,8 @@
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		7A4414420000000000000020 /* ReadingListsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCoordinator.swift; sourceTree = "<group>"; };
+		7A4414420000000000000050 /* CreateReadingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListCoordinator.swift; sourceTree = "<group>"; };
+		7A4414420000000000000060 /* ReadingListImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListImporter.swift; sourceTree = "<group>"; };
 		7A4414420000000000000030 /* SavedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCoordinator.swift; sourceTree = "<group>"; };
 		7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticleDownloadProgressObserver.swift; sourceTree = "<group>"; };
 		7A441442000000000000003A /* SavedTabBadgeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabBadgeController.swift; sourceTree = "<group>"; };
@@ -3443,8 +3445,6 @@
 		7A1C498E227254EC00230ED2 /* InsertMediaSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchViewController.swift; sourceTree = "<group>"; };
 		7A1C4994227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSelectedImageViewController.swift; sourceTree = "<group>"; };
 		7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Identifier.swift"; sourceTree = "<group>"; };
-		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
-		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertLinkViewController.swift; sourceTree = "<group>"; };
@@ -6331,6 +6331,8 @@
 				837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */,
 				675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */,
 				7A4414420000000000000020 /* ReadingListsCoordinator.swift */,
+				7A4414420000000000000050 /* CreateReadingListCoordinator.swift */,
+				7A4414420000000000000060 /* ReadingListImporter.swift */,
 				7A4414420000000000000030 /* SavedCoordinator.swift */,
 				7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */,
 				7A441442000000000000003A /* SavedTabBadgeController.swift */,
@@ -7496,8 +7498,6 @@
 				7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */,
 				B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */,
 				B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */,
-				7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */,
-				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
 				7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */,
 				7ABAD6B220338CFA006A364C /* ReadingListDetailHeaderView.swift */,
@@ -8870,7 +8870,6 @@
 				B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8D92B671DF22E1700B95311 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D84692E11D5E1E3F000A7058 /* TableOfContentsHeader.xib in Resources */,
-				7A2432C31FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				6782DC172347EE59003FA21B /* DiffListChangeCell.xib in Resources */,
 				D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */,
 				7A393286236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
@@ -8984,7 +8983,6 @@
 				0042811725E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				6780D5B5237A1F490087A5D1 /* DiffResponse.json in Resources */,
 				679BC8532C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */,
-				7A2432C41FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D8CE26801E698E2400DAE2E0 /* TSMessagesDefaultDesign.json in Resources */,
 				D8CE26811E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8CE26831E698E2400DAE2E0 /* ArticlePopoverViewController.xib in Resources */,
@@ -9087,7 +9085,6 @@
 				0042811625E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				6780D5B6237A1F490087A5D1 /* DiffResponse.json in Resources */,
 				679BC8522C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */,
-				7A2432C51FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D8EC3F801E9BDA35006712EB /* TSMessagesDefaultDesign.json in Resources */,
 				D8EC3F811E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8EC3F831E9BDA35006712EB /* ArticlePopoverViewController.xib in Resources */,
@@ -9701,6 +9698,8 @@
 				B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */,
 				675C97152F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */,
 				7A4414420000000000000022 /* ReadingListsCoordinator.swift in Sources */,
+				7A4414420000000000000052 /* CreateReadingListCoordinator.swift in Sources */,
+				7A4414420000000000000062 /* ReadingListImporter.swift in Sources */,
 				7A4414420000000000000032 /* SavedCoordinator.swift in Sources */,
 				7A4414420000000000000036 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				7A441442000000000000003C /* SavedTabBadgeController.swift in Sources */,
@@ -9983,7 +9982,6 @@
 				675826782D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */,
 				E319AC54A5FC45F79CBE9EEA /* VisualEditorReturnJourney.swift in Sources */,
 				D8E6FF6C24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
-				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				8330532923EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
@@ -10569,6 +10567,8 @@
 				D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */,
 				675C97162F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */,
 				7A4414420000000000000023 /* ReadingListsCoordinator.swift in Sources */,
+				7A4414420000000000000053 /* CreateReadingListCoordinator.swift in Sources */,
+				7A4414420000000000000063 /* ReadingListImporter.swift in Sources */,
 				7A4414420000000000000033 /* SavedCoordinator.swift in Sources */,
 				7A4414420000000000000037 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				7A441442000000000000003D /* SavedTabBadgeController.swift in Sources */,
@@ -10849,7 +10849,6 @@
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
 				67FBE33C29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */,
 				009C8EC429071E720056A3AC /* NSString+Range.swift in Sources */,
-				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				0042812325E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
@@ -11114,6 +11113,8 @@
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				675C97142F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */,
 				7A4414420000000000000021 /* ReadingListsCoordinator.swift in Sources */,
+				7A4414420000000000000051 /* CreateReadingListCoordinator.swift in Sources */,
+				7A4414420000000000000061 /* ReadingListImporter.swift in Sources */,
 				7A4414420000000000000031 /* SavedCoordinator.swift in Sources */,
 				7A4414420000000000000035 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				7A441442000000000000003B /* SavedTabBadgeController.swift in Sources */,
@@ -11390,7 +11391,6 @@
 				D8E6FF7924058AC600686272 /* WMFWebView.m in Sources */,
 				7ABE170E2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
-				7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				67FBE33B29705FC200A2E4AD /* TalkPageArchivesItem.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
 				009C8EC329071E720056A3AC /* NSString+Range.swift in Sources */,
