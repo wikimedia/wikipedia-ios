@@ -418,4 +418,74 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
         #expect(viewModel.selectedTopics == [.architecture])
     }
+
+    @Test
+    func toggleTopicWritesTopicsToTheStore() {
+        let store = WMFMockKeyValueStore()
+        let viewModel = makeViewModel(store: store)
+        viewModel.toggleTopic(.music)
+        viewModel.toggleTopic(.architecture)
+        #expect(WMFHomeDataController(userDefaultsStore: store).interestTopics() == [.music, .architecture])
+
+        viewModel.toggleTopic(.music)
+        #expect(WMFHomeDataController(userDefaultsStore: store).interestTopics() == [.architecture])
+    }
+
+    // MARK: - Change tracking
+
+    @Test
+    func hasChangesStartsFalse() {
+        let viewModel = makeViewModel()
+        #expect(viewModel.hasChanges == false)
+    }
+
+    @Test
+    func hasChangesFlipsOnTopicToggle() {
+        let viewModel = makeViewModel()
+        viewModel.toggleTopic(.music)
+        #expect(viewModel.hasChanges == true)
+    }
+
+    @Test
+    func hasChangesFlipsOnArticleToggle() {
+        let viewModel = makeViewModel()
+        let card = makeCard(pageid: 1, title: "A")
+        viewModel.gridViewModels = [card]
+        viewModel.toggleArticleSelection(card)
+        #expect(viewModel.hasChanges == true)
+    }
+
+    @Test
+    func hasChangesFlipsOnDeselectAll() {
+        let viewModel = makeViewModel()
+        viewModel.deselectAll()
+        #expect(viewModel.hasChanges == true)
+    }
+
+    @Test
+    func rejectedSearchResultDoesNotFlipHasChanges() {
+        let viewModel = makeViewModel()
+        viewModel.addSearchResult(makeSearchResult(pageID: 3, namespace: 1, title: "Talk:Einstein"))
+        #expect(viewModel.hasChanges == false)
+    }
+
+    @Test
+    func onSelectionChangedReportsTopicsAndSelectedArticleTitles() {
+        let viewModel = makeViewModel()
+        var reports: [(topics: [WMFArticleTopic], titles: [String])] = []
+        viewModel.onSelectionChanged = { topics, titles in
+            reports.append((topics, titles))
+        }
+
+        viewModel.toggleTopic(.music)
+        let card = makeCard(pageid: 1, title: "Marie Curie")
+        viewModel.gridViewModels = [card]
+        viewModel.toggleArticleSelection(card)
+
+        #expect(reports.count == 2)
+        #expect(reports[0].topics == [.music])
+        #expect(reports[0].titles.isEmpty)
+        #expect(reports[1].topics == [.music])
+        #expect(reports[1].titles == ["Marie_Curie"])
+    }
 }
