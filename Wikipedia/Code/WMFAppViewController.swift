@@ -485,6 +485,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         savedArticlesFetcher?.start()
         assignMoreDynamicTabsV2ExperimentIfNeeded()
         AppIconUtility.shared.checkAndRevertIfExpired()
+        performDatabaseHousekeepingIfNeeded()
     }
 
     func performTasksThatShouldOccurAfterAnnouncementsUpdated() {
@@ -700,21 +701,96 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     // MARK: - Background Processing
 
-    func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
-        let housekeeper = WMFDatabaseHousekeeper()
+    /// The task that prunes the WMFData database. Keep it, to let the caller stop it.
+    private var wmfDataHousekeepingTask: Task<Error?, Never>?
 
-        do {
-            try housekeeper.performHousekeepingOnManagedObjectContext(dataStore.viewContext, navigationStateController: navigationStateController, cleanupLevel: .low)
-        } catch {
-            DDLogError("Error on cleanup: \(error)")
+    /// The completions of the pass that runs now. Nil when no pass runs.
+    private var databaseHousekeepingCompletions: [(Error?) -> Void]?
+
+    /// Does a housekeeping pass on a background context if sufficient time went by after the last pass.
+    func performDatabaseHousekeepingIfNeeded() {
+        guard isMigrationComplete else {
+            return
         }
 
-        SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.talkPageCache, cleanupLevel: .low)
-        SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.didYouKnowCache, cleanupLevel: .low)
+        guard databaseHousekeepingCompletions == nil,
+              UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping else {
+            return
+        }
 
-        performWMFDataHousekeeping()
+        // Let the first screen appear first. The pass uses the same SQLite store.
+        Task { @MainActor [weak self] in
+            try? await Task.sleep(nanoseconds: Self.databaseHousekeepingLaunchDelay)
 
-        completion(nil)
+            // The app can become active again during the delay. Do the checks again, to start only one pass.
+            guard let self,
+                  self.databaseHousekeepingCompletions == nil,
+                  UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping else {
+                return
+            }
+            self.performDatabaseHousekeeping { _ in }
+        }
+    }
+
+    /// The time to wait after the app becomes active.
+    private static let databaseHousekeepingLaunchDelay: UInt64 = 5 * NSEC_PER_SEC
+
+    /// Stops the WMFData prune. The legacy pass has no stop point, thus it runs to the end.
+    func cancelDatabaseHousekeeping() {
+        wmfDataHousekeepingTask?.cancel()
+    }
+
+    func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
+        // Two passes at the same time delete the same objects on two contexts. Give a second caller the result of the pass that runs now.
+        if databaseHousekeepingCompletions != nil {
+            databaseHousekeepingCompletions?.append(completion)
+            return
+        }
+        databaseHousekeepingCompletions = [completion]
+
+        let housekeeper = WMFDatabaseHousekeeper()
+
+        // Read the view context on the main thread. A background context cannot find these articles.
+        let excludedArticleKeys = housekeeper.articleKeysToPreserve(in: dataStore, navigationStateController: navigationStateController)
+
+        dataStore.performBackgroundCoreDataOperation { moc in
+            var housekeepingError: Error?
+
+            do {
+                try housekeeper.performHousekeeping(on: moc, excludedArticleKeys: excludedArticleKeys, cleanupLevel: .low)
+            } catch {
+                housekeepingError = error
+                DDLogError("Error on cleanup: \(error)")
+            }
+
+            // These functions read and delete files. Keep them off the main thread.
+            SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.talkPageCache, cleanupLevel: .low)
+            SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.didYouKnowCache, cleanupLevel: .low)
+
+            Task { @MainActor [weak self] in
+                guard let self else {
+                    completion(housekeepingError)
+                    return
+                }
+
+                // Wait for the WMFData prune. The caller must not report completion before it ends.
+                let wmfDataTask = Task { await self.performWMFDataHousekeeping() }
+                self.wmfDataHousekeepingTask = wmfDataTask
+                let wmfDataError = await wmfDataTask.value
+                self.wmfDataHousekeepingTask = nil
+
+                let error = housekeepingError ?? wmfDataError
+                if error == nil {
+                    UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = Date()
+                }
+
+                let completions = self.databaseHousekeepingCompletions ?? []
+                self.databaseHousekeepingCompletions = nil
+                for completion in completions {
+                    completion(error)
+                }
+            }
+        }
     }
 
     // MARK: - Background Tasks
