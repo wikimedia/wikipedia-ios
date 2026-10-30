@@ -37,3 +37,15 @@ extension URLRequest {
         return Dictionary(queryItems.map { ($0.name, $0.value ?? "") }, uniquingKeysWith: { _, last in last })
     }
 }
+
+extension Array where Element == URLRequest {
+    /// Whether a request asks for each page's title in every language variant (prop=info, inprop=varianttitles)
+    func containsVariantTitlesRequest(generator: String) -> Bool {
+        contains { request in
+            let parameters = request.queryParameters
+            return parameters["generator"] == generator &&
+                parameters["prop"]?.split(separator: "|").contains("info") == true &&
+                parameters["inprop"] == "varianttitles"
+        }
+    }
+}

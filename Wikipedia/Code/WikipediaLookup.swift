@@ -74,4 +74,17 @@ import CocoaLumberjackSwift
             return nil
         }
     }
+
+    private static let legacyLanguageVariantCodesByLanguageVariantCode: [String: String] = {
+        guard let allLanguageVariants else {
+            return [:]
+        }
+        return Dictionary(allLanguageVariants.map { ($0.languageVariantCode, $0.legacyLanguageVariantCode) }, uniquingKeysWith: { first, _ in first })
+    }()
+
+    /// Returns the legacy MediaWiki variant code (e.g. zh-tw) for a BCP 47 language variant code (e.g. zh-Hant-TW)
+    @objc(legacyLanguageVariantCodeForLanguageVariantCode:)
+    static func legacyLanguageVariantCode(for languageVariantCode: String) -> String? {
+        return legacyLanguageVariantCodesByLanguageVariantCode[languageVariantCode]
+    }
 }

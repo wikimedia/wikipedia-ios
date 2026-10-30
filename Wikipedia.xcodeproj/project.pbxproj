@@ -1243,6 +1243,8 @@
 		7AFEB3F71FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB3F41FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift */; };
 		7B41F9C6D1A14BB6A9F0E101 /* SessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */; };
 		7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */; };
+		7D8C000C2FCF000000000001 /* WMFLocationSearchFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C000B2FCF000000000001 /* WMFLocationSearchFetcherTests.swift */; };
+		7D8C000E2FCF000000000001 /* MWKSearchResultSecureCodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C000D2FCF000000000001 /* MWKSearchResultSecureCodingTests.swift */; };
 		7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00032FCF000000000001 /* SearchHTTPClient.swift */; };
 		7D8C00062FCF000000000001 /* SearchURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00052FCF000000000001 /* SearchURLProtocol.swift */; };
 		7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */; };
@@ -1920,6 +1922,7 @@
 		BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB813C1C110702008BC602 /* NSDate+WMFPOTDTitle.m */; };
 		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */; };
+		C0FFEE5A2F90A1B200C0DE02 /* PageContentServiceHeadersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE5A2F90A1B200C0DE01 /* PageContentServiceHeadersTests.swift */; };
 		C5A99F81181347DFA472B1E9 /* PageContentService+UITestAccessibilityScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A66E119365436E9C5F853D /* PageContentService+UITestAccessibilityScript.swift */; };
 		CDC9E2BAE50D4C8880EEDEC3 /* VisualEditorReturnJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
@@ -3535,6 +3538,8 @@
 		7AFEB3F41FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHTTPClient.swift; sourceTree = "<group>"; };
 		7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSearchFetcherTests.swift; sourceTree = "<group>"; };
+		7D8C000B2FCF000000000001 /* WMFLocationSearchFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFLocationSearchFetcherTests.swift; sourceTree = "<group>"; };
+		7D8C000D2FCF000000000001 /* MWKSearchResultSecureCodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MWKSearchResultSecureCodingTests.swift; sourceTree = "<group>"; };
 		7D8C00032FCF000000000001 /* SearchHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHTTPClient.swift; sourceTree = "<group>"; };
 		7D8C00052FCF000000000001 /* SearchURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchURLProtocol.swift; sourceTree = "<group>"; };
 		7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+SearchRequestTests.swift"; sourceTree = "<group>"; };
@@ -4088,6 +4093,7 @@
 		BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplication+VisualTestUtils.h"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.h"; sourceTree = SOURCE_ROOT; };
 		BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+VisualTestUtils.m"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		C0FFEE5A2F90A1B200C0DE01 /* PageContentServiceHeadersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageContentServiceHeadersTests.swift; sourceTree = "<group>"; };
 		D17F65B649B1404086AB3BE8 /* ArticlePeekPreviewViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewControllerTests.swift; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -6260,6 +6266,7 @@
 			isa = PBXGroup;
 			children = (
 				7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */,
+				7D8C000B2FCF000000000001 /* WMFLocationSearchFetcherTests.swift */,
 				5EA5C0DE00000000000000B0 /* SearchResultsLoaderTests.swift */,
 				7D8C00032FCF000000000001 /* SearchHTTPClient.swift */,
 				7D8C00052FCF000000000001 /* SearchURLProtocol.swift */,
@@ -7256,6 +7263,8 @@
 				D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */,
 				D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */,
 				83BBBE5523F56F9400AD0994 /* LocaleTests.swift */,
+				C0FFEE5A2F90A1B200C0DE01 /* PageContentServiceHeadersTests.swift */,
+				7D8C000D2FCF000000000001 /* MWKSearchResultSecureCodingTests.swift */,
 				77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */,
 				D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */,
 				B0E809041C0D18A00065EBC0 /* CircularBitwiseRotationTests.m */,
@@ -9381,6 +9390,8 @@
 				67C6F77B27E2E78800B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift in Sources */,
 				67C6F77527E2E78800B9C864 /* NotificationsCenterCellViewModelGenericTests.swift in Sources */,
 				7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */,
+				7D8C000C2FCF000000000001 /* WMFLocationSearchFetcherTests.swift in Sources */,
+				7D8C000E2FCF000000000001 /* MWKSearchResultSecureCodingTests.swift in Sources */,
 				5EA5C0DE00000000000000B1 /* SearchResultsLoaderTests.swift in Sources */,
 				5EA5C0DE00000000000000D1 /* SearchResultsMapperTests.swift in Sources */,
 				7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */,
@@ -9404,6 +9415,7 @@
 				D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
 				83BBBE5623F56F9400AD0994 /* LocaleTests.swift in Sources */,
+				C0FFEE5A2F90A1B200C0DE02 /* PageContentServiceHeadersTests.swift in Sources */,
 				77C367D052E2441FA4BA9479 /* VisualEditorReturnJourneyTests.swift in Sources */,
 				B39427451E71F79700D3146D /* NSSetBlocksKitTest.m in Sources */,
 				B0E808B91C0D17160065EBC0 /* WMFHTTPHangingProtocol.m in Sources */,

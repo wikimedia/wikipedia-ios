@@ -104,6 +104,22 @@ struct SearchResultsMapperTests {
     }
 
     @Test
+    func descriptionMatchesTheRedirectByTitleWhenTheDisplayTitleIsAVariant() {
+        let mapping = MWKSearchRedirectMapping(fromTitle: "Linux核心", toTitle: "Linux内核")
+        let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [mapping])
+
+        #expect(mapper.description(for: makeResult(title: "Linux内核", displayTitle: "Linux內核")) == "Redirected from: Linux核心")
+    }
+
+    @Test
+    func descriptionMatchesTheRedirectWhenTheDisplayTitleChangesTheCase() {
+        let mapping = MWKSearchRedirectMapping(fromTitle: "Ebay", toTitle: "EBay")
+        let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [mapping])
+
+        #expect(mapper.description(for: makeResult(title: "EBay", displayTitle: "eBay")) == "Redirected from: Ebay")
+    }
+
+    @Test
     func descriptionIsNilWithoutRedirectOrWikidataDescription() {
         let mapping = MWKSearchRedirectMapping(fromTitle: "Felis", toTitle: "Cat")
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [mapping])

@@ -299,7 +299,7 @@ private extension URLRequest {
             setValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
         }
         
-        let acceptLanguage = request.languageVariantCode ?? WMFDataEnvironment.current.acceptLanguageUtility?()
+        let acceptLanguage = request.acceptLanguage ?? request.languageVariantCode ?? WMFDataEnvironment.current.acceptLanguageUtility?()
         if let acceptLanguage {
             setValue(acceptLanguage, forHTTPHeaderField: "Accept-Language")
         }

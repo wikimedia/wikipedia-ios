@@ -1,10 +1,12 @@
 import XCTest
+import WMFDataTestSupport
 
 @testable import WMFData
 @testable import WMFDataMocks
 
 final class WMFFeedDataControllerTests: XCTestCase {
 
+    private let fixture = WMFDataTestFixture()
     private let basicService = WMFMockBasicService(jsonResourceName: "feed-featured-2025-12-11-get")
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
@@ -24,6 +26,45 @@ final class WMFFeedDataControllerTests: XCTestCase {
 
     func testFetchFeedSucceeds() async throws {
         _ = try await fetchFixture()
+    }
+
+    override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
+    }
+
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
+    }
+
+    // MARK: - Accept-Language
+
+    private func acceptLanguageHeader(forLanguageCode languageCode: String, languageVariantCode: String?) async -> String? {
+        let urlSession = WMFMockNoInternetConnectionSession()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+        _ = try? await WMFFeedDataController(basicService: WMFBasicService(urlSession: urlSession)).fetchFeed(project: project, date: fixtureDate)
+        return urlSession.request?.value(forHTTPHeaderField: "Accept-Language")
+    }
+
+    func testFetchFeedSendsLegacyCodeFirstForRegionalChineseVariant() async {
+        let acceptLanguage = await acceptLanguageHeader(forLanguageCode: "zh", languageVariantCode: "zh-Hant-TW")
+        XCTAssertEqual(acceptLanguage, "zh-tw,zh-Hant-TW;q=0.9")
+    }
+
+    func testFetchFeedKeepsTheDefaultAcceptLanguageForLanguagesWithoutVariants() async {
+        WMFDataEnvironment.current.acceptLanguageUtility = { "de-de, en-us;q=0.50" }
+        await fixture.resetWMFDataTestState()
+
+        for languageCode in ["en", "de"] {
+            let acceptLanguage = await acceptLanguageHeader(forLanguageCode: languageCode, languageVariantCode: nil)
+            XCTAssertEqual(acceptLanguage, "de-de, en-us;q=0.50", languageCode)
+        }
+    }
+
+    func testFetchFeedSendsOnlyBCP47CodeForSerbianVariant() async {
+        let acceptLanguage = await acceptLanguageHeader(forLanguageCode: "sr", languageVariantCode: "sr-Latn")
+        XCTAssertEqual(acceptLanguage, "sr-Latn")
     }
 
     // MARK: - Today's Featured Article
