@@ -80,7 +80,11 @@ final class SavedCoordinator: NSObject, Coordinator {
 
         self.allArticlesCoordinator = allArticlesCoordinator
         self.readingListsCoordinator = readingListsCoordinator
-        self.progressObserver = SavedArticleDownloadProgressObserver(viewModel: progressViewModel)
+        self.progressObserver = SavedArticleDownloadProgressObserver(
+            viewModel: progressViewModel,
+            isInitialSyncPending: { [dataStore] in dataStore.readingListsController.isInitialSyncPending },
+            isServerBusy: { [dataStore] in dataStore.session.serverBusyPauseUntil != nil }
+        )
         self.viewModel = viewModel
         self.savedViewController = hostingController
         return hostingController

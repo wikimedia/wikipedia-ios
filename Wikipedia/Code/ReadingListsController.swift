@@ -446,6 +446,12 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
+    // True while the first sync after sign-in has not completed.
+    public var isInitialSyncPending: Bool {
+        assert(Thread.isMainThread)
+        return syncState.contains(.needsSync)
+    }
+
     // is sync enabled for this user
     @objc public var isSyncEnabled: Bool {
         assert(Thread.isMainThread)
