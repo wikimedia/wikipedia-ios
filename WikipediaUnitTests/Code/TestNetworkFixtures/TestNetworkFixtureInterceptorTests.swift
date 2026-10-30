@@ -274,7 +274,7 @@ final class TestNetworkFixtureInterceptorTests {
                     return
                 }
 
-                // URLSession deletes the downloaded file when this handler returns. Read it here.
+                // URLSession deletes the downloaded file once this handler returns, so read it here.
                 do {
                     let data = try Data(contentsOf: fileURL)
                     continuation.resume(returning: DownloadTaskResult(response: response as? HTTPURLResponse, data: data))

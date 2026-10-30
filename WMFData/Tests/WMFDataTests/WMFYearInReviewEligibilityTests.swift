@@ -93,6 +93,11 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
     }
 
+    private func nicheInterestSlide(categoryName: String?) throws -> WMFYearInReviewSlide {
+        let data = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName))
+        return WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
+    }
+
     private func rabbitHolesSlide(count: Int) throws -> WMFYearInReviewSlide {
         typealias SlideData = WMFYearInReviewRabbitHolesSlideData
         let article = SlideData.Article(title: "Article", projectID: "wikipedia~en")
@@ -235,6 +240,18 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         try await saveReport([try readCountSlide(3), try editCountSlide(1)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .personalized, "an editor with one reading slide gets the personalized slides, the same as on Android")
+    }
+
+    func testNicheInterestSlideWithACategoryCountsTowardPersonalized() async throws {
+        try await saveReport([try readCountSlide(3), try nicheInterestSlide(categoryName: "Executed female serial killers")])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
+    }
+
+    func testNicheInterestSlideWithoutACategoryDoesNotCount() async throws {
+        try await saveReport([try readCountSlide(3), try nicheInterestSlide(categoryName: nil)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the niche interest slide does not show")
     }
 
     func testZeroEditsDoNotCount() async throws {

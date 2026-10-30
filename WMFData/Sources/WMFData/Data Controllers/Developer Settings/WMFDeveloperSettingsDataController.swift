@@ -18,9 +18,10 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private let service: WMFService?
     private let _sharedCacheStore: WMFLockIsolated<WMFKeyValueStore?>
+    /// Falls back to the environment's store because `shared` can be created during launch before
+    /// the app assigns `WMFDataEnvironment.current.sharedCacheStore`.
     private var sharedCacheStore: WMFKeyValueStore? {
-        get { _sharedCacheStore.value }
-        set { _sharedCacheStore.value = newValue }
+        _sharedCacheStore.value ?? WMFDataEnvironment.current.sharedCacheStore
     }
     private let _featureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
     private var featureConfig: WMFFeatureConfigResponse? {
@@ -35,16 +36,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         self.service = service
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
         super.init()
-        NotificationCenter.default.addObserver(forName: WMFNSNotification.coreDataStoreSetup, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.handleSharedCacheStoreSetup()
-        }
-    }
-
-    private func handleSharedCacheStoreSetup() {
-        if sharedCacheStore == nil {
-            self.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
-        }
     }
 
     // MARK: - Local Settings
@@ -424,6 +415,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     @_spi(Testing) public func reset() {
         featureConfig = nil
-        sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+        _sharedCacheStore.value = WMFDataEnvironment.current.sharedCacheStore
     }
 }

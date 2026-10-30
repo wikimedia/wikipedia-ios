@@ -1,4 +1,5 @@
 import XCTest
+import WMFComponents
 
 final class ArticleControlsUITests: XCTestCase {
     func testArticleBackButtonReturnsToHome() throws {
@@ -53,6 +54,7 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testArticleTableOfContentsSectionSelectionWorks() throws {
+        try skipInE2E("Selects sections that only the bundled Dog fixture is guaranteed to have.")
         let fixture = articleControlsFixture
         openArticle()
             .openTableOfContents()
@@ -75,26 +77,27 @@ final class ArticleControlsUITests: XCTestCase {
     func testArticleOverflowMenuItemsAreAvailable() throws {
         openArticle()
             .openOverflowMenu()
-            .assertOverflowMenuItemsVisible(articleControlsFixture.overflowMenuTitles)
+            .assertOverflowMenuItemsVisible()
             .dismissOverflowMenu()
     }
 
     func testArticleOverflowWatchCanBeTapped() throws {
         openArticle()
-            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowWatchTitle)
+            .tapOverflowMenuItemAndAssertMenuDismisses(identifier: AccessibilityIdentifiers.Article.overflowWatchItem)
     }
 
     func testArticleOverflowTalkPageCanBeTapped() throws {
         openArticle()
-            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowTalkPageTitle)
+            .tapOverflowMenuItemAndAssertMenuDismisses(identifier: AccessibilityIdentifiers.Article.overflowTalkPageItem)
     }
 
-    func testArticleOverflowEditSourceCanBeTapped() throws {
+    func testArticleOverflowEditCanBeTapped() throws {
         openArticle()
-            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowEditSourceTitle)
+            .tapOverflowMenuItemAndAssertMenuDismisses(identifier: AccessibilityIdentifiers.Article.overflowEditItem)
     }
 
     func testArticleOverflowBackReturnsToPreviousArticle() throws {
+        try skipInE2E("Taps a body link that only the bundled Dog fixture is guaranteed to have.")
         openArticle()
             .tapArticleLinkAndAssertLoaded()
             .tapOverflowPreviousArticle(named: articleControlsFixture.primaryArticleTitle)
@@ -106,6 +109,7 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testArticleNonLeadImageCanBeTapped() throws {
+        try skipInE2E("Taps a body image that only the bundled Dog fixture is guaranteed to have.")
         try XCTSkipIf(
             uiTestConfiguration.languageCode == "de",
             "The German Dog fixture's configured non-lead image is inside a collapsed section."
@@ -118,6 +122,7 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testArticleLinkLongPressShowsPreviewAndMenuItems() throws {
+        try skipInE2E("Long-presses a body link that only the bundled Dog fixture is guaranteed to have.")
         try XCTSkipUnless(
             ["en", "vi"].contains(uiTestConfiguration.languageCode),
             "This test covers Dog fixtures where the linked article is visible in the body."
