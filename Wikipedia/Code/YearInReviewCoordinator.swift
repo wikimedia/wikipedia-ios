@@ -254,6 +254,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // The gift card follows the slides that were built, so the end screen agrees with the last slide.
         let hasContributorSlide = viewModel.slides.contains { $0.id == YearInReviewSlideViewModelFactory.contributorSlideID }
         viewModel.endViewModel = makeEndViewModel(isContributor: hasContributorSlide)
+        viewModel.highlights = slideFactory.makeHighlights(experience: experience, forcesAllEmptyStates: dataController.forcesAllEmptyStates)
 
         self.viewModel = viewModel
         self.slidesExperience = experience
@@ -518,6 +519,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
+    /// Shares the image of the highlights from the end screen, with the share text and the app link.
+    private func shareHighlights() {
+        guard let highlights = viewModel?.highlights, highlights.isShareable else {
+            return
+        }
+        let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+        guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: layoutDirection) else {
+            DDLogError("Could not make the Year in Review highlights image")
+            WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
+            return
+        }
+        presentShareSheet(image: image, from: hostingController?.navigationController)
+    }
+
     /// The export takes about a second. If the reader closed the slides, opened them again, or opened
     /// another screen from them in that time, the share sheet does not open.
     private func presentShareSheet(image: UIImage, from presenter: UIViewController?) {
@@ -575,6 +590,8 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
             shareFeedback()
         case .share(let slideID):
             shareSlide(slideID: slideID)
+        case .shareHighlights:
+            shareHighlights()
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }

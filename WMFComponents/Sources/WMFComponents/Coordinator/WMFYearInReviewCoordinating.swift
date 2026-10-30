@@ -13,5 +13,7 @@ public enum WMFYearInReviewAction {
     case aboutInsights(slideLoggingID: String)
     case shareFeedback(slideLoggingID: String)
     case share(slideID: String)
+    /// Shares the highlights image from the end screen.
+    case shareHighlights
     case donate(getSourceRect: @MainActor () -> CGRect, slideLoggingID: String)
 }

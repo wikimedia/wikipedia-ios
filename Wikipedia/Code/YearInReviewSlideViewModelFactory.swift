@@ -32,6 +32,7 @@ struct YearInReviewSlideViewModelFactory {
             closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
             moreButtonAccessibilityLabel: CommonStrings.moreButton,
             shareButtonTitle: CommonStrings.shortShareTitle,
+            shareHighlightsButtonTitle: CommonStrings.yearInReviewOutroShareButtonTitle,
             donateButtonTitle: CommonStrings.donateTitle,
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
             aboutInsightsButtonTitle: Self.aboutInsightsButtonTitle,
@@ -80,7 +81,7 @@ struct YearInReviewSlideViewModelFactory {
         case .personalized:
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
-            let readCount = storedReadCount() ?? 0
+            let readCount = storedReadData()?.readCount ?? 0
             return personalizedSlides(PersonalizedData(
                 readCount: readCount,
                 topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
@@ -127,15 +128,15 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Total articles
 
-    /// The number of unique articles read, from the report the app fills in the background.
-    /// `nil` when the report does not have this slide yet.
-    private func storedReadCount() -> Int? {
+    /// The number of unique articles read and the minutes read, from the report the app fills in
+    /// the background. `nil` when the report does not have this slide yet.
+    private func storedReadData() -> WMFYearInReviewReadData? {
         do {
             let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
             guard let data = report?.slides.first(where: { $0.id == .readCount })?.data else {
                 return nil
             }
-            return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data).readCount
+            return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data)
         } catch {
             DDLogError("Error reading the Year in Review total articles: \(error)")
             return nil
@@ -556,6 +557,66 @@ struct YearInReviewSlideViewModelFactory {
             lightContentFlag: Self.lightContentFlag,
             textFits: Self.copyFits(headline: RabbitHolePath.headline, bodyText: RabbitHolePath.bodyText)
         )
+    }
+
+    // MARK: - Highlights
+
+    /// What "Share highlights" on the end screen shares. `nil` in the collective flow, and when the
+    /// developer settings force the empty states, because then the reader saw no highlights.
+    func makeHighlights(experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool = false) -> WMFYearInReviewHighlights? {
+        guard experience == .personalized, !forcesAllEmptyStates else {
+            return nil
+        }
+        return highlights(
+            readData: storedReadData(),
+            rereadArticles: storedRereadArticles() ?? [],
+            rabbitHoles: storedRabbitHoles(),
+            categories: storedCategories()
+        )
+    }
+
+    /// Each highlight follows the rules of its slide, so the image only shows what the slides showed.
+    func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, categories: [String]) -> WMFYearInReviewHighlights {
+        let articlesRead = readData.flatMap { $0.isEligible ? $0.readCount : nil }
+        let minutesRead = readData.flatMap { $0.minutesRead > 0 ? $0.minutesRead : nil }
+        let rotation = rereadArticles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount
+            ? rereadArticles.map(\.title)
+            : []
+        var rabbitHole: WMFYearInReviewHighlights.RabbitHole?
+        if let rabbitHoles, rabbitHoles.isEligible, let deepest = rabbitHoles.rabbitHoles.first {
+            rabbitHole = WMFYearInReviewHighlights.RabbitHole(firstTitle: deepest.firstArticle.title, lastTitle: deepest.lastArticle.title)
+        }
+        return WMFYearInReviewHighlights(
+            articlesRead: articlesRead,
+            minutesRead: minutesRead,
+            rotation: rotation,
+            rabbitHole: rabbitHole,
+            nicheCategory: categories.first,
+            localizedStrings: WMFYearInReviewHighlights.LocalizedStrings(
+                title: CommonStrings.yearInReviewHighlightsTitle,
+                articlesReadLabel: CommonStrings.yearInReviewHighlightsArticlesRead,
+                minutesReadLabel: CommonStrings.yearInReviewHighlightsMinutesRead,
+                rotationLabel: CommonStrings.yearInReviewHighlightsRotation,
+                rabbitHoleLabel: CommonStrings.yearInReviewHighlightsRabbitHole,
+                nicheCategoryLabel: CommonStrings.yearInReviewHighlightsNicheCategory,
+                createdWith: CommonStrings.yearInReviewHighlightsCreatedWith
+            )
+        )
+    }
+
+    /// The most read categories with the most specific names first, from the report the app fills
+    /// in the background. Empty when the report does not have them.
+    private func storedCategories() -> [String] {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == .mostReadCategories })?.data else {
+                return []
+            }
+            return try JSONDecoder().decode([String].self, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review categories: \(error)")
+            return []
+        }
     }
 
     // MARK: - Collective

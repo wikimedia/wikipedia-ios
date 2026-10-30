@@ -280,9 +280,9 @@ private struct ScrollOffsetKey: PreferenceKey {
 }
 
 
-/// EB Garamond for the body copy of the end screen. It is the file that the slides use (#6328).
-/// It is registered for this process the first time it is used.
-private enum WMFYearInReviewEndFont {
+/// EB Garamond for the body copy of the end screen and the highlights image. It is the file that
+/// the slides use (#6328). It is registered for this process the first time it is used.
+enum WMFYearInReviewEndFont {
 
     private static let postScriptName = "EBGaramond-Regular"
 
@@ -301,5 +301,13 @@ private enum WMFYearInReviewEndFont {
             return WMFFont.for(.georgiaCallout, compatibleWith: traitCollection)
         }
         return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font, compatibleWith: traitCollection)
+    }
+
+    /// A fixed size that does not follow Dynamic Type, for images that are shared.
+    static func fixed(size: CGFloat) -> UIFont {
+        guard isRegistered, let font = UIFont(name: postScriptName, size: size) else {
+            return UIFont(name: "Georgia", size: size) ?? UIFont.systemFont(ofSize: size)
+        }
+        return font
     }
 }

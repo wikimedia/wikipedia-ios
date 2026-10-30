@@ -143,7 +143,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         if viewModel.showsShareButton {
             items.append(
                 makeToolbarItem(
-                    title: viewModel.localizedStrings.shareButtonTitle,
+                    title: viewModel.shareButtonTitle,
                     symbol: .share,
                     action: #selector(tappedShare)
                 )

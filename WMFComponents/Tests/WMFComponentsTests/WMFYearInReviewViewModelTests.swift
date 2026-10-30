@@ -41,6 +41,7 @@ struct WMFYearInReviewViewModelTests {
             closeButtonAccessibilityLabel: "Close",
             moreButtonAccessibilityLabel: "More",
             shareButtonTitle: "Share",
+            shareHighlightsButtonTitle: "Share highlights",
             donateButtonTitle: "Donate",
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",

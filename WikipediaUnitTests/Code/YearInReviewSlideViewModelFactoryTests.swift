@@ -659,4 +659,61 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.rabbitHoleSlides(try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true)).isEmpty)
         #expect(factory.rabbitHoleSlides(nil).isEmpty)
     }
+
+    // MARK: - Highlights
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func readData(readCount: Int, minutesRead: Int) throws -> WMFYearInReviewReadData {
+        let json: [String: Any] = ["readCount": readCount, "minutesRead": minutesRead]
+        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test
+    func theHighlightsHaveEveryStatThatTheReaderHas() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 120, minutesRead: 900),
+            rereadArticles: [
+                .init(title: "Moon", visitCount: 9, project: nil),
+                .init(title: "Cat", visitCount: 7, project: nil),
+                .init(title: "Paris", visitCount: 5, project: nil),
+                .init(title: "Europe", visitCount: 3, project: nil)
+            ],
+            rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: false),
+            categories: ["Executed female serial killers", "Cats"]
+        )
+
+        #expect(highlights.articlesRead == 120)
+        #expect(highlights.minutesRead == 900)
+        #expect(highlights.rotation == ["Moon", "Cat", "Paris"], "at most three, most visited first")
+        #expect(highlights.rabbitHole == .init(firstTitle: "Moon", lastTitle: "Cat"), "the deepest, wherever the guess slide put it")
+        #expect(highlights.nicheCategory == "Executed female serial killers")
+        #expect(highlights.highlightCount == 5)
+        #expect(highlights.isShareable)
+        #expect(highlights.localizedStrings.createdWith == CommonStrings.yearInReviewHighlightsCreatedWith)
+    }
+
+    /// A highlight shows only when its slide showed its full version.
+    @Test
+    func theHighlightsLeaveOutWhatTheSlidesLeftOut() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: WMFYearInReviewReadData.minimumReadCount - 1, minutesRead: 4),
+            rereadArticles: [.init(title: "Moon", visitCount: 9, project: nil)],
+            rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true),
+            categories: []
+        )
+
+        #expect(highlights.articlesRead == nil)
+        #expect(highlights.minutesRead == 4)
+        #expect(highlights.rotation.isEmpty)
+        #expect(highlights.rabbitHole == nil)
+        #expect(highlights.nicheCategory == nil)
+        #expect(highlights.highlightCount == 1)
+        #expect(highlights.isShareable == false, "with fewer than two highlights, Share highlights does not show")
+    }
+
+    @Test
+    func theCollectiveFlowHasNoHighlights() {
+        #expect(factory.makeHighlights(experience: .collective) == nil)
+        #expect(factory.makeHighlights(experience: .personalized, forcesAllEmptyStates: true) == nil)
+    }
 }

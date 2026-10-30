@@ -17,14 +17,18 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let progressBarTopGap = WMFSpacing.medium
 
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
-    /// .riv, no logging, and no share or donate button.
+    /// .riv and no slide logging. Its toolbar has the donate button, and its share button shares
+    /// the highlights, not a slide.
     public static let endPageID = "yearInReviewEnd"
+    /// The slide id reported for a tap in the toolbar of the end screen.
+    static let endLoggingID = "end"
 
     public struct LocalizedStrings {
         public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
         public let moreButtonAccessibilityLabel: String
         public let shareButtonTitle: String
+        public let shareHighlightsButtonTitle: String
         public let donateButtonTitle: String
         public let learnMoreButtonTitle: String
         public let aboutInsightsButtonTitle: String
@@ -36,6 +40,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             closeButtonAccessibilityLabel: String,
             moreButtonAccessibilityLabel: String,
             shareButtonTitle: String,
+            shareHighlightsButtonTitle: String,
             donateButtonTitle: String,
             learnMoreButtonTitle: String,
             aboutInsightsButtonTitle: String,
@@ -46,6 +51,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
             self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.shareButtonTitle = shareButtonTitle
+            self.shareHighlightsButtonTitle = shareHighlightsButtonTitle
             self.donateButtonTitle = donateButtonTitle
             self.learnMoreButtonTitle = learnMoreButtonTitle
             self.aboutInsightsButtonTitle = aboutInsightsButtonTitle
@@ -80,6 +86,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     /// The end screen, shown as the page after the last slide. The coordinator sets it. `nil` means there is no end screen.
     @Published public var endViewModel: WMFYearInReviewEndViewModel?
+
+    /// What "Share highlights" on the end screen shares. The coordinator sets it. `nil` in the
+    /// collective flow, which has no highlights.
+    @Published public var highlights: WMFYearInReviewHighlights?
 
     /// The content style that each loaded slide reads from its .riv, by slide id.
     @Published private(set) var loadedContentStyles: [String: WMFYearInReviewSlideViewModel.ContentStyle] = [:]
@@ -152,11 +162,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return (loadedContentStyles[currentSlide.id] ?? currentSlide.contentStyle).color
     }
 
-    /// The color around the page and of the toolbar. On a slide, it is the dark chrome color.
-    /// The end screen has no rounded corners, so this color is the color of its page.
-    /// Then the space between the page and the toolbar does not show a dark bar.
+    /// The color around the page and of the toolbar. It is the dark chrome color on every page,
+    /// including the end screen, where only the toolbar shows it. The end screen covers the rest.
     public var currentChromeColor: UIColor {
-        isOnEnd ? WMFYearInReviewEndViewModel.pageBackgroundColor : Self.chromeBackgroundColor
+        Self.chromeBackgroundColor
     }
 
     /// Puts `slide` in the place of the slide with `id`, for example the contributor slide after a
@@ -213,12 +222,20 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     /// A slide with its own donate button does not show the share button, so the donate button is
-    /// the only action on the slide.
+    /// the only action on the slide. On the end screen, the button shares the highlights, and only
+    /// shows with enough of them.
     var showsShareButton: Bool {
+        if isOnEnd {
+            return highlights?.isShareable ?? false
+        }
         guard let currentSlide else {
             return false
         }
         return currentSlide.showsShareButton && !currentSlide.showsPrimaryDonateButton
+    }
+
+    var shareButtonTitle: String {
+        isOnEnd ? localizedStrings.shareHighlightsButtonTitle : localizedStrings.shareButtonTitle
     }
 
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
@@ -245,6 +262,12 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedShare() {
+        if isOnEnd {
+            guard showsShareButton else { return }
+            loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: Self.endLoggingID)
+            coordinatorDelegate?.handleYearInReviewAction(.shareHighlights)
+            return
+        }
         guard let slide = currentSlide else { return }
         loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: slide.loggingID)
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
