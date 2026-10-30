@@ -6,6 +6,8 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
     private let viewModel: WMFYearInReviewViewModel
     private var cancellables = Set<AnyCancellable>()
+    /// The color that `applyContentColor()` last gave the bar items.
+    private var appliedContentColor: UIColor?
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
@@ -84,6 +86,9 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+        // The bar items are new, and the navigation bar may not have had this color yet.
+        appliedContentColor = nil
+        applyContentColor()
         (navigationController as? WMFComponentNavigationController)?.setTransparentAppearance(true)
         configureToolbar()
         navigationController?.setToolbarHidden(false, animated: animated)
@@ -265,20 +270,12 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     /// Each slide says whether its artwork is light or dark, so the bar items follow the current slide.
     private func applyContentColor() {
         let color = contentColor
-        print("[YiR-tint] applyContentColor isOnEnd=\(viewModel.isOnEnd) endUsesLight=\(viewModel.endUsesLightContent) color=\(color)")
+        // This runs on each slide change and each scroll step of the end screen. Do nothing if the color is the same.
+        guard color != appliedContentColor else { return }
+        appliedContentColor = color
+
         WMFYearInReviewNavigationItems.applyTintColor(color, to: navigationItem)
-
-        guard let navigationBar = navigationController?.navigationBar else { return }
-        navigationBar.tintColor = color
-
-        // Liquid glass bar button items keep their old glyph color after a tint change, until the bar
-        // lays out again. This happens when the end screen scrolls, so nudge the bar to lay out now.
-        if #available(iOS 26.0, *) {
-            let frame = navigationBar.frame
-            navigationBar.frame = frame.insetBy(dx: 0, dy: 0.1)
-            navigationBar.frame = frame
-            navigationBar.layoutIfNeeded()
-        }
+        navigationController?.navigationBar.tintColor = color
     }
 
     /// The color from the .riv once the slide has loaded, otherwise the style the factory gave it.

@@ -84,9 +84,6 @@ public struct WMFYearInReviewEndView: View {
             }
         }
         .coordinateSpace(name: Self.scrollSpaceName)
-        .onPreferenceChange(ScrollOffsetKey.self) { offset in
-            updateUsesLightContent(scrollOffset: offset)
-        }
         .modifier(ScrollGeometryOffsetModifier { offset in
             updateUsesLightContent(scrollOffset: offset)
         })
@@ -100,7 +97,6 @@ public struct WMFYearInReviewEndView: View {
     /// The controls sit about `topInset` below the top of the screen.
     private func updateUsesLightContent(scrollOffset: CGFloat) {
         let usesLightContent = scrollOffset + topInset > WMFYearInReviewEndViewModel.skyHeight * Self.lightContentSkyFraction
-        print("[YiR-tint] offset=\(scrollOffset) topInset=\(topInset) usesLight=\(usesLightContent)")
         onUsesLightContentChange?(usesLightContent)
     }
 
@@ -261,8 +257,9 @@ public struct WMFYearInReviewEndView: View {
     }
 }
 
-/// Reports the scroll offset of the scroll view it is on, from iOS 18. Before that, the preference
-/// on the content reports it.
+/// Reports the scroll offset of the scroll view it is on. From iOS 18 the scroll geometry reports it.
+/// Before that, the preference on the content reports it. Only one of the two runs, so each offset
+/// is reported once.
 private struct ScrollGeometryOffsetModifier: ViewModifier {
     let onChange: (CGFloat) -> Void
 
@@ -274,7 +271,9 @@ private struct ScrollGeometryOffsetModifier: ViewModifier {
                 onChange(offset)
             }
         } else {
-            content
+            content.onPreferenceChange(ScrollOffsetKey.self) { offset in
+                onChange(offset)
+            }
         }
     }
 }

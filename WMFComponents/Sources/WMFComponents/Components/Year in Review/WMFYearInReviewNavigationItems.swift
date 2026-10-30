@@ -52,6 +52,17 @@ enum WMFYearInReviewNavigationItems {
             viewController.navigationItem.titleView = nil
         }
 
+        // The system close item cannot take an image. On iOS 26, use an image item, so that
+        // `applyTintColor` can change its glyph color.
+        if #available(iOS 26.0, *) {
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                image: closeImage,
+                style: .plain,
+                target: viewController,
+                action: closeAction
+            )
+        }
+
         viewController.navigationItem.rightBarButtonItem = makeMoreButton(
             strings: strings,
             onLearnMore: onLearnMore,
@@ -71,9 +82,27 @@ enum WMFYearInReviewNavigationItems {
         navigationItem.leftBarButtonItem?.tintColor = color
         navigationItem.rightBarButtonItem?.tintColor = color
         navigationItem.titleView?.tintColor = color
+
+        // Liquid glass bar button items keep their old glyph color after a tint change. A new image
+        // makes the item draw its glyph again with the new tint. It updates the item in place, so it
+        // does not flash.
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem?.image = closeImage
+            navigationItem.rightBarButtonItem?.image = moreImage
+        }
     }
 
     // MARK: - Private
+
+    @MainActor
+    private static var closeImage: UIImage {
+        WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont) ?? UIImage()
+    }
+
+    @MainActor
+    private static var moreImage: UIImage {
+        WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage()
+    }
 
     @MainActor
     private static func makeTitleView(accessibilityLabel: String) -> UIView {
@@ -114,7 +143,7 @@ enum WMFYearInReviewNavigationItems {
         }
 
         let item = UIBarButtonItem(
-            image: WMFSFSymbolIcon.for(symbol: .ellipsis),
+            image: moreImage,
             menu: UIMenu(children: [learnMore, aboutInsights, shareFeedback])
         )
         item.accessibilityLabel = strings.moreButtonAccessibilityLabel

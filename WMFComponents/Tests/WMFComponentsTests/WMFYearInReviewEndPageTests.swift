@@ -100,21 +100,12 @@ struct WMFYearInReviewEndPageTests {
     }
 
     @Test
-    func theEndScreenShowsDonateWithoutShare() {
+    func theEndScreenHasNoToolbarButtons() {
         let viewModel = makeViewModel()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
         #expect(viewModel.showsShareButton == false)
-        #expect(viewModel.showsDonateButton)
-    }
-
-    @Test
-    func theEndScreenHidesDonateWhereDonationsAreNotAccepted() {
-        let viewModel = makeViewModel(hidesDonate: { true })
-
-        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
-
         #expect(viewModel.showsDonateButton == false)
     }
 

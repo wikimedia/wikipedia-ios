@@ -17,10 +17,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let progressBarTopGap = WMFSpacing.medium
 
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
-    /// .riv, no slide logging, and no share button. It has the toolbar donate button.
+    /// .riv, no logging, and no share or donate button.
     public static let endPageID = "yearInReviewEnd"
-    /// The slide id reported for a donation from the end screen.
-    static let endLoggingID = "end"
 
     public struct LocalizedStrings {
         public let wIconAccessibilityLabel: String
@@ -223,11 +221,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
-    /// The end screen shows the donate button, without the share button, where donations are accepted.
     var showsDonateButton: Bool {
-        if isOnEnd {
-            return !hidesDonate()
-        }
         guard let currentSlide,
               currentSlide.showsDonateButton,
               !currentSlide.showsPrimaryDonateButton else {
@@ -256,9 +250,9 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedDonate(sourceRect: @escaping @MainActor () -> CGRect) {
-        guard let slideLoggingID = currentSlide?.loggingID ?? (isOnEnd ? Self.endLoggingID : nil) else { return }
-        loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
-        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slideLoggingID))
+        guard let slide = currentSlide else { return }
+        loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slide.loggingID)
+        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slide.loggingID))
     }
 
     private func logSlideAppearance() {
