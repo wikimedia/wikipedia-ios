@@ -44,24 +44,38 @@ public struct WMFYearInReviewHighlightsShareView: View {
         self.highlights = highlights
     }
 
+    /// How much room the content above the footer takes. Long text in some languages does not fit
+    /// in the full layout, so the image uses the first of `fits` that does.
+    struct Fit {
+        /// The size of the crossword, as a fraction of its full size. `nil` hides it.
+        let crosswordScale: CGFloat?
+        let valueLineLimit: Int
+    }
+
+    /// From the most room to the least. The crossword gets smaller, then goes, before any text is
+    /// cut. Below half its size, the crossword is too small to read as one.
+    static let fits = [
+        Fit(crosswordScale: 1, valueLineLimit: 3),
+        Fit(crosswordScale: 0.9, valueLineLimit: 3),
+        Fit(crosswordScale: 0.8, valueLineLimit: 3),
+        Fit(crosswordScale: 0.7, valueLineLimit: 3),
+        Fit(crosswordScale: 0.6, valueLineLimit: 3),
+        Fit(crosswordScale: 0.5, valueLineLimit: 3),
+        Fit(crosswordScale: nil, valueLineLimit: 3),
+        Fit(crosswordScale: nil, valueLineLimit: 2),
+        Fit(crosswordScale: nil, valueLineLimit: 1)
+    ]
+
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-                Text(highlights.localizedStrings.title)
-                    .font(Font(titleFont))
-                    .foregroundColor(textColor)
-                    .multilineTextAlignment(.leading)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.top, 40)
-
-                crossword
-                    .padding(.top, 12)
-                    // The crossword shrinks first when the text needs more room.
-                    .layoutPriority(-1)
-
-                rows
+            ViewThatFits(in: .vertical) {
+                ForEach(Self.fits.indices, id: \.self) { index in
+                    content(fit: Self.fits[index])
+                }
             }
             .frame(maxHeight: .infinity, alignment: .top)
+            // If even the last fit is too tall, the content is cut here and does not cover the footer.
+            .clipped()
 
             divider
             footer
@@ -71,13 +85,35 @@ public struct WMFYearInReviewHighlightsShareView: View {
         .background(Color(uiColor: Self.backgroundColor))
     }
 
+    private func content(fit: Fit) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(highlights.localizedStrings.title)
+                .font(Font(titleFont))
+                .foregroundColor(textColor)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 40)
+
+            if let crosswordScale = fit.crosswordScale {
+                crossword(scale: crosswordScale)
+                    .padding(.top, 12)
+            } else {
+                Spacer()
+                    .frame(height: 20)
+            }
+
+            rows(valueLineLimit: fit.valueLineLimit)
+        }
+    }
+
     // MARK: - Crossword
 
-    private var crossword: some View {
-        Image("yir-crossword", bundle: .module)
+    private func crossword(scale: CGFloat) -> some View {
+        let width = Self.crosswordWidth * scale
+        return Image("yir-crossword", bundle: .module)
             .resizable()
             .scaledToFit()
-            .frame(maxWidth: Self.crosswordWidth, maxHeight: Self.crosswordWidth / Self.crosswordAspectRatio)
+            .frame(width: width, height: width / Self.crosswordAspectRatio)
             .frame(maxWidth: .infinity)
             // The crossword reads the same in every language, so it never mirrors with the layout.
             .environment(\.layoutDirection, .leftToRight)
@@ -87,7 +123,7 @@ public struct WMFYearInReviewHighlightsShareView: View {
     // MARK: - Rows
 
     @ViewBuilder
-    private var rows: some View {
+    private func rows(valueLineLimit: Int) -> some View {
         if highlights.articlesRead != nil || highlights.minutesRead != nil {
             divider
             countsRow
@@ -101,7 +137,7 @@ public struct WMFYearInReviewHighlightsShareView: View {
                         HStack(alignment: .firstTextBaseline, spacing: 6) {
                             Text(verbatim: highlights.localizedStrings.rotationRank(index + 1))
                                 .font(Font(rankFont).monospacedDigit())
-                            valueText(title)
+                            valueText(title, lineLimit: valueLineLimit)
                         }
                     }
                 }
@@ -112,8 +148,8 @@ public struct WMFYearInReviewHighlightsShareView: View {
             divider
             row(label: highlights.localizedStrings.rabbitHoleLabel) {
                 VStack(alignment: .leading, spacing: 0) {
-                    valueText(rabbitHole.firstTitle)
-                    valueText("↓ \(rabbitHole.lastTitle)")
+                    valueText(rabbitHole.firstTitle, lineLimit: valueLineLimit)
+                    valueText("↓ \(rabbitHole.lastTitle)", lineLimit: valueLineLimit)
                 }
             }
         }
@@ -121,7 +157,7 @@ public struct WMFYearInReviewHighlightsShareView: View {
         if let nicheCategory = highlights.nicheCategory {
             divider
             row(label: highlights.localizedStrings.nicheCategoryLabel) {
-                valueText(nicheCategory)
+                valueText(nicheCategory, lineLimit: valueLineLimit)
             }
         }
     }
@@ -171,12 +207,12 @@ public struct WMFYearInReviewHighlightsShareView: View {
             .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func valueText(_ text: String) -> some View {
+    private func valueText(_ text: String, lineLimit: Int) -> some View {
         Text(text)
             .font(Font(valueFont))
             .foregroundColor(textColor)
             .multilineTextAlignment(.leading)
-            .lineLimit(3)
+            .lineLimit(lineLimit)
             .fixedSize(horizontal: false, vertical: true)
     }
 
