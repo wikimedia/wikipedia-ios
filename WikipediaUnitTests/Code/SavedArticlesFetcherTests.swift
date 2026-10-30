@@ -18,6 +18,7 @@ class SavedArticlesFetcherTests: XCTestCase {
 
     override func tearDown() {
         super.tearDown()
+        fetcher.stop()
         dataStore.removeFolderAtBasePath()
     }
 
@@ -71,6 +72,22 @@ class SavedArticlesFetcherTests: XCTestCase {
         XCTAssertEqual(article.error, .none)
         XCTAssertEqual(article.downloadAttemptCount, 0)
         XCTAssertNil(article.downloadRetryDate)
+    }
+
+    func testCacheRemovalDoesNotWaitForServerBusyPause() throws {
+        let sessionDelegate = try XCTUnwrap(dataStore.session.defaultURLSession.delegate as? SessionDelegate)
+        sessionDelegate.onServerBusy?(600)
+        XCTAssertNotNil(dataStore.session.serverBusyPauseUntil, "The session should be paused for this test")
+
+        let article = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Foo")!))
+        article.isDownloaded = true
+        try dataStore.viewContext.save()
+
+        fetcher.start()
+        NotificationCenter.default.post(name: NSNotification.Name.WMFArticleUpdated, object: nil)
+
+        let removed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in !article.isDownloaded }, object: nil)
+        wait(for: [removed], timeout: 5)
     }
 
     func testServerBusyCooldownUsesRetryAfterAndBacksOff() {
