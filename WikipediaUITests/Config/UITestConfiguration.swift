@@ -6,6 +6,12 @@ extension XCTestCase {
     var uiTestConfiguration: UITestConfiguration {
         UITestConfiguration()
     }
+
+    /// Skips the test in the live-network E2E configuration, for tests that depend on fixture
+    /// content or fixture-only state that live services do not reproduce.
+    func skipInE2E(_ reason: String) throws {
+        try XCTSkipIf(uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.e2e.rawValue, reason)
+    }
 }
 
 /// Captures the launch-time settings that make UI tests deterministic across theme, language, onboarding state, and network profile.

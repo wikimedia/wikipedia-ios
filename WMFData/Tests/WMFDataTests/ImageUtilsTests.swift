@@ -43,4 +43,18 @@ final class ImageUtilsTests: XCTestCase {
         XCTAssertEqual(ImageUtils.standardizeWidthToMediaWiki(0), 20)
         XCTAssertEqual(ImageUtils.standardizeWidthToMediaWiki(-100), 20)
     }
+
+    func testThumbnailURLReplacesTheWidthPrefix() throws {
+        let storedURL = try XCTUnwrap(URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cat.jpg/160px-Cat.jpg"))
+        let mockedURL = try XCTUnwrap(URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cat.jpg/250px-Cat.jpg"))
+
+        XCTAssertEqual(ImageUtils.thumbnailURL(from: storedURL, width: 960).absoluteString, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cat.jpg/960px-Cat.jpg")
+        XCTAssertEqual(ImageUtils.thumbnailURL(from: mockedURL, width: 960).absoluteString, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cat.jpg/960px-Cat.jpg")
+    }
+
+    func testThumbnailURLLeavesAnOriginalFileUnchanged() throws {
+        let originalURL = try XCTUnwrap(URL(string: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Cat.jpg"))
+
+        XCTAssertEqual(ImageUtils.thumbnailURL(from: originalURL, width: 960), originalURL)
+    }
 }

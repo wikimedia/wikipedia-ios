@@ -367,7 +367,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         searchTabViewController.apply(theme: theme)
 
         if let savedTabBarItem = savedViewController.tabBarItem {
-            savedTabBadgeController = SavedTabBadgeController(tabBarItem: savedTabBarItem, tabBar: tabBar, theme: theme)
+            savedTabBadgeController = SavedTabBadgeController(
+                tabBarItem: savedTabBarItem,
+                tabBar: tabBar,
+                theme: theme,
+                userInterfaceIdiom: traitCollection.userInterfaceIdiom
+            )
         }
 
         updateActivityTabYearInReviewBadge()
