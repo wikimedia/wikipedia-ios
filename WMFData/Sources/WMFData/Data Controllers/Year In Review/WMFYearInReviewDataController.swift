@@ -184,7 +184,7 @@ import CoreData
 
     /// The number of slides that this report entry shows in their full version, not their empty
     /// version. The top topics entry holds two slides, the top topic and the runners-up, and Android
-    /// counts each of them.
+    /// counts each of them. The rabbit holes entry is one slide: the reveal replaces the guess in place.
     static func fullSlideCount(for slide: WMFYearInReviewSlide) -> Int {
         guard let data = slide.data else {
             return 0
@@ -202,10 +202,14 @@ import CoreData
             return (topTopics.isEligible ? 1 : 0) + (topTopics.showsRunnerUps ? 1 : 0)
         case .daysVisited:
             return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .mostReadCategories:
+            return (try? decoder.decode(WMFYearInReviewNicheCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .rabbitHoles:
+            return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .editCount:
             // Android counts its total edits slide from one edit, also before the edit slides are built here.
             return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0
-        case .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
+        case .donateCount, .saveCount, .mostReadDate, .viewCount, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
             return 0
         }
@@ -613,7 +617,18 @@ import CoreData
                 fetchLimit: 1,
                 in: backgroundContext
             )?.first
-            return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
+            let cdSlides = cdReport?.slides as? Set<CDYearInReviewSlide> ?? []
+            return Set(cdSlides.compactMap { cdSlide -> String? in
+                guard let id = cdSlide.id else {
+                    return nil
+                }
+                // A slide in an older format counts as missing. Thus, the report builds it again.
+                if let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: id),
+                   !slideID.dataController().hasCurrentFormat(cdSlide.data) {
+                    return nil
+                }
+                return id
+            })
         }
 
         // For any slide IDs missing, create associated slide data controllers and populate their data. Set evaluated flag if population succeeds
@@ -647,12 +662,13 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
-            // Only preserve existing slides that should freeze
+            // Only preserve existing slides that should freeze and use the current format.
+            // A slide in an older format is deleted. The data controller above built it again.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    if dataController.shouldFreeze {
+                    if dataController.shouldFreeze && dataController.hasCurrentFormat(slide.data) {
                         finalCDSlides.insert(slide)
                     } else {
                         backgroundContext.delete(slide)
@@ -887,6 +903,26 @@ public struct WMFYearInReviewReadData: Codable {
     /// If false, show the empty state of the total articles slide.
     public var isEligible: Bool {
         readCount >= Self.minimumReadCount
+    }
+}
+
+/// The data of the niche interest slide: one category that the reader read 2 or more articles in.
+/// The data controller picks the category at random when it builds the report. After that, the
+/// slide always shows the same category.
+public struct WMFYearInReviewNicheCategorySlideData: Codable, Sendable {
+    /// The category name with spaces, not underscores. It is nil when no category is a candidate.
+    public let categoryName: String?
+
+    public init(categoryName: String?) {
+        self.categoryName = categoryName
+    }
+
+    /// If false, do not show the niche interest slide. This slide has no empty version.
+    public var isEligible: Bool {
+        guard let categoryName else {
+            return false
+        }
+        return !categoryName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 

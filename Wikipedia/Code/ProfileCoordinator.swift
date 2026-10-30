@@ -219,7 +219,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         )
         viewModel.regenerateYiR2026Report = { [dataStore] in
-            try await YearInReviewCoordinator.populateReport(dataStore: dataStore, regenerate: true) != nil
+            try await YearInReviewCoordinator.buildReport(dataStore: dataStore, regenerate: true) != nil
         }
         viewModel.configureLocalNotificationActions(dataStore: dataStore)
         // TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).

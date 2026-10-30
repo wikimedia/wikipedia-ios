@@ -35,9 +35,14 @@ public final class WMFDiscoverReadingListHostingController: WMFComponentHostingC
 
     // MARK: - Navigation bar
 
-    /// The bar is transparent over the collage and shows the title only after the collage scrolls under it.
+    /// The bar is transparent over the collage and shows no title. The page body has the title. The next screen shows "Discover" in its back button.
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: WMFDiscoverReadingListView.title, customView: nil, alignment: .centerCompact)
+        let titleConfig = WMFNavigationBarTitleConfig(
+            title: WMFDiscoverReadingListView.title,
+            customView: nil,
+            alignment: .hidden
+        )
+        
         configureNavigationBar(
             titleConfig: titleConfig,
             backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true),
@@ -50,7 +55,6 @@ public final class WMFDiscoverReadingListHostingController: WMFComponentHostingC
 
         let scrollEdgeAppearance = UINavigationBarAppearance()
         scrollEdgeAppearance.configureWithTransparentBackground()
-        scrollEdgeAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
 
         let standardAppearance = UINavigationBarAppearance()
         if #available(iOS 26.0, *) {
@@ -60,7 +64,6 @@ public final class WMFDiscoverReadingListHostingController: WMFComponentHostingC
             standardAppearance.backgroundColor = theme.paperBackground
         }
         standardAppearance.shadowColor = .clear
-        standardAppearance.titleTextAttributes = [.foregroundColor: theme.text]
 
         navigationItem.scrollEdgeAppearance = scrollEdgeAppearance
         navigationItem.standardAppearance = standardAppearance

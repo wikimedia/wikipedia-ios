@@ -19,8 +19,19 @@ protocol YearInReviewSlideDataControllerProtocol: Sendable {
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide
 
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool
+
+    /// True if the stored data of this slide uses the current format.
+    /// If false, the report builds the slide again, also when the slide is frozen.
+    static func hasCurrentFormat(_ data: Data?) -> Bool
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies)
+}
+
+extension YearInReviewSlideDataControllerProtocol {
+    /// Most slides did not change their format. Thus, the stored data is always current.
+    static func hasCurrentFormat(_ data: Data?) -> Bool {
+        true
+    }
 }
 
 struct YearInReviewSlideDataControllerDependencies {
