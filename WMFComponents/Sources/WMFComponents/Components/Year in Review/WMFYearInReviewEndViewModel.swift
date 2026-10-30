@@ -21,15 +21,16 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
 
     // MARK: - Design colors
 
-    /// From the Figma design. The page below the sky. It is also the dark end of the sky gradient.
-    public static let pageBackgroundColor = UIColor(red: 0.11, green: 0.13, blue: 0.24, alpha: 1)
+    /// From the Figma design. The dark end of the sky gradient. It continues below the sky, behind
+    /// the whole page. Only the toolbar is black.
+    public static let skyBottomColor = UIColor(red: 0.11, green: 0.13, blue: 0.24, alpha: 1)
 
     /// From the Figma design. The bottom of the gradient in the glow under the illustration. The top is white.
     public static let glowBottomColor = UIColor(red: 0.82, green: 0.82, blue: 0.82, alpha: 1)
 
     /// From Figma's elliptical gradient. `location` is 0 at the center of the ellipse and 1 at its edge.
     public static let skyGradientStops: [(color: UIColor, location: CGFloat)] = [
-        (UIColor(red: 0.11, green: 0.13, blue: 0.24, alpha: 1), 0.15),
+        (skyBottomColor, 0.15),
         (UIColor(red: 0.05, green: 0.15, blue: 0.32, alpha: 1), 0.27),
         (UIColor(red: 0, green: 0.6, blue: 0.85, alpha: 1), 0.59),
         (UIColor(red: 0.27, green: 0.83, blue: 0.94, alpha: 1), 0.78),
