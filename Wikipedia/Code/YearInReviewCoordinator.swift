@@ -255,6 +255,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// The slides are chosen here, so after any log in. A logged-out reader always gets the
     /// collective slides.
     private func makeYearInReviewHostingController() -> WMFYearInReviewHostingController {
+        // The slides get a funnel of their own, separate from the announcement, as on Android.
+        YearInReviewInstrument.shared.stopFunnel()
+        YearInReviewInstrument.shared.startFunnel()
+
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         // `fetchSlidesExperience(isLoggedIn:)` runs on the main actor. This method only runs on the
         // main thread, because it presents view controllers.
