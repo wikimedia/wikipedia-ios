@@ -2332,6 +2332,11 @@ extension WMFAppViewController {
     private func showLoggedOutPanelIfNeeded() {
         let authenticationManager = dataStore.authenticationManager
         guard authenticationManager.isUserUnawareOfLogout else { return }
+        guard WMFAuthenticationManager.shouldShowLoggedOutAlert(isUserUnawareOfLogout: authenticationManager.isUserUnawareOfLogout, isPermanentAccountLoggedIn: authenticationManager.authStateIsPermanent) else {
+            // Logged in again since the logout, so the alert no longer applies.
+            authenticationManager.userDidAcknowledgeUnintentionalLogout()
+            return
+        }
         DispatchQueue.main.async {
             self.presentLoggedOutAlert(authenticationManager)
         }
