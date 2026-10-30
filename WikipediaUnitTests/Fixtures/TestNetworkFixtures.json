@@ -2068,5 +2068,14 @@
       "siprop": "autocreatetempuser"
     },
     "bodyResource": "TempAccounts/vi/SiteInfoAutoCreateTempUser.json"
+  },
+  {
+    "method": "GET",
+    "path": "/api/rest_v1/feed/configuration",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "FeatureConfig/AppsFeatureConfig.json"
   }
 ]

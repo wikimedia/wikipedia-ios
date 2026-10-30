@@ -1,4 +1,5 @@
 import XCTest
+import CocoaLumberjack
 import WMFData
 @testable import Wikipedia
 @testable import WMF
@@ -123,8 +124,13 @@ struct ServerBusyHTTPClientProvider: SessionHTTPClientProvider {
 class SessionServerBusyFallbackTests: XCTestCase {
 
     var dataStore: MWKDataStore!
+    private var hostLoggers: [DDLoggerInformation] = []
 
     override func setUp(completion: @escaping (Error?) -> Void) {
+        // Session logs synchronously inside its completions. Detach the host app loggers so the
+        // test does not wait on the shared logging queue and its disk writes.
+        hostLoggers = DDLog.allLoggersWithLevel
+        DDLog.removeAllLoggers()
         MWKDataStore.createTemporaryDataStore(completion: { dataStore in
             self.dataStore = dataStore
             completion(nil)
@@ -134,6 +140,10 @@ class SessionServerBusyFallbackTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         dataStore.removeFolderAtBasePath()
+        for information in hostLoggers {
+            DDLog.add(information.logger, with: information.level)
+        }
+        hostLoggers = []
     }
 
     private func makeSession(statusCode: Int, headers: [String: String]) throws -> (Session, PermanentCacheController) {

@@ -63,6 +63,10 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
     @Published public private(set) var isRegeneratingYiR2026Report = false
     @Published public var yiR2026ReportAlertMessage: String?
 
+    /// Set by the app. Nil hides the Discover section.
+    /// TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).
+    public var showDiscoverReadingList: (@MainActor () -> Void)?
+
     /// Set by the app after init. Nil hides the "Run notification refresh now" button.
     @Published public var localNotificationActions: WMFDeveloperSettingsLocalNotificationActions?
     @Published var localNotificationLogSummaryLines: [String] = []
@@ -99,9 +103,15 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
-    @Published public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? = WMFDeveloperSettingsDataController.shared.forceYiRExperience {
+    @Published public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? = WMFDeveloperSettingsDataController.shared.forceYiRDataState {
         didSet {
-            WMFDeveloperSettingsDataController.shared.forceYiRExperience = forceYiRExperience
+            WMFDeveloperSettingsDataController.shared.forceYiRDataState = forceYiRDataState
+        }
+    }
+
+    @Published public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? = WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience = forceYiRSlidesExperience
         }
     }
 
@@ -163,6 +173,18 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
     @Published public var forceSemanticSearchExperimentAssignment: WMFSemanticSearchDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = forceSemanticSearchExperimentAssignment
+        }
+    }
+
+    @Published public var enableDiscover: Bool = WMFDeveloperSettingsDataController.shared.enableDiscover {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDiscover = enableDiscover
+        }
+    }
+
+    @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment
         }
     }
 
@@ -312,6 +334,34 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
             title = "Semantic search entry point reset. It shows again with Try it now on the next search."
         } catch {
             title = "Could not reset the semantic search entry point: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    // MARK: - Discover
+
+    public func clearDiscoverExperimentAssignment() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.clearExperimentAssignment()
+            title = "Discover bucket cleared. The next visit to Saved re-rolls the assignment."
+        } catch {
+            title = "Could not clear the Discover bucket: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    public func resetDiscoverAnnouncement() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.resetAnnouncement()
+            title = "Discover announcement reset. The card and the Saved badge show again."
+        } catch {
+            title = "Could not reset the Discover announcement: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))

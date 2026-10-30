@@ -1297,9 +1297,12 @@
 "search-recent-title" = "Enklaskoù nevez";
 "search-result-redirected-from" = "Adkaset eus:$1";
 "search-semantic-entry-point-accessibility-hint" = "A furch pennadoù evit ho koulenn";
+// Fuzzy
 "search-semantic-entry-point-description" = "Furchal pennadoù ha mont war-eeun d'an arroud kenglotus";
 "search-semantic-entry-point-hidden-toast-modify" = "Kemmañ";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "He lakaat war wel en-dro a c'hallit dre Dibarzhioù.";
+// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "Modulenn guzhet.";
 "search-semantic-entry-point-hide-accessibility-label" = "Kuzhat furchal pennadoù";
 "search-semantic-entry-point-info-accessibility-label" = "A-zivout furchal pennadoù";
@@ -1308,6 +1311,7 @@
 "search-semantic-results-empty-title" = "Disoc'h ebet evit ar c'hlask-mañ";
 "search-semantic-results-error-subtitle" = "Klaskit en-dro mar plij.";
 "search-semantic-results-error-title" = "Un dra bennak zo aet a-dreuz";
+// Fuzzy
 "search-semantic-results-last-updated" = "Hizivadenn diwezhañ $1";
 "search-semantic-results-rate-limited-subtitle" = "Gortozit un tamm ha klaskit en-dro.";
 "search-semantic-results-rate-limited-title" = "Re a glaskoù";

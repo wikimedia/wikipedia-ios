@@ -11,10 +11,41 @@ struct YearInReviewSlideViewModelFactory {
     /// True where donations are not accepted. Tests pass a fixed value.
     private let hidesDonate: () -> Bool
 
+    /// Tests pass a fixed value. `nil` reads the stored edits and the donations on the device.
+    private let contributorStatus: (() -> ContributorStatus)?
+
     /// Without the data controller, the country check cannot run. Then the donate slide hides, so
     /// it never shows where donations are not accepted.
-    init(hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }) {
+    init(hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }, contributorStatus: (() -> ContributorStatus)? = nil) {
         self.hidesDonate = hidesDonate
+        self.contributorStatus = contributorStatus
+    }
+
+    /// The `page` names of the 2026 instrumentation plan. The donate campaign ID is also made from them.
+    private static let loggingIDs: [String: String] = [
+        "totalArticles": "total_articles",
+        "totalArticlesEmpty": "total_articles_empty",
+        "daysVisited": "visits",
+        "topTopic": "top_topic",
+        "topTopicEmpty": "top_topic_empty",
+        "runnerUpTopics": "other_top_topics",
+        "rabbitHoleGuess": "rabbit_hole_guess",
+        "rabbitHoleReveal": "rabbit_hole_reveal",
+        "rereadArticles": "revisited_articles",
+        "rereadArticlesEmpty": "revisited_articles_empty",
+        "collectiveHoursRead": "collective_hours_read",
+        "collectiveLanguages": "collective_languages",
+        "collectiveArticles": "collective_articles",
+        "collectiveSavedArticles": "collective_saved_articles",
+        "collectiveEditors": "collective_volunteer_editors",
+        "collectiveEdits": "collective_edits",
+        "collectiveGlobalReach": "collective_global_reach",
+        contributorSlideID: "thank_you",
+        nonContributorSlideID: "you_matter"
+    ]
+
+    static func loggingID(forSlideID id: String) -> String {
+        loggingIDs[id] ?? id
     }
 
     /// Shared with the announcement's more menu.
@@ -36,22 +67,25 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times, topic and contributor slides have real data so far.
-    /// A data-rich user sees their data, but a slide without enough data shows its empty version.
-    /// The days visited slide has no empty version, so it does not show without enough data.
-    /// Every flow ends with the contributor slide.
+    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole, niche interest and contributor slides have real data so far.
+    /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
+    /// The days visited, rabbit hole and niche interest slides have no empty version, so they do not show without enough data.
+    /// The collective slides show data for all readers. Every flow ends with the contributor slide,
+    /// but only the personalized flow can end with "Thank you", the same as on Android.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
-    func makeSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
-        let contributorSlides = makeContributorSlide(isLoggedIn: isLoggedIn).map { [$0] } ?? []
-        return personalizedSlides(userDataState: userDataState, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+    func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+        let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn).map { [$0] } ?? []
+        return experienceSlides(experience, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
-    /// refresh the slide after a donation.
-    func makeContributorSlide(isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
-        let contributor = storedContributorStatus()
+    /// refresh the slide after a donation. The collective flow always ends with "You matter".
+    func makeContributorSlide(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
+        let contributor = experience == .personalized
+            ? (contributorStatus?() ?? storedContributorStatus())
+            : ContributorStatus(isEditor: false, isDonor: false)
         return contributorSlide(
             isEditor: contributor.isEditor,
             isDonor: contributor.isDonor,
@@ -60,36 +94,88 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func personalizedSlides(userDataState: WMFYearInReviewDataController.YiRUserDataState, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
-        switch userDataState {
-        case .lowData:
-            // TODO: Show the collective slides when the templates file has them. Until then, a
-            // low-data user sees the empty version of each personalized slide, so Year in Review
-            // never opens with no slides.
+    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+        switch experience {
+        case .collective:
+            // Without a config, Year in Review does not open, but never show zero slides.
+            guard let config = try? WMFYearInReviewDataController().config else {
+                return personalizedEmptySlides()
+            }
+            return collectiveSlides(config: config)
+        case .personalized where forcesAllEmptyStates:
             return personalizedEmptySlides()
-        case .dataRich where forcesAllEmptyStates:
-            return personalizedEmptySlides()
-        case .dataRich:
+        case .personalized:
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
             let readCount = storedReadCount() ?? 0
-            var slides = [
-                totalArticlesSlide(
-                    readCount: readCount,
-                    topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
-                    averageReadCount: config?.averageArticlesReadPerYear
-                )
-            ]
-            if let daysVisited = daysVisitedSlide(storedDaysVisited()) {
-                slides.append(daysVisited)
-            }
-            slides.append(rereadArticlesSlide(storedRereadArticles() ?? []))
-            return slides + topicSlides(storedTopTopics())
+            return personalizedSlides(PersonalizedData(
+                readCount: readCount,
+                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
+                averageReadCount: config?.averageArticlesReadPerYear,
+                daysVisited: storedDaysVisited(),
+                topTopics: storedTopTopics(),
+                rabbitHoles: storedRabbitHoles(),
+                nicheCategory: storedNicheCategory(),
+                rereadArticles: storedRereadArticles() ?? []
+            ))
         }
     }
 
+    /// The stored data of the personalized slides.
+    struct PersonalizedData {
+        var readCount = 0
+        var topReadPercentage: Double?
+        var averageReadCount: Int?
+        var daysVisited: WMFYearInReviewDaysVisitedSlideData?
+        var topTopics: WMFYearInReviewTopTopicsSlideData?
+        var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
+        var nicheCategory: WMFYearInReviewNicheCategorySlideData?
+        var rereadArticles: [RereadArticle] = []
+    }
+
+    /// The personalized slides in the order of T438549. These slides are not built yet, so they are
+    /// not in the flow: time spent, longest reading streak, reading pattern, biggest reading day,
+    /// longest read, geography, saved, the edit slides and the end screen.
+    func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
+        var slides = [
+            totalArticlesSlide(readCount: data.readCount, topReadPercentage: data.topReadPercentage, averageReadCount: data.averageReadCount)
+        ]
+        if let daysVisited = daysVisitedSlide(data.daysVisited) {
+            slides.append(daysVisited)
+        }
+        slides += topicSlides(data.topTopics)
+        slides += rabbitHoleSlides(data.rabbitHoles)
+        if let nicheInterest = nicheInterestSlide(data.nicheCategory) {
+            slides.append(nicheInterest)
+        }
+        slides.append(rereadArticlesSlide(data.rereadArticles))
+        return slides
+    }
+
+    /// In the same order as `personalizedSlides(_:)`.
     private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), rereadArticlesEmptySlide(), topTopicEmptySlide()]
+        [totalArticlesEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
+    }
+
+    // MARK: - Stored slide data
+
+    /// Reads the data of one slide from the report that the app fills in the background.
+    /// Returns `nil` when the report does not have the slide, or when the data does not decode.
+    /// - Parameters:
+    ///   - id: The slide to read.
+    ///   - type: The type that the slide data decodes into.
+    ///   - logName: The slide name that the error log shows.
+    private func storedSlideData<SlideData: Decodable>(_ id: WMFYearInReviewPersonalizedSlideID, as type: SlideData.Type, logName: String) -> SlideData? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == id })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(type, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review \(logName): \(error)")
+            return nil
+        }
     }
 
     // MARK: - Total articles
@@ -97,16 +183,7 @@ struct YearInReviewSlideViewModelFactory {
     /// The number of unique articles read, from the report the app fills in the background.
     /// `nil` when the report does not have this slide yet.
     private func storedReadCount() -> Int? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .readCount })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data).readCount
-        } catch {
-            DDLogError("Error reading the Year in Review total articles: \(error)")
-            return nil
-        }
+        storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles")?.readCount
     }
 
     /// Shows the empty version unless the reader read at least `WMFYearInReviewReadData.minimumReadCount` articles.
@@ -164,16 +241,7 @@ struct YearInReviewSlideViewModelFactory {
     /// The reading days, from the report the app fills in the background. `nil` when the report
     /// does not have this slide yet.
     private func storedDaysVisited() -> WMFYearInReviewDaysVisitedSlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .daysVisited })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewDaysVisitedSlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review days visited: \(error)")
-            return nil
-        }
+        storedSlideData(.daysVisited, as: WMFYearInReviewDaysVisitedSlideData.self, logName: "days visited")
     }
 
     /// `nil` unless the reader read on at least `WMFYearInReviewDaysVisitedSlideData.minimumDayCount`
@@ -212,7 +280,7 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Articles visited multiple times
 
-    private struct RereadArticle {
+    struct RereadArticle {
         let title: String
         let visitCount: Int
         /// The wiki of the article, for its thumbnail. `nil` shows the placeholder in the .riv.
@@ -222,24 +290,17 @@ struct YearInReviewSlideViewModelFactory {
     /// The articles visited multiple times, from the report the app fills in the background.
     /// `nil` when the report does not have this slide yet.
     private func storedRereadArticles() -> [RereadArticle]? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .topArticles })?.data else {
-                return nil
-            }
-            let slideData = try JSONDecoder().decode(WMFYearInReviewTopArticlesSlideData.self, from: data)
-            guard slideData.isEligible else {
-                return []
-            }
-            return slideData.articles.map { RereadArticle(title: $0.title, visitCount: $0.visitCount, project: $0.project) }
-        } catch {
-            DDLogError("Error reading the Year in Review articles visited multiple times: \(error)")
+        guard let slideData = storedSlideData(.topArticles, as: WMFYearInReviewTopArticlesSlideData.self, logName: "articles visited multiple times") else {
             return nil
         }
+        guard slideData.isEligible else {
+            return []
+        }
+        return slideData.articles.map { RereadArticle(title: $0.title, visitCount: $0.visitCount, project: $0.project) }
     }
 
     /// Shows the empty version unless at least two articles were visited multiple times.
-    private func rereadArticlesSlide(_ articles: [RereadArticle]) -> WMFYearInReviewSlideViewModel {
+    func rereadArticlesSlide(_ articles: [RereadArticle]) -> WMFYearInReviewSlideViewModel {
         guard articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount else {
             return rereadArticlesEmptySlide()
         }
@@ -280,21 +341,46 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
+    // MARK: - Niche interest
+
+    /// The category that the reader read in a niche way, from the report the app fills in the
+    /// background. `nil` when the report does not have this slide yet.
+    private func storedNicheCategory() -> WMFYearInReviewNicheCategorySlideData? {
+        storedSlideData(.mostReadCategories, as: WMFYearInReviewNicheCategorySlideData.self, logName: "niche interest")
+    }
+
+    /// Shows one category name. The data controller picks the category when it builds the report,
+    /// so the same category shows each time. `nil` when the reader has no category to show.
+    /// The slide has no empty version.
+    func nicheInterestSlide(_ slideData: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewSlideViewModel? {
+        guard let slideData, slideData.isEligible, let categoryName = slideData.categoryName else {
+            return nil
+        }
+
+        let headline = CommonStrings.yearInReviewNicheInterestTitle
+        let bodyText = CommonStrings.yearInReviewNicheInterestSubtitle
+
+        // `dataSlide` shows the data in capitals, so the category name is passed as written.
+        return dataSlide(
+            id: "nicheInterest",
+            artboard: "frame12",
+            stateMachine: "frame12-statemachine",
+            headline: headline,
+            data: categoryName,
+            // No fit for the category name, so it keeps the size and line count that the .riv
+            // gives it. The .riv will handle long category names itself.
+            dataFit: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(categoryName). \(bodyText)"
+        )
+    }
+
     // MARK: - Topics
 
     /// The topic slides, from the report the app fills in the background. `nil` when the report
     /// does not have these slides yet.
     private func storedTopTopics() -> WMFYearInReviewTopTopicsSlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .topTopics })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewTopTopicsSlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review top topics: \(error)")
-            return nil
-        }
+        storedSlideData(.topTopics, as: WMFYearInReviewTopTopicsSlideData.self, logName: "top topics")
     }
 
     /// The top topic slide, then the runners-up slide if there are enough runners-up. Shows the
@@ -392,9 +478,247 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
+    // MARK: - Rabbit holes
+
+    /// The rabbit holes, from the report the app fills in the background. `nil` when the report
+    /// does not have these slides yet.
+    private func storedRabbitHoles() -> WMFYearInReviewRabbitHolesSlideData? {
+        storedSlideData(.rabbitHoles, as: WMFYearInReviewRabbitHolesSlideData.self, logName: "rabbit holes")
+    }
+
+    /// Properties on the `Interaction2` view model in the templates file. On the guess frame, the
+    /// top card and the bottom card each show the first article (T) and the last article (B) of
+    /// a rabbit hole. The reveal frame shows the deepest rabbit hole with the result properties.
+    private enum RabbitHolePath {
+        static let headline = WMFRiveText(path: "headline")
+        static let bodyText = WMFRiveText(path: "bodyText")
+        /// The guess frame fires it after the reader taps a card and the exit animation ends.
+        static let frameComplete = WMFRiveTrigger(path: "frameComplete")
+
+        struct Article {
+            let title: WMFRiveText
+            let thumbnail: WMFRiveImage
+            let noImage: WMFRiveBool
+        }
+
+        static let topCardFirst = Article(title: WMFRiveText(path: "articleTitleTopT"), thumbnail: WMFRiveImage(path: "thumbnailTopT"), noImage: WMFRiveBool(path: "noImgTopT"))
+        static let topCardLast = Article(title: WMFRiveText(path: "articleTitleTopB"), thumbnail: WMFRiveImage(path: "thumbnailTopB"), noImage: WMFRiveBool(path: "noImgTopB"))
+        static let bottomCardFirst = Article(title: WMFRiveText(path: "articleTitleBotT"), thumbnail: WMFRiveImage(path: "thumbnailBotT"), noImage: WMFRiveBool(path: "noImgBotT"))
+        static let bottomCardLast = Article(title: WMFRiveText(path: "articleTitleBotB"), thumbnail: WMFRiveImage(path: "thumbnailBotB"), noImage: WMFRiveBool(path: "noImgBotB"))
+        static let resultFirst = Article(title: WMFRiveText(path: "resultTitleTop"), thumbnail: WMFRiveImage(path: "resultThumbnailTop"), noImage: WMFRiveBool(path: "resultNoImgT"))
+        static let resultLast = Article(title: WMFRiveText(path: "resultTitleBot"), thumbnail: WMFRiveImage(path: "resultThumbnailBot"), noImage: WMFRiveBool(path: "resultNoImgB"))
+    }
+
+    /// One slide: the guess, with the reveal as its answer. A tap on a card replaces the guess with the
+    /// reveal in place. No slide without two rabbit holes.
+    func rabbitHoleSlides(_ slideData: WMFYearInReviewRabbitHolesSlideData?) -> [WMFYearInReviewSlideViewModel] {
+        guard let slideData,
+              slideData.isEligible,
+              let deepest = slideData.rabbitHoles.first,
+              let other = slideData.rabbitHoles.dropFirst().first else {
+            return []
+        }
+        let (topCard, bottomCard) = slideData.deepestIsOnTop ? (deepest, other) : (other, deepest)
+        return [rabbitHoleGuessSlide(topCard: topCard, bottomCard: bottomCard, reveal: rabbitHoleRevealSlide(deepest))]
+    }
+
+    private func rabbitHoleGuessSlide(topCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole, bottomCard: WMFYearInReviewRabbitHolesSlideData.RabbitHole, reveal: WMFYearInReviewSlideViewModel) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewRabbitHoleTitle
+        let articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)] = [
+            (RabbitHolePath.topCardFirst, topCard.firstArticle),
+            (RabbitHolePath.topCardLast, topCard.lastArticle),
+            (RabbitHolePath.bottomCardFirst, bottomCard.firstArticle),
+            (RabbitHolePath.bottomCardLast, bottomCard.lastArticle)
+        ]
+        let cardLabels = [topCard, bottomCard].map { rabbitHoleAccessibilityLabel($0) }
+        return rabbitHoleSlide(
+            id: "rabbitHoleGuess",
+            artboard: "frame11a",
+            headline: headline,
+            bodyText: nil,
+            articles: articles,
+            answer: reveal,
+            answerTrigger: RabbitHolePath.frameComplete,
+            accessibilityLabel: ([headline] + cardLabels).joined(separator: " ")
+        )
+    }
+
+    private func rabbitHoleRevealSlide(_ rabbitHole: WMFYearInReviewRabbitHolesSlideData.RabbitHole) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewRabbitHoleRevealTitle(articleCount: rabbitHole.articleCount)
+        let bodyText = CommonStrings.yearInReviewRabbitHoleRevealSubtitle
+        return rabbitHoleSlide(
+            id: "rabbitHoleReveal",
+            artboard: "frame11b",
+            headline: headline,
+            bodyText: bodyText,
+            articles: [
+                (RabbitHolePath.resultFirst, rabbitHole.firstArticle),
+                (RabbitHolePath.resultLast, rabbitHole.lastArticle)
+            ],
+            accessibilityLabel: "\(headline) \(rabbitHoleAccessibilityLabel(rabbitHole)) \(bodyText)"
+        )
+    }
+
+    private func rabbitHoleAccessibilityLabel(_ rabbitHole: WMFYearInReviewRabbitHolesSlideData.RabbitHole) -> String {
+        "\(rabbitHole.firstArticle.title), \(rabbitHole.lastArticle.title)."
+    }
+
+    private func rabbitHoleSlide(
+        id: String,
+        artboard: String,
+        headline: String,
+        bodyText: String?,
+        articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)],
+        answer: WMFYearInReviewSlideViewModel? = nil,
+        answerTrigger: WMFRiveTrigger? = nil,
+        accessibilityLabel: String
+    ) -> WMFYearInReviewSlideViewModel {
+        var text = [RabbitHolePath.headline: headline]
+        if let bodyText {
+            text[RabbitHolePath.bodyText] = bodyText
+        }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        var missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:]
+        for (path, article) in articles {
+            text[path.title] = article.title
+            missingImageFlags[path.thumbnail] = path.noImage
+            if let project = article.project {
+                thumbnails[path.thumbnail] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+            }
+        }
+        return WMFYearInReviewSlideViewModel(
+            id: id,
+            loggingID: Self.loggingID(forSlideID: id),
+            animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: "\(artboard)-statemachine"),
+            text: text,
+            articleThumbnails: thumbnails,
+            missingImageFlags: missingImageFlags,
+            answer: answer,
+            answerTrigger: answerTrigger,
+            localizedStrings: .init(accessibilityLabel: accessibilityLabel),
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag,
+            textFits: Self.copyFits(headline: RabbitHolePath.headline, bodyText: RabbitHolePath.bodyText)
+        )
+    }
+
+    // MARK: - Collective
+
+    /// The slides about all readers and editors. The numbers come from the config, so they can
+    /// change without an app release. The volunteer editors slide does not show without its number.
+    func collectiveSlides(config: WMFFeatureConfigResponse.Common.YearInReview) -> [WMFYearInReviewSlideViewModel] {
+        var slides = [
+            collectiveNumberSlide(
+                id: "collectiveHoursRead",
+                artboard: "frame3",
+                headline: CommonStrings.yearInReviewCollectiveHoursReadTitle,
+                data: decimalString(config.hoursReadEN),
+                dataFit: Self.collectiveDataNumberFit,
+                bodyText: CommonStrings.yearInReviewCollectiveHoursReadSubtitle(yearCount: config.yearsReadEN)
+            ),
+            collectiveNumberSlide(
+                id: "collectiveLanguages",
+                artboard: "frame4",
+                headline: CommonStrings.yearInReviewCollectiveLanguagesTitle,
+                data: CommonStrings.yearInReviewCollectiveLanguagesData(languageCount: decimalString(config.languages)),
+                bodyText: CommonStrings.yearInReviewCollectiveLanguagesSubtitle
+            ),
+            collectiveNumberSlide(
+                id: "collectiveArticles",
+                artboard: "frame17",
+                headline: CommonStrings.yearInReviewCollectiveArticlesTitle,
+                data: decimalString(config.articles),
+                dataFit: Self.collectiveDataNumberFit,
+                bodyText: CommonStrings.yearInReviewCollectiveArticlesSubtitle
+            ),
+            collectiveNumberSlide(
+                id: "collectiveSavedArticles",
+                artboard: "frame8",
+                headline: CommonStrings.yearInReviewCollectiveSavedArticlesTitle,
+                data: decimalString(config.savedArticlesApps),
+                bodyText: CommonStrings.yearInReviewCollectiveSavedArticlesSubtitle
+            )
+        ]
+        if let volunteerEditors = config.volunteerEditors {
+            slides.append(collectiveNumberSlide(
+                id: "collectiveEditors",
+                artboard: "frame16",
+                headline: CommonStrings.yearInReviewCollectiveEditorsTitle,
+                data: decimalString(volunteerEditors),
+                dataFit: Self.collectiveDataNumberFit,
+                bodyText: CommonStrings.yearInReviewCollectiveEditorsSubtitle
+            ))
+        }
+        slides.append(collectiveNumberSlide(
+            id: "collectiveEdits",
+            artboard: "frame5",
+            headline: CommonStrings.yearInReviewCollectiveEditsTitle,
+            data: decimalString(config.edits),
+            bodyText: CommonStrings.yearInReviewCollectiveEditsSubtitle
+        ))
+        slides.append(globalReachSlide())
+        return slides
+    }
+
+    /// The design sets a smaller number on these frames, so long numbers keep the same size.
+    private static let collectiveDataNumberFit = WMFRiveTextFit(
+        text: DataTextPath.data,
+        fontAssetName: "SanSerifFont",
+        maximumWidth: 344,
+        maximumLines: 1,
+        globalViewModelName: "GlobalProperties",
+        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
+        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight"),
+        maximumFontSize: 40
+    )
+
+    private func collectiveNumberSlide(id: String, artboard: String, headline: String, data: String, dataFit: WMFRiveTextFit = Self.dataNumberFit, bodyText: String) -> WMFYearInReviewSlideViewModel {
+        dataSlide(
+            id: id,
+            artboard: artboard,
+            stateMachine: "\(artboard)-statemachine",
+            headline: headline,
+            data: data,
+            dataFit: dataFit,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(data). \(bodyText)"
+        )
+    }
+
+    /// The design shows the reach on three lines.
+    private static let globalReachFit = WMFRiveTextFit(
+        text: DataTextPath.data,
+        fontAssetName: "SanSerifFont",
+        maximumWidth: 344,
+        maximumLines: 3,
+        globalViewModelName: "GlobalProperties",
+        fontSize: WMFRiveNumber(path: "dataTextFontSize"),
+        lineHeight: WMFRiveNumber(path: "dataTextLineHeight")
+    )
+
+    private func globalReachSlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewCollectiveGlobalReachTitle
+        let reach = CommonStrings.yearInReviewCollectiveGlobalReachData
+        let bodyText = CommonStrings.yearInReviewCollectiveGlobalReachSubtitle
+        return dataSlide(
+            id: "collectiveGlobalReach",
+            artboard: "frame12",
+            stateMachine: "frame12-statemachine",
+            headline: headline,
+            data: reach,
+            dataFit: Self.globalReachFit,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(reach). \(bodyText)"
+        )
+    }
+
+    private func decimalString(_ number: Int) -> String {
+        NumberFormatter.localizedString(from: NSNumber(value: number), number: .decimal)
+    }
+
     // MARK: - Contributor
 
-    private struct ContributorStatus {
+    struct ContributorStatus {
         let isEditor: Bool
         let isDonor: Bool
     }
@@ -465,13 +789,16 @@ struct YearInReviewSlideViewModelFactory {
         )
     ]
 
-    /// "Thank you" for a reader who edited or donated in the contributor period, with the donate
-    /// button in the toolbar. Otherwise "You matter", with a primary donate button below the
+    /// "Thank you" for a logged-in reader who edited or donated in the contributor period, with the
+    /// donate button in the toolbar. Otherwise "You matter", with a primary donate button below the
     /// animation in place of the toolbar button.
+    ///
+    /// A logged-out reader always sees "You matter", also with a donation on the device, because the
+    /// donor recognition requires log in (T441430).
     /// - Parameter hidesDonate: True where donations are not accepted. Then the "You matter" slide does not show.
     /// - Returns: `nil` when no slide shows.
     func contributorSlide(isEditor: Bool, isDonor: Bool, isLoggedIn: Bool, hidesDonate: Bool) -> WMFYearInReviewSlideViewModel? {
-        guard isEditor || isDonor else {
+        guard isLoggedIn, isEditor || isDonor else {
             guard !hidesDonate else {
                 return nil
             }
@@ -499,7 +826,7 @@ struct YearInReviewSlideViewModelFactory {
     private func endSlide(id: String, title: String, bodyText: String, showsPrimaryDonateButton: Bool) -> WMFYearInReviewSlideViewModel {
         WMFYearInReviewSlideViewModel(
             id: id,
-            loggingID: id,
+            loggingID: Self.loggingID(forSlideID: id),
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: "end", stateMachineName: "end-statemachine"),
             text: [
                 // The title is shown in capitals. VoiceOver gets it as written.
@@ -594,7 +921,7 @@ struct YearInReviewSlideViewModelFactory {
 
         return WMFYearInReviewSlideViewModel(
             id: id,
-            loggingID: id,
+            loggingID: Self.loggingID(forSlideID: id),
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
             numbers: numbers,
@@ -648,13 +975,14 @@ struct YearInReviewSlideViewModelFactory {
     /// "WEDNESDAY EVENINGS". The headline is shown as written. The accessibility label keeps the
     /// text as written.
     /// - Parameter dataFit: The fit of `data`. A number uses `dataNumberFit`, and a text uses `dataTextFit`.
+    ///   `nil` leaves `data` as the .riv sizes it.
     private func dataSlide(
         id: String,
         artboard: String,
         stateMachine: String,
         headline: String,
         data: String?,
-        dataFit: WMFRiveTextFit = Self.dataNumberFit,
+        dataFit: WMFRiveTextFit? = Self.dataNumberFit,
         bodyText: String,
         images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String
@@ -669,14 +997,14 @@ struct YearInReviewSlideViewModelFactory {
 
         return WMFYearInReviewSlideViewModel(
             id: id,
-            loggingID: id,
+            loggingID: Self.loggingID(forSlideID: id),
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
             images: images,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit])
+            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit].compactMap { $0 })
         )
     }
 

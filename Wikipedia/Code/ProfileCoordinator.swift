@@ -39,6 +39,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private var donateCoordinator: DonateCoordinator?
     private var settingsCoordinator: SettingsCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
+    private var discoverReadingListCoordinator: DiscoverReadingListCoordinator?
 
     let sourcePage: ProfileCoordinatorSource
 
@@ -218,9 +219,18 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         )
         viewModel.regenerateYiR2026Report = { [dataStore] in
-            try await YearInReviewCoordinator.populateReport(dataStore: dataStore, regenerate: true) != nil
+            try await YearInReviewCoordinator.buildReport(dataStore: dataStore, regenerate: true) != nil
         }
         viewModel.configureLocalNotificationActions(dataStore: dataStore)
+        // TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).
+        viewModel.showDiscoverReadingList = { [weak self] in
+            guard let self else { return }
+            self.navigationController.dismiss(animated: true) {
+                let coordinator = DiscoverReadingListCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                coordinator.start()
+                self.discoverReadingListCoordinator = coordinator
+            }
+        }
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 

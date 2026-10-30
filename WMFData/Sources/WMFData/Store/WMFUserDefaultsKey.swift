@@ -135,7 +135,8 @@ public enum WMFUserDefaultsKey: String {
     // Semantic search
     case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
     case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"
-    case developerSettingsForceYiRUserDataState = "dev-settings-force-yir-user-data-state"
+    case developerSettingsForceYiRDataState = "dev-settings-force-yir-data-state"
+    case developerSettingsForceYiRSlidesExperience = "dev-settings-force-yir-slides-experience"
     case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
     case semanticSearchExposureSent = "semantic-search-exposure-sent"
@@ -146,4 +147,14 @@ public enum WMFUserDefaultsKey: String {
 
     // Reading list
     case readingListsSortOrder = "reading-lists-sort-order"
+
+    // Discover
+    case developerSettingsEnableDiscover = "dev-settings-enable-discover"
+    case developerSettingsForceDiscoverExperimentAssignment = "dev-settings-force-discover-experiment-assignment"
+    case discoverOnboardingAnnouncementDismissed = "discover-onboarding-announcement-dismissed"
+    case discoverSettings = "discover-settings"
+    case discoverLastGeneratedDate = "discover-last-generated-date"
+    case discoverNeedsRegeneration = "discover-needs-regeneration"
+    case discoverSeedOffsets = "discover-seed-offsets"
+    case discoverOnboardingToastShown = "discover-onboarding-toast-shown"
 }

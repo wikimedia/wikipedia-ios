@@ -19,6 +19,11 @@ public enum AccessibilityIdentifiers {
         public static let leadImage = "Article Lead Image"
         public static let linkPreview = "Article Link Preview"
         public static let moreButton = "Article More Button"
+        public static let overflowEditItem = "Article Overflow Edit Item"
+        public static let overflowRevisionHistoryItem = "Article Overflow Revision History Item"
+        public static let overflowShareItem = "Article Overflow Share Item"
+        public static let overflowTalkPageItem = "Article Overflow Talk Page Item"
+        public static let overflowWatchItem = "Article Overflow Watch Item"
         public static let readingThemesBlackButton = "Article Reading Themes Black Button"
         public static let readingThemesBrightnessSlider = "Article Reading Themes Brightness Slider"
         public static let readingThemesDarkButton = "Article Reading Themes Dark Button"
@@ -51,6 +56,12 @@ public enum AccessibilityIdentifiers {
         public static let placesButton = "Root Tab Places Button"
         public static let savedButton = "Root Tab Saved Button"
         public static let searchButton = Search.tabButton
+    }
+
+    public enum Discover {
+        public static let announcementCard = "Discover Announcement Card"
+        public static let announcementGetStartedButton = "Discover Announcement Get Started Button"
+        public static let announcementNoThanksButton = "Discover Announcement No Thanks Button"
     }
 
     public enum Home {

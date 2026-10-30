@@ -10,6 +10,7 @@ public struct WMFRiveView: View {
 
     private let text: [WMFRiveText: String]
     private let numbers: [WMFRiveNumber: Double]
+    private let bools: [WMFRiveBool: Bool]
     private let images: [WMFRiveImage: Data]
     private let layoutDirection: WMFRiveLayoutDirection?
     private let accessibilityLabel: String?
@@ -18,11 +19,13 @@ public struct WMFRiveView: View {
     /// a page that is built off-screen does not play its intro before the reader sees it.
     private let isPlaying: Bool
     private let onReadBool: (@MainActor (Bool) -> Void)?
+    private let onWatchedEvent: (@MainActor () -> Void)?
 
     public init(
         _ animation: WMFRiveAnimation,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
+        bools: [WMFRiveBool: Bool] = [:],
         images: [WMFRiveImage: Data] = [:],
         layoutDirection: WMFRiveLayoutDirection? = nil,
         accessibilityLabel: String? = nil,
@@ -30,22 +33,30 @@ public struct WMFRiveView: View {
         isPlaying: Bool = true,
         readBool: WMFRiveBool? = nil,
         textFits: [WMFRiveTextFit] = [],
-        onReadBool: (@MainActor (Bool) -> Void)? = nil
+        onReadBool: (@MainActor (Bool) -> Void)? = nil,
+        watchedTrigger: WMFRiveTrigger? = nil,
+        missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
+        onWatchedEvent: (@MainActor () -> Void)? = nil
     ) {
         self.text = text
         self.numbers = numbers
+        self.bools = bools
         self.images = images
         self.layoutDirection = layoutDirection
         self.accessibilityLabel = accessibilityLabel
         self.frameRate = frameRate
         self.isPlaying = isPlaying
         self.onReadBool = onReadBool
+        self.onWatchedEvent = onWatchedEvent
         _viewModel = StateObject(wrappedValue: WMFRiveAnimationViewModel(
             animation: animation,
             text: text,
             numbers: numbers,
+            bools: bools,
             images: images,
             readBool: readBool,
+            watchedTrigger: watchedTrigger,
+            missingImageFlags: missingImageFlags,
             textFits: textFits
         ))
     }
@@ -76,8 +87,14 @@ public struct WMFRiveView: View {
             .onChange(of: numbers) {
                 viewModel.update(text: text, numbers: numbers)
             }
+            .onChange(of: bools) {
+                viewModel.update(bools: bools)
+            }
             .onChange(of: images) {
                 viewModel.update(images: images)
+            }
+            .onChange(of: viewModel.watchedEventCount) {
+                onWatchedEvent?()
             }
             .onChange(of: viewModel.readBoolValue) {
                 if let value = viewModel.readBoolValue {

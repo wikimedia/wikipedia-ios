@@ -136,6 +136,7 @@ jobs:
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           VERSION: ${{ github.event.inputs.version }}
+          KIND: ${{ github.event.inputs.kind }}
           SHA: ${{ steps.resolve.outputs.sha }}
         run: |
           python3 << 'EOF'
@@ -148,6 +149,8 @@ jobs:
 
           token = os.environ['PHAB_TOKEN']
           version = os.environ['VERSION']
+          # A hotfix task is titled "Hotfix <version>"; see V2 Deploy Hotfix for why.
+          label = 'Hotfix' if os.environ.get('KIND') == 'hotfix' else 'Release'
           sha = os.environ['SHA']
           release_tag = f"releases/{version}"
           release_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
@@ -169,12 +172,12 @@ jobs:
 
           tasks = data.get('result', {}).get('data', [])
           release_task = next(
-            (t for t in tasks if t.get('fields', {}).get('name', '') == f"Release {version}"),
+            (t for t in tasks if t.get('fields', {}).get('name', '') == f"{label} {version}"),
             None
           )
 
           if not release_task:
-            print(f"No open task titled 'Release {version}' found, skipping")
+            print(f"No open task titled '{label} {version}' found, skipping")
             exit(0)
 
           task_phid = release_task['phid']
@@ -220,25 +223,89 @@ jobs:
         id: check_branch
         env:
           VERSION: ${{ github.event.inputs.version }}
+          KIND: ${{ github.event.inputs.kind }}
         run: |
-          BRANCH="release-candidate/$VERSION"
-          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          python3 << 'EOF'
+          import os
+          import re
+          import subprocess
+
+          version = os.environ['VERSION']
+          kind = os.environ.get('KIND') or 'release'
+          branch = f"hotfix/{version}" if kind == 'hotfix' else f"release-candidate/{version}"
+
+          def git(*args):
+            return subprocess.run(['git', *args], capture_output=True, text=True)
+
+          def out(**kw):
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              for k, v in kw.items():
+                f.write(f"{k}={v}\n")
+
+          def describe(sha):
+            return git('log', '-1', '--format=%h %s', sha).stdout.strip()
+
+          def unmerged(target, head):
+            """Commits on head whose change is not already present on target.
+
+            git cherry compares patch ids, so a clean cherry-pick is recognised
+            even though its sha differs - which plain rev-list would not do, and
+            a hotfix is all cherry-picks. A pick that needed conflict resolution
+            has a different patch id and would look new, so fall back to the
+            "(cherry picked from commit ...)" trailer that -x records and ask
+            whether that original is on the target instead. Without a trailer
+            there is no way to tell a genuinely new commit from a resolved pick,
+            so it counts as missing and is reported as unverified.
+            """
+            res = git('cherry', target, head)
+            if res.returncode != 0:
+              return None, None
+            missing, unverified = [], []
+            for line in res.stdout.splitlines():
+              mark, _, sha = line.partition(' ')
+              sha = sha.strip()
+              if mark == '-':
+                continue
+              body = git('log', '-1', '--format=%B', sha).stdout
+              m = re.search(r'^\(cherry picked from commit ([0-9a-f]{7,40})\)\s*$', body, re.M)
+              if m:
+                probe = git('merge-base', '--is-ancestor', m.group(1), target)
+                if probe.returncode == 0:
+                  continue
+                if probe.returncode > 1:
+                  unverified.append(sha)
+              else:
+                unverified.append(sha)
+              missing.append(sha)
+            return missing, unverified
+
+          out(branch=branch)
 
           # A completed run deletes this branch in step 7, so a re-run finds it
           # gone. That means the cycle was already cleaned up, not that anything
           # is wrong - skip the merge-back check instead of failing the fetch.
-          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
-            echo "::warning::$BRANCH no longer exists - already cleaned up, skipping steps 6 and 7"
-            echo "branch_exists=false" >> $GITHUB_OUTPUT
-            echo "new_commits=0" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-          echo "branch_exists=true" >> $GITHUB_OUTPUT
+          if git('ls-remote', '--exit-code', '--heads', 'origin', branch).returncode != 0:
+            print(f"::warning::{branch} no longer exists - already cleaned up, skipping steps 6 and 7")
+            out(branch_exists='false', new_commits='0')
+            raise SystemExit(0)
 
-          git fetch origin main "$BRANCH"
-          NEW_COMMITS=$(git rev-list "origin/main..origin/$BRANCH" | wc -l | tr -d ' ')
-          echo "new_commits=$NEW_COMMITS" >> $GITHUB_OUTPUT
-          echo "$BRANCH has $NEW_COMMITS commit(s) not on main"
+          out(branch_exists='true')
+          git('fetch', 'origin', '--prune', '+refs/heads/*:refs/remotes/origin/*')
+
+          missing, unverified = unmerged('origin/main', f'origin/{branch}')
+          if missing is None:
+            print(f"::warning::Could not compare {branch} against main, assuming nothing to merge back")
+            out(new_commits='0')
+            raise SystemExit(0)
+
+          print(f"{branch} has {len(missing)} commit(s) whose change is not on main")
+          for sha in missing:
+            print(f"  {describe(sha)}")
+          if unverified:
+            print(f"  ({len(unverified)} of those carry no 'cherry picked from' trailer - either new work "
+                  f"written here, or a pick made without -x. Picking with -x removes the ambiguity.)")
+          out(new_commits=len(missing))
+          EOF
 
       # -------------------------------------------------------
       # 6. Open a PR for any changes not yet on main
@@ -249,6 +316,7 @@ jobs:
           GH_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
           VERSION: ${{ github.event.inputs.version }}
           BRANCH: ${{ steps.check_branch.outputs.branch }}
+          KIND: ${{ github.event.inputs.kind }}
         run: |
           EXISTING=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq 'length')
           if [ "$EXISTING" -gt 0 ]; then
@@ -256,11 +324,22 @@ jobs:
             exit 0
           fi
 
+          # On a hotfix these commits are the cherry-picked fix itself, so this
+          # PR is the expected end of the cycle. On a release they mean someone
+          # committed to the release branch after it was cut, which is not.
+          if [ "$KIND" = "hotfix" ]; then
+            LABEL="Hotfix"
+            WHY="These are the fixes that were cherry-picked onto the hotfix branch."
+          else
+            LABEL="Release"
+            WHY="These are changes that landed on the release branch after it was cut."
+          fi
+
           gh pr create \
             --base main \
             --head "$BRANCH" \
             --title "Merge $BRANCH back to main" \
-            --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back."
+            --body "$LABEL $VERSION shipped with changes on $BRANCH that aren't on main yet. $WHY This PR brings them back."
           echo "Opened PR to merge $BRANCH into main - branch left in place until it merges"
 
       # -------------------------------------------------------

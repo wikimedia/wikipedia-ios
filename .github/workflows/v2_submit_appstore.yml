@@ -61,19 +61,26 @@ jobs:
       #    that actually shipped. A missing branch is only a warning -
       #    the TestFlight check in step 3 is the real gate.
       # -------------------------------------------------------
-      - name: Check out release candidate branch
+      - name: Check out the release branch
         id: branch
         env:
           VERSION: ${{ github.event.inputs.version }}
+          KIND: ${{ github.event.inputs.kind }}
         run: |
-          BRANCH="release-candidate/$VERSION"
+          if [ "$KIND" = "hotfix" ]; then
+            BRANCH="hotfix/$VERSION"
+            CREATED_BY="V2 Cut Hotfix Branch"
+          else
+            BRANCH="release-candidate/$VERSION"
+            CREATED_BY="V2 Deploy Beta"
+          fi
           git fetch origin --prune '+refs/heads/*:refs/remotes/origin/*'
 
           if git rev-parse --verify "refs/remotes/origin/$BRANCH" >/dev/null 2>&1; then
             git checkout -B "$BRANCH" "origin/$BRANCH"
             echo "Checked out $BRANCH at $(git rev-parse HEAD)"
           else
-            echo "::warning::$BRANCH not found on remote, staying on ${{ github.ref_name }}. The Beta workflow normally creates this branch."
+            echo "::warning::$BRANCH not found on remote, staying on ${{ github.ref_name }}. $CREATED_BY normally creates this branch."
           fi
 
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
@@ -180,6 +187,7 @@ jobs:
           VERSION: ${{ github.event.inputs.version }}
           BRANCH: ${{ steps.branch.outputs.branch }}
           SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
+          KIND: ${{ github.event.inputs.kind }}
         run: |
           python3 << 'EOF'
           import urllib.request
@@ -194,7 +202,12 @@ jobs:
           branch = os.environ['BRANCH']
           submit_for_review = os.environ['SUBMIT_FOR_REVIEW'] == 'true'
 
-          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
+          # A hotfix task is titled "Hotfix <version>" rather than "Release
+          # <version>", so that V2 Deploy Beta - which refuses to run when more
+          # than one open task matches ^Release - keeps working while a hotfix
+          # ships alongside an in-flight release candidate.
+          prefix = 'Hotfix' if os.environ.get('KIND') == 'hotfix' else 'Release'
+          release_pattern = re.compile(rf'^{prefix} \d{{4}}\.\d{{2}}\.\d{{2}}')
 
           def release_branch_value(description):
             match = re.search(r'\*\*Release branch\*\*:(.*)', description)

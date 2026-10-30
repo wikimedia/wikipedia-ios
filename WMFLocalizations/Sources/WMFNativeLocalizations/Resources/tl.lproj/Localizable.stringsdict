@@ -330,6 +330,54 @@
 			<string>%1$d lines unedited</string>
 		</dict>
 	</dict>
+	<key>discover-list-onboarding-toast-daily</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Your recommendations are stored locally on your device.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Discover will update with %1$d new article each day</string>
+			<key>other</key>
+			<string>Discover will update with %1$d new articles each day</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-monthly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Your recommendations are stored locally on your device.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Discover will update with %1$d new article each month</string>
+			<key>other</key>
+			<string>Discover will update with %1$d new articles each month</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-weekly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Your recommendations are stored locally on your device.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Discover will update with %1$d new article each week</string>
+			<key>other</key>
+			<string>Discover will update with %1$d new articles each week</string>
+		</dict>
+	</dict>
 	<key>donation-reminder-card-body</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
