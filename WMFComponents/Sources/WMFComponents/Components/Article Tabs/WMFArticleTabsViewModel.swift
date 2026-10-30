@@ -192,28 +192,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     func calculateColumns(for size: CGSize) -> Int {
-        // If text is scaled up for accessibility, use single column
-        if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
-            return 1
-        }
-
-        let isPortrait = size.height > size.width
-        let isPad = UIDevice.current.userInterfaceIdiom == .pad
-
-        if isPortrait {
-            if isPad {
-                // Reduce number of columns on iPad mini screen to preserve 3/4 aspect ratio
-                if size.width <= 744.0 {
-                    return 3
-                } else {
-                    return 4
-                }
-            } else {
-                return 2
-            }
-        } else {
-            return 4
-        }
+        WMFCardGridColumns.count(for: size, isAccessibilitySize: UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory)
     }
     
     func description(for tab: ArticleTab) -> String? {
@@ -221,21 +200,16 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         return description.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
-    func calculateImageHeight(horizontalSizeClass: UserInterfaceSizeClass?) -> Int {
+    func calculateImageHeight(horizontalSizeClass: UserInterfaceSizeClass?, verticalSizeClass: UserInterfaceSizeClass?) -> Int {
+        // Regular in both dimensions is a full iPad or iPhone Duo's inner display. Large phones
+        // in landscape are regular width but compact height, so they keep the phone height.
+        let isRegular = horizontalSizeClass == .regular && verticalSizeClass == .regular
+
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                return 425
-            }
-            return 225
-        }
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            guard let horizontalSizeClass else { return 110 }
-            let isLandscape = horizontalSizeClass == .regular
-            return isLandscape ? 160 : 110
+            return isRegular ? 425 : 225
         }
 
-        return 95
+        return isRegular ? 160 : 95
     }
     
     func getAccessibilityLabel(for tab: ArticleTab) -> String {
