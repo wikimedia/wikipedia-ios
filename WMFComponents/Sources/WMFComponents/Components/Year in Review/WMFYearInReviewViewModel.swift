@@ -1,3 +1,4 @@
+import Combine
 import UIKit
 import WMFData
 
@@ -90,6 +91,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// are light, because they sit on the dark page.
     @Published public var endUsesLightContent = false
 
+    /// How far the end screen has come in while the pager moves between the last slide and the end
+    /// screen: 0 on the last slide, 1 on the end screen. It is 0 on the other slides. It changes on
+    /// each scroll step, so it is a subject, not `@Published`, and the pager does not render again.
+    public let endPageReveal = CurrentValueSubject<CGFloat, Never>(0)
+
     public let localizedStrings: LocalizedStrings
 
     private weak var coordinatorDelegate: WMFYearInReviewCoordinating?
@@ -145,11 +151,30 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// style of the slide view model. The end screen has a light top, so its controls are dark until
     /// the sky scrolls away from under them.
     public var currentContentColor: UIColor? {
-        if isOnEnd {
+        contentColor(onEnd: isOnEnd)
+    }
+
+    /// The color of the bar items. During the swipe between the last slide and the end screen, it
+    /// changes halfway, not when the swipe ends.
+    var barContentColor: UIColor? {
+        let reveal = endPageReveal.value
+        let isMoving = reveal > 0 && reveal < 1
+        return contentColor(onEnd: isMoving ? reveal > 0.5 : isOnEnd)
+    }
+
+    private func contentColor(onEnd: Bool) -> UIColor? {
+        if onEnd {
             return (endUsesLightContent ? WMFYearInReviewSlideViewModel.ContentStyle.light : .dark).color
         }
-        guard let currentSlide else { return nil }
-        return (loadedContentStyles[currentSlide.id] ?? currentSlide.contentStyle).color
+        guard let slide = isOnEnd ? pagerSlides.last : currentSlide else { return nil }
+        return (loadedContentStyles[slide.id] ?? slide.contentStyle).color
+    }
+
+    /// Called on each scroll step of the pager. `position` is the page at the top, with a fraction.
+    func pagerDidScroll(toPosition position: CGFloat) {
+        let reveal = endViewModel == nil ? 0 : min(max(position - CGFloat(pagerSlides.count - 1), 0), 1)
+        guard reveal != endPageReveal.value else { return }
+        endPageReveal.send(reveal)
     }
 
     /// The color around the page and of the toolbar. It is the dark chrome color on every page,
@@ -214,17 +239,39 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// A slide with its own donate button does not show the share button, so the donate button is
     /// the only action on the slide.
     var showsShareButton: Bool {
-        guard let currentSlide else {
-            return false
-        }
-        return currentSlide.showsShareButton && !currentSlide.showsPrimaryDonateButton
+        showsShareButton(on: currentSlide)
     }
 
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
     var showsDonateButton: Bool {
-        guard let currentSlide,
-              currentSlide.showsDonateButton,
-              !currentSlide.showsPrimaryDonateButton else {
+        showsDonateButton(on: currentSlide)
+    }
+
+    /// The slide whose buttons are in the toolbar. On the end screen, it is the last slide. The end
+    /// screen hides its buttons, and they fade in while the reader swipes back to it.
+    var toolbarSlide: WMFYearInReviewSlideViewModel? {
+        isOnEnd ? pagerSlides.last : currentSlide
+    }
+
+    var toolbarShowsShareButton: Bool {
+        showsShareButton(on: toolbarSlide)
+    }
+
+    var toolbarShowsDonateButton: Bool {
+        showsDonateButton(on: toolbarSlide)
+    }
+
+    private func showsShareButton(on slide: WMFYearInReviewSlideViewModel?) -> Bool {
+        guard let slide else {
+            return false
+        }
+        return slide.showsShareButton && !slide.showsPrimaryDonateButton
+    }
+
+    private func showsDonateButton(on slide: WMFYearInReviewSlideViewModel?) -> Bool {
+        guard let slide,
+              slide.showsDonateButton,
+              !slide.showsPrimaryDonateButton else {
             return false
         }
 
