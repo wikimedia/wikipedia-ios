@@ -387,6 +387,69 @@ final class SavedUITests: XCTestCase {
             .assertCreateButtonEnabled(false)
     }
 
+    func testCreateReadingListButtonStaysDisabledForWhitespaceName() throws {
+        openSaved(seed: fixture.seedWithoutLists)
+            .showReadingLists()
+            .createListFromEmptyState()
+            .typeName("   ")
+            .assertCreateButtonEnabled(false)
+            .close()
+    }
+
+    func testCreateReadingListCloseDoesNotCreateList() throws {
+        let saved = openSaved(seed: fixture.seedWithoutLists).showReadingLists()
+        saved.createListFromEmptyState()
+            .typeName(SavedFixture.newListName)
+            .close()
+        saved.assertReadingListsEmptyStateVisible()
+    }
+
+    func testCreateReadingListShowsDescriptionInDetail() throws {
+        let saved = openSaved(seed: fixture.seedWithoutLists).showReadingLists()
+        saved.createListFromEmptyState()
+            .typeName(SavedFixture.newListName)
+            .typeDescription(SavedFixture.newListDescription)
+            .tapCreate()
+            .assertDismissed()
+        saved.openReadingList(SavedFixture.newListName)
+            .assertTitle(SavedFixture.newListName)
+            .assertDescription(SavedFixture.newListDescription)
+    }
+
+    func testCreateReadingListFromAllArticlesEditModeAddsArticle() throws {
+        let saved = openSaved()
+            .enterEditMode()
+            .selectArticleRow(fixture.openableArticleTitle)
+        saved.addSelectedArticlesToList()
+            .createNewList(named: SavedFixture.newListName)
+        saved.showReadingLists()
+            .openReadingList(SavedFixture.newListName)
+            .assertArticleVisible(fixture.openableArticleTitle)
+    }
+
+    func testCreateReadingListFromMoveSheetMovesArticle() throws {
+        let detail = openFirstList()
+            .enterEditMode()
+            .selectArticle(SavedFixture.latestArticleTitle)
+        detail.moveSelectedArticlesToList()
+            .createNewList(named: SavedFixture.newListName)
+        detail.assertArticleAbsent(SavedFixture.latestArticleTitle)
+            .tapBackToSaved()
+            .openReadingList(SavedFixture.newListName)
+            .assertArticleVisible(SavedFixture.latestArticleTitle)
+    }
+
+    func testCreateReadingListFromSharedLinkImportsArticles() throws {
+        let app = launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: fixture.seedWithoutArticlesOrLists)
+        app.home.assertVisible()
+        app.openSharedReadingListLink(pageIDs: [SavedFixture.importedArticlePageID], languageCode: SavedFixture.importedArticleLanguageCode)
+            .assertName(fixture.labels.importedListDefaultName)
+            .assertCreateButtonEnabled(true)
+            .createImportedList()
+            .assertTitle(fixture.labels.importedListDefaultName)
+            .assertArticleVisible(SavedFixture.importedArticleTitle)
+    }
+
     // MARK: - Helpers
 
     private var fixture: SavedFixture {
