@@ -9,6 +9,8 @@ public protocol WMFLegacyReadingListsDataControllerDelegate: AnyObject {
     func fetchArticles(inReadingList readingListID: String) async throws -> [WMFSavedArticle]
     func defaultReadingListID() async throws -> String?
     func isDefaultReadingListEnabled() async -> Bool
+    /// True while the first full sync after sign-in has not finished. The store is empty or partial until then.
+    func isInitialSyncPending() async -> Bool
 
     func sortOrder(forReadingList readingListID: String) async throws -> WMFReadingListSortOrder?
     func setSortOrder(_ sortOrder: WMFReadingListSortOrder, forReadingList readingListID: String) async throws
@@ -68,6 +70,14 @@ public final class WMFLegacyReadingListsDataController: @unchecked Sendable {
         let isDefaultListEnabled = await delegate.isDefaultReadingListEnabled()
         let visible = Self.filtered(lists, filter: filter, isDefaultListEnabled: isDefaultListEnabled)
         return Self.sorted(Self.filtered(visible, searchText: searchText), by: readingListsSortOrder)
+    }
+
+    /// True while the first full sync after sign-in has not finished. Screens show a loading state instead of an empty one.
+    public func isInitialSyncPending() async -> Bool {
+        guard let delegate else {
+            return false
+        }
+        return await delegate.isInitialSyncPending()
     }
 
     // MARK: - Reading list detail
