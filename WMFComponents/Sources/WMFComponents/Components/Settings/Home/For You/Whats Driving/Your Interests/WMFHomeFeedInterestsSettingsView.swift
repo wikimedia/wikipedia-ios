@@ -92,6 +92,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
             Text(viewModel.headerTitle)
                 .font(Font(WMFFont.for(.boldTitle3, sized: dynamicTypeSize)))
                 .foregroundStyle(Color(uiColor: theme.text))
+                .accessibilityIdentifier(AccessibilityIdentifiers.Interests.headerTitle)
         } else if dynamicTypeSize.isAccessibilitySize {
             // Side-by-side would squeeze both labels into word-breaking columns at
             // accessibility sizes — stack them instead.
@@ -112,6 +113,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
         Text(viewModel.selectedCountTitle)
             .font(Font(WMFFont.for(.boldTitle3, sized: dynamicTypeSize)))
             .foregroundStyle(Color(uiColor: theme.text))
+            .accessibilityIdentifier(AccessibilityIdentifiers.Interests.selectedCount)
     }
 
     private var deselectAllButton: some View {

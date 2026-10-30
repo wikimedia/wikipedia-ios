@@ -96,13 +96,4 @@ final class AppOnboardingUITests: XCTestCase {
             .openPreferredLanguages()
             .assertPreferredLanguage(expectedLanguageCode)
     }
-
-    func testInterestsSearchAddsArticle() throws {
-        launchWikipediaAppRobot(onboardingState: .notCompleted)
-            .onboarding
-            .advance(to: .interests)
-            .searchInterests(for: "Einstein")
-            .addFirstSearchResult()
-            .assertHasSelections()
-    }
 }

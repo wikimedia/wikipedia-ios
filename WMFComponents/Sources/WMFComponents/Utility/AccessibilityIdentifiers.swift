@@ -147,6 +147,16 @@ public enum AccessibilityIdentifiers {
         public static let view = "Profile View"
         public static let temporaryAccountUserPageRow = "Profile Temporary Account User Page Row"
         public static let joinWikipediaRow = "Profile Join Wikipedia Row"
+        public static let settingsRow = "Profile Settings Row"
+    }
+
+    public enum Settings {
+        public static let homeFeedRow = "Settings Home Feed Row"
+    }
+
+    public enum HomeFeedSettings {
+        public static let whatsDrivingRow = "Home Feed Settings Whats Driving Row"
+        public static let yourInterestsRow = "Home Feed Settings Your Interests Row"
     }
 
     public enum Search {
@@ -212,6 +222,9 @@ public enum AccessibilityIdentifiers {
     }
 
     public enum Interests {
+        public static let articleCard = "Interests Article Card"
+        public static let headerTitle = "Interests Header Title"
+        public static let selectedCount = "Interests Selected Count"
         public static let deselectAllButton = "Interests Deselect All Button"
         public static let searchCancelButton = "Interests Search Cancel Button"
         public static let searchField = "Interests Search Field"
