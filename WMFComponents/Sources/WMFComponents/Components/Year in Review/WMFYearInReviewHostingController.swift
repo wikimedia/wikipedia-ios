@@ -6,6 +6,12 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
     private let viewModel: WMFYearInReviewViewModel
     private var cancellables = Set<AnyCancellable>()
+    /// The color that `applyContentColor()` last gave the bar items.
+    private var appliedContentColor: UIColor?
+    /// The share and donate views in the toolbar. They fade out while the end screen comes in.
+    private var fadingToolbarViews: [UIView] = []
+    /// The "Share highlights" button. It fades in while the end screen comes in.
+    private var shareHighlightsButton: UIButton?
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
@@ -46,16 +52,26 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
             }
             .store(in: &cancellables)
 
-        // A slide can set the color of the controls in its .riv, which is known only after it loads.
-        viewModel.$loadedContentStyles
+        // The end screen scrolls its light sky away from under the bar items, then they turn light.
+        viewModel.$endUsesLightContent
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
             }
             .store(in: &cancellables)
 
-        // The end screen scrolls its light sky away from under the bar items, then they turn light.
-        viewModel.$endUsesLightContent
+        // The share and donate buttons fade, and the bar items change color, during the swipe to the
+        // end screen, not when it ends.
+        viewModel.endPageReveal
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applyContentColor()
+                self?.applyToolbarReveal()
+            }
+            .store(in: &cancellables)
+
+        // A slide can set the color of the controls in its .riv, which is known only after it loads.
+        viewModel.$loadedContentStyles
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applyContentColor()
@@ -84,6 +100,9 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+        // The bar items are new, and the navigation bar may not have had this color yet.
+        appliedContentColor = nil
+        applyContentColor()
         (navigationController as? WMFComponentNavigationController)?.setTransparentAppearance(true)
         configureToolbar()
         navigationController?.setToolbarHidden(false, animated: animated)
@@ -140,42 +159,75 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     private func refreshToolbarItems() {
         var items: [UIBarButtonItem] = []
 
-        if viewModel.showsShareButton {
-            items.append(
-                makeToolbarItem(
-                    title: viewModel.shareButtonTitle,
-                    symbol: .share,
-                    action: #selector(tappedShare)
-                )
-            )
+        // On the end screen, these are the buttons of the last slide, hidden by `applyToolbarReveal()`.
+        let shareButton = viewModel.toolbarShowsShareButton
+            ? makeToolbarButton(title: viewModel.localizedStrings.shareButtonTitle, symbol: .share, action: #selector(tappedShare))
+            : nil
+        let shareHighlightsButton = viewModel.toolbarShowsShareHighlightsButton
+            ? makeToolbarButton(title: viewModel.localizedStrings.shareHighlightsButtonTitle, symbol: .share, action: #selector(tappedShareHighlights))
+            : nil
+        self.shareHighlightsButton = shareHighlightsButton
+
+        switch (shareButton, shareHighlightsButton) {
+        case let (shareButton?, shareHighlightsButton?):
+            // One fades out while the other fades in, so they take the same place.
+            items.append(makeToolbarItem(stacking: [shareButton, shareHighlightsButton]))
+        case let (button?, nil), let (nil, button?):
+            items.append(makeToolbarItem(button))
+        case (nil, nil):
+            break
         }
 
         items.append(UIBarButtonItem(systemItem: .flexibleSpace))
 
-        if viewModel.showsDonateButton {
+        var donateView: UIView?
+        if viewModel.toolbarShowsDonateButton {
             if viewModel.isLoadingDonate {
                 let spinner = UIActivityIndicatorView(style: .medium)
                 spinner.color = WMFColor.white
                 spinner.startAnimating()
-                items.append(UIBarButtonItem(customView: spinner))
+                donateView = spinner
             } else {
-                items.append(
-                    makeToolbarItem(
-                        title: viewModel.localizedStrings.donateButtonTitle,
-                        symbol: .heartFilled,
-                        action: #selector(tappedDonate)
-                    )
+                donateView = makeToolbarButton(
+                    title: viewModel.localizedStrings.donateButtonTitle,
+                    symbol: .heartFilled,
+                    action: #selector(tappedDonate)
                 )
             }
         }
+        if let donateView {
+            items.append(makeToolbarItem(donateView))
+        }
+
+        // The placeholder is always hidden, so it does not fade.
+        fadingToolbarViews = [shareButton, donateView].compactMap { $0 }
 
         // If the page has no toolbar buttons, add a placeholder.
         // The placeholder keeps the toolbar at the same height on all pages.
-        if !viewModel.showsShareButton && !viewModel.showsDonateButton {
+        if shareButton == nil && shareHighlightsButton == nil && !viewModel.toolbarShowsDonateButton {
             items.append(makeToolbarPlaceholderItem())
         }
 
         setToolbarItems(items, animated: false)
+        applyToolbarReveal()
+    }
+
+    /// The end screen has no share or donate button of a slide. They fade out as it comes in, and fade
+    /// in as the reader swipes back, so they do not appear or disappear at once when the swipe ends.
+    /// "Share highlights" does the opposite.
+    private func applyToolbarReveal() {
+        let reveal = viewModel.endPageReveal.value
+        let isOnEnd = reveal > 0.5
+        for view in fadingToolbarViews {
+            view.alpha = 1 - reveal
+            view.isUserInteractionEnabled = !isOnEnd
+            view.accessibilityElementsHidden = isOnEnd
+        }
+        if let shareHighlightsButton {
+            shareHighlightsButton.alpha = reveal
+            shareHighlightsButton.isUserInteractionEnabled = isOnEnd
+            shareHighlightsButton.accessibilityElementsHidden = !isOnEnd
+        }
     }
 
     /// Makes an item that has the same size as a toolbar button, but the user cannot see it or use it.
@@ -201,6 +253,10 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
 
     private func makeToolbarItem(title: String, symbol: WMFSFSymbolIcon, action: Selector) -> UIBarButtonItem {
+        makeToolbarItem(makeToolbarButton(title: title, symbol: symbol, action: action))
+    }
+
+    private func makeToolbarButton(title: String, symbol: WMFSFSymbolIcon, action: Selector) -> UIButton {
         var configuration = UIButton.Configuration.plain()
         configuration.title = title
         configuration.image = WMFSFSymbolIcon.for(symbol: symbol)
@@ -218,10 +274,37 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         button.addTarget(self, action: action, for: .touchUpInside)
    
         button.sizeToFit()
+        return button
+    }
 
-        let item = UIBarButtonItem(customView: button)
+    /// One item that holds `buttons` on top of each other, at its leading edge, as wide as the widest.
+    private func makeToolbarItem(stacking buttons: [UIButton]) -> UIBarButtonItem {
+        let container = UIView()
+        for button in buttons {
+            button.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(button)
+            NSLayoutConstraint.activate([
+                button.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+                button.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor),
+                button.topAnchor.constraint(greaterThanOrEqualTo: container.topAnchor),
+                button.bottomAnchor.constraint(lessThanOrEqualTo: container.bottomAnchor),
+                button.centerYAnchor.constraint(equalTo: container.centerYAnchor)
+            ])
+        }
+        let size = buttons.reduce(CGSize.zero) { size, button in
+            CGSize(width: max(size.width, button.bounds.width), height: max(size.height, button.bounds.height))
+        }
+        container.frame = CGRect(origin: .zero, size: size)
+        NSLayoutConstraint.activate([
+            container.widthAnchor.constraint(equalToConstant: size.width),
+            container.heightAnchor.constraint(equalToConstant: size.height)
+        ])
+        return makeToolbarItem(container)
+    }
 
-        
+    private func makeToolbarItem(_ view: UIView) -> UIBarButtonItem {
+        let item = UIBarButtonItem(customView: view)
+
         if #available(iOS 26.0, *) {
             // iOS 26 puts a capsule behind a bar button item
             item.hidesSharedBackground = true
@@ -232,6 +315,10 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
     @objc private func tappedShare() {
         viewModel.tappedShare()
+    }
+
+    @objc private func tappedShareHighlights() {
+        viewModel.tappedShareHighlights()
     }
 
     @objc private func tappedDonate() {
@@ -264,12 +351,18 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
     /// Each slide says whether its artwork is light or dark, so the bar items follow the current slide.
     private func applyContentColor() {
-        WMFYearInReviewNavigationItems.applyTintColor(contentColor, to: navigationItem)
+        let color = contentColor
+        // This runs on each slide change and each scroll step of the end screen. Do nothing if the color is the same.
+        guard color != appliedContentColor else { return }
+        appliedContentColor = color
+
+        WMFYearInReviewNavigationItems.applyTintColor(color, to: navigationItem)
+        navigationController?.navigationBar.tintColor = color
     }
 
     /// The color from the .riv once the slide has loaded, otherwise the style the factory gave it.
     private var contentColor: UIColor {
-        viewModel.currentContentColor ?? theme.text
+        viewModel.barContentColor ?? theme.text
     }
 
     @objc private func tappedClose() {

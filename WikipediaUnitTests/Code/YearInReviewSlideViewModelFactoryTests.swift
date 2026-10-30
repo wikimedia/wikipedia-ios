@@ -752,4 +752,21 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.makeHighlights(experience: .collective) == nil)
         #expect(factory.makeHighlights(experience: .personalized, forcesAllEmptyStates: true) == nil)
     }
+
+    /// The instrumentation plan names each page, and the donate campaign ID is made from that name.
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
+        let planPages: Set<String> = [
+            "total_articles", "total_articles_empty", "visits", "top_topic", "top_topic_empty", "other_top_topics",
+            "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
+            "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
+            "collective_volunteer_editors", "collective_edits", "collective_global_reach", "thank_you", "you_matter"
+        ]
+        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.collectiveSlides(config: try config())
+        for slide in slides {
+            #expect(planPages.contains(slide.loggingID), "\(slide.id) logs \(slide.loggingID)")
+        }
+        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: YearInReviewSlideViewModelFactory.contributorSlideID) == "thank_you")
+        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "rabbitHoleReveal") == "rabbit_hole_reveal")
+    }
 }
