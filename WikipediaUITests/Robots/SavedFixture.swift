@@ -20,6 +20,8 @@ struct SavedFixture {
         let delete: String
         let removeFromSaved: String
         let createNewList: String
+        /// The name the import form gives a shared reading list.
+        let importedListDefaultName: String
     }
 
     /// The article from the ArticleControls fixtures, so it can be opened in fixture-backed runs.
@@ -38,6 +40,13 @@ struct SavedFixture {
     static let lowercaseListName = "animals"
     static let accentedListName = "Égypte"
     static let newListName = "Birds"
+    static let newListDescription = "Feathered animals"
+
+    /// The English article a shared reading list link imports. Its page info and summary fixtures live under en.wikipedia.org,
+    /// so the same link works in every fixture language.
+    static let importedArticleTitle = "Dog"
+    static let importedArticlePageID = 4269567
+    static let importedArticleLanguageCode = "en"
 
     var seed: UITestReadingListsSeed {
         UITestReadingListsSeed(
@@ -110,25 +119,25 @@ struct SavedFixture {
         case "en":
             return SavedFixture(
                 openableArticleTitle: "Dog",
-                labels: Labels(allArticlesScope: "All articles", readingListsScope: "Reading lists", sort: "Sort", sortByTitle: "Title", sortByRecentlyAdded: "Recently added", edit: "Edit", cancel: "Cancel", unsave: "Unsave", delete: "Delete", removeFromSaved: "Remove from saved", createNewList: "Create a new list"),
+                labels: Labels(allArticlesScope: "All articles", readingListsScope: "Reading lists", sort: "Sort", sortByTitle: "Title", sortByRecentlyAdded: "Recently added", edit: "Edit", cancel: "Cancel", unsave: "Unsave", delete: "Delete", removeFromSaved: "Remove from saved", createNewList: "Create a new list", importedListDefaultName: "My Reading List"),
                 allArticlesByTitle: ["apple", "Dog", "Émile Zola", "Zebra"]
             )
         case "de":
             return SavedFixture(
                 openableArticleTitle: "Haushund",
-                labels: Labels(allArticlesScope: "Alle Artikel", readingListsScope: "Sammlungen", sort: "Sortieren", sortByTitle: "Titel", sortByRecentlyAdded: "Kürzlich hinzugefügt", edit: "Bearbeiten", cancel: "Abbrechen", unsave: "Löschen", delete: "Löschen", removeFromSaved: "Von gespeichert entfernen", createNewList: "Eine neue Liste erstellen"),
+                labels: Labels(allArticlesScope: "Alle Artikel", readingListsScope: "Sammlungen", sort: "Sortieren", sortByTitle: "Titel", sortByRecentlyAdded: "Kürzlich hinzugefügt", edit: "Bearbeiten", cancel: "Abbrechen", unsave: "Löschen", delete: "Löschen", removeFromSaved: "Von gespeichert entfernen", createNewList: "Eine neue Liste erstellen", importedListDefaultName: "Meine Sammlung"),
                 allArticlesByTitle: ["apple", "Émile Zola", "Haushund", "Zebra"]
             )
         case "he":
             return SavedFixture(
                 openableArticleTitle: "כלב הבית",
-                labels: Labels(allArticlesScope: "כל הערכים", readingListsScope: "רשימות קריאה", sort: "מיון", sortByTitle: "כותרת", sortByRecentlyAdded: "נוספו לאחרונה", edit: "עריכה", cancel: "ביטול", unsave: "ביטול שמירה", delete: "מחיקה", removeFromSaved: "להסיר משמורים", createNewList: "יצירת רשימה חדשה"),
+                labels: Labels(allArticlesScope: "כל הערכים", readingListsScope: "רשימות קריאה", sort: "מיון", sortByTitle: "כותרת", sortByRecentlyAdded: "נוספו לאחרונה", edit: "עריכה", cancel: "ביטול", unsave: "ביטול שמירה", delete: "מחיקה", removeFromSaved: "להסיר משמורים", createNewList: "יצירת רשימה חדשה", importedListDefaultName: "רשימת הקריאה שלי"),
                 allArticlesByTitle: ["כלב הבית", "apple", "Émile Zola", "Zebra"]
             )
         case "vi":
             return SavedFixture(
                 openableArticleTitle: "Chó",
-                labels: Labels(allArticlesScope: "Tất cả các bài", readingListsScope: "Danh sách đọc", sort: "Sắp xếp", sortByTitle: "Tựa đề", sortByRecentlyAdded: "Thêm gần đây", edit: "Sửa đổi", cancel: "Hủy bỏ", unsave: "Bỏ lưu", delete: "Xóa", removeFromSaved: "Xóa khỏi Đã lưu", createNewList: "Tạo danh sách mới"),
+                labels: Labels(allArticlesScope: "Tất cả các bài", readingListsScope: "Danh sách đọc", sort: "Sắp xếp", sortByTitle: "Tựa đề", sortByRecentlyAdded: "Thêm gần đây", edit: "Sửa đổi", cancel: "Hủy bỏ", unsave: "Bỏ lưu", delete: "Xóa", removeFromSaved: "Xóa khỏi Đã lưu", createNewList: "Tạo danh sách mới", importedListDefaultName: "Danh sách đọc của tôi"),
                 allArticlesByTitle: ["apple", "Chó", "Émile Zola", "Zebra"]
             )
         default:

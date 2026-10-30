@@ -37,6 +37,21 @@ extension CreateReadingListRobot {
     }
 
     @discardableResult
+    func assertName(_ name: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(nameTextField, timeout: 15, description: "reading list name field", file: file, line: line)
+        let predicate = NSPredicate(format: "value == %@", name)
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: nameTextField)
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [expectation], timeout: 15),
+            .completed,
+            "Expected the reading list name field to read '\(name)', got '\(nameTextField.value ?? "")'.",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
     func assertNameErrorVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
             base.app.staticTexts[AccessibilityIdentifiers.CreateReadingList.nameErrorLabel],
@@ -69,6 +84,14 @@ extension CreateReadingListRobot {
     func tapCreate(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.CreateReadingList.createButton, timeout: 10, file: file, line: line)
         return self
+    }
+
+    /// Creates the list the form imports from a shared link. The app then opens that list.
+    @discardableResult
+    func createImportedList(file: StaticString = #filePath, line: UInt = #line) -> ReadingListDetailRobot {
+        tapCreate(file: file, line: line)
+            .assertDismissed(file: file, line: line)
+        return ReadingListDetailRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
     @discardableResult
