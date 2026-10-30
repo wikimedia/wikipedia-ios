@@ -263,6 +263,25 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
+    func overlappingGenerationCallsShareOneRun() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            let now = date(2026, 10, 26)
+
+            async let firstList = controller.generateRecommendations(now: now)
+            async let secondList = controller.generateRecommendationsIfNeeded(now: now)
+            let (first, second) = try await (firstList, secondList)
+
+            #expect(first.map(\.title) == second.map(\.title))
+            #expect(try await controller.fetchCurrentRecommendations().count == 2)
+            // One run persists one list. A second run would expire it and store more rows.
+            #expect(try await controller.fetchStoredRecommendations(includeExpired: true).count == 2)
+        }
+    }
+
+    @Test
     func generateIfNeededOnlyRegeneratesWhenDue() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await addInterest("Cat")
