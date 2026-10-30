@@ -241,6 +241,10 @@ extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, R
     var articleURL: URL {
         return pageURL
     }
+    
+    var referenceRectVerticalOffset: CGFloat {
+        return 0
+    }
 }
 
 extension EditPreviewViewController: UIGestureRecognizerDelegate {
