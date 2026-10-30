@@ -210,10 +210,10 @@ public actor WMFEvergreenAccountCreationDataController {
 
     // MARK: - Slide Data
 
-    public func slideData() async -> SlideData {
+    public func slideData(date: Date = Date()) async -> SlideData {
         async let readingDayCount = readingDayCount()
         async let savedArticleCount = savedArticleCount()
-        async let articlesReadThisMonthCount = articlesReadThisMonthCount()
+        async let articlesReadThisMonthCount = articlesReadThisMonthCount(date: date)
 
         return SlideData(
             readingDayCount: await readingDayCount.nonZeroValue,
