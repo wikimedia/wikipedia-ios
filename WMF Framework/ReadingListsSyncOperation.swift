@@ -287,30 +287,44 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         }
         
         if let getAllAPIReadingListsError = getAllAPIReadingListsError {
+            if let pauseUntil = apiController.session.serverBusyPauseUntil {
+                throw ReadingListsOperationError.serverBusy(pauseUntil: pauseUntil)
+            }
             throw getAllAPIReadingListsError
         }
         
-        let group = WMFTaskGroup()
-        
         syncedReadingListsCount += try createOrUpdate(remoteReadingLists: allAPIReadingLists, deleteMissingLocalLists: true, inManagedObjectContext: moc)
         
-        // Get all entries
+        // Get all entries, one list at a time. Each page is one request, so parallel lists exhaust the rate limit.
         var remoteEntriesByReadingListID: [Int64: [APIReadingListEntry]] = [:]
-        for remoteReadingList in allAPIReadingLists {
-            group.enter()
+        for (index, remoteReadingList) in allAPIReadingLists.enumerated() {
+            if let pauseUntil = apiController.session.serverBusyPauseUntil {
+                DDLogWarn("Reading list sync: server busy until \(pauseUntil), entries of \(allAPIReadingLists.count - index) reading lists wait for the next sync")
+                throw ReadingListsOperationError.serverBusy(pauseUntil: pauseUntil)
+            }
+            let entriesGroup = WMFTaskGroup()
+            var remoteEntries: [APIReadingListEntry] = []
+            var entriesError: Error?
+            entriesGroup.enter()
             apiController.getAllEntriesForReadingListWithID(readingListID: remoteReadingList.id, completion: { (entries, error) in
-                if let error = error {
-                    DDLogError("Error fetching entries for reading list with ID \(remoteReadingList.id): \(error)")
-                } else {
-                    remoteEntriesByReadingListID[remoteReadingList.id] = entries
-                }
-                group.leave()
+                remoteEntries = entries
+                entriesError = error
+                entriesGroup.leave()
             })
-        }
-        
-        group.wait()
-        guard !isCancelled  else {
-            throw ReadingListsOperationError.cancelled
+            entriesGroup.wait()
+            guard !isCancelled else {
+                throw ReadingListsOperationError.cancelled
+            }
+            if let entriesError {
+                // A 429 or 503 on any page drops the pages of this list. The sync stops here and the next full sync fetches the list again.
+                if let pauseUntil = apiController.session.serverBusyPauseUntil {
+                    DDLogWarn("Reading list sync: server busy until \(pauseUntil), entries of \(allAPIReadingLists.count - index) reading lists wait for the next sync")
+                    throw ReadingListsOperationError.serverBusy(pauseUntil: pauseUntil)
+                }
+                DDLogError("Error fetching entries for reading list with ID \(remoteReadingList.id): \(entriesError)")
+                continue
+            }
+            remoteEntriesByReadingListID[remoteReadingList.id] = remoteEntries
         }
         
         for (readingListID, remoteReadingListEntries) in remoteEntriesByReadingListID {
