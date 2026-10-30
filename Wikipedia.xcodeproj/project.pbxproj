@@ -2592,8 +2592,11 @@
 		E81A4C0826082000005CD008 /* YearInReviewSlideViewModelFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */; };
 		E81A4C0A26082000005CD00A /* YearInReviewAnnouncementViewModelFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */; };
 		E81A4D0226081900005CE002 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
+		E8D15C0226101A00005CE102 /* DiscoverReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */; };
 		E81A4D0326081900005CE003 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
+		E8D15C0326101A00005CE103 /* DiscoverReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */; };
 		E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
+		E8D15C0426101A00005CE104 /* DiscoverReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */; };
 		E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
 		E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
 		E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
@@ -4313,6 +4316,7 @@
 		E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewSlideViewModelFactoryTests.swift; sourceTree = "<group>"; };
 		E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewAnnouncementViewModelFactoryTests.swift; sourceTree = "<group>"; };
 		E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchResultsCoordinator.swift; sourceTree = "<group>"; };
+		E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverReadingListCoordinator.swift; sourceTree = "<group>"; };
 		E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsCoordinator.swift; sourceTree = "<group>"; };
 		E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchPassageHighlightTests.swift; sourceTree = "<group>"; };
 		EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFItemSourceExcludingActivityTypes.swift; sourceTree = "<group>"; };
@@ -6348,6 +6352,7 @@
 				678ABAE72C9DB948005CD570 /* DonateCoordinator.swift */,
 				E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */,
 				E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */,
+				E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */,
 				E81A4D2126081900005CE021 /* SearchInstrumentation.swift */,
 				E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */,
 				E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */,
@@ -9746,6 +9751,7 @@
 				678ABAEA2C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				E81A4C0426081900005CD004 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */,
+				E8D15C0426101A00005CE104 /* DiscoverReadingListCoordinator.swift in Sources */,
 				E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0426081900005CF004 /* SemanticSearchInfoCoordinator.swift in Sources */,
@@ -10561,6 +10567,7 @@
 				678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				E81A4C0326081900005CD003 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0326081900005CE003 /* SemanticSearchResultsCoordinator.swift in Sources */,
+				E8D15C0326101A00005CE103 /* DiscoverReadingListCoordinator.swift in Sources */,
 				E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0326081900005CF003 /* SemanticSearchInfoCoordinator.swift in Sources */,
@@ -11104,6 +11111,7 @@
 				678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				E81A4C0226081900005CD002 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0226081900005CE002 /* SemanticSearchResultsCoordinator.swift in Sources */,
+				E8D15C0226101A00005CE102 /* DiscoverReadingListCoordinator.swift in Sources */,
 				E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0226081900005CF002 /* SemanticSearchInfoCoordinator.swift in Sources */,
