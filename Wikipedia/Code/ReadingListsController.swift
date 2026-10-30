@@ -126,9 +126,14 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
-    @objc init(dataStore: MWKDataStore) {
+    @objc convenience init(dataStore: MWKDataStore) {
+        self.init(dataStore: dataStore, apiController: ReadingListsAPIController(session: dataStore.session, configuration: dataStore.configuration))
+    }
+
+    /// Tests pass an API controller whose session answers from fixtures.
+    init(dataStore: MWKDataStore, apiController: ReadingListsAPIController) {
         self.dataStore = dataStore
-        self.apiController = ReadingListsAPIController(session: dataStore.session, configuration: dataStore.configuration)
+        self.apiController = apiController
         super.init()
         operationQueue.maxConcurrentOperationCount = 1
     }
@@ -441,6 +446,12 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
+    // True while the first sync after sign-in has not completed.
+    public var isInitialSyncPending: Bool {
+        assert(Thread.isMainThread)
+        return syncState.contains(.needsSync)
+    }
+
     // is sync enabled for this user
     @objc public var isSyncEnabled: Bool {
         assert(Thread.isMainThread)

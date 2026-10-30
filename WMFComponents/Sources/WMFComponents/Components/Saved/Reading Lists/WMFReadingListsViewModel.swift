@@ -104,7 +104,10 @@ public final class WMFReadingListsViewModel: ObservableObject {
             }
             self.readingLists = lists
             let isEmpty = lists.isEmpty && searchText.isEmpty
-            let newState: State = isEmpty ? .empty : .data
+            let isSyncPending = isEmpty ? await dataController.isInitialSyncPending() : false
+            guard !Task.isCancelled else { return }
+
+            let newState: State = isEmpty ? (isSyncPending ? .loading : .empty) : .data
             if newState != self.state {
                 self.state = newState
             }
