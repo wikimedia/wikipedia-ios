@@ -161,7 +161,7 @@ struct WMFYearInReviewEndPageTests {
             rotation: [],
             rabbitHole: nil,
             nicheCategory: nil,
-            localizedStrings: .init(title: "", articlesReadLabel: "", minutesReadLabel: "", rotationLabel: "", rabbitHoleLabel: "", nicheCategoryLabel: "", createdWith: "")
+            localizedStrings: .init(title: "", articlesReadLabel: "", minutesReadLabel: "", rotationLabel: "", rotationRank: { "\($0)" }, rabbitHoleLabel: "", nicheCategoryLabel: "", createdWith: "")
         )
     }
 

@@ -12,6 +12,7 @@ struct WMFYearInReviewHighlightsTests {
         articlesReadLabel: "Number of articles read:",
         minutesReadLabel: "Total minutes read:",
         rotationLabel: "Articles in my rotation:",
+        rotationRank: { "(\($0))" },
         rabbitHoleLabel: "Longest rabbit hole:",
         nicheCategoryLabel: "Niche category explored:",
         createdWith: "Created with the Wikipedia app"

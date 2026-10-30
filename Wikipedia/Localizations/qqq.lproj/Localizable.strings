@@ -1768,6 +1768,7 @@
 "year-in-review-2026-highlights-minutes-read" = "Label on the Year in Review highlights image. The number of minutes the reader spent reading this year follows it.";
 "year-in-review-2026-highlights-niche-category" = "Label on the Year in Review highlights image. The name of an unusual category the reader read about this year follows it.";
 "year-in-review-2026-highlights-rabbit-hole" = "Label on the Year in Review highlights image. The articles in the longest chain of links the reader followed this year follow it.";
+"year-in-review-2026-highlights-rank" = "Marker before each article in the \"Articles in my rotation\" list on the Year in Review highlights image, for example \"(1)\". $1 is replaced with the position of the article in the list, from 1 to 3.";
 "year-in-review-2026-highlights-rotation" = "Label on the Year in Review highlights image. A list of the articles the reader read many times this year follows it.";
 "year-in-review-2026-highlights-title" = "Title of the image the reader shares with their Year in Review highlights.";
 "year-in-review-2026-interests-card-button-title" = "Button on the Year in Review card that opens the interests screen.";

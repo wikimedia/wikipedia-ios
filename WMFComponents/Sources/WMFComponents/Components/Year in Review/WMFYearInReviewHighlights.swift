@@ -9,15 +9,18 @@ public struct WMFYearInReviewHighlights: Sendable {
         public let articlesReadLabel: String
         public let minutesReadLabel: String
         public let rotationLabel: String
+        /// The marker before each article in the rotation, for example "(1)". The position starts at 1.
+        public let rotationRank: @Sendable (Int) -> String
         public let rabbitHoleLabel: String
         public let nicheCategoryLabel: String
         public let createdWith: String
 
-        public init(title: String, articlesReadLabel: String, minutesReadLabel: String, rotationLabel: String, rabbitHoleLabel: String, nicheCategoryLabel: String, createdWith: String) {
+        public init(title: String, articlesReadLabel: String, minutesReadLabel: String, rotationLabel: String, rotationRank: @escaping @Sendable (Int) -> String, rabbitHoleLabel: String, nicheCategoryLabel: String, createdWith: String) {
             self.title = title
             self.articlesReadLabel = articlesReadLabel
             self.minutesReadLabel = minutesReadLabel
             self.rotationLabel = rotationLabel
+            self.rotationRank = rotationRank
             self.rabbitHoleLabel = rabbitHoleLabel
             self.nicheCategoryLabel = nicheCategoryLabel
             self.createdWith = createdWith

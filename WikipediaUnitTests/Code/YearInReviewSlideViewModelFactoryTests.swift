@@ -724,6 +724,8 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(highlights.highlightCount == 5)
         #expect(highlights.isShareable)
         #expect(highlights.localizedStrings.createdWith == CommonStrings.yearInReviewHighlightsCreatedWith)
+        #expect(highlights.localizedStrings.rotationRank(2) == CommonStrings.yearInReviewHighlightsRank(2))
+        #expect(CommonStrings.yearInReviewHighlightsRank(2) == "(2)")
     }
 
     /// A highlight shows only when its slide showed its full version.

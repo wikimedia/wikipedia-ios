@@ -99,7 +99,7 @@ public struct WMFYearInReviewHighlightsShareView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     ForEach(Array(highlights.rotation.enumerated()), id: \.offset) { index, title in
                         HStack(alignment: .firstTextBaseline, spacing: 6) {
-                            Text("(\(formatted(index + 1)))")
+                            Text(verbatim: highlights.localizedStrings.rotationRank(index + 1))
                                 .font(Font(rankFont).monospacedDigit())
                             valueText(title)
                         }
@@ -258,6 +258,7 @@ extension WMFYearInReviewHighlightsShareView {
                 articlesReadLabel: "Number of articles read:",
                 minutesReadLabel: "Total minutes read:",
                 rotationLabel: "Articles in my rotation:",
+                rotationRank: { "(\($0))" },
                 rabbitHoleLabel: "Longest rabbit hole:",
                 nicheCategoryLabel: "Niche category explored:",
                 createdWith: "Created with the Wikipedia app"

@@ -614,6 +614,7 @@ struct YearInReviewSlideViewModelFactory {
                 articlesReadLabel: CommonStrings.yearInReviewHighlightsArticlesRead,
                 minutesReadLabel: CommonStrings.yearInReviewHighlightsMinutesRead,
                 rotationLabel: CommonStrings.yearInReviewHighlightsRotation,
+                rotationRank: { CommonStrings.yearInReviewHighlightsRank($0) },
                 rabbitHoleLabel: CommonStrings.yearInReviewHighlightsRabbitHole,
                 nicheCategoryLabel: CommonStrings.yearInReviewHighlightsNicheCategory,
                 createdWith: CommonStrings.yearInReviewHighlightsCreatedWith
