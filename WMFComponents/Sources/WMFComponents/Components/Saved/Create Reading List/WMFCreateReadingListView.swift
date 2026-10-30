@@ -12,8 +12,8 @@ public struct WMFCreateReadingListView: View {
     @ObservedObject var viewModel: WMFCreateReadingListViewModel
     @FocusState private var focusedField: Field?
 
-    private let namePlaceholder = WMFLocalizedString("reading-list-new-list-name-placeholder", value: "reading list title", comment: "Placeholder text appearing in text field for entering new list name")
-    private let descriptionPlaceholder = WMFLocalizedString("reading-list-new-list-description-placeholder", value: "optional short description", comment: "Placeholder text appearing in text field for entering new list description")
+    private let namePlaceholder = WMFLocalizedString("reading-list-new-list-name-placeholder", value: "Reading list title", comment: "Placeholder text appearing in text field for entering new list name")
+    private let descriptionPlaceholder = WMFLocalizedString("reading-list-new-list-description-placeholder", value: "Optional short description", comment: "Placeholder text appearing in text field for entering new list description")
 
     private var theme: WMFTheme {
         appEnvironment.theme

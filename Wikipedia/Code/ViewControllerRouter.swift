@@ -42,6 +42,7 @@ class ViewControllerRouter: NSObject {
 
     @objc let router: Router
     unowned let appViewController: WMFAppViewController
+    private var createReadingListCoordinator: CreateReadingListCoordinator?
     @objc(initWithAppViewController:router:)
     required init(appViewController: WMFAppViewController, router: Router) {
         self.appViewController = appViewController
@@ -54,6 +55,34 @@ class ViewControllerRouter: NSObject {
         return true
     }
 
+    @MainActor
+    private func presentReadingListImport(encodedPageIDs: String, with completion: @escaping () -> Void) -> Bool {
+        guard let navigationController = appViewController.currentNavigationController else {
+            completion()
+            return false
+        }
+
+        let coordinator = CreateReadingListCoordinator(presentingViewController: navigationController, encodedPageIDs: encodedPageIDs, dataStore: appViewController.dataStore)
+        coordinator.delegate = appViewController
+        coordinator.didDismiss = { [weak self] in
+            self?.createReadingListCoordinator = nil
+        }
+        createReadingListCoordinator = coordinator
+
+        let showCoordinator = {
+            coordinator.start()
+            completion()
+        }
+
+        if let presentedViewController = navigationController.presentedViewController {
+            presentedViewController.dismiss(animated: false, completion: showCoordinator)
+        } else {
+            showCoordinator()
+        }
+
+        return true
+    }
+
     private func presentOrPush(_ viewController: UIViewController, with completion: @escaping () -> Void) -> Bool {
         guard let navigationController = appViewController.currentNavigationController else {
             completion()
@@ -63,14 +92,6 @@ class ViewControllerRouter: NSObject {
         let showNewVC = {
             if viewController is AVPlayerViewController {
                 navigationController.present(viewController, animated: true, completion: completion)
-            } else if let createReadingListVC = viewController as? CreateReadingListViewController,
-                      createReadingListVC.isInImportingMode {
-
-
-                let createReadingListNavVC =
-                WMFComponentNavigationController(rootViewController: createReadingListVC, modalPresentationStyle: .overFullScreen)
-
-                navigationController.present(createReadingListNavVC, animated: true, completion: completion)
             } else {
                 navigationController.pushViewController(viewController, animated: true)
                 completion()
@@ -169,9 +190,9 @@ class ViewControllerRouter: NSObject {
                 return false
             }
 
-            let createReadingListVC = CreateReadingListViewController(theme: theme, articles: [], encodedPageIds: encodedPayload, dataStore: appViewController.dataStore)
-            createReadingListVC.delegate = appViewController
-            return presentOrPush(createReadingListVC, with: completion)
+            return MainActor.assumeIsolated {
+                presentReadingListImport(encodedPageIDs: encodedPayload, with: completion)
+            }
         case .login:
             return presentLoginViewController(with: completion)
         case .watchlist:
