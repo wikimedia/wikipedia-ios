@@ -46,14 +46,14 @@ struct WMFYearInReviewEndPageTests {
         )
     }
 
-    private func makeViewModel(slideCount: Int = 3, hasEnd: Bool = true, hidesDonate: @escaping () -> Bool = { false }, coordinator: WMFYearInReviewCoordinating? = nil) -> WMFYearInReviewViewModel {
+    private func makeViewModel(slideCount: Int = 3, hasEnd: Bool = true, hidesDonate: @escaping () -> Bool = { false }) -> WMFYearInReviewViewModel {
         let slides = (0..<slideCount).map { index in
             WMFYearInReviewSlideViewModel(id: "slide\(index)", loggingID: "logging\(index)")
         }
         let viewModel = WMFYearInReviewViewModel(
             slides: slides,
             localizedStrings: Self.strings(),
-            coordinatorDelegate: coordinator,
+            coordinatorDelegate: nil,
             loggingDelegate: logging,
             hidesDonate: hidesDonate
         )
@@ -112,15 +112,6 @@ struct WMFYearInReviewEndPageTests {
     }
 
     @Test
-    func theEndScreenToolbarIsTheBlackChromeColor() {
-        let viewModel = makeViewModel()
-
-        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
-
-        #expect(viewModel.currentChromeColor == WMFYearInReviewViewModel.chromeBackgroundColor)
-    }
-
-    @Test
     func theEndScreenUsesDarkControls() {
         let viewModel = makeViewModel()
 
@@ -140,6 +131,28 @@ struct WMFYearInReviewEndPageTests {
     }
 
     // MARK: - Share highlights
+
+    /// The view model keeps the coordinator as a weak reference, so the caller keeps the spy.
+    private func makeViewModel(coordinator: WMFYearInReviewCoordinating) -> WMFYearInReviewViewModel {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: [WMFYearInReviewSlideViewModel(id: "slide0", loggingID: "logging0")],
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { false }
+        )
+        viewModel.endViewModel = WMFYearInReviewEndViewModel(isContributor: false)
+        return viewModel
+    }
+
+    @Test
+    func theEndScreenToolbarIsTheBlackChromeColor() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
+        #expect(viewModel.currentChromeColor == WMFYearInReviewViewModel.chromeBackgroundColor)
+    }
 
     private static func highlights(articlesRead: Int? = 120, minutesRead: Int? = 900) -> WMFYearInReviewHighlights {
         WMFYearInReviewHighlights(

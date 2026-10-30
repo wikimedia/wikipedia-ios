@@ -17,10 +17,9 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let progressBarTopGap = WMFSpacing.medium
 
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
-    /// .riv and no slide logging. Its toolbar has the donate button, and its share button shares
-    /// the highlights, not a slide.
+    /// .riv, no slide logging, and no share button. It has the toolbar donate button.
     public static let endPageID = "yearInReviewEnd"
-    /// The slide id reported for a tap in the toolbar of the end screen.
+    /// The slide id reported for a donation from the end screen.
     static let endLoggingID = "end"
 
     public struct LocalizedStrings {

@@ -41,9 +41,9 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole and contributor slides have real data so far.
+    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole, niche interest and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
-    /// The days visited and rabbit hole slides have no empty version, so they do not show without enough data.
+    /// The days visited, rabbit hole and niche interest slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
     /// - Parameters:
@@ -89,6 +89,7 @@ struct YearInReviewSlideViewModelFactory {
                 daysVisited: storedDaysVisited(),
                 topTopics: storedTopTopics(),
                 rabbitHoles: storedRabbitHoles(),
+                nicheCategory: storedNicheCategory(),
                 rereadArticles: storedRereadArticles() ?? []
             ))
         }
@@ -102,12 +103,13 @@ struct YearInReviewSlideViewModelFactory {
         var daysVisited: WMFYearInReviewDaysVisitedSlideData?
         var topTopics: WMFYearInReviewTopTopicsSlideData?
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
+        var nicheCategory: WMFYearInReviewNicheCategorySlideData?
         var rereadArticles: [RereadArticle] = []
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
     /// not in the flow: time spent, longest reading streak, reading pattern, biggest reading day,
-    /// longest read, category, geography, saved, the edit slides and the end screen.
+    /// longest read, geography, saved, the edit slides and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
             totalArticlesSlide(readCount: data.readCount, topReadPercentage: data.topReadPercentage, averageReadCount: data.averageReadCount)
@@ -117,6 +119,9 @@ struct YearInReviewSlideViewModelFactory {
         }
         slides += topicSlides(data.topTopics)
         slides += rabbitHoleSlides(data.rabbitHoles)
+        if let nicheInterest = nicheInterestSlide(data.nicheCategory) {
+            slides.append(nicheInterest)
+        }
         slides.append(rereadArticlesSlide(data.rereadArticles))
         return slides
     }
@@ -126,21 +131,33 @@ struct YearInReviewSlideViewModelFactory {
         [totalArticlesEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
     }
 
+    // MARK: - Stored slide data
+
+    /// Reads the data of one slide from the report that the app fills in the background.
+    /// Returns `nil` when the report does not have the slide, or when the data does not decode.
+    /// - Parameters:
+    ///   - id: The slide to read.
+    ///   - type: The type that the slide data decodes into.
+    ///   - logName: The slide name that the error log shows.
+    private func storedSlideData<SlideData: Decodable>(_ id: WMFYearInReviewPersonalizedSlideID, as type: SlideData.Type, logName: String) -> SlideData? {
+        do {
+            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+            guard let data = report?.slides.first(where: { $0.id == id })?.data else {
+                return nil
+            }
+            return try JSONDecoder().decode(type, from: data)
+        } catch {
+            DDLogError("Error reading the Year in Review \(logName): \(error)")
+            return nil
+        }
+    }
+
     // MARK: - Total articles
 
     /// The number of unique articles read and the minutes read, from the report the app fills in
     /// the background. `nil` when the report does not have this slide yet.
     private func storedReadData() -> WMFYearInReviewReadData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .readCount })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review total articles: \(error)")
-            return nil
-        }
+        storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles")
     }
 
     /// Shows the empty version unless the reader read at least `WMFYearInReviewReadData.minimumReadCount` articles.
@@ -198,16 +215,7 @@ struct YearInReviewSlideViewModelFactory {
     /// The reading days, from the report the app fills in the background. `nil` when the report
     /// does not have this slide yet.
     private func storedDaysVisited() -> WMFYearInReviewDaysVisitedSlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .daysVisited })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewDaysVisitedSlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review days visited: \(error)")
-            return nil
-        }
+        storedSlideData(.daysVisited, as: WMFYearInReviewDaysVisitedSlideData.self, logName: "days visited")
     }
 
     /// `nil` unless the reader read on at least `WMFYearInReviewDaysVisitedSlideData.minimumDayCount`
@@ -256,20 +264,13 @@ struct YearInReviewSlideViewModelFactory {
     /// The articles visited multiple times, from the report the app fills in the background.
     /// `nil` when the report does not have this slide yet.
     private func storedRereadArticles() -> [RereadArticle]? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .topArticles })?.data else {
-                return nil
-            }
-            let slideData = try JSONDecoder().decode(WMFYearInReviewTopArticlesSlideData.self, from: data)
-            guard slideData.isEligible else {
-                return []
-            }
-            return slideData.articles.map { RereadArticle(title: $0.title, visitCount: $0.visitCount, project: $0.project) }
-        } catch {
-            DDLogError("Error reading the Year in Review articles visited multiple times: \(error)")
+        guard let slideData = storedSlideData(.topArticles, as: WMFYearInReviewTopArticlesSlideData.self, logName: "articles visited multiple times") else {
             return nil
         }
+        guard slideData.isEligible else {
+            return []
+        }
+        return slideData.articles.map { RereadArticle(title: $0.title, visitCount: $0.visitCount, project: $0.project) }
     }
 
     /// Shows the empty version unless at least two articles were visited multiple times.
@@ -314,21 +315,46 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
+    // MARK: - Niche interest
+
+    /// The category that the reader read in a niche way, from the report the app fills in the
+    /// background. `nil` when the report does not have this slide yet.
+    private func storedNicheCategory() -> WMFYearInReviewNicheCategorySlideData? {
+        storedSlideData(.mostReadCategories, as: WMFYearInReviewNicheCategorySlideData.self, logName: "niche interest")
+    }
+
+    /// Shows one category name. The data controller picks the category when it builds the report,
+    /// so the same category shows each time. `nil` when the reader has no category to show.
+    /// The slide has no empty version.
+    func nicheInterestSlide(_ slideData: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewSlideViewModel? {
+        guard let slideData, slideData.isEligible, let categoryName = slideData.categoryName else {
+            return nil
+        }
+
+        let headline = CommonStrings.yearInReviewNicheInterestTitle
+        let bodyText = CommonStrings.yearInReviewNicheInterestSubtitle
+
+        // `dataSlide` shows the data in capitals, so the category name is passed as written.
+        return dataSlide(
+            id: "nicheInterest",
+            artboard: "frame12",
+            stateMachine: "frame12-statemachine",
+            headline: headline,
+            data: categoryName,
+            // No fit for the category name, so it keeps the size and line count that the .riv
+            // gives it. The .riv will handle long category names itself.
+            dataFit: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(categoryName). \(bodyText)"
+        )
+    }
+
     // MARK: - Topics
 
     /// The topic slides, from the report the app fills in the background. `nil` when the report
     /// does not have these slides yet.
     private func storedTopTopics() -> WMFYearInReviewTopTopicsSlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .topTopics })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewTopTopicsSlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review top topics: \(error)")
-            return nil
-        }
+        storedSlideData(.topTopics, as: WMFYearInReviewTopTopicsSlideData.self, logName: "top topics")
     }
 
     /// The top topic slide, then the runners-up slide if there are enough runners-up. Shows the
@@ -431,16 +457,7 @@ struct YearInReviewSlideViewModelFactory {
     /// The rabbit holes, from the report the app fills in the background. `nil` when the report
     /// does not have these slides yet.
     private func storedRabbitHoles() -> WMFYearInReviewRabbitHolesSlideData? {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .rabbitHoles })?.data else {
-                return nil
-            }
-            return try JSONDecoder().decode(WMFYearInReviewRabbitHolesSlideData.self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review rabbit holes: \(error)")
-            return nil
-        }
+        storedSlideData(.rabbitHoles, as: WMFYearInReviewRabbitHolesSlideData.self, logName: "rabbit holes")
     }
 
     /// Properties on the `Interaction2` view model in the templates file. On the guess frame, the
@@ -571,12 +588,12 @@ struct YearInReviewSlideViewModelFactory {
             readData: storedReadData(),
             rereadArticles: storedRereadArticles() ?? [],
             rabbitHoles: storedRabbitHoles(),
-            categories: storedCategories()
+            nicheCategory: storedNicheCategory()
         )
     }
 
     /// Each highlight follows the rules of its slide, so the image only shows what the slides showed.
-    func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, categories: [String]) -> WMFYearInReviewHighlights {
+    func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, nicheCategory: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewHighlights {
         let articlesRead = readData.flatMap { $0.isEligible ? $0.readCount : nil }
         let minutesRead = readData.flatMap { $0.minutesRead > 0 ? $0.minutesRead : nil }
         let rotation = rereadArticles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount
@@ -591,7 +608,7 @@ struct YearInReviewSlideViewModelFactory {
             minutesRead: minutesRead,
             rotation: rotation,
             rabbitHole: rabbitHole,
-            nicheCategory: categories.first,
+            nicheCategory: nicheCategory.flatMap { $0.isEligible ? $0.categoryName : nil },
             localizedStrings: WMFYearInReviewHighlights.LocalizedStrings(
                 title: CommonStrings.yearInReviewHighlightsTitle,
                 articlesReadLabel: CommonStrings.yearInReviewHighlightsArticlesRead,
@@ -602,21 +619,6 @@ struct YearInReviewSlideViewModelFactory {
                 createdWith: CommonStrings.yearInReviewHighlightsCreatedWith
             )
         )
-    }
-
-    /// The most read categories with the most specific names first, from the report the app fills
-    /// in the background. Empty when the report does not have them.
-    private func storedCategories() -> [String] {
-        do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
-            guard let data = report?.slides.first(where: { $0.id == .mostReadCategories })?.data else {
-                return []
-            }
-            return try JSONDecoder().decode([String].self, from: data)
-        } catch {
-            DDLogError("Error reading the Year in Review categories: \(error)")
-            return []
-        }
     }
 
     // MARK: - Collective
@@ -992,13 +994,14 @@ struct YearInReviewSlideViewModelFactory {
     /// "WEDNESDAY EVENINGS". The headline is shown as written. The accessibility label keeps the
     /// text as written.
     /// - Parameter dataFit: The fit of `data`. A number uses `dataNumberFit`, and a text uses `dataTextFit`.
+    ///   `nil` leaves `data` as the .riv sizes it.
     private func dataSlide(
         id: String,
         artboard: String,
         stateMachine: String,
         headline: String,
         data: String?,
-        dataFit: WMFRiveTextFit = Self.dataNumberFit,
+        dataFit: WMFRiveTextFit? = Self.dataNumberFit,
         bodyText: String,
         images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String
@@ -1020,7 +1023,7 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit])
+            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit].compactMap { $0 })
         )
     }
 

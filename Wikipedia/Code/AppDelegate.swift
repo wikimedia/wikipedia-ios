@@ -25,7 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appViewController = WMFAppViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
+        #if UITEST
+        // Shared data controllers capture basicService when they are first created, so swap in
+        // the fixture service before anything at launch can create one with the live service.
+        TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
+        #endif
+
         registerUserDefaults()
         
 #if DEBUG
