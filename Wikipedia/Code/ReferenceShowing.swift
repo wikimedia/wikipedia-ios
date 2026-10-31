@@ -216,8 +216,7 @@ private extension ReferenceShowing where Self: ArticleViewController {
     }
 
     func adjustScrollForReferencePageViewController(_ referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, viewController: WMFReferencePageViewController, animated: Bool) {
-        let deltaY = webView.scrollView.contentOffset.y < 0 ? 0 - webView.scrollView.contentOffset.y : 0
-        let referenceRectInWindowCoordinates = webView.scrollView.convert(referenceRectInScrollCoordinates, to: nil).offsetBy(dx: 0, dy: deltaY)
+        let referenceRectInWindowCoordinates = webView.scrollView.convert(referenceRectInScrollCoordinates, to: nil)
         guard
             !referenceRectInWindowCoordinates.isEmpty,
             let firstPanel = viewController.firstPanelView()

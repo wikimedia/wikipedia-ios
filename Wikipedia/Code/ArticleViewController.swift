@@ -1470,6 +1470,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        // call the first completion
+        scrollViewAnimationCompletions.popLast()?()
+    }
+
     // MARK: Analytics
 
     internal lazy var readingListsFunnel = ReadingListsFunnel.shared
