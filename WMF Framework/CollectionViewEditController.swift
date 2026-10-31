@@ -212,6 +212,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
 
         activeIndexPath = indexPath
         
+        // Cell actions are captured when the cell is configured and are not recomputed when
+        // the underlying article state changes (e.g. saving an article does not reconfigure
+        // visible cells), so refresh them when the swipe begins. Otherwise a cell configured
+        // while the article was unsaved keeps offering "save" after the article was saved,
+        // making it impossible to unsave from the list (T422093).
+        if let cell = activeCell {
+            cell.actions = availableActions(at: indexPath)
+        }
+        
         guard let cell = activeCell, !cell.actions.isEmpty && cell.isSwipeEnabled else {
             activeIndexPath = nil
             return shouldBegin
