@@ -10,6 +10,7 @@ struct WMFCheckmarkView: View {
         }
         
         let style: Style
+        var font: WMFFont = .boldFootnote
     }
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -25,7 +26,7 @@ struct WMFCheckmarkView: View {
         case .checkbox:
             return isSelected ? WMFSFSymbolIcon.for(symbol: .checkmarkSquareFill) : WMFSFSymbolIcon.for(symbol: .square)
         case .`default`:
-            return isSelected ? WMFSFSymbolIcon.for(symbol: .checkmark, font: .boldFootnote) : nil
+            return isSelected ? WMFSFSymbolIcon.for(symbol: .checkmark, font: configuration.font) : nil
         }
     }
     

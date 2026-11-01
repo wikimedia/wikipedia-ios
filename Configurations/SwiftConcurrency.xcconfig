@@ -1,7 +1,7 @@
 // SwiftConcurrency.xcconfig
 //
 // Shared Swift 6 / Swift 6.2 concurrency migration flags for the app-project targets
-// (Wikipedia / Experimental / Staging app targets, WMF framework, extensions, test
+// (Wikipedia / Experimental / Alpha app targets, WMF framework, extensions, test
 // targets). Swift Package targets (WMFData, WMFComponents, WMFTestKitchen) are NOT
 // configured here — they set the equivalent flags via `swiftSettings` in their own
 // Package.swift.

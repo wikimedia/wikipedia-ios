@@ -132,12 +132,13 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         view.addSubview(comparisonSelectionViewController.view)
         comparisonSelectionViewController.didMove(toParent: self)
         comparisonSelectionViewVisibleConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.bottomAnchor)
-        comparisonSelectionViewHiddenConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.topAnchor)
+        let hiddenConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.topAnchor)
+        comparisonSelectionViewHiddenConstraint = hiddenConstraint
 
         let leadingConstraint = view.leadingAnchor.constraint(equalTo: comparisonSelectionViewController.view.leadingAnchor)
         let trailingConstraint = view.trailingAnchor.constraint(equalTo: comparisonSelectionViewController.view.trailingAnchor)
 
-        NSLayoutConstraint.activate([comparisonSelectionViewHiddenConstraint!, leadingConstraint, trailingConstraint])
+        NSLayoutConstraint.activate([hiddenConstraint, leadingConstraint, trailingConstraint])
     }
 
     private func setComparisonSelectionViewHidden(_ hidden: Bool, animated: Bool) {

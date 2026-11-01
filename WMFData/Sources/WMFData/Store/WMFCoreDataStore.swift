@@ -21,7 +21,7 @@ public final class WMFCoreDataStore: @unchecked Sendable {
         var databaseFileURL = appContainerURL
         databaseFileURL.appendPathComponent(databaseFileName, isDirectory: false)
 
-        guard let dataModelFileURL = Bundle.module.url(forResource: dataModelName, withExtension: "momd") else {
+        guard let dataModelFileURL = Self.dataModelDirectoryURL else {
             throw WMFCoreDataStoreError.setupMissingDataModelFileURL
         }
 
@@ -40,6 +40,11 @@ public final class WMFCoreDataStore: @unchecked Sendable {
         self.persistentContainer = container
 
         try await loadPersistentStores()
+    }
+
+    /// The compiled `WMFData.momd` directory, which holds one `.mom` file per model version.
+    static var dataModelDirectoryURL: URL? {
+        Bundle.module.url(forResource: "WMFData", withExtension: "momd")
     }
 
     private func loadPersistentStores() async throws {

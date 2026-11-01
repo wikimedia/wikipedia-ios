@@ -180,6 +180,7 @@ public enum WMFSFSymbolIcon {
     case house
     case sliderHorizontal3
     case clockArrowCounterclockwise
+    case clockArrowTriangleheadCounterclockwiseRotate90
     case sparkles
     case xmarkCircle
     case docText
@@ -188,6 +189,8 @@ public enum WMFSFSymbolIcon {
     case globe
     case newspaper
     case person2Fill
+    case handThumbsUp
+    case handThumbsDown
 
     public var name: String? {
         switch self {
@@ -462,6 +465,13 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "slider.horizontal.3", withConfiguration: configuration)
         case .clockArrowCounterclockwise:
             image = UIImage(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90", withConfiguration: configuration)
+        case .clockArrowTriangleheadCounterclockwiseRotate90:
+            // The trianglehead symbol ships with iOS 18. Older systems get the closest symbol.
+            if #available(iOS 18, *) {
+                image = UIImage(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90", withConfiguration: configuration)
+            } else {
+                image = UIImage(systemName: "clock.arrow.circlepath", withConfiguration: configuration)
+            }
         case .starSquare:
             image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
         case .sparkles:
@@ -482,6 +492,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "newspaper", withConfiguration: configuration)
         case .person2Fill:
             image = UIImage(systemName: "person.2.fill", withConfiguration: configuration)
+        case .handThumbsUp:
+            image = UIImage(systemName: "hand.thumbsup", withConfiguration: configuration)
+        case .handThumbsDown:
+            image = UIImage(systemName: "hand.thumbsdown", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

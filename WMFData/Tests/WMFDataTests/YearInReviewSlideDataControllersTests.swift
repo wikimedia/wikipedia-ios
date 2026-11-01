@@ -5,7 +5,7 @@ import WMFDataTestSupport
 
 /// Covers the contracts shared across the Year in Review slide data controllers.
 /// These controllers are near-identical, so the per-slide constants (id binding,
-/// personalized-network-data flag, freeze flag) and the `shouldPopulate` branching
+/// personalization sources, freeze flag) and the `shouldPopulate` branching
 /// are the behavior worth pinning down against copy-paste drift.
 final class YearInReviewSlideDataControllersTests: XCTestCase {
 
@@ -61,6 +61,9 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewTopReadArticleSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.topArticles.rawValue)
         XCTAssertEqual(YearInReviewMostReadCategoriesSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.mostReadCategories.rawValue)
         XCTAssertEqual(YearInReviewLocationSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.location.rawValue)
+        XCTAssertEqual(YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.topTopics.rawValue)
+        XCTAssertEqual(YearInReviewDaysVisitedSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.daysVisited.rawValue)
+        XCTAssertEqual(YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.rabbitHoles.rawValue)
     }
 
     func testSlideYearIsRetained() {
@@ -70,18 +73,23 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
 
     // MARK: - Flags
 
-    func testContainsPersonalizedNetworkDataFlags() {
-        // Slides backed by personalized network data are cleared on logout.
-        XCTAssertTrue(YearInReviewSaveCountSlideDataController.containsPersonalizedNetworkData)
-        XCTAssertTrue(YearInReviewViewCountSlideDataController.containsPersonalizedNetworkData)
-        XCTAssertTrue(YearInReviewEditCountSlideDataController.containsPersonalizedNetworkData)
+    func testPersonalizationSources() {
+        // Each clear action deletes the slides made from its source.
+        XCTAssertEqual(YearInReviewReadCountSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewMostReadDateSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewMostReadCategoriesSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewLocationSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewTopReadArticleSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewTopTopicsSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewDaysVisitedSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewRabbitHolesSlideDataController.personalizationSources, [.readingHistory])
 
-        XCTAssertFalse(YearInReviewReadCountSlideDataController.containsPersonalizedNetworkData)
-        XCTAssertFalse(YearInReviewDonateCountSlideDataController.containsPersonalizedNetworkData)
-        XCTAssertFalse(YearInReviewMostReadDateSlideDataController.containsPersonalizedNetworkData)
-        XCTAssertFalse(YearInReviewMostReadCategoriesSlideDataController.containsPersonalizedNetworkData)
-        XCTAssertFalse(YearInReviewLocationSlideDataController.containsPersonalizedNetworkData)
-        XCTAssertFalse(YearInReviewTopReadArticleSlideDataController.containsPersonalizedNetworkData)
+        XCTAssertEqual(YearInReviewEditCountSlideDataController.personalizationSources, [.account])
+        XCTAssertEqual(YearInReviewViewCountSlideDataController.personalizationSources, [.account])
+        XCTAssertEqual(YearInReviewSaveCountSlideDataController.personalizationSources, [.account])
+
+        // The donate slide holds both the donation count and the global edit count.
+        XCTAssertEqual(YearInReviewDonateCountSlideDataController.personalizationSources, [.account, .donations])
     }
 
     func testShouldFreezeFlags() {
@@ -95,6 +103,9 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewLocationSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.shouldFreeze)
+        XCTAssertTrue(YearInReviewTopTopicsSlideDataController.shouldFreeze)
+        XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldFreeze)
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldFreeze)
     }
 
     // MARK: - shouldPopulate
@@ -111,6 +122,9 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewLocationSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
+        XCTAssertTrue(YearInReviewTopTopicsSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
+        XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
     }
 
     func testViewCountSlideRequiresUserID() {

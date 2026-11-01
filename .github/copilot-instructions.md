@@ -327,13 +327,13 @@ Most of our remaining codebase is considered legacy, and we plan to slowly refac
 This is a legacy dynamic framework that contains reused code across legacy features and processes. It contains mostly the type of code you would see in WMFData (persistence and networking code), but may also contain some view code that needed to be reused across multiple features (like a view reused in both the app and widget). WMF Framework has set WMFComponents as a dependency.
 
 ### App Targets
-Wikipedia, Experimental, Staging
+Wikipedia, Experimental, Alpha
 
 Finally, this is the highest-level app-side code. It has set WMF Framework as a dependency. It holds everything else.
 
 ### Coordinators
 
-One last pattern that we do intend to keep on the app-side is Coordinators. These classes facilitate the instantiation and navigation of feature flows. Coordinators will live in the App-side code, as a part of the app targets (Wikipedia, Experimental, Staging). Coordinators have a navigationController property that we reference to push or present a new flow onto view UIKit APIs. Let's take a typical example of a WMFComponents feature button, that must display another feature upon tap:
+One last pattern that we do intend to keep on the app-side is Coordinators. These classes facilitate the instantiation and navigation of feature flows. Coordinators will live in the App-side code, as a part of the app targets (Wikipedia, Experimental, Alpha). Coordinators have a navigationController property that we reference to push or present a new flow onto view UIKit APIs. Let's take a typical example of a WMFComponents feature button, that must display another feature upon tap:
 
 Feature 1 view model code (which lives in WMFComponents) holds closure property like "didTapButton2: () -> Void". It is defined upon view model instantiation. App-side, to present feature 1, there is a Feature1Coordinator class that is created somewhere and started.
 

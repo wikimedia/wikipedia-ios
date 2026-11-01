@@ -109,8 +109,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     func asyncStart() async {
-
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
 
         let username = dataStore.authenticationManager.authStatePermanentUsername
@@ -120,7 +118,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
 
-        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: dataController)
+        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, readingPreferenceTheme: themeName, dataController: dataController)
 
         self.settingsViewModel = viewModel
         let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
@@ -129,11 +127,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         registerAuthNotificationObservers()
     }
 
-    func fetchDynamicValues() -> (primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
+    func fetchDynamicValues() -> (primaryLanguage: String, readingPreferenceTheme: String) {
         let primaryLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
-        let exploreFeedStatus = UserDefaults.standard.defaultTabType == .explore
         let readingPreferenceTheme = UserDefaults.standard.themeDisplayName
-        return (primaryLanguage: primaryLanguage, exploreFeedStatus: exploreFeedStatus, readingPreferenceTheme: readingPreferenceTheme)
+        return (primaryLanguage: primaryLanguage, readingPreferenceTheme: readingPreferenceTheme)
     }
 
     func handleSettingsAction(_ action: SettingsAction) {
@@ -284,13 +281,38 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func goToYearInReviewSettings() {
 
-        let strings = WMFYearInReviewSettingsViewModel.LocalizedStrings(title: CommonStrings.yirTitle, description: WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature."), toggleTitle: CommonStrings.yirTitle)
+        let description = WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature.")
+        let strings = WMFYearInReviewSettingsViewModel.LocalizedStrings(
+            title: CommonStrings.yirTitle,
+            description: description,
+            toggleTitle: CommonStrings.yirTitle,
+            turnOffAlertTitle: WMFLocalizedString("settings-year-in-review-turn-off-alert-title", value: "Are you sure you want to turn off Year in Review?", comment: "Title of the alert that asks the user to confirm that they want to turn off Year in Review in Settings."),
+            turnOffAlertMessage: description,
+            turnOffAlertConfirmTitle: WMFLocalizedString("settings-year-in-review-turn-off-alert-confirm", value: "Yes, I'm sure", comment: "Button in the alert that turns off Year in Review in Settings and clears the stored personalized insights."),
+            turnOffAlertCancelTitle: WMFLocalizedString("settings-year-in-review-turn-off-alert-cancel", value: "No, thanks", comment: "Button in the alert that keeps Year in Review turned on in Settings.")
+        )
 
         let viewModel = WMFYearInReviewSettingsViewModel(
             dataController: dataController,
             localizedStrings: strings,
-            onToggle: { isOn in
-                DonateFunnel.shared.logYearInReviewSettingsDidToggle(isOn: isOn)
+            onAction: { action in
+                let elementID: String
+                switch action {
+                case .switchOn: elementID = "switch_on"
+                case .switchOff: elementID = "switch_off"
+                case .switchOffConfirm: elementID = "switch_off_confirm"
+                case .switchOffCancel: elementID = "switch_off_cancel"
+                }
+                YearInReviewInstrument.shared.logClick(elementID: elementID, actionSource: "settings")
+            },
+            onEnabledChange: { [weak self] isEnabled in
+                // Turning it off deleted the reports. Turning it on builds the report again, or keeps the stored one.
+                if isEnabled, let dataStore = self?.dataStore {
+                    Task { @MainActor in
+                        await YearInReviewCoordinator.buildReportLoggingError(dataStore: dataStore)
+                    }
+                }
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
             }
         )
 
@@ -520,7 +542,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         if let newLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() {
             settingsViewModel?.updateDynamicValues(
                 primaryLanguage: newLanguage,
-                exploreFeedStatus: UserDefaults.standard.defaultTabType == .explore,
                 readingPreferenceTheme: UserDefaults.standard.themeDisplayName
             )
         }
@@ -565,39 +586,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let strings = WMFSearchSettingsViewModel.LocalizedStrings(
-            title: CommonStrings.searchTitle,
-            showLanguagesTitle: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"),
-            openOnSearchTabTitle: WMFLocalizedString("settings-search-open-app-on-search", value: "Open app on Search tab", comment: "Title for setting that allows users to open app on Search tab"),
-            footerText: WMFDeveloperSettingsDataController.shared.isCommunityFeedMode
-                ? WMFLocalizedString("settings-search-footer-text-home", value: "Set the app to open to the Search tab instead of the Home tab", comment: "Footer text for section that allows users to customize certain Search settings, shown while the Home tab experiment is enabled")
-                : WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
-        )
-
-        Task { [weak self] in
-            guard let self else { return }
-
-            let showLanguageBar = dataController.showSearchLanguageBar()
-            let openAppOnSearchTab = dataController.openAppOnSearchTab()
-
-            let viewModel = WMFSearchSettingsViewModel(
-                localizedStrings: strings,
-                showLanguageBar: showLanguageBar,
-                openAppOnSearchTab: openAppOnSearchTab,
-                userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
-                onToggleShowLanguageBar: { [weak self] newValue in
-                     self?.dataController.setShowSearchLanguageBar(newValue)
-                },
-                onToggleOpenAppOnSearchTab: { [weak self] newValue in
-                    Task { [weak self] in await self?.dataController.setOpenAppOnSearchTab(newValue) }
-                }
-            )
-
-            let rootView = WMFSearchSettingsView(viewModel: viewModel)
-            let hostingController = UIHostingController(rootView: rootView)
-            hostingController.title = strings.title
-            settingsNav.pushViewController(hostingController, animated: true)
-        }
+        SearchSettingsCoordinator(navigationController: settingsNav, dataController: dataController).start()
     }
 
     // MARK: - Explore Feed
@@ -615,7 +604,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showHomeFeedSettings() {
         
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter", experimentData: WMFHomeDataController.shared.experimentData)
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter")
         
         guard let settingsNav = settingsNavigationController else {
             return

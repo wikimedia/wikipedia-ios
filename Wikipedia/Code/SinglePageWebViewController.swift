@@ -105,7 +105,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         webView.navigationDelegate = self
         webView.uiDelegate = self
         
-#if WMF_STAGING || WMF_EXPERIMENTAL
+#if WMF_ALPHA || WMF_EXPERIMENTAL
         webView.isInspectable = true
 #endif
         

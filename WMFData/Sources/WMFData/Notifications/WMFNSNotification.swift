@@ -7,15 +7,19 @@ public enum WMFNSNotification {
     public static let articleTabItemDeleted = Notification.Name(WMFNotificationName.articleTabItemDeleted.rawValue)
     public static let coreDataStoreSetup = Notification.Name(WMFNotificationName.coreDataStoreSetup.rawValue)
     public static let sharedCacheStoreSetup = Notification.Name(WMFNotificationName.sharedCacheStoreSetup.rawValue)
-    public static let refreshExploreForGamesCard = Notification.Name(WMFNotificationName.refreshExploreForGamesCard.rawValue)
     public static let whichCameFirstSessionDidUpdate = Notification.Name(WMFNotificationName.whichCameFirstSessionDidUpdate.rawValue)
-    public static let enableHomeTabDidChange = Notification.Name(WMFNotificationName.enableHomeTabDidChange.rawValue)
     public static let enableHomePhase2DidChange = Notification.Name(WMFNotificationName.enableHomePhase2DidChange.rawValue)
     public static let communityModuleVisibilityDidChange = Notification.Name(WMFNotificationName.communityModuleVisibilityDidChange.rawValue)
     public static let forYouModuleVisibilityDidChange = Notification.Name(WMFNotificationName.forYouModuleVisibilityDidChange.rawValue)
     public static let forYouInterestsDidChange = Notification.Name(WMFNotificationName.forYouInterestsDidChange.rawValue)
     public static let pageViewHistoryDidChange = Notification.Name(WMFNotificationName.pageViwHistoryDidChange.rawValue)
     public static let yearInReviewActivityTabBadgeNeedsUpdate = Notification.Name(WMFNotificationName.yirActivity2026.rawValue)
+    /// Posted when a developer setting changes which Year in Review entry point shows.
+    public static let yearInReviewEntryPointNeedsUpdate = Notification.Name(WMFNotificationName.yirEntryPointNeedsUpdate.rawValue)
+    /// Posted after the local donation history is saved or deleted.
+    public static let localDonationHistoryDidChange = Notification.Name(WMFNotificationName.localDonationHistoryDidChange.rawValue)
+    /// The Discover onboarding card was answered or reset, or its gates changed, so the Saved tab badge needs an update.
+    public static let discoverAnnouncementStateDidChange = Notification.Name(WMFNotificationName.discoverAnnouncementStateDidChange.rawValue)
 
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -30,13 +34,14 @@ private enum WMFNotificationName: String {
     case articleTabItemDeleted = "WMFDataArticleTabItemDeleted"
     case coreDataStoreSetup = "WMFDataCoreDataStoreSetup"
     case sharedCacheStoreSetup = "WMFDataSharedCacheStoreSetup"
-    case refreshExploreForGamesCard = "WMFDataRefreshExploreForGamesCard"
     case whichCameFirstSessionDidUpdate = "WMFDataWhichCameFirstSessionDidUpdate"
-    case enableHomeTabDidChange = "WMFDataEnableHomeTabDidChange"
     case enableHomePhase2DidChange = "WMFDataEnableHomePhase2DidChange"
     case communityModuleVisibilityDidChange = "WMFDataCommunityModuleVisibilityDidChange"
     case forYouModuleVisibilityDidChange = "WMFDataForYouModuleVisibilityDidChange"
     case forYouInterestsDidChange = "WMFDataForYouInterestsDidChange"
     case pageViwHistoryDidChange = "WMFPageViewHistoryDidChange"
     case yirActivity2026 = "WMFYearInReviewActivityTabBadgeNeedsUpdate"
+    case yirEntryPointNeedsUpdate = "WMFYearInReviewEntryPointNeedsUpdate"
+    case localDonationHistoryDidChange = "WMFDataLocalDonationHistoryDidChange"
+    case discoverAnnouncementStateDidChange = "WMFDataDiscoverAnnouncementStateDidChange"
 }

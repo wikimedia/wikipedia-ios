@@ -8,7 +8,7 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     let id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = true
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account]
     static let shouldFreeze = false
     
     private var editCount: Int?
@@ -30,13 +30,12 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let globalUserID else { return }
         
-        guard let startDate = yirConfig.dataStartDate,
-        let endDate = yirConfig.dataEndDate else {
+        guard let dateRange = WMFYearInReviewDataController.contributorDateRange(year: year) else {
             return
         }
         
         let editCountDataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
-        self.editCount = try await editCountDataController.fetchEditCount(startDate: startDate, endDate: endDate)
+        self.editCount = try await editCountDataController.fetchEditCount(startDate: dateRange.start, endDate: dateRange.end)
 
         isEvaluated = true
     }

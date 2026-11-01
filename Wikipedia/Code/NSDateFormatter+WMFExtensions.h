@@ -14,6 +14,12 @@
 + (NSISO8601DateFormatter *)wmf_rfc3339LocalTimeZoneFormatter;
 
 /**
+ * Singleton formatter for HTTP-date values (RFC 7231), such as a Retry-After header.
+ * Example: "Wed, 21 Oct 2026 07:28:00 GMT".
+ */
++ (NSDateFormatter *)wmf_httpDateFormatter NS_SWIFT_NAME(wmf_httpDateFormatter());
+
+/**
  * Formatter which can be used to present a short time string for a given date.
  *
  * @warning Do not attempt to parse raw timestamps from the mediawiki API using this method. Use the unstyled

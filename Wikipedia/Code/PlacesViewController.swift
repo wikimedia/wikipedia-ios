@@ -40,7 +40,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     fileprivate var searchSuggestionController: PlaceSearchSuggestionController!
 
     fileprivate var siteURL: URL {
-        return MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+        return MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale() ?? Configuration.current.defaultSiteURL
     }
 
     fileprivate var currentGroupingPrecision: QuadKeyPrecision = 1
@@ -758,7 +758,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 guard result.error == nil else {
                     if let error = result.error {
                         DispatchQueue.main.async {
-                            WMFToastManager.sharedInstance.showToast(result.error!.localizedDescription, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                            WMFToastManager.sharedInstance.showToast(error.localizedDescription, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                         }
                         let nserror = error as NSError
                         if nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue) {
@@ -952,8 +952,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             DDLogWarn("Did You Mean search is unset")
             return
         }
-
-        SearchFunnel.shared.logSearchDidYouMean(source: "places")
 
         performSearch(search)
     }
@@ -2151,10 +2149,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             DispatchQueue.main.async {
                 guard text == searchBar.text else {
                     return
-                }
-
-                if let suggestion = searchResult.searchSuggestion {
-                    DDLogDebug("got suggestion! \(suggestion)")
                 }
 
                 let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)

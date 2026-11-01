@@ -1,37 +1,37 @@
 import Foundation
 import CoreData
 
-// Sendable so slide data controllers can cross into the Core Data `perform`
-// closures in WMFYearInReviewDataController. Conformers are classes with a
-// mutable `isEvaluated`, so each conforms via @unchecked Sendable: instances are
-// confined to the sequential populate flow (mutated in a loop, then read once in
-// a single perform closure), so there is no concurrent access in practice.
+public enum WMFYearInReviewPersonalizationSource: Sendable {
+    case readingHistory
+    case account
+    case donations
+}
+
 protocol YearInReviewSlideDataControllerProtocol: Sendable {
-    /// A unique identifier for the slide (e.g., readCount, editCount).
     var id: String { get }
-
-    /// The year this slide belongs to.
     var year: Int { get }
-
-    /// Whether this slide has been evaluated.
     var isEvaluated: Bool { get set }
-    
-    /// Whether this data controller contains personalized network data (e.g. edit count, synced saved article count). If so, this data is cleared out upon logout in WMFYearInReviewDataController and will be fetched again the next time they log in.
-    static var containsPersonalizedNetworkData: Bool { get }
-    
-    /// If true, populateYearInReviewReportData will always fetch and update this slide's data each time it is called. If false, populateYearInReviewReportData will skip this slide's data if it already exists in the report, essentially freezing it until the report is deleted.
+    static var personalizationSources: Set<WMFYearInReviewPersonalizationSource> { get }
     static var shouldFreeze: Bool { get }
-
-    /// Populate the slide’s data in the background context, using dependencies like saved data, page views, or edit stats.
+    
     func populateSlideData(in context: NSManagedObjectContext) async throws
 
-    /// Returns an instance of `CDYearInReviewSlide` (used for Core Data storage).
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide
 
-    /// Used to determine if the slide should be populated based on feature flags, user info, etc.
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool
+
+    /// True if the stored data of this slide uses the current format.
+    /// If false, the report builds the slide again, also when the slide is frozen.
+    static func hasCurrentFormat(_ data: Data?) -> Bool
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies)
+}
+
+extension YearInReviewSlideDataControllerProtocol {
+    /// Most slides did not change their format. Thus, the stored data is always current.
+    static func hasCurrentFormat(_ data: Data?) -> Bool {
+        true
+    }
 }
 
 struct YearInReviewSlideDataControllerDependencies {
@@ -43,6 +43,7 @@ struct YearInReviewSlideDataControllerDependencies {
     let globalUserID: Int?
     let languageCode: String?
     let userImpactDataProvider: (any YearInReviewUserImpactDataProviding)?
+    var mainPageIdentifier: (any WMFMainPageIdentifying)? = nil
 }
 
 protocol YearInReviewUserImpactDataProviding: Sendable {

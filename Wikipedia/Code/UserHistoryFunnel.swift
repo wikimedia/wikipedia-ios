@@ -74,7 +74,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let readinglist_sync: Bool?
         let readinglist_showdefault: Bool?
         let theme: String?
-        let feed_disabled: Bool?
         let search_tab: Bool?
         let feed_enabled_list: FeedEnabledList?
         let inbox_count: Int?
@@ -89,7 +88,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             && lhs.readinglist_sync == rhs.readinglist_sync
             && lhs.readinglist_showdefault == rhs.readinglist_showdefault
             && lhs.theme == rhs.theme
-            && lhs.feed_disabled == rhs.feed_disabled
             && lhs.feed_enabled_list == rhs.feed_enabled_list
             && lhs.inbox_count == rhs.inbox_count
             && lhs.device_level_enabled == rhs.device_level_enabled
@@ -143,7 +141,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     private var cache: UserHistorySnapshotCache {
-        return sharedCache.loadCache() ?? UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil, test_group: nil, yir_enabled: nil))
+        return sharedCache.loadCache() ?? UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil, test_group: nil, yir_enabled: nil))
     }
 
 
@@ -164,7 +162,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     private func event(authorizationStatus: UNAuthorizationStatus?) -> Event {
         let userDefaults = UserDefaults.standard
         let theme = userDefaults.themeAnalyticsName
-        let isFeedDisabled = userDefaults.defaultTabType != .explore
         let appOpensOnSearchTab = getOpenInSearchTab()
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
@@ -176,7 +173,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let readingListListCount = try? dataStore.viewContext.allReadingListsCount()
         let readingListItemCount = dataStore.savedPageList.numberOfItems()
 
-        let event = Event(measure_readinglist_listcount: readingListListCount, measure_readinglist_itemcount: readingListItemCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil, yir_enabled: yirEnabled)
+        let event = Event(measure_readinglist_listcount: readingListListCount, measure_readinglist_itemcount: readingListItemCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil, yir_enabled: yirEnabled)
         return event
     }
     

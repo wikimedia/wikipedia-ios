@@ -23,7 +23,7 @@ public struct WMFBetaBadge: View {
         }
         .padding(.horizontal, WMFSpacing.small)
         .padding(.vertical, WMFSpacing.xSmall)
-        .overlay(Capsule().strokeBorder(Color(appEnvironment.theme.newBorder), lineWidth: 1))
+        .overlay(Capsule().strokeBorder(Color(appEnvironment.theme.translucentBorder), lineWidth: 1))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(label)
     }

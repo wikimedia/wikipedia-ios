@@ -95,9 +95,8 @@ extension ArticleViewController {
 
         var queryItems = [
             URLQueryItem(name: "useformat", value: "mobile"),
-            URLQueryItem(name: "veaction", value: "edit")
-            // TODO: Restore URLQueryItem(name: "returntoapp", value: "1") once the web's tap-to-return
-            // banner replaces the automatic redirect it currently triggers
+            URLQueryItem(name: "veaction", value: "edit"),
+            URLQueryItem(name: "returntoapp", value: "1")
         ]
 
         if let sectionID {

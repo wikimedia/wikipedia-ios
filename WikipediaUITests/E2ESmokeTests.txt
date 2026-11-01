@@ -2,4 +2,4 @@
 # Blank lines and comments are ignored by the E2E UI test workflow.
 WikipediaUITests/AppOnboardingUITests/testFirstLaunchShowsOnboardingSmoke
 WikipediaUITests/ArticleImageGalleryUITests/testBohemiaLeadImageOpensImageGalleryAndCanShare
-WikipediaUITests/ExploreUITests/testExploreSearchResultOpensArticle
+WikipediaUITests/HomeUITests/testHomeSearchResultOpensArticle

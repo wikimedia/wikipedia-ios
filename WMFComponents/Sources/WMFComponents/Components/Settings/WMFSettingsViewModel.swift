@@ -17,14 +17,24 @@ public struct SettingsItem: Identifiable {
     let color: UIColor?
     let title: String
     let subtitle: String?
+    let showsBetaBadge: Bool
     let accessory: AccessoryType
     let action: (() -> Void)?
 
-    public init(image: UIImage?, color: UIColor?, title: String, subtitle: String?, accessory: AccessoryType, action: (() -> Void)?) {
+    public init(
+        image: UIImage?,
+        color: UIColor?,
+        title: String,
+        subtitle: String?,
+        showsBetaBadge: Bool = false,
+        accessory: AccessoryType,
+        action: (() -> Void)?
+    ) {
         self.image = image
         self.color = color
         self.title = title
         self.subtitle = subtitle
+        self.showsBetaBadge = showsBetaBadge
         self.accessory = accessory
         self.action = action
     }
@@ -143,20 +153,18 @@ final public class WMFSettingsViewModel: ObservableObject {
     private var tempUsername: String?
     private var isTempAccount: Bool
     private var mainLanguage: String
-    private var exploreFeedStatus: Bool
     private var readingPreferenceTheme: String
     public weak var coordinatorDelegate: SettingsCoordinatorDelegate?
     private let dataController: WMFSettingsDataController
 
     // MARK: - Lifecycle
 
-    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataController: WMFSettingsDataController) async {
+    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataController: WMFSettingsDataController) async {
         self.localizedStrings = localizedStrings
         self.username = username
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
@@ -171,7 +179,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController
@@ -182,7 +189,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: primaryLanguage,
-            exploreFeedStatus: exploreFeedStatus,
             readingPreferenceTheme: readingPreferenceTheme,
             coordinatorDelegate: coordinatorDelegate,
             dataController: dataController
@@ -197,7 +203,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController,
@@ -208,7 +213,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
@@ -220,7 +224,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         tempUsername: String?,
         isTempAccount: Bool,
         primaryLanguage: String,
-        exploreFeedStatus: Bool,
         readingPreferenceTheme: String,
         coordinatorDelegate: SettingsCoordinatorDelegate?,
         dataController: WMFSettingsDataController
@@ -231,7 +234,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             tempUsername: tempUsername,
             isTempAccount: isTempAccount,
             primaryLanguage: primaryLanguage,
-            exploreFeedStatus: exploreFeedStatus,
             readingPreferenceTheme: readingPreferenceTheme,
             coordinatorDelegate: coordinatorDelegate,
             dataController: dataController,
@@ -267,11 +269,10 @@ final public class WMFSettingsViewModel: ObservableObject {
         await refreshSections()
     }
 
-    /// Updates the language, explore feed status and reading theme synchronously
+    /// Updates the language and reading theme synchronously
     /// by patching the affected items directly in the existing sections array.
-    public func updateDynamicValues(primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
+    public func updateDynamicValues(primaryLanguage: String, readingPreferenceTheme: String) {
         self.mainLanguage = primaryLanguage
-        self.exploreFeedStatus = exploreFeedStatus
         self.readingPreferenceTheme = readingPreferenceTheme
 
         // Find the main section (the one that has no header and contains the myLanguages item).
@@ -286,13 +287,6 @@ final public class WMFSettingsViewModel: ObservableObject {
                         image: existing.image, color: existing.color,
                         title: existing.title, subtitle: existing.subtitle,
                         accessory: .chevron(label: primaryLanguage),
-                        action: existing.action)
-
-                } else if title == localizedStrings.exploreFeedTitle || title == CommonStrings.communityFeedTitle {
-                    sections[sectionIndex].items[itemIndex] = SettingsItem(
-                        image: existing.image, color: existing.color,
-                        title: existing.title, subtitle: existing.subtitle,
-                        accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle),
                         action: existing.action)
 
                 } else if title == localizedStrings.readingpreferences {
@@ -323,25 +317,19 @@ final public class WMFSettingsViewModel: ObservableObject {
         })
 
         var feedItems: [SettingsItem] = []
-        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
-            if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
-                // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
-                // feed row covers customization for both segments.
-                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-                }))
-            } else {
-                // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
-                // powers the Community segment and its settings stay reachable here relabeled as Community.
-                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-                }))
-                feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
-                    self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
-                }))
-            }
+        if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
+            // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
+            // feed row covers customization for both segments.
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+            }))
         } else {
-            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
+            // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
+            // powers the Community segment and its settings stay reachable here relabeled as Community.
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+            }))
+            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
                 self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
             }))
         }
@@ -364,7 +352,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.articleSyncing)
         })
 
-        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: nil), action: {
+        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: Self.databasePopulationLabel), action: {
             self.coordinatorDelegate?.handleSettingsAction(.databasePopulation)
         })
 
@@ -384,12 +372,25 @@ final public class WMFSettingsViewModel: ObservableObject {
             section.items.insert(yearInReview, at: 2 + feedItems.count)
         }
 
-#if DEBUG
-        // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
-        let clearCacheIndex = section.items.firstIndex { $0.title == localizedStrings.clearCacheTitle } ?? section.items.count
-        section.items.insert(dangerZone, at: clearCacheIndex)
-#endif
+        if showsDatabasePopulation {
+            // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
+            let clearCacheIndex = section.items.firstIndex { $0.title == localizedStrings.clearCacheTitle } ?? section.items.count
+            section.items.insert(dangerZone, at: clearCacheIndex)
+        }
         return section
+    }
+
+    /// The row is for developers only, so the label is not translated.
+    private static let databasePopulationLabel = "Dev mode"
+
+    /// Always on in Xcode builds. TestFlight builds show the row only with developer mode on, so
+    /// the Experimental app can also seed its database.
+    private var showsDatabasePopulation: Bool {
+#if DEBUG
+        return true
+#else
+        return WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode
+#endif
     }
 
     /// Only shown while the remote feature config enables the visual editor journey. The value
