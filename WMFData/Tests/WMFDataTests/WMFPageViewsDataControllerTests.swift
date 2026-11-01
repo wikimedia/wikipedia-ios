@@ -261,6 +261,110 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         XCTAssertEqual(dates.months.first?.viewCount, 3)
     }
 
+    // MARK: - fetchDistinctPageViewDays(startDate:endDate:calendar:)
+
+    // The window bounds are UTC instants, like the data window in the remote config. These tests use
+    // calendars in other time zones, where comparing a local start of day with a bound used to give
+    // the wrong answer.
+
+    /// 2026-01-01T00:00:00Z. In the window.
+    private var readingDaysWindowStart: Date { Self.utcDate("2026-01-01T00:00:00Z") }
+
+    /// 2026-12-01T00:00:00Z. Out of the window, which is half open.
+    private var readingDaysWindowEnd: Date { Self.utcDate("2026-12-01T00:00:00Z") }
+
+    private static func utcDate(_ string: String) -> Date {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
+        guard let date = formatter.date(from: string) else {
+            preconditionFailure("Invalid test date: \(string)")
+        }
+        return date
+    }
+
+    private func gregorianCalendar(timeZoneIdentifier: String) throws -> Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try XCTUnwrap(TimeZone(identifier: timeZoneIdentifier))
+        return calendar
+    }
+
+    private func addViews(at timestamps: [Date]) async throws {
+        for (index, timestamp) in timestamps.enumerated() {
+            try await addView(title: "Article \(index)", timestamp: timestamp)
+        }
+    }
+
+    /// Auckland is UTC+13 in January and in December, so a local day starts 13 hours before UTC does.
+    ///
+    /// Comparing local starts of day with the bounds got both edges wrong here: local 1 Jan is
+    /// 31 Dec in UTC, so it was dropped, and local 1 Dec is 30 Nov in UTC, so it was counted.
+    func testReadingDaysEastOfUTCCutsWindowByInstantThenGroupsByLocalDay() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+        let auckland = try gregorianCalendar(timeZoneIdentifier: "Pacific/Auckland")
+
+        let justBeforeStart = Self.utcDate("2025-12-31T23:59:59Z")     // 1 Jan 12:59 in Auckland, out
+        let atStart = Self.utcDate("2026-01-01T00:00:00Z")             // 1 Jan 13:00 in Auckland, in
+        let sameLocalDayAsStart = Self.utcDate("2026-01-01T05:00:00Z") // 1 Jan 18:00 in Auckland, in
+        let justBeforeEnd = Self.utcDate("2026-11-30T23:59:59Z")       // 1 Dec 12:59 in Auckland, in
+        let atEnd = Self.utcDate("2026-12-01T00:00:00Z")               // 1 Dec 13:00 in Auckland, out
+
+        try await addViews(at: [justBeforeStart, atStart, sameLocalDayAsStart, justBeforeEnd, atEnd])
+
+        let days = try await dataController.fetchDistinctPageViewDays(startDate: readingDaysWindowStart, endDate: readingDaysWindowEnd, calendar: auckland)
+
+        XCTAssertEqual(days, [auckland.startOfDay(for: atStart), auckland.startOfDay(for: justBeforeEnd)])
+    }
+
+    /// Los Angeles is UTC-8, so a read at the start of the window is still on 31 Dec locally. The
+    /// window is cut by instant, so that read is in, and it is counted on its local day.
+    func testReadingDaysWestOfUTCCountsAReadOnItsLocalDay() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+        let losAngeles = try gregorianCalendar(timeZoneIdentifier: "America/Los_Angeles")
+
+        let justBeforeStart = Self.utcDate("2025-12-31T23:59:59Z")   // out
+        let atStart = Self.utcDate("2026-01-01T00:00:00Z")           // 31 Dec 16:00 in Los Angeles, in
+        let atEnd = Self.utcDate("2026-12-01T00:00:00Z")             // out
+
+        try await addViews(at: [justBeforeStart, atStart, atEnd])
+
+        let days = try await dataController.fetchDistinctPageViewDays(startDate: readingDaysWindowStart, endDate: readingDaysWindowEnd, calendar: losAngeles)
+
+        XCTAssertEqual(days, [losAngeles.startOfDay(for: atStart)])
+    }
+
+    func testReadingDaysTwoReadsOnTheSameLocalDayCountOnce() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+        let auckland = try gregorianCalendar(timeZoneIdentifier: "Pacific/Auckland")
+
+        // 10:00 and 20:00 on 15 Jun in Auckland (UTC+12). In UTC these are 14 Jun 22:00 and 15 Jun 08:00.
+        let morning = Self.utcDate("2026-06-14T22:00:00Z")
+        let evening = Self.utcDate("2026-06-15T08:00:00Z")
+
+        try await addViews(at: [morning, evening])
+
+        let days = try await dataController.fetchDistinctPageViewDays(startDate: readingDaysWindowStart, endDate: readingDaysWindowEnd, calendar: auckland)
+
+        XCTAssertEqual(days, [auckland.startOfDay(for: morning)])
+    }
+
+    /// Control: in UTC, local days and window bounds line up, so nothing shifts.
+    func testReadingDaysUTCCalendarMatchesTheWindow() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+        let utcCalendar = try gregorianCalendar(timeZoneIdentifier: "UTC")
+
+        let justBeforeStart = Self.utcDate("2025-12-31T23:59:59Z")   // out
+        let atStart = Self.utcDate("2026-01-01T00:00:00Z")           // in
+        let sameDayAsStart = Self.utcDate("2026-01-01T05:00:00Z")    // in, same day
+        let justBeforeEnd = Self.utcDate("2026-11-30T23:59:59Z")     // in
+        let atEnd = Self.utcDate("2026-12-01T00:00:00Z")             // out
+
+        try await addViews(at: [justBeforeStart, atStart, sameDayAsStart, justBeforeEnd, atEnd])
+
+        let days = try await dataController.fetchDistinctPageViewDays(startDate: readingDaysWindowStart, endDate: readingDaysWindowEnd, calendar: utcCalendar)
+
+        XCTAssertEqual(days, [utcCalendar.startOfDay(for: atStart), utcCalendar.startOfDay(for: justBeforeEnd)])
+    }
+
     // NOTE: fetchLinkedPageViews() is intentionally left uncovered here. Exercising it with a
     // linked Start -> Middle -> End chain (built via addPageView's previousPageViewObjectID)
     // crashes the test runner when the returned managed objects are accessed off their context's

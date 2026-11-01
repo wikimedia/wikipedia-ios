@@ -99,6 +99,12 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         createReadingListButton.setTitle(WMFLocalizedString("reading-list-create-new-list-button-title", value: "Create reading list", comment: "Title for button allowing the user to create a new reading list."), for: .normal)
         
         createReadingListButton.isEnabled = false
+
+        view.accessibilityIdentifier = AccessibilityIdentifiers.CreateReadingList.view
+        readingListNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.CreateReadingList.nameTextField
+        descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.CreateReadingList.descriptionTextField
+        createReadingListButton.accessibilityIdentifier = AccessibilityIdentifiers.CreateReadingList.createButton
+        readingListNameErrorLabel.accessibilityIdentifier = AccessibilityIdentifiers.CreateReadingList.nameErrorLabel
         
         if isInImportingMode {
             setupForImportingReadingList()
@@ -128,6 +134,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.CreateReadingList.closeButton
     }
     
 // MARK: Public

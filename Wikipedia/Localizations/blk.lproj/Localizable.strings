@@ -217,7 +217,6 @@
 "forgot-password-username-or-email-title" = "မွေးတဝ်းလဲ့";
 "history-clear-delete-all" = "မွေး၊ ယားကုဲင်လို့သြ";
 "history-title" = "ရာႏဇာႏဝင်ႏ";
-"home-button-explore-accessibility-label" = "ဝီခီပီးဒီးယား၊ လွေꩻချာထိုမ်ႏလွူꩻထွားမုꩻထျꩻ";
 "home-button-saved-accessibility-label" = "ဝီခီပီးဒီးယား၊ လွေꩻချာသဲမ်ꩻထူႏမုꩻကို";
 "home-more-like-footer" = "ထဲင်းယင်းနုဲင်း $1";
 "home-nearby-footer" = "ခင်ႏလမ်းအထဲင်း အဝ်ႏဗော့ꩻဒါႏ နာꩻအဝ်ႏအိုင်ခင်ႏလမ်းထျꩻ";
@@ -456,17 +455,9 @@
 "unknown-generic-text" = "သေတဝ်းအမိဉ်ꩻ";
 "variants-alert-dismiss-button" = "လိုႏတဝ်း၊ ကေꩻဇူꩻတန်ငါႏသြ။";
 "variants-alert-preferences-button" = "စဲစ်ထွား နာꩻလွိုက်ရွေꩻခရာႏဖိုင်ႏ";
-"welcome-exploration-on-this-day-title" = "ဟန်ႏနီꩻ";
 "welcome-explore-continue-button" = "မာꩻစခန်း";
-"welcome-explore-new-ways-title" = "လွူꩻထွားတာႏ အနယ်ꩻတသာဖိုင်ႏ";
 "welcome-explore-tell-me-more-done-button" = "လꩻလဲဉ်းသြ";
-"welcome-intro-free-encyclopedia-more" = "လွူꩻထွားထဲင်း ဝီခီပီးဒီးယားခရာႏ";
-"welcome-intro-free-encyclopedia-more-about" = "ဝီခီပီးဒီးယားခရာႏ";
-"welcome-intro-free-encyclopedia-title" = "အငိုꩻလို့တဝ်း ကျမ်ꩻပေါင်ꩻစွုမ်ႏ";
 "welcome-languages-add-button" = "ထဲမ်သော့ꩻ ဘာႏသာႏငဝ်းငွါအလင်";
-"welcome-languages-add-or-edit-button" = "ထဲမ်သော့ꩻ မွေးတဝ်းလဲ့ မွဉ်းဖျင် ပေါင်းကျွိုက်စွယ်ꩻဒါႏ ဘာႏသာႏငဝ်းငွါဖိုင်ႏ";
-"welcome-languages-description" = "နာꩻစက်တခြိုꩻကိုနဝ်ꩻ နီသွဉ်းသီးမော့ꩻခါꩻ ဘာႏသာႏငဝ်းငွါဖိုင်ႏ နုဲင်းလ့နဝ်ꩻအတွိုင်ꩻသွူ။";
-"welcome-languages-search-title" = "ထိုမ်ႏ လွိုထဲင်းဘာႏသာႏငဝ်းငွါ ၃၀၀ လွိုကို";
 "widget-onthisday-placeholder-article-snippet" = "အငိုꩻလို့တဝ်း လဲင်းလောင်းကျမ်ꩻပေါင်ꩻစွုမ်ႏယိုနဝ်ꩻ ပါမုဲင်ꩻတရိုꩻတဝ်း မွဉ်းဖျင်နွောင်ꩻဒျာႏသွူ";
 "wikitext-preview-link-external-preview-title" = "လိဉ့်အထန်ႏ";
 "wikitext-preview-link-not-found-preview-description" = "ဝီခီပီးဒီးယားကိုနဝ်ꩻ တောမ်ႏအမိဉ်ꩻစဲင်းစဲ့နုဲင်းယို ရောမ်ဖြုဲင်ꩻတဗာႏဗာႏအဝ်ႏတဝ်းသြ";

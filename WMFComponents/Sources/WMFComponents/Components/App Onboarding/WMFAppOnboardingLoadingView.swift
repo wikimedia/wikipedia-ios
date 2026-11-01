@@ -1,7 +1,6 @@
 import SwiftUI
-import Lottie
 
-/// The final onboarding step: a full-screen Lottie animation shown while the chosen feed loads.
+/// The final onboarding step: a full-screen Rive animation shown while the chosen feed loads.
 /// No toolbar. Completes onboarding once the feed has loaded and the animation has looped at
 /// least once (whichever takes longer).
 struct WMFAppOnboardingLoadingView: View {
@@ -23,18 +22,15 @@ struct WMFAppOnboardingLoadingView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 32)
 
-            LottieView(animation: .named(viewModel.loadingAnimationName, bundle: .module))
-                .looping()
+            WMFRiveView(viewModel.loadingAnimation)
                 .frame(width: 200, height: 200)
-                .accessibilityHidden(true)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.paperBackground))
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(AccessibilityIdentifiers.Onboarding.loadingView)
         .onAppear {
-            let loopDuration = LottieAnimation.named(viewModel.loadingAnimationName, bundle: .module)?.duration ?? 2.0
-            viewModel.completeAfterLoadingFeed(minimumDisplay: loopDuration)
+            viewModel.completeAfterLoadingFeed(minimumDisplay: viewModel.loadingAnimationLoopDuration)
         }
     }
 }

@@ -53,7 +53,7 @@ final class WMFStorageAndSyncingSettingsViewModelTests: XCTestCase {
         syncWithServerFooter: "Update footer"
     )
 
-    private func makeViewModel(onToggleShowSavedList: ((Bool) -> Void)? = nil, onSyncWithServer: (() -> Void)? = nil) -> WMFStorageAndSyncingSettingsViewModel {
+    private func makeViewModel(onToggleShowSavedList: (@MainActor @Sendable (Bool) -> Void)? = nil, onSyncWithServer: (@MainActor @Sendable () -> Void)? = nil) -> WMFStorageAndSyncingSettingsViewModel {
         WMFStorageAndSyncingSettingsViewModel(
             localizedStrings: localizedStrings,
             onToggleShowSavedList: onToggleShowSavedList,

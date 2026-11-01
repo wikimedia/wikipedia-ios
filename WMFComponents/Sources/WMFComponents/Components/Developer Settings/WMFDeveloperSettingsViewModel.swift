@@ -33,6 +33,21 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
     }
 }
 
+/// App-provided hooks for the Local Notifications section. The app builds the notification content (localized strings, app language), so it runs the refresh.
+public struct WMFDeveloperSettingsLocalNotificationActions {
+    public let runDailyTopReadRefreshNow: @MainActor () async -> Void
+
+    public init(runDailyTopReadRefreshNow: @escaping @MainActor () async -> Void) {
+        self.runDailyTopReadRefreshNow = runDailyTopReadRefreshNow
+    }
+}
+
+/// A file ready to hand to the share sheet.
+struct WMFDeveloperSettingsExportFile: Identifiable {
+    let url: URL
+    var id: URL { url }
+}
+
 @MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
@@ -41,6 +56,32 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
 
     /// Set by the app after init. Nil hides the Widgets section.
     @Published public var widgetDiagnostics: WMFDeveloperSettingsWidgetDiagnostics?
+
+    /// Set by the app. Builds the 2026 Year in Review report again from the current data, and
+    /// returns false when the report could not be built.
+    public var regenerateYiR2026Report: (@MainActor () async throws -> Bool)?
+    @Published public private(set) var isRegeneratingYiR2026Report = false
+    @Published public var yiR2026ReportAlertMessage: String?
+
+    /// Set by the app. Nil hides the Discover section.
+    /// TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).
+    public var showDiscoverReadingList: (@MainActor () -> Void)?
+
+    /// Set by the app after init. Nil hides the "Run notification refresh now" button.
+    @Published public var localNotificationActions: WMFDeveloperSettingsLocalNotificationActions?
+    @Published var localNotificationLogSummaryLines: [String] = []
+
+    @Published public var enableDailyTopReadNotifications: Bool = WMFDeveloperSettingsDataController.shared.enableDailyTopReadNotifications {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDailyTopReadNotifications = enableDailyTopReadNotifications
+            guard !enableDailyTopReadNotifications else { return }
+            Task {
+                await WMFDailyTopReadNotificationDataController.shared.userDidDisable()
+                await loadLocalNotificationLogSummary()
+            }
+        }
+    }
+    @Published var localNotificationLogExportFile: WMFDeveloperSettingsExportFile?
 
     private var subscribers: Set<AnyCancellable> = []
 
@@ -62,9 +103,15 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
     }
 
-    @Published public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? = WMFDeveloperSettingsDataController.shared.forceYiRUserDataState {
+    @Published public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? = WMFDeveloperSettingsDataController.shared.forceYiRDataState {
         didSet {
-            WMFDeveloperSettingsDataController.shared.forceYiRUserDataState = forceYiRUserDataState
+            WMFDeveloperSettingsDataController.shared.forceYiRDataState = forceYiRDataState
+        }
+    }
+
+    @Published public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? = WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience = forceYiRSlidesExperience
         }
     }
 
@@ -129,6 +176,18 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         }
     }
 
+    @Published public var enableDiscover: Bool = WMFDeveloperSettingsDataController.shared.enableDiscover {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDiscover = enableDiscover
+        }
+    }
+
+    @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment
+        }
+    }
+
     var fundraisingOverrideDateRange: ClosedRange<Date> {
         let lowerBound = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
         let upperBound = WMFDonationReminderDataController.wrapUpEndDate.addingTimeInterval(86_400)
@@ -188,6 +247,32 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
             .store(in: &subscribers)
     }
 
+    @Published public var eventLoggingDiagnosticsText: String = ""
+
+    public func refreshEventLoggingDiagnostics() {
+        let diagnostics = WMFEventLoggingDiagnosticsDataController.shared.snapshot()
+
+        var lines: [String] = [
+            "Flushes: \(diagnostics.flushCount)",
+            "POST requests: \(diagnostics.postCount)",
+            "Events sent: \(diagnostics.eventsSentCount)",
+            "Events in last flush: \(diagnostics.eventsInLastFlush)"
+        ]
+        if let lastFlushDate = diagnostics.lastFlushDate {
+            lines.append("Last flush: \(lastFlushDate.formatted(date: .omitted, time: .standard))")
+        }
+        if !diagnostics.dropCounts.isEmpty {
+            let drops = diagnostics.dropCounts.sorted { $0.key < $1.key }.map { "\($0.key): \($0.value)" }
+            lines.append("Drops — " + drops.joined(separator: ", "))
+        }
+        eventLoggingDiagnosticsText = lines.joined(separator: "\n")
+    }
+
+    public func resetEventLoggingDiagnostics() {
+        WMFEventLoggingDiagnosticsDataController.shared.reset()
+        refreshEventLoggingDiagnostics()
+    }
+
     public var appInstallID: String? {
         try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
     }
@@ -210,12 +295,30 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
         let title: String
         do {
             try WMFSemanticSearchDataController.shared.clearExperimentAssignment()
-            title = "Semantic search bucket cleared. The next eligible search re-rolls the assignment."
+            title = "Semantic search bucket cleared. Opening search re-rolls the assignment for readers with a target app language."
         } catch {
             title = "Could not clear the semantic search bucket: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    @discardableResult
+    public func tappedRegenerateYiR2026Report() -> Task<Void, Never>? {
+        guard let regenerateYiR2026Report, !isRegeneratingYiR2026Report else { return nil }
+        isRegeneratingYiR2026Report = true
+        return Task { [weak self] in
+            let message: String
+            do {
+                message = try await regenerateYiR2026Report()
+                    ? "The Year in Review 2026 report was built again. Open Year in Review to see it."
+                    : "The report was not built. Check the Year in Review setting in Settings, the 2026 config and the country of the device."
+            } catch {
+                message = "The report was not built: \(error.localizedDescription)"
+            }
+            self?.isRegeneratingYiR2026Report = false
+            self?.yiR2026ReportAlertMessage = message
         }
     }
 
@@ -236,5 +339,91 @@ public struct WMFDeveloperSettingsWidgetDiagnostics {
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
         }
     }
-}
 
+    // MARK: - Discover
+
+    public func clearDiscoverExperimentAssignment() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.clearExperimentAssignment()
+            title = "Discover bucket cleared. The next visit to Saved re-rolls the assignment."
+        } catch {
+            title = "Could not clear the Discover bucket: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    public func resetDiscoverAnnouncement() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.resetAnnouncement()
+            title = "Discover announcement reset. The card and the Saved badge show again."
+        } catch {
+            title = "Could not reset the Discover announcement: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    // MARK: - Local Notifications
+
+    func loadLocalNotificationLogSummary() async {
+        let entries = await WMFLocalNotificationDataController.shared.loadLog()
+        guard let last = entries.last else {
+            localNotificationLogSummaryLines = ["No local notification log entries yet."]
+            return
+        }
+
+        let scheduledCount = entries.filter { $0.event == .scheduled }.count
+        let backgroundRuns = entries.filter { $0.event == .runStarted && $0.appState == "background" }.count
+        localNotificationLogSummaryLines = [
+            "\(entries.count) entries, \(backgroundRuns) background runs, \(scheduledCount) scheduled",
+            "Latest: \(last.event.rawValue) at \(last.timestamp.formatted(date: .abbreviated, time: .standard))"
+        ]
+    }
+
+    func exportLocalNotificationLog() {
+        Task {
+            do {
+                let data = try await WMFLocalNotificationDataController.shared.exportLogData()
+                let url = FileManager.default.temporaryDirectory.appendingPathComponent("local-notifications-log.json")
+                try data.write(to: url, options: .atomic)
+                localNotificationLogExportFile = WMFDeveloperSettingsExportFile(url: url)
+            } catch {
+                WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Could not export the log: \(error)")))
+            }
+        }
+    }
+
+    func resetLocalNotificationHandledDays() {
+        Task {
+            await WMFLocalNotificationDataController.shared.resetHandledDays()
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Handled days reset. The next refresh can schedule again today.")))
+        }
+    }
+
+    func runDailyTopReadRefreshNow() {
+        guard let localNotificationActions else { return }
+        guard enableDailyTopReadNotifications else {
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Turn on Daily Top Read Notifications first.")))
+            return
+        }
+        Task {
+            await localNotificationActions.runDailyTopReadRefreshNow()
+            await loadLocalNotificationLogSummary()
+            let latest = await WMFLocalNotificationDataController.shared.loadLog().last?.event.rawValue ?? "none"
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Refresh finished. Latest log event: \(latest)")))
+        }
+    }
+
+    func clearLocalNotificationLog() {
+        Task {
+            await WMFLocalNotificationDataController.shared.clearLog()
+            await loadLocalNotificationLogSummary()
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Local notification log cleared.")))
+        }
+    }
+}

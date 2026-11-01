@@ -206,8 +206,7 @@ class DiffTransformer {
             var fromSide: TransformSectionInfo.Side?
             
             if let itemFromOffset = item.offset.from {
-                while currentFrom != nil &&
-                currentFrom!.offset <= itemFromOffset {
+                while let current = currentFrom, current.offset <= itemFromOffset {
                     
                         lastFrom = fromSections.removeFirst()
                         lastFromIndex = lastFromIndex + 1
@@ -229,8 +228,7 @@ class DiffTransformer {
             var toSide: TransformSectionInfo.Side?
             
             if let itemToOffset = item.offset.to {
-                while currentTo != nil &&
-                currentTo!.offset <= itemToOffset {
+                while let current = currentTo, current.offset <= itemToOffset {
                     
                         lastTo = toSections.removeFirst()
                         lastToIndex = lastToIndex + 1

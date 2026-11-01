@@ -1196,6 +1196,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             textField.clearButtonMode = .always
             textField.addTarget(self, action: #selector(self.undoSummaryTextfieldDidChange), for: .editingChanged)
             self.undoAlertSummaryTextField = textField
+
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.undoSummaryTextFieldLongPressed(_:)))
+            longPress.cancelsTouchesInView = false
+            longPress.delegate = self
+            textField.addGestureRecognizer(longPress)
         }
 
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
@@ -1223,6 +1228,22 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
     @objc private func undoSummaryTextfieldDidChange() {
         undoAlertUndoAction?.isEnabled = !(undoAlertSummaryTextField?.text?.isEmpty ?? false)
+    }
+
+    // Alerts trigger an action when a touch is released over it, even if the touch started in the text field.
+    // Disable Undo while long-pressing to move the cursor, so lifting the finger over Undo does not submit the edit.
+    @objc private func undoSummaryTextFieldLongPressed(_ gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            undoAlertUndoAction?.isEnabled = false
+        case .ended, .cancelled:
+            // Re-enable after the alert has handled the touch release
+            Task { [weak self] in
+                self?.undoSummaryTextfieldDidChange()
+            }
+        default:
+            break
+        }
     }
 
     private func performUndo() {
@@ -1396,6 +1417,13 @@ extension DiffContainerViewController: UINavigationControllerDelegate {
         }
 
         return nil
+    }
+}
+
+extension DiffContainerViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Let the text field's own cursor gestures keep working
+        return true
     }
 }
 

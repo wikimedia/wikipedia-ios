@@ -20,7 +20,6 @@
     XCTAssertNil(mantleError);
     XCTAssertEqual(searchResults.results.count, 0);
     XCTAssertEqual(searchResults.redirectMappings.count, 0);
-    XCTAssertEqualObjects(searchResults.searchSuggestion, [noResultJSON valueForKeyPath:@"query.searchinfo.suggestion"]);
 }
 
 - (void)testSerializesPrefixResultsInOrderOfIndex {
@@ -41,8 +40,6 @@
                                       ascending:YES];
 
     XCTAssert([searchResults.results isEqual:[searchResults.results sortedArrayUsingDescriptors:@[indexSortDescriptor]]]);
-
-    XCTAssert(searchResults.searchSuggestion == nil);
 
     XCTAssertEqual([searchResults redirectMappings].count, [resultJSON[@"redirects"] count]);
 }

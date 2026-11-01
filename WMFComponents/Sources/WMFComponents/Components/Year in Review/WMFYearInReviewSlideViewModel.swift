@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 public struct WMFYearInReviewSlideViewModel: Identifiable {
 
@@ -10,13 +11,27 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         }
     }
 
-    /// Which color the app draws its own controls in above the animation.
+    /// An article whose thumbnail fills an image property in the .riv.
+    public struct ArticleThumbnail: Hashable, Sendable {
+        public let project: WMFProject
+        public let title: String
 
+        public init(project: WMFProject, title: String) {
+            self.project = project
+            self.title = title
+        }
+    }
+
+    /// Which color the app draws its own controls in above the animation.
     public enum ContentStyle {
         /// Light controls, for dark artwork.
         case light
         /// Dark controls, for light artwork.
         case dark
+
+        public var color: UIColor {
+            self == .light ? WMFColor.white : WMFColor.gray700
+        }
     }
 
     public let id: String
@@ -24,10 +39,40 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     public let animation: WMFRiveAnimation?
     public let text: [WMFRiveText: String]
     public let numbers: [WMFRiveNumber: Double]
+    public let bools: [WMFRiveBool: Bool]
+    /// Loaded when the slide shows. A property with no thumbnail keeps the placeholder in the .riv.
+    public let articleThumbnails: [WMFRiveImage: ArticleThumbnail]
+    /// Image data that the slide already has, for example a downloaded topic illustration. A property
+    /// with no data keeps the placeholder in the .riv.
+    public let images: [WMFRiveImage: Data]
+    /// For each image property, a boolean property that is true while the image property has no
+    /// image. The .riv then hides the placeholder image.
+    public let missingImageFlags: [WMFRiveImage: WMFRiveBool]
+    /// The second state of an interactive slide, for example the reveal after a guess. When the .riv
+    /// fires `answerTrigger`, the answer replaces this slide in place, in the same pager position.
+    /// While VoiceOver runs, the answer is the next slide in the pager instead.
+    public var answer: WMFYearInReviewSlideViewModel? {
+        answerBox?.slide
+    }
+    /// A trigger that the .riv fires after the reader taps an answer and the exit animation ends.
+    public let answerTrigger: WMFRiveTrigger?
+    private let answerBox: AnswerBox?
+    /// The property that lays the frame out from right to left for a right-to-left language. `nil`
+    /// for a frame without it.
+    public let layoutDirection: WMFRiveLayoutDirection?
     public let localizedStrings: LocalizedStrings
     public let showsShareButton: Bool
     public let showsDonateButton: Bool
+    /// Shows a primary donate button below the animation. A slide with this button hides the
+    /// share and donate buttons in the toolbar.
+    public let showsPrimaryDonateButton: Bool
+    /// The style until the slide loads, and the style if the .riv does not set `lightContentFlag`.
     public let contentStyle: ContentStyle
+    /// A boolean in the .riv that the artwork sets. True asks for light controls. When the slide
+    /// loads, its value replaces `contentStyle`.
+    public let lightContentFlag: WMFRiveBool?
+    /// Text runs that the slide keeps to a maximum number of lines.
+    public let textFits: [WMFRiveTextFit]
 
     public init(
         id: String,
@@ -35,20 +80,40 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         animation: WMFRiveAnimation? = nil,
         text: [WMFRiveText: String] = [:],
         numbers: [WMFRiveNumber: Double] = [:],
+        bools: [WMFRiveBool: Bool] = [:],
+        articleThumbnails: [WMFRiveImage: ArticleThumbnail] = [:],
+        images: [WMFRiveImage: Data] = [:],
+        missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
+        answer: WMFYearInReviewSlideViewModel? = nil,
+        answerTrigger: WMFRiveTrigger? = nil,
+        layoutDirection: WMFRiveLayoutDirection? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         showsShareButton: Bool = true,
         showsDonateButton: Bool = true,
-        contentStyle: ContentStyle = .light
+        showsPrimaryDonateButton: Bool = false,
+        contentStyle: ContentStyle = .light,
+        lightContentFlag: WMFRiveBool? = nil,
+        textFits: [WMFRiveTextFit] = []
     ) {
         self.id = id
         self.loggingID = loggingID
         self.animation = animation
         self.text = text
         self.numbers = numbers
+        self.bools = bools
+        self.articleThumbnails = articleThumbnails
+        self.images = images
+        self.missingImageFlags = missingImageFlags
+        self.answerBox = answer.map(AnswerBox.init)
+        self.answerTrigger = answerTrigger
+        self.layoutDirection = layoutDirection
         self.localizedStrings = localizedStrings
         self.showsShareButton = showsShareButton
         self.showsDonateButton = showsDonateButton
+        self.showsPrimaryDonateButton = showsPrimaryDonateButton
         self.contentStyle = contentStyle
+        self.lightContentFlag = lightContentFlag
+        self.textFits = textFits
     }
 
     public var prefersLightContent: Bool {
@@ -56,6 +121,15 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     }
 
     public var contentColor: UIColor {
-        prefersLightContent ? WMFColor.white : WMFColor.gray700
+        contentStyle.color
+    }
+
+    /// A struct cannot hold a value of its own type.
+    private final class AnswerBox {
+        let slide: WMFYearInReviewSlideViewModel
+
+        init(_ slide: WMFYearInReviewSlideViewModel) {
+            self.slide = slide
+        }
     }
 }

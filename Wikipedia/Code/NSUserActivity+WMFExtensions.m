@@ -74,14 +74,9 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
-+ (BOOL)wmf_isExploreFeedEnabled {
-    return [NSUserDefaults.standardUserDefaults defaultTabType] == WMFAppDefaultTabTypeExplore;
-}
-
-+ (instancetype)wmf_exploreViewActivity {
-    if (![self wmf_isExploreFeedEnabled]) {
-        return [self wmf_searchViewActivity];
-    }
+// The page name stays "Explore": it is the activity type of Handoff and Spotlight activities that
+// already exist on devices, and of the wikipedia://explore link.
++ (instancetype)wmf_homeViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Explore"];
     return activity;
 }
@@ -123,8 +118,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 
     if ([url.host isEqualToString:@"content"]) {
         return [self wmf_contentActivityWithURL:url];
-    } else if ([url.host isEqualToString:@"explore"]) {
-        return [self wmf_exploreViewActivity];
+    } else if ([url.host isEqualToString:@"explore"] || [url.host isEqualToString:@"home"]) {
+        return [self wmf_homeViewActivity];
     } else if ([url.host isEqualToString:@"places"]) {
         return [self wmf_placesActivityWithURL:url];
     } else if ([url.host isEqualToString:@"saved"]) {
@@ -237,8 +232,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 - (WMFUserActivityType)wmf_type {
     if (self.userInfo[@"WMFPage"] != nil) {
         NSString *page = self.userInfo[@"WMFPage"];
-        if ([page isEqualToString:@"Explore"]) {
-            return WMFUserActivityTypeExplore;
+        if ([page isEqualToString:@"Home"] || [page isEqualToString:@"Explore"]) {
+            return WMFUserActivityTypeHome;
         } else if ([page isEqualToString:@"Places"]) {
             return WMFUserActivityTypePlaces;
         } else if ([page isEqualToString:@"Saved"]) {
@@ -324,9 +319,9 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         case WMFUserActivityTypeRandom:
             host = @"Random";
             break;
-        case WMFUserActivityTypeExplore:
+        case WMFUserActivityTypeHome:
         default:
-            host = [self wmf_isExploreFeedEnabled] ? @"explore" : @"search";
+            host = @"explore";
             break;
     }
     NSURLComponents *components = [NSURLComponents new];

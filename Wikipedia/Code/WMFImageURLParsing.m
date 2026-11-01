@@ -28,6 +28,11 @@ NSString *WMFParseImageNameFromSourceURL(NSString *sourceURL) __attribute__((ove
     if (!sourceURL) {
         return nil;
     }
+    // Thumbnail URLs carry utm_* query items since 2026. The name ends at the query.
+    NSRange queryStart = [sourceURL rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"?#"]];
+    if (queryStart.location != NSNotFound) {
+        sourceURL = [sourceURL substringToIndex:queryStart.location];
+    }
     NSArray *pathComponents = [sourceURL componentsSeparatedByString:@"/"];
     if (pathComponents.count < 2) {
         DDLogError(@"Unable to parse source URL with too few path components: %@", pathComponents);

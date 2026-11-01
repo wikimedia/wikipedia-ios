@@ -190,23 +190,58 @@ class ArticleWebMessagingController: NSObject {
         }
     }
 
-    /// Highlights `passages` inside the section of `anchor`, or in the whole article when the
-    /// section does not have them. Reports the ids of the highlight spans. The first id is the
-    /// start of the first passage found.
-    func highlightPassages(_ passages: [String], anchor: String?, completion: @escaping ([String]) -> Void) {
-        guard let webView,
-              let passagesData = try? JSONEncoder().encode(passages),
-              let passagesJSON = String(data: passagesData, encoding: .utf8) else {
-            completion([])
+    enum PassageHighlightResult {
+        /// A passage is highlighted. The rect is relative to the web view, like the rect of `scroll_to_anchor`.
+        case highlighted(CGRect)
+        /// None of the passages is in the article.
+        case notFound
+        /// The page script has no `pcs.c1.Highlight`, e.g. an article saved before it was deployed.
+        case unavailable
+    }
+
+    /// Highlights the first of `passages` found inside the section of `anchor`, or in the whole
+    /// article when the section does not have any of them, with `pcs.c1.Highlight`. Expands the
+    /// collapsed section or table that contains it. Only one passage is highlighted at a time.
+    func highlightPassage(_ passages: [String], anchor: String?, completion: @escaping (PassageHighlightResult) -> Void) {
+        guard let webView else {
+            completion(.unavailable)
             return
         }
 
-        let anchorJS = anchor.map { "`\($0.sanitizedForJavaScriptTemplateLiterals)`" } ?? "null"
-        webView.evaluateJavaScript("window.wmf.findInPage.highlightPassages(\(passagesJSON), \(anchorJS))") { result, error in
-            if let error {
-                DDLogWarn("Error highlighting passages: \(error)")
+        let script = """
+            const highlight = window.pcs && window.pcs.c1 && window.pcs.c1.Highlight
+            if (!highlight) { return null }
+            for (const section of (anchor ? [anchor, null] : [null])) {
+                for (const passage of passages) {
+                    const result = highlight.jumpToHighlightOrSection(passage, section)
+                    if (result && result.type === 'highlight') { return { found: true, rect: result.rect } }
+                }
             }
-            completion(result as? [String] ?? [])
+            highlight.clearHighlight()
+            return { found: false }
+            """
+        let arguments: [String: Any] = ["passages": passages, "anchor": anchor ?? NSNull()]
+        webView.callAsyncJavaScript(script, arguments: arguments, in: nil, in: .page) { result in
+            switch result {
+            case .failure(let error):
+                DDLogWarn("Error highlighting passages: \(error)")
+                completion(.unavailable)
+            case .success(let value):
+                guard let dictionary = value as? [String: Any] else {
+                    completion(.unavailable)
+                    return
+                }
+                guard dictionary["found"] as? Bool == true,
+                      let rect = dictionary["rect"] as? [String: Any],
+                      let x = rect["x"] as? CGFloat,
+                      let y = rect["y"] as? CGFloat,
+                      let width = rect["width"] as? CGFloat,
+                      let height = rect["height"] as? CGFloat else {
+                    completion(.notFound)
+                    return
+                }
+                completion(.highlighted(CGRect(x: x, y: y, width: width, height: height)))
+            }
         }
     }
 

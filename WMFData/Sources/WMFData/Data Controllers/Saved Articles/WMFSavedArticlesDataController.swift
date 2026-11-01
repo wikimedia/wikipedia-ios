@@ -36,11 +36,14 @@ public actor WMFSavedArticlesDataController {
 
         let articleThumbTuples = Array(
             titleURLTuples
-                .filter { $0.1 != nil } // only non-nil URLS
+                .compactMap { title, thumbURL -> (String, URL)? in
+                    guard let thumbURL else { return nil }
+                    return (title, thumbURL)
+                }
                 .prefix(3)
         )
 
-        let thumbURLs = articleThumbTuples.map { $0.1! }
+        let thumbURLs = articleThumbTuples.map { $0.1 }
 
         let titles = articleThumbTuples.map { $0.0 }
 

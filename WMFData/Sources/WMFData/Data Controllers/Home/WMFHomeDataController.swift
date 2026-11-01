@@ -1,11 +1,6 @@
 import Foundation
-import WMFTestKitchen
 
 @objc public final actor WMFHomeDataController {
-    public enum HomeTabExperimentAssignment {
-        case control
-        case groupB
-    }
 
     private let feedDataController: any WMFFeedDataControlling
     private let basicService: WMFService?
@@ -28,9 +23,6 @@ import WMFTestKitchen
     private var communityFetchedDates: [WMFProject: [Date]] = [:]
 
     @objc public static let shared = WMFHomeDataController()
-
-    // Written once by assignExperiment() on the main thread at launch, before any concurrent reads.
-    nonisolated(unsafe) private var homeTabAssignment: HomeTabExperimentAssignment = .control
 
     public init(
         feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
@@ -60,51 +52,12 @@ import WMFTestKitchen
             }
         }
     }
-    
-    /// Forces the persisted experiment bucket before the shared singleton is initialized.
-    /// Must be called before the first access to `WMFHomeDataController.shared`.
-    /// Used in UITesting
-    public static func forceExperimentAssignment(_ assignment: HomeTabExperimentAssignment) {
-        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
-        let controller = WMFExperimentsDataController(store: store)
-        let forceValue: WMFExperimentsDataController.BucketValue = assignment == .groupB ? .homeTabGroupB : .homeTabControl
-        _ = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50, forceValue: forceValue)
-    }
-    
-    public nonisolated func assignExperiment() {
-        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
-        let controller = WMFExperimentsDataController(store: store)
-        let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
-        homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
-    }
-
-    public nonisolated var experimentData: ExperimentData {
-        ExperimentData(enrolled: "ios-home-feed", assigned: homeTabAssignment == .groupB ? "treatment" : "control")
-    }
-
-    public nonisolated func logExperimentExposure() {
-        WMFDataEnvironment.current.testKitchenClient?.getInstrument(name: "apps-home-feed")
-            .submitInteraction(
-                action: "experiment_exposure",
-                experimentData: experimentData
-            )
-    }
 
     private func invalidateForYouCache(project: WMFProject?) {
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let target = project ?? selectedLanguage().map { WMFProject.wikipedia($0) }
         guard let target else { return }
         try? store.remove(key: forYouCacheKey(for: target))
-    }
-
-    @objc public nonisolated var isHomeTabGroupB: Bool {
-        homeTabAssignment == .groupB
-    }
-
-    /// Returns the persisted bucket for the home tab experiment.
-    /// Safe to call from any synchronous context.
-    public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment {
-        homeTabAssignment
     }
 
     // MARK: - Settings: New Install Onboarding
