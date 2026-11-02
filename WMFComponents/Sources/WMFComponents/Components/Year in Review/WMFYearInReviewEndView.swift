@@ -53,7 +53,10 @@ public struct WMFYearInReviewEndView: View {
     /// The title of the button that shares the highlights. `nil` hides the button, for example in the
     /// collective flow, which has no highlights.
     private let shareHighlightsTitle: String?
-    private let onShareHighlights: (() -> Void)?
+    /// Gets the frame of the button in global coordinates, so the share sheet on iPad points at it.
+    private let onShareHighlights: (@MainActor (@escaping @MainActor () -> CGRect) -> Void)?
+
+    @State private var shareHighlightsButtonFrame: CGRect = .zero
 
     private static let scrollSpaceName = "yearInReviewEndScroll"
 
@@ -70,7 +73,7 @@ public struct WMFYearInReviewEndView: View {
         topInset: CGFloat = 0,
         onUsesLightContentChange: ((Bool) -> Void)? = nil,
         shareHighlightsTitle: String? = nil,
-        onShareHighlights: (() -> Void)? = nil
+        onShareHighlights: (@MainActor (@escaping @MainActor () -> CGRect) -> Void)? = nil
     ) {
         self.viewModel = viewModel
         self.topInset = topInset
@@ -176,7 +179,8 @@ public struct WMFYearInReviewEndView: View {
 
     private func shareHighlightsButton(title: String) -> some View {
         Button {
-            onShareHighlights?()
+            let frame = shareHighlightsButtonFrame
+            onShareHighlights? { frame }
         } label: {
             HStack(spacing: 10) {
                 Image(uiImage: WMFIcon.yearInReviewShare ?? UIImage())
@@ -197,6 +201,11 @@ public struct WMFYearInReviewEndView: View {
                 theme: WMFTheme.light
             )
         )
+        .onGeometryChange(for: CGRect.self) { proxy in
+            proxy.frame(in: .global)
+        } action: { frame in
+            shareHighlightsButtonFrame = frame
+        }
     }
 
     /// The sky, then its dark end color below it. This screen sits inside the slides, which already run

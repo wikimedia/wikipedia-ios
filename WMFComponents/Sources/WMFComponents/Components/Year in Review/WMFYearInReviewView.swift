@@ -117,8 +117,8 @@ public struct WMFYearInReviewView: View {
                     }
                 },
                 shareHighlightsTitle: viewModel.showsShareHighlightsButton ? viewModel.localizedStrings.shareHighlightsButtonTitle : nil,
-                onShareHighlights: {
-                    viewModel.tappedShareHighlights()
+                onShareHighlights: { sourceRect in
+                    viewModel.tappedShareHighlights(sourceRect: sourceRect)
                 }
             )
                 .containerRelativeFrame(.vertical)

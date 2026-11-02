@@ -14,6 +14,7 @@ public enum WMFYearInReviewAction {
     case shareFeedback(slideLoggingID: String)
     case share(slideID: String)
     /// Shares the highlights image from the end screen.
-    case shareHighlights
+    /// `getSourceRect` is the button frame in global coordinates, for the share sheet on iPad.
+    case shareHighlights(getSourceRect: @MainActor () -> CGRect)
     case donate(getSourceRect: @MainActor () -> CGRect, slideLoggingID: String)
 }

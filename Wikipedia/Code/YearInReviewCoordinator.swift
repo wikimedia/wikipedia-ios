@@ -579,7 +579,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// Shares the image of the highlights from the end screen, with the share text and the app link.
-    private func shareHighlights() {
+    /// - Parameter getSourceRect: The frame of the button in global coordinates. The share sheet on iPad points at it.
+    private func shareHighlights(getSourceRect: @MainActor () -> CGRect) {
         guard let highlights = viewModel?.highlights, highlights.isShareable else {
             return
         }
@@ -588,12 +589,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
             return
         }
-        presentShareSheet(image: image, from: hostingController?.navigationController)
+        presentShareSheet(image: image, from: hostingController?.navigationController, globalSourceRect: getSourceRect())
     }
 
     /// The export takes about a second. If the reader closed the slides, opened them again, or opened
     /// another screen from them in that time, the share sheet does not open.
-    private func presentShareSheet(image: UIImage, from presenter: UIViewController?) {
+    /// - Parameter globalSourceRect: Where the share sheet points on iPad, in global coordinates.
+    ///   `nil` or empty points at the bottom middle of the screen.
+    private func presentShareSheet(image: UIImage, from presenter: UIViewController?, globalSourceRect: CGRect? = nil) {
         guard let presenter,
               presenter === hostingController?.navigationController,
               presenter.viewIfLoaded?.window != nil,
@@ -609,7 +612,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             applicationActivities: nil
         )
         activityViewController.popoverPresentationController?.sourceView = presenter.view
-        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        if let globalSourceRect, !globalSourceRect.isEmpty {
+            activityViewController.popoverPresentationController?.sourceRect = presenter.view.convert(globalSourceRect, from: nil)
+        } else {
+            activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        }
         presenter.present(activityViewController, animated: true)
     }
 }
@@ -699,8 +706,8 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
             shareFeedback()
         case .share(let slideID):
             shareSlide(slideID: slideID)
-        case .shareHighlights:
-            shareHighlights()
+        case .shareHighlights(let getSourceRect):
+            shareHighlights(getSourceRect: getSourceRect)
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }

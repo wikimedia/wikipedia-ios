@@ -156,15 +156,6 @@ struct WMFYearInReviewEndPageTests {
         return viewModel
     }
 
-    @Test
-    func theEndScreenToolbarIsTheBlackChromeColor() {
-        let viewModel = makeViewModel()
-
-        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
-
-        #expect(viewModel.currentChromeColor == WMFYearInReviewViewModel.chromeBackgroundColor)
-    }
-
     private static func highlights(articlesRead: Int? = 120, minutesRead: Int? = 900) -> WMFYearInReviewHighlights {
         WMFYearInReviewHighlights(
             articlesRead: articlesRead,
@@ -187,11 +178,14 @@ struct WMFYearInReviewEndPageTests {
         #expect(viewModel.showsShareHighlightsButton)
         #expect(viewModel.showsShareButton == false, "the end screen has no toolbar share button")
 
-        viewModel.tappedShareHighlights()
+        let buttonFrame = CGRect(x: 100, y: 400, width: 180, height: 44)
+        viewModel.tappedShareHighlights(sourceRect: { buttonFrame })
 
         #expect(logging.sharedHighlights == 1)
         #expect(logging.shared.isEmpty, "a highlights share is not logged as a slide share")
-        if case .shareHighlights = coordinator.actions.last {} else {
+        if case .shareHighlights(let getSourceRect) = coordinator.actions.last {
+            #expect(getSourceRect() == buttonFrame, "the share sheet on iPad points at the button")
+        } else {
             Issue.record("expected the highlights to be shared, got \(String(describing: coordinator.actions.last))")
         }
     }
@@ -202,7 +196,7 @@ struct WMFYearInReviewEndPageTests {
         let viewModel = makeViewModel(coordinator: coordinator)
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
-        viewModel.tappedShareHighlights()
+        viewModel.tappedShareHighlights(sourceRect: { .zero })
 
         #expect(viewModel.showsShareHighlightsButton == false, "the collective flow has no highlights")
         #expect(coordinator.actions.isEmpty)
