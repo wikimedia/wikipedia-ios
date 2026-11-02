@@ -1203,8 +1203,6 @@
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
 "reading-list-create-new-list-button-title" = "Create reading list";
-"reading-list-create-new-list-description" = "Description";
-"reading-list-create-new-list-reading-list-name" = "Reading list name";
 "reading-list-create-new-list-title" = "Create a new list";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-detail-search-placeholder" = "Search reading list";
@@ -1225,8 +1223,8 @@
 "reading-list-list-limit-reached" = "You have reached the limit of $1 reading lists per account";
 "reading-list-login-or-create-account-button-title" = "Log in or create account";
 "reading-list-name-user-created-annotation" = "_[user created]";
-"reading-list-new-list-description-placeholder" = "optional short description";
-"reading-list-new-list-name-placeholder" = "reading list title";
+"reading-list-new-list-description-placeholder" = "Optional short description";
+"reading-list-new-list-name-placeholder" = "Reading list title";
 "reading-list-sync-disabled-panel-message" = "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.";
 "reading-list-sync-disabled-panel-title" = "Sync disabled";
 "reading-list-sync-enable-button-title" = "Enable syncing";

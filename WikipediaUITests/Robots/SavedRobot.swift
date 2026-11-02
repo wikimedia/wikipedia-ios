@@ -89,6 +89,27 @@ extension SavedRobot {
         return self
     }
 
+    @discardableResult
+    func assertDiscoverSetupVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(discoverSetupView, timeout: 15, description: "Discover setup screen", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapBackFromDiscoverSetup(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let navigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(navigationBar, timeout: 10, description: "Discover setup navigation bar", file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertVisible(backButton, timeout: 10, description: "Discover setup back button", file: file, line: line)
+        base.tapCenter(of: backButton, file: file, line: line)
+        base.waitForElementToDisappear(discoverSetupView, timeout: 10, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+
+    private var discoverSetupView: XCUIElement {
+        element(withIdentifier: AccessibilityIdentifiers.Discover.setupView)
+    }
+
     private var discoverAnnouncementCard: XCUIElement {
         element(withIdentifier: AccessibilityIdentifiers.Discover.announcementCard)
     }
