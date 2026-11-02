@@ -130,6 +130,10 @@ public enum AccessibilityIdentifiers {
         public static let nameErrorLabel = "Create Reading List Name Error Label"
         public static let nameTextField = "Create Reading List Name Text Field"
         public static let view = "Create Reading List View"
+
+        public static func articleRow(_ title: String) -> String {
+            "Create Reading List Article Row \(title)"
+        }
     }
 
     public enum AddToReadingList {
