@@ -89,7 +89,7 @@ final class ReadingListImporter {
         let keys = pageURLs.compactMap { $0.wmf_inMemoryKey }
         let summaryResponses = await articleFetcher.fetchArticleSummaryResponsesForArticles(withKeys: keys)
         let articlesByKey = try dataStore.viewContext.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
-        let articles = Array(articlesByKey.values)
+        let articles = keys.compactMap { articlesByKey[$0] }
 
         guard !articles.isEmpty else {
             throw ImportReadingListError.failureFetchingArticleObjects
