@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
 
 protocol CreateReadingListCoordinatorDelegate: AnyObject {
     func createReadingListCoordinator(
@@ -14,7 +15,8 @@ protocol CreateReadingListCoordinatorDelegate: AnyObject {
 /// Presents the "Create a new list" form. It owns the modal navigation controller the form shows in.
 ///
 /// With `encodedPageIDs`, the form imports a shared reading list: it fetches the articles first, then
-/// fills the name in. The delegate saves the list and calls back with the result.
+/// shows them, all selected, and fills the name in. With `discoverPages`, the form shows the Discover
+/// articles, all selected. In both cases, the form sends only the selected articles to the delegate. The delegate saves the list and calls back with the result.
 @MainActor
 final class CreateReadingListCoordinator: NSObject, Coordinator {
 
@@ -29,23 +31,41 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
     private weak var presentingViewController: UIViewController?
     private let viewModel: WMFCreateReadingListViewModel
     private let importer: ReadingListImporter?
+    private let discoverPages: [WMFDiscoverRecommendedPage]
+    private let dataStore: MWKDataStore?
     private var importTask: Task<Void, Never>?
 
     var isInImportingMode: Bool {
         importer != nil
     }
 
-    init(presentingViewController: UIViewController, articles: [WMFArticle] = [], moveFromReadingList: ReadingList? = nil, encodedPageIDs: String? = nil, dataStore: MWKDataStore? = nil) {
+    init(
+        presentingViewController: UIViewController,
+        articles: [WMFArticle] = [],
+        moveFromReadingList: ReadingList? = nil,
+        encodedPageIDs: String? = nil,
+        discoverPages: [WMFDiscoverRecommendedPage] = [],
+        dataStore: MWKDataStore? = nil
+    ) {
         self.presentingViewController = presentingViewController
         self.articles = articles
         self.moveFromReadingList = moveFromReadingList
+        self.discoverPages = discoverPages
+        self.dataStore = dataStore
 
         if let encodedPageIDs {
             importer = ReadingListImporter(encodedPageIDs: encodedPageIDs, dataStore: dataStore)
             viewModel = WMFCreateReadingListViewModel(mode: .importSharedList)
+        } else if !discoverPages.isEmpty {
+            importer = nil
+            viewModel = WMFCreateReadingListViewModel(
+                mode: .saveDiscoverList(date: Date()),
+                articles: discoverPages.map(Self.selectableArticle(for:)),
+                validateName: Self.nameValidation(dataStore: dataStore)
+            )
         } else {
             importer = nil
-            viewModel = WMFCreateReadingListViewModel(mode: .create)
+            viewModel = WMFCreateReadingListViewModel(mode: .create, articles: articles.compactMap(Self.selectableArticle(for:)))
         }
 
         let hostingController = WMFCreateReadingListHostingController(viewModel: viewModel)
@@ -56,6 +76,12 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
 
         viewModel.didTapCreate = { [weak self] name, description in
             guard let self else { return }
+            let selectedIDs = self.viewModel.selectedArticleIDs
+            if !self.discoverPages.isEmpty {
+                self.articles = Self.selectedArticles(of: self.discoverPages, selectedIDs: selectedIDs, dataStore: self.dataStore)
+            } else {
+                self.articles = Self.selectedArticles(of: self.articles, selectedIDs: selectedIDs)
+            }
             delegate?.createReadingListCoordinator(self, didCreateReadingListWith: name, description: description, articles: self.articles)
         }
         viewModel.didTapClose = { [weak self] in
@@ -110,6 +136,62 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
         }
     }
 
+    /// Fetches or creates the saved article objects of the selected Discover pages, in list order.
+    static func selectedArticles(of pages: [WMFDiscoverRecommendedPage], selectedIDs: [String], dataStore: MWKDataStore?) -> [WMFArticle] {
+        guard let dataStore else { return [] }
+        let selectedIDSet = Set(selectedIDs)
+        return pages
+            .filter { selectedIDSet.contains($0.id) }
+            .compactMap { page in
+                guard let articleURL = page.articleURL else { return nil }
+                return dataStore.fetchOrCreateArticle(with: articleURL)
+            }
+    }
+
+    static func selectedArticles(of articles: [WMFArticle], selectedIDs: [String]) -> [WMFArticle] {
+        let selectedIDSet = Set(selectedIDs)
+        return articles.filter { article in
+            guard let key = article.key else { return false }
+            return selectedIDSet.contains(key)
+        }
+    }
+
+    static func selectableArticle(for article: WMFArticle) -> WMFCreateReadingListViewModel.Article? {
+        guard let key = article.key,
+              let languageCode = article.url?.wmf_languageCode else {
+            return nil
+        }
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: article.variant))
+        return WMFCreateReadingListViewModel.Article(
+            id: key,
+            displayTitle: article.displayTitleHTML,
+            project: project,
+            description: article.capitalizedWikidataDescriptionOrSnippet,
+            thumbnailURL: article.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
+        )
+    }
+
+    private static func selectableArticle(for page: WMFDiscoverRecommendedPage) -> WMFCreateReadingListViewModel.Article {
+        WMFCreateReadingListViewModel.Article(
+            id: page.id,
+            displayTitle: page.displayTitle,
+            project: page.project,
+            description: page.description,
+            thumbnailURL: page.thumbnailURL
+        )
+    }
+
+    /// Disables Create while a list with the same name exists.
+    static func nameValidation(dataStore: MWKDataStore?) -> (String) -> String? {
+        return { [weak dataStore] name in
+            guard let dataStore,
+                  (try? dataStore.readingListsController.listExists(with: name, in: dataStore.viewContext)) == true else {
+                return nil
+            }
+            return ReadingListError.listExistsWithTheSameName.localizedDescription
+        }
+    }
+
     private func startImportIfNeeded() {
         guard let importer else { return }
         importTask = Task { [weak self] in
@@ -117,7 +199,7 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
                 let importedArticles = try await importer.importArticles()
                 guard let self else { return }
                 articles = importedArticles
-                viewModel.importDidSucceed()
+                viewModel.importDidSucceed(articles: importedArticles.compactMap(Self.selectableArticle(for:)))
             } catch {
                 guard let self else { return }
                 viewModel.importDidFail()
