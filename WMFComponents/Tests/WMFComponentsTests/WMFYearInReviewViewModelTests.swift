@@ -25,6 +25,7 @@ private final class LoggingSpy: WMFYearInReviewLoggingDelegate {
     func logYearInReviewDidTapNext(slideLoggingID: String) { next.append(slideLoggingID) }
     func logYearInReviewDidTapDonate(slideLoggingID: String) { donate.append(slideLoggingID) }
     func logYearInReviewDidTapShare(slideLoggingID: String) { share.append(slideLoggingID) }
+    func logYearInReviewDidTapShareHighlights() {}
 }
 
 @MainActor

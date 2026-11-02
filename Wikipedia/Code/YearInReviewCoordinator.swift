@@ -782,6 +782,11 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     func logYearInReviewDidTapShare(slideLoggingID: String) {
         YearInReviewInstrument.shared.logClick(elementID: "share_button", page: slideLoggingID, personalized: areSlidesPersonalized)
     }
+
+    /// A separate element from the slide share button, so the two shares can be counted apart.
+    func logYearInReviewDidTapShareHighlights() {
+        YearInReviewInstrument.shared.logClick(elementID: "share_highlights_button", page: "end", personalized: areSlidesPersonalized)
+    }
 }
 
 // MARK: - Instrumentation

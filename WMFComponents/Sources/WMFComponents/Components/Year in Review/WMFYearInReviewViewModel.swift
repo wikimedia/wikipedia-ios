@@ -20,8 +20,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
     /// .riv, no slide logging, and no toolbar buttons. Its own button shares the highlights.
     public static let endPageID = "yearInReviewEnd"
-    /// The slide id reported for a tap on "Share highlights".
-    static let endLoggingID = "end"
 
     public struct LocalizedStrings {
         public let wIconAccessibilityLabel: String
@@ -324,7 +322,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     func tappedShareHighlights() {
         guard showsShareHighlightsButton else { return }
-        loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: Self.endLoggingID)
+        loggingDelegate?.logYearInReviewDidTapShareHighlights()
         coordinatorDelegate?.handleYearInReviewAction(.shareHighlights)
     }
 

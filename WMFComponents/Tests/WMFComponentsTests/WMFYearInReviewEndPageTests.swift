@@ -6,6 +6,7 @@ import UIKit
 private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
     var appeared: [String] = []
     var shared: [String] = []
+    var sharedHighlights = 0
 
     func logYearInReviewIntroDidTapLearnMore() {}
     func logYearInReviewSlideDidAppear(slideLoggingID: String) { appeared.append(slideLoggingID) }
@@ -13,6 +14,7 @@ private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
     func logYearInReviewDidTapNext(slideLoggingID: String) {}
     func logYearInReviewDidTapDonate(slideLoggingID: String) {}
     func logYearInReviewDidTapShare(slideLoggingID: String) { shared.append(slideLoggingID) }
+    func logYearInReviewDidTapShareHighlights() { sharedHighlights += 1 }
 }
 
 @MainActor
@@ -187,7 +189,8 @@ struct WMFYearInReviewEndPageTests {
 
         viewModel.tappedShareHighlights()
 
-        #expect(logging.shared == [WMFYearInReviewViewModel.endLoggingID])
+        #expect(logging.sharedHighlights == 1)
+        #expect(logging.shared.isEmpty, "a highlights share is not logged as a slide share")
         if case .shareHighlights = coordinator.actions.last {} else {
             Issue.record("expected the highlights to be shared, got \(String(describing: coordinator.actions.last))")
         }
@@ -203,7 +206,7 @@ struct WMFYearInReviewEndPageTests {
 
         #expect(viewModel.showsShareHighlightsButton == false, "the collective flow has no highlights")
         #expect(coordinator.actions.isEmpty)
-        #expect(logging.shared.isEmpty)
+        #expect(logging.sharedHighlights == 0)
     }
 
     @Test
