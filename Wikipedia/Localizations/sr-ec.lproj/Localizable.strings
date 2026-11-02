@@ -271,6 +271,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Тапните двапут да сваки месец донирате овај износ.";
 "donate-accessibility-textfield-hint" = "Други износ донације.";
 "donate-accessibility-transaction-fee-hint" = "Тапните двапут да додате и провизију за трансакцију износу донације.";
+// Fuzzy
 "donate-already-donated" = "Хвала, драги донаторе! Ваша великодушност помаже да Википедија и њени сестрински сајтови напредују.";
 "donate-apple-fine-print" = "Епл није задужен за прикупљање новца у ове сврхе.";
 "donate-email-opt-in-text" = "Да, нека ми Задужбина Викимедија периодично шаље имејлове.";
