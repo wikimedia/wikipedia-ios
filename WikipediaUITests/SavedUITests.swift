@@ -153,13 +153,14 @@ final class SavedUITests: XCTestCase {
             .assertDiscoverAnnouncementAbsent()
     }
 
-    func testDiscoverAnnouncementGetStartedHidesIt() throws {
+    /// Get started opens the setup screen, and the card stays until a source is chosen there.
+    func testDiscoverAnnouncementGetStartedOpensSetupAndBackKeepsTheCard() throws {
         openSavedWithDiscover()
             .showReadingLists()
             .tapDiscoverGetStarted()
-            .assertDiscoverAnnouncementAbsent()
-            .showAllArticles()
-            .assertDiscoverAnnouncementAbsent()
+            .assertDiscoverSetupVisible()
+            .goBackFromDiscoverSetup()
+            .assertDiscoverAnnouncementVisible()
     }
 
     func testDiscoverAnnouncementStaysHiddenWithoutTheFeature() throws {
