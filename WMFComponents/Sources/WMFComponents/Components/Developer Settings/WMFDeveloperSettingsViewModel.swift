@@ -63,6 +63,10 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
     @Published public private(set) var isRegeneratingYiR2026Report = false
     @Published public var yiR2026ReportAlertMessage: String?
 
+    /// Set by the app. Nil hides the Discover section.
+    /// TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).
+    public var showDiscoverReadingList: (@MainActor () -> Void)?
+
     /// Set by the app after init. Nil hides the "Run notification refresh now" button.
     @Published public var localNotificationActions: WMFDeveloperSettingsLocalNotificationActions?
     @Published var localNotificationLogSummaryLines: [String] = []

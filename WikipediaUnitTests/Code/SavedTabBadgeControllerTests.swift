@@ -12,7 +12,7 @@ final class SavedTabBadgeControllerTests: XCTestCase {
 
     override func setUp() async throws {
         ProgressContainer.shared.articleFetcherProgress = nil
-        tabBarItem = UITabBarItem(title: "Saved", image: UIImage(systemName: "bookmark"), tag: 0)
+        tabBarItem = UITabBarItem(title: "Saved", image: nil, tag: 0)
         discover = DiscoverStub()
     }
 
@@ -21,8 +21,8 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         ProgressContainer.shared.articleFetcherProgress = nil
     }
 
-    private func makeController() -> SavedTabBadgeController {
-        SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: nil, theme: .light, discoverDataController: discover)
+    private func makeController(userInterfaceIdiom: UIUserInterfaceIdiom = .phone) -> SavedTabBadgeController {
+        SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: nil, theme: .light, userInterfaceIdiom: userInterfaceIdiom, discoverDataController: discover)
     }
 
     private func wait(seconds: Double) async {
@@ -40,20 +40,15 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         controller = makeController()
         XCTAssertEqual(controller.badge, .none)
         XCTAssertNil(tabBarItem.badgeValue)
-        XCTAssertTrue(tabBarItem.selectedImage === tabBarItem.image, "no dot, so the selected state reuses the plain icon")
         XCTAssertEqual(discover.assignments, 0, "an off feature does not roll the experiment")
     }
 
     func testTheDotShowsUntilTheCardIsAnswered() {
         discover.isEnabled = true
         discover.shouldShowAnnouncement = true
-        let plainIcon = tabBarItem.image
         controller = makeController()
         XCTAssertEqual(controller.badge, .discoverAnnouncement)
-        XCTAssertNil(tabBarItem.badgeValue, "the dot lives in the icon, not in the UIKit badge")
-        XCTAssertEqual(tabBarItem.image?.renderingMode, .alwaysOriginal)
-        XCTAssertEqual(tabBarItem.selectedImage?.renderingMode, .alwaysOriginal)
-        XCTAssertFalse(tabBarItem.selectedImage === tabBarItem.image, "the selected state gets its own tint")
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
         XCTAssertEqual(discover.assignments, 1)
 
         discover.shouldShowAnnouncement = false
@@ -61,8 +56,6 @@ final class SavedTabBadgeControllerTests: XCTestCase {
 
         XCTAssertEqual(controller.badge, .none)
         XCTAssertNil(tabBarItem.badgeValue)
-        XCTAssertTrue(tabBarItem.image === plainIcon)
-        XCTAssertTrue(tabBarItem.selectedImage === plainIcon)
     }
 
     func testTheStarReplacesTheDotAndTheDotComesBack() {
@@ -74,12 +67,18 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         controller.setSyncInProgress(true)
         XCTAssertEqual(controller.badge, .syncInProgress)
         XCTAssertEqual(tabBarItem.badgeValue, "\u{2605}")
-        XCTAssertTrue(tabBarItem.selectedImage === tabBarItem.image, "the star uses the UIKit badge, so the icon is plain again")
 
         controller.setSyncInProgress(false)
         XCTAssertEqual(controller.badge, .discoverAnnouncement)
-        XCTAssertNil(tabBarItem.badgeValue)
-        XCTAssertFalse(tabBarItem.selectedImage === tabBarItem.image)
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
+    }
+
+    func testTheDotIsABlankGlyphOnTheIPad() {
+        discover.isEnabled = true
+        discover.shouldShowAnnouncement = true
+        controller = makeController(userInterfaceIdiom: .pad)
+        XCTAssertEqual(controller.badge, .discoverAnnouncement)
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{2800}")
     }
 
     func testTheStarFollowsTheDownloadProgress() async {
@@ -95,14 +94,6 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         progress.completedUnitCount = 2
         await wait(seconds: 0.1)
         XCTAssertEqual(controller.badge, .none)
-    }
-
-    func testTheDottedIconGrowsByTheInsetOnEverySide() throws {
-        let icon = try XCTUnwrap(UIImage(systemName: "bookmark"))
-        let dotted = SavedTabBadgeController.dottedIcon(icon, iconColor: .black, dotColor: .red)
-        XCTAssertEqual(dotted.renderingMode, .alwaysOriginal)
-        XCTAssertEqual(dotted.size.width, icon.size.width + 8, accuracy: 0.01)
-        XCTAssertEqual(dotted.size.height, icon.size.height + 8, accuracy: 0.01)
     }
 
     private final class DiscoverStub: SavedTabDiscoverAnnouncementProviding {

@@ -80,7 +80,11 @@ final class SavedCoordinator: NSObject, Coordinator {
 
         self.allArticlesCoordinator = allArticlesCoordinator
         self.readingListsCoordinator = readingListsCoordinator
-        self.progressObserver = SavedArticleDownloadProgressObserver(viewModel: progressViewModel)
+        self.progressObserver = SavedArticleDownloadProgressObserver(
+            viewModel: progressViewModel,
+            isInitialSyncPending: { [dataStore] in dataStore.readingListsController.isInitialSyncPending },
+            isServerBusy: { [dataStore] in dataStore.session.serverBusyPauseUntil != nil }
+        )
         self.viewModel = viewModel
         self.savedViewController = hostingController
         return hostingController
@@ -95,14 +99,24 @@ final class SavedCoordinator: NSObject, Coordinator {
     private func makeDiscoverAnnouncementViewModel() -> WMFDiscoverAnnouncementViewModel {
         let viewModel = WMFDiscoverAnnouncementViewModel()
         viewModel.loggingDelegate = self
-        viewModel.didTapGetStarted = {
-            // The Discover setup flow lands with T440007.
+        viewModel.didTapGetStarted = { [weak self] in
+            self?.showDiscoverSetup()
         }
         viewModel.didTapNoThanks = { [weak self] in
             guard let self else { return }
             WMFToastPresenter.shared.show(WMFToastConfig(title: self.discoverNoThanksToastTitle))
         }
         return viewModel
+    }
+
+    /// The coordinator outlives the tap: it loads the sources before the push and answers the
+    /// setup screen's callbacks.
+    private var discoverSetupCoordinator: DiscoverSetupCoordinator?
+
+    private func showDiscoverSetup() {
+        let coordinator = DiscoverSetupCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        discoverSetupCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - Profile, tabs and Year in Review

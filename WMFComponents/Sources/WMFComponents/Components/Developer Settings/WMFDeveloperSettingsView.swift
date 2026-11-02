@@ -199,6 +199,15 @@ struct WMFDeveloperSettingsView: View {
                             .foregroundStyle(Color(theme.link))
                     }
                 }
+                // TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).
+                if let showDiscoverReadingList = viewModel.showDiscoverReadingList {
+                    captionedRow(caption: "Temporary entry point. Discover gets its own entry in the app when the feature is complete.") {
+                        Button(action: showDiscoverReadingList) {
+                            Text("Open Discover reading list")
+                                .foregroundStyle(Color(theme.link))
+                        }
+                    }
+                }
             } header: {
                 sectionHeader("Discover")
             }

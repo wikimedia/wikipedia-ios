@@ -43,7 +43,7 @@ final class WMFDiscoverAnnouncementViewModelTests: XCTestCase {
         XCTAssertFalse(makeViewModel().isVisible)
     }
 
-    func testGetStartedHidesTheCardForGoodAndCallsBack() {
+    func testGetStartedKeepsTheCardAndCallsBack() {
         let viewModel = makeViewModel()
         var getStartedTaps = 0
         var dismissals = 0
@@ -52,12 +52,22 @@ final class WMFDiscoverAnnouncementViewModelTests: XCTestCase {
 
         viewModel.tapGetStarted()
 
-        XCTAssertFalse(viewModel.isVisible)
+        XCTAssertTrue(viewModel.isVisible, "the card stays until Discover is on, like on Android")
         XCTAssertEqual(getStartedTaps, 1)
-        XCTAssertEqual(dismissals, 1)
-        XCTAssertTrue(WMFDiscoverDataController.shared.hasDismissedAnnouncement)
-        XCTAssertFalse(makeViewModel().isVisible, "a new instance reads the persisted answer")
+        XCTAssertEqual(dismissals, 0)
+        XCTAssertFalse(WMFDiscoverDataController.shared.hasDismissedAnnouncement)
         XCTAssertEqual(loggingDelegate.getStartedTaps, 1)
+    }
+
+    func testTheCardGoesAwayOnceDiscoverIsOn() throws {
+        let viewModel = makeViewModel()
+        viewModel.tapGetStarted()
+
+        try WMFDiscoverDataController.shared.markAnnouncementDismissed()
+        viewModel.refresh()
+
+        XCTAssertFalse(viewModel.isVisible)
+        XCTAssertFalse(makeViewModel().isVisible, "a new instance reads the persisted state")
     }
 
     func testNoThanksHidesTheCardForGoodAndCallsBack() {

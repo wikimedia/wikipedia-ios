@@ -84,6 +84,7 @@ public struct WMFSavedAllArticlesView: View {
         if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
             WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
                 .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .readableWidth()
                 .transition(.opacity)
         }
     }
@@ -92,7 +93,9 @@ public struct WMFSavedAllArticlesView: View {
     private var announcementRow: some View {
         if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
             WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
-                .listRowInsets(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
+                .readableWidth()
+                .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
                 .transition(.opacity)
@@ -137,7 +140,7 @@ public struct WMFSavedAllArticlesView: View {
                             .background(Color(uiColor: appEnvironment.theme.border))
                             .frame(height: max(1.0 / UIScreen.main.scale, 0.5))
                     }
-                    
+                    .readableWidth()
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color(uiColor: rowModel.isSelected ? appEnvironment.theme.batchSelectionBackground : appEnvironment.theme.paperBackground))

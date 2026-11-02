@@ -180,6 +180,7 @@ public enum WMFSFSymbolIcon {
     case house
     case sliderHorizontal3
     case clockArrowCounterclockwise
+    case clockArrowTriangleheadCounterclockwiseRotate90
     case sparkles
     case xmarkCircle
     case docText
@@ -464,6 +465,13 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "slider.horizontal.3", withConfiguration: configuration)
         case .clockArrowCounterclockwise:
             image = UIImage(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90", withConfiguration: configuration)
+        case .clockArrowTriangleheadCounterclockwiseRotate90:
+            // The trianglehead symbol ships with iOS 18. Older systems get the closest symbol.
+            if #available(iOS 18, *) {
+                image = UIImage(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90", withConfiguration: configuration)
+            } else {
+                image = UIImage(systemName: "clock.arrow.circlepath", withConfiguration: configuration)
+            }
         case .starSquare:
             image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
         case .sparkles:

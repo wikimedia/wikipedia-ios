@@ -15,6 +15,7 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
     private var dataSource: LegacyReadingListsDataSource?
     private var _viewModel: WMFReadingListsViewModel?
     private weak var hostingController: WMFReadingListsHostingController?
+    private var syncDidFinishObserver: NSObjectProtocol?
 
     convenience init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, filter: WMFReadingListsFilter = .all) {
         self.init(navigationControllerProvider: { navigationController }, dataStore: dataStore, theme: theme, filter: filter)
@@ -28,6 +29,18 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
         self.theme = theme
         self.filter = filter
         super.init()
+        // The list counts come from the database. A sync changes them after the screen loads.
+        syncDidFinishObserver = NotificationCenter.default.addObserver(forName: ReadingListsController.syncDidFinishNotification, object: nil, queue: nil) { [weak self] _ in
+            Task { @MainActor in
+                self?.reload()
+            }
+        }
+    }
+
+    deinit {
+        if let syncDidFinishObserver {
+            NotificationCenter.default.removeObserver(syncDidFinishObserver)
+        }
     }
 
     // MARK: - Coordinator
