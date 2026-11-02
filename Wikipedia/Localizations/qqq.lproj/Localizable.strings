@@ -376,6 +376,10 @@
 "discover-list-onboarding-toast-weekly" = "Toast shown on the first visit to the Discover reading list when the list updates weekly. $1 is replaced with the number of articles in each list.";
 "discover-list-save-list" = "Button on the Discover reading list screen that saves every article in the list to a reading list.";
 "discover-list-title" = "Title of the Discover reading list screen.";
+"discover-setup-source-history" = "Option on the Discover setup screen. The recommended reading list is built from the reader's reading history.";
+"discover-setup-source-interests" = "Option on the Discover setup screen. The reader picks interests and the recommended reading list is built from them.";
+"discover-setup-source-saved" = "Option on the Discover setup screen. The recommended reading list is built from the reader's saved articles.";
+"discover-setup-title" = "Title of the Discover setup screen, where the reader chooses how the recommended reading list picks its articles.";
 "donate-accessibility-amount-button-hint" = "Accessibility hint on donate form amount option button for screen readers.";
 "donate-accessibility-donate-hint-format" = "Accessibility hint on donate form Apple Pay button for screen readers. Parameters: * $1 - the donation amount entered by the user.";
 "donate-accessibility-email-opt-in-hint" = "Accessibility hint on donate form email opt in checkbox for screen readers.";

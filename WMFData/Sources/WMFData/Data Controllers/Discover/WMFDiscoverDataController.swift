@@ -36,7 +36,7 @@ public final class WMFDiscoverDataController: Sendable {
     }
 
     /// True when the Saved tab shows the onboarding announcement card and its badge: the feature
-    /// is on, the reader is in group B and the reader has not answered the card yet.
+    /// is on, the reader is in group B and the card has not gone away yet.
     public var shouldShowAnnouncement: Bool {
         guard isEnabled, experimentAssignment == .groupB else {
             return false
@@ -47,7 +47,7 @@ public final class WMFDiscoverDataController: Sendable {
 
     // MARK: - Announcement
 
-    /// True once the reader tapped Get started or No thanks on the announcement card.
+    /// True once the reader tapped No thanks on the announcement card or turned Discover on.
     public var hasDismissedAnnouncement: Bool {
         (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverOnboardingAnnouncementDismissed.rawValue)) ?? false
     }

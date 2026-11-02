@@ -162,6 +162,11 @@
 "activity-tab-very-satisfied" = "Дуже задоволений/а";
 "activity-tab-very-unsatisfied" = "Дуже незадоволений/а";
 "activity-tab-week-graph-label" = "Тиждень";
+"activity-tab-year-in-review-cta" = "Розпочати";
+"activity-tab-year-in-review-data-rich-subtitle" = "Відкрийте свій рік у Вікіпедії заново.";
+"activity-tab-year-in-review-data-rich-title" = "Ваш огляд року вже тут";
+"activity-tab-year-in-review-low-data-subtitle" = "Відкрийте рік у Вікіпедії заново.";
+"activity-tab-year-in-review-low-data-title" = "Наш огляд року вже тут";
 "activity-tab-you-edited" = "Цього тижня ви редагували {{PLURAL:$1|$1 раз|$1 рази|$1 разів}}.";
 "activity-tab-you-read" = "Цього тижня ви прочитали {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
 "activity-tab-you-saved" = "Цього тижня ви зберегли {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
@@ -384,6 +389,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Двічі натисніть, щоб увімкнути автоматичні щомісячні пожертви на цю суму.";
 "donate-accessibility-textfield-hint" = "Введіть власну суму пожертви.";
 "donate-accessibility-transaction-fee-hint" = "Двічі натисніть, щоб додати комісію за транзакцію до суми пожертви.";
+// Fuzzy
 "donate-already-donated" = "Дякуємо, шановний доноре! Ваша щедрість допомагає Вікіпедії та іншим проєктам вільних знань процвітати.";
 "donate-apple-fine-print" = "Apple не відповідає за збір коштів для цієї мети.";
 "donate-email-opt-in-text" = "Так, Фонд Вікімедіа може періодично надсилати мені електронні листи.";

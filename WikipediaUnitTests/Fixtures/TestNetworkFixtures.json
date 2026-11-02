@@ -175,6 +175,22 @@
   {
     "method": "GET",
     "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "prop": "info",
+      "inprop": "url",
+      "pageids": "4269567"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ReadingLists/en/DogPageInfo.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
     "path": "/api/rest_v1/page/mobile-html/Dog",
     "statusCode": 200,
     "headers": {

@@ -100,6 +100,52 @@ final class WMFDiscoverReadingListDataControllerTests {
         #expect(settings.source == .interests)
     }
 
+    // MARK: - Available sources
+
+    @Test
+    func onlyInterestsIsAvailableWithoutSavedArticlesOrHistory() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let availableSources = try await makeController().availableSources()
+            #expect(availableSources == [.interests])
+        }
+    }
+
+    @Test
+    func savedArticlesBecomeAvailableOnceOneArticleIsSaved() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await insertSavedPage(title: "Dog")
+
+            let availableSources = try await makeController().availableSources()
+
+            #expect(availableSources == [.interests, .saved])
+        }
+    }
+
+    @Test
+    func historyBecomesAvailableOnceOnePageWasRead() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let pageViewsDataController = try WMFPageViewsDataController()
+            _ = try await pageViewsDataController.addPageView(title: "Dog", namespaceID: 0, project: englishProject, previousPageViewObjectID: nil)
+
+            let availableSources = try await makeController().availableSources()
+
+            #expect(availableSources == [.interests, .history])
+        }
+    }
+
+    @Test
+    func availableSourcesKeepTheInterestsSavedHistoryOrder() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let pageViewsDataController = try WMFPageViewsDataController()
+            _ = try await pageViewsDataController.addPageView(title: "Dog", namespaceID: 0, project: englishProject, previousPageViewObjectID: nil)
+            try await insertSavedPage(title: "Cat")
+
+            let availableSources = try await makeController().availableSources()
+
+            #expect(availableSources == [.interests, .saved, .history])
+        }
+    }
+
     // MARK: - Schedule
 
     private var utcCalendar: Calendar {
