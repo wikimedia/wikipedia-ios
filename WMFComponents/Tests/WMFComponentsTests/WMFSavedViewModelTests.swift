@@ -262,6 +262,7 @@ private final class MockDelegate: WMFLegacyReadingListsDataControllerDelegate {
     func fetchArticles(inReadingList readingListID: String) async throws -> [WMFSavedArticle] { [] }
     func defaultReadingListID() async throws -> String? { readingLists.first { $0.isDefault }?.id }
     func isDefaultReadingListEnabled() async -> Bool { true }
+    func isInitialSyncPending() async -> Bool { false }
     func sortOrder(forReadingList readingListID: String) async throws -> WMFReadingListSortOrder? { sortOrders[readingListID] }
     func setSortOrder(_ sortOrder: WMFReadingListSortOrder, forReadingList readingListID: String) async throws { sortOrders[readingListID] = sortOrder }
     func createReadingList(name: String, description: String?) async throws -> WMFReadingList {

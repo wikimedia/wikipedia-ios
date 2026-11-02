@@ -15,6 +15,7 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
     private var dataSource: LegacyReadingListsDataSource?
     private var _viewModel: WMFSavedAllArticlesViewModel?
     private var readingListsCoordinator: ReadingListsCoordinator?
+    private var syncDidFinishObserver: NSObjectProtocol?
 
     /// The Saved tab builds its segments before its navigation controller exists, so the
     /// navigation controller is resolved when first needed.
@@ -23,6 +24,18 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         self.dataStore = dataStore
         self.theme = theme
         super.init()
+        // The articles come from the database. A sync adds to them after the screen loads.
+        syncDidFinishObserver = NotificationCenter.default.addObserver(forName: ReadingListsController.syncDidFinishNotification, object: nil, queue: nil) { [weak self] _ in
+            Task { @MainActor in
+                self?._viewModel?.loadArticles()
+            }
+        }
+    }
+
+    deinit {
+        if let syncDidFinishObserver {
+            NotificationCenter.default.removeObserver(syncDidFinishObserver)
+        }
     }
 
     // MARK: - Coordinator
