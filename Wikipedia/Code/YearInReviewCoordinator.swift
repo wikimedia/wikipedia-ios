@@ -130,6 +130,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         slidesExperience == .personalized
     }
 
+    /// The direction of the app language, so the share images mirror for right-to-left languages.
+    private var shareImageLayoutDirection: LayoutDirection {
+        UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+    }
+
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
     private let slideFactory = YearInReviewSlideViewModelFactory()
 
@@ -553,7 +558,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
         isExportingShareImage = true
-        let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+        let layoutDirection = shareImageLayoutDirection
         let presenter = hostingController?.navigationController
 
         Task { @MainActor [weak self, weak presenter] in
@@ -578,8 +583,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         guard let highlights = viewModel?.highlights, highlights.isShareable else {
             return
         }
-        let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
-        guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: layoutDirection) else {
+        guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: shareImageLayoutDirection) else {
             DDLogError("Could not make the Year in Review highlights image")
             WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
             return
@@ -785,7 +789,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 
     /// A separate element from the slide share button, so the two shares can be counted apart.
     func logYearInReviewDidTapShareHighlights() {
-        YearInReviewInstrument.shared.logClick(elementID: "share_highlights_button", page: "end", personalized: areSlidesPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "share_highlights_button", page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
     }
 }
 
@@ -800,6 +804,8 @@ final class YearInReviewInstrument {
     static let shared = YearInReviewInstrument()
 
     static let announcementPage = "announcement"
+    /// The end screen, which comes after the last slide.
+    static let endPage = "end"
 
     /// The donate flow sends the same value to `app_donor_experience`.
     nonisolated static func campaignID(page: String) -> String {

@@ -192,7 +192,7 @@ struct YearInReviewSlideViewModelFactory {
     ///   - topReadPercentage: The "top X%" of readers globally, for example `50` or `0.01`. `nil` when the reader is below the 50th percentile.
     ///   - averageReadCount: The number of articles the average person reads in a year.
     func totalArticlesSlide(readCount: Int, topReadPercentage: Double?, averageReadCount: Int?) -> WMFYearInReviewSlideViewModel {
-        guard readCount >= WMFYearInReviewReadData.minimumReadCount else {
+        guard let readCount = SlideEligibility.readCount(readCount) else {
             return totalArticlesEmptySlide()
         }
 
@@ -302,7 +302,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// Shows the empty version unless at least two articles were visited multiple times.
     func rereadArticlesSlide(_ articles: [RereadArticle]) -> WMFYearInReviewSlideViewModel {
-        guard articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount else {
+        guard let articles = SlideEligibility.rereadArticles(articles) else {
             return rereadArticlesEmptySlide()
         }
 
@@ -354,7 +354,7 @@ struct YearInReviewSlideViewModelFactory {
     /// so the same category shows each time. `nil` when the reader has no category to show.
     /// The slide has no empty version.
     func nicheInterestSlide(_ slideData: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewSlideViewModel? {
-        guard let slideData, slideData.isEligible, let categoryName = slideData.categoryName else {
+        guard let categoryName = SlideEligibility.nicheCategoryName(slideData) else {
             return nil
         }
 
@@ -513,10 +513,7 @@ struct YearInReviewSlideViewModelFactory {
     /// One slide: the guess, with the reveal as its answer. A tap on a card replaces the guess with the
     /// reveal in place. No slide without two rabbit holes.
     func rabbitHoleSlides(_ slideData: WMFYearInReviewRabbitHolesSlideData?) -> [WMFYearInReviewSlideViewModel] {
-        guard let slideData,
-              slideData.isEligible,
-              let deepest = slideData.rabbitHoles.first,
-              let other = slideData.rabbitHoles.dropFirst().first else {
+        guard let slideData, case let (deepest, other)? = SlideEligibility.rabbitHoles(slideData) else {
             return []
         }
         let (topCard, bottomCard) = slideData.deepestIsOnTop ? (deepest, other) : (other, deepest)
@@ -603,6 +600,47 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
+    // MARK: - Eligibility
+
+    /// When each personalized slide shows its data. The slides and the highlights both read these
+    /// rules, so the highlights image only shows what the slides showed. Each rule returns `nil`
+    /// when the slide shows its empty version, or no slide.
+    enum SlideEligibility {
+
+        /// The total articles slide needs at least `WMFYearInReviewReadData.minimumReadCount` articles.
+        static func readCount(_ readCount: Int) -> Int? {
+            readCount >= WMFYearInReviewReadData.minimumReadCount ? readCount : nil
+        }
+
+        /// No slide shows the minutes yet. The highlights show them when there are any.
+        static func minutesRead(_ minutesRead: Int) -> Int? {
+            minutesRead > 0 ? minutesRead : nil
+        }
+
+        /// The reread articles slide needs at least two articles visited multiple times.
+        static func rereadArticles(_ articles: [RereadArticle]) -> [RereadArticle]? {
+            articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount ? articles : nil
+        }
+
+        /// The rabbit hole slide needs two rabbit holes: the deepest, then the other.
+        static func rabbitHoles(_ slideData: WMFYearInReviewRabbitHolesSlideData) -> (deepest: WMFYearInReviewRabbitHolesSlideData.RabbitHole, other: WMFYearInReviewRabbitHolesSlideData.RabbitHole)? {
+            guard slideData.isEligible,
+                  let deepest = slideData.rabbitHoles.first,
+                  let other = slideData.rabbitHoles.dropFirst().first else {
+                return nil
+            }
+            return (deepest, other)
+        }
+
+        /// The niche interest slide needs a category name.
+        static func nicheCategoryName(_ slideData: WMFYearInReviewNicheCategorySlideData?) -> String? {
+            guard let slideData, slideData.isEligible else {
+                return nil
+            }
+            return slideData.categoryName
+        }
+    }
+
     // MARK: - Highlights
 
     /// What "Share highlights" on the end screen shares. `nil` in the collective flow, and when the
@@ -621,21 +659,18 @@ struct YearInReviewSlideViewModelFactory {
 
     /// Each highlight follows the rules of its slide, so the image only shows what the slides showed.
     func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, nicheCategory: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewHighlights {
-        let articlesRead = readData.flatMap { $0.isEligible ? $0.readCount : nil }
-        let minutesRead = readData.flatMap { $0.minutesRead > 0 ? $0.minutesRead : nil }
-        let rotation = rereadArticles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount
-            ? rereadArticles.map(\.title)
-            : []
-        var rabbitHole: WMFYearInReviewHighlights.RabbitHole?
-        if let rabbitHoles, rabbitHoles.isEligible, let deepest = rabbitHoles.rabbitHoles.first {
-            rabbitHole = WMFYearInReviewHighlights.RabbitHole(firstTitle: deepest.firstArticle.title, lastTitle: deepest.lastArticle.title)
+        let articlesRead = readData.flatMap { SlideEligibility.readCount($0.readCount) }
+        let minutesRead = readData.flatMap { SlideEligibility.minutesRead($0.minutesRead) }
+        let rotation = SlideEligibility.rereadArticles(rereadArticles)?.map(\.title) ?? []
+        let rabbitHole = rabbitHoles.flatMap { SlideEligibility.rabbitHoles($0)?.deepest }.map { deepest in
+            WMFYearInReviewHighlights.RabbitHole(firstTitle: deepest.firstArticle.title, lastTitle: deepest.lastArticle.title)
         }
         return WMFYearInReviewHighlights(
             articlesRead: articlesRead,
             minutesRead: minutesRead,
             rotation: rotation,
             rabbitHole: rabbitHole,
-            nicheCategory: nicheCategory.flatMap { $0.isEligible ? $0.categoryName : nil },
+            nicheCategory: SlideEligibility.nicheCategoryName(nicheCategory),
             localizedStrings: WMFYearInReviewHighlights.LocalizedStrings(
                 title: CommonStrings.yearInReviewHighlightsTitle,
                 articlesReadLabel: CommonStrings.yearInReviewHighlightsArticlesRead,
