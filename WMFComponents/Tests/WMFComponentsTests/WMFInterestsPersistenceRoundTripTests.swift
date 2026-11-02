@@ -89,23 +89,21 @@ final class WMFInterestsPersistenceRoundTripTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let store = try #require(WMFDataEnvironment.current.coreDataStore)
             let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
-            let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-            let vm = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
-            let card = WMFInterestArticleCardViewModel(article: WMFRandomArticle(pageid: 3, title: "Ada_Lovelace", displayTitle: "Ada Lovelace", variantTitles: nil, description: nil, extract: nil, thumbnail: nil), project: project)
-            try await Task.sleep(nanoseconds: 300_000_000)
-            vm.gridViewModels = [card]
+            try await pageInterest.addPageInterest(title: "Ada_Lovelace", project: project)
 
-            vm.toggleArticleSelection(card)
+            let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
+            let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
             try await waitFor {
-                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
-                return !interests.isEmpty
+                viewModel.gridViewModels.contains { $0.isSelected }
             }
 
-            vm.toggleArticleSelection(card)
+            let card = try #require(viewModel.gridViewModels.first { $0.isSelected })
+            viewModel.toggleArticleSelection(card)
             try await waitFor {
                 let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return interests.isEmpty
             }
+        }
         }
     }
 
