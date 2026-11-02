@@ -50,6 +50,14 @@ public struct WMFYearInReviewEndView: View {
     /// sky scrolled away from under them.
     private let onUsesLightContentChange: ((Bool) -> Void)?
 
+    /// The title of the button that shares the highlights. `nil` hides the button, for example in the
+    /// collective flow, which has no highlights.
+    private let shareHighlightsTitle: String?
+    private let onShareHighlights: (() -> Void)?
+
+    /// From the Figma design. A light blue on the dark sky.
+    private static let shareHighlightsBackgroundColor = UIColor(0x83ABF9)
+
     private static let scrollSpaceName = "yearInReviewEndScroll"
 
     /// The controls are dark on the light top of the sky. They become light when the part of the sky
@@ -60,10 +68,18 @@ public struct WMFYearInReviewEndView: View {
     /// The middle of the navigation bar is about this far above the bottom of `topInset`.
     private static let navigationBarHalfHeight: CGFloat = 22
 
-    public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0, onUsesLightContentChange: ((Bool) -> Void)? = nil) {
+    public init(
+        viewModel: WMFYearInReviewEndViewModel,
+        topInset: CGFloat = 0,
+        onUsesLightContentChange: ((Bool) -> Void)? = nil,
+        shareHighlightsTitle: String? = nil,
+        onShareHighlights: (() -> Void)? = nil
+    ) {
         self.viewModel = viewModel
         self.topInset = topInset
         self.onUsesLightContentChange = onUsesLightContentChange
+        self.shareHighlightsTitle = shareHighlightsTitle
+        self.onShareHighlights = onShareHighlights
     }
 
     public var body: some View {
@@ -153,7 +169,38 @@ public struct WMFYearInReviewEndView: View {
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
                 .padding(.top, 24)
+
+            if let shareHighlightsTitle {
+                shareHighlightsButton(title: shareHighlightsTitle)
+                    .padding(.top, 40)
+            }
         }
+    }
+
+    private func shareHighlightsButton(title: String) -> some View {
+        Button {
+            onShareHighlights?()
+        } label: {
+            HStack(spacing: 10) {
+                Image(uiImage: WMFIcon.yearInReviewShare ?? UIImage())
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 15, height: 17)
+                Text(title)
+                    .font(Font(WMFFont.for(.body)))
+            }
+            .padding(.horizontal, 20)
+        }
+        .buttonStyle(
+            CapsuleButtonStyle(
+                kind: .primary,
+                layout: .hug,
+                theme: WMFTheme.light,
+                forceBackgroundColor: Self.shareHighlightsBackgroundColor,
+                forceForegroundColor: WMFColor.white
+            )
+        )
     }
 
     /// The sky, then its dark end color below it. This screen sits inside the slides, which already run

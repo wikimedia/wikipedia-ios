@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import LinkPresentation
 import SwiftUI
 import UIKit
 import WMF
@@ -595,36 +596,82 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
               presenter.presentedViewController == nil else {
             return
         }
-        let text = YearInReviewShareTextItem(text: CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink))
-        let activityViewController = UIActivityViewController(activityItems: [image, text], applicationActivities: nil)
+        let text = CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink)
+        let activityViewController = UIActivityViewController(
+            activityItems: [
+                YearInReviewShareImageItem(image: image, title: text),
+                YearInReviewShareTextItem(text: text, placeholderImage: image)
+            ],
+            applicationActivities: nil
+        )
         activityViewController.popoverPresentationController?.sourceView = presenter.view
         activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
         presenter.present(activityViewController, animated: true)
     }
 }
 
-/// The share text, left out where only the image can go. Instagram and TikTok share one item, and
-/// the image is the priority.
-private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+/// The share image. The top of the share sheet shows it with the share text, not as one of two images.
+private final class YearInReviewShareImageItem: NSObject, UIActivityItemSource {
 
-    private static let imageOnlyActivityPrefixes = ["com.burbn.instagram", "com.zhiliaoapp.musically", "com.ss.iphone.ugc.Ame"]
+    private let image: UIImage
+    private let title: String
 
-    private let text: String
-
-    init(text: String) {
-        self.text = text
+    init(image: UIImage, title: String) {
+        self.image = image
+        self.title = title
     }
 
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        text
+        image
     }
 
     func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-        guard let activityType,
-              Self.imageOnlyActivityPrefixes.contains(where: { activityType.rawValue.hasPrefix($0) }) else {
+        image
+    }
+
+    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        let metadata = LPLinkMetadata()
+        metadata.title = title
+        metadata.imageProvider = NSItemProvider(object: image)
+        metadata.iconProvider = NSItemProvider(object: image)
+        return metadata
+    }
+}
+
+/// The share text, left out where only the image can go.
+///
+/// The share sheet shows an app only if the app accepts every item. TikTok accepts images and not
+/// text, so with a text item it does not show. Thus, the placeholder of this item is the image too,
+/// and the text replaces it only when the reader picks an app.
+private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+
+    /// Instagram, TikTok (two app ids) and YouTube post one image, which is the priority.
+    private static let imageOnlyActivityPrefixes = ["com.burbn.instagram", "com.zhiliaoapp.musically", "com.ss.iphone.ugc.Ame", "com.google.ios.youtube"]
+
+    /// System activities that take images and not text.
+    private static let imageOnlyActivityTypes: Set<UIActivity.ActivityType> = [.saveToCameraRoll, .assignToContact, .print, .markupAsPDF]
+
+    private let text: String
+    private let placeholderImage: UIImage
+
+    init(text: String, placeholderImage: UIImage) {
+        self.text = text
+        self.placeholderImage = placeholderImage
+    }
+
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        placeholderImage
+    }
+
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        guard let activityType else {
             return text
         }
-        return nil
+        if Self.imageOnlyActivityTypes.contains(activityType)
+            || Self.imageOnlyActivityPrefixes.contains(where: { activityType.rawValue.hasPrefix($0) }) {
+            return nil
+        }
+        return text
     }
 }
 

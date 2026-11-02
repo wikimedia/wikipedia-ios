@@ -48,10 +48,29 @@ struct WMFYearInReviewHighlightsTests {
         #expect(one.isShareable == false)
     }
 
+    /// With little content, the image is the 9:16 size of the slide image.
     @Test(arguments: [LayoutDirection.leftToRight, .rightToLeft])
-    func theImageIsNineBySixteen(layoutDirection: LayoutDirection) throws {
-        let image = try #require(WMFYearInReviewHighlightsShareView.image(for: Self.highlights(), layoutDirection: layoutDirection))
+    func aShortImageIsNineBySixteen(layoutDirection: LayoutDirection) throws {
+        let highlights = WMFYearInReviewHighlights(articlesRead: 3, minutesRead: 1, rotation: [], rabbitHole: nil, nicheCategory: nil, localizedStrings: Self.strings)
+        let image = try #require(WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: layoutDirection))
         #expect(image.size.width * image.scale == 1080)
         #expect(image.size.height * image.scale == 1920)
+    }
+
+    /// Long titles do not shrink or cut anything. The image grows taller, and keeps its width.
+    @Test
+    func longContentMakesTheImageTaller() throws {
+        let long = "History of the Byzantine Empire from the reign of Justinian to the Fourth Crusade"
+        let highlights = WMFYearInReviewHighlights(
+            articlesRead: 123_456_789,
+            minutesRead: 987_654_321,
+            rotation: [long, long, long],
+            rabbitHole: .init(firstTitle: long, lastTitle: long),
+            nicheCategory: long,
+            localizedStrings: .init(title: "Wikipedia-Jahresrückblick 2026", articlesReadLabel: "Anzahl der gelesenen Artikel:", minutesReadLabel: "Gesamtzahl der Leseminuten:", rotationLabel: "Artikel, die ich immer wieder gelesen habe:", rotationRank: { "(\($0))" }, rabbitHoleLabel: "Längster Kaninchenbau der Verlinkungen:", nicheCategoryLabel: "Erkundete Nischenkategorie:", createdWith: "Erstellt mit der Wikipedia-App")
+        )
+        let image = try #require(WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: .leftToRight))
+        #expect(image.size.width * image.scale == 1080)
+        #expect(image.size.height * image.scale > 1920)
     }
 }

@@ -18,7 +18,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let progressBarTopGap = WMFSpacing.medium
 
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
-    /// .riv and no slide logging. Its toolbar button shares the highlights.
+    /// .riv, no slide logging, and no toolbar buttons. Its own button shares the highlights.
     public static let endPageID = "yearInReviewEnd"
     /// The slide id reported for a tap on "Share highlights".
     static let endLoggingID = "end"
@@ -258,13 +258,14 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     /// A slide with its own donate button does not show the share button, so the donate button is
-    /// the only action on the slide. On the end screen, the button shares the highlights, and only
-    /// shows with enough of them.
+    /// the only action on the slide.
     var showsShareButton: Bool {
-        if isOnEnd {
-            return highlights?.isShareable ?? false
-        }
-        return showsShareButton(on: currentSlide)
+        showsShareButton(on: currentSlide)
+    }
+
+    /// The end screen shows "Share highlights" only with enough highlights.
+    var showsShareHighlightsButton: Bool {
+        highlights?.isShareable ?? false
     }
 
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
@@ -284,12 +285,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     var toolbarShowsDonateButton: Bool {
         showsDonateButton(on: toolbarSlide)
-    }
-
-    /// "Share highlights" is the button of the end screen. It is in the toolbar on the last slide too,
-    /// hidden, so it fades in while the end screen comes in. It needs enough highlights.
-    var toolbarShowsShareHighlightsButton: Bool {
-        endViewModel != nil && isLastSlide && (highlights?.isShareable ?? false)
     }
 
     private func showsShareButton(on slide: WMFYearInReviewSlideViewModel?) -> Bool {
@@ -322,17 +317,13 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedShare() {
-        if isOnEnd {
-            tappedShareHighlights()
-            return
-        }
         guard let slide = currentSlide else { return }
         loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: currentLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
     }
 
     func tappedShareHighlights() {
-        guard highlights?.isShareable ?? false else { return }
+        guard showsShareHighlightsButton else { return }
         loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: Self.endLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.shareHighlights)
     }

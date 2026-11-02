@@ -182,8 +182,8 @@ struct WMFYearInReviewEndPageTests {
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
-        #expect(viewModel.showsShareButton)
-        #expect(viewModel.toolbarShowsShareHighlightsButton)
+        #expect(viewModel.showsShareHighlightsButton)
+        #expect(viewModel.showsShareButton == false, "the end screen has no toolbar share button")
 
         viewModel.tappedShareHighlights()
 
@@ -193,40 +193,15 @@ struct WMFYearInReviewEndPageTests {
         }
     }
 
-    /// The button is in the toolbar of the last slide too, so it can fade in during the swipe.
-    @Test
-    func onlyTheLastSlideHasShareHighlightsInItsToolbar() {
-        let viewModel = makeViewModel()
-        viewModel.highlights = Self.highlights()
-
-        #expect(viewModel.toolbarShowsShareHighlightsButton == false)
-
-        viewModel.currentSlideID = "slide2"
-
-        #expect(viewModel.toolbarShowsShareHighlightsButton)
-    }
-
-    @Test
-    func withoutAnEndScreenThereIsNoShareHighlights() {
-        let viewModel = makeViewModel(hasEnd: false)
-        viewModel.highlights = Self.highlights()
-
-        viewModel.currentSlideID = "slide2"
-
-        #expect(viewModel.toolbarShowsShareHighlightsButton == false)
-    }
-
     @Test
     func withoutHighlightsTheEndScreenHasNoShareButton() {
         let coordinator = EndCoordinatorSpy()
         let viewModel = makeViewModel(coordinator: coordinator)
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
-        viewModel.tappedShare()
         viewModel.tappedShareHighlights()
 
-        #expect(viewModel.showsShareButton == false, "the collective flow has no highlights")
-        #expect(viewModel.toolbarShowsShareHighlightsButton == false)
+        #expect(viewModel.showsShareHighlightsButton == false, "the collective flow has no highlights")
         #expect(coordinator.actions.isEmpty)
         #expect(logging.shared.isEmpty)
     }
@@ -238,8 +213,7 @@ struct WMFYearInReviewEndPageTests {
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
-        #expect(viewModel.showsShareButton == false)
-        #expect(viewModel.toolbarShowsShareHighlightsButton == false)
+        #expect(viewModel.showsShareHighlightsButton == false)
     }
 
     @Test

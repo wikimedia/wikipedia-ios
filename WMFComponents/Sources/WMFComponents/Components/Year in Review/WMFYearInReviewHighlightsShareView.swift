@@ -4,15 +4,18 @@ import UIKit
 /// The image that "Share highlights" on the end screen shares: the title, the crossword, up to five
 /// highlights in rows, and the attribution with the W. From the Figma frame of the share image (T437475).
 /// The layout mirrors for right-to-left languages. The crossword does not.
+///
+/// The image is 1080 pixels wide and at least 1920 tall. Like the Android app, it grows taller when
+/// long titles or translations need more room, so nothing shrinks or disappears.
 public struct WMFYearInReviewHighlightsShareView: View {
 
     private let highlights: WMFYearInReviewHighlights
 
     /// Laid out as on a phone this many points wide, then scaled up to the image. The same width
-    /// as the slide image.
+    /// as the slide image. The height is the least height: the image grows taller for more content.
     static let size = CGSize(width: 360, height: 640)
 
-    /// 1080 × 1920 pixels, the 9:16 size of the slide image.
+    /// 1080 pixels wide, and at least 1920 tall, the 9:16 size of the slide image.
     static let renderScale: CGFloat = 3
 
     // MARK: - Design values
@@ -44,48 +47,22 @@ public struct WMFYearInReviewHighlightsShareView: View {
         self.highlights = highlights
     }
 
-    /// How much room the content above the footer takes. Long text in some languages does not fit
-    /// in the full layout, so the image uses the first of `fits` that does.
-    struct Fit {
-        /// The size of the crossword, as a fraction of its full size. `nil` hides it.
-        let crosswordScale: CGFloat?
-        let valueLineLimit: Int
-    }
-
-    /// From the most room to the least. The crossword gets smaller, then goes, before any text is
-    /// cut. Below half its size, the crossword is too small to read as one.
-    static let fits = [
-        Fit(crosswordScale: 1, valueLineLimit: 3),
-        Fit(crosswordScale: 0.9, valueLineLimit: 3),
-        Fit(crosswordScale: 0.8, valueLineLimit: 3),
-        Fit(crosswordScale: 0.7, valueLineLimit: 3),
-        Fit(crosswordScale: 0.6, valueLineLimit: 3),
-        Fit(crosswordScale: 0.5, valueLineLimit: 3),
-        Fit(crosswordScale: nil, valueLineLimit: 3),
-        Fit(crosswordScale: nil, valueLineLimit: 2),
-        Fit(crosswordScale: nil, valueLineLimit: 1)
-    ]
-
     public var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ViewThatFits(in: .vertical) {
-                ForEach(Self.fits.indices, id: \.self) { index in
-                    content(fit: Self.fits[index])
-                }
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-            // If even the last fit is too tall, the content is cut here and does not cover the footer.
-            .clipped()
+        GrowingPageLayout(minHeight: Self.size.height) {
+            content
 
-            divider
-            footer
+            VStack(alignment: .leading, spacing: 0) {
+                divider
+                footer
+            }
+            .padding(.top, 20)
         }
         .padding(.horizontal, Self.sideMargin)
-        .frame(width: Self.size.width, height: Self.size.height)
+        .frame(width: Self.size.width)
         .background(Color(uiColor: Self.backgroundColor))
     }
 
-    private func content(fit: Fit) -> some View {
+    private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(highlights.localizedStrings.title)
                 .font(Font(titleFont))
@@ -94,26 +71,23 @@ public struct WMFYearInReviewHighlightsShareView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 40)
 
-            if let crosswordScale = fit.crosswordScale {
-                crossword(scale: crosswordScale)
-                    .padding(.top, 12)
-            } else {
-                Spacer()
-                    .frame(height: 20)
-            }
+            // The crossword overlaps the first dotted line by 8pt, and draws on top of it.
+            crossword
+                .padding(.top, 12)
+                .padding(.bottom, -8)
+                .zIndex(1)
 
-            rows(valueLineLimit: fit.valueLineLimit)
+            rows
         }
     }
 
     // MARK: - Crossword
 
-    private func crossword(scale: CGFloat) -> some View {
-        let width = Self.crosswordWidth * scale
-        return Image("yir-crossword", bundle: .module)
+    private var crossword: some View {
+        Image("yir-crossword", bundle: .module)
             .resizable()
             .scaledToFit()
-            .frame(width: width, height: width / Self.crosswordAspectRatio)
+            .frame(width: Self.crosswordWidth, height: Self.crosswordWidth / Self.crosswordAspectRatio)
             .frame(maxWidth: .infinity)
             // The crossword reads the same in every language, so it never mirrors with the layout.
             .environment(\.layoutDirection, .leftToRight)
@@ -123,7 +97,7 @@ public struct WMFYearInReviewHighlightsShareView: View {
     // MARK: - Rows
 
     @ViewBuilder
-    private func rows(valueLineLimit: Int) -> some View {
+    private var rows: some View {
         if highlights.articlesRead != nil || highlights.minutesRead != nil {
             divider
             countsRow
@@ -137,7 +111,7 @@ public struct WMFYearInReviewHighlightsShareView: View {
                         HStack(alignment: .firstTextBaseline, spacing: 6) {
                             Text(verbatim: highlights.localizedStrings.rotationRank(index + 1))
                                 .font(Font(rankFont).monospacedDigit())
-                            valueText(title, lineLimit: valueLineLimit)
+                            valueText(title)
                         }
                     }
                 }
@@ -148,8 +122,8 @@ public struct WMFYearInReviewHighlightsShareView: View {
             divider
             row(label: highlights.localizedStrings.rabbitHoleLabel) {
                 VStack(alignment: .leading, spacing: 0) {
-                    valueText(rabbitHole.firstTitle, lineLimit: valueLineLimit)
-                    valueText("↓ \(rabbitHole.lastTitle)", lineLimit: valueLineLimit)
+                    valueText(rabbitHole.firstTitle)
+                    valueText("↓ \(rabbitHole.lastTitle)")
                 }
             }
         }
@@ -157,7 +131,7 @@ public struct WMFYearInReviewHighlightsShareView: View {
         if let nicheCategory = highlights.nicheCategory {
             divider
             row(label: highlights.localizedStrings.nicheCategoryLabel) {
-                valueText(nicheCategory, lineLimit: valueLineLimit)
+                valueText(nicheCategory)
             }
         }
     }
@@ -207,12 +181,12 @@ public struct WMFYearInReviewHighlightsShareView: View {
             .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func valueText(_ text: String, lineLimit: Int) -> some View {
+    private func valueText(_ text: String) -> some View {
         Text(text)
             .font(Font(valueFont))
             .foregroundColor(textColor)
             .multilineTextAlignment(.leading)
-            .lineLimit(lineLimit)
+            .lineLimit(3)
             .fixedSize(horizontal: false, vertical: true)
     }
 
@@ -253,6 +227,27 @@ public struct WMFYearInReviewHighlightsShareView: View {
     }
 }
 
+/// Puts the first view at the top and the second at the bottom of a page at least `minHeight` tall.
+/// When the two need more room, the page grows to fit them.
+private struct GrowingPageLayout: Layout {
+    let minHeight: CGFloat
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let width = proposal.width ?? 0
+        let height = subviews.reduce(0) { height, subview in
+            height + subview.sizeThatFits(ProposedViewSize(width: width, height: nil)).height
+        }
+        return CGSize(width: width, height: max(minHeight, height))
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard let top = subviews.first, let bottom = subviews.last, subviews.count == 2 else { return }
+        let proposal = ProposedViewSize(width: bounds.width, height: nil)
+        top.place(at: CGPoint(x: bounds.minX, y: bounds.minY), anchor: .topLeading, proposal: proposal)
+        bottom.place(at: CGPoint(x: bounds.minX, y: bounds.maxY), anchor: .bottomLeading, proposal: proposal)
+    }
+}
+
 private struct DottedLine: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -266,7 +261,7 @@ private struct DottedLine: Shape {
 
 extension WMFYearInReviewHighlightsShareView {
 
-    /// Draws the highlights to an opaque 1080 × 1920 image.
+    /// Draws the highlights to an opaque image 1080 pixels wide and at least 1920 tall.
     /// - Parameter layoutDirection: The direction of the app language, so the layout mirrors for
     ///   right-to-left languages.
     @MainActor
@@ -275,6 +270,7 @@ extension WMFYearInReviewHighlightsShareView {
             .environment(\.layoutDirection, layoutDirection)
             .environment(\.colorScheme, .light)
         let renderer = ImageRenderer(content: view)
+        renderer.proposedSize = ProposedViewSize(width: size.width, height: nil)
         renderer.scale = renderScale
         renderer.isOpaque = true
         return renderer.uiImage
