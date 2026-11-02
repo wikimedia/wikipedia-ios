@@ -55,9 +55,6 @@ public struct WMFYearInReviewEndView: View {
     private let shareHighlightsTitle: String?
     private let onShareHighlights: (() -> Void)?
 
-    /// From the Figma design. A light blue on the dark sky.
-    private static let shareHighlightsBackgroundColor = UIColor(0x83ABF9)
-
     private static let scrollSpaceName = "yearInReviewEndScroll"
 
     /// The controls are dark on the light top of the sky. They become light when the part of the sky
@@ -196,9 +193,8 @@ public struct WMFYearInReviewEndView: View {
             CapsuleButtonStyle(
                 kind: .primary,
                 layout: .hug,
-                theme: WMFTheme.light,
-                forceBackgroundColor: Self.shareHighlightsBackgroundColor,
-                forceForegroundColor: WMFColor.white
+                // Always light, so the colors do not change in dark mode: the link color on white text.
+                theme: WMFTheme.light
             )
         )
     }
