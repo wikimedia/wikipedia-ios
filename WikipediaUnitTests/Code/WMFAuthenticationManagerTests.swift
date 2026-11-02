@@ -13,4 +13,18 @@ final class WMFAuthenticationManagerTests: XCTestCase {
         XCTAssertFalse(WMFAuthenticationManager.isTemporaryAccountUsername("User~WithTildeInside"))
         XCTAssertFalse(WMFAuthenticationManager.isTemporaryAccountUsername(""))
     }
+
+    func testLoggedOutAlertShowsAfterLogoutWhileLoggedOut() {
+        XCTAssertTrue(WMFAuthenticationManager.shouldShowLoggedOutAlert(isUserUnawareOfLogout: true, isPermanentAccountLoggedIn: false))
+    }
+
+    func testLoggedOutAlertIsSkippedOnceLoggedInAgain() {
+        // The alert was dismissed by a link, then the user logged in from Settings.
+        XCTAssertFalse(WMFAuthenticationManager.shouldShowLoggedOutAlert(isUserUnawareOfLogout: true, isPermanentAccountLoggedIn: true))
+    }
+
+    func testLoggedOutAlertNeedsAnUnacknowledgedLogout() {
+        XCTAssertFalse(WMFAuthenticationManager.shouldShowLoggedOutAlert(isUserUnawareOfLogout: false, isPermanentAccountLoggedIn: false))
+        XCTAssertFalse(WMFAuthenticationManager.shouldShowLoggedOutAlert(isUserUnawareOfLogout: false, isPermanentAccountLoggedIn: true))
+    }
 }
