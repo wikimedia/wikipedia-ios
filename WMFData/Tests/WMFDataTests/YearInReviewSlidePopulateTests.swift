@@ -972,42 +972,60 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
     // MARK: - viewCount
 
+    func testViewCountSumsTheMonthlyViewsFromTheMetricsAPI() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edited-page-views-get")
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+
+        let payload = try decode(Int.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload, 1234, "1000 + 200 + 34 across the three monthly buckets")
+        XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testViewCountRequestsTheEditedPageViewsOfTheGlobalUserInTheContribDates() async throws {
+        let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edited-page-views-get")
+        WMFDataEnvironment.current.basicService = service
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: configWithContribDates, dependencies: makeDependencies(globalUserID: 1))
+
+        _ = try await populatedPayload(controller)
+
+        let path = try XCTUnwrap(service.requestedURLs.first?.path)
+        XCTAssertTrue(path.hasSuffix("/metrics/pageviews/v3/per_editor/1/monthly/20251201/20261201"), "contribStartDate to contribEndDate: \(path)")
+    }
+
+    func testViewCountIsNotEvaluatedWithoutAGlobalUserID() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edited-page-views-get")
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(userID: 42))
+
+        let payload = try await populatedPayload(controller)
+
+        XCTAssertNil(payload, "no global user id means no payload")
+        XCTAssertFalse(controller.isEvaluated)
+    }
+
+    func testViewCountPropagatesAFetchFailure() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "missing-resource")
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+
+        do {
+            _ = try await populatedPayload(controller)
+            XCTFail("the slide must surface a failed fetch")
+        } catch {
+            XCTAssertFalse(controller.isEvaluated)
+        }
+    }
+
+    // MARK: - mostViewedArticles
+
     private struct StubUserImpactProvider: YearInReviewUserImpactDataProviding {
-        let totalPageviewsCount: Int?
         let mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article]
-        let error: (any Error)?
-
-        init(totalPageviewsCount: Int?, mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article] = [], error: (any Error)? = nil) {
-            self.totalPageviewsCount = totalPageviewsCount
-            self.mostViewedArticles = mostViewedArticles
-            self.error = error
-        }
-
-        func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
-            if let error { throw error }
-            return totalPageviewsCount
-        }
 
         func fetchMostViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFYearInReviewMostViewedArticlesSlideData.Article] {
-            if let error { throw error }
             return mostViewedArticles
         }
     }
 
     private struct StubUserImpactError: Error {}
-
-    func testViewCountReportsTheTotalPageviewsOnTheUsersEdits() async throws {
-        let controller = YearInReviewViewCountSlideDataController(
-            year: year,
-            yirConfig: config,
-            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: 1234))
-        )
-
-        let payload = try decode(Int.self, from: try await populatedPayload(controller))
-
-        XCTAssertEqual(payload, 1234)
-        XCTAssertTrue(controller.isEvaluated)
-    }
 
     func testMostViewedArticlesKeepsTheTopThreeByViews() async throws {
         let articles = [
@@ -1020,7 +1038,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         let controller = YearInReviewMostViewedArticlesSlideDataController(
             year: year,
             yirConfig: config,
-            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: nil, mostViewedArticles: articles))
+            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(mostViewedArticles: articles))
         )
 
         let payload = try decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: try await populatedPayload(controller))
@@ -1034,9 +1052,9 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         func increment() { count += 1 }
     }
 
-    private func userImpactData(totalPageviewsCount: Int?, topViewedTitles: [String] = []) -> WMFUserImpactData {
+    private func userImpactData(topViewedTitles: [String] = []) -> WMFUserImpactData {
         WMFUserImpactData(
-            totalPageviewsCount: totalPageviewsCount,
+            totalPageviewsCount: nil,
             topViewedArticles: topViewedTitles.map { .init(title: $0, views: [:], viewsCount: 10) },
             editCountByDay: [:],
             totalEditsCount: nil,
@@ -1047,31 +1065,9 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         )
     }
 
-    func testTheViewCountAndMostViewedArticlesSlidesShareOneUserImpactRequest() async throws {
-        let counter = FetchCounter()
-        let data = userImpactData(totalPageviewsCount: 1234, topViewedTitles: ["Gravity_dam"])
-        let provider = YearInReviewUserImpactDataProvider { _, _, _ in
-            await counter.increment()
-            return data
-        }
-        let dependencies = makeDependencies(userID: 42, userImpactDataProvider: provider)
-
-        let viewCount = try decode(Int.self, from: try await populatedPayload(
-            YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
-        ))
-        let mostViewed = try decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: try await populatedPayload(
-            YearInReviewMostViewedArticlesSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
-        ))
-
-        XCTAssertEqual(viewCount, 1234)
-        XCTAssertEqual(mostViewed.articles.map(\.title), ["Gravity dam"])
-        let fetchCount = await counter.count
-        XCTAssertEqual(fetchCount, 1)
-    }
-
     func testTheUserImpactProviderTriesAgainAfterAFailedRequest() async throws {
         let counter = FetchCounter()
-        let data = userImpactData(totalPageviewsCount: 1234)
+        let data = userImpactData(topViewedTitles: ["Gravity_dam"])
         let provider = YearInReviewUserImpactDataProvider { _, _, _ in
             await counter.increment()
             if await counter.count == 1 {
@@ -1082,42 +1078,14 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
         do {
-            _ = try await provider.fetchTotalPageViewsCount(userID: 42, project: project, language: "en")
+            _ = try await provider.fetchMostViewedArticles(userID: 42, project: project, language: "en")
             XCTFail("the first request fails")
         } catch {}
-        let viewCount = try await provider.fetchTotalPageViewsCount(userID: 42, project: project, language: "en")
+        let articles = try await provider.fetchMostViewedArticles(userID: 42, project: project, language: "en")
 
-        XCTAssertEqual(viewCount, 1234)
+        XCTAssertEqual(articles.map(\.title), ["Gravity dam"])
         let fetchCount = await counter.count
         XCTAssertEqual(fetchCount, 2)
-    }
-
-    func testViewCountIsNotEvaluatedWithoutAUserID() async throws {
-        let controller = YearInReviewViewCountSlideDataController(
-            year: year,
-            yirConfig: config,
-            dependencies: makeDependencies(userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: 1234))
-        )
-
-        let payload = try await populatedPayload(controller)
-
-        XCTAssertNil(payload, "no user id means no payload")
-        XCTAssertFalse(controller.isEvaluated)
-    }
-
-    func testViewCountPropagatesAFetchFailure() async throws {
-        let controller = YearInReviewViewCountSlideDataController(
-            year: year,
-            yirConfig: config,
-            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: nil, error: StubUserImpactError()))
-        )
-
-        do {
-            _ = try await populatedPayload(controller)
-            XCTFail("the slide must surface a failed fetch")
-        } catch {
-            XCTAssertFalse(controller.isEvaluated)
-        }
     }
 
     // MARK: - rabbitHoles

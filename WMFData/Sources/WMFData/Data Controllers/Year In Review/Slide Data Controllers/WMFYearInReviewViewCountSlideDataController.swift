@@ -15,27 +15,29 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account]
     static let shouldFreeze = false
-    
+
     private var viewCount: Int?
-    
-    private let userID: Int?
-    
-    private let languageCode: String?
-    private let project: WMFProject?
-    
-    private let userImpactDataProvider: any YearInReviewUserImpactDataProviding
-    
+
+    private let globalUserID: Int?
+
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
+
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.userID = dependencies.userID
-        self.languageCode = dependencies.languageCode
-        self.project = dependencies.project
-        self.userImpactDataProvider = dependencies.userImpactDataProvider ?? YearInReviewUserImpactDataProvider()
+        self.yirConfig = yirConfig
+        self.globalUserID = dependencies.globalUserID
     }
 
+    /// The views on the pages the user edited, across all projects, in the same period as the edit count.
     func populateSlideData(in context: NSManagedObjectContext) async throws {
-        guard let userID, let languageCode else { return }
-        viewCount = try await self.fetchEditViews(project: project, userId: userID, language: languageCode)
+        guard let globalUserID else { return }
+
+        guard let dateRange = WMFYearInReviewDataController.editCountDateRange(config: yirConfig) else {
+            return
+        }
+
+        let pageViewsDataController = WMFGlobalEditedPageViewsDataController(globalUserID: globalUserID)
+        viewCount = try await pageViewsDataController.fetchViewCount(startDate: dateRange.start, endDate: dateRange.end)
         isEvaluated = true
     }
 
@@ -48,15 +50,6 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     }
 
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isActive(for: Date()) && userInfo.userID != nil
-    }
-    
-    private func fetchEditViews(project: WMFProject?, userId: Int, language: String) async throws -> (Int?) {
-        
-        guard let project = project else {
-            throw WMFDataControllerError.mediaWikiServiceUnavailable
-        }
-        
-        return try await userImpactDataProvider.fetchTotalPageViewsCount(userID: userId, project: project, language: language)
+        return config.isActive(for: Date()) && userInfo.globalUserID != nil
     }
 }

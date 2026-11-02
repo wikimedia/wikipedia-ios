@@ -50,13 +50,12 @@ struct YearInReviewSlideDataControllerDependencies {
 }
 
 protocol YearInReviewUserImpactDataProviding: Sendable {
-    func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int?
     func fetchMostViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFYearInReviewMostViewedArticlesSlideData.Article]
 }
 
-/// Fetches the Growth user impact data once for each user, project and language, so the slides that
-/// read it make one request. The slide factory makes one for each populate run, so the data is not
-/// kept between runs.
+/// Fetches the Growth user impact data once for each user, project and language, so repeated reads
+/// make one request. The slide factory makes one for each populate run, so the data is not kept
+/// between runs.
 actor YearInReviewUserImpactDataProvider: YearInReviewUserImpactDataProviding {
     typealias Fetch = @Sendable (_ userID: Int, _ project: WMFProject, _ language: String) async throws -> WMFUserImpactData
 
@@ -67,10 +66,6 @@ actor YearInReviewUserImpactDataProvider: YearInReviewUserImpactDataProviding {
         try await WMFUserImpactDataController.shared.fetch(userID: userID, project: project, language: language)
     }) {
         self.fetch = fetch
-    }
-
-    func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
-        try await userImpactData(userID: userID, project: project, language: language).totalPageviewsCount
     }
 
     func fetchMostViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFYearInReviewMostViewedArticlesSlideData.Article] {
