@@ -47,6 +47,18 @@ final class WMFReadingListsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.state, .empty)
     }
 
+    func testNoListsWhileTheFirstSyncIsPendingKeepsLoading() async {
+        delegate.initialSyncPending = true
+        let viewModel = await makeViewModel(lists: [])
+        XCTAssertEqual(viewModel.state, .loading)
+
+        delegate.initialSyncPending = false
+        delegate.readingLists = [list("Zoology")]
+        viewModel.loadReadingLists()
+        await waitForState(viewModel)
+        XCTAssertEqual(viewModel.state, .data)
+    }
+
     func testListsShowTheData() async {
         let viewModel = await makeViewModel(lists: [list("Zoology")])
         XCTAssertEqual(viewModel.state, .data)
@@ -174,6 +186,7 @@ private final class MockLoggingDelegate: WMFReadingListsLoggingDelegate {
 
 private final class MockDelegate: WMFLegacyReadingListsDataControllerDelegate {
     var readingLists: [WMFReadingList] = []
+    var initialSyncPending = false
     var log: [String] = []
 
     func fetchSavedArticles() async throws -> [WMFSavedArticle] { [] }
@@ -181,6 +194,7 @@ private final class MockDelegate: WMFLegacyReadingListsDataControllerDelegate {
     func fetchArticles(inReadingList readingListID: String) async throws -> [WMFSavedArticle] { [] }
     func defaultReadingListID() async throws -> String? { readingLists.first { $0.isDefault }?.id }
     func isDefaultReadingListEnabled() async -> Bool { true }
+    func isInitialSyncPending() async -> Bool { initialSyncPending }
     func sortOrder(forReadingList readingListID: String) async throws -> WMFReadingListSortOrder? { nil }
     func setSortOrder(_ sortOrder: WMFReadingListSortOrder, forReadingList readingListID: String) async throws {}
     func createReadingList(name: String, description: String?) async throws -> WMFReadingList {

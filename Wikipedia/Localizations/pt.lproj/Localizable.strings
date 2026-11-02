@@ -286,6 +286,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Premir duas vezes para ativar donativos mensais automáticos deste montante.";
 "donate-accessibility-textfield-hint" = "Inserir o montante personalizado do donativo.";
 "donate-accessibility-transaction-fee-hint" = "Premir duas vezes para adicionar taxa da transação ao montante do donativo.";
+// Fuzzy
 "donate-already-donated" = "Obrigado, caro doador! A sua generosidade ajuda a manter a Wikipédia e os seus/outros projetos de conhecimento livre a prosperar.";
 "donate-apple-fine-print" = "A Apple não é responsável por arrecadar fundos para este fim.";
 "donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode enviar-me correio eletrónico ocasionalmente.";
