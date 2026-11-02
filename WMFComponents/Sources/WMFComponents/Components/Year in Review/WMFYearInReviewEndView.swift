@@ -189,7 +189,7 @@ public struct WMFYearInReviewEndView: View {
                     .scaledToFit()
                     .frame(width: 15, height: 17)
                 Text(title)
-                    .font(Font(WMFFont.for(.body)))
+                    .font(Font(WMFFont.for(.body, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
             }
             .padding(.horizontal, 20)
         }
