@@ -49,9 +49,10 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
         }
 
         let hostingController = WMFCreateReadingListHostingController(viewModel: viewModel)
-        navigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
+        navigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .formSheet)
         navigationController.sheetPresentationController?.prefersGrabberVisible = true
         super.init()
+        navigationController.presentationController?.delegate = self
 
         viewModel.didTapCreate = { [weak self] name, description in
             guard let self else { return }
@@ -99,10 +100,14 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
     // MARK: - Private
 
     private func close() {
+        logCancelImportIfNeeded()
+        dismiss(animated: true)
+    }
+
+    private func logCancelImportIfNeeded() {
         if isInImportingMode {
             ReadingListsFunnel.shared.logCancelImport()
         }
-        dismiss(animated: true)
     }
 
     private func startImportIfNeeded() {
@@ -119,5 +124,14 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
                 WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             }
         }
+    }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+
+extension CreateReadingListCoordinator: UIAdaptivePresentationControllerDelegate {
+    /// A swipe down closes the form like the close button does.
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        logCancelImportIfNeeded()
     }
 }
