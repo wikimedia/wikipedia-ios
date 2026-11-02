@@ -1025,8 +1025,6 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         }
     }
 
-    private struct StubUserImpactError: Error {}
-
     func testMostViewedArticlesKeepsTheTopThreeByViews() async throws {
         let articles = [
             WMFYearInReviewMostViewedArticlesSlideData.Article(title: "B", projectID: "wikipedia~en", viewsCount: 10),
@@ -1045,47 +1043,6 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
         XCTAssertEqual(payload.articles.map(\.title), ["C", "A", "B"])
         XCTAssertTrue(controller.isEvaluated)
-    }
-
-    private actor FetchCounter {
-        private(set) var count = 0
-        func increment() { count += 1 }
-    }
-
-    private func userImpactData(topViewedTitles: [String] = []) -> WMFUserImpactData {
-        WMFUserImpactData(
-            totalPageviewsCount: nil,
-            topViewedArticles: topViewedTitles.map { .init(title: $0, views: [:], viewsCount: 10) },
-            editCountByDay: [:],
-            totalEditsCount: nil,
-            receivedThanksCount: nil,
-            longestEditingStreak: nil,
-            lastEditTimestamp: nil,
-            dailyTotalViews: [:]
-        )
-    }
-
-    func testTheUserImpactProviderTriesAgainAfterAFailedRequest() async throws {
-        let counter = FetchCounter()
-        let data = userImpactData(topViewedTitles: ["Gravity_dam"])
-        let provider = YearInReviewUserImpactDataProvider { _, _, _ in
-            await counter.increment()
-            if await counter.count == 1 {
-                throw StubUserImpactError()
-            }
-            return data
-        }
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
-
-        do {
-            _ = try await provider.fetchMostViewedArticles(userID: 42, project: project, language: "en")
-            XCTFail("the first request fails")
-        } catch {}
-        let articles = try await provider.fetchMostViewedArticles(userID: 42, project: project, language: "en")
-
-        XCTAssertEqual(articles.map(\.title), ["Gravity dam"])
-        let fetchCount = await counter.count
-        XCTAssertEqual(fetchCount, 2)
     }
 
     // MARK: - rabbitHoles

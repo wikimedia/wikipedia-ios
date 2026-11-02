@@ -34,7 +34,7 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
             return
         }
         
-        let editCountDataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
+        let editCountDataController = WMFGlobalEditorMetricsDataController(globalUserID: globalUserID)
         self.editCount = try await editCountDataController.fetchEditCount(startDate: dateRange.start, endDate: dateRange.end)
 
         isEvaluated = true

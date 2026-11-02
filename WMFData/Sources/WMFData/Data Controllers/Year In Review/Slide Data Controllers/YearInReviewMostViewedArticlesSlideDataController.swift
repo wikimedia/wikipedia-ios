@@ -56,14 +56,11 @@ final class YearInReviewMostViewedArticlesSlideDataController: YearInReviewSlide
         self.userID = dependencies.userID
         self.languageCode = dependencies.languageCode
         self.project = dependencies.project
-        self.userImpactDataProvider = dependencies.userImpactDataProvider ?? YearInReviewUserImpactDataProvider()
+        self.userImpactDataProvider = dependencies.userImpactDataProvider ?? WMFUserImpactDataController.shared
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
-        guard let userID, let languageCode else { return }
-        guard let project else {
-            throw WMFDataControllerError.mediaWikiServiceUnavailable
-        }
+        guard let userID, let languageCode, let project else { return }
 
         let articles = try await userImpactDataProvider.fetchMostViewedArticles(userID: userID, project: project, language: languageCode)
         let topArticles = articles
@@ -84,6 +81,6 @@ final class YearInReviewMostViewedArticlesSlideDataController: YearInReviewSlide
     }
 
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isActive(for: Date()) && userInfo.userID != nil
+        return config.isActive(for: Date()) && userInfo.userID != nil && userInfo.project != nil
     }
 }

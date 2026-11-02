@@ -119,6 +119,24 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(artboards.last == "frame16-empty")
     }
 
+    /// The most-viewed articles are not limited to the year, so a reader without edits this year gets
+    /// only the empty edits slide, not the views or most-viewed articles slides.
+    @Test
+    func aFetchedEditCountOfZeroHidesTheViewsAndMostViewedSlides() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(
+            isLoggedIn: true,
+            editCount: 0,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
+        )
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards.last == "frame16-empty")
+        #expect(!artboards.contains("frame17"))
+        #expect(!artboards.contains("frame18"))
+    }
+
     /// The edits slides need an account, so a logged-out reader does not get the empty edits slide.
     @Test
     func aLoggedOutReaderGetsNoEditsSlide() {

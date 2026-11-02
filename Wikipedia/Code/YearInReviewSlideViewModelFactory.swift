@@ -737,9 +737,14 @@ struct YearInReviewSlideViewModelFactory {
     // MARK: - Edits
 
     /// The edits slide shows with its empty version for a reader without edits. The views slide and
-    /// the most-viewed articles slide hide without enough views.
+    /// the most-viewed articles slide hide without edits in the period or without enough views. The
+    /// most-viewed articles are not limited to the period, so a reader without edits this year never
+    /// sees articles from earlier years after the empty edits slide.
     private func editorSlides(editCount: Int, viewCount: Int?, mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article]) -> [WMFYearInReviewSlideViewModel] {
         var slides = [editsSlide(editCount: editCount)]
+        guard editCount >= 1 else {
+            return slides
+        }
         if let editViews = editViewsSlide(viewCount: viewCount) {
             slides.append(editViews)
         }

@@ -62,7 +62,10 @@ import WMFTestKitchen
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
     
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
-    private var hydratingHosts: Set<SiteURLHost> = []
+    /// The callers waiting on the user fetch in flight for each host.
+    private var userFetchCompletions: [SiteURLHost: [() -> Void]] = [:]
+    /// Changes on each reset, so a user fetch that started before a logout does not fill the cache after it.
+    private var userCacheGeneration = 0
     
     @objc public var authStateTemporaryUsername: String? {
         if authStateIsTemporary {
@@ -128,20 +131,37 @@ import WMFTestKitchen
     /// Fetches and caches the current user for the given site if the cache has no entry for that host. This call does not block. Callers get the cached value on a later lookup.
     public func hydrateUserCacheIfNeeded(siteURL: URL) {
         guard let host = siteURL.host,
-              currentUserCache[host] == nil,
-              !hydratingHosts.contains(host) else {
+              currentUserCache[host] == nil else {
             return
         }
-        hydratingHosts.insert(host)
+        fetchUserIntoCache(siteURL: siteURL, host: host, completion: {})
+    }
+
+    /// Fetches the user for the host and caches it. Callers that ask while a fetch for the host is in
+    /// flight wait for that fetch instead of making another request. A reset during the fetch drops
+    /// the result, so a user who logged out is not cached again. The completion runs on the main thread.
+    private func fetchUserIntoCache(siteURL: URL, host: SiteURLHost, completion: @escaping () -> Void) {
+        if userFetchCompletions[host] != nil {
+            userFetchCompletions[host]?.append(completion)
+            return
+        }
+        userFetchCompletions[host] = [completion]
+        let generation = userCacheGeneration
+        let finish: (WMFCurrentUser?) -> Void = { user in
+            DispatchQueue.main.async {
+                if let user,
+                   generation == self.userCacheGeneration,
+                   self.currentUserCache[host] == nil {
+                    self.currentUserCache[host] = user
+                }
+                let completions = self.userFetchCompletions.removeValue(forKey: host) ?? []
+                completions.forEach { $0() }
+            }
+        }
         currentUserFetcher.fetch(siteURL: siteURL, success: { user in
-            DispatchQueue.main.async {
-                self.currentUserCache[host] = user
-                self.hydratingHosts.remove(host)
-            }
+            finish(user)
         }, failure: { _ in
-            DispatchQueue.main.async {
-                self.hydratingHosts.remove(host)
-            }
+            finish(nil)
         })
     }
 
@@ -158,15 +178,10 @@ import WMFTestKitchen
             return permanentUser(siteURL: siteURL)
         }
 
-        let fetchedUser: WMFCurrentUser? = await withCheckedContinuation { continuation in
-            currentUserFetcher.fetch(siteURL: siteURL, success: { user in
-                continuation.resume(returning: user)
-            }, failure: { _ in
-                continuation.resume(returning: nil)
-            })
-        }
-        if let fetchedUser, currentUserCache[host] == nil {
-            currentUserCache[host] = fetchedUser
+        await withCheckedContinuation { continuation in
+            fetchUserIntoCache(siteURL: siteURL, host: host) {
+                continuation.resume()
+            }
         }
         return permanentUser(siteURL: siteURL)
     }
@@ -625,6 +640,7 @@ import WMFTestKitchen
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         currentUserCache = [:]
+        userCacheGeneration += 1
 
         session.removeAllCookies()
         

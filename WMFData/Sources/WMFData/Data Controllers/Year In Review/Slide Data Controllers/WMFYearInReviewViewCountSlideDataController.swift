@@ -36,8 +36,8 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
             return
         }
 
-        let pageViewsDataController = WMFGlobalEditedPageViewsDataController(globalUserID: globalUserID)
-        viewCount = try await pageViewsDataController.fetchViewCount(startDate: dateRange.start, endDate: dateRange.end)
+        let metricsDataController = WMFGlobalEditorMetricsDataController(globalUserID: globalUserID)
+        viewCount = try await metricsDataController.fetchEditedPageViewCount(startDate: dateRange.start, endDate: dateRange.end)
         isEvaluated = true
     }
 
