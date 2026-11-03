@@ -6,16 +6,16 @@ import WMFComponents
 import WMFNativeLocalizations
 
 protocol DiffRevisionRetrieving: AnyObject {
-    func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
-    func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
+    func retrievePreviousRevision(with sourceRevision: WMFPageRevision) -> WMFPageRevision?
+    func retrieveNextRevision(with sourceRevision: WMFPageRevision) -> WMFPageRevision?
     func refreshRevisions()
 }
 
 class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     struct NextPrevModel {
-        let from: WMFPageHistoryRevision
-        let to: WMFPageHistoryRevision
+        let from: WMFPageRevision
+        let to: WMFPageRevision
     }
 
     private var containerViewModel: DiffContainerViewModel
@@ -29,9 +29,9 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
         return WatchlistController(delegate: self, context: .diff)
     }()
 
-    private var fromModel: WMFPageHistoryRevision?
+    private var fromModel: WMFPageRevision?
     private var fromModelRevisionID: Int?
-    private var toModel: WMFPageHistoryRevision?
+    private var toModel: WMFPageRevision?
     private let toModelRevisionID: Int?
     private let siteURL: URL
     private let wikimediaProject: WikimediaProject?
@@ -41,7 +41,7 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
     private var type: DiffContainerViewModel.DiffType
 
     private let revisionRetrievingDelegate: DiffRevisionRetrieving?
-    private var firstRevision: WMFPageHistoryRevision?
+    private var firstRevision: WMFPageRevision?
 
     var animateDirection: DiffRevisionTransition.Direction?
 
@@ -115,7 +115,7 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
         configureHidesBottomBarWhenPushed()
     }
 
-    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init(articleTitle: String, siteURL: URL, fromModel: WMFPageRevision?, toModel: WMFPageRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageRevision?, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
 
         self.type = .compare
 
@@ -447,7 +447,7 @@ private extension DiffContainerViewController {
 
         // populate nextModel for enabling previous/next button
         let nextFromModel = toModel
-        var nextToModel: WMFPageHistoryRevision?
+        var nextToModel: WMFPageRevision?
         diffController.fetchAdjacentRevisionModel(sourceRevision: nextFromModel, direction: .next, articleTitle: articleTitle) { [weak self] (result) in
 
             guard let self = self else {
@@ -483,7 +483,7 @@ private extension DiffContainerViewController {
         }
 
         // populate prevModel for enabling previous/next button
-        var prevFromModel: WMFPageHistoryRevision?
+        var prevFromModel: WMFPageRevision?
         let prevToModel = fromModel
         diffController.fetchAdjacentRevisionModel(sourceRevision: prevToModel, direction: .previous, articleTitle: articleTitle) { [weak self] (result) in
 
