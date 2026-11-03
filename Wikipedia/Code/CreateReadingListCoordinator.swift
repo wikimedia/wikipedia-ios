@@ -77,12 +77,13 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
         viewModel.didTapCreate = { [weak self] name, description in
             guard let self else { return }
             let selectedIDs = self.viewModel.selectedArticleIDs
+            let selectedArticles: [WMFArticle]
             if !self.discoverPages.isEmpty {
-                self.articles = Self.selectedArticles(of: self.discoverPages, selectedIDs: selectedIDs, dataStore: self.dataStore)
+                selectedArticles = Self.selectedArticles(of: self.discoverPages, selectedIDs: selectedIDs, dataStore: self.dataStore)
             } else {
-                self.articles = Self.selectedArticles(of: self.articles, selectedIDs: selectedIDs)
+                selectedArticles = Self.selectedArticles(of: self.articles, selectedIDs: selectedIDs)
             }
-            delegate?.createReadingListCoordinator(self, didCreateReadingListWith: name, description: description, articles: self.articles)
+            delegate?.createReadingListCoordinator(self, didCreateReadingListWith: name, description: description, articles: selectedArticles)
         }
         viewModel.didTapClose = { [weak self] in
             self?.close()
