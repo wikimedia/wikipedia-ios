@@ -10,6 +10,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     let navigationController: UINavigationController
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private var shareReadingListCoordinator: ShareReadingListCoordinator?
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
         self.navigationController = navigationController
@@ -41,8 +42,9 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
         viewModel.didTapSaveList = { [weak self] pages in
             self?.showAddToListSheet(for: pages)
         }
-        viewModel.didTapShareList = { [weak self] pages, sourceRect in
-            self?.shareList(pages, sourceRect: sourceRect)
+        viewModel.didTapShareList = { [weak self, weak viewModel] pages, sourceRect in
+            guard let viewModel else { return }
+            self?.shareList(pages, title: viewModel.title, sourceRect: sourceRect)
         }
         viewModel.didTapAbout = { [weak self] in
             self?.showAbout()
@@ -122,11 +124,17 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
         present(shareActivityController, sourceRect: sourceRect)
     }
 
-    private func shareList(_ pages: [WMFDiscoverRecommendedPage], sourceRect: CGRect) {
-        let urls = pages.compactMap(articleURL(for:))
-        guard !urls.isEmpty else { return }
-        let activityViewController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        present(activityViewController, sourceRect: sourceRect)
+    private func shareList(_ pages: [WMFDiscoverRecommendedPage], title: String, sourceRect: CGRect) {
+        let sharePages = pages.map { WMFShareReadingListDataController.Page(title: $0.title, project: $0.project) }
+        let shareReadingListCoordinator = ShareReadingListCoordinator(
+            navigationController: navigationController,
+            pages: sharePages,
+            listName: title,
+            sourceRect: sourceRect
+        )
+
+        self.shareReadingListCoordinator = shareReadingListCoordinator
+        shareReadingListCoordinator.start()
     }
 
     private func present(_ activityViewController: UIActivityViewController, sourceRect: CGRect) {
