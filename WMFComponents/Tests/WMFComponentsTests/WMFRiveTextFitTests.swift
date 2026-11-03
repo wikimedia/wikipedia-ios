@@ -97,7 +97,7 @@ struct WMFRiveTextFitTests {
     @Test
     func theSerifFontIsTheBundledFont() throws {
         let font = try #require(WMFRiveWorkerProvider.substituteFont(forAssetNamed: "SerifFont"))
-        #expect(font.fontName == "EBGaramond-Regular")
+        #expect(font.fontName == "EBGaramond-Medium")
     }
 
     @Test

@@ -55,10 +55,10 @@ enum WMFRiveWorkerProvider {
         }
     }
 
-    /// EB Garamond, under the SIL Open Font License, replaces the Linux Libertine of the export
-    /// ("SerifFont"). It is the same file as on Android.
+    /// EB Garamond Medium, under the SIL Open Font License, for the "SerifFont" of the export. It is
+    /// the static Medium of Google Fonts, the font that the templates file shows since v7.
     private static let bundledFonts: [String: BundledFont] = [
-        "SerifFont": BundledFont(resourceName: "EBGaramond-Regular", fileExtension: "ttf", postScriptName: "EBGaramond-Regular")
+        "SerifFont": BundledFont(resourceName: "EBGaramond-Medium", fileExtension: "ttf", postScriptName: "EBGaramond-Medium")
     ]
 
     private static var registeredBundledFonts: Set<String> = []

@@ -296,10 +296,10 @@ private struct ScrollOffsetKey: PreferenceKey {
 /// It is registered for this process the first time it is used.
 private enum WMFYearInReviewEndFont {
 
-    private static let postScriptName = "EBGaramond-Regular"
+    private static let postScriptName = "EBGaramond-Medium"
 
     private static let isRegistered: Bool = {
-        guard let url = Bundle.module.url(forResource: "EBGaramond-Regular", withExtension: "ttf") else {
+        guard let url = Bundle.module.url(forResource: "EBGaramond-Medium", withExtension: "ttf") else {
             return false
         }
         // A font that is already registered gives an error, but `UIFont(name:size:)` still finds it.
