@@ -45,7 +45,7 @@ struct SettingsRow: View {
         case .none:
             EmptyView()
         case .toggle(let binding):
-            Toggle("", isOn: binding)
+            Toggle(item.title, isOn: binding)
                 .labelsHidden()
                 .toggleStyle(SwitchToggleStyle(tint: Color(uiColor: theme.accent)))
         case .icon(let image):
