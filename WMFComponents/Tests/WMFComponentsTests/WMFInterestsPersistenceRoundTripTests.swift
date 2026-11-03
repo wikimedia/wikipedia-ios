@@ -112,22 +112,16 @@ final class WMFInterestsPersistenceRoundTripTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let store = try #require(WMFDataEnvironment.current.coreDataStore)
             let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
+            try await pageInterest.addPageInterest(title: "Alan_Turing", project: project)
+            try await pageInterest.addPageInterest(title: "Grace_Hopper", project: project)
+
             let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-            let vm = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
-            let cards = [
-                WMFInterestArticleCardViewModel(article: WMFRandomArticle(pageid: 4, title: "Alan_Turing", displayTitle: "Alan Turing", variantTitles: nil, description: nil, extract: nil, thumbnail: nil), project: project),
-                WMFInterestArticleCardViewModel(article: WMFRandomArticle(pageid: 5, title: "Grace_Hopper", displayTitle: "Grace Hopper", variantTitles: nil, description: nil, extract: nil, thumbnail: nil), project: project)
-            ]
-            // Let the init-time load of saved interests settle so it can't replace the injected grid.
-            try await Task.sleep(nanoseconds: 300_000_000)
-            vm.gridViewModels = cards
-            cards.forEach { vm.toggleArticleSelection($0) }
+            let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
             try await waitFor {
-                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
-                return interests.count == 2
+                viewModel.gridViewModels.filter { $0.isSelected }.count == 2
             }
 
-            vm.deselectAll()
+            viewModel.deselectAll()
             try await waitFor {
                 let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return interests.isEmpty
