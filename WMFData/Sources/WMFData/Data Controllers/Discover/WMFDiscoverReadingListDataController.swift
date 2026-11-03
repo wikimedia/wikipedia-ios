@@ -189,6 +189,9 @@ public actor WMFDiscoverReadingListDataController {
         }
 
         try await expireAllRecommendations()
+        // The run has consumed the flag. A settings change that arrives while the run goes on
+        // sets it again, so the next check regenerates.
+        try userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
 
         let previouslyRecommended = try await fetchStoredRecommendations(includeExpired: true)
         var excludedKeys = Set(previouslyRecommended.map(\.key))
@@ -208,7 +211,6 @@ public actor WMFDiscoverReadingListDataController {
         try await persistGeneratedList(orderedList, now: now)
 
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue, value: now)
-        try userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
 
         return try await fetchCurrentRecommendations()
     }

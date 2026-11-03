@@ -57,17 +57,27 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
             // The interests screen lands with T440011.
         }
         viewModel.didChangeSource = { [weak self] previousSource, newSource in
+            guard let self else { return }
             // The settings screen appears, and reads the settings, before the save is done.
-            self?.settingsViewModel?.refresh()
-            self?.showSourceChangedToast(previousSource: previousSource, newSource: newSource)
+            Self.refreshScreen(onTopOf: self.navigationController)
+            self.showSourceChangedToast(previousSource: previousSource, newSource: newSource)
         }
 
         let hostingController = WMFDiscoverSetupHostingController(viewModel: viewModel)
         navigationController.pushViewController(hostingController, animated: true)
     }
 
-    private var settingsViewModel: WMFDiscoverSettingsViewModel? {
-        (navigationController.topViewController as? WMFDiscoverSettingsHostingController)?.viewModel
+    /// The screen on top reads the settings again. Undo on the toast can arrive on the settings
+    /// screen or, after Back, on the Discover list.
+    static func refreshScreen(onTopOf navigationController: UINavigationController) {
+        switch navigationController.topViewController {
+        case let settingsController as WMFDiscoverSettingsHostingController:
+            settingsController.viewModel.refresh()
+        case let listController as WMFDiscoverReadingListHostingController:
+            listController.viewModel.reloadIfGenerationDue()
+        default:
+            break
+        }
     }
 
     /// Undo puts the previous source back.
@@ -84,13 +94,13 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
     }
 
     private func restoreSource(_ source: WMFDiscoverSource) {
-        let settingsViewModel = settingsViewModel
+        let navigationController = navigationController
         Task {
             let dataController = WMFDiscoverReadingListDataController.shared
             var settings = await dataController.settings
             settings.source = source
             try? await dataController.saveSettings(settings)
-            settingsViewModel?.refresh()
+            Self.refreshScreen(onTopOf: navigationController)
         }
     }
 

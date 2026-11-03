@@ -38,10 +38,12 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
     private var didLogImpression = false
     private(set) var pendingSource: WMFDiscoverSource?
     var continueTask: Task<Void, Never>?
+    private(set) var adjustTask: Task<Void, Never>?
     private(set) var dismissTask: Task<Void, Never>?
 
-    /// `currentSource` is pre-selected when it is offered, so the screen can be reused from
-    /// Settings. Otherwise interests is pre-selected, as on the first run.
+    /// `currentSource` is pre-selected when it is offered. Otherwise interests is pre-selected,
+    /// as on the first run. From Settings the current source is always offered, even when it has
+    /// no articles any more, so opening and closing the screen cannot change the source.
     public init(
         availableSources: [WMFDiscoverSource],
         currentSource: WMFDiscoverSource,
@@ -49,7 +51,10 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
         readingListDataController: WMFDiscoverReadingListDataController = .shared,
         discoverDataController: WMFDiscoverDataController = .shared
     ) {
-        let sources = availableSources.isEmpty ? [.interests] : availableSources
+        var sources = availableSources.isEmpty ? [.interests] : availableSources
+        if presentation == .settings, !sources.contains(currentSource) {
+            sources = WMFDiscoverSource.allCases.filter { sources.contains($0) || $0 == currentSource }
+        }
         self.availableSources = sources
         self.presentation = presentation
         self.persistedSource = currentSource
@@ -111,7 +116,7 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
 
         if pendingSource == .interests {
             let dataController = readingListDataController
-            Task { [weak self] in
+            adjustTask = Task { [weak self] in
                 var settings = await dataController.settings
                 settings.source = .interests
                 try? await dataController.saveSettings(settings)
@@ -126,22 +131,26 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
     }
 
     /// Settings only. Saves the selected source when the reader leaves the screen and reports
-    /// the change against the source the screen opened with. The task keeps only the data
-    /// controller and the closure, so the screen can go away.
+    /// the change against the source the screen opened with. The stored source is always
+    /// reconciled, because Adjust to interests saves at once and the reader can then go back to
+    /// the opening source. The task keeps only the data controller and the closure, so the
+    /// screen can go away.
     public func commitSelectionOnDismiss() {
         guard presentation == .settings, dismissTask == nil else { return }
         let dataController = readingListDataController
         let previousSource = persistedSource
         let source = selectedSource
         let didChangeSource = didChangeSource
+        let adjustTask = adjustTask
 
         dismissTask = Task {
-            guard previousSource != source else { return }
+            await adjustTask?.value
             var settings = await dataController.settings
             if settings.source != source {
                 settings.source = source
                 try? await dataController.saveSettings(settings)
             }
+            guard previousSource != source else { return }
             didChangeSource?(previousSource, source)
         }
     }

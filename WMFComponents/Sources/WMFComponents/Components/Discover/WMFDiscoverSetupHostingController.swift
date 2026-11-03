@@ -28,8 +28,9 @@ public final class WMFDiscoverSetupHostingController: WMFComponentHostingControl
     }
 
     /// From Settings, Back saves the selected source. A push to the interests screen does not.
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    /// The save waits for the pop to finish, because an interactive Back swipe can be cancelled.
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         if isMovingFromParent {
             viewModel.commitSelectionOnDismiss()
         }

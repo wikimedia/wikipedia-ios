@@ -418,6 +418,27 @@ final class WMFDiscoverReadingListDataControllerTests {
         }
     }
 
+    @Test
+    func aSettingsChangeDuringAGenerationStillMakesTheNextGenerationDue() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            let monday = date(2026, 10, 26)
+            _ = try await controller.generateRecommendations(now: monday)
+
+            async let secondList = controller.generateRecommendations(now: monday)
+            // The run has started once the first list is expired.
+            while try await controller.fetchStoredRecommendations(includeExpired: true).contains(where: \.isExpired) == false {
+                await Task.yield()
+            }
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .history), in: controller)
+            _ = try await secondList
+
+            #expect(try await controller.isGenerationDue(now: date(2026, 10, 27)))
+        }
+    }
+
     // MARK: - Seeds
 
     @Test
