@@ -67,6 +67,12 @@ public enum AccessibilityIdentifiers {
         public static func setupSourceRow(_ source: String) -> String {
             "Discover Setup Source \(source)"
         }
+        public static let settingsView = "Discover Settings View"
+        public static let settingsToggle = "Discover Settings Toggle"
+        public static let settingsArticleCountStepper = "Discover Settings Article Count Stepper"
+        public static let settingsCadenceMenu = "Discover Settings Cadence Menu"
+        public static let settingsSourceRow = "Discover Settings Source Row"
+        public static let settingsInterestsRow = "Discover Settings Interests Row"
     }
 
     public enum Home {

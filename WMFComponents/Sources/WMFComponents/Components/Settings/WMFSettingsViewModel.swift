@@ -85,6 +85,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let safetyTitle: String
 
         let donationsHeader = WMFLocalizedString("settings-donations-header", value: "Donations", comment: "Header of the donations section on the settings screen.")
+        let recommendationsHeader = WMFLocalizedString("settings-recommendations-header", value: "Recommendations", comment: "Header of the recommendations section on the settings screen. The section holds the Discover reading list row.")
         let donationRemindersTitle = CommonStrings.donationRemindersTitle
         let donationRemindersSubtitleFormat = WMFLocalizedString("settings-donation-reminders-subtitle", value: "Wikipedia will remind you to donate %1$@ every %2$@ articles you read.", comment: "Subtitle of the donation reminders row on the settings screen. %1$@ is the donation amount, %2$@ is the number of articles.")
         let clearDonationHistoryTitle = WMFLocalizedString("settings-clear-donation-history", value: "Clear donation history", comment: "Title of the row on the settings screen that deletes the locally saved donation history.")
@@ -245,6 +246,9 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     private func buildSections() async {
         var newSections = await [getAccountSection(), getMainSection()]
+        if let recommendationsSection = await getRecommendationsSection() {
+            newSections.append(recommendationsSection)
+        }
         if let donationsSection = await getDonationsSection() {
             newSections.append(donationsSection)
         }
@@ -399,6 +403,20 @@ final public class WMFSettingsViewModel: ObservableObject {
         SettingsItem(image: WMFSFSymbolIcon.for(symbol: .pencil), color: WMFColor.green600, title: WMFEditingPreferencesCopy.title, subtitle: nil, accessory: .chevron(label: WMFSettingsDataController.shared.defaultEditMode().localizedShortTitle), action: {
             self.coordinatorDelegate?.handleSettingsAction(.editingPreferences)
         })
+    }
+
+    /// The Discover row stays behind the developer setting until the feature ships.
+    private func getRecommendationsSection() async -> SettingsSection? {
+        guard WMFDiscoverDataController.shared.isEnabled else {
+            return nil
+        }
+
+        let isDiscoverOn = await WMFDiscoverReadingListDataController.shared.settings.isEnabled
+        let stateLabel = isDiscoverOn ? localizedStrings.onTitle : localizedStrings.offTitle
+        let discover = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .listBulletRectanglePortrait), color: WMFColor.blue600, title: WMFDiscoverSettingsViewModel.discoverReadingListTitle, subtitle: nil, accessory: .chevron(label: stateLabel), action: {
+            self.coordinatorDelegate?.handleSettingsAction(.discover)
+        })
+        return SettingsSection(header: localizedStrings.recommendationsHeader, footer: nil, items: [discover])
     }
 
     private func getDonationsSection() async -> SettingsSection? {
