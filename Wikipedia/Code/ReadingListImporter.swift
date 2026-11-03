@@ -94,7 +94,12 @@ final class ReadingListImporter {
         guard !articles.isEmpty else {
             throw ImportReadingListError.failureFetchingArticleObjects
         }
-        return articles
+        return Self.sortedByTitle(articles)
+    }
+
+    /// Sorts the articles by the title in their URL, like the Android app.
+    static func sortedByTitle(_ articles: [WMFArticle]) -> [WMFArticle] {
+        articles.sorted { ($0.url?.wmf_title ?? "") < ($1.url?.wmf_title ?? "") }
     }
 }
 
