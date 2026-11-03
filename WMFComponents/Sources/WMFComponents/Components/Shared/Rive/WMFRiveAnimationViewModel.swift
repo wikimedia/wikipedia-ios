@@ -24,8 +24,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     @Published private(set) var watchedEventCount = 0
 
     let animation: WMFRiveAnimation
-    /// A boolean property to read after the file loads, from the view model instance that has the name
-    /// of the artboard if there is one, otherwise from the bound instance.
+    /// A boolean property to read from the bound instance after the file loads.
     let readBool: WMFRiveBool?
     let watchedTrigger: WMFRiveTrigger?
     /// For each image property, a boolean property that is true until an image is bound to it. A
@@ -216,8 +215,18 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     /// sizes already set. A script in the .riv gets its view models in its `init`, which runs when the
     /// state machine is made. The script does not see an instance that is bound after that, so it
     /// would lay out its glyphs for the size in the file, not the fitted size (T441488).
+    ///
+    /// The templates set the values of each artboard, for example the maximum line counts, on the
+    /// instance that has the name of the artboard. The default instance has zeros. Other files have no
+    /// such instance, so they get the default instance.
     private func makeBound(file: File, artboard: Artboard) async -> Bound {
-        let main = try? await file.createViewModelInstance(.viewModelDefault(from: .artboardDefault(artboard)))
+        var main: ViewModelInstance?
+        if let artboardName = animation.artboardName {
+            main = try? await file.createViewModelInstance(.name(artboardName, from: .artboardDefault(artboard)))
+        }
+        if main == nil {
+            main = try? await file.createViewModelInstance(.viewModelDefault(from: .artboardDefault(artboard)))
+        }
         if let main {
             applyValues(to: main, boundImages: [])
         }
@@ -355,19 +364,9 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
     }
 
-    /// The app binds the default instance of the artboard. The templates set their flags on the
-    /// instance that has the name of the artboard, so read that instance first.
     private func readBoolFromFile() async {
-        guard let readBool, let rive else { return }
-        let property = BoolProperty(path: readBool.path)
-        var value: Bool?
-        if let artboardName = animation.artboardName,
-           let named = try? await rive.file.createViewModelInstance(.name(artboardName, from: .artboardDefault(rive.artboard))) {
-            value = try? await named.value(of: property)
-        }
-        if value == nil, let main = bound?.main {
-            value = try? await main.value(of: property)
-        }
+        guard let readBool, let main = bound?.main else { return }
+        let value = try? await main.value(of: BoolProperty(path: readBool.path))
         guard !Task.isCancelled else { return }
         readBoolValue = value
     }
