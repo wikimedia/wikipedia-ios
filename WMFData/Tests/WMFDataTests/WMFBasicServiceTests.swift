@@ -52,6 +52,40 @@ final class WMFBasicServiceTests: XCTestCase {
         }
     }
     
+    func testDecodableGetWithResponseExposesTheHeaders() {
+
+        let service = WMFBasicService(urlSession: WMFMockHeadersURLSession(headerFields: ["X-Search-Id": "292nfmbhub08hd5are0cajr22"]))
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+
+        service.performDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<WMFMockData>, Error>) in
+            switch result {
+            case .success(let response):
+                XCTAssertEqual(response.value.oneInt, 1, "Unexpected deserialized data")
+                XCTAssertEqual(response.header("x-search-id"), "292nfmbhub08hd5are0cajr22")
+                XCTAssertEqual(response.header("X-SEARCH-ID"), "292nfmbhub08hd5are0cajr22")
+                XCTAssertNil(response.header("x-request-id"))
+            case .failure(let error):
+                XCTFail("Unexpected failure: \(error)")
+            }
+        }
+    }
+
+    func testDecodableGetWithResponseHasNoHeadersWithoutThem() {
+
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+
+        service.performDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<WMFMockData>, Error>) in
+            switch result {
+            case .success(let response):
+                XCTAssertEqual(response.value.twoString, "two", "Unexpected deserialized data")
+                XCTAssertNil(response.header("x-search-id"))
+            case .failure(let error):
+                XCTFail("Unexpected failure: \(error)")
+            }
+        }
+    }
+
     func testServerErrorDictionaryGet() {
         
         let service = WMFBasicService(urlSession: mockServerErrorSession)

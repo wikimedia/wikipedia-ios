@@ -23,9 +23,13 @@ public struct WMFSemanticSearchResult: Sendable, Equatable {
 /// The semantic search results of one request, in the order the API ranked them.
 public struct WMFSemanticSearchResults: Sendable, Equatable {
     public let results: [WMFSemanticSearchResult]
+    /// The id the search backend gives to the request, for the instrumentation of the search. Nil
+    /// when the response has no `x-search-id` header.
+    public let searchID: String?
 
-    public init(results: [WMFSemanticSearchResult]) {
+    public init(results: [WMFSemanticSearchResult], searchID: String? = nil) {
         self.results = results
+        self.searchID = searchID
     }
 }
 

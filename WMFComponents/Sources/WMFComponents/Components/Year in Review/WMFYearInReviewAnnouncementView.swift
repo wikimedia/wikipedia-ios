@@ -2,12 +2,7 @@ import SwiftUI
 
 public struct WMFYearInReviewAnnouncementView: View {
 
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFYearInReviewAnnouncementViewModel
-
-    private var theme: WMFTheme {
-        appEnvironment.theme
-    }
 
     public init(viewModel: WMFYearInReviewAnnouncementViewModel) {
         self.viewModel = viewModel
@@ -20,16 +15,30 @@ public struct WMFYearInReviewAnnouncementView: View {
                 // The navigation bar is see-through, so the artwork runs under it.
                 .ignoresSafeArea(.container, edges: .top)
 
-            WMFLargeButton(
-                style: .primary,
+            exploreButton
+                .padding(.top, 0)
+            Spacer()
+        }
+        .background(Color(uiColor: WMFTheme.light.paperBackground))
+    }
+
+    /// Same as the primary donate button on the slides: a spinner replaces the title while it loads.
+    private var exploreButton: some View {
+        ZStack {
+            WMFSmallButton(
+                configuration: .init(style: .primary),
                 title: viewModel.localizedStrings.exploreButtonTitle,
+                forceBackgroundColor: WMFTheme.light.link,
+                forceForegroundColor: WMFTheme.light.paperBackground,
                 action: viewModel.tappedExplore
             )
-            .padding(.horizontal, 24)
-            .padding(.top, 24)
-            .padding(.bottom, 16)
+            .opacity(viewModel.isLoadingExplore ? 0 : 1)
+            .disabled(viewModel.isLoadingExplore)
+
+            if viewModel.isLoadingExplore {
+                ProgressView()
+            }
         }
-        .background(Color(uiColor: theme.paperBackground))
     }
 
     // MARK: - Artwork

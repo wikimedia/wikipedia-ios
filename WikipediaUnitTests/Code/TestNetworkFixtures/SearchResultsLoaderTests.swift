@@ -16,6 +16,7 @@ struct SearchResultsLoaderTests {
 
         #expect(outcome.type == .prefix)
         #expect(outcome.results.results.count == 24)
+        #expect(outcome.prefixResultCount == 24)
         #expect(!harness.service.capturedRequests.containsFullTextSearchRequest)
     }
 
@@ -32,7 +33,43 @@ struct SearchResultsLoaderTests {
 
         #expect(outcome.type == .full)
         #expect(outcome.results.results.count > 5)
+        #expect(outcome.prefixResultCount == 5)
+        #expect(outcome.type(ofRow: 4) == .prefix)
+        #expect(outcome.type(ofRow: 5) == .full)
         #expect(harness.service.capturedRequests.containsFullTextSearchRequest)
+    }
+
+    @Test
+    func noPrefixResultsStillShowTheFullTextResults() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseDataQueue = [
+            try JSONSerialization.data(withJSONObject: ["batchcomplete": true]),
+            try fixtureData(named: "ArticleSearchPrefixMany")
+        ]
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.type == .full)
+        #expect(outcome.prefixResultCount == 0)
+        #expect(outcome.results.results.count > 0)
+    }
+
+    @Test
+    func fullTextResultsKeepBothSearchIDs() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseDataQueue = [
+            try fixtureData(named: "ArticleSearchPrefixMany", limitedTo: 5),
+            try fixtureData(named: "ArticleSearchPrefixMany")
+        ]
+        harness.service.responseHeadersQueue = [["x-search-id": "prefix-id"], ["x-search-id": "full-text-id"]]
+
+        let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.type == .full)
+        #expect(outcome.results.prefixSearchID == "prefix-id")
+        #expect(outcome.results.fullTextSearchID == "full-text-id")
     }
 
     @Test

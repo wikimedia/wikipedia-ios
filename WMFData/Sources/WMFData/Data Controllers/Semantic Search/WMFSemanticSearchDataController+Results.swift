@@ -21,6 +21,9 @@ extension WMFSemanticSearchDataController {
     /// The sheet shows at most this many passages. One request fetches all of them.
     public static let resultsLimit = 8
 
+    /// The response header with the id CirrusSearch gives to each request.
+    static let searchIDHeader = "x-search-id"
+
     private var basicService: WMFService? { WMFDataEnvironment.current.basicService }
 
     // MARK: - Results
@@ -58,7 +61,8 @@ extension WMFSemanticSearchDataController {
             parameters: parameters,
             acceptType: .json
         )
-        let response: SearchResponse = try await performDecodableGET(request: request, service: basicService)
+        let serviceResponse: WMFServiceResponse<SearchResponse> = try await performDecodableGET(request: request, service: basicService)
+        let response = serviceResponse.value
 
         if let error = response.errors?.first {
             throw SearchError(mediaWikiErrorCode: error.code)
@@ -78,7 +82,7 @@ extension WMFSemanticSearchDataController {
             )
         }
 
-        return WMFSemanticSearchResults(results: results)
+        return WMFSemanticSearchResults(results: results, searchID: serviceResponse.header(Self.searchIDHeader))
     }
 
     // MARK: - Attribution
@@ -109,8 +113,8 @@ extension WMFSemanticSearchDataController {
             parameters: parameters,
             acceptType: .json
         )
-        let response: AttributionResponse = try await performDecodableGET(request: request, service: basicService)
-        let signals = response.trustAndRelevance
+        let response: WMFServiceResponse<AttributionResponse> = try await performDecodableGET(request: request, service: basicService)
+        let signals = response.value.trustAndRelevance
 
         return WMFSemanticSearchAttribution(
             contributorCount: signals?.contributorCounts?.totalUnique,
@@ -121,9 +125,9 @@ extension WMFSemanticSearchDataController {
 
     // MARK: - Service
 
-    private func performDecodableGET<T: Decodable & Sendable>(request: WMFBasicServiceRequest, service: WMFService) async throws -> T {
-        let value: T = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<T, Error>) in
+    private func performDecodableGET<T: Decodable & Sendable>(request: WMFBasicServiceRequest, service: WMFService) async throws -> WMFServiceResponse<T> {
+        let value: WMFServiceResponse<T> = try await withCheckedThrowingContinuation { continuation in
+            service.performDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
                 switch result {
                 case .success(let value):
                     continuation.resume(returning: value)

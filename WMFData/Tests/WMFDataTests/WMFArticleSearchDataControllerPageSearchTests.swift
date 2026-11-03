@@ -20,7 +20,6 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         XCTAssertEqual(response.results.count, 6)
         XCTAssertEqual(response.results.map(\.index), [1, 2, 3, 4, 5, 6])
         XCTAssertEqual(response.results.first?.title, "Barack Obama")
-        XCTAssertEqual(response.suggestion, "barracks")
     }
 
     func testSearchPagesDecodesFields() async throws {
@@ -56,12 +55,12 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         XCTAssertEqual(response.redirects, [WMFArticleSearchRedirect(from: "Barack Hussein Obama", to: "Barack Obama")])
     }
 
-    func testSearchPagesWithoutResultsReturnsSuggestion() async throws {
+    func testSearchPagesWithoutResultsReturnsNothing() async throws {
         let response = try await controller(fixture: "article-search-empty-get").searchPages(term: "asad", project: enProject, limit: 6, fullText: false)
 
         XCTAssertTrue(response.results.isEmpty)
         XCTAssertTrue(response.redirects.isEmpty)
-        XCTAssertEqual(response.suggestion, "azad")
+        XCTAssertNil(response.searchID)
     }
 
     func testSearchPagesAcceptsCommons() async throws {

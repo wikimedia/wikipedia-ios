@@ -411,20 +411,13 @@ struct WMFEvergreenAccountCreationDataControllerTests {
             let store = try await fixture.makeTemporaryCoreDataStore()
             let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore())
 
-            // The anchor keeps the day arithmetic away from a real midnight. Before this the test
-            // built the days from Date(), and between 00:00 and 01:00 UTC the newest day landed in
-            // the future and fell outside the window.
-            let today = day(0)
-            let yesterday = day(-1)
-            let longAgo = day(-100)
-
             // Three distinct reading days, two of them inside the last thirty days.
-            _ = try await pageViewsDataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: today)
-            _ = try await pageViewsDataController.addPageView(title: "Dog", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: yesterday)
-            _ = try await pageViewsDataController.addPageView(title: "Bird", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: longAgo)
+            _ = try await pageViewsDataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: day0)
+            _ = try await pageViewsDataController.addPageView(title: "Dog", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: day(-1))
+            _ = try await pageViewsDataController.addPageView(title: "Bird", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: day(-100))
 
             let dataController = WMFEvergreenAccountCreationDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore(), calendar: calendar)
-            let slideData = await dataController.slideData(date: today.addingTimeInterval(3600))
+            let slideData = await dataController.slideData(date: day0)
 
             #expect(slideData.readingDayCount == 3)
             #expect(slideData.articlesReadThisMonthCount == 2, "The hundred day old read is outside the window.")

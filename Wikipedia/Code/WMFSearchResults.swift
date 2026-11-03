@@ -24,12 +24,14 @@ final class WMFSearchResults {
     let searchTerm: String
     private(set) var results: [MWKSearchResult]
     private(set) var redirectMappings: [MWKSearchRedirectMapping]
-    private(set) var searchSuggestion: String?
+    /// The id CirrusSearch gives to the prefix search request, from its `x-search-id` response header.
+    private(set) var prefixSearchID: String?
+    /// The id CirrusSearch gives to the full text search request, when the app made one.
+    private(set) var fullTextSearchID: String?
 
-    init(searchTerm: String, results: [MWKSearchResult] = [], searchSuggestion: String? = nil, redirectMappings: [MWKSearchRedirectMapping] = []) {
+    init(searchTerm: String, results: [MWKSearchResult] = [], redirectMappings: [MWKSearchRedirectMapping] = []) {
         self.searchTerm = searchTerm
         self.results = results
-        self.searchSuggestion = searchSuggestion
         self.redirectMappings = redirectMappings
     }
 
@@ -38,9 +40,17 @@ final class WMFSearchResults {
         self.init(
             searchTerm: searchTerm,
             results: response.results.map { MWKSearchResult(result: $0, languageVariantCode: languageVariantCode) },
-            searchSuggestion: response.suggestion,
             redirectMappings: response.redirects.map { MWKSearchRedirectMapping(redirect: $0) }
         )
+    }
+
+    /// Keeps the id of the request that gave these results.
+    func setSearchID(_ searchID: String?, fullTextSearch: Bool) {
+        if fullTextSearch {
+            fullTextSearchID = searchID
+        } else {
+            prefixSearchID = searchID
+        }
     }
 
     /// Appends the results of another request. A result is not added if its display title is
@@ -58,8 +68,11 @@ final class WMFSearchResults {
         let newMappings = other.redirectMappings.filter { !redirectMappings.contains($0) }
         redirectMappings.append(contentsOf: newMappings)
 
-        if searchSuggestion?.isEmpty ?? true {
-            searchSuggestion = other.searchSuggestion
+        if let otherPrefixSearchID = other.prefixSearchID {
+            prefixSearchID = otherPrefixSearchID
+        }
+        if let otherFullTextSearchID = other.fullTextSearchID {
+            fullTextSearchID = otherFullTextSearchID
         }
     }
 }

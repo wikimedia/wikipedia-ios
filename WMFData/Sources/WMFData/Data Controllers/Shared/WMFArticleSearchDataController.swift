@@ -61,7 +61,7 @@ public actor WMFArticleSearchDataController {
         ]
 
         let response = try await performQuery(project: project, parameters: parameters)
-        let pages = response.query?.pages ?? []
+        let pages = response.value.query?.pages ?? []
         return pages.sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
     }
 
@@ -69,7 +69,7 @@ public actor WMFArticleSearchDataController {
 
     /// Search pages by title prefix or by full text.
     ///
-    /// The request also asks for a spelling suggestion and the redirects that the results came from.
+    /// The request also asks for the redirects that the results came from.
     /// - Parameters:
     ///   - term: The search term.
     ///   - project: The project to search. Wikipedia projects and Commons are supported.
@@ -121,23 +121,14 @@ public actor WMFArticleSearchDataController {
             parameters["gpssearch"] = term
             parameters["gpsnamespace"] = namespaceString
             parameters["gpslimit"] = limitString
-            // The `list=search` parameters make the API return a spelling suggestion.
-            parameters["list"] = "search"
-            parameters["srsearch"] = term
-            parameters["srnamespace"] = namespaceString
-            parameters["srwhat"] = "text"
-            parameters["srinfo"] = "suggestion"
-            parameters["srprop"] = ""
-            parameters["sroffset"] = "0"
-            parameters["srlimit"] = "1"
         }
 
         let response = try await performQuery(project: project, parameters: parameters)
-        let pages = response.query?.pages ?? []
+        let pages = response.value.query?.pages ?? []
         return WMFArticleSearchResponse(
             results: pages.sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) },
-            redirects: response.query?.redirects ?? [],
-            suggestion: response.query?.searchinfo?.suggestion
+            redirects: response.value.query?.redirects ?? [],
+            searchID: response.header(Self.searchIDHeader)
         )
     }
 
@@ -227,13 +218,16 @@ public actor WMFArticleSearchDataController {
         }
 
         let response = try await performQuery(project: project, parameters: parameters)
-        let pages = response.query?.pages ?? []
+        let pages = response.value.query?.pages ?? []
         return pages.sorted { ($0.coordinate?.distance ?? .greatestFiniteMagnitude) < ($1.coordinate?.distance ?? .greatestFiniteMagnitude) }
     }
 
     // MARK: - Private
 
-    private func performQuery(project: WMFProject, parameters: [String: Any]) async throws -> WMFArticleSearchAPIResponse {
+    /// The name of the CirrusSearch header that carries the id of the request.
+    static let searchIDHeader = "x-search-id"
+
+    private func performQuery(project: WMFProject, parameters: [String: Any]) async throws -> WMFServiceResponse<WMFArticleSearchAPIResponse> {
         guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -249,7 +243,7 @@ public actor WMFArticleSearchDataController {
 
         return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in
-                let task = service.performCancellableDecodableGET(request: request) { (result: Result<WMFArticleSearchAPIResponse, Error>) in
+                let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<WMFArticleSearchAPIResponse>, Error>) in
                     continuation.resume(with: result)
                 }
                 cancellation.setTask(task)
@@ -269,24 +263,19 @@ struct WMFArticleSearchAPIResponse: Decodable, Sendable {
 struct WMFArticleSearchQuery: Decodable, Sendable {
     let pages: [WMFArticleSearchResult]?
     let redirects: [WMFArticleSearchRedirect]?
-    let searchinfo: WMFArticleSearchInfo?
-}
-
-struct WMFArticleSearchInfo: Decodable, Sendable {
-    let suggestion: String?
 }
 
 /// The full result of a page search.
 public struct WMFArticleSearchResponse: Sendable, Equatable {
     public let results: [WMFArticleSearchResult]
     public let redirects: [WMFArticleSearchRedirect]
-    /// A spelling suggestion for the search term.
-    public let suggestion: String?
+    /// The id CirrusSearch gives to the request, from its `x-search-id` response header.
+    public let searchID: String?
 
-    public init(results: [WMFArticleSearchResult], redirects: [WMFArticleSearchRedirect], suggestion: String?) {
+    public init(results: [WMFArticleSearchResult], redirects: [WMFArticleSearchRedirect], searchID: String?) {
         self.results = results
         self.redirects = redirects
-        self.suggestion = suggestion
+        self.searchID = searchID
     }
 }
 

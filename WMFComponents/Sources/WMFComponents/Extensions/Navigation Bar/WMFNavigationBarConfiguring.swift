@@ -141,6 +141,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 themeNavigationBarCustomCenteredTitleView()
             }
             removeCustomLeadingLargeTitleLabel()
+            stopObservingVerticalBarEdgeChanges()
         case .leadingLarge:
             navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -152,6 +153,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
             navigationItem.leftBarButtonItem = nil
             removeCustomLeadingLargeTitleLabel()
+            stopObservingVerticalBarEdgeChanges()
             
             if let customLargeTitleFont = titleConfig.customLargeTitleFont {
                 customizeNavBarAppearance(customLargeTitleFont: customLargeTitleFont)
@@ -163,14 +165,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.backButtonTitle = titleConfig.title
             navigationItem.titleView = nil
             removeCustomLeadingLargeTitleLabel()
+            stopObservingVerticalBarEdgeChanges()
         case .customLeadingLarge:
-            navigationItem.title = nil
-            navigationController?.navigationBar.prefersLargeTitles = false
-            navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = nil
             navigationItem.leftBarButtonItem = nil
-
-            addOrUpdateUpperLeadingLargeTitleLabel(title: titleConfig.title)
+            applyCustomLeadingLargeTitle(titleConfig.title)
+            observeVerticalBarEdgeChanges(title: titleConfig.title)
         }
         
         // Better back button naming for article tabs
@@ -377,6 +377,46 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     private var upperLeadingLargeTitleTag: Int { 0x574D465F_5469746C }  // "WMF_Titl" as a stable tag
 
+    /// True when the system shows the bar items in a vertical bar (iPhone Duo, folded).
+    /// The horizontal bar row then collapses to zero height, so a label pinned to it overlaps the content.
+    private var hasVerticalBar: Bool {
+        if #available(iOS 27.1, *) {
+            return traitCollection.verticalBarEdge != .unspecified
+        }
+        return false
+    }
+
+    private func applyCustomLeadingLargeTitle(_ title: String) {
+        if hasVerticalBar {
+            removeCustomLeadingLargeTitleLabel()
+            navigationItem.title = title
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.largeTitleDisplayMode = .always
+        } else {
+            navigationItem.title = nil
+            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationItem.largeTitleDisplayMode = .never
+            addOrUpdateUpperLeadingLargeTitleLabel(title: title)
+        }
+    }
+
+    /// Re-applies the title when the device folds or unfolds.
+    private func observeVerticalBarEdgeChanges(title: String) {
+        guard #available(iOS 27.1, *) else { return }
+        guard WMFVerticalBarEdgeObservers.registrations.object(forKey: self) == nil else { return }
+        let registration = registerForTraitChanges(UITraitCollection.systemTraitsAffectingVerticalBarEdge) { (viewController: Self, _) in
+            viewController.applyCustomLeadingLargeTitle(title)
+        }
+        WMFVerticalBarEdgeObservers.registrations.setObject(registration, forKey: self)
+    }
+
+    private func stopObservingVerticalBarEdgeChanges() {
+        guard #available(iOS 27.1, *),
+              let registration = WMFVerticalBarEdgeObservers.registrations.object(forKey: self) as? UITraitChangeRegistration else { return }
+        unregisterForTraitChanges(registration)
+        WMFVerticalBarEdgeObservers.registrations.removeObject(forKey: self)
+    }
+
     private func addOrUpdateUpperLeadingLargeTitleLabel(title: String) {
         guard let navigationController,
               navigationController.viewControllers.last == self else { return }
@@ -437,4 +477,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         guard let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel else { return }
         UIView.animate(withDuration: 0.2) { label.isHidden = false }
     }
+}
+
+/// Keeps one trait change registration per view controller. Entries go away with the view controller.
+private enum WMFVerticalBarEdgeObservers {
+    static let registrations = NSMapTable<UIViewController, AnyObject>.weakToStrongObjects()
 }

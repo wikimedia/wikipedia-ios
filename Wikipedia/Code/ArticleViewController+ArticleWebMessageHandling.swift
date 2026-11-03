@@ -68,6 +68,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishInitialSetup() {
         let oldState = state
         state = .loaded
+        scheduleSemanticSearchFeedbackIfNeeded()
 
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)

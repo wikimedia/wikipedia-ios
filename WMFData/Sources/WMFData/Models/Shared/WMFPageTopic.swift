@@ -29,3 +29,16 @@ public struct WMFTopicReadingSummary: Sendable, Hashable {
         self.timeSpentSeconds = timeSpentSeconds
     }
 }
+
+/// An article from the user's reading history, with the topic labels stored for it.
+public struct WMFPageWithTopics: Sendable {
+    public let page: WMFPage
+
+    /// The stored labels, for example "STEM.Biology". Use `WMFArticleTopic(pageTopicLabel:)` to make topics from them.
+    public let topicLabels: [String]
+
+    public init(page: WMFPage, topicLabels: [String]) {
+        self.page = page
+        self.topicLabels = topicLabels
+    }
+}

@@ -162,7 +162,6 @@
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
 "history-clear-delete-all" = "Ih, kkes akk";
 "history-title" = "Amazray";
-"home-button-explore-accessibility-label" = "Wikipedia, uɣal ar umazray";
 "home-button-saved-accessibility-label" = "Wikipedia, uɣal ar Yettwasekles";
 "home-more-like-footer" = "Ugar am $1";
 // Fuzzy
@@ -354,25 +353,10 @@
 "two-factor-login-with-regular-code" = "Seqdec tangalt n usenqed";
 "user-title" = "Aseqdac";
 "watchlist-filters-add-language" = "Rnu tutlayt...";
-"welcome-exploration-explore-feed-description" = "Taɣuri d imagraden n yal ass yelhan si tmezdagnut";
 "welcome-exploration-explore-feed-title" = "Snirem asuddem";
-"welcome-exploration-on-this-day-description" = "Uɣal ar deffir akken ad tissineḍ ayen yeḍran am ass-a deg umezruy.";
-"welcome-exploration-on-this-day-title" = "Ass-a";
-"welcome-exploration-places-description" = "Wali ticraḍ yersen iqerben ɛur-k neɣ nadi imeḍqan deg umaḍal";
-"welcome-exploration-places-title" = "Icerren n timnaḍin";
 "welcome-explore-continue-button" = "Bdu";
-"welcome-explore-new-ways-title" = "Tarrayin-nniden n usnirem";
 "welcome-explore-tell-me-more-done-button" = "Awi-t";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia uran-tt iwiziwen s uɛiwen , llant deg-s ugar n 40 n imeyaln n imagraden s 300 n tutlayin gar-asent taqbaylit.";
-"welcome-intro-free-encyclopedia-more" = "Issin ugar ɣef Wikipedia";
-"welcome-intro-free-encyclopedia-more-about" = "Ɣef Wikipedia";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedia d asenfaṛ amaḍalan i bennu n tsanayt tilellit di tutlayin n umaḍal meṛṛa. S wudem uhlis, yal yiwen s unekcum ar Internet yezmer ad ittekki s war tasnakta, s umuddu n timsisɣal.";
-"welcome-intro-free-encyclopedia-title" = "Tasanayt tilellit";
 "welcome-languages-add-button" = "Rnu tutlayt-nniḍen";
-"welcome-languages-add-or-edit-button" = "Rnu neɣ ẓreg tutlayin tebɣiḍ";
-"welcome-languages-description" = "Nufa-d tutlayin-agi deg ibenk-ik:";
-"welcome-languages-search-title" = "Nadi seg ugar n 300 tutlayin";
 "wikimedia-articletopics-topic-central-america" = "Amérique centrale";
 "wikimedia-articletopics-topic-education" = "Éducation";
 "wikimedia-articletopics-topic-europe" = "Europe";

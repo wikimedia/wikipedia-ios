@@ -210,8 +210,6 @@ public actor WMFEvergreenAccountCreationDataController {
 
     // MARK: - Slide Data
 
-    /// - Parameter date: The moment that ends the "this month" window. A test gives a fixed date so
-    ///   that the result does not change with the hour the test runs.
     public func slideData(date: Date = Date()) async -> SlideData {
         async let readingDayCount = readingDayCount()
         async let savedArticleCount = savedArticleCount()

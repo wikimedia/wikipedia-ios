@@ -26,3 +26,14 @@ extension Array where Element == URLRequest {
         }
     }
 }
+
+extension URLRequest {
+    /// The query parameters of the request, by name.
+    var queryParameters: [String: String] {
+        guard let url,
+              let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems else {
+            return [:]
+        }
+        return Dictionary(queryItems.map { ($0.name, $0.value ?? "") }, uniquingKeysWith: { _, last in last })
+    }
+}

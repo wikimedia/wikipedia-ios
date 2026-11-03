@@ -11,6 +11,7 @@ final class SearchFixtureService: WMFService, @unchecked Sendable {
     private var queue: [Data] = []
     private var single: Data?
     private var captured: [[String: Any]] = []
+    private var headersQueue: [[String: String]] = []
 
     /// The data for every request. `responseDataQueue` takes priority.
     var responseData: Data? {
@@ -27,6 +28,18 @@ final class SearchFixtureService: WMFService, @unchecked Sendable {
     /// The parameters of each request, in order.
     var capturedRequests: [[String: Any]] {
         lock.withLock { captured }
+    }
+
+    /// The response headers for each request in order. A later request gets none.
+    var responseHeadersQueue: [[String: String]] {
+        get { lock.withLock { headersQueue } }
+        set { lock.withLock { headersQueue = newValue } }
+    }
+
+    private func nextHeaders() -> [String: String] {
+        lock.withLock {
+            headersQueue.isEmpty ? [:] : headersQueue.removeFirst()
+        }
     }
 
     private func nextData(for request: any WMFServiceRequest) -> Data? {
@@ -68,6 +81,25 @@ final class SearchFixtureService: WMFService, @unchecked Sendable {
 
     func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         performDecodableGET(request: request, completion: completion)
+    }
+
+    /// The search reads the CirrusSearch request id from the response headers. Thus the fixture
+    /// service must answer with headers.
+    func performCancellableDecodableGETWithResponse<R: WMFServiceRequest, T: Decodable & Sendable>(
+        request: R,
+        completion: @escaping @Sendable (Result<WMFServiceResponse<T>, Error>) -> Void
+    ) -> WMFURLSessionDataTask? {
+        guard let data = nextData(for: request) else {
+            completion(.failure(SearchFixtureServiceError.noFixture))
+            return nil
+        }
+        do {
+            let value = try JSONDecoder().decode(T.self, from: data)
+            completion(.success(WMFServiceResponse(value: value, headers: nextHeaders())))
+        } catch {
+            completion(.failure(error))
+        }
+        return nil
     }
 
     func clearCachedData() {

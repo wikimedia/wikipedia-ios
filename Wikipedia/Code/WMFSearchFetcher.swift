@@ -62,6 +62,7 @@ class WMFSearchFetcher {
                     return
                 }
                 let results = WMFSearchResults(searchTerm: term, response: response, languageVariantCode: languageVariantCode)
+                results.setSearchID(response.searchID, fullTextSearch: fullTextSearch)
                 guard let previousResults else {
                     success(results)
                     return

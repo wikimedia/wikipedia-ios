@@ -630,10 +630,10 @@ extension WMFAppViewController: WMFWatchlistLoggingDelegate {
 
 }
 
-// MARK: Importing Reading Lists - CreateReadingListDelegate
+// MARK: Importing Reading Lists - CreateReadingListCoordinatorDelegate
 
-extension WMFAppViewController: CreateReadingListDelegate {
-    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
+extension WMFAppViewController: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(_ coordinator: CreateReadingListCoordinator, didCreateReadingListWith name: String, description: String, articles: [WMFArticle]) {
 
         guard !articles.isEmpty else {
             WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
@@ -641,7 +641,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
         }
 
         do {
-            createReadingListViewController.createReadingListButton.isEnabled = false
+            coordinator.setCreating(true)
             let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
             ReadingListsFunnel.shared.logCompletedImport(articlesCount: articles.count)
             showImportedReadingList(readingList)
@@ -649,11 +649,11 @@ extension WMFAppViewController: CreateReadingListDelegate {
         } catch let error {
             switch error {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
-                createReadingListViewController.handleReadingListNameError(readingListError)
+                coordinator.handleReadingListNameError(readingListError)
             default:
                 WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
-                createReadingListViewController.createReadingListButton.isEnabled = true
             }
+            coordinator.setCreating(false)
         }
     }
 
@@ -837,9 +837,6 @@ extension WMFAppViewController {
             DDLogWarn("App install ID: \(appInstallID)")
         }
 
-        #if TEST || UITEST
-            TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
-        #endif
         // Notify the scene delegate that the data environment is ready, so it can submit any
         // deferred app_open event (e.g. on fresh install where languages weren't set up yet).
         #if !TEST
@@ -1280,7 +1277,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .feed, action: action)
         } else if currentVC is PlacesViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
-        } else if currentVC is SavedViewController {
+        } else if currentVC is WMFSavedHostingController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
         } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
@@ -1445,7 +1442,7 @@ extension WMFAppViewController {
             return .home
         }
 
-        if rootViewController is SavedViewController {
+        if rootViewController is WMFSavedHostingController {
             return .saved
         }
 
@@ -1459,7 +1456,7 @@ extension WMFAppViewController {
         return rootViewController is HomeViewController
             || rootViewController is ExploreViewController
             || rootViewController is PlacesViewController
-            || rootViewController is SavedViewController
+            || rootViewController is WMFSavedHostingController
             || rootViewController is WMFActivityTabViewController
             || rootViewController is SearchViewController
     }

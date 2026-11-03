@@ -295,29 +295,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             return image
         }
 
-        return Self.cropped(image, toSquareAround: faceUnitRect)
-    }
-
-    nonisolated static func squareCropRect(imageSize: CGSize, faceUnitRect: CGRect) -> CGRect {
-        let side = min(imageSize.width, imageSize.height)
-        let faceCenter = CGPoint(x: faceUnitRect.midX * imageSize.width, y: faceUnitRect.midY * imageSize.height)
-        let x = min(max(0, faceCenter.x - side / 2), imageSize.width - side)
-        let y = min(max(0, faceCenter.y - side / 2), imageSize.height - side)
-
-        return CGRect(x: x, y: y, width: side, height: side)
-    }
-
-    private nonisolated static func cropped(_ image: UIImage, toSquareAround faceUnitRect: CGRect) -> UIImage {
-        guard image.imageOrientation == .up, let cgImage = image.cgImage else {
-            return image
-        }
-        let pixelSize = CGSize(width: cgImage.width, height: cgImage.height)
-        let cropRect = squareCropRect(imageSize: pixelSize, faceUnitRect: faceUnitRect)
-        guard let croppedCGImage = cgImage.cropping(to: cropRect) else {
-            return image
-        }
-
-        return UIImage(cgImage: croppedCGImage, scale: image.scale, orientation: .up)
+        return image.croppedToSquare(around: faceUnitRect)
     }
 
     func tap(_ result: SearchResult) {
