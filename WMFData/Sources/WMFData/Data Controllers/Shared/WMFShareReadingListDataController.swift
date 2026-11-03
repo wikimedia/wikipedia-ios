@@ -16,6 +16,7 @@ public final class WMFShareReadingListDataController: Sendable {
 
     public enum ShareError: Error {
         case noPageIDs
+        case missingPages
     }
 
     /// The API accepts 50 titles at most in one request.
@@ -91,7 +92,11 @@ public final class WMFShareReadingListDataController: Sendable {
                 continuation.resume(with: result)
             }
         }
-        return response.query?.pages?.compactMap(\.pageID) ?? []
+        // A response with API errors has no pages. Throw, so that the link does not lose the articles of this request.
+        guard let pages = response.query?.pages else {
+            throw ShareError.missingPages
+        }
+        return pages.compactMap(\.pageID)
     }
 
     static func chunks(of titles: [String], size: Int) -> [[String]] {

@@ -105,6 +105,20 @@ struct WMFShareReadingListDataControllerTests {
     }
 
     @Test
+    func fetchThrowsWhenTheResponseHasNoPages() async throws {
+        let service = PageIDsMockService()
+        let controller = WMFShareReadingListDataController(basicService: service)
+        let pages = [
+            WMFShareReadingListDataController.Page(title: "Title 1", project: englishProject),
+            WMFShareReadingListDataController.Page(title: PageIDsMockService.apiErrorTitle, project: spanishProject)
+        ]
+
+        await #expect(throws: WMFShareReadingListDataController.ShareError.missingPages) {
+            _ = try await controller.fetchPageIDsByLanguageCode(for: pages)
+        }
+    }
+
+    @Test
     func fetchShareURLThrowsWhenTheAPIFindsNoPages() async throws {
         let service = PageIDsMockService()
         let controller = WMFShareReadingListDataController(basicService: service)
@@ -116,8 +130,10 @@ struct WMFShareReadingListDataControllerTests {
     }
 }
 
-/// Answers each title "Title <number>" with the page ID <number>. Other titles are missing pages.
+/// Answers each title "Title <number>" with the page ID <number>. Other titles are missing pages. A request with `apiErrorTitle` gets an API error and no pages.
 private final class PageIDsMockService: WMFService, @unchecked Sendable {
+
+    static let apiErrorTitle = "API error"
 
     private let lock = NSLock()
     private var requests: [WMFBasicServiceRequest] = []
@@ -145,6 +161,16 @@ private final class PageIDsMockService: WMFService, @unchecked Sendable {
             return
         }
         lock.withLock { requests.append(request) }
+
+        if titles.contains(Self.apiErrorTitle) {
+            do {
+                let data = try JSONSerialization.data(withJSONObject: ["errors": [["code": "internal_api_error"]]])
+                completion(.success(try JSONDecoder().decode(T.self, from: data)))
+            } catch {
+                completion(.failure(error))
+            }
+            return
+        }
 
         let pages: [[String: Any]] = titles.map { title in
             if let pageID = Int(title.replacingOccurrences(of: "Title ", with: "")) {
