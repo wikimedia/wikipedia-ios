@@ -3,6 +3,7 @@
 // Author: Afalau
 // Author: Ceirios
 // Author: Cymrodor
+// Author: GwennoG
 // Author: McDutchie
 // Author: Nemo bis
 // Author: Robin Owain
@@ -191,6 +192,8 @@
 "diff-thanks-sent-already" = "Rydych chi eisoes wedi dweud 'Diolch' am y golygiad hwn";
 "diff-thanks-sent-cannot-unsend" = "Ni ellir wrthdroi 'Diolch'.";
 "dim-images" = "Tywyllu delweddau";
+"discover-announcement-new-tag" = "Newydd";
+"discover-announcement-no-thanks" = "Dim diolch";
 "donate-payment-method-prompt-apple-pay-button-title" = "Cyfrannu gydag Apple Pay";
 "donate-payment-method-prompt-message" = "Cyfrannu gydag Apple Pay neu ffordd talu arall.";
 "donate-payment-method-prompt-other-button-title" = "Ffordd talu arall";

@@ -397,6 +397,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltryck för att aktivera automatiska månadsdonationer med detta belopp.";
 "donate-accessibility-textfield-hint" = "Ange anpassat belopp att donera.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltryck för att lägga till transaktionsavgiften i donationsbeloppet.";
+// Fuzzy
 "donate-already-donated" = "Tack, kära donator! Din generositet hjälper Wikipedia och dess och andra fria kunskapsprojekt att blomstra.";
 "donate-apple-fine-print" = "Apple är inte ansvarig för att samla in pengar till detta ändamål.";
 "donate-email-opt-in-text" = "Ja, Wikimedia Foundation får skicka e-postmeddelande till mig ibland.";

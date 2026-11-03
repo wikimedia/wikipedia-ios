@@ -53,11 +53,12 @@ public struct WMFYearInReviewEndView: View {
     private static let scrollSpaceName = "yearInReviewEndScroll"
 
     /// The controls are dark on the light top of the sky. They become light when the part of the sky
-    /// under them is darker than this fraction of the sky height, measured from the top.
-    private static let lightContentSkyFraction: CGFloat = 0.2
+    /// under them is lower than this fraction of the sky height, measured from the top. There the
+    /// sky has turned from light cyan to mid blue.
+    private static let lightContentSkyFraction: CGFloat = 0.4
 
-    /// The height of the fade at the bottom of the screen, which hides the cut of the text.
-    private static let bottomFadeHeight: CGFloat = 36
+    /// The middle of the navigation bar is about this far above the bottom of `topInset`.
+    private static let navigationBarHalfHeight: CGFloat = 22
 
     public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0, onUsesLightContentChange: ((Bool) -> Void)? = nil) {
         self.viewModel = viewModel
@@ -76,7 +77,7 @@ public struct WMFYearInReviewEndView: View {
                     cardView(card)
                 }
             }
-            .padding(.bottom, Self.bottomFadeHeight + 24)
+            .padding(.bottom, 24)
             .background(alignment: .top) {
                 GeometryReader { proxy in
                     Color.clear.preference(
@@ -87,31 +88,21 @@ public struct WMFYearInReviewEndView: View {
             }
         }
         .coordinateSpace(name: Self.scrollSpaceName)
-        .onPreferenceChange(ScrollOffsetKey.self) { offset in
-            // The controls sit about `topInset` below the top of the screen.
-            let usesLightContent = offset + topInset > WMFYearInReviewEndViewModel.skyHeight * Self.lightContentSkyFraction
-            onUsesLightContentChange?(usesLightContent)
-        }
-        .overlay(alignment: .bottom) {
-            // The toolbar has the color of the page, so nothing else marks the bottom edge.
-            LinearGradient(
-                stops: [
-                    Gradient.Stop(color: Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).opacity(0), location: 0),
-                    Gradient.Stop(color: Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).opacity(0.6), location: 0.6),
-                    Gradient.Stop(color: Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor), location: 1)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .frame(height: Self.bottomFadeHeight)
-            .allowsHitTesting(false)
-            .accessibilityHidden(true)
-        }
+        .modifier(ScrollGeometryOffsetModifier { offset in
+            updateUsesLightContent(scrollOffset: offset)
+        })
         // This scroll view is in the vertical pager. If the content fits, it does not bounce.
         // Thus, a pull down goes to the pager, and the pager shows the last slide.
         // This applies only to the vertical axis. The horizontal card carousel does not change.
         .scrollBounceBehavior(.basedOnSize)
-        .background(Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor).ignoresSafeArea())
+        .background(Color(uiColor: WMFYearInReviewEndViewModel.skyBottomColor).ignoresSafeArea())
+    }
+
+    /// `topInset` ends at the bottom of the navigation bar. The controls sit in its middle.
+    private func updateUsesLightContent(scrollOffset: CGFloat) {
+        let controlsY = topInset - Self.navigationBarHalfHeight
+        let usesLightContent = scrollOffset + controlsY > WMFYearInReviewEndViewModel.skyHeight * Self.lightContentSkyFraction
+        onUsesLightContentChange?(usesLightContent)
     }
 
     // MARK: - Hero
@@ -165,14 +156,14 @@ public struct WMFYearInReviewEndView: View {
         }
     }
 
-    /// The sky, then the page color below it. This screen sits inside the slides, which already run
+    /// The sky, then its dark end color below it. This screen sits inside the slides, which already run
     /// under the status bar and navigation bar, so the sky starts at the top of the page.
     private var sky: some View {
         VStack(spacing: 0) {
             skyGradient
                 .frame(height: WMFYearInReviewEndViewModel.skyHeight)
 
-            Color(uiColor: WMFYearInReviewEndViewModel.pageBackgroundColor)
+            Color(uiColor: WMFYearInReviewEndViewModel.skyBottomColor)
         }
     }
 
@@ -268,6 +259,27 @@ public struct WMFYearInReviewEndView: View {
             RoundedRectangle(cornerRadius: 24)
                 .fill(Color(uiColor: WMFTheme.light.midBackground))
         )
+    }
+}
+
+/// Reports the scroll offset of the scroll view it is on. From iOS 18 the scroll geometry reports it.
+/// Before that, the preference on the content reports it. Only one of the two runs, so each offset
+/// is reported once.
+private struct ScrollGeometryOffsetModifier: ViewModifier {
+    let onChange: (CGFloat) -> Void
+
+    func body(content: Content) -> some View {
+        if #available(iOS 18.0, *) {
+            content.onScrollGeometryChange(for: CGFloat.self) { geometry in
+                geometry.contentOffset.y + geometry.contentInsets.top
+            } action: { _, offset in
+                onChange(offset)
+            }
+        } else {
+            content.onPreferenceChange(ScrollOffsetKey.self) { offset in
+                onChange(offset)
+            }
+        }
     }
 }
 

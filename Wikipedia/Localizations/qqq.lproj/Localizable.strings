@@ -1203,8 +1203,6 @@
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "You have too many lists.";
 "reading-list-create-new-list-button-title" = "Title for button allowing the user to create a new reading list.";
-"reading-list-create-new-list-description" = "Title for label above text field for entering new list description.";
-"reading-list-create-new-list-reading-list-name" = "Title for label above text field for entering new list name.";
 "reading-list-create-new-list-title" = "Title for the view in charge of creating a new reading list.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-detail-search-placeholder" = "Placeholder on search bar for reading list detail view.";
@@ -1399,6 +1397,9 @@
 "settings-temp-accounts-talk-page-footer" = "Footer below temporary account user's talk page, letting them know their account will expire";
 "settings-title" = "Title of the view where app settings are displayed. {{Identical|Settings}}";
 "settings-year-in-review-header" = "Text informing user of benefits of hiding the year in review feature.";
+"settings-year-in-review-turn-off-alert-cancel" = "Button in the alert that keeps Year in Review turned on in Settings.";
+"settings-year-in-review-turn-off-alert-confirm" = "Button in the alert that turns off Year in Review in Settings and clears the stored personalized insights.";
+"settings-year-in-review-turn-off-alert-title" = "Title of the alert that asks the user to confirm that they want to turn off Year in Review in Settings.";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";

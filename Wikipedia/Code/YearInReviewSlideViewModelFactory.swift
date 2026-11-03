@@ -21,6 +21,33 @@ struct YearInReviewSlideViewModelFactory {
         self.contributorStatus = contributorStatus
     }
 
+    /// The `page` names of the 2026 instrumentation plan. The donate campaign ID is also made from them.
+    private static let loggingIDs: [String: String] = [
+        "totalArticles": "total_articles",
+        "totalArticlesEmpty": "total_articles_empty",
+        "daysVisited": "visits",
+        "topTopic": "top_topic",
+        "topTopicEmpty": "top_topic_empty",
+        "runnerUpTopics": "other_top_topics",
+        "rabbitHoleGuess": "rabbit_hole_guess",
+        "rabbitHoleReveal": "rabbit_hole_reveal",
+        "rereadArticles": "revisited_articles",
+        "rereadArticlesEmpty": "revisited_articles_empty",
+        "collectiveHoursRead": "collective_hours_read",
+        "collectiveLanguages": "collective_languages",
+        "collectiveArticles": "collective_articles",
+        "collectiveSavedArticles": "collective_saved_articles",
+        "collectiveEditors": "collective_volunteer_editors",
+        "collectiveEdits": "collective_edits",
+        "collectiveGlobalReach": "collective_global_reach",
+        contributorSlideID: "thank_you",
+        nonContributorSlideID: "you_matter"
+    ]
+
+    static func loggingID(forSlideID id: String) -> String {
+        loggingIDs[id] ?? id
+    }
+
     /// Shared with the announcement's more menu.
     static var aboutInsightsButtonTitle: String {
         WMFLocalizedString("year-in-review-2026-about-insights", value: "About your insights", comment: "Title of the Year in Review more menu item that opens the Frequently Asked Questions page.")
@@ -561,7 +588,7 @@ struct YearInReviewSlideViewModelFactory {
         }
         return WMFYearInReviewSlideViewModel(
             id: id,
-            loggingID: id,
+            loggingID: Self.loggingID(forSlideID: id),
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: "\(artboard)-statemachine"),
             text: text,
             articleThumbnails: thumbnails,
@@ -799,7 +826,7 @@ struct YearInReviewSlideViewModelFactory {
     private func endSlide(id: String, title: String, bodyText: String, showsPrimaryDonateButton: Bool) -> WMFYearInReviewSlideViewModel {
         WMFYearInReviewSlideViewModel(
             id: id,
-            loggingID: id,
+            loggingID: Self.loggingID(forSlideID: id),
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: "end", stateMachineName: "end-statemachine"),
             text: [
                 // The title is shown in capitals. VoiceOver gets it as written.
@@ -894,7 +921,7 @@ struct YearInReviewSlideViewModelFactory {
 
         return WMFYearInReviewSlideViewModel(
             id: id,
-            loggingID: id,
+            loggingID: Self.loggingID(forSlideID: id),
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
             numbers: numbers,
@@ -970,7 +997,7 @@ struct YearInReviewSlideViewModelFactory {
 
         return WMFYearInReviewSlideViewModel(
             id: id,
-            loggingID: id,
+            loggingID: Self.loggingID(forSlideID: id),
             animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: stateMachine),
             text: text,
             images: images,

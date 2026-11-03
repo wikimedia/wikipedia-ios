@@ -35,7 +35,7 @@ struct WMFYearInReviewEndPageTests {
         )
     }
 
-    private func makeViewModel(slideCount: Int = 3, hasEnd: Bool = true) -> WMFYearInReviewViewModel {
+    private func makeViewModel(slideCount: Int = 3, hasEnd: Bool = true, hidesDonate: @escaping () -> Bool = { false }) -> WMFYearInReviewViewModel {
         let slides = (0..<slideCount).map { index in
             WMFYearInReviewSlideViewModel(id: "slide\(index)", loggingID: "logging\(index)")
         }
@@ -43,7 +43,8 @@ struct WMFYearInReviewEndPageTests {
             slides: slides,
             localizedStrings: Self.strings(),
             coordinatorDelegate: nil,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: hidesDonate
         )
         if hasEnd {
             viewModel.endViewModel = WMFYearInReviewEndViewModel(isContributor: false)
@@ -95,6 +96,15 @@ struct WMFYearInReviewEndPageTests {
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
         #expect(viewModel.currentSlide == nil)
+        #expect(viewModel.showsShareButton == false)
+    }
+
+    @Test
+    func theEndScreenHasNoToolbarButtons() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
         #expect(viewModel.showsShareButton == false)
         #expect(viewModel.showsDonateButton == false)
     }

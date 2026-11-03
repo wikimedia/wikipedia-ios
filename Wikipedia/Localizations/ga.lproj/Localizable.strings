@@ -365,6 +365,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tapáil faoi dhó chun síntiúis mhíosúla uathoibríocha den mhéid seo a chumasú.";
 "donate-accessibility-textfield-hint" = "Cuir isteach méid saincheaptha le síntiús.";
 "donate-accessibility-transaction-fee-hint" = "Tapáil faoi dhó chun an táille idirbhirt a chur leis an méid síntiúis.";
+// Fuzzy
 "donate-already-donated" = "Go raibh maith agat, a dheontóir dhílis! Cuidíonn do fhlaithiúlacht le Vicipéid agus a tionscadail eolais shaor eile a choinneáil rathúil.";
 "donate-apple-fine-print" = "Níl Apple i gceannas ar airgead a bhailiú chun na críche seo.";
 "donate-email-opt-in-text" = "Sea, is féidir le Fondúireacht Wikimedia ríomhphost a sheoladh chugam ó am go ham.";

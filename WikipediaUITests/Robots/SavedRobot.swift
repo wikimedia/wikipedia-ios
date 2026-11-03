@@ -91,18 +91,23 @@ extension SavedRobot {
 
     @discardableResult
     func assertDiscoverSetupVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.assertExists(element(withIdentifier: AccessibilityIdentifiers.Discover.setupView), timeout: 15, description: "Discover setup screen", file: file, line: line)
+        base.assertExists(discoverSetupView, timeout: 15, description: "Discover setup screen", file: file, line: line)
         return self
     }
 
-    /// Pops the setup screen back to the Saved tab.
     @discardableResult
-    func goBackFromDiscoverSetup(file: StaticString = #filePath, line: UInt = #line) -> Self {
+    func tapBackFromDiscoverSetup(file: StaticString = #filePath, line: UInt = #line) -> Self {
         let navigationBar = base.app.navigationBars.firstMatch
-        base.assertExists(navigationBar, file: file, line: line)
-        base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft).tap()
-        base.waitForElementToDisappear(element(withIdentifier: AccessibilityIdentifiers.Discover.setupView), timeout: 10, file: file, line: line)
-        return self
+        base.assertExists(navigationBar, timeout: 10, description: "Discover setup navigation bar", file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertVisible(backButton, timeout: 10, description: "Discover setup back button", file: file, line: line)
+        base.tapCenter(of: backButton, file: file, line: line)
+        base.waitForElementToDisappear(discoverSetupView, timeout: 10, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+
+    private var discoverSetupView: XCUIElement {
+        element(withIdentifier: AccessibilityIdentifiers.Discover.setupView)
     }
 
     private var discoverAnnouncementCard: XCUIElement {
