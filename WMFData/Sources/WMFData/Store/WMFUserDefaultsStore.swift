@@ -18,10 +18,6 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
         try save(defaultsKey: defaultsKey, value: value)
     }
     
-    func synchronize() {
-        defaults.synchronize()
-    }
-
     func remove(key: String...) throws {
            let defaultsKey = key.joined(separator: ".")
            defaults.removeObject(forKey: defaultsKey)

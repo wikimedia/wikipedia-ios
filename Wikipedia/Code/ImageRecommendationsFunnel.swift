@@ -100,28 +100,12 @@ final class ImageRecommendationsFunnel: NSObject {
         EventPlatformClient.shared.submit(stream: .imageRecommendation, event: event)
     }
     
-    func logExploreDidTapFeatureAnnouncementPrimaryButton() {
-        logEvent(activeInterface: .onboardingStep1Dialog, action: .startTooltips, project: project)
-    }
-    
     func logOnboardingDidTapContinue() {
         logEvent(activeInterface: .onboardingStep2Dialog, action: .next, project: project)
     }
     
     func logOnboardingDidTapLearnMore() {
         logEvent(activeInterface: .onboardingStep2Dialog, action: .learnMore, project: project)
-    }
-    
-    func logTooltipDidTapFirstNext() {
-        logEvent(activeInterface: .onboardingStep3Dialog, action: .next, project: project)
-    }
-    
-    func logTooltipDidTapSecondNext() {
-        logEvent(activeInterface: .onboardingStep4Dialog, action: .next, project: project)
-    }
-    
-    func logTooltipDidTapThirdOk() {
-        logEvent(activeInterface: .onboardingStep5Dialog, action: .completeTooltips, project: project)
     }
     
     func logExploreCardDidAppear() {
@@ -274,10 +258,6 @@ final class ImageRecommendationsFunnel: NSObject {
     func logSettingsToggleSuggestedEditsCard(isOn: Bool) {
         let action = isOn ? Action.enableSuggestedEdits : Action.disableSuggestedEdits
         logEvent(activeInterface: .exploreSettings, action: action, project: project)
-    }
-    
-    func logSettingsDidDisableSuggestedEditsCard() {
-        logEvent(activeInterface: .exploreSettings, action: .disableSuggestedEdits, project: project)
     }
     
     func logSaveChangesPublishFail(abortSource: String?) {

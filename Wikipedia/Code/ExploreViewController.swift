@@ -1776,18 +1776,6 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapLearnMore()
     }
 
-    func logTooltipsDidTapFirstNext() {
-        ImageRecommendationsFunnel.shared.logTooltipDidTapFirstNext()
-    }
-
-    func logTooltipsDidTapSecondNext() {
-        ImageRecommendationsFunnel.shared.logTooltipDidTapSecondNext()
-    }
-
-    func logTooltipsDidTapThirdOK() {
-        ImageRecommendationsFunnel.shared.logTooltipDidTapThirdOk()
-    }
-
     func logBottomSheetDidAppear() {
         ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
     }
