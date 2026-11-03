@@ -41,19 +41,31 @@ final class ShareReadingListCoordinator: Coordinator {
         }
 
         shareTask?.cancel()
+        let sourceViewController = navigationController.topViewController
         shareTask = Task { [weak self, pages] in
+            let result: Result<URL, Error>
             do {
-                let shareURL = try await WMFShareReadingListDataController().fetchShareURL(for: pages, linkProject: linkProject)
-                guard !Task.isCancelled else { return }
-                self?.presentShareSheet(shareURL: shareURL)
+                result = .success(try await WMFShareReadingListDataController().fetchShareURL(for: pages, linkProject: linkProject))
             } catch {
-                guard !Task.isCancelled else { return }
                 DDLogError("Failed to create the share link of a reading list: \(error)")
+                result = .failure(error)
+            }
+            guard !Task.isCancelled, let self, self.isShowing(sourceViewController) else { return }
+
+            switch result {
+            case .success(let shareURL):
+                presentShareSheet(shareURL: shareURL)
+            case .failure(let error):
                 let message = (error as NSError).wmf_isNetworkConnectionError() ? CommonStrings.noInternetConnection : CommonStrings.genericErrorDescription
                 WMFToastPresenter.shared.show(WMFToastConfig(title: message, duration: 5))
             }
         }
         return true
+    }
+
+    /// The reader can leave the screen before the link is ready. Then the share sheet and the error toast do not show.
+    private func isShowing(_ sourceViewController: UIViewController?) -> Bool {
+        sourceViewController != nil && navigationController.topViewController === sourceViewController
     }
 
     private func presentShareSheet(shareURL: URL) {
