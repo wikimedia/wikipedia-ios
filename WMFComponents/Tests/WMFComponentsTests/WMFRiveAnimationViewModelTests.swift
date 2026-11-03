@@ -181,6 +181,35 @@ struct WMFRiveAnimationViewModelTests {
         #expect(bound < file, "the long number must be fitted before the bind")
     }
 
+    /// The templates set the maximum line counts on the instance that has the name of the artboard.
+    /// The default instance has zeros, which keeps the copy to one line.
+    @Test
+    func theStateMachineBindsTheInstanceThatHasTheNameOfTheArtboard() async throws {
+        let data = WMFRiveText(path: "data")
+        let longNumber = "1,234,567,890"
+
+        var boundData: String?
+        var boundMaxLines: Float?
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: WMFRiveAnimation(resourceName: "all_templates", artboardName: "frame1", stateMachineName: "frame1-statemachine"),
+            text: [data: longNumber],
+            loader: { animation, bindings in
+                try await WMFRiveWorkerProvider.makeRive(for: animation) { file, artboard in
+                    let made = await bindings(file, artboard)
+                    boundData = try? await made.main?.value(of: StringProperty(path: data.path))
+                    boundMaxLines = try? await made.main?.value(of: NumberProperty(path: "headlineMaxlines"))
+                    return made
+                }
+            }
+        )
+
+        await viewModel.load()
+
+        #expect(viewModel.loadState.isLoaded)
+        #expect(boundData == longNumber)
+        #expect(try #require(boundMaxLines) > 1)
+    }
+
     @Test
     func aRestartBeforeTheLoadDoesNothing() async {
         var attempts = 0
