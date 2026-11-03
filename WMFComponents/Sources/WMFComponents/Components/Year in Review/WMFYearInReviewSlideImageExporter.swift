@@ -91,8 +91,7 @@ public enum WMFYearInReviewSlideImageExporter {
             animation: animation,
             text: slide.text,
             numbers: slide.numbers,
-            bools: bools,
-            textFits: slide.textFits
+            bools: bools
         )
         if let property = slide.layoutDirection {
             viewModel.update(enums: [property.property: property.value(for: layoutDirection)])
