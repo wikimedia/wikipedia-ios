@@ -101,16 +101,14 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
         #expect(viewModel.lightContentFlag?.path == "isUIWhite")
     }
 
-    /// Same rules as the copy on the slides: both runs are fitted, they shrink together, and never
-    /// below the minimum scale of the slides.
+    /// Same rule as the copy on the slides: only the body is fitted, never below the minimum scale of
+    /// the slides. The .riv scales the title itself.
     @Test
-    func theTitleAndTheBodyAreFittedTogether() {
+    func onlyTheBodyIsFitted() {
         let viewModel = factory.makeViewModel(dataState: .dataRich, readingDayCount: 3, delegate: delegate)
         let fits = viewModel.textFits
 
-        #expect(Set(fits.map(\.text.path)) == ["coverTitle", "bodyCopy"])
-        #expect(Set(fits.compactMap(\.group)).count == 1)
-        #expect(fits.allSatisfy { $0.group != nil })
+        #expect(fits.map(\.text.path) == ["bodyCopy"])
         #expect(fits.allSatisfy { $0.minimumScale == YearInReviewSlideViewModelFactory.copyMinimumScale })
         #expect(fits.allSatisfy { $0.globalViewModelName == "GlobalProperties" })
 

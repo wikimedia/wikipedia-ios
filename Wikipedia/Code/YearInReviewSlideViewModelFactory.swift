@@ -598,7 +598,7 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: RabbitHolePath.headline, bodyText: RabbitHolePath.bodyText)
+            textFits: [Self.bodyCopyFit(RabbitHolePath.bodyText)]
         )
     }
 
@@ -613,7 +613,6 @@ struct YearInReviewSlideViewModelFactory {
                 artboard: "frame3",
                 headline: CommonStrings.yearInReviewCollectiveHoursReadTitle,
                 data: decimalString(config.hoursReadEN),
-                dataFit: Self.collectiveDataNumberFit,
                 bodyText: CommonStrings.yearInReviewCollectiveHoursReadSubtitle(yearCount: config.yearsReadEN)
             ),
             collectiveNumberSlide(
@@ -628,7 +627,6 @@ struct YearInReviewSlideViewModelFactory {
                 artboard: "frame17",
                 headline: CommonStrings.yearInReviewCollectiveArticlesTitle,
                 data: decimalString(config.articles),
-                dataFit: Self.collectiveDataNumberFit,
                 bodyText: CommonStrings.yearInReviewCollectiveArticlesSubtitle
             ),
             collectiveNumberSlide(
@@ -645,7 +643,6 @@ struct YearInReviewSlideViewModelFactory {
                 artboard: "frame16",
                 headline: CommonStrings.yearInReviewCollectiveEditorsTitle,
                 data: decimalString(volunteerEditors),
-                dataFit: Self.collectiveDataNumberFit,
                 bodyText: CommonStrings.yearInReviewCollectiveEditorsSubtitle
             ))
         }
@@ -660,26 +657,13 @@ struct YearInReviewSlideViewModelFactory {
         return slides
     }
 
-    /// The design sets a smaller number on these frames, so long numbers keep the same size.
-    private static let collectiveDataNumberFit = WMFRiveTextFit(
-        text: DataTextPath.data,
-        fontAssetName: "SanSerifFont",
-        maximumWidth: 344,
-        maximumLines: 1,
-        globalViewModelName: "GlobalProperties",
-        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
-        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight"),
-        maximumFontSize: 40
-    )
-
-    private func collectiveNumberSlide(id: String, artboard: String, headline: String, data: String, dataFit: WMFRiveTextFit = Self.dataNumberFit, bodyText: String) -> WMFYearInReviewSlideViewModel {
+    private func collectiveNumberSlide(id: String, artboard: String, headline: String, data: String, bodyText: String) -> WMFYearInReviewSlideViewModel {
         dataSlide(
             id: id,
             artboard: artboard,
             stateMachine: "\(artboard)-statemachine",
             headline: headline,
             data: data,
-            dataFit: dataFit,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(data). \(bodyText)"
         )
@@ -762,32 +746,9 @@ struct YearInReviewSlideViewModelFactory {
         static let bodyCopy = WMFRiveText(path: "bodyCopy")
     }
 
-    /// The title and the body copy grow, so long copy can push the content past the bottom of the
-    /// slide. Same rule as the copy on the other slides.
-    private static let endTextFits: [WMFRiveTextFit] = [
-        WMFRiveTextFit(
-            text: EndTextPath.title,
-            fontAssetName: "SanSerifFont",
-            maximumWidth: copyWidth,
-            maximumLines: 3,
-            minimumScale: copyMinimumScale,
-            group: "copy",
-            globalViewModelName: "GlobalProperties",
-            fontSize: WMFRiveNumber(path: "coverGlyphsFontSize"),
-            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight")
-        ),
-        WMFRiveTextFit(
-            text: EndTextPath.bodyCopy,
-            fontAssetName: "SerifFont",
-            maximumWidth: copyWidth,
-            maximumLines: 6,
-            minimumScale: copyMinimumScale,
-            group: "copy",
-            globalViewModelName: "GlobalProperties",
-            fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
-            lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
-        )
-    ]
+    /// The body copy grows, so long copy can push the content past the bottom of the slide. Same
+    /// rule as the copy on the other slides. The .riv scales the title itself.
+    private static let endTextFits = [bodyCopyFit(EndTextPath.bodyCopy, maximumLines: 6)]
 
     /// "Thank you" for a logged-in reader who edited or donated in the contributor period, with the
     /// donate button in the toolbar. Otherwise "You matter", with a primary donate button below the
@@ -931,7 +892,7 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: ListTextPath.headline, bodyText: ListTextPath.bodyText)
+            textFits: [Self.bodyCopyFit(ListTextPath.bodyText)]
         )
     }
 
@@ -943,19 +904,6 @@ struct YearInReviewSlideViewModelFactory {
         static let data = WMFRiveText(path: "data")
         static let bodyCopy = WMFRiveText(path: "bodyCopy")
     }
-
-    /// The box of the large number does not grow, so a long number wraps on top of the body copy.
-    /// Make the number smaller until it fits on one line. The width is the width of the
-    /// `Data-Numbers` artboard in the templates file.
-    private static let dataNumberFit = WMFRiveTextFit(
-        text: DataTextPath.data,
-        fontAssetName: "SanSerifFont",
-        maximumWidth: 344,
-        maximumLines: 1,
-        globalViewModelName: "GlobalProperties",
-        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
-        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight")
-    )
 
     /// The box of the data text, for example a topic name, does not grow. Make the text smaller
     /// until it fits on one line. The width is the width of the `Data-Text` artboard in the
@@ -974,15 +922,15 @@ struct YearInReviewSlideViewModelFactory {
     /// text field that the frame does not use. The data is shown in capitals, for example
     /// "WEDNESDAY EVENINGS". The headline is shown as written. The accessibility label keeps the
     /// text as written.
-    /// - Parameter dataFit: The fit of `data`. A number uses `dataNumberFit`, and a text uses `dataTextFit`.
-    ///   `nil` leaves `data` as the .riv sizes it.
+    /// - Parameter dataFit: The fit of `data`. `nil` leaves `data` as the .riv sizes it. The .riv
+    ///   scales a number itself.
     private func dataSlide(
         id: String,
         artboard: String,
         stateMachine: String,
         headline: String,
         data: String?,
-        dataFit: WMFRiveTextFit? = Self.dataNumberFit,
+        dataFit: WMFRiveTextFit? = nil,
         bodyText: String,
         images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String
@@ -1004,46 +952,33 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit].compactMap { $0 })
+            textFits: [Self.bodyCopyFit(DataTextPath.bodyCopy)] + (data == nil ? [] : [dataFit].compactMap { $0 })
         )
     }
 
     // MARK: - Text size
 
-    /// The headline and the body copy grow, so long copy can push the content past the bottom of the
-    /// slide. Over these line counts, make both smaller by the same scale, to at most `copyMinimumScale`. The width
-    /// is smaller than the text boxes on any frame, so the line counts are safe.
-    private static func copyFits(headline: WMFRiveText, bodyText: WMFRiveText) -> [WMFRiveTextFit] {
-        [
-            WMFRiveTextFit(
-                text: headline,
-                fontAssetName: "SerifFont",
-                maximumWidth: copyWidth,
-                maximumLines: 3,
-                minimumScale: copyMinimumScale,
-                group: "copy",
-                globalViewModelName: "GlobalProperties",
-                fontSize: WMFRiveNumber(path: "headlineFontSize"),
-                lineHeight: WMFRiveNumber(path: "headlineLineHeight")
-            ),
-            WMFRiveTextFit(
-                text: bodyText,
-                fontAssetName: "SerifFont",
-                maximumWidth: copyWidth,
-                maximumLines: 4,
-                minimumScale: copyMinimumScale,
-                group: "copy",
-                globalViewModelName: "GlobalProperties",
-                fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
-                lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
-            )
-        ]
+    /// The body copy grows, so long copy can push the content past the bottom of the slide. Over
+    /// this line count, make it smaller, to at most `copyMinimumScale`. The width is smaller than the
+    /// text boxes on any frame, so the line count is safe. Since v7 of the templates file, the .riv
+    /// scales the headline, the cover title and the large numbers itself.
+    private static func bodyCopyFit(_ bodyText: WMFRiveText, maximumLines: Int = 4) -> WMFRiveTextFit {
+        WMFRiveTextFit(
+            text: bodyText,
+            fontAssetName: "SerifFont",
+            maximumWidth: copyWidth,
+            maximumLines: maximumLines,
+            minimumScale: copyMinimumScale,
+            globalViewModelName: "GlobalProperties",
+            fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
+            lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
+        )
     }
 
     /// In artboard units. The headline and body boxes are about 296 to 320 wide.
     private static let copyWidth = 290.0
 
-    /// The smallest scale of the headline and the body copy. At 75%, the longest copy that was
+    /// The smallest scale of the body copy. At 75%, the longest copy that was
     /// tested (Russian, October 2026) filled the iPhone SE slide to its bottom edge, so 70% keeps
     /// a margin.
     static let copyMinimumScale = 0.7
