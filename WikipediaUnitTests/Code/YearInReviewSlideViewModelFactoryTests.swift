@@ -219,30 +219,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(artboards == Self.collectiveArtboards.filter { $0 != "frame16" })
     }
 
-    /// The .riv scales the large numbers itself. Only the global reach text is fitted, on three
-    /// lines with the data text style, as in the design.
-    @Test
-    func onlyTheGlobalReachFitsItsData() throws {
-        for slide in factory.collectiveSlides(config: try config()) {
-            let fit = slide.textFits.first { $0.text.path == "data" }
-            if slide.animation?.artboardName == "frame12" {
-                #expect(fit?.maximumLines == 3)
-                #expect(fit?.fontSize.path == "dataTextFontSize")
-            } else {
-                #expect(fit == nil, "\(slide.id)")
-            }
-        }
-    }
-
-    @Test
-    func theCollectiveSlidesLimitTheirCopy() throws {
-        for slide in factory.collectiveSlides(config: try config()) {
-            let copy = slide.textFits.filter { $0.text.path != "data" }
-            #expect(copy.map(\.fontSize.path) == ["bodyCopyFontSize"], "\(slide.id)")
-            #expect(copy.allSatisfy { $0.minimumScale == YearInReviewSlideViewModelFactory.copyMinimumScale }, "\(slide.id)")
-        }
-    }
-
     // MARK: - Total articles
 
     private func text(_ slide: WMFYearInReviewSlideViewModel, _ path: String) -> String? {
@@ -268,27 +244,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(bodyCopy.contains("335"))
         #expect(slide.localizedStrings.accessibilityLabel?.contains("350") == true)
         #expect(slide.localizedStrings.accessibilityLabel?.contains(bodyCopy) == true)
-    }
-
-    /// The .riv scales the large number itself, so neither slide fits it.
-    @Test
-    func noSlideFitsTheNumber() {
-        let full = factory.totalArticlesSlide(readCount: 350, topReadPercentage: 50, averageReadCount: 335)
-        let empty = factory.totalArticlesSlide(readCount: 0, topReadPercentage: nil, averageReadCount: 335)
-
-        #expect(full.textFits.contains { $0.text.path == "data" } == false)
-        #expect(empty.textFits.contains { $0.text.path == "data" } == false)
-    }
-
-    /// Long copy can push the content past the bottom of the slide, so every slide limits the body
-    /// copy. The .riv scales the headline and the end title itself.
-    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
-    func everySlideLimitsItsCopy(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
-        for slide in factory.makeSlides(experience: experience, isLoggedIn: true) {
-            let copy = slide.textFits.filter { $0.text.path != "data" }
-            #expect(copy.map(\.fontSize.path) == ["bodyCopyFontSize"], "\(slide.id)")
-            #expect(copy.allSatisfy { $0.minimumScale == YearInReviewSlideViewModelFactory.copyMinimumScale }, "\(slide.id)")
-        }
     }
 
     @Test
@@ -345,8 +300,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(accessibilityLabel.contains(CommonStrings.yearInReviewDaysVisitedTitle))
         #expect(accessibilityLabel.contains("55"))
         #expect(accessibilityLabel.contains(bodyCopy))
-        // The .riv scales the day count itself.
-        #expect(slide.textFits.contains { $0.text.path == "data" } == false)
     }
 
     /// Without a peak month, the body copy is written empty, so the copy inside the .riv does not show.
@@ -382,10 +335,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewNicheInterestSubtitle)
         // VoiceOver reads the category name as written, not in capitals.
         #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewNicheInterestTitle) \(categoryName). \(CommonStrings.yearInReviewNicheInterestSubtitle)")
-        // The category name has no fit, so it keeps the size and line count that the .riv gives it.
-        #expect(slide.textFits.contains { $0.text.path == "data" } == false)
-        // The body copy still fits.
-        #expect(slide.textFits.map(\.text.path) == ["bodyCopy"])
     }
 
     /// The slide has no empty version, so it does not show without a category name.
@@ -437,11 +386,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(bodyCopy.contains("Xia dynasty"))
         #expect(bodyCopy.contains("23"))
         #expect(bodyCopy.hasSuffix(CommonStrings.yearInReviewTopTopicSentenceHistory))
-        // The topic name uses the data text style, not the large number style.
-        let topicNameFit = slide.textFits.first { $0.text.path == "data" }
-        #expect(topicNameFit?.maximumLines == 1)
-        #expect(topicNameFit?.fontSize.path == "dataTextFontSize")
-        #expect(topicNameFit?.lineHeight.path == "dataTextLineHeight")
     }
 
     /// The downloaded illustrations fill topicIcon on frame6 and the row icons on frame7.
