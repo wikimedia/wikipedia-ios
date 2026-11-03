@@ -1676,6 +1676,7 @@
 "wikimedia-articletopics-topic-tv-and-film" = "Article topic label";
 "wikimedia-articletopics-topic-video-games" = "Article topic label";
 "wikimedia-articletopics-topic-women" = "Article topic label";
+"wikirun-feed-card-title" = "Title for the WikiRun button in the Games card.";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-link-external-preview-description" = "Description for external link preview popup. $1$@ is the external url.";
 "wikitext-preview-link-external-preview-title" = "Title for external link preview popup";

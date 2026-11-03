@@ -853,6 +853,28 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
+    func exploreCardViewControllerDidTapWikiRun(_ exploreCardViewController: ExploreCardViewController) {
+        let wikiRunViewController = WikiRunViewController()
+        // Keep the game on screen behind the article, so back returns to the game-over screen.
+        let gameNavigationController = WMFComponentNavigationController(
+            rootViewController: wikiRunViewController,
+            modalPresentationStyle: .fullScreen
+        )
+        wikiRunViewController.onOpenArticle = { [weak self, weak gameNavigationController] url in
+            guard let self, let gameNavigationController else { return }
+            let articleCoordinator = ArticleCoordinator(
+                navigationController: gameNavigationController,
+                articleURL: url,
+                dataStore: self.dataStore,
+                theme: self.theme,
+                source: .game,
+                tabConfig: .appendArticleAndAssignCurrentTab
+            )
+            articleCoordinator.start()
+        }
+        present(gameNavigationController, animated: true)
+    }
+
     private func pushArticlesViaCoordinators(contentGroup: WMFContentGroup, indexPath: IndexPath) -> Bool {
         // First try pushing articles via coordinators
         if let navigationController,
