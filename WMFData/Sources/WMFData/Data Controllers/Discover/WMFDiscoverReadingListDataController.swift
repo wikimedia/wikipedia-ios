@@ -70,7 +70,8 @@ public actor WMFDiscoverReadingListDataController {
         return storedSettings ?? .default
     }
 
-    /// Persists the settings. Changing the source throws the current list away on the next generation check, like on Android.
+    /// Persists the settings. A new source or a new article count throws the current list away
+    /// on the next generation check, like on Android. A new cadence keeps the current list.
     public func saveSettings(_ newSettings: WMFDiscoverSettings) throws {
         guard let userDefaultsStore else {
             throw DiscoverReadingListError.missingUserDefaultsStore
@@ -79,7 +80,9 @@ public actor WMFDiscoverReadingListDataController {
         let previousSettings = settings
         try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverSettings.rawValue, value: newSettings)
 
-        if previousSettings.source != newSettings.source {
+        let sourceChanged = previousSettings.source != newSettings.source
+        let articleCountChanged = previousSettings.articleCount != newSettings.articleCount
+        if sourceChanged || articleCountChanged {
             try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue, value: true)
         }
     }
@@ -111,7 +114,7 @@ public actor WMFDiscoverReadingListDataController {
         return storedFlag ?? false
     }
 
-    /// True when there is no list yet, the source changed, or the cadence's next date has arrived.
+    /// True when there is no list yet, the source or the article count changed, or the cadence's next date has arrived.
     public func isGenerationDue(now: Date = Date()) async throws -> Bool {
         if needsRegeneration {
             return true
