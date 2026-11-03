@@ -99,7 +99,7 @@ public struct WMFCreateReadingListView: View {
                 .accessibilityRemoveTraits(viewModel.allowsArticleSelection ? [] : .isButton)
                 .accessibilityAddTraits(viewModel.allowsArticleSelection && viewModel.isSelected(rowViewModel.id) ? .isSelected : [])
                 .accessibilityIdentifier(AccessibilityIdentifiers.CreateReadingList.articleRow(rowViewModel.title))
-                .disabled(!viewModel.isInputEnabled)
+                .disabled(!viewModel.isInputEnabled || viewModel.isCreating)
 
                 divider
             }

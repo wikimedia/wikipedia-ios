@@ -224,6 +224,16 @@ final class WMFCreateReadingListViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.articleRows[0].isSelected)
     }
 
+    func testToggleSelectionDoesNothingWhileCreating() {
+        let viewModel = makeDiscoverViewModel()
+        viewModel.isCreating = true
+
+        viewModel.toggleSelection(of: "Cat")
+
+        XCTAssertEqual(viewModel.selectedArticleIDs, ["Cat", "Dog", "Bird"])
+        XCTAssertTrue(viewModel.articleRows[0].isSelected)
+    }
+
     func testNoSelectedArticleDisablesButton() {
         let viewModel = makeDiscoverViewModel()
 

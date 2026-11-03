@@ -133,7 +133,7 @@ public final class WMFCreateReadingListViewModel: ObservableObject {
     }
 
     func toggleSelection(of articleID: String) {
-        guard isInputEnabled, allowsArticleSelection, let rowViewModel = articleRows.first(where: { $0.id == articleID }) else { return }
+        guard isInputEnabled, !isCreating, allowsArticleSelection, let rowViewModel = articleRows.first(where: { $0.id == articleID }) else { return }
         if selectedArticleIDSet.contains(articleID) {
             selectedArticleIDSet.remove(articleID)
         } else {
