@@ -16,6 +16,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     var tappedContinueTodaysGame: (() -> Void)?
     var tappedReviewResults: (() -> Void)?
     var tappedPlayTheArchive: (() -> Void)?
+    var tappedPlayWikiRun: (() -> Void)?
     var sessionFetchTask: Task<Void, Never>?
 
     // Countdown timer for the completed state.
@@ -43,6 +44,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     private let descriptionLabel = UILabel()
     private let button1 = UIButton(type: .system)
     private let button2 = UIButton(type: .system)
+    private let wikiRunButton = UIButton(type: .system)
+    private let wikiRunSeparator = UIView()
 
     // Event rows — shown (possibly transparent) when event data is available
     private let eventRowA = WMFDailyGameEventRowView()
@@ -80,6 +83,15 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         button2.titleLabel?.numberOfLines = 1
         button2.titleLabel?.lineBreakMode = .byTruncatingTail
         addSubview(button2)
+
+        wikiRunSeparator.isUserInteractionEnabled = false
+        addSubview(wikiRunSeparator)
+
+        let wikiRunTitle = WMFLocalizedString("wikirun-feed-card-title", value: "WikiRun", comment: "Title for the WikiRun button in the Games card.")
+        wikiRunButton.setTitle(wikiRunTitle, for: .normal)
+        wikiRunButton.titleLabel?.text = wikiRunTitle
+        wikiRunButton.addTarget(self, action: #selector(didTapWikiRun), for: .touchUpInside)
+        addSubview(wikiRunButton)
 
         configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
     }
@@ -171,6 +183,10 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         tappedPlayTheArchive?()
     }
 
+    @objc private func didTapWikiRun() {
+        tappedPlayWikiRun?()
+    }
+
     // MARK: - Countdown Timer
 
     private func startCountdownTimer() {
@@ -214,6 +230,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         descriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         button1.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: buttonTraitCollection)
         button2.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: buttonTraitCollection)
+        wikiRunButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: buttonTraitCollection)
         eventRowA.updateFonts(with: traitCollection)
         eventRowB.updateFonts(with: traitCollection)
     }
@@ -369,6 +386,22 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             }
         }
 
+        // A rule keeps the WikiRun entry from reading as part of Which Came First.
+        let separatorHeight = 1 / max(traitCollection.displayScale, 1)
+        y += 18
+        if apply {
+            wikiRunSeparator.frame = CGRect(x: layoutMargins.left, y: y, width: availableWidth, height: separatorHeight)
+        }
+        y += separatorHeight + 14
+
+        y = wikiRunButton.wmf_preferredFrame(
+            at: CGPoint(x: layoutMargins.left, y: y),
+            maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+            minimumSize: NoIntrinsicSize,
+            alignedBy: .forceLeftToRight,
+            apply: apply
+        ).maxY
+
         return CGSize(width: size.width, height: y + Self.cardBottomPadding)
     }
     
@@ -393,6 +426,8 @@ extension WMFDailyGameExploreCell: Themeable {
         descriptionLabel.textColor = theme.colors.secondaryText
         button1.tintColor = theme.colors.link
         button2.tintColor = theme.colors.link
+        wikiRunButton.tintColor = theme.colors.link
+        wikiRunSeparator.backgroundColor = theme.colors.border
         eventRowA.apply(theme: theme)
         eventRowB.apply(theme: theme)
         if let lastState {

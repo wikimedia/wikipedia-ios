@@ -1549,6 +1549,9 @@
 		83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
 		83EE476C20D019A100A21F34 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476920D019A100A21F34 /* ExploreViewController.swift */; };
+		D1A2B3C4D5E6000100000001 /* WikiRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6000100000004 /* WikiRunViewController.swift */; };
+		D1A2B3C4D5E6000100000002 /* WikiRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6000100000004 /* WikiRunViewController.swift */; };
+		D1A2B3C4D5E6000100000003 /* WikiRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6000100000004 /* WikiRunViewController.swift */; };
 		83EE477020D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */; };
 		83F1095B23D07E5D003F3E9E /* APIURLComponentsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */; };
 		83F1095F23D09F80003F3E9E /* ArticleViewController+Tooltips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1095E23D09F80003F3E9E /* ArticleViewController+Tooltips.swift */; };
@@ -3590,6 +3593,7 @@
 		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
 		83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikipediaSiteInfo.swift; path = "WMF Framework/WikipediaSiteInfo.swift"; sourceTree = SOURCE_ROOT; };
 		83EE476920D019A100A21F34 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
+		D1A2B3C4D5E6000100000004 /* WikiRunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiRunViewController.swift; sourceTree = "<group>"; };
 		83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLComponentsBuilder.swift; sourceTree = "<group>"; };
 		83F1095E23D09F80003F3E9E /* ArticleViewController+Tooltips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Tooltips.swift"; sourceTree = "<group>"; };
@@ -5191,6 +5195,7 @@
 			isa = PBXGroup;
 			children = (
 				83EE476920D019A100A21F34 /* ExploreViewController.swift */,
+				D1A2B3C4D5E6000100000004 /* WikiRunViewController.swift */,
 				7A49A20021231510005C574C /* CollectionViewFooter.swift */,
 				8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */,
 				83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */,
@@ -9484,6 +9489,7 @@
 				7AC19E452301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift in Sources */,
 				0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */,
+				D1A2B3C4D5E6000100000001 /* WikiRunViewController.swift in Sources */,
 				7A8422532268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				679E6FA62C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */,
 				67C6F7A127E8C7C500B9C864 /* NotificationsCenterCommonViewModel+ActionExtensions.swift in Sources */,
@@ -10575,6 +10581,7 @@
 				7A82765A226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE1206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */,
+				D1A2B3C4D5E6000100000002 /* WikiRunViewController.swift in Sources */,
 				83B01F7D23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				007CCF0E26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
 				7A6ED51320ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
@@ -11116,6 +11123,7 @@
 				7A82765B226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE2206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				83EE476C20D019A100A21F34 /* ExploreViewController.swift in Sources */,
+				D1A2B3C4D5E6000100000003 /* WikiRunViewController.swift in Sources */,
 				83B01F7E23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				007CCF0D26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
 				7A6ED50F20ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
