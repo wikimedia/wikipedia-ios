@@ -1,6 +1,5 @@
 #import <WMF/WMF-Swift.h>
 #import <WMF/WMFCrossProcessCoreDataSynchronizer.h>
-#import "WMFAnnouncement.h"
 
 @import CoreData;
 @import WMFData;
