@@ -389,6 +389,9 @@
 "discover-settings-source-alert-message" = "If you adjust how Discover generates recommendations, your current recommendations will be replaced.";
 "discover-settings-source-alert-never-mind" = "Never mind";
 "discover-settings-source-alert-title" = "Adjust how Discover is built?";
+"discover-settings-source-changed-toast-history" = "Your recommendations are now based on your reading history.";
+"discover-settings-source-changed-toast-interests" = "Your recommendations are now based on your interests.";
+"discover-settings-source-changed-toast-saved" = "Your recommendations are now based on your saved articles.";
 "discover-settings-source-history" = "Based on your reading history";
 "discover-settings-source-interests" = "Based on your interests";
 "discover-settings-source-saved" = "Based on your saved articles";
