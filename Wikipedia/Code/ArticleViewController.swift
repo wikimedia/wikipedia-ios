@@ -1679,7 +1679,14 @@ extension ArticleViewController {
 
 extension ArticleViewController: ReadingThemesControlsResponding {
     func updateWebViewTextSize(textSize: Int) {
-        messagingController.updateTextSizeAdjustmentPercentage(textSize)
+        let userInfo = [
+            FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: textSize
+        ]
+        NotificationCenter.default.post(
+            name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification),
+            object: nil,
+            userInfo: userInfo
+        )
     }
 
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
