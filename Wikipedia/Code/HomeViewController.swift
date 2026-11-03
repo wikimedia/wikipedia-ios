@@ -238,10 +238,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private func shareForYouArticle(_ article: WMFForYouArticleCardViewModel) {
         guard let articleURL = Self.articleURL(for: article) else { return }
         let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            activityVC.popoverPresentationController?.sourceView = view
-            activityVC.popoverPresentationController?.sourceRect = view.bounds
-        }
+        activityVC.popoverPresentationController?.sourceView = view
+        activityVC.popoverPresentationController?.sourceRect = view.bounds
         present(activityVC, animated: true)
     }
     

@@ -6,7 +6,7 @@ struct WMFInterestArticleGridView: View {
     let viewModels: [WMFInterestArticleCardViewModel]
     let theme: WMFTheme
     /// Viewport (not content) size, used to pick the column count the way the article tabs
-    /// grid does — more columns on iPad and in landscape.
+    /// grid does — more columns in wide windows and in landscape.
     let viewportSize: CGSize
     let onTap: (WMFInterestArticleCardViewModel) -> Void
 
@@ -15,7 +15,7 @@ struct WMFInterestArticleGridView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var columnCount: Int {
-        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize, idiom: UIDevice.current.userInterfaceIdiom)
+        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize)
     }
 
     /// Distributes cards into `columnCount` masonry columns, each card going to the currently
