@@ -104,7 +104,6 @@ final class WMFInterestsPersistenceRoundTripTests {
                 return interests.isEmpty
             }
         }
-        }
     }
 
     @Test
