@@ -90,6 +90,27 @@ final class CreateReadingListCoordinatorTests: XCTestCase {
     }
 
     @MainActor
+    func testNameValidationAcceptsAnUnbalancedRegexCharacterInTheName() throws {
+        let validation = CreateReadingListCoordinator.nameValidation(dataStore: dataStore)
+
+        XCTAssertNil(validation("Trips (2026"))
+        XCTAssertNil(validation("[Draft"))
+
+        _ = try dataStore.readingListsController.createReadingList(named: "Trips (2026", description: nil)
+
+        XCTAssertEqual(validation("Trips (2026"), ReadingListError.listExistsWithTheSameName.localizedDescription)
+    }
+
+    @MainActor
+    func testNameValidationComparesTheNameAsText() throws {
+        _ = try dataStore.readingListsController.createReadingList(named: "Trips (2026)", description: nil)
+        let validation = CreateReadingListCoordinator.nameValidation(dataStore: dataStore)
+
+        XCTAssertEqual(validation("Trips (2026)"), ReadingListError.listExistsWithTheSameName.localizedDescription)
+        XCTAssertNil(validation("Trips 2026"), "A name that only matches as a regex is a different list.")
+    }
+
+    @MainActor
     func testNameValidationWithoutDataStoreAcceptsAnyName() {
         let validation = CreateReadingListCoordinator.nameValidation(dataStore: nil)
 
