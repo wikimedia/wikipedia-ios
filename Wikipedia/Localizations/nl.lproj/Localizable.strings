@@ -405,6 +405,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltik om automatische maandelijkse donaties van dit bedrag in te schakelen.";
 "donate-accessibility-textfield-hint" = "Voer een aangepast bedrag in om te doneren.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltik om de transactiekosten toe te voegen aan het donatiebedrag.";
+// Fuzzy
 "donate-already-donated" = "Bedankt, beste donateur! Door uw vrijgevingheid kunnen Wikipedia en andere projecten voor vrije kennis blijven floreren.";
 "donate-apple-fine-print" = "Apple is niet verantwoordelijk voor het inzamelen van geld voor dit doel.";
 "donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag mij af en toe een e-mail sturen.";
@@ -1783,6 +1784,7 @@
 "year-in-review-2026-games-card-subtitle" = "Test uw Wikipedia-brein met snelle spellen die zijn geïnspireerd op de kennis van de wereld.";
 "year-in-review-2026-games-card-title" = "Klaar voor een nieuwe uitdaging?";
 "year-in-review-2026-highlights-articles-read" = "Aantal gelezen artikelen:";
+// Fuzzy
 "year-in-review-2026-highlights-created-with" = "Gemaakt met de Wikipedia-app";
 "year-in-review-2026-highlights-minutes-read" = "Totaal aantal gelezen minuten:";
 "year-in-review-2026-highlights-niche-category" = "Verkende nichecategorie:";

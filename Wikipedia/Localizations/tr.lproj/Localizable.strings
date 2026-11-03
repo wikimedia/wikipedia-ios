@@ -37,6 +37,7 @@
 // Author: Nyxomnis
 // Author: Pedian4169
 // Author: Rapsar
+// Author: Rumixist
 // Author: Sadrettin
 // Author: SaldırganSincap
 // Author: Sayginer
@@ -373,6 +374,7 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
 "diff-user-button-accessibility-text" = "Menüyü açmak için iki kez dokunun";
 "dim-images" = "Resimleri karart";
+"discover-announcement-new-tag" = "Yeni";
 "donate-accessibility-amount-button-hint" = "Bağış tutarını seçmek için iki kez dokunun.";
 "donate-accessibility-donate-hint-format" = "Wikimedia Vakfı'na $1 bağışlamak için iki kez dokunun.";
 "donate-accessibility-email-opt-in-hint" = "Wikimedia Vakfı'nın size e-posta göndermesine izin vermek için iki kez dokunun.";
@@ -380,6 +382,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu tutarda otomatik aylık bağış etkinleştirmek için iki kez dokunun.";
 "donate-accessibility-textfield-hint" = "Bağış yapmak için özel tutarı girin.";
 "donate-accessibility-transaction-fee-hint" = "Bağış tutarına işlem ücreti eklemek için iki kez dokunun.";
+// Fuzzy
 "donate-already-donated" = "Teşekkürler sevgili bağışçı! Cömertliğiniz Vikipedi'nin ve diğer özgür bilgi projelerinin gelişmesine yardımcı oluyor.";
 "donate-apple-fine-print" = "Apple bu amaç için para toplamakla yükümlü değildir.";
 "donate-email-opt-in-text" = "Evet, Wikimedia Vakfı bana ara sıra e-posta gönderebilir.";
@@ -646,6 +649,7 @@
 "find-replace-header" = "Bul ve değiştir";
 "find-replace-header-close-accessibility" = "Kapat ve değiştir";
 "find-textfield-accessibility" = "Bul";
+"for-you-error-retry" = "Yeniden dene";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
 "forgot-password-instructions" = "Parola sıfırlama talimatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
@@ -667,6 +671,7 @@
 "history-clear-delete-all" = "Evet, tümünü sil";
 "history-title" = "Geçmiş";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
+"home-card-more-options-accessibility-label" = "Daha fazla seçenek";
 "home-community-tab-title" = "Topluluk";
 "home-edit-languages-title" = "Dil ekleyin veya düzenleyin";
 "home-feed-for-you-based-on-interests-subtitle" = "Seçtiğiniz konulara uygun maddeler.";
@@ -676,6 +681,7 @@
 "home-feed-for-you-continue-reading-subtitle" = "Bitirmediğiniz maddelere geri dönün";
 "home-feed-for-you-settings-header" = "Bir modülü devre dışı bırakmak, onu \"Size özel\" akışından gizler. Bu modülü istediğiniz zaman buradan yeniden etkinleştirebilirsiniz.";
 "home-feed-for-you-settings-title" = "Modüller";
+"home-feed-interests-deselect-all" = "Tüm seçimleri kaldır";
 "home-feed-interests-settings-empty-message" = "İlgi alanlarınız burada gösterilecektir.";
 "home-feed-interests-settings-title" = "İlgi alanlarınız";
 "home-feed-modules-featured-article-subtitle" = "Seçkin maddeler, editörler tarafından günlük olarak seçilen Vikipedi'nin en kaliteli maddeleridir";
@@ -706,12 +712,16 @@
 "home-feed-whats-driving-settings-title" = "Akışınızı ne belirliyor";
 "home-feed-whats-driving-your-interests-subtitle" = "İlgi alanı konularınızı düzenleyin";
 "home-feed-whats-driving-your-interests-title" = "İlgi alanlarınız";
+"home-for-you-next-module-accessibility-action" = "Sonraki parça";
+"home-for-you-previous-module-accessibility-action" = "Önceki parça";
 "home-for-you-tab-title" = "Size özel";
+"home-menu-hide-module" = "Parçayı gizle";
 "home-more-like-footer" = "$1 benzeri daha fazla madde";
 "home-nearby-footer" = "Konumunuza yakın daha fazla yer";
 "home-nearby-location-footer" = "$1 yakınından daha fazla";
 "home-news-footer" = "Gündemden daha fazla olay";
 "home-tab-title" = "Anasayfa";
+"home-tab-title-accessibility-label" = "Vikipedi, Ana Sayfanın başına kaydırın";
 "home-themes-action-title" = "Tercihleri yönet";
 "home-themes-prompt" = "Yazı araç çubuğundan veya kullanıcı ayarlarınızdan metin boyutu ve teması da dahil olmak üzere Okuma tercihlerinizi daha rahat bir okuma deneyimi için ayarlayın.";
 "home-title" = "Keşfet";
@@ -988,6 +998,8 @@
 "on-this-day-no-internet-error" = "Veri yok";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
+"one-time-onboarding-feature-control-title" = "İpleri elinde tut";
+"one-time-onboarding-feature-name-title" = "Yeni bir ad";
 "open-article" = "Maddeyi aç";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
 "page-history-bot-edits" = "bot";
@@ -1077,6 +1089,7 @@
 "project-name-wikiversity" = "Vikiversite";
 "project-name-wikivoyage" = "Vikigezgin";
 "project-name-wiktionary" = "Vikisözlük";
+"reading-challenge-random-article-button" = "Rastgele madde";
 "reading-challenge-random-button" = "Rastgele";
 "reading-list-add-generic-hint-title" = "Bu makaleyi bir okuma listesine eklemek istediğinize emin misiniz?";
 "reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";

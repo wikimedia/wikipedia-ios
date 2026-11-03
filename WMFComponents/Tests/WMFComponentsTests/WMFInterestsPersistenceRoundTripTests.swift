@@ -18,12 +18,14 @@ final class WMFInterestsPersistenceRoundTripTests {
         WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
     }
 
-    private func waitFor(timeout: TimeInterval = 10, _ condition: @escaping () -> Bool) async throws {
+    private func waitFor(timeout: TimeInterval = 10, _ condition: @escaping () async -> Bool) async throws {
         let deadline = Date().addingTimeInterval(timeout)
-        while !condition() && Date() < deadline {
+        var isMet = await condition()
+        while !isMet && Date() < deadline {
             try await Task.sleep(nanoseconds: 50_000_000)
+            isMet = await condition()
         }
-        #expect(condition(), "Condition not met within \(timeout)s")
+        #expect(isMet, "Condition not met within \(timeout)s")
     }
 
     @Test
@@ -42,7 +44,7 @@ final class WMFInterestsPersistenceRoundTripTests {
 
             // Give the save Task time to persist
             try await waitFor {
-                let interests = (try? self.syncFetch(pageInterest)) ?? []
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return !interests.isEmpty
             }
 
@@ -76,7 +78,7 @@ final class WMFInterestsPersistenceRoundTripTests {
 
             let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
             try await waitFor {
-                let interests = (try? self.syncFetch(pageInterest)) ?? []
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return interests.contains { $0.title == "Marie_Curie" }
             }
         }
@@ -97,24 +99,12 @@ final class WMFInterestsPersistenceRoundTripTests {
             #expect(vm.addSearchResult(result))
 
             try await waitFor {
-                let interests = (try? self.syncFetch(pageInterest)) ?? []
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return !interests.isEmpty
             }
 
-            let interests = try self.syncFetch(pageInterest)
+            let interests = try await pageInterest.fetchPageInterests(project: project)
             #expect(interests.map { $0.title } == ["The_Macomber_Affair"])
         }
-    }
-
-    private nonisolated func syncFetch(_ controller: WMFPageInterestDataController) throws -> [WMFPageInterest] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var result: [WMFPageInterest] = []
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
-        Task {
-            result = (try? await controller.fetchPageInterests(project: project)) ?? []
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
     }
 }

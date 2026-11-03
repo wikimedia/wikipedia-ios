@@ -373,6 +373,12 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|Neupravený $1 riadok|Neupravené $1 riadky|Neupravených $1 riadkov}}";
 "diff-user-button-accessibility-text" = "Dvojitým ťuknutím otvoríte ponuku";
 "dim-images" = "Stmavenie obrázkov";
+"discover-announcement-body" = "Váš týždenný zoznam na čítanie s článkami Wikipédie, zostavený práve pre vás.";
+"discover-announcement-get-started" = "Začať";
+"discover-announcement-new-tag" = "Nové";
+"discover-announcement-no-thanks" = "Nie, ďakujem";
+"discover-announcement-no-thanks-toast" = "Ak si chcete odporúčaný zoznam na čítanie nastaviť neskôr, prejdite do Nastavení.";
+"discover-announcement-title" = "Objavujte články vybrané pre vás";
 "donate-accessibility-amount-button-hint" = "Dvojitým ťuknutím vyberiete výšku daru.";
 "donate-accessibility-donate-hint-format" = "Dvojitým ťuknutím darujete $1 nadácii Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Dvojitým ťuknutím udelíte nadácii Wikimedia Foundation povolenie posielať vám e-maily.";
@@ -380,6 +386,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dvojitým ťuknutím zapnete automatické mesačné dary v tejto výške.";
 "donate-accessibility-textfield-hint" = "Zadajte vlastnú sumu daru.";
 "donate-accessibility-transaction-fee-hint" = "Dvojitým ťuknutím pridáte k výške daru transakčný poplatok.";
+// Fuzzy
 "donate-already-donated" = "Ďakujeme vám, milý darca! Vaša štedrosť pomáha, aby Wikipédia a ďalšie projekty slobodných vedomostí prosperovali.";
 "donate-apple-fine-print" = "Apple nie je zodpovedný za získavanie prostriedkov na tento účel.";
 "donate-email-opt-in-text" = "Áno, nadácia Wikimedia Foundation mi môže občas poslať e-mail.";
@@ -1736,6 +1743,7 @@
 "year-in-review-2026-collective-hours-read-title" = "Hodiny, ktoré sme v roku 2026 strávili čítaním Wikipédie:";
 "year-in-review-2026-collective-intro-subtitle" = "Tentoraz nebolo dosť aktivity na vytvorenie vášho vlastného Roka v skratke, no stále môžete preskúmať, čo svet objavil spoločne.";
 "year-in-review-2026-collective-intro-title" = "Náš Rok v skratke je tu";
+"year-in-review-2026-collective-languages-data" = "$1+";
 "year-in-review-2026-collective-languages-subtitle" = "Wikipédiu píšu a udržiavajú dobrovoľnícke komunity z celého sveta – dôkaz, že ľudské poznanie hovorí oveľa viac ako jedným jazykom.";
 "year-in-review-2026-collective-languages-title" = "Jazyky, v ktorých je Wikipédia dostupná:";
 "year-in-review-2026-collective-saved-articles-subtitle" = "Čitatelia si uložili tisíce a tisíce článkov, aby si ich prečítali prvý, tretí či stý raz.";
@@ -1758,6 +1766,7 @@
 "year-in-review-2026-games-card-subtitle" = "Otestujte svoj wikipédiový mozog v rýchlych hrách inšpirovaných poznaním sveta.";
 "year-in-review-2026-games-card-title" = "Ste pripravení na ďalšiu výzvu?";
 "year-in-review-2026-highlights-articles-read" = "Počet prečítaných článkov:";
+// Fuzzy
 "year-in-review-2026-highlights-created-with" = "Vytvorené v aplikácii Wikipédia";
 "year-in-review-2026-highlights-minutes-read" = "Celkový počet minút čítania:";
 "year-in-review-2026-highlights-niche-category" = "Preskúmaná špecifická kategória:";

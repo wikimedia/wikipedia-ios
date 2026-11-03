@@ -367,7 +367,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         searchTabViewController.apply(theme: theme)
 
         if let savedTabBarItem = savedViewController.tabBarItem {
-            savedTabBadgeController = SavedTabBadgeController(tabBarItem: savedTabBarItem, tabBar: tabBar, theme: theme)
+            savedTabBadgeController = SavedTabBadgeController(
+                tabBarItem: savedTabBarItem,
+                tabBar: tabBar,
+                theme: theme,
+                userInterfaceIdiom: traitCollection.userInterfaceIdiom
+            )
         }
 
         updateActivityTabYearInReviewBadge()
@@ -1482,11 +1487,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         
         guard let _savedArticlesFetcher else {
             let fetcher = SavedArticlesFetcher(dataStore: dataStore)
+            // The initial KVO callback reads this property, so set it before the observer starts.
+            _savedArticlesFetcher = fetcher
             fetcher?.addObserver(self,
                                 forKeyPath: #keyPath(SavedArticlesFetcher.progress),
                                 options: [.initial, .new, .old],
                                 context: &kvoSavedArticlesFetcherProgress)
-            _savedArticlesFetcher = fetcher
             return fetcher
         }
         

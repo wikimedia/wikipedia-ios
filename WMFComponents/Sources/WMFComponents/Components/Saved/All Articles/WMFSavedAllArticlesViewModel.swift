@@ -43,6 +43,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     public weak var loggingDelegate: WMFSavedAllArticlesLoggingDelegate?
     
     private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
+    private var loadTask: Task<Void, Never>?
     
     // MARK: - Closures
     
@@ -62,6 +63,10 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     public init(dataController: WMFLegacyReadingListsDataController) {
         self.dataController = dataController
         setupSearchBinding()
+    }
+
+    deinit {
+        loadTask?.cancel()
     }
     
     private func bindAnnouncement() {
@@ -88,18 +93,18 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     // MARK: - Public Methods
     
     public func loadArticles() {
-        
-        // prevent duplicate loading
-        guard state != .loading else {
-            return
-        }
-        
-        Task {
+        loadTask?.cancel()
+        loadTask = Task { [weak self] in
+            guard let self else { return }
             let fetchedArticles = (try? await dataController.fetchSavedArticles()) ?? []
-            self.sortOrder = (try? await dataController.savedArticlesSortOrder()) ?? .byRecentlyAdded
+            let sortOrder = (try? await dataController.savedArticlesSortOrder()) ?? .byRecentlyAdded
+            let isSyncPending = fetchedArticles.isEmpty ? await dataController.isInitialSyncPending() : false
+            guard !Task.isCancelled else { return }
+
+            self.sortOrder = sortOrder
             self.articles = fetchedArticles
             self.filterArticles(with: self.searchText)
-            self.state = fetchedArticles.isEmpty ? .empty : .data
+            self.state = fetchedArticles.isEmpty ? (isSyncPending ? .loading : .empty) : .data
         }
     }
     

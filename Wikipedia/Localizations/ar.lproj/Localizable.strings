@@ -379,6 +379,7 @@
 "donate-accessibility-monthly-recurring-hint" = "انقر نقرًا مزدوجًا لتفعيل التبرعات الشهرية التلقائية بهذا المبلغ.";
 "donate-accessibility-textfield-hint" = "أدخل المبلغ المخصص للتبرع به.";
 "donate-accessibility-transaction-fee-hint" = "انقر مرتين لإضافة رسوم المعاملة إلى مبلغ التبرع.";
+// Fuzzy
 "donate-already-donated" = "شكراً لك أيها المتبرع الكريم! إن كرمك يساعد في استمرار ازدهار ويكيبيديا ومشاريعها المعرفية الحرة الأخرى.";
 "donate-apple-fine-print" = "شركة أبل ليست مسؤولة عن جمع الأموال لهذا الغرض.";
 "donate-email-opt-in-text" = "نعم، يمكن لمؤسسة ويكيميديا أن ترسل لي بريدًا إلكترونيًا من حين لآخر.";
@@ -1190,7 +1191,6 @@
 "search-semantic-entry-point-description" = "ابحث داخل المقالات وانتقل مباشرةً إلى المقطع ذي الصلة";
 "search-semantic-entry-point-hidden-toast-modify" = "تعديل";
 "search-semantic-entry-point-hidden-toast-subtitle" = "يمكنك إظهارها مرة أخرى من خلال الإعدادات";
-// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "الوحدة مخفية";
 "search-semantic-entry-point-hide-accessibility-label" = "إخفاء البحث داخل المقالات";
 "search-semantic-entry-point-info-accessibility-label" = "حول البحث داخل المقالات";

@@ -400,6 +400,7 @@
 "donate-accessibility-monthly-recurring-hint" = "輕觸兩次來啟用每月自動捐贈此金額。";
 "donate-accessibility-textfield-hint" = "輸入自訂捐款金額。";
 "donate-accessibility-transaction-fee-hint" = "輕觸兩次來添加交易手續費到捐款金額。";
+// Fuzzy
 "donate-already-donated" = "感謝您，親愛的捐款者！您的慷慨贊助會幫助維基百科與其他自由知識專案網站蓬勃發展。";
 "donate-apple-fine-print" = "Apple 未對此目的負責籌集資金。";
 "donate-email-opt-in-text" = "是的，維基媒體基金會可以臨時對我發送電子郵件。";

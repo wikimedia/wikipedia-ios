@@ -308,6 +308,7 @@
 "donate-accessibility-monthly-recurring-hint" = "N’apsahuttamal kahteči otat käyttöh joga kuudu ruattavan lahjoituksen täl summal.";
 "donate-accessibility-textfield-hint" = "Työnnä sobivutettu lahjoitussummu.";
 "donate-accessibility-transaction-fee-hint" = "Ližiä tapahtuman kaččelendumakso lahjoitussummah n’apsahuttamal kahteči.";
+// Fuzzy
 "donate-already-donated" = "Passibo lahjoitukses! Avvutat Wikipediedy da sen vällän tiijonsuandan projektoi menemäh hyvin olemal rahmannoi.";
 "donate-apple-fine-print" = "Apple ei vastua dengankerävös täh tarkoitukseh.";
 "donate-email-opt-in-text" = "Da, Wikimedii-fondu suau toiči työndiä ičelleni sähköpoštua.";

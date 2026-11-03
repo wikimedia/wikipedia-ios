@@ -364,6 +364,12 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 неуреден ред|$1 неуредени реда}}";
 "diff-user-button-accessibility-text" = "Допрете двапати за да го отворите менито";
 "dim-images" = "Пригушени слики";
+"discover-announcement-body" = "Вашиот неделен список за читање на википедиски статии, подготвен токму за вас.";
+"discover-announcement-get-started" = "Започнете";
+"discover-announcement-new-tag" = "Ново";
+"discover-announcement-no-thanks" = "Не, благодарам";
+"discover-announcement-no-thanks-toast" = "За да го поставите вашиот препорачан список за читање подоцна, одете на Поставки.";
+"discover-announcement-title" = "Откријте статии избрани токму за вас";
 "donate-accessibility-amount-button-hint" = "Допрете двапати за да изберете износ за дарување.";
 "donate-accessibility-donate-hint-format" = "Допрете двапати за да дарувате $1 на Фондацијата Викимедија.";
 "donate-accessibility-email-opt-in-hint" = "Допрете двапати за да ѝ дозволите на Фондацијата Викимедија да ви испраќа е-пошта.";
@@ -371,6 +377,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Допрете двапати за да овозможите автоматско месечно дарување во овој износ.";
 "donate-accessibility-textfield-hint" = "Внесете износ за дарување по ваш избор.";
 "donate-accessibility-transaction-fee-hint" = "Допрете двапати за да додадете трансакциска провизија во износот на дарот.";
+// Fuzzy
 "donate-already-donated" = "Ви благодариме, драг дарителу! Википедија и другите нејзини проекти за слободно знаење напредуваат благодарение на вашата великодушност.";
 "donate-apple-fine-print" = "Apple не е задолжен за собирање пари за оваа цел.";
 "donate-email-opt-in-text" = "Да, Фондацијата Викимедија може повремено да ми испраќа е-пошта.";
@@ -1290,21 +1297,20 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-semantic-entry-point-accessibility-hint" = "Пребарува во статии за вашето побарување";
-// Fuzzy
 "search-semantic-entry-point-description" = "Пребарајте во статии и веднаш прејдете на релевантната страница";
 "search-semantic-entry-point-hidden-toast-modify" = "Измени";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-subtitle" = "Можете пак да го направите видливо преку Поставките.";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-title" = "Модулот е скриен.";
+"search-semantic-entry-point-hidden-toast-subtitle" = "Можете пак да го направите видливо преку Поставките";
+"search-semantic-entry-point-hidden-toast-title" = "Модулот е скриен";
 "search-semantic-entry-point-hide-accessibility-label" = "Скриј пребарување во статии";
 "search-semantic-entry-point-info-accessibility-label" = "За пребарувањето во статии";
 "search-semantic-entry-point-try-it-now" = "Пробајте сега";
+"search-semantic-info-sources" = "Пасусите се добиваат од статии што луѓето ги истражувале, напишале и уредувале, секоја поткрепена со наведени извори што можете да ги проверите.";
+"search-semantic-info-summary" = "Пронајдете одговори на вашите прашања во статиите на Википедија и прејдете право на релевантниот пасус.";
+"search-semantic-info-title" = "Каква е оваа функција?";
 "search-semantic-results-contributors" = "{{PLURAL:$1|$1 учесник|$1 учесници}}";
 "search-semantic-results-empty-title" = "Ова пребарување не даде ништо";
 "search-semantic-results-error-subtitle" = "Обидете се подоцна.";
 "search-semantic-results-error-title" = "Нешто не е во ред";
-// Fuzzy
 "search-semantic-results-last-updated" = "Последна поднова $1";
 "search-semantic-results-rate-limited-subtitle" = "Почекајте малку, па обидете се пак.";
 "search-semantic-results-rate-limited-title" = "Премногу пребарувања";
@@ -1728,6 +1734,7 @@
 "year-in-review-2026-collective-hours-read-title" = "Часови поминати во читање на Википедија во 2026 година:";
 "year-in-review-2026-collective-intro-subtitle" = "Овојпат немаше доволно активност за д асе создаде ваш Преглед на годината, но сепак можете да истражите што заедно открил светот.";
 "year-in-review-2026-collective-intro-title" = "Пристигна нашиот Преглед на годината";
+"year-in-review-2026-collective-languages-data" = "$1+";
 "year-in-review-2026-collective-languages-subtitle" = "Википедија се пишува и одржува од доброволни заедници од целиот свет — доказ дека човековото знаење говори многу повеќе од еден јазик.";
 "year-in-review-2026-collective-languages-title" = "Јазици на кои е достапна Википедија:";
 "year-in-review-2026-collective-saved-articles-subtitle" = "Читателите обележиле илјадници и илјадници статии за да ги читат по прв, трет или стоти пат.";
@@ -1750,6 +1757,7 @@
 "year-in-review-2026-games-card-subtitle" = "Проверете го вашето знаење стекнато на Википедија низ брзите игри поттикнати од светското знаење.";
 "year-in-review-2026-games-card-title" = "Подготвени за друг предизвик?";
 "year-in-review-2026-highlights-articles-read" = "Број на прочитани статии:";
+// Fuzzy
 "year-in-review-2026-highlights-created-with" = "Направено со прилогот на Википедија";
 "year-in-review-2026-highlights-minutes-read" = "Вкупно минути проведени во читање:";
 "year-in-review-2026-highlights-niche-category" = "Посебно истражена категорија:";

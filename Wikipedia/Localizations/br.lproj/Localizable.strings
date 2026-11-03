@@ -371,6 +371,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Stokit div wech evit gweredekaat donezonoù miziek emgefre eus ar sammad-se.";
 "donate-accessibility-textfield-hint" = "Skrivit ar sammad personelaet da zonezonañ";
 "donate-accessibility-transaction-fee-hint" = "Stokit div wech evit ouzhpennañ mizoù an treuzgread da sammad an donezon.";
+// Fuzzy
 "donate-already-donated" = "Trugarez deoc'h, donezoner(ez) ker ! A-drugarez d'ho prokusted e kendalc'h Wikipedia ha raktresoù gouiziegezh frank all da vleuniañ.";
 "donate-apple-fine-print" = "N'emañ ket gant Apple an emell da sevel arc'hant evit ar pal-mañ.";
 "donate-email-opt-in-text" = "Ya, gallout a ra ar Fondezon Wikimedia kas ur postel din bep ur mare.";
@@ -1751,6 +1752,7 @@
 "year-in-review-2026-games-card-subtitle" = "Amprouit ho empenn Wikipedia gant kwizoù berr awenet gant gouiziezh ar bed.";
 "year-in-review-2026-games-card-title" = "Prest evit un dae all ?";
 "year-in-review-2026-highlights-articles-read" = "Niver a bennadoù lennet :";
+// Fuzzy
 "year-in-review-2026-highlights-created-with" = "Krouet dre an arload Wikipedia";
 "year-in-review-2026-highlights-minutes-read" = "Hollad ar munutennoù tremenet o lenn :";
 "year-in-review-2026-highlights-niche-category" = "Rummad dibar furchet :";

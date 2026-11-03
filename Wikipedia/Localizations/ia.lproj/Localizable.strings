@@ -325,6 +325,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca duo vices pro activar donationes automatic mensual in iste amonta.";
 "donate-accessibility-textfield-hint" = "Inserer un amonta personalisate a donar.";
 "donate-accessibility-transaction-fee-hint" = "Tocca duo vices pro adder le costo del transaction al amonta del donation.";
+// Fuzzy
 "donate-already-donated" = "Gratias, car donator! Tu generositate adjuta Wikipedia e altere projectos associate de cognoscentia libere a prosperar.";
 "donate-apple-fine-print" = "Apple non es responsabile pro le collecta de fundos a iste fin.";
 "donate-email-opt-in-text" = "Si, le Fundation Wikimedia pote inviar me un message de e-mail occasional.";

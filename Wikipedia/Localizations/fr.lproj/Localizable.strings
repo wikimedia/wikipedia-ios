@@ -418,6 +418,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Double-cliquez pour activer les dons mensuels automatiques de ce montant.";
 "donate-accessibility-textfield-hint" = "Saisissez le montant personnalisé à donner.";
 "donate-accessibility-transaction-fee-hint" = "Double-appuyez pour ajouter des frais de transaction au montant du don.";
+// Fuzzy
 "donate-already-donated" = "Merci, cher donneur ! Votre générosité aide à faire prospérer Wikipédia et ses autres projets de connaissances gratuites.";
 "donate-apple-fine-print" = "Apple n'est pas responsable de la collecte de fonds à cet effet.";
 "donate-email-opt-in-text" = "Oui, la Fondation Wikimedia peut m'envoyer un courriel de temps en temps.";
@@ -1245,12 +1246,9 @@
 "search-recent-title" = "Récemment recherché";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "search-semantic-entry-point-accessibility-hint" = "Recherche de vos requêtes dans les articles";
-// Fuzzy
 "search-semantic-entry-point-description" = "Posez votre question et trouvez la réponse, provenant directement d’articles.";
 "search-semantic-entry-point-hidden-toast-modify" = "Modifier";
-// Fuzzy
 "search-semantic-entry-point-hidden-toast-subtitle" = "Vous pouvez le rendre de nouveau visible dans les paramètres";
-// Fuzzy
 "search-semantic-entry-point-hidden-toast-title" = "Module masqué";
 "search-semantic-entry-point-hide-accessibility-label" = "Masquer la recherche dans les articles";
 "search-semantic-entry-point-info-accessibility-label" = "À propos de la recherche dans les articles";
@@ -1262,7 +1260,6 @@
 "search-semantic-results-empty-title" = "Aucun résultat pour cette recherche";
 "search-semantic-results-error-subtitle" = "Réessayer";
 "search-semantic-results-error-title" = "Quelque chose s’est mal passé";
-// Fuzzy
 "search-semantic-results-last-updated" = "Dernière mise à jour $1";
 "search-semantic-results-rate-limited-subtitle" = "Patientez un instant, puis réessayez.";
 "search-semantic-results-rate-limited-title" = "Trop de recherches";
