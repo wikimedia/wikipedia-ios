@@ -74,9 +74,13 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
         )
     }
 
+    /// Turning off also throws the current list away, so the switch does not go through `update`.
     public func confirmTurnOff() {
         isShowingTurnOffAlert = false
-        update { $0.isEnabled = false }
+        settings.isEnabled = false
+        enqueue { dataController in
+            try await dataController.turnOff()
+        }
         WMFToastPresenter.shared.show(WMFToastConfig(title: Self.turnedOffToastTitle, duration: 5))
     }
 
@@ -183,12 +187,18 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
         save(newSettings)
     }
 
-    /// The saves run one after the other, so fast taps on the stepper reach the store in order.
     private func save(_ newSettings: WMFDiscoverSettings) {
+        enqueue { dataController in
+            try await dataController.saveSettings(newSettings)
+        }
+    }
+
+    /// The saves run one after the other, so fast taps on the stepper reach the store in order.
+    private func enqueue(_ operation: @escaping @Sendable (WMFDiscoverReadingListDataController) async throws -> Void) {
         let previousSaveTask = saveTask
         saveTask = Task { [dataController] in
             await previousSaveTask?.value
-            try? await dataController.saveSettings(newSettings)
+            try? await operation(dataController)
         }
     }
 
