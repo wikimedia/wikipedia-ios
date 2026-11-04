@@ -104,6 +104,16 @@ class ReadingListsTests: XCTestCase {
         
     }
     
+    func testCreatingReadingListPicksPreviewArticlesOnlyFromArticlesWithImages() throws {
+        let articleWithImage = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Foo")!))
+        articleWithImage.imageURLString = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/640px-Example.jpg"
+        let articleWithoutImage = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Bar")!))
+
+        let readingList = try dataStore.readingListsController.createReadingList(named: "foo", description: nil, with: [articleWithImage, articleWithoutImage])
+
+        XCTAssertEqual(readingList.previewArticles?.array as? [WMFArticle], [articleWithImage])
+    }
+
     func testAddingArticlesToExistingReadingList() {
         let readingListName = "foo"
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]

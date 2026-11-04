@@ -376,6 +376,9 @@
 "discover-list-onboarding-toast-weekly" = "Toast shown on the first visit to the Discover reading list when the list updates weekly. $1 is replaced with the number of articles in each list.";
 "discover-list-save-list" = "Button on the Discover reading list screen that saves every article in the list to a reading list.";
 "discover-list-title" = "Title of the Discover reading list screen.";
+"discover-save-list-default-name" = "Default name of a reading list saved from the Discover reading list. $1 is replaced with the current date and time, for example \"10/2/26, 10:52 PM\".";
+"discover-save-list-subtitle" = "Text under the title of the sheet that saves the articles of the Discover reading list as a new reading list.";
+"discover-save-list-title" = "Title of the sheet that saves the articles of the Discover reading list as a new reading list.";
 "discover-setup-source-history" = "Option on the Discover setup screen. The recommended reading list is built from the reader's reading history.";
 "discover-setup-source-interests" = "Option on the Discover setup screen. The reader picks interests and the recommended reading list is built from them.";
 "discover-setup-source-saved" = "Option on the Discover setup screen. The recommended reading list is built from the reader's saved articles.";
