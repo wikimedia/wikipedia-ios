@@ -72,12 +72,16 @@ public actor WMFDiscoverReadingListDataController {
 
     /// Persists the settings. A new source or a new article count throws the current list away
     /// on the next generation check, like on Android. A new cadence keeps the current list.
+    /// A changed setting posts `discoverListStateDidChange`, so the Saved tab follows the switch at once.
     public func saveSettings(_ newSettings: WMFDiscoverSettings) throws {
         guard let userDefaultsStore else {
             throw DiscoverReadingListError.missingUserDefaultsStore
         }
 
         let previousSettings = settings
+        guard previousSettings != newSettings else {
+            return
+        }
         try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverSettings.rawValue, value: newSettings)
 
         let sourceChanged = previousSettings.source != newSettings.source
@@ -85,6 +89,7 @@ public actor WMFDiscoverReadingListDataController {
         if sourceChanged || articleCountChanged {
             try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue, value: true)
         }
+        postListStateDidChange()
     }
 
     // MARK: - Onboarding

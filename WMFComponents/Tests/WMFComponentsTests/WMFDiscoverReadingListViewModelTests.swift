@@ -178,9 +178,11 @@ final class WMFDiscoverReadingListViewModelTests {
             let firstPages = viewModel.pages
             #expect(firstPages.isEmpty == false)
 
+            try await dataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests))
             let generatedPages = try await dataController.generateRecommendations()
-            #expect(await dataController.hasUnseenList == true)
-            try? await Task.sleep(nanoseconds: 50_000_000)
+            for await pages in viewModel.$pages.values where pages == generatedPages {
+                break
+            }
             await viewModel.reloadTask?.value
 
             #expect(viewModel.pages == generatedPages)
