@@ -45,6 +45,23 @@ public final class WMFDiscoverDataController: Sendable {
         return !hasDismissedAnnouncement
     }
 
+    /// True when the Saved tab badge announces a Discover list the reader has not opened yet: the
+    /// feature is on, the reader turned Discover on and a list was generated since their last visit.
+    /// A synchronous view of `WMFDiscoverReadingListDataController.hasUnseenList` for the badge.
+    public var shouldShowUnseenListBadge: Bool {
+        guard isEnabled, isListTurnedOn else {
+            return false
+        }
+
+        let hasUnseenList: Bool? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        return hasUnseenList ?? false
+    }
+
+    private var isListTurnedOn: Bool {
+        let storedSettings: WMFDiscoverSettings? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverSettings.rawValue)
+        return storedSettings?.isEnabled ?? false
+    }
+
     // MARK: - Announcement
 
     /// True once the reader tapped No thanks on the announcement card or turned Discover on.

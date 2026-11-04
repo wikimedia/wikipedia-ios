@@ -431,6 +431,89 @@ final class WMFDiscoverReadingListDataControllerTests {
         }
     }
 
+    // MARK: - Unseen list
+
+    @Test
+    func generationMarksTheListAsUnseen() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            #expect(await controller.hasUnseenList == false)
+
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            #expect(await controller.hasUnseenList)
+        }
+    }
+
+    @Test
+    func openingTheListClearsTheUnseenFlag() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            try await controller.markCurrentListSeen()
+
+            #expect(await controller.hasUnseenList == false)
+            #expect(try await controller.fetchCurrentRecommendations().count == 2)
+        }
+    }
+
+    @Test
+    func regenerationMarksTheListAsUnseenAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+            try await controller.markCurrentListSeen()
+
+            _ = try await controller.generateRecommendations(now: date(2026, 11, 2))
+
+            #expect(await controller.hasUnseenList)
+        }
+    }
+
+    @Test
+    func deleteAllRecommendationsClearsTheUnseenFlag() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            try await controller.deleteAllRecommendations()
+
+            #expect(await controller.hasUnseenList == false)
+        }
+    }
+
+    @Test
+    func unseenListBadgeNeedsTheFeatureAndTheListTurnedOn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            let badgeController = WMFDiscoverDataController.shared
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            #expect(badgeController.shouldShowUnseenListBadge == false)
+
+            WMFDeveloperSettingsDataController.shared.enableDiscover = true
+            #expect(badgeController.shouldShowUnseenListBadge)
+
+            try await saveSettings(WMFDiscoverSettings(isEnabled: false, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            #expect(badgeController.shouldShowUnseenListBadge == false)
+
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            try await controller.markCurrentListSeen()
+            #expect(badgeController.shouldShowUnseenListBadge == false)
+        }
+    }
+
     // MARK: - Migration
 
     /// Every model version that shipped before the current one. A reader can arrive from any of them.

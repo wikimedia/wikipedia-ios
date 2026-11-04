@@ -99,6 +99,31 @@ public actor WMFDiscoverReadingListDataController {
         try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverOnboardingToastShown.rawValue, value: true)
     }
 
+    // MARK: - Unseen list
+
+    /// True from the moment a list is generated until the reader opens it. The Saved tab shows a
+    /// dot on the entry card and on the tab icon while it is true, like the Android app.
+    public var hasUnseenList: Bool {
+        let storedFlag: Bool? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        return storedFlag ?? false
+    }
+
+    /// Clears the unseen flag. Call it when the reader opens the list.
+    public func markCurrentListSeen() throws {
+        guard let userDefaultsStore else {
+            throw DiscoverReadingListError.missingUserDefaultsStore
+        }
+        guard hasUnseenList else {
+            return
+        }
+        try userDefaultsStore.remove(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        postListStateDidChange()
+    }
+
+    private func postListStateDidChange() {
+        NotificationCenter.default.post(name: WMFNSNotification.discoverListStateDidChange, object: nil)
+    }
+
     // MARK: - Schedule
 
     public var lastGeneratedDate: Date? {
@@ -206,6 +231,8 @@ public actor WMFDiscoverReadingListDataController {
 
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue, value: now)
         try userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
+        try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue, value: true)
+        postListStateDidChange()
 
         return try await fetchCurrentRecommendations()
     }
@@ -266,6 +293,8 @@ public actor WMFDiscoverReadingListDataController {
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue)
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverSeedOffsets.rawValue)
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        postListStateDidChange()
     }
 }
 
