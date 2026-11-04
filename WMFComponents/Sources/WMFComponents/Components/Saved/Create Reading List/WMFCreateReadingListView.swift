@@ -29,18 +29,12 @@ public struct WMFCreateReadingListView: View {
                 .ignoresSafeArea()
 
             ScrollView {
-                VStack(alignment: .leading, spacing: WMFSpacing.small) {
-                    fieldsContainer
-                    if let nameErrorMessage = viewModel.nameErrorMessage {
-                        Text(nameErrorMessage)
-                            .font(Font(WMFFont.for(.caption1)))
-                            .foregroundStyle(Color(theme.destructive))
-                            .padding(.horizontal, WMFSpacing.large)
-                            .accessibilityIdentifier(AccessibilityIdentifiers.CreateReadingList.nameErrorLabel)
+                VStack(spacing: 0) {
+                    form
+                    if !viewModel.articleRows.isEmpty {
+                        articleRows
                     }
                 }
-                .padding(.horizontal, WMFSpacing.large)
-                .padding(.top, WMFSpacing.xLarge)
                 .accessibilityElement(children: .contain)
                 .accessibilityIdentifier(AccessibilityIdentifiers.CreateReadingList.view)
             }
@@ -61,6 +55,61 @@ public struct WMFCreateReadingListView: View {
     }
 
     // MARK: - Subviews
+
+    private var form: some View {
+        VStack(alignment: .leading, spacing: WMFSpacing.small) {
+            if let subtitle = viewModel.subtitle {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundStyle(Color(theme.secondaryText))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, WMFSpacing.small)
+            }
+            fieldsContainer
+            if let nameErrorMessage = viewModel.nameErrorMessage {
+                Text(nameErrorMessage)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.destructive))
+                    .padding(.horizontal, WMFSpacing.large)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.CreateReadingList.nameErrorLabel)
+            }
+        }
+        .padding(.horizontal, WMFSpacing.large)
+        .padding(.top, WMFSpacing.xLarge)
+        .padding(.bottom, viewModel.articleRows.isEmpty ? 0 : WMFSpacing.large)
+    }
+
+    private var articleRows: some View {
+        LazyVStack(spacing: 0) {
+            divider
+            ForEach(viewModel.articleRows) { rowViewModel in
+                WMFPageRowSaved(
+                    viewModel: rowViewModel,
+                    onTap: { _ in
+                        viewModel.toggleSelection(of: rowViewModel.id)
+                    },
+                    onDelete: { _ in },
+                    onShare: { _, _ in },
+                    onOpenInNewTab: {},
+                    onOpenInBackgroundTab: {},
+                    showsContextMenu: false
+                )
+                .background(Color(viewModel.allowsArticleSelection && viewModel.isSelected(rowViewModel.id) ? theme.batchSelectionBackground : theme.paperBackground), ignoresSafeAreaEdges: [])
+                .allowsHitTesting(viewModel.allowsArticleSelection)
+                .accessibilityRemoveTraits(viewModel.allowsArticleSelection ? [] : .isButton)
+                .accessibilityAddTraits(viewModel.allowsArticleSelection && viewModel.isSelected(rowViewModel.id) ? .isSelected : [])
+                .accessibilityIdentifier(AccessibilityIdentifiers.CreateReadingList.articleRow(rowViewModel.title))
+                .disabled(!viewModel.isInputEnabled || viewModel.isCreating)
+
+                divider
+            }
+        }
+    }
+
+    private var divider: some View {
+        Divider()
+            .background(Color(theme.border), ignoresSafeAreaEdges: [])
+    }
 
     private var fieldsContainer: some View {
         VStack(spacing: 0) {
