@@ -62,4 +62,18 @@ final class WMFSettingsViewModelsReleaseTests: XCTestCase {
             return viewModel
         }
     }
+
+    func testDiscoverSettingsViewModelIsReleased() async {
+        await assertReleased {
+            let viewModel = WMFDiscoverSettingsViewModel(settings: .default, interestCount: nil, dataController: WMFDiscoverReadingListDataController())
+            viewModel.didTapSource = {}
+            viewModel.didTapInterests = {}
+            _ = viewModel.isEnabledBinding
+            _ = viewModel.articleCountBinding
+            _ = viewModel.cadenceBinding
+            viewModel.refresh()
+            await viewModel.refreshTask?.value
+            return viewModel
+        }
+    }
 }

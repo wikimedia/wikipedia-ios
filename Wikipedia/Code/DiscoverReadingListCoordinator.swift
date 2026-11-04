@@ -10,6 +10,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     let navigationController: UINavigationController
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private var settingsCoordinator: DiscoverSettingsCoordinator?
     private var createReadingListCoordinator: CreateReadingListCoordinator?
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
@@ -47,6 +48,9 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
         }
         viewModel.didTapAbout = { [weak self] in
             self?.showAbout()
+        }
+        viewModel.didTapCustomize = { [weak self] in
+            self?.showSettings()
         }
 
         let hostingController = WMFDiscoverReadingListHostingController(viewModel: viewModel)
@@ -127,6 +131,14 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
             activityViewController.popoverPresentationController?.sourceRect = sourceRect
         }
         navigationController.present(activityViewController, animated: true)
+    }
+
+    // MARK: - Settings
+
+    private func showSettings() {
+        let coordinator = DiscoverSettingsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        settingsCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - About

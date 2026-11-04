@@ -370,16 +370,72 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
-    func changingOnlyTheCountDoesNotForceRegeneration() async throws {
+    func changingTheArticleCountMakesGenerationDueImmediately() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            let monday = date(2026, 10, 26)
+            _ = try await controller.generateRecommendations(now: monday)
+
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests), in: controller)
+
+            let tuesday = date(2026, 10, 27)
+            #expect(try await controller.isGenerationDue(now: tuesday))
+            let regeneratedList = try await controller.generateRecommendationsIfNeeded(now: tuesday)
+            #expect(regeneratedList.count == 3)
+            #expect(try await controller.isGenerationDue(now: tuesday) == false)
+            #expect(await controller.lastGeneratedDate == tuesday)
+        }
+    }
+
+    @Test
+    func changingOnlyTheCadenceKeepsTheCurrentList() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await addInterest("Cat")
             let controller = makeController()
             try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
             _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
 
-            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 7, cadence: .weekly, source: .interests), in: controller)
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .monthly, source: .interests), in: controller)
 
             #expect(try await controller.isGenerationDue(now: date(2026, 10, 27)) == false)
+        }
+    }
+
+    @Test
+    func turningDiscoverOffKeepsTheCurrentList() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            try await saveSettings(WMFDiscoverSettings(isEnabled: false, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+
+            #expect(try await controller.isGenerationDue(now: date(2026, 10, 27)) == false)
+            #expect(try await controller.fetchCurrentRecommendations().count == 2)
+        }
+    }
+
+    @Test
+    func aSettingsChangeDuringAGenerationStillMakesTheNextGenerationDue() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            let monday = date(2026, 10, 26)
+            _ = try await controller.generateRecommendations(now: monday)
+
+            async let secondList = controller.generateRecommendations(now: monday)
+            // The run has started once the first list is expired.
+            while try await controller.fetchStoredRecommendations(includeExpired: true).contains(where: \.isExpired) == false {
+                await Task.yield()
+            }
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .history), in: controller)
+            _ = try await secondList
+
+            #expect(try await controller.isGenerationDue(now: date(2026, 10, 27)))
         }
     }
 

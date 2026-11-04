@@ -62,6 +62,22 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
         }
     }
 
+    /// Loads again after the settings screen when the source or the article count changed, so the
+    /// list reflects the new settings. Also refreshes the cadence the byline shows. Discover off
+    /// keeps the current list; a pending regeneration waits for the next turn on.
+    public func reloadIfGenerationDue() {
+        guard state != .loading else { return }
+        loadTask = Task { [weak self] in
+            guard let self else { return }
+            self.settings = await self.dataController.settings
+            guard self.settings.isEnabled else { return }
+            let isDue = (try? await self.dataController.isGenerationDue()) ?? false
+            guard isDue, !Task.isCancelled else { return }
+            self.state = .loading
+            await self.performLoad()
+        }
+    }
+
     private func performLoad() async {
         do {
             settings = await dataController.settings
