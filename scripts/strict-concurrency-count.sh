@@ -16,6 +16,10 @@
 # It counts unique warnings (file, line, column, message) whose message matches the
 # concurrency vocabulary. The two architectures of a simulator build repeat each
 # warning; the count includes each warning one time only.
+# The script removes the diagnostic group suffix (for example
+# "[#RegionIsolation::SendingRisksDataRace]") from each message.
+# xcodebuild sometimes splits a long line, so a copy of a warning can stop early.
+# At one location, a message that is the start of a longer message is the same warning.
 # It matches the vocabulary against the message only, not the path
 # ("TwoFactor" contains "actor").
 # It does not count files in "WMF Framework/Third Party/", or warnings without
@@ -77,7 +81,8 @@ TASK_SUFFIX = re.compile(r" \(in target '([^']*)' from project '[^']*'\)$")
 SWIFT_COMPILE = re.compile(r"^SwiftCompile \S+ \S+ (.*)$")
 UNESCAPED_SPACE = re.compile(r"(?<!\\) ")
 WARNING = re.compile(r"^(/.+?\.swift):(\d+):(\d+): warning: (.*)$")
-GROUP_SUFFIX = re.compile(r" \[#[A-Za-z0-9]+\]$")
+# The suffix can stop early when xcodebuild splits the line.
+GROUP_SUFFIX = re.compile(r" \[#[^\]]*\]?$")
 
 
 def normalize(path):
@@ -140,7 +145,7 @@ def relative(path):
     return path[len(root):] if root and path.startswith(root) else path
 
 
-unique = set()
+messages_at = collections.defaultdict(set)
 for task_target, path, row, column, message in warnings:
     if EXCLUDED in path:
         continue
@@ -154,11 +159,15 @@ for task_target, path, row, column, message in warnings:
         target = task_target
     else:
         target = "(unattributed)"
-    unique.add((target, path, row, column, message))
+    messages_at[(target, path, row, column)].add(message.rstrip())
 
 counts = collections.defaultdict(collections.Counter)
-for target, path, _row, _column, _message in unique:
-    counts[target][relative(path)] += 1
+for (target, path, _row, _column), messages in messages_at.items():
+    kept = []
+    for message in sorted(messages, key=len, reverse=True):
+        if not any(longer.startswith(message) for longer in kept):
+            kept.append(message)
+    counts[target][relative(path)] += len(kept)
 
 result = {
     "build_succeeded": build_succeeded,
