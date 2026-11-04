@@ -376,6 +376,9 @@
 "discover-list-onboarding-toast-weekly" = "Toast shown on the first visit to the Discover reading list when the list updates weekly. $1 is replaced with the number of articles in each list.";
 "discover-list-save-list" = "Button on the Discover reading list screen that saves every article in the list to a reading list.";
 "discover-list-title" = "Title of the Discover reading list screen.";
+"discover-save-list-default-name" = "Default name of a reading list saved from the Discover reading list. $1 is replaced with the current date and time, for example \"10/2/26, 10:52 PM\".";
+"discover-save-list-subtitle" = "Text under the title of the sheet that saves the articles of the Discover reading list as a new reading list.";
+"discover-save-list-title" = "Title of the sheet that saves the articles of the Discover reading list as a new reading list.";
 "discover-settings-article-count-title" = "Title of the row with the number of articles in each Discover reading list, on the Discover settings screen.";
 "discover-settings-cadence-daily" = "Option of the Updates menu on the Discover settings screen, and the value of the Updates row, when the Discover reading list updates every day.";
 "discover-settings-cadence-monthly" = "Option of the Updates menu on the Discover settings screen, and the value of the Updates row, when the Discover reading list updates every month.";
