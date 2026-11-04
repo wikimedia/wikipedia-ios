@@ -255,15 +255,16 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
             try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: seconds)
         }
 
-        // Before the cleanup cutoff of August 31: each view adds at most 30 minutes.
+        // Before the release of the timer fix on August 11: each view adds at most 30 minutes.
         try await addView("Before", at: try date(month: 3, day: 4, hour: 9), seconds: 2 * 60 * 60)
         try await addView("Before", at: try date(month: 3, day: 5, hour: 9), seconds: 10 * 60)
-        // After the cutoff: no limit.
+        // After the release, also before the cleanup cutoff of August 31: no limit, so a real long read stays.
+        try await addView("AfterRelease", at: try date(month: 8, day: 20, hour: 9), seconds: 50 * 60)
         try await addView("After", at: try date(month: 10, day: 4, hour: 9), seconds: 2 * 60 * 60)
 
         let payload = try await readCountPayload()
 
-        XCTAssertEqual(payload.minutesRead, 30 + 10 + 120)
+        XCTAssertEqual(payload.minutesRead, 30 + 10 + 50 + 120)
     }
 
     func testReadDataFromBeforeTheMinutesReadSlideIsNotTheCurrentFormat() throws {

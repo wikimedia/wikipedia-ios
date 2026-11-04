@@ -421,25 +421,18 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         return try await backgroundContext.perform {
             // Core Data cannot cap each row inside a grouped sum, so this fetches each row and adds them here.
+            // The page attributes come in the same request, so no page is faulted in one by one.
             let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
             request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
             request.resultType = .dictionaryResultType
-            request.propertiesToFetch = ["page", "numberOfSeconds", "timestamp"]
+            request.propertiesToFetch = ["page.projectID", "page.title", "page.namespaceID", "numberOfSeconds", "timestamp"]
 
-            var pagesByObjectID: [NSManagedObjectID: WMFPage] = [:]
             var secondsByPage: [WMFPage: Int] = [:]
             for dict in try backgroundContext.fetch(request) {
-                guard let objectID = dict["page"] as? NSManagedObjectID else { continue }
-
-                let wmfPage: WMFPage
-                if let cachedPage = pagesByObjectID[objectID] {
-                    wmfPage = cachedPage
-                } else {
-                    guard let page = backgroundContext.object(with: objectID) as? CDPage,
-                          let projectID = page.projectID, let title = page.title else { continue }
-                    wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
-                    pagesByObjectID[objectID] = wmfPage
-                }
+                guard let projectID = dict["page.projectID"] as? String,
+                      let title = dict["page.title"] as? String,
+                      let namespaceID = dict["page.namespaceID"] as? NSNumber else { continue }
+                let wmfPage = WMFPage(namespaceID: namespaceID.intValue, projectID: projectID, title: title)
 
                 // A page with no stored seconds still counts as a page read, with zero seconds.
                 var seconds = Int((dict["numberOfSeconds"] as? NSNumber)?.int64Value ?? 0)

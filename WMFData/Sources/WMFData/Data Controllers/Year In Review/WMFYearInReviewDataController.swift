@@ -667,13 +667,18 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
+            let rebuiltSlideIDs = Set(evaluatedSlideDataControllers.map(\.id))
+
             // Only preserve existing slides that should freeze and use the current format.
-            // A slide in an older format is deleted. The data controller above built it again.
+            // A slide in an older format is deleted when the data controller above built it again.
+            // If that failed, the old slide stays until a later populate builds it, so the reader does
+            // not lose it. The slide's data type must hide the parts that the old format got wrong.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    if dataController.shouldFreeze && dataController.hasCurrentFormat(slide.data) {
+                    let keepsOldFormat = !rebuiltSlideIDs.contains(cdSlideID)
+                    if dataController.shouldFreeze && (dataController.hasCurrentFormat(slide.data) || keepsOldFormat) {
                         finalCDSlides.insert(slide)
                     } else {
                         backgroundContext.delete(slide)
@@ -908,8 +913,9 @@ public struct WMFYearInReviewReadData: Codable {
 
     /// The rules that `minutesRead` uses. Change it when the rules change, so stored reports build the
     /// slide again. `nil` in data from builds before the minutes read slide, which counted all page views.
-    /// 1: only articles, and each page view before the July 2026 timer fix adds at most 30 minutes.
-    static let currentMinutesReadFormat = 1
+    /// 1: only articles, and each page view before August 31, 2026 adds at most 30 minutes.
+    /// 2: the same, but the limit applies only before the release of the timer fix, August 11, 2026.
+    public static let currentMinutesReadFormat = 2
     var minutesReadFormat: Int? = WMFYearInReviewReadData.currentMinutesReadFormat
 
     /// If false, show the empty state of the total articles slide.

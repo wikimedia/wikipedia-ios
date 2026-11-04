@@ -7,19 +7,25 @@ final class WMFYearInReviewMinutesReadTests: XCTestCase {
 
     private typealias Comparison = WMFYearInReviewMinutesReadComparison
 
-    private func readData(minutesRead: Int) throws -> WMFYearInReviewReadData {
-        let data = try JSONSerialization.data(withJSONObject: ["readCount": 10, "minutesRead": minutesRead])
-        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data)
+    private func readData(minutesRead: Int) -> WMFYearInReviewReadData {
+        WMFYearInReviewReadData(readCount: 10, minutesRead: minutesRead)
+    }
+
+    func testOutdatedDataIsNotEligible() throws {
+        let oldData = try JSONSerialization.data(withJSONObject: ["readCount": 10, "minutesRead": 500])
+        let readData = try JSONDecoder().decode(WMFYearInReviewReadData.self, from: oldData)
+        XCTAssertFalse(readData.isMinutesReadEligible, "old reports counted all page views")
+        XCTAssertTrue(readData.isEligible, "the article count of old data is still correct")
     }
 
     func testLessThanOneMinuteIsNotEligible() throws {
-        XCTAssertFalse(try readData(minutesRead: 0).isMinutesReadEligible)
-        XCTAssertTrue(try readData(minutesRead: 1).isMinutesReadEligible)
+        XCTAssertFalse(readData(minutesRead: 0).isMinutesReadEligible)
+        XCTAssertTrue(readData(minutesRead: 1).isMinutesReadEligible)
     }
 
     func testMoreThanThreeHundredThousandMinutesIsNotEligible() throws {
-        XCTAssertTrue(try readData(minutesRead: 300_000).isMinutesReadEligible)
-        XCTAssertFalse(try readData(minutesRead: 300_001).isMinutesReadEligible)
+        XCTAssertTrue(readData(minutesRead: 300_000).isMinutesReadEligible)
+        XCTAssertFalse(readData(minutesRead: 300_001).isMinutesReadEligible)
     }
 
     func testNoComparisonForLessThanOneMinute() {

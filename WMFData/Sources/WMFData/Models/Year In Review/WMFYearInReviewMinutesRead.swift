@@ -55,7 +55,12 @@ extension WMFYearInReviewReadData {
     public static let maximumMinutesRead = 300_000
 
     /// If false, do not show the minutes read slide. This slide has no empty version.
+    /// Data in an older format is not eligible: its minutes used older rules, for example all page
+    /// views and no limit for each page view. The report builds this data again, but if that fails it
+    /// keeps the old data, so the total articles slide still shows.
     public var isMinutesReadEligible: Bool {
-        minutesRead >= Self.minimumMinutesRead && minutesRead <= Self.maximumMinutesRead
+        minutesReadFormat == Self.currentMinutesReadFormat
+            && minutesRead >= Self.minimumMinutesRead
+            && minutesRead <= Self.maximumMinutesRead
     }
 }

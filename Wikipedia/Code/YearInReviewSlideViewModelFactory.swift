@@ -26,6 +26,7 @@ struct YearInReviewSlideViewModelFactory {
         "totalArticles": "total_articles",
         "totalArticlesEmpty": "total_articles_empty",
         "daysVisited": "visits",
+        "minutesRead": "minutes_read",
         "topTopic": "top_topic",
         "topTopicEmpty": "top_topic_empty",
         "runnerUpTopics": "other_top_topics",

@@ -102,6 +102,27 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertEqual(report?.slides.count, 6)
     }
 
+    func testOutdatedFrozenSlideStaysWhenItsRebuildFails() async throws {
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+
+        // Read data from before the minutes read slide: no format.
+        let oldData = try JSONSerialization.data(withJSONObject: ["readCount": 5, "minutesRead": 500])
+        try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [
+            WMFYearInReviewSlide(year: year, id: .readCount, data: oldData)
+        ]))
+
+        // The environment of this test has no Core Data store, so the read count slide cannot be built again.
+        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+
+        let slide = try XCTUnwrap(report?.slides.first { $0.id == .readCount }, "the old slide stays when it cannot be built again")
+        let readData = try JSONDecoder().decode(WMFYearInReviewReadData.self, from: try XCTUnwrap(slide.data))
+        XCTAssertEqual(readData.readCount, 5)
+        XCTAssertFalse(readData.isMinutesReadEligible, "the old minutes used older rules, so they do not show")
+        XCTAssertEqual(WMFYearInReviewDataController.fullSlideCount(for: slide), 1)
+    }
+
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
         
         guard let dataController else {
