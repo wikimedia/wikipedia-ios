@@ -103,18 +103,23 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     }
 
     func testOutdatedFrozenSlideStaysWhenItsRebuildFails() async throws {
-        guard let dataController else {
-            throw TestsError.missingDataController
+        // The read count data controller reads the store from the environment. With no store there,
+        // its rebuild fails. The report itself uses its own store. The fixture changes the environment
+        // under the global test lock, then restores it.
+        let report = try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.coreDataStore = nil
+        }) {
+            XCTAssertNil(WMFDataEnvironment.current.coreDataStore)
+            let dataController = try WMFMockYearInReviewDataController(coreDataStore: try await fixture.makeTemporaryCoreDataStore())
+
+            // Read data from before the minutes read slide: no format.
+            let oldData = try JSONSerialization.data(withJSONObject: ["readCount": 5, "minutesRead": 500])
+            try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [
+                WMFYearInReviewSlide(year: year, id: .readCount, data: oldData)
+            ]))
+
+            return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
         }
-
-        // Read data from before the minutes read slide: no format.
-        let oldData = try JSONSerialization.data(withJSONObject: ["readCount": 5, "minutesRead": 500])
-        try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [
-            WMFYearInReviewSlide(year: year, id: .readCount, data: oldData)
-        ]))
-
-        // The environment of this test has no Core Data store, so the read count slide cannot be built again.
-        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
 
         let slide = try XCTUnwrap(report?.slides.first { $0.id == .readCount }, "the old slide stays when it cannot be built again")
         let readData = try JSONDecoder().decode(WMFYearInReviewReadData.self, from: try XCTUnwrap(slide.data))
