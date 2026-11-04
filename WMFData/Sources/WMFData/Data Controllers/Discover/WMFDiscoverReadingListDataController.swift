@@ -71,17 +71,22 @@ public actor WMFDiscoverReadingListDataController {
     }
 
     /// Persists the settings. Changing the source throws the current list away on the next generation check, like on Android.
+    /// A changed setting posts `discoverListStateDidChange`, so the Saved tab follows the switch at once.
     public func saveSettings(_ newSettings: WMFDiscoverSettings) throws {
         guard let userDefaultsStore else {
             throw DiscoverReadingListError.missingUserDefaultsStore
         }
 
         let previousSettings = settings
+        guard previousSettings != newSettings else {
+            return
+        }
         try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverSettings.rawValue, value: newSettings)
 
         if previousSettings.source != newSettings.source {
             try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue, value: true)
         }
+        postListStateDidChange()
     }
 
     // MARK: - Onboarding

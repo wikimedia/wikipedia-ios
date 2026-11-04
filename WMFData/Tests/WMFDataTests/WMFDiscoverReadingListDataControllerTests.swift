@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import os
 import Testing
 import WMFDataTestSupport
 @testable import WMFData
@@ -87,6 +88,30 @@ final class WMFDiscoverReadingListDataControllerTests {
             try await saveSettings(settings, in: controller)
 
             #expect(await controller.settings == settings)
+        }
+    }
+
+    @Test
+    func savingChangedSettingsPostsTheListStateNotificationOnce() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = makeController()
+            let postCount = OSAllocatedUnfairLock(initialState: 0)
+            let observer = NotificationCenter.default.addObserver(forName: WMFNSNotification.discoverListStateDidChange, object: nil, queue: nil) { _ in
+                postCount.withLock { $0 += 1 }
+            }
+            defer { NotificationCenter.default.removeObserver(observer) }
+            var settings = WMFDiscoverSettings.default
+            settings.isEnabled = true
+
+            try await saveSettings(settings, in: controller)
+            #expect(postCount.withLock { $0 } == 1)
+
+            try await saveSettings(settings, in: controller)
+            #expect(postCount.withLock { $0 } == 1, "the same settings again post nothing")
+
+            settings.isEnabled = false
+            try await saveSettings(settings, in: controller)
+            #expect(postCount.withLock { $0 } == 2)
         }
     }
 
