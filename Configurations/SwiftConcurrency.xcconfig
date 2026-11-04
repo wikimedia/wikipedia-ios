@@ -6,12 +6,12 @@
 // configured here — they set the equivalent flags via `swiftSettings` in their own
 // Package.swift.
 //
-// HOW TO WIRE THIS UP (one-time, do via Xcode to keep the pbxproj clean):
-//   Project navigator → Wikipedia project → Info tab → Configurations.
-//   For each configuration (Debug, Release, etc.) set the *project-level* base
-//   configuration to a file that `#include`s this one, OR add this file as the base
-//   configuration on the specific target(s) being migrated. Per-target settings still
-//   win, so a target can opt out by overriding a key locally.
+// WIRING: This file is the target-level base configuration of every build configuration
+//   of these targets: Wikipedia, Experimental, Alpha, WMF, WidgetsExtension,
+//   ContinueReadingWidget, NotificationServiceExtension, WikipediaUnitTests and
+//   WikipediaUITests. A setting here applies to ALL of these targets. Target build
+//   settings in the pbxproj override it. The project-level Debug configuration keeps
+//   OpenSourceDebug.xcconfig as its base configuration.
 //
 // MIGRATION STAGING (leaf-first; uncomment per target as it advances — see the
 // Swift 6.2 migration plan). Everything below is commented out so that merely adding
@@ -36,6 +36,9 @@
 //   MainActor isolation so UIKit/SwiftUI code is correct for free; annotate only the
 //   `nonisolated` exceptions. Re-measure: many Stage-2 warnings disappear.
 //   NOTE: Do NOT set SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor on data-layer targets.
+//   NOTE: Do NOT set it on the targets above while the minimum iOS is below 26.5.
+//   Default isolation gives each class an isolated deinit, and that path aborts on
+//   earlier runtimes (swiftlang/swift#87316). Use explicit @MainActor instead.
 // ---------------------------------------------------------------------------
 // SWIFT_APPROACHABLE_CONCURRENCY = YES
 // SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor

@@ -1,0 +1,13 @@
+{
+  "_comment": "Maximum strict-concurrency warning count per target. .github/workflows/strict_concurrency_check.yml fails a PR that goes above an entry. When a count goes down, lower its entry in the same PR. Never raise an entry. Measure with scripts/strict-concurrency-count.sh on a build from a fresh DerivedData.",
+  "targets": {
+    "WMFData": 0,
+    "WMFComponents": 0,
+    "WMFTestKitchen": 0,
+    "WMF": 663,
+    "Wikipedia": 1828,
+    "WidgetsExtension": 16,
+    "NotificationServiceExtension": 15,
+    "ContinueReadingWidget": 1
+  }
+}
