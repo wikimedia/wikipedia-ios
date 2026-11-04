@@ -141,7 +141,7 @@ To decide whether it is a small or large change, consider this: Until a translat
 3. A script maintained by Translatewiki pulls the repo, reads the new strings from `Wikipedia/Localizations`, and adds them to Translatewiki
 4. On Translatewiki, volunteer translators translate the string.
 5. The same script maintained by Translatewiki adds the new translations to the `Wikipedia/Localizations` folder in the TWN format, pushes the changes to the `twn` branch, and opens a pull request.
-6. GitHub notices the pull request, and via a GitHub Action (`.github/workflows/localization-update.yaml`) runs `scripts/sync_localizations.sh` which adds the iOS-formatted strings to `Wikipedia/iOS Native Localizations`.
+6. GitHub notices the pull request, and via a GitHub Action (`.github/workflows/localization.yml`) runs `scripts/sync_localizations.sh` which adds the iOS-formatted strings to `WMFLocalizations/Sources/WMFNativeLocalizations/Resources`.
 7. `TWNStringsTests.m` is run, ensuring that the strings are the format that is expected.
 8. An iOS Engineer approves the pull request.
 
