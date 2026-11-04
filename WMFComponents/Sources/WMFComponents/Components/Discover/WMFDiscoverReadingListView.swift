@@ -14,7 +14,7 @@ public struct WMFDiscoverReadingListView: View {
     private static let errorSubtitle = WMFLocalizedString("discover-list-error-subtitle", value: "Unable to load reading list.", comment: "Subtitle of the error view on the Discover reading list screen when the list cannot be loaded.")
     private static let emptyMessage = WMFLocalizedString("discover-list-empty-message", value: "Unfortunately there are no recommendations for you at this time.", comment: "Message shown on the Discover reading list screen when the app has no articles to recommend.")
     private static let bylineFormat = WMFLocalizedString("discover-list-byline", value: "Made for %1$@ • %2$@", comment: "Byline under the title of the Discover reading list. %1$@ is replaced with the account name of the reader or the word for 'you', %2$@ with the number of articles in the list.")
-    private static let bylineYou = WMFLocalizedString("discover-list-byline-you", value: "you", comment: "Word used in the Discover reading list byline in place of the account name when the reader is logged out. Appears as 'Made for you'.")
+    static let bylineYou = WMFLocalizedString("discover-list-byline-you", value: "you", comment: "Word used in the Discover reading list byline in place of the account name when the reader is logged out. Appears as 'Made for you'.")
     private static let saveListTitle = WMFLocalizedString("discover-list-save-list", value: "Save list", comment: "Button on the Discover reading list screen that saves every article in the list to a reading list.")
     private static let aboutTitle = WMFLocalizedString("discover-list-about", value: "About this feature", comment: "Menu item on the Discover reading list screen that explains how Discover works.")
 

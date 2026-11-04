@@ -68,6 +68,7 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
             }
             guard !Task.isCancelled else { return }
             show(loadedPages)
+            try? await dataController.markCurrentListSeen()
             await showOnboardingToastIfNeeded()
         } catch {
             guard !Task.isCancelled else { return }
@@ -117,13 +118,18 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
     }
 
     public var descriptionText: String {
-        switch settings.cadence {
+        Self.description(for: settings.cadence)
+    }
+
+    /// The cadence description, shared with the Discover entry card on the Saved tab.
+    static func description(for cadence: WMFDiscoverCadence) -> String {
+        switch cadence {
         case .daily:
-            return Self.descriptionDaily
+            return descriptionDaily
         case .weekly:
-            return Self.descriptionWeekly
+            return descriptionWeekly
         case .monthly:
-            return Self.descriptionMonthly
+            return descriptionMonthly
         }
     }
 

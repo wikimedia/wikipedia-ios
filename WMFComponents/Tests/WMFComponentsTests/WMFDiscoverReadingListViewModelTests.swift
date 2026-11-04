@@ -88,4 +88,19 @@ final class WMFDiscoverReadingListViewModelTests {
             #expect(await dataController.hasShownOnboardingToast == true)
         }
     }
+
+    @Test
+    func loadingTheListMarksItAsSeen() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            let dataController = makeDataController()
+            _ = try await dataController.generateRecommendations()
+            #expect(await dataController.hasUnseenList == true)
+            let viewModel = WMFDiscoverReadingListViewModel(username: nil, dataController: dataController)
+
+            await loadAndWait(viewModel)
+
+            #expect(await dataController.hasUnseenList == false)
+        }
+    }
 }
