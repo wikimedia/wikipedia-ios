@@ -2190,10 +2190,15 @@ extension WMFAppViewController {
     }
 
     func showImportedReadingList(_ readingList: ReadingList) {
+        showReadingList(readingList, fromImport: true)
+    }
+
+    /// Closes any modal, then opens the reading list on top of the Saved tab root.
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
         dismissPresentedViewControllers()
         selectedIndex = WMFAppTabType.saved.rawValue
         currentTabNavigationController?.popToRootViewController(animated: false)
-        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: true, theme: theme)
+        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
         currentTabNavigationController?.pushViewController(detailVC, animated: true)
     }
 
