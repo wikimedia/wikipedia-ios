@@ -25,7 +25,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
 
     private let sharedCache = SharedContainerCache.init(fileName: "User History Funnel Snapshot")
 
-    public struct FeedEnabledList: Codable, Equatable {
+    public struct FeedEnabledList: Codable, Equatable, Sendable {
         let featuredArticle: ItemLanguages?
         let topRead: ItemLanguages?
         let onThisDay: ItemLanguages?
@@ -61,7 +61,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         }
     }
 
-    public struct ItemLanguages: Codable, Equatable {
+    public struct ItemLanguages: Codable, Equatable, Sendable {
         let on: [String]?
         let off: [String]?
     }

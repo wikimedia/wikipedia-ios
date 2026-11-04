@@ -250,8 +250,7 @@ extension WMFReadingListToastManager: @preconcurrency AddArticlesToReadingListDe
 
 // MARK: - Themeable
 
-// Themeable is a legacy protocol without isolation. The app calls it on the main actor.
-extension WMFReadingListToastManager: @preconcurrency Themeable {
+extension WMFReadingListToastManager: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
     }

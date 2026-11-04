@@ -916,7 +916,7 @@ public final class Theme: NSObject, @unchecked Sendable {
     
     public static let exploreCardCornerRadius: CGFloat = 10
     
-    @objc public var searchFieldBackgroundImage: UIImage? {
+    @MainActor @objc public var searchFieldBackgroundImage: UIImage? {
         return UIImage.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: 10, height: 36)
     }
     

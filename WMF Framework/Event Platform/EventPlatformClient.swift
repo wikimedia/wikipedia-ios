@@ -55,8 +55,9 @@ import WMFTestKitchen
  *   originally submitted
  */
 // @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
-// cannot be an actor. All mutable state is confined to the serial `queue` /
-// `encodeQueue` (see the doc comments on inputBuffer and streamConfigurations).
+// cannot be an actor. The serial `queue` confines all stored mutable state:
+// inputBuffer, _streamConfigurations and _nextPermittedSendDate. Other stored
+// properties are lets. `encodeQueue` only encodes and does not touch that state.
 @objc public final class EventPlatformClient: NSObject, SamplingControllerDelegate, @unchecked Sendable {
 
 
@@ -152,7 +153,7 @@ import WMFTestKitchen
      * `$schema` will start with `/analytics`, since there's where
      * analytics-related schemas are collected.
      */
-    public enum Schema: String, Codable {
+    public enum Schema: String, Codable, Sendable {
         case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.2.0"
         case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.2.0"
         case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/2.1.0"
