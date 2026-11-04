@@ -141,22 +141,22 @@ To decide whether it is a small or large change, consider this: Until a translat
 3. A script maintained by Translatewiki pulls the repo, reads the new strings from `Wikipedia/Localizations`, and adds them to Translatewiki
 4. On Translatewiki, volunteer translators translate the string.
 5. The same script maintained by Translatewiki adds the new translations to the `Wikipedia/Localizations` folder in the TWN format, pushes the changes to the `twn` branch, and opens a pull request.
-6. GitHub notices the pull request, and via a GitHub Action (`.github/workflows/localization-update.yaml`) runs `scripts/localization import` which adds the iOS-formatted strings to `Wikipedia/iOS Native Localizations`.
+6. GitHub notices the pull request, and via a GitHub Action (`.github/workflows/localization-update.yaml`) runs `scripts/sync_localizations.sh` which adds the iOS-formatted strings to `Wikipedia/iOS Native Localizations`.
 7. `TWNStringsTests.m` is run, ensuring that the strings are the format that is expected.
 8. An iOS Engineer approves the pull request.
 
 ### Script specifics
 `scripts/localization_extract` extracts those strings from source, generates the `en` translation inside of `Wikipedia/iOS Native Localizations`.
 
-`scripts/localization export` creates translatewiki-formatted `qqq` (comments only) and `en` (translations) inside of  `Wikipedia/Localizations` for Translatewiki to read.
+`scripts/sync_localizations.sh` (the export step) creates translatewiki-formatted `qqq` (comments only) and `en` (translations) inside of  `Wikipedia/Localizations` for Translatewiki to read.
 
 Translatewiki's script reads the `Wikipedia/Localizations` `qqq` and `en` files, imports them to the wiki, and writes updated translations for other languages to `Wikipedia/Localizations`
 
-`scripts/localization import` reads localizations from `Wikipedia/Localizations` and converts them into the iOS native format for `Wikipedia/iOS Native Localizations`
+`scripts/sync_localizations.sh` (the import step) reads localizations from `Wikipedia/Localizations` and converts them into the iOS native format for `Wikipedia/iOS Native Localizations`
 
 ### Updating the localization script
 
-Inside the main project, there's a `localization` target that is a Mac command line tool. You can edit the swift files used by this target (inside `Command Line Tools/Update Localizations/`) to update the localization script. Once you make changes, you can build and run the localization target through the `Update Localizations` scheme to re-run localizations and verify the output. Once you're done making changes, create an executable by selecting the "Update Localizations" scheme > My Mac, then select Product > Archive from the Xcode menu. Once the Xcode Organizer window appears, choose your new archive, then select "Distribute Content". Choose "Built Products" on the first screen, then select a location on your machine to save the new product. Move the new localizations binary from within the product sudirectories (example: Desktop/Update Localizations yyyy-mm-dd hh-mm-ss/Products/usr/local/bin/localizations into the `scripts/localizations` location in the repo. Then commit your updated script binary changes to the repo.
+Inside the main project, there's a `localization` target that is a Mac command line tool. You can edit the swift files used by this target (inside `Command Line Tools/Update Localizations/`) to update the localization script. Once you make changes, you can build and run the localization target through the `Update Localizations` scheme to re-run localizations and verify the output. There is no binary to build or commit. `scripts/sync_localizations.sh` compiles the Swift files in `Command Line Tools/Update Localizations/` into a temporary directory and runs the result every time it is called (from the WMF target's "Update Localizations" build phase and from the "Import localizations from TranslateWiki" GitHub Action). Just commit your Swift changes.
 
 ### Testing the app
 #### Indications for international testing
