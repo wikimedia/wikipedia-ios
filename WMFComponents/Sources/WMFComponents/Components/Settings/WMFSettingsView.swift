@@ -1,5 +1,18 @@
 import SwiftUI
 
+/// Applies an identifier only when one is provided, so rows without one keep their children's own identifiers.
+private struct OptionalAccessibilityIdentifier: ViewModifier {
+    let identifier: String?
+
+    func body(content: Content) -> some View {
+        if let identifier {
+            content.accessibilityIdentifier(identifier)
+        } else {
+            content
+        }
+    }
+}
+
 struct SettingsRow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
@@ -36,7 +49,7 @@ struct SettingsRow: View {
             Spacer()
             accessoryView()
         }
-
+        .modifier(OptionalAccessibilityIdentifier(identifier: item.accessibilityIdentifier))
     }
 
     @ViewBuilder

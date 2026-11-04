@@ -100,6 +100,52 @@ final class WMFDiscoverReadingListDataControllerTests {
         #expect(settings.source == .interests)
     }
 
+    // MARK: - Available sources
+
+    @Test
+    func onlyInterestsIsAvailableWithoutSavedArticlesOrHistory() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let availableSources = try await makeController().availableSources()
+            #expect(availableSources == [.interests])
+        }
+    }
+
+    @Test
+    func savedArticlesBecomeAvailableOnceOneArticleIsSaved() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await insertSavedPage(title: "Dog")
+
+            let availableSources = try await makeController().availableSources()
+
+            #expect(availableSources == [.interests, .saved])
+        }
+    }
+
+    @Test
+    func historyBecomesAvailableOnceOnePageWasRead() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let pageViewsDataController = try WMFPageViewsDataController()
+            _ = try await pageViewsDataController.addPageView(title: "Dog", namespaceID: 0, project: englishProject, previousPageViewObjectID: nil)
+
+            let availableSources = try await makeController().availableSources()
+
+            #expect(availableSources == [.interests, .history])
+        }
+    }
+
+    @Test
+    func availableSourcesKeepTheInterestsSavedHistoryOrder() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let pageViewsDataController = try WMFPageViewsDataController()
+            _ = try await pageViewsDataController.addPageView(title: "Dog", namespaceID: 0, project: englishProject, previousPageViewObjectID: nil)
+            try await insertSavedPage(title: "Cat")
+
+            let availableSources = try await makeController().availableSources()
+
+            #expect(availableSources == [.interests, .saved, .history])
+        }
+    }
+
     // MARK: - Schedule
 
     private var utcCalendar: Calendar {
@@ -259,6 +305,25 @@ final class WMFDiscoverReadingListDataControllerTests {
                 try await controller.generateRecommendations(now: self.date(2026, 10, 27))
             }
             #expect(try await controller.fetchCurrentRecommendations().map(\.title) == firstList.map(\.title))
+        }
+    }
+
+    @Test
+    func overlappingGenerationCallsShareOneRun() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            let now = date(2026, 10, 26)
+
+            async let firstList = controller.generateRecommendations(now: now)
+            async let secondList = controller.generateRecommendationsIfNeeded(now: now)
+            let (first, second) = try await (firstList, secondList)
+
+            #expect(first.map(\.title) == second.map(\.title))
+            #expect(try await controller.fetchCurrentRecommendations().count == 2)
+            // One run persists one list. A second run would expire it and store more rows.
+            #expect(try await controller.fetchStoredRecommendations(includeExpired: true).count == 2)
         }
     }
 

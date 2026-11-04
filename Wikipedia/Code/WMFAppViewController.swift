@@ -367,7 +367,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         searchTabViewController.apply(theme: theme)
 
         if let savedTabBarItem = savedViewController.tabBarItem {
-            savedTabBadgeController = SavedTabBadgeController(tabBarItem: savedTabBarItem, tabBar: tabBar, theme: theme)
+            savedTabBadgeController = SavedTabBadgeController(
+                tabBarItem: savedTabBarItem,
+                tabBar: tabBar,
+                theme: theme,
+                userInterfaceIdiom: traitCollection.userInterfaceIdiom
+            )
         }
 
         updateActivityTabYearInReviewBadge()
@@ -1107,7 +1112,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             resumeAndAnnouncementsCompleteGroup.enter()
-            dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true) {
+            dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true) {
                 resumeAndAnnouncementsCompleteGroup.leave()
             }
         }
@@ -1229,7 +1234,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
         var timeInterval: TimeInterval = 2 * 60 * 60
-        let key = WMFFeedDayResponse.wmfFeedDayResponseMaxAgeKey()
+        let key = WMFFeedDayResponse.maxAgeKey()
         if let value = dataStore.viewContext.wmf_numberValue(forKey: key) {
             timeInterval = value.doubleValue
         }
@@ -1482,11 +1487,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         
         guard let _savedArticlesFetcher else {
             let fetcher = SavedArticlesFetcher(dataStore: dataStore)
+            // The initial KVO callback reads this property, so set it before the observer starts.
+            _savedArticlesFetcher = fetcher
             fetcher?.addObserver(self,
                                 forKeyPath: #keyPath(SavedArticlesFetcher.progress),
                                 options: [.initial, .new, .old],
                                 context: &kvoSavedArticlesFetcherProgress)
-            _savedArticlesFetcher = fetcher
             return fetcher
         }
         
@@ -2291,7 +2297,7 @@ extension WMFAppViewController {
             UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)
@@ -2305,7 +2311,7 @@ extension WMFAppViewController {
             self.homeCoordinator?.homeViewController?.updateProfileButton()
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)

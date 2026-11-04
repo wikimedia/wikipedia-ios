@@ -171,7 +171,8 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
-                }
+                },
+                accessibilityIdentifier: AccessibilityIdentifiers.Profile.settingsRow
             )
             
             var settingsItems: [ProfileListItem] = [settingsItem]
@@ -302,7 +303,8 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                    coordinatorDelegate?.handleProfileAction(.showSettings)
-                }
+                },
+                accessibilityIdentifier: AccessibilityIdentifiers.Profile.settingsRow
             )
             
             var settingsItems: [ProfileListItem] = [settingsItem]
@@ -393,7 +395,8 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
-                }
+                },
+                accessibilityIdentifier: AccessibilityIdentifiers.Profile.settingsRow
             )
             
             var settingsItems: [ProfileListItem] = [settingsItem]

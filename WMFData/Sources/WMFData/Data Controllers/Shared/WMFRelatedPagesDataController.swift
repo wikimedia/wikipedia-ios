@@ -89,6 +89,7 @@ public actor WMFRelatedPagesDataController {
             "prop": "pageimages|description|info|extracts|pageprops",
             "ppprop": "mainpage|disambiguation",
             "piprop": "thumbnail",
+            "pilicense": "any",
             "pithumbsize": "160",
             "pilimit": String(limit),
             "exchars": "500",

@@ -46,7 +46,6 @@ struct WMFPageRowSaved: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFPageRowSavedViewModel
-    @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     typealias FromLongPress = Bool
     let onTap: (FromLongPress) -> Void
@@ -55,72 +54,51 @@ struct WMFPageRowSaved: View {
     let onOpenInNewTab: () -> Void
     let onOpenInBackgroundTab: () -> Void
 
-    private var maxReadableWidth: CGFloat {
-        switch dynamicTypeSize {
-        case .xSmall, .small, .medium, .large:
-            return 700
-        case .xLarge, .xxLarge, .xxxLarge:
-            return 800
-        case .accessibility1, .accessibility2:
-            return 900
-        case .accessibility3, .accessibility4, .accessibility5:
-            return .infinity // No limit for largest sizes
-        @unknown default:
-            return 700
-        }
-    }
-
     var body: some View {
         Button(action: {
             self.onTap(false)
         }) {
-            HStack(spacing: 0) {
-                Spacer(minLength: 0)
+            HStack(spacing: WMFSpacing.medium) {
+                if viewModel.isEditing {
+                    selectionIndicator
+                }
 
-                HStack(spacing: 12) {
-                    if viewModel.isEditing {
-                        selectionIndicator
-                    }
+                HStack(spacing: WMFSpacing.medium) {
 
-                    HStack(spacing: 12) {
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.title)
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
-                                .foregroundColor(Color(uiColor: appEnvironment.theme.text))
-                                .lineLimit(1)
+                    VStack(alignment: .leading, spacing: WMFSpacing.xSmall) {
+                        Text(viewModel.title)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundColor(Color(uiColor: appEnvironment.theme.text))
+                            .lineLimit(1)
 
 
-                            Text(viewModel.description ?? " ")
-                                .font(Font(WMFFont.for(.subheadline)))
-                                .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
-                                .lineLimit(1)
-
-                            Spacer()
-
-
-                            if viewModel.isAlertHidden {
-                                if !viewModel.readingListNames.isEmpty {
-                                    readingListTags
-                                }
-                            } else {
-                                WMFPageRowSavedAlertView(viewModel: viewModel)
-                            }
-
-                        }
+                        Text(viewModel.description ?? " ")
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
+                            .lineLimit(1)
 
                         Spacer()
 
-                        thumbnailView
-                    }
-                    .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .frame(maxWidth: maxReadableWidth, minHeight: 124, alignment: .leading)
 
-                Spacer(minLength: 0)
+                        if viewModel.isAlertHidden {
+                            if !viewModel.readingListNames.isEmpty {
+                                readingListTags
+                            }
+                        } else {
+                            WMFPageRowSavedAlertView(viewModel: viewModel)
+                        }
+
+                    }
+
+                    Spacer()
+
+                    thumbnailView
+                }
+                .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
             }
+            .padding(.horizontal, WMFSpacing.large)
+            .padding(.vertical, WMFSpacing.medium)
+            .frame(minHeight: 124, alignment: .leading)
         }
         .accessibilityElement()
         .accessibilityLabel("\(viewModel.title) - \(viewModel.description ?? "")")

@@ -20,6 +20,7 @@ public struct SettingsItem: Identifiable {
     let showsBetaBadge: Bool
     let accessory: AccessoryType
     let action: (() -> Void)?
+    let accessibilityIdentifier: String?
 
     public init(
         image: UIImage?,
@@ -28,6 +29,7 @@ public struct SettingsItem: Identifiable {
         subtitle: String?,
         showsBetaBadge: Bool = false,
         accessory: AccessoryType,
+        accessibilityIdentifier: String? = nil,
         action: (() -> Void)?
     ) {
         self.image = image
@@ -36,6 +38,7 @@ public struct SettingsItem: Identifiable {
         self.subtitle = subtitle
         self.showsBetaBadge = showsBetaBadge
         self.accessory = accessory
+        self.accessibilityIdentifier = accessibilityIdentifier
         self.action = action
     }
 }
@@ -320,13 +323,13 @@ final public class WMFSettingsViewModel: ObservableObject {
         if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
             // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
             // feed row covers customization for both segments.
-            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), accessibilityIdentifier: AccessibilityIdentifiers.Settings.homeFeedRow, action: {
                 self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
             }))
         } else {
             // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
             // powers the Community segment and its settings stay reachable here relabeled as Community.
-            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+            feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), accessibilityIdentifier: AccessibilityIdentifiers.Settings.homeFeedRow, action: {
                 self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
             }))
             feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
@@ -352,7 +355,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.articleSyncing)
         })
 
-        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: nil), action: {
+        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: Self.databasePopulationLabel), action: {
             self.coordinatorDelegate?.handleSettingsAction(.databasePopulation)
         })
 
@@ -372,12 +375,25 @@ final public class WMFSettingsViewModel: ObservableObject {
             section.items.insert(yearInReview, at: 2 + feedItems.count)
         }
 
-#if DEBUG
-        // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
-        let clearCacheIndex = section.items.firstIndex { $0.title == localizedStrings.clearCacheTitle } ?? section.items.count
-        section.items.insert(dangerZone, at: clearCacheIndex)
-#endif
+        if showsDatabasePopulation {
+            // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
+            let clearCacheIndex = section.items.firstIndex { $0.title == localizedStrings.clearCacheTitle } ?? section.items.count
+            section.items.insert(dangerZone, at: clearCacheIndex)
+        }
         return section
+    }
+
+    /// The row is for developers only, so the label is not translated.
+    private static let databasePopulationLabel = "Dev mode"
+
+    /// Always on in Xcode builds. TestFlight builds show the row only with developer mode on, so
+    /// the Experimental app can also seed its database.
+    private var showsDatabasePopulation: Bool {
+#if DEBUG
+        return true
+#else
+        return WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode
+#endif
     }
 
     /// Only shown while the remote feature config enables the visual editor journey. The value

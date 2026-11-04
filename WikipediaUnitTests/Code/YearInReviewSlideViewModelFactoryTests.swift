@@ -93,8 +93,8 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "end"])
     }
 
-    /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, then the
-    /// articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
+    /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, niche interest,
+    /// then the articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
@@ -102,6 +102,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
+            nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"),
             rereadArticles: [
                 .init(title: "Dam", visitCount: 3, project: nil),
                 .init(title: "Gravity dam", visitCount: 2, project: nil)
@@ -110,7 +111,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame13"])
+        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame12", "frame13"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
@@ -412,6 +413,39 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 1, peakMonth: 3, peakMonthDayCount: 1)) == nil)
     }
 
+    // MARK: - Niche interest
+
+    @Test
+    func theNicheInterestSlideShowsTheCategoryName() throws {
+        let categoryName = "Executed female serial killers"
+        let slide = try #require(factory.nicheInterestSlide(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName)))
+
+        #expect(slide.id == "nicheInterest")
+        #expect(slide.animation?.artboardName == "frame12")
+        #expect(slide.animation?.stateMachineName == "frame12-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewNicheInterestTitle)
+        #expect(text(slide, "data") == categoryName.localizedUppercase)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewNicheInterestSubtitle)
+        // VoiceOver reads the category name as written, not in capitals.
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewNicheInterestTitle) \(categoryName). \(CommonStrings.yearInReviewNicheInterestSubtitle)")
+        // The category name has no fit, so it keeps the size and line count that the .riv gives it.
+        #expect(slide.textFits.contains { $0.text.path == "data" } == false)
+        // The headline and the body copy still fit.
+        #expect(slide.textFits.map(\.text.path).sorted() == ["bodyCopy", "headline"])
+    }
+
+    /// The slide has no empty version, so it does not show without a category name.
+    @Test(arguments: [nil, "", "   "] as [String?])
+    func theNicheInterestSlideNeedsACategoryName(categoryName: String?) {
+        #expect(factory.nicheInterestSlide(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName)) == nil)
+    }
+
+    /// The slide does not show when the report does not have its data.
+    @Test
+    func theNicheInterestSlideNeedsStoredData() {
+        #expect(factory.nicheInterestSlide(nil) == nil)
+    }
+
     // MARK: - Topics
 
     /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
@@ -695,5 +729,22 @@ struct YearInReviewSlideViewModelFactoryTests {
     func withOneRabbitHoleTheRabbitHoleSlidesDoNotShow() throws {
         #expect(factory.rabbitHoleSlides(try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true)).isEmpty)
         #expect(factory.rabbitHoleSlides(nil).isEmpty)
+    }
+
+    /// The instrumentation plan names each page, and the donate campaign ID is made from that name.
+    @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
+    func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
+        let planPages: Set<String> = [
+            "total_articles", "total_articles_empty", "visits", "top_topic", "top_topic_empty", "other_top_topics",
+            "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
+            "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
+            "collective_volunteer_editors", "collective_edits", "collective_global_reach", "thank_you", "you_matter"
+        ]
+        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.collectiveSlides(config: try config())
+        for slide in slides {
+            #expect(planPages.contains(slide.loggingID), "\(slide.id) logs \(slide.loggingID)")
+        }
+        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: YearInReviewSlideViewModelFactory.contributorSlideID) == "thank_you")
+        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "rabbitHoleReveal") == "rabbit_hole_reveal")
     }
 }

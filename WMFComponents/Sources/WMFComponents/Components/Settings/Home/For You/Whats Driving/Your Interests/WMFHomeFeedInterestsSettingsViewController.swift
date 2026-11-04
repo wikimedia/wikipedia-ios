@@ -18,6 +18,11 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Interests.view
+    }
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()

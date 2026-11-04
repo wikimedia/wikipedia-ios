@@ -320,6 +320,8 @@
 "diff-thanks-sent-cannot-unsend" = "Non si può richiamare e annullare l'invio di ringraziamenti";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 riga non modificata|$1 righe non modificate}}";
 "dim-images" = "Attenuazione immagini";
+"discover-announcement-new-tag" = "Nuovo";
+"discover-announcement-no-thanks" = "No, grazie";
 "donate-accessibility-amount-button-hint" = "Tocca due volte per selezionare l'importo da donare.";
 "donate-accessibility-donate-hint-format" = "Tocca due volte per donare $1 alla Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Tocca due volte per dare il permesso alla Wikimedia Foundation di inviarti delle email.";

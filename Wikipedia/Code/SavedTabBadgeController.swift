@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 import WMF
+import WMFComponents
 import WMFData
 
 /// What the badge needs to know about the Discover announcement. `WMFDiscoverDataController` is the
@@ -17,7 +18,7 @@ extension WMFDiscoverDataController: SavedTabDiscoverAnnouncementProviding {
     }
 }
 
-/// The one owner of the Saved tab bar badge. Two states compete for the single badge slot: the
+/// The one owner of the Saved tab badge. Two states compete for the single badge slot: the
 /// star that shows while saved articles download, and the dot that announces Discover until the
 /// reader answers the onboarding card. The star wins while a download runs, because it is temporary.
 @MainActor
@@ -28,32 +29,24 @@ final class SavedTabBadgeController {
         case syncInProgress
         case discoverAnnouncement
 
-        var value: String? {
+        func value(for userInterfaceIdiom: UIUserInterfaceIdiom) -> String? {
             switch self {
             case .none:
                 return nil
             case .syncInProgress:
                 return "\u{2605}"
             case .discoverAnnouncement:
-                // The dot is drawn into the tab icon, not into the badge.
-                return nil
+                return userInterfaceIdiom == .pad ? "\u{2800}" : "\u{25CF}"
             }
         }
     }
-
-    /// Diameter of the Discover dot, in points.
-    static let discoverDotDiameter: CGFloat = 10
-    /// Room added around the tab icon so the dot can sit on its corner. Equal on every side, so the
-    /// glyph stays centered in the tab.
-    private static let discoverDotInset: CGFloat = 4
 
     private(set) var badge: Badge = .none
 
     private weak var tabBarItem: UITabBarItem?
     private weak var tabBar: UITabBar?
+    private let userInterfaceIdiom: UIUserInterfaceIdiom
     private var theme: Theme
-    /// The tab icon as the app set it, restored when the Discover dot goes away.
-    private let baseImage: UIImage?
     private let discoverDataController: SavedTabDiscoverAnnouncementProviding
 
     private var isSyncInProgress = false
@@ -64,11 +57,11 @@ final class SavedTabBadgeController {
     private var showStarTask: Task<Void, Never>?
     private var discoverObservation: AnyCancellable?
 
-    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, discoverDataController: SavedTabDiscoverAnnouncementProviding = WMFDiscoverDataController.shared) {
+    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, discoverDataController: SavedTabDiscoverAnnouncementProviding = WMFDiscoverDataController.shared) {
         self.tabBarItem = tabBarItem
         self.tabBar = tabBar
+        self.userInterfaceIdiom = userInterfaceIdiom
         self.theme = theme
-        self.baseImage = tabBarItem.image
         self.discoverDataController = discoverDataController
         beginProgressObservations()
         discoverObservation = NotificationCenter.default.publisher(for: WMFNSNotification.discoverAnnouncementStateDidChange)
@@ -178,73 +171,47 @@ final class SavedTabBadgeController {
         guard force || newBadge != badge else { return }
         badge = newBadge
 
-        // The badge color comes from the tab bar appearance, and a badge that is already on
-        // screen keeps its color. Clear it, apply the color, then set the value.
+        // The badge colors come from the tab bar appearance, and a badge that is already on
+        // screen keeps its colors. Clear it, apply the colors, then set the value.
         tabBarItem?.badgeValue = nil
-        if let tabBar, let color = badgeColor(for: newBadge) {
+        if let tabBar, let style = badgeStyle(for: newBadge) {
             let appearance = tabBar.standardAppearance.copy()
             for layout in [appearance.stackedLayoutAppearance, appearance.inlineLayoutAppearance, appearance.compactInlineLayoutAppearance] {
-                layout.normal.badgeBackgroundColor = color
-                layout.selected.badgeBackgroundColor = color
+                for state in [layout.normal, layout.selected] {
+                    state.badgeBackgroundColor = style.background
+                    state.badgeTextAttributes = style.textAttributes
+                    state.badgePositionAdjustment = style.positionAdjustment
+                }
             }
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
             tabBar.setNeedsLayout()
             tabBar.layoutIfNeeded()
         }
-        tabBarItem?.badgeValue = newBadge.value
-        renderIcon(for: newBadge)
+        tabBarItem?.badgeValue = newBadge.value(for: userInterfaceIdiom)
     }
 
-    /// Swaps the tab icon for a copy with the Discover dot, or puts the plain icon back.
-    private func renderIcon(for badge: Badge) {
-        guard let tabBarItem else { return }
-        guard badge == .discoverAnnouncement, let baseImage else {
-            tabBarItem.image = baseImage
-            tabBarItem.selectedImage = nil
-            return
-        }
-        tabBarItem.image = Self.dottedIcon(baseImage, iconColor: Self.unselectedIconColor(for: theme), dotColor: theme.colors.destructive)
-        tabBarItem.selectedImage = Self.dottedIcon(baseImage, iconColor: theme.colors.link, dotColor: theme.colors.destructive)
+    private struct BadgeStyle {
+        let background: UIColor
+        let textAttributes: [NSAttributedString.Key: Any]
+        var positionAdjustment: UIOffset = .zero
     }
 
-    /// Color of the other tab icons when they are not selected. The Liquid Glass tab bar ignores
-    /// the normal `iconColor` of the appearance and draws template icons in the label color.
-    private static func unselectedIconColor(for theme: Theme) -> UIColor {
-        if #available(iOS 26.0, *) {
-            return theme.colors.primaryText
-        }
-        return theme.colors.unselected
-    }
-
-    /// Draws `icon` in `iconColor` with a dot on its top trailing corner. The result keeps its own
-    /// colors, so the tab bar does not tint it.
-    static func dottedIcon(_ icon: UIImage, iconColor: UIColor, dotColor: UIColor) -> UIImage {
-        let inset = discoverDotInset
-        let diameter = discoverDotDiameter
-        let canvasSize = CGSize(width: icon.size.width + inset * 2, height: icon.size.height + inset * 2)
-        let iconRect = CGRect(origin: CGPoint(x: inset, y: inset), size: icon.size)
-        let isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
-        let dotCenterX = isRightToLeft ? iconRect.minX + inset / 2 : iconRect.maxX - inset / 2
-        let dotRect = CGRect(x: dotCenterX - diameter / 2, y: iconRect.minY + inset / 2 - diameter / 2, width: diameter, height: diameter)
-
-        let renderer = UIGraphicsImageRenderer(size: canvasSize)
-        let image = renderer.image { _ in
-            icon.withTintColor(iconColor).draw(in: iconRect)
-            dotColor.setFill()
-            UIBezierPath(ovalIn: dotRect).fill()
-        }
-        return image.withRenderingMode(.alwaysOriginal)
-    }
-
-    private func badgeColor(for badge: Badge) -> UIColor? {
+    private func badgeStyle(for badge: Badge) -> BadgeStyle? {
         switch badge {
         case .none:
             return nil
         case .syncInProgress:
-            return theme.colors.accent
+            return BadgeStyle(background: theme.colors.accent, textAttributes: theme.tabBarItemBadgeTextAttributes)
         case .discoverAnnouncement:
-            return theme.colors.destructive
+            if userInterfaceIdiom == .pad {
+                return BadgeStyle(background: theme.colors.destructive, textAttributes: theme.tabBarItemBadgeTextAttributes)
+            }
+            return BadgeStyle(
+                background: .clear,
+                textAttributes: [.foregroundColor: theme.colors.destructive],
+                positionAdjustment: UIOffset(horizontal: WMFSpacing.xSmall, vertical: -WMFSpacing.xSmall)
+            )
         }
     }
 }

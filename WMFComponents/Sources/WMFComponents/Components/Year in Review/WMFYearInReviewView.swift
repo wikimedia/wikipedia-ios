@@ -61,9 +61,15 @@ public struct WMFYearInReviewView: View {
                 }
                 .scrollTargetLayout()
                 .background {
-                    WMFYearInReviewPageObserver(slideIDs: viewModel.pageIDs) { slideID in
-                        viewModel.currentSlideID = slideID
-                    }
+                    WMFYearInReviewPageObserver(
+                        slideIDs: viewModel.pageIDs,
+                        onPageChange: { slideID in
+                            viewModel.currentSlideID = slideID
+                        },
+                        onScroll: { position in
+                            viewModel.pagerDidScroll(toPosition: position)
+                        }
+                    )
                 }
             }
             .modifier(
@@ -79,9 +85,15 @@ public struct WMFYearInReviewView: View {
                 }
                 .scrollTargetLayout()
                 .background {
-                    WMFYearInReviewPageObserver(slideIDs: viewModel.pageIDs) { slideID in
-                        viewModel.currentSlideID = slideID
-                    }
+                    WMFYearInReviewPageObserver(
+                        slideIDs: viewModel.pageIDs,
+                        onPageChange: { slideID in
+                            viewModel.currentSlideID = slideID
+                        },
+                        onScroll: { position in
+                            viewModel.pagerDidScroll(toPosition: position)
+                        }
+                    )
                 }
             }
             .modifier(
@@ -121,6 +133,9 @@ public struct WMFYearInReviewView: View {
                     viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
                 },
                 showsAnswerInPlace: !voiceOverEnabled,
+                onAnswerShown: {
+                    viewModel.answerDidShow(slideID: slide.id)
+                },
                 donateButtonTitle: viewModel.localizedStrings.donateButtonTitle,
                 isLoadingDonate: viewModel.isLoadingDonate,
                 onTapDonate: { sourceRect in
@@ -141,6 +156,8 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
 
     let slideIDs: [String]
     let onPageChange: @MainActor (String) -> Void
+    /// The page at the top of the pager, with a fraction, on each scroll step.
+    let onScroll: @MainActor (CGFloat) -> Void
 
     func makeUIView(context: Context) -> ObserverView {
         let view = ObserverView()
@@ -151,11 +168,13 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
     func updateUIView(_ uiView: ObserverView, context: Context) {
         uiView.slideIDs = slideIDs
         uiView.onPageChange = onPageChange
+        uiView.onScroll = onScroll
     }
 
     final class ObserverView: UIView {
         var slideIDs: [String] = []
         var onPageChange: (@MainActor (String) -> Void)?
+        var onScroll: (@MainActor (CGFloat) -> Void)?
         private var observation: NSKeyValueObservation?
         private var sizeObservation: NSKeyValueObservation?
         private var lastSlideID: String?
@@ -201,6 +220,11 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
         }
 
         private func scrollViewDidMove(_ scrollView: UIScrollView) {
+            if !slideIDs.isEmpty, scrollView.contentSize.height > 0 {
+                let pageHeight = scrollView.contentSize.height / CGFloat(slideIDs.count)
+                onScroll?((scrollView.contentOffset.y + scrollView.adjustedContentInset.top) / pageHeight)
+            }
+
             // Only when the finger is up and the pager is exactly on a page, so not in the middle of a swipe.
             guard !scrollView.isTracking, !slideIDs.isEmpty else { return }
             let pageHeight = scrollView.contentSize.height / CGFloat(slideIDs.count)

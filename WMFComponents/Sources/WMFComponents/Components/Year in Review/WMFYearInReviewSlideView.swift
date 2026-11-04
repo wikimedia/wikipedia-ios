@@ -10,6 +10,7 @@ struct WMFYearInReviewSlideView: View {
     /// False while VoiceOver runs. The pager then shows `slide.answer` as the next slide, because a
     /// VoiceOver reader cannot tap an answer in the .riv.
     var showsAnswerInPlace: Bool = true
+    var onAnswerShown: (@MainActor () -> Void)? = nil
     var donateButtonTitle: String = ""
     var isLoadingDonate: Bool = false
     /// Called with the frame of the primary donate button in window coordinates.
@@ -110,6 +111,7 @@ struct WMFYearInReviewSlideView: View {
         let onAnswerTrigger: @MainActor () -> Void = {
             guard isCurrent, answer != nil else { return }
             isShowingAnswer = true
+            onAnswerShown?()
         }
         return WMFRiveView(
             animation,
