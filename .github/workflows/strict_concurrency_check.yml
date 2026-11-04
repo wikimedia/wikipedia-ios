@@ -1,21 +1,16 @@
 name: Strict Concurrency Check
 
-# Swift 6 migration guard.
+# Swift 6 migration ratchet.
 #
-# This workflow builds the migration targets with SWIFT_STRICT_CONCURRENCY=complete
-# and reports the number of concurrency warnings per scheme. Every one of these
-# warnings becomes a hard ERROR once the target flips to Swift 6 language mode, so
-# this is the burn-down metric for the migration (see the Swift 6.2 migration plan).
-#
-# Schemes still burning down their backlog are report-only.
-# As each scheme reaches zero, move it into GATED_SCHEMES below to make it a hard gate:
-# the job then fails if ANY concurrency warning appears in that scheme's own sources.
-# WMFComponents reached zero via default MainActor isolation. WMFData reached zero
-# via Sendable services/models and lock-isolated singleton state (started at ~127).
-# Both are gated. WMF (the legacy WMF Framework target) is report-only while its
-# burn-down runs (it could not even build under complete checking before the
-# burn-down began; the first measurable count was ~517, ~224 after the first
-# pass). The app targets follow it.
+# Each job builds one scheme with SWIFT_STRICT_CONCURRENCY=complete and counts the
+# concurrency warnings per target with scripts/strict-concurrency-count.sh. The count
+# script attributes each warning to the target that compiles the file, not to a folder.
+# scripts/strict-concurrency-ratchet.sh then compares each count of the scheme's own
+# targets with .github/strict-concurrency-baseline.json:
+#   - A count above its baseline fails the job.
+#   - A count below its baseline adds a notice. Lower the baseline in the same PR.
+# A target at 0 stays at 0. When a target flips to Swift 6 language mode, its
+# warnings become errors and the build itself enforces the rule.
 
 on:
   pull_request:
@@ -29,11 +24,7 @@ env:
   XCODE_VERSION: "27.1"
   IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
-  # Schemes that have completed their strict-concurrency burn-down. For these, the
-  # job FAILS if any concurrency warning appears in the scheme's own sources.
-  # (Concurrency-scoped on purpose: blanket warnings-as-errors would also trip on
-  # unrelated warnings like deprecations.) Space-separated.
-  GATED_SCHEMES: "WMFData WMFComponents"
+  BASELINE_FILE: ".github/strict-concurrency-baseline.json"
 
 concurrency:
   group: "strict-concurrency-${{ github.ref }}"
@@ -48,9 +39,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Leaf-first migration order. Add Wikipedia here when it begins its burn-down.
-        # WMF (WMF Framework) is report-only while its backlog burns down.
-        scheme: ["WMFData", "WMFComponents", "WMF"]
+        # Leaf-first migration order. "targets" are the targets that this scheme owns.
+        # The Wikipedia scheme also builds the extensions, so its job checks them too.
+        include:
+          - scheme: "WMFData"
+            targets: "WMFData"
+          - scheme: "WMFComponents"
+            targets: "WMFComponents"
+          - scheme: "WMFTestKitchen"
+            targets: "WMFTestKitchen"
+          - scheme: "WMF"
+            targets: "WMF"
+          - scheme: "Wikipedia"
+            targets: "Wikipedia WidgetsExtension NotificationServiceExtension ContinueReadingWidget"
 
     name: Strict concurrency (${{ matrix.scheme }})
     steps:
@@ -68,77 +69,60 @@ jobs:
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
       - name: Build ${{ matrix.scheme }} with strict concurrency
+        env:
+          SCHEME: ${{ matrix.scheme }}
+          DESTINATION: ${{ steps.simulator.outputs.destination }}
         run: |
-          SCHEME="${{ matrix.scheme }}"
           echo "Building ${SCHEME} with SWIFT_STRICT_CONCURRENCY=complete"
 
-          GATED="NO"
-          for gated in ${GATED_SCHEMES}; do
-            if [ "${gated}" = "${SCHEME}" ]; then
-              GATED="YES"
-            fi
-          done
+          # An incremental build shows warnings only for the files that it compiles
+          # again, so the count is too low. Always start from an empty DerivedData.
+          DERIVED_DATA="${RUNNER_TEMP}/strict-concurrency-dd-${SCHEME}"
+          rm -rf "${DERIVED_DATA}"
 
+          # The step runs under bash -e. Turn it off around the pipeline, so that
+          # a failed build reaches the error message below.
+          set +e
           set -o pipefail
           xcodebuild build \
             -scheme "${SCHEME}" \
             -project Wikipedia.xcodeproj \
             -onlyUsePackageVersionsFromResolvedFile \
-            -destination "${{ steps.simulator.outputs.destination }}" \
+            -destination "${DESTINATION}" \
+            -derivedDataPath "${DERIVED_DATA}" \
             SWIFT_STRICT_CONCURRENCY=complete \
             2>&1 | tee "${SCHEME}_strict.log"
           BUILD_EXIT=${PIPESTATUS[0]}
-          if [ "${BUILD_EXIT}" -ne 0 ]; then
-            echo "::error::${SCHEME} failed to build."
-            exit "${BUILD_EXIT}"
-          fi
+          set -e
 
-          # Count concurrency-related warnings in this scheme's OWN sources only.
-          # A scheme's build also compiles its dependencies (e.g. building
-          # WMFComponents recompiles WMFData), whose warnings must not be attributed
-          # to this scheme. The pattern matches the strict-concurrency diagnostic
-          # vocabulary; plain warnings (deprecations etc.) are not counted.
-          #
-          # Each scheme's sources live under a different path shape: SPM packages
-          # use <Package>/Sources, while the WMF framework target compiles from
-          # "WMF Framework/" (vendored Third Party code is excluded from its count).
-          case "${SCHEME}" in
-            WMF) SOURCE_PATH="WMF Framework/" ;;
-            *)   SOURCE_PATH="${SCHEME}/Sources" ;;
-          esac
-          CONCURRENCY_PATTERN='[Ss]endable|concurren|actor|isolat|data race|main actor|nonisolated'
-          # Grep once; every stage tolerates zero matches. (The job runs under
-          # bash -e with pipefail, so an unguarded empty grep pipeline would
-          # fail the step exactly when a gated scheme is clean.)
-          MATCHES=$(grep "warning:" "${SCHEME}_strict.log" \
-            | grep "${SOURCE_PATH}" \
-            | grep -v "WMF Framework/Third Party" \
-            | grep -iE "${CONCURRENCY_PATTERN}" || true)
-          if [ -n "${MATCHES}" ]; then
-            COUNT=$(printf '%s\n' "${MATCHES}" | wc -l | tr -d ' ')
-          else
-            COUNT=0
-          fi
-          {
-            echo "## Strict concurrency: ${SCHEME}"
-            echo ""
-            echo "**Concurrency warnings in ${SCHEME} sources (errors under Swift 6 language mode): ${COUNT}**"
-            echo ""
-            if [ "${COUNT}" -gt 0 ]; then
-              echo "Top warnings:"
-              echo '```'
-              printf '%s\n' "${MATCHES}" \
-                | sed -E 's/^.*warning:/warning:/' \
-                | sort | uniq -c | sort -rn | head -20
-              echo '```'
-            else
-              echo "No concurrency warnings. 🎉"
-            fi
-          } >> "${GITHUB_STEP_SUMMARY}"
-
-          if [ "${GATED}" = "YES" ] && [ "${COUNT}" -gt 0 ]; then
-            echo "::error::${SCHEME} is a gated scheme (zero concurrency warnings) and this change introduced ${COUNT}. See the job summary for details."
+          if [ "${BUILD_EXIT}" -ne 0 ] || ! grep -q "BUILD SUCCEEDED" "${SCHEME}_strict.log"; then
+            echo "::error::${SCHEME} failed to build with SWIFT_STRICT_CONCURRENCY=complete."
+            grep -E "error:" "${SCHEME}_strict.log" | sort -u | head -50 || true
             exit 1
           fi
 
-          echo "${SCHEME}: ${COUNT} concurrency warning(s) (gated: ${GATED})."
+      - name: Count and compare with the baseline
+        env:
+          SCHEME: ${{ matrix.scheme }}
+          TARGETS: ${{ matrix.targets }}
+        run: |
+          # Package tasks run in Wikipedia.xcodeproj, so give the root explicitly.
+          scripts/strict-concurrency-count.sh --root "${GITHUB_WORKSPACE}" \
+            "${SCHEME}_strict.log" > "${SCHEME}_strict_counts.json"
+
+          # TARGETS is a space-separated list. Split it into arguments on purpose.
+          # shellcheck disable=SC2086
+          scripts/strict-concurrency-ratchet.sh \
+            --summary "${GITHUB_STEP_SUMMARY}" \
+            --title "Strict concurrency: ${SCHEME}" \
+            "${BASELINE_FILE}" \
+            "${SCHEME}_strict_counts.json" \
+            ${TARGETS}
+
+      - name: Upload counts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: strict-concurrency-${{ matrix.scheme }}
+          path: ${{ matrix.scheme }}_strict_counts.json
+          if-no-files-found: ignore

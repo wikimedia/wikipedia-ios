@@ -3025,6 +3025,7 @@
 		5E6A000100000000000AE001 /* ArticleViewController+SemanticSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+SemanticSearch.swift"; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000A0 /* SearchResultsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsLoader.swift; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000B0 /* SearchResultsLoaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsLoaderTests.swift; sourceTree = "<group>"; };
+		5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SwiftConcurrency.xcconfig; sourceTree = "<group>"; };
 		FB91BF0BBD5F478E2BAFDD9C /* SearchFixtureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFixtureService.swift; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsMapper.swift; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000D0 /* SearchResultsMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsMapperTests.swift; sourceTree = "<group>"; };
@@ -6040,6 +6041,7 @@
 			isa = PBXGroup;
 			children = (
 				81B26C372E6D757400EADB09 /* OpenSourceDebug.xcconfig */,
+				5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -11294,6 +11296,7 @@
 /* Begin XCBuildConfiguration section */
 		00021DEF24D48EFE00476F97 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11336,6 +11339,7 @@
 		};
 		00021DF024D48EFE00476F97 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11375,6 +11379,7 @@
 		};
 		00021DF424D48EFE00476F97 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11414,6 +11419,7 @@
 		};
 		00021DF624D48EFE00476F97 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11454,6 +11460,7 @@
 		};
 		00021DF724D48EFE00476F97 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11493,6 +11500,7 @@
 		};
 		00021DF924D48EFE00476F97 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11532,6 +11540,7 @@
 		};
 		00021DFB24D48EFE00476F97 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11571,6 +11580,7 @@
 		};
 		00021DFC24D48EFE00476F97 /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -11611,6 +11621,7 @@
 		};
 		0E8380711D64989F0076EDE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -11640,6 +11651,7 @@
 		};
 		0E8380731D64989F0076EDE4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -11666,6 +11678,7 @@
 		};
 		0E8380741D64989F0076EDE4 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -11762,6 +11775,7 @@
 		};
 		0EAB7A211D47AF8000E7CF8E /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -11796,6 +11810,7 @@
 		};
 		0EAB7A221D47AF8000E7CF8E /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -11906,6 +11921,7 @@
 		};
 		675BC8BD2AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -11940,6 +11956,7 @@
 		};
 		675BC8BE2AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -11973,6 +11990,7 @@
 		};
 		675BC8BF2AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -12006,6 +12024,7 @@
 		};
 		675BC8C02AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -12046,6 +12065,7 @@
 		};
 		675BC8C12AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12091,6 +12111,7 @@
 		};
 		675BC8C32AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -12180,6 +12201,7 @@
 		};
 		675BC8C62AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -12219,6 +12241,7 @@
 		};
 		675BC8C72AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12255,6 +12278,7 @@
 		};
 		675BC8C82AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12288,6 +12312,7 @@
 		};
 		67623E142AFD289D007488C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12325,6 +12350,7 @@
 		};
 		67623E152AFD289D007488C7 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12358,6 +12384,7 @@
 		};
 		67623E162AFD289D007488C7 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12391,6 +12418,7 @@
 		};
 		67623E172AFD289D007488C7 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12425,6 +12453,7 @@
 		};
 		67623E182AFD289D007488C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12458,6 +12487,7 @@
 		};
 		67623E192AFD289D007488C7 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12491,6 +12521,7 @@
 		};
 		67623E1A2AFD289D007488C7 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12524,6 +12555,7 @@
 		};
 		67623E1B2AFD289D007488C7 /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -12558,6 +12590,7 @@
 		};
 		676C864C26D40AEB00A704C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12598,6 +12631,7 @@
 		};
 		676C864D26D40AEB00A704C1 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12634,6 +12668,7 @@
 		};
 		676C865026D40AEB00A704C1 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12670,6 +12705,7 @@
 		};
 		676C865126D40AEB00A704C1 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12707,6 +12743,7 @@
 		};
 		676C865226D40AEB00A704C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12743,6 +12780,7 @@
 		};
 		676C865426D40AEB00A704C1 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12779,6 +12817,7 @@
 		};
 		676C865526D40AEB00A704C1 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12815,6 +12854,7 @@
 		};
 		676C865626D40AEB00A704C1 /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -12852,6 +12892,7 @@
 		};
 		BC42735B1A7C736800068882 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -12890,6 +12931,7 @@
 		};
 		BC42735C1A7C736800068882 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -13071,6 +13113,7 @@
 		};
 		D499146B181D51DF00E6073C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -13103,6 +13146,7 @@
 		};
 		D499146C181D51DF00E6073C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -13138,6 +13182,7 @@
 		};
 		D844D9751D6CB2600042D692 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -13176,6 +13221,7 @@
 		};
 		D844D9781D6CB2600042D692 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -13217,6 +13263,7 @@
 		};
 		D844D9791D6CB2600042D692 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -13474,6 +13521,7 @@
 		};
 		D85432332188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -13506,6 +13554,7 @@
 		};
 		D85432342188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -13537,6 +13586,7 @@
 		};
 		D85432352188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -13568,6 +13618,7 @@
 		};
 		D85432392188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -13607,6 +13658,7 @@
 		};
 		D854323B2188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -13660,6 +13712,7 @@
 		};
 		D854323F2188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -13791,6 +13844,7 @@
 		};
 		D858A7FB1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -13833,6 +13887,7 @@
 		};
 		D858A7FC1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -13872,6 +13927,7 @@
 		};
 		D858A7FD1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -13898,6 +13954,7 @@
 		};
 		D858A8001DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -14011,6 +14068,7 @@
 		};
 		D858A8031DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -14050,6 +14108,7 @@
 		};
 		D858A8041DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -14090,6 +14149,7 @@
 		};
 		D858A8051DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -14120,6 +14180,7 @@
 		};
 		D858A8081DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -14385,6 +14446,7 @@
 		};
 		D8A42A3E1E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -14419,6 +14481,7 @@
 		};
 		D8A42A3F1E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -14452,6 +14515,7 @@
 		};
 		D8A42A411E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -14492,6 +14556,7 @@
 		};
 		D8A42A421E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -14517,6 +14582,7 @@
 		};
 		D8A42A441E814FAA00D8E281 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -14629,6 +14695,7 @@
 		};
 		D8A42A461E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -14661,6 +14728,7 @@
 		};
 		D8A42A471E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -14692,6 +14760,7 @@
 		};
 		D8A42A491E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -14731,6 +14800,7 @@
 		};
 		D8A42A4A1E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -14761,6 +14831,7 @@
 		};
 		D8A42A4C1E814FE000D8E281 /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -15012,6 +15083,7 @@
 		};
 		D8CE26A91E698E2400DAE2E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15043,6 +15115,7 @@
 		};
 		D8CE26AB1E698E2400DAE2E0 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15081,6 +15154,7 @@
 		};
 		D8CE26AC1E698E2400DAE2E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15115,6 +15189,7 @@
 		};
 		D8CE26AD1E698E2400DAE2E0 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15148,6 +15223,7 @@
 		};
 		D8CE26AE1E698E2400DAE2E0 /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15189,6 +15265,7 @@
 		};
 		D8EC3FA91E9BDA35006712EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15219,6 +15296,7 @@
 		};
 		D8EC3FAB1E9BDA35006712EB /* AlphaDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15250,6 +15328,7 @@
 		};
 		D8EC3FAD1E9BDA35006712EB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15288,6 +15367,7 @@
 		};
 		D8EC3FAE1E9BDA35006712EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15322,6 +15402,7 @@
 		};
 		D8EC3FB01E9BDA35006712EB /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15355,6 +15436,7 @@
 		};
 		D8EC3FB21E9BDA35006712EB /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
@@ -15388,6 +15470,7 @@
 		};
 		D8EC3FB31E9BDA35006712EB /* Experimental */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F6C0A1B2E7D4C3A00B1F201 /* SwiftConcurrency.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
