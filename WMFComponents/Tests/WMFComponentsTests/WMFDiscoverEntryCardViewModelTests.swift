@@ -124,6 +124,30 @@ final class WMFDiscoverEntryCardViewModelTests {
         }
     }
 
+    @Test
+    func aListStateNotificationReloadsWithoutGenerating() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            let dataController = makeDataController()
+            try await dataController.saveSettings(enabledSettings)
+            let viewModel = makeViewModel(dataController: dataController)
+            await refreshAndWait(viewModel)
+            try await dataController.markCurrentListSeen()
+            try await dataController.expireAllRecommendations()
+            let isGenerationDue = try await dataController.isGenerationDue()
+            #expect(isGenerationDue == true)
+
+            NotificationCenter.default.post(name: WMFNSNotification.discoverListStateDidChange, object: nil)
+            try? await Task.sleep(nanoseconds: 50_000_000)
+            await viewModel.refreshTask?.value
+
+            let currentPages = try await dataController.fetchCurrentRecommendations()
+            #expect(currentPages.isEmpty)
+            #expect(viewModel.hasUnseenList == false)
+            #expect(viewModel.collageViewModel.hasImages == false)
+        }
+    }
+
     // MARK: - Unseen list
 
     @Test
