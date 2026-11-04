@@ -1228,6 +1228,7 @@
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "Optional short description";
 "reading-list-new-list-name-placeholder" = "Reading list title";
+"reading-list-share-message" = "Hi! I'd like to share my Wikipedia reading list with you: $1";
 "reading-list-sync-disabled-panel-message" = "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.";
 "reading-list-sync-disabled-panel-title" = "Sync disabled";
 "reading-list-sync-enable-button-title" = "Enable syncing";
