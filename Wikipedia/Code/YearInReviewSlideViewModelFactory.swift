@@ -108,12 +108,10 @@ struct YearInReviewSlideViewModelFactory {
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
             let readData = storedReadData()
-            let readCount = readData?.readCount ?? 0
             return personalizedSlides(PersonalizedData(
-                readCount: readCount,
-                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
-                averageReadCount: config?.averageArticlesReadPerYear,
                 readData: readData,
+                topReadPercentage: config?.topReadPercentage(forReadCount: readData?.readCount ?? 0),
+                averageReadCount: config?.averageArticlesReadPerYear,
                 daysVisited: storedDaysVisited(),
                 topTopics: storedTopTopics(),
                 rabbitHoles: storedRabbitHoles(),
@@ -125,11 +123,14 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The stored data of the personalized slides.
     struct PersonalizedData {
-        var readCount = 0
+        /// No stored data means no qualifying articles.
+        var readCount: Int { readData?.readCount ?? 0 }
+
+        /// For the total articles and minutes read slides, so both always come from the same report.
+        /// `nil` shows the empty total articles slide and no minutes read slide.
+        var readData: WMFYearInReviewReadData?
         var topReadPercentage: Double?
         var averageReadCount: Int?
-        /// For the minutes read slide. `nil` does not show the slide.
-        var readData: WMFYearInReviewReadData?
         var daysVisited: WMFYearInReviewDaysVisitedSlideData?
         var topTopics: WMFYearInReviewTopTopicsSlideData?
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
@@ -255,9 +256,13 @@ struct YearInReviewSlideViewModelFactory {
 
         let headline = CommonStrings.yearInReviewMinutesReadTitle
         let count = NumberFormatter.localizedString(from: NSNumber(value: readData.minutesRead), number: .decimal)
-        // An eligible reader has at least one minute, so there is always a comparison.
-        let comparison = minutesReadComparison(forMinutes: readData.minutesRead) ?? ""
-        let bodyText = "\(comparison) \(CommonStrings.yearInReviewMinutesReadSubtitle)".trimmingCharacters(in: .whitespaces)
+        // An eligible reader has at least one minute, so there is always a comparison. If not, the
+        // thresholds and `minimumMinutesRead` no longer match.
+        guard let comparison = minutesReadComparison(forMinutes: readData.minutesRead) else {
+            assertionFailure("No minutes read comparison for \(readData.minutesRead) minutes")
+            return nil
+        }
+        let bodyText = "\(comparison) \(CommonStrings.yearInReviewMinutesReadSubtitle)"
         return dataSlide(
             id: "minutesRead",
             artboard: "frame3",

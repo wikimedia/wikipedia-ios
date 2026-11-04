@@ -903,7 +903,14 @@ public struct WMFYearInReviewReadData: Codable {
     /// The number of unique articles read. Pages outside the main namespace and main pages are
     /// left out.
     public let readCount: Int
+    /// The whole minutes spent reading the articles in `readCount`. See `YearInReviewReadCountSlideDataController.fetchReadData`.
     public let minutesRead: Int
+
+    /// The rules that `minutesRead` uses. Change it when the rules change, so stored reports build the
+    /// slide again. `nil` in data from builds before the minutes read slide, which counted all page views.
+    /// 1: only articles, and each page view before the July 2026 timer fix adds at most 30 minutes.
+    static let currentMinutesReadFormat = 1
+    var minutesReadFormat: Int? = WMFYearInReviewReadData.currentMinutesReadFormat
 
     /// If false, show the empty state of the total articles slide.
     public var isEligible: Bool {

@@ -98,7 +98,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
-            readCount: 20,
+            readData: try readData(minutesRead: 0),
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),

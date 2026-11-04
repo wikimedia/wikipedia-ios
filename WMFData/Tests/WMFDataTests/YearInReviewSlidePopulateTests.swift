@@ -246,6 +246,35 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.minutesRead, 3, "180 seconds on the article, and nothing from the talk page or the main pages")
     }
 
+    func testMinutesReadCapsEachPageViewBeforeTheTimerFix() async throws {
+        let pageViewsDataController = try WMFPageViewsDataController()
+
+        func addView(_ title: String, at timestamp: Date, seconds: Double) async throws {
+            let addedObjectID = try await pageViewsDataController.addPageView(title: title, namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: timestamp)
+            let objectID = try XCTUnwrap(addedObjectID)
+            try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: seconds)
+        }
+
+        // Before the cleanup cutoff of August 31: each view adds at most 30 minutes.
+        try await addView("Before", at: try date(month: 3, day: 4, hour: 9), seconds: 2 * 60 * 60)
+        try await addView("Before", at: try date(month: 3, day: 5, hour: 9), seconds: 10 * 60)
+        // After the cutoff: no limit.
+        try await addView("After", at: try date(month: 10, day: 4, hour: 9), seconds: 2 * 60 * 60)
+
+        let payload = try await readCountPayload()
+
+        XCTAssertEqual(payload.minutesRead, 30 + 10 + 120)
+    }
+
+    func testReadDataFromBeforeTheMinutesReadSlideIsNotTheCurrentFormat() throws {
+        let oldData = try JSONSerialization.data(withJSONObject: ["readCount": 10, "minutesRead": 500])
+        XCTAssertFalse(YearInReviewReadCountSlideDataController.hasCurrentFormat(oldData), "old reports counted all page views, so they build the slide again")
+        XCTAssertFalse(YearInReviewReadCountSlideDataController.hasCurrentFormat(nil))
+
+        let currentData = try JSONEncoder().encode(WMFYearInReviewReadData(readCount: 10, minutesRead: 500))
+        XCTAssertTrue(YearInReviewReadCountSlideDataController.hasCurrentFormat(currentData))
+    }
+
     func testReadCountIsEligibleFromThreeArticles() async throws {
         let when = try date(month: 3, day: 4, hour: 9)
         try await seedPageViews([pageView("Alpha", at: when), pageView("Beta", at: when)])

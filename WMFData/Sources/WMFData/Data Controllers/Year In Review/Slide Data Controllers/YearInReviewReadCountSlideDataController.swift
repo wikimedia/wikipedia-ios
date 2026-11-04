@@ -43,17 +43,35 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
 
     /// The number of distinct articles read in the date range. Pages outside the main namespace and
-    /// main pages do not count. The Year in Review entry point calls this, and it uses the same query
-    /// and rules as `fetchReadData`, so the entry point and the total articles slide always agree.
+    /// main pages do not count. The Year in Review entry point calls this. It needs no reading time, so it
+    /// skips the seconds, but it uses the same `articles(from:)` rule as `fetchReadData`, so the entry
+    /// point and the total articles slide always agree.
     static func fetchReadCount(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> Int {
-        try await fetchReadData(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier).readCount
+        let pageViewCounts = try await pageViewsDataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
+        // A page can have more than one stored row, so count each page once.
+        return await articles(from: Set(pageViewCounts.map(\.page)), mainPageIdentifier: mainPageIdentifier).count
     }
+
+    /// The most seconds that one page view from before the July 2026 timer fix adds to the minutes read.
+    /// That bug added the length of each foreground session to every article in memory. The one time clamp
+    /// in `WMFPageViewsDataController` only removes values above one hour, so this lower limit also reduces
+    /// inflation that is spread over many page views. Page views after
+    /// `WMFPageViewsDataController.inflatedPageViewSecondsCleanupCutoff` have no limit.
+    static let maximumSecondsPerPageViewBeforeTimerFix = 30 * 60
 
     /// The articles read and the whole minutes spent reading them in the date range. Both count the same
     /// pages, so the total articles slide and the minutes read slide match. The wiki main page lookups
     /// run once for both.
+    ///
+    /// The minutes count only articles, not talk pages or main pages. This is on purpose: the slide
+    /// describes time spent reading articles, next to the total articles. The Activity tab uses
+    /// `WMFPageViewsDataController.fetchPageViewMinutes`, which counts all page views, so its value can be higher.
     static func fetchReadData(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> WMFYearInReviewReadData {
-        let secondsByPage = try await pageViewsDataController.fetchPageViewSeconds(startDate: startDate, endDate: endDate)
+        let cap = WMFPageViewsDataController.PageViewSecondsCap(
+            maximumSeconds: maximumSecondsPerPageViewBeforeTimerFix,
+            before: WMFPageViewsDataController.inflatedPageViewSecondsCleanupCutoff
+        )
+        let secondsByPage = try await pageViewsDataController.fetchPageViewSeconds(startDate: startDate, endDate: endDate, cap: cap)
         let articles = await articles(from: Set(secondsByPage.keys), mainPageIdentifier: mainPageIdentifier)
         let totalSeconds = articles.reduce(0) { $0 + (secondsByPage[$1] ?? 0) }
         return WMFYearInReviewReadData(readCount: articles.count, minutesRead: totalSeconds / 60)
@@ -94,6 +112,17 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
 
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
         return config.isActive(for: Date())
+    }
+
+    /// Older builds stored `minutesRead` for all page views, with no limit per page view. That data has no
+    /// `minutesReadFormat`, or an older one, so the report builds the slide again with the current rules,
+    /// also when the slide is frozen.
+    static func hasCurrentFormat(_ data: Data?) -> Bool {
+        guard let data,
+              let readData = try? JSONDecoder().decode(WMFYearInReviewReadData.self, from: data) else {
+            return false
+        }
+        return readData.minutesReadFormat == WMFYearInReviewReadData.currentMinutesReadFormat
     }
 }
 

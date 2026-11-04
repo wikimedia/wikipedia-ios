@@ -401,36 +401,60 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
     }
 
+    /// A limit on the seconds of each stored page view with a timestamp before `date`.
+    public struct PageViewSecondsCap: Sendable {
+        public let maximumSeconds: Int
+        public let date: Date
+
+        public init(maximumSeconds: Int, before date: Date) {
+            self.maximumSeconds = maximumSeconds
+            self.date = date
+        }
+    }
+
     /// The total seconds spent on each page in the date range. A page can have more than one stored row,
     /// so this groups them.
-    public func fetchPageViewSeconds(startDate: Date, endDate: Date) async throws -> [WMFPage: Int] {
+    /// - Parameter cap: If set, each page view before `cap.date` adds at most `cap.maximumSeconds`.
+    ///   Use it to limit time that the measurement bug before July 2026 inflated. See `clampInflatedPageViewSecondsIfNeeded`.
+    public func fetchPageViewSeconds(startDate: Date, endDate: Date, cap: PageViewSecondsCap? = nil) async throws -> [WMFPage: Int] {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         return try await backgroundContext.perform {
-            let sumExpression = NSExpressionDescription()
-            sumExpression.name = "totalSeconds"
-            sumExpression.expression = NSExpression(forFunction: "sum:", arguments: [NSExpression(forKeyPath: "numberOfSeconds")])
-            sumExpression.expressionResultType = .integer64AttributeType
-
+            // Core Data cannot cap each row inside a grouped sum, so this fetches each row and adds them here.
             let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
             request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
             request.resultType = .dictionaryResultType
-            request.propertiesToGroupBy = ["page"]
-            request.propertiesToFetch = ["page", sumExpression]
+            request.propertiesToFetch = ["page", "numberOfSeconds", "timestamp"]
 
+            var pagesByObjectID: [NSManagedObjectID: WMFPage] = [:]
             var secondsByPage: [WMFPage: Int] = [:]
             for dict in try backgroundContext.fetch(request) {
-                guard let objectID = dict["page"] as? NSManagedObjectID,
-                      let page = backgroundContext.object(with: objectID) as? CDPage,
-                      let projectID = page.projectID, let title = page.title else { continue }
+                guard let objectID = dict["page"] as? NSManagedObjectID else { continue }
+
+                let wmfPage: WMFPage
+                if let cachedPage = pagesByObjectID[objectID] {
+                    wmfPage = cachedPage
+                } else {
+                    guard let page = backgroundContext.object(with: objectID) as? CDPage,
+                          let projectID = page.projectID, let title = page.title else { continue }
+                    wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
+                    pagesByObjectID[objectID] = wmfPage
+                }
+
                 // A page with no stored seconds still counts as a page read, with zero seconds.
-                let totalSeconds = dict["totalSeconds"] as? Int64 ?? 0
-                secondsByPage[WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title), default: 0] += Int(totalSeconds)
+                var seconds = Int((dict["numberOfSeconds"] as? NSNumber)?.int64Value ?? 0)
+                if let cap, let timestamp = dict["timestamp"] as? Date, timestamp < cap.date {
+                    seconds = min(seconds, cap.maximumSeconds)
+                }
+                secondsByPage[wmfPage, default: 0] += seconds
             }
             return secondsByPage
         }
     }
 
+    /// The whole minutes of all page views in the date range, for every namespace and main pages too.
+    /// The Activity tab uses this. The Year in Review minutes read slide counts only articles, the same
+    /// pages as its total articles slide, so its value can be lower. See `YearInReviewReadCountSlideDataController.fetchReadData`.
     public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
