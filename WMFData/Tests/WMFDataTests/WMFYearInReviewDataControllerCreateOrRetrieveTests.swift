@@ -81,7 +81,10 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         
         dataController.shouldCreateOrRetrieve = true
 
-        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount)
+        // The read count slide is frozen, so it is kept only if its data uses the current format.
+        // Data in an older format, or no data, makes the report build the slide again.
+        let readData = try JSONEncoder().encode(WMFYearInReviewReadData(readCount: 5, minutesRead: 10))
+        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, data: readData)
         let existingSlide2 = WMFYearInReviewSlide(year: year, id: .saveCount)
         let existingSlide3 = WMFYearInReviewSlide(year: year, id: .mostReadDate)
         let existingSlide4 = WMFYearInReviewSlide(year: year, id: .editCount)
