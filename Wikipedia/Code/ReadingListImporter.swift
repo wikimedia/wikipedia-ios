@@ -89,12 +89,17 @@ final class ReadingListImporter {
         let keys = pageURLs.compactMap { $0.wmf_inMemoryKey }
         let summaryResponses = await articleFetcher.fetchArticleSummaryResponsesForArticles(withKeys: keys)
         let articlesByKey = try dataStore.viewContext.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
-        let articles = Array(articlesByKey.values)
+        let articles = keys.compactMap { articlesByKey[$0] }
 
         guard !articles.isEmpty else {
             throw ImportReadingListError.failureFetchingArticleObjects
         }
-        return articles
+        return Self.sortedByTitle(articles)
+    }
+
+    /// Sorts the articles by the title in their URL, like the Android app.
+    static func sortedByTitle(_ articles: [WMFArticle]) -> [WMFArticle] {
+        articles.sorted { ($0.url?.wmf_title ?? "") < ($1.url?.wmf_title ?? "") }
     }
 }
 

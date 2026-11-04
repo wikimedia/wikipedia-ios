@@ -1,4 +1,3 @@
-import CoreText
 import Foundation
 import RiveRuntime
 import UIKit
@@ -14,16 +13,9 @@ enum WMFRiveError: LocalizedError {
     }
 }
 
-/// The view model instances that a state machine binds when it is made. A `nil` main instance, or a
-/// global view model that is not in `globals`, gets the default instance of the file.
-@MainActor
-struct WMFRiveBindings {
-    let main: ViewModelInstance?
-    let globals: [String: ViewModelInstance]
-}
-
-/// Makes the instances to bind, after the file and the artboard load and before the state machine is made.
-typealias WMFRiveBindingsMaker = @MainActor (File, Artboard) async -> WMFRiveBindings
+/// Makes the instance that the state machine binds, after the file and the artboard load and before
+/// the state machine is made. `nil` gets the default instance of the file.
+typealias WMFRiveBindingsMaker = @MainActor (File, Artboard) async -> ViewModelInstance?
 
 @MainActor
 enum WMFRiveWorkerProvider {
@@ -43,49 +35,11 @@ enum WMFRiveWorkerProvider {
         "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular)
     ]
 
-    /// A font file in the module bundle that the app supplies for a font asset of the .riv.
-    private struct BundledFont {
-        let resourceName: String
-        let fileExtension: String
-        /// The PostScript name in the file, to make a `UIFont` for text measurement.
-        let postScriptName: String
-
-        var url: URL? {
-            Bundle.module.url(forResource: resourceName, withExtension: fileExtension)
-        }
-    }
-
-    /// EB Garamond, under the SIL Open Font License, replaces the Linux Libertine of the export
-    /// ("SerifFont"). It is the same file as on Android.
-    private static let bundledFonts: [String: BundledFont] = [
-        "SerifFont": BundledFont(resourceName: "EBGaramond-Regular", fileExtension: "ttf", postScriptName: "EBGaramond-Regular")
-    ]
-
-    private static var registeredBundledFonts: Set<String> = []
-
-    /// The font that the app supplies for a font asset of the .riv, or `nil` if it supplies none.
-    /// Text measurement uses it, so it is the same font that Rive draws.
-    static func substituteFont(forAssetNamed name: String) -> UIFont? {
-        if let systemFont = systemFontSubstitutions[name] {
-            return systemFont
-        }
-        guard let bundledFont = bundledFonts[name] else {
-            return nil
-        }
-        registerIfNeeded(bundledFont)
-        return UIFont(name: bundledFont.postScriptName, size: 17)
-    }
-
-    /// Registers the font file for this process, so that `UIFont(name:size:)` can find it.
-    private static func registerIfNeeded(_ bundledFont: BundledFont) {
-        guard !registeredBundledFonts.contains(bundledFont.postScriptName),
-              let url = bundledFont.url else {
-            return
-        }
-        // A font that is already registered gives an error, but `UIFont(name:size:)` still finds it.
-        CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
-        registeredBundledFonts.insert(bundledFont.postScriptName)
-    }
+    /// EB Garamond Medium, under the SIL Open Font License, for the "SerifFont" of the export. It is
+    /// the static Medium of Google Fonts, the font that the templates file shows since v7.
+    private static let bundledFontURLs: [String: URL] = [
+        "SerifFont": Bundle.module.url(forResource: "EBGaramond-Medium", withExtension: "ttf")
+    ].compactMapValues { $0 }
 
     static func sharedWorker() async throws -> Worker {
         if let worker {
@@ -121,12 +75,12 @@ enum WMFRiveWorkerProvider {
         try await sharedWorker().decodeImage(from: data)
     }
 
-    /// Loads the file and binds the instances from `bindings` when it makes the state machine.
+    /// Loads the file and binds the instance from `bindings` when it makes the state machine.
     /// A `nil` artboard or state machine name gives the default of the file.
     ///
     /// Do not bind other instances after this. A script in the .riv gets its view models in its
     /// `init`, which runs when the state machine is made, and it keeps them. Write new values on the
-    /// instances that `bindings` returned.
+    /// instance that `bindings` returned.
     static func makeRive(for animation: WMFRiveAnimation, bindings: WMFRiveBindingsMaker) async throws -> Rive {
         let worker = try await sharedWorker()
         let file = try await File(source: .local(animation.resourceName, .module), worker: worker)
@@ -139,12 +93,8 @@ enum WMFRiveWorkerProvider {
         #endif
 
         let artboard = try await file.createArtboard(animation.artboardName)
-        let made = await bindings(file, artboard)
-        let stateMachine = try await artboard.createStateMachine(animation.stateMachineName, binding: made.main) {
-            for (name, instance) in made.globals {
-                (name, instance)
-            }
-        }
+        let main = await bindings(file, artboard)
+        let stateMachine = try await artboard.createStateMachine(animation.stateMachineName, binding: main)
 
         return try await Rive(
             file: file,
@@ -175,7 +125,7 @@ enum WMFRiveWorkerProvider {
                 let font: RiveRuntime.Font
                 if let systemFont = systemFontSubstitutions[asset.name] {
                     font = try await worker.decodeFont(from: systemFont)
-                } else if let url = bundledFonts[asset.name]?.url {
+                } else if let url = bundledFontURLs[asset.name] {
                     font = try await worker.decodeFont(from: Data(contentsOf: url))
                 } else {
                     continue
