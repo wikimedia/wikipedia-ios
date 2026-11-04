@@ -2529,6 +2529,9 @@
 		E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */; };
 		E8D15C0426101A00005CE104 /* DiscoverReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */; };
 		E8D15C1426101A00005CE114 /* DiscoverSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C1126101A00005CE111 /* DiscoverSettingsCoordinator.swift */; };
+		E8D15C2226101A00005CE122 /* ShareReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C2126101A00005CE121 /* ShareReadingListCoordinator.swift */; };
+		E8D15C2326101A00005CE123 /* ShareReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C2126101A00005CE121 /* ShareReadingListCoordinator.swift */; };
+		E8D15C2426101A00005CE124 /* ShareReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C2126101A00005CE121 /* ShareReadingListCoordinator.swift */; };
 		E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
 		E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
 		E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */; };
@@ -4184,6 +4187,7 @@
 		E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchResultsCoordinator.swift; sourceTree = "<group>"; };
 		E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverReadingListCoordinator.swift; sourceTree = "<group>"; };
 		E8D15C1126101A00005CE111 /* DiscoverSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSettingsCoordinator.swift; sourceTree = "<group>"; };
+		E8D15C2126101A00005CE121 /* ShareReadingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareReadingListCoordinator.swift; sourceTree = "<group>"; };
 		E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsCoordinator.swift; sourceTree = "<group>"; };
 		E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchPassageHighlightTests.swift; sourceTree = "<group>"; };
 		EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFItemSourceExcludingActivityTypes.swift; sourceTree = "<group>"; };
@@ -6142,6 +6146,7 @@
 				E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */,
 				E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */,
 				E8D15C1126101A00005CE111 /* DiscoverSettingsCoordinator.swift */,
+				E8D15C2126101A00005CE121 /* ShareReadingListCoordinator.swift */,
 				E81A4D2126081900005CE021 /* SearchInstrumentation.swift */,
 				E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */,
 				E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */,
@@ -9498,6 +9503,7 @@
 				E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */,
 				E8D15C0426101A00005CE104 /* DiscoverReadingListCoordinator.swift in Sources */,
 				E8D15C1426101A00005CE114 /* DiscoverSettingsCoordinator.swift in Sources */,
+				E8D15C2426101A00005CE124 /* ShareReadingListCoordinator.swift in Sources */,
 				E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0426081900005CF004 /* SemanticSearchInfoCoordinator.swift in Sources */,
@@ -10288,6 +10294,7 @@
 				E81A4D0326081900005CE003 /* SemanticSearchResultsCoordinator.swift in Sources */,
 				E8D15C0326101A00005CE103 /* DiscoverReadingListCoordinator.swift in Sources */,
 				E8D15C1326101A00005CE113 /* DiscoverSettingsCoordinator.swift in Sources */,
+				E8D15C2326101A00005CE123 /* ShareReadingListCoordinator.swift in Sources */,
 				E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0326081900005CF003 /* SemanticSearchInfoCoordinator.swift in Sources */,
@@ -10830,6 +10837,7 @@
 				E81A4D0226081900005CE002 /* SemanticSearchResultsCoordinator.swift in Sources */,
 				E8D15C0226101A00005CE102 /* DiscoverReadingListCoordinator.swift in Sources */,
 				E8D15C1226101A00005CE112 /* DiscoverSettingsCoordinator.swift in Sources */,
+				E8D15C2226101A00005CE122 /* ShareReadingListCoordinator.swift in Sources */,
 				E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0226081900005CF002 /* SemanticSearchInfoCoordinator.swift in Sources */,
