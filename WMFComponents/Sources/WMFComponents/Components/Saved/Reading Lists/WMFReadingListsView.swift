@@ -6,8 +6,8 @@ public struct WMFReadingListsView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFReadingListsViewModel
-    /// Mirrors `showsAnnouncement` so the card fades in and out instead of popping.
-    @State private var isAnnouncementShown = false
+    /// Mirrors `discoverHeader` so the card fades in and out instead of popping.
+    @State private var shownDiscoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
 
     private let deleteTitle = CommonStrings.deleteActionTitle
     private let cancelTitle = CommonStrings.cancelActionTitle
@@ -26,7 +26,7 @@ public struct WMFReadingListsView: View {
                 ProgressView()
             case .empty:
                 VStack(spacing: 0) {
-                    announcementCard
+                    discoverHeaderCard
                     emptyState
                 }
             case .data:
@@ -36,11 +36,11 @@ public struct WMFReadingListsView: View {
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadReadingLists()
-            isAnnouncementShown = showsAnnouncement
+            shownDiscoverHeader = discoverHeader
         }
-        .onChange(of: showsAnnouncement) { _, shows in
+        .onChange(of: discoverHeader) { _, header in
             withAnimation {
-                isAnnouncementShown = shows
+                shownDiscoverHeader = header
             }
         }
         .alert(
@@ -61,29 +61,26 @@ public struct WMFReadingListsView: View {
         }
     }
 
-    // MARK: - Discover Announcement
+    // MARK: - Discover
 
     /// The card shows while the reader is not editing or searching.
-    private var showsAnnouncement: Bool {
-        viewModel.isAnnouncementVisible && !viewModel.isEditing && viewModel.searchText.isEmpty
+    private var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header? {
+        guard !viewModel.isEditing, viewModel.searchText.isEmpty else { return nil }
+        return viewModel.discoverHeader
     }
 
     @ViewBuilder
-    private var announcementCard: some View {
-        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
-            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
-                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
-                .readableWidth()
+    private var discoverHeaderCard: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
                 .transition(.opacity)
         }
     }
 
     @ViewBuilder
-    private var announcementRow: some View {
-        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
-            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
-                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
-                .readableWidth()
+    private var discoverHeaderRow: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
@@ -115,7 +112,7 @@ public struct WMFReadingListsView: View {
     private var listView: some View {
         VStack(spacing: 0) {
             List {
-                announcementRow
+                discoverHeaderRow
                 ForEach(viewModel.rows) { row in
                     let readingList = row.readingList
                     let isSelected = viewModel.selectedIDs.contains(readingList.id)

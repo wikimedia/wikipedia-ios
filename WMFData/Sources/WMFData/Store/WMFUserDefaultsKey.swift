@@ -157,4 +157,5 @@ public enum WMFUserDefaultsKey: String {
     case discoverNeedsRegeneration = "discover-needs-regeneration"
     case discoverSeedOffsets = "discover-seed-offsets"
     case discoverOnboardingToastShown = "discover-onboarding-toast-shown"
+    case discoverHasUnseenList = "discover-has-unseen-list"
 }

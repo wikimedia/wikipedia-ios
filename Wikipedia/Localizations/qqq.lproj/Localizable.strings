@@ -361,6 +361,8 @@
 "discover-announcement-no-thanks" = "Title of the button on the Discover card that dismisses the card.";
 "discover-announcement-no-thanks-toast" = "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.";
 "discover-announcement-title" = "Title of the card that introduces the Discover reading list on the Saved tab.";
+"discover-entry-card-byline" = "Byline on the Discover card at the top of the Saved tab. $1 is replaced with the account name of the reader or the word for 'you'.";
+"discover-entry-card-unseen-list" = "Accessibility label of the dot on the Discover card at the top of the Saved tab. The dot marks a list the reader has not opened yet.";
 "discover-list-about" = "Menu item on the Discover reading list screen that explains how Discover works.";
 "discover-list-byline" = "Byline under the title of the Discover reading list. $1 is replaced with the account name of the reader or the word for 'you', $2 with the number of articles in the list.";
 "discover-list-byline-you" = "Word used in the Discover reading list byline in place of the account name when the reader is logged out. Appears as 'Made for you'.";

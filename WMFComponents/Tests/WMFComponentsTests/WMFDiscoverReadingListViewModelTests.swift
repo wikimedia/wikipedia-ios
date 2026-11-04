@@ -88,4 +88,40 @@ final class WMFDiscoverReadingListViewModelTests {
             #expect(await dataController.hasShownOnboardingToast == true)
         }
     }
+
+    @Test
+    func loadingTheListMarksItAsSeen() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            let dataController = makeDataController()
+            _ = try await dataController.generateRecommendations()
+            #expect(await dataController.hasUnseenList == true)
+            let viewModel = WMFDiscoverReadingListViewModel(username: nil, dataController: dataController)
+
+            await loadAndWait(viewModel)
+
+            #expect(await dataController.hasUnseenList == false)
+        }
+    }
+
+    @Test
+    func theScreenFollowsAListGeneratedWhileItIsOpen() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            let dataController = makeDataController()
+            let viewModel = WMFDiscoverReadingListViewModel(username: nil, dataController: dataController)
+            await loadAndWait(viewModel)
+            let firstPages = viewModel.pages
+            #expect(firstPages.isEmpty == false)
+
+            let generatedPages = try await dataController.generateRecommendations()
+            #expect(await dataController.hasUnseenList == true)
+            try? await Task.sleep(nanoseconds: 50_000_000)
+            await viewModel.reloadTask?.value
+
+            #expect(viewModel.pages == generatedPages)
+            #expect(viewModel.pages != firstPages)
+            #expect(await dataController.hasUnseenList == false)
+        }
+    }
 }
