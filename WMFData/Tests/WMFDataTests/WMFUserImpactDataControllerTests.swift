@@ -143,6 +143,7 @@ struct WMFUserImpactDataControllerTests {
 /// Minimal `WMFService` mock returning a caller-configured `[String: Any]?` result synchronously.
 /// `WMFUserImpactDataController` only uses the dictionary-returning `perform` overload.
 private final class MockImpactService: WMFService {
+    // The value is not Sendable. Each test sets it one time before the call and does not change it after.
     private let resultBox = WMFLockIsolated<Result<[String: Any]?, Error>>(.success(nil))
 
     var result: Result<[String: Any]?, Error> {
