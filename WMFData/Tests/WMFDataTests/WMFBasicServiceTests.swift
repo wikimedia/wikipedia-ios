@@ -16,11 +16,11 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockSuccessSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, parameters: ["one": "1", "two": "2"], acceptType: .json)
 
-        service.perform(request: request) { result in
+        service.perform(request: request) { [mockSuccessSession] result in
             switch result {
             case .success(let dict):
                
-                guard let requestedURLString = self.mockSuccessSession.url?.absoluteString,
+                guard let requestedURLString = mockSuccessSession.url?.absoluteString,
                       !requestedURLString.isEmpty else {
                     XCTFail("Did not save requestsed URL")
                     return
@@ -91,7 +91,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockServerErrorSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon server error")
@@ -123,7 +123,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockNoInternetConnectionSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
@@ -157,7 +157,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockMissingDataSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
@@ -189,7 +189,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockSuccessSession)
         let request = WMFBasicServiceRequest(url: nil, method: .GET, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon server error")
@@ -208,11 +208,11 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockSuccessSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, parameters: ["one": "1", "two": "2"], acceptType: .json)
 
-        service.perform(request: request) { result in
+        service.perform(request: request) { [mockSuccessSession] result in
             switch result {
             case .success(let dict):
                
-                guard let requestedURLString = self.mockSuccessSession.url?.absoluteString,
+                guard let requestedURLString = mockSuccessSession.url?.absoluteString,
                       !requestedURLString.isEmpty else {
                     XCTFail("Did not save requestsed URL")
                     return
@@ -249,7 +249,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockServerErrorSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon server error")
@@ -281,7 +281,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockNoInternetConnectionSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
@@ -315,7 +315,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockMissingDataSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
@@ -347,7 +347,7 @@ final class WMFBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockSuccessSession)
         let request = WMFBasicServiceRequest(url: nil, method: .POST, acceptType: .json)
         
-        let completion: (Result<Data, Error>) -> Void = { result in
+        let completion: @Sendable (Result<Data, Error>) -> Void = { result in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon server error")

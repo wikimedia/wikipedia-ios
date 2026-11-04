@@ -143,21 +143,27 @@ struct WMFUserImpactDataControllerTests {
 /// Minimal `WMFService` mock returning a caller-configured `[String: Any]?` result synchronously.
 /// `WMFUserImpactDataController` only uses the dictionary-returning `perform` overload.
 private final class MockImpactService: WMFService {
-    var result: Result<[String: Any]?, Error> = .success(nil)
+    // The value is not Sendable. Each test sets it one time before the call and does not change it after.
+    private let resultBox = WMFLockIsolated<Result<[String: Any]?, Error>>(.success(nil))
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    var result: Result<[String: Any]?, Error> {
+        get { resultBox.value }
+        set { resultBox.value = newValue }
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         completion(.failure(WMFServiceError.missingData))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(result)
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.missingData))
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.missingData))
     }
 

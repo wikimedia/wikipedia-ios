@@ -150,24 +150,28 @@ private final class WMFRecordingService: WMFService {
     }
 
     private let fixtureService = WMFMockBasicService()
-    private(set) var requests: [Request] = []
+    private let requestsBox = WMFLockIsolated<[Request]>([])
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    var requests: [Request] {
+        requestsBox.value
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
         record(request)
         fixtureService.perform(request: request, completion: completion)
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         record(request)
         fixtureService.perform(request: request, completion: completion)
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         record(request)
         fixtureService.performDecodableGET(request: request, completion: completion)
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         record(request)
         fixtureService.performDecodablePOST(request: request, completion: completion)
     }
@@ -175,7 +179,8 @@ private final class WMFRecordingService: WMFService {
     func clearCachedData() {}
 
     private func record<R: WMFServiceRequest>(_ request: R) {
-        requests.append(Request(method: request.method, parameters: request.parameters))
+        let recorded = Request(method: request.method, parameters: request.parameters)
+        requestsBox.withLock { $0.append(recorded) }
     }
 }
 
@@ -187,19 +192,19 @@ private final class WMFMockFailingService: WMFService {
         self.statusCode = statusCode
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
         completion(.failure(WMFServiceError.invalidHttpResponse(statusCode)))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.failure(WMFServiceError.invalidHttpResponse(statusCode)))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.invalidHttpResponse(statusCode)))
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.invalidHttpResponse(statusCode)))
     }
 

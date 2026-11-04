@@ -153,17 +153,17 @@ private final class CapturingSearchService: WMFService, @unchecked Sendable {
         data = Data(json.utf8)
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         capturedParameters.append(request.parameters ?? [:])
         completion(.success(data))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         capturedParameters.append(request.parameters ?? [:])
         completion(.success(try? JSONSerialization.jsonObject(with: data) as? [String: Any]))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         capturedParameters.append(request.parameters ?? [:])
         do {
             completion(.success(try JSONDecoder().decode(T.self, from: data)))
@@ -172,7 +172,7 @@ private final class CapturingSearchService: WMFService, @unchecked Sendable {
         }
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         performDecodableGET(request: request, completion: completion)
     }
 

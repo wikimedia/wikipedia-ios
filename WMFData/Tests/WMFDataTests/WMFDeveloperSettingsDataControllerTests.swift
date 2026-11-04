@@ -199,15 +199,15 @@ final class WMFDeveloperSettingsDataControllerTests {
 }
 
 private final class WMFFeatureConfigRequestMockService: WMFService {
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         guard isFeatureConfigRequest(request) else {
             completion(.failure(WMFServiceError.unexpectedResponse))
             return
@@ -216,7 +216,7 @@ private final class WMFFeatureConfigRequestMockService: WMFService {
         WMFMockBasicService(jsonResourceName: "feature-get-config").performDecodableGET(request: request, completion: completion)
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
@@ -264,24 +264,29 @@ private final class WMFRequestRecordingMockService: WMFService {
         case stubbedFailure
     }
 
-    var requestedURLs: [URL] = []
+    private let requestedURLsBox = WMFLockIsolated<[URL]>([])
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    var requestedURLs: [URL] {
+        get { requestedURLsBox.value }
+        set { requestedURLsBox.value = newValue }
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         record(request)
         completion(.failure(RecordingError.stubbedFailure))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         record(request)
         completion(.failure(RecordingError.stubbedFailure))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         record(request)
         completion(.failure(RecordingError.stubbedFailure))
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         record(request)
         completion(.failure(RecordingError.stubbedFailure))
     }
@@ -290,7 +295,7 @@ private final class WMFRequestRecordingMockService: WMFService {
 
     private func record<R: WMFServiceRequest>(_ request: R) {
         if let url = request.url {
-            requestedURLs.append(url)
+            requestedURLsBox.withLock { $0.append(url) }
         }
     }
 }
