@@ -22,8 +22,6 @@ let package = Package(
             dependencies: ["WMFTestKitchen"]
         )
     ],
-    // Bumped tools-version to unlock per-target swiftSettings/swiftLanguageMode syntax.
-    // Language mode is explicitly pinned to .v5 (warnings-only) until this package
-    // completes its strict-concurrency burn-down and flips to .v6.
-    swiftLanguageModes: [.v5]
+    // Swift 6 language mode. The compiler enforces data-race safety as errors.
+    swiftLanguageModes: [.v6]
 )

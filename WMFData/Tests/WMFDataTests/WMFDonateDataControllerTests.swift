@@ -138,15 +138,15 @@ struct WMFDonateDataControllerTests {
 }
 
 private final class WMFDonateRequestMockService: WMFService {
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         if isPaymentMethodsRequest(request) {
             WMFMockBasicService(jsonResourceName: "donate-get-payment-methods").performDecodableGET(request: request, completion: completion)
         } else if isDonateConfigRequest(request) {
@@ -156,7 +156,7 @@ private final class WMFDonateRequestMockService: WMFService {
         }
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         if isSubmitPaymentRequest(request) {
             WMFMockBasicService(jsonResourceName: "donate-post-submit-payment-success").performDecodablePOST(request: request, completion: completion)
         } else {
@@ -194,15 +194,15 @@ private final class WMFDonateRequestMockService: WMFService {
 private final class WMFDonateRequestRateLimitedPaymentsMockService: WMFService {
     private let baseService = WMFDonateRequestMockService()
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         if request.parameters?["action"] as? String == "getPaymentMethods" {
             completion(.failure(WMFServiceError.unexpectedResponse))
         } else {
@@ -210,7 +210,7 @@ private final class WMFDonateRequestRateLimitedPaymentsMockService: WMFService {
         }
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 

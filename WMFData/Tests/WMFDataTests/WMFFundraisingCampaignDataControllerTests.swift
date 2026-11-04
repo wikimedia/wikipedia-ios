@@ -381,15 +381,15 @@ final class WMFFundraisingCampaignDataControllerTests {
 }
 
 private final class WMFFundraisingCampaignRequestMockService: WMFService {
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         guard isCampaignConfigRequest(request) else {
             completion(.failure(WMFServiceError.unexpectedResponse))
             return
@@ -398,7 +398,7 @@ private final class WMFFundraisingCampaignRequestMockService: WMFService {
         WMFMockBasicService(jsonResourceName: "fundraising-campaign-get-config").performDecodableGET(request: request, completion: completion)
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.unexpectedResponse))
     }
 

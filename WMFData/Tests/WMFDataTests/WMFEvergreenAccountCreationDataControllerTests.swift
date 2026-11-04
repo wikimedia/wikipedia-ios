@@ -27,13 +27,13 @@ struct WMFEvergreenAccountCreationDataControllerTests {
 
     /// A controller with no Core Data store: eligibility never reads one, and an absent store makes
     /// the backfill a no-op, which is what a fresh install looks like.
-    private func makeController(userDefaultsStore: WMFKeyValueStore = WMFMockKeyValueStore()) -> WMFEvergreenAccountCreationDataController {
+    private func makeController(userDefaultsStore: WMFMockKeyValueStore = WMFMockKeyValueStore()) -> WMFEvergreenAccountCreationDataController {
         WMFEvergreenAccountCreationDataController(coreDataStore: nil, userDefaultsStore: userDefaultsStore, calendar: calendar)
     }
 
     /// Takes a reader from a fresh install to account-ready: an open in the first window, an open in
     /// the second, then the following session.
-    private func makeAccountReadyController(userDefaultsStore: WMFKeyValueStore = WMFMockKeyValueStore()) async -> WMFEvergreenAccountCreationDataController {
+    private func makeAccountReadyController(userDefaultsStore: WMFMockKeyValueStore = WMFMockKeyValueStore()) async -> WMFEvergreenAccountCreationDataController {
         let dataController = makeController(userDefaultsStore: userDefaultsStore)
         await dataController.startSession(date: day(0))
         await dataController.recordAppOpen(date: day(0))

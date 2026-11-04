@@ -252,22 +252,50 @@ struct WMFImageDataControllerTests {
 /// `decodableResult` carries JSON bytes that are decoded into the controller's (private) response type
 /// via the generic `performDecodableGET`, so the test never needs visibility into that type.
 private final class MockImageService: WMFService {
-    var dataResult: Result<Data, Error> = .failure(WMFServiceError.missingData)
-    var decodableResult: Result<Data, Error> = .failure(WMFServiceError.missingData)
-    private(set) var dataCallCount = 0
-    private(set) var decodableGETCallCount = 0
+    private struct State {
+        var dataResult: Result<Data, Error> = .failure(WMFServiceError.missingData)
+        var decodableResult: Result<Data, Error> = .failure(WMFServiceError.missingData)
+        var dataCallCount = 0
+        var decodableGETCallCount = 0
+    }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
-        dataCallCount += 1
+    private let state = WMFLockIsolated(State())
+
+    var dataResult: Result<Data, Error> {
+        get { state.value.dataResult }
+        set { state.withLock { $0.dataResult = newValue } }
+    }
+
+    var decodableResult: Result<Data, Error> {
+        get { state.value.decodableResult }
+        set { state.withLock { $0.decodableResult = newValue } }
+    }
+
+    var dataCallCount: Int {
+        state.value.dataCallCount
+    }
+
+    var decodableGETCallCount: Int {
+        state.value.decodableGETCallCount
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
+        let dataResult = state.withLock {
+            $0.dataCallCount += 1
+            return $0.dataResult
+        }
         completion(dataResult)
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.success(nil))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
-        decodableGETCallCount += 1
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
+        let decodableResult = state.withLock {
+            $0.decodableGETCallCount += 1
+            return $0.decodableResult
+        }
         switch decodableResult {
         case .success(let data):
             do {
@@ -280,7 +308,7 @@ private final class MockImageService: WMFService {
         }
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.missingData))
     }
 
@@ -312,22 +340,22 @@ private final class GatedImageService: WMFService, @unchecked Sendable {
         completions.forEach { $0(result) }
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         lock.withLock {
             _dataCallCount += 1
             heldCompletions.append(completion)
         }
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.success(nil))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.missingData))
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(WMFServiceError.missingData))
     }
 
