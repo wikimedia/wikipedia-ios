@@ -153,13 +153,13 @@ final class SavedUITests: XCTestCase {
             .assertDiscoverAnnouncementAbsent()
     }
 
-    func testDiscoverAnnouncementGetStartedHidesIt() throws {
+    func testDiscoverAnnouncementGetStartedOpensSetupAndKeepsTheCard() throws {
         openSavedWithDiscover()
             .showReadingLists()
             .tapDiscoverGetStarted()
-            .assertDiscoverAnnouncementAbsent()
-            .showAllArticles()
-            .assertDiscoverAnnouncementAbsent()
+            .assertDiscoverSetupVisible()
+            .tapBackFromDiscoverSetup()
+            .assertDiscoverAnnouncementVisible()
     }
 
     func testDiscoverAnnouncementStaysHiddenWithoutTheFeature() throws {

@@ -84,6 +84,50 @@ final class WMFInterestsPersistenceRoundTripTests {
         }
     }
 
+    @Test
+    func deselectingAnArticleRemovesThePersistedInterest() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(WMFDataEnvironment.current.coreDataStore)
+            let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
+            try await pageInterest.addPageInterest(title: "Ada_Lovelace", project: project)
+
+            let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
+            let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+            try await waitFor {
+                viewModel.gridViewModels.contains { $0.isSelected }
+            }
+
+            let card = try #require(viewModel.gridViewModels.first { $0.isSelected })
+            viewModel.toggleArticleSelection(card)
+            try await waitFor {
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
+                return interests.isEmpty
+            }
+        }
+    }
+
+    @Test
+    func deselectAllRemovesEveryPersistedInterest() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(WMFDataEnvironment.current.coreDataStore)
+            let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
+            try await pageInterest.addPageInterest(title: "Alan_Turing", project: project)
+            try await pageInterest.addPageInterest(title: "Grace_Hopper", project: project)
+
+            let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
+            let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+            try await waitFor {
+                viewModel.gridViewModels.filter { $0.isSelected }.count == 2
+            }
+
+            viewModel.deselectAll()
+            try await waitFor {
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
+                return interests.isEmpty
+            }
+        }
+    }
+
     /// The wiki italicizes some article titles, so the search result's display title arrives as
     /// markup. Persisting that instead of the canonical title left the interest unresolvable —
     /// its summary and related-pages lookups 404, so its card showed no image or description.

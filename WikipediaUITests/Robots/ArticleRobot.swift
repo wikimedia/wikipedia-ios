@@ -267,6 +267,16 @@ extension ArticleRobot {
         let closeButton = element(withIdentifier: AccessibilityIdentifiers.Article.findInPageCloseButton)
         base.assertVisible(closeButton, timeout: 10, description: "find in article close button", file: file, line: line)
         closeButton.tap()
+
+        // On CI the first tap occasionally lands while the keyboard is still animating after the
+        // search and does nothing, which left the bar on screen. Tap the close button once more
+        // when the bar has not gone away.
+        let barGone = NSPredicate(format: "exists == false")
+        let firstWait = XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: barGone, object: findInPageView)], timeout: 3)
+        if firstWait != .completed, closeButton.exists, closeButton.isHittable {
+            closeButton.tap()
+        }
+
         base.waitForElementToDisappear(findInPageView, timeout: 10, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
