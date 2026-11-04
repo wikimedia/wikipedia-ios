@@ -87,6 +87,16 @@ public actor WMFDiscoverReadingListDataController {
         }
     }
 
+    /// Turns Discover off and throws the list and its schedule away. The other settings stay, so a
+    /// later turn on builds the list the same way. The onboarding toast shows again on that list.
+    public func turnOff() async throws {
+        var newSettings = settings
+        newSettings.isEnabled = false
+        try saveSettings(newSettings)
+        try await deleteAllRecommendations()
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverOnboardingToastShown.rawValue)
+    }
+
     // MARK: - Onboarding
 
     /// True after the reader has seen the toast that explains the list on their first visit.

@@ -24,6 +24,17 @@ final class WMFDiscoverSettingsViewModelTests {
         WMFDiscoverReadingListDataController()
     }
 
+    /// A controller that can generate a list: every related pages request gets the `related-pages-get` mock.
+    private func makeDataControllerWithRelatedPages() -> WMFDiscoverReadingListDataController {
+        let relatedPagesDataController = WMFRelatedPagesDataController(basicService: WMFMockBasicService(jsonResourceName: "related-pages-get"))
+        return WMFDiscoverReadingListDataController(relatedPagesDataController: relatedPagesDataController)
+    }
+
+    private func addInterest(_ title: String) async throws {
+        let interestsDataController = try WMFPageInterestDataController()
+        try await interestsDataController.addPageInterest(title: title, project: englishProject)
+    }
+
     private func makeEnabledSettings(dataController: WMFDiscoverReadingListDataController) async throws -> WMFDiscoverSettings {
         var settings = WMFDiscoverSettings.default
         settings.isEnabled = true
@@ -79,10 +90,13 @@ final class WMFDiscoverSettingsViewModelTests {
     }
 
     @Test
-    func confirmingTurnOffStoresTheChangeAndHidesTheList() async throws {
+    func confirmingTurnOffStoresTheChangeThrowsTheListAwayAndHidesTheRows() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let dataController = makeDataController()
-            let settings = try await makeEnabledSettings(dataController: dataController)
+            let dataController = makeDataControllerWithRelatedPages()
+            let settings = WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests)
+            try await dataController.saveSettings(settings)
+            try await addInterest("Cat")
+            _ = try await dataController.generateRecommendations()
             let viewModel = WMFDiscoverSettingsViewModel(settings: settings, dataController: dataController)
             viewModel.isEnabledBinding.wrappedValue = false
 
@@ -94,6 +108,7 @@ final class WMFDiscoverSettingsViewModelTests {
             #expect(!viewModel.showsInterestsRow)
             #expect(viewModel.footerText == WMFDiscoverSettingsViewModel.footerOffText)
             #expect(await dataController.settings.isEnabled == false)
+            #expect(try await dataController.fetchCurrentRecommendations().isEmpty)
         }
     }
 

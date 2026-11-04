@@ -404,17 +404,30 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
-    func turningDiscoverOffKeepsTheCurrentList() async throws {
+    func turnOffThrowsTheListAwayAndKeepsTheOtherSettings() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await addInterest("Cat")
             let controller = makeController()
-            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .monthly, source: .interests), in: controller)
             _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
 
-            try await saveSettings(WMFDiscoverSettings(isEnabled: false, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            try await controller.turnOff()
 
-            #expect(try await controller.isGenerationDue(now: date(2026, 10, 27)) == false)
-            #expect(try await controller.fetchCurrentRecommendations().count == 2)
+            #expect(await controller.settings == WMFDiscoverSettings(isEnabled: false, articleCount: 2, cadence: .monthly, source: .interests))
+            #expect(try await controller.fetchStoredRecommendations(includeExpired: true).isEmpty)
+            #expect(await controller.lastGeneratedDate == nil)
+        }
+    }
+
+    @Test
+    func turnOffShowsTheOnboardingToastAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = makeController()
+            try await controller.markOnboardingToastShown()
+
+            try await controller.turnOff()
+
+            #expect(await controller.hasShownOnboardingToast == false)
         }
     }
 
