@@ -12,7 +12,9 @@ public extension Notification.Name {
     static let notificationsCenterBadgeNeedsUpdate = Notification.Name.NotificationsCenterBadgeNeedsUpdate
 }
 
-final class RemoteNotificationsModelController {
+// @unchecked Sendable: all stored properties are immutable references set at init;
+// managed-object work is confined to context queues via perform/performAndWait.
+final class RemoteNotificationsModelController: @unchecked Sendable {
     
     enum LibraryKey: String {
         case completedImportFlags = "RemoteNotificationsCompletedImportFlags"
@@ -89,7 +91,7 @@ final class RemoteNotificationsModelController {
         viewContext = container.viewContext
         viewContext.name = "RemoteNotificationsViewContext"
         viewContext.automaticallyMergesChangesFromParent = true
-        viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
         
         self.persistentContainer = container
     }
@@ -116,7 +118,7 @@ final class RemoteNotificationsModelController {
     
     func resetDatabaseAndSharedCache() {
         
-        let batchDeleteBlock: (NSFetchRequest<NSFetchRequestResult>, NSManagedObjectContext) throws -> Void = { [weak self] (fetchRequest, backgroundContext) in
+        let batchDeleteBlock: @Sendable (NSFetchRequest<NSFetchRequestResult>, NSManagedObjectContext) throws -> Void = { [weak self] (fetchRequest, backgroundContext) in
             
             guard let self = self else {
                 return
@@ -161,7 +163,7 @@ final class RemoteNotificationsModelController {
         let backgroundContext = persistentContainer.newBackgroundContext()
         backgroundContext.name = "RemoteNotificationsBackgroundContext"
         backgroundContext.automaticallyMergesChangesFromParent = true
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         return backgroundContext
     }
     
@@ -194,7 +196,7 @@ final class RemoteNotificationsModelController {
         return try viewContext.fetch(fetchRequest)
     }
 
-    func createNewNotifications(moc: NSManagedObjectContext, notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping ((Result<Void, Error>) -> Void)) {
+    func createNewNotifications(moc: NSManagedObjectContext, notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         moc.perform { [weak self] in
             
             guard let self = self else {
@@ -218,7 +220,7 @@ final class RemoteNotificationsModelController {
     
     // MARK: Mark as read
     
-    func markAllAsRead(moc: NSManagedObjectContext, project: WikimediaProject, completion: @escaping (Result<Void, Error>) -> Void) {
+    func markAllAsRead(moc: NSManagedObjectContext, project: WikimediaProject, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         
         moc.perform { [weak self] in
             
@@ -254,7 +256,7 @@ final class RemoteNotificationsModelController {
         
     }
 
-    func markAsReadOrUnread(moc: NSManagedObjectContext, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
+    func markAsReadOrUnread(moc: NSManagedObjectContext, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         
         let keys = identifierGroups.compactMap { $0.key }
         moc.perform { [weak self] in
@@ -293,7 +295,10 @@ final class RemoteNotificationsModelController {
         return try distinctWikis(moc: viewContext, predicate: predicate)
     }
     
-    func distinctWikis(backgroundContext: NSManagedObjectContext, predicate: NSPredicate?, completion: @escaping (Result<Set<String>, Error>) -> Void) {
+    func distinctWikis(backgroundContext: NSManagedObjectContext, predicate: NSPredicate?, completion: @escaping @Sendable (Result<Set<String>, Error>) -> Void) {
+        // NSPredicate is not annotated Sendable in the SDK, but instances are
+        // documented-immutable; this bridge only moves it onto the context's queue.
+        nonisolated(unsafe) let predicate = predicate
         backgroundContext.perform { [weak self] in
             
             guard let self = self else {
@@ -322,17 +327,19 @@ final class RemoteNotificationsModelController {
     
     // MARK: WMFLibraryValue Helpers
     func libraryValue(forKey key: String) -> NSCoding? {
-        var result: NSCoding? = nil
         let backgroundContext = newBackgroundContext()
-        backgroundContext.performAndWait {
-            result = backgroundContext.wmf_keyValue(forKey: key)?.value
+        // The SDK's generic performAndWait runs the block inline on the context's
+        // queue and returns its value, so no captured var crosses a @Sendable boundary.
+        return backgroundContext.performAndWait {
+            backgroundContext.wmf_keyValue(forKey: key)?.value
         }
-        
-        return result
     }
     
     func setLibraryValue(_ value: NSCoding?, forKey key: String) {
         let backgroundContext = newBackgroundContext()
+        // Values stored here are immutable plist/coding payloads; the bridge only
+        // moves the reference onto the context's queue.
+        nonisolated(unsafe) let value = value
         backgroundContext.perform {
             backgroundContext.wmf_setValue(value, forKey: key)
             do {

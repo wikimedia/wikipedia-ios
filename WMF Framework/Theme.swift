@@ -92,7 +92,9 @@ public extension UIColor {
 }
 
 @objc(WMFColors)
-public class Colors: NSObject {
+// @unchecked Sendable: NSObject subclass (Obj-C visible) whose only stored state is
+// immutable `let`s set at init; everything else is computed.
+public final class Colors: NSObject, @unchecked Sendable {
     fileprivate static let light = Colors(
         identifier: .light)
     
@@ -841,7 +843,10 @@ public class Colors: NSObject {
 }
 
 @objc(WMFTheme)
-public class Theme: NSObject {
+// @unchecked Sendable: NSObject subclass (Obj-C visible) whose stored state is
+// immutable `let`s set at init; the former `lazy var` image/attribute caches were
+// converted to computed properties so no mutable state survives.
+public final class Theme: NSObject, @unchecked Sendable {
     
     @objc public static let standard = Theme.light
     
@@ -867,57 +872,57 @@ public class Theme: NSObject {
         return isDark ? .dark : .light
     }
     
-    @objc public lazy var navigationBarBackgroundImage: UIImage = {
+    @objc public var navigationBarBackgroundImage: UIImage {
         return UIImage.wmf_image(from: colors.paperBackground)
-    }()
+    }
     
-    @objc public lazy var sheetNavigationBarBackgroundImage: UIImage = {
+    @objc public var sheetNavigationBarBackgroundImage: UIImage {
         return UIImage.wmf_image(from: colors.chromeBackground)
-    }()
+    }
     
-    @objc public lazy var editorNavigationBarBackgroundImage: UIImage = {
+    @objc public var editorNavigationBarBackgroundImage: UIImage {
         return UIImage.wmf_image(from: colors.inputAccessoryBackground)
-    }()
+    }
     
     @objc public var navigationBarShadowImage: UIImage {
         return clearImage
     }
     
-    @objc public lazy var clearImage: UIImage = {
+    @objc public var clearImage: UIImage {
         return #imageLiteral(resourceName: "transparent-pixel")
-    }()
+    }
     
-    static let tabBarItemBadgeParagraphStyle: NSParagraphStyle = {
+    static var tabBarItemBadgeParagraphStyle: NSParagraphStyle {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = 0.4
         return paragraphStyle
-    }()
+    }
     
-    static let tabBarItemFont: UIFont = {
+    @MainActor static var tabBarItemFont: UIFont {
         return WMFFont.for(.caption1)
-    }()
+    }
     
-    public lazy var tabBarItemBadgeTextAttributes: [NSAttributedString.Key: Any] = {
+    @MainActor public var tabBarItemBadgeTextAttributes: [NSAttributedString.Key: Any] {
         return [NSAttributedString.Key.foregroundColor: colors.chromeBackground, NSAttributedString.Key.paragraphStyle: Theme.tabBarItemBadgeParagraphStyle]
-    }()
+    }
     
-    public lazy var tabBarTitleTextAttributes: [NSAttributedString.Key: Any] = {
+    @MainActor public var tabBarTitleTextAttributes: [NSAttributedString.Key: Any] {
         return [.foregroundColor: colors.secondaryText, .font: Theme.tabBarItemFont]
-    }()
+    }
     
-    public lazy var tabBarSelectedTitleTextAttributes: [NSAttributedString.Key: Any] = {
+    @MainActor public var tabBarSelectedTitleTextAttributes: [NSAttributedString.Key: Any] {
         return [.foregroundColor: colors.link, .font: Theme.tabBarItemFont]
-    }()
+    }
     
     public static let exploreCardCornerRadius: CGFloat = 10
     
-    @objc public lazy var searchFieldBackgroundImage: UIImage? = {
+    @objc public var searchFieldBackgroundImage: UIImage? {
         return UIImage.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: 10, height: 36)
-    }()
+    }
     
-    @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedString.Key: Any] = {
+    @objc public var navigationBarTitleTextAttributes: [NSAttributedString.Key: Any] {
         return [NSAttributedString.Key.foregroundColor: colors.chromeText]
-    }()
+    }
     
     public var isDimmed: Bool {
         return imageOpacity < 1
@@ -1019,6 +1024,9 @@ public class Theme: NSObject {
     }
 }
 
+// MainActor: applying a theme is view work; every conformer is a UIKit view or
+// view controller.
+@MainActor
 @objc(WMFThemeable)
 public protocol Themeable: AnyObject {
     @objc(applyTheme:)
@@ -1026,6 +1034,7 @@ public protocol Themeable: AnyObject {
 }
 
 // Use for SwiftUI environment objects
+@MainActor
 public final class ObservableTheme: ObservableObject {
     @Published public var theme: Theme
 

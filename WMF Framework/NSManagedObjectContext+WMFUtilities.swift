@@ -105,11 +105,11 @@ public extension NSManagedObjectContext {
     }
     
     func performWaitAndReturn<T>(_ block: () -> T?) -> T? {
-        var result: T? = nil
-        performAndWait {
-            result = block()
+        // The SDK's generic performAndWait runs the block inline on the context's
+        // queue and returns its value, so no captured var crosses a @Sendable boundary.
+        return performAndWait {
+            block()
         }
-        return result
     }
 }
 

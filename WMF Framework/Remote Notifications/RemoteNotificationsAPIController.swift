@@ -30,7 +30,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         let error: ResultError?
         let query: Query?
         
-        public struct Notification: Codable, Hashable {
+        public struct Notification: Codable, Hashable, Sendable {
             
             struct Timestamp: Codable, Hashable {
                 let utciso8601: String
@@ -84,7 +84,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 }
             }
             
-            struct Message: Codable, Hashable {
+            struct Message: Codable, Hashable, Sendable {
                 let header: String?
                 let body: String?
                 let links: RemoteNotificationLinks?

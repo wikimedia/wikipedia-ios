@@ -6,6 +6,10 @@ struct ColumnarCollectionViewLayoutSectionInvalidationResults {
     static let empty: ColumnarCollectionViewLayoutSectionInvalidationResults = ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: [])
 }
 
+// MainActor: pure UIKit layout bookkeeping — reads the collection view's data source
+// and mutates UICollectionViewLayoutAttributes. Only constructed and used by
+// ColumnarCollectionViewLayout (a UICollectionViewLayout subclass).
+@MainActor
 public class ColumnarCollectionViewLayoutInfo {
     var sections: [ColumnarCollectionViewLayoutSection] = []
     var contentSize: CGSize = .zero
