@@ -1230,6 +1230,7 @@
 "reading-list-name-user-created-annotation" = "Annotation added to a conflicting reading list name";
 "reading-list-new-list-description-placeholder" = "Placeholder text appearing in text field for entering new list description";
 "reading-list-new-list-name-placeholder" = "Placeholder text appearing in text field for entering new list name";
+"reading-list-share-message" = "Message sent to the recipient when the user shares a reading list. $1 is replaced with the link that imports the list.";
 "reading-list-sync-disabled-panel-message" = "Message for panel informing user that sync was disabled on their Wikipedia account on another device.";
 "reading-list-sync-disabled-panel-title" = "Title for panel informing user that sync was disabled on their Wikipedia account on another device";
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";

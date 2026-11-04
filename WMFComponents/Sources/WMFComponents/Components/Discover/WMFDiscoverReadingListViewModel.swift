@@ -148,6 +148,11 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
 
     // MARK: - Header text
 
+    /// The name of the list. The share sheet uses it as the subject.
+    public var title: String {
+        WMFDiscoverReadingListView.title
+    }
+
     public var articleCountText: String {
         String.localizedStringWithFormat(CommonStrings.articleCountFormat, pages.count)
     }
