@@ -378,6 +378,9 @@
 "discover-list-onboarding-toast-weekly" = "{{PLURAL:$1|Discover will update with $1 new article each week|Discover will update with $1 new articles each week}}. Your recommendations are stored locally on your device.";
 "discover-list-save-list" = "Save list";
 "discover-list-title" = "Discover";
+"discover-save-list-default-name" = "Discover $1";
+"discover-save-list-subtitle" = "Name reading list and select articles to save.";
+"discover-save-list-title" = "Save reading list";
 "discover-setup-source-history" = "Choose for me based on my reading history";
 "discover-setup-source-interests" = "Let me choose based on my interests";
 "discover-setup-source-saved" = "Choose for me based on my saved articles";

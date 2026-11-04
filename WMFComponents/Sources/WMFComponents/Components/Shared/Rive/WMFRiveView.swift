@@ -32,7 +32,6 @@ public struct WMFRiveView: View {
         frameRate: Int? = nil,
         isPlaying: Bool = true,
         readBool: WMFRiveBool? = nil,
-        textFits: [WMFRiveTextFit] = [],
         onReadBool: (@MainActor (Bool) -> Void)? = nil,
         watchedTrigger: WMFRiveTrigger? = nil,
         missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
@@ -56,8 +55,7 @@ public struct WMFRiveView: View {
             images: images,
             readBool: readBool,
             watchedTrigger: watchedTrigger,
-            missingImageFlags: missingImageFlags,
-            textFits: textFits
+            missingImageFlags: missingImageFlags
         ))
     }
 

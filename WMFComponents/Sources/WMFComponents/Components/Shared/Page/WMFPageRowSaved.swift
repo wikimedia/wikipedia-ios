@@ -53,8 +53,27 @@ struct WMFPageRowSaved: View {
     let onShare: (CGRect, FromLongPress) -> Void
     let onOpenInNewTab: () -> Void
     let onOpenInBackgroundTab: () -> Void
+    /// Set it to false where the row only selects the article, like in the create reading list form.
+    var showsContextMenu = true
 
+    @ViewBuilder
     var body: some View {
+        if showsContextMenu {
+            rowButton
+                .contextMenu {
+                    contextMenuItems
+                } preview: {
+                    WMFArticlePreviewView(viewModel: getPreviewViewModel(from:viewModel))
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    swipeActionButtons
+                }
+        } else {
+            rowButton
+        }
+    }
+
+    private var rowButton: some View {
         Button(action: {
             self.onTap(false)
         }) {
@@ -115,72 +134,72 @@ struct WMFPageRowSaved: View {
             }
             .allowsHitTesting(false)
         )
-        .contextMenu {
-            Button {
-                onTap(true)
-            } label: {
-                Text(CommonStrings.articleTabsOpen)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
+    }
 
-            Button {
-                onDelete(true)
-            } label: {
-                Text(CommonStrings.unsaveTitle)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-            Button {
-                onOpenInNewTab()
-            } label: {
-                Text(CommonStrings.articleTabsOpenInNewTab)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-            Button {
-                onOpenInBackgroundTab()
-            } label: {
-                Text(CommonStrings.articleTabsOpenInBackgroundTab)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-            Button {
-                onShare(viewModel.geometryFrame, true)
-            } label: {
-                Text(CommonStrings.shortShareTitle)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-        } preview: {
-            WMFArticlePreviewView(viewModel: getPreviewViewModel(from:viewModel))
+    @ViewBuilder
+    private var contextMenuItems: some View {
+        Button {
+            onTap(true)
+        } label: {
+            Text(CommonStrings.articleTabsOpen)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
         }
-        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+        .labelStyle(.titleAndIcon)
 
-            if !viewModel.isEditing {
+        Button {
+            onDelete(true)
+        } label: {
+            Text(CommonStrings.unsaveTitle)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
 
-                if let shareIcon = WMFIcon.share,
-                   let deleteIcon = WMFIcon.delete {
-                    Button(action: {
-                        onDelete(false)
-                    }) {
-                        Image(uiImage: deleteIcon)
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowDeleteSwipeButton)
-                    .tint(Color(uiColor: appEnvironment.theme.destructive))
+        Button {
+            onOpenInNewTab()
+        } label: {
+            Text(CommonStrings.articleTabsOpenInNewTab)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
 
-                    Button(action: {
-                        onShare(viewModel.geometryFrame, false)
-                    }) {
-                        Image(uiImage: shareIcon)
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowShareSwipeButton)
-                    .tint(Color(uiColor: appEnvironment.theme.secondaryAction))
+        Button {
+            onOpenInBackgroundTab()
+        } label: {
+            Text(CommonStrings.articleTabsOpenInBackgroundTab)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
+
+        Button {
+            onShare(viewModel.geometryFrame, true)
+        } label: {
+            Text(CommonStrings.shortShareTitle)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
+    }
+
+    @ViewBuilder
+    private var swipeActionButtons: some View {
+        if !viewModel.isEditing {
+
+            if let shareIcon = WMFIcon.share,
+               let deleteIcon = WMFIcon.delete {
+                Button(action: {
+                    onDelete(false)
+                }) {
+                    Image(uiImage: deleteIcon)
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowDeleteSwipeButton)
+                .tint(Color(uiColor: appEnvironment.theme.destructive))
+
+                Button(action: {
+                    onShare(viewModel.geometryFrame, false)
+                }) {
+                    Image(uiImage: shareIcon)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowShareSwipeButton)
+                .tint(Color(uiColor: appEnvironment.theme.secondaryAction))
             }
         }
     }
