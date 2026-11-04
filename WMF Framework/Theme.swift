@@ -898,9 +898,9 @@ public final class Theme: NSObject, @unchecked Sendable {
         return paragraphStyle
     }
     
-    @MainActor static var tabBarItemFont: UIFont {
+    @MainActor static let tabBarItemFont: UIFont = {
         return WMFFont.for(.caption1)
-    }
+    }()
     
     @MainActor public var tabBarItemBadgeTextAttributes: [NSAttributedString.Key: Any] {
         return [NSAttributedString.Key.foregroundColor: colors.chromeBackground, NSAttributedString.Key.paragraphStyle: Theme.tabBarItemBadgeParagraphStyle]
