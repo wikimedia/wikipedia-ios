@@ -381,7 +381,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     /// The horizontal bar row then collapses to zero height, so a label pinned to it overlaps the content.
     private var hasVerticalBar: Bool {
         if #available(iOS 27.1, *) {
-            return false
+            return traitCollection.verticalBarEdge != .unspecified
         }
         return false
     }
@@ -404,7 +404,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     private func observeVerticalBarEdgeChanges(title: String) {
         guard #available(iOS 27.1, *) else { return }
         guard WMFVerticalBarEdgeObservers.registrations.object(forKey: self) == nil else { return }
-        let registration = registerForTraitChanges([UITraitHorizontalSizeClass.self]) { (viewController: Self, _) in
+        let registration = registerForTraitChanges(UITraitCollection.systemTraitsAffectingVerticalBarEdge) { (viewController: Self, _) in
             viewController.applyCustomLeadingLargeTitle(title)
         }
         WMFVerticalBarEdgeObservers.registrations.setObject(registration, forKey: self)
