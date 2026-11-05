@@ -40,10 +40,12 @@ final class WMFReadingChallengeCompletionDataControllerTests: XCTestCase {
     }
 
     private func dataController() throws -> WMFReadingChallengeCompletionDataController {
-        guard let store, let userDefaultsStore, let legacyDefaults else {
+        guard let store, let userDefaultsStore, let suiteDefaults = self.legacyDefaults else {
             throw TestsError.missingStore
         }
 
+        // nonisolated(unsafe): UserDefaults is thread-safe. A test writes to it after the controller gets it.
+        nonisolated(unsafe) let legacyDefaults: UserDefaults? = suiteDefaults
         return WMFReadingChallengeCompletionDataController(userDefaultsStore: userDefaultsStore, legacyDefaults: legacyDefaults, coreDataStore: store)
     }
 

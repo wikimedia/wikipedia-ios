@@ -146,16 +146,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let slide = WMFYearInReviewSlide(year: 2021, id: .readCount, data: nil)
         try await dataController.createNewYearInReviewReport(year: 2021, slides: [slide])
 
-        var reports: [CDYearInReviewReport]?
         try store.viewContext.performAndWait {
-            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
             XCTAssertEqual(reports!.count, 1)
         }
 
         try await dataController.deleteYearInReviewReport(year: 2021)
 
         try await store.viewContext.perform {
-            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
             XCTAssertEqual(reports!.count, 0)
         }
     }
@@ -176,9 +175,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         try await dataController.createNewYearInReviewReport(year: 2024, slides: [slide1])
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide2])
 
-        var reports: [CDYearInReviewReport]?
         try store.viewContext.performAndWait {
-            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
             XCTAssertEqual(reports!.count, 1)
         }
 
@@ -186,7 +184,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         try await dataController.deleteAllYearInReviewReports()
 
         try await store.viewContext.perform {
-            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
             XCTAssertEqual(reports!.count, 0)
         }
 
@@ -241,7 +239,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             XCTFail("Missing expected country codes")
             return
         }
-        
+
+        let insideActiveWindow = self.insideActiveWindow
         await MainActor.run {
             let shouldShowEntryPointUS = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: insideActiveWindow)
             

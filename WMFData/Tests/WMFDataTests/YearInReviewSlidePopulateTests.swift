@@ -1191,22 +1191,22 @@ private final class WMFRecordingMockBasicService: WMFService, @unchecked Sendabl
         lock.unlock()
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
         record(request)
         wrapped.perform(request: request, completion: completion)
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         record(request)
         wrapped.perform(request: request, completion: completion)
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         record(request)
         wrapped.performDecodableGET(request: request, completion: completion)
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         record(request)
         wrapped.performDecodablePOST(request: request, completion: completion)
     }
