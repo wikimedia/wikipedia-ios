@@ -76,6 +76,70 @@ final class WMFDiscoverReadingListViewModelTests {
         }
     }
 
+    // MARK: - Back from the settings
+
+    @Test
+    func aNewArticleCountRegeneratesTheListOnReturn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            let dataController = makeDataController()
+            try await dataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests))
+            let viewModel = WMFDiscoverReadingListViewModel(username: nil, dataController: dataController)
+            await loadAndWait(viewModel)
+            #expect(viewModel.pages.count == 2)
+
+            try await dataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests))
+            viewModel.reloadIfGenerationDue()
+            await viewModel.loadTask?.value
+
+            #expect(viewModel.state == .loaded)
+            #expect(viewModel.pages.count == 3)
+            #expect(viewModel.settings.articleCount == 3)
+        }
+    }
+
+    @Test
+    func aNewCadenceOnlyRefreshesTheDescriptionOnReturn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            let dataController = makeDataController()
+            try await dataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests))
+            let viewModel = WMFDiscoverReadingListViewModel(username: nil, dataController: dataController)
+            await loadAndWait(viewModel)
+            let pagesBefore = viewModel.pages.map(\.title)
+
+            try await dataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .daily, source: .interests))
+            viewModel.reloadIfGenerationDue()
+            await viewModel.loadTask?.value
+
+            #expect(viewModel.state == .loaded)
+            #expect(viewModel.pages.map(\.title) == pagesBefore)
+            #expect(viewModel.settings.cadence == .daily)
+            #expect(viewModel.descriptionText.hasPrefix("Your daily reading list."))
+        }
+    }
+
+    @Test
+    func discoverOffKeepsTheListOnReturnAndTheRegenerationWaits() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            let dataController = makeDataController()
+            try await dataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests))
+            let viewModel = WMFDiscoverReadingListViewModel(username: nil, dataController: dataController)
+            await loadAndWait(viewModel)
+            let pagesBefore = viewModel.pages.map(\.title)
+
+            try await dataController.saveSettings(WMFDiscoverSettings(isEnabled: false, articleCount: 3, cadence: .weekly, source: .interests))
+            viewModel.reloadIfGenerationDue()
+            await viewModel.loadTask?.value
+
+            #expect(viewModel.state == .loaded)
+            #expect(viewModel.pages.map(\.title) == pagesBefore)
+            #expect(viewModel.settings.isEnabled == false)
+            #expect(try await dataController.isGenerationDue(), "the new article count regenerates the list when Discover is turned on again")
+        }
+    }
+
     @Test
     func theFirstLoadMarksTheOnboardingToastAsShown() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {

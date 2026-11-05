@@ -25,6 +25,11 @@ public final class WMFDiscoverReadingListHostingController: WMFComponentHostingC
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+
+        // Back from the Discover settings. A new source or article count regenerates the list.
+        if !isMovingToParent {
+            viewModel.reloadIfGenerationDue()
+        }
     }
 
     public override func appEnvironmentDidChange() {

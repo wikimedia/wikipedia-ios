@@ -70,7 +70,8 @@ public actor WMFDiscoverReadingListDataController {
         return storedSettings ?? .default
     }
 
-    /// Persists the settings. Changing the source throws the current list away on the next generation check, like on Android.
+    /// Persists the settings. A new source or a new article count throws the current list away
+    /// on the next generation check, like on Android. A new cadence keeps the current list.
     /// A changed setting posts `discoverListStateDidChange`, so the Saved tab follows the switch at once.
     public func saveSettings(_ newSettings: WMFDiscoverSettings) throws {
         guard let userDefaultsStore else {
@@ -83,10 +84,22 @@ public actor WMFDiscoverReadingListDataController {
         }
         try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverSettings.rawValue, value: newSettings)
 
-        if previousSettings.source != newSettings.source {
+        let sourceChanged = previousSettings.source != newSettings.source
+        let articleCountChanged = previousSettings.articleCount != newSettings.articleCount
+        if sourceChanged || articleCountChanged {
             try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue, value: true)
         }
         postListStateDidChange()
+    }
+
+    /// Turns Discover off and throws the list and its schedule away. The other settings stay, so a
+    /// later turn on builds the list the same way. The onboarding toast shows again on that list.
+    public func turnOff() async throws {
+        var newSettings = settings
+        newSettings.isEnabled = false
+        try saveSettings(newSettings)
+        try await deleteAllRecommendations()
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverOnboardingToastShown.rawValue)
     }
 
     // MARK: - Onboarding
@@ -141,7 +154,7 @@ public actor WMFDiscoverReadingListDataController {
         return storedFlag ?? false
     }
 
-    /// True when there is no list yet, the source changed, or the cadence's next date has arrived.
+    /// True when there is no list yet, the source or the article count changed, or the cadence's next date has arrived.
     public func isGenerationDue(now: Date = Date()) async throws -> Bool {
         if needsRegeneration {
             return true
@@ -216,6 +229,9 @@ public actor WMFDiscoverReadingListDataController {
         }
 
         try await expireAllRecommendations()
+        // The run has consumed the flag. A settings change that arrives while the run goes on
+        // sets it again, so the next check regenerates.
+        try userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
 
         let previouslyRecommended = try await fetchStoredRecommendations(includeExpired: true)
         var excludedKeys = Set(previouslyRecommended.map(\.key))
@@ -235,7 +251,6 @@ public actor WMFDiscoverReadingListDataController {
         try await persistGeneratedList(orderedList, now: now)
 
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue, value: now)
-        try userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue, value: true)
         postListStateDidChange()
 
