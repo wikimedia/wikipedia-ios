@@ -98,11 +98,14 @@ final class WMFDiscoverSettingsViewModelTests {
             try await addInterest("Cat")
             _ = try await dataController.generateRecommendations()
             let viewModel = WMFDiscoverSettingsViewModel(settings: settings, dataController: dataController)
+            var turnOffCount = 0
+            viewModel.didTurnOff = { turnOffCount += 1 }
             viewModel.isEnabledBinding.wrappedValue = false
 
             viewModel.confirmTurnOff()
             await waitForSave(viewModel)
 
+            #expect(turnOffCount == 1)
             #expect(!viewModel.isShowingTurnOffAlert)
             #expect(!viewModel.settings.isEnabled)
             #expect(!viewModel.showsInterestsRow)
@@ -118,10 +121,13 @@ final class WMFDiscoverSettingsViewModelTests {
             let dataController = makeDataController()
             let settings = try await makeEnabledSettings(dataController: dataController)
             let viewModel = WMFDiscoverSettingsViewModel(settings: settings, dataController: dataController)
+            var turnOffCount = 0
+            viewModel.didTurnOff = { turnOffCount += 1 }
             viewModel.isEnabledBinding.wrappedValue = false
 
             viewModel.cancelTurnOff()
 
+            #expect(turnOffCount == 0)
             #expect(!viewModel.isShowingTurnOffAlert)
             #expect(viewModel.settings.isEnabled)
             #expect(viewModel.footerText == WMFDiscoverSettingsViewModel.footerOnText)

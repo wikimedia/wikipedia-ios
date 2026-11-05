@@ -144,7 +144,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     // MARK: - Settings
 
     private func showSettings() {
-        let coordinator = DiscoverSettingsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        let coordinator = DiscoverSettingsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, origin: .discoverReadingList)
         settingsCoordinator = coordinator
         coordinator.start()
     }

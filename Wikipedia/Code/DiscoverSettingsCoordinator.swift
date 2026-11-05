@@ -8,14 +8,21 @@ import WMFNativeLocalizations
 /// the interests screen. Started from Settings and from Customize on the Discover reading list.
 final class DiscoverSettingsCoordinator: NSObject, Coordinator {
 
+    enum Origin {
+        case settings
+        case discoverReadingList
+    }
+
     let navigationController: UINavigationController
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private let origin: Origin
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, origin: Origin) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
+        self.origin = origin
         super.init()
     }
 
@@ -38,9 +45,18 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         viewModel.didTapInterests = {
             // The interests screen lands with T440011.
         }
+        viewModel.didTurnOff = { [weak self] in
+            self?.showTurnedOffToast()
+        }
 
         let hostingController = WMFDiscoverSettingsHostingController(viewModel: viewModel)
         navigationController.pushViewController(hostingController, animated: true)
+    }
+
+    /// From Settings the reader already knows where to turn Discover back on, so the toast only shows from the Discover list.
+    private func showTurnedOffToast() {
+        guard origin == .discoverReadingList else { return }
+        WMFToastPresenter.shared.show(WMFToastConfig(title: WMFDiscoverSettingsViewModel.turnedOffToastTitle, duration: 5))
     }
 
     // MARK: - Source

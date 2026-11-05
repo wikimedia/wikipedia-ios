@@ -189,30 +189,49 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
-    func generationIsNotDueWithinOneDayOfTheLastOne() {
+    func dailyGenerationIsDueOnceTheNextDayStarts() {
+        let mondayNight = date(2026, 10, 26, hour: 22)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: mondayNight, now: date(2026, 10, 26, hour: 23), calendar: utcCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: mondayNight, now: date(2026, 10, 27, hour: 1), calendar: utcCalendar))
+    }
+
+    @Test
+    func weeklyGenerationIsNotDueLaterInTheSameWeek() {
         let monday = date(2026, 10, 26)
-        let lastGenerated = monday.addingTimeInterval(-3600)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: lastGenerated, now: monday, calendar: utcCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 10, 27), calendar: utcCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 11, 1, hour: 23), calendar: utcCalendar) == false)
     }
 
     @Test
-    func dailyGenerationIsDueAfterOneDay() {
-        let now = date(2026, 10, 27)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: date(2026, 10, 26), now: now, calendar: utcCalendar))
+    func weeklyGenerationIsDueOnTheFirstOpenOfANewWeek() {
+        let monday = date(2026, 10, 26)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 11, 2), calendar: utcCalendar))
+        // The reader skips the next Monday and comes back on Tuesday.
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 11, 3), calendar: utcCalendar))
     }
 
     @Test
-    func weeklyGenerationIsDueOnlyOnMonday() {
-        let lastGenerated = date(2026, 10, 19)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: lastGenerated, now: date(2026, 10, 26), calendar: utcCalendar))
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: lastGenerated, now: date(2026, 10, 27), calendar: utcCalendar) == false)
+    func weeklyGenerationStartsTheWeekOnMondayInEveryLocale() {
+        var sundayCalendar = utcCalendar
+        sundayCalendar.firstWeekday = 1
+        let saturday = date(2026, 10, 31)
+        let sunday = date(2026, 11, 1)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: saturday, now: sunday, calendar: sundayCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: sunday, now: date(2026, 11, 2), calendar: sundayCalendar))
     }
 
     @Test
-    func monthlyGenerationIsDueOnlyOnTheFirstDayOfTheMonth() {
-        let lastGenerated = date(2026, 10, 1)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: lastGenerated, now: date(2026, 11, 1), calendar: utcCalendar))
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: lastGenerated, now: date(2026, 10, 31), calendar: utcCalendar) == false)
+    func monthlyGenerationIsNotDueLaterInTheSameMonth() {
+        let firstOfOctober = date(2026, 10, 1)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: firstOfOctober, now: date(2026, 10, 31), calendar: utcCalendar) == false)
+    }
+
+    @Test
+    func monthlyGenerationIsDueOnTheFirstOpenOfANewMonth() {
+        let firstOfOctober = date(2026, 10, 1)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: firstOfOctober, now: date(2026, 11, 1), calendar: utcCalendar))
+        // The reader skips the 1st and comes back on the 2nd.
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: firstOfOctober, now: date(2026, 11, 2), calendar: utcCalendar))
     }
 
     // MARK: - Generation
