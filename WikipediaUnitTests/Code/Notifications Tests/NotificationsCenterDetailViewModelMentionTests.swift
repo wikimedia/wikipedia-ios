@@ -77,6 +77,48 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         try testMentionInArticleTalkZhWikiquoteTextActions(detailViewModel: detailViewModel)
     }
     
+    func testMentionInProjectNamespaceCommons() throws {
+        let detailViewModel = try detailViewModelFromIdentifier(identifier: "10")
+        
+        try testMentionInProjectNamespaceCommonsActions(detailViewModel: detailViewModel)
+    }
+    
+    // Regression test for T427075: links to a project namespace page must use the target project's
+    // namespace name (e.g. "Commons:" on Commons), not the hardcoded "Wikipedia:" canonical name.
+    private func testMentionInProjectNamespaceCommonsActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Commons:Village pump"
+        let expectedPrimaryURL: URL? = URL(string: "https://commons.wikimedia.org/wiki/Commons:Village_pump")!
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        let expectedPrimaryDestinationText = "On web"
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .link(.wikipedia)
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
+        
+        let expectedText0 = "Fred The Bird's user page"
+        let expectedURL0: URL? = URL(string: "https://commons.wikimedia.org/wiki/User:Fred_The_Bird")!
+        let expectedIcon0: NotificationsCenterIconType = .person
+        let expectedDestinationText0 = "On web"
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
+        
+        let expectedText1 = "Diff"
+        let expectedURL1: URL? = URL(string: "https://commons.wikimedia.org/w/index.php?oldid=505586&title=Commons%253AVillage_pump")!
+        let expectedIcon1: NotificationsCenterIconType = .diff
+        let expectedDestinationText1 = "On web"
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
+        
+        let expectedText2 = "Commons:Village pump"
+        let expectedURL2: URL? = URL(string: "https://commons.wikimedia.org/wiki/Commons:Village_pump")!
+        let expectedIcon2: NotificationsCenterIconType = .document
+        let expectedDestinationText2 = "On web"
+        let expectedAction2: NotificationsCenterActionData.LoggingLabel = .link(.wikipedia)
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: detailViewModel.secondaryActions[2], actionType: expectedAction2)
+    }
+    
     private func testMentionInUserTalkText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
         XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
