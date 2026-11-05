@@ -14,6 +14,7 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var didTapSource: (() -> Void)?
     /// The interests screen lands with T440011.
     public var didTapInterests: (() -> Void)?
+    public var didTurnOff: (() -> Void)?
 
     private let dataController: WMFDiscoverReadingListDataController
     private(set) var saveTask: Task<Void, Never>?
@@ -81,7 +82,7 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
         enqueue { dataController in
             try await dataController.turnOff()
         }
-        WMFToastPresenter.shared.show(WMFToastConfig(title: Self.turnedOffToastTitle, duration: 5))
+        didTurnOff?()
     }
 
     public func cancelTurnOff() {
@@ -223,5 +224,5 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     static let turnOffAlertMessageWeekly = WMFLocalizedString("discover-settings-turn-off-alert-message-weekly", value: "If you turn off Discover, you'll stop receiving weekly reading recommendations from Wikipedia.", comment: "Message of the alert that asks the reader to confirm that they want to turn off Discover, when the Discover reading list updates every week.")
     static let turnOffAlertMessageMonthly = WMFLocalizedString("discover-settings-turn-off-alert-message-monthly", value: "If you turn off Discover, you'll stop receiving monthly reading recommendations from Wikipedia.", comment: "Message of the alert that asks the reader to confirm that they want to turn off Discover, when the Discover reading list updates every month.")
     static let turnOffAlertConfirmTitle = WMFLocalizedString("discover-settings-turn-off-alert-confirm", value: "Turn off", comment: "Button of the alert that turns off Discover.")
-    static let turnedOffToastTitle = WMFLocalizedString("discover-settings-turned-off-toast", value: "Discover has been turned off. You can turn it back on anytime in Settings.", comment: "Toast shown after the reader turns off Discover.")
+    public static let turnedOffToastTitle = WMFLocalizedString("discover-settings-turned-off-toast", value: "Discover has been turned off. You can turn it back on anytime in Settings.", comment: "Toast shown after the reader turns off Discover.")
 }

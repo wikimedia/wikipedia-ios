@@ -284,7 +284,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showDiscoverSettings() {
         guard let settingsNavigationController else { return }
-        let coordinator = DiscoverSettingsCoordinator(navigationController: settingsNavigationController, dataStore: dataStore, theme: theme)
+        let coordinator = DiscoverSettingsCoordinator(navigationController: settingsNavigationController, dataStore: dataStore, theme: theme, origin: .settings)
         discoverSettingsCoordinator = coordinator
         coordinator.start()
     }
