@@ -894,8 +894,6 @@
 "reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar as suas listas de leitura.";
 "reading-list-api-error-list-limit" = "Esta lista não está sincronizada, porque atingiu o limite do número de listas sincronizadas.";
 "reading-list-create-new-list-button-title" = "Criar lista de leitura";
-"reading-list-create-new-list-description" = "Descrição";
-"reading-list-create-new-list-reading-list-name" = "Nome da lista de leitura";
 "reading-list-create-new-list-title" = "Criar uma lista nova";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
@@ -915,7 +913,9 @@
 "reading-list-list-limit-reached" = "Atingiu o limite de $1 listas de leitura por conta";
 "reading-list-login-or-create-account-button-title" = "Iniciar sessão ou criar conta";
 "reading-list-name-user-created-annotation" = "_[criada pelo utilizador]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descrição breve opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "título da lista de leitura";
 "reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia noutro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
 "reading-list-sync-disabled-panel-title" = "Sincronização desativada";

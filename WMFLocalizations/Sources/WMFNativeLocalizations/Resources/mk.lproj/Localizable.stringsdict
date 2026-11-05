@@ -330,6 +330,54 @@
 			<string>%1$d неуредени реда</string>
 		</dict>
 	</dict>
+	<key>discover-list-onboarding-toast-daily</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Вашите препораки се складираат месно на уредот.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>„Откриј“ ќе се подновува со %1$d нова статија секој ден</string>
+			<key>other</key>
+			<string>„Откриј“ ќе се подновува со %1$d нови статии секој ден</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-monthly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Вашите препораки се складираат месно на уредот.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>„Откриј“ ќе се подновува со %1$d нова статија секој месец</string>
+			<key>other</key>
+			<string>„Откриј“ ќе се подновува со %1$d нови статии секој месец</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-weekly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Вашите препораки се складираат месно на уредот.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>„Откриј“ ќе се подновува со %1$d нова статија секоја недела</string>
+			<key>other</key>
+			<string>„Откриј“ ќе се подновува со %1$d нови статии секоја недела</string>
+		</dict>
+	</dict>
 	<key>donation-reminder-card-body</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

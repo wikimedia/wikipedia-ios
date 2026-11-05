@@ -790,8 +790,6 @@
 "reading-list-add-saved-title" = "พบบทความที่บันทึกไว้";
 "reading-list-api-error-generic" = "เกิดข้อผิดพลาดที่ไม่คาดคิดขณะซิงค์รายการอ่านของคุณ";
 "reading-list-create-new-list-button-title" = "สร้างรายการอ่าน";
-"reading-list-create-new-list-description" = "คำอธิบาย";
-"reading-list-create-new-list-reading-list-name" = "ชื่อรายการอ่าน";
 "reading-list-create-new-list-title" = "สร้างรายการใหม่";
 "reading-list-deleted-accessibility-notification" = "ลบรายการอ่านแล้ว";
 "reading-list-do-not-keep-button-title" = "ไม่ ลบบทความจากอุปกรณ์";
@@ -806,7 +804,9 @@
 "reading-list-list-limit-exceeded-title" = "คุณเกินขีดจำกัดของ {{PLURAL:$1|$1 รายการอ่าน}} ต่อบัญชี";
 "reading-list-login-or-create-account-button-title" = "เข้าสู่ระบบหรือสร้างบัญชี";
 "reading-list-name-user-created-annotation" = "_[สร้างโดยผู้ใช้]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "คำอธิบายอย่างย่อ";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ชื่อเรื่องรายการอ่าน";
 "reading-list-sync-disabled-panel-message" = "การซิงค์รายการอ่านถูกปิดใช้งานสำหรับบัญชีวิกิพีเดียของคุณบนอุปกรณ์อื่น คุณสามารถเปิดการซิงค์ได้อีกครั้งโดยปรับปรุงการตั้งค่าของคุณ";
 "reading-list-sync-disabled-panel-title" = "ปิดใช้งานการซิงค์แล้ว";

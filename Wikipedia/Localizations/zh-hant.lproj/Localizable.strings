@@ -1218,8 +1218,6 @@
 "reading-list-api-error-generic" = "同步您的閱讀清單時發生意外錯誤。";
 "reading-list-api-error-list-limit" = "此清單尚未同步，因為您已達到同步清單的上限數目。";
 "reading-list-create-new-list-button-title" = "建立閱讀清單";
-"reading-list-create-new-list-description" = "描述";
-"reading-list-create-new-list-reading-list-name" = "閱讀清單名稱";
 "reading-list-create-new-list-title" = "新增清單";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
 "reading-list-detail-search-placeholder" = "搜尋閱讀清單";
@@ -1240,7 +1238,9 @@
 "reading-list-list-limit-reached" = "您已達到各帳號 $1 個閱讀清單上限";
 "reading-list-login-or-create-account-button-title" = "登入或建立帳號";
 "reading-list-name-user-created-annotation" = "_[使用者已建立]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "選用簡短描述";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "閱讀清單標題";
 "reading-list-sync-disabled-panel-message" = "您在其它裝置上的維基百科帳號已停用閱讀清單同步。您可以透過更新您的個人設定來重新啟用。";
 "reading-list-sync-disabled-panel-title" = "同步已停用";

@@ -1208,8 +1208,6 @@
 "reading-list-api-error-generic" = "Pri synchronizácii vašich zoznamov na prečítanie nastala neočakávaná chyba.";
 "reading-list-api-error-list-limit" = "Tento zoznam nie je synchronizovaný, pretože ste prekročili limit počtu synchronizovaných zoznamov.";
 "reading-list-create-new-list-button-title" = "Vytvoriť zoznam na prečítanie";
-"reading-list-create-new-list-description" = "Popis";
-"reading-list-create-new-list-reading-list-name" = "Názov zoznamu na prečítanie";
 "reading-list-create-new-list-title" = "Vytvoriť nový zoznam";
 "reading-list-deleted-accessibility-notification" = "Zoznam na prečítanie bol odstránený";
 "reading-list-detail-search-placeholder" = "Hľadať v zozname na prečítanie";
@@ -1230,7 +1228,9 @@
 "reading-list-list-limit-reached" = "Dosiahli ste limit $1 zoznamov na prečítanie na účet";
 "reading-list-login-or-create-account-button-title" = "Prihlásiť sa alebo vytvoriť účet";
 "reading-list-name-user-created-annotation" = "_[používateľ vytvorený]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "voliteľný krátky popis";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "názov zoznamu na prečítanie";
 "reading-list-sync-disabled-panel-message" = "Synchronizácia zoznamov na prečítanie bola zakázaná pre váš účet na Wikipédii na inom zariadením. Synchronizáciu môžete obnoviť aktualizáciou nastavení.";
 "reading-list-sync-disabled-panel-title" = "Synchronizácia je vypnutá";

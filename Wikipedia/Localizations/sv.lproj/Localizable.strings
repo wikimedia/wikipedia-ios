@@ -1214,8 +1214,6 @@
 "reading-list-api-error-generic" = "Ett oväntat fel uppstod när dina läslistor synkroniserades.";
 "reading-list-api-error-list-limit" = "Denna lista är inte synkroniserad eftersom du har nått gränsen för antalet synkroniserade listor.";
 "reading-list-create-new-list-button-title" = "Spara läslista";
-"reading-list-create-new-list-description" = "Beskrivning";
-"reading-list-create-new-list-reading-list-name" = "Namn på läslista";
 "reading-list-create-new-list-title" = "Skapa en ny lista";
 "reading-list-deleted-accessibility-notification" = "Läslistor raderades";
 "reading-list-detail-search-placeholder" = "Sök efter läslista";
@@ -1236,7 +1234,9 @@
 "reading-list-list-limit-reached" = "Du har nått gränsen på $1 läslistor per konto.";
 "reading-list-login-or-create-account-button-title" = "Logga in eller skapa konto";
 "reading-list-name-user-created-annotation" = "_[användarskapad]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "valfri kort beskrivning";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titel på läslista";
 "reading-list-sync-disabled-panel-message" = "Synkronisering av läslistor har inaktiverats för ditt Wikipedia-konto på en annan enhet. Du kan aktivera synkronisering igen genom att uppdatera dina inställningar.";
 "reading-list-sync-disabled-panel-title" = "Synkronisering inaktiverad";

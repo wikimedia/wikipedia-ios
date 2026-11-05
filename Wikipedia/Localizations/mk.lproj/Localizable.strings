@@ -375,6 +375,28 @@
 "discover-announcement-no-thanks" = "Не, благодарам";
 "discover-announcement-no-thanks-toast" = "За да го поставите вашиот препорачан список за читање подоцна, одете на Поставки.";
 "discover-announcement-title" = "Откријте статии избрани токму за вас";
+"discover-list-about" = "За функцијава";
+"discover-list-byline" = "Направено за $1 • $2";
+"discover-list-byline-you" = "вас";
+"discover-list-customize" = "Прилагоди го Откриј";
+"discover-list-description-daily" = "Вашиот дневен список за читање. Осознајте повеќе теми, избрани токму за вас. Се подновува секојдневно.";
+"discover-list-description-monthly" = "Вашиот месечен список за читање. Осознајте повеќе теми, избрани токму за вас. Се подновува на почетокот на секој месец.";
+"discover-list-description-weekly" = "Вашиот неделен список за читање. Осознајте повеќе теми, избрани токму за вас. Се подновува на почетокот на неделата.";
+"discover-list-empty-message" = "За жал, во моментов немаме препораки за вас.";
+"discover-list-error-subtitle" = "Не можам да го вчитам списокот за читање.";
+"discover-list-error-title" = "Мрежна грешка";
+"discover-list-onboarding-toast-daily" = "{{PLURAL:$1|„Откриј“ ќе се подновува со $1 нова статија секој ден|„Откриј“ ќе се подновува со $1 нови статии секој ден}}. Вашите препораки се складираат месно на уредот.";
+"discover-list-onboarding-toast-monthly" = "{{PLURAL:$1|„Откриј“ ќе се подновува со $1 нова статија секој месец|„Откриј“ ќе се подновува со $1 нови статии секој месец}}. Вашите препораки се складираат месно на уредот.";
+"discover-list-onboarding-toast-weekly" = "{{PLURAL:$1|„Откриј“ ќе се подновува со $1 нова статија секоја недела|„Откриј“ ќе се подновува со $1 нови статии секоја недела}}. Вашите препораки се складираат месно на уредот.";
+"discover-list-save-list" = "Зачувај список";
+"discover-list-title" = "Откриј";
+"discover-save-list-default-name" = "Откриј $1";
+"discover-save-list-subtitle" = "Именувајте го списокот и одберете статии за зачувување.";
+"discover-save-list-title" = "Зачувај список за читање";
+"discover-setup-source-history" = "Избери ми според мојата историја на читање";
+"discover-setup-source-interests" = "Сакам да изберам според моите интереси";
+"discover-setup-source-saved" = "Избери ми според моите зачувани статии";
+"discover-setup-title" = "Како да го составиме вашиот препорачан список за читање?";
 "donate-accessibility-amount-button-hint" = "Допрете двапати за да изберете износ за дарување.";
 "donate-accessibility-donate-hint-format" = "Допрете двапати за да дарувате $1 на Фондацијата Викимедија.";
 "donate-accessibility-email-opt-in-hint" = "Допрете двапати за да ѝ дозволите на Фондацијата Викимедија да ви испраќа е-пошта.";
@@ -382,7 +404,6 @@
 "donate-accessibility-monthly-recurring-hint" = "Допрете двапати за да овозможите автоматско месечно дарување во овој износ.";
 "donate-accessibility-textfield-hint" = "Внесете износ за дарување по ваш избор.";
 "donate-accessibility-transaction-fee-hint" = "Допрете двапати за да додадете трансакциска провизија во износот на дарот.";
-// Fuzzy
 "donate-already-donated" = "Ви благодариме, драг дарителу! Википедија и другите нејзини проекти за слободно знаење напредуваат благодарение на вашата великодушност.";
 "donate-apple-fine-print" = "Apple не е задолжен за собирање пари за оваа цел.";
 "donate-email-opt-in-text" = "Да, Фондацијата Викимедија може повремено да ми испраќа е-пошта.";
@@ -1199,8 +1220,6 @@
 "reading-list-api-error-generic" = "Се појави неочекувана грешка при услгоасувањето на вашите списоци за читање.";
 "reading-list-api-error-list-limit" = "Овој список не е усогласен бидејќи ја достигнавте дозволената граница на усогласени списоци.";
 "reading-list-create-new-list-button-title" = "Создај список за читање";
-"reading-list-create-new-list-description" = "Опис";
-"reading-list-create-new-list-reading-list-name" = "Назив на списокот за читање";
 "reading-list-create-new-list-title" = "Создај нов список";
 "reading-list-deleted-accessibility-notification" = "Списокот за читање е избришан";
 "reading-list-detail-search-placeholder" = "Пребарување по список за читање";
@@ -1221,8 +1240,9 @@
 "reading-list-list-limit-reached" = "Ја достигнавте границата од $1 списоци по сметка";
 "reading-list-login-or-create-account-button-title" = "Најава / направи сметка";
 "reading-list-name-user-created-annotation" = "_[кориснички создадена]";
-"reading-list-new-list-description-placeholder" = "краток опис (незад.)";
-"reading-list-new-list-name-placeholder" = "наслов на спис. за читање";
+"reading-list-new-list-description-placeholder" = "Краток опис (незад.)";
+"reading-list-new-list-name-placeholder" = "Наслов на спис. за читање";
+"reading-list-share-message" = "Здраво! Сакам да споделам список за читање на Википедија со вас: $1";
 "reading-list-sync-disabled-panel-message" = "Усогласувањето на списокот за читање е исклучен за вашата сметка на Википедија од друг уред. Можете да го вклучите повторно изменувајќи ги нагодувањата.";
 "reading-list-sync-disabled-panel-title" = "Усогласувањето е исклучено";
 "reading-list-sync-enable-button-title" = "Овозможи усогласување";
@@ -1395,6 +1415,9 @@
 "settings-temp-accounts-talk-page-footer" = "Привремената сметка ќе истече за 90 дена";
 "settings-title" = "Нагодувања";
 "settings-year-in-review-header" = "Ако го исклучите Прегледот на годината, тоа ќе ги исчисти сите складирани персонализирани увиди и ќе го скрие Прегледот на годината";
+"settings-year-in-review-turn-off-alert-cancel" = "Не, благодарам";
+"settings-year-in-review-turn-off-alert-confirm" = "Да, сигурен сум";
+"settings-year-in-review-turn-off-alert-title" = "Дали сигурно сакате да го ислкучите Прегледот на годината?";
 "share-a-fact-made-with" = "Направено со прилогот на Википедија";
 "share-article-name-on-wikipedia" = "„$1“ на Википедија:";
 "share-building" = "Создавам карта за споделување факт...";
@@ -1764,7 +1787,6 @@
 "year-in-review-2026-games-card-subtitle" = "Проверете го вашето знаење стекнато на Википедија низ брзите игри поттикнати од светското знаење.";
 "year-in-review-2026-games-card-title" = "Подготвени за друг предизвик?";
 "year-in-review-2026-highlights-articles-read" = "Број на прочитани статии:";
-// Fuzzy
 "year-in-review-2026-highlights-created-with" = "Направено со прилогот на Википедија";
 "year-in-review-2026-highlights-minutes-read" = "Вкупно минути проведени во читање:";
 "year-in-review-2026-highlights-niche-category" = "Посебно истражена категорија:";
@@ -1820,6 +1842,7 @@
 "year-in-review-2026-saved-articles-empty-title" = "Имате 0 зачувани статии";
 "year-in-review-2026-saved-articles-title" = "Статии што ги зачувавте за подоцна:";
 "year-in-review-2026-share-text" = "Еве го мојот Преглед на годината 2026 на Википедија, од Википедииниот прилог: $1";
+"year-in-review-2026-store-card-button-title" = "Посетете ја продавницата";
 "year-in-review-2026-store-card-subtitle" = "Бидејќи се заложувате за слободното знаење ви даваме попуст од $1 во Википедиината продавница. Не ви треба код, попустот се применува при наплата.";
 "year-in-review-2026-store-card-title" = "Мала благодарност";
 "year-in-review-2026-tabs-card-title" = "Навратете се на отворените јазичиња";
