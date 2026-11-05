@@ -19,6 +19,7 @@
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
 "about-wikipedia" = "Wikipedia {{Identical|Wikipedia}}";
+"about-year-in-review-illustrations-attribution" = "Credit for the person who made the Year in Review illustrations. Shown in the content license section of the About page.";
 "account-creation-captcha-cannot-see-image" = "Text asking the user if they cannot see the captcha image. $1 is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
 "account-creation-captcha-request-account" = "Text for link to 'Request an account' page.";
