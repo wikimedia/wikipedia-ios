@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import os
 import Testing
 import WMFDataTestSupport
 @testable import WMFData
@@ -91,6 +92,30 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
+    func savingChangedSettingsPostsTheListStateNotificationOnce() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = makeController()
+            let postCount = OSAllocatedUnfairLock(initialState: 0)
+            let observer = NotificationCenter.default.addObserver(forName: WMFNSNotification.discoverListStateDidChange, object: nil, queue: nil) { _ in
+                postCount.withLock { $0 += 1 }
+            }
+            defer { NotificationCenter.default.removeObserver(observer) }
+            var settings = WMFDiscoverSettings.default
+            settings.isEnabled = true
+
+            try await saveSettings(settings, in: controller)
+            #expect(postCount.withLock { $0 } == 1)
+
+            try await saveSettings(settings, in: controller)
+            #expect(postCount.withLock { $0 } == 1, "the same settings again post nothing")
+
+            settings.isEnabled = false
+            try await saveSettings(settings, in: controller)
+            #expect(postCount.withLock { $0 } == 2)
+        }
+    }
+
+    @Test
     func settingsDecodeWithMissingKeysUsingDefaults() throws {
         let json = Data(#"{"isEnabled": true}"#.utf8)
         let settings = try JSONDecoder().decode(WMFDiscoverSettings.self, from: json)
@@ -164,30 +189,49 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
-    func generationIsNotDueWithinOneDayOfTheLastOne() {
+    func dailyGenerationIsDueOnceTheNextDayStarts() {
+        let mondayNight = date(2026, 10, 26, hour: 22)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: mondayNight, now: date(2026, 10, 26, hour: 23), calendar: utcCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: mondayNight, now: date(2026, 10, 27, hour: 1), calendar: utcCalendar))
+    }
+
+    @Test
+    func weeklyGenerationIsNotDueLaterInTheSameWeek() {
         let monday = date(2026, 10, 26)
-        let lastGenerated = monday.addingTimeInterval(-3600)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: lastGenerated, now: monday, calendar: utcCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 10, 27), calendar: utcCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 11, 1, hour: 23), calendar: utcCalendar) == false)
     }
 
     @Test
-    func dailyGenerationIsDueAfterOneDay() {
-        let now = date(2026, 10, 27)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .daily, lastGeneratedDate: date(2026, 10, 26), now: now, calendar: utcCalendar))
+    func weeklyGenerationIsDueOnTheFirstOpenOfANewWeek() {
+        let monday = date(2026, 10, 26)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 11, 2), calendar: utcCalendar))
+        // The reader skips the next Monday and comes back on Tuesday.
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: monday, now: date(2026, 11, 3), calendar: utcCalendar))
     }
 
     @Test
-    func weeklyGenerationIsDueOnlyOnMonday() {
-        let lastGenerated = date(2026, 10, 19)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: lastGenerated, now: date(2026, 10, 26), calendar: utcCalendar))
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: lastGenerated, now: date(2026, 10, 27), calendar: utcCalendar) == false)
+    func weeklyGenerationStartsTheWeekOnMondayInEveryLocale() {
+        var sundayCalendar = utcCalendar
+        sundayCalendar.firstWeekday = 1
+        let saturday = date(2026, 10, 31)
+        let sunday = date(2026, 11, 1)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: saturday, now: sunday, calendar: sundayCalendar) == false)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .weekly, lastGeneratedDate: sunday, now: date(2026, 11, 2), calendar: sundayCalendar))
     }
 
     @Test
-    func monthlyGenerationIsDueOnlyOnTheFirstDayOfTheMonth() {
-        let lastGenerated = date(2026, 10, 1)
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: lastGenerated, now: date(2026, 11, 1), calendar: utcCalendar))
-        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: lastGenerated, now: date(2026, 10, 31), calendar: utcCalendar) == false)
+    func monthlyGenerationIsNotDueLaterInTheSameMonth() {
+        let firstOfOctober = date(2026, 10, 1)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: firstOfOctober, now: date(2026, 10, 31), calendar: utcCalendar) == false)
+    }
+
+    @Test
+    func monthlyGenerationIsDueOnTheFirstOpenOfANewMonth() {
+        let firstOfOctober = date(2026, 10, 1)
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: firstOfOctober, now: date(2026, 11, 1), calendar: utcCalendar))
+        // The reader skips the 1st and comes back on the 2nd.
+        #expect(WMFDiscoverSchedule.isGenerationDue(cadence: .monthly, lastGeneratedDate: firstOfOctober, now: date(2026, 11, 2), calendar: utcCalendar))
     }
 
     // MARK: - Generation
@@ -428,6 +472,89 @@ final class WMFDiscoverReadingListDataControllerTests {
             #expect(try await controller.fetchStoredRecommendations(includeExpired: true).isEmpty)
             #expect(await controller.lastGeneratedDate == nil)
             #expect(try await controller.isGenerationDue(now: date(2026, 10, 27)))
+        }
+    }
+
+    // MARK: - Unseen list
+
+    @Test
+    func generationMarksTheListAsUnseen() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            #expect(await controller.hasUnseenList == false)
+
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            #expect(await controller.hasUnseenList)
+        }
+    }
+
+    @Test
+    func openingTheListClearsTheUnseenFlag() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            try await controller.markCurrentListSeen()
+
+            #expect(await controller.hasUnseenList == false)
+            #expect(try await controller.fetchCurrentRecommendations().count == 2)
+        }
+    }
+
+    @Test
+    func regenerationMarksTheListAsUnseenAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+            try await controller.markCurrentListSeen()
+
+            _ = try await controller.generateRecommendations(now: date(2026, 11, 2))
+
+            #expect(await controller.hasUnseenList)
+        }
+    }
+
+    @Test
+    func deleteAllRecommendationsClearsTheUnseenFlag() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            try await controller.deleteAllRecommendations()
+
+            #expect(await controller.hasUnseenList == false)
+        }
+    }
+
+    @Test
+    func unseenListBadgeNeedsTheFeatureAndTheListTurnedOn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeController()
+            let badgeController = WMFDiscoverDataController.shared
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            _ = try await controller.generateRecommendations(now: date(2026, 10, 26))
+
+            #expect(badgeController.shouldShowUnseenListBadge == false)
+
+            WMFDeveloperSettingsDataController.shared.enableDiscover = true
+            #expect(badgeController.shouldShowUnseenListBadge)
+
+            try await saveSettings(WMFDiscoverSettings(isEnabled: false, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            #expect(badgeController.shouldShowUnseenListBadge == false)
+
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
+            try await controller.markCurrentListSeen()
+            #expect(badgeController.shouldShowUnseenListBadge == false)
         }
     }
 

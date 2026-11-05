@@ -36,13 +36,31 @@ public final class WMFDiscoverDataController: Sendable {
     }
 
     /// True when the Saved tab shows the onboarding announcement card and its badge: the feature
-    /// is on, the reader is in group B and the card has not gone away yet.
+    /// is on, the reader is in group B, the card has not gone away yet and the reader has not
+    /// turned Discover on by another route.
     public var shouldShowAnnouncement: Bool {
-        guard isEnabled, experimentAssignment == .groupB else {
+        guard isEnabled, experimentAssignment == .groupB, !isListTurnedOn else {
             return false
         }
 
         return !hasDismissedAnnouncement
+    }
+
+    /// True when the Saved tab badge announces a Discover list the reader has not opened yet: the
+    /// feature is on, the reader turned Discover on and a list was generated since their last visit.
+    /// A synchronous view of `WMFDiscoverReadingListDataController.hasUnseenList` for the badge.
+    public var shouldShowUnseenListBadge: Bool {
+        guard isEnabled, isListTurnedOn else {
+            return false
+        }
+
+        let hasUnseenList: Bool? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        return hasUnseenList ?? false
+    }
+
+    private var isListTurnedOn: Bool {
+        let storedSettings: WMFDiscoverSettings? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverSettings.rawValue)
+        return storedSettings?.isEnabled ?? false
     }
 
     // MARK: - Announcement

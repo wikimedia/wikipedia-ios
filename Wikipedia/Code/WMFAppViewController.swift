@@ -223,6 +223,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(generateDiscoverReadingListIfNeeded),
+                                               name: WMFNSNotification.coreDataStoreSetup,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(userWasLoggedIn(_:)),
                                                name: WMFAuthenticationManager.didLogInNotification,
                                                object: nil)
@@ -476,7 +481,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
-        savedTabBadgeController?.refreshDiscoverAnnouncement()
+        savedTabBadgeController?.refreshDiscover()
+        generateDiscoverReadingListIfNeeded()
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()

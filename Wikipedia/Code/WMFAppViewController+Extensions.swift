@@ -930,6 +930,23 @@ extension WMFAppViewController {
 
 }
 
+// MARK: - Discover
+
+extension WMFAppViewController {
+
+    /// Generates the Discover reading list when its cadence is due. Runs each time the app becomes
+    /// active. On a cold launch the Core Data store is not ready yet, so it runs again when the
+    /// store posts `coreDataStoreSetup`.
+    @objc func generateDiscoverReadingListIfNeeded() {
+        guard WMFDiscoverDataController.shared.isEnabled, WMFDataEnvironment.current.coreDataStore != nil else { return }
+        Task {
+            let dataController = WMFDiscoverReadingListDataController.shared
+            guard await dataController.settings.isEnabled else { return }
+            _ = try? await dataController.generateRecommendationsIfNeeded()
+        }
+    }
+}
+
 // MARK: - Tabs
 
  extension WMFAppViewController {

@@ -71,17 +71,22 @@ public actor WMFDiscoverReadingListDataController {
     }
 
     /// Persists the settings. Changing the source throws the current list away on the next generation check, like on Android.
+    /// A changed setting posts `discoverListStateDidChange`, so the Saved tab follows the switch at once.
     public func saveSettings(_ newSettings: WMFDiscoverSettings) throws {
         guard let userDefaultsStore else {
             throw DiscoverReadingListError.missingUserDefaultsStore
         }
 
         let previousSettings = settings
+        guard previousSettings != newSettings else {
+            return
+        }
         try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverSettings.rawValue, value: newSettings)
 
         if previousSettings.source != newSettings.source {
             try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue, value: true)
         }
+        postListStateDidChange()
     }
 
     // MARK: - Onboarding
@@ -97,6 +102,31 @@ public actor WMFDiscoverReadingListDataController {
             throw DiscoverReadingListError.missingUserDefaultsStore
         }
         try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverOnboardingToastShown.rawValue, value: true)
+    }
+
+    // MARK: - Unseen list
+
+    /// True from the moment a list is generated until the reader opens it. The Saved tab shows a
+    /// dot on the entry card and on the tab icon while it is true, like the Android app.
+    public var hasUnseenList: Bool {
+        let storedFlag: Bool? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        return storedFlag ?? false
+    }
+
+    /// Clears the unseen flag. Call it when the reader opens the list.
+    public func markCurrentListSeen() throws {
+        guard let userDefaultsStore else {
+            throw DiscoverReadingListError.missingUserDefaultsStore
+        }
+        guard hasUnseenList else {
+            return
+        }
+        try userDefaultsStore.remove(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        postListStateDidChange()
+    }
+
+    private func postListStateDidChange() {
+        NotificationCenter.default.post(name: WMFNSNotification.discoverListStateDidChange, object: nil)
     }
 
     // MARK: - Schedule
@@ -206,6 +236,8 @@ public actor WMFDiscoverReadingListDataController {
 
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue, value: now)
         try userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
+        try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue, value: true)
+        postListStateDidChange()
 
         return try await fetchCurrentRecommendations()
     }
@@ -266,6 +298,8 @@ public actor WMFDiscoverReadingListDataController {
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue)
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverSeedOffsets.rawValue)
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverNeedsRegeneration.rawValue)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        postListStateDidChange()
     }
 }
 

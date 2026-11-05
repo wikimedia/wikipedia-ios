@@ -359,6 +359,8 @@
 "discover-announcement-no-thanks" = "No thanks";
 "discover-announcement-no-thanks-toast" = "To set up your recommended reading list later, go to Settings.";
 "discover-announcement-title" = "Discover articles picked for you";
+"discover-entry-card-byline" = "Made for $1";
+"discover-entry-card-unseen-list" = "New list";
 "discover-list-about" = "About this feature";
 "discover-list-byline" = "Made for $1 • $2";
 "discover-list-byline-you" = "you";

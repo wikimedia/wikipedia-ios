@@ -20,6 +20,8 @@ public enum WMFNSNotification {
     public static let localDonationHistoryDidChange = Notification.Name(WMFNotificationName.localDonationHistoryDidChange.rawValue)
     /// The Discover onboarding card was answered or reset, or its gates changed, so the Saved tab badge needs an update.
     public static let discoverAnnouncementStateDidChange = Notification.Name(WMFNotificationName.discoverAnnouncementStateDidChange.rawValue)
+    /// The Discover reading list was generated, opened or deleted, so the Saved tab entry card and badge need an update.
+    public static let discoverListStateDidChange = Notification.Name(WMFNotificationName.discoverListStateDidChange.rawValue)
 
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -44,4 +46,5 @@ private enum WMFNotificationName: String {
     case yirEntryPointNeedsUpdate = "WMFYearInReviewEntryPointNeedsUpdate"
     case localDonationHistoryDidChange = "WMFDataLocalDonationHistoryDidChange"
     case discoverAnnouncementStateDidChange = "WMFDataDiscoverAnnouncementStateDidChange"
+    case discoverListStateDidChange = "WMFDataDiscoverListStateDidChange"
 }
