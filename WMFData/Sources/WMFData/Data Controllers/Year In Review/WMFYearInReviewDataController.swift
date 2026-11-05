@@ -915,7 +915,9 @@ public struct WMFYearInReviewReadData: Codable {
     /// slide again. `nil` in data from builds before the minutes read slide, which counted all page views.
     /// 1: only articles, and each page view before August 31, 2026 adds at most 30 minutes.
     /// 2: the same, but the limit applies only before the release of the timer fix, August 11, 2026.
-    public static let currentMinutesReadFormat = 2
+    /// 3: the same, and an article with more than 60 minutes from January 1 through August 31, 2026 gets
+    ///    no minutes from that period.
+    public static let currentMinutesReadFormat = 3
     var minutesReadFormat: Int? = WMFYearInReviewReadData.currentMinutesReadFormat
 
     /// If false, show the empty state of the total articles slide.

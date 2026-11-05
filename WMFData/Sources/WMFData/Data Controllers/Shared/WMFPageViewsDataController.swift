@@ -412,11 +412,32 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
     }
 
+    /// Leaves out the seconds of a page's views from `startDate` up to, but not including, `endDate`, when
+    /// those views add up to more than `maximumSeconds` for that page. The total uses the stored seconds,
+    /// before any `PageViewSecondsCap`. The page still appears in the result, so it still counts as read.
+    public struct PageViewSecondsExclusion: Sendable {
+        public let startDate: Date
+        public let endDate: Date
+        public let maximumSeconds: Int
+
+        public init(from startDate: Date, upTo endDate: Date, maximumSeconds: Int) {
+            self.startDate = startDate
+            self.endDate = endDate
+            self.maximumSeconds = maximumSeconds
+        }
+
+        func contains(_ timestamp: Date) -> Bool {
+            timestamp >= startDate && timestamp < endDate
+        }
+    }
+
     /// The total seconds spent on each page in the date range. A page can have more than one stored row,
     /// so this groups them.
     /// - Parameter cap: If set, each page view before `cap.date` adds at most `cap.maximumSeconds`.
     ///   Use it to limit time that the measurement bug before July 2026 inflated. See `clampInflatedPageViewSecondsIfNeeded`.
-    public func fetchPageViewSeconds(startDate: Date, endDate: Date, cap: PageViewSecondsCap? = nil) async throws -> [WMFPage: Int] {
+    /// - Parameter exclusion: If set, a page whose views in the exclusion range add up to too much time gets
+    ///   no seconds from those views. Its views outside that range still count.
+    public func fetchPageViewSeconds(startDate: Date, endDate: Date, cap: PageViewSecondsCap? = nil, exclusion: PageViewSecondsExclusion? = nil) async throws -> [WMFPage: Int] {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         return try await backgroundContext.perform {
@@ -428,18 +449,34 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
             request.propertiesToFetch = ["page.projectID", "page.title", "page.namespaceID", "numberOfSeconds", "timestamp"]
 
             var secondsByPage: [WMFPage: Int] = [:]
+            // For each page, the stored seconds and the counted seconds of its views in the exclusion range.
+            var excludableStoredSecondsByPage: [WMFPage: Int] = [:]
+            var excludableCountedSecondsByPage: [WMFPage: Int] = [:]
             for dict in try backgroundContext.fetch(request) {
                 guard let projectID = dict["page.projectID"] as? String,
                       let title = dict["page.title"] as? String,
                       let namespaceID = dict["page.namespaceID"] as? NSNumber else { continue }
                 let wmfPage = WMFPage(namespaceID: namespaceID.intValue, projectID: projectID, title: title)
+                let timestamp = dict["timestamp"] as? Date
 
                 // A page with no stored seconds still counts as a page read, with zero seconds.
-                var seconds = Int((dict["numberOfSeconds"] as? NSNumber)?.int64Value ?? 0)
-                if let cap, let timestamp = dict["timestamp"] as? Date, timestamp < cap.date {
+                let storedSeconds = Int((dict["numberOfSeconds"] as? NSNumber)?.int64Value ?? 0)
+                var seconds = storedSeconds
+                if let cap, let timestamp, timestamp < cap.date {
                     seconds = min(seconds, cap.maximumSeconds)
                 }
                 secondsByPage[wmfPage, default: 0] += seconds
+
+                if let exclusion, let timestamp, exclusion.contains(timestamp) {
+                    excludableStoredSecondsByPage[wmfPage, default: 0] += storedSeconds
+                    excludableCountedSecondsByPage[wmfPage, default: 0] += seconds
+                }
+            }
+
+            if let exclusion {
+                for (page, storedSeconds) in excludableStoredSecondsByPage where storedSeconds > exclusion.maximumSeconds {
+                    secondsByPage[page, default: 0] -= excludableCountedSecondsByPage[page] ?? 0
+                }
             }
             return secondsByPage
         }

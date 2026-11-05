@@ -78,6 +78,27 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         return calendar.date(from: components) ?? Date(timeIntervalSince1970: 1_786_406_400)
     }()
 
+    /// An article whose page views from January 1 through August 31, 2026 add up to more than this many
+    /// seconds gets no minutes from those page views. Most of that time likely comes from the timer bug.
+    static let maximumSecondsPerArticleInExclusionPeriod = 60 * 60
+
+    /// The start of the period for `maximumSecondsPerArticleInExclusionPeriod`: 2026-01-01T00:00:00Z.
+    static let exclusionPeriodStartDate: Date = utcDate(year: 2026, month: 1, day: 1) ?? Date(timeIntervalSince1970: 1_767_225_600)
+
+    /// The end of the period for `maximumSecondsPerArticleInExclusionPeriod`, not included:
+    /// 2026-09-01T00:00:00Z, so all of August 31 is in the period.
+    static let exclusionPeriodEndDate: Date = utcDate(year: 2026, month: 9, day: 1) ?? Date(timeIntervalSince1970: 1_788_220_800)
+
+    private static func utcDate(year: Int, month: Int, day: Int) -> Date? {
+        var components = DateComponents()
+        components.year = year
+        components.month = month
+        components.day = day
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        return calendar.date(from: components)
+    }
+
     /// The articles read and the whole minutes spent reading them in the date range. Both count the same
     /// pages, so the total articles slide and the minutes read slide match. The wiki main page lookups
     /// run once for both.
@@ -85,12 +106,23 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     /// The minutes count only articles, not talk pages or main pages. This is on purpose: the slide
     /// describes time spent reading articles, next to the total articles. The Activity tab uses
     /// `WMFPageViewsDataController.fetchPageViewMinutes`, which counts all page views, so its value can be higher.
+    ///
+    /// Two rules reduce time that the timer bug inflated:
+    /// - Each page view before `timerFixReleaseDate` adds at most `maximumSecondsPerPageViewBeforeTimerFix`.
+    /// - An article with more than `maximumSecondsPerArticleInExclusionPeriod` of stored time from
+    ///   `exclusionPeriodStartDate` up to `exclusionPeriodEndDate` gets no minutes from that period. It still
+    ///   counts in `readCount`, and its page views after that period still add minutes.
     static func fetchReadData(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> WMFYearInReviewReadData {
         let cap = WMFPageViewsDataController.PageViewSecondsCap(
             maximumSeconds: maximumSecondsPerPageViewBeforeTimerFix,
             before: timerFixReleaseDate
         )
-        let secondsByPage = try await pageViewsDataController.fetchPageViewSeconds(startDate: startDate, endDate: endDate, cap: cap)
+        let exclusion = WMFPageViewsDataController.PageViewSecondsExclusion(
+            from: exclusionPeriodStartDate,
+            upTo: exclusionPeriodEndDate,
+            maximumSeconds: maximumSecondsPerArticleInExclusionPeriod
+        )
+        let secondsByPage = try await pageViewsDataController.fetchPageViewSeconds(startDate: startDate, endDate: endDate, cap: cap, exclusion: exclusion)
         let articles = await articles(from: Set(secondsByPage.keys), mainPageIdentifier: mainPageIdentifier)
         let totalSeconds = articles.reduce(0) { $0 + (secondsByPage[$1] ?? 0) }
         return WMFYearInReviewReadData(readCount: articles.count, minutesRead: totalSeconds / 60)

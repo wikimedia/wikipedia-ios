@@ -256,7 +256,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         }
 
         // Before the release of the timer fix on August 11: each view adds at most 30 minutes.
-        try await addView("Before", at: try date(month: 3, day: 4, hour: 9), seconds: 2 * 60 * 60)
+        try await addView("Before", at: try date(month: 3, day: 4, hour: 9), seconds: 45 * 60)
         try await addView("Before", at: try date(month: 3, day: 5, hour: 9), seconds: 10 * 60)
         // After the release, also before the cleanup cutoff of August 31: no limit, so a real long read stays.
         try await addView("AfterRelease", at: try date(month: 8, day: 20, hour: 9), seconds: 50 * 60)
@@ -265,6 +265,33 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         let payload = try await readCountPayload()
 
         XCTAssertEqual(payload.minutesRead, 30 + 10 + 50 + 120)
+    }
+
+    func testMinutesReadLeavesOutArticlesWithMoreThanAnHourFromJanuaryThroughAugust() async throws {
+        let pageViewsDataController = try WMFPageViewsDataController()
+
+        func addView(_ title: String, at timestamp: Date, seconds: Double) async throws {
+            let addedObjectID = try await pageViewsDataController.addPageView(title: title, namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: timestamp)
+            let objectID = try XCTUnwrap(addedObjectID)
+            try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: seconds)
+        }
+
+        // 61 stored minutes over two views in the period: none of them count, also though the cap would allow 40.
+        try await addView("Spread", at: try date(month: 2, day: 1, hour: 9), seconds: 21 * 60)
+        try await addView("Spread", at: try date(month: 6, day: 1, hour: 9), seconds: 40 * 60)
+        // One view of 70 minutes after the timer fix, still in the period: it does not count.
+        try await addView("LateAugust", at: try date(month: 8, day: 31, hour: 9), seconds: 70 * 60)
+        // A view after the period still counts for an article that the rule left out.
+        try await addView("LateAugust", at: try date(month: 9, day: 2, hour: 9), seconds: 5 * 60)
+        // Exactly 60 minutes is not more than 60 minutes, so it counts, with the cap.
+        try await addView("Hour", at: try date(month: 4, day: 1, hour: 9), seconds: 60 * 60)
+        // More than an hour after the period is a real read.
+        try await addView("After", at: try date(month: 10, day: 4, hour: 9), seconds: 2 * 60 * 60)
+
+        let payload = try await readCountPayload()
+
+        XCTAssertEqual(payload.readCount, 4, "left out articles still count as read")
+        XCTAssertEqual(payload.minutesRead, 0 + 5 + 30 + 120)
     }
 
     func testReadDataFromBeforeTheMinutesReadSlideIsNotTheCurrentFormat() throws {
