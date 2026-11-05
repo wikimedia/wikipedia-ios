@@ -62,6 +62,7 @@ public enum AccessibilityIdentifiers {
         public static let announcementCard = "Discover Announcement Card"
         public static let announcementGetStartedButton = "Discover Announcement Get Started Button"
         public static let announcementNoThanksButton = "Discover Announcement No Thanks Button"
+        public static let entryCard = "Discover Entry Card"
         public static let setupView = "Discover Setup View"
         public static let setupContinueButton = "Discover Setup Continue Button"
         public static func setupSourceRow(_ source: String) -> String {

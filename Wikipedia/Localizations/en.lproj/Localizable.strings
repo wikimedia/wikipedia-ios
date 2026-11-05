@@ -240,8 +240,6 @@
 "clearing-cache-error" = "Error clearing cache.";
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-all-tabs" = "Close all tabs";
-"close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";
-"close-all-tabs-confirmation-number" = "Close all $1 tabs?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Do you want to close {{PLURAL:$1|$1 tab|$1 tabs}}? This action can’t be undone.";
 "close-all-tabs-confirmation-title-with-value" = "Close {{PLURAL:$1|$1 tab|$1 tabs}}?";
 "close-button-accessibility-label" = "Close";
@@ -361,6 +359,8 @@
 "discover-announcement-no-thanks" = "No thanks";
 "discover-announcement-no-thanks-toast" = "To set up your recommended reading list later, go to Settings.";
 "discover-announcement-title" = "Discover articles picked for you";
+"discover-entry-card-byline" = "Made for $1";
+"discover-entry-card-unseen-list" = "New list";
 "discover-list-about" = "About this feature";
 "discover-list-byline" = "Made for $1 • $2";
 "discover-list-byline-you" = "you";

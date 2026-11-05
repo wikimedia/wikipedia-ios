@@ -127,12 +127,17 @@ public struct WMFCreateReadingListView: View {
 
     private var nameTextField: some View {
         textField(placeholder: namePlaceholder, text: $viewModel.name, field: .name)
-            .foregroundStyle(Color(viewModel.nameErrorMessage == nil ? theme.text : theme.destructive))
+            .foregroundStyle(Color(showsNameAsError ? theme.destructive : theme.text))
             .submitLabel(.next)
             .onSubmit {
                 focusedField = .description
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.CreateReadingList.nameTextField)
+    }
+
+    /// The name is red only while the user is not editing it. The user who taps the name probably fixes it.
+    private var showsNameAsError: Bool {
+        viewModel.nameErrorMessage != nil && focusedField != .name
     }
 
     private var descriptionTextField: some View {

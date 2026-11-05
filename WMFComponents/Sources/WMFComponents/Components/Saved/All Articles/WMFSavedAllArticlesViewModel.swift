@@ -29,17 +29,17 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     @Published public var hasSelection = false
     @Published public var searchText: String = ""
     @Published public private(set) var sortOrder: WMFReadingListSortOrder = .byRecentlyAdded
-    /// Mirrors the shared Discover card so the list re-renders when the card is answered.
-    @Published public private(set) var isAnnouncementVisible = false
+    /// Mirrors the shared Discover header so the list re-renders when the card changes.
+    @Published public private(set) var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
     
     // MARK: - Properties
     
     private let dataController: WMFLegacyReadingListsDataController
-    /// The Discover onboarding card shown above the list. Shared with the Reading lists segment.
-    public var announcementViewModel: WMFDiscoverAnnouncementViewModel? {
-        didSet { bindAnnouncement() }
+    /// The Discover card shown above the list. Shared with the Reading lists segment.
+    public var discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel? {
+        didSet { bindDiscoverHeader() }
     }
-    private var announcementCancellable: AnyCancellable?
+    private var discoverHeaderCancellable: AnyCancellable?
     public weak var loggingDelegate: WMFSavedAllArticlesLoggingDelegate?
     
     private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
@@ -69,13 +69,13 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         loadTask?.cancel()
     }
     
-    private func bindAnnouncement() {
-        announcementCancellable = announcementViewModel?.$isVisible
-            .sink { [weak self] isVisible in
-                self?.isAnnouncementVisible = isVisible
+    private func bindDiscoverHeader() {
+        discoverHeaderCancellable = discoverHeaderViewModel?.$header
+            .sink { [weak self] header in
+                self?.discoverHeader = header
             }
-        if announcementViewModel == nil {
-            isAnnouncementVisible = false
+        if discoverHeaderViewModel == nil {
+            discoverHeader = nil
         }
     }
     
