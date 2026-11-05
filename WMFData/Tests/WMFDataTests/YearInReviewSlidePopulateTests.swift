@@ -837,6 +837,29 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
+    func testSaveCountStoresTheArticlesWithTheirDescriptionsAndWikis() async throws {
+        let articles = [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: "Small mammal", projectID: "wikipedia~en"),
+            SavedArticleSlideData.Article(title: "Hund", pageTitle: "Hund", articleDescription: nil, projectID: "wikipedia~de")
+        ]
+        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 2, articleTitles: ["Cat", "Hund"], articles: articles))
+        let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(savedSlideDataDelegate: delegate))
+
+        let payload = try decode(SavedArticleSlideData.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.articles, articles)
+        XCTAssertEqual(payload.articles?.last?.project, .wikipedia(WMFLanguage(languageCode: "de", languageVariantCode: nil)))
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testSaveCountIsNotEligibleWithoutSavedArticles() {
+        XCTAssertFalse(SavedArticleSlideData(savedArticlesCount: 0, articleTitles: [], articles: []).isEligible)
+        XCTAssertFalse(SavedArticleSlideData(savedArticlesCount: 4, articleTitles: ["Cat"]).isEligible, "older data has no articles to list")
+        XCTAssertTrue(SavedArticleSlideData(savedArticlesCount: 1, articleTitles: ["Cat"], articles: [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: nil, articleDescription: nil, projectID: nil)
+        ]).isEligible)
+    }
+
     func testSaveCountIsNotEvaluatedWithoutADelegate() async throws {
         let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
 
