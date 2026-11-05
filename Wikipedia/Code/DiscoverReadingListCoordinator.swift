@@ -10,6 +10,8 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     let navigationController: UINavigationController
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private var createReadingListCoordinator: CreateReadingListCoordinator?
+    private var shareReadingListCoordinator: ShareReadingListCoordinator?
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
         self.navigationController = navigationController
@@ -39,10 +41,11 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
             self?.shareArticle(page, sourceRect: sourceRect)
         }
         viewModel.didTapSaveList = { [weak self] pages in
-            self?.showAddToListSheet(for: pages)
+            self?.showSaveListSheet(for: pages)
         }
-        viewModel.didTapShareList = { [weak self] pages, sourceRect in
-            self?.shareList(pages, sourceRect: sourceRect)
+        viewModel.didTapShareList = { [weak self, weak viewModel] pages, sourceRect in
+            guard let viewModel else { return }
+            self?.shareList(pages, title: viewModel.title, sourceRect: sourceRect)
         }
         viewModel.didTapAbout = { [weak self] in
             self?.showAbout()
@@ -55,17 +58,8 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
 
     // MARK: - Articles
 
-    private func articleURL(for page: WMFDiscoverRecommendedPage) -> URL? {
-        guard let siteURL = page.project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: page.title) else {
-            return nil
-        }
-        articleURL.wmf_languageVariantCode = page.project.languageVariantCode
-        return articleURL
-    }
-
     private func showArticle(_ page: WMFDiscoverRecommendedPage, inNewTab: Bool) {
-        guard let articleURL = articleURL(for: page) else { return }
+        guard let articleURL = page.articleURL else { return }
         let tabConfig: ArticleTabConfig = inNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
         let articleCoordinator = ArticleCoordinator(
             navigationController: navigationController,
@@ -79,7 +73,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     }
 
     private func openArticleInBackgroundTab(_ page: WMFDiscoverRecommendedPage) {
-        guard let articleURL = articleURL(for: page) else { return }
+        guard let articleURL = page.articleURL else { return }
 
         Task {
             do {
@@ -110,7 +104,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     // MARK: - Share
 
     private func shareArticle(_ page: WMFDiscoverRecommendedPage, sourceRect: CGRect) {
-        guard let articleURL = articleURL(for: page),
+        guard let articleURL = page.articleURL,
               let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
             return
         }
@@ -122,11 +116,17 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
         present(shareActivityController, sourceRect: sourceRect)
     }
 
-    private func shareList(_ pages: [WMFDiscoverRecommendedPage], sourceRect: CGRect) {
-        let urls = pages.compactMap(articleURL(for:))
-        guard !urls.isEmpty else { return }
-        let activityViewController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        present(activityViewController, sourceRect: sourceRect)
+    private func shareList(_ pages: [WMFDiscoverRecommendedPage], title: String, sourceRect: CGRect) {
+        let sharePages = pages.map { WMFShareReadingListDataController.Page(title: $0.title, project: $0.project) }
+        let shareReadingListCoordinator = ShareReadingListCoordinator(
+            navigationController: navigationController,
+            pages: sharePages,
+            listName: title,
+            sourceRect: sourceRect
+        )
+
+        self.shareReadingListCoordinator = shareReadingListCoordinator
+        shareReadingListCoordinator.start()
     }
 
     private func present(_ activityViewController: UIActivityViewController, sourceRect: CGRect) {
@@ -158,13 +158,52 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
 
     // MARK: - Save
 
-    private func showAddToListSheet(for pages: [WMFDiscoverRecommendedPage]) {
-        let articles = pages.compactMap { page -> WMFArticle? in
-            guard let articleURL = articleURL(for: page) else { return nil }
-            return dataStore.fetchOrCreateArticle(with: articleURL)
+    private func showSaveListSheet(for pages: [WMFDiscoverRecommendedPage]) {
+        let coordinator = CreateReadingListCoordinator(presentingViewController: navigationController, discoverPages: pages, dataStore: dataStore)
+        coordinator.delegate = self
+        coordinator.didDismiss = { [weak self] in
+            self?.createReadingListCoordinator = nil
         }
-        guard !articles.isEmpty else { return }
-        presentAddArticlesToReadingList(articles: articles)
+        createReadingListCoordinator = coordinator
+        coordinator.start()
+    }
+
+    /// The articles come from Discover with only a key. The summary fills the description and image the reading list rows show.
+    private func updateSummaries(of articles: [WMFArticle]) {
+        let keys = articles.compactMap(\.inMemoryKey)
+        guard !keys.isEmpty else { return }
+        dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: keys) { _, error in
+            if let error {
+                DDLogError("Failed to update summaries of the articles saved from Discover: \(error)")
+            }
+        }
+    }
+
+    /// Returns when the summaries are saved or the fetch fails. The list is saved in both cases.
+    private func updateSummariesAndWait(of articles: [WMFArticle]) async {
+        let keys = articles.compactMap(\.inMemoryKey)
+        guard !keys.isEmpty else { return }
+        await withCheckedContinuation { continuation in
+            dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: keys) { _, error in
+                if let error {
+                    DDLogError("Failed to update summaries of the articles saved from Discover: \(error)")
+                }
+                continuation.resume()
+            }
+        }
+    }
+
+    /// Opens the new list the same way as an imported shared list.
+    private func showReadingList(_ readingList: ReadingList) {
+        if let appViewController = navigationController.tabBarController as? WMFAppViewController {
+            appViewController.showReadingList(readingList, fromImport: false)
+            return
+        }
+        navigationController.dismiss(animated: true) { [weak self] in
+            guard let self else { return }
+            let detailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: false, theme: theme)
+            navigationController.pushViewController(detailViewController, animated: true)
+        }
     }
 
     private func presentAddArticlesToReadingList(articles: [WMFArticle]) {
@@ -184,14 +223,46 @@ extension DiscoverReadingListCoordinator: AddArticlesToReadingListDelegate {
         // no-op
     }
 
-    /// The articles come from Discover with only a key. The summary fills the description and image the reading list rows show.
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: WMF.ReadingList) {
-        let keys = articles.compactMap(\.inMemoryKey)
-        guard !keys.isEmpty else { return }
-        dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: keys) { _, error in
-            if let error {
-                DDLogError("Failed to update summaries of the articles saved from Discover: \(error)")
+        updateSummaries(of: articles)
+    }
+}
+
+extension DiscoverReadingListCoordinator: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(
+        _ coordinator: CreateReadingListCoordinator,
+        didCreateReadingListWith name: String,
+        description: String,
+        articles: [WMFArticle]
+    ) {
+        guard !articles.isEmpty else { return }
+
+        coordinator.setCreating(true)
+        Task { @MainActor [weak self, weak coordinator] in
+            // The list picks its preview images when it is created, so the articles need their summaries first.
+            await self?.updateSummariesAndWait(of: articles)
+            guard let self, let coordinator else { return }
+            do {
+                let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
+                showReadingList(readingList)
+            } catch let error as ReadingListError where error == .listExistsWithTheSameName {
+                coordinator.handleReadingListNameError(error)
+                coordinator.setCreating(false)
+            } catch {
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+                coordinator.setCreating(false)
             }
         }
+    }
+}
+
+extension WMFDiscoverRecommendedPage {
+    var articleURL: URL? {
+        guard let siteURL = project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: title) else {
+            return nil
+        }
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
+        return articleURL
     }
 }

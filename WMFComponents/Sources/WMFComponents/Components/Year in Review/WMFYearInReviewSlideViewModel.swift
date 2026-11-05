@@ -71,8 +71,8 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     /// A boolean in the .riv that the artwork sets. True asks for light controls. When the slide
     /// loads, its value replaces `contentStyle`.
     public let lightContentFlag: WMFRiveBool?
-    /// Text runs that the slide keeps to a maximum number of lines.
-    public let textFits: [WMFRiveTextFit]
+    /// The animation time that the share image shows. `nil` uses `WMFYearInReviewSlideImageExporter.poseTime`.
+    public let sharePoseTime: TimeInterval?
 
     public init(
         id: String,
@@ -93,7 +93,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         showsPrimaryDonateButton: Bool = false,
         contentStyle: ContentStyle = .light,
         lightContentFlag: WMFRiveBool? = nil,
-        textFits: [WMFRiveTextFit] = []
+        sharePoseTime: TimeInterval? = nil
     ) {
         self.id = id
         self.loggingID = loggingID
@@ -113,7 +113,7 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
         self.showsPrimaryDonateButton = showsPrimaryDonateButton
         self.contentStyle = contentStyle
         self.lightContentFlag = lightContentFlag
-        self.textFits = textFits
+        self.sharePoseTime = sharePoseTime
     }
 
     public var prefersLightContent: Bool {

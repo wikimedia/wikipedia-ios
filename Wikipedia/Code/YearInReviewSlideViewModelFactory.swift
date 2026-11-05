@@ -368,9 +368,6 @@ struct YearInReviewSlideViewModelFactory {
             stateMachine: "frame12-statemachine",
             headline: headline,
             data: categoryName,
-            // No fit for the category name, so it keeps the size and line count that the .riv
-            // gives it. The .riv will handle long category names itself.
-            dataFit: nil,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(categoryName). \(bodyText)"
         )
@@ -425,7 +422,6 @@ struct YearInReviewSlideViewModelFactory {
             stateMachine: "frame6-statemachine",
             headline: headline,
             data: topicName,
-            dataFit: Self.dataTextFit,
             bodyText: bodyText,
             images: illustration.map { [Self.topicIcon: $0] } ?? [:],
             accessibilityLabel: "\(headline) \(topicName). \(bodyText)"
@@ -495,6 +491,11 @@ struct YearInReviewSlideViewModelFactory {
         static let bodyText = WMFRiveText(path: "bodyText")
         /// The guess frame fires it after the reader taps a card and the exit animation ends.
         static let frameComplete = WMFRiveTrigger(path: "frameComplete")
+        /// The guess frame rests from 2.0 to 2.7 seconds, after the cards come in. From about 2.8
+        /// seconds it moves the bottom card again and again until the reader taps, so at 7 seconds the
+        /// share image can show the card in mid-move. The reveal frame stops at 1.25 seconds, so it
+        /// keeps the usual time.
+        static let guessSharePoseTime: TimeInterval = 2.4
 
         struct Article {
             let title: WMFRiveText
@@ -537,6 +538,7 @@ struct YearInReviewSlideViewModelFactory {
             articles: articles,
             answer: reveal,
             answerTrigger: RabbitHolePath.frameComplete,
+            sharePoseTime: RabbitHolePath.guessSharePoseTime,
             accessibilityLabel: ([headline] + cardLabels).joined(separator: " ")
         )
     }
@@ -569,6 +571,7 @@ struct YearInReviewSlideViewModelFactory {
         articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)],
         answer: WMFYearInReviewSlideViewModel? = nil,
         answerTrigger: WMFRiveTrigger? = nil,
+        sharePoseTime: TimeInterval? = nil,
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text = [RabbitHolePath.headline: headline]
@@ -596,7 +599,7 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: RabbitHolePath.headline, bodyText: RabbitHolePath.bodyText)
+            sharePoseTime: sharePoseTime
         )
     }
 
@@ -695,7 +698,6 @@ struct YearInReviewSlideViewModelFactory {
                 artboard: "frame3",
                 headline: CommonStrings.yearInReviewCollectiveHoursReadTitle,
                 data: decimalString(config.hoursReadEN),
-                dataFit: Self.collectiveDataNumberFit,
                 bodyText: CommonStrings.yearInReviewCollectiveHoursReadSubtitle(yearCount: config.yearsReadEN)
             ),
             collectiveNumberSlide(
@@ -710,7 +712,6 @@ struct YearInReviewSlideViewModelFactory {
                 artboard: "frame17",
                 headline: CommonStrings.yearInReviewCollectiveArticlesTitle,
                 data: decimalString(config.articles),
-                dataFit: Self.collectiveDataNumberFit,
                 bodyText: CommonStrings.yearInReviewCollectiveArticlesSubtitle
             ),
             collectiveNumberSlide(
@@ -727,7 +728,6 @@ struct YearInReviewSlideViewModelFactory {
                 artboard: "frame16",
                 headline: CommonStrings.yearInReviewCollectiveEditorsTitle,
                 data: decimalString(volunteerEditors),
-                dataFit: Self.collectiveDataNumberFit,
                 bodyText: CommonStrings.yearInReviewCollectiveEditorsSubtitle
             ))
         }
@@ -742,41 +742,17 @@ struct YearInReviewSlideViewModelFactory {
         return slides
     }
 
-    /// The design sets a smaller number on these frames, so long numbers keep the same size.
-    private static let collectiveDataNumberFit = WMFRiveTextFit(
-        text: DataTextPath.data,
-        fontAssetName: "SanSerifFont",
-        maximumWidth: 344,
-        maximumLines: 1,
-        globalViewModelName: "GlobalProperties",
-        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
-        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight"),
-        maximumFontSize: 40
-    )
-
-    private func collectiveNumberSlide(id: String, artboard: String, headline: String, data: String, dataFit: WMFRiveTextFit = Self.dataNumberFit, bodyText: String) -> WMFYearInReviewSlideViewModel {
+    private func collectiveNumberSlide(id: String, artboard: String, headline: String, data: String, bodyText: String) -> WMFYearInReviewSlideViewModel {
         dataSlide(
             id: id,
             artboard: artboard,
             stateMachine: "\(artboard)-statemachine",
             headline: headline,
             data: data,
-            dataFit: dataFit,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(data). \(bodyText)"
         )
     }
-
-    /// The design shows the reach on three lines.
-    private static let globalReachFit = WMFRiveTextFit(
-        text: DataTextPath.data,
-        fontAssetName: "SanSerifFont",
-        maximumWidth: 344,
-        maximumLines: 3,
-        globalViewModelName: "GlobalProperties",
-        fontSize: WMFRiveNumber(path: "dataTextFontSize"),
-        lineHeight: WMFRiveNumber(path: "dataTextLineHeight")
-    )
 
     private func globalReachSlide() -> WMFYearInReviewSlideViewModel {
         let headline = CommonStrings.yearInReviewCollectiveGlobalReachTitle
@@ -788,7 +764,6 @@ struct YearInReviewSlideViewModelFactory {
             stateMachine: "frame12-statemachine",
             headline: headline,
             data: reach,
-            dataFit: Self.globalReachFit,
             bodyText: bodyText,
             accessibilityLabel: "\(headline) \(reach). \(bodyText)"
         )
@@ -844,33 +819,6 @@ struct YearInReviewSlideViewModelFactory {
         static let bodyCopy = WMFRiveText(path: "bodyCopy")
     }
 
-    /// The title and the body copy grow, so long copy can push the content past the bottom of the
-    /// slide. Same rule as the copy on the other slides.
-    private static let endTextFits: [WMFRiveTextFit] = [
-        WMFRiveTextFit(
-            text: EndTextPath.title,
-            fontAssetName: "SanSerifFont",
-            maximumWidth: copyWidth,
-            maximumLines: 3,
-            minimumScale: copyMinimumScale,
-            group: "copy",
-            globalViewModelName: "GlobalProperties",
-            fontSize: WMFRiveNumber(path: "coverGlyphsFontSize"),
-            lineHeight: WMFRiveNumber(path: "coverGlyphsLineHeight")
-        ),
-        WMFRiveTextFit(
-            text: EndTextPath.bodyCopy,
-            fontAssetName: "SerifFont",
-            maximumWidth: copyWidth,
-            maximumLines: 6,
-            minimumScale: copyMinimumScale,
-            group: "copy",
-            globalViewModelName: "GlobalProperties",
-            fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
-            lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
-        )
-    ]
-
     /// "Thank you" for a logged-in reader who edited or donated in the contributor period, with the
     /// donate button in the toolbar. Otherwise "You matter", with a primary donate button below the
     /// animation in place of the toolbar button.
@@ -918,8 +866,7 @@ struct YearInReviewSlideViewModelFactory {
             localizedStrings: .init(accessibilityLabel: "\(title) \(bodyText)"),
             showsPrimaryDonateButton: showsPrimaryDonateButton,
             contentStyle: .dark,
-            lightContentFlag: Self.lightContentFlag,
-            textFits: Self.endTextFits
+            lightContentFlag: Self.lightContentFlag
         )
     }
 
@@ -1012,8 +959,7 @@ struct YearInReviewSlideViewModelFactory {
             layoutDirection: Self.listLayoutDirection,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
-            lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: ListTextPath.headline, bodyText: ListTextPath.bodyText)
+            lightContentFlag: Self.lightContentFlag
         )
     }
 
@@ -1026,45 +972,16 @@ struct YearInReviewSlideViewModelFactory {
         static let bodyCopy = WMFRiveText(path: "bodyCopy")
     }
 
-    /// The box of the large number does not grow, so a long number wraps on top of the body copy.
-    /// Make the number smaller until it fits on one line. The width is the width of the
-    /// `Data-Numbers` artboard in the templates file.
-    private static let dataNumberFit = WMFRiveTextFit(
-        text: DataTextPath.data,
-        fontAssetName: "SanSerifFont",
-        maximumWidth: 344,
-        maximumLines: 1,
-        globalViewModelName: "GlobalProperties",
-        fontSize: WMFRiveNumber(path: "dataNumberFontSize"),
-        lineHeight: WMFRiveNumber(path: "dataNumbersLineHeight")
-    )
-
-    /// The box of the data text, for example a topic name, does not grow. Make the text smaller
-    /// until it fits on one line. The width is the width of the `Data-Text` artboard in the
-    /// templates file.
-    private static let dataTextFit = WMFRiveTextFit(
-        text: DataTextPath.data,
-        fontAssetName: "SanSerifFont",
-        maximumWidth: 344,
-        maximumLines: 1,
-        globalViewModelName: "GlobalProperties",
-        fontSize: WMFRiveNumber(path: "dataTextFontSize"),
-        lineHeight: WMFRiveNumber(path: "dataTextLineHeight")
-    )
-
     /// A slide from the templates file that shows one number or one short text. Pass `nil` for a
     /// text field that the frame does not use. The data is shown in capitals, for example
     /// "WEDNESDAY EVENINGS". The headline is shown as written. The accessibility label keeps the
     /// text as written.
-    /// - Parameter dataFit: The fit of `data`. A number uses `dataNumberFit`, and a text uses `dataTextFit`.
-    ///   `nil` leaves `data` as the .riv sizes it.
     private func dataSlide(
         id: String,
         artboard: String,
         stateMachine: String,
         headline: String,
         data: String?,
-        dataFit: WMFRiveTextFit? = Self.dataNumberFit,
         bodyText: String,
         images: [WMFRiveImage: Data] = [:],
         accessibilityLabel: String
@@ -1085,50 +1002,9 @@ struct YearInReviewSlideViewModelFactory {
             images: images,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
-            lightContentFlag: Self.lightContentFlag,
-            textFits: Self.copyFits(headline: DataTextPath.headline, bodyText: DataTextPath.bodyCopy) + (data == nil ? [] : [dataFit].compactMap { $0 })
+            lightContentFlag: Self.lightContentFlag
         )
     }
-
-    // MARK: - Text size
-
-    /// The headline and the body copy grow, so long copy can push the content past the bottom of the
-    /// slide. Over these line counts, make both smaller by the same scale, to at most `copyMinimumScale`. The width
-    /// is smaller than the text boxes on any frame, so the line counts are safe.
-    private static func copyFits(headline: WMFRiveText, bodyText: WMFRiveText) -> [WMFRiveTextFit] {
-        [
-            WMFRiveTextFit(
-                text: headline,
-                fontAssetName: "SerifFont",
-                maximumWidth: copyWidth,
-                maximumLines: 3,
-                minimumScale: copyMinimumScale,
-                group: "copy",
-                globalViewModelName: "GlobalProperties",
-                fontSize: WMFRiveNumber(path: "headlineFontSize"),
-                lineHeight: WMFRiveNumber(path: "headlineLineHeight")
-            ),
-            WMFRiveTextFit(
-                text: bodyText,
-                fontAssetName: "SerifFont",
-                maximumWidth: copyWidth,
-                maximumLines: 4,
-                minimumScale: copyMinimumScale,
-                group: "copy",
-                globalViewModelName: "GlobalProperties",
-                fontSize: WMFRiveNumber(path: "bodyCopyFontSize"),
-                lineHeight: WMFRiveNumber(path: "bodyCopyLineHeight")
-            )
-        ]
-    }
-
-    /// In artboard units. The headline and body boxes are about 296 to 320 wide.
-    private static let copyWidth = 290.0
-
-    /// The smallest scale of the headline and the body copy. At 75%, the longest copy that was
-    /// tested (Russian, October 2026) filled the iPhone SE slide to its bottom edge, so 70% keeps
-    /// a margin.
-    static let copyMinimumScale = 0.7
 
     /// Each template in the file sets this flag for the contrast of the controls above it. The style
     /// that the factory passes shows only until the slide loads.
