@@ -77,8 +77,19 @@ struct YearInReviewSlideViewModelFactory {
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
     func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+        makeSlidesAndHighlights(experience: experience, isLoggedIn: isLoggedIn, forcesAllEmptyStates: forcesAllEmptyStates).slides
+    }
+
+    /// The slides and what "Share highlights" on the end screen shares. Both come from one read of the
+    /// stored report, so the image cannot show other data than the slides. The highlights are `nil` in
+    /// the collective flow, and when the developer settings force the empty states, because then the
+    /// reader saw no highlights. See `makeSlides` for the parameters.
+    func makeSlidesAndHighlights(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> (slides: [WMFYearInReviewSlideViewModel], highlights: WMFYearInReviewHighlights?) {
+        // Each stored value is a fetch and a decode of the report, on the main thread, so read them once.
+        let personalizedData = experience == .personalized && !forcesAllEmptyStates ? storedPersonalizedData() : nil
         let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn).map { [$0] } ?? []
-        return experienceSlides(experience, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+        let slides = experienceSlides(experience, personalizedData: personalizedData) + contributorSlides
+        return (slides, personalizedData.map(highlights(from:)))
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
@@ -95,7 +106,8 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+    /// - Parameter personalizedData: `nil` in the personalized flow shows the empty version of each slide.
+    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, personalizedData: PersonalizedData?) -> [WMFYearInReviewSlideViewModel] {
         switch experience {
         case .collective:
             // Without a config, Year in Review does not open, but never show zero slides.
@@ -103,28 +115,37 @@ struct YearInReviewSlideViewModelFactory {
                 return personalizedEmptySlides()
             }
             return collectiveSlides(config: config)
-        case .personalized where forcesAllEmptyStates:
-            return personalizedEmptySlides()
         case .personalized:
-            // No stored data means no qualifying articles, so show the empty states, never zero slides.
-            let config = try? WMFYearInReviewDataController().config
-            let readCount = storedReadData()?.readCount ?? 0
-            return personalizedSlides(PersonalizedData(
-                readCount: readCount,
-                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
-                averageReadCount: config?.averageArticlesReadPerYear,
-                daysVisited: storedDaysVisited(),
-                topTopics: storedTopTopics(),
-                rabbitHoles: storedRabbitHoles(),
-                nicheCategory: storedNicheCategory(),
-                rereadArticles: storedRereadArticles() ?? []
-            ))
+            guard let personalizedData else {
+                return personalizedEmptySlides()
+            }
+            return personalizedSlides(personalizedData)
         }
+    }
+
+    /// Reads the stored data of each personalized slide once.
+    /// No stored data means no qualifying articles, so the slides show their empty states, never zero slides.
+    private func storedPersonalizedData() -> PersonalizedData {
+        let config = try? WMFYearInReviewDataController().config
+        let readData = storedReadData()
+        return PersonalizedData(
+            readData: readData,
+            topReadPercentage: config?.topReadPercentage(forReadCount: readData?.readCount ?? 0),
+            averageReadCount: config?.averageArticlesReadPerYear,
+            daysVisited: storedDaysVisited(),
+            topTopics: storedTopTopics(),
+            rabbitHoles: storedRabbitHoles(),
+            nicheCategory: storedNicheCategory(),
+            rereadArticles: storedRereadArticles() ?? []
+        )
     }
 
     /// The stored data of the personalized slides.
     struct PersonalizedData {
-        var readCount = 0
+        /// For the total articles slide and the highlights. `nil` shows the empty total articles slide.
+        var readData: WMFYearInReviewReadData?
+        /// No stored data means no qualifying articles.
+        var readCount: Int { readData?.readCount ?? 0 }
         var topReadPercentage: Double?
         var averageReadCount: Int?
         var daysVisited: WMFYearInReviewDaysVisitedSlideData?
@@ -646,17 +667,13 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Highlights
 
-    /// What "Share highlights" on the end screen shares. `nil` in the collective flow, and when the
-    /// developer settings force the empty states, because then the reader saw no highlights.
-    func makeHighlights(experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool = false) -> WMFYearInReviewHighlights? {
-        guard experience == .personalized, !forcesAllEmptyStates else {
-            return nil
-        }
-        return highlights(
-            readData: storedReadData(),
-            rereadArticles: storedRereadArticles() ?? [],
-            rabbitHoles: storedRabbitHoles(),
-            nicheCategory: storedNicheCategory()
+    /// The highlights from the same data as the personalized slides.
+    func highlights(from data: PersonalizedData) -> WMFYearInReviewHighlights {
+        highlights(
+            readData: data.readData,
+            rereadArticles: data.rereadArticles,
+            rabbitHoles: data.rabbitHoles,
+            nicheCategory: data.nicheCategory
         )
     }
 

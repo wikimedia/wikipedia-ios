@@ -325,7 +325,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
     }
 
-    func tappedShareHighlights(sourceRect: @escaping @MainActor () -> CGRect) {
+    func tappedShareHighlights(sourceRect: @escaping @MainActor @Sendable () -> CGRect) {
         guard showsShareHighlightsButton else { return }
         loggingDelegate?.logYearInReviewDidTapShareHighlights()
         coordinatorDelegate?.handleYearInReviewAction(.shareHighlights(getSourceRect: sourceRect))

@@ -272,12 +272,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             (try? dataController.fetchSlidesExperience(isLoggedIn: isLoggedIn)) ?? .collective
         }
 
+        // The slides and the highlights come from one read of the stored report.
+        let slidesAndHighlights = slideFactory.makeSlidesAndHighlights(
+            experience: experience,
+            isLoggedIn: isLoggedIn,
+            forcesAllEmptyStates: dataController.forcesAllEmptyStates
+        )
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(
-                experience: experience,
-                isLoggedIn: isLoggedIn,
-                forcesAllEmptyStates: dataController.forcesAllEmptyStates
-            ),
+            slides: slidesAndHighlights.slides,
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
             loggingDelegate: self
@@ -286,7 +288,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // The gift card follows the slides that were built, so the end screen agrees with the last slide.
         let hasContributorSlide = viewModel.slides.contains { $0.id == YearInReviewSlideViewModelFactory.contributorSlideID }
         viewModel.endViewModel = makeEndViewModel(isContributor: hasContributorSlide)
-        viewModel.highlights = slideFactory.makeHighlights(experience: experience, forcesAllEmptyStates: dataController.forcesAllEmptyStates)
+        viewModel.highlights = slidesAndHighlights.highlights
 
         self.viewModel = viewModel
         self.slidesExperience = experience
@@ -581,17 +583,30 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// Shares the image of the highlights from the end screen, with the share text and the app link.
-    /// - Parameter getSourceRect: The frame of the button in global coordinates. The share sheet on iPad points at it.
-    private func shareHighlights(getSourceRect: @MainActor () -> CGRect) {
-        guard let highlights = viewModel?.highlights, highlights.isShareable else {
+    /// - Parameter getSourceRect: The frame of the button in global coordinates. The share sheet on iPad
+    ///   points at it. It is read when the share sheet opens, after the image is drawn.
+    private func shareHighlights(getSourceRect: @escaping @MainActor @Sendable () -> CGRect) {
+        guard !isExportingShareImage,
+              let highlights = viewModel?.highlights, highlights.isShareable else {
             return
         }
-        guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: shareImageLayoutDirection) else {
-            DDLogError("Could not make the Year in Review highlights image")
-            WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
-            return
+        // The same as the slide share: a second tap does nothing while the image is drawn.
+        isExportingShareImage = true
+        let layoutDirection = shareImageLayoutDirection
+        let presenter = hostingController?.navigationController
+
+        Task { @MainActor [weak self, weak presenter] in
+            defer { self?.isExportingShareImage = false }
+            // ImageRenderer only runs on the main actor, so the drawing cannot move to another thread.
+            // Yield first, so that the tap ends and the button shows its pressed state before the drawing.
+            await Task.yield()
+            guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: layoutDirection) else {
+                DDLogError("Could not make the Year in Review highlights image")
+                WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
+                return
+            }
+            self?.presentShareSheet(image: image, from: presenter, globalSourceRect: getSourceRect())
         }
-        presentShareSheet(image: image, from: hostingController?.navigationController, globalSourceRect: getSourceRect())
     }
 
     /// The export takes about a second. If the reader closed the slides, opened them again, or opened
@@ -608,7 +623,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let text = CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink)
         let activityViewController = UIActivityViewController(
             activityItems: [
-                YearInReviewShareImageItem(image: image, title: text),
+                YearInReviewShareImageItem(image: image, title: CommonStrings.yearInReviewHighlightsTitle, url: URL(string: WMFYearInReviewDataController.appShareLink)),
                 YearInReviewShareTextItem(text: text, placeholderImage: image)
             ],
             applicationActivities: nil
@@ -623,15 +638,30 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 }
 
-/// The share image. The top of the share sheet shows it with the share text, not as one of two images.
+/// The share image. The top of the share sheet shows it with a short title and the app link, not as
+/// one of two images.
 private final class YearInReviewShareImageItem: NSObject, UIActivityItemSource {
+
+    /// The header of the share sheet draws the icon small, so a small copy saves scaling the full
+    /// image each time.
+    private static let iconSize = CGSize(width: 120, height: 120)
 
     private let image: UIImage
     private let title: String
+    private let url: URL?
+    private lazy var icon: UIImage = {
+        let aspectRatio = image.size.height / max(image.size.width, 1)
+        let size = CGSize(width: Self.iconSize.width, height: Self.iconSize.width * aspectRatio)
+        return image.preparingThumbnail(of: size) ?? image
+    }()
 
-    init(image: UIImage, title: String) {
+    /// - Parameters:
+    ///   - title: A short title for the header of the share sheet. The share text goes with the text item.
+    ///   - url: The app link, which the header shows under the title.
+    init(image: UIImage, title: String, url: URL?) {
         self.image = image
         self.title = title
+        self.url = url
     }
 
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
@@ -645,8 +675,10 @@ private final class YearInReviewShareImageItem: NSObject, UIActivityItemSource {
     func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
         let metadata = LPLinkMetadata()
         metadata.title = title
+        metadata.originalURL = url
+        metadata.url = url
         metadata.imageProvider = NSItemProvider(object: image)
-        metadata.iconProvider = NSItemProvider(object: image)
+        metadata.iconProvider = NSItemProvider(object: icon)
         return metadata
     }
 }

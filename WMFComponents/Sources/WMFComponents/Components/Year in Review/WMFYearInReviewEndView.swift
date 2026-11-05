@@ -54,9 +54,14 @@ public struct WMFYearInReviewEndView: View {
     /// collective flow, which has no highlights.
     private let shareHighlightsTitle: String?
     /// Gets the frame of the button in global coordinates, so the share sheet on iPad points at it.
-    private let onShareHighlights: (@MainActor (@escaping @MainActor () -> CGRect) -> Void)?
+    /// The closure reads the frame when it is called, not at the time of the tap.
+    private let onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)?
 
     @State private var shareHighlightsButtonFrame: CGRect = .zero
+
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    /// The largest Dynamic Type size of the share highlights button title.
+    private static let shareHighlightsMaximumTypeSize: DynamicTypeSize = .accessibility2
 
     private static let scrollSpaceName = "yearInReviewEndScroll"
 
@@ -73,7 +78,7 @@ public struct WMFYearInReviewEndView: View {
         topInset: CGFloat = 0,
         onUsesLightContentChange: ((Bool) -> Void)? = nil,
         shareHighlightsTitle: String? = nil,
-        onShareHighlights: (@MainActor (@escaping @MainActor () -> CGRect) -> Void)? = nil
+        onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)? = nil
     ) {
         self.viewModel = viewModel
         self.topInset = topInset
@@ -179,8 +184,7 @@ public struct WMFYearInReviewEndView: View {
 
     private func shareHighlightsButton(title: String) -> some View {
         Button {
-            let frame = shareHighlightsButtonFrame
-            onShareHighlights? { frame }
+            onShareHighlights? { shareHighlightsButtonFrame }
         } label: {
             HStack(spacing: 10) {
                 Image(uiImage: WMFIcon.yearInReviewShare ?? UIImage())
@@ -189,7 +193,8 @@ public struct WMFYearInReviewEndView: View {
                     .scaledToFit()
                     .frame(width: 15, height: 17)
                 Text(title)
-                    .font(Font(WMFFont.for(.body, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
+                    // Scales with Dynamic Type, the same as the body copy above, up to a cap so the button stays on the screen.
+                    .font(Font(WMFFont.for(.body, sized: min(dynamicTypeSize, Self.shareHighlightsMaximumTypeSize))))
             }
             .padding(.horizontal, 20)
         }

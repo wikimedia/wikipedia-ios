@@ -98,7 +98,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
-            readCount: 20,
+            readData: try readData(readCount: 20, minutesRead: 0),
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
@@ -684,8 +684,8 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     @Test
     func theCollectiveFlowHasNoHighlights() {
-        #expect(factory.makeHighlights(experience: .collective) == nil)
-        #expect(factory.makeHighlights(experience: .personalized, forcesAllEmptyStates: true) == nil)
+        #expect(factory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).highlights == nil)
+        #expect(factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).highlights == nil)
     }
 
     /// The instrumentation plan names each page, and the donate campaign ID is made from that name.
