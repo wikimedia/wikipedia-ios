@@ -26,7 +26,7 @@ final class DiffContainerViewModel {
     }
     var stateHandler: ((_ oldState: DiffContainerViewModel.State) -> Void)?
     
-    init(type: DiffType, fromModel: WMFPageRevision?, toModel: WMFPageRevision?, listViewModel: [DiffListGroupViewModel]?, articleTitle: String?, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
+    @MainActor init(type: DiffType, fromModel: WMFPageRevision?, toModel: WMFPageRevision?, listViewModel: [DiffListGroupViewModel]?, articleTitle: String?, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
         self.type = type
         
         if let toModel = toModel,

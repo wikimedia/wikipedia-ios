@@ -20,7 +20,7 @@ import WMFData
         let page_load_latency_ms: Int?
     }
 
-    private func logEvent(sessionMilliseconds: Double? = nil, completion: @escaping () -> Void) {
+    private func logEvent(sessionMilliseconds: Double? = nil, completion: @escaping @Sendable () -> Void) {
         let lengthMS: Int?
         if let sessionMilliseconds {
             lengthMS = Int(round(sessionMilliseconds))
@@ -64,7 +64,7 @@ import WMFData
     /**
      * To match Android, we now log the previous Session when a new session starts
      */
-    private func logPreviousSessionEnd(completion: @escaping () -> Void) {
+    private func logPreviousSessionEnd(completion: @escaping @Sendable () -> Void) {
         guard let sessionStartDate = EventPlatformClient.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
             completion()

@@ -1,6 +1,8 @@
 import UIKit
 import WMFData
-import BackgroundTasks
+// BackgroundTasks does not mark BGTask as Sendable. The background fetch completion captures the task
+// and can run off the main thread. It only calls setTaskCompleted on the task.
+@preconcurrency import BackgroundTasks
 import CocoaLumberjackSwift
 
 #if TEST
@@ -17,8 +19,8 @@ class MockAppDelegate: UIResponder, UIApplicationDelegate {
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    private static let backgroundFetchInterval = TimeInterval(10800) // 3 Hours
-    private static let backgroundAppRefreshTaskIdentifier = "org.wikimedia.wikipedia.appRefresh"
+    private nonisolated static let backgroundFetchInterval = TimeInterval(10800) // 3 Hours
+    private nonisolated static let backgroundAppRefreshTaskIdentifier = "org.wikimedia.wikipedia.appRefresh"
     private static let backgroundDatabaseHousekeeperTaskIdentifier = "org.wikimedia.wikipedia.databaseHousekeeper"
     
     // TODO: Refactor background task refresh and notification token registration logic out of WMFAppViewController. Then we can then move tab bar instantiation into SceneDelegate.
@@ -76,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.shortcutItems = [UIApplicationShortcutItem.wmf_random(), UIApplicationShortcutItem.wmf_nearby(), UIApplicationShortcutItem.wmf_search()]
     }
     
-    func scheduleBackgroundAppRefreshTask() {
+    nonisolated func scheduleBackgroundAppRefreshTask() {
         let appRefreshTask = BGAppRefreshTaskRequest(identifier: Self.backgroundAppRefreshTaskIdentifier)
         appRefreshTask.earliestBeginDate = Date(timeIntervalSinceNow: Self.backgroundFetchInterval)
         do {

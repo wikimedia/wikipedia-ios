@@ -681,7 +681,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     // MARK: - Background Fetch
 
-    func performBackgroundFetch(completion: @escaping (UIBackgroundFetchResult) -> Void) {
+    func performBackgroundFetch(completion: @escaping @Sendable (UIBackgroundFetchResult) -> Void) {
         DispatchQueue.main.async {
             guard self.isMigrationComplete, let fetcher = self.backgroundFetcherController else {
                 completion(.noData)

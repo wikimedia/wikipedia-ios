@@ -1,6 +1,6 @@
 import Foundation
 
-public enum EventCategoryMEP: String, Codable {
+public enum EventCategoryMEP: String, Codable, Sendable {
     case feed
     case feedDetail = "feed_detail"
     case history
@@ -35,7 +35,7 @@ public enum EventCategoryMEP: String, Codable {
     }
 }
 
-public enum EventLabelMEP: String, Codable {
+public enum EventLabelMEP: String, Codable, Sendable {
     case announcement = "announcement"
     case articleAnnouncement = "article_announcement"
     case featuredArticle = "featured_article"

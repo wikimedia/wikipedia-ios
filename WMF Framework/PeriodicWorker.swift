@@ -1,7 +1,8 @@
 import Foundation
 
 @objc(WMFPeriodicWorker) public protocol PeriodicWorker: NSObjectProtocol {
-    func doPeriodicWork(_ completion: @escaping () -> Void)
+    // Completion is @Sendable: workers finish on their own queues.
+    func doPeriodicWork(_ completion: @escaping @Sendable () -> Void)
 }
 
 @objc(WMFPeriodicWorkerController) public class PeriodicWorkerController: WorkerController {

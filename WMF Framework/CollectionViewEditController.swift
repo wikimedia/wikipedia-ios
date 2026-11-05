@@ -17,6 +17,9 @@ public class SystemBarButton: UIBarButtonItem {
     }
 }
 
+// MainActor: a UIKit navigation delegate — every requirement manipulates views,
+// bar buttons, or the (MainActor) Theme.
+@MainActor
 public protocol CollectionViewEditControllerNavigationDelegate: AnyObject {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation

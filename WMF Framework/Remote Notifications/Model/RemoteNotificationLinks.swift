@@ -1,8 +1,10 @@
 import Foundation
 
+// @unchecked Sendable: NSObject subclasses (Obj-C visible archive models) whose
+// stored properties are all immutable `let`s set at init/decode.
 @objc(RemoteNotificationLinks)
-public class RemoteNotificationLinks: NSObject, NSSecureCoding, Codable {
-    public static var supportsSecureCoding: Bool = true
+public final class RemoteNotificationLinks: NSObject, NSSecureCoding, Codable, @unchecked Sendable {
+    public static let supportsSecureCoding: Bool = true
     
     let primary: RemoteNotificationLink?
     let secondary: [RemoteNotificationLink]?
@@ -31,8 +33,8 @@ public class RemoteNotificationLinks: NSObject, NSSecureCoding, Codable {
 }
 
 @objc(RemoteNotificationLink)
-public final class RemoteNotificationLink: NSObject, NSSecureCoding, Codable {
-    public static var supportsSecureCoding: Bool = true
+public final class RemoteNotificationLink: NSObject, NSSecureCoding, Codable, @unchecked Sendable {
+    public static let supportsSecureCoding: Bool = true
     
     let type: String?
     public let url: URL?

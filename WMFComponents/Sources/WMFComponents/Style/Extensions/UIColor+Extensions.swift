@@ -1,6 +1,7 @@
 import UIKit
 
-public extension UIColor {
+// nonisolated: pure arithmetic convenience initializers.
+nonisolated public extension UIColor {
 
     /// Allows UIColor to be initialized with hex value
     /// Example: UIColor(0x101010)

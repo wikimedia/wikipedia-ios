@@ -26,14 +26,17 @@ public extension Notification.Name {
     static let NotificationsCenterLoadingDidEnd = Notification.Name("NotificationsCenterLoadingDidEnd") // fired when notifications have ended importing or refreshing
 }
 
-class RemoteNotificationsOperationsController: NSObject {
+// @unchecked Sendable: mutable state (isLoadingNotifications, completion blocks) is
+// confined to the main thread — loadNotifications asserts it and async work hops
+// back via DispatchQueue.main. Everything else is immutable references.
+final class RemoteNotificationsOperationsController: NSObject, @unchecked Sendable {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController
     private let operationQueue: OperationQueue
     private let languageLinkController: MWKLanguageLinkController
     private let authManager: WMFAuthenticationManager
     private(set) var isLoadingNotifications = false
-    private var loadingNotificationsCompletionBlocks: [(Result<Void, Error>) -> Void] = []
+    private var loadingNotificationsCompletionBlocks: [@Sendable (Result<Void, Error>) -> Void] = []
 
     required init(languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         self.apiController = apiController
@@ -55,7 +58,7 @@ class RemoteNotificationsOperationsController: NSObject {
     
     /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata, + other projects with unread notifications. Designed to automatically page and fully import once per installation, then only fetch new notifications for each project when called after that. Will not attempt if loading is already in progress. Must be called from main thread.
     /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
-    func loadNotifications(_ completion: ((Result<Void, Error>) -> Void)? = nil) {
+    func loadNotifications(_ completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         assert(Thread.isMainThread)
         
         if let completion = completion {
@@ -71,20 +74,23 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.post(name: Notification.Name.NotificationsCenterLoadingDidStart, object: nil)
         
         kickoffPagingOperations { [weak self] result in
+            // Snapshot the weak capture: reading a `weak` var from inside the
+            // @Sendable main-queue closure is flagged under strict concurrency.
+            let controller = self
             DispatchQueue.main.async {
-                self?.isLoadingNotifications = false
-                self?.loadingNotificationsCompletionBlocks.forEach { completionBlock in
+                controller?.isLoadingNotifications = false
+                controller?.loadingNotificationsCompletionBlocks.forEach { completionBlock in
                     completionBlock(result)
                 }
 
-                self?.loadingNotificationsCompletionBlocks.removeAll()
+                controller?.loadingNotificationsCompletionBlocks.removeAll()
                 
                 NotificationCenter.default.post(name: Notification.Name.NotificationsCenterLoadingDidEnd, object: nil)
             }
         }
     }
     
-    func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController, completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         assert(Thread.isMainThread)
         
         // sort identifier groups into dictionary keyed by wiki
@@ -129,7 +135,7 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     
-    func markAllAsRead(languageLinkController: MWKLanguageLinkController, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    func markAllAsRead(languageLinkController: MWKLanguageLinkController, completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         assert(Thread.isMainThread)
         
         let wikisWithUnreadNotifications: Set<String>
@@ -191,7 +197,7 @@ class RemoteNotificationsOperationsController: NSObject {
     /// Method that instantiates the appropriate paging operations for fetching & persisting remote notifications and adds them to the operation queue. Must be called from main thread.
     /// - Parameters:
     ///   - completion: Block to run after operations have completed.
-    private func kickoffPagingOperations(completion: @escaping (Result<Void, Error>) -> Void) {
+    private func kickoffPagingOperations(completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         assert(Thread.isMainThread)
         
         guard let appLanguage = languageLinkController.appLanguage else {

@@ -6,11 +6,13 @@ enum AsyncOperationError: Error {
 
 // Adapted from https://gist.github.com/calebd/93fa347397cec5f88233
 
+// @unchecked Sendable: all mutable state (`_state`, `_error`) is guarded by
+// `semaphore`; everything else is immutable or inherited Operation machinery.
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation, @unchecked Sendable {
-    
+
     // MARK: - Operation State
 
-    fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` is thread-safe
+    fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` and `error` are thread-safe
     
     @objc public enum State: Int {
         case ready
@@ -29,8 +31,25 @@ enum AsyncOperationError: Error {
         }
     }
     
-    public var error: Error?
-    
+    // Written by worker threads via finish(with:) and read by completion
+    // aggregators on other threads, so it takes the same guard as `state`.
+    public var error: Error? {
+        get {
+            semaphore.wait()
+            defer {
+                semaphore.signal()
+            }
+            return _error
+        }
+        set {
+            semaphore.wait()
+            _error = newValue
+            semaphore.signal()
+        }
+    }
+
+    fileprivate var _error: Error?
+
     fileprivate var _state = AsyncOperation.State.ready
     
     @objc public var state: AsyncOperation.State {
@@ -108,6 +127,8 @@ enum AsyncOperationError: Error {
     }
 }
 
+// @unchecked Sendable: adds only the immutable `asyncBlock` set at init on top of
+// the semaphore-guarded base class.
 @objc(WMFAsyncBlockOperation) open class AsyncBlockOperation: AsyncOperation, @unchecked Sendable {
     let asyncBlock: (AsyncBlockOperation) -> Void
     

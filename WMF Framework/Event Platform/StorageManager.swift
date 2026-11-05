@@ -2,7 +2,9 @@ import Foundation
 import CocoaLumberjackSwift
 
 @objc(WMFEPCStorageManager)
-public class StorageManager: NSObject {
+// @unchecked Sendable: NSObject subclass owning a private Core Data stack; all
+// managed-object access is confined to its context's queue via perform/performAndWait.
+public final class StorageManager: NSObject, @unchecked Sendable {
 
     private let managedObjectContext: NSManagedObjectContext
     private let pruningAge: TimeInterval = 60*60*24*30 // 30 days
@@ -70,8 +72,8 @@ public class StorageManager: NSObject {
     }
 
     func popAll() -> [PersistedEvent] {
-        var events: [PersistedEvent] = []
-        performAndWait { moc in
+        return performAndWait { moc in
+            var events: [PersistedEvent] = []
             let fetch: NSFetchRequest<EPEventRecord> = EPEventRecord.fetchRequest()
             fetch.sortDescriptors = [NSSortDescriptor(keyPath: \EPEventRecord.recorded, ascending: true)]
             fetch.predicate = NSPredicate(format: "(purgeable == FALSE)")
@@ -92,8 +94,8 @@ public class StorageManager: NSObject {
             } catch let error {
                 DDLogError("\(error.localizedDescription)")
             }
+            return events
         }
-        return events
     }
 
     func markPurgeable(event: PersistedEvent) {
@@ -120,7 +122,7 @@ public class StorageManager: NSObject {
         }
     }
 
-    func pruneStaleEvents(completion: @escaping (() -> Void)) {
+    func pruneStaleEvents(completion: @escaping @Sendable () -> Void) {
         perform { moc in
             defer {
                 completion()
@@ -168,14 +170,17 @@ public class StorageManager: NSObject {
         }
     }
 
-    private func performAndWait(_ block: (_ moc: NSManagedObjectContext) -> Void) {
+    private func performAndWait<T>(_ block: @Sendable (_ moc: NSManagedObjectContext) -> T) -> T {
         let moc = self.managedObjectContext
-        moc.performAndWait {
+        // The SDK's generic performAndWait runs the block inline on the context's
+        // queue without a @Sendable requirement; the generic return type picks it
+        // over the Obj-C variant whose closure is @Sendable.
+        return moc.performAndWait {
             block(moc)
         }
     }
 
-    private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
+    private func perform(_ block: @escaping @Sendable (_ moc: NSManagedObjectContext) -> Void) {
         let moc = self.managedObjectContext
         moc.perform {
             block(moc)
@@ -183,7 +188,7 @@ public class StorageManager: NSObject {
     }
 }
 
-struct PersistedEvent: Codable {
+struct PersistedEvent: Codable, Sendable {
     let data: Data
     let stream: EventPlatformClient.Stream
     let managedObjectURI: URL
