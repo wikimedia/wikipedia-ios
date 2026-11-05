@@ -13,9 +13,12 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     }
 }
 
-// @unchecked Sendable: stored state is immutable references plus the model/
-// operations controllers, which are created once during setup before concurrent
-// use begins; loading state lives on the operations controller (main-confined).
+// @unchecked Sendable: all mutable state is confined to the main thread.
+// The mutable state is _modelController, _operationsController, filterState and allInboxProjects.
+// init sets _modelController. modelControllerDidLoadPersistentStores sets _operationsController,
+// and the model controller posts that notification on main.
+// Callers must use the public API on main. The fetchFromDatabase closure reads filterState
+// after the operations controller hops to main.
 @objc public final class RemoteNotificationsController: NSObject, @unchecked Sendable {
     private let apiController: RemoteNotificationsAPIController
     private let refreshDeadlineController = RemoteNotificationsRefreshDeadlineController()
