@@ -155,15 +155,20 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return pagerSlides[currentSlideIndex]
     }
 
+    /// The current slide, or its answer after the answer replaced it in place.
+    private var currentShownSlide: WMFYearInReviewSlideViewModel? {
+        guard let currentSlide else { return nil }
+        if currentSlide.id == answerShownSlideID, let answer = currentSlide.answer {
+            return answer
+        }
+        return currentSlide
+    }
+
     private var currentLoggingID: String {
         if isOnEnd {
             return Self.endLoggingID
         }
-        guard let currentSlide else { return "" }
-        if currentSlide.id == answerShownSlideID, let answer = currentSlide.answer {
-            return answer.loggingID
-        }
-        return currentSlide.loggingID
+        return currentShownSlide?.loggingID ?? ""
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
@@ -329,7 +334,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedShare() {
-        guard let slide = currentSlide else { return }
+        guard let slide = currentShownSlide else { return }
         loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: currentLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
     }

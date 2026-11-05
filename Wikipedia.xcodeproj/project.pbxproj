@@ -2529,6 +2529,9 @@
 		E8D15C0226101A00005CE102 /* DiscoverReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */; };
 		E8D15C0326101A00005CE103 /* DiscoverReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */; };
 		E8D15C0426101A00005CE104 /* DiscoverReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */; };
+		E8D15C1226101A00005CE112 /* ShareReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C1126101A00005CE111 /* ShareReadingListCoordinator.swift */; };
+		E8D15C1326101A00005CE113 /* ShareReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C1126101A00005CE111 /* ShareReadingListCoordinator.swift */; };
+		E8D15C1426101A00005CE114 /* ShareReadingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D15C1126101A00005CE111 /* ShareReadingListCoordinator.swift */; };
 		EAEA5CB1F628A102E5C8FBAC /* WMFSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A37DDED455BA61166985A /* WMFSearchResults.swift */; };
 		EB8237532970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */; };
 		F1A700000000000000000009 /* TestNetworkFixtureInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000002 /* TestNetworkFixtureInterceptor.swift */; };
@@ -2542,16 +2545,14 @@
 		F1A700000000000000000012 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
 		F1A700000000000000000013 /* TestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */; };
 		FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */; };
-		FA71B2C500000001000000AA /* CreateReadingListCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C500000002000000AA /* CreateReadingListCoordinatorTests.swift */; };
-		FA71B2C500000001000000AB /* ReadingListImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C500000002000000AB /* ReadingListImporterTests.swift */; };
-		FA71B2C400000009000000AA /* ArticleCacheDBWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C40000000A000000AA /* ArticleCacheDBWriterTests.swift */; };
-		FA71B2C40000000B000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C40000000C000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift */; };
 		FA71B2C400000003000000AA /* RequestErrorServerBusyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */; };
 		FA71B2C400000005000000AA /* SessionServerBusyFallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */; };
 		FA71B2C400000007000000AA /* RateLimitSummaryAccumulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */; };
 		FA71B2C400000009000000AA /* ArticleCacheDBWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C40000000A000000AA /* ArticleCacheDBWriterTests.swift */; };
 		FA71B2C40000000B000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C40000000C000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift */; };
 		FA71B2C40000000D000000AA /* ReadingListsSyncServerBusyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C40000000E000000AA /* ReadingListsSyncServerBusyTests.swift */; };
+		FA71B2C500000001000000AA /* CreateReadingListCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C500000002000000AA /* CreateReadingListCoordinatorTests.swift */; };
+		FA71B2C500000001000000AB /* ReadingListImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C500000002000000AB /* ReadingListImporterTests.swift */; };
 		FAC0D3AA00000001000000AA /* CollectionViewUpdaterCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
@@ -4182,6 +4183,7 @@
 		E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchPassageHighlightTests.swift; sourceTree = "<group>"; };
 		E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInstrumentationTests.swift; sourceTree = "<group>"; };
 		E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverReadingListCoordinator.swift; sourceTree = "<group>"; };
+		E8D15C1126101A00005CE111 /* ShareReadingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareReadingListCoordinator.swift; sourceTree = "<group>"; };
 		EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFItemSourceExcludingActivityTypes.swift; sourceTree = "<group>"; };
 		EF9BAB032D3EEE8AA21824CD /* WMFFeedArticlePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFFeedArticlePreview.swift; sourceTree = "<group>"; };
 		F1A700000000000000000002 /* TestNetworkFixtureInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureInterceptor.swift; sourceTree = "<group>"; };
@@ -4194,16 +4196,14 @@
 		F1A700000000000000000011 /* TestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHTTPClientProfile.swift; sourceTree = "<group>"; };
 		F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcherTests.swift; sourceTree = "<group>"; };
-		FA71B2C500000002000000AA /* CreateReadingListCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListCoordinatorTests.swift; sourceTree = "<group>"; };
-		FA71B2C500000002000000AB /* ReadingListImporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListImporterTests.swift; sourceTree = "<group>"; };
-		FA71B2C40000000A000000AA /* ArticleCacheDBWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheDBWriterTests.swift; sourceTree = "<group>"; };
-		FA71B2C40000000C000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCacheImageKeyTests.swift; sourceTree = "<group>"; };
 		FA71B2C400000004000000AA /* RequestErrorServerBusyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestErrorServerBusyTests.swift; sourceTree = "<group>"; };
 		FA71B2C400000006000000AA /* SessionServerBusyFallbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServerBusyFallbackTests.swift; sourceTree = "<group>"; };
 		FA71B2C400000008000000AA /* RateLimitSummaryAccumulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitSummaryAccumulatorTests.swift; sourceTree = "<group>"; };
 		FA71B2C40000000A000000AA /* ArticleCacheDBWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheDBWriterTests.swift; sourceTree = "<group>"; };
 		FA71B2C40000000C000000AA /* PermanentlyPersistableURLCacheImageKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCacheImageKeyTests.swift; sourceTree = "<group>"; };
 		FA71B2C40000000E000000AA /* ReadingListsSyncServerBusyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsSyncServerBusyTests.swift; sourceTree = "<group>"; };
+		FA71B2C500000002000000AA /* CreateReadingListCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListCoordinatorTests.swift; sourceTree = "<group>"; };
+		FA71B2C500000002000000AB /* ReadingListImporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListImporterTests.swift; sourceTree = "<group>"; };
 		FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdaterCrashTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -6139,6 +6139,7 @@
 				E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */,
 				E81A4D0126081900005CE001 /* SemanticSearchResultsCoordinator.swift */,
 				E8D15C0126101A00005CE101 /* DiscoverReadingListCoordinator.swift */,
+				E8D15C1126101A00005CE111 /* ShareReadingListCoordinator.swift */,
 				E81A4D2126081900005CE021 /* SearchInstrumentation.swift */,
 				E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */,
 				E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */,
@@ -8961,7 +8962,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\"\n";
+			shellScript = "\"$SRCROOT/scripts/sync_localizations.sh\" \"$SRCROOT\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8B724B41ECF09F700D10836 /* Copy Test Fixtures */ = {
@@ -9492,6 +9493,7 @@
 				E81A4C0426081900005CD004 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0426081900005CE004 /* SemanticSearchResultsCoordinator.swift in Sources */,
 				E8D15C0426101A00005CE104 /* DiscoverReadingListCoordinator.swift in Sources */,
+				E8D15C1426101A00005CE114 /* ShareReadingListCoordinator.swift in Sources */,
 				E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0426081900005CF004 /* SemanticSearchInfoCoordinator.swift in Sources */,
@@ -10281,6 +10283,7 @@
 				E81A4C0326081900005CD003 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0326081900005CE003 /* SemanticSearchResultsCoordinator.swift in Sources */,
 				E8D15C0326101A00005CE103 /* DiscoverReadingListCoordinator.swift in Sources */,
+				E8D15C1326101A00005CE113 /* ShareReadingListCoordinator.swift in Sources */,
 				E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0326081900005CF003 /* SemanticSearchInfoCoordinator.swift in Sources */,
@@ -10822,6 +10825,7 @@
 				E81A4C0226081900005CD002 /* DonationReminderSetupCoordinator.swift in Sources */,
 				E81A4D0226081900005CE002 /* SemanticSearchResultsCoordinator.swift in Sources */,
 				E8D15C0226101A00005CE102 /* DiscoverReadingListCoordinator.swift in Sources */,
+				E8D15C1226101A00005CE112 /* ShareReadingListCoordinator.swift in Sources */,
 				E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */,
 				E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0226081900005CF002 /* SemanticSearchInfoCoordinator.swift in Sources */,
