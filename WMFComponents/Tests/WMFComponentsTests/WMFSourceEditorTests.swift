@@ -1,12 +1,14 @@
 import XCTest
 @testable import WMFComponents
 
+@MainActor
 final class WMFSourceEditorTests: XCTestCase {
 
     var textView: UITextView!
     var editorViewController: WMFSourceEditorViewController!
 
-    override func setUpWithError() throws {
+    override func setUp() async throws {
+        try await super.setUp()
         let viewModel = WMFSourceEditorViewModel(configuration: .full, initialText: "Testing Wikitext", localizedStrings: WMFSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false, onloadSelectRange: nil)
         self.editorViewController = WMFSourceEditorViewController(viewModel: viewModel, delegate: self)
         editorViewController.loadViewIfNeeded()

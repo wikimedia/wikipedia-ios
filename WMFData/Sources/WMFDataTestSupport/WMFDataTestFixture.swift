@@ -22,19 +22,21 @@ public final class WMFDataTestFixture {
         }
     }
 
-    public func setUp() async {
+    // The fixture is not Sendable. `nonisolated(nonsending)` runs these methods on the
+    // caller's actor, so a `@MainActor` test can keep the fixture in a stored property.
+    nonisolated(nonsending) public func setUp() async {
         restoreEnvironmentForTesting()
         snapshotEnvironment()
         await resetWMFDataTestState()
     }
 
-    public func tearDown() async {
+    nonisolated(nonsending) public func tearDown() async {
         await resetWMFDataTestState()
         restoreEnvironmentForTesting()
         await resetWMFDataTestState()
     }
 
-    public func resetWMFDataTestState() async {
+    nonisolated(nonsending) public func resetWMFDataTestState() async {
         resetSynchronousWMFDataTestState()
         await WMFOnThisDayDataController.shared.reset()
         // WMFImageDataController is an actor, so its reset is awaited here rather
@@ -42,7 +44,7 @@ public final class WMFDataTestFixture {
         await WMFImageDataController.shared.reset()
     }
 
-    public func withGlobalStateLease<T>(_ operation: () async throws -> T) async rethrows -> T {
+    nonisolated(nonsending) public func withGlobalStateLease<T>(_ operation: nonisolated(nonsending) () async throws -> T) async rethrows -> T {
         let lease = await WMFDataTestFixtureGlobalStateLease.shared.acquire()
 
         do {
@@ -55,9 +57,9 @@ public final class WMFDataTestFixture {
         }
     }
 
-    public func withConfiguredEnvironment<T>(
-        configure: () async throws -> Void,
-        operation: () async throws -> T
+    nonisolated(nonsending) public func withConfiguredEnvironment<T>(
+        configure: nonisolated(nonsending) () async throws -> Void,
+        operation: nonisolated(nonsending) () async throws -> T
     ) async rethrows -> T {
         try await withGlobalStateLease {
             await setUp()
@@ -91,7 +93,7 @@ public final class WMFDataTestFixture {
         }
     }
 
-    public func makeTemporaryCoreDataStore() async throws -> WMFCoreDataStore {
+    nonisolated(nonsending) public func makeTemporaryCoreDataStore() async throws -> WMFCoreDataStore {
         let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
         temporaryDirectories.append(temporaryDirectory)

@@ -1,4 +1,5 @@
 import XCTest
+import os
 import WMFData
 import WMFDataTestSupport
 @testable import WMFComponents
@@ -229,16 +230,14 @@ private final class WMFMockAttributionService: WMFService {
     private let referenceCount: Int?
     private let lastUpdated: String?
     private let imageData: Data?
-    private let lock = NSLock()
-    private var _attributionRequestCount = 0
-    private var _imageRequestCount = 0
+    private let requestCounts = OSAllocatedUnfairLock(initialState: (attribution: 0, image: 0))
 
     var attributionRequestCount: Int {
-        lock.withLock { _attributionRequestCount }
+        requestCounts.withLock { $0.attribution }
     }
 
     var imageRequestCount: Int {
-        lock.withLock { _imageRequestCount }
+        requestCounts.withLock { $0.image }
     }
 
     init(contributorCount: Int?, referenceCount: Int?, lastUpdated: String?, imageData: Data?) {
@@ -262,28 +261,28 @@ private final class WMFMockAttributionService: WMFService {
         request.url?.path.contains("/attribution/") == true
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
         if let imageData, !isAttributionRequest(request) {
-            lock.withLock { _imageRequestCount += 1 }
+            requestCounts.withLock { $0.image += 1 }
             completion(.success(imageData))
         } else {
             completion(.failure(URLError(.fileDoesNotExist)))
         }
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         completion(.failure(URLError(.unsupportedURL)))
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         guard isAttributionRequest(request) else {
             return completion(.failure(URLError(.unsupportedURL)))
         }
-        lock.withLock { _attributionRequestCount += 1 }
+        requestCounts.withLock { $0.attribution += 1 }
         completion(Result { try JSONDecoder().decode(T.self, from: attributionJSON) })
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         completion(.failure(URLError(.unsupportedURL)))
     }
 

@@ -7,10 +7,10 @@ final class WMFBarButtonHostingViewTests: XCTestCase {
 
     private var window: UIWindow?
 
-    override func tearDown() {
+    override func tearDown() async throws {
         window?.isHidden = true
         window = nil
-        super.tearDown()
+        try await super.tearDown()
     }
 
     /// Lays the item out in the bar of a real navigation controller inside a window, as the app does.

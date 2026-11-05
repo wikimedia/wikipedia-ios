@@ -4,6 +4,7 @@ import WMFDataTestSupport
 @testable import WMFData
 import WMFDataMocks
 
+@MainActor
 final class WMFWatchlistFilterViewModelTests: XCTestCase {
 
     private let fixture = WMFDataTestFixture()

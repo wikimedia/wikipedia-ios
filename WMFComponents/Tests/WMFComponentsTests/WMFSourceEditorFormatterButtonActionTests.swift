@@ -1,6 +1,7 @@
 import XCTest
 @testable import WMFComponents
 
+@MainActor
 final class WMFSourceEditorFormatterButtonActionTests: XCTestCase {
     
     let mediator = {

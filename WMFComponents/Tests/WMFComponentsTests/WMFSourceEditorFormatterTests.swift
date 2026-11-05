@@ -1,6 +1,7 @@
 import XCTest
 @testable import WMFComponents
 
+@MainActor
 final class WMFSourceEditorFormatterTests: XCTestCase {
 
     var colors: WMFSourceEditorColors!
@@ -23,7 +24,8 @@ final class WMFSourceEditorFormatterTests: XCTestCase {
         return [baseFormatter, templateFormatter, boldItalicsFormatter, referenceFormatter, listFormatter, headingFormatter, strikethroughFormatter, subscriptFormatter, superscriptFormatter, underlineFormatter, linkFormatter, commentFormatter, findAndReplaceFormatter]
     }
 
-    override func setUpWithError() throws {
+    override func setUp() async throws {
+        try await super.setUp()
         let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
 
         self.colors = WMFSourceEditorColors(

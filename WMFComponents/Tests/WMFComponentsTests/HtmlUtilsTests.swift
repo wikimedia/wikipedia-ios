@@ -1,6 +1,7 @@
 import XCTest
 @testable import WMFComponents
 
+@MainActor
 final class HtmlUtilsTests: XCTestCase {
 
     override func setUpWithError() throws {

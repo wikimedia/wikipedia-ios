@@ -1,6 +1,7 @@
 import XCTest
 @testable import WMFComponents
 
+@MainActor
 final class WMFEmptyViewModelTests: XCTestCase {
 
     // MARK: - Helpers

@@ -3,6 +3,7 @@ import UIKit
 @testable import WMFComponents
 
 @Suite
+@MainActor
 struct WMFCardGridColumnsTests {
 
     private let phonePortrait = CGSize(width: 393, height: 852)

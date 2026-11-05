@@ -6,7 +6,7 @@ import WMFDataMocks
 @MainActor
 final class WMFSearchSettingsViewModelTests: XCTestCase {
 
-    private func makeViewModel(showsSemanticSearchItem: Bool, showSemanticSearchEntryPoint: Bool = true, onToggle: ((Bool) -> Void)? = nil) async -> WMFSearchSettingsViewModel {
+    private func makeViewModel(showsSemanticSearchItem: Bool, showSemanticSearchEntryPoint: Bool = true, onToggle: (@MainActor @Sendable (Bool) -> Void)? = nil) async -> WMFSearchSettingsViewModel {
         let viewModel = WMFSearchSettingsViewModel(
             showLanguageBar: true,
             openAppOnSearchTab: false,

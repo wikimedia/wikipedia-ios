@@ -4,6 +4,7 @@ import XCTest
 
 /// Covers how the feed is assembled from a response: the order the modules appear in, and which
 /// module keeps an article when more than one offers it.
+@MainActor
 final class WMFForYouViewModelTests: XCTestCase {
 
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))

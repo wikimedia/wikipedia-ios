@@ -1,4 +1,5 @@
 import Foundation
+import os
 import Testing
 import WMFDataTestSupport
 @testable import WMFComponents
@@ -399,29 +400,28 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
 }
 
 /// Counts the requests that reach the service. The responses come from the standard mock.
-private final class CountingBasicService: WMFService, @unchecked Sendable {
+private final class CountingBasicService: WMFService {
     private let wrapped = WMFMockBasicService(jsonResourceName: "random-articles-get")
-    private let lock = NSLock()
-    private var _decodableGETCallCount = 0
+    private let callCount = OSAllocatedUnfairLock(initialState: 0)
 
     var decodableGETCallCount: Int {
-        lock.withLock { _decodableGETCallCount }
+        callCount.withLock { $0 }
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
         wrapped.perform(request: request, completion: completion)
     }
 
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         wrapped.perform(request: request, completion: completion)
     }
 
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
-        lock.withLock { _decodableGETCallCount += 1 }
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
+        callCount.withLock { $0 += 1 }
         wrapped.performDecodableGET(request: request, completion: completion)
     }
 
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         wrapped.performDecodablePOST(request: request, completion: completion)
     }
 
