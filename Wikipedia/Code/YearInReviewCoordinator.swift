@@ -683,18 +683,18 @@ private final class YearInReviewShareImageItem: NSObject, UIActivityItemSource {
     }
 }
 
-/// The share text, left out where only the image can go.
+/// The share text, for the built-in activities that take text. Every other activity gets only the image.
 ///
-/// The share sheet shows an app only if the app accepts every item. TikTok accepts images and not
-/// text, so with a text item it does not show. Thus, the placeholder of this item is the image too,
-/// and the text replaces it only when the reader picks an app.
-private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+/// The share sheet shows an app only if the app accepts every item. Instagram and TikTok accept images
+/// and not text, so with a text item they do not show. Thus, the placeholder of this item is the image
+/// too, and the text replaces it only for the activities in `textActivityTypes`. iOS does not say which
+/// items an app accepts, so this lists the system activities that take text instead of the apps that do
+/// not. New apps need no change, and an image-only app never gets text it does not accept. Other apps
+/// that take text, for example WhatsApp, get only the image.
+final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
 
-    /// Instagram, TikTok (two app ids) and YouTube post one image, which is the priority.
-    private static let imageOnlyActivityPrefixes = ["com.burbn.instagram", "com.zhiliaoapp.musically", "com.ss.iphone.ugc.Ame", "com.google.ios.youtube"]
-
-    /// System activities that take images and not text.
-    private static let imageOnlyActivityTypes: Set<UIActivity.ActivityType> = [.saveToCameraRoll, .assignToContact, .print, .markupAsPDF]
+    /// The built-in activities that put the text and the link next to the image.
+    static let textActivityTypes: Set<UIActivity.ActivityType> = [.message, .mail, .copyToPasteboard]
 
     private let text: String
     private let placeholderImage: UIImage
@@ -704,19 +704,19 @@ private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
         self.placeholderImage = placeholderImage
     }
 
+    static func takesText(_ activityType: UIActivity.ActivityType?) -> Bool {
+        guard let activityType else {
+            return false
+        }
+        return textActivityTypes.contains(activityType)
+    }
+
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
         placeholderImage
     }
 
     func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-        guard let activityType else {
-            return text
-        }
-        if Self.imageOnlyActivityTypes.contains(activityType)
-            || Self.imageOnlyActivityPrefixes.contains(where: { activityType.rawValue.hasPrefix($0) }) {
-            return nil
-        }
-        return text
+        Self.takesText(activityType) ? text : nil
     }
 }
 

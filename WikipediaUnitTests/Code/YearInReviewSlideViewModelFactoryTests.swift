@@ -1,4 +1,5 @@
 import Testing
+import UIKit
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
@@ -663,11 +664,11 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(CommonStrings.yearInReviewHighlightsRank(2) == "(2)")
     }
 
-    /// A highlight shows only when its slide showed its full version.
+    /// A highlight shows only when its slide showed its full version, except the article count.
     @Test
     func theHighlightsLeaveOutWhatTheSlidesLeftOut() throws {
         let highlights = factory.highlights(
-            readData: try readData(readCount: WMFYearInReviewReadData.minimumReadCount - 1, minutesRead: 4),
+            readData: try readData(readCount: 0, minutesRead: 4),
             rereadArticles: [.init(title: "Moon", visitCount: 9, project: nil)],
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true),
             nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: " ")
@@ -680,6 +681,35 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(highlights.nicheCategory == nil, "a blank category name does not show the niche interest slide")
         #expect(highlights.highlightCount == 1)
         #expect(highlights.isShareable == false, "with fewer than two highlights, Share highlights does not show")
+    }
+
+    /// Product decision: the article count shows from one article, also when the total articles slide was empty.
+    @Test
+    func theHighlightsShowTheArticleCountFromOneArticle() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 1, minutesRead: 4),
+            rereadArticles: [],
+            rabbitHoles: nil,
+            nicheCategory: nil
+        )
+
+        #expect(WMFYearInReviewReadData.minimumReadCount > 1, "the total articles slide shows its empty version")
+        #expect(highlights.articlesRead == 1)
+        #expect(highlights.highlightCount == 2)
+        #expect(highlights.isShareable)
+    }
+
+    /// Only the built-in text activities get the share text. Every other activity, such as Instagram,
+    /// TikTok or Save to Files, gets only the image.
+    @Test
+    func onlyBuiltInTextActivitiesGetTheShareText() {
+        #expect(YearInReviewShareTextItem.takesText(.message))
+        #expect(YearInReviewShareTextItem.takesText(.mail))
+        #expect(YearInReviewShareTextItem.takesText(.copyToPasteboard))
+        #expect(YearInReviewShareTextItem.takesText(.saveToCameraRoll) == false)
+        #expect(YearInReviewShareTextItem.takesText(UIActivity.ActivityType("com.apple.CloudDocsUI.AddToiCloudDrive")) == false)
+        #expect(YearInReviewShareTextItem.takesText(UIActivity.ActivityType("com.burbn.instagram.shareextension")) == false)
+        #expect(YearInReviewShareTextItem.takesText(nil) == false)
     }
 
     @Test

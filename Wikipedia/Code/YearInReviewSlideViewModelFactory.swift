@@ -632,6 +632,7 @@ struct YearInReviewSlideViewModelFactory {
     enum SlideEligibility {
 
         /// The total articles slide needs at least `WMFYearInReviewReadData.minimumReadCount` articles.
+        /// The highlights do not use this rule: they show the count from `minimumHighlightsReadCount`.
         static func readCount(_ readCount: Int) -> Int? {
             readCount >= WMFYearInReviewReadData.minimumReadCount ? readCount : nil
         }
@@ -667,6 +668,10 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Highlights
 
+    /// The highlights show the article count from this number of articles. It is lower than the
+    /// minimum of the total articles slide. See `highlights(readData:rereadArticles:rabbitHoles:nicheCategory:)`.
+    static let minimumHighlightsReadCount = 1
+
     /// The highlights from the same data as the personalized slides.
     func highlights(from data: PersonalizedData) -> WMFYearInReviewHighlights {
         highlights(
@@ -678,8 +683,10 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// Each highlight follows the rules of its slide, so the image only shows what the slides showed.
+    /// One exception: the article count shows from one article, also when the total articles slide
+    /// showed its empty version. Product decided this, so the count is part of more shared images.
     func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, nicheCategory: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewHighlights {
-        let articlesRead = readData.flatMap { SlideEligibility.readCount($0.readCount) }
+        let articlesRead = readData.flatMap { $0.readCount >= Self.minimumHighlightsReadCount ? $0.readCount : nil }
         let minutesRead = readData.flatMap { SlideEligibility.minutesRead($0.minutesRead) }
         let rotation = SlideEligibility.rereadArticles(rereadArticles)?.map(\.title) ?? []
         let rabbitHole = rabbitHoles.flatMap { SlideEligibility.rabbitHoles($0)?.deepest }.map { deepest in
