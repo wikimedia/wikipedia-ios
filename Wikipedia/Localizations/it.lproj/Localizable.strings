@@ -802,8 +802,6 @@
 "reading-list-add-saved-title" = "Voci salvate trovate";
 "reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
 "reading-list-create-new-list-button-title" = "Crea elenco di lettura";
-"reading-list-create-new-list-description" = "Descrizione";
-"reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
 "reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
 "reading-list-detail-search-placeholder" = "Cerca elenco di lettura";
@@ -812,8 +810,8 @@
 "reading-list-list-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura per utenza.";
 "reading-list-login-or-create-account-button-title" = "Accedi o registrati";
 "reading-list-name-user-created-annotation" = "_[utenza creata]";
-"reading-list-new-list-description-placeholder" = "breve descrizione facoltativa";
-"reading-list-new-list-name-placeholder" = "titolo dell'elenco di lettura";
+"reading-list-new-list-description-placeholder" = "Breve descrizione facoltativa";
+"reading-list-new-list-name-placeholder" = "Titolo elenco di lettura";
 "reading-list-sync-disabled-panel-title" = "Sincronizzazione disattivata";
 "reading-list-sync-enable-button-title" = "Attiva sincronizzazione";
 "reading-list-sync-enabled-panel-message" = "La sincronizzazione degli elenchi di lettura è attivata su questo account. Per bloccarla, puoi disattivare la sincronizzazione di questo account aggiornando le tue impostazioni.";

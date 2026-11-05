@@ -1232,8 +1232,6 @@
 "reading-list-api-error-generic" = "Beim Synchronisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-api-error-list-limit" = "Diese Liste ist nicht synchronisiert, da du die Grenze für die Anzahl an synchronisierten Listen erreicht hast.";
 "reading-list-create-new-list-button-title" = "Leseliste erstellen";
-"reading-list-create-new-list-description" = "Beschreibung";
-"reading-list-create-new-list-reading-list-name" = "Name der Leseliste";
 "reading-list-create-new-list-title" = "Eine neue Liste erstellen";
 "reading-list-deleted-accessibility-notification" = "Leseliste gelöscht";
 "reading-list-detail-search-placeholder" = "Leseliste durchsuchen";
@@ -1254,7 +1252,9 @@
 "reading-list-list-limit-reached" = "Du hast die Grenze von $1 Leselisten pro Benutzerkonto erreicht";
 "reading-list-login-or-create-account-button-title" = "Anmelden oder Benutzerkonto erstellen";
 "reading-list-name-user-created-annotation" = "_[user created]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "optionale Kurzbeschreibung";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Titel der Leseliste";
 "reading-list-sync-disabled-panel-message" = "Die Synchronisierung von Leselisten wurden auf einem anderen Gerät für dein Wikipedia-Benutzerkonto deaktiviert. Du kannst die Synchronisierung erneut anschalten, indem du deine Einstellungen aktualisierst.";
 "reading-list-sync-disabled-panel-title" = "Synchronisierung deaktiviert";

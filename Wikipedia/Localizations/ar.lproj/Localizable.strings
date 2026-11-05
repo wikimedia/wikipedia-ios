@@ -1090,8 +1090,6 @@
 "reading-list-api-error-generic" = "حدث خطأ غير متوقع أثناء مزامنة قوائم قراءتك.";
 "reading-list-api-error-list-limit" = "لا تتم مزامنة هذه القائمة لأنك وصلت إلى الحد المسموح به لعدد القوائم المتزامنة.";
 "reading-list-create-new-list-button-title" = "إنشاء قائمة قراءة";
-"reading-list-create-new-list-description" = "الوصف";
-"reading-list-create-new-list-reading-list-name" = "اسم قائمة القراءة";
 "reading-list-create-new-list-title" = "إنشاء قائمة جديدة";
 "reading-list-deleted-accessibility-notification" = "تم حذف قائمة القراءة";
 "reading-list-detail-search-placeholder" = "البحث في قائمة القراءة";
@@ -1112,7 +1110,9 @@
 "reading-list-list-limit-reached" = "لقد تجاوزت الحد الأقصى وهو $1 قوائم قراءة لكل حساب.";
 "reading-list-login-or-create-account-button-title" = "تسجيل الدخول أو إنشاء حساب";
 "reading-list-name-user-created-annotation" = "_ [مستخدم تم إنشاؤه]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "وصف قصير اختياري";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "عنوان قائمة القراءة";
 "reading-list-sync-disabled-panel-message" = "تم تعطيل مزامنة قائمة القراءة لحساب ويكيبيديا الخاص بك على جهاز آخر، يمكنك إعادة تشغيل المزامنة بتحديث إعداداتك.";
 "reading-list-sync-disabled-panel-title" = "تم تعطيل المزامنة";

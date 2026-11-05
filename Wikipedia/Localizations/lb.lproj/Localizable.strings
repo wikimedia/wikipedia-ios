@@ -318,6 +318,7 @@
 "discover-announcement-new-tag" = "Nei";
 "discover-announcement-no-thanks" = "Nee merci";
 "discover-announcement-no-thanks-toast" = "Dir kënnt Är Lëscht mat Liesrecommandatioune méi spéit an den Astellunge konfiguréieren.";
+"discover-save-list-title" = "Lieslëscht späicheren";
 "donate-accessibility-amount-button-hint" = "Duebel tippen, fir de Betrag vum Don ze wielen.";
 "donate-accessibility-donate-hint-format" = "Duebel tippe fir $1 un d'Wikimedia Foundation ze spenden.";
 "donate-accessibility-email-opt-in-hint" = "Duebel tippe fir der Wikimedia Foundation z'erlaben Iech E-Mailen ze schécken.";
@@ -972,8 +973,6 @@
 "reading-list-api-error-generic" = "Beim Synchroniséiere vun Äre Lieslëschten ass en onerwaarte Feeler geschitt.";
 "reading-list-api-error-list-limit" = "Dës Lëscht ass net synchroniséiert, well Dir d'Limitt fir d'Zuel vu synchroniséierte Lëschten erreecht hutt.";
 "reading-list-create-new-list-button-title" = "Lieslëscht uleeën";
-"reading-list-create-new-list-description" = "Beschreiwung";
-"reading-list-create-new-list-reading-list-name" = "Numm vun der Lieslëscht";
 "reading-list-create-new-list-title" = "Eng nei Lëscht uleeën";
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
 "reading-list-detail-search-placeholder" = "Lieslëscht duerchsichen";
@@ -991,8 +990,9 @@
 "reading-list-list-limit-reached" = "Dir hutt d'Limitt vu(n) $1 Lieslëschte pro Kont erreecht";
 "reading-list-login-or-create-account-button-title" = "Aloggen oder e Kont uleeën";
 "reading-list-name-user-created-annotation" = "_[user created]";
-"reading-list-new-list-description-placeholder" = "fakultativ Kuerzbeschreiwung";
+"reading-list-new-list-description-placeholder" = "Fakultativ Kuerzbeschreiwung";
 "reading-list-new-list-name-placeholder" = "Titel vun der Lieslëscht";
+"reading-list-share-message" = "Moien! Ech géif gäre meng Wikipedia-Lieslëscht mat Iech deelen: $1";
 "reading-list-sync-disabled-panel-title" = "Synchronisatioun desaktivéiert";
 "reading-list-sync-enable-button-title" = "Synchronisatioun aktivéieren";
 "reading-list-sync-enable-title" = "Synchronisatioun vu Lieslëschten aschalten?";

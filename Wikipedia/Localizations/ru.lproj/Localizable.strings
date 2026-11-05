@@ -1168,8 +1168,6 @@
 "reading-list-api-error-generic" = "При синхронизации списков для чтения произошла непредвиденная ошибка.";
 "reading-list-api-error-list-limit" = "Этот список не синхронизирован, потому что вы достигли лимита для количества синхронизированных списков.";
 "reading-list-create-new-list-button-title" = "Создать список для чтения";
-"reading-list-create-new-list-description" = "Описание";
-"reading-list-create-new-list-reading-list-name" = "Название списка для чтения";
 "reading-list-create-new-list-title" = "Создать новый список";
 "reading-list-deleted-accessibility-notification" = "Список для чтения удалён";
 "reading-list-detail-search-placeholder" = "Поиск в списке для чтения";
@@ -1190,7 +1188,9 @@
 "reading-list-list-limit-reached" = "Вы достигли ограничения в количестве списков для чтения ($1) на одну учётную запись";
 "reading-list-login-or-create-account-button-title" = "Войти или создать учётную запись";
 "reading-list-name-user-created-annotation" = "_[участник создан]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Необязательное краткое описание";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
 "reading-list-sync-disabled-panel-message" = "Синхронизация списков для чтения была выключена для вашей учётной записи на другом устройстве. Вы можете её включить снова в настройках.";
 "reading-list-sync-disabled-panel-title" = "Синхронизация отключена";

@@ -1227,8 +1227,6 @@
 "reading-list-api-error-generic" = "Er is een onverwachte fout opgetreden bij het synchroniseren van uw leeslijsten.";
 "reading-list-api-error-list-limit" = "Deze lijst wordt niet gesynchroniseerd omdat u de limiet voor het aantal gesynchroniseerde lijsten heeft bereikt.";
 "reading-list-create-new-list-button-title" = "Leeslijst aanmaken";
-"reading-list-create-new-list-description" = "Beschrijving";
-"reading-list-create-new-list-reading-list-name" = "Naam leeslijst";
 "reading-list-create-new-list-title" = "Nieuwe lijst aanmaken";
 "reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
 "reading-list-detail-search-placeholder" = "Leeslijst doorzoeken";
@@ -1249,7 +1247,9 @@
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
 "reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
 "reading-list-name-user-created-annotation" = "_[aangemaakt door gebruiker]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "optionele korte beschrijving";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titel van leeslijst";
 "reading-list-sync-disabled-panel-message" = "Synchronisatie van leeslijsten is uitgeschakeld voor uw Wikipedia-account op een ander apparaat. U kunt synchronisatie weer inschakelen door uw instellingen bij te werken.";
 "reading-list-sync-disabled-panel-title" = "Synchronisatie uitgeschakeld";
