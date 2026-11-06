@@ -333,21 +333,40 @@
 
       const moves = []; let done = 0; const taskList = [...tasks.keys()];
       progress(0, taskList.length);
-      await pool(taskList, 6, async taskPHID => {
-        const txs = await searchAll('transaction.search', { objectIdentifier: taskPHID });
-        for (const tx of txs) {
-          if (tx.type !== 'core:columns' || !tx.fields || !Array.isArray(tx.fields.columns)) continue;
-          for (const m of tx.fields.columns) {
-            if (!boardMap.has(m.boardPHID)) continue;
-            const froms = Object.values(m.fromColumnPHIDs || {});
-            const from = froms[0] || null;
-            if (from === m.columnPHID) continue; // reorder within a column
-            moves.push({ task: taskPHID, author: tx.authorPHID, board: m.boardPHID, from, to: m.columnPHID, date: tx.dateCreated });
+      // transaction.search does not expose column moves (they come back with a null type), so use
+      // maniphest.gettasktransactions, which returns raw transactions and accepts many task IDs per call.
+      const idToPHID = new Map([...tasks].map(([phid, t]) => [String(t.id), phid]));
+      const record = (taskPHID, author, date, board, from, to) => {
+        if (!boardMap.has(board) || !to || from === to) return; // other boards / reorder within a column
+        moves.push({ task: taskPHID, author, board, from: from || null, to, date: Number(date) });
+      };
+      const fetchBatch = async ids => {
+        let result;
+        try { result = await conduit('maniphest.gettasktransactions', { ids }); }
+        catch (e) {
+          if (ids.length === 1) throw e;
+          const h = Math.ceil(ids.length / 2); // response too large? split and retry
+          await fetchBatch(ids.slice(0, h)); await fetchBatch(ids.slice(h)); return;
+        }
+        for (const [taskId, txs] of Object.entries(result || {})) {
+          const taskPHID = idToPHID.get(String(taskId)); if (!taskPHID) continue;
+          for (const tx of Object.values(txs || {})) {
+            const nv = tx.newValue, ov = tx.oldValue;
+            if (tx.transactionType === 'core:columns' && nv) {
+              for (const m of Object.values(nv)) {
+                if (!m) continue;
+                record(taskPHID, tx.authorPHID, tx.dateCreated, m.boardPHID, Object.values(m.fromColumnPHIDs || {})[0], m.columnPHID);
+              }
+            } else if (tx.transactionType === 'projectcolumn' && nv) { // pre-2016 format
+              const from = ov && ov.columnPHIDs ? Object.values(ov.columnPHIDs)[0] : null;
+              record(taskPHID, tx.authorPHID, tx.dateCreated, nv.projectPHID, from, Object.values(nv.columnPHIDs || {})[0]);
+            }
           }
         }
-        done++; progress(done, taskList.length);
+        done += ids.length; progress(done, taskList.length);
         status(`Loading task histories: ${done}/${taskList.length} – ${moves.length} column moves found`);
-      });
+      };
+      await pool(chunk(taskList.map(phid => tasks.get(phid).id), 20), 4, fetchBatch);
       progress(0, 0);
       data = { boards: boardMap, columns, tasks, moves };
       status(`Loaded ${moves.length} column moves across ${tasks.size} tasks on ${boardMap.size} boards.`);
