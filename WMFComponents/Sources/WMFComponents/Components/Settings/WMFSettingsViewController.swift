@@ -35,6 +35,13 @@ final public class WMFSettingsViewController: WMFComponentHostingController<WMFS
         hasAppearedBefore = true
     }
 
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isBeingDismissed || navigationController?.isBeingDismissed == true {
+            coordinatorDelegate?.settingsWillClose()
+        }
+    }
+
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(
             title: viewModel.localizedStrings.settingTitle,
