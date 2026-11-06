@@ -22,7 +22,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let endPageID = "yearInReviewEnd"
 
     public struct LocalizedStrings {
-        public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
         public let moreButtonAccessibilityLabel: String
         public let shareButtonTitle: String
@@ -34,7 +33,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         public let slideAccessibilityHint: String
 
         public init(
-            wIconAccessibilityLabel: String,
             closeButtonAccessibilityLabel: String,
             moreButtonAccessibilityLabel: String,
             shareButtonTitle: String,
@@ -44,7 +42,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             shareFeedbackButtonTitle: String,
             slideAccessibilityHint: String
         ) {
-            self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
             self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.shareButtonTitle = shareButtonTitle

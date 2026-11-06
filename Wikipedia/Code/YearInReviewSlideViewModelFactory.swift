@@ -55,7 +55,6 @@ struct YearInReviewSlideViewModelFactory {
 
     func makeLocalizedStrings() -> WMFYearInReviewViewModel.LocalizedStrings {
         WMFYearInReviewViewModel.LocalizedStrings(
-            wIconAccessibilityLabel: CommonStrings.plainWikipediaName,
             closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
             moreButtonAccessibilityLabel: CommonStrings.moreButton,
             shareButtonTitle: CommonStrings.shortShareTitle,
