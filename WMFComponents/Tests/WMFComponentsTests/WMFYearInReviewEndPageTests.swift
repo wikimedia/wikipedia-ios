@@ -23,7 +23,6 @@ struct WMFYearInReviewEndPageTests {
 
     private static func strings() -> WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
-            wIconAccessibilityLabel: "Wikipedia",
             closeButtonAccessibilityLabel: "Close",
             moreButtonAccessibilityLabel: "More",
             shareButtonTitle: "Share",
@@ -31,7 +30,8 @@ struct WMFYearInReviewEndPageTests {
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
-            slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
+            slideAccessibilityHint: "Swipe up or down with three fingers to change the slide.",
+            revealAnswerAccessibilityHint: "Double tap to reveal the answer."
         )
     }
 
@@ -84,7 +84,6 @@ struct WMFYearInReviewEndPageTests {
         #expect(viewModel.isOnEnd)
         #expect(viewModel.currentPageIndex == 3)
         #expect(viewModel.currentSlideIndex == 2)
-        #expect(viewModel.slidePositionAccessibilityValue == "4 of 4")
     }
 
     // MARK: - End screen state
