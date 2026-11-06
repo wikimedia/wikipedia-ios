@@ -12,7 +12,8 @@ python3 scripts/phabricator-column-moves/serve.py
 Open http://127.0.0.1:8765/ and:
 
 1. Paste a Conduit API token (Phabricator → Settings → Conduit API Tokens).
-2. Search for the sprint boards or their parent project (e.g. "iOS app"). Open milestones of matching
+2. Search for the sprint boards or their parent project (e.g. "iOS app"); separate several
+   searches with commas (e.g. "AppEx, iOS app") to combine their results. Open milestones of matching
    projects are included (shown as "Parent: Milestone"); archived projects/milestones are hidden unless
    you untick "Open only". Optionally narrow with a regex, and tick the ones you want.
 3. Click **Load column moves**. This fetches every task on those boards and its history.

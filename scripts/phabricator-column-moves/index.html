@@ -87,7 +87,8 @@
     <div class="grid">
       <div>
         <label for="boardQuery">Project name search</label>
-        <input id="boardQuery" type="text" placeholder="e.g. iOS Sprint">
+        <input id="boardQuery" type="text" placeholder="e.g. AppEx, iOS Sprint">
+        <div class="hint">Separate multiple searches with commas; results are combined.</div>
       </div>
       <div>
         <label for="boardRegex">Only names matching (optional regex)</label>
@@ -315,8 +316,8 @@
   $('selectNone').onclick = () => { $('boardList').querySelectorAll('input').forEach(c => c.checked = false); countBoards(); };
 
   $('searchBoards').onclick = async () => {
-    const q = $('boardQuery').value.trim();
-    if (!q) { status('Enter a project name to search for.', true); return; }
+    const terms = [...new Set($('boardQuery').value.split(/[,;\n]/).map(t => t.trim()).filter(Boolean))];
+    if (!terms.length) { status('Enter a project name to search for.', true); return; }
     let re = null;
     try { re = $('boardRegex').value.trim() ? new RegExp($('boardRegex').value.trim(), 'i') : null; }
     catch (e) { status('Invalid board regex: ' + e.message, true); return; }
@@ -324,10 +325,15 @@
     try {
       const onlyOpen = $('onlyOpen').checked;
       const statusC = { status: onlyOpen ? 'active' : 'all' };
-      let res = await searchAll('project.search', { constraints: { name: q, ...statusC } });
-      if (!res.length) res = await searchAll('project.search', { constraints: { query: q, ...statusC } });
+      const res = [];
+      for (const [i, q] of terms.entries()) {
+        status(`Searching projects… (${i + 1}/${terms.length}: ${q})`);
+        let r = await searchAll('project.search', { constraints: { name: q, ...statusC } });
+        if (!r.length) r = await searchAll('project.search', { constraints: { query: q, ...statusC } });
+        res.push(...r);
+      }
       if ($('incMilestones').checked) {
-        const parents = res.filter(p => p.fields.milestone == null).map(p => p.phid);
+        const parents = [...new Set(res.filter(p => p.fields.milestone == null).map(p => p.phid))];
         for (const c of chunk(parents, 50)) {
           status(`Loading milestones… (${res.length} projects so far)`);
           res.push(...await searchAll('project.search', { constraints: { parents: c, isMilestone: true, ...statusC } }));
