@@ -285,7 +285,7 @@ extension SavedAllArticlesCoordinator {
     }
 
     private func unsaveAndAnnounceAndLog(articles: [WMFArticle]) {
-        dataStore.readingListsController.userUnsave(articles)
+        dataStore.readingListsController.unsaveAndSync(articles)
 
         let articlesCount = articles.count
         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))

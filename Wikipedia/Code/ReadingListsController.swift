@@ -704,7 +704,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
 
-    public func userUnsave(_ articles: [WMFArticle]) {
+    public func unsaveAndSync(_ articles: [WMFArticle]) {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         unsave(articles, in: moc)
@@ -712,10 +712,10 @@ public typealias ReadingListsController = WMFReadingListsController
             if moc.hasChanges {
                 try moc.save()
             }
+            sync()
         } catch let error {
             DDLogError("Error unsaving articles: \(error)")
         }
-        sync()
     }
 
     /// Note that the predicate does not take the article language variant into account. This is intentional.
