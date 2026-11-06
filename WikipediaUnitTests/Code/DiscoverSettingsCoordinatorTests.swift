@@ -1,4 +1,5 @@
 import XCTest
+import os
 @testable import Wikipedia
 import WMFComponents
 import WMFData
@@ -66,25 +67,26 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
     }
 }
 
-/// A key-value store that lives only for one test.
+/// A key-value store that lives only for one test. The lock keeps it `Sendable`, like the real stores.
 private final class InMemoryKeyValueStore: WMFKeyValueStore {
 
-    private var values: [String: Data] = [:]
+    private let values = OSAllocatedUnfairLock<[String: Data]>(initialState: [:])
 
     func load<T: Codable>(key: String...) throws -> T? {
-        guard let data = values[key.joined(separator: "/")] else { return nil }
+        guard let data = values.withLock({ $0[key.joined(separator: "/")] }) else { return nil }
         return try JSONDecoder().decode(T.self, from: data)
     }
 
     func save<T: Codable>(key: String..., value: T) throws {
-        values[key.joined(separator: "/")] = try JSONEncoder().encode(value)
+        let data = try JSONEncoder().encode(value)
+        values.withLock { $0[key.joined(separator: "/")] = data }
     }
 
     func remove(key: String...) throws {
-        values.removeValue(forKey: key.joined(separator: "/"))
+        values.withLock { _ = $0.removeValue(forKey: key.joined(separator: "/")) }
     }
 
     func keys(inDirectory directory: String) throws -> [String] {
-        values.keys.filter { $0.hasPrefix(directory + "/") }.map { String($0.dropFirst(directory.count + 1)) }
+        values.withLock { $0.keys }.filter { $0.hasPrefix(directory + "/") }.map { String($0.dropFirst(directory.count + 1)) }
     }
 }
