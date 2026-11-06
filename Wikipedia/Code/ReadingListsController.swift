@@ -704,7 +704,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
 
-    public func userUnsave(_ articles: [WMFArticle]) {
+    public func unsaveAndSync(_ articles: [WMFArticle]) {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         unsave(articles, in: moc)
