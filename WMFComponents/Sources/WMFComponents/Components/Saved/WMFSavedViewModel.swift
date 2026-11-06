@@ -54,8 +54,8 @@ public final class WMFSavedViewModel: ObservableObject {
     public let allArticlesViewModel: WMFSavedAllArticlesViewModel
     public let readingListsViewModel: WMFReadingListsViewModel
     public let progressViewModel: WMFSavedProgressViewModel
-    /// The Discover onboarding card, shared by both segments. Nil when Discover is off.
-    public let announcementViewModel: WMFDiscoverAnnouncementViewModel?
+    /// The Discover card pinned above both segments. Nil when Discover is off.
+    public let discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel?
 
     public var didTapProfile: (() -> Void)?
     public var didTapTabs: (() -> Void)?
@@ -65,14 +65,14 @@ public final class WMFSavedViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    public init(allArticlesViewModel: WMFSavedAllArticlesViewModel, readingListsViewModel: WMFReadingListsViewModel, progressViewModel: WMFSavedProgressViewModel, announcementViewModel: WMFDiscoverAnnouncementViewModel? = nil) {
+    public init(allArticlesViewModel: WMFSavedAllArticlesViewModel, readingListsViewModel: WMFReadingListsViewModel, progressViewModel: WMFSavedProgressViewModel, discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel? = nil) {
         self.allArticlesViewModel = allArticlesViewModel
         self.readingListsViewModel = readingListsViewModel
         self.progressViewModel = progressViewModel
-        self.announcementViewModel = announcementViewModel
+        self.discoverHeaderViewModel = discoverHeaderViewModel
         self.sortOrder = allArticlesViewModel.sortOrder
-        allArticlesViewModel.announcementViewModel = announcementViewModel
-        readingListsViewModel.announcementViewModel = announcementViewModel
+        allArticlesViewModel.discoverHeaderViewModel = discoverHeaderViewModel
+        readingListsViewModel.discoverHeaderViewModel = discoverHeaderViewModel
         bind()
     }
 
@@ -126,7 +126,7 @@ public final class WMFSavedViewModel: ObservableObject {
 
     public func viewWillAppear() {
         refreshProfileButtonBadge()
-        announcementViewModel?.refresh()
+        discoverHeaderViewModel?.refresh()
     }
 
     public func viewDidAppear() {

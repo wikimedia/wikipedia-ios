@@ -14,6 +14,10 @@ public struct WMFDiscoverSetupView: View {
     private let savedTitle = WMFLocalizedString("discover-setup-source-saved", value: "Choose for me based on my saved articles", comment: "Option on the Discover setup screen. The recommended reading list is built from the reader's saved articles.")
     private let historyTitle = WMFLocalizedString("discover-setup-source-history", value: "Choose for me based on my reading history", comment: "Option on the Discover setup screen. The recommended reading list is built from the reader's reading history.")
     private let continueTitle = CommonStrings.continueButton
+    static let adjustAlertTitle = WMFLocalizedString("discover-settings-source-alert-title", value: "Adjust how Discover is built?", comment: "Title of the alert shown when the reader picks a new source for the Discover reading list from Settings.")
+    static let adjustAlertMessage = WMFLocalizedString("discover-settings-source-alert-message", value: "If you adjust how Discover generates recommendations, your current recommendations will be replaced.", comment: "Message of the alert shown when the reader picks a new source for the Discover reading list from Settings.")
+    static let adjustAlertConfirmTitle = WMFLocalizedString("discover-settings-source-alert-adjust", value: "Adjust", comment: "Button of the alert that accepts the new source for the Discover reading list.")
+    static let adjustAlertCancelTitle = WMFLocalizedString("discover-settings-source-alert-never-mind", value: "Never mind", comment: "Button of the alert that keeps the current source for the Discover reading list.")
 
     private var theme: WMFTheme {
         appEnvironment.theme
@@ -28,33 +32,51 @@ public struct WMFDiscoverSetupView: View {
         self.viewModel = viewModel
     }
 
+    private var isOnboarding: Bool {
+        viewModel.presentation == .onboarding
+    }
+
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: WMFSpacing.xLarge) {
-                Text(Self.title)
-                    .font(Font(WMFFont.for(.boldTitle1)))
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityAddTraits(.isHeader)
+                if isOnboarding {
+                    Text(Self.title)
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                        .foregroundColor(Color(uiColor: theme.text))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityAddTraits(.isHeader)
+                }
                 sourceList
             }
             .padding(.horizontal, WMFSpacing.large)
             .padding(.top, WMFSpacing.large)
             .readableWidth()
         }
+        .accessibilityIdentifier(AccessibilityIdentifiers.Discover.setupView)
         .safeAreaInset(edge: .bottom) {
-            WMFLargeButton(style: .primary, title: continueTitle) {
-                viewModel.tapContinue()
+            if isOnboarding {
+                WMFLargeButton(style: .primary, title: continueTitle) {
+                    viewModel.tapContinue()
+                }
+                .padding(.horizontal, WMFSpacing.large)
+                .padding(.vertical, WMFSpacing.large)
+                .readableWidth()
+                .accessibilityIdentifier(AccessibilityIdentifiers.Discover.setupContinueButton)
             }
-            .padding(.horizontal, WMFSpacing.large)
-            .padding(.vertical, WMFSpacing.large)
-            .readableWidth()
-            .accessibilityIdentifier(AccessibilityIdentifiers.Discover.setupContinueButton)
         }
         .background(Color(uiColor: theme.paperBackground))
-        .accessibilityIdentifier(AccessibilityIdentifiers.Discover.setupView)
         .onAppear {
             viewModel.viewDidAppear()
+        }
+        .alert(Self.adjustAlertTitle, isPresented: $viewModel.isShowingAdjustAlert) {
+            Button(Self.adjustAlertConfirmTitle) {
+                viewModel.confirmAdjust()
+            }
+            Button(Self.adjustAlertCancelTitle, role: .cancel) {
+                viewModel.cancelAdjust()
+            }
+        } message: {
+            Text(Self.adjustAlertMessage)
         }
     }
 

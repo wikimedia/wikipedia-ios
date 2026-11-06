@@ -25,12 +25,13 @@ public struct WMFYearInReviewView: View {
             )
             .overlay(alignment: .topTrailing) {
                 WMFYearInReviewProgressView(
-                    slideCount: viewModel.pageCount,
-                    currentIndex: viewModel.currentPageIndex,
-                    color: Color(uiColor: viewModel.currentContentColor ?? WMFColor.white)
+                    pageCount: viewModel.pageCount,
+                    position: viewModel.pagerPosition
                 )
                 .padding(.trailing, WMFYearInReviewViewModel.progressBarEdgeInset)
                 .padding(.top, viewModel.progressBarTopInset)
+                // The track stops above the rounded corners, as on Android
+                .padding(.bottom, WMFYearInReviewViewModel.slideCornerRadius)
             }
             .ignoresSafeArea(edges: .top)
             .background(Color(uiColor: viewModel.currentChromeColor))
