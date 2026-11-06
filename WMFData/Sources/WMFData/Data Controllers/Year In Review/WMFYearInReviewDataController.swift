@@ -206,6 +206,8 @@ import CoreData
             return (try? decoder.decode(WMFYearInReviewNicheCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .rabbitHoles:
             return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .readingPattern:
+            return (try? decoder.decode(WMFYearInReviewReadingPatternSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .editCount:
             // Android counts its total edits slide from one edit, also before the edit slides are built here.
             return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0

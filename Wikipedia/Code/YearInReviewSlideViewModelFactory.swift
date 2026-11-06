@@ -26,6 +26,8 @@ struct YearInReviewSlideViewModelFactory {
         "totalArticles": "total_articles",
         "totalArticlesEmpty": "total_articles_empty",
         "daysVisited": "visits",
+        "readingPattern": "reading_pattern",
+        "readingPatternEmpty": "reading_pattern_empty",
         "topTopic": "top_topic",
         "topTopicEmpty": "top_topic_empty",
         "runnerUpTopics": "other_top_topics",
@@ -67,7 +69,7 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole, niche interest and contributor slides have real data so far.
+    /// Only the total articles, days visited, reading pattern, articles visited multiple times, topic, rabbit hole, niche interest and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
     /// The days visited, rabbit hole and niche interest slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
@@ -113,6 +115,7 @@ struct YearInReviewSlideViewModelFactory {
                 topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
                 averageReadCount: config?.averageArticlesReadPerYear,
                 daysVisited: storedDaysVisited(),
+                readingPattern: storedReadingPattern(),
                 topTopics: storedTopTopics(),
                 rabbitHoles: storedRabbitHoles(),
                 nicheCategory: storedNicheCategory(),
@@ -127,6 +130,8 @@ struct YearInReviewSlideViewModelFactory {
         var topReadPercentage: Double?
         var averageReadCount: Int?
         var daysVisited: WMFYearInReviewDaysVisitedSlideData?
+        /// `nil` shows the empty reading pattern slide.
+        var readingPattern: WMFYearInReviewReadingPatternSlideData?
         var topTopics: WMFYearInReviewTopTopicsSlideData?
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
         var nicheCategory: WMFYearInReviewNicheCategorySlideData?
@@ -134,7 +139,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
-    /// not in the flow: time spent, longest reading streak, reading pattern, biggest reading day,
+    /// not in the flow: time spent, longest reading streak, biggest reading day,
     /// longest read, geography, saved, the edit slides and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
@@ -143,6 +148,7 @@ struct YearInReviewSlideViewModelFactory {
         if let daysVisited = daysVisitedSlide(data.daysVisited) {
             slides.append(daysVisited)
         }
+        slides.append(readingPatternSlide(data.readingPattern))
         slides += topicSlides(data.topTopics)
         slides += rabbitHoleSlides(data.rabbitHoles)
         if let nicheInterest = nicheInterestSlide(data.nicheCategory) {
@@ -154,7 +160,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// In the same order as `personalizedSlides(_:)`.
     private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
+        [totalArticlesEmptySlide(), readingPatternEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
     }
 
     // MARK: - Stored slide data
@@ -276,6 +282,71 @@ struct YearInReviewSlideViewModelFactory {
             return nil
         }
         return monthSymbols[month - 1]
+    }
+
+    // MARK: - Reading pattern
+
+    /// The part of the day with the most reads, from the report the app fills in the background.
+    /// `nil` when the report does not have this slide yet.
+    private func storedReadingPattern() -> WMFYearInReviewReadingPatternSlideData? {
+        storedSlideData(.readingPattern, as: WMFYearInReviewReadingPatternSlideData.self, logName: "reading pattern")
+    }
+
+    /// Shows the part of the day with the most reads and its share of all reads. Shows the empty
+    /// version unless the reader read at least `WMFYearInReviewReadingPatternSlideData.minimumReadCount`
+    /// articles in one part of the day.
+    func readingPatternSlide(_ slideData: WMFYearInReviewReadingPatternSlideData?, locale: Locale = .current) -> WMFYearInReviewSlideViewModel {
+        guard let slideData, slideData.isEligible, let timeOfDay = slideData.timeOfDay else {
+            return readingPatternEmptySlide()
+        }
+
+        let headline = CommonStrings.yearInReviewFavoriteTimeTitle
+        let timeOfDayName = Self.name(of: timeOfDay)
+        let bodyText = CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: wholePercentString(slideData.share, locale: locale))
+        // `dataSlide` shows the data in capitals, so the time of day is passed as written.
+        return dataSlide(
+            id: "readingPattern",
+            artboard: "frame5",
+            stateMachine: "frame5-statemachine",
+            headline: headline,
+            data: timeOfDayName,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(timeOfDayName). \(bodyText)"
+        )
+    }
+
+    private func readingPatternEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewFavoriteTimeEmptyTitle
+        let bodyText = CommonStrings.yearInReviewFavoriteTimeEmptySubtitle
+        return dataSlide(
+            id: "readingPatternEmpty",
+            artboard: "frame5-empty",
+            stateMachine: "frame5-empty-statemachine",
+            headline: headline,
+            data: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    static func name(of timeOfDay: WMFYearInReviewTimeOfDay) -> String {
+        switch timeOfDay {
+        case .mornings: CommonStrings.yearInReviewTimeOfDayMornings
+        case .middays: CommonStrings.yearInReviewTimeOfDayMiddays
+        case .afternoons: CommonStrings.yearInReviewTimeOfDayAfternoons
+        case .evenings: CommonStrings.yearInReviewTimeOfDayEvenings
+        case .nights: CommonStrings.yearInReviewTimeOfDayNights
+        case .lateNights: CommonStrings.yearInReviewTimeOfDayLateNights
+        }
+    }
+
+    /// `share` is from 0 to 1 and shows as a whole percentage, for example `0.5` becomes "50%".
+    private func wholePercentString(_ share: Double, locale: Locale) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.locale = locale
+        formatter.maximumFractionDigits = 0
+        return formatter.string(from: NSNumber(value: share)) ?? "\(Int((share * 100).rounded()))%"
     }
 
     // MARK: - Articles visited multiple times

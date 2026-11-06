@@ -1149,6 +1149,115 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
         XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Paris"])
     }
+
+    // MARK: - readingPattern
+
+    private typealias ReadingPatternData = WMFYearInReviewReadingPatternSlideData
+
+    private func readingPatternPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> ReadingPatternData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewReadingPatternSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        let payload = try decode(ReadingPatternData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    private func addRead(_ title: String, namespaceID: Int16 = 0, at date: Date) async throws {
+        _ = try await WMFPageViewsDataController().addPageView(title: title, namespaceID: namespaceID, project: enProject, previousPageViewObjectID: nil, timestamp: date)
+    }
+
+    private func readDates(hours: [Int], minute: Int = 0, calendar: Calendar = .current) throws -> [Date] {
+        try hours.enumerated().map { index, hour in
+            try XCTUnwrap(calendar.date(from: DateComponents(year: 2026, month: 3, day: 1 + index, hour: hour, minute: minute)))
+        }
+    }
+
+    func testReadingPatternFindsTheTimeOfDayWithTheMostReads() async throws {
+        try await addRead("Moon", at: try date(month: 2, day: 1, hour: 18))
+        try await addRead("Moon", at: try date(month: 2, day: 2, hour: 19))
+        try await addRead("Cat", at: try date(month: 2, day: 3, hour: 20))
+        try await addRead("Paris", at: try date(month: 2, day: 4, hour: 9))
+
+        let payload = try await readingPatternPayload()
+
+        XCTAssertEqual(payload, ReadingPatternData(timeOfDay: .evenings, timeOfDayReadCount: 3, totalReadCount: 4))
+        XCTAssertEqual(payload.share, 0.75)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testReadingPatternLeavesOutMainPagesAndPagesThatAreNotArticles() async throws {
+        try await addRead("Hauptseite", at: try date(month: 2, day: 1, hour: 9))
+        try await addRead("Main_Page", at: try date(month: 2, day: 2, hour: 9))
+        try await addRead("Talk:Moon", namespaceID: 1, at: try date(month: 2, day: 3, hour: 9))
+        try await addRead("Moon", at: try date(month: 2, day: 4, hour: 22))
+        try await addRead("Cat", at: try date(month: 2, day: 5, hour: 23))
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let payload = try await readingPatternPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload, ReadingPatternData(timeOfDay: .nights, timeOfDayReadCount: 2, totalReadCount: 2))
+    }
+
+    func testReadingPatternWithoutReadsIsNotEligible() async throws {
+        let payload = try await readingPatternPayload()
+
+        XCTAssertEqual(payload, ReadingPatternData(timeOfDay: nil, timeOfDayReadCount: 0, totalReadCount: 0))
+        XCTAssertEqual(payload.share, 0)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testReadingPatternWithOneReadInEachTimeOfDayIsNotEligible() throws {
+        let payload = YearInReviewReadingPatternSlideDataController.slideData(readDates: try readDates(hours: [0, 6, 12, 14, 18, 22]), calendar: .current)
+
+        XCTAssertEqual(payload.timeOfDayReadCount, 1)
+        XCTAssertEqual(payload.totalReadCount, 6)
+        XCTAssertFalse(payload.isEligible, "a time of day needs two reads")
+    }
+
+    func testReadingPatternTieGoesToTheEarlierTimeOfDayInTheList() throws {
+        let payload = YearInReviewReadingPatternSlideDataController.slideData(readDates: try readDates(hours: [2, 3, 15, 16]), calendar: .current)
+
+        XCTAssertEqual(payload.timeOfDay, .afternoons, "afternoons come before late nights in the list")
+        XCTAssertEqual(payload.timeOfDayReadCount, 2)
+    }
+
+    /// The first and the last minute of each time of day.
+    func testReadingPatternTimeOfDayBounds() throws {
+        let bounds: [(hour: Int, minute: Int, timeOfDay: WMFYearInReviewTimeOfDay)] = [
+            (0, 0, .lateNights), (4, 59, .lateNights),
+            (5, 0, .mornings), (11, 59, .mornings),
+            (12, 0, .middays), (12, 59, .middays),
+            (13, 0, .afternoons), (16, 59, .afternoons),
+            (17, 0, .evenings), (20, 59, .evenings),
+            (21, 0, .nights), (23, 59, .nights)
+        ]
+        for bound in bounds {
+            let dates = try readDates(hours: [bound.hour, bound.hour], minute: bound.minute)
+            let payload = YearInReviewReadingPatternSlideDataController.slideData(readDates: dates, calendar: .current)
+            XCTAssertEqual(payload.timeOfDay, bound.timeOfDay, "\(bound.hour):\(bound.minute)")
+        }
+    }
+
+    /// The hour comes from the time zone of the calendar, not from UTC.
+    func testReadingPatternUsesTheTimeZoneOfTheCalendar() throws {
+        var newYork = Calendar(identifier: .gregorian)
+        newYork.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        // 19:00 in New York is 23:00 or 0:00 in UTC.
+        let dates = try readDates(hours: [19, 19], calendar: newYork)
+
+        XCTAssertEqual(YearInReviewReadingPatternSlideDataController.slideData(readDates: dates, calendar: newYork).timeOfDay, .evenings)
+    }
+
+    func testEveryHourHasOneTimeOfDay() {
+        for hour in 0..<24 {
+            let timesOfDay = WMFYearInReviewTimeOfDay.allCases.filter { $0.hours.contains(hour) }
+            XCTAssertEqual(timesOfDay.count, 1, "hour \(hour)")
+            XCTAssertEqual(WMFYearInReviewTimeOfDay(hour: hour), timesOfDay.first)
+        }
+        XCTAssertNil(WMFYearInReviewTimeOfDay(hour: 24))
+        XCTAssertNil(WMFYearInReviewTimeOfDay(hour: -1))
+    }
 }
 
 /// A random number generator that gives the same numbers for the same seed. Tests use it to make a random pick repeatable.

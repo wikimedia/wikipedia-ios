@@ -54,8 +54,6 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
 
-    private static let englishMainPageTitle = "Main Page"
-
     private var slideData: SlideData?
 
     private weak var mainPageIdentifier: WMFMainPageIdentifying?
@@ -75,15 +73,7 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
 
         let pageViewsDataController = try WMFPageViewsDataController()
 
-        // Get the main page title once for each wiki. Each request can go to the main actor.
-        // The app does not record the English main page, but older data can contain it.
-        var excludedTitles: [String?: [String]] = [nil: [Self.englishMainPageTitle]]
-        for projectID in try await pageViewsDataController.fetchPageViewProjectIDs(startDate: startDate, endDate: endDate) {
-            if let project = WMFProject(id: projectID),
-               let title = await mainPageIdentifier?.mainPageTitle(for: project) {
-                excludedTitles[projectID] = [title]
-            }
-        }
+        let excludedTitles = try await YearInReviewMainPageTitles.excludedTitles(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
 
         // Pages that are not articles, and main pages, are not in the links, so they end a chain.
         let links = try await pageViewsDataController.fetchArticlePageViewLinks(startDate: startDate, endDate: endDate, excludedTitles: excludedTitles)
