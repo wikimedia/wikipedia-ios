@@ -168,6 +168,10 @@
     <h2>Per sprint board</h2>
     <div class="chartBox"><canvas id="boardChart"></canvas></div>
   </section>
+  <section id="resultsMonth" class="hidden">
+    <h2>Per month (when the move happened)</h2>
+    <div class="chartBox"><canvas id="monthChart"></canvas></div>
+  </section>
   <section id="results3" class="hidden">
     <h2>Column transitions seen (selected users, all columns)</h2>
     <p class="hint" style="margin-top:-6px">Use this to find the column names to put in the filters above.</p>
@@ -513,6 +517,31 @@
       options: baseOpts
     }));
 
+    // per month: every calendar month between the first and last matching move, gaps shown as zero
+    const monthKey = ts => { const d = new Date(ts * 1000); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; };
+    const months = [];
+    if (matched.length) {
+      const first = new Date(matched[0].date * 1000), last = new Date(matched[matched.length - 1].date * 1000);
+      for (let d = new Date(first.getFullYear(), first.getMonth(), 1); d <= last; d.setMonth(d.getMonth() + 1))
+        months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
+    }
+    const byMonth = new Map(users.map(u => [u.phid, new Map()]));
+    for (const mv of matched) {
+      const per = byMonth.get(who(mv)), k = monthKey(mv.date);
+      if (!per.has(k)) per.set(k, { moves: 0, tasks: new Set() });
+      const cell = per.get(k); cell.moves++; cell.tasks.add(mv.task);
+    }
+    const monthLabel = k => new Date(+k.slice(0, 4), +k.slice(5) - 1, 1).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+    charts.push(new Chart($('monthChart'), {
+      type: 'bar',
+      data: {
+        labels: months.map(monthLabel),
+        datasets: users.map((u, i) => ({ label: u.username, data: months.map(m => val(byMonth.get(u.phid).get(m))),
+          backgroundColor: PALETTE[i % PALETTE.length], borderRadius: 3 }))
+      },
+      options: baseOpts
+    }));
+
     // transitions table (helps discover names)
     const trans = new Map();
     for (const mv of inScope) {
@@ -536,7 +565,7 @@
       shown.map(r => `<tr><td>${r.date}</td><td>${esc(r.user)}</td><td><a href="${esc(web)}/${r.task}" target="_blank" rel="noopener">${r.task}</a> ${esc(r.title.slice(0, 60))}</td><td>${esc(r.board)}</td><td>${esc(r.from)}</td><td>${esc(r.to)}</td></tr>`).join('') +
       (lastRows.length > 500 ? `<tr><td colspan="6" class="hint">Showing latest 500 of ${lastRows.length}; download CSV for all.</td></tr>` : '');
 
-    ['results', 'results2', 'results3', 'results4'].forEach(id => $(id).classList.remove('hidden'));
+    ['results', 'results2', 'resultsMonth', 'results3', 'results4'].forEach(id => $(id).classList.remove('hidden'));
     $('csv').disabled = !lastRows.length;
     $('applyStatus').textContent = `${matched.length} matching moves` + (unknown.length ? ` · Unknown users: ${unknown.join(', ')}` : '');
   }
