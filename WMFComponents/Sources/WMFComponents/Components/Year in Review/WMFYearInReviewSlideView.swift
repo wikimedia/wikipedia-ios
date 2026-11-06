@@ -123,7 +123,6 @@ struct WMFYearInReviewSlideView: View {
             accessibilityLabel: state.localizedStrings.accessibilityLabel,
             isPlaying: isCurrent && isShown,
             readBool: readBool,
-            textFits: state.textFits,
             onReadBool: onReadBool,
             watchedTrigger: watchedTrigger,
             missingImageFlags: state.missingImageFlags,

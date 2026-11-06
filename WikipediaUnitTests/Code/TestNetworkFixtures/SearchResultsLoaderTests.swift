@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+import WMFData
 @testable import Wikipedia
 @testable import WMF
 
@@ -9,51 +10,60 @@ struct SearchResultsLoaderTests {
     func enoughPrefixResultsSkipTheFullTextSearch() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseData = try fixtureData(named: "BarackSearch")
+        harness.service.responseData = try fixtureData(named: "ArticleSearchPrefixMany")
 
         let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
 
         #expect(outcome.type == .prefix)
-        #expect(outcome.results.results?.count == 24)
+        #expect(outcome.results.results.count == 24)
         #expect(outcome.prefixResultCount == 24)
-        #expect(!harness.httpClient.capturedRequests.containsFullTextSearchRequest)
+        #expect(!harness.service.capturedRequests.containsFullTextSearchRequest)
     }
 
     @Test
     func fewPrefixResultsTriggerTheFullTextSearch() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseDataQueue = [try fixtureData(named: "BarackSearch", limitedTo: 5), try fixtureData(named: "BarackSearch")]
+        harness.service.responseDataQueue = [
+            try fixtureData(named: "ArticleSearchPrefixMany", limitedTo: 5),
+            try fixtureData(named: "ArticleSearchPrefixMany")
+        ]
 
         let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
 
         #expect(outcome.type == .full)
-        #expect((outcome.results.results?.count ?? 0) > 5)
+        #expect(outcome.results.results.count > 5)
         #expect(outcome.prefixResultCount == 5)
         #expect(outcome.type(ofRow: 4) == .prefix)
         #expect(outcome.type(ofRow: 5) == .full)
-        #expect(harness.httpClient.capturedRequests.containsFullTextSearchRequest)
+        #expect(harness.service.capturedRequests.containsFullTextSearchRequest)
     }
 
     @Test
     func noPrefixResultsStillShowTheFullTextResults() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseDataQueue = [try JSONSerialization.data(withJSONObject: ["batchcomplete": true]), try fixtureData(named: "BarackSearch")]
+        harness.service.responseDataQueue = [
+            try JSONSerialization.data(withJSONObject: ["batchcomplete": true]),
+            try fixtureData(named: "ArticleSearchPrefixMany")
+        ]
 
         let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
 
         #expect(outcome.type == .full)
         #expect(outcome.prefixResultCount == 0)
-        #expect((outcome.results.results?.count ?? 0) > 0)
+        #expect(outcome.results.results.count > 0)
     }
 
     @Test
     func fullTextResultsKeepBothSearchIDs() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseDataQueue = [try fixtureData(named: "BarackSearch", limitedTo: 5), try fixtureData(named: "BarackSearch")]
-        harness.httpClient.responseHeadersQueue = [["x-search-id": "prefix-id"], ["x-search-id": "full-text-id"]]
+        harness.service.responseDataQueue = [
+            try fixtureData(named: "ArticleSearchPrefixMany", limitedTo: 5),
+            try fixtureData(named: "ArticleSearchPrefixMany")
+        ]
+        harness.service.responseHeadersQueue = [["x-search-id": "prefix-id"], ["x-search-id": "full-text-id"]]
 
         let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
 
@@ -66,19 +76,22 @@ struct SearchResultsLoaderTests {
     func fullTextFailureFallsBackToThePrefixResults() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseDataQueue = [try fixtureData(named: "BarackSearch", limitedTo: 5), Data("not json".utf8)]
+        harness.service.responseDataQueue = [
+            try fixtureData(named: "ArticleSearchPrefixMany", limitedTo: 5),
+            Data("not json".utf8)
+        ]
 
         let outcome = try await SearchResultsLoader(fetcher: harness.fetcher).fetchResults(for: "foo", siteURL: siteURL)
 
         #expect(outcome.type == .prefix)
-        #expect(outcome.results.results?.count == 5)
+        #expect(outcome.results.results.count == 5)
     }
 
     @Test
     func fullTextFailureWithoutPrefixResultsIsAFullTextFailure() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseDataQueue = [try fixtureData(named: "NoSearchResultsWithSuggestion"), Data("not json".utf8)]
+        harness.service.responseDataQueue = [try fixtureData(named: "ArticleSearchEmpty"), Data("not json".utf8)]
         let loader = SearchResultsLoader(fetcher: harness.fetcher)
 
         await #expect(performing: {
@@ -93,7 +106,7 @@ struct SearchResultsLoaderTests {
     func prefixFailureIsAPrefixFailure() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
-        harness.httpClient.responseData = Data("not json".utf8)
+        harness.service.responseData = Data("not json".utf8)
         let loader = SearchResultsLoader(fetcher: harness.fetcher)
 
         await #expect(performing: {
@@ -102,7 +115,7 @@ struct SearchResultsLoaderTests {
             guard case SearchResultsLoader.Failure.fetch(_, let type) = error else { return false }
             return type == .prefix
         })
-        #expect(!harness.httpClient.capturedRequests.containsFullTextSearchRequest)
+        #expect(!harness.service.capturedRequests.containsFullTextSearchRequest)
     }
 
     private var siteURL: URL {
@@ -145,11 +158,12 @@ struct SearchResultsLoaderTests {
         #expect(fetcher.cancelAllFetchesCount == 1)
     }
 
-    private func makeHarness() -> (fetcher: WMFSearchFetcher, httpClient: SearchHTTPClient) {
-        let httpClient = SearchHTTPClient()
-        let session = Session(configuration: .current, httpClientProvider: SearchHTTPClientProvider(httpClient: httpClient))
-        let fetcher = WMFSearchFetcher(session: session, configuration: .current)
-        return (fetcher, httpClient)
+    /// The fetcher now reads from a WMFData data controller, so the test injects a service
+    /// instead of an HTTP client.
+    private func makeHarness() -> (fetcher: WMFSearchFetcher, service: SearchFixtureService) {
+        let service = SearchFixtureService()
+        let fetcher = WMFSearchFetcher(dataController: WMFArticleSearchDataController(basicService: service))
+        return (fetcher, service)
     }
 
     private func fixtureData(named name: String, limitedTo pageLimit: Int? = nil) throws -> Data {
@@ -157,8 +171,8 @@ struct SearchResultsLoaderTests {
         guard let pageLimit else { return data }
         var json = try #require(try JSONSerialization.jsonObject(with: data) as? [String: Any])
         var query = try #require(json["query"] as? [String: Any])
-        let pages = try #require(query["pages"] as? [String: Any])
-        query["pages"] = Dictionary(uniqueKeysWithValues: pages.sorted { $0.key < $1.key }.prefix(pageLimit).map { ($0.key, $0.value) })
+        let pages = try #require(query["pages"] as? [[String: Any]])
+        query["pages"] = Array(pages.prefix(pageLimit))
         json["query"] = query
         return try JSONSerialization.data(withJSONObject: json)
     }
@@ -173,7 +187,7 @@ private final class GatedSearchFetcher: WMFSearchFetcher {
     private(set) var requestCount = 0
     private(set) var cancelAllFetchesCount = 0
 
-    override func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, failure: @escaping WMFErrorHandler, success: @escaping WMFSearchResultsHandler) {
+    override func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
         lock.lock()
         requestCount += 1
         pendingFailures.append(failure)

@@ -223,6 +223,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(generateDiscoverReadingListIfNeeded),
+                                               name: WMFNSNotification.coreDataStoreSetup,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(userWasLoggedIn(_:)),
                                                name: WMFAuthenticationManager.didLogInNotification,
                                                object: nil)
@@ -476,7 +481,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
-        savedTabBadgeController?.refreshDiscoverAnnouncement()
+        savedTabBadgeController?.refreshDiscover()
+        generateDiscoverReadingListIfNeeded()
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()
@@ -1112,7 +1118,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             resumeAndAnnouncementsCompleteGroup.enter()
-            dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true) {
+            dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true) {
                 resumeAndAnnouncementsCompleteGroup.leave()
             }
         }
@@ -1234,7 +1240,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
         var timeInterval: TimeInterval = 2 * 60 * 60
-        let key = WMFFeedDayResponse.wmfFeedDayResponseMaxAgeKey()
+        let key = WMFFeedDayResponse.maxAgeKey()
         if let value = dataStore.viewContext.wmf_numberValue(forKey: key) {
             timeInterval = value.doubleValue
         }
@@ -2190,10 +2196,15 @@ extension WMFAppViewController {
     }
 
     func showImportedReadingList(_ readingList: ReadingList) {
+        showReadingList(readingList, fromImport: true)
+    }
+
+    /// Closes any modal, then opens the reading list on top of the Saved tab root.
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
         dismissPresentedViewControllers()
         selectedIndex = WMFAppTabType.saved.rawValue
         currentTabNavigationController?.popToRootViewController(animated: false)
-        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: true, theme: theme)
+        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
         currentTabNavigationController?.pushViewController(detailVC, animated: true)
     }
 
@@ -2297,7 +2308,7 @@ extension WMFAppViewController {
             UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)
@@ -2311,7 +2322,7 @@ extension WMFAppViewController {
             self.homeCoordinator?.homeViewController?.updateProfileButton()
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)

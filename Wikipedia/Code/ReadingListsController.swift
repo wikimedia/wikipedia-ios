@@ -221,10 +221,10 @@ public typealias ReadingListsController = WMFReadingListsController
         return list
     }
     
-    func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
+    public func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
         let name = name.precomposedStringWithCanonicalMapping
         let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingOrDefaultListRequest.predicate = NSPredicate(format: "(canonicalName MATCHES %@ OR isDefault == YES) AND isDeletedLocally == NO", name)
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "(canonicalName == %@ OR isDefault == YES) AND isDeletedLocally == NO", name)
         existingOrDefaultListRequest.fetchLimit = 2
         let lists = try moc.fetch(existingOrDefaultListRequest)
         return lists.first(where: { $0.name == name }) != nil

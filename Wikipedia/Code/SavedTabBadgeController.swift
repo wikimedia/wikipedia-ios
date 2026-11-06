@@ -4,30 +4,32 @@ import WMF
 import WMFComponents
 import WMFData
 
-/// What the badge needs to know about the Discover announcement. `WMFDiscoverDataController` is the
-/// production source; tests pass a stub.
-protocol SavedTabDiscoverAnnouncementProviding {
+/// What the badge needs to know about Discover. `WMFDiscoverDataController` is the production
+/// source; tests pass a stub.
+protocol SavedTabDiscoverProviding {
     var isEnabled: Bool { get }
     var shouldShowAnnouncement: Bool { get }
+    var shouldShowUnseenListBadge: Bool { get }
     func assignExperimentBucketIfNeeded() throws
 }
 
-extension WMFDiscoverDataController: SavedTabDiscoverAnnouncementProviding {
+extension WMFDiscoverDataController: SavedTabDiscoverProviding {
     func assignExperimentBucketIfNeeded() throws {
         try assignExperimentIfNeeded()
     }
 }
 
 /// The one owner of the Saved tab badge. Two states compete for the single badge slot: the
-/// star that shows while saved articles download, and the dot that announces Discover until the
-/// reader answers the onboarding card. The star wins while a download runs, because it is temporary.
+/// star that shows while saved articles download, and the Discover dot. The dot announces Discover
+/// until the reader answers the onboarding card, and later marks a Discover list the reader has
+/// not opened yet. The star wins while a download runs, because it is temporary.
 @MainActor
 final class SavedTabBadgeController {
 
     enum Badge: Equatable {
         case none
         case syncInProgress
-        case discoverAnnouncement
+        case discover
 
         func value(for userInterfaceIdiom: UIUserInterfaceIdiom) -> String? {
             switch self {
@@ -35,7 +37,7 @@ final class SavedTabBadgeController {
                 return nil
             case .syncInProgress:
                 return "\u{2605}"
-            case .discoverAnnouncement:
+            case .discover:
                 return userInterfaceIdiom == .pad ? "\u{2800}" : "\u{25CF}"
             }
         }
@@ -47,17 +49,17 @@ final class SavedTabBadgeController {
     private weak var tabBar: UITabBar?
     private let userInterfaceIdiom: UIUserInterfaceIdiom
     private var theme: Theme
-    private let discoverDataController: SavedTabDiscoverAnnouncementProviding
+    private let discoverDataController: SavedTabDiscoverProviding
 
     private var isSyncInProgress = false
-    private var showsDiscoverAnnouncement = false
+    private var showsDiscoverDot = false
 
     private var progressObjectWasSetObservation: NSKeyValueObservation?
     private var progressObservation: NSKeyValueObservation?
     private var showStarTask: Task<Void, Never>?
     private var discoverObservation: AnyCancellable?
 
-    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, discoverDataController: SavedTabDiscoverAnnouncementProviding = WMFDiscoverDataController.shared) {
+    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, discoverDataController: SavedTabDiscoverProviding = WMFDiscoverDataController.shared) {
         self.tabBarItem = tabBarItem
         self.tabBar = tabBar
         self.userInterfaceIdiom = userInterfaceIdiom
@@ -65,33 +67,34 @@ final class SavedTabBadgeController {
         self.discoverDataController = discoverDataController
         beginProgressObservations()
         discoverObservation = NotificationCenter.default.publisher(for: WMFNSNotification.discoverAnnouncementStateDidChange)
+            .merge(with: NotificationCenter.default.publisher(for: WMFNSNotification.discoverListStateDidChange))
             .sink { [weak self] _ in
                 Task { @MainActor [weak self] in
-                    self?.refreshDiscoverAnnouncement()
+                    self?.refreshDiscover()
                 }
             }
-        refreshDiscoverAnnouncement()
+        refreshDiscover()
     }
 
     deinit {
         showStarTask?.cancel()
     }
 
-    static func badge(isSyncInProgress: Bool, showsDiscoverAnnouncement: Bool) -> Badge {
+    static func badge(isSyncInProgress: Bool, showsDiscoverDot: Bool) -> Badge {
         if isSyncInProgress {
             return .syncInProgress
         }
-        return showsDiscoverAnnouncement ? .discoverAnnouncement : .none
+        return showsDiscoverDot ? .discover : .none
     }
 
     // MARK: - Discover
 
     /// Re-reads the Discover gates. Rolls the experiment bucket on the first call while the feature is on.
-    func refreshDiscoverAnnouncement() {
+    func refreshDiscover() {
         if discoverDataController.isEnabled {
             try? discoverDataController.assignExperimentBucketIfNeeded()
         }
-        showsDiscoverAnnouncement = discoverDataController.shouldShowAnnouncement
+        showsDiscoverDot = discoverDataController.shouldShowAnnouncement || discoverDataController.shouldShowUnseenListBadge
         render()
     }
 
@@ -167,7 +170,7 @@ final class SavedTabBadgeController {
     // MARK: - Rendering
 
     private func render(force: Bool = false) {
-        let newBadge = Self.badge(isSyncInProgress: isSyncInProgress, showsDiscoverAnnouncement: showsDiscoverAnnouncement)
+        let newBadge = Self.badge(isSyncInProgress: isSyncInProgress, showsDiscoverDot: showsDiscoverDot)
         guard force || newBadge != badge else { return }
         badge = newBadge
 
@@ -203,7 +206,7 @@ final class SavedTabBadgeController {
             return nil
         case .syncInProgress:
             return BadgeStyle(background: theme.colors.accent, textAttributes: theme.tabBarItemBadgeTextAttributes)
-        case .discoverAnnouncement:
+        case .discover:
             if userInterfaceIdiom == .pad {
                 return BadgeStyle(background: theme.colors.destructive, textAttributes: theme.tabBarItemBadgeTextAttributes)
             }

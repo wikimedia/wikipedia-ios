@@ -63,7 +63,7 @@ final class SavedCoordinator: NSObject, Coordinator {
             allArticlesViewModel: allArticlesCoordinator.viewModel,
             readingListsViewModel: readingListsCoordinator.viewModel,
             progressViewModel: progressViewModel,
-            announcementViewModel: makeDiscoverAnnouncementViewModel()
+            discoverHeaderViewModel: makeDiscoverHeaderViewModel()
         )
         viewModel.loggingDelegate = self
         viewModel.didTapProfile = { [weak self] in
@@ -94,8 +94,12 @@ final class SavedCoordinator: NSObject, Coordinator {
 
     private let discoverNoThanksToastTitle = WMFLocalizedString("discover-announcement-no-thanks-toast", value: "To set up your recommended reading list later, go to Settings.", comment: "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.")
 
-    /// The card decides for itself whether it shows, and rechecks every time Saved appears, so a
+    /// Each card decides for itself whether it shows, and rechecks every time Saved appears, so a
     /// developer setting flipped while the app runs takes effect without a relaunch.
+    private func makeDiscoverHeaderViewModel() -> WMFSavedDiscoverHeaderViewModel {
+        WMFSavedDiscoverHeaderViewModel(announcementViewModel: makeDiscoverAnnouncementViewModel(), entryCardViewModel: makeDiscoverEntryCardViewModel())
+    }
+
     private func makeDiscoverAnnouncementViewModel() -> WMFDiscoverAnnouncementViewModel {
         let viewModel = WMFDiscoverAnnouncementViewModel()
         viewModel.loggingDelegate = self
@@ -109,13 +113,31 @@ final class SavedCoordinator: NSObject, Coordinator {
         return viewModel
     }
 
-    /// The coordinator outlives the tap: it loads the sources before the push and answers the
-    /// setup screen's callbacks.
+    private func makeDiscoverEntryCardViewModel() -> WMFDiscoverEntryCardViewModel {
+        let viewModel = WMFDiscoverEntryCardViewModel()
+        viewModel.loggingDelegate = self
+        viewModel.usernameProvider = { [dataStore] in
+            dataStore.authenticationManager.authStatePermanentUsername
+        }
+        viewModel.didTap = { [weak self] in
+            self?.showDiscoverReadingList()
+        }
+        return viewModel
+    }
+
+    /// The coordinators outlive the tap: they load before the push and answer the screens' callbacks.
     private var discoverSetupCoordinator: DiscoverSetupCoordinator?
+    private var discoverReadingListCoordinator: DiscoverReadingListCoordinator?
 
     private func showDiscoverSetup() {
         let coordinator = DiscoverSetupCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
         discoverSetupCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private func showDiscoverReadingList() {
+        let coordinator = DiscoverReadingListCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        discoverReadingListCoordinator = coordinator
         coordinator.start()
     }
 
@@ -216,6 +238,14 @@ extension SavedCoordinator: WMFDiscoverAnnouncementLoggingDelegate {
     func discoverAnnouncementDidAppear() {}
     func discoverAnnouncementDidTapGetStarted() {}
     func discoverAnnouncementDidTapNoThanks() {}
+}
+
+// MARK: - WMFDiscoverEntryCardLoggingDelegate
+
+extension SavedCoordinator: WMFDiscoverEntryCardLoggingDelegate {
+    // Instrumentation lands with T440585.
+    func discoverEntryCardDidAppear() {}
+    func discoverEntryCardDidTap() {}
 }
 
 // MARK: - YearInReviewBadgeDelegate

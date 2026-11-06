@@ -52,35 +52,60 @@ final class WMFSavedViewModelTests: XCTestCase {
         }
     }
 
-    // MARK: - Discover announcement
+    // MARK: - Discover header
 
-    func testTheAnnouncementIsSharedByBothSegmentsAndHidesOnBoth() async {
+    private func makeDiscoverEnvironment() async throws {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
         await fixture.resetWMFDataTestState()
         WMFDeveloperSettingsDataController.shared.enableDiscover = true
         WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
-        let announcementViewModel = WMFDiscoverAnnouncementViewModel()
+    }
+
+    private func makeViewModel(discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel) -> WMFSavedViewModel {
         let dataController = WMFLegacyReadingListsDataController(delegate: delegate, userDefaultsStore: WMFMockKeyValueStore())
         let allArticlesViewModel = WMFSavedAllArticlesViewModel(dataController: dataController)
         let readingListsViewModel = WMFReadingListsViewModel(dataController: dataController)
-        let viewModel = WMFSavedViewModel(allArticlesViewModel: allArticlesViewModel, readingListsViewModel: readingListsViewModel, progressViewModel: WMFSavedProgressViewModel(), announcementViewModel: announcementViewModel)
+        return WMFSavedViewModel(allArticlesViewModel: allArticlesViewModel, readingListsViewModel: readingListsViewModel, progressViewModel: WMFSavedProgressViewModel(), discoverHeaderViewModel: discoverHeaderViewModel)
+    }
 
-        XCTAssertTrue(viewModel.announcementViewModel === announcementViewModel)
-        XCTAssertTrue(allArticlesViewModel.isAnnouncementVisible)
-        XCTAssertTrue(readingListsViewModel.isAnnouncementVisible)
+    func testTheAnnouncementIsSharedByBothSegmentsAndHidesOnBoth() async throws {
+        try await makeDiscoverEnvironment()
+        let announcementViewModel = WMFDiscoverAnnouncementViewModel()
+        let entryCardViewModel = WMFDiscoverEntryCardViewModel()
+        await entryCardViewModel.refreshTask?.value
+        let discoverHeaderViewModel = WMFSavedDiscoverHeaderViewModel(announcementViewModel: announcementViewModel, entryCardViewModel: entryCardViewModel)
+        let viewModel = makeViewModel(discoverHeaderViewModel: discoverHeaderViewModel)
+
+        XCTAssertTrue(viewModel.discoverHeaderViewModel === discoverHeaderViewModel)
+        XCTAssertEqual(viewModel.allArticlesViewModel.discoverHeader, .announcement)
+        XCTAssertEqual(viewModel.readingListsViewModel.discoverHeader, .announcement)
 
         announcementViewModel.tapNoThanks()
 
-        XCTAssertFalse(allArticlesViewModel.isAnnouncementVisible)
-        XCTAssertFalse(readingListsViewModel.isAnnouncementVisible)
+        XCTAssertNil(viewModel.allArticlesViewModel.discoverHeader)
+        XCTAssertNil(viewModel.readingListsViewModel.discoverHeader)
     }
 
-    func testWithoutAnAnnouncementTheSegmentsShowNoCard() async {
+    func testTheEntryCardReplacesTheAnnouncementOnBothSegments() async throws {
+        try await makeDiscoverEnvironment()
+        try await WMFDiscoverReadingListDataController.shared.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests))
+        let announcementViewModel = WMFDiscoverAnnouncementViewModel()
+        let entryCardViewModel = WMFDiscoverEntryCardViewModel()
+        await entryCardViewModel.refreshTask?.value
+        let discoverHeaderViewModel = WMFSavedDiscoverHeaderViewModel(announcementViewModel: announcementViewModel, entryCardViewModel: entryCardViewModel)
+        let viewModel = makeViewModel(discoverHeaderViewModel: discoverHeaderViewModel)
+
+        XCTAssertEqual(viewModel.allArticlesViewModel.discoverHeader, .entryCard)
+        XCTAssertEqual(viewModel.readingListsViewModel.discoverHeader, .entryCard)
+    }
+
+    func testWithoutADiscoverHeaderTheSegmentsShowNoCard() async {
         let viewModel = await makeViewModel()
-        XCTAssertNil(viewModel.announcementViewModel)
-        XCTAssertFalse(viewModel.allArticlesViewModel.isAnnouncementVisible)
-        XCTAssertFalse(viewModel.readingListsViewModel.isAnnouncementVisible)
+        XCTAssertNil(viewModel.discoverHeaderViewModel)
+        XCTAssertNil(viewModel.allArticlesViewModel.discoverHeader)
+        XCTAssertNil(viewModel.readingListsViewModel.discoverHeader)
     }
 
     // MARK: - Segments
