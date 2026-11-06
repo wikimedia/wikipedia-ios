@@ -59,8 +59,10 @@ public actor WMFDiscoverInterestsDataController {
         }
     }
 
-    /// Replaces the stored set. The Discover list compares the set with the one it was built from
-    /// on its next generation check, so a changed set regenerates the list.
+    /// Replaces the stored set. A page that names an article already in the list, in any spacing of
+    /// the title, is left out, because one `CDPage` can hold one interest only.
+    /// The Discover list compares the set with the one it was built from on its next generation
+    /// check, so a changed set regenerates the list.
     public func save(_ newInterests: WMFDiscoverInterests) async throws {
         let coreDataStore = try requireCoreDataStore()
         let context = try coreDataStore.newBackgroundContext
@@ -69,8 +71,10 @@ public actor WMFDiscoverInterestsDataController {
         try await context.perform {
             try Self.deleteRows(predicate: nil, coreDataStore: coreDataStore, in: context)
             try Self.insertTopics(newInterests.topics, coreDataStore: coreDataStore, in: context)
-            for (index, page) in newInterests.pages.enumerated() {
-                try Self.insertPage(page, sortIndex: Int32(index), coreDataStore: coreDataStore, in: context)
+            var insertedPages: [WMFDiscoverInterests.Page] = []
+            for page in newInterests.pages where !insertedPages.contains(where: { $0.matches(page) }) {
+                try Self.insertPage(page, sortIndex: Int32(insertedPages.count), coreDataStore: coreDataStore, in: context)
+                insertedPages.append(page)
             }
             try coreDataStore.saveIfNeeded(moc: context)
         }

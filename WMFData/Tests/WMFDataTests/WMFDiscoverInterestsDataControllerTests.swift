@@ -104,6 +104,23 @@ final class WMFDiscoverInterestsDataControllerTests {
     }
 
     @Test
+    func savingTheSamePageTwiceKeepsOneRow() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(coreDataStore)
+            let controller = WMFDiscoverInterestsDataController()
+
+            try await controller.save(WMFDiscoverInterests(topics: [], pages: [page("Foo bar"), page("Foo_bar"), page("Cat")]))
+
+            let context = try store.newBackgroundContext
+            let rowCount = try await context.perform {
+                try store.fetch(entityType: CDDiscoverInterest.self, predicate: nil, fetchLimit: nil, in: context)?.count ?? 0
+            }
+            #expect(try await controller.fetchInterests().pages == [page("Foo bar"), page("Cat")])
+            #expect(rowCount == 2, "no row is left without a page")
+        }
+    }
+
+    @Test
     func interestsAreKeptApartFromTheForYouInterests() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let forYouInterests = try WMFPageInterestDataController()
