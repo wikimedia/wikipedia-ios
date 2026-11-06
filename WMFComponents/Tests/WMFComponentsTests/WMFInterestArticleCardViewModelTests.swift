@@ -62,7 +62,7 @@ struct WMFInterestArticleCardViewModelTests {
     @Test
     func idMatchesAcrossSources() {
         let fromArticle = WMFInterestArticleCardViewModel(article: makeArticle(title: "Marie Curie"), project: project)
-        let fromInterest = WMFInterestArticleCardViewModel(pageInterest: WMFPageInterest(title: "Marie_Curie", timestamp: Date()), project: project)
+        let fromInterest = WMFInterestArticleCardViewModel(title: "Marie_Curie", project: project, isSelected: true)
         #expect(fromArticle.id == fromInterest.id)
     }
 

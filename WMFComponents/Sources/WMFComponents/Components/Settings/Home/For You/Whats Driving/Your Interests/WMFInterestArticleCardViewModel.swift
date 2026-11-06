@@ -29,15 +29,17 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
         self.isSelected = isSelected
     }
 
-    init(pageInterest: WMFPageInterest, project: WMFProject) {
-        self.id = pageInterest.title.normalizedForCoreData
-        self.title = pageInterest.title
-        self.displayTitle = pageInterest.title.underscoresToSpaces
+    /// A card known only by title, like a saved interest or a suggestion from reading history.
+    /// The description and the image come from the article summary when the card shows.
+    init(title: String, project: WMFProject, isSelected: Bool) {
+        self.id = title.normalizedForCoreData
+        self.title = title
+        self.displayTitle = title.underscoresToSpaces
         self.project = project
         self.description = nil
         self.thumbnailURL = nil
         self.needsSummary = true
-        self.isSelected = true
+        self.isSelected = isSelected
     }
 
     // Used when creating a card from an article search result

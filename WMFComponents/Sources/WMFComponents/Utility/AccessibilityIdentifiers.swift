@@ -240,6 +240,7 @@ public enum AccessibilityIdentifiers {
         public static let searchCancelButton = "Interests Search Cancel Button"
         public static let searchField = "Interests Search Field"
         public static let searchResultRow = "Interests Search Result Row"
+        public static let subtitle = "Interests Subtitle"
         public static let view = "Interests View"
     }
 

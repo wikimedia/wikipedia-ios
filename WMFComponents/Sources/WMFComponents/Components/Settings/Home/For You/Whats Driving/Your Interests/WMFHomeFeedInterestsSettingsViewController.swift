@@ -5,8 +5,11 @@ import WMFNativeLocalizations
 
 public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHostingController<WMFHomeFeedInterestsSettingsView>, WMFNavigationBarConfiguring {
 
-    private let viewModel: WMFHomeFeedInterestsSettingsViewModel
+    public let viewModel: WMFHomeFeedInterestsSettingsViewModel
     private let closeButtonHandler: (() -> Void)?
+    /// Asked before Back pops the screen, by the button and by the swipe. Return false to keep
+    /// the screen, for example to show an alert first. Nil means Back always pops.
+    public var shouldPopOnBack: (() -> Bool)?
 
     public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, closeButtonHandler: (() -> Void)? = nil) {
         self.viewModel = viewModel
@@ -35,8 +38,8 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
             || isBeingDismissed
             || navigationController?.isBeingDismissed == true
 
-        guard isLeavingForGood, viewModel.hasChanges else { return }
-        NotificationCenter.default.post(name: WMFNSNotification.forYouInterestsDidChange, object: nil)
+        guard isLeavingForGood else { return }
+        viewModel.didLeave()
     }
 
     private func configureNavigationBar() {
@@ -45,6 +48,17 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
             WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close), alignment: .leading)
         }
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureBackButton()
+    }
+
+    /// The Back button pops only when `shouldPopOnBack` agrees. `backAction` replaces the button's
+    /// own action and keeps its look, so the screen before this one still names the button.
+    private func configureBackButton() {
+        guard shouldPopOnBack != nil else { return }
+        navigationItem.backAction = UIAction { [weak self] _ in
+            guard let self, self.shouldPopOnBackSwipe() else { return }
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     @objc private func close() {
@@ -54,5 +68,11 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.logImpressionIfNeeded?()
+    }
+}
+
+extension WMFHomeFeedInterestsSettingsViewController: WMFBackSwipeConfirming {
+    public func shouldPopOnBackSwipe() -> Bool {
+        shouldPopOnBack?() ?? true
     }
 }
