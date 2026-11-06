@@ -52,6 +52,31 @@ final class WMFDiscoverInterestsDataControllerTests {
         }
     }
 
+    /// Two `CDPage` rows with the same title, like a store without a uniqueness constraint can hold.
+    /// A page lookup with `fetchLimit: 1` lands on the first one, which has no interest.
+    private func insertDuplicatePages(title: String, interestOnLast: Bool) async throws {
+        let store = try #require(coreDataStore)
+        let projectID = englishProject.id
+        let context = try store.newBackgroundContext
+        try await context.perform {
+            var lastPage: CDPage?
+            for _ in 0..<2 {
+                let page = try store.create(entityType: CDPage.self, in: context)
+                page.title = title
+                page.namespaceID = 0
+                page.projectID = projectID
+                page.timestamp = Date()
+                lastPage = page
+            }
+            if interestOnLast {
+                let row = try store.create(entityType: CDDiscoverInterest.self, in: context)
+                row.sortIndex = 0
+                row.page = lastPage
+            }
+            try store.saveIfNeeded(moc: context)
+        }
+    }
+
     // MARK: - Storage
 
     @Test
@@ -75,6 +100,23 @@ final class WMFDiscoverInterestsDataControllerTests {
             let fetched = try await controller.fetchInterests()
             #expect(fetched == interests)
             #expect(fetched.count == 4)
+        }
+    }
+
+    @Test
+    func savingTheSamePageTwiceKeepsOneRow() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(coreDataStore)
+            let controller = WMFDiscoverInterestsDataController()
+
+            try await controller.save(WMFDiscoverInterests(topics: [], pages: [page("Foo bar"), page("Foo_bar"), page("Cat")]))
+
+            let context = try store.newBackgroundContext
+            let rowCount = try await context.perform {
+                try store.fetch(entityType: CDDiscoverInterest.self, predicate: nil, fetchLimit: nil, in: context)?.count ?? 0
+            }
+            #expect(try await controller.fetchInterests().pages == [page("Foo bar"), page("Cat")])
+            #expect(rowCount == 2, "no row is left without a page")
         }
     }
 
@@ -180,6 +222,68 @@ final class WMFDiscoverInterestsDataControllerTests {
     }
 
     @Test
+    func overlappingAddsOfOnePageKeepOneEntry() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = WMFDiscoverInterestsDataController()
+            let project = englishProject
+
+            try await withThrowingTaskGroup(of: Void.self) { group in
+                for _ in 0..<8 {
+                    group.addTask { try await controller.addPage(title: "Cat", project: project) }
+                }
+                try await group.waitForAll()
+            }
+
+            #expect(try await controller.fetchInterests().pages == [page("Cat")])
+        }
+    }
+
+    @Test
+    func overlappingAddsOfDifferentPagesGetDistinctSortIndexes() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(coreDataStore)
+            let controller = WMFDiscoverInterestsDataController()
+            let project = englishProject
+            let titles = (0..<8).map { "Page \($0)" }
+
+            try await withThrowingTaskGroup(of: Void.self) { group in
+                for title in titles {
+                    group.addTask { try await controller.addPage(title: title, project: project) }
+                }
+                try await group.waitForAll()
+            }
+
+            let context = try store.newBackgroundContext
+            let sortIndexes = try await context.perform {
+                (try store.fetch(entityType: CDDiscoverInterest.self, predicate: nil, fetchLimit: nil, in: context) ?? []).map(\.sortIndex)
+            }
+            #expect(Set(try await controller.fetchInterests().pages.map(\.title)) == Set(titles))
+            #expect(Set(sortIndexes).count == titles.count, "\(sortIndexes)")
+        }
+    }
+
+    @Test
+    func aDuplicatePageWithoutAnInterestDoesNotHideTheSelection() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(coreDataStore)
+            let controller = WMFDiscoverInterestsDataController()
+            try await insertDuplicatePages(title: "Cat", interestOnLast: true)
+
+            try await controller.addPage(title: "Cat", project: englishProject)
+            #expect(try await controller.fetchInterests().pages == [page("Cat")], "the page is in the set, so it is not added again")
+
+            try await controller.removePage(title: "Cat", project: englishProject)
+            #expect(try await controller.fetchInterests().pages.isEmpty)
+
+            let context = try store.newBackgroundContext
+            let interestCount = try await context.perform {
+                try store.fetch(entityType: CDDiscoverInterest.self, predicate: nil, fetchLimit: nil, in: context)?.count ?? 0
+            }
+            #expect(interestCount == 0)
+        }
+    }
+
+    @Test
     func savingWithoutAStoreThrows() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDataEnvironment.current.coreDataStore = nil
@@ -257,6 +361,40 @@ final class WMFDiscoverInterestsDataControllerTests {
             let suggestions = try await WMFDiscoverInterestsDataController().suggestedPages()
 
             #expect(Set(suggestions) == [page("Cat"), page("Gato", project: spanishProject)])
+        }
+    }
+
+    @Test
+    func suggestionsOrderHistoryByRecencyAcrossLanguages() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let now = Date()
+            try await addPageView("Old English read", timestamp: now.addingTimeInterval(-86_400))
+            try await addPageView("Older English read", timestamp: now.addingTimeInterval(-172_800))
+            try await addPageView("Fresh Spanish read", project: spanishProject, timestamp: now)
+
+            let controller = WMFDiscoverInterestsDataController()
+            let limited = try await controller.suggestedPages(limit: 1)
+            let all = try await controller.suggestedPages()
+
+            #expect(limited == [page("Fresh Spanish read", project: spanishProject)])
+            #expect(all.map(\.title) == ["Fresh Spanish read", "Old English read", "Older English read"])
+        }
+    }
+
+    @Test
+    func suggestionsStillFillTheLimitWhenTheNewestPagesAreInTheSet() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let now = Date()
+            for index in 0..<6 {
+                try await addPageView("Read \(index)", timestamp: now.addingTimeInterval(TimeInterval(-index)))
+            }
+            let controller = WMFDiscoverInterestsDataController()
+            try await controller.addPage(title: "Read 0", project: englishProject)
+            try await controller.addPage(title: "Read 1", project: englishProject)
+
+            let suggestions = try await controller.suggestedPages(limit: 3)
+
+            #expect(suggestions.map(\.title) == ["Read 2", "Read 3", "Read 4"])
         }
     }
 

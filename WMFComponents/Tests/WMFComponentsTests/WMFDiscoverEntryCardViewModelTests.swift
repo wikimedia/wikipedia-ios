@@ -79,9 +79,25 @@ final class WMFDiscoverEntryCardViewModelTests {
     }
 
     /// Waits until the publisher sends a value that matches. The filter is in Combine because
-    /// `values` drops the values that arrive while the loop body runs.
-    private func waitUntil<StatePublisher: Publisher>(_ publisher: StatePublisher, matches isMatch: @escaping (StatePublisher.Output) -> Bool) async where StatePublisher.Failure == Never {
-        for await _ in publisher.first(where: isMatch).values {}
+    /// `values` drops the values that arrive while the loop body runs. When the deadline comes
+    /// first, the wait records an issue and returns, thus a stuck reload fails the test and not the suite.
+    private func waitUntil<StatePublisher: Publisher>(_ publisher: StatePublisher, within timeout: Duration = .seconds(10), sourceLocation: SourceLocation = #_sourceLocation, matches isMatch: @escaping (StatePublisher.Output) -> Bool) async where StatePublisher.Failure == Never {
+        let didMatch = await withTaskGroup(of: Bool.self) { group in
+            group.addTask { @MainActor in
+                for await _ in publisher.first(where: isMatch).values {}
+                return true
+            }
+            group.addTask {
+                try? await Task.sleep(for: timeout)
+                return false
+            }
+            let didMatch = await group.next() ?? false
+            group.cancelAll()
+            return didMatch
+        }
+        if !didMatch {
+            Issue.record("The state did not match within \(timeout).", sourceLocation: sourceLocation)
+        }
     }
 
     /// Returns once the card's generating state has the given value and the re-read that set it ended.

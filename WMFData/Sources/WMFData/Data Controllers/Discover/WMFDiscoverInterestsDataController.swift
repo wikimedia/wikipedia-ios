@@ -6,8 +6,8 @@ import CoreData
 ///
 /// Each interest is one `CDDiscoverInterest` row: a topic row holds the topic raw value, a page
 /// row points at its `CDPage`. The For You interests live in `CDPageInterest`, so a change on
-/// one screen never shows on the other. A saved change asks the reading list for a new generation,
-/// like `Prefs.resetRecommendedReadingList` on Android.
+/// one screen never shows on the other. The Discover list compares the stored set with the one it
+/// was built from on its next generation check, so a changed set regenerates the list.
 public actor WMFDiscoverInterestsDataController {
 
     public static let shared = WMFDiscoverInterestsDataController()
@@ -40,6 +40,24 @@ public actor WMFDiscoverInterestsDataController {
         return coreDataStore
     }
 
+    private var cachedWriterContext: NSManagedObjectContext?
+    private weak var cachedWriterContextStore: WMFCoreDataStore?
+
+    /// One context for every write. The actor is free while a block runs, so two writes can be
+    /// in flight at once. The context runs its blocks one after the other, thus the read, change and
+    /// save of one write never overlap another one, and every write has the same merge policy.
+    private func writerContext(for coreDataStore: WMFCoreDataStore) throws -> NSManagedObjectContext {
+        if let cachedWriterContext, cachedWriterContextStore === coreDataStore {
+            return cachedWriterContext
+        }
+        let context = try coreDataStore.newBackgroundContext
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        context.automaticallyMergesChangesFromParent = true
+        cachedWriterContext = context
+        cachedWriterContextStore = coreDataStore
+        return context
+    }
+
     // MARK: - Interests
 
     /// Topics and pages in the order the reader selected them.
@@ -59,18 +77,21 @@ public actor WMFDiscoverInterestsDataController {
         }
     }
 
-    /// Replaces the stored set. The Discover list compares the set with the one it was built from
-    /// on its next generation check, so a changed set regenerates the list.
+    /// Replaces the stored set. A page that names an article already in the list, in any spacing of
+    /// the title, is left out, because one `CDPage` can hold one interest only.
+    /// The Discover list compares the set with the one it was built from on its next generation
+    /// check, so a changed set regenerates the list.
     public func save(_ newInterests: WMFDiscoverInterests) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
-        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             try Self.deleteRows(predicate: nil, coreDataStore: coreDataStore, in: context)
             try Self.insertTopics(newInterests.topics, coreDataStore: coreDataStore, in: context)
-            for (index, page) in newInterests.pages.enumerated() {
-                try Self.insertPage(page, sortIndex: Int32(index), coreDataStore: coreDataStore, in: context)
+            var insertedPages: [WMFDiscoverInterests.Page] = []
+            for page in newInterests.pages where !insertedPages.contains(where: { $0.matches(page) }) {
+                try Self.insertPage(page, sortIndex: Int32(insertedPages.count), coreDataStore: coreDataStore, in: context)
+                insertedPages.append(page)
             }
             try coreDataStore.saveIfNeeded(moc: context)
         }
@@ -78,7 +99,7 @@ public actor WMFDiscoverInterestsDataController {
 
     public func setTopics(_ topics: [WMFArticleTopic]) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             try Self.deleteRows(predicate: NSPredicate(format: "topic != nil"), coreDataStore: coreDataStore, in: context)
@@ -90,16 +111,14 @@ public actor WMFDiscoverInterestsDataController {
     /// Adds an article once. A page already in the set, in any spacing of the title, is left as it is.
     public func addPage(title: String, project: WMFProject) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
-        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
-            let pageRows = try Self.fetchRows(predicate: NSPredicate(format: "page != nil"), coreDataStore: coreDataStore, in: context)
-            if let existingPage = try Self.fetchPage(title: title, project: project, coreDataStore: coreDataStore, in: context), existingPage.discoverInterest != nil {
+            if try Self.fetchPageRow(title: title, project: project, coreDataStore: coreDataStore, in: context) != nil {
                 return
             }
 
-            let nextSortIndex = (pageRows.map(\.sortIndex).max() ?? -1) + 1
+            let nextSortIndex = try Self.highestPageSortIndex(coreDataStore: coreDataStore, in: context) + 1
             try Self.insertPage(WMFDiscoverInterests.Page(title: title, project: project), sortIndex: nextSortIndex, coreDataStore: coreDataStore, in: context)
             try coreDataStore.saveIfNeeded(moc: context)
         }
@@ -107,21 +126,20 @@ public actor WMFDiscoverInterestsDataController {
 
     public func removePage(title: String, project: WMFProject) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
-            guard let page = try Self.fetchPage(title: title, project: project, coreDataStore: coreDataStore, in: context),
-                  let interest = page.discoverInterest else {
+            guard let row = try Self.fetchPageRow(title: title, project: project, coreDataStore: coreDataStore, in: context) else {
                 return
             }
-            context.delete(interest)
+            context.delete(row)
             try coreDataStore.saveIfNeeded(moc: context)
         }
     }
 
     public func removeAll() async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             try Self.deleteRows(predicate: nil, coreDataStore: coreDataStore, in: context)
@@ -134,6 +152,13 @@ public actor WMFDiscoverInterestsDataController {
     private static func fetchRows(predicate: NSPredicate?, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> [CDDiscoverInterest] {
         let sortDescriptors = [NSSortDescriptor(key: "sortIndex", ascending: true)]
         return try coreDataStore.fetch(entityType: CDDiscoverInterest.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: context) ?? []
+    }
+
+    /// -1 when the set has no page, so the first page gets index 0.
+    private static func highestPageSortIndex(coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> Int32 {
+        let sortDescriptors = [NSSortDescriptor(key: "sortIndex", ascending: false)]
+        let lastRow = try coreDataStore.fetch(entityType: CDDiscoverInterest.self, predicate: NSPredicate(format: "page != nil"), fetchLimit: 1, sortDescriptors: sortDescriptors, in: context)?.first
+        return lastRow?.sortIndex ?? -1
     }
 
     private static func deleteRows(predicate: NSPredicate?, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws {
@@ -168,8 +193,11 @@ public actor WMFDiscoverInterestsDataController {
         row.page = page
     }
 
-    private static func fetchPage(title: String, project: WMFProject, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> CDPage? {
-        try coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate(title: title, project: project), fetchLimit: 1, in: context)?.first
+    /// The interest row of a page, found through the row and not through the page. `CDPage` has no
+    /// uniqueness constraint, so a lookup of the page could land on a duplicate without an interest.
+    private static func fetchPageRow(title: String, project: WMFProject, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> CDDiscoverInterest? {
+        let predicate = NSPredicate(format: "page.projectID == %@ && page.namespaceID == %@ && page.title == %@", argumentArray: [project.id, Int16(0), title.normalizedForCoreData])
+        return try coreDataStore.fetch(entityType: CDDiscoverInterest.self, predicate: predicate, fetchLimit: 1, in: context)?.first
     }
 
     private static func pagePredicate(title: String, project: WMFProject) -> NSPredicate {
@@ -183,10 +211,12 @@ public actor WMFDiscoverInterestsDataController {
     /// namespace are left out. Matches the pre-filled grid on Android.
     public func suggestedPages(limit: Int = maximumSuggestedPages) async throws -> [WMFDiscoverInterests.Page] {
         let coreDataStore = try requireCoreDataStore()
-
-        let historyPages = try await fetchHistoryPages(coreDataStore: coreDataStore)
-        let savedPages = try await fetchSavedPages(coreDataStore: coreDataStore)
         let currentInterests = try await fetchInterests()
+
+        // Pages already in the set are skipped, so each source is asked for that many more.
+        let fetchLimit = limit + currentInterests.pages.count
+        let historyPages = try await fetchHistoryPages(coreDataStore: coreDataStore, limit: fetchLimit)
+        let savedPages = try await fetchSavedPages(coreDataStore: coreDataStore, limit: fetchLimit)
 
         var suggestions: [WMFDiscoverInterests.Page] = []
         func append(_ page: WMFDiscoverInterests.Page) {
@@ -210,23 +240,45 @@ public actor WMFDiscoverInterestsDataController {
         return suggestions
     }
 
-    /// Reading history is stored per project, so every app language is asked for its own pages.
-    private func fetchHistoryPages(coreDataStore: WMFCoreDataStore) async throws -> [WMFDiscoverInterests.Page] {
-        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore, userDefaultsStore: userDefaultsStore)
+    /// Reading history is stored per project, so every app language is asked for its own pages, all
+    /// at the same time. The pages are then put in one list, newest first, so that a page read today
+    /// on one wiki comes before a page read last week on another.
+    private func fetchHistoryPages(coreDataStore: WMFCoreDataStore, limit: Int) async throws -> [WMFDiscoverInterests.Page] {
+        let userDefaultsStore = self.userDefaultsStore
+        let languages = WMFDataEnvironment.current.appData.appLanguages
 
-        var pages: [WMFDiscoverInterests.Page] = []
-        for language in WMFDataEnvironment.current.appData.appLanguages {
-            let project = WMFProject.wikipedia(language)
-            let recentlyReadPages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 0, withinDays: 365, mainNamespaceOnly: true)
-            pages.append(contentsOf: recentlyReadPages.compactMap(WMFDiscoverInterests.Page.init(page:)))
+        let pagesByLanguage = try await withThrowingTaskGroup(of: (languageIndex: Int, pages: [WMFPageWithTimestamp]).self) { group in
+            for (languageIndex, language) in languages.enumerated() {
+                group.addTask {
+                    let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore, userDefaultsStore: userDefaultsStore)
+                    let pages = try await pageViewsDataController.fetchRecentlyReadPagesWithTimestamps(project: .wikipedia(language), minimumSeconds: 0, withinDays: 365, mainNamespaceOnly: true, limit: limit)
+                    return (languageIndex, pages)
+                }
+            }
+
+            var pagesByLanguage = [[WMFPageWithTimestamp]](repeating: [], count: languages.count)
+            for try await result in group {
+                pagesByLanguage[result.languageIndex] = result.pages
+            }
+            return pagesByLanguage
         }
 
-        return pages
+        let rankedPages = pagesByLanguage.enumerated().flatMap { languageIndex, pages in
+            pages.enumerated().map { position, page in (languageIndex: languageIndex, position: position, page: page) }
+        }
+        let newestFirst = rankedPages.sorted { first, second in
+            if first.page.timestamp != second.page.timestamp {
+                return first.page.timestamp > second.page.timestamp
+            }
+            return (first.languageIndex, first.position) < (second.languageIndex, second.position)
+        }
+
+        return Array(newestFirst.compactMap { WMFDiscoverInterests.Page(page: $0.page.page) }.prefix(limit))
     }
 
-    private func fetchSavedPages(coreDataStore: WMFCoreDataStore) async throws -> [WMFDiscoverInterests.Page] {
+    private func fetchSavedPages(coreDataStore: WMFCoreDataStore, limit: Int) async throws -> [WMFDiscoverInterests.Page] {
         let savedArticlesDataController = WMFSavedArticlesDataController(coreDataStore: coreDataStore)
-        let savedPages = try await savedArticlesDataController.fetchTimelinePages()
+        let savedPages = try await savedArticlesDataController.fetchTimelinePages(limit: limit)
         return savedPages.compactMap { WMFDiscoverInterests.Page(page: $0.page) }
     }
 }
