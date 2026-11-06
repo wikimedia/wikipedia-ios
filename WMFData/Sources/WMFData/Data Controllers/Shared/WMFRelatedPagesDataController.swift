@@ -107,15 +107,17 @@ public actor WMFRelatedPagesDataController {
 
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
 
-        let response: Response = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<Response, Error>) in
-                switch result {
-                case .success(let response):
-                    continuation.resume(returning: response)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
+        try Task.checkCancellation()
+        let cancellation = WMFRequestCancellation()
+        let response: Response = try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                let task = service.performCancellableDecodableGET(request: request) { (result: Result<Response, Error>) in
+                    continuation.resume(with: result)
                 }
+                cancellation.setTask(task)
             }
+        } onCancel: {
+            cancellation.cancel()
         }
 
         guard let pages = response.query?.pages else {
