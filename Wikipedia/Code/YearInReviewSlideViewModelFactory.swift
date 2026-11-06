@@ -63,7 +63,7 @@ struct YearInReviewSlideViewModelFactory {
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
             aboutInsightsButtonTitle: Self.aboutInsightsButtonTitle,
             shareFeedbackButtonTitle: CommonStrings.shareFeedbackTitle,
-            slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
+            slideAccessibilityHint: WMFLocalizedString("year-in-review-2026-slide-accessibility-hint", value: "Swipe up or down with three fingers to change the slide.", comment: "VoiceOver hint on each Year in Review slide. A one-finger swipe does not change the slide.")
         )
     }
 

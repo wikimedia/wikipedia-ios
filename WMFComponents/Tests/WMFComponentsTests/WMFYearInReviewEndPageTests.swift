@@ -31,7 +31,7 @@ struct WMFYearInReviewEndPageTests {
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
-            slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
+            slideAccessibilityHint: "Swipe up or down with three fingers to change the slide."
         )
     }
 
@@ -84,7 +84,6 @@ struct WMFYearInReviewEndPageTests {
         #expect(viewModel.isOnEnd)
         #expect(viewModel.currentPageIndex == 3)
         #expect(viewModel.currentSlideIndex == 2)
-        #expect(viewModel.slidePositionAccessibilityValue == "4 of 4")
     }
 
     // MARK: - End screen state

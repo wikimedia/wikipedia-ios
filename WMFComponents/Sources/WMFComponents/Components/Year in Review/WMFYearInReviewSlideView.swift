@@ -10,6 +10,9 @@ struct WMFYearInReviewSlideView: View {
     /// False while VoiceOver runs. The pager then shows `slide.answer` as the next slide, because a
     /// VoiceOver reader cannot tap an answer in the .riv.
     var showsAnswerInPlace: Bool = true
+    var accessibilityFocus: AccessibilityFocusState<String?>.Binding? = nil
+    var onAccessibilityScroll: (@MainActor (Edge) -> Void)? = nil
+    var accessibilityScrollHint: String = ""
     var onAnswerShown: (@MainActor () -> Void)? = nil
     var donateButtonTitle: String = ""
     var isLoadingDonate: Bool = false
@@ -130,6 +133,7 @@ struct WMFYearInReviewSlideView: View {
         )
         .opacity(isShown ? 1 : 0)
         .accessibilityHidden(!isShown)
+        .modifier(WMFYearInReviewSlideFocusModifier(focus: accessibilityFocus, id: state.id, onScroll: onAccessibilityScroll, scrollHint: accessibilityScrollHint))
     }
 
     private var placeholder: some View {
@@ -143,5 +147,27 @@ struct WMFYearInReviewSlideView: View {
         .foregroundStyle(Color(uiColor: slide.contentColor))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityHidden(true)
+    }
+}
+
+private struct WMFYearInReviewSlideFocusModifier: ViewModifier {
+
+    let focus: AccessibilityFocusState<String?>.Binding?
+    let id: String
+    let onScroll: (@MainActor (Edge) -> Void)?
+    let scrollHint: String
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if let focus, let onScroll {
+            content
+                .accessibilityFocused(focus, equals: id)
+                .accessibilityScrollAction { edge in onScroll(edge) }
+                .accessibilityHint(scrollHint)
+        } else if let focus {
+            content.accessibilityFocused(focus, equals: id)
+        } else {
+            content
+        }
     }
 }

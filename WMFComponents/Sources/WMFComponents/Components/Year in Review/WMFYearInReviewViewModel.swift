@@ -30,7 +30,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         public let learnMoreButtonTitle: String
         public let aboutInsightsButtonTitle: String
         public let shareFeedbackButtonTitle: String
-        public let slidePositionAccessibilityValue: (Int, Int) -> String
+        /// Tells a VoiceOver reader how to change the slide. A one-finger swipe does not change it.
+        public let slideAccessibilityHint: String
 
         public init(
             wIconAccessibilityLabel: String,
@@ -41,7 +42,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             learnMoreButtonTitle: String,
             aboutInsightsButtonTitle: String,
             shareFeedbackButtonTitle: String,
-            slidePositionAccessibilityValue: @escaping (Int, Int) -> String
+            slideAccessibilityHint: String
         ) {
             self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
@@ -51,7 +52,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             self.learnMoreButtonTitle = learnMoreButtonTitle
             self.aboutInsightsButtonTitle = aboutInsightsButtonTitle
             self.shareFeedbackButtonTitle = shareFeedbackButtonTitle
-            self.slidePositionAccessibilityValue = slidePositionAccessibilityValue
+            self.slideAccessibilityHint = slideAccessibilityHint
         }
     }
 
@@ -236,10 +237,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     public var isLastSlide: Bool {
         return currentSlideIndex == max(pagerSlides.count - 1, 0)
-    }
-
-    var slidePositionAccessibilityValue: String {
-        localizedStrings.slidePositionAccessibilityValue(currentPageIndex + 1, pageCount)
     }
 
     var progressBarTopInset: CGFloat {
