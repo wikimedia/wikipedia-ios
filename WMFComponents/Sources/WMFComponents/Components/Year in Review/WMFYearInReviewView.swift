@@ -42,11 +42,7 @@ public struct WMFYearInReviewView: View {
             .background(Color(uiColor: viewModel.currentChromeColor))
             .animation(.easeInOut(duration: 0.2), value: viewModel.currentSlideID)
             .onAppear {
-                viewModel.showsAnswersAsSlides = voiceOverEnabled
                 viewModel.onAppear()
-            }
-            .onChange(of: voiceOverEnabled) {
-                viewModel.showsAnswersAsSlides = voiceOverEnabled
             }
             .task(id: viewModel.currentSlideID) {
                 guard voiceOverEnabled, let slideID = viewModel.currentSlideID else { return }
@@ -141,10 +137,10 @@ public struct WMFYearInReviewView: View {
                 onLightContentFlag: { lightContent in
                     viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
                 },
-                showsAnswerInPlace: !voiceOverEnabled,
                 accessibilityFocus: $focusedSlideID,
                 onAccessibilityScroll: accessibilityScrollHandler,
                 accessibilityScrollHint: viewModel.localizedStrings.slideAccessibilityHint,
+                revealAccessibilityHint: viewModel.localizedStrings.revealAnswerAccessibilityHint,
                 onAnswerShown: {
                     viewModel.answerDidShow(slideID: slide.id)
                 },

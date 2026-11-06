@@ -30,7 +30,8 @@ struct WMFYearInReviewEndPageTests {
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
-            slideAccessibilityHint: "Swipe up or down with three fingers to change the slide."
+            slideAccessibilityHint: "Swipe up or down with three fingers to change the slide.",
+            revealAnswerAccessibilityHint: "Double tap to reveal the answer."
         )
     }
 

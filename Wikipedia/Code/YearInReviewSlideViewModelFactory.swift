@@ -62,7 +62,8 @@ struct YearInReviewSlideViewModelFactory {
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
             aboutInsightsButtonTitle: Self.aboutInsightsButtonTitle,
             shareFeedbackButtonTitle: CommonStrings.shareFeedbackTitle,
-            slideAccessibilityHint: WMFLocalizedString("year-in-review-2026-slide-accessibility-hint", value: "Swipe up or down with three fingers to change the slide.", comment: "VoiceOver hint on each Year in Review slide. A one-finger swipe does not change the slide.")
+            slideAccessibilityHint: WMFLocalizedString("year-in-review-2026-slide-accessibility-hint", value: "Swipe up or down with three fingers to change the slide.", comment: "VoiceOver hint on each Year in Review slide. A one-finger swipe does not change the slide."),
+            revealAnswerAccessibilityHint: WMFLocalizedString("year-in-review-2026-reveal-answer-accessibility-hint", value: "Double tap to reveal the answer.", comment: "VoiceOver hint on a Year in Review slide that asks the reader to guess, for example the rabbit hole slide. A double tap shows the answer.")
         )
     }
 

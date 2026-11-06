@@ -1823,6 +1823,7 @@
 "year-in-review-2026-reread-articles-empty-title" = "You're not a re-reader";
 "year-in-review-2026-reread-articles-title" = "Some articles in your rotation:";
 "year-in-review-2026-reread-articles-visit-count" = "{{PLURAL:$1|$1 visit|$1 visits}}";
+"year-in-review-2026-reveal-answer-accessibility-hint" = "Double tap to reveal the answer.";
 "year-in-review-2026-runner-up-topics-title" = "And your runners-up for 2026:";
 "year-in-review-2026-saved-articles-empty-subtitle" = "You currently have 0 articles saved. Look for the bookmark icon on an article, so you can read up on whatever... later.";
 "year-in-review-2026-saved-articles-empty-title" = "You have 0 articles saved";
