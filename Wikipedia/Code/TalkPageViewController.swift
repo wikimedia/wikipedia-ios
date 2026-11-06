@@ -1135,6 +1135,19 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
 
+        if let talkPageURL = viewModel.getTalkPageURL(encoded: false) {
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: talkPageURL)
+        }
+
+        if let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedPublishNewTopicOrInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
+
+        publishReply(text: text, commentViewModel: commentViewModel)
+    }
+
+    private func publishReply(text: String, commentViewModel: TalkPageCellCommentViewModel, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false) {
+
         var wasIP = false
         if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
             if !viewModel.authenticationManager.authStateIsTemporary {
@@ -1142,18 +1155,10 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
             }
         }
 
-        if let talkPageURL = viewModel.getTalkPageURL(encoded: false) {
-            EditAttemptFunnel.shared.logSaveAttempt(pageURL: talkPageURL)
-        }
-
         let oldCellViewModel = commentViewModel.cellViewModel
         let oldCommentViewModels = oldCellViewModel?.allCommentViewModels
 
-        if let lastViewDidAppearDate = lastViewDidAppearDate {
-            TalkPagesFunnel.shared.logTappedPublishNewTopicOrInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
-        }
-
-        viewModel.postReply(commentId: commentViewModel.commentId, comment: text) { [weak self] result in
+        viewModel.postReply(commentId: commentViewModel.commentId, comment: text, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha) { [weak self] result in
 
             guard let self else {
                 return
@@ -1194,6 +1199,16 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     }
                 }
             case .failure(let error):
+                if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error,
+                   self.shouldPresentHCaptchaChallenge(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, serverForceShowCaptcha: serverForceShowCaptcha) {
+                    self.presentHCaptchaChallenge(on: self, siteKey: siteKey, forceShowCaptcha: serverForceShowCaptcha, onSuccess: { [weak self] token in
+                        self?.publishReply(text: text, commentViewModel: commentViewModel, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
+                    }, onError: { [weak self] in
+                        self?.replyComposeController.isLoading = false
+                    })
+                    return
+                }
+
                 DDLogError("Failure publishing reply: \(error)")
                 self.replyComposeController.isLoading = false
                 if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
@@ -1223,12 +1238,62 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
         viewController.present(alert, animated: true)
     }
 
+    /// Present the challenge on the first attempt, or when the server escalates a retry to a visible challenge. Other re-challenges fall through to the generic error path, so the user does not loop.
+    fileprivate func shouldPresentHCaptchaChallenge(sentToken: String?, sentForceShowCaptcha: Bool, serverForceShowCaptcha: Bool) -> Bool {
+        if sentToken == nil {
+            return true
+        }
+        return serverForceShowCaptcha && !sentForceShowCaptcha
+    }
+
+    /// Presents an hCaptcha challenge, reporting the token via `onSuccess` (to retry) or `onError`.
+    fileprivate func presentHCaptchaChallenge(on presenter: UIViewController, siteKey: String?, forceShowCaptcha: Bool, onSuccess: @escaping (String) -> Void, onError: @escaping () -> Void) {
+        let hcaptchaVC = WMFHCaptchaViewController()
+        hcaptchaVC.theme = theme
+        let editApiKey = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha?.editApiKey
+        hcaptchaVC.siteKey = siteKey ?? (editApiKey?.isEmpty == false ? editApiKey : nil)
+        hcaptchaVC.modalTransitionStyle = .crossDissolve
+        hcaptchaVC.modalPresentationStyle = .overFullScreen
+
+        hcaptchaVC.successAction = { [weak hcaptchaVC] token in
+            guard let hcaptchaVC else { return }
+            hcaptchaVC.dismiss(animated: true) {
+                onSuccess(token)
+            }
+        }
+
+        hcaptchaVC.errorAction = { [weak hcaptchaVC] error in
+            guard let hcaptchaVC else { return }
+            hcaptchaVC.dismiss(animated: true) {
+                if case WMFHCaptchaViewController.CustomError.hCaptchaClosed = error {
+                    onError()
+                    return
+                }
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true)
+                onError()
+            }
+        }
+
+        presenter.present(hcaptchaVC, animated: true) {
+            hcaptchaVC.validate()
+        }
+    }
+
 }
 
 // MARK: Extensions
 
 extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
+
+        if let lastViewDidAppearDate = lastViewDidAppearDate {
+            TalkPagesFunnel.shared.logTappedPublishNewTopicOrInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
+        }
+
+        publishTopic(topicTitle: topicTitle, topicBody: topicBody, composeViewController: composeViewController)
+    }
+
+    private func publishTopic(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false) {
 
         var wasIP = false
         if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
@@ -1237,11 +1302,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
             }
         }
 
-        if let lastViewDidAppearDate = lastViewDidAppearDate {
-            TalkPagesFunnel.shared.logTappedPublishNewTopicOrInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
-        }
-
-        viewModel.postTopic(topicTitle: topicTitle, topicBody: topicBody) { [weak self] result in
+        viewModel.postTopic(topicTitle: topicTitle, topicBody: topicBody, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha) { [weak self] result in
 
             guard let self else { return }
 
@@ -1279,6 +1340,15 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     }
                 }
             case .failure(let error):
+                if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error,
+                   self.shouldPresentHCaptchaChallenge(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, serverForceShowCaptcha: serverForceShowCaptcha) {
+                    self.presentHCaptchaChallenge(on: composeViewController, siteKey: siteKey, forceShowCaptcha: serverForceShowCaptcha, onSuccess: { [weak self] token in
+                        self?.publishTopic(topicTitle: topicTitle, topicBody: topicBody, composeViewController: composeViewController, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
+                    }, onError: {
+                        composeViewController.setupNavigationBar(isPublishing: false)
+                    })
+                    return
+                }
 
                 DDLogError("Failure publishing topic: \(error)")
                 composeViewController.setupNavigationBar(isPublishing: false)
