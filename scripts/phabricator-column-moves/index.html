@@ -95,6 +95,10 @@
       </div>
     </div>
     <div class="row">
+      <label class="check"><input type="checkbox" id="incMilestones" checked> Include milestones of matching projects</label>
+      <label class="check"><input type="checkbox" id="onlyOpen" checked> Open (non-archived) only</label>
+    </div>
+    <div class="row">
       <button id="searchBoards" class="secondary">Search projects</button>
       <button id="selectAll" class="secondary">Select all</button>
       <button id="selectNone" class="secondary">Select none</button>
@@ -190,6 +194,10 @@
     const v = store.get(k); if (v != null) $(k).value = v;
     $(k).addEventListener('change', () => store.set(k, $(k).value));
   }
+  for (const k of ['incMilestones', 'onlyOpen']) {
+    const v = store.get(k); if (v != null) $(k).checked = v === '1';
+    $(k).addEventListener('change', () => store.set(k, $(k).checked ? '1' : '0'));
+  }
   $('apiBase').addEventListener('change', () => store.set('apiBase', $('apiBase').value));
   const savedToken = store.get('token');
   if (savedToken) { $('token').value = savedToken; $('remember').checked = true; }
@@ -247,7 +255,10 @@
 
   // ---- boards ----
   let foundBoards = [];
-  const boardName = p => p.fields.name;
+  const boardName = p => {
+    const parent = p.fields.parent && p.fields.parent.name;
+    return p.fields.milestone != null && parent && !p.fields.name.includes(parent) ? `${parent}: ${p.fields.name}` : p.fields.name;
+  };
   function renderBoards() {
     const list = $('boardList'); list.innerHTML = '';
     for (const b of foundBoards) {
@@ -275,9 +286,22 @@
     catch (e) { status('Invalid board regex: ' + e.message, true); return; }
     status('Searching projects…');
     try {
-      let res = await searchAll('project.search', { constraints: { name: q } });
-      if (!res.length) res = await searchAll('project.search', { constraints: { query: q } });
-      foundBoards = res.filter(p => !re || re.test(boardName(p)))
+      const onlyOpen = $('onlyOpen').checked;
+      const statusC = onlyOpen ? { statuses: ['active'] } : {};
+      let res = await searchAll('project.search', { constraints: { name: q, ...statusC } });
+      if (!res.length) res = await searchAll('project.search', { constraints: { query: q, ...statusC } });
+      if ($('incMilestones').checked) {
+        const parents = res.filter(p => p.fields.milestone == null).map(p => p.phid);
+        for (const c of chunk(parents, 50)) {
+          status(`Loading milestones… (${res.length} projects so far)`);
+          res.push(...await searchAll('project.search', { constraints: { milestones: c, ...statusC } }));
+        }
+      }
+      const isOpen = p => !p.fields.status || (p.fields.status.value ?? p.fields.status) !== 'archived';
+      const seen = new Set();
+      foundBoards = res.filter(p => !seen.has(p.phid) && seen.add(p.phid))
+        .filter(p => !onlyOpen || isOpen(p))
+        .filter(p => !re || re.test(boardName(p)))
         .sort((a, b) => boardName(a).localeCompare(boardName(b), undefined, { numeric: true }));
       renderBoards();
       status(`Found ${foundBoards.length} project(s).`);
