@@ -59,17 +59,28 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
             Self.generateListIfDue(with: readingListDataController)
         }
         viewModel.didTurnOff = { [weak self] in
-            self?.showTurnedOffToast()
+            self?.discoverDidTurnOff()
         }
 
         let hostingController = WMFDiscoverSettingsHostingController(viewModel: viewModel)
         navigationController.pushViewController(hostingController, animated: true)
     }
 
-    /// From Settings the reader already knows where to turn Discover back on, so the toast only shows from the Discover list.
-    private func showTurnedOffToast() {
+    /// From the Discover list, Discover off takes the list out from under the settings, so Back
+    /// lands on the Saved tab, and the toast says where to turn Discover back on. From Settings
+    /// the reader already knows where that is, and the stack stays as it is.
+    func discoverDidTurnOff() {
         guard origin == .discoverReadingList else { return }
+        removeDiscoverListUnderneath()
         WMFToastPresenter.shared.show(WMFToastConfig(title: WMFDiscoverSettingsViewModel.turnedOffToastTitle, duration: 5))
+    }
+
+    private func removeDiscoverListUnderneath() {
+        var viewControllers = navigationController.viewControllers
+        let listIndex = viewControllers.count - 2
+        guard listIndex >= 0, viewControllers[listIndex] is WMFDiscoverReadingListHostingController else { return }
+        viewControllers.remove(at: listIndex)
+        navigationController.setViewControllers(viewControllers, animated: false)
     }
 
     // MARK: - Source

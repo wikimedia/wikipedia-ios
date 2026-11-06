@@ -30,8 +30,8 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         dataStore.removeFolderAtBasePath()
     }
 
-    private func makeCoordinator(navigationController: UINavigationController) -> DiscoverSettingsCoordinator {
-        DiscoverSettingsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: .light, origin: .settings, readingListDataController: dataController)
+    private func makeCoordinator(navigationController: UINavigationController, origin: DiscoverSettingsCoordinator.Origin = .settings) -> DiscoverSettingsCoordinator {
+        DiscoverSettingsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: .light, origin: origin, readingListDataController: dataController)
     }
 
     private func saveSettings(source: WMFDiscoverSource, articleCount: Int) async throws -> WMFDiscoverSettings {
@@ -83,6 +83,42 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         DiscoverSettingsCoordinator.refreshScreen(onTopOf: navigationController, dataController: dataController)
 
         await fulfillment(of: [runPosts], timeout: 5)
+    }
+
+    // MARK: - Discover turned off
+
+    /// From Customize the Discover list is under the settings. Off, the list goes away, so Back
+    /// lands on the Saved tab.
+    func testTurnOffFromTheDiscoverListRemovesTheListUnderneath() async throws {
+        let settings = try await saveSettings(source: .saved, articleCount: 5)
+        let savedController = UIViewController()
+        let listViewModel = WMFDiscoverReadingListViewModel(username: nil, dataController: dataController)
+        let navigationController = UINavigationController(rootViewController: savedController)
+        navigationController.pushViewController(WMFDiscoverReadingListHostingController(viewModel: listViewModel), animated: false)
+        let coordinator = makeCoordinator(navigationController: navigationController, origin: .discoverReadingList)
+        let viewModel = WMFDiscoverSettingsViewModel(settings: settings, dataController: dataController)
+        coordinator.showSettings(viewModel: viewModel)
+        await waitUntil { navigationController.viewControllers.count == 3 }
+
+        viewModel.didTurnOff?()
+
+        XCTAssertEqual(navigationController.viewControllers.count, 2)
+        XCTAssertTrue(navigationController.viewControllers.first === savedController)
+        XCTAssertTrue(navigationController.topViewController is WMFDiscoverSettingsHostingController)
+    }
+
+    func testTurnOffFromSettingsKeepsTheStack() async throws {
+        let settings = try await saveSettings(source: .saved, articleCount: 5)
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        navigationController.pushViewController(UIViewController(), animated: false)
+        let coordinator = makeCoordinator(navigationController: navigationController)
+        let viewModel = WMFDiscoverSettingsViewModel(settings: settings, dataController: dataController)
+        coordinator.showSettings(viewModel: viewModel)
+        await waitUntil { navigationController.viewControllers.count == 3 }
+
+        viewModel.didTurnOff?()
+
+        XCTAssertEqual(navigationController.viewControllers.count, 3)
     }
 
     // MARK: - Back from the Discover settings
