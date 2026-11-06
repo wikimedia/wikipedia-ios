@@ -93,14 +93,15 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "end"])
     }
 
-    /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, niche interest,
-    /// then the articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
+    /// The order of T438549: total articles, visits, top topic, runners-up, biggest reading day and its
+    /// articles, rabbit holes, niche interest, then the articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
             readCount: 20,
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
+            biggestReadingDay: try biggestReadingDayData(articles: [("Moon", "Natural satellite"), ("Cat", nil)]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
             nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"),
             rereadArticles: [
@@ -111,14 +112,16 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame12", "frame13"])
+        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame8", "frame9", "frame11a", "frame12", "frame13"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func onlyListSlidesSetTheLayoutDirection(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
-        let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty"]
-        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        let listFrames: Set<String> = ["frame7", "frame9", "frame13", "frame13-empty"]
+        let slides = factory.makeSlides(experience: experience, isLoggedIn: true)
+            + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+            + factory.biggestReadingDaySlides(try biggestReadingDayData(articles: [("Moon", nil), ("Cat", nil)]))
         for slide in slides {
             let artboard = slide.animation?.artboardName ?? ""
             if listFrames.contains(artboard) {
@@ -318,6 +321,69 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.daysVisitedSlide(nil) == nil)
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 0)) == nil)
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 1, peakMonth: 3, peakMonthDayCount: 1)) == nil)
+    }
+
+    // MARK: - Biggest reading day
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func biggestReadingDayData(month: Int = 3, day: Int = 7, minuteCount: Int = 43, articles: [(title: String, description: String?)], articleCount: Int? = nil) throws -> WMFYearInReviewBiggestReadingDaySlideData {
+        let articleJSON: [[String: Any]] = articles.map { article in
+            var json: [String: Any] = ["title": article.title, "projectID": "wikipedia~en"]
+            json["description"] = article.description
+            return json
+        }
+        let json: [String: Any] = ["year": 2026, "month": month, "day": day, "minuteCount": minuteCount, "articleCount": articleCount ?? articles.count, "articles": articleJSON]
+        return try JSONDecoder().decode(WMFYearInReviewBiggestReadingDaySlideData.self, from: try JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test
+    func theBiggestReadingDaySlideShowsTheDateWithoutTheYearAndTheMinutes() throws {
+        let slides = factory.biggestReadingDaySlides(try biggestReadingDayData(month: 3, day: 7, minuteCount: 43, articles: [("Moon", nil)]))
+        let slide = try #require(slides.first)
+
+        #expect(slides.count == 1, "one article is not enough for the articles slide")
+        #expect(slide.id == "biggestReadingDay")
+        #expect(slide.loggingID == "biggest_reading_day")
+        #expect(slide.animation?.artboardName == "frame8")
+        #expect(slide.animation?.stateMachineName == "frame8-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewBiggestReadingDayTitle)
+        let date = try #require(Calendar.current.date(from: DateComponents(year: 2026, month: 3, day: 7)))
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+        let day = formatter.string(from: date)
+        #expect(text(slide, "data") == day.localizedUppercase)
+        #expect(text(slide, "data")?.contains("2026") == false)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewBiggestReadingDaySubtitle(minuteCount: 43))
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewBiggestReadingDayTitle) \(day). \(CommonStrings.yearInReviewBiggestReadingDaySubtitle(minuteCount: 43))")
+    }
+
+    @Test
+    func theArticlesSlideShowsUpToThreeArticlesWithTheirDescriptions() throws {
+        let slideData = try biggestReadingDayData(articles: [("Moon", "Natural satellite"), ("Cat", nil), ("Paris", "Capital of France")], articleCount: 7)
+        let slides = factory.biggestReadingDaySlides(slideData)
+        let slide = try #require(slides.last)
+
+        #expect(slides.count == 2)
+        #expect(slide.id == "biggestReadingDayArticles")
+        #expect(slide.loggingID == "biggest_reading_day_articles")
+        #expect(slide.animation?.artboardName == "frame9")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewArticlesReadTitle)
+        #expect(text(slide, "articleTitle1") == "Moon")
+        #expect(text(slide, "subTitle1") == "Natural satellite")
+        #expect(text(slide, "subTitle2") == "", "an article without a description clears the copy inside the .riv")
+        #expect(text(slide, "articleTitle3") == "Paris")
+        #expect(slide.numbers[WMFRiveNumber(path: "numOfListItems")] == 3)
+        #expect(Set(slide.articleThumbnails.keys.map(\.path)) == ["icon1", "icon2", "icon3"])
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewArticlesReadTitle) Moon, Natural satellite. Cat. Paris, Capital of France.")
+    }
+
+    /// Neither slide has an empty version.
+    @Test
+    func theBiggestReadingDaySlidesNeedTwoMinutesAndAtMostTheMaximum() throws {
+        #expect(factory.biggestReadingDaySlides(nil).isEmpty)
+        #expect(factory.biggestReadingDaySlides(try biggestReadingDayData(minuteCount: 1, articles: [("Moon", nil), ("Cat", nil)])).isEmpty)
+        #expect(factory.biggestReadingDaySlides(try biggestReadingDayData(minuteCount: 300_001, articles: [("Moon", nil), ("Cat", nil)])).isEmpty)
+        #expect(factory.biggestReadingDaySlides(try biggestReadingDayData(minuteCount: 300_000, articles: [("Moon", nil), ("Cat", nil)])).count == 2)
     }
 
     // MARK: - Niche interest
