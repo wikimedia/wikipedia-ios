@@ -365,6 +365,40 @@ final class WMFDiscoverInterestsDataControllerTests {
     }
 
     @Test
+    func suggestionsOrderHistoryByRecencyAcrossLanguages() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let now = Date()
+            try await addPageView("Old English read", timestamp: now.addingTimeInterval(-86_400))
+            try await addPageView("Older English read", timestamp: now.addingTimeInterval(-172_800))
+            try await addPageView("Fresh Spanish read", project: spanishProject, timestamp: now)
+
+            let controller = WMFDiscoverInterestsDataController()
+            let limited = try await controller.suggestedPages(limit: 1)
+            let all = try await controller.suggestedPages()
+
+            #expect(limited == [page("Fresh Spanish read", project: spanishProject)])
+            #expect(all.map(\.title) == ["Fresh Spanish read", "Old English read", "Older English read"])
+        }
+    }
+
+    @Test
+    func suggestionsStillFillTheLimitWhenTheNewestPagesAreInTheSet() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let now = Date()
+            for index in 0..<6 {
+                try await addPageView("Read \(index)", timestamp: now.addingTimeInterval(TimeInterval(-index)))
+            }
+            let controller = WMFDiscoverInterestsDataController()
+            try await controller.addPage(title: "Read 0", project: englishProject)
+            try await controller.addPage(title: "Read 1", project: englishProject)
+
+            let suggestions = try await controller.suggestedPages(limit: 3)
+
+            #expect(suggestions.map(\.title) == ["Read 2", "Read 3", "Read 4"])
+        }
+    }
+
+    @Test
     func suggestionsWithoutACoreDataStoreThrow() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDataEnvironment.current.coreDataStore = nil

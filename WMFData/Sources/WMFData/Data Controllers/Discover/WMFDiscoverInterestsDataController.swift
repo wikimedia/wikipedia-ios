@@ -211,10 +211,12 @@ public actor WMFDiscoverInterestsDataController {
     /// namespace are left out. Matches the pre-filled grid on Android.
     public func suggestedPages(limit: Int = maximumSuggestedPages) async throws -> [WMFDiscoverInterests.Page] {
         let coreDataStore = try requireCoreDataStore()
-
-        let historyPages = try await fetchHistoryPages(coreDataStore: coreDataStore)
-        let savedPages = try await fetchSavedPages(coreDataStore: coreDataStore)
         let currentInterests = try await fetchInterests()
+
+        // Pages already in the set are skipped, so each source is asked for that many more.
+        let fetchLimit = limit + currentInterests.pages.count
+        let historyPages = try await fetchHistoryPages(coreDataStore: coreDataStore, limit: fetchLimit)
+        let savedPages = try await fetchSavedPages(coreDataStore: coreDataStore, limit: fetchLimit)
 
         var suggestions: [WMFDiscoverInterests.Page] = []
         func append(_ page: WMFDiscoverInterests.Page) {
@@ -238,23 +240,45 @@ public actor WMFDiscoverInterestsDataController {
         return suggestions
     }
 
-    /// Reading history is stored per project, so every app language is asked for its own pages.
-    private func fetchHistoryPages(coreDataStore: WMFCoreDataStore) async throws -> [WMFDiscoverInterests.Page] {
-        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore, userDefaultsStore: userDefaultsStore)
+    /// Reading history is stored per project, so every app language is asked for its own pages, all
+    /// at the same time. The pages are then put in one list, newest first, so that a page read today
+    /// on one wiki comes before a page read last week on another.
+    private func fetchHistoryPages(coreDataStore: WMFCoreDataStore, limit: Int) async throws -> [WMFDiscoverInterests.Page] {
+        let userDefaultsStore = self.userDefaultsStore
+        let languages = WMFDataEnvironment.current.appData.appLanguages
 
-        var pages: [WMFDiscoverInterests.Page] = []
-        for language in WMFDataEnvironment.current.appData.appLanguages {
-            let project = WMFProject.wikipedia(language)
-            let recentlyReadPages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 0, withinDays: 365, mainNamespaceOnly: true)
-            pages.append(contentsOf: recentlyReadPages.compactMap(WMFDiscoverInterests.Page.init(page:)))
+        let pagesByLanguage = try await withThrowingTaskGroup(of: (languageIndex: Int, pages: [WMFPageWithTimestamp]).self) { group in
+            for (languageIndex, language) in languages.enumerated() {
+                group.addTask {
+                    let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore, userDefaultsStore: userDefaultsStore)
+                    let pages = try await pageViewsDataController.fetchRecentlyReadPagesWithTimestamps(project: .wikipedia(language), minimumSeconds: 0, withinDays: 365, mainNamespaceOnly: true, limit: limit)
+                    return (languageIndex, pages)
+                }
+            }
+
+            var pagesByLanguage = [[WMFPageWithTimestamp]](repeating: [], count: languages.count)
+            for try await result in group {
+                pagesByLanguage[result.languageIndex] = result.pages
+            }
+            return pagesByLanguage
         }
 
-        return pages
+        let rankedPages = pagesByLanguage.enumerated().flatMap { languageIndex, pages in
+            pages.enumerated().map { position, page in (languageIndex: languageIndex, position: position, page: page) }
+        }
+        let newestFirst = rankedPages.sorted { first, second in
+            if first.page.timestamp != second.page.timestamp {
+                return first.page.timestamp > second.page.timestamp
+            }
+            return (first.languageIndex, first.position) < (second.languageIndex, second.position)
+        }
+
+        return Array(newestFirst.compactMap { WMFDiscoverInterests.Page(page: $0.page.page) }.prefix(limit))
     }
 
-    private func fetchSavedPages(coreDataStore: WMFCoreDataStore) async throws -> [WMFDiscoverInterests.Page] {
+    private func fetchSavedPages(coreDataStore: WMFCoreDataStore, limit: Int) async throws -> [WMFDiscoverInterests.Page] {
         let savedArticlesDataController = WMFSavedArticlesDataController(coreDataStore: coreDataStore)
-        let savedPages = try await savedArticlesDataController.fetchTimelinePages()
+        let savedPages = try await savedArticlesDataController.fetchTimelinePages(limit: limit)
         return savedPages.compactMap { WMFDiscoverInterests.Page(page: $0.page) }
     }
 }
