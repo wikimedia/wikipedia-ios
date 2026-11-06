@@ -14,8 +14,8 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var didTapSource: (() -> Void)?
     public var didTapInterests: (() -> Void)?
     public var didTurnOff: (() -> Void)?
-    /// Called when the screen goes away: Back, or Settings closing over it. The coordinator then
-    /// commits the changes made here and on the screens under it.
+    /// Called when the screen has gone away: Back, or Settings closing over it. The saves made
+    /// here are stored by then, so the coordinator reads the settings the reader left.
     public var didLeave: (() -> Void)?
 
     private let dataController: WMFDiscoverReadingListDataController
@@ -178,6 +178,17 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
             return Self.turnOffAlertMessageWeekly
         case .monthly:
             return Self.turnOffAlertMessageMonthly
+        }
+    }
+
+    // MARK: - Leaving
+
+    /// Waits for the saves in flight, then calls `didLeave`. The task holds this view model, so
+    /// the call arrives after the screen is gone.
+    public func leave() {
+        Task {
+            await saveTask?.value
+            didLeave?()
         }
     }
 

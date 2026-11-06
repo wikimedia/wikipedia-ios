@@ -1,4 +1,5 @@
 import Foundation
+import os
 import Testing
 import WMFDataTestSupport
 @testable import WMFComponents
@@ -241,6 +242,44 @@ final class WMFDiscoverSettingsViewModelTests {
         }
     }
 
+    /// Back arrives while a save is still in flight. The coordinator must read the settings the reader left.
+    @Test
+    func leaveWaitsForTheSaveInFlight() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = GatedKeyValueStore()
+            let dataController = WMFDiscoverReadingListDataController(coreDataStore: coreDataStore, userDefaultsStore: store)
+            let settings = try await makeEnabledSettings(dataController: dataController)
+            let viewModel = WMFDiscoverSettingsViewModel(settings: settings, dataController: dataController, interestsDataController: makeInterestsDataController())
+            var leaveCount = 0
+            var didLeaveContinuation: CheckedContinuation<Void, Never>?
+            viewModel.didLeave = {
+                leaveCount += 1
+                didLeaveContinuation?.resume()
+                didLeaveContinuation = nil
+            }
+
+            store.holdNextSave()
+            viewModel.articleCountBinding.wrappedValue = 9
+            await store.waitForSaveToStart()
+            viewModel.leave()
+            await Task.yield()
+            await Task.yield()
+            #expect(leaveCount == 0, "the screen leaves after the save")
+
+            if leaveCount == 0 {
+                await withCheckedContinuation { continuation in
+                    didLeaveContinuation = continuation
+                    store.open()
+                }
+            } else {
+                store.open()
+            }
+
+            #expect(leaveCount == 1)
+            #expect(await dataController.settings.articleCount == 9)
+        }
+    }
+
     @Test
     func theRowsCallTheirClosures() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
@@ -256,5 +295,79 @@ final class WMFDiscoverSettingsViewModelTests {
             #expect(didTapSource)
             #expect(didTapInterests)
         }
+    }
+}
+
+/// A key value store that can hold one save until the test lets it through.
+private final class GatedKeyValueStore: WMFKeyValueStore, Sendable {
+
+    private struct State {
+        var holdsNextSave = false
+        var saveDidStart = false
+        var saveStartWaiter: CheckedContinuation<Void, Never>?
+    }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
+    private let values = OSAllocatedUnfairLock<[String: Data]>(initialState: [:])
+    private let gate = DispatchSemaphore(value: 0)
+
+    /// The next save waits for `open()`.
+    func holdNextSave() {
+        state.withLock {
+            $0.holdsNextSave = true
+            $0.saveDidStart = false
+        }
+    }
+
+    /// Returns when the held save has begun.
+    func waitForSaveToStart() async {
+        await withCheckedContinuation { continuation in
+            let didStart = state.withLock { state -> Bool in
+                if state.saveDidStart { return true }
+                state.saveStartWaiter = continuation
+                return false
+            }
+            if didStart {
+                continuation.resume()
+            }
+        }
+    }
+
+    func open() {
+        gate.signal()
+    }
+
+    func load<T: Codable>(key: String...) throws -> T? {
+        guard let data = values.withLock({ $0[key.joined(separator: "/")] }) else { return nil }
+        return try JSONDecoder().decode(T.self, from: data)
+    }
+
+    func save<T: Codable>(key: String..., value: T) throws {
+        let holds = state.withLock { state -> Bool in
+            guard state.holdsNextSave else { return false }
+            state.holdsNextSave = false
+            state.saveDidStart = true
+            return true
+        }
+        if holds {
+            let waiter = state.withLock { state -> CheckedContinuation<Void, Never>? in
+                let waiter = state.saveStartWaiter
+                state.saveStartWaiter = nil
+                return waiter
+            }
+            waiter?.resume()
+            // The timeout keeps a failed test from hanging the actor for good.
+            _ = gate.wait(timeout: .now() + 5)
+        }
+        let data = try JSONEncoder().encode(value)
+        values.withLock { $0[key.joined(separator: "/")] = data }
+    }
+
+    func remove(key: String...) throws {
+        values.withLock { _ = $0.removeValue(forKey: key.joined(separator: "/")) }
+    }
+
+    func keys(inDirectory directory: String) throws -> [String] {
+        values.withLock { $0.keys }.filter { $0.hasPrefix(directory + "/") }.map { String($0.dropFirst(directory.count + 1)) }
     }
 }

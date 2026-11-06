@@ -131,7 +131,7 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         coordinator.showSettings(viewModel: viewModel)
         let runPosts = expectListStatePosts(count: 2)
 
-        viewModel.didLeave?()
+        viewModel.leave()
 
         await fulfillment(of: [runPosts], timeout: 5)
     }

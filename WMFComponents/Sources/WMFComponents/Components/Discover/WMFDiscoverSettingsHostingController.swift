@@ -32,10 +32,11 @@ public final class WMFDiscoverSettingsHostingController: WMFComponentHostingCont
         }
     }
 
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    /// After the transition, so a Back swipe that the reader cancels does not count as leaving.
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         if isMovingFromParent || isBeingDismissed || navigationController?.isBeingDismissed == true {
-            viewModel.didLeave?()
+            viewModel.leave()
         }
     }
 
