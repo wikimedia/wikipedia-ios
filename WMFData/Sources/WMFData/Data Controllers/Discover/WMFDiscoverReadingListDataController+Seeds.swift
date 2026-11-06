@@ -46,6 +46,7 @@ extension WMFDiscoverReadingListDataController {
     /// the primary app language. A topic whose articles cannot be fetched adds no seeds, so the
     /// selected articles still seed the list. With topics only, a set that gives no seed at all
     /// throws `recommendationsUnavailable`, because the interests are there and the network is not.
+    /// A stopped run leaves the loop at the next topic.
     private func fetchInterestSeeds() async throws -> [Seed] {
         let interests = try await interestsDataController.fetchInterests()
         var seeds = interests.pages.map { page in
@@ -58,6 +59,7 @@ extension WMFDiscoverReadingListDataController {
 
         let project = WMFProject.wikipedia(primaryAppLanguage)
         for topic in interests.topics {
+            try Task.checkCancellation()
             let articles = (try? await homeDataController.fetchArticles(for: topic, project: project)) ?? []
             seeds.append(contentsOf: articles.map { Seed(title: $0.title.underscoresToSpaces, project: project) })
         }

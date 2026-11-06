@@ -35,6 +35,13 @@ final class WMFDiscoverReadingListGenerationRunTests {
         try await WMFDiscoverInterestsDataController().addPage(title: title, project: englishProject)
     }
 
+    /// A controller whose topic requests never answer until the run is stopped. The related pages
+    /// requests answer at once, so only the topic request can hold the run.
+    private func makeHangingTopicsController(service: WMFHangingBasicService, generationTimeout: Duration) -> WMFDiscoverReadingListDataController {
+        let homeDataController = WMFHomeDataController(basicService: service, userDefaultsStore: WMFMockKeyValueStore())
+        return WMFDiscoverReadingListDataController(relatedPagesDataController: WMFRelatedPagesDataController(basicService: WMFMockBasicService(jsonResourceName: "related-pages-get")), homeDataController: homeDataController, generationTimeout: generationTimeout)
+    }
+
     /// Counts the list state notifications posted while the returned token lives.
     private func observeListStatePosts() -> (count: OSAllocatedUnfairLock<Int>, token: NSObjectProtocol) {
         let count = OSAllocatedUnfairLock(initialState: 0)
@@ -160,6 +167,26 @@ final class WMFDiscoverReadingListGenerationRunTests {
             #expect(posts.count.withLock { $0 } == 2, "the start and the end")
             #expect(try await controller.fetchCurrentRecommendations() == previousList)
             #expect(try await controller.isGenerationDue() == true, "the next check tries again")
+        }
+    }
+
+    /// The seeds of a topic come from the Home data controller. Its request must stop with the run
+    /// too, or the run waits for the network for as long as it takes.
+    @Test(.timeLimit(.minutes(1)))
+    func aRunOverTheBudgetStopsAHangingTopicRequest() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFDiscoverInterestsDataController().setTopics([.books])
+            let service = WMFHangingBasicService()
+            let controller = makeHangingTopicsController(service: service, generationTimeout: .milliseconds(1))
+            try await controller.saveSettings(enabledSettings)
+
+            await #expect(throws: WMFDiscoverReadingListDataController.DiscoverReadingListError.recommendationsUnavailable) {
+                try await controller.generateRecommendations()
+            }
+
+            #expect(service.requestCount == 1, "the topic request started and the run did not get past it")
+            #expect(await controller.isGenerating == false)
+            #expect(try await controller.fetchStoredRecommendations(includeExpired: true).isEmpty, "a stopped run stores nothing")
         }
     }
 }

@@ -334,7 +334,13 @@ import Foundation
     }
 
     private var warmedTopicArticles: [String: WarmedTopicArticles] = [:]
-    private var warmedTopicWaiters: [String: [CheckedContinuation<[WMFRandomArticle], Error>]] = [:]
+    /// A caller that waits for a topic download in flight. The id lets a cancelled caller leave the line.
+    private struct TopicWaiter {
+        let id: UUID
+        let continuation: CheckedContinuation<[WMFRandomArticle], Error>
+    }
+
+    private var warmedTopicWaiters: [String: [TopicWaiter]] = [:]
     private var warmedRelatedPages: [String: WarmedRelatedPages] = [:]
     private var warmedRelatedWaiters: [String: [CheckedContinuation<[WMFRelatedPagesDataController.WMFRelatedPage], Error>]] = [:]
 
@@ -381,9 +387,7 @@ import Foundation
         // Merge concurrent requests for the same group: the warm-up and a fetch that follows it
         // quickly must share one download.
         if warmedTopicWaiters[key] != nil {
-            return try await withCheckedThrowingContinuation { continuation in
-                warmedTopicWaiters[key]?.append(continuation)
-            }
+            return try await waitForTopicArticles(key: key)
         }
 
         warmedTopicWaiters[key] = []
@@ -398,11 +402,33 @@ import Foundation
         }
     }
 
+    /// Waits for the download in flight. A cancelled caller stops waiting with `CancellationError`,
+    /// while the download goes on for the other callers.
+    private func waitForTopicArticles(key: String) async throws -> [WMFRandomArticle] {
+        let waiterID = UUID()
+        return try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                warmedTopicWaiters[key]?.append(TopicWaiter(id: waiterID, continuation: continuation))
+            }
+        } onCancel: {
+            Task { await self.cancelTopicWaiter(key: key, id: waiterID) }
+        }
+    }
+
+    private func cancelTopicWaiter(key: String, id: UUID) {
+        guard var waiters = warmedTopicWaiters[key], let index = waiters.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+        let waiter = waiters.remove(at: index)
+        warmedTopicWaiters[key] = waiters
+        waiter.continuation.resume(throwing: CancellationError())
+    }
+
     private func resumeWarmedTopicWaiters(key: String, with result: Result<[WMFRandomArticle], Error>) {
         let waiters = warmedTopicWaiters[key] ?? []
         warmedTopicWaiters[key] = nil
         for waiter in waiters {
-            waiter.resume(with: result)
+            waiter.continuation.resume(with: result)
         }
     }
 
@@ -670,10 +696,19 @@ import Foundation
         ]
 
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
-        let response: WMFTopicArticlesAPIResponse = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<WMFTopicArticlesAPIResponse, Error>) in
-                continuation.resume(with: result)
+
+        // A cancelled caller stops the request, so a run with a time budget ends on time.
+        try Task.checkCancellation()
+        let cancellation = WMFRequestCancellation()
+        let response: WMFTopicArticlesAPIResponse = try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                let task = service.performCancellableDecodableGET(request: request) { (result: Result<WMFTopicArticlesAPIResponse, Error>) in
+                    continuation.resume(with: result)
+                }
+                cancellation.setTask(task)
             }
+        } onCancel: {
+            cancellation.cancel()
         }
         // A disambiguation page and the main page are not good content for a suggestion.
         return (response.query?.pages ?? []).filter { page in
