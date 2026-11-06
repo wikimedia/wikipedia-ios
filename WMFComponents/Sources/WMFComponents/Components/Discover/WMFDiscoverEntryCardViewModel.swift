@@ -32,10 +32,14 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
     private var collageImageURLs: [URL] = []
     private var didLogImpression = false
 
-    public init(discoverDataController: WMFDiscoverDataController = .shared, readingListDataController: WMFDiscoverReadingListDataController = .shared) {
+    public init(
+        discoverDataController: WMFDiscoverDataController = .shared,
+        readingListDataController: WMFDiscoverReadingListDataController = .shared,
+        notificationCenter: NotificationCenter = .default
+    ) {
         self.discoverDataController = discoverDataController
         self.readingListDataController = readingListDataController
-        observeNotifications()
+        observeNotifications(from: notificationCenter)
         refresh()
     }
 
@@ -47,10 +51,10 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
     /// screen marking it seen, the Discover settings and the developer settings. A notification
     /// only re-reads the stored list. A generation that ends with an empty list posts the same
     /// notification, and generating again from it would loop.
-    private func observeNotifications() {
+    private func observeNotifications(from notificationCenter: NotificationCenter) {
         let notificationNames = [WMFNSNotification.discoverListStateDidChange, WMFNSNotification.discoverAnnouncementStateDidChange]
         for notificationName in notificationNames {
-            NotificationCenter.default.publisher(for: notificationName)
+            notificationCenter.publisher(for: notificationName)
                 .sink { [weak self] _ in
                     Task { @MainActor [weak self] in
                         self?.reload()

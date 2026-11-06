@@ -117,7 +117,16 @@ public struct WMFDiscoverSettingsView: View {
         Button {
             viewModel.tapSource()
         } label: {
-            SettingsRow(item: SettingsItem(image: WMFSFSymbolIcon.for(symbol: .key), color: WMFColor.orange600, title: WMFDiscoverSettingsViewModel.sourceTitle, subtitle: viewModel.sourceSubtitle, accessory: .chevron(label: nil), action: nil))
+            SettingsRow(
+                item: SettingsItem(
+                    image: WMFSFSymbolIcon.for(symbol: .wrenchAdjustable),
+                    color: WMFColor.orange600,
+                    title: WMFDiscoverSettingsViewModel.sourceTitle,
+                    subtitle: viewModel.sourceSubtitle,
+                    accessory: .chevron(label: nil),
+                    action: nil
+                )
+            )
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
