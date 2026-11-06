@@ -255,6 +255,42 @@
 
   // ---- boards ----
   let foundBoards = [];
+  // Chronological sort key (ms) for a board: the sprint start field if set, otherwise a date in its name.
+  const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  function boardDate(p) {
+    const start = p.fields['custom.sprint:start'];
+    if (typeof start === 'number' && start > 0) return start < 1e11 ? start * 1000 : start;
+    if (typeof start === 'string' && start.trim()) {
+      const t = /^\d+$/.test(start.trim()) ? Number(start) * 1000 : Date.parse(start);
+      if (!isNaN(t) && t > 0) return t;
+    }
+    const name = p.fields.name || '';
+    const iso = name.match(/(20\d\d)-(\d\d)-(\d\d)/);
+    if (iso) return Date.UTC(+iso[1], iso[2] - 1, +iso[3]);
+    const md = name.match(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*(\d{1,2})(?!\d)/i);
+    if (!md) return null;
+    const month = MONTHS.indexOf(md[1].toLowerCase()), day = +md[2];
+    let year;
+    const fy = name.match(/FY\s*'?(\d\d)[-\/]?(\d\d)(?!\d)/i);     // e.g. FY2627 = Jul 2026 – Jun 2027
+    const y4 = name.replace(/FY\s*\S+/gi, '').match(/\b(20\d\d)\b/);
+    if (fy) year = 2000 + (month >= 6 ? +fy[1] : +fy[2]);
+    else if (y4) year = +y4[1];
+    else {                                                        // no year: pick the one nearest the project's creation
+      const created = (p.fields.dateCreated || Date.now() / 1000) * 1000;
+      year = new Date(created).getUTCFullYear();
+      const t = Date.UTC(year, month, day);
+      if (t - created > 182 * 864e5) year--; else if (created - t > 182 * 864e5) year++;
+    }
+    return Date.UTC(year, month, day);
+  }
+  function compareBoards(a, b) {
+    const da = boardDate(a), db = boardDate(b);
+    if (da != null && db != null && da !== db) return da - db;
+    if ((da == null) !== (db == null)) return da == null ? 1 : -1;   // undated (e.g. templates) last
+    const ma = a.fields.milestone ?? Infinity, mb = b.fields.milestone ?? Infinity;
+    if (ma !== mb) return ma - mb;
+    return boardName(a).localeCompare(boardName(b), undefined, { numeric: true });
+  }
   const boardName = p => {
     const parent = p.fields.parent && p.fields.parent.name;
     return p.fields.milestone != null && parent && !p.fields.name.includes(parent) ? `${parent}: ${p.fields.name}` : p.fields.name;
@@ -302,7 +338,7 @@
       foundBoards = res.filter(p => !seen.has(p.phid) && seen.add(p.phid))
         .filter(p => !onlyOpen || isOpen(p))
         .filter(p => !re || re.test(boardName(p)))
-        .sort((a, b) => boardName(a).localeCompare(boardName(b), undefined, { numeric: true }));
+        .sort(compareBoards);
       renderBoards();
       status(`Found ${foundBoards.length} project(s).`);
     } catch (e) { status(e.message, true); }
@@ -436,7 +472,7 @@
       totals.get(u).add(mv.task); totalMoves.set(u, totalMoves.get(u) + 1);
     }
     const val = cell => !cell ? 0 : metric === 'moves' ? cell.moves : cell.tasks.size;
-    const boardIds = [...data.boards.keys()].sort((a, b) => data.boards.get(a).localeCompare(data.boards.get(b), undefined, { numeric: true }));
+    const boardIds = [...data.boards.keys()]; // already in chronological order from the board list
 
     charts.forEach(c => c.destroy()); charts = [];
     const css = getComputedStyle(document.documentElement);
