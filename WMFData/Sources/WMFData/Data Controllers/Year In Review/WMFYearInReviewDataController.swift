@@ -958,7 +958,8 @@ public class SavedArticleSlideData: NSObject, Codable {
     /// The slide shows at most this number of articles.
     public static let maximumArticleCount = 3
 
-    /// The number of articles saved in the data period. Unsaves are not subtracted.
+    /// The number of articles saved in the data period that are still saved when the slide is built.
+    /// Unsaving an article clears its saved date, so an article saved and then unsaved is not counted.
     public let savedArticlesCount: Int
     public let articleTitles: [String]
     /// Up to `maximumArticleCount` saved articles, picked at random. `nil` in data stored by an
