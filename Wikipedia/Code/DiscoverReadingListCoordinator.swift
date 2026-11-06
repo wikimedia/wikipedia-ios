@@ -155,7 +155,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     private var aboutURL: URL? {
         guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
         return WMFProject.mediawiki.translatedHelpURL(
-            pathComponents: ["Wikimedia Apps", "Team", "Discover Reading List On iOS"],
+            pathComponents: ["Wikimedia Apps", "Team", "Discover on iOS"],
             section: nil,
             language: appLanguage)
     }
