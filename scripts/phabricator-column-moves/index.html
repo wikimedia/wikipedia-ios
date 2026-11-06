@@ -287,14 +287,14 @@
     status('Searching projects…');
     try {
       const onlyOpen = $('onlyOpen').checked;
-      const statusC = onlyOpen ? { statuses: ['active'] } : {};
+      const statusC = { status: onlyOpen ? 'active' : 'all' };
       let res = await searchAll('project.search', { constraints: { name: q, ...statusC } });
       if (!res.length) res = await searchAll('project.search', { constraints: { query: q, ...statusC } });
       if ($('incMilestones').checked) {
         const parents = res.filter(p => p.fields.milestone == null).map(p => p.phid);
         for (const c of chunk(parents, 50)) {
           status(`Loading milestones… (${res.length} projects so far)`);
-          res.push(...await searchAll('project.search', { constraints: { milestones: c, ...statusC } }));
+          res.push(...await searchAll('project.search', { constraints: { parents: c, isMilestone: true, ...statusC } }));
         }
       }
       const isOpen = p => !p.fields.status || (p.fields.status.value ?? p.fields.status) !== 'archived';
