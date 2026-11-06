@@ -25,7 +25,7 @@ final class WMFGlobalEditorMetricsDataController {
         return response.items.reduce(0) { $0 + $1.viewCount }
     }
     
-    private func fetch<Response: Decodable>(pathPrefix: String, startDate: Date, endDate: Date) async throws -> Response {
+    private func fetch<Response: Decodable & Sendable>(pathPrefix: String, startDate: Date, endDate: Date) async throws -> Response {
         guard let service = service else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
