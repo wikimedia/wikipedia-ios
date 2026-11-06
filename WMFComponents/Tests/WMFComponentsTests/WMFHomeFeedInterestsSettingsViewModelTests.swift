@@ -11,11 +11,21 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let spanishLanguage = WMFLanguage(languageCode: "es", languageVariantCode: nil)
 
+    /// Each test writes its article picks to its own store. Without one, the view model falls
+    /// back to the store in `WMFDataEnvironment`, which belongs to whichever suite runs beside this one.
+    private let pageInterestDataController: WMFPageInterestDataController
+
+    init() async throws {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        pageInterestDataController = try WMFPageInterestDataController(coreDataStore: store)
+    }
+
     private func makeViewModel(store: WMFMockKeyValueStore = WMFMockKeyValueStore(),
                                searchLanguages: [WMFLanguage] = []) -> WMFHomeFeedInterestsSettingsViewModel {
         let dataController = WMFHomeDataController(userDefaultsStore: store)
         let searchDataController = WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get"))
-        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, searchDataController: searchDataController, project: project, searchLanguages: searchLanguages, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, pageInterestDataController: pageInterestDataController, searchDataController: searchDataController, project: project, searchLanguages: searchLanguages, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
     }
 
     private func makeArticle(pageid: Int, title: String) -> WMFRandomArticle {
@@ -415,7 +425,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         try? store.save(key: "home-feed-interest-topics", value: ["architecture", "not-a-real-topic"])
 
         let dataController = WMFHomeDataController(userDefaultsStore: store)
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, pageInterestDataController: pageInterestDataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
         #expect(viewModel.selectedTopics == [.architecture])
     }
 

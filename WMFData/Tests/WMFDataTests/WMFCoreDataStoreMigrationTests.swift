@@ -127,6 +127,11 @@ final class WMFCoreDataStoreMigrationTests {
             try await interestsDataController.setTopics([.music])
             let interests = try await interestsDataController.fetchInterests()
             #expect(interests == WMFDiscoverInterests(topics: [.music], pages: [WMFDiscoverInterests.Page(title: "Cat", project: englishProject)]))
+
+            let readingListDataController = WMFDiscoverReadingListDataController(coreDataStore: migratedStore, interestsDataController: interestsDataController)
+            try await readingListDataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 1, cadence: .weekly, source: .interests))
+            let isGenerationDue = try await readingListDataController.isGenerationDue()
+            #expect(isGenerationDue == true, "the migrated list was built from no inputs, so the next check regenerates it")
         })
     }
 }

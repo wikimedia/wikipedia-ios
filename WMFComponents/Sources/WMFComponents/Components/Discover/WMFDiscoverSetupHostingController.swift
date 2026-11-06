@@ -27,15 +27,6 @@ public final class WMFDiscoverSetupHostingController: WMFComponentHostingControl
         configureNavigationBar()
     }
 
-    /// From Settings, Back saves the selected source. A push to the interests screen does not.
-    /// The save waits for the pop to finish, because an interactive Back swipe can be cancelled.
-    public override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        if isMovingFromParent {
-            viewModel.commitSelectionOnDismiss()
-        }
-    }
-
     public override func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
         view.backgroundColor = theme.paperBackground
@@ -55,7 +46,7 @@ public final class WMFDiscoverSetupHostingController: WMFComponentHostingControl
         }
         configureNavigationBar(
             titleConfig: titleConfig,
-            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true),
+            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal),
             closeButtonConfig: nil,
             profileButtonConfig: nil,
             tabsButtonConfig: nil,

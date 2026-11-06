@@ -12,25 +12,29 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     @Published public var isShowingTurnOffAlert = false
 
     public var didTapSource: (() -> Void)?
-    /// The interests screen lands with T440011.
     public var didTapInterests: (() -> Void)?
     public var didTurnOff: (() -> Void)?
+    /// Called when the screen has gone away: Back, or Settings closing over it. The saves made
+    /// here are stored by then, so the coordinator reads the settings the reader left.
+    public var didLeave: (() -> Void)?
 
     private let dataController: WMFDiscoverReadingListDataController
+    private let interestsDataController: WMFDiscoverInterestsDataController
     private(set) var saveTask: Task<Void, Never>?
     private(set) var refreshTask: Task<Void, Never>?
 
-    public init(settings: WMFDiscoverSettings, interestCount: Int? = nil, dataController: WMFDiscoverReadingListDataController = .shared) {
+    public init(settings: WMFDiscoverSettings, interestCount: Int? = nil, dataController: WMFDiscoverReadingListDataController = .shared, interestsDataController: WMFDiscoverInterestsDataController = .shared) {
         self.settings = settings
         self.interestCount = interestCount
         self.dataController = dataController
+        self.interestsDataController = interestsDataController
     }
 
     /// Reads the settings before the screen shows, so the screen never needs a loading state.
-    public static func load(dataController: WMFDiscoverReadingListDataController = .shared) async -> WMFDiscoverSettingsViewModel {
+    public static func load(dataController: WMFDiscoverReadingListDataController = .shared, interestsDataController: WMFDiscoverInterestsDataController = .shared) async -> WMFDiscoverSettingsViewModel {
         let settings = await dataController.settings
-        let interestCount = await Self.fetchInterestCount()
-        return WMFDiscoverSettingsViewModel(settings: settings, interestCount: interestCount, dataController: dataController)
+        let interestCount = await Self.fetchInterestCount(interestsDataController: interestsDataController)
+        return WMFDiscoverSettingsViewModel(settings: settings, interestCount: interestCount, dataController: dataController, interestsDataController: interestsDataController)
     }
 
     deinit {
@@ -46,16 +50,15 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
             guard let self else { return }
             await self.saveTask?.value
             let settings = await self.dataController.settings
-            let interestCount = await Self.fetchInterestCount()
+            let interestCount = await Self.fetchInterestCount(interestsDataController: self.interestsDataController)
             guard !Task.isCancelled else { return }
             self.settings = settings
             self.interestCount = interestCount
         }
     }
 
-    private static func fetchInterestCount() async -> Int? {
-        guard let interestDataController = try? WMFPageInterestDataController() else { return nil }
-        return try? await interestDataController.fetchAllPageInterests().count
+    private static func fetchInterestCount(interestsDataController: WMFDiscoverInterestsDataController) async -> Int {
+        (try? await interestsDataController.fetchInterests().count) ?? 0
     }
 
     // MARK: - Switch
@@ -175,6 +178,17 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
             return Self.turnOffAlertMessageWeekly
         case .monthly:
             return Self.turnOffAlertMessageMonthly
+        }
+    }
+
+    // MARK: - Leaving
+
+    /// Waits for the saves in flight, then calls `didLeave`. The task holds this view model, so
+    /// the call arrives after the screen is gone.
+    public func leave() {
+        Task {
+            await saveTask?.value
+            didLeave?()
         }
     }
 
