@@ -186,6 +186,10 @@ public enum WMFSFSymbolIcon {
     case docText
     case docOnDoc
     case chevronUpChevronDown
+    case listBulletRectanglePortrait
+    case arrowClockwise
+    case wrenchAdjustable
+    case squareGrid2x2
     case globe
     case newspaper
     case person2Fill
@@ -484,6 +488,14 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "doc.on.doc", withConfiguration: configuration)
         case .chevronUpChevronDown:
             image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
+        case .listBulletRectanglePortrait:
+            image = UIImage(systemName: "list.bullet.rectangle.portrait", withConfiguration: configuration)
+        case .arrowClockwise:
+            image = UIImage(systemName: "arrow.clockwise", withConfiguration: configuration)
+        case .wrenchAdjustable:
+            image = UIImage(systemName: "wrench.adjustable", withConfiguration: configuration)
+        case .squareGrid2x2:
+            image = UIImage(systemName: "square.grid.2x2", withConfiguration: configuration)
         case .globe:
             image = UIImage(systemName: "globe", withConfiguration: configuration)
         case .squareSplit:
