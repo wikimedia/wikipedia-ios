@@ -77,4 +77,37 @@ final class DiscoverInterestsCoordinatorTests: XCTestCase {
         let saved = try await interestsDataController.fetchInterests()
         XCTAssertTrue(saved.isEmpty)
     }
+
+    func testTwoTapsOnDoneReportOnce() async throws {
+        let store = makeStore(titles: ["Cat"])
+
+        coordinator.finish(store: store)
+        coordinator.finish(store: store)
+        await waitUntil { self.finishCount > 0 }
+        await Task.yield()
+
+        XCTAssertEqual(finishCount, 1)
+        let saved = try await interestsDataController.fetchInterests()
+        XCTAssertEqual(saved.pages.map(\.title), ["Cat"])
+    }
+
+    /// Without a Core Data store the commit throws. The screen stays, and the next tap tries again.
+    func testDoneKeepsTheScreenWhenTheCommitFails() async throws {
+        try await fixture.withConfiguredEnvironment(configure: { WMFDataEnvironment.current.coreDataStore = nil }) {
+            let failingDataController = WMFDiscoverInterestsDataController(coreDataStore: nil, userDefaultsStore: InMemoryKeyValueStore())
+            let store = WMFDiscoverInterestsStore(interests: WMFDiscoverInterests(topics: [], pages: [WMFDiscoverInterests.Page(title: "Cat", project: englishProject)]), dataController: failingDataController)
+            let savedBeforeDone = try? await failingDataController.fetchInterests()
+            XCTAssertNil(savedBeforeDone, "the store has no Core Data")
+
+            coordinator.finish(store: store)
+            XCTAssertTrue(coordinator.isFinishing)
+            await waitUntil { !self.coordinator.isFinishing }
+            XCTAssertEqual(finishCount, 0)
+
+            coordinator.finish(store: store)
+            XCTAssertTrue(coordinator.isFinishing, "the next tap tries again")
+            await waitUntil { !self.coordinator.isFinishing }
+            XCTAssertEqual(finishCount, 0)
+        }
+    }
 }

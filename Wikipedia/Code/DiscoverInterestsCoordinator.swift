@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 /// Owns the Discover interests screen. Get started and the Discover settings both push it.
 /// Done commits the interests on the screen and tells the caller. Done is off while no interest
@@ -17,6 +18,7 @@ final class DiscoverInterestsCoordinator: NSObject, Coordinator {
     var didFinish: (() -> Void)?
 
     private(set) weak var interestsViewController: WMFHomeFeedInterestsSettingsViewController?
+    private(set) var isFinishing = false
 
     init(
         navigationController: UINavigationController,
@@ -66,12 +68,21 @@ final class DiscoverInterestsCoordinator: NSObject, Coordinator {
     // MARK: - Done
 
     /// Commits the interests on the screen first, so the list generator sees every tap. An empty
-    /// set does nothing: Done is off then, and the screen stays.
+    /// set does nothing: Done is off then, and the screen stays. A second tap while the commit
+    /// runs does nothing. When the commit fails the screen stays too, with a toast, so the reader
+    /// can try again.
     func finish(store: WMFDiscoverInterestsStore) {
-        guard !store.interests.isEmpty else { return }
+        guard !store.interests.isEmpty, !isFinishing else { return }
+        isFinishing = true
         Task { [weak self] in
-            try? await store.commit()
-            self?.didFinish?()
+            do {
+                try await store.commit()
+                self?.isFinishing = false
+                self?.didFinish?()
+            } catch {
+                self?.isFinishing = false
+                WMFToastPresenter.shared.show(WMFToastConfig(title: CommonStrings.genericErrorDescription))
+            }
         }
     }
 }
