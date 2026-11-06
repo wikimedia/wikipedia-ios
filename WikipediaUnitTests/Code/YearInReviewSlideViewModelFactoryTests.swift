@@ -1,4 +1,5 @@
 import Testing
+import UIKit
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
@@ -98,7 +99,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
-            readCount: 20,
+            readData: try readData(readCount: 20, minutesRead: 0),
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
@@ -627,6 +628,94 @@ struct YearInReviewSlideViewModelFactoryTests {
     func withOneRabbitHoleTheRabbitHoleSlidesDoNotShow() throws {
         #expect(factory.rabbitHoleSlides(try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true)).isEmpty)
         #expect(factory.rabbitHoleSlides(nil).isEmpty)
+    }
+
+    // MARK: - Highlights
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func readData(readCount: Int, minutesRead: Int) throws -> WMFYearInReviewReadData {
+        let json: [String: Any] = ["readCount": readCount, "minutesRead": minutesRead]
+        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test
+    func theHighlightsHaveEveryStatThatTheReaderHas() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 120, minutesRead: 900),
+            rereadArticles: [
+                .init(title: "Moon", visitCount: 9, project: nil),
+                .init(title: "Cat", visitCount: 7, project: nil),
+                .init(title: "Paris", visitCount: 5, project: nil),
+                .init(title: "Europe", visitCount: 3, project: nil)
+            ],
+            rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: false),
+            nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers")
+        )
+
+        #expect(highlights.articlesRead == 120)
+        #expect(highlights.minutesRead == 900)
+        #expect(highlights.rotation == ["Moon", "Cat", "Paris"], "at most three, most visited first")
+        #expect(highlights.rabbitHole == .init(firstTitle: "Moon", lastTitle: "Cat"), "the deepest, wherever the guess slide put it")
+        #expect(highlights.nicheCategory == "Executed female serial killers")
+        #expect(highlights.highlightCount == 5)
+        #expect(highlights.isShareable)
+        #expect(highlights.localizedStrings.createdWith == CommonStrings.yearInReviewHighlightsCreatedWith)
+        #expect(highlights.localizedStrings.rotationRank(2) == CommonStrings.yearInReviewHighlightsRank(2))
+        #expect(CommonStrings.yearInReviewHighlightsRank(2) == "(2)")
+    }
+
+    /// A highlight shows only when its slide showed its full version, except the article count.
+    @Test
+    func theHighlightsLeaveOutWhatTheSlidesLeftOut() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 0, minutesRead: 4),
+            rereadArticles: [.init(title: "Moon", visitCount: 9, project: nil)],
+            rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true),
+            nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: " ")
+        )
+
+        #expect(highlights.articlesRead == nil)
+        #expect(highlights.minutesRead == 4)
+        #expect(highlights.rotation.isEmpty)
+        #expect(highlights.rabbitHole == nil)
+        #expect(highlights.nicheCategory == nil, "a blank category name does not show the niche interest slide")
+        #expect(highlights.highlightCount == 1)
+        #expect(highlights.isShareable == false, "with fewer than two highlights, Share highlights does not show")
+    }
+
+    /// Product decision: the article count shows from one article, also when the total articles slide was empty.
+    @Test
+    func theHighlightsShowTheArticleCountFromOneArticle() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 1, minutesRead: 4),
+            rereadArticles: [],
+            rabbitHoles: nil,
+            nicheCategory: nil
+        )
+
+        #expect(WMFYearInReviewReadData.minimumReadCount > 1, "the total articles slide shows its empty version")
+        #expect(highlights.articlesRead == 1)
+        #expect(highlights.highlightCount == 2)
+        #expect(highlights.isShareable)
+    }
+
+    /// Only the built-in text activities get the share text. Every other activity, such as Instagram,
+    /// TikTok or Save to Files, gets only the image.
+    @Test
+    func onlyBuiltInTextActivitiesGetTheShareText() {
+        #expect(YearInReviewShareTextItem.takesText(.message))
+        #expect(YearInReviewShareTextItem.takesText(.mail))
+        #expect(YearInReviewShareTextItem.takesText(.copyToPasteboard))
+        #expect(YearInReviewShareTextItem.takesText(.saveToCameraRoll) == false)
+        #expect(YearInReviewShareTextItem.takesText(UIActivity.ActivityType("com.apple.CloudDocsUI.AddToiCloudDrive")) == false)
+        #expect(YearInReviewShareTextItem.takesText(UIActivity.ActivityType("com.burbn.instagram.shareextension")) == false)
+        #expect(YearInReviewShareTextItem.takesText(nil) == false)
+    }
+
+    @Test
+    func theCollectiveFlowHasNoHighlights() {
+        #expect(factory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).highlights == nil)
+        #expect(factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).highlights == nil)
     }
 
     /// The instrumentation plan names each page, and the donate campaign ID is made from that name.
