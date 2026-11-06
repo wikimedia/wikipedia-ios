@@ -222,6 +222,47 @@ final class WMFDiscoverInterestsDataControllerTests {
     }
 
     @Test
+    func overlappingAddsOfOnePageKeepOneEntry() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = WMFDiscoverInterestsDataController()
+            let project = englishProject
+
+            try await withThrowingTaskGroup(of: Void.self) { group in
+                for _ in 0..<8 {
+                    group.addTask { try await controller.addPage(title: "Cat", project: project) }
+                }
+                try await group.waitForAll()
+            }
+
+            #expect(try await controller.fetchInterests().pages == [page("Cat")])
+        }
+    }
+
+    @Test
+    func overlappingAddsOfDifferentPagesGetDistinctSortIndexes() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(coreDataStore)
+            let controller = WMFDiscoverInterestsDataController()
+            let project = englishProject
+            let titles = (0..<8).map { "Page \($0)" }
+
+            try await withThrowingTaskGroup(of: Void.self) { group in
+                for title in titles {
+                    group.addTask { try await controller.addPage(title: title, project: project) }
+                }
+                try await group.waitForAll()
+            }
+
+            let context = try store.newBackgroundContext
+            let sortIndexes = try await context.perform {
+                (try store.fetch(entityType: CDDiscoverInterest.self, predicate: nil, fetchLimit: nil, in: context) ?? []).map(\.sortIndex)
+            }
+            #expect(Set(try await controller.fetchInterests().pages.map(\.title)) == Set(titles))
+            #expect(Set(sortIndexes).count == titles.count, "\(sortIndexes)")
+        }
+    }
+
+    @Test
     func aDuplicatePageWithoutAnInterestDoesNotHideTheSelection() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let store = try #require(coreDataStore)

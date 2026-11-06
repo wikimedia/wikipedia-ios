@@ -40,6 +40,24 @@ public actor WMFDiscoverInterestsDataController {
         return coreDataStore
     }
 
+    private var cachedWriterContext: NSManagedObjectContext?
+    private weak var cachedWriterContextStore: WMFCoreDataStore?
+
+    /// One context for every write. The actor is free while a block runs, so two writes can be
+    /// in flight at once. The context runs its blocks one after the other, thus the read, change and
+    /// save of one write never overlap another one, and every write has the same merge policy.
+    private func writerContext(for coreDataStore: WMFCoreDataStore) throws -> NSManagedObjectContext {
+        if let cachedWriterContext, cachedWriterContextStore === coreDataStore {
+            return cachedWriterContext
+        }
+        let context = try coreDataStore.newBackgroundContext
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        context.automaticallyMergesChangesFromParent = true
+        cachedWriterContext = context
+        cachedWriterContextStore = coreDataStore
+        return context
+    }
+
     // MARK: - Interests
 
     /// Topics and pages in the order the reader selected them.
@@ -65,8 +83,7 @@ public actor WMFDiscoverInterestsDataController {
     /// check, so a changed set regenerates the list.
     public func save(_ newInterests: WMFDiscoverInterests) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
-        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             try Self.deleteRows(predicate: nil, coreDataStore: coreDataStore, in: context)
@@ -82,7 +99,7 @@ public actor WMFDiscoverInterestsDataController {
 
     public func setTopics(_ topics: [WMFArticleTopic]) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             try Self.deleteRows(predicate: NSPredicate(format: "topic != nil"), coreDataStore: coreDataStore, in: context)
@@ -94,8 +111,7 @@ public actor WMFDiscoverInterestsDataController {
     /// Adds an article once. A page already in the set, in any spacing of the title, is left as it is.
     public func addPage(title: String, project: WMFProject) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
-        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             if try Self.fetchPageRow(title: title, project: project, coreDataStore: coreDataStore, in: context) != nil {
@@ -110,7 +126,7 @@ public actor WMFDiscoverInterestsDataController {
 
     public func removePage(title: String, project: WMFProject) async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             guard let row = try Self.fetchPageRow(title: title, project: project, coreDataStore: coreDataStore, in: context) else {
@@ -123,7 +139,7 @@ public actor WMFDiscoverInterestsDataController {
 
     public func removeAll() async throws {
         let coreDataStore = try requireCoreDataStore()
-        let context = try coreDataStore.newBackgroundContext
+        let context = try writerContext(for: coreDataStore)
 
         try await context.perform {
             try Self.deleteRows(predicate: nil, coreDataStore: coreDataStore, in: context)
