@@ -700,17 +700,17 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertFalse(payload.isEligible)
     }
 
-    func testReadingStreakOfOneDayIsNotEligible() throws {
-        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: try streakDays([(3, 4), (3, 6), (5, 1)]), calendar: .current)
-
-        XCTAssertEqual(payload.dayCount, 1)
-        XCTAssertFalse(payload.isEligible, "a streak needs two consecutive days")
-    }
-
-    func testReadingStreakOfTwoDaysIsEligible() throws {
-        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: try streakDays([(3, 4), (3, 5)]), calendar: .current)
+    func testReadingStreakOfTwoDaysIsNotEligible() throws {
+        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: try streakDays([(3, 4), (3, 5), (3, 7), (5, 1)]), calendar: .current)
 
         XCTAssertEqual(payload.dayCount, 2)
+        XCTAssertFalse(payload.isEligible, "a streak needs three consecutive days")
+    }
+
+    func testReadingStreakOfThreeDaysIsEligible() throws {
+        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: try streakDays([(3, 4), (3, 5), (3, 6)]), calendar: .current)
+
+        XCTAssertEqual(payload.dayCount, 3)
         XCTAssertTrue(payload.isEligible)
     }
 

@@ -364,8 +364,8 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     @Test
-    func theReadingStreakSlideNeedsTwoConsecutiveDays() {
-        for slideData in [nil, readingStreakData(dayCount: 1, first: (3, 4), last: (3, 4)), WMFYearInReviewReadingStreakSlideData(dayCount: 0, firstDay: nil, lastDay: nil)] {
+    func theReadingStreakSlideNeedsThreeConsecutiveDays() {
+        for slideData in [nil, readingStreakData(dayCount: 1, first: (3, 4), last: (3, 4)), readingStreakData(dayCount: 2, first: (3, 4), last: (3, 5)), WMFYearInReviewReadingStreakSlideData(dayCount: 0, firstDay: nil, lastDay: nil)] {
             let slide = factory.readingStreakSlide(slideData)
 
             #expect(slide.animation?.artboardName == "frame4-empty")
@@ -375,7 +375,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             #expect(text(slide, "data") == nil)
         }
 
-        #expect(factory.readingStreakSlide(readingStreakData(dayCount: 2, first: (3, 4), last: (3, 5))).animation?.artboardName == "frame4")
+        #expect(factory.readingStreakSlide(readingStreakData(dayCount: 3, first: (3, 4), last: (3, 6))).animation?.artboardName == "frame4")
     }
 
     // MARK: - Niche interest

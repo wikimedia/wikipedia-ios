@@ -302,14 +302,14 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(experience, .collective, "the days visited slide does not show")
     }
 
-    func testReadingStreakOfTwoDaysCountsTowardPersonalized() async throws {
-        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 2)])
+    func testReadingStreakOfThreeDaysCountsTowardPersonalized() async throws {
+        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 3)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .personalized)
     }
 
-    func testReadingStreakOfOneDayIsNotEnoughData() async throws {
-        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 1)])
+    func testReadingStreakOfTwoDaysIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 2)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .collective, "the reading streak slide shows its empty version")
     }

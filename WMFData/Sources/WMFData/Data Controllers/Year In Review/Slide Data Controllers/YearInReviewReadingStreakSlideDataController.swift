@@ -31,7 +31,7 @@ public struct WMFYearInReviewReadingStreakSlideData: Codable, Sendable, Equatabl
     }
 
     /// The reader must have read on at least this number of consecutive days to see the full slide.
-    public static let minimumDayCount = 2
+    public static let minimumDayCount = 3
 
     /// The number of days in the longest streak. `0` without any reading.
     public let dayCount: Int
