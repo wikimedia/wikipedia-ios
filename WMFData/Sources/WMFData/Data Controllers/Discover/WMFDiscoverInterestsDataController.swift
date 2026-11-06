@@ -94,12 +94,11 @@ public actor WMFDiscoverInterestsDataController {
         context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await context.perform {
-            let pageRows = try Self.fetchRows(predicate: NSPredicate(format: "page != nil"), coreDataStore: coreDataStore, in: context)
             if try Self.fetchPageRow(title: title, project: project, coreDataStore: coreDataStore, in: context) != nil {
                 return
             }
 
-            let nextSortIndex = (pageRows.map(\.sortIndex).max() ?? -1) + 1
+            let nextSortIndex = try Self.highestPageSortIndex(coreDataStore: coreDataStore, in: context) + 1
             try Self.insertPage(WMFDiscoverInterests.Page(title: title, project: project), sortIndex: nextSortIndex, coreDataStore: coreDataStore, in: context)
             try coreDataStore.saveIfNeeded(moc: context)
         }
@@ -133,6 +132,13 @@ public actor WMFDiscoverInterestsDataController {
     private static func fetchRows(predicate: NSPredicate?, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> [CDDiscoverInterest] {
         let sortDescriptors = [NSSortDescriptor(key: "sortIndex", ascending: true)]
         return try coreDataStore.fetch(entityType: CDDiscoverInterest.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: context) ?? []
+    }
+
+    /// -1 when the set has no page, so the first page gets index 0.
+    private static func highestPageSortIndex(coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> Int32 {
+        let sortDescriptors = [NSSortDescriptor(key: "sortIndex", ascending: false)]
+        let lastRow = try coreDataStore.fetch(entityType: CDDiscoverInterest.self, predicate: NSPredicate(format: "page != nil"), fetchLimit: 1, sortDescriptors: sortDescriptors, in: context)?.first
+        return lastRow?.sortIndex ?? -1
     }
 
     private static func deleteRows(predicate: NSPredicate?, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws {
