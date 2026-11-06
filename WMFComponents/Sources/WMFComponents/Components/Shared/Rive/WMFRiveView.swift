@@ -109,9 +109,10 @@ public struct WMFRiveView: View {
     @ViewBuilder
     private var content: some View {
         if let accessibilityLabel {
+            // No image trait: with it, VoiceOver Image Descriptions reads the pixels after the label
+            // ("Screenshot" and text recognized from the glyphs).
             animationLayer
                 .accessibilityElement()
-                .accessibilityAddTraits(.isImage)
                 .accessibilityLabel(accessibilityLabel)
         } else {
             animationLayer
