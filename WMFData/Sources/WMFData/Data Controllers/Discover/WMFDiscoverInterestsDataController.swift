@@ -6,8 +6,8 @@ import CoreData
 ///
 /// Each interest is one `CDDiscoverInterest` row: a topic row holds the topic raw value, a page
 /// row points at its `CDPage`. The For You interests live in `CDPageInterest`, so a change on
-/// one screen never shows on the other. A saved change asks the reading list for a new generation,
-/// like `Prefs.resetRecommendedReadingList` on Android.
+/// one screen never shows on the other. The Discover list compares the stored set with the one it
+/// was built from on its next generation check, so a changed set regenerates the list.
 public actor WMFDiscoverInterestsDataController {
 
     public static let shared = WMFDiscoverInterestsDataController()
