@@ -81,7 +81,10 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         
         dataController.shouldCreateOrRetrieve = true
 
-        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount)
+        // The read count slide is frozen, so it is kept only if its data uses the current format.
+        // Data in an older format, or no data, makes the report build the slide again.
+        let readData = try JSONEncoder().encode(WMFYearInReviewReadData(readCount: 5, minutesRead: 10))
+        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, data: readData)
         let existingSlide2 = WMFYearInReviewSlide(year: year, id: .saveCount)
         let existingSlide3 = WMFYearInReviewSlide(year: year, id: .mostReadDate)
         let existingSlide4 = WMFYearInReviewSlide(year: year, id: .editCount)
@@ -97,6 +100,32 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 6)
+    }
+
+    func testOutdatedFrozenSlideStaysWhenItsRebuildFails() async throws {
+        // The read count data controller reads the store from the environment. With no store there,
+        // its rebuild fails. The report itself uses its own store. The fixture changes the environment
+        // under the global test lock, then restores it.
+        let report = try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.coreDataStore = nil
+        }) {
+            XCTAssertNil(WMFDataEnvironment.current.coreDataStore)
+            let dataController = try WMFMockYearInReviewDataController(coreDataStore: try await fixture.makeTemporaryCoreDataStore())
+
+            // Read data from before the minutes read slide: no format.
+            let oldData = try JSONSerialization.data(withJSONObject: ["readCount": 5, "minutesRead": 500])
+            try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [
+                WMFYearInReviewSlide(year: year, id: .readCount, data: oldData)
+            ]))
+
+            return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        }
+
+        let slide = try XCTUnwrap(report?.slides.first { $0.id == .readCount }, "the old slide stays when it cannot be built again")
+        let readData = try JSONDecoder().decode(WMFYearInReviewReadData.self, from: try XCTUnwrap(slide.data))
+        XCTAssertEqual(readData.readCount, 5)
+        XCTAssertFalse(readData.isMinutesReadEligible, "the old minutes used older rules, so they do not show")
+        XCTAssertEqual(WMFYearInReviewDataController.fullSlideCount(for: slide), 1)
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {

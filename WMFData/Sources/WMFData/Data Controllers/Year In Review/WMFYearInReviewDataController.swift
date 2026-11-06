@@ -183,8 +183,10 @@ import CoreData
     }
 
     /// The number of slides that this report entry shows in their full version, not their empty
-    /// version. The top topics entry holds two slides, the top topic and the runners-up, and Android
-    /// counts each of them. The rabbit holes entry is one slide: the reveal replaces the guess in place.
+    /// version. The read count entry holds two slides, the total articles and the minutes read, and
+    /// each counts on its own. The top topics entry holds two slides, the top topic and the runners-up,
+    /// and Android counts each of them. The rabbit holes entry is one slide: the reveal replaces the
+    /// guess in place.
     static func fullSlideCount(for slide: WMFYearInReviewSlide) -> Int {
         guard let data = slide.data else {
             return 0
@@ -192,7 +194,10 @@ import CoreData
         let decoder = JSONDecoder()
         switch slide.id {
         case .readCount:
-            return (try? decoder.decode(WMFYearInReviewReadData.self, from: data))?.isEligible == true ? 1 : 0
+            guard let readData = try? decoder.decode(WMFYearInReviewReadData.self, from: data) else {
+                return 0
+            }
+            return (readData.isEligible ? 1 : 0) + (readData.isMinutesReadEligible ? 1 : 0)
         case .topArticles:
             return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .topTopics:
@@ -662,13 +667,18 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
+            let rebuiltSlideIDs = Set(evaluatedSlideDataControllers.map(\.id))
+
             // Only preserve existing slides that should freeze and use the current format.
-            // A slide in an older format is deleted. The data controller above built it again.
+            // A slide in an older format is deleted when the data controller above built it again.
+            // If that failed, the old slide stays until a later populate builds it, so the reader does
+            // not lose it. The slide's data type must hide the parts that the old format got wrong.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    if dataController.shouldFreeze && dataController.hasCurrentFormat(slide.data) {
+                    let keepsOldFormat = !rebuiltSlideIDs.contains(cdSlideID)
+                    if dataController.shouldFreeze && (dataController.hasCurrentFormat(slide.data) || keepsOldFormat) {
                         finalCDSlides.insert(slide)
                     } else {
                         backgroundContext.delete(slide)
@@ -898,7 +908,17 @@ public struct WMFYearInReviewReadData: Codable {
     /// The number of unique articles read. Pages outside the main namespace and main pages are
     /// left out.
     public let readCount: Int
+    /// The whole minutes spent reading the articles in `readCount`. See `YearInReviewReadCountSlideDataController.fetchReadData`.
     public let minutesRead: Int
+
+    /// The rules that `minutesRead` uses. Change it when the rules change, so stored reports build the
+    /// slide again. `nil` in data from builds before the minutes read slide, which counted all page views.
+    /// 1: only articles, and each page view before August 31, 2026 adds at most 30 minutes.
+    /// 2: the same, but the limit applies only before the release of the timer fix, August 11, 2026.
+    /// 3: the same, and an article with more than 60 minutes from January 1 through August 31, 2026 gets
+    ///    no minutes from that period.
+    public static let currentMinutesReadFormat = 3
+    var minutesReadFormat: Int? = WMFYearInReviewReadData.currentMinutesReadFormat
 
     /// If false, show the empty state of the total articles slide.
     public var isEligible: Bool {

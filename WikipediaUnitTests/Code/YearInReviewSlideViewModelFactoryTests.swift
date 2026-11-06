@@ -98,7 +98,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
-            readCount: 20,
+            readData: try readData(minutesRead: 0),
             daysVisited: try daysVisitedData(dayCount: 30),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
@@ -268,6 +268,52 @@ struct YearInReviewSlideViewModelFactoryTests {
     func slideIdsAreUnique(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
         let ids = factory.makeSlides(experience: experience, isLoggedIn: true).map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
+    }
+
+    // MARK: - Minutes read
+
+    /// `format` is `nil` for data from builds before the minutes read slide.
+    private func readData(minutesRead: Int, format: Int? = WMFYearInReviewReadData.currentMinutesReadFormat) throws -> WMFYearInReviewReadData {
+        var json: [String: Any] = ["readCount": 10, "minutesRead": minutesRead]
+        json["minutesReadFormat"] = format
+        let data = try JSONSerialization.data(withJSONObject: json)
+        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data)
+    }
+
+    @Test
+    func theMinutesReadSlideShowsTheMinutesAndTheComparison() throws {
+        let slide = try #require(factory.minutesReadSlide(try readData(minutesRead: 924)))
+
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewMinutesReadTitle)
+        #expect(text(slide, "data") == "924")
+        let bodyCopy = try #require(text(slide, "bodyCopy"))
+        #expect(bodyCopy == "\(CommonStrings.yearInReviewMinutesReadComparisonNightSleep) \(CommonStrings.yearInReviewMinutesReadSubtitle)")
+        let accessibilityLabel = try #require(slide.localizedStrings.accessibilityLabel)
+        #expect(accessibilityLabel.contains("924"))
+        #expect(accessibilityLabel.contains(bodyCopy))
+    }
+
+    @Test
+    func theMinutesReadSlideNamesTheDaysForAVeryLongReadingTime() throws {
+        let slide = try #require(factory.minutesReadSlide(try readData(minutesRead: 2880)))
+
+        #expect(text(slide, "bodyCopy")?.hasPrefix(CommonStrings.yearInReviewMinutesReadComparisonDays(dayCount: 2)) == true)
+    }
+
+    @Test(arguments: [0, 300_001])
+    func theMinutesReadSlideDoesNotShowWithoutEnoughOrWithTooManyMinutes(minutesRead: Int) throws {
+        #expect(factory.minutesReadSlide(try readData(minutesRead: minutesRead)) == nil)
+    }
+
+    @Test
+    func theMinutesReadSlideDoesNotShowWithoutStoredData() {
+        #expect(factory.minutesReadSlide(nil) == nil)
+    }
+
+    @Test
+    func theMinutesReadSlideDoesNotShowOutdatedData() throws {
+        #expect(factory.minutesReadSlide(try readData(minutesRead: 924, format: nil)) == nil, "old reports counted all page views")
+        #expect(factory.minutesReadSlide(try readData(minutesRead: 924, format: WMFYearInReviewReadData.currentMinutesReadFormat - 1)) == nil)
     }
 
     // MARK: - Days visited
@@ -633,7 +679,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let planPages: Set<String> = [
-            "total_articles", "total_articles_empty", "visits", "top_topic", "top_topic_empty", "other_top_topics",
+            "total_articles", "total_articles_empty", "visits", "minutes_read", "top_topic", "top_topic_empty", "other_top_topics",
             "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
             "collective_volunteer_editors", "collective_edits", "collective_global_reach", "thank_you", "you_matter"
@@ -644,5 +690,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
         #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: YearInReviewSlideViewModelFactory.contributorSlideID) == "thank_you")
         #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "rabbitHoleReveal") == "rabbit_hole_reveal")
+        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "minutesRead") == "minutes_read")
     }
 }
