@@ -1,0 +1,1882 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Delivery Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  /* Layout: one utilitarian column — header + data source, settings/fetch panel, filters + engineer switcher,
+     team comparison, stat tiles, two bar plots (volume + source split), most-discussed PRs, monthly table. */
+  :root {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --surface-2: #f1f3f7;
+    --ink: #1a2230;
+    --ink-2: #5a6678;
+    --muted: #8893a4;
+    --grid: #e6e9ef;
+    --border: #e2e6ed;
+    --accent: #2f6df0;        /* human */
+    --accent-ink: #ffffff;
+    --accent-soft: #d9e4fd;
+    --auto: #e07b12;          /* automated (bot) */
+    --danger: #c23b32;
+    --danger-soft: #fbe3e1;
+    --st-open: #1f883d;
+    --st-draft: #8893a4;
+    --st-merged: #8250df;
+    --st-closed: #cf222e;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f141b; --surface: #161d27; --surface-2: #1c2430; --ink: #e8edf5; --ink-2: #9aa7ba; --muted: #6b7789;
+      --grid: #263040; --border: #26303d; --accent: #5b8cff; --accent-ink: #0f141b; --accent-soft: #223252;
+      --auto: #f0a23f; --danger: #ff7b72; --danger-soft: #3b1d1c;
+      --st-open: #3fb950; --st-draft: #8b949e; --st-merged: #a371f7; --st-closed: #f85149;
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  a { color: var(--accent); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 28px 48px;
+  }
+  header { margin-bottom: 14px; }
+  h1 { font-size: clamp(1.4rem, 1rem + 1.6vw, 1.9rem); line-height: 1.15; margin: 0 0 6px; text-wrap: balance; letter-spacing: -0.01em; }
+  h2 { font-size: 1.02rem; margin: 0 0 2px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); font-size: 0.92rem; margin: 0; max-width: 68ch; }
+  .sec-sub { color: var(--ink-2); font-size: 0.84rem; margin: 0 0 12px; }
+  .note { color: var(--muted); font-size: 0.8rem; margin: 8px 0 0; max-width: 76ch; }
+
+  /* data source bar */
+  .source { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin: 14px 0 12px; }
+  .source-info { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; flex: 1 1 320px; min-width: 0; }
+  .source-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; background: var(--surface); border: 1px solid var(--border); color: var(--ink-2); }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+  .pill.live::before { background: var(--st-open); }
+  .pill.import::before { background: var(--accent); }
+
+  .btn {
+    appearance: none; font: inherit; font-size: 0.84rem; cursor: pointer; white-space: nowrap;
+    padding: 6px 12px; border-radius: 7px; border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+  }
+  .btn:hover { background: var(--surface-2); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+  .btn.primary:hover { filter: brightness(1.06); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* settings panel */
+  details.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 22px; }
+  details.panel > summary { cursor: pointer; padding: 12px 16px; font-weight: 600; list-style: none; display: flex; align-items: center; gap: 8px; }
+  details.panel > summary::-webkit-details-marker { display: none; }
+  details.panel > summary::before { content: "▸"; color: var(--muted); transition: transform .15s; }
+  details.panel[open] > summary::before { transform: rotate(90deg); }
+  details.panel > summary .hint { font-weight: 400; color: var(--muted); font-size: 0.82rem; }
+  .panel-body { padding: 0 16px 16px; display: grid; gap: 14px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .field { display: grid; gap: 4px; min-width: 0; }
+  .field label, .field .label { font-size: 0.78rem; font-weight: 600; color: var(--ink-2); }
+  .field .help { font-size: 0.76rem; color: var(--muted); }
+  input[type="text"], input[type="password"], input[type="date"], textarea {
+    font: inherit; font-size: 0.86rem; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 7px; padding: 7px 9px; width: 100%; min-width: 0;
+  }
+  textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82rem; resize: vertical; min-height: 92px; }
+  .check { display: flex; align-items: flex-start; gap: 8px; font-size: 0.84rem; color: var(--ink); }
+  .check input { margin-top: 3px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .progress { font-size: 0.8rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .log {
+    margin: 0; padding: 10px 12px; max-height: 180px; overflow: auto; border-radius: 8px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    font: 0.76rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--ink-2); white-space: pre-wrap;
+  }
+  .error { padding: 10px 12px; border-radius: 8px; background: var(--danger-soft); color: var(--danger); font-size: 0.84rem; border: 1px solid var(--danger); }
+  .stale { padding: 8px 12px; border-radius: 8px; background: var(--accent-soft); color: var(--ink); font-size: 0.82rem; }
+
+  /* filters + switchers */
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 0 22px; }
+  .ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .ctl .label { font-size: 0.74rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+  .seg { display: inline-flex; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 3px; gap: 2px; }
+  .seg button {
+    appearance: none; border: 0; background: transparent; color: var(--ink-2);
+    font: inherit; font-size: 0.84rem; padding: 6px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+  }
+  .seg button small { color: var(--muted); font-size: 0.74rem; margin-left: 4px; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .seg button[aria-pressed="true"] small { color: inherit; opacity: .75; }
+  .seg button:disabled { opacity: .45; cursor: not-allowed; }
+
+  .tiles { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 26px; }
+  .tile { flex: 1 1 130px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+  .tile .n { font-size: 1.5rem; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .tile .l { font-size: 0.74rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  section { margin-bottom: 30px; }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 10px; }
+  .sec-head > div:first-child { min-width: 0; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; color: var(--ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+  .sw.human { background: var(--accent); }
+  .sw.auto { background: var(--auto); }
+  .sw.open { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--ink-2); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 12px 10px; }
+  .plot-scroll { overflow-x: auto; }
+  svg { display: block; max-width: 100%; height: auto; }
+  .plot-scroll svg { max-width: none; }
+  svg text { fill: var(--ink-2); font-size: 11px; font-family: inherit; }
+  svg .axis-num { fill: var(--muted); }
+  .bar, .seg-human { fill: var(--accent); }
+  .seg-auto { fill: var(--auto); }
+  .bar:hover, .seg-human:hover, .seg-auto:hover { opacity: .82; }
+  .open-dot { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+  .baseline { stroke: var(--border); stroke-width: 1.5; }
+  .caption { color: var(--muted); font-size: 0.78rem; margin: 8px 4px 0; }
+  .empty { padding: 28px 12px; text-align: center; color: var(--muted); font-size: 0.86rem; }
+
+  .tip {
+    position: fixed; pointer-events: none; z-index: 20;
+    background: var(--ink); color: var(--bg);
+    border-radius: 8px; padding: 8px 10px; font-size: 0.78rem; line-height: 1.4;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25); opacity: 0; transition: opacity .1s; max-width: 230px;
+  }
+  .tip b { font-size: 0.82rem; }
+  .tip .row { display: flex; justify-content: space-between; gap: 14px; font-variant-numeric: tabular-nums; }
+  .tip .row span:first-child { opacity: .7; }
+  .tip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; }
+
+  .tbl-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+  table.wide { min-width: 560px; }
+  caption { text-align: left; font-size: 0.82rem; color: var(--ink-2); margin-bottom: 8px; }
+  th, td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { color: var(--ink-2); font-weight: 600; border-bottom: 1.5px solid var(--border); background: var(--surface); }
+  tbody tr:hover { background: var(--accent-soft); }
+  tr.current td { background: var(--accent-soft); font-weight: 600; }
+  td .login { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: 0.76rem; }
+  td.title { white-space: normal; text-align: left; min-width: 220px; }
+  td.title a { color: var(--ink); text-decoration: none; }
+  td.title a:hover { text-decoration: underline; }
+  td.title .num { color: var(--muted); margin-right: 6px; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.76rem; color: var(--ink-2); }
+  .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--st-closed); }
+  .badge.open::before { background: var(--st-open); }
+  .badge.draft::before { background: var(--st-draft); }
+  .badge.merged::before { background: var(--st-merged); }
+
+  [hidden] { display: none !important; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* merged dashboard additions */
+  .field { align-content: start; }
+  .tabs { margin: 0 0 20px; }
+  .tabs button { font-size: 0.9rem; padding: 7px 14px; }
+  select {
+    font: inherit; font-size: 0.86rem; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 7px; padding: 7px 9px; width: 100%; min-width: 0;
+  }
+  .boardlist { max-height: 260px; overflow: auto; border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; background: var(--bg); display: grid; gap: 3px; }
+  .boardlist:empty { display: none; }
+  progress { width: 100%; height: 8px; accent-color: var(--accent); }
+  .progress.bad { color: var(--danger); }
+  .chartBox { position: relative; height: 340px; }
+  table.left th, table.left td { text-align: left; }
+  .tab-intro { color: var(--ink-2); font-size: 0.9rem; margin: -8px 0 16px; max-width: 76ch; }
+  .status-line { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 18px; }
+  td.na { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Team Delivery Dashboard</h1>
+    <p class="sub">Code-review comments from GitHub and sprint-board column moves from Phabricator, per engineer and per month.</p>
+  </header>
+
+  <details class="panel" id="team-panel">
+    <summary>Team <span class="hint" id="team-hint"></span></summary>
+    <div class="panel-body">
+      <div class="field">
+        <label for="team-roster">One person per line: <code>Name | GitHub login | Phabricator username</code></label>
+        <textarea id="team-roster" spellcheck="false" rows="6"></textarea>
+        <span class="help">Leave a column empty if someone isn't on that system. The GitHub tab, the Phabricator tab and the overview all use this list. Changes to GitHub logins need a new GitHub fetch; Phabricator changes apply straight away.</span>
+      </div>
+    </div>
+  </details>
+
+  <div class="seg tabs" id="tabs" role="group" aria-label="Choose view">
+    <button type="button" data-tab="overview" aria-pressed="true">Overview</button>
+    <button type="button" data-tab="github" aria-pressed="false">Code review (GitHub)</button>
+    <button type="button" data-tab="phab" aria-pressed="false">Column moves (Phabricator)</button>
+  </div>
+
+  <div id="tab-overview">
+    <p class="tab-intro">Puts both sources side by side. Load data on the other two tabs first; the overview uses their current filters.</p>
+    <div class="status-line"><span class="pill" id="ov-ghPill">GitHub</span><span class="pill" id="ov-phPill">Phabricator</span></div>
+    <section>
+      <div class="sec-head"><div><h2>Team comparison</h2><p class="sec-sub" id="ov-compareSub"></p></div></div>
+      <div class="tbl-scroll"><table class="wide"><thead><tr id="ov-compareHead"></tr></thead><tbody id="ov-compare"></tbody></table></div>
+    </section>
+    <div class="controls">
+      <div class="ctl" role="group" aria-label="Choose engineer"><span class="label">Engineer</span><div class="seg" id="ov-people"></div></div>
+    </div>
+    <section>
+      <div class="sec-head">
+        <div><h2 id="ov-chartTitle">Per month</h2><p class="sec-sub" id="ov-chartSub"></p></div>
+      </div>
+      <div class="card"><div class="chartBox"><canvas id="ov-chart"></canvas></div></div>
+    </section>
+    <div class="tbl-scroll">
+      <table class="wide"><caption id="ov-tcap">The numbers behind the chart</caption><thead><tr id="ov-monthHead"></tr></thead><tbody id="ov-tbody"></tbody></table>
+    </div>
+    <p class="note">Review comments are counted against the month the pull request was opened. Column moves are counted in the month the move happened.</p>
+  </div>
+
+  <div id="tab-github" hidden>
+    <p class="tab-intro">Inline code-review comments on the pull requests each engineer opened, grouped by the month the PR was opened, and split between human reviewers and automated reviewers.</p>
+
+
+  <div class="source">
+    <div class="source-info">
+      <span class="pill" id="gh-sourcePill">Snapshot</span>
+      <span class="note" id="gh-sourceNote" style="margin:0"></span>
+    </div>
+    <div class="source-actions">
+      <button class="btn" id="gh-exportJson" type="button">Export JSON</button>
+      <button class="btn" id="gh-exportCsv" type="button">Export CSV</button>
+      <button class="btn" id="gh-importBtn" type="button">Import JSON</button>
+      <input type="file" id="gh-importFile" accept="application/json,.json" hidden>
+    </div>
+  </div>
+
+  <details class="panel" id="gh-panel">
+    <summary>Fetch live data from GitHub <span class="hint" id="gh-panelHint">Needs a GitHub token</span></summary>
+    <div class="panel-body">
+      <div class="grid2">
+        <div class="field">
+          <label for="gh-token">GitHub token</label>
+          <input type="password" id="gh-token" autocomplete="off" spellcheck="false" placeholder="ghp_… or github_pat_…">
+          <span class="help">GitHub's GraphQL API needs a token, even for public repos. A <a href="https://github.com/settings/tokens/new?description=Review%20comments%20by%20month" target="_blank" rel="noopener">classic token with no scopes</a> works for public repos. For private repos, use one with read access. The token is only sent to api.github.com.</span>
+          <label class="check"><input type="checkbox" id="gh-remember"> Remember the token in this browser</label>
+          <span class="help">Saved in this browser's local storage for this file. Anyone using this browser profile could read it. Leave unticked on shared machines.</span>
+        </div>
+        <div class="field">
+          <label for="gh-repo">Repository</label>
+          <input type="text" id="gh-repo" spellcheck="false" placeholder="owner/name">
+          <div class="grid2" style="gap:10px; margin-top:6px">
+            <div class="field"><label for="gh-since">PRs opened from</label><input type="date" id="gh-since"></div>
+            <div class="field"><label for="gh-until">to</label><input type="date" id="gh-until"><span class="help">Leave empty for today.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <span class="label">Engineers</span>
+          <span class="help">Everyone with a GitHub login in the Team list at the top of the page.</span>
+        </div>
+        <div class="field">
+          <span class="label">Automated reviewers</span>
+          <label class="check"><input type="checkbox" id="gh-countAllBots"> Count every GitHub bot account as automated</label>
+          <label for="gh-botLogins" class="label" style="margin-top:6px">Also count these logins as automated</label>
+          <input type="text" id="gh-botLogins" spellcheck="false" placeholder="copilot-pull-request-reviewer">
+          <span class="help">Comma or space separated. Everyone else counts as human, including the PR author's own replies. Changing these re-sorts loaded data without fetching again.</span>
+          <span class="help" id="gh-botsSeen"></span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="gh-fetchBtn" type="button">Fetch from GitHub</button>
+        <button class="btn" id="gh-cancelBtn" type="button" hidden>Cancel</button>
+        <button class="btn" id="gh-resetBtn" type="button">Show snapshot</button>
+        <span class="progress" id="gh-progress"></span>
+      </div>
+      <div class="stale" id="gh-staleNote" hidden>Repository, dates or engineers differ from the loaded data. Fetch again to apply them.</div>
+      <div class="error" id="gh-errorBox" role="alert" hidden></div>
+      <pre class="log" id="gh-log" hidden></pre>
+    </div>
+  </details>
+
+  <div class="controls">
+    <div class="ctl" role="group" aria-label="Which PRs to count">
+      <span class="label">PRs</span>
+      <div class="seg" id="gh-stateSeg">
+        <button type="button" data-state="all" aria-pressed="true">All</button>
+        <button type="button" data-state="nodrafts" aria-pressed="false">Exclude drafts</button>
+        <button type="button" data-state="merged" aria-pressed="false">Merged only</button>
+      </div>
+      <label class="check" style="font-size:0.82rem"><input type="checkbox" id="gh-markOpen" checked> Mark months with open PRs</label>
+    </div>
+    <span class="note" id="gh-filterNote" style="margin:0"></span>
+  </div>
+
+  <div class="controls">
+    <div class="ctl" role="group" aria-label="Choose engineer">
+      <span class="label">Engineer</span>
+      <div class="seg" id="gh-people"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head"><div><h2>Team comparison</h2><p class="sec-sub" id="gh-compareSub"></p></div></div>
+    <div class="tbl-scroll">
+      <table class="wide">
+        <thead><tr id="gh-compareHead"></tr></thead>
+        <tbody id="gh-compare"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="tiles" id="gh-tiles"></div>
+
+  <section>
+    <div class="sec-head">
+      <div>
+        <h2 id="gh-hVol">Comment volume per month</h2>
+        <p class="sec-sub" id="gh-cap1"></p>
+      </div>
+      <div class="seg" id="gh-metricSeg" role="group" aria-label="Choose metric">
+        <button type="button" data-metric="avg" aria-pressed="true">Avg / PR</button>
+        <button type="button" data-metric="total" aria-pressed="false">Total</button>
+        <button type="button" data-metric="prs" aria-pressed="false">PRs opened</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="plot-scroll"><svg id="gh-chart1" role="img" aria-label="Bar chart of review comments per month"></svg></div>
+      <div class="legend" id="gh-legend1" style="margin:8px 4px 0" hidden><span><span class="sw open"></span>Month has PRs that are still open, so its count may still grow</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div>
+        <h2 id="gh-hSrc">Comments by source</h2>
+        <p class="sec-sub">Human reviewers vs. automated reviewers, stacked per month.</p>
+      </div>
+      <div class="legend">
+        <span><span class="sw human"></span>Human</span>
+        <span><span class="sw auto"></span>Automated</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="plot-scroll"><svg id="gh-chart2" role="img" aria-label="Stacked bar chart of human versus automated review comments per month"></svg></div>
+      <p class="caption" id="gh-cap2"></p>
+    </div>
+  </section>
+
+  <section id="gh-topSection" hidden>
+    <div class="sec-head"><div><h2 id="gh-hTop">Most-discussed PRs</h2><p class="sec-sub">The PRs with the most inline review comments under the current filter.</p></div></div>
+    <div class="tbl-scroll">
+      <table class="wide">
+        <thead><tr><th>PR</th><th>State</th><th>Opened</th><th>Human</th><th>Automated</th><th>Total</th></tr></thead>
+        <tbody id="gh-topBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="tbl-scroll">
+    <table class="wide">
+      <caption id="gh-tcap">The numbers behind both charts</caption>
+      <thead><tr id="gh-monthHead"></tr></thead>
+      <tbody id="gh-tbody"></tbody>
+    </table>
+  </div>
+
+  <p class="note">Counts include inline review comments only (comments on lines of code, plus replies in those threads), not the general PR conversation. Comments are bucketed by the month the PR was opened, not when the comment was written.</p>
+
+<div class="tip" id="gh-tip" role="status" aria-live="polite"></div>
+  </div>
+
+  <div id="tab-phab" hidden>
+    <p class="tab-intro">How often tasks move between similarly named columns (for example “In progress” → “Code review”) across sprint boards.</p>
+
+  <details class="panel" id="ph-panel" open>
+    <summary>Phabricator connection and sprint boards <span class="hint">Needs a Conduit API token, and the page opened from serve.py</span></summary>
+    <div class="panel-body">
+      <div class="grid2">
+        <div class="field">
+          <label for="ph-token">Conduit API token</label>
+          <input id="ph-token" type="password" placeholder="api-xxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+          <span class="help">Create one in Phabricator under Settings → Conduit API Tokens.</span>
+          <label class="check"><input type="checkbox" id="ph-remember"> Remember the token in this browser</label>
+        </div>
+        <div class="field">
+          <label for="ph-apiBase">Conduit API base</label>
+          <input id="ph-apiBase" type="text" spellcheck="false">
+          <span class="help">Use <code>/api/</code> when the page is opened from <code>serve.py</code>. Phabricator does not allow browser pages on other sites to call its API.</span>
+          <label for="ph-phabWeb" style="margin-top:6px">Phabricator web address (for task links)</label>
+          <input id="ph-phabWeb" type="text" value="https://phabricator.wikimedia.org" spellcheck="false">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="ph-boardQuery">Project name search</label>
+          <input id="ph-boardQuery" type="text" placeholder="e.g. AppEx, iOS Sprint" spellcheck="false">
+          <span class="help">Separate several searches with commas; the results are combined.</span>
+        </div>
+        <div class="field">
+          <label for="ph-boardRegex">Only names matching (optional regex)</label>
+          <input id="ph-boardRegex" type="text" placeholder="e.g. Sprint" spellcheck="false">
+        </div>
+      </div>
+      <div class="actions">
+        <label class="check"><input type="checkbox" id="ph-incMilestones" checked> Include milestones of matching projects</label>
+        <label class="check"><input type="checkbox" id="ph-onlyOpen" checked> Open (non-archived) only</label>
+      </div>
+      <div class="actions">
+        <button class="btn" id="ph-searchBoards" type="button">Search projects</button>
+        <button class="btn" id="ph-selectAll" type="button">Select all</button>
+        <button class="btn" id="ph-selectNone" type="button">Select none</button>
+        <span class="progress" id="ph-boardCount"></span>
+      </div>
+      <div id="ph-boardList" class="boardlist"></div>
+      <div class="actions">
+        <button class="btn primary" id="ph-load" type="button">Load column moves</button>
+        <span class="help">Fetches every task on the selected boards and its history. Large boards take a while.</span>
+      </div>
+      <progress id="ph-progress" value="0" max="1" hidden></progress>
+      <div class="progress" id="ph-status" role="status"></div>
+    </div>
+  </details>
+
+  <section>
+    <div class="sec-head"><div><h2>What to count</h2><p class="sec-sub">Changes here redraw the charts without fetching again. Engineers come from the Team list.</p></div></div>
+    <div class="card" style="padding:16px">
+      <div class="grid2">
+        <div class="field">
+          <label for="ph-fromPat">From column like</label>
+          <input id="ph-fromPat" type="text" placeholder="e.g. In progress, Doing" spellcheck="false">
+          <span class="help">Blank = any column, including a task newly added to the board. Commas separate alternatives; <code>/regex/</code> also works. Case and punctuation are ignored.</span>
+        </div>
+        <div class="field">
+          <label for="ph-toPat">To column like</label>
+          <input id="ph-toPat" type="text" placeholder="e.g. Code review" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="ph-attr">Credit the move to</label>
+          <select id="ph-attr">
+            <option value="author">The person who moved the task</option>
+            <option value="owner">The task's current assignee</option>
+          </select>
+          <label for="ph-metric" style="margin-top:6px">Count</label>
+          <select id="ph-metric">
+            <option value="moves">Moves</option>
+            <option value="tasks">Distinct tasks</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="grid2" style="gap:10px">
+            <div class="field"><label for="ph-since">Moves from</label><input id="ph-since" type="date"></div>
+            <div class="field"><label for="ph-until">to</label><input id="ph-until" type="date"></div>
+          </div>
+          <span class="help">Optional.</span>
+        </div>
+      </div>
+      <div class="actions" style="margin-top:12px">
+        <button class="btn primary" id="ph-apply" type="button">Update charts</button>
+        <button class="btn" id="ph-csv" type="button" disabled>Download CSV</button>
+        <span class="progress" id="ph-applyStatus"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="ph-results" hidden>
+    <div class="sec-head"><div><h2 id="ph-totalTitle">Total per engineer</h2></div></div>
+    <div class="card"><div class="chartBox" style="height:260px"><canvas id="ph-totalChart"></canvas></div></div>
+  </section>
+  <section id="ph-results2" hidden>
+    <div class="sec-head"><div><h2>Per sprint board</h2><p class="sec-sub">Boards in date order.</p></div></div>
+    <div class="card"><div class="chartBox"><canvas id="ph-boardChart"></canvas></div></div>
+  </section>
+  <section id="ph-resultsMonth" hidden>
+    <div class="sec-head"><div><h2>Per month</h2><p class="sec-sub">By the month the move happened.</p></div></div>
+    <div class="card"><div class="chartBox"><canvas id="ph-monthChart"></canvas></div></div>
+  </section>
+  <section id="ph-results3" hidden>
+    <div class="sec-head"><div><h2>Column transitions seen</h2><p class="sec-sub">Every move by the team on these boards, whatever the column filter. Use it to find the column names to filter on.</p></div></div>
+    <div class="tbl-scroll"><table class="wide left" id="ph-transTable"></table></div>
+  </section>
+  <section id="ph-results4" hidden>
+    <div class="sec-head"><div><h2>Matching moves</h2></div></div>
+    <div class="tbl-scroll"><table class="wide left" id="ph-moveTable"></table></div>
+  </section>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ---------- Shared team list + message bus between the tabs ---------- */
+window.BUS = {
+  gh: null, ph: null, ghRedraw: null, fns: [],
+  on(fn) { this.fns.push(fn); },
+  emit() { for (const fn of this.fns) { try { fn(); } catch (e) { console.error(e); } } },
+};
+window.TEAM = (() => {
+  const KEY = "team.roster.v1";
+  const get = k => { try { return localStorage.getItem(k); } catch (_) { return null; } };
+  const set = (k, v) => { try { localStorage.setItem(k, v); } catch (_) {} };
+  const DEFAULT = "l-olson1214 | l-olson1214 |\nMarina | mazevedofs |\nToni | tonisevener |\nErika | ealbizzati |";
+  function initial() {
+    const saved = get(KEY);
+    if (saved != null) return saved;
+    // carry over usernames typed into the earlier stand-alone Phabricator page, if it ran on this address
+    const oldPhab = (get("pcm.users") || "").split(/[\s,]+/).map(s => s.trim().replace(/^@/, "")).filter(Boolean);
+    return [DEFAULT, ...oldPhab.map(u => `${u} |  | ${u}`)].join("\n");
+  }
+  const fns = [];
+  const T = {
+    text: initial(),
+    parse() {
+      const seen = new Set();
+      return T.text.split(/\n+/).map(l => l.trim()).filter(l => l && !l.startsWith("#")).map(line => {
+        if (!line.includes("|")) {                       // older "login = Name" form from the GitHub page
+          const [login, ...rest] = line.split("=");
+          const gh = login.trim().replace(/^@/, "");
+          return { name: rest.join("=").trim() || gh, github: gh, phab: "" };
+        }
+        const [name, gh = "", ph = ""] = line.split("|").map(s => s.trim().replace(/^@/, ""));
+        return { name: name || gh || ph, github: gh, phab: ph };
+      }).filter(p => p.name && !seen.has(p.name.toLowerCase()) && seen.add(p.name.toLowerCase()));
+    },
+    github() { const s = new Set(); return T.parse().filter(p => p.github && !s.has(p.github.toLowerCase()) && s.add(p.github.toLowerCase())).map(p => ({ login: p.github, name: p.name })); },
+    phab() { const s = new Set(); return T.parse().filter(p => p.phab && !s.has(p.phab.toLowerCase()) && s.add(p.phab.toLowerCase())).map(p => ({ username: p.phab, name: p.name })); },
+    on(fn) { fns.push(fn); },
+    update(text) { T.text = text; set(KEY, text); hint(); fns.forEach(fn => { try { fn(); } catch (e) { console.error(e); } }); BUS.emit(); },
+  };
+  const box = document.getElementById("team-roster");
+  function hint() {
+    const all = T.parse();
+    document.getElementById("team-hint").textContent =
+      `${all.length} people · ${all.filter(p => p.github).length} with GitHub · ${all.filter(p => p.phab).length} with Phabricator`;
+  }
+  box.value = T.text;
+  hint();
+  if (!T.parse().some(p => p.phab)) document.getElementById("team-panel").open = true;
+  let timer = null;
+  box.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => T.update(box.value), 400); });
+  return T;
+})();
+</script>
+<script>
+(() => {
+"use strict";
+
+/* ---------- Embedded snapshot (shown until live data is fetched or imported) ---------- */
+// Rows: [month, human, automated, PRs opened]. Automated = copilot-pull-request-reviewer.
+const SNAPSHOT = {
+  label: "Snapshot · Nov 5, 2026",
+  repo: "wikimedia/wikipedia-ios",
+  since: "2024-08-01",
+  until: "2026-11-05",
+  note: "l-olson1214's months before Oct 2026 are an approximate count. PR-state filters need live data.",
+  people: [
+    { login: "l-olson1214", name: "l-olson1214", withComments: 137, rows: [
+      ["2024-08",38,0,6],["2024-09",54,0,11],["2024-10",41,0,16],["2024-11",32,0,10],["2024-12",46,0,6],
+      ["2025-01",31,0,11],["2025-02",10,0,2],["2025-03",23,0,5],["2025-04",10,0,12],["2025-05",27,0,10],
+      ["2025-06",20,0,6],["2025-07",9,0,3],["2025-08",36,0,9],["2025-09",51,0,13],["2025-10",67,0,15],
+      ["2025-11",25,0,22],["2025-12",10,0,12],["2026-01",37,0,11],["2026-02",8,8,8],["2026-03",21,35,9],
+      ["2026-04",19,22,12],["2026-05",52,34,7],["2026-06",25,27,7],["2026-07",48,7,5],["2026-08",60,12,10],
+      ["2026-09",52,3,15],["2026-10",57,8,10],["2026-11",11,3,3]] },
+    { login: "mazevedofs", name: "Marina", withComments: 93, rows: [
+      ["2024-08",5,0,10],["2024-09",14,0,7],["2024-10",11,0,9],["2024-11",19,0,13],["2024-12",0,0,2],
+      ["2025-01",5,0,20],["2025-02",17,0,3],["2025-03",11,0,2],["2025-04",20,0,4],["2025-05",4,0,3],
+      ["2025-06",14,0,11],["2025-07",4,0,5],["2025-08",17,0,9],["2025-09",45,0,6],["2025-10",11,0,7],
+      ["2025-11",43,0,7],["2025-12",5,0,8],["2026-01",0,0,6],["2026-02",86,0,15],["2026-03",25,0,24],
+      ["2026-04",9,0,19],["2026-05",16,0,9],["2026-06",14,0,23],["2026-07",6,5,13],["2026-08",11,5,16],
+      ["2026-09",47,6,18],["2026-10",26,13,17],["2026-11",0,0,4]] },
+    { login: "tonisevener", name: "Toni", withComments: 52, rows: [
+      ["2024-08",2,0,23],["2024-09",4,0,16],["2024-10",0,0,12],["2024-11",2,0,22],["2024-12",16,0,5],
+      ["2025-01",2,0,20],["2025-02",2,0,10],["2025-03",1,0,3],["2025-04",0,0,9],["2025-05",9,0,15],
+      ["2025-06",0,0,0],["2025-07",0,0,5],["2025-08",16,0,7],["2025-09",5,0,19],["2025-10",5,0,14],
+      ["2025-11",3,0,14],["2025-12",2,0,18],["2026-01",8,0,10],["2026-02",18,11,19],["2026-03",18,0,16],
+      ["2026-04",4,0,28],["2026-05",10,0,18],["2026-06",3,0,10],["2026-07",0,0,2],["2026-08",8,0,8],
+      ["2026-09",6,0,5],["2026-10",42,0,15],["2026-11",2,0,1]] },
+    { login: "ealbizzati", name: "Erika", withComments: 66, rows: [
+      ["2026-07",20,14,10],["2026-08",37,36,23],["2026-09",27,38,39],["2026-10",54,15,35],["2026-11",10,13,4]] },
+  ],
+};
+
+const DEFAULT_CONFIG = {
+  repo: "wikimedia/wikipedia-ios",
+  since: "2024-08-01",
+  until: "",
+  engineers: "l-olson1214\nmazevedofs = Marina\ntonisevener = Toni\nealbizzati = Erika",
+  countAllBots: true,
+  botLogins: "copilot-pull-request-reviewer",
+};
+
+const GQL_URL = "https://api.github.com/graphql";
+const KEYS = { config: "rcm.config.v1", data: "rcm.data.v1", token: "rcm.token.v1" };
+
+/* ---------- Storage (every access guarded; the page works without it) ---------- */
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); return true; } catch (_) { return false; } },
+  del(k) { try { localStorage.removeItem(k); } catch (_) {} },
+};
+
+/* ---------- Pure helpers ---------- */
+const $ = id => document.getElementById("gh-" + id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const pad2 = n => String(n).padStart(2, "0");
+const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; };
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "engineer";
+const normLogin = s => String(s || "").trim().replace(/\[bot\]$/i, "").toLowerCase();
+const pct = (a, b) => b ? Math.round(100 * a / b) + "%" : "–";
+const avgStr = (t, n) => n ? (t / n).toFixed(1) : "–";
+const sleep = (ms, signal) => new Promise((resolve, reject) => {
+  const t = setTimeout(resolve, ms);
+  if (signal) signal.addEventListener("abort", () => { clearTimeout(t); reject(new DOMException("Aborted", "AbortError")); }, { once: true });
+});
+
+function monthLabel(m) {
+  const [y, mo] = m.split("-");
+  return new Date(+y, +mo - 1, 1).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+function monthShort(m) {
+  const [y, mo] = m.split("-");
+  const mn = new Date(+y, +mo - 1, 1).toLocaleDateString("en-US", { month: "short" });
+  return mo === "01" ? `${mn} '${y.slice(2)}` : mn;
+}
+function monthRange(fromDate, toDate) {
+  let [y, m] = fromDate.slice(0, 7).split("-").map(Number);
+  const [ey, em] = toDate.slice(0, 7).split("-").map(Number);
+  const out = [];
+  while (y < ey || (y === ey && m <= em)) {
+    out.push(`${y}-${pad2(m)}`);
+    m++; if (m === 13) { y++; m = 1; }
+  }
+  return out;
+}
+function parseEngineers(text) {
+  const seen = new Set();
+  return String(text).split(/\n+/).map(l => l.trim()).filter(Boolean).map(line => {
+    const [login, ...rest] = line.split("=");
+    return { login: login.trim().replace(/^@/, ""), name: rest.join("=").trim() || login.trim().replace(/^@/, "") };
+  }).filter(e => e.login && !seen.has(e.login.toLowerCase()) && seen.add(e.login.toLowerCase()));
+}
+function parseBotLogins(text) {
+  return new Set(String(text).split(/[\s,]+/).map(normLogin).filter(Boolean));
+}
+function isoDate(d) { return `${d.getUTCFullYear()}-${pad2(d.getUTCMonth() + 1)}-${pad2(d.getUTCDate())}`; }
+function midDate(from, to) {
+  const a = Date.parse(from + "T00:00:00Z"), b = Date.parse(to + "T00:00:00Z");
+  return isoDate(new Date(a + Math.floor((b - a) / 86400000 / 2) * 86400000));
+}
+function nextDay(d) { return isoDate(new Date(Date.parse(d + "T00:00:00Z") + 86400000)); }
+function prStatus(p) { return p.merged ? "merged" : p.state === "OPEN" ? (p.isDraft ? "draft" : "open") : "closed"; }
+function stateLabel(s) { return { merged: "Merged", open: "Open", draft: "Draft", closed: "Closed" }[s]; }
+
+/* ---------- App state ---------- */
+let config = loadConfig();
+let dataset = loadCachedDataset();          // null → snapshot
+let view = { personId: location.hash.slice(1) || null, metric: "avg", stateFilter: "all", markOpen: true };
+let controller = null;
+let apiCalls = 0;
+let rate = null;
+
+function loadConfig() {
+  try { return Object.assign({}, DEFAULT_CONFIG, JSON.parse(store.get(KEYS.config) || "{}")); }
+  catch (_) { return Object.assign({}, DEFAULT_CONFIG); }
+}
+function saveConfig() { store.set(KEYS.config, JSON.stringify(config)); }
+function loadCachedDataset() {
+  try { const d = JSON.parse(store.get(KEYS.data) || "null"); return validDataset(d) ? d : null; }
+  catch (_) { return null; }
+}
+function cacheDataset() {
+  if (!dataset) { store.del(KEYS.data); return; }
+  if (!store.set(KEYS.data, JSON.stringify(dataset))) log("Could not keep the data in this browser (storage is full or blocked). Use Export JSON to keep a copy.");
+}
+function validDataset(d) {
+  return d && d.version === 1 && Array.isArray(d.prs) && Array.isArray(d.engineers) && typeof d.since === "string" && typeof d.until === "string";
+}
+
+/* ---------- Classification + aggregation ---------- */
+function automatedMatcher() {
+  const list = parseBotLogins(config.botLogins);
+  const bots = (dataset && dataset.botAccounts) || {};
+  return login => { const l = normLogin(login); return list.has(l) || (!!config.countAllBots && !!bots[l]); };
+}
+function stateFilterFn() {
+  if (view.stateFilter === "merged") return p => p.merged;
+  if (view.stateFilter === "nodrafts") return p => !p.isDraft;
+  return () => true;
+}
+function finalizeRows(rows) {
+  return rows.map(r => Object.assign(r, { total: r.human + r.auto, avg: r.prs ? (r.human + r.auto) / r.prs : null }));
+}
+function summarize(person) {
+  const s = person.rows.reduce((a, d) => ({ human: a.human + d.human, auto: a.auto + d.auto, prs: a.prs + d.prs }), { human: 0, auto: 0, prs: 0 });
+  s.total = s.human + s.auto;
+  person.sum = s;
+  const fb = person.rows.find(d => d.auto > 0);
+  person.firstBot = fb ? fb.m : null;
+  return person;
+}
+function snapshotPeople() {
+  return SNAPSHOT.people.map(p => summarize({
+    id: slug(p.name), name: p.name, login: p.login, withComments: p.withComments, live: false, open: null,
+    rows: finalizeRows(p.rows.map(([m, human, auto, prs]) => ({ m, human, auto, prs, open: 0 }))),
+  }));
+}
+function livePeople() {
+  const isAuto = automatedMatcher();
+  const keep = stateFilterFn();
+  const range = monthRange(dataset.since, dataset.until);
+  return dataset.engineers.map(e => {
+    const mine = dataset.prs.filter(p => normLogin(p.author) === normLogin(e.login) && keep(p));
+    const byMonth = new Map(range.map(m => [m, { m, human: 0, auto: 0, prs: 0, open: 0 }]));
+    const scored = [];
+    for (const p of mine) {
+      let h = 0, b = 0;
+      for (const [login, n] of Object.entries(p.c || {})) { if (isAuto(login)) b += n; else h += n; }
+      scored.push({ pr: p, h, b });
+      const row = byMonth.get(p.createdAt.slice(0, 7));
+      if (!row) continue;
+      row.prs++; row.human += h; row.auto += b;
+      if (p.state === "OPEN") row.open++;
+    }
+    let rows = [...byMonth.values()];
+    const first = rows.findIndex(r => r.prs > 0);
+    rows = first < 0 ? [] : rows.slice(first);
+    return summarize({
+      id: slug(e.name || e.login), name: e.name || e.login, login: e.login, live: true,
+      rows: finalizeRows(rows),
+      withComments: scored.filter(s => s.h + s.b > 0).length,
+      open: mine.filter(p => p.state === "OPEN").length,
+      top: scored.filter(s => s.h + s.b > 0).sort((a, b) => (b.h + b.b) - (a.h + a.b) || b.pr.number - a.pr.number).slice(0, 10),
+    });
+  });
+}
+function currentPeople() { return dataset ? livePeople() : snapshotPeople(); }
+
+/* ---------- Rendering ---------- */
+const tip = $("tip");
+let people = [];
+let person = null;
+
+function render() {
+  people = currentPeople();
+  person = people.find(p => p.id === view.personId) || people[0] || null;
+  if (person) view.personId = person.id;
+  renderSource();
+  renderFilters();
+  renderPeopleSwitch();
+  renderCompare();
+  renderTiles();
+  renderChart1();
+  renderChart2();
+  renderTop();
+  renderMonthTable();
+  renderStale();
+  BUS.gh = { people, live: !!dataset, filter: dataset ? view.stateFilter : "all",
+    source: dataset ? (dataset.source === "import" ? "imported file" : "live data") : "snapshot",
+    since: dataset ? dataset.since : SNAPSHOT.since, until: dataset ? dataset.until : SNAPSHOT.until,
+    range: dataset ? `${dataset.since} to ${dataset.until}` : `${SNAPSHOT.since} to ${SNAPSHOT.until}` };
+  BUS.emit();
+}
+
+function renderSource() {
+  const pill = $("sourcePill");
+  pill.className = "pill" + (dataset ? (dataset.source === "import" ? " import" : " live") : "");
+  if (!dataset) {
+    pill.textContent = SNAPSHOT.label;
+    $("sourceNote").textContent = `${SNAPSHOT.repo}, PRs opened ${SNAPSHOT.since} to ${SNAPSHOT.until}. ${SNAPSHOT.note}`;
+  } else {
+    const when = new Date(dataset.fetchedAt);
+    const whenStr = isNaN(when) ? "unknown time" : when.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
+    pill.textContent = (dataset.source === "import" ? "Imported file" : "Live data") + " · fetched " + whenStr;
+    $("sourceNote").textContent = `${dataset.repo}, PRs opened ${dataset.since} to ${dataset.until}, ${dataset.prs.length} PRs.`;
+  }
+  $("resetBtn").hidden = !dataset;
+  $("exportJson").disabled = !dataset;
+  $("exportJson").title = dataset ? "" : "Fetch or import data first";
+  const seen = dataset && dataset.botAccounts ? Object.keys(dataset.botAccounts) : [];
+  $("botsSeen").textContent = seen.length ? `Bot accounts found in the loaded data: ${seen.sort().join(", ")}.` : "";
+}
+
+function renderFilters() {
+  const live = !!dataset;
+  $("stateSeg").querySelectorAll("button").forEach(b => {
+    b.disabled = !live && b.dataset.state !== "all";
+    b.setAttribute("aria-pressed", String(b.dataset.state === (live ? view.stateFilter : "all")));
+  });
+  $("markOpen").disabled = !live;
+  $("filterNote").textContent = live ? "" : "Fetch live data to filter by PR state and mark open PRs.";
+}
+
+function renderPeopleSwitch() {
+  $("people").innerHTML = people.map(p =>
+    `<button type="button" data-person="${esc(p.id)}" aria-pressed="${p === person}">${esc(p.name)}${p.name !== p.login ? `<small>${esc(p.login)}</small>` : ""}</button>`).join("");
+}
+
+function renderCompare() {
+  const live = !!dataset;
+  const range = dataset ? `${dataset.since} to ${dataset.until}` : `${SNAPSHOT.since} to ${SNAPSHOT.until}`;
+  const filterName = { all: "all PRs", nodrafts: "drafts excluded", merged: "merged PRs only" }[live ? view.stateFilter : "all"];
+  $("compareSub").textContent = `PRs each person opened, ${range}, ${filterName}.`;
+  $("compareHead").innerHTML = `<th>Engineer</th><th>PRs</th><th>PRs with comments</th><th>Comments</th><th>Avg / PR</th><th>Automated share</th>${live ? "<th>Still open</th>" : ""}`;
+  $("compare").innerHTML = people.map(p =>
+    `<tr class="${p === person ? "current" : ""}"><td>${esc(p.name)}${p.name !== p.login ? `<span class="login">${esc(p.login)}</span>` : ""}</td>` +
+    `<td>${p.sum.prs}</td><td>${p.withComments}</td><td>${p.sum.total}</td>` +
+    `<td>${avgStr(p.sum.total, p.sum.prs)}</td><td>${pct(p.sum.auto, p.sum.total)}</td>` +
+    (live ? `<td>${p.open}</td>` : "") + `</tr>`).join("") ||
+    `<tr><td colspan="7" class="empty">No engineers configured.</td></tr>`;
+}
+
+function renderTiles() {
+  if (!person) { $("tiles").innerHTML = ""; return; }
+  const s = person.sum;
+  $("tiles").innerHTML = [
+    [String(s.total), "Review comments"],
+    [String(s.prs), "PRs opened"],
+    [avgStr(s.total, s.prs), "Avg per PR"],
+    [pct(s.auto, s.total), "Automated"],
+  ].map(([n, l]) => `<div class="tile"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+}
+
+function niceMax(v) {
+  if (!(v > 0)) return 1;
+  const pow = Math.pow(10, Math.floor(Math.log10(v)));
+  for (const s of [1, 2, 2.5, 5, 10]) if (s * pow >= v) return s * pow;
+  return 10 * pow;
+}
+function frame(n, id) {
+  // Fill the card's width; below ~24px per month the chart scrolls sideways instead of squeezing.
+  const avail = Math.floor($(id).parentElement.clientWidth) || 660;
+  const W = Math.max(avail, n * 24 + 60), H = 340;
+  const padL = 42, padR = 12, padT = 20, padB = 46;
+  return { W, H, padL, padR, padT, padB, iw: W - padL - padR, ih: H - padT - padB };
+}
+function roundedTopRect(x, y0, top, w, maxR) {
+  const h = y0 - top, r = Math.min(maxR, w / 2, h);
+  if (h <= r || r <= 0) {
+    const hh = Math.max(h, 1);
+    return `M${x.toFixed(1)},${(y0 - hh).toFixed(1)} h${w.toFixed(1)} v${hh.toFixed(1)} h${(-w).toFixed(1)} Z`;
+  }
+  return `M${x.toFixed(1)},${y0} L${x.toFixed(1)},${(top + r).toFixed(1)} Q${x.toFixed(1)},${top.toFixed(1)} ${(x + r).toFixed(1)},${top.toFixed(1)} ` +
+    `L${(x + w - r).toFixed(1)},${top.toFixed(1)} Q${(x + w).toFixed(1)},${top.toFixed(1)} ${(x + w).toFixed(1)},${(top + r).toFixed(1)} L${(x + w).toFixed(1)},${y0} Z`;
+}
+function axes(f, max) {
+  const { W, padL, padR, padT, ih } = f, y0 = padT + ih;
+  let s = "";
+  for (let i = 0; i <= 4; i++) {
+    const val = max * i / 4, y = y0 - (val / max) * ih;
+    s += `<line class="gridline" x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}"/>`;
+    s += `<text class="axis-num" x="${padL - 8}" y="${(y + 3.5).toFixed(1)}" text-anchor="end">${+val.toFixed(2)}</text>`;
+  }
+  return s + `<line class="baseline" x1="${padL}" y1="${y0}" x2="${W - padR}" y2="${y0}"/>`;
+}
+function xlabels(f, data) {
+  const { padL, padT, ih, iw } = f, y0 = padT + ih, bw = iw / data.length;
+  const every = Math.max(1, Math.ceil(data.length / 16));
+  return data.map((d, i) => i % every === 0
+    ? `<text x="${(padL + bw * i + bw / 2).toFixed(1)}" y="${y0 + 16}" text-anchor="middle">${monthShort(d.m)}</text>` : "").join("");
+}
+function openDot(cx, top, d) {
+  return (view.markOpen && dataset && d.open > 0) ? `<circle class="open-dot" cx="${cx.toFixed(1)}" cy="${(top - 8).toFixed(1)}" r="3.2"/>` : "";
+}
+function mount(id, f, s) {
+  const svg = $(id);
+  svg.setAttribute("viewBox", `0 0 ${f.W} ${f.H}`);
+  svg.setAttribute("width", f.W); svg.setAttribute("height", f.H);
+  svg.innerHTML = s;
+  return svg;
+}
+function emptyChart(id) {
+  const f = { W: 660, H: 120 };
+  mount(id, f, `<text x="330" y="64" text-anchor="middle">No PRs for ${esc(person ? person.name : "this engineer")} under the current filter.</text>`);
+}
+
+const METRIC_CAPS = {
+  avg: "Average inline review comments per PR opened that month. Months with no PRs are left blank.",
+  total: "Total inline review comments on PRs opened that month.",
+  prs: "Number of PRs opened that month, including those with no review comments.",
+};
+
+function renderChart1() {
+  $("metricSeg").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.metric === view.metric)));
+  $("cap1").textContent = METRIC_CAPS[view.metric];
+  $("hVol").textContent = person ? `${person.name}: comment volume per month` : "Comment volume per month";
+  $("legend1").hidden = !(dataset && view.markOpen && person && person.rows.some(d => d.open > 0));
+  if (!person || !person.rows.length) return emptyChart("chart1");
+  const data = person.rows, f = frame(data.length, "chart1"), { padL, padT, iw, ih } = f, y0 = padT + ih;
+  const max = niceMax(Math.max(...data.map(d => d[view.metric] ?? 0)));
+  const bw = iw / data.length, bar = Math.min(26, bw * 0.64);
+  let s = axes(f, max);
+  data.forEach((d, i) => {
+    const v = d[view.metric], cx = padL + bw * i + bw / 2;
+    if (v == null || v === 0) { s += openDot(cx, y0, d); return; }
+    const top = y0 - (v / max) * ih;
+    s += `<path class="bar" data-i="${i}" d="${roundedTopRect(cx - bar / 2, y0, top, bar, 4)}"/>` + openDot(cx, top, d);
+  });
+  s += xlabels(f, data);
+  mount("chart1", f, s).querySelectorAll(".bar").forEach(el => bindTip(el, tipVolume));
+}
+
+function renderChart2() {
+  $("hSrc").textContent = person ? `${person.name}: comments by source` : "Comments by source";
+  if (!person || !person.rows.length) { $("cap2").textContent = ""; return emptyChart("chart2"); }
+  const data = person.rows, f = frame(data.length, "chart2"), { padL, padT, iw, ih } = f, y0 = padT + ih;
+  const max = niceMax(Math.max(...data.map(d => d.total)));
+  const bw = iw / data.length, bar = Math.min(26, bw * 0.64), gap = 2;
+  let s = axes(f, max);
+  data.forEach((d, i) => {
+    const cx = padL + bw * i + bw / 2, bx = cx - bar / 2;
+    const hTop = y0 - (d.human / max) * ih, topTotal = y0 - (d.total / max) * ih;
+    if (d.human > 0) s += `<path class="seg-human" data-i="${i}" d="${roundedTopRect(bx, y0, hTop, bar, d.auto > 0 ? 0 : 4)}"/>`;
+    if (d.auto > 0) s += `<path class="seg-auto" data-i="${i}" d="${roundedTopRect(bx, d.human > 0 ? hTop - gap : y0, topTotal, bar, 4)}"/>`;
+    s += openDot(cx, d.total > 0 ? topTotal : y0, d);
+  });
+  s += xlabels(f, data);
+  mount("chart2", f, s).querySelectorAll(".seg-human, .seg-auto").forEach(el => bindTip(el, tipSource));
+  $("cap2").textContent = person.firstBot
+    ? `Automated review comments first appear on ${person.name}'s PRs in ${monthLabel(person.firstBot)}.`
+    : `No automated review comments on ${person.name}'s PRs in this period.`;
+}
+
+function bindTip(el, build) {
+  el.addEventListener("mouseenter", e => { tip.innerHTML = build(person.rows[+e.target.dataset.i]); tip.style.opacity = 1; place(e); });
+  el.addEventListener("mousemove", place);
+  el.addEventListener("mouseleave", () => { tip.style.opacity = 0; });
+}
+function openLine(d) { return dataset ? `<div class="row"><span>Still open</span><span>${d.open}</span></div>` : ""; }
+function tipVolume(d) {
+  return `<b>${monthLabel(d.m)}</b>` +
+    `<div class="row"><span>Avg / PR</span><span>${avgStr(d.total, d.prs)}</span></div>` +
+    `<div class="row"><span>Comments</span><span>${d.total}</span></div>` +
+    `<div class="row"><span>PRs opened</span><span>${d.prs}</span></div>` + openLine(d);
+}
+function tipSource(d) {
+  return `<b>${monthLabel(d.m)}</b>` +
+    `<div class="row"><span><span class="dot" style="background:var(--accent)"></span>Human</span><span>${d.human}</span></div>` +
+    `<div class="row"><span><span class="dot" style="background:var(--auto)"></span>Automated</span><span>${d.auto}</span></div>` +
+    `<div class="row"><span>Total</span><span>${d.total}</span></div>` +
+    `<div class="row"><span>Automated share</span><span>${pct(d.auto, d.total)}</span></div>` + openLine(d);
+}
+function place(e) {
+  const pad = 14, r = tip.getBoundingClientRect();
+  let x = e.clientX + pad, y = e.clientY + pad;
+  if (x + r.width > window.innerWidth - 8) x = e.clientX - r.width - pad;
+  if (y + r.height > window.innerHeight - 8) y = e.clientY - r.height - pad;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+
+function renderTop() {
+  const show = !!(dataset && person);
+  $("topSection").hidden = !show;
+  if (!show) return;
+  $("hTop").textContent = `${person.name}: most-discussed PRs`;
+  $("topBody").innerHTML = person.top.length ? person.top.map(({ pr, h, b }) => {
+    const st = prStatus(pr);
+    return `<tr><td class="title"><a href="${esc(pr.url)}" target="_blank" rel="noopener"><span class="num">#${pr.number}</span>${esc(pr.title)}</a></td>` +
+      `<td><span class="badge ${st}">${stateLabel(st)}</span></td><td>${esc(pr.createdAt.slice(0, 10))}</td>` +
+      `<td>${h}</td><td>${b}</td><td>${h + b}</td></tr>`;
+  }).join("") : `<tr><td colspan="6" class="empty">No inline review comments on these PRs.</td></tr>`;
+}
+
+function renderMonthTable() {
+  const live = !!dataset;
+  $("tcap").textContent = person ? `${person.name}: the numbers behind both charts` : "The numbers behind both charts";
+  $("monthHead").innerHTML = `<th>Month</th><th>Human</th><th>Automated</th><th>Total</th><th>PRs</th><th>Avg / PR</th>${live ? "<th>Still open</th>" : ""}`;
+  $("tbody").innerHTML = person && person.rows.length ? person.rows.map(d =>
+    `<tr><td>${monthLabel(d.m)}</td><td>${d.human}</td><td>${d.auto}</td><td>${d.total}</td><td>${d.prs}</td><td>${avgStr(d.total, d.prs)}</td>${live ? `<td>${d.open}</td>` : ""}</tr>`).join("")
+    : `<tr><td colspan="7" class="empty">No PRs under the current filter.</td></tr>`;
+}
+
+function formConfig() {
+  return {
+    repo: $("repo").value.trim(),
+    since: $("since").value,
+    until: $("until").value,
+    countAllBots: $("countAllBots").checked,
+    botLogins: $("botLogins").value,
+  };
+}
+function renderStale() {
+  if (!dataset) { $("staleNote").hidden = true; return; }
+  const f = formConfig();
+  const sameEngineers = JSON.stringify(TEAM.github().map(e => e.login.toLowerCase()).sort()) ===
+    JSON.stringify(dataset.engineers.map(e => e.login.toLowerCase()).sort());
+  const stale = f.repo.toLowerCase() !== dataset.repo.toLowerCase() || f.since !== dataset.since ||
+    (f.until || todayISO()) !== dataset.until || !sameEngineers;
+  $("staleNote").hidden = !stale;
+}
+
+/* ---------- Settings form ---------- */
+function fillForm() {
+  $("repo").value = config.repo;
+  $("since").value = config.since;
+  $("until").value = config.until;
+  $("countAllBots").checked = !!config.countAllBots;
+  $("botLogins").value = config.botLogins;
+  const saved = store.get(KEYS.token);
+  if (saved) { $("token").value = saved; $("remember").checked = true; }
+  $("panelHint").textContent = saved ? "Token saved in this browser" : "Needs a GitHub token";
+}
+["repo", "since", "until"].forEach(id => $(id).addEventListener("input", () => {
+  config = Object.assign(config, formConfig()); saveConfig(); renderStale();
+}));
+["countAllBots", "botLogins"].forEach(id => $(id).addEventListener("input", () => {
+  config = Object.assign(config, formConfig()); saveConfig(); render();
+}));
+$("remember").addEventListener("change", () => {
+  if (!$("remember").checked) { store.del(KEYS.token); $("panelHint").textContent = "Needs a GitHub token"; }
+  else if ($("token").value.trim()) { store.set(KEYS.token, $("token").value.trim()); $("panelHint").textContent = "Token saved in this browser"; }
+});
+
+/* ---------- Log / progress / errors ---------- */
+function log(msg) {
+  const el = $("log");
+  el.hidden = false;
+  el.textContent += (el.textContent ? "\n" : "") + `${new Date().toLocaleTimeString()}  ${msg}`;
+  el.scrollTop = el.scrollHeight;
+}
+function showError(msg) { const el = $("errorBox"); el.textContent = msg; el.hidden = !msg; }
+function setProgress(text) {
+  const r = rate ? ` · rate limit ${rate.remaining} left` : "";
+  $("progress").textContent = text ? `${text} · ${apiCalls} API calls${r}` : "";
+}
+function setBusy(busy) {
+  $("fetchBtn").disabled = busy;
+  $("cancelBtn").hidden = !busy;
+  $("importBtn").disabled = busy;
+  $("resetBtn").disabled = busy;
+}
+
+/* ---------- GitHub GraphQL ---------- */
+const PR_FIELDS = `
+  id number title url createdAt state isDraft mergedAt
+  reviewThreads(first: 100) {
+    pageInfo { hasNextPage endCursor }
+    nodes { id comments(first: 100) { pageInfo { hasNextPage endCursor } nodes { author { login __typename } } } }
+  }`;
+const SEARCH_QUERY = `query($q: String!, $after: String) {
+  rateLimit { remaining resetAt }
+  search(query: $q, type: ISSUE, first: 25, after: $after) {
+    issueCount
+    pageInfo { hasNextPage endCursor }
+    nodes { ... on PullRequest { ${PR_FIELDS} } }
+  }
+}`;
+const PR_THREADS_QUERY = `query($id: ID!, $after: String) {
+  rateLimit { remaining resetAt }
+  node(id: $id) { ... on PullRequest {
+    reviewThreads(first: 100, after: $after) {
+      pageInfo { hasNextPage endCursor }
+      nodes { id comments(first: 100) { pageInfo { hasNextPage endCursor } nodes { author { login __typename } } } }
+    }
+  } }
+}`;
+const THREAD_COMMENTS_QUERY = `query($id: ID!, $after: String) {
+  rateLimit { remaining resetAt }
+  node(id: $id) { ... on PullRequestReviewThread {
+    comments(first: 100, after: $after) { pageInfo { hasNextPage endCursor } nodes { author { login __typename } } }
+  } }
+}`;
+
+async function safeText(res) { try { return (await res.text()).slice(0, 300); } catch (_) { return ""; } }
+
+async function gql(token, query, variables, signal, attempt = 0) {
+  let res;
+  try {
+    res = await fetch(GQL_URL, {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ query, variables }),
+      signal,
+    });
+  } catch (err) {
+    if (err.name === "AbortError") throw err;
+    throw new Error("Could not reach api.github.com. Check your connection. If this page is open inside a preview or sandboxed viewer, download the file and open it directly in a browser.");
+  }
+  apiCalls++;
+  if (res.status === 401) throw new Error("GitHub rejected the token (401). Check that it was pasted in full and has not expired or been revoked.");
+  const retryable = res.status === 403 || res.status === 429 || res.status >= 500;
+  if (retryable) {
+    const retryAfter = Number(res.headers.get("retry-after")) || 0;
+    const remaining = res.headers.get("x-ratelimit-remaining");
+    const reset = Number(res.headers.get("x-ratelimit-reset")) || 0;
+    const body = await safeText(res);
+    if (res.status === 403 && remaining !== "0" && !retryAfter && !/rate limit|abuse|secondary/i.test(body)) {
+      throw new Error(`GitHub refused the request (403). The token may lack access to this repository, or the organization requires SSO authorization for it. ${body}`);
+    }
+    if (attempt < 4) {
+      let waitMs = retryAfter ? retryAfter * 1000 : remaining === "0" && reset ? reset * 1000 - Date.now() + 1000 : 2000 * 2 ** attempt;
+      if (waitMs > 15 * 60 * 1000) throw new Error(`GitHub's rate limit is used up until ${new Date(reset * 1000).toLocaleTimeString()}. Try again after that.`);
+      log(`GitHub returned ${res.status}; waiting ${Math.ceil(waitMs / 1000)}s before retrying.`);
+      await sleep(Math.max(waitMs, 1000), signal);
+      return gql(token, query, variables, signal, attempt + 1);
+    }
+    throw new Error(`GitHub returned ${res.status} after several retries. ${body}`);
+  }
+  if (!res.ok) throw new Error(`GitHub returned ${res.status}. ${await safeText(res)}`);
+  const json = await res.json();
+  if (json.errors && json.errors.length) {
+    if (json.errors.some(e => e.type === "RATE_LIMITED") && attempt < 4) {
+      log("GitHub rate limit hit; waiting 60s before retrying.");
+      await sleep(60000, signal);
+      return gql(token, query, variables, signal, attempt + 1);
+    }
+    throw new Error("GitHub API error: " + json.errors.map(e => e.message).join("; "));
+  }
+  if (json.data && json.data.rateLimit) rate = json.data.rateLimit;
+  return json.data;
+}
+
+async function toRecord(token, login, pr, out, signal) {
+  const counts = {};
+  const add = author => {
+    const name = author && author.login ? author.login.replace(/\[bot\]$/i, "") : "ghost";
+    counts[name] = (counts[name] || 0) + 1;
+    if (author && author.__typename === "Bot") out.botAccounts[normLogin(name)] = true;
+  };
+  let threads = pr.reviewThreads;
+  for (;;) {
+    for (const t of threads.nodes) {
+      if (!t) continue;
+      t.comments.nodes.forEach(c => add(c && c.author));
+      let cp = t.comments.pageInfo;
+      while (cp.hasNextPage) {
+        const d = await gql(token, THREAD_COMMENTS_QUERY, { id: t.id, after: cp.endCursor }, signal);
+        d.node.comments.nodes.forEach(c => add(c && c.author));
+        cp = d.node.comments.pageInfo;
+      }
+    }
+    if (!threads.pageInfo.hasNextPage) break;
+    const d = await gql(token, PR_THREADS_QUERY, { id: pr.id, after: threads.pageInfo.endCursor }, signal);
+    threads = d.node.reviewThreads;
+  }
+  return {
+    author: login, number: pr.number, title: pr.title, url: pr.url, createdAt: pr.createdAt,
+    state: pr.state, isDraft: !!pr.isDraft, merged: !!pr.mergedAt, c: counts,
+  };
+}
+
+async function fetchAuthorPRs(token, repo, login, since, until, out, signal) {
+  const prs = [];
+  const queue = [[since, until]];
+  while (queue.length) {
+    const [from, to] = queue.shift();
+    const q = `repo:${repo} is:pr author:${login} created:${from}..${to} sort:created-asc`;
+    let after = null, firstPage = true;
+    do {
+      const data = await gql(token, SEARCH_QUERY, { q, after }, signal);
+      const s = data.search;
+      if (firstPage && s.issueCount > 1000) {
+        if (from !== to) { const mid = midDate(from, to); queue.unshift([from, mid], [nextDay(mid), to]); break; }
+        out.warnings.push(`${login} opened more than 1,000 PRs on ${from}; only the first 1,000 were counted.`);
+      }
+      firstPage = false;
+      for (const node of s.nodes) {
+        if (!node || typeof node.number !== "number") continue;
+        prs.push(await toRecord(token, login, node, out, signal));
+      }
+      setProgress(`${login}: ${prs.length} PRs`);
+      after = s.pageInfo.hasNextPage ? s.pageInfo.endCursor : null;
+    } while (after);
+  }
+  return prs;
+}
+
+async function fetchAll() {
+  showError("");
+  const token = $("token").value.trim();
+  config = Object.assign(config, formConfig()); saveConfig();
+  const repo = config.repo, since = config.since, until = config.until || todayISO();
+  const engineers = TEAM.github();
+  if (!token) return showError("Add a GitHub token first. GitHub's GraphQL API doesn't accept anonymous requests.");
+  if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) return showError("Enter the repository as owner/name, for example wikimedia/wikipedia-ios.");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(since)) return showError("Choose a start date.");
+  if (since > until) return showError("The start date is after the end date.");
+  if (!engineers.length) return showError("Add at least one GitHub login to the Team list at the top of the page.");
+  if ($("remember").checked) { store.set(KEYS.token, token); $("panelHint").textContent = "Token saved in this browser"; }
+
+  controller = new AbortController();
+  apiCalls = 0; rate = null;
+  $("log").textContent = "";
+  setBusy(true);
+  const out = { version: 1, source: "live", repo, since, until, fetchedAt: "", engineers, prs: [], botAccounts: {}, warnings: [] };
+  try {
+    log(`Fetching PRs in ${repo} opened ${since} to ${until} for ${engineers.length} engineer(s).`);
+    for (const e of engineers) {
+      const prs = await fetchAuthorPRs(token, repo, e.login, since, until, out, controller.signal);
+      out.prs.push(...prs);
+      const comments = prs.reduce((a, p) => a + Object.values(p.c).reduce((x, y) => x + y, 0), 0);
+      log(`${e.login}: ${prs.length} PRs, ${comments} inline review comments.`);
+    }
+    out.fetchedAt = new Date().toISOString();
+    out.warnings.forEach(w => log("Note: " + w));
+    dataset = out;
+    cacheDataset();
+    log(`Done. ${out.prs.length} PRs in ${apiCalls} API calls.`);
+    setProgress("Done");
+    render();
+  } catch (err) {
+    if (err.name === "AbortError") { log("Cancelled. The previously loaded data is unchanged."); setProgress(""); }
+    else { showError(err.message); log("Stopped: " + err.message); }
+  } finally {
+    setBusy(false);
+    controller = null;
+  }
+}
+
+/* ---------- Export / import ---------- */
+function download(name, type, text) {
+  const blob = new Blob([text], { type });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function fileStem() {
+  const repo = (dataset ? dataset.repo : SNAPSHOT.repo).replace("/", "-");
+  return `review-comments-${repo}-${todayISO()}`;
+}
+$("exportJson").addEventListener("click", () => {
+  if (!dataset) return;
+  download(fileStem() + ".json", "application/json", JSON.stringify(dataset, null, 1));
+});
+$("exportCsv").addEventListener("click", () => {
+  const live = !!dataset;
+  const lines = [["engineer", "login", "month", "human", "automated", "total", "prs_opened", "avg_per_pr", "still_open", "pr_filter"].join(",")];
+  const filter = live ? view.stateFilter : "all";
+  for (const p of people) for (const d of p.rows) {
+    lines.push([p.name, p.login, d.m, d.human, d.auto, d.total, d.prs, d.avg == null ? "" : d.avg.toFixed(2), live ? d.open : "", filter]
+      .map(v => /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : v).join(","));
+  }
+  download(fileStem() + ".csv", "text/csv", lines.join("\n") + "\n");
+});
+$("importBtn").addEventListener("click", () => $("importFile").click());
+$("importFile").addEventListener("change", () => {
+  const file = $("importFile").files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const d = JSON.parse(reader.result);
+      if (!validDataset(d)) throw new Error("not a file exported from this page");
+      d.source = "import";
+      d.botAccounts = d.botAccounts || {};
+      dataset = d;
+      cacheDataset();
+      showError("");
+      render();
+    } catch (err) {
+      $("panel").open = true;
+      showError(`Couldn't load ${file.name}: ${err.message}. Choose a JSON file made with Export JSON.`);
+    }
+    $("importFile").value = "";
+  };
+  reader.readAsText(file);
+});
+
+/* ---------- Wire up ---------- */
+$("fetchBtn").addEventListener("click", fetchAll);
+$("cancelBtn").addEventListener("click", () => controller && controller.abort());
+$("resetBtn").addEventListener("click", () => { dataset = null; cacheDataset(); view.stateFilter = "all"; render(); });
+$("people").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  view.personId = b.dataset.person;
+  try { history.replaceState(null, "", "#" + view.personId); } catch (_) {}
+  render();
+});
+$("metricSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  view.metric = b.dataset.metric; renderChart1();
+});
+$("stateSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b || b.disabled) return;
+  view.stateFilter = b.dataset.state; render();
+});
+$("markOpen").addEventListener("change", () => { view.markOpen = $("markOpen").checked; renderChart1(); renderChart2(); });
+window.addEventListener("hashchange", () => { view.personId = location.hash.slice(1); render(); });
+let resizeTimer = null;
+window.addEventListener("resize", () => {
+  tip.style.opacity = 0;
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { renderChart1(); renderChart2(); }, 120);
+});
+
+BUS.ghRedraw = () => { renderChart1(); renderChart2(); };
+TEAM.on(renderStale);
+fillForm();
+if (!dataset && !store.get(KEYS.token)) $("panel").open = false;
+render();
+})();
+</script>
+<script>
+(() => {
+  const $ = id => document.getElementById('ph-' + id);
+  const PALETTE = ['#3366cc', '#e8743b', '#19a979', '#945ecf', '#13a4b4', '#d4526e', '#bf9f2b', '#6c8893', '#ed4a7b', '#5899da'];
+
+  // ---- persisted settings ----
+  const store = {
+    get(k) { try { return localStorage.getItem('pcm.' + k); } catch { return null; } },
+    set(k, v) { try { v == null ? localStorage.removeItem('pcm.' + k) : localStorage.setItem('pcm.' + k, v); } catch {} }
+  };
+  const servedLocally = location.protocol.startsWith('http');
+  $('apiBase').value = store.get('apiBase') || (servedLocally ? '/api/' : 'https://phabricator.wikimedia.org/api/');
+  for (const k of ['phabWeb', 'boardQuery', 'boardRegex', 'fromPat', 'toPat', 'attr', 'metric', 'since', 'until']) {
+    const v = store.get(k); if (v != null) $(k).value = v;
+    $(k).addEventListener('change', () => store.set(k, $(k).value));
+  }
+  for (const k of ['incMilestones', 'onlyOpen']) {
+    const v = store.get(k); if (v != null) $(k).checked = v === '1';
+    $(k).addEventListener('change', () => store.set(k, $(k).checked ? '1' : '0'));
+  }
+  $('apiBase').addEventListener('change', () => store.set('apiBase', $('apiBase').value));
+  const savedToken = store.get('token');
+  if (savedToken) { $('token').value = savedToken; $('remember').checked = true; }
+  const syncToken = () => store.set('token', $('remember').checked ? $('token').value : null);
+  $('remember').addEventListener('change', syncToken);
+  $('token').addEventListener('change', syncToken);
+
+  // ---- status helpers ----
+  function status(msg, isError = false) { $('status').textContent = msg; $('status').classList.toggle('bad', isError); }
+  function progress(done, total) {
+    const p = $('progress'); p.hidden = !total; p.max = total || 1; p.value = done;
+  }
+
+  // ---- Conduit ----
+  async function conduit(method, params) {
+    const token = $('token').value.trim();
+    if (!token) throw new Error('Enter a Conduit API token first.');
+    let base = $('apiBase').value.trim(); if (!base.endsWith('/')) base += '/';
+    const body = new URLSearchParams();
+    body.set('params', JSON.stringify({ ...params, __conduit__: { token } }));
+    body.set('output', 'json');
+    body.set('__conduit__', '1');
+    let res;
+    for (let attempt = 0; ; attempt++) {
+      try {
+        res = await fetch(base + method, { method: 'POST', body });
+        if (res.status >= 500 && attempt < 3) throw new Error('HTTP ' + res.status);
+        break;
+      } catch (e) {
+        if (attempt >= 3) throw new Error(`${method}: ${e.message}. If this is a CORS/network error, run serve.py and open the page from it.`);
+        await new Promise(r => setTimeout(r, 1000 * 2 ** attempt));
+      }
+    }
+    const text = await res.text();
+    let json; try { json = JSON.parse(text); } catch { throw new Error(`${method}: unexpected response (HTTP ${res.status}): ${text.slice(0, 200)}`); }
+    if (json.error_code) throw new Error(`${method}: ${json.error_code} – ${json.error_info}`);
+    return json.result;
+  }
+  async function searchAll(method, params, onPage) {
+    const out = []; let after = null;
+    do {
+      const r = await conduit(method, { ...params, limit: 100, ...(after ? { after } : {}) });
+      out.push(...r.data); after = r.cursor && r.cursor.after;
+      onPage && onPage(out.length);
+    } while (after);
+    return out;
+  }
+  async function pool(items, n, fn) {
+    let i = 0;
+    await Promise.all(Array.from({ length: Math.min(n, items.length) }, async () => {
+      while (i < items.length) { const idx = i++; await fn(items[idx], idx); }
+    }));
+  }
+  const chunk = (a, n) => Array.from({ length: Math.ceil(a.length / n) }, (_, i) => a.slice(i * n, i * n + n));
+
+  // ---- boards ----
+  let foundBoards = [];
+  // Chronological sort key (ms) for a board: the sprint start field if set, otherwise a date in its name.
+  const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  function boardDate(p) {
+    const start = p.fields['custom.sprint:start'];
+    if (typeof start === 'number' && start > 0) return start < 1e11 ? start * 1000 : start;
+    if (typeof start === 'string' && start.trim()) {
+      const t = /^\d+$/.test(start.trim()) ? Number(start) * 1000 : Date.parse(start);
+      if (!isNaN(t) && t > 0) return t;
+    }
+    const name = p.fields.name || '';
+    const iso = name.match(/(20\d\d)-(\d\d)-(\d\d)/);
+    if (iso) return Date.UTC(+iso[1], iso[2] - 1, +iso[3]);
+    const md = name.match(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*(\d{1,2})(?!\d)/i);
+    if (!md) return null;
+    const month = MONTHS.indexOf(md[1].toLowerCase()), day = +md[2];
+    let year;
+    const fy = name.match(/FY\s*'?(\d\d)[-\/]?(\d\d)(?!\d)/i);     // e.g. FY2627 = Jul 2026 – Jun 2027
+    const y4 = name.replace(/FY\s*\S+/gi, '').match(/\b(20\d\d)\b/);
+    if (fy) year = 2000 + (month >= 6 ? +fy[1] : +fy[2]);
+    else if (y4) year = +y4[1];
+    else {                                                        // no year: pick the one nearest the project's creation
+      const created = (p.fields.dateCreated || Date.now() / 1000) * 1000;
+      year = new Date(created).getUTCFullYear();
+      const t = Date.UTC(year, month, day);
+      if (t - created > 182 * 864e5) year--; else if (created - t > 182 * 864e5) year++;
+    }
+    return Date.UTC(year, month, day);
+  }
+  function compareBoards(a, b) {
+    const da = boardDate(a), db = boardDate(b);
+    if (da != null && db != null && da !== db) return da - db;
+    if ((da == null) !== (db == null)) return da == null ? 1 : -1;   // undated (e.g. templates) last
+    const ma = a.fields.milestone ?? Infinity, mb = b.fields.milestone ?? Infinity;
+    if (ma !== mb) return ma - mb;
+    return boardName(a).localeCompare(boardName(b), undefined, { numeric: true });
+  }
+  const boardName = p => {
+    const parent = p.fields.parent && p.fields.parent.name;
+    return p.fields.milestone != null && parent && !p.fields.name.includes(parent) ? `${parent}: ${p.fields.name}` : p.fields.name;
+  };
+  function renderBoards() {
+    const list = $('boardList'); list.innerHTML = '';
+    for (const b of foundBoards) {
+      const l = document.createElement('label'); l.className = 'check';
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.value = b.phid; cb.checked = true;
+      cb.addEventListener('change', countBoards);
+      l.append(cb, document.createTextNode(' ' + boardName(b) + (b.fields.milestone != null ? '  (milestone)' : '')));
+      list.append(l);
+    }
+    countBoards();
+  }
+  function selectedBoards() {
+    const ids = new Set([...$('boardList').querySelectorAll('input:checked')].map(c => c.value));
+    return foundBoards.filter(b => ids.has(b.phid));
+  }
+  function countBoards() { $('boardCount').textContent = foundBoards.length ? `${selectedBoards().length} of ${foundBoards.length} selected` : ''; }
+  $('selectAll').onclick = () => { $('boardList').querySelectorAll('input').forEach(c => c.checked = true); countBoards(); };
+  $('selectNone').onclick = () => { $('boardList').querySelectorAll('input').forEach(c => c.checked = false); countBoards(); };
+
+  $('searchBoards').onclick = async () => {
+    const terms = [...new Set($('boardQuery').value.split(/[,;\n]/).map(t => t.trim()).filter(Boolean))];
+    if (!terms.length) { status('Enter a project name to search for.', true); return; }
+    let re = null;
+    try { re = $('boardRegex').value.trim() ? new RegExp($('boardRegex').value.trim(), 'i') : null; }
+    catch (e) { status('Invalid board regex: ' + e.message, true); return; }
+    status('Searching projects…');
+    try {
+      const onlyOpen = $('onlyOpen').checked;
+      const statusC = { status: onlyOpen ? 'active' : 'all' };
+      const res = [];
+      for (const [i, q] of terms.entries()) {
+        status(`Searching projects… (${i + 1}/${terms.length}: ${q})`);
+        let r = await searchAll('project.search', { constraints: { name: q, ...statusC } });
+        if (!r.length) r = await searchAll('project.search', { constraints: { query: q, ...statusC } });
+        res.push(...r);
+      }
+      if ($('incMilestones').checked) {
+        const parents = [...new Set(res.filter(p => p.fields.milestone == null).map(p => p.phid))];
+        for (const c of chunk(parents, 50)) {
+          status(`Loading milestones… (${res.length} projects so far)`);
+          res.push(...await searchAll('project.search', { constraints: { parents: c, isMilestone: true, ...statusC } }));
+        }
+      }
+      const isOpen = p => !p.fields.status || (p.fields.status.value ?? p.fields.status) !== 'archived';
+      const seen = new Set();
+      foundBoards = res.filter(p => !seen.has(p.phid) && seen.add(p.phid))
+        .filter(p => !onlyOpen || isOpen(p))
+        .filter(p => !re || re.test(boardName(p)))
+        .sort(compareBoards);
+      renderBoards();
+      status(`Found ${foundBoards.length} project(s).`);
+    } catch (e) { status(e.message, true); }
+  };
+
+  // ---- load moves ----
+  let data = null; // { boards: Map, columns: Map, tasks: Map, moves: [] }
+  $('load').onclick = async () => {
+    const boards = selectedBoards();
+    if (!boards.length) { status('Select at least one board.', true); return; }
+    $('load').disabled = true;
+    try {
+      const boardMap = new Map(boards.map(b => [b.phid, boardName(b)]));
+      status('Loading columns…');
+      const columns = new Map();
+      for (const c of chunk([...boardMap.keys()], 50)) {
+        const cols = await searchAll('project.column.search', { constraints: { projects: c } });
+        for (const col of cols) columns.set(col.phid, { name: col.fields.name, board: col.fields.project && col.fields.project.phid });
+      }
+
+      const tasks = new Map();
+      let i = 0;
+      for (const [phid, name] of boardMap) {
+        i++;
+        const list = await searchAll('maniphest.search', { constraints: { projects: [phid] } }, n => status(`Loading tasks: board ${i}/${boardMap.size} (${name}) – ${n} tasks`));
+        for (const t of list) tasks.set(t.phid, { id: t.id, title: t.fields.name, owner: t.fields.ownerPHID });
+      }
+
+      const moves = []; let done = 0; const taskList = [...tasks.keys()];
+      progress(0, taskList.length);
+      // transaction.search does not expose column moves (they come back with a null type), so use
+      // maniphest.gettasktransactions, which returns raw transactions and accepts many task IDs per call.
+      const idToPHID = new Map([...tasks].map(([phid, t]) => [String(t.id), phid]));
+      const record = (taskPHID, author, date, board, from, to) => {
+        if (!boardMap.has(board) || !to || from === to) return; // other boards / reorder within a column
+        moves.push({ task: taskPHID, author, board, from: from || null, to, date: Number(date) });
+      };
+      const fetchBatch = async ids => {
+        let result;
+        try { result = await conduit('maniphest.gettasktransactions', { ids }); }
+        catch (e) {
+          if (ids.length === 1) throw e;
+          const h = Math.ceil(ids.length / 2); // response too large? split and retry
+          await fetchBatch(ids.slice(0, h)); await fetchBatch(ids.slice(h)); return;
+        }
+        for (const [taskId, txs] of Object.entries(result || {})) {
+          const taskPHID = idToPHID.get(String(taskId)); if (!taskPHID) continue;
+          for (const tx of Object.values(txs || {})) {
+            const nv = tx.newValue, ov = tx.oldValue;
+            if (tx.transactionType === 'core:columns' && nv) {
+              for (const m of Object.values(nv)) {
+                if (!m) continue;
+                record(taskPHID, tx.authorPHID, tx.dateCreated, m.boardPHID, Object.values(m.fromColumnPHIDs || {})[0], m.columnPHID);
+              }
+            } else if (tx.transactionType === 'projectcolumn' && nv) { // pre-2016 format
+              const from = ov && ov.columnPHIDs ? Object.values(ov.columnPHIDs)[0] : null;
+              record(taskPHID, tx.authorPHID, tx.dateCreated, nv.projectPHID, from, Object.values(nv.columnPHIDs || {})[0]);
+            }
+          }
+        }
+        done += ids.length; progress(done, taskList.length);
+        status(`Loading task histories: ${done}/${taskList.length} – ${moves.length} column moves found`);
+      };
+      await pool(chunk(taskList.map(phid => tasks.get(phid).id), 20), 4, fetchBatch);
+      progress(0, 0);
+      data = { boards: boardMap, columns, tasks, moves };
+      status(`Loaded ${moves.length} column moves across ${tasks.size} tasks on ${boardMap.size} boards.`);
+      await apply();
+    } catch (e) { progress(0, 0); status(e.message, true); }
+    finally { $('load').disabled = false; }
+  };
+
+  // ---- matching ----
+  const norm = s => (s || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+  function matcher(pat) {
+    pat = pat.trim();
+    if (!pat) return () => true;
+    const m = pat.match(/^\/(.+)\/([a-z]*)$/);
+    if (m) { const re = new RegExp(m[1], m[2] || 'i'); return name => name != null && re.test(name); }
+    const alts = pat.split(/[,|]/).map(norm).filter(Boolean);
+    return name => name != null && alts.some(a => norm(name).includes(a));
+  }
+
+  // ---- users ----
+  const userCache = new Map(); // username(lower) -> {phid, username}
+  async function resolveUsers(names) {
+    const missing = names.filter(n => !userCache.has(n.toLowerCase()));
+    for (const c of chunk(missing, 100)) {
+      const res = await searchAll('user.search', { constraints: { usernames: c } });
+      for (const u of res) userCache.set(u.fields.username.toLowerCase(), { phid: u.phid, username: u.fields.username });
+    }
+    const unknown = names.filter(n => !userCache.has(n.toLowerCase()));
+    return { users: names.map(n => userCache.get(n.toLowerCase())).filter(Boolean), unknown };
+  }
+
+  // ---- render ----
+  let charts = [], lastRows = [];
+  const colName = phid => phid == null ? '(added to board)' : (data.columns.get(phid)?.name ?? phid);
+  const fmtDate = s => new Date(s * 1000).toISOString().slice(0, 10);
+
+  async function apply() {
+    if (!data) { $('applyStatus').textContent = 'Load column moves first.'; return; }
+    const team = TEAM.phab();
+    const names = [...new Set(team.map(t => t.username))];
+    if (!names.length) { $('applyStatus').textContent = 'Add Phabricator usernames to the Team list at the top of the page.'; BUS.ph = null; BUS.emit(); return; }
+    const nameFor = new Map(team.map(t => [t.username.toLowerCase(), t.name]));
+    let fromM, toM;
+    try { fromM = matcher($('fromPat').value); toM = matcher($('toPat').value); }
+    catch (e) { $('applyStatus').textContent = 'Invalid regex: ' + e.message; return; }
+    $('applyStatus').textContent = 'Resolving users…';
+    let users, unknown;
+    try { ({ users, unknown } = await resolveUsers(names)); }
+    catch (e) { $('applyStatus').textContent = e.message; return; }
+    users = users.map(u => ({ ...u, name: nameFor.get(u.username.toLowerCase()) || u.username }));
+
+    const attr = $('attr').value, metric = $('metric').value;
+    const since = $('since').value ? Date.parse($('since').value) / 1000 : -Infinity;
+    const until = $('until').value ? Date.parse($('until').value) / 1000 + 86400 : Infinity;
+    const byPHID = new Map(users.map(u => [u.phid, u]));
+    const who = mv => attr === 'author' ? mv.author : data.tasks.get(mv.task)?.owner;
+
+    const inScope = data.moves.filter(mv => byPHID.has(who(mv)) && mv.date >= since && mv.date < until);
+    const matched = inScope.filter(mv => fromM(mv.from == null ? null : colName(mv.from)) && toM(colName(mv.to)))
+      .sort((a, b) => a.date - b.date);
+
+    // aggregate: user -> board -> Set/count
+    const agg = new Map(users.map(u => [u.phid, new Map()]));
+    const totals = new Map(users.map(u => [u.phid, new Set()]));
+    const totalMoves = new Map(users.map(u => [u.phid, 0]));
+    for (const mv of matched) {
+      const u = who(mv); const per = agg.get(u);
+      if (!per.has(mv.board)) per.set(mv.board, { moves: 0, tasks: new Set() });
+      const cell = per.get(mv.board); cell.moves++; cell.tasks.add(mv.task);
+      totals.get(u).add(mv.task); totalMoves.set(u, totalMoves.get(u) + 1);
+    }
+    const val = cell => !cell ? 0 : metric === 'moves' ? cell.moves : cell.tasks.size;
+    const boardIds = [...data.boards.keys()]; // already in chronological order from the board list
+
+    charts.forEach(c => c.destroy()); charts = [];
+    const css = getComputedStyle(document.documentElement);
+    const textColor = css.getPropertyValue('--ink-2').trim(), gridColor = css.getPropertyValue('--grid').trim();
+    const baseOpts = {
+      responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { labels: { color: textColor } } },
+      scales: {
+        x: { ticks: { color: textColor }, grid: { display: false } },
+        y: { beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor } }
+      }
+    };
+    const metricLabel = metric === 'moves' ? 'Moves' : 'Distinct tasks';
+    $('totalTitle').textContent = `${metricLabel} per engineer`;
+
+    charts.push(new Chart($('totalChart'), {
+      type: 'bar',
+      data: {
+        labels: users.map(u => u.name),
+        datasets: [{ label: metricLabel, data: users.map(u => metric === 'moves' ? totalMoves.get(u.phid) : totals.get(u.phid).size),
+          backgroundColor: users.map((_, i) => PALETTE[i % PALETTE.length]), borderRadius: 4 }]
+      },
+      options: { ...baseOpts, plugins: { legend: { display: false } } }
+    }));
+    charts.push(new Chart($('boardChart'), {
+      type: 'bar',
+      data: {
+        labels: boardIds.map(b => data.boards.get(b)),
+        datasets: users.map((u, i) => ({ label: u.name, data: boardIds.map(b => val(agg.get(u.phid).get(b))),
+          backgroundColor: PALETTE[i % PALETTE.length], borderRadius: 3 }))
+      },
+      options: baseOpts
+    }));
+
+    // per month: every calendar month between the first and last matching move, gaps shown as zero
+    const monthKey = ts => { const d = new Date(ts * 1000); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; };
+    const months = [];
+    if (matched.length) {
+      const first = new Date(matched[0].date * 1000), last = new Date(matched[matched.length - 1].date * 1000);
+      for (let d = new Date(first.getFullYear(), first.getMonth(), 1); d <= last; d.setMonth(d.getMonth() + 1))
+        months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
+    }
+    const byMonth = new Map(users.map(u => [u.phid, new Map()]));
+    for (const mv of matched) {
+      const per = byMonth.get(who(mv)), k = monthKey(mv.date);
+      if (!per.has(k)) per.set(k, { moves: 0, tasks: new Set() });
+      const cell = per.get(k); cell.moves++; cell.tasks.add(mv.task);
+    }
+    const monthLabel = k => new Date(+k.slice(0, 4), +k.slice(5) - 1, 1).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+    charts.push(new Chart($('monthChart'), {
+      type: 'bar',
+      data: {
+        labels: months.map(monthLabel),
+        datasets: users.map((u, i) => ({ label: u.name, data: months.map(m => val(byMonth.get(u.phid).get(m))),
+          backgroundColor: PALETTE[i % PALETTE.length], borderRadius: 3 }))
+      },
+      options: baseOpts
+    }));
+
+    // transitions table (helps discover names)
+    const trans = new Map();
+    for (const mv of inScope) {
+      const k = colName(mv.from) + '\u0000' + colName(mv.to);
+      trans.set(k, (trans.get(k) || 0) + 1);
+    }
+    const tRows = [...trans].sort((a, b) => b[1] - a[1]).slice(0, 50);
+    $('transTable').innerHTML = '<thead><tr><th>From column</th><th>To column</th><th>Moves</th></tr></thead>' +
+      tRows.map(([k, n]) => { const [f, t] = k.split('\u0000'); return `<tr><td>${esc(f)}</td><td>${esc(t)}</td><td>${n}</td></tr>`; }).join('');
+
+    // moves table
+    const web = $('phabWeb').value.trim().replace(/\/$/, '');
+    const nameOf = phid => byPHID.get(phid)?.name ?? '';
+    lastRows = matched.map(mv => {
+      const t = data.tasks.get(mv.task);
+      return { date: fmtDate(mv.date), user: nameOf(who(mv)), task: 'T' + t.id, title: t.title, board: data.boards.get(mv.board),
+        from: colName(mv.from), to: colName(mv.to) };
+    });
+    const shown = lastRows.slice(-500).reverse();
+    $('moveTable').innerHTML = '<thead><tr><th>Date</th><th>Engineer</th><th>Task</th><th>Board</th><th>From</th><th>To</th></tr></thead>' +
+      shown.map(r => `<tr><td>${r.date}</td><td>${esc(r.user)}</td><td><a href="${esc(web)}/${r.task}" target="_blank" rel="noopener">${r.task}</a> ${esc(r.title.slice(0, 60))}</td><td>${esc(r.board)}</td><td>${esc(r.from)}</td><td>${esc(r.to)}</td></tr>`).join('') +
+      (lastRows.length > 500 ? `<tr><td colspan="6" class="help">Showing latest 500 of ${lastRows.length}; download CSV for all.</td></tr>` : '');
+
+    ['results', 'results2', 'resultsMonth', 'results3', 'results4'].forEach(id => { $(id).hidden = false; });
+
+    // hand the per-person, per-month numbers to the overview tab
+    const perUser = new Map(), totalsOut = new Map();
+    for (const u of users) { perUser.set(u.username.toLowerCase(), byMonth.get(u.phid)); totalsOut.set(u.username.toLowerCase(), { moves: totalMoves.get(u.phid), tasks: totals.get(u.phid) }); }
+    BUS.ph = { metric, label: metricLabel, perUser, totals: totalsOut, boards: data.boards.size,
+      desc: `${$('fromPat').value.trim() || 'any column'} → ${$('toPat').value.trim() || 'any column'}`,
+      attr: attr === 'author' ? 'by who moved the task' : 'by current assignee' };
+    BUS.emit();
+    $('csv').disabled = !lastRows.length;
+    $('applyStatus').textContent = `${matched.length} matching moves` + (unknown.length ? ` · Unknown users: ${unknown.join(', ')}` : '');
+  }
+  $('apply').onclick = apply;
+  TEAM.on(() => { if (data) apply(); });
+
+  function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  $('csv').onclick = () => {
+    const cols = ['date', 'user', 'task', 'title', 'board', 'from', 'to'];
+    const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+    const csv = [cols.join(','), ...lastRows.map(r => cols.map(c => q(r[c])).join(','))].join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    a.download = 'column-moves.csv'; a.click(); URL.revokeObjectURL(a.href);
+  };
+})();
+</script>
+<script>
+(() => {
+  const $ = id => document.getElementById("ov-" + id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const pad2 = n => String(n).padStart(2, "0");
+  const monthLabel = m => new Date(+m.slice(0, 4), +m.slice(5) - 1, 1).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  let selected = "__all__", chart = null;
+
+  function monthsBetween(keys) {
+    if (!keys.length) return [];
+    const sorted = [...keys].sort();
+    let [y, m] = sorted[0].split("-").map(Number);
+    const [ey, em] = sorted[sorted.length - 1].split("-").map(Number);
+    const out = [];
+    while (y < ey || (y === ey && m <= em)) { out.push(`${y}-${pad2(m)}`); if (++m === 13) { y++; m = 1; } }
+    return out;
+  }
+
+  // When GitHub data is loaded, the overview covers its date range so both sources span the same months.
+  function inRange(m, gh) { return !gh || (m >= gh.since.slice(0, 7) && m <= gh.until.slice(0, 7)); }
+  function personData(p, gh, ph) {
+    const g = gh && p.github ? gh.people.find(x => x.login.toLowerCase() === p.github.toLowerCase()) : null;
+    const all = ph && p.phab ? ph.perUser.get(p.phab.toLowerCase()) : null;
+    const pm = all ? new Map([...all].filter(([m]) => inRange(m, gh))) : null;
+    let pt = null;
+    if (pm) { pt = { moves: 0, tasks: new Set() }; for (const c of pm.values()) { pt.moves += c.moves; c.tasks.forEach(t => pt.tasks.add(t)); } }
+    return { p, g, pm, pt };
+  }
+
+  function render() {
+    const gh = BUS.gh, ph = BUS.ph;
+    const team = TEAM.parse();
+    const rows = team.map(p => personData(p, gh, ph));
+
+    // status pills
+    $("ghPill").className = "pill" + (gh && gh.live ? " live" : "");
+    $("ghPill").textContent = gh ? `GitHub: ${gh.source}, PRs opened ${gh.range}` : "GitHub: not loaded";
+    $("phPill").className = "pill" + (ph ? " live" : "");
+    $("phPill").textContent = ph ? `Phabricator: ${ph.boards} boards, ${ph.desc}, ${ph.attr}` : "Phabricator: not loaded yet (see the Phabricator tab)";
+
+    const phLabel = ph ? ph.label : "Column moves";
+    const phVal = cell => !cell ? 0 : ph.metric === "moves" ? cell.moves : cell.tasks.size;
+    $("compareSub").textContent = `Review comments on PRs each person opened${gh ? ` (${gh.range}${gh.live && gh.filter !== "all" ? ", " + { nodrafts: "drafts excluded", merged: "merged PRs only" }[gh.filter] : ""})` : ""}, and ${phLabel.toLowerCase()} matching the Phabricator filter${gh ? " in the same date range" : ""}.`;
+    $("compareHead").innerHTML = `<th>Engineer</th><th>PRs opened</th><th>Review comments</th><th>Avg / PR</th><th>${esc(phLabel)}</th><th>${esc(phLabel)} / PR</th>`;
+    const na = (why) => `<td class="na" title="${esc(why)}">–</td>`;
+    $("compare").innerHTML = rows.map(({ p, g, pt }) => {
+      const ghCells = !p.github ? na("No GitHub login in the Team list") + na("") + na("")
+        : !g ? na("Not in the loaded GitHub data; fetch again") + na("") + na("")
+        : `<td>${g.sum.prs}</td><td>${g.sum.total}</td><td>${g.sum.prs ? (g.sum.total / g.sum.prs).toFixed(1) : "–"}</td>`;
+      const phN = pt ? (ph.metric === "moves" ? pt.moves : pt.tasks.size) : null;
+      const phCells = !p.phab ? na("No Phabricator username in the Team list") + na("")
+        : !ph ? na("Load column moves on the Phabricator tab") + na("")
+        : phN == null ? na("Unknown Phabricator username, or no moves") + na("")
+        : `<td>${phN}</td><td>${g && g.sum.prs ? (phN / g.sum.prs).toFixed(2) : "–"}</td>`;
+      return `<tr class="${selected === p.name ? "current" : ""}"><td>${esc(p.name)}</td>${ghCells}${phCells}</tr>`;
+    }).join("") || `<tr><td colspan="6" class="empty">Add people to the Team list.</td></tr>`;
+
+    // person switcher
+    if (selected !== "__all__" && !team.some(p => p.name === selected)) selected = "__all__";
+    $("people").innerHTML = [`<button type="button" data-p="__all__" aria-pressed="${selected === "__all__"}">Everyone</button>`]
+      .concat(team.map(p => `<button type="button" data-p="${esc(p.name)}" aria-pressed="${selected === p.name}">${esc(p.name)}</button>`)).join("");
+
+    // monthly series for the selection
+    const chosen = selected === "__all__" ? rows : rows.filter(r => r.p.name === selected);
+    const ghMonth = new Map();   // m -> {human, auto, prs}
+    const phMonth = new Map();   // m -> {moves, tasks:Set}
+    for (const { g, pm } of chosen) {
+      if (g) for (const d of g.rows) {
+        const c = ghMonth.get(d.m) || { human: 0, auto: 0, prs: 0 };
+        c.human += d.human; c.auto += d.auto; c.prs += d.prs; ghMonth.set(d.m, c);
+      }
+      if (pm) for (const [m, cell] of pm) {
+        const c = phMonth.get(m) || { moves: 0, tasks: new Set() };
+        c.moves += cell.moves; cell.tasks.forEach(t => c.tasks.add(t)); phMonth.set(m, c);
+      }
+    }
+    const months = gh ? monthsBetween([gh.since.slice(0, 7), gh.until.slice(0, 7)]) : monthsBetween([...phMonth.keys()]);
+    const who = selected === "__all__" ? "Everyone" : selected;
+    $("chartTitle").textContent = `${who}: per month`;
+    $("chartSub").textContent = ph
+      ? `Bars: review comments (human and automated). Line: ${phLabel.toLowerCase()} matching ${ph.desc}, on the right-hand axis.`
+      : "Bars: review comments (human and automated). Load column moves on the Phabricator tab to add them as a line.";
+
+    const css = getComputedStyle(document.documentElement);
+    const v = n => css.getPropertyValue(n).trim();
+    if (chart) chart.destroy();
+    const datasets = [
+      { type: "bar", label: "Human review comments", data: months.map(m => ghMonth.get(m)?.human ?? 0), backgroundColor: v("--accent"), stack: "c", yAxisID: "y", borderRadius: 2, order: 2 },
+      { type: "bar", label: "Automated review comments", data: months.map(m => ghMonth.get(m)?.auto ?? 0), backgroundColor: v("--auto"), stack: "c", yAxisID: "y", borderRadius: 2, order: 2 },
+    ];
+    if (ph) datasets.push({ type: "line", label: phLabel + " (Phabricator)", data: months.map(m => phVal(phMonth.get(m))),
+      borderColor: v("--st-merged"), backgroundColor: v("--st-merged"), yAxisID: "y1", tension: 0.25, pointRadius: 3, order: 1 });
+    const tick = { color: v("--ink-2") };
+    chart = new Chart($("chart"), {
+      data: { labels: months.map(monthLabel), datasets },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: { legend: { labels: { color: v("--ink-2") } } },
+        scales: {
+          x: { stacked: true, ticks: tick, grid: { display: false } },
+          y: { stacked: true, beginAtZero: true, ticks: { ...tick, precision: 0 }, grid: { color: v("--grid") }, title: { display: true, text: "Review comments", color: v("--ink-2") } },
+          ...(ph ? { y1: { position: "right", beginAtZero: true, ticks: { ...tick, precision: 0 }, grid: { drawOnChartArea: false }, title: { display: true, text: phLabel, color: v("--ink-2") } } } : {}),
+        },
+      },
+    });
+
+    $("tcap").textContent = `${who}: the numbers behind the chart`;
+    $("monthHead").innerHTML = `<th>Month</th><th>PRs opened</th><th>Human</th><th>Automated</th><th>Comments</th><th>${esc(phLabel)}</th>`;
+    $("tbody").innerHTML = months.length ? months.map(m => {
+      const g = ghMonth.get(m) || { human: 0, auto: 0, prs: 0 };
+      return `<tr><td>${monthLabel(m)}</td><td>${g.prs}</td><td>${g.human}</td><td>${g.auto}</td><td>${g.human + g.auto}</td><td>${ph ? phVal(phMonth.get(m)) : "–"}</td></tr>`;
+    }).join("") : `<tr><td colspan="6" class="empty">No data yet.</td></tr>`;
+  }
+
+  $("people").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    selected = b.dataset.p; render();
+  });
+  BUS.on(render);
+  render();
+})();
+
+/* ---------- Tabs ---------- */
+(() => {
+  const tabs = document.getElementById("tabs");
+  function show(name) {
+    tabs.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === name)));
+    for (const t of ["overview", "github", "phab"]) document.getElementById("tab-" + t).hidden = t !== name;
+    if (name === "github" && BUS.ghRedraw) BUS.ghRedraw();   // the SVG charts size themselves to the visible width
+    try { localStorage.setItem("team.tab.v1", name); } catch (_) {}
+  }
+  tabs.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show(b.dataset.tab); });
+  let start = "overview";
+  try { start = localStorage.getItem("team.tab.v1") || start; } catch (_) {}
+  show(["overview", "github", "phab"].includes(start) ? start : "overview");
+})();
+</script>
+</body>
+</html>

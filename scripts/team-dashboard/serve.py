@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Serve the column-move chart page and proxy Conduit API calls to Phabricator.
+"""Serve the team dashboard and proxy its Conduit API calls to Phabricator.
 
 Phabricator does not send CORS headers, so a browser page cannot call its API
 directly. This script serves index.html on localhost and forwards
@@ -38,7 +38,7 @@ def make_handler(phab_url):
                 data=body,
                 headers={
                     "Content-Type": "application/x-www-form-urlencoded",
-                    "User-Agent": "phabricator-column-moves/1.0",
+                    "User-Agent": "team-dashboard/1.0",
                 },
                 method="POST",
             )
