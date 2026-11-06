@@ -8,6 +8,7 @@ public struct WMFReadingListsView: View {
     @ObservedObject var viewModel: WMFReadingListsViewModel
     /// Mirrors `discoverHeader` so the card fades in and out instead of popping.
     @State private var shownDiscoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
+    @Environment(\.isSearching) private var isSearching
 
     private let deleteTitle = CommonStrings.deleteActionTitle
     private let cancelTitle = CommonStrings.cancelActionTitle
@@ -65,7 +66,7 @@ public struct WMFReadingListsView: View {
 
     /// The card shows while the reader is not editing or searching.
     private var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header? {
-        guard !viewModel.isEditing, viewModel.searchText.isEmpty else { return nil }
+        guard !viewModel.isEditing, !isSearching else { return nil }
         return viewModel.discoverHeader
     }
 

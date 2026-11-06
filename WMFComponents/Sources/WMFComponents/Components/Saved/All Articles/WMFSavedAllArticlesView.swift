@@ -8,6 +8,7 @@ public struct WMFSavedAllArticlesView: View {
     @ObservedObject var viewModel: WMFSavedAllArticlesViewModel
     /// Mirrors `discoverHeader` so the card fades in and out instead of popping.
     @State private var shownDiscoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
+    @Environment(\.isSearching) private var isSearching
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
     private let emptyStateTitle = CommonStrings.allArticlesEmptySavedTitle
@@ -76,7 +77,7 @@ public struct WMFSavedAllArticlesView: View {
 
     /// The card shows while the reader is not editing or searching.
     private var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header? {
-        guard !viewModel.isEditing, viewModel.searchText.isEmpty else { return nil }
+        guard !viewModel.isEditing, !isSearching else { return nil }
         return viewModel.discoverHeader
     }
 

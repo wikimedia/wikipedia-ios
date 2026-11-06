@@ -74,7 +74,7 @@ public struct WMFDiscoverEntryCardView: View {
             bylineText
         }
         .font(Font(WMFFont.for(.footnote)))
-        .foregroundColor(Color(uiColor: theme.secondaryText))
+        .foregroundColor(Color(uiColor: theme.text))
     }
 
     private var bylineText: Text {
