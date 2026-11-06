@@ -95,7 +95,7 @@ public actor WMFDiscoverInterestsDataController {
 
         try await context.perform {
             let pageRows = try Self.fetchRows(predicate: NSPredicate(format: "page != nil"), coreDataStore: coreDataStore, in: context)
-            if let existingPage = try Self.fetchPage(title: title, project: project, coreDataStore: coreDataStore, in: context), existingPage.discoverInterest != nil {
+            if try Self.fetchPageRow(title: title, project: project, coreDataStore: coreDataStore, in: context) != nil {
                 return
             }
 
@@ -110,11 +110,10 @@ public actor WMFDiscoverInterestsDataController {
         let context = try coreDataStore.newBackgroundContext
 
         try await context.perform {
-            guard let page = try Self.fetchPage(title: title, project: project, coreDataStore: coreDataStore, in: context),
-                  let interest = page.discoverInterest else {
+            guard let row = try Self.fetchPageRow(title: title, project: project, coreDataStore: coreDataStore, in: context) else {
                 return
             }
-            context.delete(interest)
+            context.delete(row)
             try coreDataStore.saveIfNeeded(moc: context)
         }
     }
@@ -168,8 +167,11 @@ public actor WMFDiscoverInterestsDataController {
         row.page = page
     }
 
-    private static func fetchPage(title: String, project: WMFProject, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> CDPage? {
-        try coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate(title: title, project: project), fetchLimit: 1, in: context)?.first
+    /// The interest row of a page, found through the row and not through the page. `CDPage` has no
+    /// uniqueness constraint, so a lookup of the page could land on a duplicate without an interest.
+    private static func fetchPageRow(title: String, project: WMFProject, coreDataStore: WMFCoreDataStore, in context: NSManagedObjectContext) throws -> CDDiscoverInterest? {
+        let predicate = NSPredicate(format: "page.projectID == %@ && page.namespaceID == %@ && page.title == %@", argumentArray: [project.id, Int16(0), title.normalizedForCoreData])
+        return try coreDataStore.fetch(entityType: CDDiscoverInterest.self, predicate: predicate, fetchLimit: 1, in: context)?.first
     }
 
     private static func pagePredicate(title: String, project: WMFProject) -> NSPredicate {

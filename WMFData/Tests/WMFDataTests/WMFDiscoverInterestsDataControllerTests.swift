@@ -52,6 +52,31 @@ final class WMFDiscoverInterestsDataControllerTests {
         }
     }
 
+    /// Two `CDPage` rows with the same title, like a store without a uniqueness constraint can hold.
+    /// A page lookup with `fetchLimit: 1` lands on the first one, which has no interest.
+    private func insertDuplicatePages(title: String, interestOnLast: Bool) async throws {
+        let store = try #require(coreDataStore)
+        let projectID = englishProject.id
+        let context = try store.newBackgroundContext
+        try await context.perform {
+            var lastPage: CDPage?
+            for _ in 0..<2 {
+                let page = try store.create(entityType: CDPage.self, in: context)
+                page.title = title
+                page.namespaceID = 0
+                page.projectID = projectID
+                page.timestamp = Date()
+                lastPage = page
+            }
+            if interestOnLast {
+                let row = try store.create(entityType: CDDiscoverInterest.self, in: context)
+                row.sortIndex = 0
+                row.page = lastPage
+            }
+            try store.saveIfNeeded(moc: context)
+        }
+    }
+
     // MARK: - Storage
 
     @Test
@@ -175,6 +200,27 @@ final class WMFDiscoverInterestsDataControllerTests {
                 return (pages.count, interests.count)
             }
             #expect(pageCount == 1, "the page view's page is reused, and removing the interest keeps it")
+            #expect(interestCount == 0)
+        }
+    }
+
+    @Test
+    func aDuplicatePageWithoutAnInterestDoesNotHideTheSelection() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(coreDataStore)
+            let controller = WMFDiscoverInterestsDataController()
+            try await insertDuplicatePages(title: "Cat", interestOnLast: true)
+
+            try await controller.addPage(title: "Cat", project: englishProject)
+            #expect(try await controller.fetchInterests().pages == [page("Cat")], "the page is in the set, so it is not added again")
+
+            try await controller.removePage(title: "Cat", project: englishProject)
+            #expect(try await controller.fetchInterests().pages.isEmpty)
+
+            let context = try store.newBackgroundContext
+            let interestCount = try await context.perform {
+                try store.fetch(entityType: CDDiscoverInterest.self, predicate: nil, fetchLimit: nil, in: context)?.count ?? 0
+            }
             #expect(interestCount == 0)
         }
     }
