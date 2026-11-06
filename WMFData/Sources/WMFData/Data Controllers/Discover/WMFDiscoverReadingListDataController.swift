@@ -167,7 +167,8 @@ public actor WMFDiscoverReadingListDataController {
 
     /// What a list is built from. The inputs of the current list are stored with it, so a change
     /// undone before the next check keeps the list, and a change made while a run goes on still
-    /// regenerates on the next check.
+    /// regenerates on the next check. The interests count for every source, so an interests edit
+    /// makes the next check regenerate even when the source is saved or history.
     struct GenerationInputs: Codable, Equatable, Sendable {
         let source: WMFDiscoverSource
         let articleCount: Int
