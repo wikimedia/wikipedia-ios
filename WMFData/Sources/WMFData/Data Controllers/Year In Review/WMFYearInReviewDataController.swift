@@ -209,7 +209,9 @@ import CoreData
         case .editCount:
             // Android counts its total edits slide from one edit, also before the edit slides are built here.
             return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0
-        case .donateCount, .saveCount, .mostReadDate, .viewCount, .location:
+        case .saveCount:
+            return (try? decoder.decode(SavedArticleSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .donateCount, .mostReadDate, .viewCount, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
             return 0
         }
@@ -927,12 +929,52 @@ public struct WMFYearInReviewNicheCategorySlideData: Codable, Sendable {
 }
 
 public class SavedArticleSlideData: NSObject, Codable {
+
+    /// One article on the saved slide.
+    public struct Article: Codable, Sendable, Equatable {
+        /// The title as shown to the reader.
+        public let title: String
+        /// The title with spaces, not underscores, that the API reads, for the thumbnail. `nil` when unknown.
+        public let pageTitle: String?
+        /// The short description of the article. `nil` when the article has none.
+        public let articleDescription: String?
+        /// The `WMFProject.id` of the wiki the article is on. `nil` when unknown.
+        public let projectID: String?
+
+        public init(title: String, pageTitle: String?, articleDescription: String?, projectID: String?) {
+            self.title = title
+            self.pageTitle = pageTitle
+            self.articleDescription = articleDescription
+            self.projectID = projectID
+        }
+
+        public var project: WMFProject? {
+            projectID.flatMap { WMFProject(id: $0) }
+        }
+    }
+
+    /// The reader must have saved at least this number of articles in the data period to see the full slide.
+    public static let minimumSavedArticlesCount = 1
+    /// The slide shows at most this number of articles.
+    public static let maximumArticleCount = 3
+
+    /// The number of articles saved in the data period that are still saved when the slide is built.
+    /// Unsaving an article clears its saved date, so an article saved and then unsaved is not counted.
     public let savedArticlesCount: Int
     public let articleTitles: [String]
+    /// Up to `maximumArticleCount` saved articles, picked at random. `nil` in data stored by an
+    /// older build, which did not store the descriptions or the wikis.
+    public let articles: [Article]?
 
-    public init(savedArticlesCount: Int, articleTitles: [String]) {
+    public init(savedArticlesCount: Int, articleTitles: [String], articles: [Article]? = nil) {
         self.savedArticlesCount = savedArticlesCount
         self.articleTitles = articleTitles
+        self.articles = articles
+    }
+
+    /// If false, show the empty state ("You have 0 articles saved").
+    public var isEligible: Bool {
+        savedArticlesCount >= Self.minimumSavedArticlesCount && !(articles ?? []).isEmpty
     }
 }
 
