@@ -712,10 +712,10 @@ public typealias ReadingListsController = WMFReadingListsController
             if moc.hasChanges {
                 try moc.save()
             }
+            sync()
         } catch let error {
             DDLogError("Error unsaving articles: \(error)")
         }
-        sync()
     }
 
     /// Note that the predicate does not take the article language variant into account. This is intentional.
