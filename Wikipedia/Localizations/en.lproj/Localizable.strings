@@ -361,14 +361,6 @@
 "discover-announcement-title" = "Discover articles picked for you";
 "discover-entry-card-byline" = "Made for $1";
 "discover-entry-card-unseen-list" = "New list";
-"discover-interests-alert-message-history" = "Discover is built from your interests. If you don't select any, Discover will be built from your reading history on this device.";
-"discover-interests-alert-message-none" = "Discover needs at least one interest to build your reading list.";
-"discover-interests-alert-message-saved" = "Discover is built from your interests. If you don't select any, Discover will be built from your saved articles.";
-"discover-interests-alert-message-saved-history" = "Discover is built from your interests. If you don't select any, Discover will be built from your saved articles or your reading history on this device.";
-"discover-interests-alert-select" = "Select interests";
-"discover-interests-alert-title" = "Select at least one interest";
-"discover-interests-alert-use-history" = "Use reading history";
-"discover-interests-alert-use-saved" = "Use saved articles";
 "discover-interests-subtitle" = "Changes here only affect what you see in Discover.";
 "discover-list-about" = "About this feature";
 "discover-list-byline" = "Made for $1 • $2";

@@ -150,8 +150,8 @@ public final class WMFDiscoverInterestsStore: WMFInterestsStore {
     func didLeave(hasChanges: Bool) {}
 
     /// Saves the set as it is on screen. An empty set is never saved: Discover needs at least one
-    /// interest to build the list, and Back with none selected keeps the reader on the screen. So
-    /// the saved set is always usable.
+    /// interest to build the list, and Done is off with none selected. So the saved set is always
+    /// usable.
     public func commit() async throws {
         guard !interests.isEmpty else { return }
         try await dataController.save(interests)

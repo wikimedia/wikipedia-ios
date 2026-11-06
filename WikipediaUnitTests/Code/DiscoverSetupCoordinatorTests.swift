@@ -66,7 +66,7 @@ final class DiscoverSetupCoordinatorTests: XCTestCase {
         XCTAssertTrue(navigationController.topViewController is WMFDiscoverReadingListHostingController)
     }
 
-    func testReadingHistoryFromTheAlertTurnsDiscoverOnWithHistoryAsTheSource() async throws {
+    func testTurnOnDiscoverSavesTheSourceItGets() async throws {
         coordinator.turnOnDiscover(source: .history)
         await waitUntil { await self.readingListDataController.settings.isEnabled }
 

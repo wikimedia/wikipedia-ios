@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 import WMFData
 import Foundation
 import WMFNativeLocalizations
@@ -7,13 +8,21 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
 
     public let viewModel: WMFHomeFeedInterestsSettingsViewModel
     private let closeButtonHandler: (() -> Void)?
-    /// Asked before Back pops the screen, by the button and by the swipe. Return false to keep
-    /// the screen, for example to show an alert first. Nil means Back always pops.
-    public var shouldPopOnBack: (() -> Bool)?
+    private let doneButtonHandler: (() -> Void)?
+    private var cancellables = Set<AnyCancellable>()
 
-    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, closeButtonHandler: (() -> Void)? = nil) {
+    private lazy var doneButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(tappedDone))
+        button.accessibilityIdentifier = AccessibilityIdentifiers.Interests.doneButton
+        return button
+    }()
+
+    /// Pass `doneButtonHandler` to show Done in the navigation bar. Done is off while no interest
+    /// is selected. Without the handler the screen has no Done, as on the For You interests.
+    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, closeButtonHandler: (() -> Void)? = nil, doneButtonHandler: (() -> Void)? = nil) {
         self.viewModel = viewModel
         self.closeButtonHandler = closeButtonHandler
+        self.doneButtonHandler = doneButtonHandler
         super.init(rootView: WMFHomeFeedInterestsSettingsView(viewModel: viewModel))
     }
 
@@ -24,6 +33,7 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.accessibilityIdentifier = AccessibilityIdentifiers.Interests.view
+        bindDoneButton()
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -48,31 +58,32 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
             WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close), alignment: .leading)
         }
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-        configureBackButton()
+        guard doneButtonHandler != nil else { return }
+        doneButton.tintColor = theme.link
+        navigationItem.rightBarButtonItem = doneButton
     }
 
-    /// The Back button pops only when `shouldPopOnBack` agrees. `backAction` replaces the button's
-    /// own action and keeps its look, so the screen before this one still names the button.
-    private func configureBackButton() {
-        guard shouldPopOnBack != nil else { return }
-        navigationItem.backAction = UIAction { [weak self] _ in
-            guard let self, self.shouldPopOnBackSwipe() else { return }
-            self.navigationController?.popViewController(animated: true)
-        }
+    /// The published selection drives the button, so Done follows every tap at once.
+    private func bindDoneButton() {
+        guard doneButtonHandler != nil else { return }
+        Publishers.CombineLatest(viewModel.$selectedTopics, viewModel.$selectedArticleCount)
+            .map { topics, articleCount in !topics.isEmpty || articleCount > 0 }
+            .sink { [weak self] isEnabled in
+                self?.doneButton.isEnabled = isEnabled
+            }
+            .store(in: &cancellables)
     }
 
     @objc private func close() {
         closeButtonHandler?()
     }
+
+    @objc private func tappedDone() {
+        doneButtonHandler?()
+    }
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.logImpressionIfNeeded?()
-    }
-}
-
-extension WMFHomeFeedInterestsSettingsViewController: WMFBackSwipeConfirming {
-    public func shouldPopOnBackSwipe() -> Bool {
-        shouldPopOnBack?() ?? true
     }
 }

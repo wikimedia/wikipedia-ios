@@ -237,6 +237,7 @@ public enum AccessibilityIdentifiers {
         public static let headerTitle = "Interests Header Title"
         public static let selectedCount = "Interests Selected Count"
         public static let deselectAllButton = "Interests Deselect All Button"
+        public static let doneButton = "Interests Done Button"
         public static let searchCancelButton = "Interests Search Cancel Button"
         public static let searchField = "Interests Search Field"
         public static let searchResultRow = "Interests Search Result Row"

@@ -222,9 +222,6 @@ extension WMFComponentNavigationController: UIGestureRecognizerDelegate {
         guard gestureRecognizer == interactivePopGestureRecognizer else {
             return true
         }
-        if let confirming = topViewController as? WMFBackSwipeConfirming, !confirming.shouldPopOnBackSwipe() {
-            return false
-        }
         return viewControllers.count > 1 && transitionCoordinator == nil
     }
     
@@ -238,11 +235,4 @@ extension WMFComponentNavigationController: UIGestureRecognizerDelegate {
         }
         return otherGestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer.view == view
     }
-}
-
-/// A screen that decides whether the Back swipe may pop it. The screen gets the call before the
-/// gesture starts, so it can show an alert or do other work in place of the pop.
-@MainActor
-public protocol WMFBackSwipeConfirming: AnyObject {
-    func shouldPopOnBackSwipe() -> Bool
 }

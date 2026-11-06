@@ -112,22 +112,18 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
 
     /// Pushed from the Interests row and from Adjust to interests on the source screen.
     private func showInterests() {
-        let coordinator = DiscoverInterestsCoordinator(
-            navigationController: navigationController,
-            dataStore: dataStore,
-            readingListDataController: readingListDataController
-        )
-        coordinator.didChooseSource = { [weak self] source in
-            self?.leaveInterests(source: source)
+        let coordinator = DiscoverInterestsCoordinator(navigationController: navigationController, dataStore: dataStore)
+        coordinator.didFinish = { [weak self] in
+            self?.leaveInterests()
         }
         interestsCoordinator = coordinator
         coordinator.start()
     }
 
-    /// Back on the interests screen ends the flow, with the interests already committed. When
-    /// the source screen is underneath it goes away too. Then the source is saved here: interests,
-    /// or the source picked on the alert.
-    func leaveInterests(source: WMFDiscoverSource) {
+    /// Done on the interests screen ends the flow, with the interests already committed. When the
+    /// source screen is underneath it goes away too. Then interests are saved as the source. Back
+    /// keeps the saved interests and the saved source.
+    func leaveInterests() {
         let viewControllers = navigationController.viewControllers
         let sourceIndex = viewControllers.count - 2
         if sourceIndex >= 1, viewControllers[sourceIndex] is WMFDiscoverSetupHostingController {
@@ -135,7 +131,7 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         } else {
             navigationController.popViewController(animated: true)
         }
-        commitSource(source)
+        commitSource(.interests)
     }
 
     /// Saves the settings with the source and refreshes the screen on top. A source that differs

@@ -143,15 +143,15 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         return runPosts
     }
 
-    // MARK: - Back from the interests screen
+    // MARK: - Done on the interests screen
 
-    func testBackWithInterestsOnlyPopsTheScreen() async throws {
+    func testDoneWithInterestsOnlyPopsTheScreen() async throws {
         _ = try await saveSettings(source: .interests, articleCount: 5)
         let navigationController = UINavigationController(rootViewController: UIViewController())
         navigationController.pushViewController(UIViewController(), animated: false)
         let coordinator = makeCoordinator(navigationController: navigationController)
 
-        coordinator.leaveInterests(source: .interests)
+        coordinator.leaveInterests()
         await Task.yield()
 
         XCTAssertEqual(navigationController.viewControllers.count, 1)
@@ -159,7 +159,7 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         XCTAssertEqual(settings.source, .interests)
     }
 
-    func testBackWithInterestsAlsoClosesTheSourceScreenUnderneath() async throws {
+    func testDoneWithInterestsAlsoClosesTheSourceScreenUnderneath() async throws {
         _ = try await saveSettings(source: .saved, articleCount: 5)
         let sourceViewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: .saved, presentation: .settings, readingListDataController: dataController)
         let sourceController = WMFDiscoverSetupHostingController(viewModel: sourceViewModel)
@@ -169,7 +169,7 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         navigationController.pushViewController(UIViewController(), animated: false)
         let coordinator = makeCoordinator(navigationController: navigationController)
 
-        coordinator.leaveInterests(source: .interests)
+        coordinator.leaveInterests()
         await waitUntil { navigationController.viewControllers.count == 1 }
         await waitUntilAsync { await self.dataController.settings.source == .interests }
 
@@ -177,26 +177,6 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         let settings = await dataController.settings
         XCTAssertEqual(settings.source, .interests)
         XCTAssertEqual(settings.articleCount, 5, "only the source changes")
-    }
-
-    func testReadingHistoryFromTheAlertIsSavedWhenTheSourceScreenIsUnderneath() async throws {
-        _ = try await saveSettings(source: .saved, articleCount: 5)
-        let sourceViewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: .saved, presentation: .settings, readingListDataController: dataController)
-        let sourceController = WMFDiscoverSetupHostingController(viewModel: sourceViewModel)
-        let rootController = UIViewController()
-        let navigationController = UINavigationController(rootViewController: rootController)
-        navigationController.pushViewController(sourceController, animated: false)
-        navigationController.pushViewController(UIViewController(), animated: false)
-        let coordinator = makeCoordinator(navigationController: navigationController)
-
-        coordinator.leaveInterests(source: .history)
-        await waitUntil { navigationController.viewControllers.count == 1 }
-        await waitUntilAsync { await self.dataController.settings.source == .history }
-
-        XCTAssertTrue(navigationController.topViewController === rootController)
-        let settings = await dataController.settings
-        XCTAssertEqual(settings.source, .history, "the source screen never appears again, so the coordinator saves the source")
-        XCTAssertTrue(settings.isEnabled)
     }
 
     func testAdjustToSavedArticlesClosesTheSourceScreen() async throws {
@@ -217,21 +197,6 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         let settings = await dataController.settings
         XCTAssertEqual(settings.source, .saved)
         XCTAssertEqual(settings.articleCount, 5, "only the source changes")
-    }
-
-    func testReadingHistoryFromTheAlertIsSavedWhenTheScreenCameFromTheInterestsRow() async throws {
-        _ = try await saveSettings(source: .interests, articleCount: 5)
-        let navigationController = UINavigationController(rootViewController: UIViewController())
-        navigationController.pushViewController(UIViewController(), animated: false)
-        let coordinator = makeCoordinator(navigationController: navigationController)
-
-        coordinator.leaveInterests(source: .history)
-        await waitUntilAsync { await self.dataController.settings.source == .history }
-
-        XCTAssertEqual(navigationController.viewControllers.count, 1)
-        let settings = await dataController.settings
-        XCTAssertEqual(settings.source, .history)
-        XCTAssertTrue(settings.isEnabled)
     }
 
     private func waitUntilAsync(_ condition: @MainActor () async -> Bool) async {

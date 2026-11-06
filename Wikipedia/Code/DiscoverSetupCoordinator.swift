@@ -64,17 +64,16 @@ final class DiscoverSetupCoordinator: NSObject, Coordinator {
 
     // MARK: - Interests
 
-    /// Back from the interests screen turns Discover on, with interests or with reading history
-    /// from the alert, and the first list takes the place of the setup screens.
+    /// Done on the interests screen turns Discover on with interests as the source, and the first
+    /// list takes the place of the setup screens. Back returns to the source screen.
     private func showInterests() {
         let coordinator = DiscoverInterestsCoordinator(
             navigationController: navigationController,
             dataStore: dataStore,
-            readingListDataController: readingListDataController,
             interestsDataController: interestsDataController
         )
-        coordinator.didChooseSource = { [weak self] source in
-            self?.turnOnDiscover(source: source)
+        coordinator.didFinish = { [weak self] in
+            self?.turnOnDiscover(source: .interests)
         }
         interestsCoordinator = coordinator
         coordinator.start()

@@ -12,7 +12,7 @@ final class DiscoverInterestsCoordinatorTests: XCTestCase {
     private var interestsDataController: WMFDiscoverInterestsDataController!
     private var navigationController: UINavigationController!
     private var coordinator: DiscoverInterestsCoordinator!
-    private var chosenSources: [WMFDiscoverSource] = []
+    private var finishCount = 0
 
     private let englishProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
@@ -22,25 +22,17 @@ final class DiscoverInterestsCoordinatorTests: XCTestCase {
                 continuation.resume(returning: dataStore)
             }
         }
-        let store = InMemoryKeyValueStore()
         let coreDataStore = try await fixture.makeTemporaryCoreDataStore()
-        interestsDataController = WMFDiscoverInterestsDataController(coreDataStore: coreDataStore, userDefaultsStore: store)
-        let readingListDataController = WMFDiscoverReadingListDataController(
-            coreDataStore: coreDataStore,
-            userDefaultsStore: store,
-            relatedPagesDataController: WMFRelatedPagesDataController(basicService: nil),
-            interestsDataController: interestsDataController
-        )
+        interestsDataController = WMFDiscoverInterestsDataController(coreDataStore: coreDataStore, userDefaultsStore: InMemoryKeyValueStore())
         navigationController = UINavigationController(rootViewController: UIViewController())
         coordinator = DiscoverInterestsCoordinator(
             navigationController: navigationController,
             dataStore: dataStore,
-            readingListDataController: readingListDataController,
             interestsDataController: interestsDataController
         )
-        chosenSources = []
-        coordinator.didChooseSource = { [weak self] source in
-            self?.chosenSources.append(source)
+        finishCount = 0
+        coordinator.didFinish = { [weak self] in
+            self?.finishCount += 1
         }
     }
 
@@ -61,81 +53,28 @@ final class DiscoverInterestsCoordinatorTests: XCTestCase {
         }
     }
 
-    // MARK: - Back
+    // MARK: - Done
 
-    func testBackWithInterestsReportsInterestsAfterTheInterestsAreCommitted() async throws {
+    func testDoneWithInterestsReportsAfterTheInterestsAreCommitted() async throws {
         let store = makeStore(titles: [])
         store.addPage(title: "Cat", project: englishProject)
-        let savedBeforeBack = try await interestsDataController.fetchInterests()
-        XCTAssertTrue(savedBeforeBack.isEmpty, "a tap changes only the screen")
+        let savedBeforeDone = try await interestsDataController.fetchInterests()
+        XCTAssertTrue(savedBeforeDone.isEmpty, "a tap changes only the screen")
 
-        let shouldPop = coordinator.handleBack(store: store)
-        await waitUntil { !self.chosenSources.isEmpty }
+        coordinator.finish(store: store)
+        await waitUntil { self.finishCount > 0 }
 
-        XCTAssertFalse(shouldPop)
-        XCTAssertEqual(chosenSources, [.interests])
+        XCTAssertEqual(finishCount, 1)
         let saved = try await interestsDataController.fetchInterests()
         XCTAssertEqual(saved.pages.map(\.title), ["Cat"])
     }
 
-    func testBackWithoutInterestsReportsNothing() async throws {
-        let shouldPop = coordinator.handleBack(store: makeStore(titles: []))
+    func testDoneWithoutInterestsDoesNothing() async throws {
+        coordinator.finish(store: makeStore(titles: []))
         await Task.yield()
 
-        XCTAssertFalse(shouldPop)
-        XCTAssertTrue(chosenSources.isEmpty)
-    }
-
-    func testUseReadingHistoryReportsHistory() async throws {
-        coordinator.chooseSource(.history, store: makeStore(titles: []))
-        await waitUntil { !self.chosenSources.isEmpty }
-
-        XCTAssertEqual(chosenSources, [.history])
-    }
-
-    // MARK: - Alert
-
-    func testAlertWithSavedArticlesAndReadingHistoryOffersBoth() {
-        let alert = coordinator.makeSelectInterestsAlert(alternativeSources: [.saved, .history], store: makeStore(titles: []))
-
-        XCTAssertEqual(alert.title, DiscoverInterestsCoordinator.alertTitle)
-        XCTAssertEqual(alert.message, DiscoverInterestsCoordinator.alertMessageWithSavedAndHistory)
-        XCTAssertEqual(alert.actions.map(\.title), [
-            DiscoverInterestsCoordinator.alertSelectInterests,
-            DiscoverInterestsCoordinator.alertUseSavedArticles,
-            DiscoverInterestsCoordinator.alertUseReadingHistory
-        ])
-    }
-
-    func testAlertWithOnlySavedArticlesOffersSavedArticles() {
-        let alert = coordinator.makeSelectInterestsAlert(alternativeSources: [.saved], store: makeStore(titles: []))
-
-        XCTAssertEqual(alert.message, DiscoverInterestsCoordinator.alertMessageWithSaved)
-        XCTAssertEqual(alert.actions.map(\.title), [DiscoverInterestsCoordinator.alertSelectInterests, DiscoverInterestsCoordinator.alertUseSavedArticles])
-    }
-
-    func testAlertWithOnlyReadingHistoryOffersReadingHistory() {
-        let alert = coordinator.makeSelectInterestsAlert(alternativeSources: [.history], store: makeStore(titles: []))
-
-        XCTAssertEqual(alert.message, DiscoverInterestsCoordinator.alertMessageWithHistory)
-        XCTAssertEqual(alert.actions.map(\.title), [DiscoverInterestsCoordinator.alertSelectInterests, DiscoverInterestsCoordinator.alertUseReadingHistory])
-    }
-
-    func testAlertWithoutOtherSourcesOnlyAsksToSelectInterests() {
-        let alert = coordinator.makeSelectInterestsAlert(alternativeSources: [], store: makeStore(titles: []))
-
-        XCTAssertEqual(alert.title, DiscoverInterestsCoordinator.alertTitle)
-        XCTAssertEqual(alert.message, DiscoverInterestsCoordinator.alertMessageWithoutSources)
-        XCTAssertEqual(alert.actions.map(\.title), [DiscoverInterestsCoordinator.alertSelectInterests])
-    }
-
-    func testSavedArticlesFromTheAlertReportsSaved() async throws {
-        let alert = coordinator.makeSelectInterestsAlert(alternativeSources: [.saved], store: makeStore(titles: []))
-        XCTAssertEqual(alert.actions.count, 2)
-
-        coordinator.chooseSource(.saved, store: makeStore(titles: []))
-        await waitUntil { !self.chosenSources.isEmpty }
-
-        XCTAssertEqual(chosenSources, [.saved])
+        XCTAssertEqual(finishCount, 0)
+        let saved = try await interestsDataController.fetchInterests()
+        XCTAssertTrue(saved.isEmpty)
     }
 }
