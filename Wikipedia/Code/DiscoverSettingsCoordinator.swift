@@ -4,8 +4,8 @@ import WMFComponents
 import WMFData
 import WMFNativeLocalizations
 
-/// Owns the Discover settings screen and the screens under it: the source screen and, later,
-/// the interests screen. Started from Settings and from Customize on the Discover reading list.
+/// Owns the Discover settings screen and the screens under it: the source screen and the
+/// interests screen. Started from Settings and from Customize on the Discover reading list.
 final class DiscoverSettingsCoordinator: NSObject, Coordinator {
 
     enum Origin {
@@ -17,12 +17,22 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
     private let dataStore: MWKDataStore
     private let theme: Theme
     private let origin: Origin
+    private let readingListDataController: WMFDiscoverReadingListDataController
+    private var interestsCoordinator: DiscoverInterestsCoordinator?
+    private var isShowingUndoToast = false
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, origin: Origin) {
+    init(
+        navigationController: UINavigationController,
+        dataStore: MWKDataStore,
+        theme: Theme,
+        origin: Origin,
+        readingListDataController: WMFDiscoverReadingListDataController = .shared
+    ) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.origin = origin
+        self.readingListDataController = readingListDataController
         super.init()
     }
 
@@ -38,12 +48,15 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         return true
     }
 
-    private func showSettings(viewModel: WMFDiscoverSettingsViewModel) {
+    func showSettings(viewModel: WMFDiscoverSettingsViewModel) {
         viewModel.didTapSource = { [weak self] in
             self?.showSource()
         }
-        viewModel.didTapInterests = {
-            // The interests screen lands with T440011.
+        viewModel.didTapInterests = { [weak self] in
+            self?.showInterests()
+        }
+        viewModel.didLeave = { [readingListDataController] in
+            Self.generateListIfDue(with: readingListDataController)
         }
         viewModel.didTurnOff = { [weak self] in
             self?.showTurnedOffToast()
@@ -68,14 +81,15 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func showSource(viewModel: WMFDiscoverSetupViewModel) {
-        viewModel.didChooseInterests = {
-            // The interests screen lands with T440011.
+    /// Adjust to saved articles or reading history saves the source and ends the flow.
+    func showSource(viewModel: WMFDiscoverSetupViewModel) {
+        viewModel.didChooseInterests = { [weak self] in
+            self?.showInterests()
         }
         viewModel.didChangeSource = { [weak self] previousSource, newSource in
             guard let self else { return }
-            // The settings screen appears, and reads the settings, before the save is done.
-            Self.refreshScreen(onTopOf: self.navigationController)
+            self.navigationController.popViewController(animated: true)
+            Self.refreshScreen(onTopOf: self.navigationController, dataController: self.readingListDataController)
             self.showSourceChangedToast(previousSource: previousSource, newSource: newSource)
         }
 
@@ -83,16 +97,74 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         navigationController.pushViewController(hostingController, animated: true)
     }
 
-    /// The screen on top reads the settings again. Undo on the toast can arrive on the settings
-    /// screen or, after Back, on the Discover list.
-    static func refreshScreen(onTopOf navigationController: UINavigationController) {
+    // MARK: - Interests
+
+    /// Pushed from the Interests row and from Adjust to interests on the source screen.
+    private func showInterests() {
+        let coordinator = DiscoverInterestsCoordinator(
+            navigationController: navigationController,
+            dataStore: dataStore,
+            readingListDataController: readingListDataController
+        )
+        coordinator.didChooseSource = { [weak self] source in
+            self?.leaveInterests(source: source)
+        }
+        interestsCoordinator = coordinator
+        coordinator.start()
+    }
+
+    /// Back on the interests screen ends the flow, with the interests already committed. When
+    /// the source screen is underneath it goes away too. Then the source is saved here: interests,
+    /// or the source picked on the alert.
+    func leaveInterests(source: WMFDiscoverSource) {
+        let viewControllers = navigationController.viewControllers
+        let sourceIndex = viewControllers.count - 2
+        if sourceIndex >= 1, viewControllers[sourceIndex] is WMFDiscoverSetupHostingController {
+            navigationController.popToViewController(viewControllers[sourceIndex - 1], animated: true)
+        } else {
+            navigationController.popViewController(animated: true)
+        }
+        commitSource(source)
+    }
+
+    /// Saves the settings with the source and refreshes the screen on top. A source that differs
+    /// from the saved one shows the Undo toast.
+    func commitSource(_ source: WMFDiscoverSource) {
+        let navigationController = navigationController
+        let dataController = readingListDataController
+        Task { [weak self] in
+            var settings = await dataController.settings
+            let previousSource = settings.source
+            guard previousSource != source else { return }
+            settings.source = source
+            try? await dataController.saveSettings(settings)
+            Self.refreshScreen(onTopOf: navigationController, dataController: dataController)
+            self?.showSourceChangedToast(previousSource: previousSource, newSource: source)
+        }
+    }
+
+    /// The screen on top reads the settings again. Undo on the toast can arrive on the Discover
+    /// settings screen, where Back makes the list later, or after Back: on the Discover list, or
+    /// on Settings, where the list is made here when the saved source left it out of date.
+    static func refreshScreen(onTopOf navigationController: UINavigationController, dataController: WMFDiscoverReadingListDataController) {
         switch navigationController.topViewController {
         case let settingsController as WMFDiscoverSettingsHostingController:
             settingsController.viewModel.refresh()
         case let listController as WMFDiscoverReadingListHostingController:
             listController.viewModel.reloadIfGenerationDue()
         default:
-            break
+            generateListIfDue(with: dataController)
+        }
+    }
+
+    /// Back on the Discover settings commits the changes made on it and under it, like on Android:
+    /// a new source or article count makes the list again, once. The card on the Saved tab and the
+    /// Discover list follow the run through the list state notification. A failed run keeps the
+    /// current list, and the next visit to Saved tries again.
+    static func generateListIfDue(with dataController: WMFDiscoverReadingListDataController) {
+        Task {
+            guard await dataController.settings.isEnabled else { return }
+            _ = try? await dataController.generateRecommendationsIfNeeded()
         }
     }
 
@@ -103,20 +175,32 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
             duration: 5,
             buttonTitle: CommonStrings.undo,
             buttonAction: { [weak self] in
-                self?.restoreSource(previousSource)
+                self?.saveSource(previousSource)
             }
         )
-        WMFToastPresenter.shared.show(toastConfiguration, in: navigationController.view.window)
+        isShowingUndoToast = true
+        WMFToastPresenter.shared.show(toastConfiguration, in: navigationController.view.window) { [weak self] _ in
+            self?.isShowingUndoToast = false
+        }
     }
 
-    private func restoreSource(_ source: WMFDiscoverSource) {
+    /// Settings closing takes the Undo toast with it. The toast belongs to the Settings flow, and
+    /// Undo over the Saved tab would change the list the reader is looking at.
+    func settingsWillClose() {
+        guard isShowingUndoToast else { return }
+        WMFToastPresenter.shared.dismissCurrentToast()
+    }
+
+    /// Undo puts the previous source back. Interests stay as they are. The task keeps only the
+    /// data controller and the navigation controller, so Undo works after this coordinator is gone.
+    func saveSource(_ source: WMFDiscoverSource) {
         let navigationController = navigationController
+        let dataController = readingListDataController
         Task {
-            let dataController = WMFDiscoverReadingListDataController.shared
             var settings = await dataController.settings
             settings.source = source
             try? await dataController.saveSettings(settings)
-            Self.refreshScreen(onTopOf: navigationController)
+            Self.refreshScreen(onTopOf: navigationController, dataController: dataController)
         }
     }
 

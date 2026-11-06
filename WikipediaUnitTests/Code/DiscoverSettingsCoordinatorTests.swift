@@ -1,20 +1,37 @@
 import XCTest
 @testable import Wikipedia
+import WMF
 import WMFComponents
 import WMFData
 
 @MainActor
 final class DiscoverSettingsCoordinatorTests: XCTestCase {
 
+    private let fixture = WMFDataTestFixture()
+    private var dataStore: MWKDataStore!
     private var store: InMemoryKeyValueStore!
     private var dataController: WMFDiscoverReadingListDataController!
 
     override func setUp() async throws {
+        dataStore = await withCheckedContinuation { continuation in
+            MWKDataStore.createTemporaryDataStore { dataStore in
+                continuation.resume(returning: dataStore)
+            }
+        }
         store = InMemoryKeyValueStore()
         dataController = WMFDiscoverReadingListDataController(
+            coreDataStore: try await fixture.makeTemporaryCoreDataStore(),
             userDefaultsStore: store,
             relatedPagesDataController: WMFRelatedPagesDataController(basicService: nil)
         )
+    }
+
+    override func tearDown() async throws {
+        dataStore.removeFolderAtBasePath()
+    }
+
+    private func makeCoordinator(navigationController: UINavigationController) -> DiscoverSettingsCoordinator {
+        DiscoverSettingsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: .light, origin: .settings, readingListDataController: dataController)
     }
 
     private func saveSettings(source: WMFDiscoverSource, articleCount: Int) async throws -> WMFDiscoverSettings {
@@ -37,7 +54,7 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         let navigationController = UINavigationController(rootViewController: WMFDiscoverSettingsHostingController(viewModel: viewModel))
         _ = try await saveSettings(source: .history, articleCount: 5)
 
-        DiscoverSettingsCoordinator.refreshScreen(onTopOf: navigationController)
+        DiscoverSettingsCoordinator.refreshScreen(onTopOf: navigationController, dataController: dataController)
         await waitUntil { viewModel.settings.source == .history }
 
         XCTAssertEqual(viewModel.settings.source, .history)
@@ -51,40 +68,142 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         await waitUntil { viewModel.state != .loading }
         _ = try await saveSettings(source: .saved, articleCount: 7)
 
-        DiscoverSettingsCoordinator.refreshScreen(onTopOf: navigationController)
+        DiscoverSettingsCoordinator.refreshScreen(onTopOf: navigationController, dataController: dataController)
         await waitUntil { viewModel.settings.articleCount == 7 }
 
         XCTAssertEqual(viewModel.settings.articleCount, 7)
     }
 
-    func testAnotherScreenOnTopIsLeftAlone() throws {
+    /// Undo after Back lands on Settings. No screen there shows the list, so the coordinator makes it.
+    func testUndoOnSettingsMakesTheListWhenItIsOutOfDate() async throws {
+        _ = try await saveSettings(source: .interests, articleCount: 5)
         let navigationController = UINavigationController(rootViewController: UIViewController())
+        let runPosts = expectListStatePosts(count: 2)
 
-        DiscoverSettingsCoordinator.refreshScreen(onTopOf: navigationController)
+        DiscoverSettingsCoordinator.refreshScreen(onTopOf: navigationController, dataController: dataController)
+
+        await fulfillment(of: [runPosts], timeout: 5)
+    }
+
+    // MARK: - Back from the Discover settings
+
+    func testBackFromTheDiscoverSettingsMakesTheList() async throws {
+        let settings = try await saveSettings(source: .interests, articleCount: 5)
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let coordinator = makeCoordinator(navigationController: navigationController)
+        let viewModel = WMFDiscoverSettingsViewModel(settings: settings, dataController: dataController)
+        coordinator.showSettings(viewModel: viewModel)
+        let runPosts = expectListStatePosts(count: 2)
+
+        viewModel.didLeave?()
+
+        await fulfillment(of: [runPosts], timeout: 5)
+    }
+
+    /// A run posts the list state when it starts and when it ends, so two posts mean one run.
+    private func expectListStatePosts(count: Int) -> XCTestExpectation {
+        let runPosts = expectation(forNotification: WMFNSNotification.discoverListStateDidChange, object: nil)
+        runPosts.expectedFulfillmentCount = count
+        return runPosts
+    }
+
+    // MARK: - Back from the interests screen
+
+    func testBackWithInterestsOnlyPopsTheScreen() async throws {
+        _ = try await saveSettings(source: .interests, articleCount: 5)
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        navigationController.pushViewController(UIViewController(), animated: false)
+        let coordinator = makeCoordinator(navigationController: navigationController)
+
+        coordinator.leaveInterests(source: .interests)
+        await Task.yield()
 
         XCTAssertEqual(navigationController.viewControllers.count, 1)
+        let settings = await dataController.settings
+        XCTAssertEqual(settings.source, .interests)
+    }
+
+    func testBackWithInterestsAlsoClosesTheSourceScreenUnderneath() async throws {
+        _ = try await saveSettings(source: .saved, articleCount: 5)
+        let sourceViewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: .saved, presentation: .settings, readingListDataController: dataController)
+        let sourceController = WMFDiscoverSetupHostingController(viewModel: sourceViewModel)
+        let rootController = UIViewController()
+        let navigationController = UINavigationController(rootViewController: rootController)
+        navigationController.pushViewController(sourceController, animated: false)
+        navigationController.pushViewController(UIViewController(), animated: false)
+        let coordinator = makeCoordinator(navigationController: navigationController)
+
+        coordinator.leaveInterests(source: .interests)
+        await waitUntil { navigationController.viewControllers.count == 1 }
+        await waitUntilAsync { await self.dataController.settings.source == .interests }
+
+        XCTAssertTrue(navigationController.topViewController === rootController)
+        let settings = await dataController.settings
+        XCTAssertEqual(settings.source, .interests)
+        XCTAssertEqual(settings.articleCount, 5, "only the source changes")
+    }
+
+    func testReadingHistoryFromTheAlertIsSavedWhenTheSourceScreenIsUnderneath() async throws {
+        _ = try await saveSettings(source: .saved, articleCount: 5)
+        let sourceViewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: .saved, presentation: .settings, readingListDataController: dataController)
+        let sourceController = WMFDiscoverSetupHostingController(viewModel: sourceViewModel)
+        let rootController = UIViewController()
+        let navigationController = UINavigationController(rootViewController: rootController)
+        navigationController.pushViewController(sourceController, animated: false)
+        navigationController.pushViewController(UIViewController(), animated: false)
+        let coordinator = makeCoordinator(navigationController: navigationController)
+
+        coordinator.leaveInterests(source: .history)
+        await waitUntil { navigationController.viewControllers.count == 1 }
+        await waitUntilAsync { await self.dataController.settings.source == .history }
+
+        XCTAssertTrue(navigationController.topViewController === rootController)
+        let settings = await dataController.settings
+        XCTAssertEqual(settings.source, .history, "the source screen never appears again, so the coordinator saves the source")
+        XCTAssertTrue(settings.isEnabled)
+    }
+
+    func testAdjustToSavedArticlesClosesTheSourceScreen() async throws {
+        _ = try await saveSettings(source: .interests, articleCount: 5)
+        let sourceViewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: .interests, presentation: .settings, readingListDataController: dataController)
+        let rootController = UIViewController()
+        let navigationController = UINavigationController(rootViewController: rootController)
+        let coordinator = makeCoordinator(navigationController: navigationController)
+        coordinator.showSource(viewModel: sourceViewModel)
+        await waitUntil { navigationController.viewControllers.count == 2 }
+
+        sourceViewModel.select(.saved)
+        sourceViewModel.confirmAdjust()
+        await waitUntil { navigationController.viewControllers.count == 1 }
+
+        XCTAssertTrue(navigationController.topViewController === rootController)
+        XCTAssertEqual(sourceViewModel.selectedSource, .saved)
+        let settings = await dataController.settings
+        XCTAssertEqual(settings.source, .saved)
+        XCTAssertEqual(settings.articleCount, 5, "only the source changes")
+    }
+
+    func testReadingHistoryFromTheAlertIsSavedWhenTheScreenCameFromTheInterestsRow() async throws {
+        _ = try await saveSettings(source: .interests, articleCount: 5)
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        navigationController.pushViewController(UIViewController(), animated: false)
+        let coordinator = makeCoordinator(navigationController: navigationController)
+
+        coordinator.leaveInterests(source: .history)
+        await waitUntilAsync { await self.dataController.settings.source == .history }
+
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+        let settings = await dataController.settings
+        XCTAssertEqual(settings.source, .history)
+        XCTAssertTrue(settings.isEnabled)
+    }
+
+    private func waitUntilAsync(_ condition: @MainActor () async -> Bool) async {
+        let deadline = Date().addingTimeInterval(5)
+        while await !condition() && Date() < deadline {
+            await Task.yield()
+            try? await Task.sleep(for: .milliseconds(10))
+        }
     }
 }
 
-/// A key-value store that lives only for one test.
-private final class InMemoryKeyValueStore: WMFKeyValueStore {
-
-    private var values: [String: Data] = [:]
-
-    func load<T: Codable>(key: String...) throws -> T? {
-        guard let data = values[key.joined(separator: "/")] else { return nil }
-        return try JSONDecoder().decode(T.self, from: data)
-    }
-
-    func save<T: Codable>(key: String..., value: T) throws {
-        values[key.joined(separator: "/")] = try JSONEncoder().encode(value)
-    }
-
-    func remove(key: String...) throws {
-        values.removeValue(forKey: key.joined(separator: "/"))
-    }
-
-    func keys(inDirectory directory: String) throws -> [String] {
-        values.keys.filter { $0.hasPrefix(directory + "/") }.map { String($0.dropFirst(directory.count + 1)) }
-    }
-}

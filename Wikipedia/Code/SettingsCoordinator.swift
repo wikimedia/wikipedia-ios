@@ -128,6 +128,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         registerAuthNotificationObservers()
     }
 
+    func settingsWillClose() {
+        discoverSettingsCoordinator?.settingsWillClose()
+    }
+
     func fetchDynamicValues() -> (primaryLanguage: String, readingPreferenceTheme: String) {
         let primaryLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
         let readingPreferenceTheme = UserDefaults.standard.themeDisplayName

@@ -32,6 +32,13 @@ public final class WMFDiscoverSettingsHostingController: WMFComponentHostingCont
         }
     }
 
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent || isBeingDismissed || navigationController?.isBeingDismissed == true {
+            viewModel.didLeave?()
+        }
+    }
+
     public override func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
         view.backgroundColor = theme.midBackground
@@ -43,7 +50,7 @@ public final class WMFDiscoverSettingsHostingController: WMFComponentHostingCont
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFDiscoverReadingListView.title, customView: nil, alignment: .centerCompact)
         configureNavigationBar(
             titleConfig: titleConfig,
-            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true),
+            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal),
             closeButtonConfig: nil,
             profileButtonConfig: nil,
             tabsButtonConfig: nil,
