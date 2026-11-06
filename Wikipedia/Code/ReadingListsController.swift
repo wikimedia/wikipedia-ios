@@ -703,7 +703,21 @@ public typealias ReadingListsController = WMFReadingListsController
             DDLogError("Error unsaving article: \(error)")
         }
     }
-    
+
+    public func userUnsave(_ articles: [WMFArticle]) {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        unsave(articles, in: moc)
+        do {
+            if moc.hasChanges {
+                try moc.save()
+            }
+        } catch let error {
+            DDLogError("Error unsaving articles: \(error)")
+        }
+        sync()
+    }
+
     /// Note that the predicate does not take the article language variant into account. This is intentional.
     /// Only one variant of an article can be saved. However *all* variants of the same article appear saved in the user interface.
     /// The 'unsave' button can be tapped by the user on *any* variant of the article.

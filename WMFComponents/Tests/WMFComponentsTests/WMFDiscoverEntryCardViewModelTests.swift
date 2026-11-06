@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 import Testing
 import WMFDataTestSupport
@@ -14,30 +15,53 @@ final class WMFDiscoverEntryCardViewModelTests {
     private var englishProject: WMFProject { .wikipedia(englishLanguage) }
     private let enabledSettings = WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests)
 
+    // The card reads only these. Other suites change the environment and post Discover
+    // notifications on the default center, and neither gets to the card.
+    private let userDefaultsStore = WMFMockKeyValueStore()
+    private let notificationCenter = NotificationCenter()
+    private lazy var developerSettingsDataController = WMFDeveloperSettingsDataController(service: nil, sharedCacheStore: WMFMockKeyValueStore(), userDefaultsStore: userDefaultsStore)
+    private var coreDataStore: WMFCoreDataStore?
+
     private func configureEnvironment() async throws {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [englishLanguage])
-        WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
+        coreDataStore = try await fixture.makeTemporaryCoreDataStore()
         await fixture.resetWMFDataTestState()
-        WMFDeveloperSettingsDataController.shared.enableDiscover = true
+        developerSettingsDataController.enableDiscover = true
     }
 
     private func makeDataController() -> WMFDiscoverReadingListDataController {
         let relatedPagesDataController = WMFRelatedPagesDataController(basicService: WMFMockBasicService(jsonResourceName: "related-pages-get"))
-        return WMFDiscoverReadingListDataController(relatedPagesDataController: relatedPagesDataController)
+        return WMFDiscoverReadingListDataController(coreDataStore: coreDataStore, userDefaultsStore: userDefaultsStore, relatedPagesDataController: relatedPagesDataController)
     }
 
+    private func addCatInterest() async throws {
+        try await WMFPageInterestDataController(coreDataStore: coreDataStore).addPageInterest(title: "Cat", project: englishProject)
+    }
+
+    /// The init starts the first refresh. Wait for it with `finishRefresh` before the next one,
+    /// because a cancelled refresh also runs to its end.
     private func makeViewModel(dataController: WMFDiscoverReadingListDataController) -> WMFDiscoverEntryCardViewModel {
-        WMFDiscoverEntryCardViewModel(readingListDataController: dataController)
+        let discoverDataController = WMFDiscoverDataController(developerSettingsDataController: developerSettingsDataController)
+        return WMFDiscoverEntryCardViewModel(discoverDataController: discoverDataController, readingListDataController: dataController, notificationCenter: notificationCenter)
     }
 
-    /// Waits for the refresh and for the refreshes that notifications from the data controller start.
+    /// Waits for the current refresh. Each test waits for all the refreshes it starts, thus no refresh
+    /// reads the stores after the fixture removes them.
+    private func finishRefresh(_ viewModel: WMFDiscoverEntryCardViewModel) async {
+        await viewModel.refreshTask?.value
+    }
+
     private func refreshAndWait(_ viewModel: WMFDiscoverEntryCardViewModel) async {
         viewModel.refresh()
-        await viewModel.refreshTask?.value
-        try? await Task.sleep(nanoseconds: 50_000_000)
-        await viewModel.refreshTask?.value
+        await finishRefresh(viewModel)
+    }
+
+    /// Waits until the publisher sends a value that matches. The filter is in Combine because
+    /// `values` drops the values that arrive while the loop body runs.
+    private func waitUntil<StatePublisher: Publisher>(_ publisher: StatePublisher, matches isMatch: @escaping (StatePublisher.Output) -> Bool) async where StatePublisher.Failure == Never {
+        for await _ in publisher.first(where: isMatch).values {}
     }
 
     // MARK: - Visibility
@@ -45,12 +69,12 @@ final class WMFDiscoverEntryCardViewModelTests {
     @Test
     func theCardHidesWhileDiscoverIsOff() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            WMFDeveloperSettingsDataController.shared.enableDiscover = false
+            developerSettingsDataController.enableDiscover = false
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             let viewModel = makeViewModel(dataController: dataController)
 
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
 
             #expect(viewModel.isVisible == false)
         }
@@ -61,7 +85,7 @@ final class WMFDiscoverEntryCardViewModelTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let viewModel = makeViewModel(dataController: makeDataController())
 
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
 
             #expect(viewModel.isVisible == false)
         }
@@ -74,7 +98,7 @@ final class WMFDiscoverEntryCardViewModelTests {
             try await dataController.saveSettings(enabledSettings)
             let viewModel = makeViewModel(dataController: dataController)
 
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
 
             #expect(viewModel.isVisible == true)
             #expect(viewModel.hasUnseenList == false)
@@ -89,7 +113,7 @@ final class WMFDiscoverEntryCardViewModelTests {
     @Test
     func refreshingGeneratesTheListWhenTheCurrentOneExpired() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            try await addCatInterest()
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             _ = try await dataController.generateRecommendations()
@@ -97,7 +121,7 @@ final class WMFDiscoverEntryCardViewModelTests {
             try await dataController.expireAllRecommendations()
             let viewModel = makeViewModel(dataController: dataController)
 
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
 
             let currentPages = try await dataController.fetchCurrentRecommendations()
             #expect(currentPages.isEmpty == false)
@@ -109,17 +133,18 @@ final class WMFDiscoverEntryCardViewModelTests {
     @Test
     func refreshingKeepsTheCurrentListWhenNoneIsDue() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            try await addCatInterest()
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             let generatedPages = try await dataController.generateRecommendations()
             try await dataController.markCurrentListSeen()
             let viewModel = makeViewModel(dataController: dataController)
 
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
 
             let currentPages = try await dataController.fetchCurrentRecommendations()
             #expect(currentPages.map(\.title) == generatedPages.map(\.title))
+            #expect(viewModel.isVisible == true)
             #expect(viewModel.hasUnseenList == false)
         }
     }
@@ -127,19 +152,21 @@ final class WMFDiscoverEntryCardViewModelTests {
     @Test
     func aListStateNotificationReloadsWithoutGenerating() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            try await addCatInterest()
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             let viewModel = makeViewModel(dataController: dataController)
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
+            #expect(viewModel.collageViewModel.hasImages == true)
             try await dataController.markCurrentListSeen()
             try await dataController.expireAllRecommendations()
             let isGenerationDue = try await dataController.isGenerationDue()
             #expect(isGenerationDue == true)
 
-            NotificationCenter.default.post(name: WMFNSNotification.discoverListStateDidChange, object: nil)
-            try? await Task.sleep(nanoseconds: 50_000_000)
-            await viewModel.refreshTask?.value
+            // The observer starts the reload in a new task. Wait for its state, then for its end.
+            notificationCenter.post(name: WMFNSNotification.discoverListStateDidChange, object: nil)
+            await waitUntil(viewModel.$collageViewModel) { !$0.hasImages }
+            await finishRefresh(viewModel)
 
             let currentPages = try await dataController.fetchCurrentRecommendations()
             #expect(currentPages.isEmpty)
@@ -153,13 +180,12 @@ final class WMFDiscoverEntryCardViewModelTests {
     @Test
     func aGeneratedListShowsTheDotUntilTheReaderOpensIt() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            try await addCatInterest()
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             let viewModel = makeViewModel(dataController: dataController)
 
-            _ = try await dataController.generateRecommendations()
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
 
             #expect(viewModel.hasUnseenList == true)
 
@@ -173,13 +199,13 @@ final class WMFDiscoverEntryCardViewModelTests {
     @Test
     func theCollageShowsTheListImagesInTwoRowsOfTwo() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            try await WMFPageInterestDataController().addPageInterest(title: "Cat", project: englishProject)
+            try await addCatInterest()
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             _ = try await dataController.generateRecommendations()
             let viewModel = makeViewModel(dataController: dataController)
 
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
 
             #expect(viewModel.collageViewModel.layout == .entryCard)
             #expect(viewModel.collageViewModel.tiles.count == 4)
@@ -197,6 +223,7 @@ final class WMFDiscoverEntryCardViewModelTests {
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             let viewModel = makeViewModel(dataController: dataController)
+            await finishRefresh(viewModel)
             #expect(viewModel.username == nil)
 
             viewModel.usernameProvider = { "Reader" }
@@ -214,6 +241,7 @@ final class WMFDiscoverEntryCardViewModelTests {
             let dataController = makeDataController()
             try await dataController.saveSettings(enabledSettings)
             let viewModel = makeViewModel(dataController: dataController)
+            await finishRefresh(viewModel)
             let loggingDelegate = MockLoggingDelegate()
             viewModel.loggingDelegate = loggingDelegate
             var didTapCount = 0
@@ -235,10 +263,11 @@ final class WMFDiscoverEntryCardViewModelTests {
             let loggingDelegate = MockLoggingDelegate()
             viewModel.loggingDelegate = loggingDelegate
 
+            // The first refresh did not run yet, thus the card is not visible.
             viewModel.viewDidAppear()
             #expect(loggingDelegate.appearCount == 0)
 
-            await refreshAndWait(viewModel)
+            await finishRefresh(viewModel)
             viewModel.viewDidAppear()
             viewModel.viewDidAppear()
 
