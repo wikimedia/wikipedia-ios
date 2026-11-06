@@ -123,13 +123,15 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testMostReadDateIsNotEvaluatedWithoutPageViews() async throws {
+    /// The slide is frozen, so an empty result is stored and not fetched again on each build.
+    func testMostReadDateIsEvaluatedWithoutPageViews() async throws {
         let controller = YearInReviewMostReadDateSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
 
-        try await controller.populateSlideData(in: try context())
+        let payload = try await populatedPayload(controller)
 
         XCTAssertNil(controller.mostReadDate, "no dates were recorded")
-        XCTAssertFalse(controller.isEvaluated)
+        XCTAssertNil(payload)
+        XCTAssertTrue(controller.isEvaluated)
     }
 
     // MARK: - readCount
@@ -939,6 +941,24 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
+    func testDonateCountIsEvaluatedForALoggedOutUser() async throws {
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertNil(payload.editCount, "no global user id means no edit count")
+        XCTAssertTrue(controller.isEvaluated, "the donations are on the device, so the slide is stored")
+    }
+
+    func testDonateCountIsNotEvaluatedWhenTheEditCountFails() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "missing-resource")
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+
+        try await controller.populateSlideData(in: try context())
+
+        XCTAssertFalse(controller.isEvaluated, "the stored slide keeps its last edit count")
+    }
+
     func testDonateCountRequestsTheContribDatesForItsEditCount() async throws {
         let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.basicService = service
@@ -976,9 +996,9 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edited-page-views-get")
         let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
 
-        let payload = try decode(Int.self, from: try await populatedPayload(controller))
+        let payload = try decode(WMFYearInReviewViewCountSlideData.self, from: try await populatedPayload(controller))
 
-        XCTAssertEqual(payload, 1234, "1000 + 200 + 34 across the three monthly buckets")
+        XCTAssertEqual(payload.editedPageViewCount, 1234, "1000 + 200 + 34 across the three monthly buckets")
         XCTAssertTrue(controller.isEvaluated)
     }
 
@@ -1015,6 +1035,15 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         }
     }
 
+    /// Older builds stored a bare Growth page view count (all time, one wiki). It must not pass as
+    /// the current format, or a run that cannot fetch the new count would keep it.
+    func testViewCountRejectsTheOlderGrowthFormat() throws {
+        XCTAssertFalse(YearInReviewViewCountSlideDataController.hasCurrentFormat(try JSONEncoder().encode(Int?.some(5000))))
+        XCTAssertFalse(YearInReviewViewCountSlideDataController.hasCurrentFormat(try JSONEncoder().encode(Int?.none)))
+        XCTAssertFalse(YearInReviewViewCountSlideDataController.hasCurrentFormat(nil))
+        XCTAssertTrue(YearInReviewViewCountSlideDataController.hasCurrentFormat(try JSONEncoder().encode(WMFYearInReviewViewCountSlideData(editedPageViewCount: 5000))))
+    }
+
     // MARK: - mostViewedArticles
 
     private struct StubUserImpactProvider: YearInReviewUserImpactDataProviding {
@@ -1025,7 +1054,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         }
     }
 
-    func testMostViewedArticlesKeepsTheTopThreeByViews() async throws {
+    func testMostViewedArticlesSortsByViewsAndDropsArticlesWithoutViews() async throws {
         let articles = [
             WMFYearInReviewMostViewedArticlesSlideData.Article(title: "B", projectID: "wikipedia~en", viewsCount: 10),
             WMFYearInReviewMostViewedArticlesSlideData.Article(title: "A", projectID: "wikipedia~en", viewsCount: 10),
@@ -1041,7 +1070,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
         let payload = try decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: try await populatedPayload(controller))
 
-        XCTAssertEqual(payload.articles.map(\.title), ["C", "A", "B"])
+        XCTAssertEqual(payload.articles.map(\.title), ["C", "A", "B", "D"], "the slide decides how many it shows")
         XCTAssertTrue(controller.isEvaluated)
     }
 

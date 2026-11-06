@@ -88,6 +88,15 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         WMFYearInReviewSlide(year: year, id: .editCount, data: try JSONEncoder().encode(editCount))
     }
 
+    private func viewCountSlide(_ viewCount: Int) throws -> WMFYearInReviewSlide {
+        WMFYearInReviewSlide(year: year, id: .viewCount, data: try JSONEncoder().encode(WMFYearInReviewViewCountSlideData(editedPageViewCount: viewCount)))
+    }
+
+    private func mostViewedArticlesSlide() throws -> WMFYearInReviewSlide {
+        let article = WMFYearInReviewMostViewedArticlesSlideData.Article(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)
+        return WMFYearInReviewSlide(year: year, id: .mostViewedArticles, data: try JSONEncoder().encode(WMFYearInReviewMostViewedArticlesSlideData(articles: [article])))
+    }
+
     private func daysVisitedSlide(dayCount: Int) throws -> WMFYearInReviewSlide {
         let data = try JSONEncoder().encode(WMFYearInReviewDaysVisitedSlideData(dayCount: dayCount, peakMonth: nil))
         return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
@@ -258,6 +267,24 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         try await saveReport([try readCountSlide(3), try editCountSlide(0)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .collective)
+    }
+
+    func testEditViewsAndMostViewedArticlesCountAfterAnEdit() async throws {
+        try await saveReport([try editCountSlide(1), try viewCountSlide(26), try mostViewedArticlesSlide()])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
+    }
+
+    /// The app hides these slides without an edit in the period, so they must not count. Otherwise a
+    /// past editor gets the personalized flow and sees only empty slides.
+    func testEditViewsAndMostViewedArticlesDoNotCountWithoutAnEdit() async throws {
+        try await saveReport([try editCountSlide(0), try viewCountSlide(500), try mostViewedArticlesSlide()])
+        var experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
+
+        try await saveReport([try viewCountSlide(500), try mostViewedArticlesSlide()])
+        experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "no stored edit count")
     }
 
     func testEditsDoNotChangeTheLoggedOutSlides() async throws {

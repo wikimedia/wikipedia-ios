@@ -96,10 +96,12 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
-        // The six stored slides stay: a slide that this run did not evaluate again keeps its last data.
+        // A slide that this run did not evaluate again keeps its last data. The view count slide
+        // without data is not in the current format, so it is deleted.
         let slideIDs = Set(report?.slides.map(\.id) ?? [])
-        XCTAssertTrue(slideIDs.isSuperset(of: [.readCount, .saveCount, .mostReadDate, .editCount, .viewCount, .donateCount]))
-        XCTAssertEqual(report?.slides.count, 7)
+        XCTAssertTrue(slideIDs.isSuperset(of: [.readCount, .saveCount, .mostReadDate, .editCount, .donateCount]))
+        XCTAssertFalse(slideIDs.contains(.viewCount))
+        XCTAssertEqual(report?.slides.count, 6)
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
@@ -116,8 +118,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        // The most read date slide has no reading history to evaluate, so it is not stored.
-        XCTAssertEqual(report?.slides.count, 2)
+        XCTAssertEqual(report?.slides.count, 3)
     }
 
     /// The report can fill before the app knows the user. That run must not replace the stored edit

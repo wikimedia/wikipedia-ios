@@ -179,8 +179,7 @@ import CoreData
               let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
             return .collective
         }
-        let eligibleSlideCount = report.slides.reduce(0) { $0 + Self.fullSlideCount(for: $1) }
-        return eligibleSlideCount >= Self.personalizedEligibleSlideThreshold ? .personalized : .collective
+        return Self.eligibleSlideCount(for: report.slides) >= Self.personalizedEligibleSlideThreshold ? .personalized : .collective
     }
 
     /// True if the developer settings force the empty version of each personalized slide.
@@ -193,6 +192,22 @@ import CoreData
             return nil
         }
         return developerSettingsDataController.forceYiRSlidesExperience
+    }
+
+    /// The number of slides that the report shows in their full version, not their empty version.
+    /// The edit views and most-viewed articles slides show only after at least one edit in the
+    /// period, the same rule as the app's editor slides. The most-viewed articles are not limited to
+    /// the period, so without this a past editor could reach the personalized flow and see only
+    /// empty slides.
+    static func eligibleSlideCount(for slides: [WMFYearInReviewSlide]) -> Int {
+        let hasEdits = slides.contains { $0.id == .editCount && fullSlideCount(for: $0) > 0 }
+        return slides.reduce(0) { count, slide in
+            let needsEdits = slide.id == .viewCount || slide.id == .mostViewedArticles
+            guard hasEdits || !needsEdits else {
+                return count
+            }
+            return count + fullSlideCount(for: slide)
+        }
     }
 
     /// The number of slides that this report entry shows in their full version, not their empty
@@ -223,7 +238,7 @@ import CoreData
             // Android counts its total edits slide from one edit, also before the edit slides are built here.
             return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0
         case .viewCount:
-            return (try? decoder.decode(Int.self, from: data)).map { $0 > WMFYearInReviewViewCountSlideRules.minimumViewCount ? 1 : 0 } ?? 0
+            return (try? decoder.decode(WMFYearInReviewViewCountSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .mostViewedArticles:
             return (try? decoder.decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .donateCount, .saveCount, .mostReadDate, .location:

@@ -22,10 +22,7 @@ public struct WMFYearInReviewMostViewedArticlesSlideData: Codable, Sendable {
         }
     }
 
-    /// The slide shows at most this number of articles.
-    public static let maximumArticleCount = 3
-
-    /// The articles with the most views first, at most `maximumArticleCount`.
+    /// The articles with the most views first. The slide decides how many of them it shows.
     public let articles: [Article]
 
     /// The slide suppresses itself without articles.
@@ -67,8 +64,7 @@ final class YearInReviewMostViewedArticlesSlideDataController: YearInReviewSlide
             .filter { $0.viewsCount > 0 }
             // The title breaks a tie, so the order is the same on each run.
             .sorted { ($0.viewsCount, $1.title) > ($1.viewsCount, $0.title) }
-            .prefix(WMFYearInReviewMostViewedArticlesSlideData.maximumArticleCount)
-        slideData = WMFYearInReviewMostViewedArticlesSlideData(articles: Array(topArticles))
+        slideData = WMFYearInReviewMostViewedArticlesSlideData(articles: topArticles)
         isEvaluated = true
     }
 
