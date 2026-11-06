@@ -55,6 +55,16 @@ public enum WMFUserFetcherError: LocalizedError {
 }
 
 public class WMFCurrentUserFetcher: Fetcher {
+    public func fetch(siteURL: URL) async throws -> WMFCurrentUser {
+        try await withCheckedThrowingContinuation { continuation in
+            fetch(siteURL: siteURL, success: { user in
+                continuation.resume(returning: user)
+            }, failure: { error in
+                continuation.resume(throwing: error)
+            })
+        }
+    }
+
     public func fetch(siteURL: URL, success: @escaping (WMFCurrentUser) -> Void, failure: @escaping WMFErrorHandler) {
         let parameters = [
             "action": "query",

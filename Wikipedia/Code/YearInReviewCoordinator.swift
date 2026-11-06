@@ -32,6 +32,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     @MainActor
     @discardableResult
     static func buildReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+        // Fill the user first, so the key is the user that the build is for. At cold launch the cache
+        // is empty, and a key read before this would not match a later call for the same user.
+        // Without the user, the edit slides have no ids and would be stored empty.
+        var permanentUser: WMFCurrentUser?
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL {
+            permanentUser = await dataStore.authenticationManager.fetchPermanentUserIfNeeded(siteURL: siteURL)
+        }
         let username = dataStore.authenticationManager.authStatePermanentUsername
         while let running = reportBuild {
             let result = await running.task.result
@@ -42,7 +49,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let task = Task { @MainActor in
             defer { reportBuild = nil }
             do {
-                return try await populateReport(dataStore: dataStore, regenerate: regenerate)
+                return try await populateReport(dataStore: dataStore, permanentUser: permanentUser, regenerate: regenerate)
             } catch {
                 YearInReviewInstrument.shared.logError(message: String(describing: error))
                 throw error
@@ -64,14 +71,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// Fills the Year in Review report for the target year. The data controller checks the remote
     /// config, the active dates, the Settings toggle and the country, and returns `nil` when one of
     /// them stops the population.
-    private static func populateReport(dataStore: MWKDataStore, regenerate: Bool) async throws -> WMFYearInReviewReport? {
+    /// - Parameter permanentUser: The user of the app language site, from `buildReport`.
+    @MainActor
+    private static func populateReport(dataStore: MWKDataStore, permanentUser: WMFCurrentUser?, regenerate: Bool) async throws -> WMFYearInReviewReport? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
               let countryCode = Locale.current.region?.identifier else {
             return nil
         }
 
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
         let dataController = try WMFYearInReviewDataController()
 
         if regenerate {

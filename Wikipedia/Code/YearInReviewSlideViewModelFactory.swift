@@ -67,24 +67,31 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole, niche interest and contributor slides have real data so far.
+    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole, niche interest, edit and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
-    /// The days visited, rabbit hole and niche interest slides have no empty version, so they do not show without enough data.
+    /// The days visited, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
     func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
-        let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn).map { [$0] } ?? []
-        return experienceSlides(experience, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+        // Read the report once. Each slide decodes its own data from it.
+        let report = experience == .personalized ? storedReport() : nil
+        let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn, report: report).map { [$0] } ?? []
+        return experienceSlides(experience, report: report, isLoggedIn: isLoggedIn, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
     /// refresh the slide after a donation. The collective flow always ends with "You matter".
     func makeContributorSlide(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool) -> WMFYearInReviewSlideViewModel? {
+        let report = experience == .personalized && contributorStatus == nil ? storedReport() : nil
+        return makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn, report: report)
+    }
+
+    private func makeContributorSlide(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, report: WMFYearInReviewReport?) -> WMFYearInReviewSlideViewModel? {
         let contributor = experience == .personalized
-            ? (contributorStatus?() ?? storedContributorStatus())
+            ? (contributorStatus?() ?? storedContributorStatus(in: report))
             : ContributorStatus(isEditor: false, isDonor: false)
         return contributorSlide(
             isEditor: contributor.isEditor,
@@ -94,29 +101,33 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, report: WMFYearInReviewReport?, isLoggedIn: Bool, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
         switch experience {
         case .collective:
             // Without a config, Year in Review does not open, but never show zero slides.
             guard let config = try? WMFYearInReviewDataController().config else {
-                return personalizedEmptySlides()
+                return personalizedEmptySlides(isLoggedIn: isLoggedIn)
             }
             return collectiveSlides(config: config)
         case .personalized where forcesAllEmptyStates:
-            return personalizedEmptySlides()
+            return personalizedEmptySlides(isLoggedIn: isLoggedIn)
         case .personalized:
             // No stored data means no qualifying articles, so show the empty states, never zero slides.
             let config = try? WMFYearInReviewDataController().config
-            let readCount = storedReadCount() ?? 0
+            let readCount = storedReadCount(in: report) ?? 0
             return personalizedSlides(PersonalizedData(
                 readCount: readCount,
                 topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
                 averageReadCount: config?.averageArticlesReadPerYear,
-                daysVisited: storedDaysVisited(),
-                topTopics: storedTopTopics(),
-                rabbitHoles: storedRabbitHoles(),
-                nicheCategory: storedNicheCategory(),
-                rereadArticles: storedRereadArticles() ?? []
+                daysVisited: storedDaysVisited(in: report),
+                topTopics: storedTopTopics(in: report),
+                rabbitHoles: storedRabbitHoles(in: report),
+                nicheCategory: storedNicheCategory(in: report),
+                rereadArticles: storedRereadArticles(in: report) ?? [],
+                isLoggedIn: isLoggedIn,
+                editCount: storedEditCount(in: report),
+                editViewCount: storedViewCount(in: report),
+                mostViewedArticles: storedMostViewedArticles(in: report)
             ))
         }
     }
@@ -131,11 +142,18 @@ struct YearInReviewSlideViewModelFactory {
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
         var nicheCategory: WMFYearInReviewNicheCategorySlideData?
         var rereadArticles: [RereadArticle] = []
+        /// The edit slides need an account.
+        var isLoggedIn = false
+        /// `nil` when the edit count was never fetched, for example after a failed request. Then no
+        /// edit slide shows, so an editor is never told they made 0 edits.
+        var editCount: Int?
+        var editViewCount: Int?
+        var mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article] = []
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
     /// not in the flow: time spent, longest reading streak, reading pattern, biggest reading day,
-    /// longest read, geography, saved, the edit slides and the end screen.
+    /// longest read, geography, saved and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
             totalArticlesSlide(readCount: data.readCount, topReadPercentage: data.topReadPercentage, averageReadCount: data.averageReadCount)
@@ -149,15 +167,32 @@ struct YearInReviewSlideViewModelFactory {
             slides.append(nicheInterest)
         }
         slides.append(rereadArticlesSlide(data.rereadArticles))
+        if data.isLoggedIn, let editCount = data.editCount {
+            slides += editorSlides(editCount: editCount, viewCount: data.editViewCount, mostViewedArticles: data.mostViewedArticles)
+        }
         return slides
     }
 
     /// In the same order as `personalizedSlides(_:)`.
-    private func personalizedEmptySlides() -> [WMFYearInReviewSlideViewModel] {
-        [totalArticlesEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
+    private func personalizedEmptySlides(isLoggedIn: Bool) -> [WMFYearInReviewSlideViewModel] {
+        var slides = [totalArticlesEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
+        if isLoggedIn {
+            slides.append(editsEmptySlide())
+        }
+        return slides
     }
 
     // MARK: - Stored slide data
+
+    /// The report that the app fills in the background. `nil` when there is none or it cannot be read.
+    private func storedReport() -> WMFYearInReviewReport? {
+        do {
+            return try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
+        } catch {
+            DDLogError("Error reading the Year in Review report: \(error)")
+            return nil
+        }
+    }
 
     /// Reads the data of one slide from the report that the app fills in the background.
     /// Returns `nil` when the report does not have the slide, or when the data does not decode.
@@ -165,9 +200,9 @@ struct YearInReviewSlideViewModelFactory {
     ///   - id: The slide to read.
     ///   - type: The type that the slide data decodes into.
     ///   - logName: The slide name that the error log shows.
-    private func storedSlideData<SlideData: Decodable>(_ id: WMFYearInReviewPersonalizedSlideID, as type: SlideData.Type, logName: String) -> SlideData? {
+    ///   - report: The report from `storedReport()`.
+    private func storedSlideData<SlideData: Decodable>(_ id: WMFYearInReviewPersonalizedSlideID, as type: SlideData.Type, logName: String, in report: WMFYearInReviewReport?) -> SlideData? {
         do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
             guard let data = report?.slides.first(where: { $0.id == id })?.data else {
                 return nil
             }
@@ -182,8 +217,8 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The number of unique articles read, from the report the app fills in the background.
     /// `nil` when the report does not have this slide yet.
-    private func storedReadCount() -> Int? {
-        storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles")?.readCount
+    private func storedReadCount(in report: WMFYearInReviewReport?) -> Int? {
+        storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles", in: report)?.readCount
     }
 
     /// Shows the empty version unless the reader read at least `WMFYearInReviewReadData.minimumReadCount` articles.
@@ -240,8 +275,8 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The reading days, from the report the app fills in the background. `nil` when the report
     /// does not have this slide yet.
-    private func storedDaysVisited() -> WMFYearInReviewDaysVisitedSlideData? {
-        storedSlideData(.daysVisited, as: WMFYearInReviewDaysVisitedSlideData.self, logName: "days visited")
+    private func storedDaysVisited(in report: WMFYearInReviewReport?) -> WMFYearInReviewDaysVisitedSlideData? {
+        storedSlideData(.daysVisited, as: WMFYearInReviewDaysVisitedSlideData.self, logName: "days visited", in: report)
     }
 
     /// `nil` unless the reader read on at least `WMFYearInReviewDaysVisitedSlideData.minimumDayCount`
@@ -289,8 +324,8 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The articles visited multiple times, from the report the app fills in the background.
     /// `nil` when the report does not have this slide yet.
-    private func storedRereadArticles() -> [RereadArticle]? {
-        guard let slideData = storedSlideData(.topArticles, as: WMFYearInReviewTopArticlesSlideData.self, logName: "articles visited multiple times") else {
+    private func storedRereadArticles(in report: WMFYearInReviewReport?) -> [RereadArticle]? {
+        guard let slideData = storedSlideData(.topArticles, as: WMFYearInReviewTopArticlesSlideData.self, logName: "articles visited multiple times", in: report) else {
             return nil
         }
         guard slideData.isEligible else {
@@ -345,8 +380,8 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The category that the reader read in a niche way, from the report the app fills in the
     /// background. `nil` when the report does not have this slide yet.
-    private func storedNicheCategory() -> WMFYearInReviewNicheCategorySlideData? {
-        storedSlideData(.mostReadCategories, as: WMFYearInReviewNicheCategorySlideData.self, logName: "niche interest")
+    private func storedNicheCategory(in report: WMFYearInReviewReport?) -> WMFYearInReviewNicheCategorySlideData? {
+        storedSlideData(.mostReadCategories, as: WMFYearInReviewNicheCategorySlideData.self, logName: "niche interest", in: report)
     }
 
     /// Shows one category name. The data controller picks the category when it builds the report,
@@ -376,8 +411,8 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The topic slides, from the report the app fills in the background. `nil` when the report
     /// does not have these slides yet.
-    private func storedTopTopics() -> WMFYearInReviewTopTopicsSlideData? {
-        storedSlideData(.topTopics, as: WMFYearInReviewTopTopicsSlideData.self, logName: "top topics")
+    private func storedTopTopics(in report: WMFYearInReviewReport?) -> WMFYearInReviewTopTopicsSlideData? {
+        storedSlideData(.topTopics, as: WMFYearInReviewTopTopicsSlideData.self, logName: "top topics", in: report)
     }
 
     /// The top topic slide, then the runners-up slide if there are enough runners-up. Shows the
@@ -478,8 +513,8 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The rabbit holes, from the report the app fills in the background. `nil` when the report
     /// does not have these slides yet.
-    private func storedRabbitHoles() -> WMFYearInReviewRabbitHolesSlideData? {
-        storedSlideData(.rabbitHoles, as: WMFYearInReviewRabbitHolesSlideData.self, logName: "rabbit holes")
+    private func storedRabbitHoles(in report: WMFYearInReviewReport?) -> WMFYearInReviewRabbitHolesSlideData? {
+        storedSlideData(.rabbitHoles, as: WMFYearInReviewRabbitHolesSlideData.self, logName: "rabbit holes", in: report)
     }
 
     /// Properties on the `Interaction2` view model in the templates file. On the guess frame, the
@@ -691,6 +726,121 @@ struct YearInReviewSlideViewModelFactory {
         NumberFormatter.localizedString(from: NSNumber(value: number), number: .decimal)
     }
 
+    // MARK: - Edits
+
+    /// The edits slide shows with its empty version for a reader without edits. The views slide and
+    /// the most-viewed articles slide hide without edits in the period or without enough views. The
+    /// most-viewed articles are not limited to the period, so a reader without edits this year never
+    /// sees articles from earlier years after the empty edits slide.
+    private func editorSlides(editCount: Int, viewCount: Int?, mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article]) -> [WMFYearInReviewSlideViewModel] {
+        var slides = [editsSlide(editCount: editCount)]
+        guard editCount >= 1 else {
+            return slides
+        }
+        if let editViews = editViewsSlide(viewCount: viewCount) {
+            slides.append(editViews)
+        }
+        if let mostViewed = mostViewedArticlesSlide(mostViewedArticles) {
+            slides.append(mostViewed)
+        }
+        return slides
+    }
+
+    /// The edits slide, or its empty version for fewer than one edit.
+    func editsSlide(editCount: Int) -> WMFYearInReviewSlideViewModel {
+        guard editCount >= 1 else {
+            return editsEmptySlide()
+        }
+        let headline = CommonStrings.yearInReviewEditsTitle
+        let count = decimalString(editCount)
+        let bodyText = CommonStrings.yearInReviewEditsSubtitle
+        return dataSlide(
+            id: "edits",
+            artboard: "frame16",
+            stateMachine: "frame16-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    private func editsEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewEditsEmptyTitle
+        let bodyText = CommonStrings.yearInReviewEditsEmptySubtitle
+        return dataSlide(
+            id: "editsEmpty",
+            artboard: "frame16-empty",
+            stateMachine: "frame16-empty-statemachine",
+            headline: headline,
+            data: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    // MARK: - Edit views
+
+    /// The views on the articles the reader edited, from the report the app fills in the background.
+    /// `nil` when the report does not have them.
+    private func storedViewCount(in report: WMFYearInReviewReport?) -> Int? {
+        storedSlideData(.viewCount, as: WMFYearInReviewViewCountSlideData.self, logName: "edit views", in: report)?.editedPageViewCount
+    }
+
+    /// `nil` unless the edited articles have more than `WMFYearInReviewViewCountSlideData.minimumViewCount` views.
+    /// The slide has no empty version.
+    func editViewsSlide(viewCount: Int?) -> WMFYearInReviewSlideViewModel? {
+        guard let viewCount, WMFYearInReviewViewCountSlideData(editedPageViewCount: viewCount).isEligible else {
+            return nil
+        }
+        let headline = CommonStrings.yearInReviewEditViewsTitle
+        let count = decimalString(viewCount)
+        let bodyText = CommonStrings.yearInReviewEditViewsSubtitle
+        return dataSlide(
+            id: "editViews",
+            artboard: "frame17",
+            stateMachine: "frame17-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    // MARK: - Most-viewed articles
+
+    private func storedMostViewedArticles(in report: WMFYearInReviewReport?) -> [WMFYearInReviewMostViewedArticlesSlideData.Article] {
+        storedSlideData(.mostViewedArticles, as: WMFYearInReviewMostViewedArticlesSlideData.self, logName: "most-viewed articles", in: report)?.articles ?? []
+    }
+
+    /// `nil` without articles. The slide has no empty version.
+    func mostViewedArticlesSlide(_ articles: [WMFYearInReviewMostViewedArticlesSlideData.Article]) -> WMFYearInReviewSlideViewModel? {
+        let shownArticles = Array(articles.prefix(Self.maximumListItems))
+        guard !shownArticles.isEmpty else {
+            return nil
+        }
+
+        let bodyText = CommonStrings.yearInReviewMostViewedEditedArticlesTitle
+        let items = shownArticles.map { article in
+            ListItem(title: article.title, subtitle: CommonStrings.yearInReviewMostViewedEditedArticlesViewCount(article.viewsCount))
+        }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        for (index, article) in shownArticles.enumerated() {
+            guard let project = article.project else { continue }
+            thumbnails[ListImagePath.icon(index + 1)] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+        }
+        return listSlide(
+            id: "mostViewedArticles",
+            artboard: "frame18",
+            stateMachine: "frame18-statemachine",
+            headline: nil,
+            bodyText: bodyText,
+            items: items,
+            articleThumbnails: thumbnails,
+            accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
     // MARK: - Contributor
 
     struct ContributorStatus {
@@ -700,7 +850,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// Edits come from the report, which has them only for a logged-in reader. Donations are stored
     /// on the device, so they are read now, and a donation made a moment ago counts.
-    private func storedContributorStatus() -> ContributorStatus {
+    private func storedContributorStatus(in report: WMFYearInReviewReport?) -> ContributorStatus {
         let isDonor: Bool
         if let dateRange = WMFYearInReviewDataController.contributorDateRange(year: WMFYearInReviewDataController.targetYear),
            let donations = WMFDonateDataController.shared.loadLocalDonationHistory(startDate: dateRange.start, endDate: dateRange.end) {
@@ -708,14 +858,13 @@ struct YearInReviewSlideViewModelFactory {
         } else {
             isDonor = false
         }
-        return ContributorStatus(isEditor: (storedEditCount() ?? 0) > 0, isDonor: isDonor)
+        return ContributorStatus(isEditor: (storedEditCount(in: report) ?? 0) > 0, isDonor: isDonor)
     }
 
     /// The edits in the contributor period, from the report the app fills in the background. `nil`
     /// when the report does not have them.
-    private func storedEditCount() -> Int? {
+    private func storedEditCount(in report: WMFYearInReviewReport?) -> Int? {
         do {
-            let report = try WMFYearInReviewDataController().fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear)
             let slides = report?.slides ?? []
             if let data = slides.first(where: { $0.id == .editCount })?.data,
                let editCount = try JSONDecoder().decode(Int?.self, from: data) {

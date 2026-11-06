@@ -62,7 +62,14 @@ import WMFTestKitchen
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
     
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
-    private var hydratingHosts: Set<SiteURLHost> = []
+    /// The user fetch in flight for each host. Callers that ask while a fetch runs wait for it.
+    @MainActor private var userFetchTasks: [SiteURLHost: Task<Void, Never>] = [:]
+    /// Changes on each reset, so a user fetch that started before a logout does not fill the cache
+    /// after it. Like `currentUserCache`, it is written in `reset()`.
+    private var userCacheGeneration = 0
+    /// A caller that needs the user waits at most this long for the fetch. The fetch keeps going and
+    /// fills the cache for later callers.
+    private static let userFetchWaitTimeout: Duration = .seconds(5)
     
     @objc public var authStateTemporaryUsername: String? {
         if authStateIsTemporary {
@@ -128,21 +135,84 @@ import WMFTestKitchen
     /// Fetches and caches the current user for the given site if the cache has no entry for that host. This call does not block. Callers get the cached value on a later lookup.
     public func hydrateUserCacheIfNeeded(siteURL: URL) {
         guard let host = siteURL.host,
-              currentUserCache[host] == nil,
-              !hydratingHosts.contains(host) else {
+              currentUserCache[host] == nil else {
             return
         }
-        hydratingHosts.insert(host)
-        currentUserFetcher.fetch(siteURL: siteURL, success: { user in
-            DispatchQueue.main.async {
-                self.currentUserCache[host] = user
-                self.hydratingHosts.remove(host)
+        Task { @MainActor [weak self] in
+            await self?.fetchUserIntoCache(siteURL: siteURL, host: host)
+        }
+    }
+
+    /// Fetches the user for the host and caches it. A caller that asks while a fetch for the host is
+    /// in flight waits for that fetch instead of making another request. A reset during the fetch
+    /// drops the result, so a user who logged out is not cached again.
+    @MainActor
+    private func fetchUserIntoCache(siteURL: URL, host: SiteURLHost) async {
+        if let running = userFetchTasks[host] {
+            await running.value
+            return
+        }
+        let generation = userCacheGeneration
+        let fetcher = currentUserFetcher
+        let task = Task { @MainActor [weak self] in
+            let user = try? await fetcher.fetch(siteURL: siteURL)
+            guard let self,
+                  let user,
+                  generation == self.userCacheGeneration,
+                  self.currentUserCache[host] == nil else {
+                return
             }
-        }, failure: { _ in
-            DispatchQueue.main.async {
-                self.hydratingHosts.remove(host)
+            self.currentUserCache[host] = user
+        }
+        userFetchTasks[host] = task
+        await task.value
+        if userFetchTasks[host] == task {
+            userFetchTasks[host] = nil
+        }
+    }
+
+    /// Returns the permanent user for the given site. If the cache has no entry for that host and the
+    /// app has saved credentials, it fetches and caches the user first, so a caller that runs before
+    /// anything else filled the cache still gets the user. It waits at most `userFetchWaitTimeout`, so
+    /// a slow network does not hold the caller. Returns `nil` for a logged-out or temporary user, or
+    /// when the fetch fails or does not finish in time.
+    @MainActor
+    public func fetchPermanentUserIfNeeded(siteURL: URL) async -> WMFCurrentUser? {
+        guard let host = siteURL.host else {
+            return nil
+        }
+        guard currentUserCache[host] == nil,
+              KeychainCredentialsManager.shared.username != nil else {
+            return permanentUser(siteURL: siteURL)
+        }
+
+        let fetch = Task { @MainActor [weak self] in
+            guard let self else {
+                return
             }
-        })
+            await self.fetchUserIntoCache(siteURL: siteURL, host: host)
+        }
+        await Self.wait(for: fetch, timeout: Self.userFetchWaitTimeout)
+        return permanentUser(siteURL: siteURL)
+    }
+
+    /// Returns when the task finishes or the timeout passes, whichever is first. The task is not cancelled.
+    @MainActor
+    private static func wait(for task: Task<Void, Never>, timeout: Duration) async {
+        let waiter = OnceContinuation()
+        var timer: Task<Void, Never>?
+        await withCheckedContinuation { continuation in
+            waiter.continuation = continuation
+            Task { @MainActor in
+                await task.value
+                waiter.resume()
+            }
+            timer = Task { @MainActor in
+                try? await Task.sleep(for: timeout)
+                waiter.resume()
+            }
+        }
+        timer?.cancel()
     }
 
     /// Loops through all current user objects across the various siteURLs we have cached, and returns the username of the first username with authState == .permanent
@@ -599,6 +669,7 @@ import WMFTestKitchen
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         currentUserCache = [:]
+        userCacheGeneration += 1
 
         session.removeAllCookies()
         
@@ -607,5 +678,16 @@ import WMFTestKitchen
         // Reset so can show for next logged in user.
         UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)
         UserDefaults.standard.wmf_setDidShowSyncEnabledPanel(false)
+    }
+}
+
+/// Resumes a continuation once, for the first of several tasks that finishes.
+@MainActor
+private final class OnceContinuation {
+    var continuation: CheckedContinuation<Void, Never>?
+
+    func resume() {
+        continuation?.resume()
+        continuation = nil
     }
 }
