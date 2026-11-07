@@ -43,10 +43,11 @@ extension WMFDiscoverReadingListDataController {
     }
 
     /// The Discover interests: every selected article, plus articles from every selected topic on
-    /// the primary app language. A topic whose articles cannot be fetched adds no seeds, so the
-    /// selected articles still seed the list. With topics only, a set that gives no seed at all
-    /// throws `recommendationsUnavailable`, because the interests are there and the network is not.
-    /// A stopped run leaves the loop at the next topic.
+    /// the primary app language. The topics are fetched at the same time, because one topic search
+    /// takes seconds and the run has a time budget. A topic whose articles cannot be fetched adds no
+    /// seeds, so the selected articles still seed the list. With topics only, a set that gives no
+    /// seed at all throws `recommendationsUnavailable`, because the interests are there and the
+    /// network is not. A stopped run stops every topic fetch and throws.
     private func fetchInterestSeeds() async throws -> [Seed] {
         let interests = try await interestsDataController.fetchInterests()
         var seeds = interests.pages.map { page in
@@ -58,11 +59,18 @@ extension WMFDiscoverReadingListDataController {
         }
 
         let project = WMFProject.wikipedia(primaryAppLanguage)
-        for topic in interests.topics {
-            try Task.checkCancellation()
-            let articles = (try? await homeDataController.fetchArticles(for: topic, project: project)) ?? []
-            seeds.append(contentsOf: articles.map { Seed(title: $0.title.underscoresToSpaces, project: project) })
+        let homeDataController = self.homeDataController
+        let topicSeeds = await withTaskGroup(of: [Seed].self) { group in
+            for topic in interests.topics {
+                group.addTask {
+                    let articles = (try? await homeDataController.fetchArticles(for: topic, project: project)) ?? []
+                    return articles.map { Seed(title: $0.title.underscoresToSpaces, project: project) }
+                }
+            }
+            return await group.reduce(into: [Seed]()) { $0.append(contentsOf: $1) }
         }
+        try Task.checkCancellation()
+        seeds.append(contentsOf: topicSeeds)
 
         guard !seeds.isEmpty else {
             throw DiscoverReadingListError.recommendationsUnavailable

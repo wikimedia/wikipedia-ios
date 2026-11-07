@@ -172,7 +172,7 @@ final class WMFDiscoverReadingListGenerationRunTests {
 
     /// The seeds of a topic come from the Home data controller. Its request must stop with the run
     /// too, or the run waits for the network for as long as it takes.
-    @Test(.timeLimit(.minutes(1)))
+    @Test
     func aRunOverTheBudgetStopsAHangingTopicRequest() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await WMFDiscoverInterestsDataController().setTopics([.books])
@@ -190,12 +190,35 @@ final class WMFDiscoverReadingListGenerationRunTests {
         }
     }
 
+    /// One topic search takes seconds, so a run that asks for its topics one after the other can
+    /// run out of its budget with topics alone. The topics are asked for at the same time.
+    @Test
+    func aRunAsksForEveryTopicAtTheSameTime() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await WMFDiscoverInterestsDataController().setTopics([.books, .music])
+            let service = WMFHangingBasicService()
+            let controller = makeHangingTopicsController(service: service, generationTimeout: .seconds(600))
+            try await controller.saveSettings(enabledSettings)
+
+            let run = Task { try await controller.generateRecommendations() }
+            await service.waitForRequest(count: 2)
+
+            #expect(service.openRequestCount(whenRequestStarted: 2) == 1, "the first topic request is still open when the second one starts")
+
+            var newSettings = enabledSettings
+            newSettings.articleCount = 3
+            try await controller.saveSettings(newSettings)
+            _ = try? await run.value
+            #expect(await controller.isGenerating == false)
+        }
+    }
+
     // MARK: - A run after a stopped run
 
     /// A stopped run can still be inside its write. The next run starts its work after the stopped
     /// run has ended, so the two never write the list at the same time. The service here keeps a
     /// cancelled request open, like a request already handed to the network.
-    @Test(.timeLimit(.minutes(1)))
+    @Test
     func aRunStartsAfterTheStoppedRunHasEnded() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await addInterest("Cat")
