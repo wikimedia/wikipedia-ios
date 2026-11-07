@@ -5,12 +5,6 @@ import Foundation
 public protocol SettingsCoordinatorDelegate: AnyObject {
     func handleSettingsAction(_ action: SettingsAction)
     func fetchDynamicValues() -> (primaryLanguage: String, readingPreferenceTheme: String)
-    /// Called when the Settings screen is dismissed, from Done or from a row that closes Settings.
-    func settingsWillClose()
-}
-
-public extension SettingsCoordinatorDelegate {
-    func settingsWillClose() {}
 }
 
 /// Represents the various actions that can be performed from the Settings view

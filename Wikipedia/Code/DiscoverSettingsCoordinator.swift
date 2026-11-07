@@ -191,9 +191,10 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         }
     }
 
-    /// Settings closing takes the Undo toast with it. The toast belongs to the Settings flow, and
-    /// Undo over the Saved tab would change the list the reader is looking at.
-    func settingsWillClose() {
+    /// Settings closing takes the Undo toast with it, also when a Discover screen is on top. The
+    /// toast belongs to the Settings flow, and Undo over the Saved tab would change the list the
+    /// reader is looking at.
+    func settingsDidClose() {
         guard isShowingUndoToast else { return }
         WMFToastPresenter.shared.dismissCurrentToast()
     }
