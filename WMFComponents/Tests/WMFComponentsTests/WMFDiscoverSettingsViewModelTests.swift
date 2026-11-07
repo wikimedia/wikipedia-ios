@@ -157,6 +157,90 @@ final class WMFDiscoverSettingsViewModelTests {
         }
     }
 
+    /// A new reader has no interest yet. The default source is interests, so the switch alone would make an empty list.
+    @Test
+    func turningTheSwitchOnWithoutInterestsAsksForTheInterestsScreen() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let dataController = makeDataController()
+            let viewModel = await WMFDiscoverSettingsViewModel.load(dataController: dataController, interestsDataController: makeInterestsDataController())
+            var interestsScreenRequests = 0
+            viewModel.didTurnOnWithoutInterests = { interestsScreenRequests += 1 }
+
+            viewModel.isEnabledBinding.wrappedValue = true
+
+            #expect(viewModel.settings.source == .interests)
+            #expect(viewModel.interestCount == 0)
+            #expect(interestsScreenRequests == 1)
+            #expect(viewModel.settings.isEnabled, "Discover goes on before the screen opens")
+        }
+    }
+
+    @Test
+    func turningTheSwitchOnWithInterestsOrAnotherSourceDoesNotAskForTheInterestsScreen() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let dataController = makeDataController()
+            var interestsScreenRequests = 0
+
+            let withInterests = WMFDiscoverSettingsViewModel(settings: .default, interestCount: 1, dataController: dataController, interestsDataController: makeInterestsDataController())
+            withInterests.didTurnOnWithoutInterests = { interestsScreenRequests += 1 }
+            withInterests.isEnabledBinding.wrappedValue = true
+
+            var savedSettings = WMFDiscoverSettings.default
+            savedSettings.source = .saved
+            let withSavedSource = WMFDiscoverSettingsViewModel(settings: savedSettings, interestCount: 0, dataController: dataController, interestsDataController: makeInterestsDataController())
+            withSavedSource.didTurnOnWithoutInterests = { interestsScreenRequests += 1 }
+            withSavedSource.isEnabledBinding.wrappedValue = true
+
+            #expect(interestsScreenRequests == 0)
+            #expect(withInterests.settings.isEnabled)
+            #expect(withSavedSource.settings.isEnabled)
+        }
+    }
+
+    /// Back on the interests screen that the switch opened, with no interest picked. Discover goes
+    /// back off, as it was before the switch. No alert and no toast: the reader turned nothing off.
+    @Test
+    func undoTurnOnStoresDiscoverOffWithoutTheAlertOrTheToast() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let dataController = makeDataController()
+            let viewModel = WMFDiscoverSettingsViewModel(settings: .default, interestCount: 0, dataController: dataController, interestsDataController: makeInterestsDataController())
+            var turnOffReports = 0
+            viewModel.didTurnOff = { turnOffReports += 1 }
+            viewModel.isEnabledBinding.wrappedValue = true
+
+            viewModel.undoTurnOn()
+            await waitForSave(viewModel)
+
+            #expect(!viewModel.settings.isEnabled)
+            #expect(!viewModel.isShowingTurnOffAlert)
+            #expect(turnOffReports == 0)
+            #expect(await dataController.settings.isEnabled == false)
+        }
+    }
+
+    /// The screen reads the settings again when the interests screen pops, and the undo arrives in
+    /// the same moment. The read is held in the store while the undo lands, so the read sees the
+    /// switch on. The read must not put the switch back on.
+    @Test
+    func refreshKeepsASaveThatStartsDuringTheRead() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = GatedKeyValueStore()
+            let dataController = WMFDiscoverReadingListDataController(coreDataStore: coreDataStore, userDefaultsStore: store)
+            let settings = try await makeEnabledSettings(dataController: dataController)
+            let viewModel = WMFDiscoverSettingsViewModel(settings: settings, interestCount: 0, dataController: dataController, interestsDataController: makeInterestsDataController())
+
+            store.holdNext(.load)
+            viewModel.refresh()
+            await store.waitForHeldOperationToStart()
+            viewModel.undoTurnOn()
+            store.open()
+            await viewModel.refreshTask?.value
+
+            #expect(!viewModel.settings.isEnabled)
+            #expect(await dataController.settings.isEnabled == false)
+        }
+    }
+
     // MARK: - List size and cadence
 
     @Test
@@ -258,9 +342,9 @@ final class WMFDiscoverSettingsViewModelTests {
                 didLeaveContinuation = nil
             }
 
-            store.holdNextSave()
+            store.holdNext(.save)
             viewModel.articleCountBinding.wrappedValue = 9
-            await store.waitForSaveToStart()
+            await store.waitForHeldOperationToStart()
             viewModel.leave()
             await Task.yield()
             await Task.yield()
@@ -298,33 +382,38 @@ final class WMFDiscoverSettingsViewModelTests {
     }
 }
 
-/// A key value store that can hold one save until the test lets it through.
+/// A key value store that can hold one save or one load until the test lets it through.
 private final class GatedKeyValueStore: WMFKeyValueStore, Sendable {
 
+    enum Operation {
+        case save
+        case load
+    }
+
     private struct State {
-        var holdsNextSave = false
-        var saveDidStart = false
-        var saveStartWaiter: CheckedContinuation<Void, Never>?
+        var heldOperation: Operation?
+        var heldOperationDidStart = false
+        var startWaiter: CheckedContinuation<Void, Never>?
     }
 
     private let state = OSAllocatedUnfairLock(initialState: State())
     private let values = OSAllocatedUnfairLock<[String: Data]>(initialState: [:])
     private let gate = DispatchSemaphore(value: 0)
 
-    /// The next save waits for `open()`.
-    func holdNextSave() {
+    /// The next operation of this kind waits for `open()`.
+    func holdNext(_ operation: Operation) {
         state.withLock {
-            $0.holdsNextSave = true
-            $0.saveDidStart = false
+            $0.heldOperation = operation
+            $0.heldOperationDidStart = false
         }
     }
 
-    /// Returns when the held save has begun.
-    func waitForSaveToStart() async {
+    /// Returns when the held operation has begun.
+    func waitForHeldOperationToStart() async {
         await withCheckedContinuation { continuation in
             let didStart = state.withLock { state -> Bool in
-                if state.saveDidStart { return true }
-                state.saveStartWaiter = continuation
+                if state.heldOperationDidStart { return true }
+                state.startWaiter = continuation
                 return false
             }
             if didStart {
@@ -338,29 +427,33 @@ private final class GatedKeyValueStore: WMFKeyValueStore, Sendable {
     }
 
     func load<T: Codable>(key: String...) throws -> T? {
+        waitIfHeld(.load)
         guard let data = values.withLock({ $0[key.joined(separator: "/")] }) else { return nil }
         return try JSONDecoder().decode(T.self, from: data)
     }
 
     func save<T: Codable>(key: String..., value: T) throws {
-        let holds = state.withLock { state -> Bool in
-            guard state.holdsNextSave else { return false }
-            state.holdsNextSave = false
-            state.saveDidStart = true
-            return true
-        }
-        if holds {
-            let waiter = state.withLock { state -> CheckedContinuation<Void, Never>? in
-                let waiter = state.saveStartWaiter
-                state.saveStartWaiter = nil
-                return waiter
-            }
-            waiter?.resume()
-            // The timeout keeps a failed test from hanging the actor for good.
-            _ = gate.wait(timeout: .now() + 5)
-        }
+        waitIfHeld(.save)
         let data = try JSONEncoder().encode(value)
         values.withLock { $0[key.joined(separator: "/")] = data }
+    }
+
+    private func waitIfHeld(_ operation: Operation) {
+        let holds = state.withLock { state -> Bool in
+            guard state.heldOperation == operation else { return false }
+            state.heldOperation = nil
+            state.heldOperationDidStart = true
+            return true
+        }
+        guard holds else { return }
+        let waiter = state.withLock { state -> CheckedContinuation<Void, Never>? in
+            let waiter = state.startWaiter
+            state.startWaiter = nil
+            return waiter
+        }
+        waiter?.resume()
+        // The timeout keeps a failed test from hanging the actor for good.
+        _ = gate.wait(timeout: .now() + 5)
     }
 
     func remove(key: String...) throws {

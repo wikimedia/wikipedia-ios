@@ -278,6 +278,23 @@ final class WMFDiscoverSetupViewModelTests {
         }
     }
 
+    /// Back on the interests screen that Adjust opened. Nothing was saved, so the row shows the saved source again.
+    @Test
+    func backFromTheInterestsScreenShowsTheSavedSourceAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let dataController = makeDataController()
+            let viewModel = try await makeSettingsViewModel(dataController: dataController)
+            viewModel.select(.interests)
+            viewModel.confirmAdjust()
+            #expect(viewModel.selectedSource == .interests)
+
+            viewModel.undoChooseInterests()
+
+            #expect(viewModel.selectedSource == .saved)
+            #expect(await dataController.settings.source == .saved)
+        }
+    }
+
     @Test
     func adjustToSavedArticlesSavesTheSourceAndReportsTheChange() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
