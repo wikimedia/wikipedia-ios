@@ -77,6 +77,14 @@ import WMFNativeLocalizations
     @objc public static let gotItButtonTitle = CommonStrings.gotItButtonTitle
     
     @objc public static func onLangWikipedia(with languageCode: String? = nil) -> String {
-        CommonStrings.onLangWikipedia(with: languageCode)
+        var languageName: String?
+        if languageCode == "test" {
+            languageName = "Test"
+        } else if languageCode == "test2" {
+            languageName = "Test 2"
+        } else if let languageCode {
+            languageName = Locale.current.localizedString(forWikipediaLanguageCode: languageCode)
+        }
+        return CommonStrings.onLangWikipedia(languageName: languageName)
     }
 }
