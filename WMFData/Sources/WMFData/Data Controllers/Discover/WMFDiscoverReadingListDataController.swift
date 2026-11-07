@@ -20,7 +20,6 @@ public actor WMFDiscoverReadingListDataController {
     public static let shared = WMFDiscoverReadingListDataController()
 
     /// The `gsrlimit` the related pages request uses. A seed whose results are all used up moves its offset by this much.
-    /// Kept at the TextExtracts maximum, so every page comes with its extract.
     static let relatedPagesPageSize = WMFRelatedPagesDataController.maximumPageLimit
 
     /// How many related pages requests may come back without a new article before generation gives up on the network.
@@ -43,7 +42,6 @@ public actor WMFDiscoverReadingListDataController {
         let project: WMFProject
         let description: String?
         let thumbnailURL: URL?
-        let extract: String?
 
         var key: String { "\(project.id)|\(title.normalizedForCoreData)" }
     }
@@ -378,7 +376,8 @@ public actor WMFDiscoverReadingListDataController {
             let offset = seedOffsets[seed.key] ?? 0
             let relatedPages: [WMFRelatedPagesDataController.WMFRelatedPage]
             do {
-                relatedPages = try await relatedPagesDataController.fetchRelatedPages(title: seed.title, project: seed.project, limit: Self.relatedPagesPageSize, offset: offset)
+                // The list shows no extract, and the extracts make one request many times slower.
+                relatedPages = try await relatedPagesDataController.fetchRelatedPages(title: seed.title, project: seed.project, limit: Self.relatedPagesPageSize, offset: offset, includesExtracts: false)
                 picks.didGetAResponse = true
             } catch {
                 relatedPages = []
@@ -441,7 +440,6 @@ extension WMFDiscoverRecommendedPage {
             project: project,
             description: stored.description,
             thumbnailURL: stored.thumbnailURLString.flatMap { URL(string: $0) },
-            extract: stored.extract,
             recommendedDate: stored.timestamp
         )
     }
@@ -450,7 +448,7 @@ extension WMFDiscoverRecommendedPage {
 extension WMFDiscoverReadingListDataController.Candidate {
 
     init(relatedPage: WMFRelatedPagesDataController.WMFRelatedPage, project: WMFProject) {
-        self.init(title: relatedPage.title, displayTitle: relatedPage.displayTitle, project: project, description: relatedPage.description, thumbnailURL: relatedPage.thumbnailURL, extract: relatedPage.extract)
+        self.init(title: relatedPage.title, displayTitle: relatedPage.displayTitle, project: project, description: relatedPage.description, thumbnailURL: relatedPage.thumbnailURL)
     }
 
     init?(stored: WMFDiscoverReadingListDataController.StoredRecommendation) {
@@ -458,6 +456,6 @@ extension WMFDiscoverReadingListDataController.Candidate {
             return nil
         }
 
-        self.init(title: stored.title.underscoresToSpaces, displayTitle: stored.displayTitle, project: project, description: stored.description, thumbnailURL: stored.thumbnailURLString.flatMap { URL(string: $0) }, extract: stored.extract)
+        self.init(title: stored.title.underscoresToSpaces, displayTitle: stored.displayTitle, project: project, description: stored.description, thumbnailURL: stored.thumbnailURLString.flatMap { URL(string: $0) })
     }
 }

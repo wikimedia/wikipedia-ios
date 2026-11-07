@@ -402,7 +402,7 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
-    func generationKeepsDescriptionThumbnailAndExtract() async throws {
+    func generationKeepsDescriptionAndThumbnail() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await addInterest("Cat")
             let controller = makeController()
@@ -413,10 +413,27 @@ final class WMFDiscoverReadingListDataControllerTests {
             let trapNeuterReturn = try #require(recommendations.first { $0.title == "Trap–neuter–return" })
             #expect(trapNeuterReturn.description == "Strategy for controlling feral animal populations")
             #expect(trapNeuterReturn.thumbnailURL?.absoluteString.hasSuffix("Trap-Neuter-Return_program.jpg") == true)
-            #expect(trapNeuterReturn.extract?.hasPrefix("Trap–neuter–return (TNR)") == true)
 
             let purr = try #require(recommendations.first { $0.title == "Purr" })
             #expect(purr.thumbnailURL == nil)
+        }
+    }
+
+    /// The list shows no extract, and the extracts make one related pages request many times slower.
+    @Test
+    func generationAsksForNoExtracts() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let service = WMFRecordingBasicService()
+            let controller = WMFDiscoverReadingListDataController(relatedPagesDataController: WMFRelatedPagesDataController(basicService: service))
+            try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests), in: controller)
+
+            _ = try? await controller.generateRecommendations()
+
+            let parameters = try #require(service.parameters.first)
+            #expect(parameters["gsrsearch"] as? String == "morelike:Cat")
+            #expect(parameters["prop"] as? String == "pageimages|description|info|pageprops")
+            #expect(parameters["exchars"] == nil)
         }
     }
 

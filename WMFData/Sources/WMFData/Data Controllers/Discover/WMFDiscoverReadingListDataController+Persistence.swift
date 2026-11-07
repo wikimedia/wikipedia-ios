@@ -10,7 +10,6 @@ extension WMFDiscoverReadingListDataController {
         let displayTitle: String?
         let description: String?
         let thumbnailURLString: String?
-        let extract: String?
         let timestamp: Date
         let isExpired: Bool
 
@@ -37,7 +36,7 @@ extension WMFDiscoverReadingListDataController {
                     return nil
                 }
 
-                return StoredRecommendation(projectID: projectID, title: title, displayTitle: row.displayTitle, description: row.pageDescription, thumbnailURLString: row.thumbnailURLString, extract: row.extract, timestamp: timestamp, isExpired: row.isExpired)
+                return StoredRecommendation(projectID: projectID, title: title, displayTitle: row.displayTitle, description: row.pageDescription, thumbnailURLString: row.thumbnailURLString, timestamp: timestamp, isExpired: row.isExpired)
             }
         }
     }
@@ -110,7 +109,6 @@ extension WMFDiscoverReadingListDataController {
             recommendation.displayTitle = candidate.displayTitle
             recommendation.pageDescription = candidate.description
             recommendation.thumbnailURLString = candidate.thumbnailURL?.absoluteString
-            recommendation.extract = candidate.extract
             recommendation.isExpired = false
             recommendation.timestamp = now
             recommendation.sortIndex = Int32(index)
