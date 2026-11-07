@@ -1,0 +1,20 @@
+{
+  "batchcomplete": true,
+  "continue": {
+    "sroffset": 1,
+    "continue": "-||description"
+  },
+  "query": {
+    "searchinfo": {
+      "suggestion": "azad",
+      "suggestionsnippet": "azad"
+    },
+    "search": [
+      {
+        "ns": 0,
+        "title": "Asad",
+        "pageid": 3352873
+      }
+    ]
+  }
+}

@@ -2,8 +2,9 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 import CoreData
+import WMFDataTestSupport
 
-fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataController {
+fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataController, @unchecked Sendable {
     var shouldCreateOrRetrieve = true
 
     override init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: (any WMFKeyValueStore)? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: any WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
@@ -27,6 +28,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         case missingDataController
     }
     
+    private let fixture = WMFDataTestFixture()
     var store: WMFCoreDataStore?
     fileprivate var dataController: WMFMockYearInReviewDataController?
     
@@ -40,15 +42,21 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     let username = "user"
 
     override func setUp() async throws {
-        
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
-        
-        self.store = store
-        
-        self.dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
-        
         try await super.setUp()
+        await fixture.setUp()
+
+        let store = try await fixture.makeTemporaryCoreDataStore()
+        self.store = store
+
+        self.dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
+    }
+
+    override func tearDown() async throws {
+        dataController = nil
+        store = nil
+        await fixture.resetWMFDataTestState()
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     func testShouldNotCreateOrRetrieveYearInReview() async throws {
@@ -106,6 +114,64 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 3)
+    }
+
+    // MARK: - Niche interest slide format
+
+    /// Saves a report with only a niche interest slide, then populates the report again.
+    private func populateReport(withNicheInterestData data: Data) async throws -> WMFYearInReviewReport? {
+        // The categories data controller reads the store from the environment. The fixture changes
+        // the environment under the global test lock, then restores it. The store is made here,
+        // because taking the lock removes the stores that the fixture made in setUp.
+        return try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
+        }) {
+            let store = try XCTUnwrap(WMFDataEnvironment.current.coreDataStore)
+            let dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
+
+            let slide = WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
+            try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [slide]))
+
+            return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        }
+    }
+
+    /// An older build stored the niche interest slide as an array of category names.
+    /// The slide is frozen, but the report must build it again in the current format.
+    func testLegacyNicheInterestSlideIsBuiltAgain() async throws {
+        let legacyData = try JSONEncoder().encode(["Cats", "Dogs"])
+
+        let report = try await populateReport(withNicheInterestData: legacyData)
+
+        let slides = report?.slides.filter { $0.id == .mostReadCategories } ?? []
+        XCTAssertEqual(slides.count, 1, "The legacy slide is replaced, not kept next to the new slide")
+        let data = try XCTUnwrap(slides.first?.data)
+        XCTAssertNoThrow(try JSONDecoder().decode(WMFYearInReviewNicheCategorySlideData.self, from: data))
+    }
+
+    /// A slide in the current format keeps its category. No categories are in the store, so a
+    /// new pick would have no category.
+    func testCurrentNicheInterestSlideKeepsItsCategory() async throws {
+        let storedData = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"))
+
+        let report = try await populateReport(withNicheInterestData: storedData)
+
+        let slides = report?.slides.filter { $0.id == .mostReadCategories } ?? []
+        XCTAssertEqual(slides.count, 1)
+        let data = try XCTUnwrap(slides.first?.data)
+        let payload = try JSONDecoder().decode(WMFYearInReviewNicheCategorySlideData.self, from: data)
+        XCTAssertEqual(payload.categoryName, "Executed female serial killers")
+    }
+
+    func testNicheInterestFormatCheck() throws {
+        let legacyData = try JSONEncoder().encode(["Cats", "Dogs"])
+        let currentData = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: "Cats"))
+        let currentDataWithoutCategory = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: nil))
+
+        XCTAssertFalse(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(legacyData))
+        XCTAssertFalse(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(nil))
+        XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentData))
+        XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentDataWithoutCategory), "A stored nil category is a choice, not old data")
     }
 }
 

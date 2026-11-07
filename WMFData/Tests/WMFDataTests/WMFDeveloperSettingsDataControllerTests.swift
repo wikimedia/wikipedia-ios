@@ -27,6 +27,8 @@ final class WMFDeveloperSettingsDataControllerTests {
             #expect(yirConfig.languages == 300)
             #expect(yirConfig.articles == 10000000)
             #expect(yirConfig.savedArticlesApps == 37574993)
+            // The mock config has no volunteer editors value, the same as the 2025 config.
+            #expect(yirConfig.volunteerEditors == nil)
             #expect(yirConfig.viewsApps == 1000000000)
             #expect(yirConfig.editsApps == 124356)
             #expect(yirConfig.editsPerMinute == 342)
@@ -53,6 +55,19 @@ final class WMFDeveloperSettingsDataControllerTests {
             #expect(controller.loadFeatureConfig() == nil)
             #expect(controller.isVisualEditorEnabled == false)
         }
+    }
+
+    /// Older apps read `yir`. This app reads only `yirv2`, so an entry in `yir` does not count.
+    @Test
+    func yearInReviewEntriesComeOnlyFromYirV2() throws {
+        let entry = #"{"year": 2026, "activeStartDate": "2026-12-02T18:00:00Z", "activeEndDate": "2027-02-01T00:00:00Z", "dataStartDate": "2026-01-01T00:00:00Z", "dataEndDate": "2026-12-01T00:00:00Z", "languages": 300, "articles": 1, "savedArticlesApps": 1, "viewsApps": 1, "editsApps": 1, "editsPerMinute": 1, "averageArticlesReadPerYear": 1, "edits": 1, "editsEN": 1, "hoursReadEN": 1, "yearsReadEN": 1, "topReadEN": [], "topReadPercentages": [], "bytesAddedEN": 1, "hideCountryCodes": [], "hideDonateCountryCodes": []}"#
+
+        let v2 = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: Data(#"{"commonv1": {"yir": [], "yirv2": [\#(entry)]}, "iosv1": {}}"#.utf8))
+        let v1Only = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: Data(#"{"commonv1": {"yir": [\#(entry)]}, "iosv1": {}}"#.utf8))
+
+        #expect(v2.common.yir(year: 2026)?.languages == 300)
+        // The test wiki config has only `yir`. The other features still get their settings.
+        #expect(v1Only.common.yir.isEmpty)
     }
 
     @Test
@@ -147,79 +162,11 @@ final class WMFDeveloperSettingsDataControllerTests {
     }
 
     @Test
-    func forceYiREntryPoint2026FetchesTheTestWikiFeatureConfigInProduction() async {
-        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
-            // A new instance, so that it uses the recording service of this environment.
-            let controller = WMFDeveloperSettingsDataController()
-
-            controller.forceYiREntryPoint2026 = true
-
-            let testWikiURLs = requestRecordingService.requestedURLs.filter { $0.path == "/wiki/MediaWiki:AppsFeatureConfig.json" }
-            #expect(testWikiURLs.count == 1)
-            #expect(testWikiURLs.first?.host == "test.wikipedia.org")
-
-            requestRecordingService.requestedURLs = []
-            controller.fetchFeatureConfig { _ in }
-
-            let hosts = requestRecordingService.requestedURLs.compactMap { $0.host }
-            #expect(hosts.contains("test.wikipedia.org"))
-            #expect(hosts.contains("en.wikipedia.org"))
-        }
-    }
-
-    @Test
-    func withoutForceYiREntryPoint2026TheTestWikiFeatureConfigIsNotFetched() async {
-        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
-            let controller = WMFDeveloperSettingsDataController()
-
-            controller.forceYiREntryPoint2026 = false
-            controller.fetchFeatureConfig { _ in }
-
-            let hosts = requestRecordingService.requestedURLs.compactMap { $0.host }
-            #expect(hosts.contains("test.wikipedia.org") == false)
-            #expect(controller.loadTestWikiFeatureConfig() == nil)
-        }
-    }
-
-    @Test
-    func testWikiFeatureConfigIsStoredSeparately() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let controller = WMFDeveloperSettingsDataController()
-            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = true
-
-            controller.fetchTestWikiFeatureConfigIfNeeded()
-
-            let testWikiConfig = try #require(controller.loadTestWikiFeatureConfig())
-            #expect(testWikiConfig.common.yir(year: 2025) != nil)
-            #expect(controller.loadFeatureConfig() == nil)
-        }
-    }
-
-    @Test
-    func testWikiFeatureConfigPostsTheBadgeNotificationOnTheMainThread() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureBackgroundCompletionEnvironment) {
-            // Turn the flag on in the store directly. The setter posts its own notification on the calling thread.
-            try WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint2026.rawValue, value: true)
-            let controller = WMFDeveloperSettingsDataController()
-
-            let postedOnMainThread = await withCheckedContinuation { (continuation: CheckedContinuation<Bool, Never>) in
-                let observation = NotificationObservation()
-                observation.token = NotificationCenter.default.addObserver(forName: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil, queue: nil) { _ in
-                    observation.finish { continuation.resume(returning: Thread.isMainThread) }
-                }
-                controller.fetchTestWikiFeatureConfigIfNeeded()
-            }
-
-            #expect(postedOnMainThread)
-        }
-    }
-
-    @Test
     func forceYiREntryPoint2026SkipsOnlyTheStartDate() async {
         await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
             let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
             let common = WMFFeatureConfigResponse.Common.YearInReview.testConfig
-            let config = WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z", dataStartDateString: common.dataStartDateString, dataEndDateString: common.dataEndDateString, languages: common.languages, articles: common.articles, savedArticlesApps: common.savedArticlesApps, viewsApps: common.viewsApps, editsApps: common.editsApps, editsPerMinute: common.editsPerMinute, averageArticlesReadPerYear: common.averageArticlesReadPerYear, edits: common.edits, editsEN: common.editsEN, hoursReadEN: common.hoursReadEN, yearsReadEN: common.yearsReadEN, topReadEN: common.topReadEN, topReadPercentages: common.topReadPercentages, bytesAddedEN: common.bytesAddedEN, hideCountryCodes: common.hideCountryCodes, hideDonateCountryCodes: common.hideDonateCountryCodes)
+            let config = WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z", dataStartDateString: common.dataStartDateString, dataEndDateString: common.dataEndDateString, languages: common.languages, articles: common.articles, savedArticlesApps: common.savedArticlesApps, volunteerEditors: common.volunteerEditors, viewsApps: common.viewsApps, editsApps: common.editsApps, editsPerMinute: common.editsPerMinute, averageArticlesReadPerYear: common.averageArticlesReadPerYear, edits: common.edits, editsEN: common.editsEN, hoursReadEN: common.hoursReadEN, yearsReadEN: common.yearsReadEN, topReadEN: common.topReadEN, topReadPercentages: common.topReadPercentages, bytesAddedEN: common.bytesAddedEN, hideCountryCodes: common.hideCountryCodes, hideDonateCountryCodes: common.hideDonateCountryCodes)
             let beforeStart = dateFormatter.date(from: "2026-10-01T00:00:00Z")!
             let afterEnd = dateFormatter.date(from: "2027-02-01T00:00:01Z")!
 
@@ -240,14 +187,6 @@ final class WMFDeveloperSettingsDataControllerTests {
         WMFDataEnvironment.current.basicService = requestRecordingService
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
         WMFDataEnvironment.current.serviceEnvironment = .production
-    }
-
-    private func configureBackgroundCompletionEnvironment() async {
-        WMFDataEnvironment.current.basicService = WMFBackgroundCompletionMockService(wrapping: WMFFeatureConfigRequestMockService())
-        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
-        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-        WMFDataEnvironment.current.serviceEnvironment = .production
-        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
     }
 
     private func configureEnvironment() async {
@@ -353,48 +292,5 @@ private final class WMFRequestRecordingMockService: WMFService {
         if let url = request.url {
             requestedURLs.append(url)
         }
-    }
-}
-
-/// Calls each completion on a background queue, as `WMFBasicService` does with URLSession.
-private final class WMFBackgroundCompletionMockService: WMFService, @unchecked Sendable {
-    private let wrapped: WMFService
-
-    init(wrapping wrapped: WMFService) {
-        self.wrapped = wrapped
-    }
-
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
-        wrapped.perform(request: request) { result in DispatchQueue.global().async { completion(result) } }
-    }
-
-    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
-        wrapped.perform(request: request) { result in DispatchQueue.global().async { completion(result) } }
-    }
-
-    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
-        wrapped.performDecodableGET(request: request) { (result: Result<T, Error>) in DispatchQueue.global().async { completion(result) } }
-    }
-
-    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
-        wrapped.performDecodablePOST(request: request) { (result: Result<T, Error>) in DispatchQueue.global().async { completion(result) } }
-    }
-
-    func clearCachedData() {}
-}
-
-/// Removes the observer after the first notification, and runs the finish closure only once.
-private final class NotificationObservation: @unchecked Sendable {
-    var token: NSObjectProtocol?
-    private let lock = NSLock()
-    private var isFinished = false
-
-    func finish(_ body: () -> Void) {
-        lock.lock()
-        defer { lock.unlock() }
-        guard !isFinished else { return }
-        isFinished = true
-        if let token { NotificationCenter.default.removeObserver(token) }
-        body()
     }
 }

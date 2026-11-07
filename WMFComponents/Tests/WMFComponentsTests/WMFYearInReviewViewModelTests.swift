@@ -63,7 +63,8 @@ struct WMFYearInReviewViewModelTests {
             slides: Self.slides(slideCount),
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: { false }
         )
     }
 
@@ -111,48 +112,17 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.isLastSlide)
     }
 
-    /// One slide is simultaneously the first and the last, so `tappedNext` must not run off
-    /// the end of the array.
+    /// One slide is the first and the last slide.
     @Test
     func aSingleSlideIsTheLastSlide() {
         let viewModel = makeViewModel(slideCount: 1)
         #expect(viewModel.isLastSlide)
-
-        viewModel.tappedNext()
-        #expect(viewModel.currentSlideID == "slide0")
     }
 
     @Test
     func anEmptySlideSetIsTreatedAsTheLastSlide() {
         let viewModel = makeViewModel(slideCount: 0)
         #expect(viewModel.isLastSlide)
-
-        viewModel.tappedNext()
-        #expect(viewModel.currentSlideID == nil)
-    }
-
-    // MARK: - Advancing
-
-    @Test
-    func tappedNextAdvancesByIdAndLogs() {
-        let viewModel = makeViewModel()
-
-        viewModel.tappedNext()
-
-        #expect(viewModel.currentSlideID == "slide1")
-        #expect(logging.next == ["logging0"])
-    }
-
-    @Test
-    func tappedNextStopsOnTheLastSlide() {
-        let viewModel = makeViewModel()
-        viewModel.currentSlideID = "slide2"
-        logging.next.removeAll()
-
-        viewModel.tappedNext()
-
-        #expect(viewModel.currentSlideID == "slide2")
-        #expect(logging.next.isEmpty)
     }
 
     // MARK: - Slide appearance logging
@@ -299,8 +269,7 @@ struct WMFYearInReviewViewModelTests {
 
     // MARK: - Donate button
 
-    /// Only the slide-level half of the rule is covered here. The region half calls
-    /// WMFYearInReviewDataController directly, so it cannot be exercised without a seam.
+    /// The slide-level half of the rule. `theCountryCheckHidesTheToolbarDonateButton` covers the region half.
     @Test
     func aSlideThatHidesDonateIsRespected() {
         let viewModel = WMFYearInReviewViewModel(
@@ -313,10 +282,89 @@ struct WMFYearInReviewViewModelTests {
             ],
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
-            loggingDelegate: logging
+            loggingDelegate: logging,
+            hidesDonate: { false }
         )
 
         #expect(viewModel.showsDonateButton == false)
+    }
+
+    // MARK: - Replacing a slide
+
+    /// After a donation the "You matter" slide becomes "Thank you", and the reader stays on it.
+    @Test
+    func replacingTheCurrentSlideKeepsTheReaderOnIt() {
+        let viewModel = makeViewModel()
+        viewModel.currentSlideID = "slide2"
+
+        viewModel.replaceSlide(id: "slide2", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "contributor"])
+        #expect(viewModel.currentSlideID == "contributor")
+        #expect(viewModel.showsDonateButton)
+    }
+
+    @Test
+    func replacingAnotherSlideDoesNotMoveTheReader() {
+        let viewModel = makeViewModel()
+
+        viewModel.replaceSlide(id: "slide2", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "contributor"])
+        #expect(viewModel.currentSlideID == "slide0")
+    }
+
+    @Test
+    func replacingAMissingSlideChangesNothing() {
+        let viewModel = makeViewModel()
+
+        viewModel.replaceSlide(id: "nonContributor", with: WMFYearInReviewSlideViewModel(id: "contributor", loggingID: "contributor"))
+
+        #expect(viewModel.slides.map(\.id) == ["slide0", "slide1", "slide2"])
+    }
+
+    /// A slide with its own donate button does not show the toolbar buttons.
+    @Test
+    func aSlideWithAPrimaryDonateButtonHidesTheToolbarButtons() {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: [
+                WMFYearInReviewSlideViewModel(
+                    id: "nonContributor",
+                    loggingID: "nonContributor",
+                    showsPrimaryDonateButton: true
+                )
+            ],
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { false }
+        )
+
+        #expect(viewModel.showsDonateButton == false)
+        #expect(viewModel.showsShareButton == false)
+    }
+
+    @Test
+    func aSlideWithoutAPrimaryDonateButtonShowsTheShareButton() {
+        let viewModel = makeViewModel()
+
+        #expect(viewModel.showsShareButton)
+    }
+
+    /// Where donations are not accepted, or when the country check cannot run, the toolbar does
+    /// not show the donate button.
+    @Test
+    func theCountryCheckHidesTheToolbarDonateButton() {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: Self.slides(1),
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { true }
+        )
+
+        #expect(viewModel.showsDonateButton == false)
+        #expect(viewModel.showsShareButton)
     }
 
     // MARK: - Content color
@@ -350,5 +398,116 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.currentContentColor == WMFColor.white)
         viewModel.currentSlideID = "slide1"
         #expect(viewModel.currentContentColor == WMFColor.gray700)
+    }
+
+    // MARK: - Answers
+
+    private func makeViewModelWithAnswer() -> WMFYearInReviewViewModel {
+        let guess = WMFYearInReviewSlideViewModel(
+            id: "guess",
+            loggingID: "guess",
+            answer: WMFYearInReviewSlideViewModel(id: "reveal", loggingID: "reveal")
+        )
+        return WMFYearInReviewViewModel(
+            slides: [guess, WMFYearInReviewSlideViewModel(id: "last", loggingID: "last")],
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { false }
+        )
+    }
+
+    @Test
+    func aSlideAndItsAnswerTakeOnePagerPosition() {
+        let viewModel = makeViewModelWithAnswer()
+
+        #expect(viewModel.pagerSlides.map(\.id) == ["guess", "last"])
+    }
+
+    /// A VoiceOver reader cannot tap an answer in the .riv, so the answer is the next slide.
+    @Test
+    func withVoiceOverTheAnswerIsTheNextSlide() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.showsAnswersAsSlides = true
+
+        #expect(viewModel.pagerSlides.map(\.id) == ["guess", "reveal", "last"])
+        viewModel.currentSlideID = "reveal"
+        #expect(viewModel.currentSlideIndex == 1)
+        #expect(viewModel.slidePositionAccessibilityValue == "2 of 3")
+    }
+
+    /// When VoiceOver turns off on the answer, the position is the slide that has the answer.
+    @Test
+    func anAnswerThatIsNotASlideKeepsThePositionOfItsSlide() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.showsAnswersAsSlides = true
+        viewModel.currentSlideID = "reveal"
+
+        viewModel.showsAnswersAsSlides = false
+
+        #expect(viewModel.currentSlideIndex == 0)
+        #expect(viewModel.currentSlide?.id == "guess")
+    }
+
+    @Test
+    func anAnswerShownInPlaceLogsItsImpressionAndItsPageForTaps() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "guess"
+
+        viewModel.answerDidShow(slideID: "guess")
+        viewModel.answerDidShow(slideID: "guess")
+        viewModel.tappedShare()
+        viewModel.tappedDonate { .zero }
+        viewModel.tappedClose()
+
+        #expect(logging.appeared == ["reveal"])
+        #expect(logging.share == ["reveal"])
+        #expect(logging.donate == ["reveal"])
+        #expect(logging.done == ["reveal"])
+    }
+
+    @Test
+    func shareAfterTheAnswerShowsCarriesTheAnswerSlideID() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "guess"
+        viewModel.tappedShare()
+        if case .share(let slideID) = coordinator.actions.last {
+            #expect(slideID == "guess")
+        } else {
+            Issue.record("expected a share action")
+        }
+
+        viewModel.answerDidShow(slideID: "guess")
+        viewModel.tappedShare()
+
+        if case .share(let slideID) = coordinator.actions.last {
+            #expect(slideID == "reveal")
+        } else {
+            Issue.record("expected a share action")
+        }
+    }
+
+    @Test
+    func theAnswerPageEndsWhenTheReaderLeavesTheSlide() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "guess"
+        viewModel.answerDidShow(slideID: "guess")
+
+        viewModel.currentSlideID = "last"
+        viewModel.currentSlideID = "guess"
+        viewModel.tappedShare()
+
+        #expect(logging.appeared == ["reveal", "last", "guess"])
+        #expect(logging.share == ["guess"])
+    }
+
+    @Test
+    func anAnswerOfASlideThatIsNotCurrentLogsNothing() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "last"
+
+        viewModel.answerDidShow(slideID: "guess")
+
+        #expect(logging.appeared == ["last"])
     }
 }

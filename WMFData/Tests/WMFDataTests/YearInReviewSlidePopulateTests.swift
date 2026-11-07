@@ -344,28 +344,478 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.articles.first?.projectID, enProject.id)
     }
 
-    // MARK: - mostReadCategories
+    // MARK: - topTopics
 
-    func testMostReadCategoriesPrefersNamesWithTwoUnderscoresAndCapsAtFive() async throws {
-        // addCategories requires the article's page to exist already, so seed views first.
-        let titles = (1...6).map { "Article\($0)" } + ["ArticlePlain"]
+    private typealias TopTopicsData = WMFYearInReviewTopTopicsSlideData
+
+    /// Reads each article once and stores its topic labels.
+    private func seedArticles(_ titles: [String], labels: [String], month: Int = 4, project: WMFProject? = nil) async throws {
+        let project = project ?? enProject
+        try await seedPageViews(try titles.enumerated().map { index, title in
+            WMFLegacyPageView(title: title, project: project, viewedDate: try date(month: month, day: 1 + index, hour: 10), latitude: nil, longitude: nil)
+        })
+        let topicsDataController = try WMFPageTopicsDataController()
+        for title in titles {
+            try await topicsDataController.savePageTopics(title: title, namespaceID: 0, project: project, topics: labels.map { WMFPageTopic(topic: $0, score: 0.9) })
+        }
+    }
+
+    /// Records the illustration downloads. A file name in `failingFileNames` fails.
+    private final class StubIllustrationFetcher: @unchecked Sendable {
+        private let lock = NSLock()
+        private var urls: [URL] = []
+        let failingFileNames: Set<String>
+
+        init(failingFileNames: Set<String> = []) {
+            self.failingFileNames = failingFileNames
+        }
+
+        var requestedFileNames: [String] {
+            lock.withLock { urls.map { $0.lastPathComponent.replacingOccurrences(of: "_", with: " ") } }
+        }
+
+        func fetch(_ url: URL) throws -> Data {
+            lock.withLock { urls.append(url) }
+            let fileName = url.lastPathComponent.replacingOccurrences(of: "_", with: " ")
+            if failingFileNames.contains(fileName) {
+                throw URLError(.notConnectedToInternet)
+            }
+            return Data(fileName.utf8)
+        }
+    }
+
+    private func topTopicsPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil, illustrationFetcher: StubIllustrationFetcher = StubIllustrationFetcher()) async throws -> TopTopicsData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        controller.fetchIllustrationData = { try illustrationFetcher.fetch($0) }
+        let payload = try decode(TopTopicsData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    func testTopTopicHasTheMostArticlesAndTheAlphabeticalFirstAndLastArticles() async throws {
+        try await seedArticles(["Xia_dynasty", "Battle_of_Gettysburg", "Roman_Empire", "Magna_Carta"], labels: ["History_and_Society.History"])
+        try await seedArticles(["Cat", "Dog", "Frog"], labels: ["STEM.Biology"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 7)
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 4)
+        XCTAssertEqual(payload.topTopic?.firstArticle.title, "Battle of Gettysburg", "underscores become spaces")
+        XCTAssertEqual(payload.topTopic?.lastArticle.title, "Xia dynasty")
+        XCTAssertEqual(payload.topTopic?.firstArticle.project, enProject)
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.biology])
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertFalse(payload.showsRunnerUps, "one runner-up does not show the runners-up slide")
+    }
+
+    func testTopTopicIsEligibleWithFewerThanFiveArticles() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 3)
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .physics)
+        XCTAssertTrue(payload.isEligible, "a top topic with three articles is enough, the same as on Android")
+        XCTAssertFalse(payload.showsRunnerUps)
+    }
+
+    func testTopTopicIsNotEligibleWhenNoTopicHasThreeArticles() async throws {
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"])
+        try await seedArticles(["Gamma", "Delta"], labels: ["STEM.Biology"], month: 5)
+        try await seedArticles(["Epsilon", "Zeta"], labels: ["Culture.Sports"], month: 6)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 6)
+        XCTAssertNil(payload.topTopic)
+        XCTAssertTrue(payload.runnerUps.isEmpty, "the runners-up slide needs an eligible top topic slide")
+        XCTAssertFalse(payload.isEligible)
+        XCTAssertFalse(payload.showsRunnerUps)
+    }
+
+    func testRunnerUpsNeedTwoArticlesAndTheTopTopicNeedsThree() async throws {
+        try await seedArticles(["History_1", "History_2", "History_3"], labels: ["History_and_Society.History"], month: 2)
+        try await seedArticles(["Physics_1", "Physics_2"], labels: ["STEM.Physics"], month: 3)
+        try await seedArticles(["Biology_1", "Biology_2"], labels: ["STEM.Biology"], month: 4)
+        try await seedArticles(["Sports_1"], labels: ["Culture.Sports"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.biology, .physics], "a topic with one article is not a runner-up")
+        XCTAssertEqual(payload.runnerUps.map(\.articleCount), [2, 2])
+        XCTAssertTrue(payload.showsRunnerUps)
+    }
+
+    func testArticlesWithoutTopicsCountTowardTheReadCountOnly() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
+        try await seedPageViews([pageView("No_Topics_1", at: try date(month: 7, day: 1, hour: 10)), pageView("No_Topics_2", at: try date(month: 7, day: 2, hour: 10))])
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 5)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 3)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testRunnerUpsLeaveOutTheTopTopicAndShowAtMostThree() async throws {
+        try await seedArticles((1...6).map { "History_\($0)" }, labels: ["History_and_Society.History"], month: 2)
+        try await seedArticles((1...5).map { "Biology_\($0)" }, labels: ["STEM.Biology"], month: 3)
+        try await seedArticles((1...4).map { "Sports_\($0)" }, labels: ["Culture.Sports"], month: 4)
+        try await seedArticles((1...4).map { "Music_\($0)" }, labels: ["Culture.Media.Music"], month: 5)
+        try await seedArticles((1...3).map { "Physics_\($0)" }, labels: ["STEM.Physics"], month: 6)
+        try await seedArticles((1...2).map { "Art_\($0)" }, labels: ["Culture.Visual_arts.Visual_arts*"], month: 7)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        // Sports and music tie, so the topic ID decides the order.
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.biology, .music, .sports])
+        XCTAssertEqual(payload.runnerUps.map(\.articleCount), [5, 4, 4])
+        XCTAssertTrue(payload.showsRunnerUps)
+    }
+
+    func testAnArticleWithTwoLabelsForOneTopicCountsOnce() async throws {
+        try await seedArticles(["Tokyo", "Kyoto", "Osaka"], labels: ["Geography.Regions.Asia.Asia*", "Geography.Regions.Asia.East_Asia"])
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .asia)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 3)
+    }
+
+    func testWomenBiographiesCountAsBiographies() async throws {
+        try await seedArticles(["Marie_Curie", "Ada_Lovelace"], labels: ["Culture.Biography.Women", "Culture.Biography.Biography*"])
+        try await seedArticles(["Albert_Einstein"], labels: ["Culture.Biography.Biography*"], month: 5)
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"], month: 6)
+
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .biography)
+        XCTAssertEqual(payload.topTopic?.topicCount.articleCount, 3)
+        XCTAssertFalse(payload.runnerUps.contains { $0.topic == .women })
+    }
+
+    func testTopTopicTieIsOneOfTheTiedTopics() async throws {
+        try await seedArticles(["Alpha", "Beta", "Gamma"], labels: ["STEM.Physics"])
+        try await seedArticles(["Delta", "Epsilon", "Zeta"], labels: ["STEM.Biology"], month: 5)
+
+        let payload = try await topTopicsPayload()
+
+        let topTopic = try XCTUnwrap(payload.topTopic?.topicCount.topic)
+        XCTAssertTrue([.physics, .biology].contains(topTopic))
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [topTopic == .physics ? .biology : .physics])
+    }
+
+    func testTopTopicsExcludesMainPages() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        try await seedArticles(["Main_Page", "Alpha", "Beta"], labels: ["STEM.Physics"])
+        try await seedArticles(["Pagina_principale"], labels: ["STEM.Physics"], project: itProject)
+        try await seedArticles(["Gamma", "Delta", "Epsilon"], labels: ["STEM.Biology"], month: 5)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await topTopicsPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload.readCount, 5)
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .biology, "physics has two articles without the main pages")
+        XCTAssertEqual(payload.runnerUps.map(\.articleCount), [2], "physics is a runner-up with its two articles")
+    }
+
+    func testTopTopicsDownloadsOnlyTheIllustrationsOfTheShownTopics() async throws {
+        try await seedArticles((1...5).map { "History_\($0)" }, labels: ["History_and_Society.History"], month: 2)
+        try await seedArticles((1...4).map { "Europe_\($0)" }, labels: ["Geography.Regions.Europe.Europe*"], month: 3)
+        try await seedArticles((1...3).map { "Asia_\($0)" }, labels: ["Geography.Regions.Asia.Asia*"], month: 4)
+        try await seedArticles((1...3).map { "Biology_\($0)" }, labels: ["STEM.Biology"], month: 5)
+        // A fourth runner-up is not shown, so its illustration does not download.
+        try await seedArticles((1...3).map { "Sports_\($0)" }, labels: ["Culture.Sports"], month: 6)
+
+        let fetcher = StubIllustrationFetcher()
+        let payload = try await topTopicsPayload(illustrationFetcher: fetcher)
+
+        XCTAssertEqual(payload.topTopic?.topicCount.topic, .history)
+        XCTAssertEqual(payload.runnerUps.map(\.topic), [.europe, .asia, .biology])
+        // Europe and Asia use the same file, so it downloads one time.
+        XCTAssertEqual(fetcher.requestedFileNames.sorted(), ["17 History.png", "23 Biology.png", "33 - 39 Regional.png"])
+        XCTAssertEqual(payload.illustration(for: .history), Data("17 History.png".utf8))
+        XCTAssertEqual(payload.illustration(for: .asia), Data("33 - 39 Regional.png".utf8))
+        XCTAssertEqual(payload.illustration(for: .europe), payload.illustration(for: .asia))
+        XCTAssertNil(payload.illustration(for: .sports))
+    }
+
+    func testTopTopicsLeavesOutAnIllustrationThatFailsToDownload() async throws {
+        try await seedArticles((1...5).map { "History_\($0)" }, labels: ["History_and_Society.History"])
+
+        let fetcher = StubIllustrationFetcher(failingFileNames: ["17 History.png"])
+        let payload = try await topTopicsPayload(illustrationFetcher: fetcher)
+
+        XCTAssertTrue(payload.isEligible, "a failed download does not change the slide data")
+        XCTAssertNil(payload.illustration(for: .history))
+    }
+
+    func testTopTopicsDoesNotDownloadIllustrationsForTheEmptyState() async throws {
+        // No topic has three articles, so there is no top topic.
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"])
+
+        let fetcher = StubIllustrationFetcher()
+        let payload = try await topTopicsPayload(illustrationFetcher: fetcher)
+
+        XCTAssertFalse(payload.isEligible)
+        XCTAssertTrue(fetcher.requestedFileNames.isEmpty)
+        XCTAssertNil(payload.illustrations)
+    }
+
+    /// Slide data from before the illustrations decodes without them.
+    func testTopTopicsDataWithoutIllustrationsDecodes() throws {
+        let json = #"{"readCount": 5, "runnerUps": []}"#
+        let payload = try JSONDecoder().decode(TopTopicsData.self, from: Data(json.utf8))
+        XCTAssertNil(payload.illustrations)
+        XCTAssertNil(payload.illustration(for: .history))
+    }
+
+    // MARK: - daysVisited
+
+    private typealias DaysVisitedData = WMFYearInReviewDaysVisitedSlideData
+
+    private func daysVisitedPayload() async throws -> DaysVisitedData {
+        let controller = YearInReviewDaysVisitedSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+        let payload = try decode(DaysVisitedData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    func testDaysVisitedCountsDistinctDaysAndThePeakMonth() async throws {
+        try await seedPageViews([
+            // Two reads on one day count as one day.
+            pageView("Alpha", at: try date(month: 3, day: 4, hour: 9)),
+            pageView("Beta", at: try date(month: 3, day: 4, hour: 15)),
+            pageView("Gamma", at: try date(month: 3, day: 9, hour: 9)),
+            pageView("Delta", at: try date(month: 3, day: 20, hour: 9)),
+            pageView("Epsilon", at: try date(month: 7, day: 1, hour: 9)),
+            pageView("Zeta", at: try date(month: 7, day: 2, hour: 9))
+        ])
+
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 5)
+        XCTAssertEqual(payload.peakMonth, DaysVisitedData.PeakMonth(month: 3, dayCount: 3))
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testDaysVisitedIgnoresViewsOutsideTheInsightsRange() async throws {
+        let outside = try XCTUnwrap(Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 1, hour: 9)))
+        try await seedPageViews([
+            pageView("Alpha", at: try date(month: 3, day: 4, hour: 9)),
+            pageView("Beta", at: outside)
+        ])
+
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 1)
+        XCTAssertFalse(payload.isEligible, "one day is not enough for the slide")
+    }
+
+    func testDaysVisitedHasNoPeakMonthWithoutTwoDaysInOneMonth() async throws {
+        try await seedPageViews([
+            pageView("Alpha", at: try date(month: 3, day: 4, hour: 9)),
+            pageView("Beta", at: try date(month: 5, day: 4, hour: 9))
+        ])
+
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 2)
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertNil(payload.peakMonth)
+    }
+
+    func testDaysVisitedPeakMonthTieIsOneOfTheTiedMonths() throws {
+        let calendar = Calendar.current
+        let days = try [(3, 1), (3, 2), (8, 1), (8, 2), (10, 1)].map { month, day in
+            try XCTUnwrap(calendar.date(from: DateComponents(year: 2026, month: month, day: day)))
+        }
+
+        let payload = YearInReviewDaysVisitedSlideDataController.slideData(days: days, calendar: calendar)
+
+        XCTAssertEqual(payload.dayCount, 5)
+        let peakMonth = try XCTUnwrap(payload.peakMonth)
+        XCTAssertTrue([3, 8].contains(peakMonth.month))
+        XCTAssertEqual(peakMonth.dayCount, 2)
+    }
+
+    /// The same month in two years does not add up to one peak month. Together, the two Decembers have
+    /// four days and would be the peak month.
+    func testDaysVisitedCountsTheSameMonthOfTwoYearsApart() throws {
+        let calendar = Calendar.current
+        let days = try [(2025, 12, 1), (2025, 12, 2), (2026, 12, 1), (2026, 12, 2), (2026, 1, 1), (2026, 1, 2), (2026, 1, 3)].map { year, month, day in
+            try XCTUnwrap(calendar.date(from: DateComponents(year: year, month: month, day: day)))
+        }
+
+        let payload = YearInReviewDaysVisitedSlideDataController.slideData(days: days, calendar: calendar)
+
+        XCTAssertEqual(payload.peakMonth, DaysVisitedData.PeakMonth(month: 1, dayCount: 3))
+    }
+
+    func testDaysVisitedIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await daysVisitedPayload()
+
+        XCTAssertEqual(payload.dayCount, 0)
+        XCTAssertNil(payload.peakMonth)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    /// Inserts a second CDPage row for an article, with its own page view and topics. The app does not do this on
+    /// purpose, but CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can.
+    private func insertDuplicatePageRow(title: String, project: WMFProject, viewedAt timestamp: Date, topicLabels: [String]) async throws {
+        let store = try XCTUnwrap(store)
+        let context = try store.newBackgroundContext
+        try await context.perform {
+            let page = try store.create(entityType: CDPage.self, in: context)
+            page.title = title
+            page.namespaceID = 0
+            page.projectID = project.id
+            page.timestamp = timestamp
+
+            let pageView = try store.create(entityType: CDPageView.self, in: context)
+            pageView.timestamp = timestamp
+            pageView.page = page
+
+            for label in topicLabels {
+                let topic = try store.create(entityType: CDPageTopic.self, in: context)
+                topic.topic = label
+                topic.score = 0.9
+                topic.page = page
+            }
+
+            try store.saveIfNeeded(moc: context)
+        }
+    }
+
+    /// Duplicate page rows must not count one article twice, for the read count or for a topic.
+    func testTopTopicsCountsAnArticleWithDuplicatePageRowsOnce() async throws {
+        try await seedArticles(["Alpha", "Beta"], labels: ["STEM.Physics"])
+        try await seedArticles(["Gamma", "Delta"], labels: ["STEM.Biology"], month: 5)
+        let when = try date(month: 6, day: 1, hour: 10)
+        try await insertDuplicatePageRow(title: "Alpha", project: enProject, viewedAt: when, topicLabels: ["STEM.Physics"])
+        try await insertDuplicatePageRow(title: "Beta", project: enProject, viewedAt: when, topicLabels: ["STEM.Physics"])
+
+        let payload = try await topTopicsPayload()
+
+        // With each row counted, the user would have 6 articles read and 4 about physics, so the slide would be eligible.
+        XCTAssertEqual(payload.readCount, 4)
+        XCTAssertNil(payload.topTopic, "physics has 2 distinct articles, fewer than the top topic needs")
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testTopTopicsIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await topTopicsPayload()
+
+        XCTAssertEqual(payload.readCount, 0)
+        XCTAssertNil(payload.topTopic)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    // MARK: - mostReadCategories (niche interest)
+
+    /// Reads `articleCount` different articles and puts each one in the category.
+    /// `addCategories` needs the page to exist, so the page views come first.
+    private func seedCategory(_ categoryName: String, articleCount: Int) async throws {
+        let titles = (1...articleCount).map { "\(categoryName)_Article_\($0)" }
         try await seedPageViews(try titles.enumerated().map { index, title in
             pageView(title, at: try date(month: 8, day: 1 + index, hour: 11))
         })
 
         let categoriesDataController = try WMFCategoriesDataController()
-        for index in 1...6 {
-            try await categoriesDataController.addCategories(categories: ["Category_Number_\(index)"], articleTitle: "Article\(index)", project: enProject)
+        for title in titles {
+            try await categoriesDataController.addCategories(categories: [categoryName], articleTitle: title, project: enProject)
         }
-        try await categoriesDataController.addCategories(categories: ["Plain"], articleTitle: "ArticlePlain", project: enProject)
+    }
 
+    private func nicheCategoryPayload() async throws -> WMFYearInReviewNicheCategorySlideData {
         let controller = YearInReviewMostReadCategoriesSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
-        let categories = try decode([String].self, from: try await populatedPayload(controller))
-
-        XCTAssertEqual(categories.count, 5, "the slide shows at most five categories")
-        XCTAssertFalse(categories.contains("Plain"), "a name with fewer than two underscores is filtered out")
-        XCTAssertTrue(categories.allSatisfy { !$0.contains("_") }, "underscores become spaces")
+        let payload = try decode(WMFYearInReviewNicheCategorySlideData.self, from: try await populatedPayload(controller))
         XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    /// Only one category has 2 or more articles and 2 or more spaces, so the pick is not random here.
+    func testNicheInterestPrefersACategoryWithTwoSpacesAndTwoArticles() async throws {
+        try await seedCategory("Executed_female_serial_killers", articleCount: 2)
+        try await seedCategory("Plain", articleCount: 3)
+        try await seedCategory("Two_Words", articleCount: 3)
+        try await seedCategory("Single_Article_Category", articleCount: 1)
+
+        let payload = try await nicheCategoryPayload()
+
+        XCTAssertEqual(payload.categoryName, "Executed female serial killers", "underscores become spaces")
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testNicheInterestFallsBackToAnyCategoryWithTwoArticles() async throws {
+        try await seedCategory("Plain", articleCount: 2)
+        try await seedCategory("Two_Words", articleCount: 2)
+        try await seedCategory("Single_Article_Category", articleCount: 1)
+
+        let payload = try await nicheCategoryPayload()
+
+        let categoryName = try XCTUnwrap(payload.categoryName)
+        XCTAssertTrue(["Plain", "Two Words"].contains(categoryName), "a category with one article is never picked: \(categoryName)")
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testNicheInterestIsNotEligibleWhenNoCategoryHasTwoArticles() async throws {
+        try await seedCategory("Single_Article_Category", articleCount: 1)
+        try await seedCategory("Another_Single_Category", articleCount: 1)
+
+        let payload = try await nicheCategoryPayload()
+
+        XCTAssertNil(payload.categoryName)
+        XCTAssertFalse(payload.isEligible, "the slide does not show")
+    }
+
+    func testNicheInterestIsNotEligibleWithNoPageViews() async throws {
+        let payload = try await nicheCategoryPayload()
+
+        XCTAssertNil(payload.categoryName)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testNicheInterestSelectionIgnoresCategoriesWithOneArticle() {
+        var generator = SeededRandomNumberGenerator(seed: 1)
+        let counts: [(name: String, count: Int)] = [
+            (name: "One article with many words", count: 1),
+            (name: "Plain", count: 5)
+        ]
+
+        let name = YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: counts, using: &generator)
+
+        XCTAssertEqual(name, "Plain", "the category with many words has only one article, so the fallback uses Plain")
+    }
+
+    func testNicheInterestSelectionReturnsNilForNoCandidates() {
+        var generator = SeededRandomNumberGenerator(seed: 1)
+
+        XCTAssertNil(YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: [], using: &generator))
+        XCTAssertNil(YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: [(name: "Only one", count: 1)], using: &generator))
+    }
+
+    func testNicheInterestSelectionGivesTheSameResultForTheSameSeed() {
+        let counts: [(name: String, count: Int)] = [
+            (name: "Category one two", count: 2),
+            (name: "Category three four", count: 4),
+            (name: "Category five six", count: 3)
+        ]
+        let reversedCounts = Array(counts.reversed())
+
+        var first = SeededRandomNumberGenerator(seed: 42)
+        var second = SeededRandomNumberGenerator(seed: 42)
+        let firstName = YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: counts, using: &first)
+        let secondName = YearInReviewMostReadCategoriesSlideDataController.selectCategoryName(from: reversedCounts, using: &second)
+
+        XCTAssertNotNil(firstName)
+        XCTAssertEqual(firstName, secondName, "the order of the input does not change the result")
     }
 
     // MARK: - saveCount
@@ -571,6 +1021,150 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         } catch {
             XCTAssertFalse(controller.isEvaluated)
         }
+    }
+
+    // MARK: - rabbitHoles
+
+    private typealias RabbitHolesData = WMFYearInReviewRabbitHolesSlideData
+
+    private func rabbitHolesPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> RabbitHolesData {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        let payload = try decode(RabbitHolesData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    /// Opens each title from a link in the one before it, `minutesApart` apart, and returns the last page view.
+    @discardableResult
+    private func followLinks(_ titles: [String], from start: Date, minutesApart: Double = 5, namespaceIDs: [String: Int16] = [:], after previous: NSManagedObjectID? = nil) async throws -> NSManagedObjectID? {
+        let pageViewsDataController = try WMFPageViewsDataController()
+        var previousID = previous
+        for (index, title) in titles.enumerated() {
+            previousID = try await pageViewsDataController.addPageView(title: title, namespaceID: namespaceIDs[title] ?? 0, project: enProject, previousPageViewObjectID: previousID, timestamp: start.addingTimeInterval(Double(index) * minutesApart * 60))
+        }
+        return previousID
+    }
+
+    func testRabbitHolesAreTheTwoDeepestChainsDeepestFirst() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal", "Felidae", "Cat"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+        try await followLinks(["Rome", "Italy", "Pasta", "Wheat"], from: try date(month: 5, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Moon", "Rome"])
+        XCTAssertEqual(payload.rabbitHoles.map(\.lastArticle.title), ["Cat", "Wheat"])
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [5, 4], "the count includes the first and the last article")
+        XCTAssertEqual(payload.rabbitHoles.first?.firstArticle.project, enProject)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testRabbitHolesNeedThreeArticlesAndTwoRabbitHoles() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Paris", "France"], from: try date(month: 4, day: 1, hour: 9))
+        try await followLinks(["Rome"], from: try date(month: 5, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Moon"], "two articles are not a rabbit hole")
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testRabbitHolesAreNotEligibleWithNoPageViews() async throws {
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertTrue(payload.rabbitHoles.isEmpty)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testMoreThanAnHourBetweenArticlesEndsTheRabbitHole() async throws {
+        let last = try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        // Continues from Mammal 61 minutes later, so Felidae starts a new rabbit hole.
+        try await followLinks(["Felidae", "Cat", "Lion"], from: try date(month: 3, day: 1, hour: 9).addingTimeInterval(10 * 60 + 61 * 60), after: last)
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [3, 3])
+        XCTAssertEqual(Set(payload.rabbitHoles.map(\.firstArticle.title)), ["Moon", "Felidae"])
+    }
+
+    func testAnHourBetweenArticlesContinuesTheRabbitHole() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9), minutesApart: 60)
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [3])
+    }
+
+    func testAPageOutsideTheMainNamespaceEndsTheRabbitHole() async throws {
+        try await followLinks(["Moon", "Earth", "Talk:Earth", "Mammal", "Felidae", "Cat"], from: try date(month: 3, day: 1, hour: 9), namespaceIDs: ["Talk:Earth": 1])
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Mammal"], "a rabbit hole cannot start or end on a talk page")
+        XCTAssertEqual(payload.rabbitHoles.map(\.lastArticle.title), ["Cat"])
+    }
+
+    func testMainPagesEndTheRabbitHole() async throws {
+        try await followLinks(["Main_Page", "Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Hauptseite", "Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let payload = try await rabbitHolesPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(Set(payload.rabbitHoles.map(\.firstArticle.title)), ["Moon", "Paris"])
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [3, 3])
+        XCTAssertEqual(identifier.requestedProjectIDs, [enProject.id], "the main page is asked once for each wiki")
+    }
+
+    func testTwoBranchesFromOneArticleAreOneRabbitHole() async throws {
+        let earth = try await followLinks(["Moon", "Earth"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Mammal", "Felidae", "Cat"], from: try date(month: 3, day: 1, hour: 9).addingTimeInterval(10 * 60), after: earth)
+        try await followLinks(["Ocean", "Whale"], from: try date(month: 3, day: 1, hour: 9).addingTimeInterval(30 * 60), after: earth)
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.lastArticle.title), ["Cat"], "the deepest branch is the rabbit hole")
+        XCTAssertEqual(payload.rabbitHoles.map(\.articleCount), [5])
+    }
+
+    func testATieGoesToTheMoreRecentRabbitHole() async throws {
+        try await followLinks(["Moon", "Earth", "Mammal"], from: try date(month: 3, day: 1, hour: 9))
+        try await followLinks(["Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+        try await followLinks(["Rome", "Italy", "Pasta"], from: try date(month: 5, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Rome", "Paris"])
+    }
+
+    func testRabbitHolesIgnoreViewsOutsideTheInsightsRange() async throws {
+        let outside = try XCTUnwrap(Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 1, hour: 9)))
+        try await followLinks(["Moon", "Earth", "Mammal"], from: outside)
+        try await followLinks(["Paris", "France", "Europe"], from: try date(month: 4, day: 1, hour: 9))
+
+        let payload = try await rabbitHolesPayload()
+
+        XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Paris"])
+    }
+}
+
+/// A random number generator that gives the same numbers for the same seed. Tests use it to make a random pick repeatable.
+private struct SeededRandomNumberGenerator: RandomNumberGenerator {
+    private var state: UInt64
+
+    init(seed: UInt64) {
+        state = seed
+    }
+
+    mutating func next() -> UInt64 {
+        state &+= 0x9E3779B97F4A7C15
+        var value = state
+        value = (value ^ (value >> 30)) &* 0xBF58476D1CE4E5B9
+        value = (value ^ (value >> 27)) &* 0x94D049BB133111EB
+        return value ^ (value >> 31)
     }
 }
 

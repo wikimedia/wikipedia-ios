@@ -953,8 +953,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
 
-        SearchFunnel.shared.logSearchDidYouMean(source: "places")
-
         performSearch(search)
     }
 
@@ -2153,11 +2151,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                     return
                 }
 
-                if let suggestion = searchResult.searchSuggestion {
-                    DDLogDebug("got suggestion! \(suggestion)")
-                }
-
-                let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
+                let completions = self.handleCompletion(searchResults: searchResult.results, siteURL: siteURL)
                 self.isWaitingForSearchSuggestionUpdate = false
                 guard completions.count < 10 else {
                     return
@@ -2170,7 +2164,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                         guard text == searchBar.text else {
                             return
                         }
-                        var combinedResults: [MWKSearchResult] = searchResult.results ?? []
+                        var combinedResults: [MWKSearchResult] = searchResult.results
                         let newResults = locationSearchResults.results as [MWKSearchResult]
                         combinedResults.append(contentsOf: newResults)
                         _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)

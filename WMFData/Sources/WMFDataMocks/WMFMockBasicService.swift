@@ -139,9 +139,11 @@ fileprivate extension WMFData.WMFServiceRequest {
 public final class WMFMockBasicService: WMFService {
     
     private let overrideJSONResourceName: String?
+    private let responseHeaders: [String: String]
     
-    public init(jsonResourceName: String? = nil) {
+    public init(jsonResourceName: String? = nil, responseHeaders: [String: String] = [:]) {
         self.overrideJSONResourceName = jsonResourceName
+        self.responseHeaders = responseHeaders
     }
     
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
@@ -183,6 +185,13 @@ public final class WMFMockBasicService: WMFService {
         }
         
         completion(.success(response))
+    }
+    
+    public func performDecodableGETWithResponse<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<WMFServiceResponse<T>, Error>) -> Void) {
+        let responseHeaders = responseHeaders
+        performDecodableGET(request: request) { (result: Result<T, Error>) in
+            completion(result.map { WMFServiceResponse(value: $0, headers: responseHeaders) })
+        }
     }
     
     public func performDecodablePOST<R, T>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
