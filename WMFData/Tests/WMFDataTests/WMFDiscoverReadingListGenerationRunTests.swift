@@ -189,4 +189,35 @@ final class WMFDiscoverReadingListGenerationRunTests {
             #expect(try await controller.fetchStoredRecommendations(includeExpired: true).isEmpty, "a stopped run stores nothing")
         }
     }
+
+    // MARK: - A run after a stopped run
+
+    /// A stopped run can still be inside its write. The next run starts its work after the stopped
+    /// run has ended, so the two never write the list at the same time. The service here keeps a
+    /// cancelled request open, like a request already handed to the network.
+    @Test(.timeLimit(.minutes(1)))
+    func aRunStartsAfterTheStoppedRunHasEnded() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let service = WMFHangingBasicService(stopsOnCancel: false)
+            let controller = makeHangingController(service: service)
+            try await controller.saveSettings(enabledSettings)
+
+            let stoppedRun = Task { try await controller.generateRecommendations() }
+            await service.waitForFirstRequest()
+            var newSettings = enabledSettings
+            newSettings.articleCount = 3
+            try await controller.saveSettings(newSettings)
+            #expect(await controller.isGenerating == false)
+
+            let nextRun = Task { try await controller.generateRecommendations() }
+            service.failPendingRequests()
+            _ = try? await stoppedRun.value
+            _ = try? await nextRun.value
+
+            #expect(service.requestCount > 1, "the next run made its requests")
+            #expect(service.openRequestCount(whenRequestStarted: 2) == 0, "the next run started its requests after the stopped run ended")
+            #expect(await controller.isGenerating == false)
+        }
+    }
 }

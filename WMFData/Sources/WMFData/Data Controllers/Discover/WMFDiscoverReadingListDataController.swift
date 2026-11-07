@@ -232,6 +232,10 @@ public actor WMFDiscoverReadingListDataController {
     /// The generation in flight. Overlapping callers wait for it instead of starting a second one.
     private var generationTask: Task<[WMFDiscoverRecommendedPage], Error>?
 
+    /// The run that a settings change stopped. It can still be inside a write, so the next run
+    /// starts its work after it ends.
+    private var stoppedGenerationTask: Task<[WMFDiscoverRecommendedPage], Error>?
+
     /// True while a list is generated. The Saved tab shows the card in its generating state.
     public var isGenerating: Bool {
         generationTask != nil
@@ -254,7 +258,16 @@ public actor WMFDiscoverReadingListDataController {
             return try await list(from: generationTask)
         }
 
-        let generationTask = Task { try await fetchAndPersistList(now: now) }
+        let stoppedGenerationTask = self.stoppedGenerationTask
+        let generationTask = Task {
+            if let stoppedGenerationTask {
+                _ = try? await stoppedGenerationTask.value
+                if self.stoppedGenerationTask == stoppedGenerationTask {
+                    self.stoppedGenerationTask = nil
+                }
+            }
+            return try await fetchAndPersistList(now: now)
+        }
         self.generationTask = generationTask
         postListStateDidChange()
 
@@ -290,8 +303,11 @@ public actor WMFDiscoverReadingListDataController {
     }
 
     private func cancelGeneration() {
-        generationTask?.cancel()
-        generationTask = nil
+        guard let generationTask else { return }
+        
+        generationTask.cancel()
+        stoppedGenerationTask = generationTask
+        self.generationTask = nil
     }
 
     private func fetchAndPersistList(now: Date) async throws -> [WMFDiscoverRecommendedPage] {
@@ -324,12 +340,11 @@ public actor WMFDiscoverReadingListDataController {
             throw DiscoverReadingListError.recommendationsUnavailable
         }
 
+        let orderedList = Array(picked.shuffled().prefix(targetCount))
+
         // A stopped run must not touch the previous list.
         try Task.checkCancellation()
-        try await expireAllRecommendations()
-
-        let orderedList = Array(picked.shuffled().prefix(targetCount))
-        try await persistGeneratedList(orderedList, now: now)
+        try await replaceRecommendations(with: orderedList, now: now)
 
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverGeneratedListInputs.rawValue, value: inputs)
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue, value: now)

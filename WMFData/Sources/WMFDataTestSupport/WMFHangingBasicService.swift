@@ -4,31 +4,55 @@ import WMFData
 
 /// A service whose requests never answer on their own. A test uses it to hold a run open, see
 /// that the run started, and then stop it: a cancelled request fails with `URLError.cancelled`,
-/// like a `URLSessionDataTask` does.
+/// like a `URLSessionDataTask` does. With `stopsOnCancel` false the request stays open after a
+/// cancel, like a request already handed to the network, until `failPendingRequests()`.
 public final class WMFHangingBasicService: WMFService {
 
     private struct State {
         var requestCount = 0
-        var firstRequestWaiters: [CheckedContinuation<Void, Never>] = []
+        /// The failure closure of each open request, by request number.
+        var openRequests: [Int: @Sendable (Error) -> Void] = [:]
+        var failsNewRequests = false
+        /// The number of open requests when each request started, in request order.
+        var openRequestCountsAtStart: [Int] = []
+        var requestCountWaiters: [(count: Int, continuation: CheckedContinuation<Void, Never>)] = []
     }
 
     private let state = OSAllocatedUnfairLock(initialState: State())
+    private let stopsOnCancel: Bool
 
-    public init() {}
+    public init(stopsOnCancel: Bool = true) {
+        self.stopsOnCancel = stopsOnCancel
+    }
 
     /// The number of requests that started so far.
     public var requestCount: Int {
         state.withLock { $0.requestCount }
     }
 
+    /// The number of requests still open when the request with this one-based number started.
+    public func openRequestCount(whenRequestStarted requestNumber: Int) -> Int? {
+        state.withLock { state in
+            guard requestNumber >= 1, requestNumber <= state.openRequestCountsAtStart.count else {
+                return nil
+            }
+            return state.openRequestCountsAtStart[requestNumber - 1]
+        }
+    }
+
     /// Returns once the first request has started. Returns at once when it did already.
     public func waitForFirstRequest() async {
+        await waitForRequest(count: 1)
+    }
+
+    /// Returns once `count` requests have started. Returns at once when they did already.
+    public func waitForRequest(count: Int) async {
         await withCheckedContinuation { continuation in
             let startedAlready = state.withLock { state in
-                if state.requestCount > 0 {
+                if state.requestCount >= count {
                     return true
                 }
-                state.firstRequestWaiters.append(continuation)
+                state.requestCountWaiters.append((count, continuation))
                 return false
             }
             if startedAlready {
@@ -37,41 +61,79 @@ public final class WMFHangingBasicService: WMFService {
         }
     }
 
-    private func recordRequest() {
-        let waiters = state.withLock { state in
+    /// Fails every open request with `URLError.cancelled`, and every request that starts later
+    /// fails at once.
+    public func failPendingRequests() {
+        let failures = state.withLock { state in
+            state.failsNewRequests = true
+            let failures = Array(state.openRequests.values)
+            state.openRequests = [:]
+            return failures
+        }
+        for failure in failures {
+            failure(URLError(.cancelled))
+        }
+    }
+
+    /// Records the request. Returns the closure that fails it, or nil when the request failed at once.
+    private func recordRequest(failure: @escaping @Sendable (Error) -> Void) -> (@Sendable () -> Void)? {
+        let (requestNumber, waiters, failsAtOnce) = state.withLock { state in
             state.requestCount += 1
-            let waiters = state.firstRequestWaiters
-            state.firstRequestWaiters = []
-            return waiters
+            let requestNumber = state.requestCount
+            state.openRequestCountsAtStart.append(state.openRequests.count)
+            if !state.failsNewRequests {
+                state.openRequests[requestNumber] = failure
+            }
+            let reached = state.requestCountWaiters.filter { $0.count <= requestNumber }
+            state.requestCountWaiters.removeAll { $0.count <= requestNumber }
+            return (requestNumber, reached, state.failsNewRequests)
         }
         for waiter in waiters {
-            waiter.resume()
+            waiter.continuation.resume()
         }
+        if failsAtOnce {
+            failure(URLError(.cancelled))
+            return nil
+        }
+        return { [weak self] in
+            self?.failRequest(number: requestNumber)
+        }
+    }
+
+    /// Fails one open request. Does nothing when the request failed already.
+    private func failRequest(number requestNumber: Int) {
+        let failure = state.withLock { state in
+            state.openRequests.removeValue(forKey: requestNumber)
+        }
+        failure?(URLError(.cancelled))
     }
 
     // MARK: - WMFService
 
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
-        recordRequest()
+        _ = recordRequest { completion(.failure($0)) }
     }
 
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
-        recordRequest()
+        _ = recordRequest { completion(.failure($0)) }
     }
 
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
-        recordRequest()
+        _ = recordRequest { completion(.failure($0)) }
     }
 
     public func performCancellableDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) -> WMFURLSessionDataTask? {
-        recordRequest()
-        return WMFHangingDataTask {
-            completion(.failure(URLError(.cancelled)))
+        guard let cancel = recordRequest(failure: { completion(.failure($0)) }) else {
+            return nil
         }
+        guard stopsOnCancel else {
+            return WMFHangingDataTask(onCancel: {})
+        }
+        return WMFHangingDataTask(onCancel: cancel)
     }
 
     public func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
-        recordRequest()
+        _ = recordRequest { completion(.failure($0)) }
     }
 
     public func clearCachedData() {}
