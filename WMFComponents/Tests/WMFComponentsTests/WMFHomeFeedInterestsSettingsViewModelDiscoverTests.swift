@@ -62,6 +62,22 @@ final class WMFHomeFeedInterestsSettingsViewModelDiscoverTests {
         }
     }
 
+    // MARK: - Leaving
+
+    /// The screen tells the view model when it leaves for good. The Discover store passes that on,
+    /// so the coordinator learns about Back.
+    @Test
+    func leavingTheScreenReachesTheDiscoverStore() async throws {
+        let store = WMFDiscoverInterestsStore(interests: .empty, dataController: try await makeDiscoverDataController())
+        var leaveCount = 0
+        store.didLeaveScreen = { leaveCount += 1 }
+        let viewModel = makeViewModel(homeDataController: makeHomeDataController(), discoverInterestsStore: store)
+
+        viewModel.didLeave()
+
+        #expect(leaveCount == 1)
+    }
+
     // MARK: - Subtitle
 
     @Test

@@ -6,7 +6,7 @@ import WMFNativeLocalizations
 
 /// Owns the Discover interests screen. Get started and the Discover settings both push it.
 /// Done commits the interests on the screen and tells the caller. Done is off while no interest
-/// is selected. Back pops the screen and keeps the saved interests as they were.
+/// is selected. Back pops the screen, keeps the saved interests as they were and tells the caller.
 final class DiscoverInterestsCoordinator: NSObject, Coordinator {
 
     let navigationController: UINavigationController
@@ -16,9 +16,14 @@ final class DiscoverInterestsCoordinator: NSObject, Coordinator {
     /// Called on Done, after the interests on the screen are committed. The caller decides what
     /// happens to the screen and saves interests as the source.
     var didFinish: (() -> Void)?
+    /// Called when the screen goes away without Done: Back, or Settings closing over it. The
+    /// caller undoes the change that opened the screen.
+    var didGoBack: (() -> Void)?
 
     private(set) weak var interestsViewController: WMFHomeFeedInterestsSettingsViewController?
     private(set) var isFinishing = false
+    private(set) var finishTask: Task<Void, Never>?
+    private var didCommit = false
 
     init(
         navigationController: UINavigationController,
@@ -44,7 +49,11 @@ final class DiscoverInterestsCoordinator: NSObject, Coordinator {
         return true
     }
 
-    private func showInterests(store: WMFDiscoverInterestsStore) {
+    func showInterests(store: WMFDiscoverInterestsStore) {
+        store.didLeaveScreen = { [weak self] in
+            guard let self, !self.didCommit else { return }
+            self.didGoBack?()
+        }
         let language = WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let searchLanguages = dataStore.languageLinkController.preferredLanguages.map {
             WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode)
@@ -74,10 +83,11 @@ final class DiscoverInterestsCoordinator: NSObject, Coordinator {
     func finish(store: WMFDiscoverInterestsStore) {
         guard !store.interests.isEmpty, !isFinishing else { return }
         isFinishing = true
-        Task { [weak self] in
+        finishTask = Task { [weak self] in
             do {
                 try await store.commit()
                 self?.isFinishing = false
+                self?.didCommit = true
                 self?.didFinish?()
             } catch {
                 self?.isFinishing = false

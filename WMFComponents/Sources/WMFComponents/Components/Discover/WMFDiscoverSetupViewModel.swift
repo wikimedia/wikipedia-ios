@@ -129,6 +129,12 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
         pendingSource = nil
     }
 
+    /// Back on the interests screen that Adjust to interests opened. Nothing was saved, so the
+    /// row shows the saved source again.
+    public func undoChooseInterests() {
+        selectedSource = persistedSource
+    }
+
     /// Saves the settings with the new source and reports the change against the source the
     /// screen opened with. The task keeps only the data controller and the closure.
     private func commitSource(_ source: WMFDiscoverSource) {
