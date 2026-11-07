@@ -133,6 +133,8 @@ extension APIReadingListEntry {
 public class ReadingListsAPIController: Fetcher {
     private let builder = Configuration.current.pageContentServiceBuilder(withWikiHost: "en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
+    /// Entries per page of the entries endpoint. The server default is 10, the maximum is 100. Every page is one request.
+    static let entriesPageSize = 100
     var lastRequestType: APIReadingListRequestType?
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
@@ -537,9 +539,9 @@ public class ReadingListsAPIController: Fetcher {
     }
     
     public func getAllEntriesForReadingListWithID(next: String? = nil, entries: [APIReadingListEntry] = [], readingListID: Int64, completion: @escaping ([APIReadingListEntry], Error?) -> Swift.Void ) {
-        var queryParameters: [String: Any]? = nil
+        var queryParameters: [String: Any] = ["limit": ReadingListsAPIController.entriesPageSize]
         if let next = next {
-            queryParameters = ["next": next]
+            queryParameters["next"] = next
         }
         // "" for trailing slash is required, server 404s otherwise
         get(path: ["\(readingListID)", "entries", ""], queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in

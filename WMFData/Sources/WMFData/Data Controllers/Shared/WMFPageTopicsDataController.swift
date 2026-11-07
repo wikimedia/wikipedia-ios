@@ -201,6 +201,45 @@ public final class WMFPageTopicsDataController: Sendable {
         }
     }
 
+    /// The distinct articles in the user's reading history for the period that have at least one stored topic.
+    /// An article read repeatedly appears once, also when it has more than one page row.
+    public func fetchReadPagesWithTopics(startDate: Date, endDate: Date) async throws -> [WMFPageWithTopics] {
+
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform { [weak self] () -> [WMFPageWithTopics] in
+
+            guard let self else { return [] }
+
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && page.topics.@count > 0", startDate as CVarArg, endDate as CVarArg)
+
+            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: backgroundContext) else {
+                return []
+            }
+
+            // CDPage has no uniqueness constraint, so one article can have more than one row. Group the
+            // rows by article and merge their labels, so each article occurs one time.
+            var topicLabelsByPage: [WMFPage: Set<String>] = [:]
+            for page in Set(pageViews.compactMap(\.page)) {
+                guard let projectID = page.projectID,
+                      let title = page.title,
+                      let cdTopics = page.topics as? Set<CDPageTopic> else {
+                    continue
+                }
+
+                let wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
+                topicLabelsByPage[wmfPage, default: []].formUnion(cdTopics.compactMap(\.topic))
+            }
+
+            return topicLabelsByPage.compactMap { page, topicLabels in
+                guard !topicLabels.isEmpty else {
+                    return nil
+                }
+                return WMFPageWithTopics(page: page, topicLabels: Array(topicLabels))
+            }
+        }
+    }
+
     /// Articles in the user's reading history for the period that belong to `topic`, most recently read first.
     /// An article read repeatedly appears once, at its most recent view.
     public func fetchPages(forTopic topic: String, startDate: Date, endDate: Date, limit: Int) async throws -> [WMFPageWithTimestamp] {

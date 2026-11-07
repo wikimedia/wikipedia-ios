@@ -14,7 +14,23 @@ jobs:
         PR_BODY: ${{ github.event.pull_request.body }}
       run: |
         message="${{ github.actor }} ${{ github.event.action }} ${{ github.event.pull_request._links.html.href }}"
-        echo -e "${PR_BODY}" | grep -oEi "(^Bug:\s*T[0-9]+)|(^([*]*phabricator[*]*:[*]*\s*)?https:\/\/phabricator\.wikimedia\.org\/T[0-9]+)" | grep -oEi "T[0-9]+" | while IFS= read -r line; do
+        # Same acceptance as the release workflows (v2_deploy_*): a full URL, a URL
+        # with no scheme, or a bare task ID, one or several, separated by spaces,
+        # newlines or commas. "Bug: T12345" keeps working. "N/A" matches nothing.
+        python3 - <<'PYEOF' | while IFS= read -r line; do
+        import os
+        import re
+        body = os.environ.get('PR_BODY', '')
+        ids = []
+        for section in re.findall(
+          r'\*{0,2}Phabricator:\*{0,2}\s*((?:(?:https?://)?(?:phabricator\.wikimedia\.org/)?T\d+[\s,]*)+)',
+          body, re.IGNORECASE
+        ):
+          ids.extend(re.findall(r'T(\d+)', section, re.IGNORECASE))
+        ids.extend(re.findall(r'^Bug:\s*T(\d+)', body, re.IGNORECASE | re.MULTILINE))
+        for i in dict.fromkeys(ids):
+          print(f'T{i}')
+        PYEOF
           echo "Processing: $line"
           curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
               https://phabricator.wikimedia.org/api/maniphest.edit \

@@ -1,6 +1,5 @@
 #import <WMF/WMF-Swift.h>
 #import <WMF/WMFCrossProcessCoreDataSynchronizer.h>
-#import "WMFAnnouncement.h"
 
 @import CoreData;
 @import WMFData;
@@ -1038,7 +1037,18 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 }
 
 - (void)authenticationManagerWillLogOutWithCompletionHandler:(void (^)(void))completionHandler {
-    [self.notificationsController authenticationManagerWillLogOut:completionHandler];
+    // Cancel any in-flight reading list sync before the cookies are removed, otherwise an authenticated
+    // response arriving after logout can recreate the centralauth_User cookie (T430460)
+    dispatch_block_t stopReadingListSync = ^{
+        [self.readingListsController stop:^{
+            [self.notificationsController authenticationManagerWillLogOut:completionHandler];
+        }];
+    };
+    if (NSThread.isMainThread) {
+        stopReadingListSync();
+    } else {
+        dispatch_async(dispatch_get_main_queue(), stopReadingListSync);
+    }
 }
 
 - (void)authenticationManagerDidLogin {

@@ -23,7 +23,8 @@ extension PreferredLanguagesRobot {
     @discardableResult
     func assertPreferredLanguage(_ languageCode: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
         let preferredLanguageCell = base.app.cells[AccessibilityIdentifiers.LanguageSelection.preferredLanguage(languageCode)]
-        base.assertExists(preferredLanguageCell, file: file, line: line)
+        // A newly added language appears only after the language picker dismisses and the list reloads.
+        base.assertExists(preferredLanguageCell, timeout: 15, file: file, line: line)
         return self
     }
 }

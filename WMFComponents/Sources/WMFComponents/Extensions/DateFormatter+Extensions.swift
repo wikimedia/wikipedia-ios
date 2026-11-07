@@ -10,6 +10,14 @@ public extension DateFormatter {
 		return dateFormatter
 	}()
 
+	/// Short date and short time in the device locale: e.g. `10/2/26, 10:52 PM`
+	static let wmfShortDateShortTimeFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		return dateFormatter
+	}()
+
 	/// Full date only: e.g. `Tuesday, August 22, 2023`
 	static var wmfFullDateFormatter = {
 		let dateFormatter = DateFormatter()

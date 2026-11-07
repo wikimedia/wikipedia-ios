@@ -39,6 +39,9 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
         descriptionTextField.enablesReturnKeyAutomatically = true
         titleTextField.delegate = self
         descriptionTextField.delegate = self
+        titleTextField.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.titleTextField
+        descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.descriptionTextField
+        articleCountLabel.accessibilityIdentifier = AccessibilityIdentifiers.ReadingListDetail.articleCountLabel
         alertTitleLabel?.numberOfLines = 0
         alertMessageLabel?.numberOfLines = 0
         updateFonts()

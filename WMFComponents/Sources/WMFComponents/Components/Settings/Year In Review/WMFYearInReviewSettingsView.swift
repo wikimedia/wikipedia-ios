@@ -44,6 +44,16 @@ public struct WMFYearInReviewSettingsView: View {
         .navigationTitle(viewModel.localizedStrings.title)
         .navigationBarTitleDisplayMode(.inline)
         .environment(\.colorScheme, theme.preferredColorScheme)
+        .alert(viewModel.localizedStrings.turnOffAlertTitle, isPresented: $viewModel.isShowingTurnOffAlert) {
+            Button(viewModel.localizedStrings.turnOffAlertConfirmTitle, role: .destructive) {
+                viewModel.confirmTurnOff()
+            }
+            Button(viewModel.localizedStrings.turnOffAlertCancelTitle, role: .cancel) {
+                viewModel.cancelTurnOff()
+            }
+        } message: {
+            Text(viewModel.localizedStrings.turnOffAlertMessage)
+        }
     }
 
     // MARK: - Rows

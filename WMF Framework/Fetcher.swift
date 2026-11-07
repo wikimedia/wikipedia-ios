@@ -464,7 +464,7 @@ extension Fetcher {
         }
 
         guard HTTPStatusCode.isSuccessful(httpResponse.statusCode) else {
-            throw RequestError.http(httpResponse.statusCode)
+            throw RequestError.from(response: httpResponse)
         }
 
         return try JSONDecoder().decode(T.self, from: data)

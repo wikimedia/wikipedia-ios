@@ -104,6 +104,16 @@ class ReadingListsTests: XCTestCase {
         
     }
     
+    func testCreatingReadingListPicksPreviewArticlesOnlyFromArticlesWithImages() throws {
+        let articleWithImage = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Foo")!))
+        articleWithImage.imageURLString = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/640px-Example.jpg"
+        let articleWithoutImage = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Bar")!))
+
+        let readingList = try dataStore.readingListsController.createReadingList(named: "foo", description: nil, with: [articleWithImage, articleWithoutImage])
+
+        XCTAssertEqual(readingList.previewArticles?.array as? [WMFArticle], [articleWithImage])
+    }
+
     func testAddingArticlesToExistingReadingList() {
         let readingListName = "foo"
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
@@ -228,6 +238,18 @@ class ReadingListsTests: XCTestCase {
 
         XCTAssertFalse(readingListsController.syncState.contains(.needsRemoteDisable), "Logout must clear a pending remote disable")
         XCTAssertFalse(readingListsController.isSyncEnabled)
+    }
+
+    func testAuthenticationManagerWillLogOutStopsSyncBeforeCompleting() throws {
+        let delegate = try XCTUnwrap(dataStore as? WMFAuthenticationManagerDelegate, "MWKDataStore should be the authentication manager's delegate")
+        let logoutMayProceed = expectation(description: "will log out completion")
+        DispatchQueue.global().async {
+            delegate.authenticationManagerWillLogOut {
+                XCTAssertTrue(Thread.isMainThread)
+                logoutMayProceed.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 10)
     }
 
     private func runSyncOperation(timeout: TimeInterval = 30) throws {

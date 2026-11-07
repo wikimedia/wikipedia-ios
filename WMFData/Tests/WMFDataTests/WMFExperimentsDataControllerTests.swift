@@ -123,7 +123,8 @@ final class WMFExperimentsDataControllerTests {
             .moreDynamicTabsV2: 50,
             .yirLoginPrompt: 50,
             .donationReminder: 33,
-            .semanticSearch: 50
+            .semanticSearch: 50,
+            .discover: 50
         ]
 
         for experiment in WMFExperimentsDataController.Experiment.allCases {

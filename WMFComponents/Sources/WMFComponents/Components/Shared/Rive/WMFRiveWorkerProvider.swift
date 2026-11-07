@@ -13,6 +13,10 @@ enum WMFRiveError: LocalizedError {
     }
 }
 
+/// Makes the instance that the state machine binds, after the file and the artboard load and before
+/// the state machine is made. `nil` gets the default instance of the file.
+typealias WMFRiveBindingsMaker = @MainActor (File, Artboard) async -> ViewModelInstance?
+
 @MainActor
 enum WMFRiveWorkerProvider {
 
@@ -24,25 +28,18 @@ enum WMFRiveWorkerProvider {
     // TEMPORARY: drop with the inventory dump below once the .riv paths are settled.
     private static var didDumpInventory = false
 
+    /// The files export SF Pro, which the app must not bundle. Thus the app supplies the system font.
     private static let systemFontSubstitutions: [String: UIFont] = [
         "SanSerifFont": .systemFont(ofSize: 17, weight: .bold),
         // The list subtitles use this face. The export renames SF Pro Regular.
-        "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular),
-        // TEMPORARY: New York stands in for Linux Libertine to prove the mechanism.
-        // Design must either embed the real serif on export or approve this substitute.
-        "SerifFont": serifSystemFont(ofSize: 17)
+        "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular)
     ]
 
-    /// The system font that the app supplies for a font asset of the .riv, or `nil` if it supplies none.
-    static func substituteFont(forAssetNamed name: String) -> UIFont? {
-        systemFontSubstitutions[name]
-    }
-
-    private static func serifSystemFont(ofSize size: CGFloat) -> UIFont {
-        let base = UIFont.systemFont(ofSize: size)
-        guard let descriptor = base.fontDescriptor.withDesign(.serif) else { return base }
-        return UIFont(descriptor: descriptor, size: size)
-    }
+    /// EB Garamond Medium, under the SIL Open Font License, for the "SerifFont" of the export. It is
+    /// the static Medium of Google Fonts, the font that the templates file shows since v7.
+    private static let bundledFontURLs: [String: URL] = [
+        "SerifFont": Bundle.module.url(forResource: "EBGaramond-Medium", withExtension: "ttf")
+    ].compactMapValues { $0 }
 
     static func sharedWorker() async throws -> Worker {
         if let worker {
@@ -78,33 +75,31 @@ enum WMFRiveWorkerProvider {
         try await sharedWorker().decodeImage(from: data)
     }
 
-    static func makeRive(for animation: WMFRiveAnimation) async throws -> Rive {
+    /// Loads the file and binds the instance from `bindings` when it makes the state machine.
+    /// A `nil` artboard or state machine name gives the default of the file.
+    ///
+    /// Do not bind other instances after this. A script in the .riv gets its view models in its
+    /// `init`, which runs when the state machine is made, and it keeps them. Write new values on the
+    /// instance that `bindings` returned.
+    static func makeRive(for animation: WMFRiveAnimation, bindings: WMFRiveBindingsMaker) async throws -> Rive {
         let worker = try await sharedWorker()
         let file = try await File(source: .local(animation.resourceName, .module), worker: worker)
 
-        await supplySystemFonts(for: file, on: worker, animation: animation)
+        await supplyFonts(for: file, on: worker, animation: animation)
 
         #if DEBUG
         // TEMPORARY: prints the file's artboards, view models and property paths.
         await dumpInventory(of: file, named: animation.resourceName)
         #endif
 
-        var artboard: Artboard?
-        var stateMachine: StateMachine?
-
-        if animation.artboardName != nil || animation.stateMachineName != nil {
-            let resolved = try await file.createArtboard(animation.artboardName)
-            artboard = resolved
-            if let stateMachineName = animation.stateMachineName {
-                stateMachine = try await resolved.createStateMachine(stateMachineName)
-            }
-        }
+        let artboard = try await file.createArtboard(animation.artboardName)
+        let main = await bindings(file, artboard)
+        let stateMachine = try await artboard.createStateMachine(animation.stateMachineName, binding: main)
 
         return try await Rive(
             file: file,
             artboard: artboard,
             stateMachine: stateMachine,
-            dataBind: .auto,
             fit: .layout(scaleFactor: .automatic),
             backgroundColor: Color(red: 0, green: 0, blue: 0, alpha: 0)
         )
@@ -114,7 +109,7 @@ enum WMFRiveWorkerProvider {
         return Bundle.module.url(forResource: animation.resourceName, withExtension: "riv") != nil
     }
 
-    private static func supplySystemFonts(for file: File, on worker: Worker, animation: WMFRiveAnimation) async {
+    private static func supplyFonts(for file: File, on worker: Worker, animation: WMFRiveAnimation) async {
         let assets: [File.Asset]
         do {
             assets = try await file.getAssets()
@@ -124,15 +119,21 @@ enum WMFRiveWorkerProvider {
         }
 
         for asset in assets where asset.type == .font {
-            guard let substitute = systemFontSubstitutions[asset.name] else { continue }
             guard !suppliedFontAssets.contains(asset.uniqueName) else { continue }
 
             do {
-                let font = try await worker.decodeFont(from: substitute)
+                let font: RiveRuntime.Font
+                if let systemFont = systemFontSubstitutions[asset.name] {
+                    font = try await worker.decodeFont(from: systemFont)
+                } else if let url = bundledFontURLs[asset.name] {
+                    font = try await worker.decodeFont(from: Data(contentsOf: url))
+                } else {
+                    continue
+                }
                 worker.addGlobalFontAsset(font, name: asset.uniqueName)
                 suppliedFontAssets.insert(asset.uniqueName)
             } catch {
-                log(.font, animation, "Could not supply a system font for \"\(asset.uniqueName)\": \(error.localizedDescription)")
+                log(.font, animation, "Could not supply a font for \"\(asset.uniqueName)\": \(error.localizedDescription)")
             }
         }
     }

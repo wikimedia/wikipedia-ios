@@ -26,11 +26,16 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+#if UITEST
+private let wmfUITestCentralAuthUsername = "WMFUITestCentralAuthUsername"
+#endif
 private let wmfLegacyDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 private let wmfLegacyDefaultTabTypeSettingsValue = 1 // the old `WMFAppDefaultTabType.settings`
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
+private let wmfSuppressYearInReviewAnnouncementForTesting = "WMFSuppressYearInReviewAnnouncementForTesting"
 private let wmfSuppressHomeOnboardingForTesting = "WMFSuppressHomeOnboardingForTesting"
+private let wmfUITestDiscoverState = "WMFUITestDiscoverState"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -60,10 +65,19 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var _settingsViewController: SettingsTabViewController?
     private var homeCoordinator: HomeCoordinator?
 
+    /// True when this activation was started by a deep link. Set by SceneDelegate, which resets it at
+    /// the start of each foreground cycle. Home reads it to hold back modals.
+    var didOpenAppFromExternalLink = false {
+        didSet {
+            homeCoordinator?.homeViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
+        }
+    }
+
     /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
     var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
     private var _searchTabViewController: SearchViewController?
-    private var _savedViewController: SavedViewController?
+    private var _savedViewController: WMFSavedHostingController?
+    private var savedCoordinator: SavedCoordinator?
     private var _placesViewController: PlacesViewController?
     private var _activityTabViewController: WMFActivityTabViewController?
 
@@ -75,7 +89,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var unprocessedShortcutItem: UIApplicationShortcutItem?
 
     private var backgroundTasks: [String: UIBackgroundTaskIdentifier] = [:]
-    private var yearInReviewPopulateTask: Task<Void, Never>?
     private let backgroundTasksLock = NSLock()
     
     private var isWaitingToResumeApp: Bool = false
@@ -93,7 +106,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     var syncStartDate: Date?
     
-    var savedTabBarItemProgressBadgeManager: SavedTabBarItemProgressBadgeManager?
+    var savedTabBadgeController: SavedTabBadgeController?
     
     private var hasSyncErrorBeenShownThisSession: Bool = false
     
@@ -207,6 +220,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(userWasLoggedOut(_:)),
                                                name: WMFAuthenticationManager.didLogOutNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(generateDiscoverReadingListIfNeeded),
+                                               name: WMFNSNotification.coreDataStoreSetup,
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
@@ -354,7 +372,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         searchTabViewController.apply(theme: theme)
 
         if let savedTabBarItem = savedViewController.tabBarItem {
-            savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+            savedTabBadgeController = SavedTabBadgeController(
+                tabBarItem: savedTabBarItem,
+                tabBar: tabBar,
+                theme: theme,
+                userInterfaceIdiom: traitCollection.userInterfaceIdiom
+            )
         }
 
         updateActivityTabYearInReviewBadge()
@@ -365,12 +388,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
         let homeViewController = coordinator.makeHomeViewController()
+        homeViewController.didOpenAppFromExternalLink = didOpenAppFromExternalLink
         let nav1 = rootNavigationController(with: homeViewController)
         coordinator.attach(navigationController: nav1)
         homeCoordinator = coordinator
-
         let nav2 = rootNavigationController(with: placesViewController)
         let nav3 = rootNavigationController(with: savedViewController)
+        savedCoordinator?.attach(navigationController: nav3)
         let nav4 = rootNavigationController(with: activityTabViewController)
         let nav5 = rootNavigationController(with: searchTabViewController)
         let rootNavigationControllers = [nav1, nav2, nav3, nav4, nav5]
@@ -457,10 +481,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        savedTabBadgeController?.refreshDiscover()
+        generateDiscoverReadingListIfNeeded()
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()
-        populateYearInReviewReportIfNeeded()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
         savedArticlesFetcher?.start()
@@ -500,6 +525,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     @objc private func appDidEnterBackgroundWithNotification(_ note: Notification) {
         guard uiIsLoaded else { return }
+        ClientErrorFunnel.shared.flushRateLimitSummaries()
         startPauseAppBackgroundTask()
         DispatchQueue.main.async {
             self.pauseApp()
@@ -839,6 +865,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             self.setupTips()
+            WMFToastPresenter.shared.startObservingKeyboard()
             self.setupWMFDataEnvironment()
             self.setupWMFDataCoreDataStore()
 
@@ -878,6 +905,25 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dataStore.languageLinkController.resetPreferredLanguages()
         }
 
+        #if TEST || UITEST
+        UITestReadingListsSeeder(dataStore: dataStore).applyIfNeeded()
+        #endif
+
+        #if UITEST
+        // The flags persist in user defaults, so each launch states what it needs: "groupB" shows
+        // the onboarding card again, "off" turns Discover off, and no value keeps the previous state.
+        switch UserDefaults.standard.string(forKey: wmfUITestDiscoverState) {
+        case "groupB":
+            WMFDeveloperSettingsDataController.shared.enableDiscover = true
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+            try? WMFDiscoverDataController.shared.resetAnnouncement()
+        case "off":
+            WMFDeveloperSettingsDataController.shared.enableDiscover = false
+        default:
+            break
+        }
+        #endif
+
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
             try? WMFDataEnvironment.current.userDefaultsStore?.save(
                 key: WMFUserDefaultsKey.hasSeenActivityTabOnboarding.rawValue,
@@ -887,6 +933,30 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
+        }
+
+        #if UITEST
+        // The cookie persists across launches, so an empty value clears what a previous test left behind.
+        if let centralAuthUsername = UserDefaults.standard.string(forKey: wmfUITestCentralAuthUsername) {
+            if centralAuthUsername.isEmpty {
+                dataStore.session.setCentralAuthUserCookieForTesting(nil)
+            } else {
+                KeychainCredentialsManager.shared.username = nil
+                KeychainCredentialsManager.shared.password = nil
+                dataStore.session.setCentralAuthUserCookieForTesting(centralAuthUsername)
+            }
+        }
+        #endif
+
+        // The Year in Review announcement is a sheet that appears once per install, which for a
+        // fresh UI-test install means once per test, at an unpredictable moment. Mark it as seen.
+        // Written straight to the store: WMFYearInReviewDataController() throws while the Core Data
+        // store is still being set up, which `try?` would hide.
+        if UserDefaults.standard.bool(forKey: wmfSuppressYearInReviewAnnouncementForTesting) {
+            try? WMFDataEnvironment.current.userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.seenYearInReview2026FeatureAnnouncement.rawValue,
+                value: true
+            )
         }
 
         // UI tests launch as an existing reader, so the one-time "Explore is now Home" sheet would cover Home.
@@ -1048,7 +1118,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             resumeAndAnnouncementsCompleteGroup.enter()
-            dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true) {
+            dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true) {
                 resumeAndAnnouncementsCompleteGroup.leave()
             }
         }
@@ -1170,7 +1240,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
         var timeInterval: TimeInterval = 2 * 60 * 60
-        let key = WMFFeedDayResponse.wmfFeedDayResponseMaxAgeKey()
+        let key = WMFFeedDayResponse.maxAgeKey()
         if let value = dataStore.viewContext.wmf_numberValue(forKey: key) {
             timeInterval = value.doubleValue
         }
@@ -1423,11 +1493,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         
         guard let _savedArticlesFetcher else {
             let fetcher = SavedArticlesFetcher(dataStore: dataStore)
+            // The initial KVO callback reads this property, so set it before the observer starts.
+            _savedArticlesFetcher = fetcher
             fetcher?.addObserver(self,
                                 forKeyPath: #keyPath(SavedArticlesFetcher.progress),
                                 options: [.initial, .new, .old],
                                 context: &kvoSavedArticlesFetcherProgress)
-            _savedArticlesFetcher = fetcher
             return fetcher
         }
         
@@ -1512,24 +1583,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
     }
 
-    /// Fills the Year in Review report in the background, so the slides can read it when they open.
-    /// The data controller checks the remote config, the active dates, the Settings toggle and the country.
-    private func populateYearInReviewReportIfNeeded() {
-        guard yearInReviewPopulateTask == nil else {
-            return
-        }
-
-        yearInReviewPopulateTask = Task { [weak self] in
-            guard let self else { return }
-            do {
-                try await YearInReviewCoordinator.populateReport(dataStore: dataStore)
-            } catch {
-                DDLogError("Error populating the Year in Review report: \(error)")
-            }
-            yearInReviewPopulateTask = nil
-        }
-    }
-
     @objc func handleNotificationsCenterContextDidSave() {
         DispatchQueue.main.async {
             try? UNUserNotificationCenter.current().setBadgeCount(self.dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue)
@@ -1553,15 +1606,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         return _searchTabViewController
     }
 
-    var savedViewController: SavedViewController {
+    var savedViewController: WMFSavedHostingController {
         
         guard let _savedViewController else {
-            guard let vc = UIStoryboard(name: "Saved", bundle: nil).instantiateInitialViewController() as? SavedViewController else {
-                fatalError("Unable to instantiate Saved View Controller")
-            }
-            vc.apply(theme: theme)
-            vc.dataStore = dataStore
-            vc.tabBarDelegate = self
+            let coordinator = SavedCoordinator(theme: theme, dataStore: dataStore)
+            let vc = coordinator.makeSavedViewController()
+            savedCoordinator = coordinator
             vc.tabBarItem.image = UIImage(named: "tabbar-save")
             vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.savedButton
             vc.title = WMFCommonStringsWrapper.savedTabTitle
@@ -1977,7 +2027,7 @@ extension WMFAppViewController: Themeable {
         }
         
         placesViewController.apply(theme: theme)
-        savedViewController.apply(theme: theme)
+        savedCoordinator?.theme = theme
         searchTabViewController.apply(theme: theme)
 
         applyTheme(theme, toPresentedViewController: presentedViewController)
@@ -1985,6 +2035,7 @@ extension WMFAppViewController: Themeable {
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
         tabBar.apply(theme: theme)
+        savedTabBadgeController?.apply(theme: theme)
 
         UISwitch.appearance().onTintColor = theme.colors.accent
 
@@ -2145,10 +2196,15 @@ extension WMFAppViewController {
     }
 
     func showImportedReadingList(_ readingList: ReadingList) {
+        showReadingList(readingList, fromImport: true)
+    }
+
+    /// Closes any modal, then opens the reading list on top of the Saved tab root.
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
         dismissPresentedViewControllers()
         selectedIndex = WMFAppTabType.saved.rawValue
         currentTabNavigationController?.popToRootViewController(animated: false)
-        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: true, theme: theme)
+        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
         currentTabNavigationController?.pushViewController(detailVC, animated: true)
     }
 
@@ -2231,7 +2287,7 @@ extension WMFAppViewController {
             NavigationEventsFunnel.shared.logTappedHome()
         } else if rootViewController is PlacesViewController {
             NavigationEventsFunnel.shared.logTappedPlaces()
-        } else if rootViewController is SavedViewController {
+        } else if rootViewController is WMFSavedHostingController {
             NavigationEventsFunnel.shared.logTappedSaved()
         } else if rootViewController is WMFActivityTabViewController {
             NavigationEventsFunnel.shared.logTappedActivityTab()
@@ -2252,7 +2308,7 @@ extension WMFAppViewController {
             UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)
@@ -2266,7 +2322,7 @@ extension WMFAppViewController {
             self.homeCoordinator?.homeViewController?.updateProfileButton()
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)
@@ -2378,7 +2434,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
 
 // MARK: - Year in Review badge glyph
 
-/// Matches `SavedTabBarItemProgressBadgeManager`, which badges its tab with this same glyph.
+/// Matches `SavedTabBadgeController`, which badges its tab with this same glyph.
 private let wmfYearInReviewTabBadgeGlyph = "\u{2605}"
 
 private extension UITabBarItem {
