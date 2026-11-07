@@ -2034,14 +2034,20 @@ extension WMFAppViewController: Themeable {
 
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
-        tabBar.apply(theme: theme)
-        savedTabBadgeController?.apply(theme: theme)
+        applyTabBarTheme(theme)
 
         UISwitch.appearance().onTintColor = theme.colors.accent
 
         readingListHintPresenter.apply(theme: theme)
 
         setNeedsStatusBarAppearanceUpdate()
+    }
+
+    /// Themes the tab bar and puts the Saved tab badge style back on top of the new appearance.
+    /// `UITabBar.apply(theme:)` alone replaces the appearance that the badge controller wrote.
+    func applyTabBarTheme(_ theme: Theme) {
+        tabBar.apply(theme: theme)
+        savedTabBadgeController?.apply(theme: theme)
     }
 
     @objc private func updateAppThemeIfNecessary() {

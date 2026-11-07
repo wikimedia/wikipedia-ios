@@ -310,8 +310,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     private func updateTabBarAppearance(for tab: WMFHomeViewModel.Tab) {
-        guard #unavailable(iOS 26.0), let tabBar = tabBarController?.tabBar else { return }
-        tabBar.apply(theme: tab == .forYou ? .black : theme)
+        guard #unavailable(iOS 26.0), let appViewController = tabBarController as? WMFAppViewController else { return }
+        appViewController.applyTabBarTheme(tab == .forYou ? .black : theme)
     }
 
     // MARK: - Languages
