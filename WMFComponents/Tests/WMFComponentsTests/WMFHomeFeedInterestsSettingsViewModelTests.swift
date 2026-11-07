@@ -226,7 +226,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         let added = viewModel.addSearchResult(result)
 
         #expect(added == true)
-        #expect(viewModel.gridViewModels.first?.id == "Einstein")
+        #expect(viewModel.gridViewModels.first?.id == WMFInterestArticleCardViewModel.identifier(title: "Einstein", project: project))
         #expect(viewModel.gridViewModels.first?.isSelected == true)
         #expect(viewModel.selectedCount == 1)
         #expect(viewModel.hasChanges == true)
@@ -254,6 +254,23 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
 
         #expect(viewModel.gridViewModels.count == 1)
         #expect(existing.isSelected == true)
+    }
+
+    /// The same title on another wiki is another article. Selecting it must add a card, not tick
+    /// the card of the first wiki.
+    @Test
+    func addSearchResultKeepsTheSameTitleFromAnotherWiki() {
+        let viewModel = makeViewModel(searchLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil), spanishLanguage])
+        let english = makeCard(pageid: 1, title: "Paris", isSelected: true)
+        viewModel.gridViewModels = [english]
+
+        viewModel.selectSearchLanguage(spanishLanguage)
+        let added = viewModel.addSearchResult(makeSearchResult(pageID: 2, namespace: 0, title: "Paris"))
+
+        #expect(added == true)
+        #expect(viewModel.gridViewModels.count == 2)
+        #expect(viewModel.gridViewModels.first?.project == .wikipedia(spanishLanguage))
+        #expect(viewModel.gridViewModels.allSatisfy { $0.isSelected })
     }
 
     @Test
@@ -413,7 +430,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         viewModel.buildGrid(from: articles)
 
         #expect(viewModel.gridViewModels.count == 25)
-        #expect(viewModel.gridViewModels.first?.id == "Saved")
+        #expect(viewModel.gridViewModels.first?.id == WMFInterestArticleCardViewModel.identifier(title: "Saved", project: project))
     }
 
     // MARK: - Persistence

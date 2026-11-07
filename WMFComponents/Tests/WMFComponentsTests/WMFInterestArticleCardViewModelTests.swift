@@ -66,6 +66,16 @@ struct WMFInterestArticleCardViewModelTests {
         #expect(fromArticle.id == fromInterest.id)
     }
 
+    /// Discover suggests articles from every app language, so Paris on the English wiki and Paris
+    /// on the French wiki are two interests, not one.
+    @Test
+    func idSeparatesTheSameTitleOnTwoWikis() {
+        let frenchProject = WMFProject.wikipedia(WMFLanguage(languageCode: "fr", languageVariantCode: nil))
+        let english = WMFInterestArticleCardViewModel(title: "Paris", project: project, isSelected: true)
+        let french = WMFInterestArticleCardViewModel(title: "Paris", project: frenchProject, isSelected: true)
+        #expect(english.id != french.id)
+    }
+
     // MARK: - Description
 
     @Test

@@ -40,6 +40,10 @@ final class WMFHomeFeedInterestsSettingsViewModelDiscoverTests {
         return WMFHomeFeedInterestsSettingsViewModel(dataController: homeDataController, discoverInterestsStore: discoverInterestsStore, searchDataController: searchDataController, project: englishProject, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
     }
 
+    private func englishID(_ title: String) -> String {
+        WMFInterestArticleCardViewModel.identifier(title: title, project: englishProject)
+    }
+
     private func makeCard(_ title: String, isSelected: Bool = false) -> WMFInterestArticleCardViewModel {
         let article = WMFRandomArticle(pageid: title.hashValue, title: title, displayTitle: nil, variantTitles: nil, description: nil, extract: nil, thumbnail: nil)
         return WMFInterestArticleCardViewModel(article: article, project: englishProject, isSelected: isSelected)
@@ -92,7 +96,7 @@ final class WMFHomeFeedInterestsSettingsViewModelDiscoverTests {
         let viewModel = makeViewModel(homeDataController: makeHomeDataController(), discoverInterestsStore: store)
         try await waitForGrid(viewModel)
 
-        let card = viewModel.gridViewModels.first { $0.id == "Marie_Curie" }
+        let card = viewModel.gridViewModels.first { $0.id == englishID("Marie_Curie") }
         #expect(card?.isSelected == true)
         #expect(viewModel.selectedCount == 1)
     }
@@ -139,7 +143,7 @@ final class WMFHomeFeedInterestsSettingsViewModelDiscoverTests {
         let viewModel = makeViewModel(homeDataController: makeHomeDataController(), discoverInterestsStore: store)
         try await waitForGrid(viewModel)
 
-        let card = try #require(viewModel.gridViewModels.first { $0.id == "Purr" })
+        let card = try #require(viewModel.gridViewModels.first { $0.id == englishID("Purr") })
         viewModel.toggleArticleSelection(card)
         try await store.commit()
 
@@ -155,7 +159,7 @@ final class WMFHomeFeedInterestsSettingsViewModelDiscoverTests {
         let viewModel = makeViewModel(homeDataController: makeHomeDataController(), discoverInterestsStore: store)
         try await waitForGrid(viewModel)
 
-        let card = try #require(viewModel.gridViewModels.first { $0.id == "Purr" })
+        let card = try #require(viewModel.gridViewModels.first { $0.id == englishID("Purr") })
         viewModel.toggleArticleSelection(card)
         try await store.commit()
 
@@ -179,7 +183,7 @@ final class WMFHomeFeedInterestsSettingsViewModelDiscoverTests {
         #expect(viewModel.selectedCount == 0)
         #expect(try await dataController.fetchInterests() == WMFDiscoverInterests(topics: [.music], pages: [WMFDiscoverInterests.Page(title: "Purr", project: englishProject)]), "an empty set is never committed")
 
-        let card = try #require(viewModel.gridViewModels.first { $0.id == "Purr" })
+        let card = try #require(viewModel.gridViewModels.first { $0.id == englishID("Purr") })
         viewModel.toggleArticleSelection(card)
         try await store.commit()
 
@@ -203,7 +207,7 @@ final class WMFHomeFeedInterestsSettingsViewModelDiscoverTests {
             try await waitForGrid(viewModel)
 
             let ids = viewModel.gridViewModels.map { $0.id }
-            #expect(Array(ids.prefix(3)) == ["Chosen", "Newer_Read", "Older_Read"])
+            #expect(Array(ids.prefix(3)) == ["Chosen", "Newer_Read", "Older_Read"].map(englishID))
             #expect(viewModel.gridViewModels[0].isSelected)
             #expect(!viewModel.gridViewModels[1].isSelected)
             #expect(viewModel.gridViewModels.count >= WMFHomeFeedInterestsSettingsViewModel.minimumSuggestedCards)

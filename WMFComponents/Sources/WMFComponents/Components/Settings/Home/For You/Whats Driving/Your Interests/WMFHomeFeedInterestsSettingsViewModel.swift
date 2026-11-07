@@ -259,8 +259,10 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
                 let results = try await searchDataController.search(term: term, project: .wikipedia(language))
                 guard !Task.isCancelled else { return }
                 self.searchRows = results.map { result in
-                    let alreadySelected = self.gridViewModels.contains { $0.id == result.title.normalizedForCoreData && $0.isSelected }
-                    let card = WMFInterestArticleCardViewModel(searchResult: result, project: .wikipedia(language), isSelected: alreadySelected)
+                    let resultProject = WMFProject.wikipedia(language)
+                    let resultID = WMFInterestArticleCardViewModel.identifier(title: result.title, project: resultProject)
+                    let alreadySelected = self.gridViewModels.contains { $0.id == resultID && $0.isSelected }
+                    let card = WMFInterestArticleCardViewModel(searchResult: result, project: resultProject, isSelected: alreadySelected)
                     return SearchRow(id: result.pageID, result: result, card: card)
                 }
             } catch {
@@ -312,8 +314,9 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     private func appendToGrid(_ articles: [WMFRandomArticle]) {
         var shownIDs = Set(gridViewModels.map { $0.id })
         for article in articles where gridViewModels.count < Self.maxGridArticles {
-            guard shownIDs.insert(article.title.normalizedForCoreData).inserted else { continue }
-            gridViewModels.append(WMFInterestArticleCardViewModel(article: article, project: project))
+            let card = WMFInterestArticleCardViewModel(article: article, project: project)
+            guard shownIDs.insert(card.id).inserted else { continue }
+            gridViewModels.append(card)
         }
     }
 
