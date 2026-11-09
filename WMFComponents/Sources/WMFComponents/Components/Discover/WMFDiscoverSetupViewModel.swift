@@ -1,9 +1,10 @@
 import Foundation
 import WMFData
 
+@MainActor
 public protocol WMFDiscoverSetupLoggingDelegate: AnyObject {
-    @MainActor func discoverSetupDidAppear()
-    @MainActor func discoverSetupDidTapContinue(source: WMFDiscoverSource)
+    func discoverSetupDidAppear()
+    func discoverSetupDidTapContinue(source: WMFDiscoverSource)
 }
 
 /// The first Discover setup screen: how the reading list picks its articles.

@@ -1,10 +1,11 @@
 import Foundation
 import WMFData
 
+@MainActor
 public protocol WMFDiscoverAnnouncementLoggingDelegate: AnyObject {
-    @MainActor func discoverAnnouncementDidAppear()
-    @MainActor func discoverAnnouncementDidTapGetStarted()
-    @MainActor func discoverAnnouncementDidTapNoThanks()
+    func discoverAnnouncementDidAppear()
+    func discoverAnnouncementDidTapGetStarted()
+    func discoverAnnouncementDidTapNoThanks()
 }
 
 /// The onboarding card that introduces Discover on the Saved tab. One instance is shared by the
