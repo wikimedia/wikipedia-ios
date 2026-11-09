@@ -91,6 +91,21 @@ final class DiscoverInterestsCoordinatorTests: XCTestCase {
         XCTAssertEqual(saved.pages.map(\.title), ["Cat"])
     }
 
+    /// After the commit the screen closes, but the caller can still be at work: Get started saves
+    /// the settings before it pushes the list. A tap in that window must not report again.
+    func testATapAfterTheCommitDoesNothing() async throws {
+        let store = makeStore(titles: ["Cat"])
+
+        coordinator.finish(store: store)
+        await waitUntil { self.finishCount > 0 }
+        XCTAssertEqual(finishCount, 1)
+        XCTAssertTrue(coordinator.isFinishing, "the coordinator stays finished, so a tap starts no second commit")
+
+        coordinator.finish(store: store)
+        await Task.yield()
+        XCTAssertEqual(finishCount, 1)
+    }
+
     // MARK: - Back on the interests screen
 
     /// The screen goes away without Done. The caller undoes the change that opened the screen.

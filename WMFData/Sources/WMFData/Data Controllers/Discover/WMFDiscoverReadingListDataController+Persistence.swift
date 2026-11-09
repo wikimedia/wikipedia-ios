@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import os
 
 extension WMFDiscoverReadingListDataController {
 
@@ -58,7 +59,9 @@ extension WMFDiscoverReadingListDataController {
 
     /// Expires the current list and writes the new one in display order, in one transaction, so a
     /// stop between the two never leaves the reader without a list. A candidate that was recommended
-    /// before reuses its row.
+    /// before reuses its row. A run stopped before the save throws `CancellationError`, and the
+    /// previous list stays. Only a stop that arrives during the save itself lands the new list;
+    /// the next check replaces it then.
     func replaceRecommendations(with candidates: [Candidate], now: Date) async throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -66,10 +69,20 @@ extension WMFDiscoverReadingListDataController {
 
         let context = try coreDataStore.newBackgroundContext
 
-        try await context.perform {
-            try Self.expireAllRecommendations(coreDataStore: coreDataStore, in: context)
-            try Self.insertRecommendations(candidates, now: now, coreDataStore: coreDataStore, in: context)
-            try coreDataStore.saveIfNeeded(moc: context)
+        // The transaction runs on the context queue, outside the task, so it cannot read
+        // `Task.isCancelled`. The handler records the stop for it.
+        let isStopped = OSAllocatedUnfairLock(initialState: false)
+        try await withTaskCancellationHandler {
+            try await context.perform {
+                try Self.expireAllRecommendations(coreDataStore: coreDataStore, in: context)
+                try Self.insertRecommendations(candidates, now: now, coreDataStore: coreDataStore, in: context)
+                guard !isStopped.withLock({ $0 }) else {
+                    throw CancellationError()
+                }
+                try coreDataStore.saveIfNeeded(moc: context)
+            }
+        } onCancel: {
+            isStopped.withLock { $0 = true }
         }
     }
 

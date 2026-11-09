@@ -87,9 +87,10 @@ public actor WMFDiscoverReadingListDataController {
 
     /// Persists the settings. A new source or a new article count throws the current list away
     /// on the next generation check, like on Android, and stops a generation in flight, so Undo on
-    /// the source toast never lets a list for the undone source land. A new cadence keeps the
-    /// current list. A changed setting posts `discoverListStateDidChange`, so the Saved tab follows
-    /// the switch at once.
+    /// the source toast does not let a list for the undone source land. A run stopped during its
+    /// save can still store its list; the next check replaces it, because the inputs differ. A new
+    /// cadence keeps the current list. A changed setting posts `discoverListStateDidChange`, so
+    /// the Saved tab follows the switch at once.
     public func saveSettings(_ newSettings: WMFDiscoverSettings) throws {
         guard let userDefaultsStore else {
             throw DiscoverReadingListError.missingUserDefaultsStore
@@ -344,6 +345,9 @@ public actor WMFDiscoverReadingListDataController {
         try Task.checkCancellation()
         try await replaceRecommendations(with: orderedList, now: now)
 
+        // A stop during the save lands the list without its inputs, so the next check replaces it
+        // and the Saved tab shows no dot for it.
+        try Task.checkCancellation()
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverGeneratedListInputs.rawValue, value: inputs)
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverLastGeneratedDate.rawValue, value: now)
         try userDefaultsStore?.save(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue, value: true)
