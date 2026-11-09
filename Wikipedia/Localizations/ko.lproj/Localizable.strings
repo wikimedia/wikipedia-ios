@@ -270,8 +270,6 @@
 "clearing-cache-error" = "캐시를 지우는 동안 오류가 발생했습니다.";
 "clearing-cache-in-progress" = "캐시를 지우는 중입니다.";
 "close-all-tabs" = "모든 탭 닫기";
-"close-all-tabs-confirmation" = "탭 $1개를 모두 닫으시겠습니까? 이 작업은 되돌릴 수 없습니다.";
-"close-all-tabs-confirmation-number" = "탭 $1개를 모두 닫으시겠습니까?";
 "close-all-tabs-confirmation-subtitle-with-value" = "{{PLURAL:$1|탭 $1개}}를 모두 닫으시겠습니까? 이 작업은 되돌릴 수 없습니다.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|탭 $1개}}를 닫으시겠습니까?";
 "close-button-accessibility-label" = "닫기";
@@ -390,7 +388,6 @@
 "donate-accessibility-monthly-recurring-hint" = "이 금액의 자동 월간 기부를 활성화하려면 두 번 탭하세요.";
 "donate-accessibility-textfield-hint" = "기부용 맞춤 금액을 입력하세요.";
 "donate-accessibility-transaction-fee-hint" = "기부 금액에 거래 수수료를 추가하려면 두 번 탭하세요.";
-// Fuzzy
 "donate-already-donated" = "기부해 주셔서 감사합니다! 당신의 관대한 선택으로 위키백과와 다른 자유 지식 프로젝트의 발전에 큰 힘이 되었습니다.";
 "donate-apple-fine-print" = "애플은 이 목적으로 자금을 모으는 일을 맡지 않습니다.";
 "donate-email-opt-in-text" = "네, 위키미디어 재단에서 가끔 이메일을 보내드릴 수 있게 됩니다.";
@@ -1114,8 +1111,6 @@
 "reading-list-api-error-generic" = "읽기 목록을 동기화하는 동안 예측하지 못한 오류가 발생했습니다.";
 "reading-list-api-error-list-limit" = "동기화된 목록 수 제한에 도달했기 때문에 이 목록은 동기화되지 않습니다.";
 "reading-list-create-new-list-button-title" = "읽기 목록 만들기";
-"reading-list-create-new-list-description" = "설명";
-"reading-list-create-new-list-reading-list-name" = "읽기 목록 이름";
 "reading-list-create-new-list-title" = "새 목록 만들기";
 "reading-list-deleted-accessibility-notification" = "읽기 목록을 삭제했습니다";
 "reading-list-detail-search-placeholder" = "읽기 목록 검색";
