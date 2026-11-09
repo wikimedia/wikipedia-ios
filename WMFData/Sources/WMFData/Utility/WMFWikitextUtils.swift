@@ -44,11 +44,7 @@ public struct WMFWikitextUtils {
         for match in matches {
             let score = scoreForMatch(match: match, wikitext: wikitext, htmlWordsBeforeTargetText: htmlWordsBeforeTargetText, htmlWordsAfterTargetText: htmlWordsAfterTargetText)
             
-            if var bestScore,
-               score > bestScore {
-                bestScore = score
-                bestScoredMatch = match
-            } else if bestScoredMatch == nil {
+            if score > (bestScore ?? Int.min) {
                 bestScore = score
                 bestScoredMatch = match
             }

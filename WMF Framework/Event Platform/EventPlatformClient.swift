@@ -3,7 +3,7 @@
  *
  * DESCRIPTION
  *     Collects events in an input buffer, adds some metadata, places them in an
- *     ouput buffer where they are periodically bursted to a remote endpoint via
+ *     output buffer where they are periodically bursted to a remote endpoint via
  *     HTTP POST.
  *
  *     Designed for use with Wikipedia iOS application producing events to a
