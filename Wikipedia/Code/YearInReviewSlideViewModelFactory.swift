@@ -73,17 +73,14 @@ struct YearInReviewSlideViewModelFactory {
     /// The days visited, rabbit hole and niche interest slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
+    ///
+    /// Also returns what "Share highlights" on the end screen shares. The slides and the highlights come
+    /// from one read of the stored report, so the image cannot show other data than the slides. The
+    /// highlights are `nil` in the collective flow, and when the developer settings force the empty
+    /// states, because then the reader saw no highlights.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
-    func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
-        makeSlidesAndHighlights(experience: experience, isLoggedIn: isLoggedIn, forcesAllEmptyStates: forcesAllEmptyStates).slides
-    }
-
-    /// The slides and what "Share highlights" on the end screen shares. Both come from one read of the
-    /// stored report, so the image cannot show other data than the slides. The highlights are `nil` in
-    /// the collective flow, and when the developer settings force the empty states, because then the
-    /// reader saw no highlights. See `makeSlides` for the parameters.
     func makeSlidesAndHighlights(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> (slides: [WMFYearInReviewSlideViewModel], highlights: WMFYearInReviewHighlights?) {
         // Each stored value is a fetch and a decode of the report, on the main thread, so read them once.
         let personalizedData = experience == .personalized && !forcesAllEmptyStates ? storedPersonalizedData() : nil
