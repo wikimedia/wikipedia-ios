@@ -16,8 +16,7 @@ import Foundation
         try? WMFPageViewsDataController()
     }
 
-    // Accessed only from `nonisolated` UserDefaults helpers below; WMFKeyValueStore is not Sendable.
-    nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
+    nonisolated private let userDefaultsStore: WMFKeyValueStore?
 
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
     private var communityFetchedDates: [WMFProject: [Date]] = [:]
@@ -623,7 +622,7 @@ import Foundation
 
     /// Fetches random articles for display when no interest topics have been selected.
     public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
-        return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
+        return try await WMFRandomDataController(basicService: basicService).fetchRandomArticles(project: project)
     }
 
     /// Fetches articles matching a specific interest topic, reading from the warm cache when available.

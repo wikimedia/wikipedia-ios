@@ -151,7 +151,8 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
-    public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
+    /// Saved pages, newest first, up to `limit`.
+    public func fetchTimelinePages(limit: Int = 1000) async throws -> [WMFPageWithTimestamp] {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -169,7 +170,7 @@ public actor WMFSavedArticlesDataController {
                 let pages: [CDPage] = try coreDataStore.fetch(
                     entityType: CDPage.self,
                     predicate: predicate,
-                    fetchLimit: 1000,
+                    fetchLimit: limit,
                     sortDescriptors: [sortDescriptor],
                     in: context
                 )
