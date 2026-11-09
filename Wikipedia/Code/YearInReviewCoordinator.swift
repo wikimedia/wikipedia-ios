@@ -598,8 +598,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         Task { @MainActor [weak self, weak presenter] in
             defer { self?.isExportingShareImage = false }
             // ImageRenderer only runs on the main actor, so the drawing cannot move to another thread.
-            // Yield first, so that the tap ends and the button shows its pressed state before the drawing.
-            await Task.yield()
             guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: layoutDirection) else {
                 DDLogError("Could not make the Year in Review highlights image")
                 WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
