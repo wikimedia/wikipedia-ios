@@ -64,7 +64,11 @@ public struct WMFRiveView: View {
             .onAppear {
                 // Before the load, so the first frame already has the layout direction.
                 viewModel.update(enums: enums)
+                viewModel.update(showsSettledState: showsSettledState)
                 viewModel.loadIfNeeded()
+            }
+            .onChange(of: showsSettledState) {
+                viewModel.update(showsSettledState: showsSettledState)
             }
             .onChange(of: environmentLayoutDirection) {
                 viewModel.update(enums: enums)
@@ -101,6 +105,12 @@ public struct WMFRiveView: View {
             }
     }
 
+    /// Not a pause: a paused view does not draw the images that arrive after the load, or the
+    /// changes after a tap.
+    private var showsSettledState: Bool {
+        reduceMotion || !playAnimatedImages
+    }
+
     private var enums: [WMFRiveEnum: String] {
         guard let layoutDirection else { return [:] }
         return [layoutDirection.property: layoutDirection.value(for: environmentLayoutDirection)]
@@ -126,7 +136,7 @@ public struct WMFRiveView: View {
 
     private var representable: RiveUIViewRepresentable {
         var representable = RiveUIViewRepresentable(rive: viewModel.rive)
-            .paused(reduceMotion || !playAnimatedImages || !isPlaying)
+            .paused(!isPlaying)
 
         if let frameRate {
             representable = representable.frameRate(.fps(frameRate))
