@@ -195,6 +195,8 @@ public struct WMFYearInReviewEndView: View {
                 Text(title)
                     // Scales with Dynamic Type, the same as the body copy above, up to a cap so the button stays on the screen.
                     .font(Font(WMFFont.for(.body, sized: min(dynamicTypeSize, Self.shareHighlightsMaximumTypeSize))))
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.horizontal, 20)
         }
@@ -203,7 +205,9 @@ public struct WMFYearInReviewEndView: View {
                 kind: .primary,
                 layout: .hug,
                 // Always light, so the colors do not change in dark mode: the link color on white text.
-                theme: WMFTheme.light
+                theme: WMFTheme.light,
+                // Large text and translations on two lines make the title taller than the default height.
+                growsWithContent: true
             )
         )
         .onGeometryChange(for: CGRect.self) { proxy in
