@@ -34,9 +34,12 @@ final class WMFReadingListsViewModelTests: XCTestCase {
         }
     }
 
-    private func waitForLog(count: Int) async {
-        for _ in 0..<50 where delegate.log.count < count {
-            try? await Task.sleep(nanoseconds: 10_000_000)
+    /// Runs `deletion` and returns after the view model has reported the deletion. The view model
+    /// reports after the data controller has deleted the lists and before it closes editing.
+    private func deleteAndWaitForTheReport(_ deletion: () -> Void) async {
+        await withCheckedContinuation { continuation in
+            loggingDelegate.onDelete = { continuation.resume() }
+            deletion()
         }
     }
 
@@ -119,9 +122,10 @@ final class WMFReadingListsViewModelTests: XCTestCase {
 
     func testDeletingAnEmptyListNeedsNoConfirmation() async {
         let viewModel = await makeViewModel(lists: [list("Zoology")])
-        viewModel.requestDeletion(of: viewModel.readingLists)
-        XCTAssertNil(viewModel.pendingDeletion)
-        await waitForLog(count: 1)
+        await deleteAndWaitForTheReport {
+            viewModel.requestDeletion(of: viewModel.readingLists)
+            XCTAssertNil(viewModel.pendingDeletion)
+        }
         XCTAssertEqual(delegate.log, ["delete Zoology"])
         XCTAssertEqual(loggingDelegate.deletedCounts, [1])
     }
@@ -137,8 +141,9 @@ final class WMFReadingListsViewModelTests: XCTestCase {
         XCTAssertTrue(delegate.log.isEmpty)
 
         viewModel.requestDeletion(of: viewModel.readingLists)
-        viewModel.confirmPendingDeletion()
-        await waitForLog(count: 1)
+        await deleteAndWaitForTheReport {
+            viewModel.confirmPendingDeletion()
+        }
         XCTAssertEqual(delegate.log, ["delete Zoology"])
     }
 
@@ -147,8 +152,9 @@ final class WMFReadingListsViewModelTests: XCTestCase {
         viewModel.toggleEditing()
         viewModel.toggleSelection(for: viewModel.readingLists[1])
         viewModel.toggleSelection(for: viewModel.readingLists[2])
-        viewModel.deleteSelectedReadingLists()
-        await waitForLog(count: 1)
+        await deleteAndWaitForTheReport {
+            viewModel.deleteSelectedReadingLists()
+        }
         XCTAssertEqual(delegate.log, ["delete animals,Zoology"])
         XCTAssertEqual(loggingDelegate.deletedCounts, [2])
         XCTAssertFalse(viewModel.isEditing)
@@ -174,13 +180,20 @@ final class WMFReadingListsViewModelTests: XCTestCase {
     }
 }
 
+@MainActor
 private final class MockLoggingDelegate: WMFReadingListsLoggingDelegate {
     var editTaps = 0
     var deletedCounts: [Int] = []
     var errors: [Error] = []
+    var onDelete: (() -> Void)?
 
     func readingListsDidTapEdit() { editTaps += 1 }
-    func readingListsDidDelete(count: Int) { deletedCounts.append(count) }
+    func readingListsDidDelete(count: Int) {
+        deletedCounts.append(count)
+        let onDelete = self.onDelete
+        self.onDelete = nil
+        onDelete?()
+    }
     func readingListsDidFailToDelete(error: Error) { errors.append(error) }
 }
 

@@ -89,6 +89,12 @@ public struct WMFDiscoverEntryCardView: View {
     private var collage: some View {
         WMFImageCollageView(viewModel: viewModel.collageViewModel)
             .frame(width: Self.collageWidth)
+            .overlay {
+                if viewModel.isGenerating {
+                    ProgressView()
+                        .tint(Color(uiColor: theme.secondaryText))
+                }
+            }
             .clipShape(RoundedRectangle(cornerRadius: WMFCornerRadius.medium))
     }
 }

@@ -474,6 +474,9 @@
 		675826832D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
+		7A4414420000000000000047 /* DiscoverInterestsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */; };
+		7A4414420000000000000048 /* DiscoverInterestsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */; };
+		7A4414420000000000000049 /* DiscoverInterestsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */; };
 		675C97142F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
 		675C97152F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
 		675C97162F297EB300830CEF /* SavedAllArticlesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */; };
@@ -973,6 +976,10 @@
 		7A4414420000000000000002 /* UITestReadingListsSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000001 /* UITestReadingListsSeeder.swift */; };
 		7A4414420000000000000005 /* SavedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000004 /* SavedUITests.swift */; };
 		7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */; };
+		80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */; };
+		7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */; };
+		7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */; };
+		7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004C /* InMemoryKeyValueStore.swift */; };
 		7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */; };
 		7A4414420000000000000011 /* LegacyReadingListsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000010 /* LegacyReadingListsDataSource.swift */; };
 		7A4414420000000000000021 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
@@ -3098,6 +3105,7 @@
 		675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleCoordinator.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
+		7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInterestsCoordinator.swift; sourceTree = "<group>"; };
 		675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAllArticlesCoordinator.swift; sourceTree = "<group>"; };
 		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
 		675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFSuggestedEditsContentSource.m; sourceTree = "<group>"; };
@@ -3344,6 +3352,10 @@
 		7A4414420000000000000001 /* UITestReadingListsSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestReadingListsSeeder.swift; sourceTree = "<group>"; };
 		7A4414420000000000000004 /* SavedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedUITests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabCharacterizationTests.swift; sourceTree = "<group>"; };
+		04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFComponentNavigationControllerTests.swift; sourceTree = "<group>"; };
+		7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSetupCoordinatorTests.swift; sourceTree = "<group>"; };
+		7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInterestsCoordinatorTests.swift; sourceTree = "<group>"; };
+		7A441442000000000000004C /* InMemoryKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueStore.swift; sourceTree = "<group>"; };
 		7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestReadingListsSeederTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000010 /* LegacyReadingListsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyReadingListsDataSource.swift; sourceTree = "<group>"; };
 		7A4414420000000000000020 /* ReadingListsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCoordinator.swift; sourceTree = "<group>"; };
@@ -6120,6 +6132,7 @@
 				7A4414420000000000000034 /* SavedArticleDownloadProgressObserver.swift */,
 				7A441442000000000000003A /* SavedTabBadgeController.swift */,
 				7A4414420000000000000040 /* DiscoverSetupCoordinator.swift */,
+				7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */,
 				37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				AB0NB0A160E0E9F600ABCD01 /* AppOnboardingCoordinator.swift */,
@@ -7062,6 +7075,10 @@
 				7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */,
 				7A441442000000000000003E /* SavedTabBadgeControllerTests.swift */,
 				7A440194000000000000000E /* DiscoverSettingsCoordinatorTests.swift */,
+				04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */,
+				7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */,
+				7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */,
+				7A441442000000000000004C /* InMemoryKeyValueStore.swift */,
 				7A4414420000000000000A0E /* RemoteNotificationRegistrationFailureTests.swift */,
 				7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */,
 				E7430460A0000000000000A1 /* WMFAuthenticationManagerTests.swift */,
@@ -9177,6 +9194,10 @@
 				7A4414420000000000000039 /* SavedArticleDownloadProgressObserverTests.swift in Sources */,
 				7A441442000000000000003F /* SavedTabBadgeControllerTests.swift in Sources */,
 				7A440194000000000000000F /* DiscoverSettingsCoordinatorTests.swift in Sources */,
+				80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */,
+				7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */,
+				7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */,
+				7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */,
 				7A4414420000000000000A0F /* RemoteNotificationRegistrationFailureTests.swift in Sources */,
 				7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */,
 				E7430460A0000000000000A2 /* WMFAuthenticationManagerTests.swift in Sources */,
@@ -9445,6 +9466,7 @@
 				7A4414420000000000000036 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				7A441442000000000000003C /* SavedTabBadgeController.swift in Sources */,
 				7A4414420000000000000042 /* DiscoverSetupCoordinator.swift in Sources */,
+				7A4414420000000000000048 /* DiscoverInterestsCoordinator.swift in Sources */,
 				FF921857252E8F4F00C39A8F /* ThanksGiving.swift in Sources */,
 				BAA0D91C1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				8397601B2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift in Sources */,
@@ -10287,6 +10309,7 @@
 				7A4414420000000000000037 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				7A441442000000000000003D /* SavedTabBadgeController.swift in Sources */,
 				7A4414420000000000000043 /* DiscoverSetupCoordinator.swift in Sources */,
+				7A4414420000000000000049 /* DiscoverInterestsCoordinator.swift in Sources */,
 				7A16C4E7212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
@@ -10830,6 +10853,7 @@
 				7A4414420000000000000035 /* SavedArticleDownloadProgressObserver.swift in Sources */,
 				7A441442000000000000003B /* SavedTabBadgeController.swift in Sources */,
 				7A4414420000000000000041 /* DiscoverSetupCoordinator.swift in Sources */,
+				7A4414420000000000000047 /* DiscoverInterestsCoordinator.swift in Sources */,
 				6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				7A16C4E8212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
