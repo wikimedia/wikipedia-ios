@@ -168,11 +168,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return currentSlide
     }
 
+    /// Empty on the end screen. Only the donate tap logs `endLoggingID` there, so the Done, Learn
+    /// more, About insights and Share feedback data stay as before.
     private var currentLoggingID: String {
-        if isOnEnd {
-            return Self.endLoggingID
-        }
-        return currentShownSlide?.loggingID ?? ""
+        currentShownSlide?.loggingID ?? ""
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
@@ -306,6 +305,17 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         !showsDonateButton(on: toolbarSlide)
     }
 
+    /// How far the toolbar buttons have faded toward the end screen. During a swipe it is
+    /// `endPageReveal`. When the pager rests on a page, it comes from the current page, because the
+    /// end screen can become current without a scroll step that sets the reveal to 1, for example
+    /// after a VoiceOver page scroll or a pager rebuild.
+    var toolbarEndReveal: CGFloat {
+        let position = pagerPosition.value
+        let isAtRest = abs(position - position.rounded()) < 0.01
+        guard isAtRest else { return endPageReveal.value }
+        return isOnEnd ? 1 : 0
+    }
+
     /// The last slide or the end screen.
     private var toolbarIsOnLastPage: Bool {
         isOnEnd || (currentSlide != nil && isLastSlide)
@@ -348,7 +358,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     func tappedDonate(sourceRect: @escaping @MainActor () -> CGRect) {
         guard currentSlide != nil || isOnEnd else { return }
-        let slideLoggingID = currentLoggingID
+        let slideLoggingID = isOnEnd ? Self.endLoggingID : currentLoggingID
         loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slideLoggingID))
     }

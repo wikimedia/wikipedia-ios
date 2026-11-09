@@ -8,7 +8,6 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     private var cancellables = Set<AnyCancellable>()
     /// The color that `applyContentColor()` last gave the bar items.
     private var appliedContentColor: UIColor?
-    /// The share and donate views in the toolbar. They fade out while the end screen comes in.
     /// The share button. It fades out as the end screen comes in.
     private var fadingOutToolbarViews: [UIView] = []
     /// The donate button of the end screen when the last slide does not have one. It fades in.
@@ -81,6 +80,20 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
         // The donate button becomes a spinner while the donate configuration loads.
         viewModel.$isLoadingDonate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.refreshToolbarItems()
+            }
+            .store(in: &cancellables)
+
+        // The toolbar buttons and which of them fade depend on the end screen and the last slide.
+        // They change without a page change, for example when the "Thank you" slide replaces
+        // "You matter" after a donation from the end screen.
+        Publishers.Merge3(
+            viewModel.$endViewModel.map { _ in () },
+            viewModel.$slides.map { _ in () },
+            viewModel.$showsAnswersAsSlides.map { _ in () }
+        )
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.refreshToolbarItems()
@@ -215,7 +228,7 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     /// the reader swipes back, so it does not appear or disappear at once when the swipe ends. A donate
     /// button that only the end screen has fades the other way.
     private func applyToolbarReveal() {
-        let reveal = viewModel.endPageReveal.value
+        let reveal = viewModel.toolbarEndReveal
         for view in fadingOutToolbarViews {
             applyToolbarVisibility(to: view, alpha: 1 - reveal)
         }

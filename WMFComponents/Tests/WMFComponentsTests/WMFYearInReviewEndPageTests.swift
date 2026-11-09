@@ -6,10 +6,11 @@ import UIKit
 private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
     var appeared: [String] = []
     var donate: [String] = []
+    var done: [String] = []
 
     func logYearInReviewIntroDidTapLearnMore() {}
     func logYearInReviewSlideDidAppear(slideLoggingID: String) { appeared.append(slideLoggingID) }
-    func logYearInReviewDidTapDone(slideLoggingID: String) {}
+    func logYearInReviewDidTapDone(slideLoggingID: String) { done.append(slideLoggingID) }
     func logYearInReviewDidTapNext(slideLoggingID: String) {}
     func logYearInReviewDidTapDonate(slideLoggingID: String) { donate.append(slideLoggingID) }
     func logYearInReviewDidTapShare(slideLoggingID: String) {}
@@ -180,6 +181,35 @@ struct WMFYearInReviewEndPageTests {
 
         #expect(logging.donate == [WMFYearInReviewViewModel.endLoggingID])
         #expect(WMFYearInReviewViewModel.endLoggingID == "end")
+    }
+
+    /// Only the donate tap uses the end page name. Done keeps the empty ID it had before.
+    @Test
+    func tappingDoneOnTheEndScreenKeepsTheEmptyLoggingID() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.tappedClose()
+
+        #expect(logging.done == [""])
+    }
+
+    /// The end screen can become current without a scroll step that sets the reveal to 1, for
+    /// example after a VoiceOver page scroll. At rest, the toolbar follows the current page.
+    @Test
+    func theToolbarRevealFollowsTheCurrentPageAtRest() {
+        let viewModel = makeViewModel(slidesShowDonate: false)
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        #expect(viewModel.endPageReveal.value == 0)
+        #expect(viewModel.toolbarEndReveal == 1)
+
+        viewModel.pagerDidScroll(toPosition: 2.4)
+        #expect(viewModel.toolbarEndReveal == viewModel.endPageReveal.value)
+
+        viewModel.pagerDidScroll(toPosition: 2)
+        viewModel.currentSlideID = "slide2"
+        #expect(viewModel.toolbarEndReveal == 0)
     }
 
     @Test
