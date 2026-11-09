@@ -170,12 +170,13 @@ final class WMFDiscoverReadingListGenerationRunTests {
         }
     }
 
-    /// The seeds of a topic come from the Home data controller. Its request must stop with the run
-    /// too, or the run waits for the network for as long as it takes. The run is stopped by a
-    /// settings change once the request is open: the time budget stops a run the same way, but a
-    /// short budget can also end the run before the request starts.
+    /// The seeds of a topic come from the Home data controller. The run must stop waiting for its
+    /// request with the stop, or the run waits for the network for as long as it takes. The
+    /// download itself goes on and fills the warm cache, because the For You feed shares it. The
+    /// run is stopped by a settings change once the request is open: the time budget stops a run
+    /// the same way, but a short budget can also end the run before the request starts.
     @Test
-    func aStoppedRunStopsAHangingTopicRequest() async throws {
+    func aStoppedRunStopsWaitingForAHangingTopicRequest() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await WMFDiscoverInterestsDataController().setTopics([.books])
             let service = WMFHangingBasicService()
@@ -195,6 +196,7 @@ final class WMFDiscoverReadingListGenerationRunTests {
             #expect(service.requestCount == 1, "the topic request started and the run did not get past it")
             #expect(await controller.isGenerating == false)
             #expect(try await controller.fetchStoredRecommendations(includeExpired: true).isEmpty, "a stopped run stores nothing")
+            service.failPendingRequests()
         }
     }
 
@@ -218,6 +220,33 @@ final class WMFDiscoverReadingListGenerationRunTests {
             try await controller.saveSettings(newSettings)
             _ = try? await run.value
             #expect(await controller.isGenerating == false)
+        }
+    }
+
+    /// A settings change can stop the run inside its write, between the first picks and the save.
+    /// The write must not land then: the previous list stays, and the next check makes the list for
+    /// the new settings. The task here stops itself before the write, so the stop is inside it for
+    /// sure.
+    @Test
+    func aRunStoppedInsideItsWriteKeepsThePreviousList() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try await addInterest("Cat")
+            let controller = makeAnsweringController()
+            try await controller.saveSettings(enabledSettings)
+            let previousList = try await controller.generateRecommendations()
+            #expect(previousList.isEmpty == false)
+
+            let stoppedWrite = Task {
+                withUnsafeCurrentTask { $0?.cancel() }
+                let candidate = WMFDiscoverReadingListDataController.Candidate(title: "Dog", displayTitle: nil, project: englishProject, description: nil, thumbnailURL: nil)
+                try await controller.replaceRecommendations(with: [candidate], now: Date())
+            }
+
+            await #expect(throws: CancellationError.self) {
+                try await stoppedWrite.value
+            }
+            #expect(try await controller.fetchCurrentRecommendations() == previousList)
+            #expect(try await controller.fetchStoredRecommendations(includeExpired: true).map(\.title).contains("Dog") == false, "the stopped write stored nothing")
         }
     }
 
