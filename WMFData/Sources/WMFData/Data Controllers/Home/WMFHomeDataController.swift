@@ -340,6 +340,7 @@ import Foundation
         let continuation: CheckedContinuation<[WMFRandomArticle], Error>
     }
 
+    /// The callers of each topic download in flight, by key. A key is present while its download runs.
     private var warmedTopicWaiters: [String: [TopicWaiter]] = [:]
     private var warmedRelatedPages: [String: WarmedRelatedPages] = [:]
     private var warmedRelatedWaiters: [String: [CheckedContinuation<[WMFRelatedPagesDataController.WMFRelatedPage], Error>]] = [:]
@@ -386,19 +387,29 @@ import Foundation
 
         // Merge concurrent requests for the same group: the warm-up and a fetch that follows it
         // quickly must share one download.
-        if warmedTopicWaiters[key] != nil {
-            return try await waitForTopicArticles(key: key)
+        if warmedTopicWaiters[key] == nil {
+            startTopicDownload(for: topic, project: project, key: key)
         }
+        return try await waitForTopicArticles(key: key)
+    }
 
+    /// Starts the download of a topic in a task of its own. Every caller, the first one too, waits
+    /// for it in `warmedTopicWaiters`, so no caller can stop the download for the others: the
+    /// Discover run and the For You feed ask for the same topics, and a stopped run must not make
+    /// the feed fail. A download that no caller waits for any more still fills the warm cache.
+    private func startTopicDownload(for topic: WMFArticleTopic, project: WMFProject, key: String) {
         warmedTopicWaiters[key] = []
-        do {
-            let articles = try await fetchArticlesFromNetwork(for: topic, project: project)
-            warmedTopicArticles[key] = WarmedTopicArticles(date: Date(), articles: articles)
-            resumeWarmedTopicWaiters(key: key, with: .success(articles))
-            return articles
-        } catch {
-            resumeWarmedTopicWaiters(key: key, with: .failure(error))
-            throw error
+        Task {
+            let result: Result<[WMFRandomArticle], Error>
+            do {
+                result = .success(try await fetchArticlesFromNetwork(for: topic, project: project))
+            } catch {
+                result = .failure(error)
+            }
+            if case .success(let articles) = result {
+                warmedTopicArticles[key] = WarmedTopicArticles(date: Date(), articles: articles)
+            }
+            resumeWarmedTopicWaiters(key: key, with: result)
         }
     }
 

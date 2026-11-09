@@ -30,6 +30,11 @@ public final class WMFHangingBasicService: WMFService {
         state.withLock { $0.requestCount }
     }
 
+    /// The number of requests open now.
+    public var openRequestCount: Int {
+        state.withLock { $0.openRequests.count }
+    }
+
     /// The number of requests still open when the request with this one-based number started.
     public func openRequestCount(whenRequestStarted requestNumber: Int) -> Int? {
         state.withLock { state in
