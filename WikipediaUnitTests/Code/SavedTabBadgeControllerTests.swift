@@ -2,6 +2,7 @@ import XCTest
 @testable import Wikipedia
 import WMF
 import WMFComponents
+import WMFData
 
 @MainActor
 final class SavedTabBadgeControllerTests: XCTestCase {
@@ -30,10 +31,10 @@ final class SavedTabBadgeControllerTests: XCTestCase {
     }
 
     func testTheStarWinsOverTheDiscoverDot() {
-        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: false, showsDiscoverAnnouncement: false), .none)
-        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: false, showsDiscoverAnnouncement: true), .discoverAnnouncement)
-        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: true, showsDiscoverAnnouncement: false), .syncInProgress)
-        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: true, showsDiscoverAnnouncement: true), .syncInProgress)
+        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: false, showsDiscoverDot: false), .none)
+        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: false, showsDiscoverDot: true), .discover)
+        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: true, showsDiscoverDot: false), .syncInProgress)
+        XCTAssertEqual(SavedTabBadgeController.badge(isSyncInProgress: true, showsDiscoverDot: true), .syncInProgress)
     }
 
     func testNoBadgeWhileDiscoverIsOff() {
@@ -47,29 +48,55 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         discover.isEnabled = true
         discover.shouldShowAnnouncement = true
         controller = makeController()
-        XCTAssertEqual(controller.badge, .discoverAnnouncement)
+        XCTAssertEqual(controller.badge, .discover)
         XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
         XCTAssertEqual(discover.assignments, 1)
 
         discover.shouldShowAnnouncement = false
-        controller.refreshDiscoverAnnouncement()
+        controller.refreshDiscover()
 
         XCTAssertEqual(controller.badge, .none)
         XCTAssertNil(tabBarItem.badgeValue)
+    }
+
+    func testAnUnseenListShowsTheDotAfterTheCardIsAnswered() {
+        discover.isEnabled = true
+        discover.shouldShowUnseenListBadge = true
+        controller = makeController()
+        XCTAssertEqual(controller.badge, .discover)
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
+
+        discover.shouldShowUnseenListBadge = false
+        controller.refreshDiscover()
+
+        XCTAssertEqual(controller.badge, .none)
+        XCTAssertNil(tabBarItem.badgeValue)
+    }
+
+    func testAListStateChangeRefreshesTheDot() async {
+        discover.isEnabled = true
+        controller = makeController()
+        XCTAssertEqual(controller.badge, .none)
+
+        discover.shouldShowUnseenListBadge = true
+        NotificationCenter.default.post(name: WMFNSNotification.discoverListStateDidChange, object: nil)
+        await wait(seconds: 0.1)
+
+        XCTAssertEqual(controller.badge, .discover)
     }
 
     func testTheStarReplacesTheDotAndTheDotComesBack() {
         discover.isEnabled = true
         discover.shouldShowAnnouncement = true
         controller = makeController()
-        XCTAssertEqual(controller.badge, .discoverAnnouncement)
+        XCTAssertEqual(controller.badge, .discover)
 
         controller.setSyncInProgress(true)
         XCTAssertEqual(controller.badge, .syncInProgress)
         XCTAssertEqual(tabBarItem.badgeValue, "\u{2605}")
 
         controller.setSyncInProgress(false)
-        XCTAssertEqual(controller.badge, .discoverAnnouncement)
+        XCTAssertEqual(controller.badge, .discover)
         XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
     }
 
@@ -77,7 +104,7 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         discover.isEnabled = true
         discover.shouldShowAnnouncement = true
         controller = makeController(userInterfaceIdiom: .pad)
-        XCTAssertEqual(controller.badge, .discoverAnnouncement)
+        XCTAssertEqual(controller.badge, .discover)
         XCTAssertEqual(tabBarItem.badgeValue, "\u{2800}")
     }
 
@@ -96,9 +123,10 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         XCTAssertEqual(controller.badge, .none)
     }
 
-    private final class DiscoverStub: SavedTabDiscoverAnnouncementProviding {
+    private final class DiscoverStub: SavedTabDiscoverProviding {
         var isEnabled = false
         var shouldShowAnnouncement = false
+        var shouldShowUnseenListBadge = false
         var assignments = 0
 
         func assignExperimentBucketIfNeeded() throws {
