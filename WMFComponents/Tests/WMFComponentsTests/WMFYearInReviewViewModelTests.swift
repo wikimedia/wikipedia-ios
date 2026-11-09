@@ -455,6 +455,27 @@ struct WMFYearInReviewViewModelTests {
     }
 
     @Test
+    func shareAfterTheAnswerShowsCarriesTheAnswerSlideID() {
+        let viewModel = makeViewModelWithAnswer()
+        viewModel.currentSlideID = "guess"
+        viewModel.tappedShare()
+        if case .share(let slideID) = coordinator.actions.last {
+            #expect(slideID == "guess")
+        } else {
+            Issue.record("expected a share action")
+        }
+
+        viewModel.answerDidShow(slideID: "guess")
+        viewModel.tappedShare()
+
+        if case .share(let slideID) = coordinator.actions.last {
+            #expect(slideID == "reveal")
+        } else {
+            Issue.record("expected a share action")
+        }
+    }
+
+    @Test
     func theAnswerPageEndsWhenTheReaderLeavesTheSlide() {
         let viewModel = makeViewModelWithAnswer()
         viewModel.currentSlideID = "guess"

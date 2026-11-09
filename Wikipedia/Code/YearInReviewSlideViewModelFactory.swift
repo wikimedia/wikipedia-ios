@@ -490,6 +490,11 @@ struct YearInReviewSlideViewModelFactory {
         static let bodyText = WMFRiveText(path: "bodyText")
         /// The guess frame fires it after the reader taps a card and the exit animation ends.
         static let frameComplete = WMFRiveTrigger(path: "frameComplete")
+        /// The guess frame rests from 2.0 to 2.7 seconds, after the cards come in. From about 2.8
+        /// seconds it moves the bottom card again and again until the reader taps, so at 7 seconds the
+        /// share image can show the card in mid-move. The reveal frame stops at 1.25 seconds, so it
+        /// keeps the usual time.
+        static let guessSharePoseTime: TimeInterval = 2.4
 
         struct Article {
             let title: WMFRiveText
@@ -535,6 +540,7 @@ struct YearInReviewSlideViewModelFactory {
             articles: articles,
             answer: reveal,
             answerTrigger: RabbitHolePath.frameComplete,
+            sharePoseTime: RabbitHolePath.guessSharePoseTime,
             accessibilityLabel: ([headline] + cardLabels).joined(separator: " ")
         )
     }
@@ -567,6 +573,7 @@ struct YearInReviewSlideViewModelFactory {
         articles: [(RabbitHolePath.Article, WMFYearInReviewRabbitHolesSlideData.Article)],
         answer: WMFYearInReviewSlideViewModel? = nil,
         answerTrigger: WMFRiveTrigger? = nil,
+        sharePoseTime: TimeInterval? = nil,
         accessibilityLabel: String
     ) -> WMFYearInReviewSlideViewModel {
         var text = [RabbitHolePath.headline: headline]
@@ -593,7 +600,8 @@ struct YearInReviewSlideViewModelFactory {
             answerTrigger: answerTrigger,
             localizedStrings: .init(accessibilityLabel: accessibilityLabel),
             contentStyle: .dark,
-            lightContentFlag: Self.lightContentFlag
+            lightContentFlag: Self.lightContentFlag,
+            sharePoseTime: sharePoseTime
         )
     }
 

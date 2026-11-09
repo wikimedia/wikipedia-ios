@@ -36,6 +36,23 @@ final class WMFDiscoverDataControllerTests {
     }
 
     @Test
+    func turningDiscoverOnHidesTheAnnouncementWithoutDismissingIt() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableDiscover = true
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+
+            #expect(controller.shouldShowAnnouncement)
+
+            var settings = await WMFDiscoverReadingListDataController.shared.settings
+            settings.isEnabled = true
+            try await WMFDiscoverReadingListDataController.shared.saveSettings(settings)
+
+            #expect(controller.hasDismissedAnnouncement == false)
+            #expect(controller.shouldShowAnnouncement == false)
+        }
+    }
+
+    @Test
     func dismissingTheAnnouncementIsPermanent() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableDiscover = true

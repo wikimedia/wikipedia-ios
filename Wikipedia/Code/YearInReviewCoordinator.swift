@@ -512,7 +512,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
 
-        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true, keepsLinksInPresentedStack: true)
         let webViewController = SinglePageWebViewController(configType: .standard(config), theme: .light)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
         presentedViewController.present(webNavigationController, animated: true)
@@ -544,10 +544,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     private var isExportingShareImage = false
 
-    /// Shares a still image of the slide, with the share text and the app link.
+    /// Shares a still image of the slide, with the share text and the app link. `slideID` can be the
+    /// ID of an answer, for example the rabbit hole reveal.
     private func shareSlide(slideID: String) {
+        let slidesAndAnswers = viewModel?.slides.flatMap { [$0] + ($0.answer.map { [$0] } ?? []) } ?? []
         guard !isExportingShareImage,
-              let slide = viewModel?.slides.first(where: { $0.id == slideID }) else {
+              let slide = slidesAndAnswers.first(where: { $0.id == slideID }) else {
             return
         }
         isExportingShareImage = true
