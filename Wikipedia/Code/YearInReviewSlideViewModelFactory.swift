@@ -31,6 +31,8 @@ struct YearInReviewSlideViewModelFactory {
         "totalArticles": "total_articles",
         "totalArticlesEmpty": "total_articles_empty",
         "daysVisited": "visits",
+        "readingStreak": "reading_streak",
+        "readingStreakEmpty": "reading_streak_empty",
         "topTopic": "top_topic",
         "topTopicEmpty": "top_topic_empty",
         "runnerUpTopics": "other_top_topics",
@@ -72,7 +74,7 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, articles visited multiple times, topic, rabbit hole, niche interest, edit and contributor slides have real data so far.
+    /// Only the total articles, days visited, reading streak, articles visited multiple times, topic, rabbit hole, niche interest, edit and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
     /// The days visited, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
@@ -125,6 +127,7 @@ struct YearInReviewSlideViewModelFactory {
                 topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
                 averageReadCount: config?.averageArticlesReadPerYear,
                 daysVisited: storedDaysVisited(in: report),
+                readingStreak: storedReadingStreak(in: report),
                 topTopics: storedTopTopics(in: report),
                 rabbitHoles: storedRabbitHoles(in: report),
                 nicheCategory: storedNicheCategory(in: report),
@@ -143,6 +146,8 @@ struct YearInReviewSlideViewModelFactory {
         var topReadPercentage: Double?
         var averageReadCount: Int?
         var daysVisited: WMFYearInReviewDaysVisitedSlideData?
+        /// `nil` shows the empty reading streak slide.
+        var readingStreak: WMFYearInReviewReadingStreakSlideData?
         var topTopics: WMFYearInReviewTopTopicsSlideData?
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
         var nicheCategory: WMFYearInReviewNicheCategorySlideData?
@@ -157,7 +162,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
-    /// not in the flow: time spent, longest reading streak, reading pattern, biggest reading day,
+    /// not in the flow: time spent, reading pattern, biggest reading day,
     /// longest read, geography, saved and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
@@ -166,6 +171,7 @@ struct YearInReviewSlideViewModelFactory {
         if let daysVisited = daysVisitedSlide(data.daysVisited) {
             slides.append(daysVisited)
         }
+        slides.append(readingStreakSlide(data.readingStreak))
         slides += topicSlides(data.topTopics)
         slides += rabbitHoleSlides(data.rabbitHoles)
         if let nicheInterest = nicheInterestSlide(data.nicheCategory) {
@@ -180,7 +186,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// In the same order as `personalizedSlides(_:)`.
     private func personalizedEmptySlides(isLoggedIn: Bool) -> [WMFYearInReviewSlideViewModel] {
-        var slides = [totalArticlesEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
+        var slides = [totalArticlesEmptySlide(), readingStreakEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
         if isLoggedIn {
             slides.append(editsEmptySlide())
         }
@@ -316,6 +322,64 @@ struct YearInReviewSlideViewModelFactory {
             return nil
         }
         return monthSymbols[month - 1]
+    }
+
+    // MARK: - Reading streak
+
+    /// The longest reading streak, from the report the app fills in the background. `nil` when the
+    /// report does not have this slide yet.
+    private func storedReadingStreak(in report: WMFYearInReviewReport?) -> WMFYearInReviewReadingStreakSlideData? {
+        storedSlideData(.readingStreak, as: WMFYearInReviewReadingStreakSlideData.self, logName: "reading streak", in: report)
+    }
+
+    /// Shows the number of days in the longest streak and its dates. Shows the empty version unless
+    /// the reader read on at least `WMFYearInReviewReadingStreakSlideData.minimumDayCount` consecutive days.
+    /// - Parameter calendar: The calendar of the streak days and of the date range. Tests pass a fixed one.
+    func readingStreakSlide(_ slideData: WMFYearInReviewReadingStreakSlideData?, calendar: Calendar = .current, locale: Locale = .current) -> WMFYearInReviewSlideViewModel {
+        guard let slideData,
+              slideData.isEligible,
+              let firstDay = slideData.firstDay?.date(in: calendar),
+              let lastDay = slideData.lastDay?.date(in: calendar) else {
+            return readingStreakEmptySlide()
+        }
+
+        let headline = CommonStrings.yearInReviewReadingStreakTitle
+        let count = decimalString(slideData.dayCount)
+        let bodyText = CommonStrings.yearInReviewReadingStreakSubtitle(dateRange: dateRangeString(from: firstDay, to: lastDay, calendar: calendar, locale: locale))
+        return dataSlide(
+            id: "readingStreak",
+            artboard: "frame4",
+            stateMachine: "frame4-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    private func readingStreakEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewReadingStreakEmptyTitle
+        let bodyText = CommonStrings.yearInReviewReadingStreakEmptySubtitle
+        return dataSlide(
+            id: "readingStreakEmpty",
+            artboard: "frame4-empty",
+            stateMachine: "frame4-empty-statemachine",
+            headline: headline,
+            data: nil,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    /// The month and day of both dates in the format of the locale, for example "March 4 – 14" or
+    /// "March 30 – April 2". The year is left out, because the streak is always in the data period.
+    private func dateRangeString(from startDate: Date, to endDate: Date, calendar: Calendar, locale: Locale) -> String {
+        let formatter = DateIntervalFormatter()
+        formatter.calendar = calendar
+        formatter.timeZone = calendar.timeZone
+        formatter.locale = locale
+        formatter.dateTemplate = "MMMMd"
+        return formatter.string(from: startDate, to: endDate)
     }
 
     // MARK: - Articles visited multiple times

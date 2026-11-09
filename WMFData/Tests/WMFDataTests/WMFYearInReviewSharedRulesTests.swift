@@ -212,7 +212,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
 
     // MARK: - Clearing data
 
-    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited, .rabbitHoles, .mostViewedArticles]
+    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited, .rabbitHoles, .mostViewedArticles, .readingStreak]
 
     private func storedSlideIDs(year: Int) async throws -> Set<WMFYearInReviewPersonalizedSlideID> {
         let store = try XCTUnwrap(store)
@@ -244,7 +244,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         try await dataController.deletePersonalizedData(for: .account)
 
         let remaining = try await storedSlideIDs(year: 2026)
-        XCTAssertEqual(remaining, [.readCount, .mostReadDate, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited, .rabbitHoles])
+        XCTAssertEqual(remaining, [.readCount, .mostReadDate, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited, .rabbitHoles, .readingStreak])
     }
 
     func testDeletingDonationHistoryDeletesOnlyDonateSlide() async throws {

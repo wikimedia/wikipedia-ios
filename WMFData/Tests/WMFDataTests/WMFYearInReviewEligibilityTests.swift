@@ -106,6 +106,12 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
     }
 
+    private func readingStreakSlide(dayCount: Int) throws -> WMFYearInReviewSlide {
+        let day = WMFYearInReviewReadingStreakSlideData.Day(year: year, month: 3, day: 4)
+        let data = try JSONEncoder().encode(WMFYearInReviewReadingStreakSlideData(dayCount: dayCount, firstDay: day, lastDay: day))
+        return WMFYearInReviewSlide(year: year, id: .readingStreak, data: data)
+    }
+
     private func nicheInterestSlide(categoryName: String?) throws -> WMFYearInReviewSlide {
         let data = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName))
         return WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
@@ -341,6 +347,18 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         try await saveReport([try readCountSlide(500), try daysVisitedSlide(dayCount: 1)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .collective, "the days visited slide does not show")
+    }
+
+    func testReadingStreakOfThreeDaysCountsTowardPersonalized() async throws {
+        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 3)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
+    }
+
+    func testReadingStreakOfTwoDaysIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 2)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the reading streak slide shows its empty version")
     }
 
     func testTwoRabbitHolesCountAsOneSlide() async throws {

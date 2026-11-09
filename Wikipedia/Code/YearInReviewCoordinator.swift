@@ -527,7 +527,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
 
-        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true, keepsLinksInPresentedStack: true)
         let webViewController = SinglePageWebViewController(configType: .standard(config), theme: .light)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
         presentedViewController.present(webNavigationController, animated: true)
