@@ -171,17 +171,25 @@ final class WMFDiscoverReadingListGenerationRunTests {
     }
 
     /// The seeds of a topic come from the Home data controller. Its request must stop with the run
-    /// too, or the run waits for the network for as long as it takes.
+    /// too, or the run waits for the network for as long as it takes. The run is stopped by a
+    /// settings change once the request is open: the time budget stops a run the same way, but a
+    /// short budget can also end the run before the request starts.
     @Test
-    func aRunOverTheBudgetStopsAHangingTopicRequest() async throws {
+    func aStoppedRunStopsAHangingTopicRequest() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await WMFDiscoverInterestsDataController().setTopics([.books])
             let service = WMFHangingBasicService()
-            let controller = makeHangingTopicsController(service: service, generationTimeout: .milliseconds(1))
+            let controller = makeHangingTopicsController(service: service, generationTimeout: .seconds(600))
             try await controller.saveSettings(enabledSettings)
 
+            let run = Task { try await controller.generateRecommendations() }
+            await service.waitForFirstRequest()
+            var newSettings = enabledSettings
+            newSettings.articleCount = 3
+            try await controller.saveSettings(newSettings)
+
             await #expect(throws: WMFDiscoverReadingListDataController.DiscoverReadingListError.recommendationsUnavailable) {
-                try await controller.generateRecommendations()
+                try await run.value
             }
 
             #expect(service.requestCount == 1, "the topic request started and the run did not get past it")
