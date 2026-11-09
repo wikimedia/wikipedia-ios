@@ -88,6 +88,10 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         WMFYearInReviewSlide(year: year, id: .editCount, data: try JSONEncoder().encode(editCount))
     }
 
+    private func donateCountSlide(editCount: Int?) throws -> WMFYearInReviewSlide {
+        WMFYearInReviewSlide(year: year, id: .donateCount, data: try JSONEncoder().encode(DonateAndEditCounts(donateCount: 0, editCount: editCount)))
+    }
+
     private func viewCountSlide(_ viewCount: Int) throws -> WMFYearInReviewSlide {
         WMFYearInReviewSlide(year: year, id: .viewCount, data: try JSONEncoder().encode(WMFYearInReviewViewCountSlideData(editedPageViewCount: viewCount)))
     }
@@ -285,6 +289,22 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         try await saveReport([try viewCountSlide(500), try mostViewedArticlesSlide()])
         experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .collective, "no stored edit count")
+    }
+
+    /// The app reads the edit count from the donate count slide when the edit count slide is
+    /// missing, so the count must too. Otherwise the app shows edit slides that are not counted.
+    func testTheEditCountInTheDonateCountSlideCountsLikeTheEditCountSlide() async throws {
+        try await saveReport([try donateCountSlide(editCount: 12), try viewCountSlide(26), try mostViewedArticlesSlide()])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized, "the edits, edit views and most-viewed articles slides show")
+    }
+
+    func testTheEditCountSlideWinsOverTheDonateCountSlide() throws {
+        let slides = [try editCountSlide(0), try donateCountSlide(editCount: 12)]
+        XCTAssertEqual(try WMFYearInReviewDataController.editCount(in: slides), 0)
+        XCTAssertEqual(try WMFYearInReviewDataController.editCount(in: [try donateCountSlide(editCount: 12)]), 12)
+        XCTAssertNil(try WMFYearInReviewDataController.editCount(in: [try donateCountSlide(editCount: nil)]))
+        XCTAssertNil(try WMFYearInReviewDataController.editCount(in: [try readCountSlide(3)]))
     }
 
     func testEditsDoNotChangeTheLoggedOutSlides() async throws {

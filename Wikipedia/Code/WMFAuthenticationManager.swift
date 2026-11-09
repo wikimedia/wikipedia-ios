@@ -62,8 +62,9 @@ import WMFTestKitchen
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
     
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
-    /// The user fetch in flight for each host. Callers that ask while a fetch runs wait for it.
-    @MainActor private var userFetchTasks: [SiteURLHost: Task<Void, Never>] = [:]
+    /// The user fetch in flight for each host, with the `userCacheGeneration` it started in. Callers
+    /// that ask while a fetch of the same generation runs wait for it.
+    @MainActor private var userFetchTasks: [SiteURLHost: (generation: Int, task: Task<Void, Never>)] = [:]
     /// Changes on each reset, so a user fetch that started before a logout does not fill the cache
     /// after it. Like `currentUserCache`, it is written in `reset()`.
     private var userCacheGeneration = 0
@@ -79,9 +80,14 @@ import WMFTestKitchen
         }
     }
 
-    @objc public required init(session: Session, configuration: Configuration) {
+    @objc public required convenience init(session: Session, configuration: Configuration) {
+        self.init(session: session, configuration: configuration, currentUserFetcher: WMFCurrentUserFetcher(session: session, configuration: configuration))
+    }
+
+    /// Tests pass a stub `currentUserFetcher`.
+    init(session: Session, configuration: Configuration, currentUserFetcher: WMFCurrentUserFetcher) {
         accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)
-        currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
+        self.currentUserFetcher = currentUserFetcher
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
     }
@@ -145,14 +151,15 @@ import WMFTestKitchen
 
     /// Fetches the user for the host and caches it. A caller that asks while a fetch for the host is
     /// in flight waits for that fetch instead of making another request. A reset during the fetch
-    /// drops the result, so a user who logged out is not cached again.
+    /// drops the result, so a user who logged out is not cached again. A caller after that reset
+    /// does not wait for the old fetch, which would give it nothing: it starts a new one.
     @MainActor
-    private func fetchUserIntoCache(siteURL: URL, host: SiteURLHost) async {
-        if let running = userFetchTasks[host] {
-            await running.value
+    func fetchUserIntoCache(siteURL: URL, host: String) async {
+        let generation = userCacheGeneration
+        if let running = userFetchTasks[host], running.generation == generation {
+            await running.task.value
             return
         }
-        let generation = userCacheGeneration
         let fetcher = currentUserFetcher
         let task = Task { @MainActor [weak self] in
             let user = try? await fetcher.fetch(siteURL: siteURL)
@@ -164,9 +171,9 @@ import WMFTestKitchen
             }
             self.currentUserCache[host] = user
         }
-        userFetchTasks[host] = task
+        userFetchTasks[host] = (generation, task)
         await task.value
-        if userFetchTasks[host] == task {
+        if userFetchTasks[host]?.task == task {
             userFetchTasks[host] = nil
         }
     }
@@ -176,8 +183,10 @@ import WMFTestKitchen
     /// anything else filled the cache still gets the user. It waits at most `userFetchWaitTimeout`, so
     /// a slow network does not hold the caller. Returns `nil` for a logged-out or temporary user, or
     /// when the fetch fails or does not finish in time.
+    /// - Parameter didFetchAfterTimeout: Called when the wait timed out and the fetch then cached a
+    ///   permanent user, so the caller can do again the work that ran without the user.
     @MainActor
-    public func fetchPermanentUserIfNeeded(siteURL: URL) async -> WMFCurrentUser? {
+    public func fetchPermanentUserIfNeeded(siteURL: URL, didFetchAfterTimeout: (@MainActor @Sendable () -> Void)? = nil) async -> WMFCurrentUser? {
         guard let host = siteURL.host else {
             return nil
         }
@@ -186,33 +195,59 @@ import WMFTestKitchen
             return permanentUser(siteURL: siteURL)
         }
 
+        let finishedInTime = await fetchUserIntoCache(siteURL: siteURL, host: host, timeout: Self.userFetchWaitTimeout) { [weak self] in
+            guard self?.permanentUser(siteURL: siteURL) != nil else {
+                return
+            }
+            DDLogInfo("The user fetch for \(host) finished after the timeout")
+            didFetchAfterTimeout?()
+        }
+        if !finishedInTime {
+            DDLogWarn("The user fetch for \(host) did not finish in \(Self.userFetchWaitTimeout). Continuing without the user.")
+        }
+        return permanentUser(siteURL: siteURL)
+    }
+
+    /// Fetches the user into the cache like `fetchUserIntoCache(siteURL:host:)`, but waits at most
+    /// `timeout`. On a timeout the fetch keeps going and calls `didFinishLate` when it ends.
+    /// - Returns: `true` if the fetch finished in time.
+    @MainActor
+    func fetchUserIntoCache(siteURL: URL, host: String, timeout: Duration, didFinishLate: @escaping @MainActor @Sendable () -> Void) async -> Bool {
         let fetch = Task { @MainActor [weak self] in
             guard let self else {
                 return
             }
             await self.fetchUserIntoCache(siteURL: siteURL, host: host)
         }
-        await Self.wait(for: fetch, timeout: Self.userFetchWaitTimeout)
-        return permanentUser(siteURL: siteURL)
+        let finishedInTime = await Self.wait(for: fetch, timeout: timeout)
+        if !finishedInTime {
+            Task { @MainActor in
+                await fetch.value
+                didFinishLate()
+            }
+        }
+        return finishedInTime
     }
 
     /// Returns when the task finishes or the timeout passes, whichever is first. The task is not cancelled.
+    /// - Returns: `true` if the task finished first.
     @MainActor
-    private static func wait(for task: Task<Void, Never>, timeout: Duration) async {
+    static func wait(for task: Task<Void, Never>, timeout: Duration) async -> Bool {
         let waiter = OnceContinuation()
         var timer: Task<Void, Never>?
-        await withCheckedContinuation { continuation in
+        let finished = await withCheckedContinuation { continuation in
             waiter.continuation = continuation
             Task { @MainActor in
                 await task.value
-                waiter.resume()
+                waiter.resume(returning: true)
             }
             timer = Task { @MainActor in
                 try? await Task.sleep(for: timeout)
-                waiter.resume()
+                waiter.resume(returning: false)
             }
         }
         timer?.cancel()
+        return finished
     }
 
     /// Loops through all current user objects across the various siteURLs we have cached, and returns the username of the first username with authState == .permanent
@@ -668,8 +703,7 @@ import WMFTestKitchen
     private func reset() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
-        currentUserCache = [:]
-        userCacheGeneration += 1
+        resetUserCache()
 
         session.removeAllCookies()
         
@@ -681,13 +715,23 @@ import WMFTestKitchen
     }
 }
 
+extension WMFAuthenticationManager {
+    /// Empties the user cache and starts a new generation. A user fetch in flight stays in
+    /// `userFetchTasks`: its generation no longer matches, so it does not fill the cache and later
+    /// callers do not wait for it.
+    func resetUserCache() {
+        currentUserCache = [:]
+        userCacheGeneration += 1
+    }
+}
+
 /// Resumes a continuation once, for the first of several tasks that finishes.
 @MainActor
 private final class OnceContinuation {
-    var continuation: CheckedContinuation<Void, Never>?
+    var continuation: CheckedContinuation<Bool, Never>?
 
-    func resume() {
-        continuation?.resume()
+    func resume(returning value: Bool) {
+        continuation?.resume(returning: value)
         continuation = nil
     }
 }

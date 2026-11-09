@@ -35,9 +35,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // Fill the user first, so the key is the user that the build is for. At cold launch the cache
         // is empty, and a key read before this would not match a later call for the same user.
         // Without the user, the edit slides have no ids and would be stored empty.
+        // When the wait times out, this build runs without the user and does not make the edit
+        // slides. The fetch keeps going, so build again when it caches the user: the edit slides
+        // were not evaluated, so that build makes them.
         var permanentUser: WMFCurrentUser?
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL {
-            permanentUser = await dataStore.authenticationManager.fetchPermanentUserIfNeeded(siteURL: siteURL)
+            permanentUser = await dataStore.authenticationManager.fetchPermanentUserIfNeeded(siteURL: siteURL) {
+                Task { @MainActor in
+                    await buildReportLoggingError(dataStore: dataStore)
+                }
+            }
         }
         let username = dataStore.authenticationManager.authStatePermanentUsername
         while let running = reportBuild {

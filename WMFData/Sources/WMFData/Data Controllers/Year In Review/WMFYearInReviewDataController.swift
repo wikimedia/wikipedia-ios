@@ -199,15 +199,39 @@ import CoreData
     /// period, the same rule as the app's editor slides. The most-viewed articles are not limited to
     /// the period, so without this a past editor could reach the personalized flow and see only
     /// empty slides.
+    ///
+    /// Whether the reader edited comes from `editCount(in:)`, the same rule as the app's slides. The
+    /// edit count slide counts once when the reader edited, also when the count is only in the
+    /// donate count slide.
     static func eligibleSlideCount(for slides: [WMFYearInReviewSlide]) -> Int {
-        let hasEdits = slides.contains { $0.id == .editCount && fullSlideCount(for: $0) > 0 }
-        return slides.reduce(0) { count, slide in
+        let hasEdits = ((try? editCount(in: slides)) ?? nil).map { $0 > 0 } ?? false
+        let otherSlideCount = slides.reduce(0) { count, slide in
+            guard slide.id != .editCount else {
+                return count
+            }
             let needsEdits = slide.id == .viewCount || slide.id == .mostViewedArticles
             guard hasEdits || !needsEdits else {
                 return count
             }
             return count + fullSlideCount(for: slide)
         }
+        return otherSlideCount + (hasEdits ? 1 : 0)
+    }
+
+    /// The edits in the contributor period, from the edit count slide, or else from the edit count
+    /// in the donate count slide. `nil` when no slide has it, for example after a failed request.
+    /// The slide count and the app's edit slides both read it here, so they agree on whether the
+    /// reader edited.
+    public static func editCount(in slides: [WMFYearInReviewSlide]) throws -> Int? {
+        let decoder = JSONDecoder()
+        if let data = slides.first(where: { $0.id == .editCount })?.data,
+           let editCount = try decoder.decode(Int?.self, from: data) {
+            return editCount
+        }
+        if let data = slides.first(where: { $0.id == .donateCount })?.data {
+            return try decoder.decode(DonateAndEditCounts.self, from: data).editCount
+        }
+        return nil
     }
 
     /// The number of slides that this report entry shows in their full version, not their empty

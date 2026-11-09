@@ -775,7 +775,8 @@ struct YearInReviewSlideViewModelFactoryTests {
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
             "collective_volunteer_editors", "collective_edits", "collective_global_reach", "thank_you", "you_matter"
         ]
-        // The plan does not name the edit slides yet. Remove this when their page names are added to `loggingIDs`.
+        // TODO: The 2026 instrumentation plan does not name the edit slides yet, so they log their raw
+        // ids. Remove this filter when their page names are added to `loggingIDs` (see the TODO there).
         let slidesWithoutPlanPages: Set<String> = ["edits", "editsEmpty", "editViews", "mostViewedArticles"]
         let slides = (factory.makeSlides(experience: experience, isLoggedIn: true) + factory.collectiveSlides(config: try config()))
             .filter { !slidesWithoutPlanPages.contains($0.id) }

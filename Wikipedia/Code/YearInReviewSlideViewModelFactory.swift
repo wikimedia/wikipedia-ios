@@ -22,6 +22,11 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The `page` names of the 2026 instrumentation plan. The donate campaign ID is also made from them.
+    ///
+    /// TODO: The plan has no page names for the edit slides yet, so `edits`, `editsEmpty`,
+    /// `editViews` and `mostViewedArticles` are logged with their raw slide ids. Add their names here
+    /// when the 2026 instrumentation plan adds them, then remove `slidesWithoutPlanPages` from
+    /// `theSlidesLogThePageNamesOfTheInstrumentationPlan` in YearInReviewSlideViewModelFactoryTests.
     private static let loggingIDs: [String: String] = [
         "totalArticles": "total_articles",
         "totalArticlesEmpty": "total_articles_empty",
@@ -862,18 +867,10 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The edits in the contributor period, from the report the app fills in the background. `nil`
-    /// when the report does not have them.
+    /// when the report does not have them. The data controller counts the slides with the same rule.
     private func storedEditCount(in report: WMFYearInReviewReport?) -> Int? {
         do {
-            let slides = report?.slides ?? []
-            if let data = slides.first(where: { $0.id == .editCount })?.data,
-               let editCount = try JSONDecoder().decode(Int?.self, from: data) {
-                return editCount
-            }
-            if let data = slides.first(where: { $0.id == .donateCount })?.data {
-                return try JSONDecoder().decode(DonateAndEditCounts.self, from: data).editCount
-            }
-            return nil
+            return try WMFYearInReviewDataController.editCount(in: report?.slides ?? [])
         } catch {
             DDLogError("Error reading the Year in Review edit count: \(error)")
             return nil
