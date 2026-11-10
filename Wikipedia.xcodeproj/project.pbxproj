@@ -1736,6 +1736,7 @@
 		B0BCF0AD2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */; };
 		B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */; };
 		E81A4E2626082000005CE026 /* SearchInstrumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */; };
+		7A44019526090000005CE026 /* AnalyticsInspectorWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE025 /* AnalyticsInspectorWindowTests.swift */; };
 		7A4401940000000000000019 /* DiscoverInstrumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000018 /* DiscoverInstrumentationTests.swift */; };
 		7A440194000000000000001B /* SavedInstrumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A440194000000000000001A /* SavedInstrumentationTests.swift */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
@@ -2521,6 +2522,9 @@
 		E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D2126081900005CE021 /* SearchInstrumentation.swift */; };
 		E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D2126081900005CE021 /* SearchInstrumentation.swift */; };
 		E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4D2126081900005CE021 /* SearchInstrumentation.swift */; };
+		7A44019526090000005CE022 /* AnalyticsInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE021 /* AnalyticsInspectorController.swift */; };
+		7A44019526090000005CE023 /* AnalyticsInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE021 /* AnalyticsInspectorController.swift */; };
+		7A44019526090000005CE024 /* AnalyticsInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE021 /* AnalyticsInspectorController.swift */; };
 		7A4401940000000000000011 /* DiscoverInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000010 /* DiscoverInstrumentation.swift */; };
 		7A4401940000000000000012 /* DiscoverInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000010 /* DiscoverInstrumentation.swift */; };
 		7A4401940000000000000013 /* DiscoverInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000010 /* DiscoverInstrumentation.swift */; };
@@ -3740,6 +3744,7 @@
 		B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableEducationPanelViewController.swift; sourceTree = "<group>"; };
 		B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMapTests.swift"; sourceTree = "<group>"; };
 		E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInstrumentationTests.swift; sourceTree = "<group>"; };
+		7A44019526090000005CE025 /* AnalyticsInspectorWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsInspectorWindowTests.swift; sourceTree = "<group>"; };
 		7A4401940000000000000018 /* DiscoverInstrumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInstrumentationTests.swift; sourceTree = "<group>"; };
 		7A440194000000000000001A /* SavedInstrumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedInstrumentationTests.swift; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -4202,6 +4207,7 @@
 		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
 		E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationReminderSetupCoordinator.swift; sourceTree = "<group>"; };
 		E81A4D2126081900005CE021 /* SearchInstrumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInstrumentation.swift; sourceTree = "<group>"; };
+		7A44019526090000005CE021 /* AnalyticsInspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsInspectorController.swift; sourceTree = "<group>"; };
 		7A4401940000000000000010 /* DiscoverInstrumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInstrumentation.swift; sourceTree = "<group>"; };
 		7A4401940000000000000014 /* SavedInstrumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedInstrumentation.swift; sourceTree = "<group>"; };
 		E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticSearchInfoCoordinator.swift; sourceTree = "<group>"; };
@@ -6173,6 +6179,7 @@
 				E8D15C1126101A00005CE111 /* ShareReadingListCoordinator.swift */,
 				E8D15C2126101A00005CE121 /* DiscoverSettingsCoordinator.swift */,
 				E81A4D2126081900005CE021 /* SearchInstrumentation.swift */,
+				7A44019526090000005CE021 /* AnalyticsInspectorController.swift */,
 				7A4401940000000000000010 /* DiscoverInstrumentation.swift */,
 				7A4401940000000000000014 /* SavedInstrumentation.swift */,
 				E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */,
@@ -7114,6 +7121,7 @@
 				E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */,
 				E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */,
 				E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */,
+				7A44019526090000005CE025 /* AnalyticsInspectorWindowTests.swift */,
 				A04881C1695CEC2F4FDF1A89 /* MWKImageInfoFetcherTests.swift */,
 				E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */,
 				E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */,
@@ -9142,6 +9150,7 @@
 				E81A4C0626082000005CD006 /* FundraisingAnnouncementDismissActionTests.swift in Sources */,
 				E81A4E0626082000005CE006 /* SemanticSearchPassageHighlightTests.swift in Sources */,
 				E81A4E2626082000005CE026 /* SearchInstrumentationTests.swift in Sources */,
+				7A44019526090000005CE026 /* AnalyticsInspectorWindowTests.swift in Sources */,
 				7A4401940000000000000019 /* DiscoverInstrumentationTests.swift in Sources */,
 				7A440194000000000000001B /* SavedInstrumentationTests.swift in Sources */,
 				3F4CF854EA7F9FA3057C8E58 /* MWKImageInfoFetcherTests.swift in Sources */,
@@ -9545,6 +9554,7 @@
 				E8D15C1426101A00005CE114 /* ShareReadingListCoordinator.swift in Sources */,
 				E8D15C2426101A00005CE124 /* DiscoverSettingsCoordinator.swift in Sources */,
 				E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */,
+				7A44019526090000005CE024 /* AnalyticsInspectorController.swift in Sources */,
 				7A4401940000000000000011 /* DiscoverInstrumentation.swift in Sources */,
 				7A4401940000000000000015 /* SavedInstrumentation.swift in Sources */,
 				E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */,
@@ -10339,6 +10349,7 @@
 				E8D15C1326101A00005CE113 /* ShareReadingListCoordinator.swift in Sources */,
 				E8D15C2326101A00005CE123 /* DiscoverSettingsCoordinator.swift in Sources */,
 				E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */,
+				7A44019526090000005CE023 /* AnalyticsInspectorController.swift in Sources */,
 				7A4401940000000000000012 /* DiscoverInstrumentation.swift in Sources */,
 				7A4401940000000000000016 /* SavedInstrumentation.swift in Sources */,
 				E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */,
@@ -10885,6 +10896,7 @@
 				E8D15C1226101A00005CE112 /* ShareReadingListCoordinator.swift in Sources */,
 				E8D15C2226101A00005CE122 /* DiscoverSettingsCoordinator.swift in Sources */,
 				E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */,
+				7A44019526090000005CE022 /* AnalyticsInspectorController.swift in Sources */,
 				7A4401940000000000000013 /* DiscoverInstrumentation.swift in Sources */,
 				7A4401940000000000000017 /* SavedInstrumentation.swift in Sources */,
 				E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */,
