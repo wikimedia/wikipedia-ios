@@ -18,6 +18,10 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let activeEndDateString: String
             public let dataStartDateString: String
             public let dataEndDateString: String
+            /// The period for the edit slides. Not in the 2025 config, so it is optional. A `var` with a
+            /// default, so the memberwise init does not need it.
+            public var contribStartDateString: String? = nil
+            public var contribEndDateString: String? = nil
             public let languages: Int
             public let articles: Int
             public let savedArticlesApps: Int
@@ -43,6 +47,8 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
                 case activeEndDateString = "activeEndDate"
                 case dataStartDateString = "dataStartDate"
                 case dataEndDateString = "dataEndDate"
+                case contribStartDateString = "contribStartDate"
+                case contribEndDateString = "contribEndDate"
                 case languages
                 case articles
                 case savedArticlesApps
@@ -80,6 +86,14 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             var dataEndDate: Date? {
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
                 return dateFormatter.date(from: dataEndDateString)
+            }
+
+            var contribStartDate: Date? {
+                contribStartDateString.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
+            }
+
+            var contribEndDate: Date? {
+                contribEndDateString.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
             }
             
             func isActive(for date: Date) -> Bool {

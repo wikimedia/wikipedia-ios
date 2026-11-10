@@ -24,6 +24,7 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable, Sendable {
     case location
     case topTopics
     case daysVisited
+    case mostViewedArticles
     case rabbitHoles
     case readingStreak
     case biggestReadingDay
@@ -56,6 +57,8 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable, Sendable {
             return YearInReviewTopTopicsSlideDataController.self
         case .daysVisited:
             return YearInReviewDaysVisitedSlideDataController.self
+        case .mostViewedArticles:
+            return YearInReviewMostViewedArticlesSlideDataController.self
         case .rabbitHoles:
             return YearInReviewRabbitHolesSlideDataController.self
         case .readingStreak:

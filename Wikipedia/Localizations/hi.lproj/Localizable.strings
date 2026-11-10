@@ -200,6 +200,7 @@
 "diff-single-line-format" = "पंक्ति $1";
 "diff-thanks-anonymous-no-thanks" = "बेनाम उपयोगकर्ता को धन्यवाद नहीं दिया जा सकता";
 "dim-images" = "मंद छवियाँ";
+"discover-settings-turn-off-alert-confirm" = "बंद करें";
 "donate-accessibility-amount-button-hint" = "दान राशि चुनने के लिए दो बार टैप करें।";
 "donate-help-other-ways-to-give" = "दान करने के दूसरे तरीके";
 "donate-success-title" = "धन्यवाद!";

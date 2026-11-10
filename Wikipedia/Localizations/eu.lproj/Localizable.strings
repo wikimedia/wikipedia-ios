@@ -321,8 +321,6 @@
 "reading-list-api-error-generic" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak sinkronizatzen ari ziren bitartean.";
 "reading-list-api-error-list-limit" = "Zerrenda hau ez dago sinkronizatuta zure sinkronizatutako zerrenden muga gainditu duzulako.";
 "reading-list-create-new-list-button-title" = "Irakurketa zerrenda sortu";
-"reading-list-create-new-list-description" = "Deskribapena";
-"reading-list-create-new-list-reading-list-name" = "Izenen zerrenda irakurtzen";
 "reading-list-create-new-list-title" = "Zerrenda berria sortu";
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
@@ -342,7 +340,9 @@
 "reading-list-list-limit-reached" = "Kontu bakoitzeko $1 irakurketa-zerrenden muga gainditu duzu.";
 "reading-list-login-or-create-account-button-title" = "Hasi saioa edo sortu kontua";
 "reading-list-name-user-created-annotation" = "_[erabiltzailea sortua]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
 "reading-list-sync-disabled-panel-message" = "Irakurketa zerrendaren sinkronizazioa desgaitua izan da zure Wikipedia kontutik beste gailu batean. Sinkronizazioa atzera bueltatu dezakezu, zure ezarpenak eguneratuz.";
 "reading-list-sync-disabled-panel-title" = "Sinkronizazioa desgaituta";

@@ -267,8 +267,6 @@
 "clearing-cache-error" = "Помилка очищення кешу.";
 "clearing-cache-in-progress" = "Виконується очищення кешу.";
 "close-all-tabs" = "Закрити всі вкладки";
-"close-all-tabs-confirmation" = "Хочете закрити всі вкладки ($1)? Цю дію не можна скасувати.";
-"close-all-tabs-confirmation-number" = "Закрити всі вкладки ($1)?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Бажаєте закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}? Цю дію не можна скасувати.";
 "close-all-tabs-confirmation-title-with-value" = "Закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}?";
 "close-button-accessibility-label" = "Закрити";
@@ -1132,8 +1130,6 @@
 "reading-list-api-error-generic" = "Під час синхронізації ваших читальних списків сталася непередбачена помилка.";
 "reading-list-api-error-list-limit" = "Цей список не синхронізировано, оскільки ви сягнули ліміту кількості синхронізованих списків.";
 "reading-list-create-new-list-button-title" = "Створити читальний список";
-"reading-list-create-new-list-description" = "Опис";
-"reading-list-create-new-list-reading-list-name" = "Назва читального списку";
 "reading-list-create-new-list-title" = "Створити новий список";
 "reading-list-deleted-accessibility-notification" = "Читальний список вилучено";
 "reading-list-detail-search-placeholder" = "Пошук у читальному списку";
@@ -1154,7 +1150,9 @@
 "reading-list-list-limit-reached" = "Ви сягнули ліміту в $1 читальних списків для облікового запису.";
 "reading-list-login-or-create-account-button-title" = "Увідіть або створіть обліковий запис";
 "reading-list-name-user-created-annotation" = "_[користувача створено]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "необов'язковий короткий опис";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "назва читального списку";
 "reading-list-sync-disabled-panel-message" = "Синхронизація читальних списків була вимкнена на вашому обліковому запису на іншому приладі. Ви можете знову ввімкнути її в налаштуваннях.";
 "reading-list-sync-disabled-panel-title" = "Синхронізація вимкнена";

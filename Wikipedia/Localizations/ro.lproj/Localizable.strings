@@ -703,8 +703,6 @@
 "reading-list-api-error-generic" = "A apărut o eroare neașteptată în timpul sincronizării listelor de citire.";
 "reading-list-api-error-list-limit" = "Această listă nu este sincronizată, deoarece ați atins limita pentru numărul de liste sincronizate.";
 "reading-list-create-new-list-button-title" = "Creați lista de citire";
-"reading-list-create-new-list-description" = "Descriere";
-"reading-list-create-new-list-reading-list-name" = "Citirea numelui listei";
 "reading-list-create-new-list-title" = "Creați o listă nouă";
 "reading-list-deleted-accessibility-notification" = "Lista de citire a fost ștearsă";
 "reading-list-do-not-keep-button-title" = "Nu, ștergeți articole de pe dispozitiv";
@@ -724,7 +722,9 @@
 "reading-list-list-limit-reached" = "Ați atins limita de $1 liste de citire pe cont";
 "reading-list-login-or-create-account-button-title" = "Autentificare sau creați un cont";
 "reading-list-name-user-created-annotation" = "_[utilizator creat]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descriere scurtă opțională";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titlu listă de citire";
 "reading-list-sync-disabled-panel-message" = "Sincronizarea listei de citire a fost dezactivată pentru contul dvs. Wikipedia pe un alt dispozitiv. Puteți activa sincronizarea prin actualizarea setărilor.";
 "reading-list-sync-disabled-panel-title" = "Sincronizarea dezactivată";

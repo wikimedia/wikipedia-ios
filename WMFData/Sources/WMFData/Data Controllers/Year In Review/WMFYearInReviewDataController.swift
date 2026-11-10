@@ -92,13 +92,26 @@ import CoreData
 
     /// The period for the contributor slide and for donor and editor rewards: December 1 of the
     /// previous year to December 1 of `year`, at 00:00 UTC. The end date is the first instant
-    /// outside the period. This is set in the app, not in the remote config.
+    /// outside the period. This is set in the app, not in the remote config. Edits use
+    /// `editCountDateRange(config:)` instead.
     public static func contributorDateRange(year: Int) -> DateInterval? {
         guard let start = utcDate(year: year - 1, month: 12, day: 1),
               let end = utcDate(year: year, month: 12, day: 1) else {
             return nil
         }
         return DateInterval(start: start, end: end)
+    }
+
+    /// The period for the edit count: `contribStartDate` to `contribEndDate` of the remote config, or
+    /// `contributorDateRange(year:)` when the config does not have them. The monthly metrics API
+    /// rounds the end down to the start of its month, so the end date is the first month not counted.
+    public static func editCountDateRange(config: WMFFeatureConfigResponse.Common.YearInReview) -> DateInterval? {
+        if let start = config.contribStartDate,
+           let end = config.contribEndDate,
+           start < end {
+            return DateInterval(start: start, end: end)
+        }
+        return contributorDateRange(year: config.year)
     }
 
     private static func utcDate(year: Int, month: Int, day: Int) -> Date? {
@@ -166,8 +179,7 @@ import CoreData
               let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
             return .collective
         }
-        let eligibleSlideCount = report.slides.reduce(0) { $0 + Self.fullSlideCount(for: $1) }
-        return eligibleSlideCount >= Self.personalizedEligibleSlideThreshold ? .personalized : .collective
+        return Self.eligibleSlideCount(for: report.slides) >= Self.personalizedEligibleSlideThreshold ? .personalized : .collective
     }
 
     /// True if the developer settings force the empty version of each personalized slide.
@@ -180,6 +192,46 @@ import CoreData
             return nil
         }
         return developerSettingsDataController.forceYiRSlidesExperience
+    }
+
+    /// The number of slides that the report shows in their full version, not their empty version.
+    /// The edit views and most-viewed articles slides show only after at least one edit in the
+    /// period, the same rule as the app's editor slides. The most-viewed articles are not limited to
+    /// the period, so without this a past editor could reach the personalized flow and see only
+    /// empty slides.
+    ///
+    /// Whether the reader edited comes from `editCount(in:)`, the same rule as the app's slides. The
+    /// edit count slide counts once when the reader edited, also when the count is only in the
+    /// donate count slide.
+    static func eligibleSlideCount(for slides: [WMFYearInReviewSlide]) -> Int {
+        let hasEdits = ((try? editCount(in: slides)) ?? nil).map { $0 > 0 } ?? false
+        let otherSlideCount = slides.reduce(0) { count, slide in
+            guard slide.id != .editCount else {
+                return count
+            }
+            let needsEdits = slide.id == .viewCount || slide.id == .mostViewedArticles
+            guard hasEdits || !needsEdits else {
+                return count
+            }
+            return count + fullSlideCount(for: slide)
+        }
+        return otherSlideCount + (hasEdits ? 1 : 0)
+    }
+
+    /// The edits in the contributor period, from the edit count slide, or else from the edit count
+    /// in the donate count slide. `nil` when no slide has it, for example after a failed request.
+    /// The slide count and the app's edit slides both read it here, so they agree on whether the
+    /// reader edited.
+    public static func editCount(in slides: [WMFYearInReviewSlide]) throws -> Int? {
+        let decoder = JSONDecoder()
+        if let data = slides.first(where: { $0.id == .editCount })?.data,
+           let editCount = try decoder.decode(Int?.self, from: data) {
+            return editCount
+        }
+        if let data = slides.first(where: { $0.id == .donateCount })?.data {
+            return try decoder.decode(DonateAndEditCounts.self, from: data).editCount
+        }
+        return nil
     }
 
     /// The number of slides that this report entry shows in their full version, not their empty
@@ -217,7 +269,11 @@ import CoreData
         case .editCount:
             // Android counts its total edits slide from one edit, also before the edit slides are built here.
             return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0
-        case .donateCount, .saveCount, .mostReadDate, .viewCount, .location:
+        case .viewCount:
+            return (try? decoder.decode(WMFYearInReviewViewCountSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .mostViewedArticles:
+            return (try? decoder.decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .donateCount, .saveCount, .mostReadDate, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
             return 0
         }
@@ -639,12 +695,13 @@ import CoreData
             })
         }
 
-        // For any slide IDs missing, create associated slide data controllers and populate their data. Set evaluated flag if population succeeds
+        // For any slide IDs missing, create associated slide data controllers and populate their data.
+        // Each controller sets its own evaluated flag. One that returns early, for example without a
+        // user id, stays unevaluated, so its empty data is not stored.
         var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
         for index in slideDataControllers.indices {
             do {
                 try await slideDataControllers[index].populateSlideData(in: backgroundContext)
-                slideDataControllers[index].isEvaluated = true
             } catch {
                 slideDataControllers[index].isEvaluated = false
             }
@@ -654,6 +711,7 @@ import CoreData
         // closure below captures an immutable binding rather than the mutable
         // `slideDataControllers` var.
         let evaluatedSlideDataControllers = slideDataControllers.filter { $0.isEvaluated }
+        let evaluatedSlideIDs = Set(evaluatedSlideDataControllers.map(\.id))
 
         // Create new core data slides from evaluated data controllers, save to core data report and return generic report struct
         let report = try await backgroundContext.perform {
@@ -670,13 +728,14 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
-            // Only preserve existing slides that should freeze and use the current format.
-            // A slide in an older format is deleted. The data controller above built it again.
+            // Preserve existing slides in the current format that should freeze. Replace the others
+            // only when this run evaluated them again, so a failed fetch keeps the last good data.
+            // A slide in an older format is always deleted. The data controller above built it again.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    if dataController.shouldFreeze && dataController.hasCurrentFormat(slide.data) {
+                    if dataController.hasCurrentFormat(slide.data) && (dataController.shouldFreeze || !evaluatedSlideIDs.contains(cdSlideID)) {
                         finalCDSlides.insert(slide)
                     } else {
                         backgroundContext.delete(slide)

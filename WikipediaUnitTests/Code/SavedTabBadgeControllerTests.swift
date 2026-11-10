@@ -108,6 +108,24 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         XCTAssertEqual(tabBarItem.badgeValue, "\u{2800}")
     }
 
+    func testApplyingTheThemeWritesTheDotStyleBackToTheTabBar() {
+        discover.isEnabled = true
+        discover.shouldShowAnnouncement = true
+        let tabBar = UITabBar()
+        tabBar.apply(theme: .light)
+        controller = SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: tabBar, theme: .light, userInterfaceIdiom: .phone, discoverDataController: discover)
+        XCTAssertEqual(tabBar.standardAppearance.stackedLayoutAppearance.normal.badgeBackgroundColor, .clear)
+
+        // A theme on the bar alone brings the default badge style back. Home does this below iOS 26.
+        tabBar.apply(theme: .light)
+        XCTAssertEqual(tabBar.standardAppearance.stackedLayoutAppearance.normal.badgeBackgroundColor, Theme.light.colors.accent)
+
+        controller.apply(theme: .light)
+        XCTAssertEqual(tabBar.standardAppearance.stackedLayoutAppearance.normal.badgeBackgroundColor, .clear)
+        XCTAssertEqual(tabBar.scrollEdgeAppearance?.stackedLayoutAppearance.normal.badgeBackgroundColor, .clear)
+        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
+    }
+
     func testTheStarFollowsTheDownloadProgress() async {
         controller = makeController()
         let progress = Progress.discreteProgress(totalUnitCount: -1)
