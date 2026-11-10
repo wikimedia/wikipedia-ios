@@ -361,6 +361,7 @@
 "discover-announcement-title" = "Discover articles picked for you";
 "discover-entry-card-byline" = "Made for $1";
 "discover-entry-card-unseen-list" = "New list";
+"discover-interests-subtitle" = "Changes here only affect what you see in Discover.";
 "discover-list-about" = "About this feature";
 "discover-list-byline" = "Made for $1 • $2";
 "discover-list-byline-you" = "you";

@@ -12,10 +12,10 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
 
     /// Where the screen opens from. The question and the Continue button show only on onboarding.
     public enum Presentation: Sendable {
-        /// Get started on the Saved tab. Continue saves the source and turns Discover on.
+        /// Get started on the Saved tab. Continue turns Discover on, or opens the interests screen.
         case onboarding
-        /// How Discover is built, from the Discover settings. A new source asks for confirmation
-        /// and is saved when the reader leaves the screen.
+        /// How Discover is built, from the Discover settings. A new source asks for confirmation.
+        /// Adjust saves the source and ends the flow.
         case settings
     }
 
@@ -27,8 +27,8 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
 
     public var didChooseInterests: (() -> Void)?
     public var didTurnOnDiscover: (() -> Void)?
-    /// Settings only. Called after the reader leaves the screen with a source that differs from
-    /// the saved one. The first value is the previous source, the second the new one.
+    /// Settings only. Called after Adjust to saved articles or reading history saved the source.
+    /// The first value is the previous source, the second the new one. The caller closes the screen.
     public var didChangeSource: ((WMFDiscoverSource, WMFDiscoverSource) -> Void)?
     public weak var loggingDelegate: WMFDiscoverSetupLoggingDelegate?
 
@@ -38,8 +38,7 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
     private var didLogImpression = false
     private(set) var pendingSource: WMFDiscoverSource?
     var continueTask: Task<Void, Never>?
-    private(set) var adjustTask: Task<Void, Never>?
-    private(set) var dismissTask: Task<Void, Never>?
+    private(set) var commitTask: Task<Void, Never>?
 
     /// `currentSource` is pre-selected when it is offered. Otherwise interests is pre-selected,
     /// as on the first run. From Settings the current source is always offered, even when it has
@@ -107,21 +106,21 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
 
     // MARK: - Settings
 
-    /// Adjust on the alert. Interests is saved at once, so the interests screen opens on a saved source.
+    /// Adjust on the alert. Interests opens the interests screen and saves nothing yet: the
+    /// interests screen saves the source on its way out, after the reader selected at least one
+    /// interest, so the stored source never points at an empty set. The other sources are saved
+    /// here and end the flow, like Next on Android.
     public func confirmAdjust() {
         isShowingAdjustAlert = false
         guard let pendingSource else { return }
         self.pendingSource = nil
         selectedSource = pendingSource
 
-        if pendingSource == .interests {
-            let dataController = readingListDataController
-            adjustTask = Task { [weak self] in
-                var settings = await dataController.settings
-                settings.source = .interests
-                try? await dataController.saveSettings(settings)
-                self?.didChooseInterests?()
-            }
+        switch pendingSource {
+        case .interests:
+            didChooseInterests?()
+        case .saved, .history:
+            commitSource(pendingSource)
         }
     }
 
@@ -130,26 +129,18 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
         pendingSource = nil
     }
 
-    /// Settings only. Saves the selected source when the reader leaves the screen and reports
-    /// the change against the source the screen opened with. The stored source is always
-    /// reconciled, because Adjust to interests saves at once and the reader can then go back to
-    /// the opening source. The task keeps only the data controller and the closure, so the
-    /// screen can go away.
-    public func commitSelectionOnDismiss() {
-        guard presentation == .settings, dismissTask == nil else { return }
+    /// Saves the settings with the new source and reports the change against the source the
+    /// screen opened with. The task keeps only the data controller and the closure.
+    private func commitSource(_ source: WMFDiscoverSource) {
+        guard commitTask == nil else { return }
         let dataController = readingListDataController
         let previousSource = persistedSource
-        let source = selectedSource
         let didChangeSource = didChangeSource
-        let adjustTask = adjustTask
 
-        dismissTask = Task {
-            await adjustTask?.value
+        commitTask = Task {
             var settings = await dataController.settings
-            if settings.source != source {
-                settings.source = source
-                try? await dataController.saveSettings(settings)
-            }
+            settings.source = source
+            try? await dataController.saveSettings(settings)
             guard previousSource != source else { return }
             didChangeSource?(previousSource, source)
         }
@@ -167,15 +158,15 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
         }
     }
 
+    /// Interests saves nothing: the interests screen turns Discover on with that source once the
+    /// reader selected at least one interest. The other sources turn Discover on at once.
     private func commit(_ source: WMFDiscoverSource) async {
-        var settings = await readingListDataController.settings
-        settings.source = source
-
         switch source {
         case .interests:
-            try? await readingListDataController.saveSettings(settings)
             didChooseInterests?()
         case .saved, .history:
+            var settings = await readingListDataController.settings
+            settings.source = source
             settings.isEnabled = true
             try? await readingListDataController.saveSettings(settings)
             try? discoverDataController.markAnnouncementDismissed()

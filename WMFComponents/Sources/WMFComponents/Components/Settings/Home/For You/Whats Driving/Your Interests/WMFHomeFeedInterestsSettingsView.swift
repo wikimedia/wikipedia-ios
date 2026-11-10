@@ -86,8 +86,20 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     // MARK: - Header
 
-    @ViewBuilder
     private var header: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            headerTitle
+            if let subtitle = viewModel.subtitle {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.footnote, sized: dynamicTypeSize)))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Interests.subtitle)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var headerTitle: some View {
         if viewModel.selectedCount == 0 {
             Text(viewModel.headerTitle)
                 .font(Font(WMFFont.for(.boldTitle3, sized: dynamicTypeSize)))
