@@ -84,7 +84,7 @@ final class WikiRunViewController: UIViewController, WKScriptMessageHandler, WKN
 
     init() {
         let configuredURL = Bundle.main.object(forInfoDictionaryKey: "WikiRunBaseURL") as? String
-        let productionURL = URL(string: "https://wikirun-game.toolforge.com")!
+        let productionURL = URL(string: "https://wikirun-game.toolforge.org")!
         if let candidate = URL(string: configuredURL ?? ""),
            ["http", "https"].contains(candidate.scheme?.lowercased() ?? ""),
            candidate.host != nil {
