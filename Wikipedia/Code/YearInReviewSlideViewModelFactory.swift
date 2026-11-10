@@ -66,6 +66,7 @@ struct YearInReviewSlideViewModelFactory {
             closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
             moreButtonAccessibilityLabel: CommonStrings.moreButton,
             shareButtonTitle: CommonStrings.shortShareTitle,
+            shareHighlightsButtonTitle: CommonStrings.yearInReviewOutroShareButtonTitle,
             donateButtonTitle: CommonStrings.donateTitle,
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),
             aboutInsightsButtonTitle: Self.aboutInsightsButtonTitle,
@@ -79,14 +80,21 @@ struct YearInReviewSlideViewModelFactory {
     /// The days visited, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
+    ///
+    /// Also returns what "Share highlights" on the end screen shares. The slides and the highlights come
+    /// from one read of the stored report, so the image cannot show other data than the slides. The
+    /// highlights are `nil` in the collective flow, and when the developer settings force the empty
+    /// states, because then the reader saw no highlights.
     /// - Parameters:
     ///   - isLoggedIn: A logged-out non-contributor is asked to log in to see their contributions.
     ///   - forcesAllEmptyStates: shows the empty version of each personalized slide. Only the developer settings use it.
-    func makeSlides(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> [WMFYearInReviewSlideViewModel] {
+    func makeSlidesAndHighlights(experience: WMFYearInReviewDataController.YiRSlidesExperience, isLoggedIn: Bool, forcesAllEmptyStates: Bool = false) -> (slides: [WMFYearInReviewSlideViewModel], highlights: WMFYearInReviewHighlights?) {
         // Read the report once. Each slide decodes its own data from it.
         let report = experience == .personalized ? storedReport() : nil
+        let personalizedData = experience == .personalized && !forcesAllEmptyStates ? storedPersonalizedData(in: report, isLoggedIn: isLoggedIn) : nil
         let contributorSlides = makeContributorSlide(experience: experience, isLoggedIn: isLoggedIn, report: report).map { [$0] } ?? []
-        return experienceSlides(experience, report: report, isLoggedIn: isLoggedIn, forcesAllEmptyStates: forcesAllEmptyStates) + contributorSlides
+        let slides = experienceSlides(experience, personalizedData: personalizedData, isLoggedIn: isLoggedIn) + contributorSlides
+        return (slides, personalizedData.map(highlights(from:)))
     }
 
     /// The contributor slide from the stored edits and the donations on the device. Also used to
@@ -108,7 +116,8 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, report: WMFYearInReviewReport?, isLoggedIn: Bool, forcesAllEmptyStates: Bool) -> [WMFYearInReviewSlideViewModel] {
+    /// - Parameter personalizedData: `nil` in the personalized flow shows the empty version of each slide.
+    private func experienceSlides(_ experience: WMFYearInReviewDataController.YiRSlidesExperience, personalizedData: PersonalizedData?, isLoggedIn: Bool) -> [WMFYearInReviewSlideViewModel] {
         switch experience {
         case .collective:
             // Without a config, Year in Review does not open, but never show zero slides.
@@ -116,33 +125,42 @@ struct YearInReviewSlideViewModelFactory {
                 return personalizedEmptySlides(isLoggedIn: isLoggedIn)
             }
             return collectiveSlides(config: config)
-        case .personalized where forcesAllEmptyStates:
-            return personalizedEmptySlides(isLoggedIn: isLoggedIn)
         case .personalized:
-            // No stored data means no qualifying articles, so show the empty states, never zero slides.
-            let config = try? WMFYearInReviewDataController().config
-            let readCount = storedReadCount(in: report) ?? 0
-            return personalizedSlides(PersonalizedData(
-                readCount: readCount,
-                topReadPercentage: config?.topReadPercentage(forReadCount: readCount),
-                averageReadCount: config?.averageArticlesReadPerYear,
-                daysVisited: storedDaysVisited(in: report),
-                readingStreak: storedReadingStreak(in: report),
-                topTopics: storedTopTopics(in: report),
-                rabbitHoles: storedRabbitHoles(in: report),
-                nicheCategory: storedNicheCategory(in: report),
-                rereadArticles: storedRereadArticles(in: report) ?? [],
-                isLoggedIn: isLoggedIn,
-                editCount: storedEditCount(in: report),
-                editViewCount: storedViewCount(in: report),
-                mostViewedArticles: storedMostViewedArticles(in: report)
-            ))
+            guard let personalizedData else {
+                return personalizedEmptySlides(isLoggedIn: isLoggedIn)
+            }
+            return personalizedSlides(personalizedData)
         }
+    }
+
+    /// Reads the stored data of each personalized slide from one read of the report.
+    /// No stored data means no qualifying articles, so the slides show their empty states, never zero slides.
+    private func storedPersonalizedData(in report: WMFYearInReviewReport?, isLoggedIn: Bool) -> PersonalizedData {
+        let config = try? WMFYearInReviewDataController().config
+        let readData = storedReadData(in: report)
+        return PersonalizedData(
+            readData: readData,
+            topReadPercentage: config?.topReadPercentage(forReadCount: readData?.readCount ?? 0),
+            averageReadCount: config?.averageArticlesReadPerYear,
+            daysVisited: storedDaysVisited(in: report),
+            readingStreak: storedReadingStreak(in: report),
+            topTopics: storedTopTopics(in: report),
+            rabbitHoles: storedRabbitHoles(in: report),
+            nicheCategory: storedNicheCategory(in: report),
+            rereadArticles: storedRereadArticles(in: report) ?? [],
+            isLoggedIn: isLoggedIn,
+            editCount: storedEditCount(in: report),
+            editViewCount: storedViewCount(in: report),
+            mostViewedArticles: storedMostViewedArticles(in: report)
+        )
     }
 
     /// The stored data of the personalized slides.
     struct PersonalizedData {
-        var readCount = 0
+        /// For the total articles slide and the highlights. `nil` shows the empty total articles slide.
+        var readData: WMFYearInReviewReadData?
+        /// No stored data means no qualifying articles.
+        var readCount: Int { readData?.readCount ?? 0 }
         var topReadPercentage: Double?
         var averageReadCount: Int?
         var daysVisited: WMFYearInReviewDaysVisitedSlideData?
@@ -226,10 +244,10 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Total articles
 
-    /// The number of unique articles read, from the report the app fills in the background.
-    /// `nil` when the report does not have this slide yet.
-    private func storedReadCount(in report: WMFYearInReviewReport?) -> Int? {
-        storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles", in: report)?.readCount
+    /// The number of unique articles read and the minutes read, from the report the app fills in
+    /// the background. `nil` when the report does not have this slide yet.
+    private func storedReadData(in report: WMFYearInReviewReport?) -> WMFYearInReviewReadData? {
+        storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles", in: report)
     }
 
     /// Shows the empty version unless the reader read at least `WMFYearInReviewReadData.minimumReadCount` articles.
@@ -237,7 +255,7 @@ struct YearInReviewSlideViewModelFactory {
     ///   - topReadPercentage: The "top X%" of readers globally, for example `50` or `0.01`. `nil` when the reader is below the 50th percentile.
     ///   - averageReadCount: The number of articles the average person reads in a year.
     func totalArticlesSlide(readCount: Int, topReadPercentage: Double?, averageReadCount: Int?) -> WMFYearInReviewSlideViewModel {
-        guard readCount >= WMFYearInReviewReadData.minimumReadCount else {
+        guard let readCount = SlideEligibility.readCount(readCount) else {
             return totalArticlesEmptySlide()
         }
 
@@ -405,7 +423,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// Shows the empty version unless at least two articles were visited multiple times.
     func rereadArticlesSlide(_ articles: [RereadArticle]) -> WMFYearInReviewSlideViewModel {
-        guard articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount else {
+        guard let articles = SlideEligibility.rereadArticles(articles) else {
             return rereadArticlesEmptySlide()
         }
 
@@ -457,7 +475,7 @@ struct YearInReviewSlideViewModelFactory {
     /// so the same category shows each time. `nil` when the reader has no category to show.
     /// The slide has no empty version.
     func nicheInterestSlide(_ slideData: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewSlideViewModel? {
-        guard let slideData, slideData.isEligible, let categoryName = slideData.categoryName else {
+        guard let categoryName = SlideEligibility.nicheCategoryName(slideData) else {
             return nil
         }
 
@@ -617,10 +635,7 @@ struct YearInReviewSlideViewModelFactory {
     /// One slide: the guess, with the reveal as its answer. A tap on a card replaces the guess with the
     /// reveal in place. No slide without two rabbit holes.
     func rabbitHoleSlides(_ slideData: WMFYearInReviewRabbitHolesSlideData?) -> [WMFYearInReviewSlideViewModel] {
-        guard let slideData,
-              slideData.isEligible,
-              let deepest = slideData.rabbitHoles.first,
-              let other = slideData.rabbitHoles.dropFirst().first else {
+        guard let slideData, case let (deepest, other)? = SlideEligibility.rabbitHoles(slideData) else {
             return []
         }
         let (topCard, bottomCard) = slideData.deepestIsOnTop ? (deepest, other) : (other, deepest)
@@ -706,6 +721,93 @@ struct YearInReviewSlideViewModelFactory {
             contentStyle: .dark,
             lightContentFlag: Self.lightContentFlag,
             sharePoseTime: sharePoseTime
+        )
+    }
+
+    // MARK: - Eligibility
+
+    /// When each personalized slide shows its data. The slides and the highlights both read these
+    /// rules, so the highlights image only shows what the slides showed. Each rule returns `nil`
+    /// when the slide shows its empty version, or no slide.
+    enum SlideEligibility {
+
+        /// The total articles slide needs at least `WMFYearInReviewReadData.minimumReadCount` articles.
+        /// The highlights do not use this rule: they show the count from `minimumHighlightsReadCount`.
+        static func readCount(_ readCount: Int) -> Int? {
+            readCount >= WMFYearInReviewReadData.minimumReadCount ? readCount : nil
+        }
+
+        /// No slide shows the minutes yet. The highlights show them when there are any.
+        static func minutesRead(_ minutesRead: Int) -> Int? {
+            minutesRead > 0 ? minutesRead : nil
+        }
+
+        /// The reread articles slide needs at least two articles visited multiple times.
+        static func rereadArticles(_ articles: [RereadArticle]) -> [RereadArticle]? {
+            articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount ? articles : nil
+        }
+
+        /// The rabbit hole slide needs two rabbit holes: the deepest, then the other.
+        static func rabbitHoles(_ slideData: WMFYearInReviewRabbitHolesSlideData) -> (deepest: WMFYearInReviewRabbitHolesSlideData.RabbitHole, other: WMFYearInReviewRabbitHolesSlideData.RabbitHole)? {
+            guard slideData.isEligible,
+                  let deepest = slideData.rabbitHoles.first,
+                  let other = slideData.rabbitHoles.dropFirst().first else {
+                return nil
+            }
+            return (deepest, other)
+        }
+
+        /// The niche interest slide needs a category name.
+        static func nicheCategoryName(_ slideData: WMFYearInReviewNicheCategorySlideData?) -> String? {
+            guard let slideData, slideData.isEligible else {
+                return nil
+            }
+            return slideData.categoryName
+        }
+    }
+
+    // MARK: - Highlights
+
+    /// The highlights show the article count from this number of articles. It is lower than the
+    /// minimum of the total articles slide. See `highlights(readData:rereadArticles:rabbitHoles:nicheCategory:)`.
+    static let minimumHighlightsReadCount = 1
+
+    /// The highlights from the same data as the personalized slides.
+    func highlights(from data: PersonalizedData) -> WMFYearInReviewHighlights {
+        highlights(
+            readData: data.readData,
+            rereadArticles: data.rereadArticles,
+            rabbitHoles: data.rabbitHoles,
+            nicheCategory: data.nicheCategory
+        )
+    }
+
+    /// Each highlight follows the rules of its slide, so the image only shows what the slides showed.
+    /// One exception: the article count shows from one article, also when the total articles slide
+    /// showed its empty version. Product decided this, so the count is part of more shared images.
+    func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, nicheCategory: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewHighlights {
+        let articlesRead = readData.flatMap { $0.readCount >= Self.minimumHighlightsReadCount ? $0.readCount : nil }
+        let minutesRead = readData.flatMap { SlideEligibility.minutesRead($0.minutesRead) }
+        let rotation = SlideEligibility.rereadArticles(rereadArticles)?.map(\.title) ?? []
+        let rabbitHole = rabbitHoles.flatMap { SlideEligibility.rabbitHoles($0)?.deepest }.map { deepest in
+            WMFYearInReviewHighlights.RabbitHole(firstTitle: deepest.firstArticle.title, lastTitle: deepest.lastArticle.title)
+        }
+        return WMFYearInReviewHighlights(
+            articlesRead: articlesRead,
+            minutesRead: minutesRead,
+            rotation: rotation,
+            rabbitHole: rabbitHole,
+            nicheCategory: SlideEligibility.nicheCategoryName(nicheCategory),
+            localizedStrings: WMFYearInReviewHighlights.LocalizedStrings(
+                title: CommonStrings.yearInReviewHighlightsTitle,
+                articlesReadLabel: CommonStrings.yearInReviewHighlightsArticlesRead,
+                minutesReadLabel: CommonStrings.yearInReviewHighlightsMinutesRead,
+                rotationLabel: CommonStrings.yearInReviewHighlightsRotation,
+                rotationRank: { CommonStrings.yearInReviewHighlightsRank($0) },
+                rabbitHoleLabel: CommonStrings.yearInReviewHighlightsRabbitHole,
+                nicheCategoryLabel: CommonStrings.yearInReviewHighlightsNicheCategory,
+                createdWith: CommonStrings.yearInReviewHighlightsCreatedWith
+            )
         )
     }
 

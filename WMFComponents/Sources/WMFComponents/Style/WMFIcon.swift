@@ -40,6 +40,8 @@ public enum WMFIcon {
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
     public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
     public static let share = UIImage(named: "swipe-action-share", in: .module, with: nil)
+    /// Three connected dots, from the Year in Review design. No SF Symbol has this shape.
+    static let yearInReviewShare = UIImage(named: "yir-share", in: .module, with: nil)
     public static let delete = UIImage(named: "swipe-action-delete", in: .module, with: nil)
 
     // Project icons

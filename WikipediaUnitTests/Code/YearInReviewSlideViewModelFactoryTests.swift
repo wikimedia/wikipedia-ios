@@ -1,4 +1,5 @@
 import Testing
+import UIKit
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
@@ -16,7 +17,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// and edit slides do not show and the contributor slide is the "You matter" version.
     @Test
     func makesTheTotalArticlesTheReadingStreakTheTopTopicTheArticlesVisitedMultipleTimesAndTheContributorSlides() {
-        let slides = factory.makeSlides(experience: .personalized, isLoggedIn: true)
+        let slides = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true).slides
 
         #expect(slides.count == 5)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
@@ -31,7 +32,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// screen shows that the app missed a run, so the slide must write each run that it owns.
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func theSlidesWriteAllOfTheirTextRuns(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
-        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.collectiveSlides(config: try config())
+        let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config())
         for slide in slides {
             let byPath = Dictionary(uniqueKeysWithValues: slide.text.map { ($0.key.path, $0.value) })
 
@@ -81,7 +82,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// slide, never zero slides.
     @Test
     func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
-        let artboards = factory.makeSlides(experience: .collective, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }
+        let artboards = factory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
         #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame16-empty", "end"])
     }
@@ -89,7 +90,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// The developer settings can force the empty version of each personalized slide.
     @Test
     func allEmptyStatesShowsOnlyEmptySlides() {
-        let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
+        let artboards = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
         #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame16-empty", "end"])
     }
@@ -141,7 +142,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// The edits slides need an account, so a logged-out reader does not get the empty edits slide.
     @Test
     func aLoggedOutReaderGetsNoEditsSlide() {
-        let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: false, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
+        let artboards = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: false, forcesAllEmptyStates: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
         #expect(!artboards.contains("frame16-empty"))
     }
@@ -152,7 +153,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
-            readCount: 20,
+            readData: try readData(readCount: 20, minutesRead: 0),
             daysVisited: try daysVisitedData(dayCount: 30),
             readingStreak: readingStreakData(dayCount: 11, first: (3, 4), last: (3, 14)),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
@@ -177,7 +178,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func onlyListSlidesSetTheLayoutDirection(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty", "frame18"]
-        let slides = factory.makeSlides(experience: experience, isLoggedIn: true) + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
         for slide in slides {
             let artboard = slide.animation?.artboardName ?? ""
             if listFrames.contains(artboard) {
@@ -191,7 +192,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// Each template sets `isUIWhite` for the contrast of the controls above it, so every slide must read it.
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func everySlideReadsTheContrastFlag(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
-        for slide in factory.makeSlides(experience: experience, isLoggedIn: true) {
+        for slide in factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides {
             #expect(slide.lightContentFlag?.path == "isUIWhite", "\(slide.id)")
         }
     }
@@ -325,7 +326,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     /// paging from resolving.
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func slideIdsAreUnique(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
-        let ids = factory.makeSlides(experience: experience, isLoggedIn: true).map(\.id)
+        let ids = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides.map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
     }
 
@@ -748,7 +749,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         #expect(editorFactory.makeContributorSlide(experience: .personalized, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.contributorSlideID)
         #expect(editorFactory.makeContributorSlide(experience: .collective, isLoggedIn: true)?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
-        #expect(editorFactory.makeSlides(experience: .collective, isLoggedIn: true).last?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
+        #expect(editorFactory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).slides.last?.id == YearInReviewSlideViewModelFactory.nonContributorSlideID)
     }
 
     /// The country check decides whether the "You matter" slide shows.
@@ -757,7 +758,7 @@ struct YearInReviewSlideViewModelFactoryTests {
         let hidingFactory = YearInReviewSlideViewModelFactory(hidesDonate: { true })
 
         #expect(hidingFactory.makeContributorSlide(experience: .collective, isLoggedIn: true) == nil)
-        #expect(hidingFactory.makeSlides(experience: .collective, isLoggedIn: true).contains { $0.animation?.artboardName == "end" } == false)
+        #expect(hidingFactory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).slides.contains { $0.animation?.artboardName == "end" } == false)
     }
 
     // MARK: - Rabbit holes
@@ -824,6 +825,94 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.rabbitHoleSlides(nil).isEmpty)
     }
 
+    // MARK: - Highlights
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func readData(readCount: Int, minutesRead: Int) throws -> WMFYearInReviewReadData {
+        let json: [String: Any] = ["readCount": readCount, "minutesRead": minutesRead]
+        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test
+    func theHighlightsHaveEveryStatThatTheReaderHas() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 120, minutesRead: 900),
+            rereadArticles: [
+                .init(title: "Moon", visitCount: 9, project: nil),
+                .init(title: "Cat", visitCount: 7, project: nil),
+                .init(title: "Paris", visitCount: 5, project: nil),
+                .init(title: "Europe", visitCount: 3, project: nil)
+            ],
+            rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: false),
+            nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers")
+        )
+
+        #expect(highlights.articlesRead == 120)
+        #expect(highlights.minutesRead == 900)
+        #expect(highlights.rotation == ["Moon", "Cat", "Paris"], "at most three, most visited first")
+        #expect(highlights.rabbitHole == .init(firstTitle: "Moon", lastTitle: "Cat"), "the deepest, wherever the guess slide put it")
+        #expect(highlights.nicheCategory == "Executed female serial killers")
+        #expect(highlights.highlightCount == 5)
+        #expect(highlights.isShareable)
+        #expect(highlights.localizedStrings.createdWith == CommonStrings.yearInReviewHighlightsCreatedWith)
+        #expect(highlights.localizedStrings.rotationRank(2) == CommonStrings.yearInReviewHighlightsRank(2))
+        #expect(CommonStrings.yearInReviewHighlightsRank(2) == "(2)")
+    }
+
+    /// A highlight shows only when its slide showed its full version, except the article count.
+    @Test
+    func theHighlightsLeaveOutWhatTheSlidesLeftOut() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 0, minutesRead: 4),
+            rereadArticles: [.init(title: "Moon", visitCount: 9, project: nil)],
+            rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5)], deepestIsOnTop: true),
+            nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: " ")
+        )
+
+        #expect(highlights.articlesRead == nil)
+        #expect(highlights.minutesRead == 4)
+        #expect(highlights.rotation.isEmpty)
+        #expect(highlights.rabbitHole == nil)
+        #expect(highlights.nicheCategory == nil, "a blank category name does not show the niche interest slide")
+        #expect(highlights.highlightCount == 1)
+        #expect(highlights.isShareable == false, "with fewer than two highlights, Share highlights does not show")
+    }
+
+    /// Product decision: the article count shows from one article, also when the total articles slide was empty.
+    @Test
+    func theHighlightsShowTheArticleCountFromOneArticle() throws {
+        let highlights = factory.highlights(
+            readData: try readData(readCount: 1, minutesRead: 4),
+            rereadArticles: [],
+            rabbitHoles: nil,
+            nicheCategory: nil
+        )
+
+        #expect(WMFYearInReviewReadData.minimumReadCount > 1, "the total articles slide shows its empty version")
+        #expect(highlights.articlesRead == 1)
+        #expect(highlights.highlightCount == 2)
+        #expect(highlights.isShareable)
+    }
+
+    /// Only the built-in text activities get the share text. Every other activity, such as Instagram,
+    /// TikTok or Save to Files, gets only the image.
+    @Test
+    func onlyBuiltInTextActivitiesGetTheShareText() {
+        #expect(YearInReviewShareTextItem.takesText(.message))
+        #expect(YearInReviewShareTextItem.takesText(.mail))
+        #expect(YearInReviewShareTextItem.takesText(.copyToPasteboard))
+        #expect(YearInReviewShareTextItem.takesText(.saveToCameraRoll) == false)
+        #expect(YearInReviewShareTextItem.takesText(UIActivity.ActivityType("com.apple.CloudDocsUI.AddToiCloudDrive")) == false)
+        #expect(YearInReviewShareTextItem.takesText(UIActivity.ActivityType("com.burbn.instagram.shareextension")) == false)
+        #expect(YearInReviewShareTextItem.takesText(nil) == false)
+    }
+
+    @Test
+    func theCollectiveFlowHasNoHighlights() {
+        #expect(factory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).highlights == nil)
+        #expect(factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).highlights == nil)
+    }
+
     /// The instrumentation plan names each page, and the donate campaign ID is made from that name.
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
@@ -836,7 +925,7 @@ struct YearInReviewSlideViewModelFactoryTests {
         // TODO: The 2026 instrumentation plan does not name the edit slides yet, so they log their raw
         // ids. Remove this filter when their page names are added to `loggingIDs` (see the TODO there).
         let slidesWithoutPlanPages: Set<String> = ["edits", "editsEmpty", "editViews", "mostViewedArticles"]
-        let slides = (factory.makeSlides(experience: experience, isLoggedIn: true) + factory.collectiveSlides(config: try config()))
+        let slides = (factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config()))
             .filter { !slidesWithoutPlanPages.contains($0.id) }
         for slide in slides {
             #expect(planPages.contains(slide.loggingID), "\(slide.id) logs \(slide.loggingID)")
