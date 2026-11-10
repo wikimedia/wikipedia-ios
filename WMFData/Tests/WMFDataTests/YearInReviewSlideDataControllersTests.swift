@@ -64,6 +64,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.topTopics.rawValue)
         XCTAssertEqual(YearInReviewDaysVisitedSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.daysVisited.rawValue)
         XCTAssertEqual(YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.rabbitHoles.rawValue)
+        XCTAssertEqual(YearInReviewReadingStreakSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.readingStreak.rawValue)
         XCTAssertEqual(YearInReviewBiggestReadingDaySlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.biggestReadingDay.rawValue)
     }
 

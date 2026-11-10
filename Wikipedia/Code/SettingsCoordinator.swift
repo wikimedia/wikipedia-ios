@@ -124,6 +124,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         self.settingsViewModel = viewModel
         let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
+        navVC.didDismiss = { [weak self] in
+            self?.discoverSettingsCoordinator?.settingsDidClose()
+        }
         navigationController.present(navVC, animated: true)
         registerAuthNotificationObservers()
     }

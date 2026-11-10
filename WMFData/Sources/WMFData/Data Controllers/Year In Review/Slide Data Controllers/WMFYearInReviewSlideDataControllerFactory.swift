@@ -60,6 +60,7 @@ final class YearInReviewSlideDataControllerFactory {
             .topTopics,
             .daysVisited,
             .rabbitHoles,
+            .readingStreak,
             .biggestReadingDay
         ]
         

@@ -93,6 +93,12 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
     }
 
+    private func readingStreakSlide(dayCount: Int) throws -> WMFYearInReviewSlide {
+        let day = WMFYearInReviewReadingStreakSlideData.Day(year: year, month: 3, day: 4)
+        let data = try JSONEncoder().encode(WMFYearInReviewReadingStreakSlideData(dayCount: dayCount, firstDay: day, lastDay: day))
+        return WMFYearInReviewSlide(year: year, id: .readingStreak, data: data)
+    }
+
     private func biggestReadingDaySlide(minuteCount: Int, articleCount: Int) throws -> WMFYearInReviewSlide {
         let articles = (0..<min(articleCount, 3)).map { ["title": "Article \($0)", "projectID": "wikipedia~en"] }
         let json: [String: Any] = ["year": 2026, "month": 3, "day": 7, "minuteCount": minuteCount, "articleCount": articleCount, "articles": articles]
@@ -302,11 +308,23 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(experience, .collective, "the days visited slide does not show")
     }
 
+    func testReadingStreakOfThreeDaysCountsTowardPersonalized() async throws {
+        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 3)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
+    }
+
     /// The day slide and the articles slide count as two slides, the same as on Android.
     func testBiggestReadingDayWithTwoArticlesCountsAsTwoSlides() async throws {
         try await saveReport([try biggestReadingDaySlide(minuteCount: 45, articleCount: 2)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .personalized)
+    }
+
+    func testReadingStreakOfTwoDaysIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(3), try readingStreakSlide(dayCount: 2)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the reading streak slide shows its empty version")
     }
 
     func testBiggestReadingDayWithOneArticleCountsAsOneSlide() async throws {

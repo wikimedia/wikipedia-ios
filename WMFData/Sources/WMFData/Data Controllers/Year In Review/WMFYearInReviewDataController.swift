@@ -207,6 +207,8 @@ import CoreData
             return (try? decoder.decode(WMFYearInReviewNicheCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .rabbitHoles:
             return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .readingStreak:
+            return (try? decoder.decode(WMFYearInReviewReadingStreakSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .biggestReadingDay:
             guard let biggestReadingDay = try? decoder.decode(WMFYearInReviewBiggestReadingDaySlideData.self, from: data) else {
                 return 0

@@ -154,7 +154,7 @@ public enum WMFUserDefaultsKey: String {
     case discoverOnboardingAnnouncementDismissed = "discover-onboarding-announcement-dismissed"
     case discoverSettings = "discover-settings"
     case discoverLastGeneratedDate = "discover-last-generated-date"
-    case discoverNeedsRegeneration = "discover-needs-regeneration"
+    case discoverGeneratedListInputs = "discover-generated-list-inputs"
     case discoverSeedOffsets = "discover-seed-offsets"
     case discoverOnboardingToastShown = "discover-onboarding-toast-shown"
     case discoverHasUnseenList = "discover-has-unseen-list"

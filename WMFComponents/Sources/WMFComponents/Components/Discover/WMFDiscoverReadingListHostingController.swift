@@ -40,7 +40,7 @@ public final class WMFDiscoverReadingListHostingController: WMFComponentHostingC
 
     // MARK: - Navigation bar
 
-    /// The bar is transparent over the collage and shows no title. The page body has the title. The next screen shows "Discover" in its back button.
+    /// The bar is transparent over the collage and shows no title. The page body has the title. The Back button on the next screen shows only the chevron.
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(
             title: WMFDiscoverReadingListView.title,
@@ -50,7 +50,7 @@ public final class WMFDiscoverReadingListHostingController: WMFComponentHostingC
         
         configureNavigationBar(
             titleConfig: titleConfig,
-            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true),
+            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal),
             closeButtonConfig: nil,
             profileButtonConfig: nil,
             tabsButtonConfig: nil,
