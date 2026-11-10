@@ -55,7 +55,7 @@ final class WikiRunViewController: UIViewController, WKScriptMessageHandler, WKN
     }
 
     private let snapshotStore = SnapshotStore()
-    private let gameURL: URL
+    private let gameURL: URL?
 
     /// Set by the presenter: opens a Wikipedia article over the game, so back returns to it.
     var onOpenArticle: ((URL) -> Void)?
@@ -84,7 +84,7 @@ final class WikiRunViewController: UIViewController, WKScriptMessageHandler, WKN
 
     init() {
         let configuredURL = Bundle.main.object(forInfoDictionaryKey: "WikiRunBaseURL") as? String
-        let productionURL = URL(string: "https://wikirun-game.toolforge.org")!
+        let productionURL = URL(string: "https://wikirun-game.toolforge.org")
         if let candidate = URL(string: configuredURL ?? ""),
            ["http", "https"].contains(candidate.scheme?.lowercased() ?? ""),
            candidate.host != nil {
@@ -120,6 +120,10 @@ final class WikiRunViewController: UIViewController, WKScriptMessageHandler, WKN
             self.webView.evaluateJavaScript("window.__wikiRunSetDarkMode?.(\(isDark))")
         }
 
+        guard let gameURL else {
+            assertionFailure("WikiRun base URL is not a valid URL")
+            return
+        }
         var components = URLComponents(url: gameURL, resolvingAgainstBaseURL: false)
         var queryItems = components?.queryItems ?? []
         queryItems.removeAll { $0.name == "embed" }
@@ -252,7 +256,7 @@ final class WikiRunViewController: UIViewController, WKScriptMessageHandler, WKN
     }
 
     private func isSameOrigin(_ url: URL?) -> Bool {
-        guard let url else { return false }
+        guard let url, let gameURL else { return false }
         return url.scheme?.lowercased() == gameURL.scheme?.lowercased()
             && url.host?.lowercased() == gameURL.host?.lowercased()
             && url.port == gameURL.port
