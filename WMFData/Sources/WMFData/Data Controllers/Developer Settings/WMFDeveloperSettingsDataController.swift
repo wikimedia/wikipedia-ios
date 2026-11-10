@@ -23,6 +23,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     private var sharedCacheStore: WMFKeyValueStore? {
         _sharedCacheStore.value ?? WMFDataEnvironment.current.sharedCacheStore
     }
+    private let injectedUserDefaultsStore: WMFKeyValueStore?
     private let _featureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
     private var featureConfig: WMFFeatureConfigResponse? {
         get { _featureConfig.value }
@@ -32,15 +33,21 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
-    public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    /// A nil user defaults store reads the environment's store at call time.
+    public init(
+        service: WMFService? = WMFDataEnvironment.current.basicService,
+        sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore,
+        userDefaultsStore: WMFKeyValueStore? = nil
+    ) {
         self.service = service
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
+        self.injectedUserDefaultsStore = userDefaultsStore
         super.init()
     }
 
     // MARK: - Local Settings
 
-    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
+    private var userDefaultsStore: WMFKeyValueStore? { injectedUserDefaultsStore ?? WMFDataEnvironment.current.userDefaultsStore }
 
     /// Shared read and write for the plain on/off settings below. Each one lives in user defaults
     /// and is off when nothing has been stored yet.

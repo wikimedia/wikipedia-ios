@@ -10,19 +10,20 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory(hidesDonate: { false })
 
-    /// The total articles, top topic, articles visited multiple times, saved and contributor slides always
+    /// The total articles, reading streak, top topic, articles visited multiple times, saved and contributor slides always
     /// show, in their full or their empty version, so Year in Review never opens with no slides. The
     /// test host has no stored report and no donations, so the days visited, runners-up and rabbit hole
     /// slides do not show and the contributor slide is the "You matter" version.
     @Test
-    func makesTheTotalArticlesTheTopTopicTheArticlesVisitedMultipleTimesTheSavedAndTheContributorSlides() {
+    func makesTheTotalArticlesTheReadingStreakTheTopTopicTheArticlesVisitedMultipleTimesTheSavedAndTheContributorSlides() {
         let slides = factory.makeSlides(experience: .personalized, isLoggedIn: true)
 
-        #expect(slides.count == 5)
+        #expect(slides.count == 6)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
-        #expect(["frame6", "frame6-empty"].contains(slides[1].animation?.artboardName ?? ""))
-        #expect(["frame13", "frame13-empty"].contains(slides[2].animation?.artboardName ?? ""))
-        #expect(["frame15", "frame15-empty"].contains(slides[3].animation?.artboardName ?? ""))
+        #expect(["frame4", "frame4-empty"].contains(slides[1].animation?.artboardName ?? ""))
+        #expect(["frame6", "frame6-empty"].contains(slides[2].animation?.artboardName ?? ""))
+        #expect(["frame13", "frame13-empty"].contains(slides[3].animation?.artboardName ?? ""))
+        #expect(["frame15", "frame15-empty"].contains(slides[4].animation?.artboardName ?? ""))
         #expect(slides.last?.animation?.artboardName == "end")
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
     }
@@ -60,7 +61,7 @@ struct YearInReviewSlideViewModelFactoryTests {
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["data"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"] != nil)
-            case "frame6-empty":
+            case "frame6-empty", "frame4-empty":
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
                 #expect(byPath["data"] == nil)
@@ -83,7 +84,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
         let artboards = factory.makeSlides(experience: .collective, isLoggedIn: true).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "frame15-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame15-empty", "end"])
     }
 
     /// The developer settings can force the empty version of each personalized slide.
@@ -91,16 +92,17 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlides(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame6-empty", "frame13-empty", "frame15-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame15-empty", "end"])
     }
 
-    /// The order of T438549: total articles, visits, top topic, runners-up, rabbit holes, niche interest,
+    /// The order of T438549: total articles, visits, reading streak, top topic, runners-up, rabbit holes, niche interest,
     /// the articles visited multiple times, then saved. The rabbit hole reveal is the answer of its guess slide, not a slide.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
             readCount: 20,
             daysVisited: try daysVisitedData(dayCount: 30),
+            readingStreak: readingStreakData(dayCount: 11, first: (3, 4), last: (3, 14)),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
             nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"),
@@ -113,7 +115,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame6", "frame7", "frame11a", "frame12", "frame13", "frame15"])
+        #expect(artboards == ["frame1", "frame2", "frame4", "frame6", "frame7", "frame11a", "frame12", "frame13", "frame15"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
@@ -382,6 +384,62 @@ struct YearInReviewSlideViewModelFactoryTests {
             #expect(text(slide, "headline") == CommonStrings.yearInReviewSavedArticlesEmptyTitle)
             #expect(text(slide, "bodyText") == CommonStrings.yearInReviewSavedArticlesEmptySubtitle)
         }
+    }
+
+    // MARK: - Reading streak
+
+    private func readingStreakData(dayCount: Int, first: (month: Int, day: Int), last: (month: Int, day: Int)) -> WMFYearInReviewReadingStreakSlideData {
+        WMFYearInReviewReadingStreakSlideData(
+            dayCount: dayCount,
+            firstDay: .init(year: 2026, month: first.month, day: first.day),
+            lastDay: .init(year: 2026, month: last.month, day: last.day)
+        )
+    }
+
+    private var gregorianUTC: Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        return calendar
+    }
+
+    @Test
+    func theReadingStreakSlideShowsTheDayCountAndTheDateRange() {
+        let slide = factory.readingStreakSlide(readingStreakData(dayCount: 11, first: (3, 4), last: (3, 14)), calendar: gregorianUTC, locale: Locale(identifier: "en_US"))
+
+        #expect(slide.animation?.artboardName == "frame4")
+        #expect(slide.animation?.stateMachineName == "frame4-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewReadingStreakTitle)
+        #expect(text(slide, "data") == decimal(11))
+        let bodyCopy = text(slide, "bodyCopy") ?? ""
+        #expect(bodyCopy.contains("March 4"))
+        #expect(bodyCopy.contains("14"))
+        // The year is left out of the date range.
+        #expect(!bodyCopy.contains("2026"))
+        #expect(slide.localizedStrings.accessibilityLabel?.contains(bodyCopy) == true)
+    }
+
+    @Test
+    func theReadingStreakDateRangeFollowsTheLocale() {
+        let slide = factory.readingStreakSlide(readingStreakData(dayCount: 4, first: (3, 30), last: (4, 2)), calendar: gregorianUTC, locale: Locale(identifier: "de_DE"))
+
+        let bodyCopy = text(slide, "bodyCopy") ?? ""
+        #expect(bodyCopy.contains("30. März"))
+        #expect(bodyCopy.contains("2. Apr"))
+    }
+
+    @Test
+    func theReadingStreakSlideNeedsThreeConsecutiveDays() {
+        for slideData in [nil, readingStreakData(dayCount: 1, first: (3, 4), last: (3, 4)), readingStreakData(dayCount: 2, first: (3, 4), last: (3, 5)), WMFYearInReviewReadingStreakSlideData(dayCount: 0, firstDay: nil, lastDay: nil)] {
+            let slide = factory.readingStreakSlide(slideData)
+
+            #expect(slide.animation?.artboardName == "frame4-empty")
+            #expect(slide.animation?.stateMachineName == "frame4-empty-statemachine")
+            #expect(text(slide, "headline") == CommonStrings.yearInReviewReadingStreakEmptyTitle)
+            #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewReadingStreakEmptySubtitle)
+            #expect(text(slide, "data") == nil)
+        }
+
+        #expect(factory.readingStreakSlide(readingStreakData(dayCount: 3, first: (3, 4), last: (3, 6))).animation?.artboardName == "frame4")
     }
 
     // MARK: - Niche interest
@@ -697,7 +755,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let planPages: Set<String> = [
-            "total_articles", "total_articles_empty", "visits", "top_topic", "top_topic_empty", "other_top_topics",
+            "total_articles", "total_articles_empty", "visits", "reading_streak", "reading_streak_empty", "top_topic", "top_topic_empty", "other_top_topics",
             "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
             "saved_articles", "saved_articles_empty",
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",

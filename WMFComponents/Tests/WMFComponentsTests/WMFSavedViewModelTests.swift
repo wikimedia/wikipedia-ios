@@ -88,11 +88,16 @@ final class WMFSavedViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.readingListsViewModel.discoverHeader)
     }
 
+    /// The card needs a list to show, so the test generates one from a mocked network before the card appears.
     func testTheEntryCardReplacesTheAnnouncementOnBothSegments() async throws {
         try await makeDiscoverEnvironment()
-        try await WMFDiscoverReadingListDataController.shared.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests))
+        try await WMFDiscoverInterestsDataController().addPage(title: "Cat", project: project)
+        let relatedPagesDataController = WMFRelatedPagesDataController(basicService: WMFMockBasicService(jsonResourceName: "related-pages-get"))
+        let readingListDataController = WMFDiscoverReadingListDataController(relatedPagesDataController: relatedPagesDataController)
+        try await readingListDataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests))
+        _ = try await readingListDataController.generateRecommendations()
         let announcementViewModel = WMFDiscoverAnnouncementViewModel()
-        let entryCardViewModel = WMFDiscoverEntryCardViewModel()
+        let entryCardViewModel = WMFDiscoverEntryCardViewModel(readingListDataController: readingListDataController)
         await entryCardViewModel.refreshTask?.value
         let discoverHeaderViewModel = WMFSavedDiscoverHeaderViewModel(announcementViewModel: announcementViewModel, entryCardViewModel: entryCardViewModel)
         let viewModel = makeViewModel(discoverHeaderViewModel: discoverHeaderViewModel)

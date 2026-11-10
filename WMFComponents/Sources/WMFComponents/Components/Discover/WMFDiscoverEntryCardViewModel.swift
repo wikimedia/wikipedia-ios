@@ -15,6 +15,9 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
 
     @Published public private(set) var isVisible = false
     @Published public private(set) var hasUnseenList = false
+    /// True while a new list is made. The card then shows a spinner in place of the collage, so
+    /// the reader never sees the previous list change under their eyes.
+    @Published public private(set) var isGenerating = false
     @Published public private(set) var settings: WMFDiscoverSettings = .default
     /// The permanent account name shown in the byline. Nil shows "Made for you".
     @Published public private(set) var username: String?
@@ -28,14 +31,20 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
     private let discoverDataController: WMFDiscoverDataController
     private let readingListDataController: WMFDiscoverReadingListDataController
     private(set) var refreshTask: Task<Void, Never>?
+    /// The generation the card started. It is never cancelled: the list belongs to the data controller.
+    private(set) var generationTask: Task<Void, Never>?
     private var notificationObservations = Set<AnyCancellable>()
     private var collageImageURLs: [URL] = []
     private var didLogImpression = false
 
-    public init(discoverDataController: WMFDiscoverDataController = .shared, readingListDataController: WMFDiscoverReadingListDataController = .shared) {
+    public init(
+        discoverDataController: WMFDiscoverDataController = .shared,
+        readingListDataController: WMFDiscoverReadingListDataController = .shared,
+        notificationCenter: NotificationCenter = .default
+    ) {
         self.discoverDataController = discoverDataController
         self.readingListDataController = readingListDataController
-        observeNotifications()
+        observeNotifications(from: notificationCenter)
         refresh()
     }
 
@@ -43,14 +52,14 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
         refreshTask?.cancel()
     }
 
-    /// The card follows the list from anywhere in the app: generation on foreground, the list
-    /// screen marking it seen, the Discover settings and the developer settings. A notification
-    /// only re-reads the stored list. A generation that ends with an empty list posts the same
-    /// notification, and generating again from it would loop.
-    private func observeNotifications() {
+    /// The card follows the list from anywhere in the app: a generation starting or ending, the list
+    /// screen marking it seen, the Discover settings and the developer settings. Each notification
+    /// only re-reads the state. Generation starts from `refresh()`, when Saved appears or the app
+    /// comes to the foreground, and from Back on the Discover settings.
+    private func observeNotifications(from notificationCenter: NotificationCenter) {
         let notificationNames = [WMFNSNotification.discoverListStateDidChange, WMFNSNotification.discoverAnnouncementStateDidChange]
         for notificationName in notificationNames {
-            NotificationCenter.default.publisher(for: notificationName)
+            notificationCenter.publisher(for: notificationName)
                 .sink { [weak self] _ in
                     Task { @MainActor [weak self] in
                         self?.reload()
@@ -62,24 +71,28 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
 
     // MARK: - Refresh
 
-    /// Re-reads the Discover state and generates the list when it is due. Call it when Saved appears.
+    /// Re-reads the Discover state and starts a generation when the list is due. Call it when Saved appears.
     public func refresh() {
-        startRefresh(generatesList: true)
+        startRefresh(startsGenerationWhenDue: true)
     }
 
-    /// Re-reads the Discover state and the stored list without generating.
+    /// Re-reads the Discover state without starting a generation.
     func reload() {
-        startRefresh(generatesList: false)
+        startRefresh(startsGenerationWhenDue: false)
     }
 
-    private func startRefresh(generatesList: Bool) {
-        refreshTask?.cancel()
+    /// Cancels the refresh in flight and starts the next one when it ends. A cancelled refresh runs to
+    /// its cancellation check without writing state, so the latest `refreshTask` covers every earlier one.
+    private func startRefresh(startsGenerationWhenDue: Bool) {
+        let previousRefreshTask = refreshTask
+        previousRefreshTask?.cancel()
         refreshTask = Task { [weak self] in
-            await self?.performRefresh(generatesList: generatesList)
+            await previousRefreshTask?.value
+            await self?.performRefresh(startsGenerationWhenDue: startsGenerationWhenDue)
         }
     }
 
-    private func performRefresh(generatesList: Bool) async {
+    private func performRefresh(startsGenerationWhenDue: Bool) async {
         guard discoverDataController.isEnabled else {
             isVisible = false
             return
@@ -89,29 +102,30 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
             isVisible = false
             return
         }
-        let pages = await loadPages(generatesList: generatesList)
+        let pages = (try? await readingListDataController.fetchCurrentRecommendations()) ?? []
+        let loadedIsGenerating = await readingListDataController.isGenerating
         let loadedHasUnseenList = await readingListDataController.hasUnseenList
         guard !Task.isCancelled else { return }
 
         settings = loadedSettings
         hasUnseenList = loadedHasUnseenList
+        isGenerating = loadedIsGenerating
         username = usernameProvider?()
-        updateCollage(with: pages)
-        isVisible = true
+        updateCollage(with: loadedIsGenerating ? [] : pages)
+        // Like on Android, the card never opens on an empty list. It does show while the first list is made.
+        isVisible = !pages.isEmpty || loadedIsGenerating
+
+        if startsGenerationWhenDue, !loadedIsGenerating {
+            startGenerationIfDue()
+        }
     }
 
-    /// Generates a new list when the current one is expired or missing, so the card never waits
-    /// for the reader to open the list screen. Keeps the current list when the source has no articles.
-    private func loadPages(generatesList: Bool) async -> [WMFDiscoverRecommendedPage] {
-        guard generatesList else {
-            return (try? await readingListDataController.fetchCurrentRecommendations()) ?? []
-        }
-        do {
-            return try await readingListDataController.generateRecommendationsIfNeeded()
-        } catch WMFDiscoverReadingListDataController.DiscoverReadingListError.sourceHasNoArticles {
-            return (try? await readingListDataController.fetchCurrentRecommendations()) ?? []
-        } catch {
-            return []
+    /// Lets the data controller make a new list when one is due. The run posts the list state when
+    /// it starts and when it ends, and each post re-reads the card. A failed run keeps the current
+    /// list, and the next refresh tries again.
+    private func startGenerationIfDue() {
+        generationTask = Task { [readingListDataController] in
+            _ = try? await readingListDataController.generateRecommendationsIfNeeded()
         }
     }
 

@@ -658,6 +658,84 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.peakMonth, DaysVisitedData.PeakMonth(month: 1, dayCount: 3))
     }
 
+    // MARK: - readingStreak
+
+    private typealias ReadingStreakData = WMFYearInReviewReadingStreakSlideData
+
+    private func readingStreakPayload() async throws -> ReadingStreakData {
+        let controller = YearInReviewReadingStreakSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+        let payload = try decode(ReadingStreakData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    private func streakDays(_ days: [(month: Int, day: Int)], calendar: Calendar = .current) throws -> [Date] {
+        try days.map { try XCTUnwrap(calendar.date(from: DateComponents(year: 2026, month: $0.month, day: $0.day))) }
+    }
+
+    func testReadingStreakFindsTheLongestRunOfConsecutiveDays() async throws {
+        try await seedPageViews([
+            pageView("Alpha", at: try date(month: 2, day: 1, hour: 9)),
+            pageView("Beta", at: try date(month: 2, day: 2, hour: 9)),
+            // Two reads on one day count as one day of the streak.
+            pageView("Gamma", at: try date(month: 3, day: 4, hour: 9)),
+            pageView("Delta", at: try date(month: 3, day: 4, hour: 22)),
+            pageView("Epsilon", at: try date(month: 3, day: 5, hour: 9)),
+            pageView("Zeta", at: try date(month: 3, day: 6, hour: 9)),
+            pageView("Eta", at: try date(month: 3, day: 8, hour: 9))
+        ])
+
+        let payload = try await readingStreakPayload()
+
+        XCTAssertEqual(payload.dayCount, 3)
+        XCTAssertEqual(payload.firstDay, ReadingStreakData.Day(year: 2026, month: 3, day: 4))
+        XCTAssertEqual(payload.lastDay, ReadingStreakData.Day(year: 2026, month: 3, day: 6))
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testReadingStreakWithoutReadsIsNotEligible() async throws {
+        let payload = try await readingStreakPayload()
+
+        XCTAssertEqual(payload, ReadingStreakData(dayCount: 0, firstDay: nil, lastDay: nil))
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testReadingStreakOfTwoDaysIsNotEligible() throws {
+        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: try streakDays([(3, 4), (3, 5), (3, 7), (5, 1)]), calendar: .current)
+
+        XCTAssertEqual(payload.dayCount, 2)
+        XCTAssertFalse(payload.isEligible, "a streak needs three consecutive days")
+    }
+
+    func testReadingStreakOfThreeDaysIsEligible() throws {
+        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: try streakDays([(3, 4), (3, 5), (3, 6)]), calendar: .current)
+
+        XCTAssertEqual(payload.dayCount, 3)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testReadingStreakCrossesMonthsAndTheEarlierStreakWinsATie() throws {
+        let days = try streakDays([(3, 30), (3, 31), (4, 1), (6, 10), (6, 11), (6, 12)].reversed())
+
+        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: days, calendar: .current)
+
+        XCTAssertEqual(payload.dayCount, 3)
+        XCTAssertEqual(payload.firstDay, ReadingStreakData.Day(year: 2026, month: 3, day: 30))
+        XCTAssertEqual(payload.lastDay, ReadingStreakData.Day(year: 2026, month: 4, day: 1))
+    }
+
+    /// The days of the streak come from the calendar of the device, so a time zone with a daylight
+    /// saving change in the streak still counts each day once.
+    func testReadingStreakCountsDaysAcrossADaylightSavingChange() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        let days = try streakDays([(3, 7), (3, 8), (3, 9)], calendar: calendar)
+
+        let payload = YearInReviewReadingStreakSlideDataController.slideData(days: days, calendar: calendar)
+
+        XCTAssertEqual(payload.dayCount, 3)
+    }
+
     func testDaysVisitedIsNotEligibleWithNoPageViews() async throws {
         let payload = try await daysVisitedPayload()
 

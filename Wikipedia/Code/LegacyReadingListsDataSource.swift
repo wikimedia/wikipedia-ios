@@ -164,7 +164,7 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
     public func unsaveArticles(ids articleIDs: [String]) async throws {
         await MainActor.run {
             let articles = self.articles(withIDs: articleIDs)
-            dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
+            dataStore.readingListsController.unsaveAndSync(articles)
         }
     }
 

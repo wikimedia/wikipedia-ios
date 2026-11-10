@@ -11,11 +11,21 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let spanishLanguage = WMFLanguage(languageCode: "es", languageVariantCode: nil)
 
+    /// Each test writes its article picks to its own store. Without one, the view model falls
+    /// back to the store in `WMFDataEnvironment`, which belongs to whichever suite runs beside this one.
+    private let pageInterestDataController: WMFPageInterestDataController
+
+    init() async throws {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        pageInterestDataController = try WMFPageInterestDataController(coreDataStore: store)
+    }
+
     private func makeViewModel(store: WMFMockKeyValueStore = WMFMockKeyValueStore(),
                                searchLanguages: [WMFLanguage] = []) -> WMFHomeFeedInterestsSettingsViewModel {
         let dataController = WMFHomeDataController(userDefaultsStore: store)
         let searchDataController = WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get"))
-        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, searchDataController: searchDataController, project: project, searchLanguages: searchLanguages, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, pageInterestDataController: pageInterestDataController, searchDataController: searchDataController, project: project, searchLanguages: searchLanguages, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
     }
 
     private func makeArticle(pageid: Int, title: String) -> WMFRandomArticle {
@@ -216,7 +226,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         let added = viewModel.addSearchResult(result)
 
         #expect(added == true)
-        #expect(viewModel.gridViewModels.first?.id == "Einstein")
+        #expect(viewModel.gridViewModels.first?.id == WMFInterestArticleCardViewModel.identifier(title: "Einstein", project: project))
         #expect(viewModel.gridViewModels.first?.isSelected == true)
         #expect(viewModel.selectedCount == 1)
         #expect(viewModel.hasChanges == true)
@@ -244,6 +254,23 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
 
         #expect(viewModel.gridViewModels.count == 1)
         #expect(existing.isSelected == true)
+    }
+
+    /// The same title on another wiki is another article. Selecting it must add a card, not tick
+    /// the card of the first wiki.
+    @Test
+    func addSearchResultKeepsTheSameTitleFromAnotherWiki() {
+        let viewModel = makeViewModel(searchLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil), spanishLanguage])
+        let english = makeCard(pageid: 1, title: "Paris", isSelected: true)
+        viewModel.gridViewModels = [english]
+
+        viewModel.selectSearchLanguage(spanishLanguage)
+        let added = viewModel.addSearchResult(makeSearchResult(pageID: 2, namespace: 0, title: "Paris"))
+
+        #expect(added == true)
+        #expect(viewModel.gridViewModels.count == 2)
+        #expect(viewModel.gridViewModels.first?.project == .wikipedia(spanishLanguage))
+        #expect(viewModel.gridViewModels.allSatisfy { $0.isSelected })
     }
 
     @Test
@@ -403,7 +430,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         viewModel.buildGrid(from: articles)
 
         #expect(viewModel.gridViewModels.count == 25)
-        #expect(viewModel.gridViewModels.first?.id == "Saved")
+        #expect(viewModel.gridViewModels.first?.id == WMFInterestArticleCardViewModel.identifier(title: "Saved", project: project))
     }
 
     // MARK: - Persistence
@@ -415,7 +442,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         try? store.save(key: "home-feed-interest-topics", value: ["architecture", "not-a-real-topic"])
 
         let dataController = WMFHomeDataController(userDefaultsStore: store)
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, pageInterestDataController: pageInterestDataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
         #expect(viewModel.selectedTopics == [.architecture])
     }
 

@@ -22,7 +22,7 @@ final class CreateReadingListCoordinatorTests: XCTestCase {
     private let english = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
     private func discoverPage(title: String) -> WMFDiscoverRecommendedPage {
-        WMFDiscoverRecommendedPage(title: title, project: english, description: nil, thumbnailURL: nil, extract: nil, recommendedDate: Date())
+        WMFDiscoverRecommendedPage(title: title, project: english, description: nil, thumbnailURL: nil, recommendedDate: Date())
     }
 
     private func article(title: String) throws -> WMFArticle {

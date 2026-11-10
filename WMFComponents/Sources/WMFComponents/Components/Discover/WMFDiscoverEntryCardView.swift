@@ -74,7 +74,7 @@ public struct WMFDiscoverEntryCardView: View {
             bylineText
         }
         .font(Font(WMFFont.for(.footnote)))
-        .foregroundColor(Color(uiColor: theme.secondaryText))
+        .foregroundColor(Color(uiColor: theme.text))
     }
 
     private var bylineText: Text {
@@ -89,6 +89,12 @@ public struct WMFDiscoverEntryCardView: View {
     private var collage: some View {
         WMFImageCollageView(viewModel: viewModel.collageViewModel)
             .frame(width: Self.collageWidth)
+            .overlay {
+                if viewModel.isGenerating {
+                    ProgressView()
+                        .tint(Color(uiColor: theme.secondaryText))
+                }
+            }
             .clipShape(RoundedRectangle(cornerRadius: WMFCornerRadius.medium))
     }
 }
