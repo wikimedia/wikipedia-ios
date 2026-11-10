@@ -74,6 +74,7 @@ public struct WMFYearInReviewView: View {
                     WMFYearInReviewPageObserver(
                         slideIDs: viewModel.pageIDs,
                         pageRequest: pageRequest,
+                        dragLockPageID: viewModel.endViewModel == nil ? nil : WMFYearInReviewViewModel.endPageID,
                         onPageChange: { slideID in
                             viewModel.currentSlideID = slideID
                         },
@@ -95,6 +96,7 @@ public struct WMFYearInReviewView: View {
                     WMFYearInReviewPageObserver(
                         slideIDs: viewModel.pageIDs,
                         pageRequest: pageRequest,
+                        dragLockPageID: viewModel.endViewModel == nil ? nil : WMFYearInReviewViewModel.endPageID,
                         onPageChange: { slideID in
                             viewModel.currentSlideID = slideID
                         },
@@ -119,6 +121,9 @@ public struct WMFYearInReviewView: View {
                     if viewModel.endUsesLightContent != usesLightContent {
                         viewModel.endUsesLightContent = usesLightContent
                     }
+                },
+                onPullDownPastTop: {
+                    goBackFromEnd()
                 }
             )
                 .containerRelativeFrame(.vertical)
@@ -183,6 +188,12 @@ public struct WMFYearInReviewView: View {
         guard pageIDs.indices.contains(index) else { return }
         pageRequest = WMFYearInReviewPageRequest(pageID: pageIDs[index], serial: (pageRequest?.serial ?? 0) + 1)
     }
+
+    /// The pager does not take drags on the end screen. A pull down past its top goes back to the last slide.
+    private func goBackFromEnd() {
+        guard viewModel.isOnEnd, let lastSlideID = viewModel.pagerSlides.last?.id else { return }
+        pageRequest = WMFYearInReviewPageRequest(pageID: lastSlideID, serial: (pageRequest?.serial ?? 0) + 1)
+    }
 }
 
 private struct WMFYearInReviewPageRequest: Equatable {
@@ -199,6 +210,9 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
 
     let slideIDs: [String]
     let pageRequest: WMFYearInReviewPageRequest?
+    /// On this page, the pager does not take drags, because the page has its own vertical scroll view
+    /// (the end screen). When both took drags, the pager often won, bounced at its end and looked stuck.
+    let dragLockPageID: String?
     let onPageChange: @MainActor (String) -> Void
     /// The page at the top of the pager, with a fraction, on each scroll step.
     let onScroll: @MainActor (CGFloat) -> Void
@@ -213,6 +227,7 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
         uiView.slideIDs = slideIDs
         uiView.onPageChange = onPageChange
         uiView.onScroll = onScroll
+        uiView.dragLockPageID = dragLockPageID
         if let pageRequest {
             uiView.move(to: pageRequest)
         }
@@ -222,12 +237,36 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
         var slideIDs: [String] = []
         var onPageChange: (@MainActor (String) -> Void)?
         var onScroll: (@MainActor (CGFloat) -> Void)?
+        var dragLockPageID: String? {
+            didSet { applyDragLock() }
+        }
         private var observation: NSKeyValueObservation?
         private var sizeObservation: NSKeyValueObservation?
         private var lastSlideID: String?
         private var settleTask: Task<Void, Never>?
         private weak var scrollView: UIScrollView?
         private var lastPageRequestSerial = 0
+
+        /// The lock starts when the finger is up and the pager is more than half way to the locked
+        /// page, so also while the pager still settles on it. A drag in that time went to the pager.
+        /// The lock stops when the pager moves back more than half way, for example to the last slide.
+        ///
+        /// Only the pan gesture is turned off. SwiftUI owns `isScrollEnabled`, and a scroll from code
+        /// or from VoiceOver still works.
+        private func applyDragLock() {
+            guard let scrollView, !scrollView.isTracking else { return }
+            var locks = false
+            if let dragLockPageID,
+               let index = slideIDs.firstIndex(of: dragLockPageID),
+               scrollView.contentSize.height > 0 {
+                let pageHeight = scrollView.contentSize.height / CGFloat(slideIDs.count)
+                let position = (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) / pageHeight
+                locks = position > CGFloat(index) - 0.5
+            }
+            if scrollView.panGestureRecognizer.isEnabled == locks {
+                scrollView.panGestureRecognizer.isEnabled = !locks
+            }
+        }
 
         func move(to request: WMFYearInReviewPageRequest) {
             guard request.serial != lastPageRequestSerial else { return }
@@ -252,6 +291,7 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
             }
             guard let scrollView = superview as? UIScrollView else { return }
             self.scrollView = scrollView
+            applyDragLock()
             observation = scrollView.observe(\.contentOffset, options: [.new]) { [weak self] scrollView, _ in
                 MainActor.assumeIsolated {
                     self?.scrollViewDidMove(scrollView)
@@ -288,6 +328,7 @@ private struct WMFYearInReviewPageObserver: UIViewRepresentable {
                 let pageHeight = scrollView.contentSize.height / CGFloat(slideIDs.count)
                 onScroll?((scrollView.contentOffset.y + scrollView.adjustedContentInset.top) / pageHeight)
             }
+            applyDragLock()
 
             // Only when the finger is up and the pager is exactly on a page, so not in the middle of a swipe.
             guard !scrollView.isTracking, !slideIDs.isEmpty else { return }
