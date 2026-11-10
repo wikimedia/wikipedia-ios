@@ -47,9 +47,11 @@ public enum ArticleSource: Int {
     case external_link = 3
     case history = 4
     case places = 9
+    case readingList = 11
     case homeFeedForYouBecauseYouReadCard = 13
     case widget = 29
     case game = 43
+    case discover = 44
     case activity = 45
     case homeFeedForYouInterestCard = 46
     case homeFeedForYouContinueReadingCard = 47
