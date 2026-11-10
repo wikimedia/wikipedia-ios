@@ -276,8 +276,8 @@ struct YearInReviewSlideViewModelFactoryTests {
     // MARK: - Minutes read
 
     /// `format` is `nil` for data from builds before the minutes read slide.
-    private func readData(minutesRead: Int, format: Int? = WMFYearInReviewReadData.currentMinutesReadFormat) throws -> WMFYearInReviewReadData {
-        var json: [String: Any] = ["readCount": 10, "minutesRead": minutesRead]
+    private func readData(readCount: Int = 10, minutesRead: Int, format: Int? = WMFYearInReviewReadData.currentMinutesReadFormat) throws -> WMFYearInReviewReadData {
+        var json: [String: Any] = ["readCount": readCount, "minutesRead": minutesRead]
         json["minutesReadFormat"] = format
         let data = try JSONSerialization.data(withJSONObject: json)
         return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data)
@@ -736,12 +736,6 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     // MARK: - Highlights
 
-    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
-    private func readData(readCount: Int, minutesRead: Int) throws -> WMFYearInReviewReadData {
-        let json: [String: Any] = ["readCount": readCount, "minutesRead": minutesRead]
-        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: JSONSerialization.data(withJSONObject: json))
-    }
-
     @Test
     func theHighlightsHaveEveryStatThatTheReaderHas() throws {
         let highlights = factory.highlights(
@@ -801,6 +795,19 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(highlights.articlesRead == 1)
         #expect(highlights.highlightCount == 2)
         #expect(highlights.isShareable)
+    }
+
+    /// The minutes follow the minutes read slide, so the image never shows minutes that the slide hid.
+    @Test(arguments: [
+        (minutesRead: 924, format: nil as Int?),
+        (minutesRead: 924, format: WMFYearInReviewReadData.currentMinutesReadFormat - 1),
+        (minutesRead: WMFYearInReviewReadData.maximumMinutesRead + 1, format: WMFYearInReviewReadData.currentMinutesReadFormat)
+    ])
+    func theHighlightsLeaveOutTheMinutesThatTheSlideHid(minutesRead: Int, format: Int?) throws {
+        let readData = try readData(readCount: 20, minutesRead: minutesRead, format: format)
+
+        #expect(factory.minutesReadSlide(readData) == nil)
+        #expect(factory.highlights(readData: readData, rereadArticles: [], rabbitHoles: nil, nicheCategory: nil).minutesRead == nil)
     }
 
     /// Only the built-in text activities get the share text. Every other activity, such as Instagram,

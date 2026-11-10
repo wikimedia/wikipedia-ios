@@ -272,7 +272,7 @@ struct YearInReviewSlideViewModelFactory {
     /// not more than `WMFYearInReviewReadData.maximumMinutesRead`, which is most likely an error.
     /// The slide has no empty version. Its copy compares the time to a known duration.
     func minutesReadSlide(_ readData: WMFYearInReviewReadData?) -> WMFYearInReviewSlideViewModel? {
-        guard let readData, readData.isMinutesReadEligible else {
+        guard let readData, SlideEligibility.minutesRead(readData) != nil else {
             return nil
         }
 
@@ -749,9 +749,10 @@ struct YearInReviewSlideViewModelFactory {
             readCount >= WMFYearInReviewReadData.minimumReadCount ? readCount : nil
         }
 
-        /// No slide shows the minutes yet. The highlights show them when there are any.
-        static func minutesRead(_ minutesRead: Int) -> Int? {
-            minutesRead > 0 ? minutesRead : nil
+        /// The minutes read slide needs minutes in the current format, from
+        /// `WMFYearInReviewReadData.minimumMinutesRead` to `maximumMinutesRead`.
+        static func minutesRead(_ readData: WMFYearInReviewReadData) -> Int? {
+            readData.isMinutesReadEligible ? readData.minutesRead : nil
         }
 
         /// The reread articles slide needs at least two articles visited multiple times.
@@ -799,7 +800,7 @@ struct YearInReviewSlideViewModelFactory {
     /// showed its empty version. Product decided this, so the count is part of more shared images.
     func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, nicheCategory: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewHighlights {
         let articlesRead = readData.flatMap { $0.readCount >= Self.minimumHighlightsReadCount ? $0.readCount : nil }
-        let minutesRead = readData.flatMap { SlideEligibility.minutesRead($0.minutesRead) }
+        let minutesRead = readData.flatMap(SlideEligibility.minutesRead)
         let rotation = SlideEligibility.rereadArticles(rereadArticles)?.map(\.title) ?? []
         let rabbitHole = rabbitHoles.flatMap { SlideEligibility.rabbitHoles($0)?.deepest }.map { deepest in
             WMFYearInReviewHighlights.RabbitHole(firstTitle: deepest.firstArticle.title, lastTitle: deepest.lastArticle.title)
