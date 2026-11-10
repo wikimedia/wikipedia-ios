@@ -67,6 +67,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     
     private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
+    private var wikiRunCoordinator: WikiRunCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -854,25 +855,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     func exploreCardViewControllerDidTapWikiRun(_ exploreCardViewController: ExploreCardViewController) {
-        let wikiRunViewController = WikiRunViewController()
-        // Keep the game on screen behind the article, so back returns to the game-over screen.
-        let gameNavigationController = WMFComponentNavigationController(
-            rootViewController: wikiRunViewController,
-            modalPresentationStyle: .fullScreen
-        )
-        wikiRunViewController.onOpenArticle = { [weak self, weak gameNavigationController] url in
-            guard let self, let gameNavigationController else { return }
-            let articleCoordinator = ArticleCoordinator(
-                navigationController: gameNavigationController,
-                articleURL: url,
-                dataStore: self.dataStore,
-                theme: self.theme,
-                source: .game,
-                tabConfig: .appendArticleAndAssignCurrentTab
-            )
-            articleCoordinator.start()
-        }
-        present(gameNavigationController, animated: true)
+        guard let navigationController else { return }
+        let coordinator = WikiRunCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        wikiRunCoordinator = coordinator
+        coordinator.start()
     }
 
     private func pushArticlesViaCoordinators(contentGroup: WMFContentGroup, indexPath: IndexPath) -> Bool {

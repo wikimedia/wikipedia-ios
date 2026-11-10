@@ -6,4 +6,5 @@ enum WMFSharedCacheDirectoryNames: String {
     case experiments = "Experiments"
     case developerSettings = "Developer Settings"
     case localNotifications = "Local Notifications"
+    case wikiRun = "WikiRun"
 }
