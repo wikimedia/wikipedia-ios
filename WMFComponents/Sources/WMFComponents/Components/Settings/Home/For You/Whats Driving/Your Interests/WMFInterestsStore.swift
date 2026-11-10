@@ -103,6 +103,8 @@ public final class WMFDiscoverInterestsStore: WMFInterestsStore {
 
     private let dataController: WMFDiscoverInterestsDataController
     public private(set) var interests: WMFDiscoverInterests
+    /// Called when the screen goes away for good: Done, Back, or Settings closing over it.
+    public var didLeaveScreen: (() -> Void)?
 
     public init(interests: WMFDiscoverInterests = .empty, dataController: WMFDiscoverInterestsDataController = .shared) {
         self.interests = interests
@@ -146,8 +148,10 @@ public final class WMFDiscoverInterestsStore: WMFInterestsStore {
         return pages.map { WMFInterestsStoredPage(title: $0.title, project: $0.project) }
     }
 
-    /// The coordinator commits the set, so nothing happens here.
-    func didLeave(hasChanges: Bool) {}
+    /// The coordinator commits the set on Done, so nothing is saved here.
+    func didLeave(hasChanges: Bool) {
+        didLeaveScreen?()
+    }
 
     /// Saves the set as it is on screen. An empty set is never saved: Discover needs at least one
     /// interest to build the list, and Done is off with none selected. So the saved set is always
