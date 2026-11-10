@@ -930,7 +930,8 @@ public struct WMFYearInReviewNicheCategorySlideData: Codable, Sendable {
     }
 }
 
-public class SavedArticleSlideData: NSObject, Codable {
+/// Sendable: every stored property is a `let` of a Sendable type, and the class is final.
+public final class SavedArticleSlideData: NSObject, Codable, Sendable {
 
     /// One article on the saved slide.
     public struct Article: Codable, Sendable, Equatable {
@@ -955,28 +956,40 @@ public class SavedArticleSlideData: NSObject, Codable {
         }
     }
 
-    /// The reader must have saved at least this number of articles in the data period to see the full slide.
-    public static let minimumSavedArticlesCount = 1
     /// The slide shows at most this number of articles.
     public static let maximumArticleCount = 3
 
     /// The number of articles saved in the data period that are still saved when the slide is built.
     /// Unsaving an article clears its saved date, so an article saved and then unsaved is not counted.
+    /// The same fetch gives this count and `articles`, so they always count the same articles.
     public let savedArticlesCount: Int
-    public let articleTitles: [String]
     /// Up to `maximumArticleCount` saved articles, picked at random. `nil` in data stored by an
     /// older build, which did not store the descriptions or the wikis.
     public let articles: [Article]?
+    /// Only in data stored by an older build. Newer data gets the titles from `articles`.
+    private let legacyArticleTitles: [String]?
 
-    public init(savedArticlesCount: Int, articleTitles: [String], articles: [Article]? = nil) {
-        self.savedArticlesCount = savedArticlesCount
-        self.articleTitles = articleTitles
-        self.articles = articles
+    /// The titles of `articles`, or the stored titles in data from an older build.
+    public var articleTitles: [String] {
+        articles?.map(\.title) ?? legacyArticleTitles ?? []
     }
 
-    /// If false, show the empty state ("You have 0 articles saved").
+    private enum CodingKeys: String, CodingKey {
+        case savedArticlesCount
+        case articles
+        case legacyArticleTitles = "articleTitles"
+    }
+
+    public init(savedArticlesCount: Int, articles: [Article]?) {
+        self.savedArticlesCount = savedArticlesCount
+        self.articles = articles
+        self.legacyArticleTitles = nil
+    }
+
+    /// If false, show the empty state ("You have 0 articles saved"). A non-empty list means that the
+    /// reader saved at least one article in the data period.
     public var isEligible: Bool {
-        savedArticlesCount >= Self.minimumSavedArticlesCount && !(articles ?? []).isEmpty
+        !(articles ?? []).isEmpty
     }
 }
 
@@ -991,7 +1004,8 @@ public struct DonateAndEditCounts: Codable {
 }
 
 public protocol SavedArticleSlideDataDelegate: AnyObject {
-    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData
+    /// `nil` if the saved articles cannot be read. Then the slide stays unevaluated and is built again later.
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData?
 }
 
 public protocol LegacyPageViewsDataDelegate: AnyObject {

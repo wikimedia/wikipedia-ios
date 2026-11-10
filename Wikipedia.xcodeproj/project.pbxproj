@@ -980,6 +980,7 @@
 		7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */; };
 		7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */; };
 		7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004C /* InMemoryKeyValueStore.swift */; };
+		7A44B1C70000000000000002 /* YearInReviewSavedArticlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44B1C70000000000000001 /* YearInReviewSavedArticlesTests.swift */; };
 		7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */; };
 		7A4414420000000000000011 /* LegacyReadingListsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000010 /* LegacyReadingListsDataSource.swift */; };
 		7A4414420000000000000021 /* ReadingListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000020 /* ReadingListsCoordinator.swift */; };
@@ -3356,6 +3357,7 @@
 		7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSetupCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInterestsCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004C /* InMemoryKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueStore.swift; sourceTree = "<group>"; };
+		7A44B1C70000000000000001 /* YearInReviewSavedArticlesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewSavedArticlesTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestReadingListsSeederTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000010 /* LegacyReadingListsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyReadingListsDataSource.swift; sourceTree = "<group>"; };
 		7A4414420000000000000020 /* ReadingListsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCoordinator.swift; sourceTree = "<group>"; };
@@ -7072,6 +7074,7 @@
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */,
+				7A44B1C70000000000000001 /* YearInReviewSavedArticlesTests.swift */,
 				7A4414420000000000000038 /* SavedArticleDownloadProgressObserverTests.swift */,
 				7A441442000000000000003E /* SavedTabBadgeControllerTests.swift */,
 				7A440194000000000000000E /* DiscoverSettingsCoordinatorTests.swift */,
@@ -9191,6 +9194,7 @@
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */,
+				7A44B1C70000000000000002 /* YearInReviewSavedArticlesTests.swift in Sources */,
 				7A4414420000000000000039 /* SavedArticleDownloadProgressObserverTests.swift in Sources */,
 				7A441442000000000000003F /* SavedTabBadgeControllerTests.swift in Sources */,
 				7A440194000000000000000F /* DiscoverSettingsCoordinatorTests.swift in Sources */,

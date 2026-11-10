@@ -329,7 +329,6 @@ struct YearInReviewSlideViewModelFactoryTests {
     private func savedData(count: Int, articles: [(title: String, description: String?)], projectID: String? = "wikipedia~en") -> SavedArticleSlideData {
         SavedArticleSlideData(
             savedArticlesCount: count,
-            articleTitles: articles.map(\.title),
             articles: articles.map { .init(title: $0.title, pageTitle: $0.title, articleDescription: $0.description, projectID: projectID) }
         )
     }
@@ -375,8 +374,10 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     @Test
-    func noSavedArticlesShowTheEmptyState() {
-        for slideData in [nil, savedData(count: 0, articles: []), SavedArticleSlideData(savedArticlesCount: 5, articleTitles: ["Dam"])] {
+    func noSavedArticlesShowTheEmptyState() throws {
+        // An older build stored only the count and the titles.
+        let legacy = try JSONDecoder().decode(SavedArticleSlideData.self, from: Data(#"{"savedArticlesCount":5,"articleTitles":["Dam"]}"#.utf8))
+        for slideData in [nil, savedData(count: 0, articles: []), legacy] {
             let slide = factory.savedArticlesSlide(slideData)
 
             #expect(slide.animation?.artboardName == "frame15-empty")

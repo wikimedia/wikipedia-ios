@@ -349,7 +349,7 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
     }
 
     func testSavedSlideWithASavedArticleCountsTowardPersonalized() async throws {
-        let savedData = SavedArticleSlideData(savedArticlesCount: 1, articleTitles: ["A"], articles: [
+        let savedData = SavedArticleSlideData(savedArticlesCount: 1, articles: [
             SavedArticleSlideData.Article(title: "A", pageTitle: "A", articleDescription: nil, projectID: "wikipedia~en")
         ])
         try await saveReport([
@@ -363,7 +363,7 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
     func testSavedSlideWithoutSavedArticlesDoesNotCount() async throws {
         try await saveReport([
             try readCountSlide(3),
-            WMFYearInReviewSlide(year: year, id: .saveCount, data: try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 0, articleTitles: [], articles: [])))
+            WMFYearInReviewSlide(year: year, id: .saveCount, data: try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 0, articles: [])))
         ])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .collective)

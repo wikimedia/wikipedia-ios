@@ -899,13 +899,14 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     // MARK: - saveCount
 
     private final class StubSavedArticleDelegate: SavedArticleSlideDataDelegate {
-        let data: SavedArticleSlideData
-        init(data: SavedArticleSlideData) { self.data = data }
-        func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData { data }
+        let data: SavedArticleSlideData?
+        init(data: SavedArticleSlideData?) { self.data = data }
+        func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData? { data }
     }
 
     func testSaveCountTakesItsPayloadFromTheHostDelegate() async throws {
-        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 7, articleTitles: ["A", "B", "C"]))
+        let articles = ["A", "B", "C"].map { SavedArticleSlideData.Article(title: $0, pageTitle: $0, articleDescription: nil, projectID: "wikipedia~en") }
+        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 7, articles: articles))
         let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(savedSlideDataDelegate: delegate))
 
         let payload = try decode(SavedArticleSlideData.self, from: try await populatedPayload(controller))
@@ -920,7 +921,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
             SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: "Small mammal", projectID: "wikipedia~en"),
             SavedArticleSlideData.Article(title: "Hund", pageTitle: "Hund", articleDescription: nil, projectID: "wikipedia~de")
         ]
-        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 2, articleTitles: ["Cat", "Hund"], articles: articles))
+        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 2, articles: articles))
         let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(savedSlideDataDelegate: delegate))
 
         let payload = try decode(SavedArticleSlideData.self, from: try await populatedPayload(controller))
@@ -930,10 +931,12 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(payload.isEligible)
     }
 
-    func testSaveCountIsNotEligibleWithoutSavedArticles() {
-        XCTAssertFalse(SavedArticleSlideData(savedArticlesCount: 0, articleTitles: [], articles: []).isEligible)
-        XCTAssertFalse(SavedArticleSlideData(savedArticlesCount: 4, articleTitles: ["Cat"]).isEligible, "older data has no articles to list")
-        XCTAssertTrue(SavedArticleSlideData(savedArticlesCount: 1, articleTitles: ["Cat"], articles: [
+    func testSaveCountIsNotEligibleWithoutSavedArticles() throws {
+        XCTAssertFalse(SavedArticleSlideData(savedArticlesCount: 0, articles: []).isEligible)
+        let legacy = try JSONDecoder().decode(SavedArticleSlideData.self, from: Data(#"{"savedArticlesCount":4,"articleTitles":["Cat"]}"#.utf8))
+        XCTAssertFalse(legacy.isEligible, "older data has no articles to list")
+        XCTAssertEqual(legacy.articleTitles, ["Cat"], "older data keeps its stored titles")
+        XCTAssertTrue(SavedArticleSlideData(savedArticlesCount: 1, articles: [
             SavedArticleSlideData.Article(title: "Cat", pageTitle: nil, articleDescription: nil, projectID: nil)
         ]).isEligible)
     }
@@ -945,6 +948,25 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
         XCTAssertNil(payload, "no delegate means no payload")
         XCTAssertFalse(controller.isEvaluated)
+    }
+
+    func testSaveCountIsNotEvaluatedWhenTheSavedArticlesCannotBeRead() async throws {
+        let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(savedSlideDataDelegate: StubSavedArticleDelegate(data: nil)))
+
+        let payload = try await populatedPayload(controller)
+
+        XCTAssertNil(payload, "a failed read must not freeze an empty slide")
+        XCTAssertFalse(controller.isEvaluated)
+    }
+
+    func testSavedDataStoresTheTitlesOnlyInTheArticles() throws {
+        let data = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 1, articles: [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: nil, projectID: "wikipedia~en")
+        ]))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+
+        XCTAssertNil(json["articleTitles"], "the titles are not stored twice")
+        XCTAssertEqual(try JSONDecoder().decode(SavedArticleSlideData.self, from: data).articleTitles, ["Cat"])
     }
 
     // MARK: - location
