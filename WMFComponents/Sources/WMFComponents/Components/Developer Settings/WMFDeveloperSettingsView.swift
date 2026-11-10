@@ -172,8 +172,8 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
-                captionedRow(caption: "Keeps Discover hidden in production while its user stories ship. Without this, no gate below is evaluated.") {
-                    Toggle("Enable Discover", isOn: $viewModel.enableDiscover)
+                captionedRow(caption: "Forces Discover on without the remote feature config. In production the remote key discoverExperimentEnabled turns it on. Without either, no gate below is evaluated.") {
+                    Toggle("Force Discover On", isOn: $viewModel.enableDiscover)
                 }
                 captionedRow(caption: "Overrides the persisted A/B bucket at read time. Switching it back to Off restores the persisted bucket.") {
                     Picker("Force Experiment Group", selection: $viewModel.forceDiscoverExperimentAssignment) {

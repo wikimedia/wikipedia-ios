@@ -37,9 +37,14 @@ public final class WMFDiscoverDataController: Sendable {
 
     // MARK: - Availability
 
-    /// True while the developer setting that gates the whole feature is on.
+    /// True when the remote feature config turns the Discover experiment on, or when the developer
+    /// setting forces it on. A config without `iosv1.discoverExperimentEnabled` keeps the feature off.
     public var isEnabled: Bool {
-        developerSettingsDataController.enableDiscover
+        if developerSettingsDataController.enableDiscover {
+            return true
+        }
+
+        return developerSettingsDataController.loadFeatureConfig()?.ios.discoverExperimentEnabled ?? false
     }
 
     /// True when the Saved tab shows the onboarding announcement card and its badge: the feature
