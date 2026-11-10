@@ -605,8 +605,9 @@ final class WMFDonationReminderDataControllerTests {
     func settingsEntryAvailableWithoutSavedReminder() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
+            let beforeEndDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
 
-            #expect(controller.isReminderSettingsEntryAvailable())
+            #expect(controller.isReminderSettingsEntryAvailable(currentDate: beforeEndDate))
 
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
         }
@@ -617,8 +618,9 @@ final class WMFDonationReminderDataControllerTests {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
             controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(), isEnabled: true))
+            let beforeEndDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
 
-            #expect(controller.isReminderSettingsEntryAvailable())
+            #expect(controller.isReminderSettingsEntryAvailable(currentDate: beforeEndDate))
 
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
         }

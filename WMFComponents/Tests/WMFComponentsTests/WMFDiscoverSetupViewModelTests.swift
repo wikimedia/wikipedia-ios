@@ -17,11 +17,14 @@ final class WMFDiscoverSetupViewModelTests {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [englishLanguage])
-        WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
+        coreDataStore = try await fixture.makeTemporaryCoreDataStore()
     }
 
+    // The data controller reads only this store, so a task that outlives a test never reads the store of another suite.
+    private var coreDataStore: WMFCoreDataStore?
+
     private func makeDataController() -> WMFDiscoverReadingListDataController {
-        WMFDiscoverReadingListDataController()
+        WMFDiscoverReadingListDataController(coreDataStore: coreDataStore)
     }
 
     private func makeViewModel(availableSources: [WMFDiscoverSource] = [.interests, .saved, .history], currentSource: WMFDiscoverSource = .interests, dataController: WMFDiscoverReadingListDataController) -> WMFDiscoverSetupViewModel {
@@ -71,7 +74,7 @@ final class WMFDiscoverSetupViewModelTests {
     @Test
     func loadOffersTheSourcesTheDataControllerReports() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let pageViewsDataController = try WMFPageViewsDataController()
+            let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
             _ = try await pageViewsDataController.addPageView(title: "Dog", namespaceID: 0, project: englishProject, previousPageViewObjectID: nil)
 
             let viewModel = await WMFDiscoverSetupViewModel.load(readingListDataController: makeDataController())
@@ -109,9 +112,12 @@ final class WMFDiscoverSetupViewModelTests {
     // MARK: - Continue
 
     @Test
-    func continueWithInterestsStoresTheChoiceWithoutTurningDiscoverOn() async throws {
+    func continueWithInterestsOpensTheInterestsScreenAndSavesNothing() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let dataController = makeDataController()
+            var storedSettings = WMFDiscoverSettings.default
+            storedSettings.source = .saved
+            try await dataController.saveSettings(storedSettings)
             let viewModel = makeViewModel(dataController: dataController)
             var interestsCalls = 0
             var turnOnCalls = 0
@@ -121,7 +127,7 @@ final class WMFDiscoverSetupViewModelTests {
             await continueAndWait(viewModel)
 
             let settings = await dataController.settings
-            #expect(settings.source == .interests)
+            #expect(settings.source == .saved, "the interests screen saves the source once the reader selected an interest")
             #expect(settings.isEnabled == false)
             #expect(interestsCalls == 1)
             #expect(turnOnCalls == 0)
@@ -239,55 +245,77 @@ final class WMFDiscoverSetupViewModelTests {
             #expect(viewModel.selectedSource == .saved)
             #expect(viewModel.pendingSource == nil)
             #expect(!viewModel.isShowingAdjustAlert)
+            #expect(viewModel.commitTask == nil)
+            #expect(await dataController.settings.source == .saved)
 
             viewModel.select(.history)
             viewModel.confirmAdjust()
+            await viewModel.commitTask?.value
             #expect(viewModel.selectedSource == .history)
             #expect(!viewModel.isShowingAdjustAlert)
-            #expect(await dataController.settings.source == .saved, "the source is saved when the reader leaves the screen")
+            #expect(await dataController.settings.source == .history)
         }
     }
 
     @Test
-    func adjustToInterestsSavesAtOnceAndOpensTheInterestsScreen() async throws {
+    func adjustToInterestsOpensTheInterestsScreenWithoutSavingTheSource() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let dataController = makeDataController()
             let viewModel = try await makeSettingsViewModel(dataController: dataController)
             var interestsCalls = 0
-            await confirmation { confirmed in
-                viewModel.didChooseInterests = {
-                    interestsCalls += 1
-                    confirmed()
-                }
+            var changes = 0
+            viewModel.didChooseInterests = { interestsCalls += 1 }
+            viewModel.didChangeSource = { _, _ in changes += 1 }
 
-                viewModel.select(.interests)
-                viewModel.confirmAdjust()
+            viewModel.select(.interests)
+            viewModel.confirmAdjust()
 
-                while interestsCalls == 0 {
-                    await Task.yield()
-                }
-            }
-
-            #expect(await dataController.settings.source == .interests)
-            #expect(try await dataController.isGenerationDue())
+            #expect(interestsCalls == 1)
+            #expect(changes == 0)
+            #expect(viewModel.selectedSource == .interests)
+            #expect(viewModel.commitTask == nil)
+            #expect(await dataController.settings.source == .saved, "the interests screen saves the source, after the reader selected an interest")
         }
     }
 
     @Test
-    func leavingTheScreenSavesTheNewSourceAndReportsTheChange() async throws {
+    func adjustToSavedArticlesSavesTheSourceAndReportsTheChange() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let dataController = makeDataController()
+            let viewModel = try await makeSettingsViewModel(currentSource: .history, dataController: dataController)
+            var changes: [(WMFDiscoverSource, WMFDiscoverSource)] = []
+            viewModel.didChangeSource = { changes.append(($0, $1)) }
+
+            viewModel.select(.saved)
+            viewModel.confirmAdjust()
+            await viewModel.commitTask?.value
+
+            #expect(await dataController.settings.source == .saved)
+            #expect(changes.count == 1)
+            #expect(changes.first?.0 == .history)
+            #expect(changes.first?.1 == .saved)
+        }
+    }
+
+    @Test
+    func adjustToHistorySavesTheWholeSettingsWithTheNewSource() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let dataController = makeDataController()
             let viewModel = try await makeSettingsViewModel(dataController: dataController)
+            var settings = await dataController.settings
+            settings.cadence = .daily
+            try await dataController.saveSettings(settings)
             var changes: [(WMFDiscoverSource, WMFDiscoverSource)] = []
             viewModel.didChangeSource = { changes.append(($0, $1)) }
+
             viewModel.select(.history)
             viewModel.confirmAdjust()
+            await viewModel.commitTask?.value
 
-            viewModel.commitSelectionOnDismiss()
-            await viewModel.dismissTask?.value
-
-            #expect(await dataController.settings.source == .history)
-            #expect(await dataController.settings.isEnabled == true)
+            let saved = await dataController.settings
+            #expect(saved.source == .history)
+            #expect(saved.isEnabled == true)
+            #expect(saved.cadence == .daily, "only the source changes")
             #expect(changes.count == 1)
             #expect(changes.first?.0 == .saved)
             #expect(changes.first?.1 == .history)
@@ -295,32 +323,19 @@ final class WMFDiscoverSetupViewModelTests {
     }
 
     @Test
-    func leavingTheScreenWithTheSameSourceSavesAndReportsNothing() async throws {
+    func selectingTheCurrentSourceSavesAndReportsNothing() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let dataController = makeDataController()
             let viewModel = try await makeSettingsViewModel(dataController: dataController)
             var changes = 0
             viewModel.didChangeSource = { _, _ in changes += 1 }
 
-            viewModel.commitSelectionOnDismiss()
-            await viewModel.dismissTask?.value
-
-            #expect(changes == 0)
-            #expect(await dataController.settings.source == .saved)
-        }
-    }
-
-    @Test
-    func onboardingNeverCommitsOnDismiss() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let dataController = makeDataController()
-            let viewModel = makeViewModel(dataController: dataController)
             viewModel.select(.saved)
 
-            viewModel.commitSelectionOnDismiss()
-
-            #expect(viewModel.dismissTask == nil)
-            #expect(await dataController.settings == .default)
+            #expect(!viewModel.isShowingAdjustAlert)
+            #expect(viewModel.commitTask == nil)
+            #expect(changes == 0)
+            #expect(await dataController.settings.source == .saved)
         }
     }
 
@@ -345,22 +360,14 @@ final class WMFDiscoverSetupViewModelTests {
             settings.source = .saved
             try await dataController.saveSettings(settings)
             let viewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .history], currentSource: .saved, presentation: .settings, readingListDataController: dataController)
-            var changes = 0
-            viewModel.didChangeSource = { _, _ in changes += 1 }
 
             #expect(viewModel.availableSources == [.interests, .saved, .history])
             #expect(viewModel.selectedSource == .saved)
-
-            viewModel.commitSelectionOnDismiss()
-            await viewModel.dismissTask?.value
-
-            #expect(changes == 0)
-            #expect(await dataController.settings.source == .saved)
         }
     }
 
     @Test
-    func goingBackToTheOpeningSourceAfterAdjustToInterestsRestoresIt() async throws {
+    func goingBackToTheOpeningSourceAfterAdjustToInterestsChangesNothing() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let dataController = makeDataController()
             let viewModel = try await makeSettingsViewModel(dataController: dataController)
@@ -368,30 +375,13 @@ final class WMFDiscoverSetupViewModelTests {
             viewModel.didChangeSource = { _, _ in changes += 1 }
             viewModel.select(.interests)
             viewModel.confirmAdjust()
-            await viewModel.adjustTask?.value
-            #expect(await dataController.settings.source == .interests)
 
             viewModel.select(.saved)
-            viewModel.commitSelectionOnDismiss()
-            await viewModel.dismissTask?.value
 
-            #expect(await dataController.settings.source == .saved)
+            #expect(!viewModel.isShowingAdjustAlert)
+            #expect(viewModel.selectedSource == .saved)
+            #expect(viewModel.commitTask == nil)
             #expect(changes == 0)
-        }
-    }
-
-    @Test
-    func leavingTheScreenWaitsForTheInterestsSaveBeforeItReconciles() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let dataController = makeDataController()
-            let viewModel = try await makeSettingsViewModel(dataController: dataController)
-            viewModel.select(.interests)
-            viewModel.confirmAdjust()
-            viewModel.select(.saved)
-
-            viewModel.commitSelectionOnDismiss()
-            await viewModel.dismissTask?.value
-
             #expect(await dataController.settings.source == .saved)
         }
     }
