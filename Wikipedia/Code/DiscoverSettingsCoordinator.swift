@@ -18,7 +18,7 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
     private let theme: Theme
     private let origin: Origin
     private let readingListDataController: WMFDiscoverReadingListDataController
-    private var interestsCoordinator: DiscoverInterestsCoordinator?
+    private(set) var interestsCoordinator: DiscoverInterestsCoordinator?
     private var isShowingUndoToast = false
 
     init(
@@ -61,6 +61,9 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         viewModel.didTurnOff = { [weak self] in
             self?.discoverDidTurnOff()
         }
+        viewModel.didTurnOnWithoutInterests = { [weak self, weak viewModel] in
+            self?.showInterests(didGoBack: { viewModel?.undoTurnOn() })
+        }
 
         let hostingController = WMFDiscoverSettingsHostingController(viewModel: viewModel)
         navigationController.pushViewController(hostingController, animated: true)
@@ -94,8 +97,8 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
 
     /// Adjust to saved articles or reading history saves the source and ends the flow.
     func showSource(viewModel: WMFDiscoverSetupViewModel) {
-        viewModel.didChooseInterests = { [weak self] in
-            self?.showInterests()
+        viewModel.didChooseInterests = { [weak self, weak viewModel] in
+            self?.showInterests(didGoBack: { viewModel?.undoChooseInterests() })
         }
         viewModel.didChangeSource = { [weak self] previousSource, newSource in
             guard let self else { return }
@@ -110,12 +113,15 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
 
     // MARK: - Interests
 
-    /// Pushed from the Interests row and from Adjust to interests on the source screen.
-    private func showInterests() {
+    /// Pushed from the Interests row, from Adjust to interests on the source screen, and when the
+    /// switch goes on with interests as the source and no interest picked. The last two change
+    /// the screen that pushes it before Done saves anything, so Back undoes that change.
+    private func showInterests(didGoBack: (() -> Void)? = nil) {
         let coordinator = DiscoverInterestsCoordinator(navigationController: navigationController, dataStore: dataStore)
         coordinator.didFinish = { [weak self] in
             self?.leaveInterests()
         }
+        coordinator.didGoBack = didGoBack
         interestsCoordinator = coordinator
         coordinator.start()
     }

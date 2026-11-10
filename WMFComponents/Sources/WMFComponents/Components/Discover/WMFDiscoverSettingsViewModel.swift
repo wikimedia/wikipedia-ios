@@ -14,6 +14,9 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var didTapSource: (() -> Void)?
     public var didTapInterests: (() -> Void)?
     public var didTurnOff: (() -> Void)?
+    /// Called when the switch goes on with interests as the source and no interest picked. A list
+    /// from no interests is empty, so the coordinator opens the interests screen at once.
+    public var didTurnOnWithoutInterests: (() -> Void)?
     /// Called when the screen has gone away: Back, or Settings closing over it. The saves made
     /// here are stored by then, so the coordinator reads the settings the reader left.
     public var didLeave: (() -> Void)?
@@ -43,13 +46,20 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
 
     // MARK: - Refresh
 
-    /// Reads the settings again. The source screen and the interests screen change them behind this screen.
+    /// Reads the settings again. The source screen and the interests screen change them behind
+    /// this screen. A save that starts during the read is awaited and the settings are read again,
+    /// so the read never hides a change made on this screen.
     public func refresh() {
         refreshTask?.cancel()
         refreshTask = Task { [weak self] in
             guard let self else { return }
-            await self.saveTask?.value
-            let settings = await self.dataController.settings
+            var awaitedSaveTask: Task<Void, Never>?
+            var settings: WMFDiscoverSettings
+            repeat {
+                awaitedSaveTask = self.saveTask
+                await awaitedSaveTask?.value
+                settings = await self.dataController.settings
+            } while awaitedSaveTask != self.saveTask
             let interestCount = await Self.fetchInterestCount(interestsDataController: self.interestsDataController)
             guard !Task.isCancelled else { return }
             self.settings = settings
@@ -70,6 +80,9 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
                 guard let self else { return }
                 if newValue {
                     self.update { $0.isEnabled = true }
+                    if self.settings.source == .interests, (self.interestCount ?? 0) == 0 {
+                        self.didTurnOnWithoutInterests?()
+                    }
                 } else {
                     // The switch stays on until the reader confirms.
                     self.isShowingTurnOffAlert = true
@@ -90,6 +103,12 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
 
     public func cancelTurnOff() {
         isShowingTurnOffAlert = false
+    }
+
+    /// Back on the interests screen that the switch opened. No interest was picked, so the switch
+    /// goes back off, with no alert and no toast: no list was made in between.
+    public func undoTurnOn() {
+        update { $0.isEnabled = false }
     }
 
     // MARK: - List size
