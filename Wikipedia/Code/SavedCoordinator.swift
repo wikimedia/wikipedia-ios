@@ -194,6 +194,7 @@ final class SavedCoordinator: NSObject, Coordinator {
 extension SavedCoordinator: WMFSavedLoggingDelegate {
     func savedDidAppear() {
         ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
+        logSavedImpression()
     }
 
     func savedDidShowSegment(_ segment: WMFSavedViewModel.Segment) {
@@ -212,6 +213,17 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
         case .readingLists:
             NavigationEventsFunnel.shared.logEvent(action: .savedLists)
         }
+        logSavedImpression()
+    }
+
+    /// The counts are what the screen holds at this moment. Before the first load they are 0.
+    private func logSavedImpression() {
+        guard let viewModel else { return }
+        SavedInstrumentation.shared.logImpression(
+            segment: viewModel.segment,
+            listCount: viewModel.readingListsViewModel.readingLists.count,
+            articleCount: viewModel.allArticlesViewModel.articles.count
+        )
     }
 
     func savedDidTapEditAllArticles() {
@@ -234,18 +246,28 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
 // MARK: - WMFDiscoverAnnouncementLoggingDelegate
 
 extension SavedCoordinator: WMFDiscoverAnnouncementLoggingDelegate {
-    // Instrumentation lands with T440585.
-    func discoverAnnouncementDidAppear() {}
-    func discoverAnnouncementDidTapGetStarted() {}
-    func discoverAnnouncementDidTapNoThanks() {}
+    func discoverAnnouncementDidAppear() {
+        DiscoverInstrumentation.shared.logAnnouncementImpression()
+    }
+
+    func discoverAnnouncementDidTapGetStarted() {
+        DiscoverInstrumentation.shared.logAnnouncementGetStartedTap()
+    }
+
+    func discoverAnnouncementDidTapNoThanks() {
+        DiscoverInstrumentation.shared.logAnnouncementNoThanksTap()
+    }
 }
 
 // MARK: - WMFDiscoverEntryCardLoggingDelegate
 
 extension SavedCoordinator: WMFDiscoverEntryCardLoggingDelegate {
-    // Instrumentation lands with T440585.
+    /// No event of its own: the impression of the segment says that Discover is on.
     func discoverEntryCardDidAppear() {}
-    func discoverEntryCardDidTap() {}
+
+    func discoverEntryCardDidTap() {
+        DiscoverInstrumentation.shared.logEntryCardTap(segment: viewModel?.segment ?? .allArticles)
+    }
 }
 
 // MARK: - YearInReviewBadgeDelegate

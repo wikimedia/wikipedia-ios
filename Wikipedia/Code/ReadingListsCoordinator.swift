@@ -67,10 +67,12 @@ final class ReadingListsCoordinator: NSObject, Coordinator {
         viewModel.loggingDelegate = self
 
         viewModel.didTapReadingList = { [weak self] readingList in
+            SavedInstrumentation.shared.logReadingListTap()
             self?.showDetail(for: readingList)
         }
 
         viewModel.didTapCreateList = { [weak self] in
+            SavedInstrumentation.shared.logCreateListTap()
             self?.presentCreateReadingList()
         }
 
