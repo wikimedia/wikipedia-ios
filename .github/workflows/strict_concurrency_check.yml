@@ -63,6 +63,15 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
+      # Swift package checkouts, reused while Package.resolved is unchanged. Pinned
+      # with -onlyUsePackageVersionsFromResolvedFile, so a restored checkout is
+      # always the exact revision the build would fetch.
+      - name: Restore Swift packages
+        uses: actions/cache@v6
+        with:
+          path: SourcePackages
+          key: spm-${{ hashFiles('Wikipedia.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+
       - name: Build ${{ matrix.scheme }} with strict concurrency
         run: |
           SCHEME="${{ matrix.scheme }}"
@@ -80,6 +89,7 @@ jobs:
             -scheme "${SCHEME}" \
             -project Wikipedia.xcodeproj \
             -onlyUsePackageVersionsFromResolvedFile \
+            -clonedSourcePackagesDirPath SourcePackages \
             -destination "${{ steps.simulator.outputs.destination }}" \
             SWIFT_STRICT_CONCURRENCY=complete \
             2>&1 | tee "${SCHEME}_strict.log"
