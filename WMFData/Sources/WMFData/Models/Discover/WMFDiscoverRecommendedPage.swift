@@ -12,18 +12,16 @@ public struct WMFDiscoverRecommendedPage: Sendable, Equatable, Identifiable {
     public let project: WMFProject
     public let description: String?
     public let thumbnailURL: URL?
-    public let extract: String?
 
     /// When the article entered the current list.
     public let recommendedDate: Date
 
-    public init(title: String, displayTitle: String? = nil, project: WMFProject, description: String?, thumbnailURL: URL?, extract: String?, recommendedDate: Date) {
+    public init(title: String, displayTitle: String? = nil, project: WMFProject, description: String?, thumbnailURL: URL?, recommendedDate: Date) {
         self.title = title
         self.displayTitle = displayTitle ?? title
         self.project = project
         self.description = description
         self.thumbnailURL = thumbnailURL
-        self.extract = extract
         self.recommendedDate = recommendedDate
     }
 }

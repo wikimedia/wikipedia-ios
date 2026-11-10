@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// Three columns by two rows of images, edge to edge and with no gaps. A list screen can show
-/// it as the header behind a transparent navigation bar.
+/// A grid of images, edge to edge and with no gaps. A list screen can show it as the header
+/// behind a transparent navigation bar, and a card can show a smaller grid as its thumbnail.
 struct WMFImageCollageView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -12,11 +12,12 @@ struct WMFImageCollageView: View {
             ForEach(viewModel.rows, id: \.first?.id) { row in
                 HStack(spacing: 0) {
                     ForEach(row) { tile in
-                        WMFImageCollageTileView(viewModel: tile, theme: appEnvironment.theme)
+                        WMFImageCollageTileView(viewModel: tile, tileHeight: viewModel.layout.tileHeight, theme: appEnvironment.theme)
                     }
                 }
             }
         }
+        .id(viewModel.id)
         .accessibilityHidden(true)
     }
 }
@@ -24,12 +25,13 @@ struct WMFImageCollageView: View {
 private struct WMFImageCollageTileView: View {
 
     @ObservedObject var viewModel: WMFImageCollageTileViewModel
+    let tileHeight: CGFloat
     let theme: WMFTheme
 
     var body: some View {
         Color(uiColor: viewModel.placeholderTone.color(for: theme))
             .frame(maxWidth: .infinity)
-            .frame(height: WMFImageCollageViewModel.tileHeight)
+            .frame(height: tileHeight)
             .overlay {
                 if let uiImage = viewModel.uiImage {
                     Image(uiImage: uiImage)
@@ -54,6 +56,11 @@ private struct WMFImageCollageTileView: View {
 
 #Preview("No images") {
     WMFImageCollageView(viewModel: WMFImageCollageViewModel(imageURLs: []))
+}
+
+#Preview("Entry card") {
+    WMFImageCollageView(viewModel: WMFImageCollageViewModel(imageURLs: WMFImageCollagePreviewData.imageURLs, layout: .entryCard))
+        .frame(width: 128)
 }
 
 private enum WMFImageCollagePreviewData {

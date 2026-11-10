@@ -129,6 +129,10 @@
 "diff-single-line-format" = "سطر $1";
 "diff-thanks-send-button-title" = "'شکریہ' بھیڄو";
 "dim-images" = "مدھم تصویر";
+"discover-announcement-get-started" = "شروع کرو";
+"discover-announcement-new-tag" = "نواں";
+"discover-announcement-no-thanks" = "کو، شکریہ";
+"discover-list-error-title" = "نیٹ ورک خرابی";
 "donation-reminder-wrap-up-survey-title" = "سروے";
 "edit-link-remove-link-title" = "لنک ہٹاؤ";
 "edit-link-title" = "روابط وچ ترمیم کرو";

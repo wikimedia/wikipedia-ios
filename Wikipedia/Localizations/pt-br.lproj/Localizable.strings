@@ -413,6 +413,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Toque duas vezes para ativar doações mensais automáticas desse valor.";
 "donate-accessibility-textfield-hint" = "Insira o valor personalizado que deseja doar.";
 "donate-accessibility-transaction-fee-hint" = "Toque duas vezes para adicionar a taxa de transação ao valor da doação.";
+// Fuzzy
 "donate-already-donated" = "Obrigado, prezado(a) apoiador(a)! Sua generosidade ajuda a manter a Wikipédia e outros projetos de conhecimento livre prosperando.";
 "donate-apple-fine-print" = "A Apple não está encarregada de arrecadar dinheiro para essa finalidade.";
 "donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode me mandar um e-mail ocasionalmente.";
@@ -1770,7 +1771,7 @@
 "year-in-review-2026-interests-card-button-title" = "Personalizar interesses";
 "year-in-review-2026-interests-card-subtitle" = "Escolha os assuntos que mais lhe interessam e receba recomendações personalizadas de acordo com seus interesses.";
 "year-in-review-2026-interests-card-title" = "Deixe sua casa com a sua cara";
-"year-in-review-2026-intro-title" = "A sua Respectiva do Ano da Wikipédia já está disponível";
+"year-in-review-2026-intro-title" = "A sua Retrospectiva do Ano da Wikipédia já está disponível";
 "year-in-review-2026-minutes-read-comparison-egg" = "Isso leva mais tempo do que cozinhar um ovo duro.";
 "year-in-review-2026-minutes-read-comparison-fall-asleep" = "Isso é mais tempo do que a média que as pessoas levam para adormecer.";
 "year-in-review-2026-minutes-read-comparison-honeybee" = "Isso leva mais tempo do que uma abelha rainha leva para pôr até 2.000 ovos.";

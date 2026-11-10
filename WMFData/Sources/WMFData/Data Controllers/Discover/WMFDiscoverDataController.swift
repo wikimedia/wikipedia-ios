@@ -1,7 +1,7 @@
 import Foundation
 
-// Sendable: the only stored property is the immutable `stateLock`. All other state
-// is read through the environment stores.
+// Sendable: the stored properties are immutable and Sendable. All other state is read
+// through the environment stores.
 public final class WMFDiscoverDataController: Sendable {
 
     public enum ExperimentAssignment: String, Sendable {
@@ -24,30 +24,51 @@ public final class WMFDiscoverDataController: Sendable {
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
 
+    private let developerSettingsDataController: WMFDeveloperSettingsDataController
     private let stateLock = NSLock()
 
-    private init() {}
+    init(developerSettingsDataController: WMFDeveloperSettingsDataController = .shared) {
+        self.developerSettingsDataController = developerSettingsDataController
+    }
 
     // MARK: - Availability
 
     /// True while the developer setting that gates the whole feature is on.
     public var isEnabled: Bool {
-        WMFDeveloperSettingsDataController.shared.enableDiscover
+        developerSettingsDataController.enableDiscover
     }
 
     /// True when the Saved tab shows the onboarding announcement card and its badge: the feature
-    /// is on, the reader is in group B and the reader has not answered the card yet.
+    /// is on, the reader is in group B, the card has not gone away yet and the reader has not
+    /// turned Discover on by another route.
     public var shouldShowAnnouncement: Bool {
-        guard isEnabled, experimentAssignment == .groupB else {
+        guard isEnabled, experimentAssignment == .groupB, !isListTurnedOn else {
             return false
         }
 
         return !hasDismissedAnnouncement
     }
 
+    /// True when the Saved tab badge announces a Discover list the reader has not opened yet: the
+    /// feature is on, the reader turned Discover on and a list was generated since their last visit.
+    /// A synchronous view of `WMFDiscoverReadingListDataController.hasUnseenList` for the badge.
+    public var shouldShowUnseenListBadge: Bool {
+        guard isEnabled, isListTurnedOn else {
+            return false
+        }
+
+        let hasUnseenList: Bool? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        return hasUnseenList ?? false
+    }
+
+    private var isListTurnedOn: Bool {
+        let storedSettings: WMFDiscoverSettings? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverSettings.rawValue)
+        return storedSettings?.isEnabled ?? false
+    }
+
     // MARK: - Announcement
 
-    /// True once the reader tapped Get started or No thanks on the announcement card.
+    /// True once the reader tapped No thanks on the announcement card or turned Discover on.
     public var hasDismissedAnnouncement: Bool {
         (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverOnboardingAnnouncementDismissed.rawValue)) ?? false
     }
@@ -76,7 +97,7 @@ public final class WMFDiscoverDataController: Sendable {
     /// The share of readers in the control group, 0 to 100, from the remote feature config when
     /// it carries the key. Changing the share re-rolls every reader's bucket.
     public var experimentControlPercentage: Int {
-        let remotePercentage = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.discoverExperimentControlPercentage
+        let remotePercentage = developerSettingsDataController.loadFeatureConfig()?.ios.discoverExperimentControlPercentage
         guard let remotePercentage, (0...100).contains(remotePercentage) else {
             return Self.defaultExperimentControlPercentage
         }
@@ -133,7 +154,7 @@ public final class WMFDiscoverDataController: Sendable {
     // Overrides assignment at read time only, so the persisted bucket survives
     // turning the developer setting back off.
     private var developerSettingsForcedAssignment: ExperimentAssignment? {
-        WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment
+        developerSettingsDataController.forceDiscoverExperimentAssignment
     }
 }
 

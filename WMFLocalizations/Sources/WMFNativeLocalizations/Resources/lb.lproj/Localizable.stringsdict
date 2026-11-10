@@ -915,6 +915,36 @@
 			<string>%1$d Byte</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-collective-hours-read-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Zesummegerechent, op alle Sproochen, hu Lieser wéi Dir geschat %1$#@v1@ mat Liesen op der Wikipedia verbruecht.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Joer</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-days-visited-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Är Aktivitéit hat hiren Héichpunkt am %1$@, wou Dir op %2$#@v2@ gelies hutt.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Dag</string>
+			<key>other</key>
+			<string>%2$d verschiddenen Deeg</string>
+		</dict>
+	</dict>
 	<key>year-in-review-2026-minutes-read-comparison-days</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -945,6 +975,22 @@
 			<string>%1$d Opruff</string>
 			<key>other</key>
 			<string>%1$d Opriff</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Domat gehéiert Dir zu den Top %1$@ vun de Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest %2$#@v2@ am Joer.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Artikel</string>
+			<key>other</key>
+			<string>%2$d Artikelen</string>
 		</dict>
 	</dict>
 </dict>

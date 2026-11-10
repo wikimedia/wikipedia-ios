@@ -2,36 +2,80 @@ import Foundation
 
 extension WMFDiscoverReadingListDataController {
 
+    /// The sources the setup screen offers. Interests is always offered. Saved articles and
+    /// reading history are offered only when they hold at least one article to seed from.
+    public func availableSources() async throws -> [WMFDiscoverSource] {
+        var availableSources: [WMFDiscoverSource] = []
+        for source in WMFDiscoverSource.allCases {
+            if source == .interests {
+                availableSources.append(source)
+                continue
+            }
+
+            let seeds = try await fetchSeeds(source: source, count: 1)
+            if !seeds.isEmpty {
+                availableSources.append(source)
+            }
+        }
+        return availableSources
+    }
+
     /// Samples up to `count` seed articles from the selected source, like the Android app does.
     func fetchSeeds(source: WMFDiscoverSource, count: Int) async throws -> [Seed] {
-        guard let coreDataStore else {
-            throw WMFDataControllerError.coreDataStoreUnavailable
-        }
-
         let candidates: [Seed]
         switch source {
         case .interests:
-            candidates = try await fetchInterestSeeds(coreDataStore: coreDataStore)
+            candidates = try await fetchInterestSeeds()
         case .saved:
-            candidates = try await fetchSavedSeeds(coreDataStore: coreDataStore)
+            candidates = try await fetchSavedSeeds(coreDataStore: requireCoreDataStore())
         case .history:
-            candidates = try await fetchHistorySeeds(coreDataStore: coreDataStore)
+            candidates = try await fetchHistorySeeds(coreDataStore: requireCoreDataStore())
         }
 
         return Array(Set(candidates).shuffled().prefix(count))
     }
 
-    private func fetchInterestSeeds(coreDataStore: WMFCoreDataStore) async throws -> [Seed] {
-        let interestsDataController = try WMFPageInterestDataController(coreDataStore: coreDataStore)
-        let interests = try await interestsDataController.fetchAllPageInterests()
-
-        return interests.compactMap { interest in
-            guard let project = interest.project else {
-                return nil
-            }
-
-            return Seed(title: interest.title.underscoresToSpaces, project: project)
+    private func requireCoreDataStore() throws -> WMFCoreDataStore {
+        guard let coreDataStore else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
         }
+        return coreDataStore
+    }
+
+    /// The Discover interests: every selected article, plus articles from every selected topic on
+    /// the primary app language. The topics are fetched at the same time, because one topic search
+    /// takes seconds and the run has a time budget. A topic whose articles cannot be fetched adds no
+    /// seeds, so the selected articles still seed the list. With topics only, a set that gives no
+    /// seed at all throws `recommendationsUnavailable`, because the interests are there and the
+    /// network is not. A stopped run stops every topic fetch and throws.
+    private func fetchInterestSeeds() async throws -> [Seed] {
+        let interests = try await interestsDataController.fetchInterests()
+        var seeds = interests.pages.map { page in
+            Seed(title: page.title.underscoresToSpaces, project: page.project)
+        }
+
+        guard !interests.topics.isEmpty, let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return seeds
+        }
+
+        let project = WMFProject.wikipedia(primaryAppLanguage)
+        let homeDataController = self.homeDataController
+        let topicSeeds = await withTaskGroup(of: [Seed].self) { group in
+            for topic in interests.topics {
+                group.addTask {
+                    let articles = (try? await homeDataController.fetchArticles(for: topic, project: project)) ?? []
+                    return articles.map { Seed(title: $0.title.underscoresToSpaces, project: project) }
+                }
+            }
+            return await group.reduce(into: [Seed]()) { $0.append(contentsOf: $1) }
+        }
+        try Task.checkCancellation()
+        seeds.append(contentsOf: topicSeeds)
+
+        guard !seeds.isEmpty else {
+            throw DiscoverReadingListError.recommendationsUnavailable
+        }
+        return seeds
     }
 
     private func fetchSavedSeeds(coreDataStore: WMFCoreDataStore) async throws -> [Seed] {

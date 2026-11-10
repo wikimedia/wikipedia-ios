@@ -1,0 +1,118 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 22989,
+        "ns": 0,
+        "title": "Paris",
+        "index": -1,
+        "coordinates": [
+          {
+            "lat": 48.8567,
+            "lon": 2.3522,
+            "primary": true,
+            "type": "city",
+            "dim": "10000",
+            "dist": 11.1
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/330px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 200
+        },
+        "pageimage": "La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques,_Paris_août_2014_(2).jpg",
+        "description": "Capital of France",
+        "descriptionsource": "local",
+        "extract": "Paris is the capital and largest city of France, with an estimated city population of 2.04 million in an area of 105.4 km2 (40.7 sq mi), and a metropolitan population of 13.2 million as of January 2026. Located on the river Seine in the centre of the Île-de-France region, it is the largest metropolitan..."
+      },
+      {
+        "pageid": 2065302,
+        "ns": 0,
+        "title": "Festival Paris Cinéma",
+        "index": 0,
+        "coordinates": [
+          {
+            "lat": 48.85666667,
+            "lon": 2.35222222,
+            "primary": true,
+            "type": "city",
+            "dim": "5000",
+            "dist": 7.6
+          }
+        ],
+        "description": "Annual French film festival",
+        "descriptionsource": "local",
+        "extract": "The Festival Paris Cinéma is one of the most recent French movie festivals, started in 2003. It is held annually in July. It was launched in 2003 after the municipal government withdrew funding for Festival du Film de Paris."
+      },
+      {
+        "pageid": 3374926,
+        "ns": 0,
+        "title": "International Federation of Film Archives",
+        "index": 1,
+        "coordinates": [
+          {
+            "lat": 48.856614,
+            "lon": 2.352222,
+            "primary": true,
+            "dim": "1000",
+            "dist": 2.2
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/FIAF_logo.svg/330px-FIAF_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 166
+        },
+        "pageimage": "FIAF_logo.svg",
+        "description": "French organization",
+        "descriptionsource": "local",
+        "extract": "The International Federation of Film Archives (French: Fédération internationale des archives du film, FIAF) is a film preservation organization founded in Paris in 1938 by the Cinémathèque Française, the Reichsfilmarchiv in Berlin, the British Film Institute and the Museum of Modern Art in New York..."
+      },
+      {
+        "pageid": 37113198,
+        "ns": 0,
+        "title": "Autonomous Port of Paris",
+        "index": 2,
+        "coordinates": [
+          {
+            "lat": 48.8566,
+            "lon": 2.3522,
+            "primary": true,
+            "dim": "1000",
+            "dist": 0
+          }
+        ],
+        "description": "Port in France",
+        "descriptionsource": "local",
+        "extract": "The Autonomous Port of Paris (French: \"Port autonome de Paris\") is a public institution in France that was set up in 1970. Its mission is to develop waterway traffic and port activity by creating, maintaining and handling the commercial operation of 70 sites in Ile-de-France. It is the second largest..."
+      },
+      {
+        "pageid": 74055454,
+        "ns": 0,
+        "title": "2024 Summer Olympics opening ceremony",
+        "index": 3,
+        "coordinates": [
+          {
+            "lat": 48.85666667,
+            "lon": 2.35222222,
+            "primary": true,
+            "type": "landmark",
+            "dim": "1000",
+            "dist": 7.6
+          }
+        ],
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/U_S_Olympic_Team_participates_in_2024_Opening_Ceremonies_in_Paris_%288554785%29.jpg/330px-U_S_Olympic_Team_participates_in_2024_Opening_Ceremonies_in_Paris_%288554785%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 213
+        },
+        "pageimage": "U_S_Olympic_Team_participates_in_2024_Opening_Ceremonies_in_Paris_(8554785).jpg",
+        "description": "",
+        "descriptionsource": "local",
+        "extract": "The opening ceremony of the 2024 Summer Olympics took place on 26 July 2024 across Paris, beginning at 19:30 CEST (17:30 UTC). As mandated by the Olympic Charter, the proceedings included an artistic program showcasing the culture of the host country and city, the parade of athletes and the lighting..."
+      }
+    ]
+  }
+}

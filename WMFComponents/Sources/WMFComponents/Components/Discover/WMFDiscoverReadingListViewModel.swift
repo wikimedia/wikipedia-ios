@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 import UIKit
 import WMFData
@@ -36,14 +37,18 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
 
     private let dataController: WMFDiscoverReadingListDataController
     private(set) var loadTask: Task<Void, Never>?
+    private(set) var reloadTask: Task<Void, Never>?
+    private var listStateObservation: AnyCancellable?
 
-    public init(username: String?, dataController: WMFDiscoverReadingListDataController = .shared) {
+    public init(username: String?, dataController: WMFDiscoverReadingListDataController = .shared, notificationCenter: NotificationCenter = .default) {
         self.username = username
         self.dataController = dataController
+        observeListState(from: notificationCenter)
     }
 
     deinit {
         loadTask?.cancel()
+        reloadTask?.cancel()
     }
 
     // MARK: - Loading
@@ -57,6 +62,22 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
         }
     }
 
+    /// Loads again after the settings screen when the source or the article count changed, so the
+    /// list reflects the new settings. Also refreshes the cadence the byline shows. Discover off
+    /// keeps the current list; a pending regeneration waits for the next turn on.
+    public func reloadIfGenerationDue() {
+        guard state != .loading else { return }
+        loadTask = Task { [weak self] in
+            guard let self else { return }
+            self.settings = await self.dataController.settings
+            guard self.settings.isEnabled else { return }
+            let isDue = (try? await self.dataController.isGenerationDue()) ?? false
+            guard isDue, !Task.isCancelled else { return }
+            self.state = .loading
+            await self.performLoad()
+        }
+    }
+
     private func performLoad() async {
         do {
             settings = await dataController.settings
@@ -65,14 +86,52 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
                 loadedPages = try await dataController.generateRecommendationsIfNeeded()
             } catch WMFDiscoverReadingListDataController.DiscoverReadingListError.sourceHasNoArticles {
                 loadedPages = try await dataController.fetchCurrentRecommendations()
+            } catch WMFDiscoverReadingListDataController.DiscoverReadingListError.recommendationsUnavailable {
+                // The network gave nothing. Keep the current list on screen, or show the error with Retry.
+                let storedPages = try await dataController.fetchCurrentRecommendations()
+                guard !storedPages.isEmpty else {
+                    throw WMFDiscoverReadingListDataController.DiscoverReadingListError.recommendationsUnavailable
+                }
+                loadedPages = storedPages
             }
             guard !Task.isCancelled else { return }
             show(loadedPages)
+            try? await dataController.markCurrentListSeen()
             await showOnboardingToastIfNeeded()
         } catch {
             guard !Task.isCancelled else { return }
             state = .error
         }
+    }
+
+    /// The screen can stay on the navigation stack while the app generates a new list in the
+    /// foreground. Follow the stored list, so the screen does not keep the old pages.
+    private func observeListState(from notificationCenter: NotificationCenter) {
+        listStateObservation = notificationCenter.publisher(for: WMFNSNotification.discoverListStateDidChange)
+            .sink { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    self?.reloadIfListChanged()
+                }
+            }
+    }
+
+    /// Shows the stored list when it differs from the one on screen, without generating. Skipped while
+    /// the first load runs, because that load posts the same notification when it generates.
+    func reloadIfListChanged() {
+        guard state != .loading else { return }
+        reloadTask?.cancel()
+        reloadTask = Task { [weak self] in
+            await self?.performReload()
+        }
+    }
+
+    private func performReload() async {
+        guard let storedPages = try? await dataController.fetchCurrentRecommendations(), !Task.isCancelled else { return }
+        if storedPages != pages {
+            settings = await dataController.settings
+            show(storedPages)
+        }
+        try? await dataController.markCurrentListSeen()
     }
 
     private func show(_ loadedPages: [WMFDiscoverRecommendedPage]) {
@@ -112,18 +171,28 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
 
     // MARK: - Header text
 
+    /// The name of the list. The share sheet uses it as the subject.
+    public var title: String {
+        WMFDiscoverReadingListView.title
+    }
+
     public var articleCountText: String {
         String.localizedStringWithFormat(CommonStrings.articleCountFormat, pages.count)
     }
 
     public var descriptionText: String {
-        switch settings.cadence {
+        Self.description(for: settings.cadence)
+    }
+
+    /// The cadence description, shared with the Discover entry card on the Saved tab.
+    static func description(for cadence: WMFDiscoverCadence) -> String {
+        switch cadence {
         case .daily:
-            return Self.descriptionDaily
+            return descriptionDaily
         case .weekly:
-            return Self.descriptionWeekly
+            return descriptionWeekly
         case .monthly:
-            return Self.descriptionMonthly
+            return descriptionMonthly
         }
     }
 

@@ -373,6 +373,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu məbləğin avtomatik aylıq ianələrini aktiv etmək üçün iki dəfə toxunun.";
 "donate-accessibility-textfield-hint" = "İanə etmək üçün fərdi məbləği daxil edin.";
 "donate-accessibility-transaction-fee-hint" = "İanə məbləğinə əməliyyat haqqı əlavə etmək üçün iki dəfə toxunun.";
+// Fuzzy
 "donate-already-donated" = "Təşəkkürlər, əziz donor! Səxavətiniz Vikipediya və onun və digər azad bilik layihələrinin inkişaf etməsinə kömək edir.";
 "donate-apple-fine-print" = "Apple bu məqsədlə pul yığmaqdan məsul deyil.";
 "donate-email-opt-in-text" = "Bəli, Vikimedia Fondu mənə vaxtaşırı e-poçt göndərə bilər.";
@@ -1289,13 +1290,10 @@
 "search-recent-title" = "Son axtarılanlar";
 "search-result-redirected-from" = "$1 səhifəsindən istiqamətləndirilmişdir";
 "search-semantic-entry-point-accessibility-hint" = "Sorğunuz üçün məqalələr daxilində axtarışlar";
-// Fuzzy
 "search-semantic-entry-point-description" = "Məqalələr daxilində axtarış edin və birbaşa müvafiq hissəyə keçin";
 "search-semantic-entry-point-hidden-toast-modify" = "Dəyişdir";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-subtitle" = "Parametrlər vasitəsilə onu yenidən görünən edə bilərsiniz.";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-title" = "Modul gizlədilib.";
+"search-semantic-entry-point-hidden-toast-subtitle" = "Parametrlər vasitəsilə onu yenidən görünən edə bilərsiniz";
+"search-semantic-entry-point-hidden-toast-title" = "Modul gizlədilib";
 "search-semantic-entry-point-hide-accessibility-label" = "Məqalələr daxilində axtarışı gizlət";
 "search-semantic-entry-point-info-accessibility-label" = "Məqalələr daxilində axtarış haqqında";
 "search-semantic-entry-point-try-it-now" = "İndi sınayın";
@@ -1303,7 +1301,6 @@
 "search-semantic-results-empty-title" = "Bu axtarış üçün nəticə yoxdur";
 "search-semantic-results-error-subtitle" = "Zəhmət olmasa, yenidən cəhd edin.";
 "search-semantic-results-error-title" = "Xəta baş verdi";
-// Fuzzy
 "search-semantic-results-last-updated" = "Son yeniləmə: $1";
 "search-semantic-results-rate-limited-subtitle" = "Bir az gözləyin və yenidən cəhd edin.";
 "search-semantic-results-rate-limited-title" = "Həddindən artıq çox axtarış";

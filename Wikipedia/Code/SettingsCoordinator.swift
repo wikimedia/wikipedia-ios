@@ -27,6 +27,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private let dataController: WMFSettingsDataController
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     private var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
+    private var discoverSettingsCoordinator: DiscoverSettingsCoordinator?
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private weak var storageAndSyncingViewModel: WMFStorageAndSyncingSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
@@ -123,6 +124,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         self.settingsViewModel = viewModel
         let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
+        navVC.didDismiss = { [weak self] in
+            self?.discoverSettingsCoordinator?.settingsDidClose()
+        }
         navigationController.present(navVC, animated: true)
         registerAuthNotificationObservers()
     }
@@ -152,6 +156,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             showHomeFeedSettings()
         case .yearInReview:
             self.goToYearInReviewSettings()
+        case .discover:
+            showDiscoverSettings()
         case .notifications:
             showNotifications()
         case .readingPreferences:
@@ -275,6 +281,15 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private func showClearCacheComplete() {
         let message = WMFLocalizedString("clearing-cache-complete", value: "Clearing cache complete.", comment: "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.")
         WMFToastManager.sharedInstance.showToast(message, sticky: true, dismissPreviousToasts: true)
+    }
+
+    // MARK: - Discover
+
+    private func showDiscoverSettings() {
+        guard let settingsNavigationController else { return }
+        let coordinator = DiscoverSettingsCoordinator(navigationController: settingsNavigationController, dataStore: dataStore, theme: theme, origin: .settings)
+        discoverSettingsCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - YiR

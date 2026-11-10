@@ -1,0 +1,462 @@
+{
+  "batchcomplete": true,
+  "continue": {
+    "gpsoffset": 24,
+    "continue": "gpsoffset||"
+  },
+  "query": {
+    "pages": [
+      {
+        "pageid": 534366,
+        "ns": 0,
+        "title": "Barack Obama",
+        "index": 1,
+        "description": "President of the United States from 2009 to 2017",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/330px-President_Barack_Obama.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 400
+        },
+        "revisions": [
+          {
+            "revid": 1376197029,
+            "parentid": 1375811483
+          }
+        ]
+      },
+      {
+        "pageid": 1546129,
+        "ns": 0,
+        "title": "Barrackpore",
+        "index": 2,
+        "description": "City in West Bengal, India",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Barrackpore_Railway_Station_Area_-_North_24_Parganas_2012-04-11_9671.JPG/330px-Barrackpore_Railway_Station_Area_-_North_24_Parganas_2012-04-11_9671.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 213
+        },
+        "revisions": [
+          {
+            "revid": 1374338176,
+            "parentid": 1373863193
+          }
+        ],
+        "coordinates": [
+          {
+            "lat": 22.76,
+            "lon": 88.37,
+            "primary": true,
+            "dim": "1000"
+          }
+        ]
+      },
+      {
+        "pageid": 9273854,
+        "ns": 0,
+        "title": "Barack Obama 2008 presidential primary campaign",
+        "index": 3,
+        "description": "American political campaign",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1371517217,
+            "parentid": 1369473166
+          }
+        ]
+      },
+      {
+        "pageid": 16136849,
+        "ns": 0,
+        "title": "Barack Obama Sr.",
+        "index": 4,
+        "description": "Kenyan economist (1934–1982)",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Barack_Obama_Sr._1962.jpg/330px-Barack_Obama_Sr._1962.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 490
+        },
+        "revisions": [
+          {
+            "revid": 1368278440,
+            "parentid": 1367754100
+          }
+        ]
+      },
+      {
+        "pageid": 17881122,
+        "ns": 0,
+        "title": "Barack Obama 2008 presidential campaign",
+        "index": 5,
+        "description": "American political campaign",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1372416406,
+            "parentid": 1371709718
+          }
+        ]
+      },
+      {
+        "pageid": 19049482,
+        "ns": 0,
+        "title": "Barack Obama assassination plot in Denver",
+        "index": 6,
+        "description": "Assassination plot to shoot Barack Obama at the 2008 Democratic National Convention",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Gartrell_johnson_adolf.jpg/330px-Gartrell_johnson_adolf.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 117
+        },
+        "revisions": [
+          {
+            "revid": 1356123209,
+            "parentid": 1356123022
+          }
+        ]
+      },
+      {
+        "pageid": 19968829,
+        "ns": 0,
+        "title": "Barack Obama assassination plot in Tennessee",
+        "index": 7,
+        "description": "Plot to shoot presidential nominee Barack Obama in Tennessee in 2008",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Official_portrait_of_Barack_Obama.jpg/330px-Official_portrait_of_Barack_Obama.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 436
+        },
+        "revisions": [
+          {
+            "revid": 1356599903,
+            "parentid": 1341094673
+          }
+        ]
+      },
+      {
+        "pageid": 20085885,
+        "ns": 0,
+        "title": "Barack Obama 2008 presidential election victory speech",
+        "index": 8,
+        "description": "Presidential election victory speech",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Obama08acceptance.jpg/330px-Obama08acceptance.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 324
+        },
+        "revisions": [
+          {
+            "revid": 1341310764,
+            "parentid": 1293910450
+          }
+        ]
+      },
+      {
+        "pageid": 20105699,
+        "ns": 0,
+        "title": "Barack Obama Supreme Court candidates",
+        "index": 9,
+        "description": "US Supreme Court nominations",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/USSupremeCourtWestFacade.JPG/330px-USSupremeCourtWestFacade.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 228
+        },
+        "revisions": [
+          {
+            "revid": 1357982718,
+            "parentid": 1357982674
+          }
+        ]
+      },
+      {
+        "pageid": 20617631,
+        "ns": 0,
+        "title": "Barack Obama citizenship conspiracy theories",
+        "index": 10,
+        "description": "Debunked conspiracy theories",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Billboard_Challenging_the_validity_of_Barack_Obama%27s_Birth_Certificate.JPG/330px-Billboard_Challenging_the_validity_of_Barack_Obama%27s_Birth_Certificate.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 192
+        },
+        "revisions": [
+          {
+            "revid": 1372546560,
+            "parentid": 1371481176
+          }
+        ]
+      },
+      {
+        "pageid": 21129442,
+        "ns": 0,
+        "title": "Barack Obama \"Hope\" poster",
+        "index": 11,
+        "description": "Image designed by Shepard Fairey",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1375811079,
+            "parentid": 1375811039
+          }
+        ]
+      },
+      {
+        "pageid": 24372201,
+        "ns": 0,
+        "title": "Barack Obama \"Joker\" poster",
+        "index": 12,
+        "description": "Digitally manipulated image of former United States President Barack Obama",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1375974625,
+            "parentid": 1361953896
+          }
+        ]
+      },
+      {
+        "pageid": 26472604,
+        "ns": 0,
+        "title": "Barack Obama religion conspiracy theories",
+        "index": 13,
+        "description": "",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Obama_swearing_in.JPG/330px-Obama_swearing_in.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 189
+        },
+        "revisions": [
+          {
+            "revid": 1372261689,
+            "parentid": 1354771162
+          }
+        ]
+      },
+      {
+        "pageid": 26524890,
+        "ns": 0,
+        "title": "Barack Obama judicial appointment controversies",
+        "index": 14,
+        "description": "Overview of the judicial appointment controversies of Barack Obama",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1360553807,
+            "parentid": 1360104906
+          }
+        ]
+      },
+      {
+        "pageid": 26937919,
+        "ns": 0,
+        "title": "Barack Obama 2012 presidential campaign",
+        "index": 15,
+        "description": "American political campaign",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1371527552,
+            "parentid": 1360522527
+          }
+        ]
+      },
+      {
+        "pageid": 30480030,
+        "ns": 0,
+        "title": "Barack Obama Tucson memorial speech",
+        "index": 16,
+        "description": "Commemoration of the 2011 shooting victims",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Barack_Obama_2011_Tucson%2C_Arizona_memorial_speech.webm/330px--Barack_Obama_2011_Tucson%2C_Arizona_memorial_speech.webm.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "revisions": [
+          {
+            "revid": 1372643718,
+            "parentid": 1306143512
+          }
+        ]
+      },
+      {
+        "pageid": 31372490,
+        "ns": 0,
+        "title": "Barack Obama presidential eligibility litigation",
+        "index": 17,
+        "description": "",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1371481955,
+            "parentid": 1367557877
+          }
+        ]
+      },
+      {
+        "pageid": 32963850,
+        "ns": 0,
+        "title": "Barack Obama Male Leadership Academy",
+        "index": 18,
+        "description": "Magnet school in Dallas, Texas, United States",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/A._Maceo_Smith_New_Tech_High_School.jpg/330px-A._Maceo_Smith_New_Tech_High_School.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 240
+        },
+        "revisions": [
+          {
+            "revid": 1339706107,
+            "parentid": 1318313956
+          }
+        ],
+        "coordinates": [
+          {
+            "lat": 32.691856,
+            "lon": -96.764896,
+            "primary": true,
+            "type": "edu",
+            "dim": "1000"
+          }
+        ]
+      },
+      {
+        "pageid": 41799316,
+        "ns": 0,
+        "title": "Barack Obama on mass surveillance",
+        "index": 19,
+        "description": "",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/President_Obama_speaks_on_U.S._intelligence_programs_2014-01-17.webm/330px--President_Obama_speaks_on_U.S._intelligence_programs_2014-01-17.webm.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "revisions": [
+          {
+            "revid": 1353890202,
+            "parentid": 1353890129
+          }
+        ]
+      },
+      {
+        "pageid": 41828619,
+        "ns": 0,
+        "title": "Barack Obama Presidential Center",
+        "index": 20,
+        "description": "Library in Chicago, Illinois",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Obama_Center_south_elevation_2_%28opening_day%29_-_Chicago%2C_IL_-_June_2026.jpg/330px-Obama_Center_south_elevation_2_%28opening_day%29_-_Chicago%2C_IL_-_June_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 480
+        },
+        "revisions": [
+          {
+            "revid": 1376617554,
+            "parentid": 1376227868
+          }
+        ],
+        "coordinates": [
+          {
+            "lat": 41.78625,
+            "lon": -87.58589,
+            "primary": true,
+            "type": "landmark",
+            "dim": "1000"
+          }
+        ]
+      },
+      {
+        "pageid": 57773094,
+        "ns": 0,
+        "title": "Barack Obama Plaza",
+        "index": 21,
+        "description": "Motorway service area in Tipperary, Ireland, named after the US President",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Bronze_sculpture_of_Barack_and_Michelle_Obama_at_Barack_Obama_Plaza_-_1.jpg/330px-Bronze_sculpture_of_Barack_and_Michelle_Obama_at_Barack_Obama_Plaza_-_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 239
+        },
+        "revisions": [
+          {
+            "revid": 1376611007,
+            "parentid": 1364536799
+          }
+        ],
+        "coordinates": [
+          {
+            "lat": 52.884894,
+            "lon": -7.945059,
+            "primary": true,
+            "type": "landmark",
+            "dim": "1000"
+          }
+        ]
+      },
+      {
+        "pageid": 62030582,
+        "ns": 0,
+        "title": "Barack Obama tan suit controversy",
+        "index": 22,
+        "description": "2014 fashion incident",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Barack_Obama_meets_with_John_F_Tefft%2C_August_2014.jpg/330px-Barack_Obama_meets_with_John_F_Tefft%2C_August_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 213
+        },
+        "revisions": [
+          {
+            "revid": 1373568243,
+            "parentid": 1373567281
+          }
+        ]
+      },
+      {
+        "pageid": 72146503,
+        "ns": 0,
+        "title": "Zach Barack",
+        "index": 23,
+        "description": "American actor (born 1995)",
+        "descriptionsource": "local",
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Zach_Barack_Lounging.jpg/330px-Zach_Barack_Lounging.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 320,
+          "height": 480
+        },
+        "revisions": [
+          {
+            "revid": 1365860707,
+            "parentid": 1357775984
+          }
+        ]
+      },
+      {
+        "pageid": 77106514,
+        "ns": 0,
+        "title": "Barack Obama's summer playlist",
+        "index": 24,
+        "description": "Playlist series",
+        "descriptionsource": "local",
+        "revisions": [
+          {
+            "revid": 1368761333,
+            "parentid": 1367243490
+          }
+        ]
+      }
+    ]
+  }
+}
