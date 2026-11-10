@@ -14,6 +14,8 @@ enum WMFYearInReviewLocalConfig {
         activeEndDateString: "2027-02-01T00:00:00Z",
         dataStartDateString: "2026-01-01T00:00:00Z",
         dataEndDateString: "2026-12-01T00:00:00Z",
+        contribStartDateString: "2025-12-01T00:00:00Z",
+        contribEndDateString: "2026-12-01T00:00:00Z",
         // Same values as the production `yirv2` entry (checked 2026-10-22).
         languages: 300,
         articles: 65667790,

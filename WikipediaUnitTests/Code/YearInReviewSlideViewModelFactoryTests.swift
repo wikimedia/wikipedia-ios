@@ -13,8 +13,8 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     /// The total articles, reading streak, top topic, articles visited multiple times and contributor slides always
     /// show, in their full or their empty version, so Year in Review never opens with no slides. The
-    /// test host has no stored report and no donations, so the days visited, runners-up and rabbit hole
-    /// slides do not show and the contributor slide is the "You matter" version.
+    /// test host has no stored report and no donations, so the days visited, runners-up, rabbit hole
+    /// and edit slides do not show and the contributor slide is the "You matter" version.
     @Test
     func makesTheTotalArticlesTheReadingStreakTheTopTopicTheArticlesVisitedMultipleTimesAndTheContributorSlides() {
         let slides = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true).slides
@@ -61,7 +61,7 @@ struct YearInReviewSlideViewModelFactoryTests {
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["data"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"] != nil)
-            case "frame6-empty", "frame4-empty":
+            case "frame6-empty", "frame4-empty", "frame16-empty":
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
                 #expect(byPath["data"] == nil)
@@ -84,7 +84,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
         let artboards = factory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame16-empty", "end"])
     }
 
     /// The developer settings can force the empty version of each personalized slide.
@@ -92,11 +92,64 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame16-empty", "end"])
+    }
+
+    /// Without a fetched edit count, for example after a failed request, no edit slide shows, so an
+    /// editor is never told they made 0 edits.
+    @Test
+    func withoutAnEditCountNoEditSlideShows() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(
+            isLoggedIn: true,
+            editCount: nil,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
+        )
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(!artboards.contains { ["frame16", "frame16-empty", "frame17", "frame18"].contains($0) })
+    }
+
+    /// A fetched edit count of 0 shows the empty edits slide.
+    @Test
+    func aFetchedEditCountOfZeroShowsTheEmptyEditsSlide() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(isLoggedIn: true, editCount: 0)
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards.last == "frame16-empty")
+    }
+
+    /// The most-viewed articles are not limited to the year, so a reader without edits this year gets
+    /// only the empty edits slide, not the views or most-viewed articles slides.
+    @Test
+    func aFetchedEditCountOfZeroHidesTheViewsAndMostViewedSlides() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(
+            isLoggedIn: true,
+            editCount: 0,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
+        )
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards.last == "frame16-empty")
+        #expect(!artboards.contains("frame17"))
+        #expect(!artboards.contains("frame18"))
+    }
+
+    /// The edits slides need an account, so a logged-out reader does not get the empty edits slide.
+    @Test
+    func aLoggedOutReaderGetsNoEditsSlide() {
+        let artboards = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: false, forcesAllEmptyStates: true).slides.map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(!artboards.contains("frame16-empty"))
     }
 
     /// The order of T438549: total articles, visits, reading streak, top topic, runners-up, rabbit holes, niche interest,
-    /// then the articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
+    /// the articles visited multiple times, then the edit slides. The rabbit hole reveal is the answer of
+    /// its guess slide, not a slide.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
@@ -109,18 +162,22 @@ struct YearInReviewSlideViewModelFactoryTests {
             rereadArticles: [
                 .init(title: "Dam", visitCount: 3, project: nil),
                 .init(title: "Gravity dam", visitCount: 2, project: nil)
-            ]
+            ],
+            isLoggedIn: true,
+            editCount: 12,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
         )
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame4", "frame6", "frame7", "frame11a", "frame12", "frame13"])
+        #expect(artboards == ["frame1", "frame2", "frame4", "frame6", "frame7", "frame11a", "frame12", "frame13", "frame16", "frame17", "frame18"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func onlyListSlidesSetTheLayoutDirection(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
-        let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty"]
+        let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty", "frame18"]
         let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
         for slide in slides {
             let artboard = slide.animation?.artboardName ?? ""
@@ -524,6 +581,86 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(strings.slidePositionAccessibilityValue(2, 5) == "2 of 5")
     }
 
+    // MARK: - Edits
+
+    @Test
+    func theEditsSlideShowsTheEditCount() throws {
+        let slide = factory.editsSlide(editCount: 357)
+
+        #expect(slide.id == "edits")
+        #expect(slide.animation?.artboardName == "frame16")
+        #expect(slide.animation?.stateMachineName == "frame16-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewEditsTitle)
+        #expect(text(slide, "data") == "357")
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewEditsSubtitle)
+        let accessibilityLabel = try #require(slide.localizedStrings.accessibilityLabel)
+        #expect(accessibilityLabel.contains("357"))
+    }
+
+    /// One edit is enough for the full slide.
+    @Test
+    func oneEditShowsTheFullEditsSlide() {
+        #expect(factory.editsSlide(editCount: 1).animation?.artboardName == "frame16")
+    }
+
+    @Test
+    func noEditsShowsTheEmptyEditsSlide() {
+        let slide = factory.editsSlide(editCount: 0)
+
+        #expect(slide.id == "editsEmpty")
+        #expect(slide.animation?.artboardName == "frame16-empty")
+        #expect(slide.animation?.stateMachineName == "frame16-empty-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewEditsEmptyTitle)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewEditsEmptySubtitle)
+        #expect(text(slide, "data") == nil)
+    }
+
+    // MARK: - Edit views
+
+    @Test
+    func theEditViewsSlideShowsTheViewCount() throws {
+        let slide = try #require(factory.editViewsSlide(viewCount: 26))
+
+        #expect(slide.id == "editViews")
+        #expect(slide.animation?.artboardName == "frame17")
+        #expect(slide.animation?.stateMachineName == "frame17-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewEditViewsTitle)
+        #expect(text(slide, "data") == "26")
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewEditViewsSubtitle)
+    }
+
+    /// The slide needs more than 25 views. It has no empty version.
+    @Test(arguments: [nil, 0, 25] as [Int?])
+    func theEditViewsSlideNeedsMoreThan25Views(viewCount: Int?) {
+        #expect(factory.editViewsSlide(viewCount: viewCount) == nil)
+    }
+
+    // MARK: - Most-viewed articles
+
+    @Test
+    func theMostViewedArticlesSlideListsUpToThreeArticlesWithTheirViews() throws {
+        let articles = [("IOS", 109), ("Test5", 22), ("Test 2", 9), ("Test 3", 1)].map {
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: $0.0, projectID: "wikipedia~en", viewsCount: $0.1)
+        }
+        let slide = try #require(factory.mostViewedArticlesSlide(articles))
+
+        #expect(slide.id == "mostViewedArticles")
+        #expect(slide.animation?.artboardName == "frame18")
+        #expect(slide.animation?.stateMachineName == "frame18-statemachine")
+        #expect(text(slide, "bodyText") == CommonStrings.yearInReviewMostViewedEditedArticlesTitle)
+        #expect(text(slide, "articleTitle1") == "IOS")
+        #expect(text(slide, "subTitle1") == CommonStrings.yearInReviewMostViewedEditedArticlesViewCount(109))
+        #expect(text(slide, "articleTitle3") == "Test 2")
+        #expect(slide.text.keys.contains { $0.path == "articleTitle4" } == false)
+        #expect(slide.articleThumbnails.count == 3)
+    }
+
+    /// The slide has no empty version.
+    @Test
+    func theMostViewedArticlesSlideDoesNotShowWithoutArticles() {
+        #expect(factory.mostViewedArticlesSlide([]) == nil)
+    }
+
     // MARK: - Contributor
 
     @Test(arguments: [(true, true), (true, false), (false, true)])
@@ -785,7 +922,11 @@ struct YearInReviewSlideViewModelFactoryTests {
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
             "collective_volunteer_editors", "collective_edits", "collective_global_reach", "thank_you", "you_matter"
         ]
-        let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config())
+        // TODO: The 2026 instrumentation plan does not name the edit slides yet, so they log their raw
+        // ids. Remove this filter when their page names are added to `loggingIDs` (see the TODO there).
+        let slidesWithoutPlanPages: Set<String> = ["edits", "editsEmpty", "editViews", "mostViewedArticles"]
+        let slides = (factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config()))
+            .filter { !slidesWithoutPlanPages.contains($0.id) }
         for slide in slides {
             #expect(planPages.contains(slide.loggingID), "\(slide.id) logs \(slide.loggingID)")
         }
