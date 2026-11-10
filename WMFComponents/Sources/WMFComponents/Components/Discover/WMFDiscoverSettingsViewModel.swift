@@ -231,9 +231,11 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
 
     // MARK: - Leaving
 
-    /// Waits for the saves in flight, then calls `didLeave`. The task holds this view model, so
-    /// the call arrives after the screen is gone.
+    /// Waits for the save in flight, then calls `didLeave`. The call arrives after the screen is
+    /// gone, so the task holds copies of the save and of the closure, not this view model.
     public func leave() {
+        let saveTask = saveTask
+        let didLeave = didLeave
         Task {
             await saveTask?.value
             didLeave?()

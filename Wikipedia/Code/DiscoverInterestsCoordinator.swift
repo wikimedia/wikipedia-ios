@@ -83,8 +83,9 @@ final class DiscoverInterestsCoordinator: NSObject, Coordinator {
 
     /// Commits the interests on the screen first, so the list generator sees every tap. An empty
     /// set does nothing: Done is off then, and the screen stays. A second tap while the commit
-    /// runs does nothing. When the commit fails the screen stays too, with a toast, so the reader
-    /// can try again.
+    /// runs does nothing, and a tap after it does nothing too: the screen closes, but the caller
+    /// can still be at work. Get started saves the settings before it pushes the list. When the
+    /// commit fails the screen stays, with a toast, so the reader can try again.
     func finish(store: WMFDiscoverInterestsStore) {
         guard !store.interests.isEmpty, !isFinishing else { return }
         DiscoverInstrumentation.shared.logInterestsDoneTap(entry: entry, topicCount: store.interests.topics.count, articleCount: store.interests.pages.count)
@@ -92,7 +93,6 @@ final class DiscoverInterestsCoordinator: NSObject, Coordinator {
         finishTask = Task { [weak self] in
             do {
                 try await store.commit()
-                self?.isFinishing = false
                 self?.didCommit = true
                 self?.didFinish?()
             } catch {
