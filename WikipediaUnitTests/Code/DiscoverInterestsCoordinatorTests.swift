@@ -28,7 +28,8 @@ final class DiscoverInterestsCoordinatorTests: XCTestCase {
         coordinator = DiscoverInterestsCoordinator(
             navigationController: navigationController,
             dataStore: dataStore,
-            interestsDataController: interestsDataController
+            interestsDataController: interestsDataController,
+            entry: .onboarding
         )
         finishCount = 0
         coordinator.didFinish = { [weak self] in

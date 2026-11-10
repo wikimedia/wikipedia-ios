@@ -70,7 +70,8 @@ final class DiscoverSetupCoordinator: NSObject, Coordinator {
         let coordinator = DiscoverInterestsCoordinator(
             navigationController: navigationController,
             dataStore: dataStore,
-            interestsDataController: interestsDataController
+            interestsDataController: interestsDataController,
+            entry: .onboarding
         )
         coordinator.didFinish = { [weak self] in
             self?.turnOnDiscover(source: .interests)
@@ -134,7 +135,23 @@ extension WMFDiscoverDataController: DiscoverAnnouncementDismissing {}
 // MARK: - WMFDiscoverSetupLoggingDelegate
 
 extension DiscoverSetupCoordinator: WMFDiscoverSetupLoggingDelegate {
-    // Instrumentation lands with T440585.
-    func discoverSetupDidAppear() {}
-    func discoverSetupDidTapContinue(source: WMFDiscoverSource) {}
+    func discoverSetupDidAppear() {
+        DiscoverInstrumentation.shared.logSetupImpression()
+    }
+
+    func discoverSetupDidTapBack() {
+        DiscoverInstrumentation.shared.logSetupBackTap()
+    }
+
+    func discoverSetupDidSelect(source: WMFDiscoverSource) {
+        DiscoverInstrumentation.shared.logSetupSourceTap(source)
+    }
+
+    func discoverSetupDidTapContinue(source: WMFDiscoverSource) {
+        DiscoverInstrumentation.shared.logSetupContinueTap()
+    }
+
+    /// The alert shows only from Settings. `DiscoverSettingsCoordinator` reports it.
+    func discoverSetupDidTapAdjust() {}
+    func discoverSetupDidCancelAdjust() {}
 }
