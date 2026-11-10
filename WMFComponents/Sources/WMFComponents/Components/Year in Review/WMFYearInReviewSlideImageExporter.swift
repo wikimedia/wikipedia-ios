@@ -108,7 +108,7 @@ public enum WMFYearInReviewSlideImageExporter {
         await bind(images: images, to: instance, animation: animation)
 
         rive.fit = .layout(scaleFactor: .explicit(layoutScale))
-        advance(rive, by: poseTime)
+        advance(rive, by: slide.sharePoseTime ?? poseTime)
 
         let artwork = try await render(rive, size: imageSize)
         return addWordmarkAndCaption(to: artwork, caption: caption)

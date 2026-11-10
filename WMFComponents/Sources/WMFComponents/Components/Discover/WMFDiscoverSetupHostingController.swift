@@ -34,12 +34,19 @@ public final class WMFDiscoverSetupHostingController: WMFComponentHostingControl
 
     // MARK: - Navigation bar
 
-    /// The question is the screen's own title, so the bar shows only the back button.
+    /// On onboarding the question is the screen's own title, so the bar shows only the back
+    /// button. From Settings the bar shows "How Discover is built", like on Android.
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: WMFDiscoverSetupView.title, customView: nil, alignment: .hidden)
+        let titleConfig: WMFNavigationBarTitleConfig
+        switch viewModel.presentation {
+        case .onboarding:
+            titleConfig = WMFNavigationBarTitleConfig(title: WMFDiscoverSetupView.title, customView: nil, alignment: .hidden)
+        case .settings:
+            titleConfig = WMFNavigationBarTitleConfig(title: WMFDiscoverSettingsViewModel.sourceTitle, customView: nil, alignment: .centerCompact)
+        }
         configureNavigationBar(
             titleConfig: titleConfig,
-            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true),
+            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal),
             closeButtonConfig: nil,
             profileButtonConfig: nil,
             tabsButtonConfig: nil,

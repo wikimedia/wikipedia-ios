@@ -695,6 +695,12 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
     }
 
     public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30, mainNamespaceOnly: Bool = false) async throws -> [WMFPage] {
+        try await fetchRecentlyReadPagesWithTimestamps(project: project, minimumSeconds: minimumSeconds, withinDays: withinDays, mainNamespaceOnly: mainNamespaceOnly).map(\.page)
+    }
+
+    /// Distinct pages read on a project, newest first, each with the time of its latest page view.
+    /// `limit` caps the number of pages, so a long history is read in batches and not in full.
+    public func fetchRecentlyReadPagesWithTimestamps(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30, mainNamespaceOnly: Bool = false, limit: Int? = nil) async throws -> [WMFPageWithTimestamp] {
         let backgroundContext = try coreDataStore.newBackgroundContext
         let startDate = Calendar.current.date(byAdding: .day, value: -withinDays, to: Date()) ?? Date()
 
@@ -702,28 +708,31 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
             let predicateFormat = mainNamespaceOnly
                 ? "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@ && page.namespaceID == 0"
                 : "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@"
-            let predicate = NSPredicate(
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            fetchRequest.predicate = NSPredicate(
                 format: predicateFormat,
                 startDate as CVarArg, minimumSeconds, project.id
             )
-            let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-            let pageViews = try self.coreDataStore.fetch(
-                entityType: CDPageView.self,
-                predicate: predicate,
-                fetchLimit: nil,
-                sortDescriptors: sortDescriptors,
-                in: backgroundContext
-            ) ?? []
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            if let limit {
+                fetchRequest.fetchBatchSize = limit
+            }
+            let pageViews = try backgroundContext.fetch(fetchRequest)
 
             var seen = Set<String>()
-            var pages: [WMFPage] = []
+            var pages: [WMFPageWithTimestamp] = []
             for pageView in pageViews {
+                if let limit, pages.count >= limit {
+                    break
+                }
                 guard let page = pageView.page,
                       let projectID = page.projectID,
                       let title = page.title,
+                      let timestamp = pageView.timestamp,
                       !seen.contains(title) else { continue }
                 seen.insert(title)
-                pages.append(WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title))
+                let wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
+                pages.append(WMFPageWithTimestamp(page: wmfPage, timestamp: timestamp))
             }
             return pages
         }

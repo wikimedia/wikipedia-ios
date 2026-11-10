@@ -10,7 +10,9 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     let navigationController: UINavigationController
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private var settingsCoordinator: DiscoverSettingsCoordinator?
     private var createReadingListCoordinator: CreateReadingListCoordinator?
+    private var shareReadingListCoordinator: ShareReadingListCoordinator?
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
         self.navigationController = navigationController
@@ -42,11 +44,15 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
         viewModel.didTapSaveList = { [weak self] pages in
             self?.showSaveListSheet(for: pages)
         }
-        viewModel.didTapShareList = { [weak self] pages, sourceRect in
-            self?.shareList(pages, sourceRect: sourceRect)
+        viewModel.didTapShareList = { [weak self, weak viewModel] pages, sourceRect in
+            guard let viewModel else { return }
+            self?.shareList(pages, title: viewModel.title, sourceRect: sourceRect)
         }
         viewModel.didTapAbout = { [weak self] in
             self?.showAbout()
+        }
+        viewModel.didTapCustomize = { [weak self] in
+            self?.showSettings()
         }
 
         let hostingController = WMFDiscoverReadingListHostingController(viewModel: viewModel)
@@ -114,11 +120,17 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
         present(shareActivityController, sourceRect: sourceRect)
     }
 
-    private func shareList(_ pages: [WMFDiscoverRecommendedPage], sourceRect: CGRect) {
-        let urls = pages.compactMap(\.articleURL)
-        guard !urls.isEmpty else { return }
-        let activityViewController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        present(activityViewController, sourceRect: sourceRect)
+    private func shareList(_ pages: [WMFDiscoverRecommendedPage], title: String, sourceRect: CGRect) {
+        let sharePages = pages.map { WMFShareReadingListDataController.Page(title: $0.title, project: $0.project) }
+        let shareReadingListCoordinator = ShareReadingListCoordinator(
+            navigationController: navigationController,
+            pages: sharePages,
+            listName: title,
+            sourceRect: sourceRect
+        )
+
+        self.shareReadingListCoordinator = shareReadingListCoordinator
+        shareReadingListCoordinator.start()
     }
 
     private func present(_ activityViewController: UIActivityViewController, sourceRect: CGRect) {
@@ -129,13 +141,21 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
         navigationController.present(activityViewController, animated: true)
     }
 
+    // MARK: - Settings
+
+    private func showSettings() {
+        let coordinator = DiscoverSettingsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, origin: .discoverReadingList)
+        settingsCoordinator = coordinator
+        coordinator.start()
+    }
+
     // MARK: - About
 
     /// Tentative page from the product manager. The page does not exist yet.
     private var aboutURL: URL? {
         guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
         return WMFProject.mediawiki.translatedHelpURL(
-            pathComponents: ["Wikimedia Apps", "Team", "Discover Reading List On iOS"],
+            pathComponents: ["Wikimedia Apps", "Team", "Discover on iOS"],
             section: nil,
             language: appLanguage)
     }

@@ -62,11 +62,18 @@ public enum AccessibilityIdentifiers {
         public static let announcementCard = "Discover Announcement Card"
         public static let announcementGetStartedButton = "Discover Announcement Get Started Button"
         public static let announcementNoThanksButton = "Discover Announcement No Thanks Button"
+        public static let entryCard = "Discover Entry Card"
         public static let setupView = "Discover Setup View"
         public static let setupContinueButton = "Discover Setup Continue Button"
         public static func setupSourceRow(_ source: String) -> String {
             "Discover Setup Source \(source)"
         }
+        public static let settingsView = "Discover Settings View"
+        public static let settingsToggle = "Discover Settings Toggle"
+        public static let settingsArticleCountStepper = "Discover Settings Article Count Stepper"
+        public static let settingsCadenceMenu = "Discover Settings Cadence Menu"
+        public static let settingsSourceRow = "Discover Settings Source Row"
+        public static let settingsInterestsRow = "Discover Settings Interests Row"
     }
 
     public enum Home {
@@ -230,9 +237,11 @@ public enum AccessibilityIdentifiers {
         public static let headerTitle = "Interests Header Title"
         public static let selectedCount = "Interests Selected Count"
         public static let deselectAllButton = "Interests Deselect All Button"
+        public static let doneButton = "Interests Done Button"
         public static let searchCancelButton = "Interests Search Cancel Button"
         public static let searchField = "Interests Search Field"
         public static let searchResultRow = "Interests Search Result Row"
+        public static let subtitle = "Interests Subtitle"
         public static let view = "Interests View"
     }
 

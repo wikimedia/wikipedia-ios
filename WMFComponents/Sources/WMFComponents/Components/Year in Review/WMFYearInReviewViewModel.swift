@@ -12,7 +12,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     public static let toolbarMinimumHeight: CGFloat = 64
 
-    public static let progressBarEdgeInset = WMFSpacing.medium
+    public static let progressBarEdgeInset: CGFloat = 2
 
     /// The space between the navigation bar and the progress bar.
     public static let progressBarTopGap = WMFSpacing.medium
@@ -100,6 +100,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// each scroll step, so it is a subject, not `@Published`, and the pager does not render again.
     public let endPageReveal = CurrentValueSubject<CGFloat, Never>(0)
 
+    /// The page at the top of the pager, with a fraction. It is a subject for the same reason as
+    /// `endPageReveal`. The progress bar moves with it during a swipe.
+    let pagerPosition = CurrentValueSubject<CGFloat, Never>(0)
+
     public let localizedStrings: LocalizedStrings
 
     private weak var coordinatorDelegate: WMFYearInReviewCoordinating?
@@ -151,12 +155,17 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return pagerSlides[currentSlideIndex]
     }
 
-    private var currentLoggingID: String {
-        guard let currentSlide else { return "" }
+    /// The current slide, or its answer after the answer replaced it in place.
+    private var currentShownSlide: WMFYearInReviewSlideViewModel? {
+        guard let currentSlide else { return nil }
         if currentSlide.id == answerShownSlideID, let answer = currentSlide.answer {
-            return answer.loggingID
+            return answer
         }
-        return currentSlide.loggingID
+        return currentSlide
+    }
+
+    private var currentLoggingID: String {
+        currentShownSlide?.loggingID ?? ""
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
@@ -184,6 +193,9 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     /// Called on each scroll step of the pager. `position` is the page at the top, with a fraction.
     func pagerDidScroll(toPosition position: CGFloat) {
+        if position != pagerPosition.value {
+            pagerPosition.send(position)
+        }
         let reveal = endViewModel == nil ? 0 : min(max(position - CGFloat(pagerSlides.count - 1), 0), 1)
         guard reveal != endPageReveal.value else { return }
         endPageReveal.send(reveal)
@@ -303,7 +315,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedShare() {
-        guard let slide = currentSlide else { return }
+        guard let slide = currentShownSlide else { return }
         loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: currentLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
     }
