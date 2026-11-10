@@ -199,8 +199,6 @@
 "clearing-cache-error" = "Probliemu välimuston tyhjendämizes";
 "clearing-cache-in-progress" = "Välimustuo tyhjendetäh.";
 "close-all-tabs" = "Salbua kai välilehtet";
-"close-all-tabs-confirmation" = "Tahtotgo salvata kai $1 välilehtie? Tädä ruaduo ei voi peruuttua.";
-"close-all-tabs-confirmation-number" = "Salvatahgo kai $1 välilehtie?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Tahtotgo salvata {{PLURAL:$1|$1 välilehten|$1 välilehtie}}? Tädä ruaduo ei voi peruuttua.";
 "close-all-tabs-confirmation-title-with-value" = "Salvatahgo {{PLURAL:|$1 välilehti|$1 välilehtie}}?";
 "close-button-accessibility-label" = "Salbua";
