@@ -28,6 +28,8 @@ final class SavedCoordinator: NSObject, Coordinator {
         }
     }
     private let dataStore: MWKDataStore
+    private let savedInstrumentation: SavedInstrumentation
+    private let discoverInstrumentation: DiscoverInstrumentation
 
     private(set) weak var savedViewController: WMFSavedHostingController?
     private weak var viewModel: WMFSavedViewModel?
@@ -35,9 +37,16 @@ final class SavedCoordinator: NSObject, Coordinator {
     private var readingListsCoordinator: ReadingListsCoordinator?
     private var progressObserver: SavedArticleDownloadProgressObserver?
 
-    init(theme: Theme, dataStore: MWKDataStore) {
+    init(
+        theme: Theme,
+        dataStore: MWKDataStore,
+        savedInstrumentation: SavedInstrumentation? = nil,
+        discoverInstrumentation: DiscoverInstrumentation? = nil
+    ) {
         self.theme = theme
         self.dataStore = dataStore
+        self.savedInstrumentation = savedInstrumentation ?? .shared
+        self.discoverInstrumentation = discoverInstrumentation ?? .shared
         super.init()
     }
 
@@ -217,13 +226,17 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
     }
 
     /// The counts are what the screen holds at this moment. Before the first load they are 0.
+    /// The announcement card counts an impression each time the screen does, while it is on screen.
     private func logSavedImpression() {
         guard let viewModel else { return }
-        SavedInstrumentation.shared.logImpression(
+        savedInstrumentation.logImpression(
             segment: viewModel.segment,
             listCount: viewModel.readingListsViewModel.readingLists.count,
             articleCount: viewModel.allArticlesViewModel.articles.count
         )
+        if viewModel.discoverHeaderViewModel?.announcementViewModel.isVisible == true {
+            discoverInstrumentation.logAnnouncementImpression()
+        }
     }
 
     func savedDidTapEditAllArticles() {
@@ -246,16 +259,12 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
 // MARK: - WMFDiscoverAnnouncementLoggingDelegate
 
 extension SavedCoordinator: WMFDiscoverAnnouncementLoggingDelegate {
-    func discoverAnnouncementDidAppear() {
-        DiscoverInstrumentation.shared.logAnnouncementImpression()
-    }
-
     func discoverAnnouncementDidTapGetStarted() {
-        DiscoverInstrumentation.shared.logAnnouncementGetStartedTap()
+        discoverInstrumentation.logAnnouncementGetStartedTap()
     }
 
     func discoverAnnouncementDidTapNoThanks() {
-        DiscoverInstrumentation.shared.logAnnouncementNoThanksTap()
+        discoverInstrumentation.logAnnouncementNoThanksTap()
     }
 }
 
@@ -266,7 +275,7 @@ extension SavedCoordinator: WMFDiscoverEntryCardLoggingDelegate {
     func discoverEntryCardDidAppear() {}
 
     func discoverEntryCardDidTap() {
-        DiscoverInstrumentation.shared.logEntryCardTap(segment: viewModel?.segment ?? .allArticles)
+        discoverInstrumentation.logEntryCardTap(segment: viewModel?.segment ?? .allArticles)
     }
 }
 

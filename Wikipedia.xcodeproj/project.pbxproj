@@ -978,6 +978,7 @@
 		7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */; };
 		80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */; };
 		7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */; };
+		7A4414420000000000000A11 /* SavedCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000A10 /* SavedCoordinatorTests.swift */; };
 		7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */; };
 		7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004C /* InMemoryKeyValueStore.swift */; };
 		7A4414420000000000000009 /* UITestReadingListsSeederTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */; };
@@ -3366,6 +3367,7 @@
 		7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabCharacterizationTests.swift; sourceTree = "<group>"; };
 		04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFComponentNavigationControllerTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSetupCoordinatorTests.swift; sourceTree = "<group>"; };
+		7A4414420000000000000A10 /* SavedCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInterestsCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004C /* InMemoryKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueStore.swift; sourceTree = "<group>"; };
 		7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestReadingListsSeederTests.swift; sourceTree = "<group>"; };
@@ -7098,6 +7100,7 @@
 				7A440194000000000000000E /* DiscoverSettingsCoordinatorTests.swift */,
 				04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */,
 				7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */,
+				7A4414420000000000000A10 /* SavedCoordinatorTests.swift */,
 				7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */,
 				7A4401940000000000000018 /* DiscoverInstrumentationTests.swift */,
 				7A440194000000000000001A /* SavedInstrumentationTests.swift */,
@@ -9223,6 +9226,7 @@
 				7A440194000000000000000F /* DiscoverSettingsCoordinatorTests.swift in Sources */,
 				80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */,
 				7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */,
+				7A4414420000000000000A11 /* SavedCoordinatorTests.swift in Sources */,
 				7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */,
 				7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */,
 				7A4414420000000000000A0F /* RemoteNotificationRegistrationFailureTests.swift in Sources */,
