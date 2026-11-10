@@ -40,10 +40,10 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
     private(set) var reloadTask: Task<Void, Never>?
     private var listStateObservation: AnyCancellable?
 
-    public init(username: String?, dataController: WMFDiscoverReadingListDataController = .shared) {
+    public init(username: String?, dataController: WMFDiscoverReadingListDataController = .shared, notificationCenter: NotificationCenter = .default) {
         self.username = username
         self.dataController = dataController
-        observeListState()
+        observeListState(from: notificationCenter)
     }
 
     deinit {
@@ -86,6 +86,13 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
                 loadedPages = try await dataController.generateRecommendationsIfNeeded()
             } catch WMFDiscoverReadingListDataController.DiscoverReadingListError.sourceHasNoArticles {
                 loadedPages = try await dataController.fetchCurrentRecommendations()
+            } catch WMFDiscoverReadingListDataController.DiscoverReadingListError.recommendationsUnavailable {
+                // The network gave nothing. Keep the current list on screen, or show the error with Retry.
+                let storedPages = try await dataController.fetchCurrentRecommendations()
+                guard !storedPages.isEmpty else {
+                    throw WMFDiscoverReadingListDataController.DiscoverReadingListError.recommendationsUnavailable
+                }
+                loadedPages = storedPages
             }
             guard !Task.isCancelled else { return }
             show(loadedPages)
@@ -99,8 +106,8 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
 
     /// The screen can stay on the navigation stack while the app generates a new list in the
     /// foreground. Follow the stored list, so the screen does not keep the old pages.
-    private func observeListState() {
-        listStateObservation = NotificationCenter.default.publisher(for: WMFNSNotification.discoverListStateDidChange)
+    private func observeListState(from notificationCenter: NotificationCenter) {
+        listStateObservation = notificationCenter.publisher(for: WMFNSNotification.discoverListStateDidChange)
             .sink { [weak self] _ in
                 Task { @MainActor [weak self] in
                     self?.reloadIfListChanged()
