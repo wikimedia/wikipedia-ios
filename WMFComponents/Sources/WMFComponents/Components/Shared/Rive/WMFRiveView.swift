@@ -18,6 +18,9 @@ public struct WMFRiveView: View {
     /// `false` keeps the animation on its first frame. A pager sets it only on the current page, so
     /// a page that is built off-screen does not play its intro before the reader sees it.
     private let isPlaying: Bool
+    /// `true` plays the animation also when Reduce Motion is on, for a small loading animation
+    /// that has no end state.
+    private let playsWithReduceMotion: Bool
     private let onReadBool: (@MainActor (Bool) -> Void)?
     private let onWatchedEvent: (@MainActor () -> Void)?
 
@@ -31,6 +34,7 @@ public struct WMFRiveView: View {
         accessibilityLabel: String? = nil,
         frameRate: Int? = nil,
         isPlaying: Bool = true,
+        playsWithReduceMotion: Bool = false,
         readBool: WMFRiveBool? = nil,
         onReadBool: (@MainActor (Bool) -> Void)? = nil,
         watchedTrigger: WMFRiveTrigger? = nil,
@@ -45,6 +49,7 @@ public struct WMFRiveView: View {
         self.accessibilityLabel = accessibilityLabel
         self.frameRate = frameRate
         self.isPlaying = isPlaying
+        self.playsWithReduceMotion = playsWithReduceMotion
         self.onReadBool = onReadBool
         self.onWatchedEvent = onWatchedEvent
         _viewModel = StateObject(wrappedValue: WMFRiveAnimationViewModel(
@@ -108,7 +113,7 @@ public struct WMFRiveView: View {
     /// Not a pause: a paused view does not draw the images that arrive after the load, or the
     /// changes after a tap.
     private var showsSettledState: Bool {
-        reduceMotion || !playAnimatedImages
+        !playsWithReduceMotion && (reduceMotion || !playAnimatedImages)
     }
 
     private var enums: [WMFRiveEnum: String] {
