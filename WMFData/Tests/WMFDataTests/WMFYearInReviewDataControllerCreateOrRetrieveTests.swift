@@ -128,6 +128,35 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertEqual(WMFYearInReviewDataController.fullSlideCount(for: slide), 1)
     }
 
+    /// Only a slide whose data controller opts in keeps outdated data on a failed rebuild. An older
+    /// niche interest slide cannot decode, so it is deleted even when the new one cannot be built.
+    func testOutdatedNicheInterestSlideIsDeletedWhenItsRebuildFails() async throws {
+        // The categories data controller reads the store from the environment. With no store there,
+        // its rebuild fails. The report itself uses its own store.
+        let report = try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.coreDataStore = nil
+        }) {
+            XCTAssertNil(WMFDataEnvironment.current.coreDataStore)
+            let dataController = try WMFMockYearInReviewDataController(coreDataStore: try await fixture.makeTemporaryCoreDataStore())
+
+            let legacyData = try JSONEncoder().encode(["Cats", "Dogs"])
+            try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [
+                WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: legacyData)
+            ]))
+
+            return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        }
+
+        XCTAssertNil(report?.slides.first { $0.id == .mostReadCategories }, "the old niche interest slide is deleted, not kept")
+    }
+
+    func testOnlyReadCountKeepsOutdatedDataOnFailedRebuild() {
+        let slideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .topArticles, .mostReadCategories, .location, .topTopics, .daysVisited, .rabbitHoles]
+        for slideID in slideIDs {
+            XCTAssertEqual(slideID.dataController().keepsOutdatedDataOnFailedRebuild, slideID == .readCount, "\(slideID)")
+        }
+    }
+
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
         
         guard let dataController else {

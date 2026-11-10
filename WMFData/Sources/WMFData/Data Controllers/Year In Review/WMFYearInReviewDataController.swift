@@ -667,17 +667,27 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
-            let rebuiltSlideIDs = Set(evaluatedSlideDataControllers.map(\.id))
+            // Make the new slides first, so the loop below knows which slides were actually rebuilt.
+            var newCDSlides: Set<CDYearInReviewSlide> = []
+            for slideDataController in evaluatedSlideDataControllers {
+                if let cdSlide = try? slideDataController.makeCDSlide(in: backgroundContext) {
+                    newCDSlides.insert(cdSlide)
+                }
+            }
+            let rebuiltSlideIDs = Set(newCDSlides.compactMap(\.id))
 
             // Only preserve existing slides that should freeze and use the current format.
-            // A slide in an older format is deleted when the data controller above built it again.
-            // If that failed, the old slide stays until a later populate builds it, so the reader does
-            // not lose it. The slide's data type must hide the parts that the old format got wrong.
+            // A slide in an older format is deleted, unless building it again failed and its data
+            // controller keeps outdated data on a failed rebuild. Then the old slide stays until a
+            // later populate builds it, so the reader does not lose it.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
+                guard !newCDSlides.contains(slide) else {
+                    continue
+                }
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    let keepsOldFormat = !rebuiltSlideIDs.contains(cdSlideID)
+                    let keepsOldFormat = dataController.keepsOutdatedDataOnFailedRebuild && !rebuiltSlideIDs.contains(cdSlideID)
                     if dataController.shouldFreeze && (dataController.hasCurrentFormat(slide.data) || keepsOldFormat) {
                         finalCDSlides.insert(slide)
                     } else {
@@ -686,11 +696,7 @@ import CoreData
                 }
             }
 
-            for slideDataController in evaluatedSlideDataControllers {
-                if let cdSlide = try? slideDataController.makeCDSlide(in: backgroundContext) {
-                    finalCDSlides.insert(cdSlide)
-                }
-            }
+            finalCDSlides.formUnion(newCDSlides)
 
             cdReport.slides = Set(finalCDSlides) as NSSet
 

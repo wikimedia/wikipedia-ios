@@ -10,6 +10,9 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
+    /// `WMFYearInReviewReadData` hides the minutes read slide for data in an older format, so the
+    /// total articles slide in that data can still show.
+    static let keepsOutdatedDataOnFailedRebuild = true
 
     private static let articleNamespaceID = 0
 
