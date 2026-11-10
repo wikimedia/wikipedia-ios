@@ -12,7 +12,9 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
     private var cancellables = Set<AnyCancellable>()
 
     private lazy var doneButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(tappedDone))
+        let configuration = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(tappedDone), alignment: .trailing)
+        let button = UIBarButtonItem.closeNavigationBarButtonItem(config: configuration)
+        button.accessibilityLabel = CommonStrings.doneTitle
         button.accessibilityIdentifier = AccessibilityIdentifiers.Interests.doneButton
         return button
     }()

@@ -675,8 +675,6 @@
 "reading-list-add-saved-button-title" = "ਹਾਂ, ਉਹਨਾਂ ਨੂੰ ਮੇਰੀ ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ";
 "reading-list-add-saved-title" = "ਸੰਭਾਲੇ ਲੇਖ ਲੱਭੇ ਗਏ";
 "reading-list-create-new-list-button-title" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਬਣਾਓ";
-"reading-list-create-new-list-description" = "ਵੇਰਵਾ";
-"reading-list-create-new-list-reading-list-name" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਨਾਂ";
 "reading-list-create-new-list-title" = "ਇੱਕ ਨਵੀਂ ਸੂਚੀ ਬਣਾਓ";
 "reading-list-deleted-accessibility-notification" = "ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਮਿਟਾਈ ਗਈ";
 "reading-list-detail-search-placeholder" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਲੱਭੋ";
@@ -688,7 +686,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ਲੇਖਾਂ ਨੂੰ ਛਾਂਟੋ";
 "reading-list-login-or-create-account-button-title" = "ਦਾਖ਼ਲ ਹੋਵੋ ਜਾਂ ਖ਼ਾਤਾ ਬਣਾਓ";
 "reading-list-name-user-created-annotation" = "_ [ਵਰਤੋਂਕਾਰ ਬਣਾਇਆ ਗਿਆ]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "ਚੋਣਵਾਂ ਛੋਟਾ ਵੇਰਵਾ";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਸਿਰਲੇਖ";
 "reading-list-sync-disabled-panel-title" = "ਸਮਕਾਲੀਕਰਨ ਅਯੋਗ ਹੈ";
 "reading-list-sync-enable-button-title" = "ਸਮਕਾਲੀਕਰਨ ਚਾਲੂ ਕਰੋ";

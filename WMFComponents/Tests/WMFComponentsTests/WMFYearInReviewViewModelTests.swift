@@ -25,6 +25,7 @@ private final class LoggingSpy: WMFYearInReviewLoggingDelegate {
     func logYearInReviewDidTapNext(slideLoggingID: String) { next.append(slideLoggingID) }
     func logYearInReviewDidTapDonate(slideLoggingID: String) { donate.append(slideLoggingID) }
     func logYearInReviewDidTapShare(slideLoggingID: String) { share.append(slideLoggingID) }
+    func logYearInReviewDidTapShareHighlights() {}
 }
 
 @MainActor
@@ -41,6 +42,7 @@ struct WMFYearInReviewViewModelTests {
             closeButtonAccessibilityLabel: "Close",
             moreButtonAccessibilityLabel: "More",
             shareButtonTitle: "Share",
+            shareHighlightsButtonTitle: "Share highlights",
             donateButtonTitle: "Donate",
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",

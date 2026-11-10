@@ -266,8 +266,6 @@
 "clearing-cache-error" = "Önbellek temizlenirken hata oluştu.";
 "clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-all-tabs" = "Tüm sekmeleri kapat";
-"close-all-tabs-confirmation" = "Tüm $1 sekmeyi kapatmak ister misiniz? Bu işlem geri alınamaz.";
-"close-all-tabs-confirmation-number" = "Tüm $1 sekme kapatılsın mı?";
 "close-all-tabs-confirmation-subtitle-with-value" = "$1 {{PLURAL:$1|sekmeyi}} kapatmak istiyor musunuz? Bu işlem geri alınamaz.";
 "close-all-tabs-confirmation-title-with-value" = "$1 {{PLURAL:$1|sekme}} kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";
@@ -1107,8 +1105,6 @@
 "reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
 "reading-list-api-error-list-limit" = "Senkronize edilen liste sayısı limitine ulaştığınız için bu liste senkronize edilmiyor.";
 "reading-list-create-new-list-button-title" = "Okuma listesi oluşturun";
-"reading-list-create-new-list-description" = "Açıklama";
-"reading-list-create-new-list-reading-list-name" = "Okuma listesinin adı";
 "reading-list-create-new-list-title" = "Yeni bir liste oluşturun";
 "reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
 "reading-list-detail-search-placeholder" = "Okuma listesinde ara";
@@ -1129,7 +1125,9 @@
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
 "reading-list-name-user-created-annotation" = "_[kullanıcı oluşturuldu]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
 "reading-list-sync-disabled-panel-message" = "Başka bir cihazda Vikipedi hesabınız için okuma listesi senkronizasyonu devre dışı bırakıldı. Ayarlarınızı güncelleyerek senkronizasyonu tekrar açabilirsiniz.";
 "reading-list-sync-disabled-panel-title" = "Senkronize devre dışı";

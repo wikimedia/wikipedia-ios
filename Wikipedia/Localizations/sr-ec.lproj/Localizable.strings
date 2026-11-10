@@ -166,7 +166,6 @@
 "clearing-cache-error" = "Грешка при чишћењеу кеша.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-all-tabs" = "Затвори све картице";
-"close-all-tabs-confirmation-number" = "Затвори свих $1 картица?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Желите ли да затворите {{PLURAL:$1|$1 картицу|$1 картице}}? Ово је неповратна радња.";
 "close-all-tabs-confirmation-title-with-value" = "Затвори {{PLURAL:$1|$1 картицу|$1 картица}}?";
 "close-button-accessibility-label" = "Затвори";
@@ -886,8 +885,6 @@
 "reading-list-api-error-generic" = "Дошло је до неочекиване грешке при синхронизовању листе за читање.";
 "reading-list-api-error-list-limit" = "Ова листа није синхронизована јер сте достигли ограничење за дозвољени број синхронизованих листа.";
 "reading-list-create-new-list-button-title" = "Направи листу за читање";
-"reading-list-create-new-list-description" = "Опис";
-"reading-list-create-new-list-reading-list-name" = "Име листе за читање";
 "reading-list-create-new-list-title" = "Направи нову листу";
 "reading-list-deleted-accessibility-notification" = "Листа за читање је избрисана";
 "reading-list-do-not-keep-button-title" = "Не, избриши чланке са уређаја";
@@ -907,7 +904,9 @@
 "reading-list-list-limit-reached" = "Достигли сте ограничење од $1 листа за читање по налогу";
 "reading-list-login-or-create-account-button-title" = "Пријава/регистрација";
 "reading-list-name-user-created-annotation" = "_[направио корисник]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "опционалан кратак опис";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "наслов листе за читање";
 "reading-list-sync-disabled-panel-message" = "Синхронизација листе за читање је онемогућена за ваш налог на другом уређају. Можете је поново укључити у подешавањима.";
 "reading-list-sync-disabled-panel-title" = "Синхронизација је онемогућена";

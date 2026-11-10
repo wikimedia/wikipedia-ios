@@ -106,6 +106,37 @@ final class DiscoverInterestsCoordinatorTests: XCTestCase {
         XCTAssertEqual(finishCount, 1)
     }
 
+    // MARK: - Back on the interests screen
+
+    /// The screen goes away without Done. The caller undoes the change that opened the screen.
+    func testBackReportsWhenTheScreenLeavesWithoutDone() {
+        var backCount = 0
+        coordinator.didGoBack = { backCount += 1 }
+        let store = makeStore(titles: [])
+        coordinator.showInterests(store: store)
+        XCTAssertTrue(navigationController.topViewController is WMFHomeFeedInterestsSettingsViewController)
+
+        store.didLeaveScreen?()
+
+        XCTAssertEqual(backCount, 1)
+        XCTAssertEqual(finishCount, 0)
+    }
+
+    /// Done pops the screen too. That pop is not Back.
+    func testDoneDoesNotReportBack() async {
+        var backCount = 0
+        coordinator.didGoBack = { backCount += 1 }
+        let store = makeStore(titles: ["Cat"])
+        coordinator.showInterests(store: store)
+
+        coordinator.finish(store: store)
+        await coordinator.finishTask?.value
+        store.didLeaveScreen?()
+
+        XCTAssertEqual(finishCount, 1)
+        XCTAssertEqual(backCount, 0)
+    }
+
     /// Without a Core Data store the commit throws. The screen stays, and the next tap tries again.
     func testDoneKeepsTheScreenWhenTheCommitFails() async throws {
         try await fixture.withConfiguredEnvironment(configure: { WMFDataEnvironment.current.coreDataStore = nil }) {

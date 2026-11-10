@@ -116,6 +116,10 @@ public struct WMFYearInReviewView: View {
                     if viewModel.endUsesLightContent != usesLightContent {
                         viewModel.endUsesLightContent = usesLightContent
                     }
+                },
+                shareHighlightsTitle: viewModel.showsShareHighlightsButton ? viewModel.localizedStrings.shareHighlightsButtonTitle : nil,
+                onShareHighlights: { sourceRect in
+                    viewModel.tappedShareHighlights(sourceRect: sourceRect)
                 }
             )
                 .containerRelativeFrame(.vertical)
