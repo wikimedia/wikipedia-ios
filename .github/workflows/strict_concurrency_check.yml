@@ -56,14 +56,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Select Xcode
-        run: |
-          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
-
       - name: Prepare simulator
         id: simulator
         uses: ./.github/actions/prepare-simulator
         with:
+          xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 

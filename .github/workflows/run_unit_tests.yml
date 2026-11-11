@@ -35,14 +35,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Select Xcode
-        run: |
-          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
-
       - name: Prepare simulator
         id: simulator
         uses: ./.github/actions/prepare-simulator
         with:
+          xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
@@ -61,17 +58,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Ensure tests reset WMFData global environment state
-        run: scripts/lint-wmfdata-test-fixtures.sh
-
-      - name: Select Xcode
-        run: |
-          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
-
       - name: Prepare simulator
         id: simulator
         uses: ./.github/actions/prepare-simulator
         with:
+          xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
@@ -81,9 +72,15 @@ jobs:
           scheme: WMFComponents
           destination: ${{ steps.simulator.outputs.destination }}
 
-      # Runs even when the WMFComponents tests fail, so one run reports both packages.
-      - name: Test WMFData
+      # The lint and the WMFData tests run even when the WMFComponents tests fail, so
+      # one run reports both packages. A lint failure skips only the WMFData tests.
+      - name: Ensure tests reset WMFData global environment state
+        id: wmfdata-lint
         if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
+        run: scripts/lint-wmfdata-test-fixtures.sh
+
+      - name: Test WMFData
+        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' }}
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFData
