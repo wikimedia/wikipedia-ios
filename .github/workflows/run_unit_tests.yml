@@ -1,48 +1,55 @@
 name: Run Unit Tests
 
-# DIAGNOSTICS BRANCH ONLY, not for merging. Replaces the unit-test jobs with one job
-# that measures where Swift package resolution spends its time on a fresh runner:
-#   1. a direct download of Rive's prebuilt framework (the binaryTarget zip),
-#   2. xcodebuild -resolvePackageDependencies for WMFComponents, as CI runs it (cold),
-#   3. swift package resolve -v for WMFComponents, which prints per-package timings.
+# DIAGNOSTICS BRANCH ONLY, not for merging. Two jobs run side by side on separate
+# runners, so each run is a paired comparison under the same conditions:
+#   - no-simulator: resolve Swift packages on a fresh runner without booting a simulator
+#   - simulator-first: boot the iPhone simulator first (as prepare-simulator does), then
+#     resolve the same packages
+# Run 1 of the earlier version resolved cold in 54s without a simulator, against 5-7.5
+# minutes in the real test jobs, which resolve right after booting the simulator.
 
 on:
   workflow_dispatch:
 
 env:
   XCODE_VERSION: "27.1"
+  IOS_VERSION: "27.0"
+  SIMULATOR_NAME: "iPhone 17"
+  NSUnbufferedIO: "YES"
 
 concurrency:
   group: "unit-tests-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
-  package-resolution-diagnostics:
+  resolve:
     runs-on: xcode-27
     permissions:
       contents: read
-    name: Package resolution diagnostics
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [no-simulator, simulator-first]
+    name: Resolve packages (${{ matrix.mode }})
     steps:
       - uses: actions/checkout@v7
 
       - name: Select Xcode
         run: sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
-      - name: 1. Download Rive's prebuilt framework directly
-        run: |
-          RESOLVED="Wikipedia.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
-          VERSION=$(jq -r '.pins[] | select(.identity == "rive-ios") | .state.version' "${RESOLVED}")
-          URL=$(curl -sSL "https://raw.githubusercontent.com/rive-app/rive-ios/${VERSION}/Package.swift" \
-            | grep -o 'https://[^"]*\.zip' | head -n 1)
-          echo "rive-ios ${VERSION}: ${URL}"
-          for attempt in 1 2; do
-            curl -sSL -o "${RUNNER_TEMP}/rive-${attempt}.zip" \
-              -w "attempt ${attempt}: size=%{size_download} bytes, total=%{time_total}s, connect=%{time_connect}s, first byte=%{time_starttransfer}s, speed=%{speed_download} B/s\n" \
-              "${URL}"
-          done
-          ls -la "${RUNNER_TEMP}"/rive-*.zip
+      - name: Boot the simulator and wait (simulator-first only)
+        if: matrix.mode == 'simulator-first'
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
 
-      - name: 2. xcodebuild -resolvePackageDependencies (as CI runs it, cold)
+      - name: Machine load before resolving
+        run: |
+          uptime
+          top -l 1 -n 8 -o cpu -stats pid,command,cpu,mem | tail -n 12 || true
+
+      - name: xcodebuild -resolvePackageDependencies (cold)
         run: |
           set -o pipefail
           START=$(date +%s)
@@ -51,18 +58,11 @@ jobs:
             -project Wikipedia.xcodeproj \
             -onlyUsePackageVersionsFromResolvedFile \
             -clonedSourcePackagesDirPath "${RUNNER_TEMP}/SourcePackages" \
-            2>&1 | grep -v -E "DVTAssertions|SimDevice native architecture|^Object:|^Method:|^Thread:|feedbackassistant|^\)$" \
+            2>&1 | grep --line-buffered -v -E "DVTAssertions|SimDevice native architecture|^Object:|^Method:|^Thread:|feedbackassistant|^\)$|^$" \
             | while IFS= read -r line; do printf '%s +%ss %s\n' "$(date +%T)" "$(( $(date +%s) - START ))" "${line}"; done
           echo "xcodebuild resolve took $(( $(date +%s) - START ))s"
-          echo "SourcePackages contents:"
-          du -sh "${RUNNER_TEMP}/SourcePackages"/* "${RUNNER_TEMP}/SourcePackages/artifacts"/* 2>/dev/null || true
 
-      - name: 3. swift package resolve -v (per-package timings)
-        working-directory: WMFComponents
+      - name: Machine load after resolving
         run: |
-          set -o pipefail
-          START=$(date +%s)
-          swift package resolve -v 2>&1 \
-            | while IFS= read -r line; do printf '%s +%ss %s\n' "$(date +%T)" "$(( $(date +%s) - START ))" "${line}"; done
-          echo "swift package resolve took $(( $(date +%s) - START ))s"
-          du -sh .build/artifacts/* .build/checkouts/* 2>/dev/null || true
+          uptime
+          top -l 1 -n 8 -o cpu -stats pid,command,cpu,mem | tail -n 12 || true
