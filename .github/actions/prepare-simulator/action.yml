@@ -15,6 +15,15 @@ inputs:
   simulator-name:
     description: iOS simulator device name.
     required: true
+  wait-for-boot:
+    description: >-
+      "true" (default) waits until the simulator has finished booting. "false" starts
+      the boot in the background and returns at once, so later steps (such as
+      xcodebuild resolving packages) run while it boots; xcodebuild waits for the
+      boot itself if it isn't done. UI tests should keep waiting, since their first
+      launch is timing-sensitive.
+    required: false
+    default: "true"
 
 outputs:
   destination:
@@ -66,6 +75,7 @@ runs:
       env:
         IOS_VERSION: ${{ inputs.ios-version }}
         SIMULATOR_NAME: ${{ inputs.simulator-name }}
+        WAIT_FOR_BOOT: ${{ inputs.wait-for-boot }}
       run: |
         RUNTIME="com.apple.CoreSimulator.SimRuntime.iOS-${IOS_VERSION//./-}"
         UDID="$(xcrun simctl list devices available -j \
@@ -76,9 +86,14 @@ runs:
         if [ -n "${UDID}" ]; then
           # Boot before testing so the first UI test does not pay for a cold boot inside
           # Xcode's app launch timeout.
-          echo "Booting ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${UDID})"
-          xcrun simctl boot "${UDID}" || true
-          xcrun simctl bootstatus "${UDID}" -b
+          if [ "${WAIT_FOR_BOOT}" = "false" ]; then
+            echo "Booting ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${UDID}) in the background"
+            nohup xcrun simctl boot "${UDID}" > "${RUNNER_TEMP}/simulator-boot.log" 2>&1 &
+          else
+            echo "Booting ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${UDID})"
+            xcrun simctl boot "${UDID}" || true
+            xcrun simctl bootstatus "${UDID}" -b
+          fi
           DESTINATION="platform=iOS Simulator,id=${UDID}"
         else
           echo "No ${SIMULATOR_NAME} simulator found for ${RUNTIME}; xcodebuild will boot one by name."

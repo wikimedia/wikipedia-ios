@@ -42,6 +42,8 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
+          # EXPERIMENT: boot in the background while xcodebuild resolves packages.
+          wait-for-boot: "false"
 
       - name: Test Wikipedia
         uses: ./.github/actions/unit-test-scheme
@@ -68,6 +70,8 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
+          # EXPERIMENT: boot in the background while xcodebuild resolves packages.
+          wait-for-boot: "false"
 
       - name: Test WMFComponents
         id: wmfcomponents-tests
