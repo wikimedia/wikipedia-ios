@@ -99,6 +99,19 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { saveFlag(.allowGestureZoomArticleWebview, newValue) }
     }
 
+    /// Debugging convenience: shows the Analytics Inspector pill over the app with the events the
+    /// event pipeline receives.
+    public var showAnalyticsInspector: Bool {
+        get { loadFlag(.developerSettingsShowAnalyticsInspector) }
+        set {
+            let oldValue = showAnalyticsInspector
+            saveFlag(.developerSettingsShowAnalyticsInspector, newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.analyticsInspectorVisibilityDidChange, object: nil)
+            }
+        }
+    }
+
     // MARK: - Year in Review
 
     /// Debugging convenience: while on, 2026 Year in Review shows before its launch date. The 2026

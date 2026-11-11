@@ -293,6 +293,11 @@ struct WMFDeveloperSettingsView: View {
                     Text("Reset counters")
                         .foregroundStyle(Color(theme.link))
                 }
+                if viewModel.showsAnalyticsInspectorToggle {
+                    captionedRow(caption: "Shows a floating pill with the last analytics event. Tap it to list, search and share every event since the app opened.", control: {
+                        Toggle("Show Analytics Inspector", isOn: $viewModel.showAnalyticsInspector)
+                    })
+                }
             } header: {
                 sectionHeader("Event Logging")
             }
