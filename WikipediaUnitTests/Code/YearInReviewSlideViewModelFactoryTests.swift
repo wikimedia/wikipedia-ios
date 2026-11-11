@@ -148,8 +148,8 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     /// The order of T438549: total articles, visits, reading streak, top topic, runners-up, biggest reading day and its
-    /// articles, rabbit holes, niche interest, the articles visited multiple times, then the edit slides. The rabbit hole
-    /// reveal is the answer of its guess slide, not a slide.
+    /// articles, longest read, rabbit holes, niche interest, the articles visited multiple times, then the edit slides.
+    /// The longest read and rabbit hole reveals are the answers of their guess slides, not slides.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
@@ -158,6 +158,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             readingStreak: readingStreakData(dayCount: 11, first: (3, 4), last: (3, 14)),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             biggestReadingDay: try biggestReadingDayData(articles: [("Moon", "Natural satellite"), ("Cat", nil)]),
+            longestRead: try longestReadData([("Moon", "Natural satellite", 600), ("Cat", nil, 300)], longestIsOnTop: true),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
             nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"),
             rereadArticles: [
@@ -172,7 +173,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame4", "frame6", "frame7", "frame8", "frame9", "frame11a", "frame12", "frame13", "frame16", "frame17", "frame18"])
+        #expect(artboards == ["frame1", "frame2", "frame4", "frame6", "frame7", "frame8", "frame9", "frame10a", "frame11a", "frame12", "frame13", "frame16", "frame17", "frame18"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
@@ -819,6 +820,72 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         #expect(hidingFactory.makeContributorSlide(experience: .collective, isLoggedIn: true) == nil)
         #expect(hidingFactory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).slides.contains { $0.animation?.artboardName == "end" } == false)
+    }
+
+    // MARK: - Longest read
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    /// - Parameter articles: The title, the description and the seconds of each article, longest first.
+    private func longestReadData(_ articles: [(String, String?, Int)], longestIsOnTop: Bool) throws -> WMFYearInReviewLongestReadSlideData {
+        let json: [String: Any] = [
+            "articles": articles.map { title, description, seconds in
+                var article: [String: Any] = ["title": title, "projectID": "wikipedia~en", "seconds": seconds]
+                article["description"] = description
+                return article
+            },
+            "longestIsOnTop": longestIsOnTop
+        ]
+        return try JSONDecoder().decode(WMFYearInReviewLongestReadSlideData.self, from: JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test(arguments: [true, false])
+    func theLongestReadSlideShowsTheGuessThenTheLongestReadArticleInPlace(longestIsOnTop: Bool) throws {
+        let slideData = try longestReadData([("Moon", "Natural satellite", 754), ("Cat", nil, 300)], longestIsOnTop: longestIsOnTop)
+
+        let slides = factory.longestReadSlides(slideData)
+
+        #expect(slides.count == 1, "the guess and the reveal take one position in the pager")
+        let guess = try #require(slides.first)
+        #expect(guess.id == "longestReadGuess")
+        #expect(guess.loggingID == "longest_read_guess")
+        #expect(guess.animation?.artboardName == "frame10a")
+        #expect(guess.animation?.stateMachineName == "frame10a-statemachine")
+        #expect(text(guess, "headline") == CommonStrings.yearInReviewMostTimeArticleTitle)
+        let (top, bottom) = longestIsOnTop ? (("Moon", "Natural satellite"), ("Cat", "")) : (("Cat", ""), ("Moon", "Natural satellite"))
+        #expect(text(guess, "articleTitleTop") == top.0)
+        #expect(text(guess, "subTitleTop") == top.1)
+        #expect(text(guess, "articleTitleBot") == bottom.0)
+        #expect(text(guess, "subTitleBot") == bottom.1)
+        #expect(guess.articleThumbnails.first { $0.key.path == "thumbnailTop" }?.value.title == top.0)
+        #expect(guess.articleThumbnails.first { $0.key.path == "thumbnailBot" }?.value.title == bottom.0)
+        #expect(guess.answerTrigger?.path == "frameComplete", "after the reader taps a card and the cards exit, the reveal replaces the guess")
+        #expect(guess.sharePoseTime != nil, "the share image shows the guess at rest, the same as the rabbit hole guess")
+
+        let reveal = try #require(guess.answer)
+        #expect(reveal.id == "longestReadReveal")
+        #expect(reveal.loggingID == "longest_read_reveal")
+        #expect(reveal.animation?.artboardName == "frame10b")
+        #expect(text(reveal, "headline") == CommonStrings.yearInReviewMostTimeArticleSubtitle(minuteCount: 12))
+        #expect(text(reveal, "resultTitle") == "Moon")
+        #expect(text(reveal, "resultSubTitle") == "Natural satellite")
+        #expect(reveal.articleThumbnails.first { $0.key.path == "resultThumbnail" }?.value.title == "Moon")
+        #expect(reveal.answer == nil)
+        #expect(reveal.answerTrigger == nil)
+        #expect(reveal.sharePoseTime == nil, "the reveal uses the usual share pose, the same as the rabbit hole reveal")
+    }
+
+    @Test
+    func theLongestReadSlidesReadTheContrastFlag() throws {
+        let guess = try #require(factory.longestReadSlides(try longestReadData([("Moon", nil, 600), ("Cat", nil, 300)], longestIsOnTop: true)).first)
+        #expect(guess.lightContentFlag?.path == "isUIWhite")
+        #expect(guess.answer?.lightContentFlag?.path == "isUIWhite")
+    }
+
+    @Test
+    func withoutAClearWinnerTheLongestReadSlideDoesNotShow() throws {
+        #expect(factory.longestReadSlides(try longestReadData([("Moon", nil, 300), ("Cat", nil, 300)], longestIsOnTop: true)).isEmpty)
+        #expect(factory.longestReadSlides(try longestReadData([("Moon", nil, 300)], longestIsOnTop: true)).isEmpty)
+        #expect(factory.longestReadSlides(nil).isEmpty)
     }
 
     // MARK: - Rabbit holes
