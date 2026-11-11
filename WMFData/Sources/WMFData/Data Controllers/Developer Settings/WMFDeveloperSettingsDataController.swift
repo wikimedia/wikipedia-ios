@@ -336,7 +336,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Discover
 
-    /// Gates the whole Discover feature while its user stories ship one by one. Off in production.
+    /// Forces the whole Discover feature on, without the remote feature config. In production the
+    /// remote key `iosv1.discoverExperimentEnabled` turns the feature on.
     public var enableDiscover: Bool {
         get { loadFlag(.developerSettingsEnableDiscover) }
         set {
