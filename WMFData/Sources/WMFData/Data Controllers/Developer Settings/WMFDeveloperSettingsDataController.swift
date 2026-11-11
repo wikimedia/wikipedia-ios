@@ -346,6 +346,18 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Games
 
+    /// Gates the WikiRun prototype entry point in the Games card until the game is ready to ship.
+    public var enableWikiRunPrototype: Bool {
+        get { loadFlag(.developerSettingsEnableWikiRunPrototype) }
+        set {
+            let oldValue = enableWikiRunPrototype
+            saveFlag(.developerSettingsEnableWikiRunPrototype, newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.wikiRunPrototypeDidChange, object: nil)
+            }
+        }
+    }
+
     /// Debugging convenience: points the WikiRun game at another server, for example
     /// http://localhost:5173 while developing the web game. Nil uses production.
     public var wikiRunBaseURLOverride: String? {

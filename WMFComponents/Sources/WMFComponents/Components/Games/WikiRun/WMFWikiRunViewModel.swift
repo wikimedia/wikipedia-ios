@@ -33,7 +33,7 @@ public final class WMFWikiRunViewModel: ObservableObject {
 
     private let dataController: WMFWikiRunDataController
 
-    public init(baseURL: URL, dataController: WMFWikiRunDataController = WMFWikiRunDataController()) {
+    public init(baseURL: URL, dataController: WMFWikiRunDataController = WMFWikiRunDataController.shared) {
         self.gameURL = Self.embedURL(from: baseURL)
         self.dataController = dataController
         self.isDarkMode = WMFAppEnvironment.current.theme.userInterfaceStyle == .dark

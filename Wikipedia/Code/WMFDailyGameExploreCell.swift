@@ -151,6 +151,9 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             startCountdownTimer()
         }
         self.lastState = state
+        let isWikiRunAvailable = WMFWikiRunDataController.isWikiRunAvailable
+        wikiRunSeparator.isHidden = !isWikiRunAvailable
+        wikiRunButton.isHidden = !isWikiRunAvailable
         if let theme {
             apply(theme: theme)
         }
@@ -387,20 +390,23 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         }
 
         // A rule keeps the WikiRun entry from reading as part of Which Came First.
-        let separatorHeight = 1 / max(traitCollection.displayScale, 1)
-        y += 18
-        if apply {
-            wikiRunSeparator.frame = CGRect(x: layoutMargins.left, y: y, width: availableWidth, height: separatorHeight)
-        }
-        y += separatorHeight + 14
+        let isWikiRunAvailable = WMFWikiRunDataController.isWikiRunAvailable
+        if isWikiRunAvailable {
+            let separatorHeight = 1 / max(traitCollection.displayScale, 1)
+            y += 18
+            if apply {
+                wikiRunSeparator.frame = CGRect(x: layoutMargins.left, y: y, width: availableWidth, height: separatorHeight)
+            }
+            y += separatorHeight + 14
 
-        y = wikiRunButton.wmf_preferredFrame(
-            at: CGPoint(x: layoutMargins.left, y: y),
-            maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-            minimumSize: NoIntrinsicSize,
-            alignedBy: .forceLeftToRight,
-            apply: apply
-        ).maxY
+            y = wikiRunButton.wmf_preferredFrame(
+                at: CGPoint(x: layoutMargins.left, y: y),
+                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                minimumSize: NoIntrinsicSize,
+                alignedBy: .forceLeftToRight,
+                apply: apply
+            ).maxY
+        }
 
         return CGSize(width: size.width, height: y + Self.cardBottomPadding)
     }

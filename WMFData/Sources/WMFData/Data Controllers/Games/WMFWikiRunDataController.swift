@@ -4,6 +4,8 @@ import Foundation
 /// resumes across launches and the same state stays readable from other app processes.
 public actor WMFWikiRunDataController {
 
+    public static let shared = WMFWikiRunDataController()
+
     public struct WMFWikiRunSnapshot: Codable, Sendable, Equatable {
         public let version: Int
         public let values: [String: String]
@@ -28,6 +30,12 @@ public actor WMFWikiRunDataController {
 
     public init(sharedCacheStore: WMFKeyValueStore? = nil) {
         self.injectedSharedCacheStore = sharedCacheStore
+    }
+
+    /// Whether the WikiRun prototype entry point should be offered. Read synchronously from the
+    /// developer setting so UI can gate itself during layout.
+    public static var isWikiRunAvailable: Bool {
+        WMFDeveloperSettingsDataController.shared.enableWikiRunPrototype
     }
 
     public func loadSnapshot() throws -> WMFWikiRunSnapshot? {

@@ -135,6 +135,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(wikiRunPrototypeDidChange), name: WMFNSNotification.wikiRunPrototypeDidChange, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -855,7 +856,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     func exploreCardViewControllerDidTapWikiRun(_ exploreCardViewController: ExploreCardViewController) {
-        guard let navigationController,
+        guard WMFWikiRunDataController.isWikiRunAvailable,
+              let navigationController,
               let host = exploreCardViewController.contentGroup?.siteURL?.host,
               let wikiRunURL = Configuration.current.wikiRunURLForHost(host) else {
             return
@@ -1461,6 +1463,13 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 
         // WMFAppViewController updates the card preview. Animate that change as a delete and insert.
         wantsDeleteInsertOnNextItemUpdate = true
+    }
+
+    /// The WikiRun prototype entry point changes the Games card height, so remeasure it in place.
+    @objc private func wikiRunPrototypeDidChange() {
+        layoutCache.reset()
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.reloadData()
     }
     
     @objc func articleDeleted(_ note: Notification) {
