@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 
 /// Configuration handles the current environment - production, beta, staging, labs
@@ -336,6 +337,18 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
     
+    // MARK: Games
+
+    public func wikiRunURLForHost(_ host: String? = nil) -> URL? {
+        if let override = WMFDeveloperSettingsDataController.shared.wikiRunBaseURLOverride,
+           let url = URL(string: override),
+           ["http", "https"].contains(url.scheme?.lowercased() ?? ""),
+           url.host != nil {
+            return url
+        }
+        return URL(string: "https://wikirun-game.toolforge.org")
+    }
+
     // MARK: Article URLs
     
     func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {

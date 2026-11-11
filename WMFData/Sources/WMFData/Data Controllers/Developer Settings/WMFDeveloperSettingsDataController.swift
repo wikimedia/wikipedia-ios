@@ -344,6 +344,21 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    // MARK: - Games
+
+    /// Debugging convenience: points the WikiRun game at another server, for example
+    /// http://localhost:5173 while developing the web game. Nil uses production.
+    public var wikiRunBaseURLOverride: String? {
+        get { try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsWikiRunBaseURL.rawValue) }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsWikiRunBaseURL.rawValue, value: newValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsWikiRunBaseURL.rawValue)
+            }
+        }
+    }
+
     // MARK: - Local Notifications
 
     /// Gates the daily top read local notification prototype. Off by default.

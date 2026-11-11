@@ -188,6 +188,13 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var wikiRunBaseURL: String = WMFDeveloperSettingsDataController.shared.wikiRunBaseURLOverride ?? "" {
+        didSet {
+            let trimmed = wikiRunBaseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+            WMFDeveloperSettingsDataController.shared.wikiRunBaseURLOverride = trimmed.isEmpty ? nil : trimmed
+        }
+    }
+
     var fundraisingOverrideDateRange: ClosedRange<Date> {
         let lowerBound = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
         let upperBound = WMFDonationReminderDataController.wrapUpEndDate.addingTimeInterval(86_400)

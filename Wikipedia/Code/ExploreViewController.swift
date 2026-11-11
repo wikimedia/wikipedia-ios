@@ -855,8 +855,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     func exploreCardViewControllerDidTapWikiRun(_ exploreCardViewController: ExploreCardViewController) {
-        guard let navigationController else { return }
-        let coordinator = WikiRunCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        guard let navigationController,
+              let host = exploreCardViewController.contentGroup?.siteURL?.host,
+              let wikiRunURL = Configuration.current.wikiRunURLForHost(host) else {
+            return
+        }
+        let coordinator = WikiRunCoordinator(
+            navigationController: navigationController,
+            dataStore: dataStore,
+            theme: theme,
+            baseURL: wikiRunURL
+        )
         wikiRunCoordinator = coordinator
         coordinator.start()
     }

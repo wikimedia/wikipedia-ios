@@ -2,8 +2,8 @@ import UIKit
 import WMF
 import WMFComponents
 
-/// Coordinator for the WikiRun web game: resolves where the game is hosted, presents it, and
-/// handles leaving it for an article or the share sheet.
+/// Coordinator for the WikiRun web game: presents it and handles leaving it for an article or
+/// the share sheet.
 @MainActor
 final class WikiRunCoordinator: NSObject, Coordinator {
 
@@ -11,21 +11,18 @@ final class WikiRunCoordinator: NSObject, Coordinator {
 
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private let baseURL: URL
     private weak var gameNavigationController: UINavigationController?
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, baseURL: URL) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
+        self.baseURL = baseURL
     }
 
     @discardableResult
     func start() -> Bool {
-        guard let baseURL = Self.resolveBaseURL() else {
-            assertionFailure("WikiRun base URL is not a valid URL")
-            return false
-        }
-
         let viewModel = WMFWikiRunViewModel(baseURL: baseURL)
         viewModel.onOpenArticle = { [weak self] url in self?.openArticle(url) }
         viewModel.onShare = { [weak self] text, url in self?.share(text: text, url: url) }
@@ -39,17 +36,6 @@ final class WikiRunCoordinator: NSObject, Coordinator {
         self.gameNavigationController = gameNavigationController
         navigationController.present(gameNavigationController, animated: true)
         return true
-    }
-
-    /// The game is hosted at a build-time configurable URL, falling back to the production host.
-    private static func resolveBaseURL() -> URL? {
-        let configuredURL = Bundle.main.object(forInfoDictionaryKey: "WikiRunBaseURL") as? String
-        if let candidate = URL(string: configuredURL ?? ""),
-           ["http", "https"].contains(candidate.scheme?.lowercased() ?? ""),
-           candidate.host != nil {
-            return candidate
-        }
-        return URL(string: "https://wikirun-game.toolforge.org")
     }
 
     // MARK: - Navigation

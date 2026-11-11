@@ -53,10 +53,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>WikiRunBaseURL</key>
-	<string>$(WIKIRUN_BASE_URL)</string>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Connect to a locally running WikiRun game during development.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
