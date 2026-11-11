@@ -62,7 +62,15 @@ import WMFTestKitchen
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
     
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
-    private var hydratingHosts: Set<SiteURLHost> = []
+    /// The user fetch in flight for each host, with the `userCacheGeneration` it started in. Callers
+    /// that ask while a fetch of the same generation runs wait for it.
+    @MainActor private var userFetchTasks: [SiteURLHost: (generation: Int, task: Task<Void, Never>)] = [:]
+    /// Changes on each reset, so a user fetch that started before a logout does not fill the cache
+    /// after it. Like `currentUserCache`, it is written in `reset()`.
+    private var userCacheGeneration = 0
+    /// A caller that needs the user waits at most this long for the fetch. The fetch keeps going and
+    /// fills the cache for later callers.
+    private static let userFetchWaitTimeout: Duration = .seconds(5)
     
     @objc public var authStateTemporaryUsername: String? {
         if authStateIsTemporary {
@@ -72,9 +80,14 @@ import WMFTestKitchen
         }
     }
 
-    @objc public required init(session: Session, configuration: Configuration) {
+    @objc public required convenience init(session: Session, configuration: Configuration) {
+        self.init(session: session, configuration: configuration, currentUserFetcher: WMFCurrentUserFetcher(session: session, configuration: configuration))
+    }
+
+    /// Tests pass a stub `currentUserFetcher`.
+    init(session: Session, configuration: Configuration, currentUserFetcher: WMFCurrentUserFetcher) {
         accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)
-        currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
+        self.currentUserFetcher = currentUserFetcher
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
     }
@@ -128,21 +141,113 @@ import WMFTestKitchen
     /// Fetches and caches the current user for the given site if the cache has no entry for that host. This call does not block. Callers get the cached value on a later lookup.
     public func hydrateUserCacheIfNeeded(siteURL: URL) {
         guard let host = siteURL.host,
-              currentUserCache[host] == nil,
-              !hydratingHosts.contains(host) else {
+              currentUserCache[host] == nil else {
             return
         }
-        hydratingHosts.insert(host)
-        currentUserFetcher.fetch(siteURL: siteURL, success: { user in
-            DispatchQueue.main.async {
-                self.currentUserCache[host] = user
-                self.hydratingHosts.remove(host)
+        Task { @MainActor [weak self] in
+            await self?.fetchUserIntoCache(siteURL: siteURL, host: host)
+        }
+    }
+
+    /// Fetches the user for the host and caches it. A caller that asks while a fetch for the host is
+    /// in flight waits for that fetch instead of making another request. A reset during the fetch
+    /// drops the result, so a user who logged out is not cached again. A caller after that reset
+    /// does not wait for the old fetch, which would give it nothing: it starts a new one.
+    @MainActor
+    func fetchUserIntoCache(siteURL: URL, host: String) async {
+        let generation = userCacheGeneration
+        if let running = userFetchTasks[host], running.generation == generation {
+            await running.task.value
+            return
+        }
+        let fetcher = currentUserFetcher
+        let task = Task { @MainActor [weak self] in
+            let user = try? await fetcher.fetch(siteURL: siteURL)
+            guard let self,
+                  let user,
+                  generation == self.userCacheGeneration,
+                  self.currentUserCache[host] == nil else {
+                return
             }
-        }, failure: { _ in
-            DispatchQueue.main.async {
-                self.hydratingHosts.remove(host)
+            self.currentUserCache[host] = user
+        }
+        userFetchTasks[host] = (generation, task)
+        await task.value
+        if userFetchTasks[host]?.task == task {
+            userFetchTasks[host] = nil
+        }
+    }
+
+    /// Returns the permanent user for the given site. If the cache has no entry for that host and the
+    /// app has saved credentials, it fetches and caches the user first, so a caller that runs before
+    /// anything else filled the cache still gets the user. It waits at most `userFetchWaitTimeout`, so
+    /// a slow network does not hold the caller. Returns `nil` for a logged-out or temporary user, or
+    /// when the fetch fails or does not finish in time.
+    /// - Parameter didFetchAfterTimeout: Called when the wait timed out and the fetch then cached a
+    ///   permanent user, so the caller can do again the work that ran without the user.
+    @MainActor
+    public func fetchPermanentUserIfNeeded(siteURL: URL, didFetchAfterTimeout: (@MainActor @Sendable () -> Void)? = nil) async -> WMFCurrentUser? {
+        guard let host = siteURL.host else {
+            return nil
+        }
+        guard currentUserCache[host] == nil,
+              KeychainCredentialsManager.shared.username != nil else {
+            return permanentUser(siteURL: siteURL)
+        }
+
+        let finishedInTime = await fetchUserIntoCache(siteURL: siteURL, host: host, timeout: Self.userFetchWaitTimeout) { [weak self] in
+            guard self?.permanentUser(siteURL: siteURL) != nil else {
+                return
             }
-        })
+            DDLogInfo("The user fetch for \(host) finished after the timeout")
+            didFetchAfterTimeout?()
+        }
+        if !finishedInTime {
+            DDLogWarn("The user fetch for \(host) did not finish in \(Self.userFetchWaitTimeout). Continuing without the user.")
+        }
+        return permanentUser(siteURL: siteURL)
+    }
+
+    /// Fetches the user into the cache like `fetchUserIntoCache(siteURL:host:)`, but waits at most
+    /// `timeout`. On a timeout the fetch keeps going and calls `didFinishLate` when it ends.
+    /// - Returns: `true` if the fetch finished in time.
+    @MainActor
+    func fetchUserIntoCache(siteURL: URL, host: String, timeout: Duration, didFinishLate: @escaping @MainActor @Sendable () -> Void) async -> Bool {
+        let fetch = Task { @MainActor [weak self] in
+            guard let self else {
+                return
+            }
+            await self.fetchUserIntoCache(siteURL: siteURL, host: host)
+        }
+        let finishedInTime = await Self.wait(for: fetch, timeout: timeout)
+        if !finishedInTime {
+            Task { @MainActor in
+                await fetch.value
+                didFinishLate()
+            }
+        }
+        return finishedInTime
+    }
+
+    /// Returns when the task finishes or the timeout passes, whichever is first. The task is not cancelled.
+    /// - Returns: `true` if the task finished first.
+    @MainActor
+    static func wait(for task: Task<Void, Never>, timeout: Duration) async -> Bool {
+        let waiter = OnceContinuation()
+        var timer: Task<Void, Never>?
+        let finished = await withCheckedContinuation { continuation in
+            waiter.continuation = continuation
+            Task { @MainActor in
+                await task.value
+                waiter.resume(returning: true)
+            }
+            timer = Task { @MainActor in
+                try? await Task.sleep(for: timeout)
+                waiter.resume(returning: false)
+            }
+        }
+        timer?.cancel()
+        return finished
     }
 
     /// Loops through all current user objects across the various siteURLs we have cached, and returns the username of the first username with authState == .permanent
@@ -237,6 +342,8 @@ import WMFTestKitchen
                     
                     KeychainCredentialsManager.shared.username = username
                     KeychainCredentialsManager.shared.password = password
+                    // Logging back in answers the logged-out alert, even when the user never saw it.
+                    self.isUserUnawareOfLogout = false
                     self.session.cloneCentralAuthCookies()
                     self.delegate?.authenticationManagerDidLogin()
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
@@ -342,7 +449,9 @@ import WMFTestKitchen
                             }
                         } else {
                             self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
-                            self.logout(initiatedBy: .app)
+                            if !WMFAuthenticationManager.isTransientError(error) {
+                                self.logout(initiatedBy: .app)
+                            }
                             completion(.failure(error))
                         }
                     }
@@ -361,10 +470,12 @@ import WMFTestKitchen
                 if user.authState == .ip || user.authState == .temporary {
                     performLogin()
                 } else {
-                    
+
                     self.backgroundAuthInstrument?.submitInteraction(action: "success")
                     self.backgroundAuthInstrument = nil
-                    
+
+                    // The server confirms a permanent account, so an earlier logout no longer applies.
+                    self.isUserUnawareOfLogout = false
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     completion(.success(user))
                 }
@@ -416,6 +527,10 @@ import WMFTestKitchen
             switch result {
             case .failure(let error):
                 DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                guard !WMFAuthenticationManager.isTransientError(error) else {
+                    completion()
+                    return
+                }
                 self.logout(initiatedBy: .server) {
                     completion()
                 }
@@ -424,6 +539,24 @@ import WMFTestKitchen
                 break
             }
         }
+    }
+
+    /// A network or server failure says nothing about the credentials. The session stays and the next attempt retries.
+    static func isTransientError(_ error: Error) -> Bool {
+        if error is URLError {
+            return true
+        }
+        if let requestError = error as? RequestError {
+            switch requestError {
+            case .serverBusy:
+                return true
+            case .http(let statusCode):
+                return statusCode == 429 || statusCode >= 500
+            default:
+                return false
+            }
+        }
+        return (error as NSError).domain == NSURLErrorDomain
     }
 
     // MARK: Logout
@@ -512,6 +645,12 @@ import WMFTestKitchen
         isUserUnawareOfLogout = false
     }
 
+    /// The logged-out alert is only true while no permanent account is logged in. A flag left over from an
+    /// earlier logout (the alert was dismissed by a link, then the user logged in from Settings) must not show it.
+    public static func shouldShowLoggedOutAlert(isUserUnawareOfLogout: Bool, isPermanentAccountLoggedIn: Bool) -> Bool {
+        return isUserUnawareOfLogout && !isPermanentAccountLoggedIn
+    }
+
     @objc public var isUserUnawareOfLogout: Bool {
         get {
             return UserDefaults.standard.isUserUnawareOfLogout
@@ -574,7 +713,7 @@ import WMFTestKitchen
     private func reset() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
-        currentUserCache = [:]
+        resetUserCache()
 
         session.removeAllCookies()
         
@@ -583,5 +722,26 @@ import WMFTestKitchen
         // Reset so can show for next logged in user.
         UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)
         UserDefaults.standard.wmf_setDidShowSyncEnabledPanel(false)
+    }
+}
+
+extension WMFAuthenticationManager {
+    /// Empties the user cache and starts a new generation. A user fetch in flight stays in
+    /// `userFetchTasks`: its generation no longer matches, so it does not fill the cache and later
+    /// callers do not wait for it.
+    func resetUserCache() {
+        currentUserCache = [:]
+        userCacheGeneration += 1
+    }
+}
+
+/// Resumes a continuation once, for the first of several tasks that finishes.
+@MainActor
+private final class OnceContinuation {
+    var continuation: CheckedContinuation<Bool, Never>?
+
+    func resume(returning value: Bool) {
+        continuation?.resume(returning: value)
+        continuation = nil
     }
 }

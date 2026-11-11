@@ -252,8 +252,6 @@
 "clearing-cache-error" = "Keşi təmizləmə xətası.";
 "clearing-cache-in-progress" = "Keş təmizlənir.";
 "close-all-tabs" = "Bütün vərəqələri bağla";
-"close-all-tabs-confirmation" = "$1 vərəqənin hamısını bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
-"close-all-tabs-confirmation-number" = "Bütün $1 vərəqə bağlansın?";
 "close-all-tabs-confirmation-subtitle-with-value" = "{{PLURAL:$1|$1 vərəqəni}} bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 vərəqə}} bağlansın?";
 "close-button-accessibility-label" = "Bağla";
@@ -373,6 +371,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu məbləğin avtomatik aylıq ianələrini aktiv etmək üçün iki dəfə toxunun.";
 "donate-accessibility-textfield-hint" = "İanə etmək üçün fərdi məbləği daxil edin.";
 "donate-accessibility-transaction-fee-hint" = "İanə məbləğinə əməliyyat haqqı əlavə etmək üçün iki dəfə toxunun.";
+// Fuzzy
 "donate-already-donated" = "Təşəkkürlər, əziz donor! Səxavətiniz Vikipediya və onun və digər azad bilik layihələrinin inkişaf etməsinə kömək edir.";
 "donate-apple-fine-print" = "Apple bu məqsədlə pul yığmaqdan məsul deyil.";
 "donate-email-opt-in-text" = "Bəli, Vikimedia Fondu mənə vaxtaşırı e-poçt göndərə bilər.";
@@ -1185,8 +1184,6 @@
 "reading-list-api-error-generic" = "Oxuma siyahılarınızı sinxronlaşdırarkən gözlənilməz xəta baş verdi.";
 "reading-list-api-error-list-limit" = "Sinxronlaşdırılmış siyahıların sayı limitinə çatdığınız üçün bu siyahı sinxronlaşdırılmayıb.";
 "reading-list-create-new-list-button-title" = "Oxuma siyahısı yarat";
-"reading-list-create-new-list-description" = "Təsvir";
-"reading-list-create-new-list-reading-list-name" = "Oxuma siyahısının adı";
 "reading-list-create-new-list-title" = "Yeni siyahı yarat";
 "reading-list-deleted-accessibility-notification" = "Oxuma siyahısı silindi";
 "reading-list-detail-search-placeholder" = "Oxuma siyahısında axtar";
@@ -1207,7 +1204,9 @@
 "reading-list-list-limit-reached" = "Hər hesab üçün $1 oxuma siyahısı limitinə çatmısınız";
 "reading-list-login-or-create-account-button-title" = "Daxil olun və ya hesab yaradın";
 "reading-list-name-user-created-annotation" = "_[istifadəçi yaratdı]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "istəyə bağlı qısa təsvir";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "oxuma siyahısının başlığı";
 "reading-list-sync-disabled-panel-message" = "Oxuma siyahısının sinxronizasiyası başqa cihazda Vikipediya hesabınız üçün deaktiv edilib. Parametrlərinizi güncəlləməklə sinxronizasiyanı yenidən aktiv edə bilərsiniz.";
 "reading-list-sync-disabled-panel-title" = "Sinxronizasiya deaktiv edilib";
@@ -1291,8 +1290,8 @@
 "search-semantic-entry-point-accessibility-hint" = "Sorğunuz üçün məqalələr daxilində axtarışlar";
 "search-semantic-entry-point-description" = "Məqalələr daxilində axtarış edin və birbaşa müvafiq hissəyə keçin";
 "search-semantic-entry-point-hidden-toast-modify" = "Dəyişdir";
-"search-semantic-entry-point-hidden-toast-subtitle" = "Parametrlər vasitəsilə onu yenidən görünən edə bilərsiniz.";
-"search-semantic-entry-point-hidden-toast-title" = "Modul gizlədilib.";
+"search-semantic-entry-point-hidden-toast-subtitle" = "Parametrlər vasitəsilə onu yenidən görünən edə bilərsiniz";
+"search-semantic-entry-point-hidden-toast-title" = "Modul gizlədilib";
 "search-semantic-entry-point-hide-accessibility-label" = "Məqalələr daxilində axtarışı gizlət";
 "search-semantic-entry-point-info-accessibility-label" = "Məqalələr daxilində axtarış haqqında";
 "search-semantic-entry-point-try-it-now" = "İndi sınayın";

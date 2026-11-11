@@ -1,5 +1,6 @@
 import Testing
 import Foundation
+import RiveRuntime
 @testable import WMFComponents
 
 @MainActor
@@ -19,7 +20,7 @@ struct WMFRiveAnimationViewModelTests {
         return WMFRiveAnimationViewModel(
             animation: animation,
             text: text,
-            loader: { animation in
+            loader: { animation, _ in
                 try await loader(animation)
                 throw StubError.cannotLoad
             }
@@ -77,7 +78,7 @@ struct WMFRiveAnimationViewModelTests {
         var attempts = 0
         let viewModel = WMFRiveAnimationViewModel(
             animation: animation,
-            loader: { _ in
+            loader: { _, _ in
                 attempts += 1
                 throw StubError.cannotLoad
             }
@@ -98,7 +99,7 @@ struct WMFRiveAnimationViewModelTests {
         var attempts = 0
         let viewModel = WMFRiveAnimationViewModel(
             animation: animation,
-            loader: { _ in
+            loader: { _, _ in
                 attempts += 1
                 try? await Task.sleep(nanoseconds: 50_000_000)
                 throw StubError.cannotLoad
@@ -132,6 +133,73 @@ struct WMFRiveAnimationViewModelTests {
     @Test
     func aMissingResourceIsReportedBeforeAnyLoad() {
         #expect(WMFRiveWorkerProvider.resourceExists(for: animation) == false)
+    }
+
+    /// A script in the .riv gets its view models when the state machine is made, and it does not see
+    /// an instance that is bound after that (T441488). So the text and the fitted size must be on the
+    /// instances that the state machine binds when it is made.
+    /// The templates set the maximum line counts on the instance that has the name of the artboard.
+    /// The default instance has zeros, which keeps the copy to one line.
+    @Test
+    func theStateMachineBindsTheInstanceThatHasTheNameOfTheArtboard() async throws {
+        let data = WMFRiveText(path: "data")
+        let longNumber = "1,234,567,890"
+
+        var boundData: String?
+        var boundMaxLines: Float?
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: WMFRiveAnimation(resourceName: "all_templates", artboardName: "frame1", stateMachineName: "frame1-statemachine"),
+            text: [data: longNumber],
+            loader: { animation, bindings in
+                try await WMFRiveWorkerProvider.makeRive(for: animation) { file, artboard in
+                    let main = await bindings(file, artboard)
+                    boundData = try? await main?.value(of: StringProperty(path: data.path))
+                    boundMaxLines = try? await main?.value(of: NumberProperty(path: "headlineMaxlines"))
+                    return main
+                }
+            }
+        )
+
+        await viewModel.load()
+
+        #expect(viewModel.loadState.isLoaded)
+        #expect(boundData == longNumber)
+        #expect(try #require(boundMaxLines) > 1)
+    }
+
+    @Test
+    func aRestartBeforeTheLoadDoesNothing() async {
+        var attempts = 0
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: animation,
+            loader: { _, _ in
+                attempts += 1
+                throw StubError.cannotLoad
+            }
+        )
+
+        #expect(viewModel.restart() == nil)
+        #expect(attempts == 0)
+    }
+
+    /// A pager restarts a page that it keeps off-screen, so the page plays again when it comes back.
+    /// The restart makes a new animation and keeps the page loaded, so the page does not go blank.
+    @Test
+    func aRestartMakesANewAnimationAndStaysLoaded() async throws {
+        let viewModel = WMFRiveAnimationViewModel(
+            animation: WMFRiveAnimation(resourceName: "all_templates", artboardName: "frame1", stateMachineName: "frame1-statemachine"),
+            text: [WMFRiveText(path: "data"): "42"]
+        )
+        await viewModel.load()
+        let first = try #require(viewModel.rive)
+
+        let restart = viewModel.restart()
+        #expect(viewModel.loadState.isLoaded, "the current animation stays during the restart")
+        await restart?.value
+
+        let second = try #require(viewModel.rive)
+        #expect(second !== first)
+        #expect(viewModel.loadState.isLoaded)
     }
 
     @Test

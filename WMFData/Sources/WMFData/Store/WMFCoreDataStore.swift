@@ -21,7 +21,7 @@ public final class WMFCoreDataStore: @unchecked Sendable {
         var databaseFileURL = appContainerURL
         databaseFileURL.appendPathComponent(databaseFileName, isDirectory: false)
 
-        guard let dataModelFileURL = Bundle.module.url(forResource: dataModelName, withExtension: "momd") else {
+        guard let dataModelFileURL = Self.dataModelDirectoryURL else {
             throw WMFCoreDataStoreError.setupMissingDataModelFileURL
         }
 
@@ -40,6 +40,11 @@ public final class WMFCoreDataStore: @unchecked Sendable {
         self.persistentContainer = container
 
         try await loadPersistentStores()
+    }
+
+    /// The compiled `WMFData.momd` directory, which holds one `.mom` file per model version.
+    static var dataModelDirectoryURL: URL? {
+        Bundle.module.url(forResource: "WMFData", withExtension: "momd")
     }
 
     private func loadPersistentStores() async throws {
@@ -190,10 +195,12 @@ public final class WMFCoreDataStore: @unchecked Sendable {
 
                 // An interest is an explicit user pick, and CDPageInterest requires its page, so pruning one both loses the interest and fails this save
                 let pageInterestPredicate = NSPredicate(format: "interest == nil")
+                // A Discover interest is also an explicit user pick, and the page deletes it by cascade
+                let discoverInterestPredicate = NSPredicate(format: "discoverInterest == nil")
 
-                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate, savedPageInfoPredicate, pageInterestPredicate])
+                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate, savedPageInfoPredicate, pageInterestPredicate, discoverInterestPredicate])
 
-                // Delete CDPages that have no page views, no article tab items, no saved info, no interest, and were added > one year ago
+                // Delete CDPages that have no page views, no article tab items, no saved info, no interest of either kind, and were added > one year ago
                 if let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: Self.housekeepingFetchLimit, in: backgroundContext) {
                     for page in pagesToDelete {
                         backgroundContext.delete(page)

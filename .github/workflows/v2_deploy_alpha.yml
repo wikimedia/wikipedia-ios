@@ -19,11 +19,11 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  XCODE_VERSION: "26.6"
+  XCODE_VERSION: "27.1"
 
 jobs:
   build-and-upload:
-    runs-on: macos-26
+    runs-on: xcode-27
 
     steps:
       # fetch-depth: 0 is needed for the tag list and the PR lookback, but

@@ -17,7 +17,7 @@ final class WMFSemanticSearchDataControllerTests {
 
             #expect(controller.isEligible(languageCode: "fr") == false)
             #expect(controller.isEntryPointAvailable(languageCode: "fr") == false)
-            let assignment = try controller.assignExperimentIfNeeded(languageCode: "fr")
+            let assignment = try controller.enrollIfNeeded(languageCode: "fr")
             #expect(assignment == nil)
         }
     }
@@ -85,17 +85,44 @@ final class WMFSemanticSearchDataControllerTests {
     }
 
     @Test
-    func defaultTargetLanguagesApplyWithoutRemoteTargetLanguages() async throws {
+    func noLanguageIsTargetedWithoutRemoteTargetLanguages() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteTargetLanguages([], semanticSearchEnabled: true)
+
+            #expect(controller.targetLanguageCodes.isEmpty)
+            #expect(controller.isEligible(languageCode: "fr") == false)
+        }
+    }
+
+    @Test
+    func developerSettingsLanguagesApplyWithoutRemoteTargetLanguagesWhileTheDeveloperToggleIsOn() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
 
-            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.defaultTargetLanguageCodes)
+            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.developerSettingsTargetLanguageCodes)
             #expect(controller.isEligible(languageCode: "fr"))
             #expect(controller.isEligible(languageCode: "en") == false)
+        }
+    }
 
+    @Test
+    func developerSettingsLanguagesApplyWhenTheRemoteTargetLanguagesAreEmpty() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
             try saveRemoteTargetLanguages([])
 
-            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.defaultTargetLanguageCodes)
+            #expect(controller.targetLanguageCodes == WMFSemanticSearchDataController.developerSettingsTargetLanguageCodes)
+        }
+    }
+
+    @Test
+    func remoteTargetLanguagesWinWhileTheDeveloperToggleIsOn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["pt"])
+
+            #expect(controller.targetLanguageCodes == ["pt"])
+            #expect(controller.isEligible(languageCode: "fr") == false)
         }
     }
 
@@ -106,10 +133,130 @@ final class WMFSemanticSearchDataControllerTests {
             try saveRemoteTargetLanguages(["fr", "ar", "ja"])
 
             #expect(controller.isEligible(languageCode: "en") == false)
-            let assignment = try controller.assignExperimentIfNeeded(languageCode: "en")
+            let assignment = try controller.enrollIfNeeded(languageCode: "en")
             #expect(assignment == nil)
             #expect(controller.experimentAssignment == nil)
             #expect(controller.isEntryPointAvailable(languageCode: "en") == false)
+        }
+    }
+
+    @Test
+    func experimentDataMatchesTheAndroidShape() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr", "ar", "ja"])
+            WMFDataEnvironment.current.appInstallIDUtility = { "install-1" }
+
+            #expect(controller.experimentData == nil)
+
+            let assignment = try #require(try controller.enrollIfNeeded(languageCode: "fr"))
+            let data = try #require(controller.experimentData)
+
+            #expect(data.enrolled == "semantic-search-phase-2")
+            #expect(data.assigned == (assignment == .groupB ? "treatment" : "control"))
+            #expect(data.coordinator == "custom")
+            #expect(data.subjectId == "install-1")
+
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+
+            #expect(controller.experimentData?.assigned == "treatment")
+            #expect(controller.experimentData?.coordinator == "forced")
+        }
+    }
+
+    @Test
+    func openingSearchEnrollsReadersWithATargetAppLanguage() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr", "ar", "ja"])
+
+            setAppLanguages(["en", "de"])
+            #expect(try controller.enrollIfNeeded() == nil)
+            #expect(controller.experimentAssignment == nil)
+            #expect(controller.experimentData == nil)
+
+            setAppLanguages(["en", "fr"])
+            let assignment = try #require(try controller.enrollIfNeeded())
+            #expect(controller.experimentAssignment == assignment)
+            #expect(controller.experimentData != nil)
+            #expect(controller.isEntryPointAvailable(languageCode: "en") == false, "The entry point still needs a search in a target language")
+        }
+    }
+
+    @Test
+    func openingSearchDoesNotEnrollWhileTheFeatureIsOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteTargetLanguages(["fr"], semanticSearchEnabled: false)
+            setAppLanguages(["fr"])
+
+            #expect(try controller.enrollIfNeeded() == nil)
+            #expect(controller.experimentAssignment == nil)
+        }
+    }
+
+    @Test
+    func targetLanguageSearchEnrollsAReaderWithoutATargetAppLanguage() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr"])
+            setAppLanguages(["en"])
+
+            #expect(try controller.enrollIfNeeded() == nil)
+            let assignment = try #require(try controller.enrollIfNeeded(languageCode: "fr"))
+            #expect(controller.experimentAssignment == assignment)
+        }
+    }
+
+    @Test
+    func exposureIsSentOncePerInstall() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr", "ar", "ja"])
+
+            #expect(controller.shouldSendExposure(languageCode: "fr") == false, "No exposure before the reader has a group")
+
+            try controller.enrollIfNeeded(languageCode: "fr")
+
+            #expect(controller.shouldSendExposure(languageCode: "en") == false)
+            #expect(controller.shouldSendExposure(languageCode: "fr"))
+            #expect(controller.shouldSendExposure(languageCode: "fr"), "Checking does not use up the exposure")
+
+            try controller.markExposureSent()
+
+            #expect(controller.hasSentExposure)
+            #expect(controller.shouldSendExposure(languageCode: "ja") == false)
+        }
+    }
+
+    @Test
+    func hiddenEntryPointSkipsTheExposure() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr"])
+            try controller.enrollIfNeeded(languageCode: "fr")
+            try controller.setEntryPointHidden(true)
+
+            #expect(controller.shouldSendExposure(languageCode: "fr") == false)
+
+            try controller.setEntryPointHidden(false)
+
+            #expect(controller.shouldSendExposure(languageCode: "fr"))
+        }
+    }
+
+    @Test
+    func clearingTheAssignmentAllowsANewExposure() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+            try saveRemoteTargetLanguages(["fr"])
+            try controller.enrollIfNeeded(languageCode: "fr")
+            try controller.markExposureSent()
+
+            try controller.clearExperimentAssignment()
+            try controller.enrollIfNeeded(languageCode: "fr")
+
+            #expect(controller.hasSentExposure == false)
+            #expect(controller.shouldSendExposure(languageCode: "fr"))
         }
     }
 
@@ -123,8 +270,8 @@ final class WMFSemanticSearchDataControllerTests {
                 #expect(controller.isEligible(languageCode: languageCode))
             }
 
-            let firstAssignment = try #require(try controller.assignExperimentIfNeeded(languageCode: "fr"))
-            let secondAssignment = try #require(try controller.assignExperimentIfNeeded(languageCode: "ar"))
+            let firstAssignment = try #require(try controller.enrollIfNeeded(languageCode: "fr"))
+            let secondAssignment = try #require(try controller.enrollIfNeeded(languageCode: "ar"))
 
             #expect(secondAssignment == firstAssignment)
             #expect(controller.experimentAssignment == firstAssignment)
@@ -163,11 +310,11 @@ final class WMFSemanticSearchDataControllerTests {
             #expect(controller.experimentAssignment == .groupB)
             #expect(controller.isEligible(languageCode: "fr"))
             #expect(controller.isEntryPointAvailable(languageCode: "fr"))
-            let forcedAssignment = try controller.assignExperimentIfNeeded(languageCode: "fr")
+            let forcedAssignment = try controller.enrollIfNeeded(languageCode: "fr")
             #expect(forcedAssignment == .groupB)
             #expect(controller.isEligible(languageCode: "en") == false)
             #expect(controller.isEntryPointAvailable(languageCode: "en") == false)
-            #expect(try controller.assignExperimentIfNeeded(languageCode: "en") == nil)
+            #expect(try controller.enrollIfNeeded(languageCode: "en") == nil)
 
             WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = nil
 
@@ -181,7 +328,7 @@ final class WMFSemanticSearchDataControllerTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
             try saveRemoteTargetLanguages(["ja"])
-            _ = try controller.assignExperimentIfNeeded(languageCode: "ja")
+            _ = try controller.enrollIfNeeded(languageCode: "ja")
             #expect(controller.experimentAssignment != nil)
 
             try controller.clearExperimentAssignment()
@@ -211,6 +358,7 @@ final class WMFSemanticSearchDataControllerTests {
         let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
 
         #expect(config.ios.semanticSearchLanguages.isEmpty)
+        #expect(config.ios.semanticSearchEnabled == nil)
         #expect(config.ios.visualEditorEnabled == true)
         #expect(config.ios.hCaptcha == nil)
     }
@@ -218,7 +366,7 @@ final class WMFSemanticSearchDataControllerTests {
     @Test
     func featureConfigDecodesTheSemanticSearchLanguages() throws {
         let json = Data("""
-        {"commonv1": {"yir": []}, "iosv1": {"semanticSearchLanguages": ["fr", "ar", "ja"]}}
+        {"commonv1": {"yir": []}, "iosv1": {"semanticSearchLanguagesv2": ["fr", "ar", "ja"]}}
         """.utf8)
 
         let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
@@ -226,11 +374,56 @@ final class WMFSemanticSearchDataControllerTests {
         #expect(config.ios.semanticSearchLanguages == ["fr", "ar", "ja"])
     }
 
-    private func saveRemoteTargetLanguages(_ languageCodes: [String]) throws {
+    @Test
+    func featureConfigDecodesTheRemoteSemanticSearchFlag() throws {
+        let json = Data("""
+        {"commonv1": {"yir": []}, "iosv1": {"semanticSearchEnabledv2": true}}
+        """.utf8)
+
+        let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
+
+        #expect(config.ios.semanticSearchEnabled == true)
+    }
+
+    @Test
+    func remoteFlagEnablesTheFeatureWhileTheDeveloperToggleIsOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+            try saveRemoteTargetLanguages(["fr"], semanticSearchEnabled: true)
+
+            #expect(WMFDeveloperSettingsDataController.shared.enableSemanticSearch == false)
+            #expect(WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled)
+            #expect(controller.isEligible(languageCode: "fr"))
+            #expect(controller.isEntryPointAvailable(languageCode: "fr"))
+            #expect(controller.isSettingsEntryAvailable)
+        }
+    }
+
+    @Test
+    func developerToggleEnablesTheFeatureWhileTheRemoteFlagIsOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = .groupB
+            try saveRemoteTargetLanguages(["fr"], semanticSearchEnabled: false)
+
+            #expect(WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled == false)
+            #expect(controller.isEligible(languageCode: "fr") == false)
+
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = true
+
+            #expect(WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled)
+            #expect(controller.isEligible(languageCode: "fr"))
+        }
+    }
+
+    private func saveRemoteTargetLanguages(_ languageCodes: [String], semanticSearchEnabled: Bool? = nil) throws {
         let sharedCacheStore = try #require(WMFDataEnvironment.current.sharedCacheStore)
-        let ios = WMFFeatureConfigResponse.IOS(hCaptcha: nil, semanticSearchLanguages: languageCodes)
+        let ios = WMFFeatureConfigResponse.IOS(hCaptcha: nil, semanticSearchLanguages: languageCodes, semanticSearchEnabled: semanticSearchEnabled)
         let config = WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: []), ios: ios, cachedDate: Date())
         try sharedCacheStore.save(key: "Developer Settings", "AppsFeatureConfig", value: config)
+    }
+
+    private func setAppLanguages(_ languageCodes: [String]) {
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languageCodes.map { WMFLanguage(languageCode: $0, languageVariantCode: nil) })
     }
 
     private func configureEnvironment() async {

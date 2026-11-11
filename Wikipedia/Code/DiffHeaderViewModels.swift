@@ -1,6 +1,7 @@
 import WMFComponents
 import WMF
 import WMFNativeLocalizations
+import WMFData
 
 final class DiffHeaderViewModel: Themeable {
     
@@ -30,7 +31,7 @@ final class DiffHeaderViewModel: Themeable {
 
     }
     
-    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, articleTitle: String, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
+    init?(diffType: DiffContainerViewModel.DiffType, fromModel: WMFPageRevision?, toModel: WMFPageRevision, articleTitle: String, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
         
         self.diffType = diffType
         self.articleTitle = articleTitle
@@ -103,7 +104,7 @@ final class DiffHeaderViewModel: Themeable {
 }
 
 final class DiffHeaderTitleViewModel {
-    let heading: String? // tonitodo: because WMFPageHistoryRevision revisionDate is nullable and that's displayed as a title in single revision view, can we make it not optional. same with title
+    let heading: String? // tonitodo: because WMFPageRevision revisionDate is nullable and that's displayed as a title in single revision view, can we make it not optional. same with title
     let title: String?
     let subtitle: String?
     let subtitleTextStyle: WMFFont
@@ -121,7 +122,7 @@ final class DiffHeaderTitleViewModel {
 final class DiffHeaderEditSummaryViewModel {
     let heading: String
     let isMinor: Bool
-    let summary: String? // tonitodo - because WMFPageHistoryRevision.parsedComment is nullable, can we make that not optional
+    let summary: String? // tonitodo - because WMFPageRevision.parsedComment is nullable, can we make that not optional
     
     init(heading: String, isMinor: Bool, summary: String?) {
         self.heading = heading
@@ -133,7 +134,7 @@ final class DiffHeaderEditSummaryViewModel {
 final class DiffHeaderEditorViewModel {
     
     let heading: String
-    let username: String? // tonitodo: because WMFPageHistoryRevision user is nullable, can we make that not nullable
+    let username: String? // tonitodo: because WMFPageRevision user is nullable, can we make that not nullable
     var numberOfEdits: Int? {
         didSet {
             guard let numberOfEdits = numberOfEdits else {
@@ -162,7 +163,7 @@ final class DiffHeaderCompareViewModel: Themeable {
     let toModel: DiffHeaderCompareItemViewModel
     let project: WikimediaProject?
     
-    init(fromModel: WMFPageHistoryRevision, toModel: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme, project: WikimediaProject?) {
+    init(fromModel: WMFPageRevision, toModel: WMFPageRevision, dateFormatter: DateFormatter, theme: Theme, project: WikimediaProject?) {
         self.fromModel = DiffHeaderCompareItemViewModel(type: .from, model: fromModel, dateFormatter: dateFormatter, theme: theme, revisionID: fromModel.revisionID)
         self.toModel = DiffHeaderCompareItemViewModel(type: .to, model: toModel, dateFormatter: dateFormatter, theme: theme, revisionID: toModel.revisionID)
         self.project = project
@@ -185,7 +186,7 @@ final class DiffHeaderCompareItemViewModel: Themeable {
     var accentColor: UIColor
     let revisionID: Int
     
-    init(type: DiffHeaderCompareType, model: WMFPageHistoryRevision, dateFormatter: DateFormatter, theme: Theme, revisionID: Int) {
+    init(type: DiffHeaderCompareType, model: WMFPageRevision, dateFormatter: DateFormatter, theme: Theme, revisionID: Int) {
         
         self.type = type
         switch type {

@@ -218,9 +218,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         )
         viewModel.regenerateYiR2026Report = { [dataStore] in
-            try await YearInReviewCoordinator.populateReport(dataStore: dataStore, regenerate: true) != nil
+            try await YearInReviewCoordinator.buildReport(dataStore: dataStore, regenerate: true) != nil
         }
         viewModel.configureLocalNotificationActions(dataStore: dataStore)
+        viewModel.showsAnalyticsInspectorToggle = AnalyticsInspectorController.isAvailableInThisBuild
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 

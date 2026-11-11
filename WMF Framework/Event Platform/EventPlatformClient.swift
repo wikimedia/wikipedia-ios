@@ -3,7 +3,7 @@
  *
  * DESCRIPTION
  *     Collects events in an input buffer, adds some metadata, places them in an
- *     ouput buffer where they are periodically bursted to a remote endpoint via
+ *     output buffer where they are periodically bursted to a remote endpoint via
  *     HTTP POST.
  *
  *     Designed for use with Wikipedia iOS application producing events to a
@@ -124,7 +124,6 @@ import WMFTestKitchen
         case talkPagesInteraction = "ios.talk_page_interaction"
         case readingLists = "ios.reading_lists"
         case userHistory = "ios.user_history"
-        case search = "ios.search"
         case sessions = "app_session"
         case settings = "ios.setting_action"
         case login = "ios.login_action"
@@ -156,7 +155,6 @@ import WMFTestKitchen
         case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/2.1.0"
         case readingLists = "/analytics/mobile_apps/ios_reading_lists/2.2.0"
         case userHistory = "/analytics/mobile_apps/ios_user_history/2.0.0"
-        case search = "/analytics/mobile_apps/ios_search/2.3.1"
         case sessions = "/analytics/mobile_apps/app_session/1.1.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.1.0"
         case login = "/analytics/mobile_apps/ios_login_action/1.1.2"
@@ -995,16 +993,19 @@ import WMFTestKitchen
         guard let config = streamConfigs[stream] else {
             if stream == .productMetricsAppBase {
                 storageManager.push(data: data, stream: stream)
+                WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .recorded)
                 return
             }
 
             DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .unconfiguredStream)
+            WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .droppedUnconfiguredStream)
             return
         }
         guard samplingController.inSample(stream: stream, config: config) else {
             DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .notInSample)
+            WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .droppedNotInSample)
             return
         }
 
@@ -1018,6 +1019,7 @@ import WMFTestKitchen
         #endif
 
         storageManager.push(data: data, stream: stream)
+        WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .recorded)
     }
 }
 

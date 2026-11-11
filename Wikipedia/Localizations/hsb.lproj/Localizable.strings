@@ -127,7 +127,6 @@
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Wuprózdnić";
 "close-all-tabs" = "Wšě rajtarki začinić";
-"close-all-tabs-confirmation-number" = "Ma so slědowaca ličba rajtarkow začinić? $1";
 "close-all-tabs-confirmation-subtitle-with-value" = "Chceš {{PLURAL:$1|$1 rajtark|$1 rajtarkaj|$1 rajtarki|$1 rajtarkow}} začinić? To njeda so cofnyć.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 rajtark|$1 rajtarkaj|$1 rajtarki|$1 rajtarkow}} začinić?";
 "close-button-accessibility-label" = "Začinić";
@@ -466,6 +465,7 @@
 "notifications-center-title" = "Zdźělenki";
 "notifications-center-type-item-description-mentions" = "Naspomnjenja";
 "notifications-center-type-item-description-notice" = "Zdźělenka";
+"notifications-center-type-title-connection-with-wikidata" = "zwjazanje z Wikidatami";
 "notifications-center-type-title-other" = "Druhe";
 "notifications-center-type-title-thanks" = "Wulki dźak";
 "notifications-center-type-title-welcome" = "Witaj";
@@ -534,7 +534,6 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
-"reading-list-create-new-list-description" = "Wopisanje";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Nastawki sortěrować";
 "reading-lists-article-not-synced" = "Njesynchronizowany";
 "reading-lists-default-list-title" = "Składowany";

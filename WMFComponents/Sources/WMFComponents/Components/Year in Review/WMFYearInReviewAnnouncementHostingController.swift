@@ -24,6 +24,14 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
         return .portrait
     }
 
+    /// On iPad, the supported orientations above are not enough when the app supports multitasking.
+    /// iPadOS 26 and later honors this preference instead, but only while this screen is visible,
+    /// and the system may not honor it.
+    @available(iOS 26.0, *)
+    public override var prefersInterfaceOrientationLocked: Bool {
+        return true
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,6 +55,24 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
         (navigationController as? WMFComponentNavigationController)?.setTransparentAppearance(true)
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        lockToPortraitOnIPad()
+    }
+
+    // MARK: - Orientation
+
+    /// Asks for portrait, then asks the system to keep it while this screen shows.
+    private func lockToPortraitOnIPad() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+
+        view.window?.windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait)) { _ in }
+
+        if #available(iOS 26.0, *) {
+            setNeedsUpdateOfPrefersInterfaceOrientationLocked()
+        }
+    }
+
     // MARK: - Navigation bar
 
     /// Same navigation bar as the slides, without the W.
@@ -54,7 +80,6 @@ public final class WMFYearInReviewAnnouncementHostingController: WMFComponentHos
         WMFYearInReviewNavigationItems.configure(
             self,
             strings: WMFYearInReviewNavigationItems.Strings(
-                wIconAccessibilityLabel: viewModel.localizedStrings.wIconAccessibilityLabel,
                 closeButtonAccessibilityLabel: viewModel.localizedStrings.closeButtonAccessibilityLabel,
                 moreButtonAccessibilityLabel: viewModel.localizedStrings.moreButtonAccessibilityLabel,
                 learnMoreTitle: viewModel.localizedStrings.learnMoreButtonTitle,

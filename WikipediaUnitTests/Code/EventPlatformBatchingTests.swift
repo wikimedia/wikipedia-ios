@@ -12,7 +12,7 @@ final class EventPlatformBatchingTests: XCTestCase {
 
     private func makeConfigs(loggingStreams: [Stream]) -> [Stream: StreamConfiguration] {
         var configs: [Stream: StreamConfiguration] = [
-            .search: StreamConfiguration(destination_event_service: "eventgate-analytics-external", sampling: nil),
+            .settings: StreamConfiguration(destination_event_service: "eventgate-analytics-external", sampling: nil),
             .sessions: StreamConfiguration(destination_event_service: "eventgate-analytics-external", sampling: nil)
         ]
         for stream in loggingStreams {
@@ -31,7 +31,7 @@ final class EventPlatformBatchingTests: XCTestCase {
     /// Regression test for the widget routing bug: with stream configs unavailable,
     /// every event must fall back to the analytics intake in a single batch.
     func testMakeBatchesWithNilConfigsRoutesEverythingToAnalytics() {
-        let events = [makeEvent(stream: .search, index: 0), makeEvent(stream: .clientError, index: 1)]
+        let events = [makeEvent(stream: .settings, index: 0), makeEvent(stream: .clientError, index: 1)]
         let batches = EventPlatformClient.makeBatches(events: events, configs: nil, chunkSize: 50)
         XCTAssertEqual(batches.count, 1)
         XCTAssertEqual(batches.first?.destination, .analytics)
@@ -41,7 +41,7 @@ final class EventPlatformBatchingTests: XCTestCase {
     func testMakeBatchesGroupsByDestination() {
         let configs = makeConfigs(loggingStreams: [.clientError])
         let events = [
-            makeEvent(stream: .search, index: 0),
+            makeEvent(stream: .settings, index: 0),
             makeEvent(stream: .clientError, index: 1),
             makeEvent(stream: .sessions, index: 2),
             makeEvent(stream: .clientError, index: 3)
@@ -69,7 +69,7 @@ final class EventPlatformBatchingTests: XCTestCase {
     func testMakeBatchesChunkBoundaries() {
         let configs = makeConfigs(loggingStreams: [])
         for (eventCount, expectedChunks) in [(1, 1), (50, 1), (51, 2), (137, 3)] {
-            let events = (0..<eventCount).map { makeEvent(stream: .search, index: $0) }
+            let events = (0..<eventCount).map { makeEvent(stream: .settings, index: $0) }
             let batches = EventPlatformClient.makeBatches(events: events, configs: configs, chunkSize: 50)
             XCTAssertEqual(batches.count, expectedChunks, "\(eventCount) events should produce \(expectedChunks) batches")
             XCTAssertEqual(batches.reduce(0) { $0 + $1.events.count }, eventCount, "no events may be lost to chunking")
@@ -80,7 +80,7 @@ final class EventPlatformBatchingTests: XCTestCase {
     }
 
     func testMakeBatchesClampsNonPositiveChunkSize() {
-        let events = (0..<3).map { makeEvent(stream: .search, index: $0) }
+        let events = (0..<3).map { makeEvent(stream: .settings, index: $0) }
         let batches = EventPlatformClient.makeBatches(events: events, configs: nil, chunkSize: 0)
         XCTAssertEqual(batches.count, 3)
     }

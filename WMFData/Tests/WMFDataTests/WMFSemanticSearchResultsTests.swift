@@ -35,6 +35,25 @@ final class WMFSemanticSearchResultsTests {
     }
 
     @Test
+    func searchIDComesFromTheResponseHeader() async throws {
+        let service = WMFMockBasicService(responseHeaders: ["X-Search-Id": "292nfmbhub08hd5are0cajr22"])
+        try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: service) }) {
+            let response = try await controller.fetchResults(query: "communication", project: project)
+
+            #expect(response.searchID == "292nfmbhub08hd5are0cajr22")
+        }
+    }
+
+    @Test
+    func searchIDIsNilWithoutTheHeader() async throws {
+        try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService()) }) {
+            let response = try await controller.fetchResults(query: "communication", project: project)
+
+            #expect(response.searchID == nil)
+        }
+    }
+
+    @Test
     func resultsDecodeSnippetSectionAndThumbnail() async throws {
         try await fixture.withConfiguredEnvironment(configure: { self.configureEnvironment(service: WMFMockBasicService()) }) {
             let response = try await controller.fetchResults(query: "qu'est-ce que la communication", project: project)

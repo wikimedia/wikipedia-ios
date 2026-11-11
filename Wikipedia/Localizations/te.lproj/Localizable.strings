@@ -570,8 +570,6 @@
 "reading-list-add-hint-title" = "“$1” ను ఏదైనా చదివే జాబితా లోకి చేర్చమంటారా?";
 "reading-list-add-saved-button-title" = "సరే, నా చదివే జాబితాల్లోకి చేర్చు";
 "reading-list-create-new-list-button-title" = "చదివే జాబితాను సృష్టించు";
-"reading-list-create-new-list-description" = "వివరణ";
-"reading-list-create-new-list-reading-list-name" = "చదివే జాబితా పేరు";
 "reading-list-create-new-list-title" = "కొత్త జాబితాను సృష్టించు";
 "reading-list-deleted-accessibility-notification" = "చదివే జాబితాను తొలగించాం";
 "reading-list-do-not-keep-button-title" = "వద్దు, డివైసు నుండి వ్యాసాలను తొలగించు";
@@ -590,6 +588,7 @@
 "reading-list-list-limit-exceeded-title" = "ఒక్కో ఖాతాకు ఉండే {{PLURAL:$1|$1 చదివే జాబితా|$1 చదివే జాబితాల}} పరిమితిని మీరు దాటేసారు.";
 "reading-list-list-limit-reached" = "ఒక్కో ఖాతాకు ఉండే చదివే జాబితాల పరిమితి $1 ని చేరుకున్నారు";
 "reading-list-login-or-create-account-button-title" = "లాగినవండి / ఖాతాని సృష్టించుకోండి";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "చదివే జాబితా లోని వ్యాసం";
 "reading-list-unable-to-add-entry" = "మీ చదివే జాబితా లోకి ఒక అంశాన్ని చేరుస్తూండగా అనుకోని లోపం ఎదురైంది. కాస్సేపాగి మళ్ళీ ప్రయత్నించండి.";
 "reading-list-unable-to-create" = "మీ చదివే జాబితాను సృష్టిస్తూండగా అనుకోని లోపం ఎదురైంది. కాస్సేపాగి మళ్ళీ ప్రయత్నించండి.";
@@ -715,7 +714,7 @@
 "variants-alert-dismiss-button" = "వద్దులే";
 "variants-alert-preferences-button" = "మీ అభిరుచులను సమీక్షించండి";
 "watchlist-filter-type-of-change-options-page-creations" = "పేజీల సృష్టి";
-"watchlist-user-button-user-contributions" = "వాడుకరి రచనలు";
+"watchlist-user-button-user-contributions" = "వాడుకరి తోడ్పాట్లు";
 "watchlist-user-button-user-page" = "వాడుకరి పేజీ";
 "watchlist-user-button-user-talk-page" = "వాడుకరి చర్చ పేజీ";
 "welcome-exploration-explore-feed-title" = "ఫీడ్‌లో శోధించండి";

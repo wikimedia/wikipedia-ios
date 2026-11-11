@@ -77,6 +77,11 @@ public class CommonStrings: NSObject {
     @objc public static let communityFeedTitle = WMFLocalizedString("settings-community-feed-title", value: "Community", comment: "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
+    public static let savedAllArticlesTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
+    public static let savedReadingListsTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
+    public static let savedAllArticlesSearchPlaceholder = WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved. Displayed in All Articles list.")
+    public static let savedReadingListsSearchPlaceholder = WMFLocalizedString("saved-reading-lists-search-placeholder", value: "Search reading lists", comment: "Search bar placeholder on Saved articles tab. Displayed in Reading Lists list.")
+    public static let savedArticleDownloadInProgress = WMFLocalizedString("saved-pages-progress-syncing", value: "Article download in progress...", comment: "Text for article download progress bar label")
 
     public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
 
@@ -265,6 +270,21 @@ public class CommonStrings: NSObject {
     @objc public static let wikipediaLanguages = WMFLocalizedString("languages-wikipedia", value: "Wikipedia languages", comment: "Title for list of Wikipedia languages")
 
     @objc public static let unknownError = WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
+
+    public static func deleteReadingListsAlertTitle(readingListsCount: Int) -> String {
+        String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists. %1$d is replaced with number of lists to be deleted. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
+    }
+
+    public static func deleteReadingListsAlertMessage(readingListsCount: Int) -> String {
+        String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-message", value: "This action cannot be undone. Any articles saved only to {{PLURAL:%1$d|this list|these lists}} will be unsaved.", comment: "Title of the altert shown before deleting selected reading lists. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
+    }
+
+    public static let readingListsEmptyTitle = WMFLocalizedString("empty-no-reading-lists-title", value: "Organize saved articles with reading lists", comment: "Title of a blank screen shown when a user has no reading lists")
+    public static let readingListsEmptyMessage = WMFLocalizedString("empty-no-reading-lists-message", value: "Create lists for places to travel to, favorite topics and much more", comment: "Message of a blank screen shown when a user has no reading lists")
+    public static let readingListsDefaultListTag = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
+    public static let readingListsListNotSyncedLimitExceeded = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
+    public static let readingListsArticlesNotSyncedLimitExceeded = WMFLocalizedString("reading-lists-articles-not-synced-limit-exceeded", value: "Some articles not synced, limit exceeded", comment: "Text of the alert label informing the user that some articles couldn't be synced.")
+    public static let readingListDeletedAccessibilityNotification = WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list.")
 
     @objc public static let readingListsDefaultListTitle = WMFLocalizedString("reading-lists-default-list-title", value: "Saved", comment: "The title of the default saved pages list {{Identical|Saved}}")
 
@@ -822,16 +842,6 @@ public class CommonStrings: NSObject {
 
     public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). The article was opened in the current tab. Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
 
-    public static func closeAllTabsConfirmation(count: Int? = 0) -> String {
-        let format = WMFLocalizedString("close-all-tabs-confirmation", value: "Do you want to close all %1$@ tabs? This action can’t be undone.", comment: "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.")
-        return String.localizedStringWithFormat(format, count ?? 0)
-    }
-
-    public static func closeAllTabsConfirmationNumber(count: Int? = 0) -> String {
-        let format = WMFLocalizedString("close-all-tabs-confirmation-number", value: "Close all %1$@ tabs?", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed")
-        return String.localizedStringWithFormat(format, count ?? 0)
-    }
-
     public static let closeAllTabs = WMFLocalizedString("close-all-tabs", value: "Close all tabs", comment: "Action to close all open tabs.")
     public static let newTab = WMFLocalizedString("new-tab", value: "New tab", comment: "Title for creating a new tab.")
     public static let closeTabs = WMFLocalizedString("close-tabs", value: "Close tabs", comment: "Action to confirm closing multiple tabs.")
@@ -1005,9 +1015,9 @@ public class CommonStrings: NSObject {
     // Deepest rabbit hole
 
     public static let yearInReviewRabbitHoleTitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-title", value: "Which of your rabbit holes was the deepest?", comment: "Title of the Year in Review slide that asks the reader which of the listed rabbit holes was the deepest. A rabbit hole is a series of articles the reader opened one after the other from links. The list follows it.")
-    public static func yearInReviewRabbitHoleRevealTitle(linkCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-title", value: "{{PLURAL:%1$d|%1$d link|%1$d links}} deep is impressive.", comment: "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. %1$d is replaced with the number of links the reader followed one after the other.")
-        return String.localizedStringWithFormat(format, linkCount)
+    public static func yearInReviewRabbitHoleRevealTitle(articleCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-title", value: "{{PLURAL:%1$d|%1$d link|%1$d links}} deep is impressive.", comment: "Title of the Year in Review slide that reveals the deepest rabbit hole of the reader. %1$d is replaced with the number of articles in the rabbit hole, including the first article. For example, Moon, then Earth from a link, then Cat from a link is 3.")
+        return String.localizedStringWithFormat(format, articleCount)
     }
     public static let yearInReviewRabbitHoleRevealSubtitle = WMFLocalizedString("year-in-review-2026-rabbit-hole-reveal-subtitle", value: "Which rabbit hole will you fall down next?", comment: "Subtitle of the Year in Review slide that reveals the deepest rabbit hole of the reader.")
 
@@ -1050,6 +1060,10 @@ public class CommonStrings: NSObject {
     public static let yearInReviewEditViewsTitle = WMFLocalizedString("year-in-review-2026-edit-views-title", value: "Views your edits received:", comment: "Title of the Year in Review slide that shows the number of views the edits of the user received this year. The number follows it.")
     public static let yearInReviewEditViewsSubtitle = WMFLocalizedString("year-in-review-2026-edit-views-subtitle", value: "In 2026, readers from around the world saw the changes you made.", comment: "Subtitle of the Year in Review slide that shows the number of views the edits of the user received this year.")
     public static let yearInReviewMostViewedEditedArticlesTitle = WMFLocalizedString("year-in-review-2026-most-viewed-edited-articles-title", value: "The articles most-viewed since your edit:", comment: "Title of the Year in Review slide that lists the articles the user edited that received the most views after the edit. The list of articles follows it.")
+    public static func yearInReviewMostViewedEditedArticlesViewCount(_ viewCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-most-viewed-edited-articles-view-count", value: "{{PLURAL:%1$d|%1$d view|%1$d views}}", comment: "Shown under each article on the Year in Review slide of the articles the user edited that received the most views. %1$d is replaced with the number of views the article received.")
+        return String.localizedStringWithFormat(format, viewCount)
+    }
 
     // Contributor thank-you
 
@@ -1072,6 +1086,10 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, yearCount)
     }
     public static let yearInReviewCollectiveLanguagesTitle = WMFLocalizedString("year-in-review-2026-collective-languages-title", value: "Languages Wikipedia is available in:", comment: "Title of the Year in Review slide that shows the number of languages Wikipedia is available in. The number follows it, for example \"300+\".")
+    public static func yearInReviewCollectiveLanguagesData(languageCount: String) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-collective-languages-data", value: "%1$@+", comment: "The number of languages Wikipedia is available in, shown as a large number on the Year in Review slide, for example \"300+\". The plus sign means \"more than\". %1$@ is replaced with the number.")
+        return String.localizedStringWithFormat(format, languageCount)
+    }
     public static let yearInReviewCollectiveLanguagesSubtitle = WMFLocalizedString("year-in-review-2026-collective-languages-subtitle", value: "Wikipedia is written and maintained by volunteer communities from around the world—proof that human knowledge speaks way more than one language.", comment: "Subtitle of the Year in Review slide that shows the number of languages Wikipedia is available in.")
     public static let yearInReviewCollectiveArticlesTitle = WMFLocalizedString("year-in-review-2026-collective-articles-title", value: "Articles on Wikipedia:", comment: "Title of the Year in Review slide that shows the number of articles on Wikipedia. The number follows it.")
     public static let yearInReviewCollectiveArticlesSubtitle = WMFLocalizedString("year-in-review-2026-collective-articles-subtitle", value: "Wikipedia continues to be built by humans—volunteers from all over the world who use reliable sources to create and curate all of its content.", comment: "Subtitle of the Year in Review slide that shows the number of articles on Wikipedia.")
@@ -1095,6 +1113,25 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, url)
     }
 
+    // Highlights image
+
+    public static let yearInReviewHighlightsTitle = WMFLocalizedString("year-in-review-2026-highlights-title", value: "Wikipedia Year in Review 2026", comment: "Title of the image the reader shares with their Year in Review highlights.")
+    public static let yearInReviewHighlightsArticlesRead = WMFLocalizedString("year-in-review-2026-highlights-articles-read", value: "Number of articles read:", comment: "Label on the Year in Review highlights image. The number of articles the reader read this year follows it.")
+    public static let yearInReviewHighlightsMinutesRead = WMFLocalizedString("year-in-review-2026-highlights-minutes-read", value: "Total minutes read:", comment: "Label on the Year in Review highlights image. The number of minutes the reader spent reading this year follows it.")
+    public static let yearInReviewHighlightsRotation = WMFLocalizedString("year-in-review-2026-highlights-rotation", value: "Articles in my rotation:", comment: "Label on the Year in Review highlights image. A list of the articles the reader read many times this year follows it.")
+    public static let yearInReviewHighlightsRabbitHole = WMFLocalizedString("year-in-review-2026-highlights-rabbit-hole", value: "Longest rabbit hole:", comment: "Label on the Year in Review highlights image. The articles in the longest chain of links the reader followed this year follow it.")
+    public static let yearInReviewHighlightsNicheCategory = WMFLocalizedString("year-in-review-2026-highlights-niche-category", value: "Niche category explored:", comment: "Label on the Year in Review highlights image. The name of an unusual category the reader read about this year follows it.")
+    public static let yearInReviewHighlightsCreatedWith = WMFLocalizedString("year-in-review-2026-highlights-created-with", value: "Created with the Wikipedia app", comment: "Footer of the Year in Review highlights image and of the image of a shared Year in Review slide.")
+    public static func yearInReviewHighlightsRank(_ rank: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-2026-highlights-rank", value: "(%1$d)", comment: "Marker before each article in the \"Articles in my rotation\" list on the Year in Review highlights image, for example \"(1)\". %1$d is replaced with the position of the article in the list, from 1 to 3.")
+        return String.localizedStringWithFormat(format, rank)
+    }
+
+    // Log in prompt
+
+    public static let yearInReviewLoginPromptCollectiveTitle = WMFLocalizedString("year-in-review-2026-login-prompt-collective-title", value: "Wikipedia is best with an account", comment: "Title of the prompt that asks logged-out readers without enough reading data for a personalized Year in Review to log in or create an account.")
+    public static let yearInReviewLoginPromptCollectiveMessage = WMFLocalizedString("year-in-review-2026-login-prompt-collective-message", value: "Logging in gives you access to the best parts of the app. Start building next year’s Year in Review by creating an account today.", comment: "Message of the prompt that asks logged-out readers without enough reading data for a personalized Year in Review to log in or create an account.")
+
     // Outro cards
 
     public static let yearInReviewStoreCardTitle = WMFLocalizedString("year-in-review-2026-store-card-title", value: "A small thank-you", comment: "Title of the Year in Review card that gives a discount on the Wikipedia store.")
@@ -1115,6 +1152,7 @@ public class CommonStrings: NSObject {
     public static let yearInReviewQuizCardSubtitle = WMFLocalizedString("year-in-review-2026-quiz-card-subtitle", value: "From dial-up days to now, travel through Wikipedia's history.", comment: "Subtitle of the Year in Review card that opens a quiz about the history of Wikipedia. \"Dial-up\" is an old type of internet connection.")
     public static let yearInReviewQuizCardButtonTitle = WMFLocalizedString("year-in-review-2026-quiz-card-button-title", value: "Take the quiz", comment: "Button on the Year in Review card that opens a quiz about the history of Wikipedia.")
     public static let yearInReviewTabsCardTitle = WMFLocalizedString("year-in-review-2026-tabs-card-title", value: "Revisit your open tabs", comment: "Title of the Year in Review card that opens the open tabs of the reader.")
+    public static let yearInReviewStoreCardButtonTitle = WMFLocalizedString("year-in-review-2026-store-card-button-title", value: "Visit the store", comment: "Button on the Year in Review card that gives a discount on the Wikipedia store.")
 }
 
 // Language variant strings

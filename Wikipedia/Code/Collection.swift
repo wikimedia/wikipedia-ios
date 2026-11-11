@@ -1,3 +1,4 @@
+import WMFComponents
 import WMFNativeLocalizations
 
 protocol Collection: AnyObject {
@@ -106,6 +107,7 @@ extension SortableCollection where Self: UIViewController {
     
     func alert(title: String, message: String?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alert.view.accessibilityIdentifier = AccessibilityIdentifiers.Saved.sortSheet
         sortActions.values.forEach { alert.addAction($0.alertAction) }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)

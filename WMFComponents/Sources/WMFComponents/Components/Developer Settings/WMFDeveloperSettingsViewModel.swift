@@ -87,6 +87,15 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    /// Set by the app. False hides the Analytics Inspector toggle in builds that do not have the inspector.
+    @Published public var showsAnalyticsInspectorToggle = false
+
+    @Published public var showAnalyticsInspector: Bool = WMFDeveloperSettingsDataController.shared.showAnalyticsInspector {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.showAnalyticsInspector = showAnalyticsInspector
+        }
+    }
+
     @Published public var forceYiREntryPoint2026: Bool = WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = forceYiREntryPoint2026
@@ -99,9 +108,15 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
-    @Published public var forceYiRExperience: WMFYearInReviewDataController.YiRForcedExperience? = WMFDeveloperSettingsDataController.shared.forceYiRExperience {
+    @Published public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? = WMFDeveloperSettingsDataController.shared.forceYiRDataState {
         didSet {
-            WMFDeveloperSettingsDataController.shared.forceYiRExperience = forceYiRExperience
+            WMFDeveloperSettingsDataController.shared.forceYiRDataState = forceYiRDataState
+        }
+    }
+
+    @Published public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? = WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiRSlidesExperience = forceYiRSlidesExperience
         }
     }
 
@@ -163,6 +178,18 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
     @Published public var forceSemanticSearchExperimentAssignment: WMFSemanticSearchDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = forceSemanticSearchExperimentAssignment
+        }
+    }
+
+    @Published public var enableDiscover: Bool = WMFDeveloperSettingsDataController.shared.enableDiscover {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDiscover = enableDiscover
+        }
+    }
+
+    @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment
         }
     }
 
@@ -273,7 +300,7 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         let title: String
         do {
             try WMFSemanticSearchDataController.shared.clearExperimentAssignment()
-            title = "Semantic search bucket cleared. The next eligible search re-rolls the assignment."
+            title = "Semantic search bucket cleared. Opening search re-rolls the assignment for readers with a target app language."
         } catch {
             title = "Could not clear the semantic search bucket: \(error)"
         }
@@ -312,6 +339,34 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
             title = "Semantic search entry point reset. It shows again with Try it now on the next search."
         } catch {
             title = "Could not reset the semantic search entry point: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    // MARK: - Discover
+
+    public func clearDiscoverExperimentAssignment() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.clearExperimentAssignment()
+            title = "Discover bucket cleared. The next visit to Saved re-rolls the assignment."
+        } catch {
+            title = "Could not clear the Discover bucket: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    public func resetDiscoverAnnouncement() {
+        let title: String
+        do {
+            try WMFDiscoverDataController.shared.resetAnnouncement()
+            title = "Discover announcement reset. The card and the Saved badge show again."
+        } catch {
+            title = "Could not reset the Discover announcement: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))

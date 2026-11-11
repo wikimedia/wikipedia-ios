@@ -64,7 +64,7 @@
 "action-discard-edit" = "Απόρριψη επεξεργασιών";
 "action-discard-edits" = "Απόρριψη επεξεργασιών";
 "action-find-in-page" = "Βρείτε στην σελίδα";
-"action-keep-editing" = "Συνέχεια επεξεργασίας";
+"action-keep-editing" = "Συνέχιση επεξεργασίας";
 "action-language-accessibility" = "Αλλαγή γλώσσας";
 "action-move-to" = "Μετακίνηση σε...";
 "action-move-to-reading-list" = "Μετακίνηση στη λίστα ανάγνωσης";
@@ -361,8 +361,6 @@
 "reading-list-add-saved-button-title" = "Ναι, πρόσθεσέ τα στις λίστες ανάγνωσής μου";
 "reading-list-add-saved-title" = "Αποθηκευμένα λήμματα που βρέθηκαν";
 "reading-list-create-new-list-button-title" = "Δημιουργία λίστας ανάγνωσης";
-"reading-list-create-new-list-description" = "Περιγραφή";
-"reading-list-create-new-list-reading-list-name" = "Όνομα λίστας ανάγνωσης";
 "reading-list-create-new-list-title" = "Δημιουργία νέας λίστας";
 "reading-list-deleted-accessibility-notification" = "Η λίστα ανάγνωσης διεγράφη";
 "reading-list-exists-with-same-name" = "Το όνομα λίστας ανάγνωσης είναι ήδη σε χρήση";
@@ -373,7 +371,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ταξινόμηση λημμάτων";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Φτάστηκε το όριο για αταξινόμητα άρθρα";
 "reading-list-login-or-create-account-button-title" = "Συνδεθείτε ή δημιουργήστε λογαριασμό";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "προαιρετική σύντομη περιγραφή";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "τίτλος λίστας ανάγνωσης";
 "reading-list-sync-disabled-panel-title" = "Συγχρονισμός απενεργοποιημένων";
 "reading-list-sync-enable-button-title" = "Ενεργοποίηση συγχρονισμού";
@@ -451,7 +451,7 @@
 "talk-pages-archives-view-title" = "Αρχεία";
 "talk-pages-coffee-roll-read-more" = "Διαβάστε περισσότερα";
 "talk-pages-comment-added-alert-title" = "Το σχόλιό σας προστέθηκε";
-"talk-pages-compose-close-confirmation-keep" = "Συνέχεια επεξεργασίας";
+"talk-pages-compose-close-confirmation-keep" = "Συνέχιση επεξεργασίας";
 "talk-pages-edit-source" = "Επεξεργασία κώδικα";
 "talk-pages-empty-view-body-article" = "Οι σελίδες συζήτησης είναι οι σελίδες όπου οι άνθρωποι συζητούν πώς να κάνουν το περιεχόμενο στη Βικιπαίδεια όσο το δυνατόν καλύτερο. **Ξεκινήστε προσθέτοντας ένα νέο θέμα συζήτησης** για να συνδεθείτε και να συνεργαστείτε με μια κοινότητα Βικιπαιδιστών.";
 "theme-black-display-name" = "Μαύρο";

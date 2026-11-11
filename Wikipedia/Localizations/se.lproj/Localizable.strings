@@ -857,8 +857,6 @@
 "reading-list-api-error-generic" = "Vuorddekeahtes meattáhus šattai lohkanlisttuid synkroniseredettiin.";
 "reading-list-api-error-list-limit" = "Dát listu ii synkroniserejuvvo danne go leat olahan ráji synkroniserejuvvon listtuid logu ektui.";
 "reading-list-create-new-list-button-title" = "Ráhkat lohkanlisttu";
-"reading-list-create-new-list-description" = "Govvádus";
-"reading-list-create-new-list-reading-list-name" = "Lohkanlisttu namma";
 "reading-list-create-new-list-title" = "Ráhkat ođđa listtu";
 "reading-list-deleted-accessibility-notification" = "Lohkanlistu sihkkojuvvui";
 "reading-list-detail-search-placeholder" = "Oza lohkanlisttus";
@@ -878,7 +876,9 @@
 "reading-list-list-limit-reached" = "Don leat olahan ráji mii lea $1 lohkanlistu juohke geavaheaddjidovddaldaga namas";
 "reading-list-login-or-create-account-button-title" = "Čálit sisa dahje ráhkat geavaheaddjidovddaldaga";
 "reading-list-name-user-created-annotation" = "_[geavaheaddjis ráhkaduvvon]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "eaktodáhtolaš oanehis govvádus";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "lohkanlisttu bajilčála";
 "reading-list-sync-disabled-panel-message" = "Lohkanlisttuid synkroniseren jáddaduvvon du Wikipedia-geavaheaddjidovddaldagas eará ovttadagas. Sáhtát bidjat doibmii synkroniserema fas iežat ásahusain.";
 "reading-list-sync-disabled-panel-title" = "Synkroniseren lea jáddaduvvon";

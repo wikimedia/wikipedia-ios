@@ -1,7 +1,14 @@
 name: Prepare simulator
-description: Warm CoreSimulator and expose the shared xcodebuild simulator destination.
+description: Select Xcode, warm CoreSimulator and expose the shared xcodebuild simulator destination.
 
 inputs:
+  xcode-version:
+    description: >-
+      Xcode version to select (e.g. "27.1" for /Applications/Xcode_27.1.app) before
+      listing simulators, since the runtimes on offer depend on the selected Xcode.
+      Optional: when empty, the runner's current Xcode is used.
+    required: false
+    default: ""
   ios-version:
     description: iOS simulator runtime version.
     required: true
@@ -17,18 +24,43 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Select Xcode
+      if: inputs.xcode-version != ''
+      shell: bash
+      env:
+        XCODE_VERSION: ${{ inputs.xcode-version }}
+      run: |
+        sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
     - name: List available simulators
       shell: bash
       run: |
         xcrun simctl list devices available
 
-    - name: Set xcodebuild destination
+    - name: Boot simulator and set xcodebuild destination
       id: destination
       shell: bash
       env:
         IOS_VERSION: ${{ inputs.ios-version }}
         SIMULATOR_NAME: ${{ inputs.simulator-name }}
       run: |
-        DESTINATION="platform=iOS Simulator,name=${SIMULATOR_NAME},OS=${IOS_VERSION}"
+        RUNTIME="com.apple.CoreSimulator.SimRuntime.iOS-${IOS_VERSION//./-}"
+        UDID="$(xcrun simctl list devices available -j \
+          | jq -r --arg runtime "${RUNTIME}" --arg name "${SIMULATOR_NAME}" \
+            '.devices[$runtime][]? | select(.name == $name) | .udid' \
+          | head -n 1)"
+
+        if [ -n "${UDID}" ]; then
+          # Boot before testing so the first UI test does not pay for a cold boot inside
+          # Xcode's app launch timeout.
+          echo "Booting ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${UDID})"
+          xcrun simctl boot "${UDID}" || true
+          xcrun simctl bootstatus "${UDID}" -b
+          DESTINATION="platform=iOS Simulator,id=${UDID}"
+        else
+          echo "No ${SIMULATOR_NAME} simulator found for ${RUNTIME}; xcodebuild will boot one by name."
+          DESTINATION="platform=iOS Simulator,name=${SIMULATOR_NAME},OS=${IOS_VERSION}"
+        fi
+
         echo "destination=${DESTINATION}" >> "$GITHUB_OUTPUT"
         echo "Using simulator destination: ${DESTINATION}"
