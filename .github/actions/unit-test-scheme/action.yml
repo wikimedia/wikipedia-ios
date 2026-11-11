@@ -22,6 +22,11 @@ runs:
         SCHEME: ${{ inputs.scheme }}
         DESTINATION: ${{ inputs.destination }}
         CACHE_SETTING: ${{ inputs.compilation-cache == 'true' && 'COMPILATION_CACHE_ENABLE_CACHING=YES' || '' }}
+      # ARCHS=arm64 and ONLY_ACTIVE_ARCH=YES: the runners and the simulator are arm64.
+      # Under the Wikipedia scheme's custom "Test" configuration, Swift packages
+      # (which have no such configuration) otherwise build an x86_64 slice as well,
+      # which is never run and would also be stored in the compilation cache.
+      # Set on the command line, so local Xcode builds are unaffected. From #6389.
       run: |
         echo "Running scheme: ${SCHEME} on ${DESTINATION}"
         xcodebuild test \
@@ -31,6 +36,8 @@ runs:
           -destination "${DESTINATION}" \
           -resultBundlePath "${SCHEME}_TestResults" \
           ${CACHE_SETTING} \
+          ARCHS=arm64 \
+          ONLY_ACTIVE_ARCH=YES \
           | xcpretty
         EXIT_CODE=${PIPESTATUS[0]}
         if [ "$EXIT_CODE" -ne 0 ]; then
