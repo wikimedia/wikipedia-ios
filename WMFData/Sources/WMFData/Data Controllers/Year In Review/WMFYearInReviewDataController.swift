@@ -237,7 +237,8 @@ import CoreData
     /// The number of slides that this report entry shows in their full version, not their empty
     /// version. The top topics entry holds two slides, the top topic and the runners-up, and Android
     /// counts each of them. The biggest reading day entry also holds two slides: the day and its
-    /// articles. The rabbit holes entry is one slide: the reveal replaces the guess in place.
+    /// articles. The rabbit holes and longest read entries are one slide each: the reveal replaces the
+    /// guess in place.
     static func fullSlideCount(for slide: WMFYearInReviewSlide) -> Int {
         guard let data = slide.data else {
             return 0
@@ -259,6 +260,8 @@ import CoreData
             return (try? decoder.decode(WMFYearInReviewNicheCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .rabbitHoles:
             return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .longestRead:
+            return (try? decoder.decode(WMFYearInReviewLongestReadSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .readingStreak:
             return (try? decoder.decode(WMFYearInReviewReadingStreakSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .biggestReadingDay:
