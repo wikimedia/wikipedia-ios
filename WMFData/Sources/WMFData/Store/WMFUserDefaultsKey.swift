@@ -7,6 +7,8 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
+    case developerSettingsEnableWikiRunPrototype = "dev-settings-enable-wikirun-prototype"
+    case developerSettingsWikiRunBaseURL = "dev-settings-wikirun-base-url"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
 
     // Year in Review: shared across years.
