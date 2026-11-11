@@ -19,17 +19,25 @@ public struct WMFSmallButton: View {
     let title: String
     let action: (() -> Void)?
     let image: UIImage?
+    /// Replaces the background color of the style. `nil` uses the app theme.
+    let forceBackgroundColor: UIColor?
+    /// Replaces the text and icon color of the style. `nil` uses the app theme.
+    let forceForegroundColor: UIColor?
 
     public init(
         configuration: Configuration,
         title: String,
         image: UIImage? = nil,
+        forceBackgroundColor: UIColor? = nil,
+        forceForegroundColor: UIColor? = nil,
         action: (() -> Void)?
     ) {
         self.configuration = configuration
         self.title = title
         self.action = action
         self.image = image
+        self.forceBackgroundColor = forceBackgroundColor
+        self.forceForegroundColor = forceForegroundColor
     }
 
     // MARK: - Body
@@ -59,7 +67,9 @@ public struct WMFSmallButton: View {
                 kind: configuration.style,
                 layout: .hug,
                 theme: appEnvironment.theme,
-                height: 46
+                height: 46,
+                forceBackgroundColor: forceBackgroundColor,
+                forceForegroundColor: forceForegroundColor
             )
         )
     }

@@ -122,8 +122,6 @@
 "clearing-cache-complete" = "Кэш тазалау тамамланды.";
 "clearing-cache-in-progress" = "Кэш тазалана турады.";
 "close-all-tabs" = "Бютеу салгъычланы джаб";
-"close-all-tabs-confirmation" = "Бютеу $1 салгъынчы джабаргъа излеймисиз? Бу этиу кери алыналлыкъ тюлдю.";
-"close-all-tabs-confirmation-number" = "Бютеу $1 салгъыч джабылсынмы?";
 "close-button-accessibility-label" = "Джаб";
 "close-tabs" = "Салгъычланы джаб";
 "compass-direction" = "сагъат $1 табада";
@@ -358,7 +356,6 @@
 "empty-no-saved-pages-message" = "Бетлени артдан оффлайн болсагъыз да окъур ючюн сакъландырыгъыз";
 "empty-no-saved-pages-title" = "Алкъын сакъланнган бет джокъду";
 "empty-no-search-results-message" = "Джукъ да табылмады";
-"empty-talk-page-title" = "Бу хайырланыучу ючюн алкъын чырт билдириу басмаланмады";
 "error-generic-recovery-suggestion" = "Тилейбиз, кечирек энтда бир кере сынагъыз";
 "error-unknown" = "Белгили болмагъан халат болду";
 "explore-another-random" = "Башха рандом статья";
@@ -374,10 +371,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "\"Тиллерим\" джарашдырыу бетде, къошакъ тилле къошулургъа боллукъдула.";
 "explore-feed-preferences-card-hidden-title" = "Картчыкъ джашырылды";
 "explore-feed-preferences-continue-reading-description" = "Ачыкъ статьяны окъур ючюн дженгил джибериу";
-"explore-feed-preferences-customize-explore-feed" = "Тинтиу тасманы джарашдыр";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Аулау тасманы джарашдыр";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Картчыкъны типин джашырыу, бу картчыкъны титпин Аулау тасмагъызда кёрюнюуюн тыяр.";
-"explore-feed-preferences-explore-tab" = "Аулау салгъыч";
 "explore-feed-preferences-featured-article-description" = "Википедияда кюнню сайланнган статьясы";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Джукълат";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Барысына";
@@ -391,7 +385,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Бу картчыкъны джашыр";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Бютеу “$1” картчыкъланы джашыр";
 "explore-feed-preferences-in-the-news-description" = "Баргъан болууланы юсюнден статьяла";
-"explore-feed-preferences-languages-footer-text" = "Бютеу Аулау тасма картчыкъланы тиллеринги барысында да джашырыу, Аулау салгъычны джабарыкъды.";
 "explore-feed-preferences-on-this-day-description" = "Тарихде бюгюн болгъан болуула";
 "explore-feed-preferences-places-description" = "Локациягъызны къатныда Википедия статьяла";
 "explore-feed-preferences-potd-description" = "Викигёзенден кюнню сайланнган сураты";
@@ -415,16 +408,7 @@
 "explore-feed-preferences-suggested-edits-description" = "Википедиягъа контент къошар ючюн теджеуле";
 "explore-feed-preferences-suggested-edits-title" = "Теджелген тюзетиуле картчыкъны кёргюз";
 "explore-feed-preferences-top-read-description" = "Кюнню эм кёб окъулгъан статьялары";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Аулау тасманы джукълат";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Бютеу Аулау тасма картчыкъланы джашырыу, Аулау салгъычны джабар эмда буну Джарашдырыула салгъычха алмашдырыр";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Аулау тасма джабылсынмы?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Аулауну джукълат";
-"explore-feed-preferences-turn-off-explore-tab-message" = "Аулау салгъыч, Аулау тасманы джарашдырыуларында джангыдан джандырылрчады";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Аулау салгъыч джабылсынмы?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Аулау салгъычны джабыу, Аулау салгъычны Джарашдырыула салгъычха алмашдырыр.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Аулау тасма картчыкъланы кёргюзюуюн сайлаб, Аулау салгъычны джандырасыз";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Аулауну джандыр";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Бу Аулау салгъыч Джарашдырыула салгъычха алмашдырыллыкъды, тишли белгини басыб Аулау салгъычны баш кесегиндеги Джарашдырыулагъа кирирчасыз";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Аулау салгъыч ачылсынмы?";
 "explore-hide-card-prompt" = "Бу картчыкъны джашыр";
 "explore-main-page-description" = "Википедия проектлени баш бети";
@@ -501,7 +485,6 @@
 "history-clear-confirmation-heading" = "Кёб болмагъан бютеу элементленеи кетерирге излегенигизге ишексизмисиз?";
 "history-clear-delete-all" = "Хоу, барысын да кетер";
 "history-title" = "Тарих";
-"home-button-explore-accessibility-label" = "Википедия, Аулаугъа къайт";
 "home-button-saved-accessibility-label" = "Википедия, Сакъланнганлагъа къайт";
 "home-more-like-footer" = "$1 ушаш аслам статья";
 "home-nearby-footer" = "Локациябызгъа джууукъ аслам джер";
@@ -856,8 +839,6 @@
 "reading-list-api-error-generic" = "Окъуу тизмелеригизни синхронизация этген заманда сакъланмагъан халат болду.";
 "reading-list-api-error-list-limit" = "Синхронизация этилген тизме саны лимитге джетгенигиз ючюн, бу тизме синхронизация этилалмайды.";
 "reading-list-create-new-list-button-title" = "Окъуу тизмеге къура";
-"reading-list-create-new-list-description" = "Ачыкълау";
-"reading-list-create-new-list-reading-list-name" = "Окъуу тизмени аты";
 "reading-list-create-new-list-title" = "Джангы тизмени болдур";
 "reading-list-deleted-accessibility-notification" = "Окъуу тизме кетерилди";
 "reading-list-do-not-keep-button-title" = "Огъай, девайсдан статьяланы кетер";
@@ -877,7 +858,9 @@
 "reading-list-list-limit-reached" = "Хыйсаб башына $1 окъуу тизме мардагъа джетдигиз";
 "reading-list-login-or-create-account-button-title" = "Кир неда хыйсаб къура";
 "reading-list-name-user-created-annotation" = "_[хайырланыучу болдурулду]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "амалсыз болмагъан къысха ачыкълау";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "окъуу тизмени башлыгъы";
 "reading-list-sync-disabled-panel-message" = "Башха девайсда Википедия хыйсабыгъыз ючюн окъуу тизме синхронизациясы джукълатылгъанды. Джарашдырыуларыгъызны джангыртыб, синхронизацияны джангыдан этерге боллукъсуз.";
 "reading-list-sync-disabled-panel-title" = "Синхронизация джукълатылыбды";
@@ -969,6 +952,7 @@
 "settings-help-and-feedback" = "Болушлукъ эмда кери билдириу";
 "settings-language-bar" = "Излеуде тиллени кёргюз";
 "settings-languages-feed-customization" = "Аулау тасмагъыздагъы джарашдырыуларгъызны келишдириб, Аулау тасмагъызны къайсы тиллени кёргюзюрюн бегитирге боллукъсуз.";
+"settings-legal-sefaty-title" = "Хакъ эм къоркъуусузлукъ байламлы контактла";
 "settings-my-languages" = "Тиллерим";
 "settings-notifications" = "Push-хапарландырыула";
 "settings-notifications-echo-failure-message" = "Хыйсабыгъыз бла байламлы хапарландырыулагъа джаздырылыуну тинтген заманда халат болду.";
@@ -1103,7 +1087,6 @@
 "two-factor-login-title" = "Хыйсабыгъызгъа киригиз";
 "two-factor-login-with-backup-code" = "Резерв кодларыгъызны бирин хайырланыгъыз";
 "two-factor-login-with-regular-code" = "Верификация кодну хайырлан";
-"unable-to-load-talk-page-title" = "Сюзюу бет джюкленалмайды";
 "unknown-generic-text" = "Билинмейди";
 "unwatch" = "Кёзде тутма";
 "user-title" = "Хайырланыучу";
@@ -1178,27 +1161,10 @@
 "watchlist-user-button-user-talk-page" = "Хайырланыучуну сюзюу бети";
 "watchlist-watch-subtitle" = "Джулдузгъа неда статьяны тюб адырла панелине \"Къара\" этиуге басыб, ол бетни Кёздеги Тизмегизге къошаргъа боллукъсуз.";
 "watchlist-watch-title" = "Статьялагъа къара";
-"welcome-data-privacy-title" = "Билгиле эмда Ташалыкъ";
-"welcome-exploration-explore-feed-description" = "Теджелген окъуула эмда джамагъатыбыздан кюнлюк статьяла";
 "welcome-exploration-explore-feed-title" = "Аулау тасма";
-"welcome-exploration-on-this-day-description" = "Тарихде бюгюн неле болгъанын юренир ючюн озгъаннга джолоучулукъ эт";
-"welcome-exploration-on-this-day-title" = "Бу кюнде";
-"welcome-exploration-places-description" = "Джууугъугъуздагъы белгили нохталаны тинтигиз неда дуния джюзюнде джерлени излегиз";
-"welcome-exploration-places-title" = "Джерле салгъыч";
 "welcome-explore-continue-button" = "Башла";
-"welcome-explore-new-ways-title" = "Тинтиуню джангы джоллары";
 "welcome-explore-tell-me-more-done-button" = "Англашынды";
-"welcome-intro-free-encyclopedia-description" = "Википедия волонтёрла джанындан ортакълашыб джазылгъанды эмда 300-ден аслам тилде 40 миллиондан аслам статья барды.";
-"welcome-intro-free-encyclopedia-more" = "Википедияны юсюнден аслам бил";
-"welcome-intro-free-encyclopedia-more-about" = "Википедияны юсюнден";
-"welcome-intro-free-encyclopedia-more-description" = "Википедия дунияны бютеу тиллеринде эркин энциклопедияла джаратыр муратлы болгъан глобал проектди. Интернет джетишими болгъан хар ким нейтрал эмда къайнакълы информация бла къошум этиуде эркинди.";
-"welcome-intro-free-encyclopedia-title" = "Эркин энципклопедия";
 "welcome-languages-add-button" = "Башха тил къош";
-"welcome-languages-add-or-edit-button" = "Тил сайлауну къош неда тюзет";
-"welcome-languages-description" = "Девайсыгъызда бу тиллени табдыкъ:";
-"welcome-languages-search-title" = "300-ден аслам тилде изле";
-"welcome-privacy-subtitle" = "Тёлеусюз информация къозгъалыугъа къошулур ючюн, энчи информациягъызны берирге керек болмагъанына ийнанабыз. Бу къошум ючюн джыйылгъан хайырланыу билгиле анонимдиле.";
-"welcome-privacy-terms-button-text" = "Ташалыкъ политикабызны эмда хайырланыу шартларыбызны юсюнден алсам билигиз";
 "widget-onthisday-description" = "Тарихде бу кюнде не болгъанын аула";
 "widget-onthisday-placeholder-article-snippet" = "Хар ким да тюзетирча эркин онлайн энциклопедия";
 "widget-onthisday-placeholder-event-snippet" = "Эркин вики контент энциклопедия болгъан Википедия онлайн болады.";

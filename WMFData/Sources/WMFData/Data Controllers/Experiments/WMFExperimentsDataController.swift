@@ -38,9 +38,9 @@ public final class WMFExperimentsDataController {
     public enum Experiment: CaseIterable, Sendable {
         case moreDynamicTabsV2
         case yirLoginPrompt
-        case homeTab
         case donationReminder
         case semanticSearch
+        case discover
 
         var config: ExperimentConfig {
             switch self {
@@ -48,12 +48,12 @@ public final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.moreDynamicTabsV2Config
             case .yirLoginPrompt:
                 return WMFExperimentsDataController.yirLoginPromptConfig
-            case .homeTab:
-                return WMFExperimentsDataController.homeTabConfig
             case .donationReminder:
                 return WMFExperimentsDataController.donationReminderConfig
             case .semanticSearch:
                 return WMFExperimentsDataController.semanticSearchConfig
+            case .discover:
+                return WMFExperimentsDataController.discoverConfig
             }
         }
     }
@@ -61,30 +61,30 @@ public final class WMFExperimentsDataController {
     public enum PercentageFileName: String, Sendable {
         case moreDynamicTabsPercent
         case yirLoginPromptPercent
-        case homeTabPercent
         case donationReminderPercent
         case semanticSearchPercent
+        case discoverPercent
     }
 
     enum BucketFileName: String, Sendable {
         case moreDynamicTabsV2Bucket
         case yirLoginPromptBucket
-        case homeTabBucket
         case donationReminderBucket
         case semanticSearchBucket
+        case discoverBucket
     }
 
     public enum BucketValue: String, Sendable {
         case moreDynamicTabsV2GroupC = "MoreDynamicTabsV2_GroupC"
         case yirLoginPromptControl = "YirLoginPrompt_Control"
         case yirLoginPromptGroupB = "YirLoginPrompt_GroupB"
-        case homeTabControl = "HomeTab_Control"
-        case homeTabGroupB = "HomeTab_GroupB"
         case donationReminderControl = "DonationReminder_Control"
         case donationReminderGroupB = "DonationReminder_GroupB"
         case donationReminderGroupC = "DonationReminder_GroupC"
         case semanticSearchControl = "SemanticSearch_Control"
         case semanticSearchGroupB = "SemanticSearch_GroupB"
+        case discoverControl = "Discover_Control"
+        case discoverGroupB = "Discover_GroupB"
     }
     
     // MARK: Properties
@@ -96,11 +96,11 @@ public final class WMFExperimentsDataController {
     
     private static let yirLoginPromptConfig = ExperimentConfig(experiment: .yirLoginPrompt, percentageFileName: .yirLoginPromptPercent, bucketFileName: .yirLoginPromptBucket, bucketValueControl: .yirLoginPromptControl, bucketValueTest: .yirLoginPromptGroupB, bucketValueTest2: nil)
 
-    private static let homeTabConfig = ExperimentConfig(experiment: .homeTab, percentageFileName: .homeTabPercent, bucketFileName: .homeTabBucket, bucketValueControl: .homeTabControl, bucketValueTest: .homeTabGroupB, bucketValueTest2: nil)
-
     private static let donationReminderConfig = ExperimentConfig(experiment: .donationReminder, percentageFileName: .donationReminderPercent, bucketFileName: .donationReminderBucket, bucketValueControl: .donationReminderControl, bucketValueTest: .donationReminderGroupB, bucketValueTest2: .donationReminderGroupC)
 
     private static let semanticSearchConfig = ExperimentConfig(experiment: .semanticSearch, percentageFileName: .semanticSearchPercent, bucketFileName: .semanticSearchBucket, bucketValueControl: .semanticSearchControl, bucketValueTest: .semanticSearchGroupB, bucketValueTest2: nil)
+
+    private static let discoverConfig = ExperimentConfig(experiment: .discover, percentageFileName: .discoverPercent, bucketFileName: .discoverBucket, bucketValueControl: .discoverControl, bucketValueTest: .discoverGroupB, bucketValueTest2: nil)
 
     private let store: WMFKeyValueStore
     
@@ -112,6 +112,15 @@ public final class WMFExperimentsDataController {
     
     // MARK: Public
     
+    /// True when `determineBucketForExperiment` returns the persisted bucket instead of rolling
+    /// a new one: a bucket is stored, and it was rolled with the same percentage.
+    func hasPersistedBucket(for experiment: Experiment, withPercentage percentage: Int) -> Bool {
+        guard let oldPercentage = percentageForExperiment(experiment), bucketForExperiment(experiment) != nil else {
+            return false
+        }
+        return oldPercentage == percentage
+    }
+
     // this will only generate a new bucket as needed (i.e. if the percentage is different than the last time bucket was generated)
     // forceValue: optional forcing of bucket assignment (i.e. developer settings menu assignments)
     @discardableResult
@@ -149,12 +158,6 @@ public final class WMFExperimentsDataController {
                 } else {
                     bucket = .yirLoginPromptGroupB
                 }
-            case .homeTab:
-                if randomInt <= percentage {
-                    bucket = .homeTabControl
-                } else {
-                    bucket = .homeTabGroupB
-                }
 
             case .donationReminder:
                 if randomInt <= percentage {
@@ -170,6 +173,13 @@ public final class WMFExperimentsDataController {
                     bucket = .semanticSearchControl
                 } else {
                     bucket = .semanticSearchGroupB
+                }
+
+            case .discover:
+                if randomInt <= percentage {
+                    bucket = .discoverControl
+                } else {
+                    bucket = .discoverGroupB
                 }
             }
         }

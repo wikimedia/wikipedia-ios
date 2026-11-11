@@ -116,14 +116,34 @@ fileprivate extension WMFData.WMFServiceRequest {
         return true
     }
 
+    var isSemanticSearchGet: Bool {
+        guard let url,
+              url.path == "/w/api.php",
+              let parameters
+        else { return false }
+
+        return method == .GET && parameters["cirrusSemanticSearch"] != nil
+    }
+
+    var isAttributionSignalsGet: Bool {
+        guard let url,
+              url.path.contains("/attribution/"),
+              url.path.hasSuffix("/signals")
+        else { return false }
+
+        return method == .GET
+    }
+
 }
 
 public final class WMFMockBasicService: WMFService {
     
     private let overrideJSONResourceName: String?
+    private let responseHeaders: [String: String]
     
-    public init(jsonResourceName: String? = nil) {
+    public init(jsonResourceName: String? = nil, responseHeaders: [String: String] = [:]) {
         self.overrideJSONResourceName = jsonResourceName
+        self.responseHeaders = responseHeaders
     }
     
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
@@ -165,6 +185,13 @@ public final class WMFMockBasicService: WMFService {
         }
         
         completion(.success(response))
+    }
+    
+    public func performDecodableGETWithResponse<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<WMFServiceResponse<T>, Error>) -> Void) {
+        let responseHeaders = responseHeaders
+        performDecodableGET(request: request) { (result: Result<T, Error>) in
+            completion(result.map { WMFServiceResponse(value: $0, headers: responseHeaders) })
+        }
     }
     
     public func performDecodablePOST<R, T>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
@@ -247,6 +274,24 @@ public final class WMFMockBasicService: WMFService {
                 return nil
             }
             
+            return jsonData
+        } else if request.isSemanticSearchGet {
+            let resourceName = "semantic-search-get"
+
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+
+            return jsonData
+        } else if request.isAttributionSignalsGet {
+            let resourceName = "attribution-signals-get"
+
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+
             return jsonData
         } else if request.isOnThisDayEventsGet {
             let resourceName = "onthisday-events-02-21-get"

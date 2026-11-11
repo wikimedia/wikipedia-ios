@@ -178,6 +178,28 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertEqual(relatedService.decodableGETCallCount, 5)
     }
 
+    /// The Discover run and the For You feed share one topic download. A stopped caller leaves
+    /// the line, and the download goes on for the other callers and for the warm cache. Before,
+    /// the first caller owned the download, so its stop failed every other caller too.
+    func testAStoppedCallerDoesNotStopTheTopicDownload() async throws {
+        let service = WMFHangingBasicService()
+        let controller = WMFHomeDataController(basicService: service, userDefaultsStore: WMFMockKeyValueStore())
+
+        let stoppedCaller = Task { try await controller.fetchArticles(for: .books, project: enProject) }
+        await service.waitForFirstRequest()
+        stoppedCaller.cancel()
+
+        do {
+            _ = try await stoppedCaller.value
+            XCTFail("the stopped caller must not get articles")
+        } catch {
+            XCTAssertTrue(error is CancellationError, "the stopped caller stops with CancellationError, got \(error)")
+        }
+        XCTAssertEqual(service.openRequestCount, 1, "the download goes on without its first caller")
+
+        service.failPendingRequests()
+    }
+
     func testFetchForYouCapsAtFourRelatedArticlesPerPageInterest() async throws {
         try await seedPageInterests(["Cat"], project: enProject)
         let controller = makeForYouController(topics: [])
@@ -509,46 +531,6 @@ final class WMFHomeDataControllerTests: XCTestCase {
             // expected
         }
     }
-    
-    // MARK: - Experiment assignment
-
-    func testPersistredHomeTabAssignmentReturnsControlWhenNoExperimentStore() {
-        let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse)
-        )
-        XCTAssertEqual(controller.persistedHomeTabAssignment(), .control)
-    }
-
-    func testIsHomeTabGroupBIsFalseWhenControlAssigned() {
-        let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse)
-        )
-        XCTAssertFalse(controller.isHomeTabGroupB)
-    }
-
-    func testPersistredHomeTabAssignmentIsStableAcrossMultipleCalls() {
-        let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse)
-        )
-        controller.assignExperiment()
-        let first = controller.persistedHomeTabAssignment()
-        let second = controller.persistedHomeTabAssignment()
-        XCTAssertEqual(first, second)
-    }
-
-    func testPersistredHomeTabAssignmentIsStableAcrossNewControllerInstancesWithSameStore() {
-        // Two controllers sharing the same store (set in setUp) must land in the same bucket,
-        // because determineBucketForExperiment persists the result.
-        let first = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse)
-        )
-        first.assignExperiment()
-        let second = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse)
-        )
-        second.assignExperiment()
-        XCTAssertEqual(first.persistedHomeTabAssignment(), second.persistedHomeTabAssignment())
-    }
 
     // MARK: - One-time onboarding state
 
@@ -646,6 +628,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         WMFRelatedPagesDataController.WMFRelatedPage(
             pageid: title.hashValue,
             title: title,
+            displayTitle: nil,
             description: nil,
             thumbnailURL: hasThumbnail ? URL(string: "https://example.com/\(title).jpg") : nil,
             extract: nil

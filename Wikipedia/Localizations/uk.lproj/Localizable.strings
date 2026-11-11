@@ -162,6 +162,11 @@
 "activity-tab-very-satisfied" = "Дуже задоволений/а";
 "activity-tab-very-unsatisfied" = "Дуже незадоволений/а";
 "activity-tab-week-graph-label" = "Тиждень";
+"activity-tab-year-in-review-cta" = "Розпочати";
+"activity-tab-year-in-review-data-rich-subtitle" = "Відкрийте свій рік у Вікіпедії заново.";
+"activity-tab-year-in-review-data-rich-title" = "Ваш огляд року вже тут";
+"activity-tab-year-in-review-low-data-subtitle" = "Відкрийте рік у Вікіпедії заново.";
+"activity-tab-year-in-review-low-data-title" = "Наш огляд року вже тут";
 "activity-tab-you-edited" = "Цього тижня ви редагували {{PLURAL:$1|$1 раз|$1 рази|$1 разів}}.";
 "activity-tab-you-read" = "Цього тижня ви прочитали {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
 "activity-tab-you-saved" = "Цього тижня ви зберегли {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
@@ -262,8 +267,6 @@
 "clearing-cache-error" = "Помилка очищення кешу.";
 "clearing-cache-in-progress" = "Виконується очищення кешу.";
 "close-all-tabs" = "Закрити всі вкладки";
-"close-all-tabs-confirmation" = "Хочете закрити всі вкладки ($1)? Цю дію не можна скасувати.";
-"close-all-tabs-confirmation-number" = "Закрити всі вкладки ($1)?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Бажаєте закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}? Цю дію не можна скасувати.";
 "close-all-tabs-confirmation-title-with-value" = "Закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}?";
 "close-button-accessibility-label" = "Закрити";
@@ -384,6 +387,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Двічі натисніть, щоб увімкнути автоматичні щомісячні пожертви на цю суму.";
 "donate-accessibility-textfield-hint" = "Введіть власну суму пожертви.";
 "donate-accessibility-transaction-fee-hint" = "Двічі натисніть, щоб додати комісію за транзакцію до суми пожертви.";
+// Fuzzy
 "donate-already-donated" = "Дякуємо, шановний доноре! Ваша щедрість допомагає Вікіпедії та іншим проєктам вільних знань процвітати.";
 "donate-apple-fine-print" = "Apple не відповідає за збір коштів для цієї мети.";
 "donate-email-opt-in-text" = "Так, Фонд Вікімедіа може періодично надсилати мені електронні листи.";
@@ -525,7 +529,6 @@
 "empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду пізніше, навіть в автономному режимі";
 "empty-no-saved-pages-title" = "Ще немає збережених сторінок";
 "empty-no-search-results-message" = "Нічого не знайдено";
-"empty-talk-page-title" = "На сторінці обговорення користувача поки немає дописів";
 "end-session" = "Завершити сесію";
 "error-generic-recovery-suggestion" = "Будь ласка, спробуйте пізніше";
 "error-unknown" = "Сталася невідома помилка.";
@@ -543,10 +546,7 @@
 "explore-feed-preferences-card-hidden-title" = "Картка прихована";
 "explore-feed-preferences-continue-reading-description" = "Швидке посилання назад до читання відкритої статті";
 "explore-feed-preferences-customize-community-feed-action-title" = "Налаштувати стрічку спільноти";
-"explore-feed-preferences-customize-explore-feed" = "Налаштувати стрічку";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Налаштувати стрічку";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Приховання картки призведе до того, що вона не показуватиметься у стрічці.";
-"explore-feed-preferences-explore-tab" = "Стрічка";
 "explore-feed-preferences-featured-article-description" = "Вибрана стаття дня у Вікіпедії";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "викл";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Для всіх";
@@ -561,7 +561,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Сховати цю картку";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Сховати всі картки «$1»";
 "explore-feed-preferences-in-the-news-description" = "Статті про поточні події";
-"explore-feed-preferences-languages-footer-text" = "Приховання всіх карток у всіх мовах призведе до приховання всієї стрічки";
 "explore-feed-preferences-on-this-day-description" = "Історичні події цього дня";
 "explore-feed-preferences-places-description" = "Об'єкти поблизу, про яких є статті Вікіпедії";
 "explore-feed-preferences-potd-description" = "Щоденне вибране зображення Вікісховища";
@@ -586,16 +585,7 @@
 "explore-feed-preferences-suggested-edits-description" = "Пропозиції додати контент у Вікіпедію";
 "explore-feed-preferences-suggested-edits-title" = "Показати картку із запропонованими змінами";
 "explore-feed-preferences-top-read-description" = "Найчитаніші статті за день";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Вимкнути стрічку";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Приховання всіх карток призведе до приховання всієї стрічки та замінить її вкладинкою «Налаштування».";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Вимкнути стрічку?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Вимкнути стрічку";
-"explore-feed-preferences-turn-off-explore-tab-message" = "Повернути стрічку можна в розділі налаштувань";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Вимкнути стрічку?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Якщо вимкнути стрічку, то замість неї показуватиметься вкладинка «Налаштування».";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Стрічка буде ввімкнена, якщо будуть увімкнені до показу будь-які її картки";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Увімкнути стрічку";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Вкладинка «Налаштування» буде замінена стрічкою. Ви можете перейти до налаштувань, натиснувши зверху на іконку з шестернею";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Увімкнути стрічку?";
 "explore-games-title" = "Ігри";
 "explore-hide-card-prompt" = "Сховати цю картку";
@@ -695,7 +685,6 @@
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете вилучити всі недавні елементи?";
 "history-clear-delete-all" = "Так, вилучити всі";
 "history-title" = "Історія";
-"home-button-explore-accessibility-label" = "Вікіпедіє, повернутися до стрічки";
 "home-button-saved-accessibility-label" = "Вікіпедіє, повернутися до Збереженого";
 "home-card-more-options-accessibility-label" = "Більше опцій";
 "home-community-see-past-content" = "Переглянути давніший контент спільноти";
@@ -1141,8 +1130,6 @@
 "reading-list-api-error-generic" = "Під час синхронізації ваших читальних списків сталася непередбачена помилка.";
 "reading-list-api-error-list-limit" = "Цей список не синхронізировано, оскільки ви сягнули ліміту кількості синхронізованих списків.";
 "reading-list-create-new-list-button-title" = "Створити читальний список";
-"reading-list-create-new-list-description" = "Опис";
-"reading-list-create-new-list-reading-list-name" = "Назва читального списку";
 "reading-list-create-new-list-title" = "Створити новий список";
 "reading-list-deleted-accessibility-notification" = "Читальний список вилучено";
 "reading-list-detail-search-placeholder" = "Пошук у читальному списку";
@@ -1163,7 +1150,9 @@
 "reading-list-list-limit-reached" = "Ви сягнули ліміту в $1 читальних списків для облікового запису.";
 "reading-list-login-or-create-account-button-title" = "Увідіть або створіть обліковий запис";
 "reading-list-name-user-created-annotation" = "_[користувача створено]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "необов'язковий короткий опис";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "назва читального списку";
 "reading-list-sync-disabled-panel-message" = "Синхронизація читальних списків була вимкнена на вашому обліковому запису на іншому приладі. Ви можете знову ввімкнути її в налаштуваннях.";
 "reading-list-sync-disabled-panel-title" = "Синхронізація вимкнена";
@@ -1442,7 +1431,6 @@
 "two-factor-login-title" = "Вхід до вашого облікового запису";
 "two-factor-login-with-backup-code" = "Використати один з ваших резервних кодів";
 "two-factor-login-with-regular-code" = "Використати код верифікації";
-"unable-to-load-talk-page-title" = "Неможливо завантажити сторінку обговорення";
 "unknown-generic-text" = "Невідомо";
 "unwatch" = "Не спостерігати";
 "user-title" = "Користувач";
@@ -1518,27 +1506,10 @@
 "watchlist-user-button-user-talk-page" = "Сторінка обговорення користувача";
 "watchlist-watch-subtitle" = "Натиснувши на зірочку або дію «Переглянути» на нижній панелі інструментів статті, ви можете додати цю сторінку до свого списку спостереження.";
 "watchlist-watch-title" = "Спостерігайте за статтями";
-"welcome-data-privacy-title" = "Дані та конфіденційність";
-"welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";
 "welcome-exploration-explore-feed-title" = "Стрічка";
-"welcome-exploration-on-this-day-description" = "Перенестися назад у часі, аби дізнатися, що сталося сьогодні в історії";
-"welcome-exploration-on-this-day-title" = "Цього дня";
-"welcome-exploration-places-description" = "Досліджувати пам'ятки поблизу чи шукати місця по всьому світові";
-"welcome-exploration-places-title" = "Вкладинка «Місця»";
 "welcome-explore-continue-button" = "Розпочати";
-"welcome-explore-new-ways-title" = "Пізнаємо по-новому";
 "welcome-explore-tell-me-more-done-button" = "Зрозуміло";
-"welcome-intro-free-encyclopedia-description" = "Вікіпедія написана спільними зусиллями волонтерів і складається з понад 40 мільйонів статей майже 300 мовами";
-"welcome-intro-free-encyclopedia-more" = "Дізнайтеся більше про Вікіпедію";
-"welcome-intro-free-encyclopedia-more-about" = "Про Вікіпедію";
-"welcome-intro-free-encyclopedia-more-description" = "Вікіпедія — це глобальний проєкт зі створення безкоштовних енциклопедій на всіх мовах світу. Майже будь-хто, маючи доступ до Інтернету, може вільно брати в ньому участь, додаючи нейтральну, підкріплену джерелами інформацію.";
-"welcome-intro-free-encyclopedia-title" = "Вільна енциклопедія";
 "welcome-languages-add-button" = "Додати ще одну мову";
-"welcome-languages-add-or-edit-button" = "Додати чи змінити усталені мови";
-"welcome-languages-description" = "Ми знайшли такі мови на вашому приладі:";
-"welcome-languages-search-title" = "Шукати майже 300 мовами";
-"welcome-privacy-subtitle" = "Ми вважаємо, що ви не маєте надавати особисту інформацію, щоб брати участь у русі вільних знань. Дані про використання, зібрані для цієї програми, є анонімними.";
-"welcome-privacy-terms-button-text" = "Дізнайтеся більше про нашу політику конфіденційності та умови використання";
 "which-came-first-archive-day-score-a11y" = "Оцінка: $1 з 5";
 "which-came-first-archive-nav-title" = "Архів";
 "which-came-first-archive-subtitle" = "Зіграти в ігри з червня 2024 року.";

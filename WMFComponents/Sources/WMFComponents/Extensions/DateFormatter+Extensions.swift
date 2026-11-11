@@ -10,6 +10,14 @@ public extension DateFormatter {
 		return dateFormatter
 	}()
 
+	/// Short date and short time in the device locale: e.g. `10/2/26, 10:52 PM`
+	static let wmfShortDateShortTimeFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		return dateFormatter
+	}()
+
 	/// Full date only: e.g. `Tuesday, August 22, 2023`
 	static var wmfFullDateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -90,6 +98,20 @@ public extension DateFormatter {
     static let lastEditedDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
+        return formatter
+    }()
+
+    /// Month and year in the numeric form of the locale, e.g. `09/2026`.
+    static let monthYearNumericFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMyyyy")
+        return formatter
+    }()
+
+    /// Month and year spelled out, e.g. `September 2026`.
+    static let monthYearSpelledOutFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMMyyyy")
         return formatter
     }()
     

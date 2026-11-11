@@ -24,7 +24,6 @@ final public class WMFSettingsViewController: WMFComponentHostingController<WMFS
         if let values = coordinatorDelegate?.fetchDynamicValues() {
             viewModel.updateDynamicValues(
                 primaryLanguage: values.primaryLanguage,
-                exploreFeedStatus: values.exploreFeedStatus,
                 readingPreferenceTheme: values.readingPreferenceTheme
             )
         }

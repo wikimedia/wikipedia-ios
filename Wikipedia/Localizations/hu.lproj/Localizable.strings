@@ -161,8 +161,6 @@
 "clearing-cache-complete" = "A gyorsítótár törlése befejeződött.";
 "clearing-cache-in-progress" = "A gyorsítótár törlése folyamatban van.";
 "close-all-tabs" = "Az összes lap bezárása";
-"close-all-tabs-confirmation" = "Be akarod zárni mind a(z) $1 lapot? Ezt a lépést nem lehet visszavonni.";
-"close-all-tabs-confirmation-number" = "Bezárod mind a(z) $1 lapot?";
 "close-button-accessibility-label" = "Bezárás";
 "close-tabs" = "Lapok bezárása";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1| $1 lap}} bezárva.";
@@ -347,7 +345,6 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-feed-customize-accessibility-title" = "Testreszabás";
 "explore-feed-preferences-card-hidden-title" = "Kártya elrejtve";
-"explore-feed-preferences-explore-tab" = "Felfedezés";
 "explore-feed-preferences-featured-article-description" = "A Wikipédia napi kiemelt cikke";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Ki";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Mindegyiken";
@@ -435,7 +432,6 @@
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
 "history-clear-delete-all" = "Igen, összes törlése";
 "history-title" = "Előzmények";
-"home-button-explore-accessibility-label" = "Wikipédia, visszatérés a Felfedezéshez";
 "home-button-saved-accessibility-label" = "Wikipédia, visszatérés a mentett lapokhoz";
 "home-more-like-footer" = "Több ehhez hasonló: $1";
 "home-nearby-footer" = "További helyek a közeledben";
@@ -704,8 +700,6 @@
 "reading-list-add-saved-button-title" = "Igen, vedd fel az olvasólistáimhoz";
 "reading-list-api-error-generic" = "Váratlan hiba történt az olvasólisták szinkronizálása során.";
 "reading-list-create-new-list-button-title" = "Olvasólista létrehozása";
-"reading-list-create-new-list-description" = "Leírás";
-"reading-list-create-new-list-reading-list-name" = "Az olvasólista neve";
 "reading-list-create-new-list-title" = "Új lista létrehozása";
 "reading-list-deleted-accessibility-notification" = "Olvasólista törölve";
 "reading-list-do-not-keep-button-title" = "Nem, töröld a szócikket az eszközről";
@@ -717,7 +711,9 @@
 "reading-list-list-limit-exceeded-title" = "Az olvasólisták száma legfeljebb $1 lehet fiókonként.";
 "reading-list-list-limit-reached" = "Az olvasólisták száma legfeljebb $1 lehet.";
 "reading-list-login-or-create-account-button-title" = "Bejelentkezés / fiók létrehozása";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "opcionális rövid leírás";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "olvasólista címe";
 "reading-list-sync-disabled-panel-title" = "Szinkronizálás leállítva";
 "reading-list-sync-enable-button-title" = "Szinkronizálás engedélyezése";
@@ -838,7 +834,6 @@
 "two-factor-login-title" = "Bejelentkezés a fiókodba";
 "two-factor-login-with-backup-code" = "Használd az egyik visszaállítási kódod";
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
-"unable-to-load-talk-page-title" = "Nem sikerült betölteni a vitalapot";
 "unknown-generic-text" = "Ismeretlen";
 "user-title" = "Felhasználó";
 "uzbek-variants-alert-title" = "Az üzbég nyelvi változat támogatásának frissítése";
@@ -884,25 +879,10 @@
 "watchlist-user-button-thank" = "Köszönet";
 "watchlist-user-button-user-page" = "Felhasználói lap";
 "watchlist-user-button-user-talk-page" = "Szerkesztővita";
-"welcome-data-privacy-title" = "Adatvédelem";
-"welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
 "welcome-exploration-explore-feed-title" = "Felfedezés csatorna";
-"welcome-exploration-on-this-day-description" = "Mi történt a mai napon a történelemben";
-"welcome-exploration-on-this-day-title" = "Ezen a napon";
-"welcome-exploration-places-description" = "Fedezd fel a nevezetes helyeket a közeledben vagy fedezz fel új helyeket szerte a világban";
-"welcome-exploration-places-title" = "Helyek lap";
 "welcome-explore-continue-button" = "Kezdés";
-"welcome-explore-new-ways-title" = "Új módok a felfedezésre";
 "welcome-explore-tell-me-more-done-button" = "Értem";
-"welcome-intro-free-encyclopedia-description" = "A Wikipédiát önkéntesek közösen írják, és több mint 40 millió szócikkből áll, több mint 300 nyelven.";
-"welcome-intro-free-encyclopedia-more" = "Tudjon meg többet a Wikipédiáról";
-"welcome-intro-free-encyclopedia-more-about" = "A Wikipédia névjegye";
-"welcome-intro-free-encyclopedia-more-description" = "A Wikipédia egy globális projekt, amelynek célja ingyenes enciklopédiák létrehozása a világ összes nyelvén. Gyakorlatilag bárki, akinek internet-hozzáférése van, szabadon részt vehet semleges, idézett információkkal.";
-"welcome-intro-free-encyclopedia-title" = "A szabad enciklopédia";
 "welcome-languages-add-button" = "Másik nyelv hozzáadása";
-"welcome-languages-add-or-edit-button" = "Előnyben részesített nyelvek hozzáadása vagy szerkesztése";
-"welcome-languages-description" = "A következő nyelveket találtuk a készülékeden:";
-"welcome-languages-search-title" = "Keresés majdnem 300 nyelven";
 "widget-onthisday-description" = "Mi történt a történelemben ezen a napon?";
 "widget-onthisday-placeholder-article-snippet" = "Ingyenes online enciklopédia, amelyet bárki szerkeszthet";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, egy ingyenes wiki tartalomlexikon, elérhető az interneten.";

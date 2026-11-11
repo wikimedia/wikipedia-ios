@@ -1,0 +1,50 @@
+{
+  "warnings": [
+    {
+      "code": "unrecognizedparams",
+      "html": "Paramètre non reconnu : cirrusSemanticSearch.",
+      "module": "main"
+    }
+  ],
+  "batchcomplete": true,
+  "continue": {
+    "gsroffset": 3,
+    "continue": "gsroffset||"
+  },
+  "query": {
+    "pages": [
+      {
+        "pageid": 1822165,
+        "ns": 0,
+        "title": "Communication animale",
+        "snippet": "Les animaux communiquent entre eux pour différentes raisons, notamment à des fins de séduction de partenaires, de compétition pour les ressources et de recherche de nourriture. Ils utilisent un signal ou un message (support physique de l&#039; information) comme une odeur, un son, un mouvement, un signal chimique ou un signal électrique. Dans la communication, <span class=\"searchmatch\">le signal émis par un animal entraîne une modification du comportement ou de l&#039;état physiologique</span> d&#039;un autre animal, qui utilise l&#039;information pour prendre des décisions qui se traduisent par une réponse comportementale. La réponse de l&#039;animal est susceptible d&#039;avoir des conséquences sur sa survie, mais aussi sur celle de l&#039;animal à l&#039;origine du message.",
+        "sectiontitle": "Différence entre communication et information",
+        "index": 3,
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Waggle_dance_photo.png/60px-Waggle_dance_photo.png?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 50,
+          "height": 49
+        }
+      },
+      {
+        "pageid": 7825418,
+        "ns": 0,
+        "title": "Complexité de la communication",
+        "snippet": "<span class=\"searchmatch\">La complexité de la communication ou complexité de communication est une notion étudiée en informatique théorique.</span> Le dispositif abstrait classique est le suivant : Alice et Bob ont chacun un message, et ils veulent calculer un nouveau message à partir de leurs messages, en se transmettant un minimum d&#039;information. Par exemple, Alice et Bob reçoivent un mot chacun, et ils doivent décider s&#039;ils ont reçu le même mot ; ils peuvent bien sûr s&#039;envoyer leur mot l&#039;un à l&#039;autre et comparer, mais la question est de minimiser le nombre de messages.",
+        "index": 1
+      },
+      {
+        "pageid": 16511352,
+        "ns": 0,
+        "title": "Communication",
+        "snippet": "La communication est <span class=\"searchmatch\">l&#039;ensemble des interactions avec un tiers humain, animal ou végétal qui véhiculent une ou plusieurs informations</span>. Elle implique non seulement la transmission d&#039;informations, mais aussi leur interprétation par les individus en fonction de leur contexte, de leurs connaissances et de leurs intentions.(Une logique de la communication, par Paul Watzlawik, Janet Helmick-Beavin et Don D. Jackson. Ed. du Seuil, Paris, 1972)",
+        "index": 2,
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Stephen_Avenue_3.jpg/60px-Stephen_Avenue_3.jpg?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 50,
+          "height": 40
+        }
+      }
+    ]
+  }
+}

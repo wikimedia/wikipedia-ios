@@ -126,9 +126,14 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
-    @objc init(dataStore: MWKDataStore) {
+    @objc convenience init(dataStore: MWKDataStore) {
+        self.init(dataStore: dataStore, apiController: ReadingListsAPIController(session: dataStore.session, configuration: dataStore.configuration))
+    }
+
+    /// Tests pass an API controller whose session answers from fixtures.
+    init(dataStore: MWKDataStore, apiController: ReadingListsAPIController) {
         self.dataStore = dataStore
-        self.apiController = ReadingListsAPIController(session: dataStore.session, configuration: dataStore.configuration)
+        self.apiController = apiController
         super.init()
         operationQueue.maxConcurrentOperationCount = 1
     }
@@ -216,10 +221,10 @@ public typealias ReadingListsController = WMFReadingListsController
         return list
     }
     
-    func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
+    public func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
         let name = name.precomposedStringWithCanonicalMapping
         let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingOrDefaultListRequest.predicate = NSPredicate(format: "(canonicalName MATCHES %@ OR isDefault == YES) AND isDeletedLocally == NO", name)
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "(canonicalName == %@ OR isDefault == YES) AND isDeletedLocally == NO", name)
         existingOrDefaultListRequest.fetchLimit = 2
         let lists = try moc.fetch(existingOrDefaultListRequest)
         return lists.first(where: { $0.name == name }) != nil
@@ -368,9 +373,10 @@ public typealias ReadingListsController = WMFReadingListsController
                 continue
             }
 
-            // Need this to add to default reading list, otherwise article doesn't show up in "All articles" on SavedVC
-            if !article.isSaved, let articleUrl = article.url {
-                dataStore.savedPageList.toggleSavedPage(for: articleUrl)
+            // Save the article too, so it shows in "All articles". Do not use userSave here: it posts the
+            // notification that shows the "Add to a reading list?" hint, and the article is already in a list.
+            if !article.isSaved {
+                try article.addToDefaultReadingList()
             }
 
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
@@ -441,6 +447,12 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
+    // True while the first sync after sign-in has not completed.
+    public var isInitialSyncPending: Bool {
+        assert(Thread.isMainThread)
+        return syncState.contains(.needsSync)
+    }
+
     // is sync enabled for this user
     @objc public var isSyncEnabled: Bool {
         assert(Thread.isMainThread)
@@ -692,7 +704,21 @@ public typealias ReadingListsController = WMFReadingListsController
             DDLogError("Error unsaving article: \(error)")
         }
     }
-    
+
+    public func unsaveAndSync(_ articles: [WMFArticle]) {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        unsave(articles, in: moc)
+        do {
+            if moc.hasChanges {
+                try moc.save()
+            }
+            sync()
+        } catch let error {
+            DDLogError("Error unsaving articles: \(error)")
+        }
+    }
+
     /// Note that the predicate does not take the article language variant into account. This is intentional.
     /// Only one variant of an article can be saved. However *all* variants of the same article appear saved in the user interface.
     /// The 'unsave' button can be tapped by the user on *any* variant of the article.

@@ -283,7 +283,6 @@
 "empty-no-saved-pages-message" = "Uložte si stránky pro jejich prohlížení později, a to i v režimu offline";
 "empty-no-saved-pages-title" = "Žádné uložené stránky";
 "empty-no-search-results-message" = "Nenalezeny žádné výsledky";
-"empty-talk-page-title" = "Tento uživatel zatím neodeslal žádné zprávy";
 "error-generic-recovery-suggestion" = "Prosíme, zkuste to znovu";
 "error-unknown" = "Došlo k neznámé chybě.";
 "explore-another-random" = "Další náhodný článek";
@@ -299,10 +298,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Další jazyky lze přidat na obrazovce „Moje jazyky“.";
 "explore-feed-preferences-card-hidden-title" = "Karta skryta";
 "explore-feed-preferences-continue-reading-description" = "Rychlý odkaz zpět na čtení otevřeného článku";
-"explore-feed-preferences-customize-explore-feed" = "Přizpůsobení kanálu Objevit";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Přizpůsobit kanál Objevit";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Skrytím typu karty se tyto karty nebudou zobrazovat v kanálu Objevit.";
-"explore-feed-preferences-explore-tab" = "Kanál Objevit";
 "explore-feed-preferences-featured-article-description" = "Doporučený článek na Wikipedii";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Vypnout";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ve všech jazycích";
@@ -316,7 +312,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Skrýt tuto kartu";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skrýt všechny karty „$1“";
 "explore-feed-preferences-in-the-news-description" = "Články o aktuálních událostech";
-"explore-feed-preferences-languages-footer-text" = "Skrytí všech karet ve všech vybraných jazycích vypne kanál Objevit.";
 "explore-feed-preferences-on-this-day-description" = "Historické události v tento den";
 "explore-feed-preferences-places-description" = "Články na Wikipedii poblíž vaší polohy";
 "explore-feed-preferences-potd-description" = "Obrázek dne z Wikimedia Commons";
@@ -338,16 +333,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Vypnutím karty Populární ji vypnete ve všech dostupných jazycích.";
 "explore-feed-preferences-show-top-read-title" = "Zobrazit kartu Populární";
 "explore-feed-preferences-top-read-description" = "Nejčastěji prohlížené články za tento den";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Vypnout kanál Objevit";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Skrytí všech karet informačních kanálů vypne kanál Objevit a nahradí jej kartou Nastavení";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Jste si jisti, že chcete vypnout kanál Objevit?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Vypnout kanál Objevit";
-"explore-feed-preferences-turn-off-explore-tab-message" = "Kanál Objevit lze znovu zapnout v části Přizpůsobení kanálu Objevit";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Vypnout kanál Objevit?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Vypnutím kanálu Objevit ho nahradíte za kartu Nastavení.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Vybráním možnosti zobrazit kanál Objevit zapnete kanál Objevit";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Zapnout kanál Objevit";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Tímto nahradíte Nastavení za kanál Objevit. Klepnutím na ikonu ozubeného kola můžete přistupovat k nastavení v horní části kanálu Objevit";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Zapnout kanál Objevit?";
 "explore-hide-card-prompt" = "Skrýt tuto kartu";
 "explore-main-page-description" = "Hlavní strana Wikimedia projektů";
@@ -418,7 +404,6 @@
 "history-clear-confirmation-heading" = "Jste si jisti, že chcete smazat všechny vaše poslední položky?";
 "history-clear-delete-all" = "Smazat vše";
 "history-title" = "Historie";
-"home-button-explore-accessibility-label" = "Wikipedie, zpět na kanál Objevit";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
 "home-edit-languages-title" = "Přidat nebo upravit jazyky";
 "home-feed-modules-featured-article-subtitle" = "Doporučené články patří mezi nejkvalitnější články na Wikipedii, které denně vybírají redaktoři";
@@ -625,8 +610,6 @@
 "reading-list-api-error-generic" = "Nastala neočekávaná chyba při synchronizaci vašich seznamů k přečtení.";
 "reading-list-api-error-list-limit" = "Tento seznam není synchronizován, protože jste překročili limit počtu synchronizovaných seznamů.";
 "reading-list-create-new-list-button-title" = "Vytvořit seznam k přečtení";
-"reading-list-create-new-list-description" = "Popis";
-"reading-list-create-new-list-reading-list-name" = "Název seznamu k přečtení";
 "reading-list-create-new-list-title" = "Vytvořit nový seznam";
 "reading-list-deleted-accessibility-notification" = "Seznam k přečtení byl odstraněn";
 "reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
@@ -646,7 +629,9 @@
 "reading-list-list-limit-reached" = "Dosáhli jste limitu $1 seznamů k přečtení na účet";
 "reading-list-login-or-create-account-button-title" = "Přihlásit se nebo vytvořit účet";
 "reading-list-name-user-created-annotation" = "_[uživatel vytvořen]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "volitelný krátký popis";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "název seznamu k přečtení";
 "reading-list-sync-disabled-panel-message" = "Synchronizace seznamu k přečtení byla zakázána pro váš účet na Wikipedii na jiném zařízení. Synchronizaci můžete obnovit aktualizací nastavení.";
 "reading-list-sync-disabled-panel-title" = "Synchronizace je vypnuta";
@@ -787,27 +772,12 @@
 "two-factor-login-title" = "Přihlaste se do svého účtu";
 "two-factor-login-with-backup-code" = "Použít jeden z vašich záložních kódů";
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
-"unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
 "unknown-generic-text" = "Neznámé";
 "variants-alert-dismiss-button" = "Ne, děkuji";
-"welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";
-"welcome-exploration-on-this-day-description" = "Cestujte zpět v čase, abyste se dozvěděli, co se dělo v historii";
-"welcome-exploration-on-this-day-title" = "Dnešek v minulosti";
-"welcome-exploration-places-description" = "Objevte památky v okolí nebo místa po celém světě";
-"welcome-exploration-places-title" = "Karta Místa";
 "welcome-explore-continue-button" = "Začít";
-"welcome-explore-new-ways-title" = "Nové možnosti pro objevování";
 "welcome-explore-tell-me-more-done-button" = "Mám to";
-"welcome-intro-free-encyclopedia-description" = "Wikipedie je tvořena spoluprací více než 80 milionů dobrovolných přispěvatelů a skládá se z více než 50 milionů článků ve více než 300 jazycích.";
-"welcome-intro-free-encyclopedia-more" = "Další informace o Wikipedii";
-"welcome-intro-free-encyclopedia-more-about" = "O Wikipedii";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedie je globální projekt svobodných encyklopedií ve všech jazycích světa. Kdokoli s přístupem k internetu se může svobodně podílet přispíváním neutrálních a ověřených informací.";
-"welcome-intro-free-encyclopedia-title" = "Otevřená encyklopedie";
 "welcome-languages-add-button" = "Přidat další jazyk";
-"welcome-languages-add-or-edit-button" = "Přidat nebo upravit preferované jazyky";
-"welcome-languages-description" = "Na vašem zařízení jsme našli následující jazyky:";
-"welcome-languages-search-title" = "Vyhledávejte a čtěte ve více než 300 jazycích";
 "wikimedia-articletopics-topic-art" = "Umění";
 "wikimedia-articletopics-topic-central-america" = "Střední Amerika";
 "wikimedia-articletopics-topic-education" = "Vzdělávání";

@@ -64,6 +64,11 @@
 "diff-paragraph-moved-direction-down" = "ներքև";
 "diff-paragraph-moved-direction-up" = "վեր";
 "diff-thanks-send-button-title" = "Շնորհակալություն հայտնել";
+"discover-entry-card-unseen-list" = "Նոր ցանկ";
+"discover-settings-cadence-daily" = "Ամեն օր";
+"discover-settings-cadence-monthly" = "Ամեն ամիս";
+"discover-settings-interests-title" = "Հետաքրքրություններ";
+"discover-settings-your-list-header" = "Ձեր ցանկ";
 "edit-link-title" = "Խմբագրել հղում";
 "edit-menu-item" = "Խմբագրել";
 "edit-summary-choice-linked-words" = "Ավելացվել են հղումներ";
@@ -160,7 +165,6 @@
 "places-filter-button-title" = "Զտիչ";
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
-"reading-list-create-new-list-description" = "Նկարագրություն";
 "saved-all-articles-title" = "Բոլոր հոդվածներ";
 "search-button-accessibility-label" = "Որոնել Վիքիպեդիայում";
 "search-clear-title" = "Մաքրել";
@@ -191,9 +195,7 @@
 "unknown-generic-text" = "Անհայտ";
 "vanish-account-continue-button-title" = "Շարունակել";
 "vanish-account-warning-title" = "Զգուշացում";
-"welcome-explore-new-ways-title" = "Ուսումնասիրելու նոր եղանակներ";
 "welcome-explore-tell-me-more-done-button" = "Հասկանալի է";
-"welcome-intro-free-encyclopedia-more-about" = "Վիքիպեդիայի մասին";
 "wikimedia-articletopics-topic-art" = "Արվեստ";
 "wikimedia-articletopics-topic-asia" = "Ասիա";
 "wikimedia-articletopics-topic-central-america" = "Կենտրոնական Ամերիկա";

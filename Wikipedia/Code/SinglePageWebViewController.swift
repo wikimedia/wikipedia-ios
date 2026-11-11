@@ -41,10 +41,14 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     final class StandardConfig {
         let url: URL
         let useSimpleNavigationBar: Bool
-        
-        internal init(url: URL, useSimpleNavigationBar: Bool) {
+        // The app router dismisses all presented views before it opens a link. Set this when the
+        // page is presented on top of another modal flow that must stay open, such as Year in Review.
+        let keepsLinksInPresentedStack: Bool
+
+        internal init(url: URL, useSimpleNavigationBar: Bool, keepsLinksInPresentedStack: Bool = false) {
             self.url = url
             self.useSimpleNavigationBar = useSimpleNavigationBar
+            self.keepsLinksInPresentedStack = keepsLinksInPresentedStack
         }
     }
     
@@ -105,7 +109,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         webView.navigationDelegate = self
         webView.uiDelegate = self
         
-#if WMF_STAGING || WMF_EXPERIMENTAL
+#if WMF_ALPHA || WMF_EXPERIMENTAL
         webView.isInspectable = true
 #endif
         
@@ -413,7 +417,11 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         }
         
         if action.navigationType == .linkActivated {
-            
+
+            if case .standard(let config) = configType, config.keepsLinksInPresentedStack {
+                return openLinkInPresentedStack(actionURL, config: config)
+            }
+
             let legacyNavigateAction = { [weak self] in
                 let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
                 self?.navigate(to: actionURL, userInfo: userInfo)
@@ -453,7 +461,42 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         
         return true
     }
-    
+
+    /// Returns true to load the link in this web view, false when the link opens somewhere else.
+    private func openLinkInPresentedStack(_ url: URL, config: StandardConfig) -> Bool {
+        if isLinkToCurrentPageSection(url) {
+            return true
+        }
+
+        guard let navigationController,
+              url.scheme == "https" || url.scheme == "http" else {
+            UIApplication.shared.open(url)
+            return false
+        }
+
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: url, dataStore: dataStore, theme: theme, articleSource: .undefined)
+        if linkCoordinator.start() {
+            return false
+        }
+
+        let nextConfig = StandardConfig(url: url, useSimpleNavigationBar: config.useSimpleNavigationBar, keepsLinksInPresentedStack: true)
+        let nextViewController = SinglePageWebViewController(configType: .standard(nextConfig), theme: theme)
+        navigationController.pushViewController(nextViewController, animated: true)
+        return false
+    }
+
+    private func isLinkToCurrentPageSection(_ url: URL) -> Bool {
+        guard url.fragment != nil,
+              let currentURL = webView.url,
+              var linkComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              var currentComponents = URLComponents(url: currentURL, resolvingAgainstBaseURL: false) else {
+            return false
+        }
+        linkComponents.fragment = nil
+        currentComponents.fragment = nil
+        return linkComponents == currentComponents
+    }
+
     // MARK: - Donate Config Logic
 
     func parseThankYouURL(_ url: URL) -> DonationInfo? {

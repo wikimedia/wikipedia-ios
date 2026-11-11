@@ -37,6 +37,7 @@
 // Author: Nyxomnis
 // Author: Pedian4169
 // Author: Rapsar
+// Author: Rumixist
 // Author: Sadrettin
 // Author: SaldırganSincap
 // Author: Sayginer
@@ -265,8 +266,6 @@
 "clearing-cache-error" = "Önbellek temizlenirken hata oluştu.";
 "clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-all-tabs" = "Tüm sekmeleri kapat";
-"close-all-tabs-confirmation" = "Tüm $1 sekmeyi kapatmak ister misiniz? Bu işlem geri alınamaz.";
-"close-all-tabs-confirmation-number" = "Tüm $1 sekme kapatılsın mı?";
 "close-all-tabs-confirmation-subtitle-with-value" = "$1 {{PLURAL:$1|sekmeyi}} kapatmak istiyor musunuz? Bu işlem geri alınamaz.";
 "close-all-tabs-confirmation-title-with-value" = "$1 {{PLURAL:$1|sekme}} kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";
@@ -378,6 +377,7 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
 "diff-user-button-accessibility-text" = "Menüyü açmak için iki kez dokunun";
 "dim-images" = "Resimleri karart";
+"discover-announcement-new-tag" = "Yeni";
 "donate-accessibility-amount-button-hint" = "Bağış tutarını seçmek için iki kez dokunun.";
 "donate-accessibility-donate-hint-format" = "Wikimedia Vakfı'na $1 bağışlamak için iki kez dokunun.";
 "donate-accessibility-email-opt-in-hint" = "Wikimedia Vakfı'nın size e-posta göndermesine izin vermek için iki kez dokunun.";
@@ -385,6 +385,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu tutarda otomatik aylık bağış etkinleştirmek için iki kez dokunun.";
 "donate-accessibility-textfield-hint" = "Bağış yapmak için özel tutarı girin.";
 "donate-accessibility-transaction-fee-hint" = "Bağış tutarına işlem ücreti eklemek için iki kez dokunun.";
+// Fuzzy
 "donate-already-donated" = "Teşekkürler sevgili bağışçı! Cömertliğiniz Vikipedi'nin ve diğer özgür bilgi projelerinin gelişmesine yardımcı oluyor.";
 "donate-apple-fine-print" = "Apple bu amaç için para toplamakla yükümlü değildir.";
 "donate-email-opt-in-text" = "Evet, Wikimedia Vakfı bana ara sıra e-posta gönderebilir.";
@@ -526,7 +527,6 @@
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
-"empty-talk-page-title" = "Bu kullanıcı için henüz hiç mesaj gönderilmedi";
 "end-session" = "Oturumu sonlandır";
 "error-generic-recovery-suggestion" = "Lütfen tekrar deneyin";
 "error-unknown" = "Bilinmeyen bir hata oluştu";
@@ -543,10 +543,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "\"Dillerim\" sayfasından ek diller eklenebilir.";
 "explore-feed-preferences-card-hidden-title" = "Kart gizlendi";
 "explore-feed-preferences-continue-reading-description" = "Açık bir makaleyi okumak için hızlı bağlantı";
-"explore-feed-preferences-customize-explore-feed" = "Keşfetme menüsünü özelleştirme";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Keşif özet akışını özelleştirme";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Bir kart tipini gizlemek, bu kart türünün Keşfet akışınızda görünmesini engeller.";
-"explore-feed-preferences-explore-tab" = "Arama sekmesi";
 "explore-feed-preferences-featured-article-description" = "Vikipedi'de günlük özellikli madde";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Kapalı";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hepsinde";
@@ -561,7 +558,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “$1” kartlarını gizle";
 "explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında maddeler";
-"explore-feed-preferences-languages-footer-text" = "Tüm Keşfet akış kartlarını tüm dillerinde gizlemek Keşfet sekmesini kapatır.";
 "explore-feed-preferences-on-this-day-description" = "Tarihte bugün gerçekleşen olaylar";
 "explore-feed-preferences-places-description" = "Bulunduğunuz yere yakın Vikipedi maddeleri";
 "explore-feed-preferences-potd-description" = "Commons'ta günün seçkin resmi";
@@ -586,16 +582,7 @@
 "explore-feed-preferences-suggested-edits-description" = "Vikipedi'ye içerik eklemek için öneriler";
 "explore-feed-preferences-suggested-edits-title" = "Önerilen düzenlemeler kartını göster";
 "explore-feed-preferences-top-read-description" = "Günün en çok okunan maddeleri";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Keşfet akışını kapat";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Tüm Keşfet besleme kartlarını gizlemek Keşfet sekmesini kapatır ve bunu Ayarlar sekmesiyle değiştirir.";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Keşfet akışı kapatılsın mı?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Arama sekmesini kapat";
-"explore-feed-preferences-turn-off-explore-tab-message" = "Keşfet sekmesi, Keşfet akış ayarlarında tekrar etkinleştirilebilir";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Keşfet sekmesi kapatılsın mı?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Keşfet sekmesini kapatmak, Keşfet sekmesini Ayarlar sekmesiyle değiştirir.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Keşfet akış kartlarını gösteri seçerek Keşfet sekmesini aktif hâle getirmektesiniz";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Arama sekmesini aç";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Bu, Keşfet sekmesiyle Ayarlar sekmesinin yerini alacak, dişli simgesine dokunarak Keşfet sekmesinin üst kısmındaki Ayarlar'a erişebilirsiniz.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Keşfet sekmesi açılsın mı?";
 "explore-games-title" = "Oyunlar";
 "explore-hide-card-prompt" = "Bu kartı gizle";
@@ -665,6 +652,7 @@
 "find-replace-header" = "Bul ve değiştir";
 "find-replace-header-close-accessibility" = "Kapat ve değiştir";
 "find-textfield-accessibility" = "Bul";
+"for-you-error-retry" = "Yeniden dene";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
 "forgot-password-instructions" = "Parola sıfırlama talimatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
@@ -685,8 +673,8 @@
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
 "history-clear-delete-all" = "Evet, tümünü sil";
 "history-title" = "Geçmiş";
-"home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
+"home-card-more-options-accessibility-label" = "Daha fazla seçenek";
 "home-community-tab-title" = "Topluluk";
 "home-edit-languages-title" = "Dil ekleyin veya düzenleyin";
 "home-feed-for-you-based-on-interests-subtitle" = "Seçtiğiniz konulara uygun maddeler.";
@@ -696,6 +684,7 @@
 "home-feed-for-you-continue-reading-subtitle" = "Bitirmediğiniz maddelere geri dönün";
 "home-feed-for-you-settings-header" = "Bir modülü devre dışı bırakmak, onu \"Size özel\" akışından gizler. Bu modülü istediğiniz zaman buradan yeniden etkinleştirebilirsiniz.";
 "home-feed-for-you-settings-title" = "Modüller";
+"home-feed-interests-deselect-all" = "Tüm seçimleri kaldır";
 "home-feed-interests-settings-empty-message" = "İlgi alanlarınız burada gösterilecektir.";
 "home-feed-interests-settings-title" = "İlgi alanlarınız";
 "home-feed-modules-featured-article-subtitle" = "Seçkin maddeler, editörler tarafından günlük olarak seçilen Vikipedi'nin en kaliteli maddeleridir";
@@ -726,12 +715,16 @@
 "home-feed-whats-driving-settings-title" = "Akışınızı ne belirliyor";
 "home-feed-whats-driving-your-interests-subtitle" = "İlgi alanı konularınızı düzenleyin";
 "home-feed-whats-driving-your-interests-title" = "İlgi alanlarınız";
+"home-for-you-next-module-accessibility-action" = "Sonraki parça";
+"home-for-you-previous-module-accessibility-action" = "Önceki parça";
 "home-for-you-tab-title" = "Size özel";
+"home-menu-hide-module" = "Parçayı gizle";
 "home-more-like-footer" = "$1 benzeri daha fazla madde";
 "home-nearby-footer" = "Konumunuza yakın daha fazla yer";
 "home-nearby-location-footer" = "$1 yakınından daha fazla";
 "home-news-footer" = "Gündemden daha fazla olay";
 "home-tab-title" = "Anasayfa";
+"home-tab-title-accessibility-label" = "Vikipedi, Ana Sayfanın başına kaydırın";
 "home-themes-action-title" = "Tercihleri yönet";
 "home-themes-prompt" = "Yazı araç çubuğundan veya kullanıcı ayarlarınızdan metin boyutu ve teması da dahil olmak üzere Okuma tercihlerinizi daha rahat bir okuma deneyimi için ayarlayın.";
 "home-title" = "Keşfet";
@@ -1008,6 +1001,8 @@
 "on-this-day-no-internet-error" = "Veri yok";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
+"one-time-onboarding-feature-control-title" = "İpleri elinde tut";
+"one-time-onboarding-feature-name-title" = "Yeni bir ad";
 "open-article" = "Maddeyi aç";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
 "page-history-bot-edits" = "bot";
@@ -1098,6 +1093,7 @@
 "project-name-wikiversity" = "Vikiversite";
 "project-name-wikivoyage" = "Vikigezgin";
 "project-name-wiktionary" = "Vikisözlük";
+"reading-challenge-random-article-button" = "Rastgele madde";
 "reading-challenge-random-button" = "Rastgele";
 "reading-list-add-generic-hint-title" = "Bu makaleyi bir okuma listesine eklemek istediğinize emin misiniz?";
 "reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";
@@ -1109,8 +1105,6 @@
 "reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
 "reading-list-api-error-list-limit" = "Senkronize edilen liste sayısı limitine ulaştığınız için bu liste senkronize edilmiyor.";
 "reading-list-create-new-list-button-title" = "Okuma listesi oluşturun";
-"reading-list-create-new-list-description" = "Açıklama";
-"reading-list-create-new-list-reading-list-name" = "Okuma listesinin adı";
 "reading-list-create-new-list-title" = "Yeni bir liste oluşturun";
 "reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
 "reading-list-detail-search-placeholder" = "Okuma listesinde ara";
@@ -1131,7 +1125,9 @@
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
 "reading-list-name-user-created-annotation" = "_[kullanıcı oluşturuldu]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
 "reading-list-sync-disabled-panel-message" = "Başka bir cihazda Vikipedi hesabınız için okuma listesi senkronizasyonu devre dışı bırakıldı. Ayarlarınızı güncelleyerek senkronizasyonu tekrar açabilirsiniz.";
 "reading-list-sync-disabled-panel-title" = "Senkronize devre dışı";
@@ -1401,7 +1397,6 @@
 "two-factor-login-title" = "Hesabınızda oturum açın";
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
-"unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "unknown-generic-text" = "Bilinmiyor";
 "unwatch" = "İzlemeyi durdur";
 "user-title" = "Kullanıcı";
@@ -1477,27 +1472,10 @@
 "watchlist-user-button-user-talk-page" = "Kullanıcı mesaj sayfası";
 "watchlist-watch-subtitle" = "Yıldıza ya da bir maddenin alt araç çubuğundaki \"İzle\" eylemine tıklayarak o sayfayı İzleme Listenize ekleyebilirsiniz.";
 "watchlist-watch-title" = "Maddeleri izle";
-"welcome-data-privacy-title" = "Veri & Gizlilik";
-"welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
-"welcome-exploration-on-this-day-description" = "Tarihte bugün neler olduğunu öğrenmek için geçmişe yolculuk yap";
-"welcome-exploration-on-this-day-title" = "Tarihte bugün";
-"welcome-exploration-places-description" = "Yakınınızdaki belirli noktaları keşfedin veya dünya genelinde yerler arayın";
-"welcome-exploration-places-title" = "Yerler sekmesi";
 "welcome-explore-continue-button" = "Kullanmaya başla";
-"welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
-"welcome-intro-free-encyclopedia-description" = "Vikipedi, gönüllüler tarafından ortaklaşa yazılmıştır ve 300'den fazla dilde 40 milyondan fazla maddeden oluşmaktadır.";
-"welcome-intro-free-encyclopedia-more" = "Vikipedi hakkında daha fazla şey öğren";
-"welcome-intro-free-encyclopedia-more-about" = "Vikipedi hakkında";
-"welcome-intro-free-encyclopedia-more-description" = "Vikipedi dünyanın tüm dillerinde özgür ansiklopediler oluşturmayı amaçlayan bir küresel projedir. İnternet erişimi olan herkes tarafsız ve kaynaklı bilgilerle katkı yaparak katılım sağlamakta özgürdür.";
-"welcome-intro-free-encyclopedia-title" = "Özgür ansiklopedi";
 "welcome-languages-add-button" = "Başka bir dil ekle";
-"welcome-languages-add-or-edit-button" = "Dil tercihi ekle veya düzenle";
-"welcome-languages-description" = "Cihazınızda şu dilleri bulduk:";
-"welcome-languages-search-title" = "300'den fazla dilde arama yapın";
-"welcome-privacy-subtitle" = "Ücretsiz bilgi hareketine katılmak için kişisel bilgilerinizi vermeniz gerekmediğine inanıyoruz. Bu uygulama için toplanan kullanım verilerinin kimliği bilinmez.";
-"welcome-privacy-terms-button-text" = "Gizlilik ilkemiz ve kullanım koşullarımız hakkında daha fazla bilgi edinin";
 "which-came-first-archive-day-score-a11y" = "Puan: 5 üzerinden $1";
 "which-came-first-archive-nav-title" = "Arşiv";
 "which-came-first-archive-subtitle" = "Haziran 2024'ten beri oyun oynanıyor.";

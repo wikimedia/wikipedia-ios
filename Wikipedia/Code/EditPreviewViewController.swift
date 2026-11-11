@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
 import WMFNativeLocalizations
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {

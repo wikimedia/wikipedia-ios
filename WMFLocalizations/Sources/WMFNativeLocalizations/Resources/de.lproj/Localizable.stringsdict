@@ -79,7 +79,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$#@v1@ Artikel zu einer Sammlung hinzufügen</string>
+		<string>%1$#@v1@ Artikel zu einer Leseliste hinzufügen</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -325,7 +325,7 @@
 	<key>donation-reminder-card-body</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Am %1$@ hast du uns gebeten, dich nach dem Lesen von %2$#@v2@ ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von %3$@ gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Versprechen heute ein.</string>
+		<string>Am %1$@ hast du uns gebeten, dich nach dem Lesen von %2$#@v2@ ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von %3$@ gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Zusage heute ein.</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -371,7 +371,7 @@
 	<key>evergreen-account-creation-activity-title-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Sehen Sie sich %1$#@v1@ in der Registerkarte „Aktivität“ erneut an</string>
+		<string>Sieh dir %1$#@v1@ in der Registerkarte „Aktivität“ erneut an</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -379,15 +379,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ihren %1$d zuletzt gelesenen Artikel</string>
+			<string>deinen %1$d zuletzt gelesenen Artikel</string>
 			<key>other</key>
-			<string>Ihre %1$d zuletzt gelesenen Artikel</string>
+			<string>deine %1$d zuletzt gelesenen Artikel</string>
 		</dict>
 	</dict>
 	<key>evergreen-account-creation-saved-title-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Synchronisieren Sie %1$#@v1@</string>
+		<string>Synchronisiere %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -395,15 +395,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ihren %1$d gespeicherten Artikel</string>
+			<string>deinen %1$d gespeicherten Artikel</string>
 			<key>other</key>
-			<string>Ihre %1$d gespeicherten Artikel</string>
+			<string>deine %1$d gespeicherten Artikel</string>
 		</dict>
 	</dict>
 	<key>evergreen-account-creation-year-in-review-title-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Sehen Sie %1$#@v1@ mit Leseaktivität im Jahresüberblick</string>
+		<string>Sieh %1$#@v1@ mit Leseaktivität im Jahresrückblick</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -411,9 +411,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ihr %1$d Tag</string>
+			<string>deinen %1$d Tag</string>
 			<key>other</key>
-			<string>Ihre %1$d Tage</string>
+			<string>deine %1$d Tage</string>
 		</dict>
 	</dict>
 	<key>home-feed-interests-selected-count</key>
@@ -433,7 +433,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$#@v1@ Artikel in eine Sammlung verschieben</string>
+		<string>%1$#@v1@ Artikel in eine Leseliste verschieben</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -697,7 +697,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$#@v1@ nicht zu dieser Sammlung hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Sammlung für %3$@ erreicht.</string>
+		<string>%1$#@v1@ nicht zu dieser Leseliste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -721,9 +721,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>einer Sammlung</string>
+			<string>einer Leseliste</string>
 			<key>other</key>
-			<string>%1$d Sammlungen</string>
+			<string>%1$d Leselisten</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -769,9 +769,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d Sammlung</string>
+			<string>%2$d Leseliste</string>
 			<key>other</key>
-			<string>%2$d Sammlungen</string>
+			<string>%2$d Leselisten</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -903,7 +903,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Das Löschen %1$#@v1@ aus allen verbundenen Sammlungen</string>
+		<string>Das Löschen %1$#@v1@ aus allen verbundenen Leselisten</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -928,6 +928,38 @@
 			<string>d</string>
 			<key>other</key>
 			<string>Artikel</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-contributors</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Mitwirkender</string>
+			<key>other</key>
+			<string>%1$d Mitwirkende</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-references</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Einzelnachweis</string>
+			<key>other</key>
+			<string>%1$d Einzelnachweise</string>
 		</dict>
 	</dict>
 	<key>tabs-navbar-title-format</key>
@@ -1004,6 +1036,164 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d Filter</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-biggest-reading-day-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast insgesamt %1$#@v1@ auf Wikipedia verbracht. Ganz schön produktiv, oder?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Minute</string>
+			<key>other</key>
+			<string>%1$d Minuten</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-collective-hours-read-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Zusammen haben Leser wie du in allen Sprachen schätzungsweise %1$#@v1@ mit dem Lesen von Wikipedia verbracht.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Jahr</string>
+			<key>other</key>
+			<string>%1$d Jahre</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-days-visited-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Am aktivsten warst du im %1$@, als du an %2$#@v2@ gelesen hast.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Tag</string>
+			<key>other</key>
+			<string>%2$d verschiedenen Tagen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-intro-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Danke, dass du im Jahr 2026 an %1$#@v1@ deine treue Wikipedia-App geöffnet hast.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Tag</string>
+			<key>other</key>
+			<string>%1$d Tagen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-minutes-read-comparison-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Das ist länger als %1$#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ganzer Tag</string>
+			<key>other</key>
+			<string>%1$d ganze Tage</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-time-article-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Im Laufe des Jahres 2026 hast du insgesamt %1$#@v1@ mit diesem Artikel verbracht!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Minute</string>
+			<key>other</key>
+			<string>%1$d Minuten</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-rabbit-hole-reveal-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ tief ist beeindruckend.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Link</string>
+			<key>other</key>
+			<string>%1$d Links</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-reread-articles-visit-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Besuch</string>
+			<key>other</key>
+			<string>%1$d Besuche</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-top-topic-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Von %1$@ bis %2$@: %3$#@v3@ sich um dieses Thema.</string>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%3$d deiner Artikel drehte</string>
+			<key>other</key>
+			<string>%3$d deiner Artikel drehten</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Damit gehörst du weltweit zu den Top %1$@ der Wikipedia-Leser. Im Durchschnitt liest ein Mensch %2$#@v2@ pro Jahr.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d Artikel</string>
 		</dict>
 	</dict>
 </dict>

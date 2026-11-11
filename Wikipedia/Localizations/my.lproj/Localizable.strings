@@ -337,7 +337,6 @@
 "empty-no-saved-pages-message" = "အင်တာနက်မရှိလျင်တောင်မှ နောက်ပိုင်းကြည့်ရှုရန် စာမျက်နှာများကို သိမ်းဆည်းပါ";
 "empty-no-saved-pages-title" = "စာမျက်နှာများကို မသိမ်းရသေးပါ";
 "empty-no-search-results-message" = "မည်သည့်ရလဒ်မျှ မရပါ";
-"empty-talk-page-title" = "ဤအသုံးပြုသူအတွက် စာတိုများ မတင်ရသေးပါ";
 "error-generic-recovery-suggestion" = "နောက်တခါ ထပ်မံကြိုးစားကြည့်ပါ";
 "error-unknown" = "အကြောင်းရင်းမသိရှိရသော အမှားတစ်ခု ဖြစ်ပေါ်ခဲ့သည်။";
 "explore-another-random" = "အခြားသော ကျပန်းဆောင်းပါး";
@@ -443,7 +442,6 @@
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
 "history-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
 "history-title" = "ရာဇဝင်";
-"home-button-explore-accessibility-label" = "ဝီကီပီးဒီးယား၊ စူးစမ်းရေးသို့ ပြန်သွားရန်";
 "home-button-saved-accessibility-label" = "ဝီကီပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်သွားရန်";
 "home-edit-languages-title" = "ဘာသာစကားများ ပေါင်းထည့်/တည်းဖြတ်";
 "home-feed-for-you-based-on-interests-title" = "သင့်၏ စိတ်ဝင်စားမှုများပေါ်တွင် အခြေခံပြီး";
@@ -754,8 +752,6 @@
 "reading-list-add-saved-title" = "သိမ်းထားသော ဆောင်းပါးများ တွေ့ရှိပါသည်";
 "reading-list-api-error-generic" = "သင်၏စာဖတ်စာရင်းကို sync လုပ်နေစဉ် မမျော်လင့်ထားသောအမှားတစ်ခု ဖြစ်ပွားခဲ့သည်။";
 "reading-list-create-new-list-button-title" = "စာဖတ်စာရင်း ဖန်တီးရန်";
-"reading-list-create-new-list-description" = "ဖော်ပြချက်";
-"reading-list-create-new-list-reading-list-name" = "စာရင်းနာမည်ကို ဖတ်နေသည်";
 "reading-list-create-new-list-title" = "စာရင်းသစ်တစ်ခု ဖန်တီးရန်";
 "reading-list-deleted-accessibility-notification" = "စာဖတ်စာရင်း ဖျက်ပြီးပြီ";
 "reading-list-do-not-keep-button-title" = "ဟင်းအင်း၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲမှ ဖျက်လိုက်ပါ။";
@@ -768,7 +764,9 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "မစီထားသော ဆောင်းပါးများအတွက် ကန့်သတ်ချက်ရောက်ပါပြီ";
 "reading-list-login-or-create-account-button-title" = "အကောင့်ထဲဝင်ရန် (သို့) အကောင့်ဖန်တီးရန်";
 "reading-list-name-user-created-annotation" = "_[အသုံးပြုသူ ဖန်တီးခဲ့သော]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "အရေးမကြီးသော ဖော်ပြချက်တို";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "စာရင်းထေါင်းစဉ် ဖတ်နေသည်";
 "reading-list-sync-disabled-panel-title" = "Sync လုပ်ဆောင်ချက် ပိတ်ထားပြီး";
 "reading-list-sync-enable-button-title" = "Sync လုပ်ခြင်းကို ဖွင့်ရန်";
@@ -918,7 +916,6 @@
 "two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
 "two-factor-login-with-backup-code" = "သင့်ရဲ့ အရန်ကုဒ်တွေထဲက တစ်ခုကို အသုံးပြုပါ";
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
-"unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
 "unknown-generic-text" = "အမည်မသိ";
 "user-title" = "အသုံးပြုသူ";
 "vanish-account-continue-button-title" = "ဆက်လက်";
@@ -957,21 +954,9 @@
 "watchlist-user-button-user-contributions" = "အသုံးပြုသူ ပံ့ပိုးမှုများ";
 "watchlist-user-button-user-page" = "အသုံးပြုသူ စာမျက်နှာ";
 "watchlist-user-button-user-talk-page" = "အသုံးပြုသူ ဆွေးနွေးချက် စာမျက်နှာ";
-"welcome-data-privacy-title" = "ဒေတာနှင့် ကိုယ်ရေးကိုယ်တာ";
-"welcome-exploration-explore-feed-description" = "ကျွန်ုပ်တို့၏အသိုင်းအဝိုင်းမှ အကြံပြု‌ထောက်ခံထားသော ဖတ်ရှုရန်နေ့စဉ်ဆောင်းပါးများ";
-"welcome-exploration-on-this-day-title" = "ယနေ့";
 "welcome-explore-continue-button" = "စတင်ပါ";
-"welcome-explore-new-ways-title" = "စူးစမ်းရန် နည်းလမ်းသစ်များ";
 "welcome-explore-tell-me-more-done-button" = "ရပြီဟေ့";
-"welcome-intro-free-encyclopedia-description" = "ဝီကီပီးဒီးယားကို စေတနာ့ဝန်ထမ်းများက ပူးပေါင်းရေးသားထားပြီး အနီးအနားရှိ ဘာသာစကားပေါင်း ၃၀၀ ကျော်တွင် ဆောင်းပါးပေါင်း ၄၀ မီလီယံကျော် တည်ရှိပါသည်။";
-"welcome-intro-free-encyclopedia-more" = "ဝီကီပီးဒီးယားအကြောင်း ပိုမိုလေ့လာရန်";
-"welcome-intro-free-encyclopedia-more-about" = "ဝီကီပီးဒီးယားအကြောင်း";
-"welcome-intro-free-encyclopedia-more-description" = "ဝီကီပီးဒီးယားသည် တစ်ကမ္ဘာလုံးရှိ ဘာသာစကားအားလုံးတွင် စွယ်စုံကျမ်းများကို အခမဲ့ဖန်တီးရန် ကမ္ဘာလုံးဆိုင်ရာ ပရောဂျက်တစ်ခုဖြစ်သည်။ အင်တာနက်ရှိသော မည်သူမဆို ဆောင်းပါးများကို ဘက်လိုက်မှုမရှိ ပြင်ဆင်ခြင်း၊ သတင်းအချက်အလက်များကို စိစစ်ခြင်းတို့ကို လုပ်ဆောင်နိုင်ပါသည်။";
-"welcome-intro-free-encyclopedia-title" = "အခမဲ့ လွတ်လပ်စွယ်စုံကျမ်း";
 "welcome-languages-add-button" = "အခြား ဘာသာစကား ထပ်ပေါင်းထည့်ရန်";
-"welcome-languages-add-or-edit-button" = "ပိုမိုနှစ်သက်သော ဘာသာစကားများကို ထည့်ပေါင်း (သို့) ပြင်ဆင်ရန်";
-"welcome-languages-description" = "သင်၏စက်ပစ္စည်းပေါ်တွင် အောက်ပါဘာသာစကားများကို တွေ့ရှိပါသည်။";
-"welcome-languages-search-title" = "ဘာသာစကား ၃၀၀ ကျော်တွင် ရှာဖွေရန်";
 "which-came-first-archive-nav-title" = "မော်ကွန်း";
 "which-came-first-log-in-button" = "အကောင့်ဝင်ရန်";
 "widget-onthisday-placeholder-article-snippet" = "မည်သူမဆိုတည်းဖြတ်နိုင်သော အခမဲ့အွန်လိုင်းစွယ်စုံကျမ်း";

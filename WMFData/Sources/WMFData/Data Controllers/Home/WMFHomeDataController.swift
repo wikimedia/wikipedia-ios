@@ -1,11 +1,6 @@
 import Foundation
-import WMFTestKitchen
 
 @objc public final actor WMFHomeDataController {
-    public enum HomeTabExperimentAssignment {
-        case control
-        case groupB
-    }
 
     private let feedDataController: any WMFFeedDataControlling
     private let basicService: WMFService?
@@ -21,16 +16,12 @@ import WMFTestKitchen
         try? WMFPageViewsDataController()
     }
 
-    // Accessed only from `nonisolated` UserDefaults helpers below; WMFKeyValueStore is not Sendable.
-    nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
+    nonisolated private let userDefaultsStore: WMFKeyValueStore?
 
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
     private var communityFetchedDates: [WMFProject: [Date]] = [:]
 
     @objc public static let shared = WMFHomeDataController()
-
-    // Written once by assignExperiment() on the main thread at launch, before any concurrent reads.
-    nonisolated(unsafe) private var homeTabAssignment: HomeTabExperimentAssignment = .control
 
     public init(
         feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
@@ -60,51 +51,12 @@ import WMFTestKitchen
             }
         }
     }
-    
-    /// Forces the persisted experiment bucket before the shared singleton is initialized.
-    /// Must be called before the first access to `WMFHomeDataController.shared`.
-    /// Used in UITesting
-    public static func forceExperimentAssignment(_ assignment: HomeTabExperimentAssignment) {
-        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
-        let controller = WMFExperimentsDataController(store: store)
-        let forceValue: WMFExperimentsDataController.BucketValue = assignment == .groupB ? .homeTabGroupB : .homeTabControl
-        _ = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50, forceValue: forceValue)
-    }
-    
-    public nonisolated func assignExperiment() {
-        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
-        let controller = WMFExperimentsDataController(store: store)
-        let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
-        homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
-    }
-
-    public nonisolated var experimentData: ExperimentData {
-        ExperimentData(enrolled: "ios-home-feed", assigned: homeTabAssignment == .groupB ? "treatment" : "control")
-    }
-
-    public nonisolated func logExperimentExposure() {
-        WMFDataEnvironment.current.testKitchenClient?.getInstrument(name: "apps-home-feed")
-            .submitInteraction(
-                action: "experiment_exposure",
-                experimentData: experimentData
-            )
-    }
 
     private func invalidateForYouCache(project: WMFProject?) {
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let target = project ?? selectedLanguage().map { WMFProject.wikipedia($0) }
         guard let target else { return }
         try? store.remove(key: forYouCacheKey(for: target))
-    }
-
-    @objc public nonisolated var isHomeTabGroupB: Bool {
-        homeTabAssignment == .groupB
-    }
-
-    /// Returns the persisted bucket for the home tab experiment.
-    /// Safe to call from any synchronous context.
-    public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment {
-        homeTabAssignment
     }
 
     // MARK: - Settings: New Install Onboarding
@@ -382,7 +334,14 @@ import WMFTestKitchen
     }
 
     private var warmedTopicArticles: [String: WarmedTopicArticles] = [:]
-    private var warmedTopicWaiters: [String: [CheckedContinuation<[WMFRandomArticle], Error>]] = [:]
+    /// A caller that waits for a topic download in flight. The id lets a cancelled caller leave the line.
+    private struct TopicWaiter {
+        let id: UUID
+        let continuation: CheckedContinuation<[WMFRandomArticle], Error>
+    }
+
+    /// The callers of each topic download in flight, by key. A key is present while its download runs.
+    private var warmedTopicWaiters: [String: [TopicWaiter]] = [:]
     private var warmedRelatedPages: [String: WarmedRelatedPages] = [:]
     private var warmedRelatedWaiters: [String: [CheckedContinuation<[WMFRelatedPagesDataController.WMFRelatedPage], Error>]] = [:]
 
@@ -428,29 +387,59 @@ import WMFTestKitchen
 
         // Merge concurrent requests for the same group: the warm-up and a fetch that follows it
         // quickly must share one download.
-        if warmedTopicWaiters[key] != nil {
-            return try await withCheckedThrowingContinuation { continuation in
-                warmedTopicWaiters[key]?.append(continuation)
-            }
+        if warmedTopicWaiters[key] == nil {
+            startTopicDownload(for: topic, project: project, key: key)
         }
+        return try await waitForTopicArticles(key: key)
+    }
 
+    /// Starts the download of a topic in a task of its own. Every caller, the first one too, waits
+    /// for it in `warmedTopicWaiters`, so no caller can stop the download for the others: the
+    /// Discover run and the For You feed ask for the same topics, and a stopped run must not make
+    /// the feed fail. A download that no caller waits for any more still fills the warm cache.
+    private func startTopicDownload(for topic: WMFArticleTopic, project: WMFProject, key: String) {
         warmedTopicWaiters[key] = []
-        do {
-            let articles = try await fetchArticlesFromNetwork(for: topic, project: project)
-            warmedTopicArticles[key] = WarmedTopicArticles(date: Date(), articles: articles)
-            resumeWarmedTopicWaiters(key: key, with: .success(articles))
-            return articles
-        } catch {
-            resumeWarmedTopicWaiters(key: key, with: .failure(error))
-            throw error
+        Task {
+            let result: Result<[WMFRandomArticle], Error>
+            do {
+                result = .success(try await fetchArticlesFromNetwork(for: topic, project: project))
+            } catch {
+                result = .failure(error)
+            }
+            if case .success(let articles) = result {
+                warmedTopicArticles[key] = WarmedTopicArticles(date: Date(), articles: articles)
+            }
+            resumeWarmedTopicWaiters(key: key, with: result)
         }
+    }
+
+    /// Waits for the download in flight. A cancelled caller stops waiting with `CancellationError`,
+    /// while the download goes on for the other callers.
+    private func waitForTopicArticles(key: String) async throws -> [WMFRandomArticle] {
+        let waiterID = UUID()
+        return try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                warmedTopicWaiters[key]?.append(TopicWaiter(id: waiterID, continuation: continuation))
+            }
+        } onCancel: {
+            Task { await self.cancelTopicWaiter(key: key, id: waiterID) }
+        }
+    }
+
+    private func cancelTopicWaiter(key: String, id: UUID) {
+        guard var waiters = warmedTopicWaiters[key], let index = waiters.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+        let waiter = waiters.remove(at: index)
+        warmedTopicWaiters[key] = waiters
+        waiter.continuation.resume(throwing: CancellationError())
     }
 
     private func resumeWarmedTopicWaiters(key: String, with result: Result<[WMFRandomArticle], Error>) {
         let waiters = warmedTopicWaiters[key] ?? []
         warmedTopicWaiters[key] = nil
         for waiter in waiters {
-            waiter.resume(with: result)
+            waiter.continuation.resume(with: result)
         }
     }
 
@@ -670,7 +659,7 @@ import WMFTestKitchen
 
     /// Fetches random articles for display when no interest topics have been selected.
     public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
-        return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
+        return try await WMFRandomDataController(basicService: basicService).fetchRandomArticles(project: project)
     }
 
     /// Fetches articles matching a specific interest topic, reading from the warm cache when available.
@@ -718,10 +707,19 @@ import WMFTestKitchen
         ]
 
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
-        let response: WMFTopicArticlesAPIResponse = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<WMFTopicArticlesAPIResponse, Error>) in
-                continuation.resume(with: result)
+
+        // A cancelled caller stops the request, so a run with a time budget ends on time.
+        try Task.checkCancellation()
+        let cancellation = WMFRequestCancellation()
+        let response: WMFTopicArticlesAPIResponse = try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                let task = service.performCancellableDecodableGET(request: request) { (result: Result<WMFTopicArticlesAPIResponse, Error>) in
+                    continuation.resume(with: result)
+                }
+                cancellation.setTask(task)
             }
+        } onCancel: {
+            cancellation.cancel()
         }
         // A disambiguation page and the main page are not good content for a suggestion.
         return (response.query?.pages ?? []).filter { page in

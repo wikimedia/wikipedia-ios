@@ -86,12 +86,25 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     // MARK: - Header
 
-    @ViewBuilder
     private var header: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            headerTitle
+            if let subtitle = viewModel.subtitle {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.footnote, sized: dynamicTypeSize)))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Interests.subtitle)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var headerTitle: some View {
         if viewModel.selectedCount == 0 {
             Text(viewModel.headerTitle)
                 .font(Font(WMFFont.for(.boldTitle3, sized: dynamicTypeSize)))
                 .foregroundStyle(Color(uiColor: theme.text))
+                .accessibilityIdentifier(AccessibilityIdentifiers.Interests.headerTitle)
         } else if dynamicTypeSize.isAccessibilitySize {
             // Side-by-side would squeeze both labels into word-breaking columns at
             // accessibility sizes — stack them instead.
@@ -112,6 +125,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
         Text(viewModel.selectedCountTitle)
             .font(Font(WMFFont.for(.boldTitle3, sized: dynamicTypeSize)))
             .foregroundStyle(Color(uiColor: theme.text))
+            .accessibilityIdentifier(AccessibilityIdentifiers.Interests.selectedCount)
     }
 
     private var deselectAllButton: some View {
