@@ -55,6 +55,9 @@ jobs:
       actions: read
       contents: read
     name: Test WMFComponents and WMFData
+    outputs:
+      wmfcomponents: ${{ steps.wmfcomponents-tests.outcome }}
+      wmfdata: ${{ steps.wmfdata-tests.outcome }}
     steps:
       - uses: actions/checkout@v7
 
@@ -67,6 +70,7 @@ jobs:
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
       - name: Test WMFComponents
+        id: wmfcomponents-tests
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFComponents
@@ -80,8 +84,45 @@ jobs:
         run: scripts/lint-wmfdata-test-fixtures.sh
 
       - name: Test WMFData
+        id: wmfdata-tests
         if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' }}
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFData
           destination: ${{ steps.simulator.outputs.destination }}
+
+  # Branch protection on main requires checks named "Test WMFComponents" and
+  # "Test WMFData", the names of the per-scheme jobs this workflow used to have.
+  # These two jobs keep reporting those names from the shared packages job's
+  # results, on cheap Ubuntu runners, so PRs aren't left waiting for checks that
+  # never come. Once the required checks are switched to "Test WMFComponents
+  # and WMFData", delete both jobs and the test-packages outputs.
+  report-wmfcomponents:
+    needs: test-packages
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions: {}
+    name: Test WMFComponents
+    steps:
+      - name: Report the WMFComponents tests from "Test WMFComponents and WMFData"
+        env:
+          OUTCOME: ${{ needs.test-packages.outputs.wmfcomponents }}
+        run: |
+          echo "WMFComponents tests: ${OUTCOME:-did not run}"
+          test "${OUTCOME}" = "success"
+
+  report-wmfdata:
+    needs: test-packages
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions: {}
+    name: Test WMFData
+    steps:
+      # Skipped counts as a failure: the WMFData tests are skipped when the
+      # fixture lint fails, which used to fail the separate WMFData job.
+      - name: Report the WMFData tests from "Test WMFComponents and WMFData"
+        env:
+          OUTCOME: ${{ needs.test-packages.outputs.wmfdata }}
+        run: |
+          echo "WMFData tests: ${OUTCOME:-did not run}"
+          test "${OUTCOME}" = "success"
