@@ -7,9 +7,11 @@ struct WMFYearInReviewSlideView: View {
     var isCurrent: Bool = true
     /// Called with the value of `slide.lightContentFlag` after the slide loads.
     var onLightContentFlag: (@MainActor (Bool) -> Void)? = nil
-    /// False while VoiceOver runs. The pager then shows `slide.answer` as the next slide, because a
-    /// VoiceOver reader cannot tap an answer in the .riv.
-    var showsAnswerInPlace: Bool = true
+    var accessibilityFocus: AccessibilityFocusState<String?>.Binding? = nil
+    var onAccessibilityScroll: (@MainActor (Edge) -> Void)? = nil
+    var accessibilityScrollHint: String = ""
+    /// A VoiceOver reader cannot tap a card in the .riv. A double tap on the slide shows the answer.
+    var revealAccessibilityHint: String = ""
     var onAnswerShown: (@MainActor () -> Void)? = nil
     var donateButtonTitle: String = ""
     var isLoadingDonate: Bool = false
@@ -76,6 +78,7 @@ struct WMFYearInReviewSlideView: View {
                 }
                 riveView(slide, animation: animation, isShown: !isShowingAnswer)
             }
+            .modifier(answerSlideAccessibility)
             .task(id: articleThumbnails) {
                 await thumbnailLoader.load(articleThumbnails)
             }
@@ -90,7 +93,7 @@ struct WMFYearInReviewSlideView: View {
     }
 
     private var answer: WMFYearInReviewSlideViewModel? {
-        showsAnswerInPlace ? slide.answer : nil
+        slide.answer
     }
 
     private var articleThumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] {
@@ -130,6 +133,56 @@ struct WMFYearInReviewSlideView: View {
         )
         .opacity(isShown ? 1 : 0)
         .accessibilityHidden(!isShown)
+        .modifier(
+            WMFYearInReviewSlideFocusModifier(
+                // The slide and its answer are then one element. See `combinesAnswerForVoiceOver`.
+                focus: combinesAnswerForVoiceOver ? nil : accessibilityFocus,
+                id: state.id,
+                onScroll: onAccessibilityScroll,
+                hint: accessibilityScrollHint,
+                onActivate: nil
+            )
+        )
+    }
+
+    private var answerSlideAccessibility: WMFYearInReviewAnswerSlideAccessibilityModifier {
+        let shownState: WMFYearInReviewSlideViewModel = (isShowingAnswer ? answer : nil) ?? slide
+        var onActivate: (@MainActor () -> Void)?
+        if !isShowingAnswer {
+            onActivate = revealAnswerForVoiceOver
+        }
+        let focus = WMFYearInReviewSlideFocusModifier(
+            focus: accessibilityFocus,
+            id: slide.id,
+            onScroll: onAccessibilityScroll,
+            hint: isShowingAnswer ? accessibilityScrollHint : revealAccessibilityHint,
+            onActivate: onActivate
+        )
+        return WMFYearInReviewAnswerSlideAccessibilityModifier(
+            isEnabled: combinesAnswerForVoiceOver,
+            label: shownState.localizedStrings.accessibilityLabel ?? "",
+            focus: focus
+        )
+    }
+
+    /// While VoiceOver runs (`onAccessibilityScroll` is set), a slide and its answer are one element
+    /// whose label changes. VoiceOver kept the focus on the slide after the double tap and read
+    /// its old label, so a focus move to a second element did not work.
+    private var combinesAnswerForVoiceOver: Bool {
+        answer != nil && onAccessibilityScroll != nil
+    }
+
+    /// Shows the answer without the exit animation of the .riv. VoiceOver does not read a label
+    /// that changes on the focused element, so the answer is announced.
+    private func revealAnswerForVoiceOver() {
+        guard isCurrent, !isShowingAnswer, let label = answer?.localizedStrings.accessibilityLabel else { return }
+        isShowingAnswer = true
+        onAnswerShown?()
+        Task { @MainActor in
+            // After the sound that VoiceOver plays for the double tap.
+            try? await Task.sleep(for: .milliseconds(100))
+            AccessibilityNotification.Announcement(label).post()
+        }
     }
 
     private var placeholder: some View {
@@ -143,5 +196,53 @@ struct WMFYearInReviewSlideView: View {
         .foregroundStyle(Color(uiColor: slide.contentColor))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityHidden(true)
+    }
+}
+
+private struct WMFYearInReviewSlideFocusModifier: ViewModifier {
+
+    let focus: AccessibilityFocusState<String?>.Binding?
+    let id: String
+    let onScroll: (@MainActor (Edge) -> Void)?
+    let hint: String
+    let onActivate: (@MainActor () -> Void)?
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if let focus, let onScroll, let onActivate {
+            content
+                .accessibilityFocused(focus, equals: id)
+                .accessibilityScrollAction { edge in onScroll(edge) }
+                .accessibilityHint(hint)
+                .accessibilityAction { onActivate() }
+        } else if let focus, let onScroll {
+            content
+                .accessibilityFocused(focus, equals: id)
+                .accessibilityScrollAction { edge in onScroll(edge) }
+                .accessibilityHint(hint)
+        } else if let focus {
+            content.accessibilityFocused(focus, equals: id)
+        } else {
+            content
+        }
+    }
+}
+
+private struct WMFYearInReviewAnswerSlideAccessibilityModifier: ViewModifier {
+
+    let isEnabled: Bool
+    let label: String
+    let focus: WMFYearInReviewSlideFocusModifier
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if isEnabled {
+            content
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(label)
+                .modifier(focus)
+        } else {
+            content
+        }
     }
 }

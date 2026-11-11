@@ -1855,11 +1855,13 @@
 "year-in-review-2026-reread-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.";
 "year-in-review-2026-reread-articles-title" = "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.";
 "year-in-review-2026-reread-articles-visit-count" = "Shown under each article on the Year in Review slide of articles visited multiple times. $1 is replaced with the number of times the reader visited the article this year.";
+"year-in-review-2026-reveal-answer-accessibility-hint" = "VoiceOver hint on a Year in Review slide that asks the reader to guess, for example the rabbit hole slide. A double tap shows the answer.";
 "year-in-review-2026-runner-up-topics-title" = "Title of the Year in Review slide that lists the topics the reader read most after the top topic. The list of topics follows it.";
 "year-in-review-2026-saved-articles-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-title" = "Title of the Year in Review slide that shows the number of articles the reader saved this year. The number follows it.";
 "year-in-review-2026-share-text" = "Text the reader shares with their Year in Review highlights. $1 is replaced with a link to the Wikipedia app.";
+"year-in-review-2026-slide-accessibility-hint" = "VoiceOver hint on each Year in Review slide. A one-finger swipe does not change the slide.";
 "year-in-review-2026-store-card-button-title" = "Button on the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-store-card-subtitle" = "Subtitle of the Year in Review card that gives a discount on the Wikipedia store. $1 is replaced with a percentage, for example \"15%\".";
 "year-in-review-2026-store-card-title" = "Title of the Year in Review card that gives a discount on the Wikipedia store.";

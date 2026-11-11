@@ -60,7 +60,6 @@ struct YearInReviewAnnouncementViewModelFactory {
             animationAccessibilityLabel: headline,
             body: body,
             exploreButtonTitle: WMFLocalizedString("year-in-review-2026-announcement-explore", value: "Explore", comment: "Title of the button on the Year in Review announcement that opens Year in Review."),
-            wIconAccessibilityLabel: CommonStrings.plainWikipediaName,
             closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
             moreButtonAccessibilityLabel: CommonStrings.moreButton,
             learnMoreButtonTitle: CommonStrings.learnMoreTitle(),

@@ -575,12 +575,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(WMFArticleTopic.women.yearInReviewSentence == WMFArticleTopic.biography.yearInReviewSentence)
     }
 
-    @Test
-    func thePositionValueReadsAsOneBased() {
-        let strings = factory.makeLocalizedStrings()
-        #expect(strings.slidePositionAccessibilityValue(2, 5) == "2 of 5")
-    }
-
     // MARK: - Edits
 
     @Test

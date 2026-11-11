@@ -281,7 +281,6 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         WMFYearInReviewNavigationItems.configure(
             self,
             strings: WMFYearInReviewNavigationItems.Strings(
-                wIconAccessibilityLabel: viewModel.localizedStrings.wIconAccessibilityLabel,
                 closeButtonAccessibilityLabel: viewModel.localizedStrings.closeButtonAccessibilityLabel,
                 moreButtonAccessibilityLabel: viewModel.localizedStrings.moreButtonAccessibilityLabel,
                 learnMoreTitle: viewModel.localizedStrings.learnMoreButtonTitle,
