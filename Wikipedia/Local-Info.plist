@@ -57,8 +57,6 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
-		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
