@@ -6,10 +6,12 @@ on:
       - 'main'
       - 'release-candidate/**'
       - 'hotfix/**'
-  # Pushes to main fill the compilation cache that PR runs start from (see below).
-  push:
-    branches:
-      - 'main'
+  # A nightly run on main fills the compilation cache that PR runs start from (see
+  # below). It runs once a day, outside working hours, rather than on every merge,
+  # so it doesn't compete with PRs for macOS runners. It runs after the 02:00 UTC
+  # nightly UI tests. Scheduled runs always use the default branch (main).
+  schedule:
+    - cron: '17 4 * * *'
   workflow_dispatch:
 
 env:
@@ -25,11 +27,13 @@ env:
   # 420), and their build gained nothing, so for them restoring and saving the
   # cache would only add time.
   #
-  # Pushes to main build from an empty cache and save it, so a saved cache only
-  # ever holds one main build and cannot grow without bound. PR runs restore the
-  # newest main cache and never save, which also keeps PR runs from filling the
-  # repository's cache storage. (GitHub only lets a PR read caches saved on its
-  # base branch, so main is the one place a shared cache can come from.)
+  # The nightly run on main builds from an empty cache and saves it, so a saved
+  # cache only ever holds one main build and cannot grow without bound. PR runs
+  # restore the newest main cache and never save, which also keeps PR runs from
+  # filling the repository's cache storage. (GitHub only lets a PR read caches
+  # saved on its base branch, so main is the one place a shared cache can come
+  # from.) The cache is keyed by file contents, so a cache up to a day old still
+  # covers every file that hasn't changed since.
   COMPILATION_CACHE_PATH: "~/Library/Developer/Xcode/DerivedData/CompilationCache.noindex"
 
 concurrency:
@@ -65,7 +69,7 @@ jobs:
       # The cache steps never fail the job: without a cache, xcodebuild just
       # compiles from scratch.
       - name: Restore compilation cache
-        if: github.event_name != 'push'
+        if: github.event_name != 'schedule'
         continue-on-error: true
         uses: actions/cache/restore@v6
         with:
@@ -82,7 +86,7 @@ jobs:
           compilation-cache: "true"
 
       - name: Save compilation cache
-        if: ${{ !cancelled() && github.event_name == 'push' }}
+        if: ${{ !cancelled() && github.event_name == 'schedule' }}
         continue-on-error: true
         uses: actions/cache/save@v6
         with:
