@@ -36,6 +36,8 @@ struct YearInReviewSlideViewModelFactory {
         "topTopic": "top_topic",
         "topTopicEmpty": "top_topic_empty",
         "runnerUpTopics": "other_top_topics",
+        "biggestReadingDay": "biggest_reading_day",
+        "biggestReadingDayArticles": "biggest_reading_day_articles",
         "rabbitHoleGuess": "rabbit_hole_guess",
         "rabbitHoleReveal": "rabbit_hole_reveal",
         "rereadArticles": "revisited_articles",
@@ -75,9 +77,9 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, reading streak, articles visited multiple times, topic, rabbit hole, niche interest, edit and contributor slides have real data so far.
+    /// Only the total articles, days visited, reading streak, articles visited multiple times, topic, biggest reading day, rabbit hole, niche interest, edit and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
-    /// The days visited, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
+    /// The days visited, biggest reading day, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
     ///
@@ -145,6 +147,7 @@ struct YearInReviewSlideViewModelFactory {
             daysVisited: storedDaysVisited(in: report),
             readingStreak: storedReadingStreak(in: report),
             topTopics: storedTopTopics(in: report),
+            biggestReadingDay: storedBiggestReadingDay(in: report),
             rabbitHoles: storedRabbitHoles(in: report),
             nicheCategory: storedNicheCategory(in: report),
             rereadArticles: storedRereadArticles(in: report) ?? [],
@@ -167,6 +170,7 @@ struct YearInReviewSlideViewModelFactory {
         /// `nil` shows the empty reading streak slide.
         var readingStreak: WMFYearInReviewReadingStreakSlideData?
         var topTopics: WMFYearInReviewTopTopicsSlideData?
+        var biggestReadingDay: WMFYearInReviewBiggestReadingDaySlideData?
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
         var nicheCategory: WMFYearInReviewNicheCategorySlideData?
         var rereadArticles: [RereadArticle] = []
@@ -180,7 +184,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
-    /// not in the flow: time spent, reading pattern, biggest reading day,
+    /// not in the flow: time spent, reading pattern,
     /// longest read, geography, saved and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
@@ -191,6 +195,7 @@ struct YearInReviewSlideViewModelFactory {
         }
         slides.append(readingStreakSlide(data.readingStreak))
         slides += topicSlides(data.topTopics)
+        slides += biggestReadingDaySlides(data.biggestReadingDay)
         slides += rabbitHoleSlides(data.rabbitHoles)
         if let nicheInterest = nicheInterestSlide(data.nicheCategory) {
             slides.append(nicheInterest)
@@ -593,6 +598,73 @@ struct YearInReviewSlideViewModelFactory {
             items: items,
             images: images,
             accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
+    // MARK: - Biggest reading day
+
+    /// The biggest reading day, from the report the app fills in the background. `nil` when the
+    /// report does not have these slides yet.
+    private func storedBiggestReadingDay(in report: WMFYearInReviewReport?) -> WMFYearInReviewBiggestReadingDaySlideData? {
+        storedSlideData(.biggestReadingDay, as: WMFYearInReviewBiggestReadingDaySlideData.self, logName: "biggest reading day", in: report)
+    }
+
+    /// The day slide, then the articles slide if the reader read at least two articles on that day.
+    /// Neither slide has an empty version.
+    func biggestReadingDaySlides(_ slideData: WMFYearInReviewBiggestReadingDaySlideData?, calendar: Calendar = .current) -> [WMFYearInReviewSlideViewModel] {
+        guard let slideData,
+              slideData.isEligible,
+              let date = calendar.date(from: slideData.dateComponents) else {
+            return []
+        }
+
+        var slides = [biggestReadingDaySlide(date: date, minuteCount: slideData.minuteCount)]
+        if slideData.showsArticles {
+            slides.append(biggestReadingDayArticlesSlide(slideData.articles))
+        }
+        return slides
+    }
+
+    /// The date without the year, in the format of the device, for example "March 7".
+    private static let monthDayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+        return formatter
+    }()
+
+    private func biggestReadingDaySlide(date: Date, minuteCount: Int) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewBiggestReadingDayTitle
+        let day = Self.monthDayFormatter.string(from: date)
+        let bodyText = CommonStrings.yearInReviewBiggestReadingDaySubtitle(minuteCount: minuteCount)
+        return dataSlide(
+            id: "biggestReadingDay",
+            artboard: "frame8",
+            stateMachine: "frame8-statemachine",
+            headline: headline,
+            data: day,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(day). \(bodyText)"
+        )
+    }
+
+    private func biggestReadingDayArticlesSlide(_ articles: [WMFYearInReviewBiggestReadingDaySlideData.Article]) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewArticlesReadTitle
+        let shownArticles = Array(articles.prefix(Self.maximumListItems))
+        let items = shownArticles.map { ListItem(title: $0.title, subtitle: $0.description ?? "") }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        for (index, article) in shownArticles.enumerated() {
+            guard let project = article.project else { continue }
+            thumbnails[ListImagePath.icon(index + 1)] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+        }
+        return listSlide(
+            id: "biggestReadingDayArticles",
+            artboard: "frame9",
+            stateMachine: "frame9-statemachine",
+            headline: headline,
+            bodyText: nil,
+            items: items,
+            articleThumbnails: thumbnails,
+            accessibilityLabel: listAccessibilityLabel(heading: headline, items: items)
         )
     }
 

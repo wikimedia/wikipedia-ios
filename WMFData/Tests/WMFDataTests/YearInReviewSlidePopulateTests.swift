@@ -746,6 +746,160 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertFalse(payload.isEligible)
     }
 
+    // MARK: - biggestReadingDay
+
+    private typealias BiggestReadingDayData = WMFYearInReviewBiggestReadingDaySlideData
+
+    private actor DescriptionRecorder {
+        private(set) var requestedTitles: [String] = []
+        func record(_ title: String) { requestedTitles.append(title) }
+    }
+
+    private func biggestReadingDayController(
+        mainPageIdentifier: WMFMainPageIdentifying? = nil,
+        recorder: DescriptionRecorder = DescriptionRecorder(),
+        failingTitles: Set<String> = []
+    ) -> YearInReviewBiggestReadingDaySlideDataController {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewBiggestReadingDaySlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        controller.fetchDescription = { _, title in
+            await recorder.record(title)
+            if failingTitles.contains(title) {
+                throw URLError(.notConnectedToInternet)
+            }
+            return "About \(title)"
+        }
+        return controller
+    }
+
+    private func biggestReadingDayPayload(_ controller: YearInReviewBiggestReadingDaySlideDataController) async throws -> BiggestReadingDayData {
+        let payload = try decode(BiggestReadingDayData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    private func seedReadingTime(_ title: String, seconds: Int, at date: Date, namespaceID: Int16 = 0, project: WMFProject? = nil) async throws {
+        let pageViewsDataController = try WMFPageViewsDataController()
+        let pageViewID = try await pageViewsDataController.addPageView(title: title, namespaceID: namespaceID, project: project ?? enProject, previousPageViewObjectID: nil, timestamp: date)
+        try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: try XCTUnwrap(pageViewID), numberOfSeconds: Double(seconds))
+    }
+
+    func testBiggestReadingDayIsTheDayWithTheMostReadingTime() async throws {
+        // March 4: 2 + 3 + 1 + 4 minutes on four articles, Alpha twice.
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 180, at: try date(month: 3, day: 4, hour: 10))
+        try await seedReadingTime("Gamma", seconds: 60, at: try date(month: 3, day: 4, hour: 11))
+        try await seedReadingTime("Alpha", seconds: 240, at: try date(month: 3, day: 4, hour: 20))
+        try await seedReadingTime("Delta", seconds: 30, at: try date(month: 3, day: 4, hour: 21))
+        // More page views, but less time.
+        for hour in 8...16 {
+            try await seedReadingTime("Epsilon", seconds: 60, at: try date(month: 6, day: 1, hour: hour))
+        }
+
+        let recorder = DescriptionRecorder()
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(recorder: recorder))
+
+        XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 3, day: 4))
+        XCTAssertEqual(payload.minuteCount, 10, "630 seconds are 10 whole minutes")
+        XCTAssertEqual(payload.articleCount, 4)
+        XCTAssertEqual(payload.articles, [
+            BiggestReadingDayData.Article(title: "Alpha", projectID: enProject.id, description: "About Alpha"),
+            BiggestReadingDayData.Article(title: "Beta", projectID: enProject.id, description: "About Beta"),
+            BiggestReadingDayData.Article(title: "Gamma", projectID: enProject.id, description: "About Gamma")
+        ])
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertTrue(payload.showsArticles)
+        let requestedTitles = await recorder.requestedTitles
+        XCTAssertEqual(Set(requestedTitles), ["Alpha", "Beta", "Gamma"])
+    }
+
+    func testBiggestReadingDayLeavesOutMainPagesAndOtherNamespaces() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 60, at: try date(month: 3, day: 4, hour: 10))
+        try await seedReadingTime("Pagina_principale", seconds: 6000, at: try date(month: 5, day: 1, hour: 9), project: itProject)
+        try await seedReadingTime("Main_Page", seconds: 6000, at: try date(month: 5, day: 2, hour: 9))
+        try await seedReadingTime("Talk:Alpha", seconds: 6000, at: try date(month: 5, day: 3, hour: 9), namespaceID: 1)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(mainPageIdentifier: identifier))
+
+        XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 3, day: 4))
+        XCTAssertEqual(payload.minuteCount, 3)
+        XCTAssertEqual(payload.articles.map(\.title), ["Alpha", "Beta"])
+    }
+
+    func testBiggestReadingDayWithOneArticleShowsOnlyTheDay() async throws {
+        try await seedReadingTime("Alpha", seconds: 150, at: try date(month: 3, day: 4, hour: 9))
+
+        let recorder = DescriptionRecorder()
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(recorder: recorder))
+
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertFalse(payload.showsArticles)
+        XCTAssertNil(payload.articles.first?.description)
+        let requestedTitles = await recorder.requestedTitles
+        XCTAssertTrue(requestedTitles.isEmpty, "descriptions load only for the articles slide")
+    }
+
+    func testBiggestReadingDayUnderTwoMinutesIsNotEligible() async throws {
+        try await seedReadingTime("Alpha", seconds: 60, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 59, at: try date(month: 3, day: 4, hour: 10))
+
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController())
+
+        XCTAssertEqual(payload.minuteCount, 1)
+        XCTAssertFalse(payload.isEligible)
+        XCTAssertFalse(payload.showsArticles)
+    }
+
+    func testBiggestReadingDayWithoutReadingTimeHasNoData() async throws {
+        try await seedPageViews([pageView("Alpha", at: try date(month: 3, day: 4, hour: 9))])
+
+        let controller = biggestReadingDayController()
+        let payload = try await populatedPayload(controller)
+
+        XCTAssertNil(payload)
+        XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testBiggestReadingDayLeavesOutADescriptionThatFails() async throws {
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 60, at: try date(month: 3, day: 4, hour: 10))
+
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(failingTitles: ["Beta"]))
+
+        XCTAssertEqual(payload.articles.map(\.description), ["About Alpha", nil])
+        XCTAssertTrue(payload.showsArticles)
+    }
+
+    func testBiggestReadingDayOverTheMaximumIsNotEligible() {
+        let page = WMFPage(namespaceID: 0, projectID: enProject.id, title: "Alpha")
+        let when = Date(timeIntervalSince1970: 1_780_000_000)
+        let seconds = (BiggestReadingDayData.maximumMinuteCount + 1) * 60
+        let payload = YearInReviewBiggestReadingDaySlideDataController.slideData(readingTimes: [WMFPageViewReadingTime(page: page, timestamp: when, numberOfSeconds: seconds)], calendar: .current)
+
+        XCTAssertEqual(payload?.minuteCount, BiggestReadingDayData.maximumMinuteCount + 1)
+        XCTAssertEqual(payload?.isEligible, false)
+    }
+
+    func testBiggestReadingDayTieGoesToTheMoreRecentDay() throws {
+        let calendar = Calendar.current
+        let alpha = WMFPage(namespaceID: 0, projectID: enProject.id, title: "Alpha")
+        let beta = WMFPage(namespaceID: 0, projectID: enProject.id, title: "Beta")
+        let readingTimes = [
+            WMFPageViewReadingTime(page: alpha, timestamp: try date(month: 3, day: 4, hour: 9), numberOfSeconds: 300),
+            WMFPageViewReadingTime(page: alpha, timestamp: try date(month: 8, day: 1, hour: 9), numberOfSeconds: 150),
+            WMFPageViewReadingTime(page: beta, timestamp: try date(month: 8, day: 1, hour: 10), numberOfSeconds: 150)
+        ]
+
+        let payload = try XCTUnwrap(YearInReviewBiggestReadingDaySlideDataController.slideData(readingTimes: readingTimes, calendar: calendar))
+
+        XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 8, day: 1))
+        XCTAssertEqual(payload.articles.map(\.title), ["Beta", "Alpha"], "a tie between articles goes to the more recently read one")
+    }
+
     /// Inserts a second CDPage row for an article, with its own page view and topics. The app does not do this on
     /// purpose, but CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can.
     private func insertDuplicatePageRow(title: String, project: WMFProject, viewedAt timestamp: Date, topicLabels: [String]) async throws {
