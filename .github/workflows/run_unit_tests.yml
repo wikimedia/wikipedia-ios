@@ -47,6 +47,10 @@ jobs:
         if: matrix.scheme == 'WMFData'
         run: scripts/lint-wmfdata-test-fixtures.sh
 
+      # The runners are arm64 and the simulator is arm64, so an x86_64 slice is
+      # built but never run. The Test configuration resolves ONLY_ACTIVE_ARCH=NO
+      # (it was cloned from Release), which builds both slices of every target.
+      # Set on the command line so local Xcode builds are unaffected.
       - name: Test ${{ matrix.scheme }} scheme
         run: |
           echo "Running scheme: ${{ matrix.scheme }} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
@@ -56,6 +60,8 @@ jobs:
             -onlyUsePackageVersionsFromResolvedFile \
             -destination "${{ steps.simulator.outputs.destination }}" \
             -resultBundlePath "${{ matrix.scheme }}_TestResults" \
+            ARCHS=arm64 \
+            ONLY_ACTIVE_ARCH=YES \
             | xcpretty
           EXIT_CODE=${PIPESTATUS[0]}
           if [ "$EXIT_CODE" -ne 0 ]; then
