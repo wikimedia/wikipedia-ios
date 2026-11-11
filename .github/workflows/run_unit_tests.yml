@@ -62,8 +62,11 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
+      # The cache steps never fail the job: without a cache, xcodebuild just
+      # compiles from scratch.
       - name: Restore compilation cache
         if: github.event_name != 'push'
+        continue-on-error: true
         uses: actions/cache/restore@v6
         with:
           path: ${{ env.COMPILATION_CACHE_PATH }}
@@ -80,6 +83,7 @@ jobs:
 
       - name: Save compilation cache
         if: ${{ !cancelled() && github.event_name == 'push' }}
+        continue-on-error: true
         uses: actions/cache/save@v6
         with:
           path: ${{ env.COMPILATION_CACHE_PATH }}
