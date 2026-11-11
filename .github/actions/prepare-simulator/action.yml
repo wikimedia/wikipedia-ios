@@ -32,6 +32,29 @@ runs:
       run: |
         sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
+    # The runner image ships simulator devices for every platform, but the project only
+    # builds for iOS. Every xcodebuild call loads the whole device list, and for each
+    # tvOS, watchOS or visionOS device whose runtime isn't loaded it logs a
+    # DVTAssertions "SimDevice native architecture is nil" warning. Those warnings came
+    # alongside xcodebuild calls that took up to about 2 minutes to start, so the
+    # devices are deleted first. iOS devices are kept, and so are the runtimes.
+    # This never fails the job.
+    - name: Remove simulators for other platforms
+      shell: bash
+      continue-on-error: true
+      run: |
+        START=$(date +%s)
+        UDIDS=$(xcrun simctl list devices -j \
+          | jq -r '.devices | to_entries[] | select(.key | test("\\.SimRuntime\\.iOS-") | not) | .value[].udid')
+        COUNT=$(printf '%s\n' "${UDIDS}" | grep -c . || true)
+        echo "Deleting ${COUNT} tvOS, watchOS and visionOS simulator devices."
+        if [ "${COUNT}" -gt 0 ]; then
+          printf '%s\n' "${UDIDS}" | xargs -n 1 -P 8 xcrun simctl delete || true
+        fi
+        # Devices whose runtime is missing altogether can't be used either.
+        xcrun simctl delete unavailable || true
+        echo "Done in $(( $(date +%s) - START ))s."
+
     - name: List available simulators
       shell: bash
       run: |
