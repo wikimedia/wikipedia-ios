@@ -151,6 +151,8 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         public let visualEditorEnabled: Bool?
         public let semanticSearchLanguages: [String]
         public let semanticSearchEnabled: Bool?
+        /// Turns the Discover experiment on. Nil keeps the experiment off.
+        public let discoverExperimentEnabled: Bool?
         /// The share of readers in the Discover experiment's control group, 0 to 100. Nil keeps
         /// the app default.
         public let discoverExperimentControlPercentage: Int?
@@ -166,11 +168,12 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let apiKey: String
         }
 
-        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) {
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil, discoverExperimentEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) {
             self.hCaptcha = hCaptcha
             self.visualEditorEnabled = visualEditorEnabled
             self.semanticSearchLanguages = semanticSearchLanguages
             self.semanticSearchEnabled = semanticSearchEnabled
+            self.discoverExperimentEnabled = discoverExperimentEnabled
             self.discoverExperimentControlPercentage = discoverExperimentControlPercentage
         }
 
@@ -179,6 +182,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             case visualEditorEnabled
             case semanticSearchLanguages = "semanticSearchLanguagesv2"
             case semanticSearchEnabled = "semanticSearchEnabledv2"
+            case discoverExperimentEnabled
             case discoverExperimentControlPercentage
         }
 
@@ -188,6 +192,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
             semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
             semanticSearchEnabled = try container.decodeIfPresent(Bool.self, forKey: .semanticSearchEnabled)
+            discoverExperimentEnabled = try container.decodeIfPresent(Bool.self, forKey: .discoverExperimentEnabled)
             discoverExperimentControlPercentage = try container.decodeIfPresent(Int.self, forKey: .discoverExperimentControlPercentage)
         }
     }

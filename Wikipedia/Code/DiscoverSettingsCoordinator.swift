@@ -49,6 +49,7 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
     }
 
     func showSettings(viewModel: WMFDiscoverSettingsViewModel) {
+        viewModel.loggingDelegate = self
         viewModel.didTapSource = { [weak self] in
             self?.showSource()
         }
@@ -97,6 +98,7 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
 
     /// Adjust to saved articles or reading history saves the source and ends the flow.
     func showSource(viewModel: WMFDiscoverSetupViewModel) {
+        viewModel.loggingDelegate = self
         viewModel.didChooseInterests = { [weak self, weak viewModel] in
             self?.showInterests(didGoBack: { viewModel?.undoChooseInterests() })
         }
@@ -117,7 +119,7 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
     /// switch goes on with interests as the source and no interest picked. The last two change
     /// the screen that pushes it before Done saves anything, so Back undoes that change.
     private func showInterests(didGoBack: (() -> Void)? = nil) {
-        let coordinator = DiscoverInterestsCoordinator(navigationController: navigationController, dataStore: dataStore)
+        let coordinator = DiscoverInterestsCoordinator(navigationController: navigationController, dataStore: dataStore, entry: .settings)
         coordinator.didFinish = { [weak self] in
             self?.leaveInterests()
         }
@@ -188,6 +190,7 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
             duration: 5,
             buttonTitle: CommonStrings.undo,
             buttonAction: { [weak self] in
+                DiscoverInstrumentation.shared.logSourceUndoTap()
                 self?.saveSource(previousSource)
             }
         )
@@ -229,5 +232,58 @@ final class DiscoverSettingsCoordinator: NSObject, Coordinator {
         case .history:
             return WMFLocalizedString("discover-settings-source-changed-toast-history", value: "Your recommendations are now based on your reading history.", comment: "Toast shown after the reader changes the source of the Discover reading list to their reading history.")
         }
+    }
+}
+
+// MARK: - WMFDiscoverSettingsLoggingDelegate
+
+extension DiscoverSettingsCoordinator: WMFDiscoverSettingsLoggingDelegate {
+    func discoverSettingsDidTurnOn() {
+        DiscoverInstrumentation.shared.logSettingsToggle(isOn: true)
+    }
+
+    func discoverSettingsDidTapTurnOff() {
+        DiscoverInstrumentation.shared.logSettingsToggle(isOn: false)
+    }
+
+    func discoverSettingsDidConfirmTurnOff() {
+        DiscoverInstrumentation.shared.logSettingsDisableConfirmTap()
+    }
+
+    func discoverSettingsDidCancelTurnOff() {
+        DiscoverInstrumentation.shared.logSettingsDisableCancelTap()
+    }
+
+    func discoverSettingsDidChangeArticleCount(_ articleCount: Int) {
+        DiscoverInstrumentation.shared.logSettingsArticleCountTap(articleCount: articleCount)
+    }
+
+    func discoverSettingsDidChangeCadence(_ cadence: WMFDiscoverCadence) {
+        DiscoverInstrumentation.shared.logSettingsCadenceTap(cadence: cadence)
+    }
+
+    func discoverSettingsDidTapInterests() {
+        DiscoverInstrumentation.shared.logSettingsInterestsTap()
+    }
+}
+
+// MARK: - WMFDiscoverSetupLoggingDelegate
+
+/// The source screen from Settings reports the source taps and the alert. The other callbacks belong to onboarding.
+extension DiscoverSettingsCoordinator: WMFDiscoverSetupLoggingDelegate {
+    func discoverSetupDidAppear() {}
+    func discoverSetupDidTapBack() {}
+    func discoverSetupDidTapContinue(source: WMFDiscoverSource) {}
+
+    func discoverSetupDidSelect(source: WMFDiscoverSource) {
+        DiscoverInstrumentation.shared.logSettingsSourceSelectTap(source)
+    }
+
+    func discoverSetupDidTapAdjust() {
+        DiscoverInstrumentation.shared.logSetupAdjustTap()
+    }
+
+    func discoverSetupDidCancelAdjust() {
+        DiscoverInstrumentation.shared.logSetupCancelAdjustTap()
     }
 }

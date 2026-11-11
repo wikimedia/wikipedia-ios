@@ -2,9 +2,10 @@ import Foundation
 import Combine
 import WMFData
 
+@MainActor
 public protocol WMFDiscoverEntryCardLoggingDelegate: AnyObject {
-    @MainActor func discoverEntryCardDidAppear()
-    @MainActor func discoverEntryCardDidTap()
+    func discoverEntryCardDidAppear()
+    func discoverEntryCardDidTap()
 }
 
 /// The pinned Discover card at the top of the Saved tab. It opens the Discover reading list and

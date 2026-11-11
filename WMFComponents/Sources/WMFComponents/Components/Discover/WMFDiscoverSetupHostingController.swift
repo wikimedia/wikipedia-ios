@@ -27,6 +27,15 @@ public final class WMFDiscoverSetupHostingController: WMFComponentHostingControl
         configureNavigationBar()
     }
 
+    /// Back pops the screen. The list that takes its place removes it while another screen covers
+    /// it, and that removal sends no appearance callback.
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isMovingFromParent {
+            viewModel.viewDidGoBack()
+        }
+    }
+
     public override func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
         view.backgroundColor = theme.paperBackground

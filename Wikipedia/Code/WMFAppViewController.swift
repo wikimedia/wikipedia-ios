@@ -2295,6 +2295,7 @@ extension WMFAppViewController {
             NavigationEventsFunnel.shared.logTappedPlaces()
         } else if rootViewController is WMFSavedHostingController {
             NavigationEventsFunnel.shared.logTappedSaved()
+            SavedInstrumentation.shared.logSavedTabTap()
         } else if rootViewController is WMFActivityTabViewController {
             NavigationEventsFunnel.shared.logTappedActivityTab()
         } else if rootViewController is SearchViewController {

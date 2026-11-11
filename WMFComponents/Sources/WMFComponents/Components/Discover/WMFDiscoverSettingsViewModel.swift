@@ -2,9 +2,23 @@ import SwiftUI
 import WMFData
 import WMFNativeLocalizations
 
+@MainActor
+public protocol WMFDiscoverSettingsLoggingDelegate: AnyObject {
+    func discoverSettingsDidTurnOn()
+    /// The switch went off. The alert asks for confirmation next.
+    func discoverSettingsDidTapTurnOff()
+    func discoverSettingsDidConfirmTurnOff()
+    func discoverSettingsDidCancelTurnOff()
+    func discoverSettingsDidChangeArticleCount(_ articleCount: Int)
+    func discoverSettingsDidChangeCadence(_ cadence: WMFDiscoverCadence)
+    func discoverSettingsDidTapInterests()
+}
+
 /// The Discover settings screen: the switch, the list size, the cadence and the source.
 @MainActor
 public final class WMFDiscoverSettingsViewModel: ObservableObject {
+
+    public weak var loggingDelegate: WMFDiscoverSettingsLoggingDelegate?
 
     @Published public private(set) var settings: WMFDiscoverSettings
     /// The number of interests the reader picked. Nil until it is read.
@@ -79,12 +93,16 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
             set: { [weak self] newValue in
                 guard let self else { return }
                 if newValue {
+                    if !self.settings.isEnabled {
+                        self.loggingDelegate?.discoverSettingsDidTurnOn()
+                    }
                     self.update { $0.isEnabled = true }
                     if self.settings.source == .interests, (self.interestCount ?? 0) == 0 {
                         self.didTurnOnWithoutInterests?()
                     }
                 } else {
                     // The switch stays on until the reader confirms.
+                    self.loggingDelegate?.discoverSettingsDidTapTurnOff()
                     self.isShowingTurnOffAlert = true
                 }
             }
@@ -94,6 +112,7 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     /// Turning off also throws the current list away, so the switch does not go through `update`.
     public func confirmTurnOff() {
         isShowingTurnOffAlert = false
+        loggingDelegate?.discoverSettingsDidConfirmTurnOff()
         settings.isEnabled = false
         enqueue { dataController in
             try await dataController.turnOff()
@@ -103,6 +122,7 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
 
     public func cancelTurnOff() {
         isShowingTurnOffAlert = false
+        loggingDelegate?.discoverSettingsDidCancelTurnOff()
     }
 
     /// Back on the interests screen that the switch opened. No interest was picked, so the switch
@@ -120,7 +140,11 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var articleCountBinding: Binding<Int> {
         Binding(
             get: { [weak self] in self?.settings.articleCount ?? WMFDiscoverSettings.defaultArticleCount },
-            set: { [weak self] newValue in self?.update { $0.articleCount = newValue } }
+            set: { [weak self] newValue in
+                guard let self, newValue != self.settings.articleCount else { return }
+                self.update { $0.articleCount = newValue }
+                self.loggingDelegate?.discoverSettingsDidChangeArticleCount(self.settings.articleCount)
+            }
         )
     }
 
@@ -129,7 +153,11 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var cadenceBinding: Binding<WMFDiscoverCadence> {
         Binding(
             get: { [weak self] in self?.settings.cadence ?? WMFDiscoverSettings.default.cadence },
-            set: { [weak self] newValue in self?.update { $0.cadence = newValue } }
+            set: { [weak self] newValue in
+                guard let self, newValue != self.settings.cadence else { return }
+                self.update { $0.cadence = newValue }
+                self.loggingDelegate?.discoverSettingsDidChangeCadence(newValue)
+            }
         )
     }
 
@@ -180,6 +208,7 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     }
 
     func tapInterests() {
+        loggingDelegate?.discoverSettingsDidTapInterests()
         didTapInterests?()
     }
 
