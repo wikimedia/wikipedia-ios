@@ -8,6 +8,10 @@ inputs:
   destination:
     description: xcodebuild destination, from the prepare-simulator action.
     required: true
+  compilation-cache:
+    description: '"true" to build with Xcode''s compilation cache turned on.'
+    required: false
+    default: "false"
 
 runs:
   using: composite
@@ -17,6 +21,7 @@ runs:
       env:
         SCHEME: ${{ inputs.scheme }}
         DESTINATION: ${{ inputs.destination }}
+        CACHE_SETTING: ${{ inputs.compilation-cache == 'true' && 'COMPILATION_CACHE_ENABLE_CACHING=YES' || '' }}
       run: |
         echo "Running scheme: ${SCHEME} on ${DESTINATION}"
         xcodebuild test \
@@ -25,6 +30,7 @@ runs:
           -onlyUsePackageVersionsFromResolvedFile \
           -destination "${DESTINATION}" \
           -resultBundlePath "${SCHEME}_TestResults" \
+          ${CACHE_SETTING} \
           | xcpretty
         EXIT_CODE=${PIPESTATUS[0]}
         if [ "$EXIT_CODE" -ne 0 ]; then

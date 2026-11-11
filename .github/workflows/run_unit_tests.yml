@@ -6,12 +6,31 @@ on:
       - 'main'
       - 'release-candidate/**'
       - 'hotfix/**'
+  # Pushes to main fill the compilation cache that PR runs start from (see below).
+  push:
+    branches:
+      - 'main'
   workflow_dispatch:
 
 env:
   XCODE_VERSION: "27.1"
   IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
+  # Xcode's compilation cache (Xcode 26+). It stores compiler outputs keyed by the
+  # content of their inputs, so unlike a DerivedData cache it still hits after
+  # actions/checkout gives every file a new modification date.
+  #
+  # Only the app job uses it. In a trial, a warm cache cut the app build from
+  # about 22.6 to 10.6 minutes. The packages compile far less (76 files against
+  # 420), and their build gained nothing, so for them restoring and saving the
+  # cache would only add time.
+  #
+  # Pushes to main build from an empty cache and save it, so a saved cache only
+  # ever holds one main build and cannot grow without bound. PR runs restore the
+  # newest main cache and never save, which also keeps PR runs from filling the
+  # repository's cache storage. (GitHub only lets a PR read caches saved on its
+  # base branch, so main is the one place a shared cache can come from.)
+  COMPILATION_CACHE_PATH: "~/Library/Developer/Xcode/DerivedData/CompilationCache.noindex"
 
 concurrency:
   group: "unit-tests-${{ github.ref }}"  # One group per branch
@@ -43,11 +62,28 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
+      - name: Restore compilation cache
+        if: github.event_name != 'push'
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ env.COMPILATION_CACHE_PATH }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
+          restore-keys: |
+            compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-
+
       - name: Test Wikipedia
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: Wikipedia
           destination: ${{ steps.simulator.outputs.destination }}
+          compilation-cache: "true"
+
+      - name: Save compilation cache
+        if: ${{ !cancelled() && github.event_name == 'push' }}
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ env.COMPILATION_CACHE_PATH }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
 
   test-packages:
     runs-on: xcode-27
