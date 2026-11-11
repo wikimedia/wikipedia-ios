@@ -361,8 +361,6 @@
 "reading-list-add-saved-button-title" = "Ναι, πρόσθεσέ τα στις λίστες ανάγνωσής μου";
 "reading-list-add-saved-title" = "Αποθηκευμένα λήμματα που βρέθηκαν";
 "reading-list-create-new-list-button-title" = "Δημιουργία λίστας ανάγνωσης";
-"reading-list-create-new-list-description" = "Περιγραφή";
-"reading-list-create-new-list-reading-list-name" = "Όνομα λίστας ανάγνωσης";
 "reading-list-create-new-list-title" = "Δημιουργία νέας λίστας";
 "reading-list-deleted-accessibility-notification" = "Η λίστα ανάγνωσης διεγράφη";
 "reading-list-exists-with-same-name" = "Το όνομα λίστας ανάγνωσης είναι ήδη σε χρήση";
@@ -373,7 +371,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ταξινόμηση λημμάτων";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Φτάστηκε το όριο για αταξινόμητα άρθρα";
 "reading-list-login-or-create-account-button-title" = "Συνδεθείτε ή δημιουργήστε λογαριασμό";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "προαιρετική σύντομη περιγραφή";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "τίτλος λίστας ανάγνωσης";
 "reading-list-sync-disabled-panel-title" = "Συγχρονισμός απενεργοποιημένων";
 "reading-list-sync-enable-button-title" = "Ενεργοποίηση συγχρονισμού";

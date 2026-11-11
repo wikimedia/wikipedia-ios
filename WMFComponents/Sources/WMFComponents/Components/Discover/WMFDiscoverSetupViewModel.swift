@@ -1,9 +1,18 @@
 import Foundation
 import WMFData
 
+@MainActor
 public protocol WMFDiscoverSetupLoggingDelegate: AnyObject {
-    @MainActor func discoverSetupDidAppear()
-    @MainActor func discoverSetupDidTapContinue(source: WMFDiscoverSource)
+    func discoverSetupDidAppear()
+    /// Back on the onboarding screen.
+    func discoverSetupDidTapBack()
+    /// A source was tapped, on the onboarding screen or on the screen from Settings.
+    func discoverSetupDidSelect(source: WMFDiscoverSource)
+    func discoverSetupDidTapContinue(source: WMFDiscoverSource)
+    /// Adjust on the alert that confirms a new source from Settings.
+    func discoverSetupDidTapAdjust()
+    /// Cancel on that alert.
+    func discoverSetupDidCancelAdjust()
 }
 
 /// The first Discover setup screen: how the reading list picks its articles.
@@ -90,6 +99,7 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
     /// because the current recommendations go away. Like on Android.
     public func select(_ source: WMFDiscoverSource) {
         guard availableSources.contains(source) else { return }
+        loggingDelegate?.discoverSetupDidSelect(source: source)
 
         switch presentation {
         case .onboarding:
@@ -115,6 +125,7 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
         guard let pendingSource else { return }
         self.pendingSource = nil
         selectedSource = pendingSource
+        loggingDelegate?.discoverSetupDidTapAdjust()
 
         switch pendingSource {
         case .interests:
@@ -127,6 +138,19 @@ public final class WMFDiscoverSetupViewModel: ObservableObject {
     public func cancelAdjust() {
         isShowingAdjustAlert = false
         pendingSource = nil
+        loggingDelegate?.discoverSetupDidCancelAdjust()
+    }
+
+    /// The reader left the screen with Back. Only the onboarding screen reports it.
+    public func viewDidGoBack() {
+        guard presentation == .onboarding else { return }
+        loggingDelegate?.discoverSetupDidTapBack()
+    }
+
+    /// Back on the interests screen that Adjust to interests opened. Nothing was saved, so the
+    /// row shows the saved source again.
+    public func undoChooseInterests() {
+        selectedSource = persistedSource
     }
 
     /// Saves the settings with the new source and reports the change against the source the

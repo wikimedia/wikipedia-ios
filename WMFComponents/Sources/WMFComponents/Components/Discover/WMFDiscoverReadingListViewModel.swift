@@ -5,7 +5,16 @@ import WMFData
 import WMFNativeLocalizations
 
 @MainActor
+public protocol WMFDiscoverReadingListLoggingDelegate: AnyObject {
+    /// The list is on screen with its articles. Once per visit, with the first load.
+    func discoverReadingListDidShow(itemCount: Int)
+}
+
+@MainActor
 public final class WMFDiscoverReadingListViewModel: ObservableObject {
+
+    public weak var loggingDelegate: WMFDiscoverReadingListLoggingDelegate?
+    private var didLogImpression = false
 
     public enum State: Equatable {
         case loading
@@ -140,6 +149,10 @@ public final class WMFDiscoverReadingListViewModel: ObservableObject {
             page.thumbnailURL.map { ImageUtils.thumbnailURL(from: $0, width: Self.collageImageWidth) }
         })
         state = loadedPages.isEmpty ? .empty : .loaded
+        if !didLogImpression {
+            didLogImpression = true
+            loggingDelegate?.discoverReadingListDidShow(itemCount: loadedPages.count)
+        }
     }
 
     // MARK: - Toast

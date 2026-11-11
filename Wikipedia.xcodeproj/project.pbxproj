@@ -473,6 +473,7 @@
 		675826822D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675826832D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
+		67D6B7C830A2922400B78E05 /* ReferenceHighlightJavaScriptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6B7C730A2922400B78E05 /* ReferenceHighlightJavaScriptTests.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
 		7A4414420000000000000047 /* DiscoverInterestsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */; };
 		7A4414420000000000000048 /* DiscoverInterestsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */; };
@@ -978,6 +979,7 @@
 		7A4414420000000000000007 /* SavedTabCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */; };
 		80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */; };
 		7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */; };
+		7A4414420000000000000A11 /* SavedCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000A10 /* SavedCoordinatorTests.swift */; };
 		7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */; };
 		7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004C /* InMemoryKeyValueStore.swift */; };
 		7A44B1C70000000000000002 /* YearInReviewSavedArticlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44B1C70000000000000001 /* YearInReviewSavedArticlesTests.swift */; };
@@ -1736,6 +1738,9 @@
 		B0BCF0AC2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */; };
 		B0BCF0AD2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */; };
 		B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */; };
+		7A44019526090000005CE026 /* AnalyticsInspectorWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE025 /* AnalyticsInspectorWindowTests.swift */; };
+		7A4401940000000000000019 /* DiscoverInstrumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000018 /* DiscoverInstrumentationTests.swift */; };
+		7A440194000000000000001B /* SavedInstrumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A440194000000000000001A /* SavedInstrumentationTests.swift */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
 		B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */; };
@@ -2516,6 +2521,15 @@
 		E7430460A0000000000000A2 /* WMFAuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7430460A0000000000000A1 /* WMFAuthenticationManagerTests.swift */; };
 		E7430460A0000000000000A4 /* ProfileTemporaryAccountUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7430460A0000000000000A3 /* ProfileTemporaryAccountUITests.swift */; };
 		E81A4C0226081900005CD002 /* DonationReminderSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */; };
+		7A44019526090000005CE022 /* AnalyticsInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE021 /* AnalyticsInspectorController.swift */; };
+		7A44019526090000005CE023 /* AnalyticsInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE021 /* AnalyticsInspectorController.swift */; };
+		7A44019526090000005CE024 /* AnalyticsInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44019526090000005CE021 /* AnalyticsInspectorController.swift */; };
+		7A4401940000000000000011 /* DiscoverInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000010 /* DiscoverInstrumentation.swift */; };
+		7A4401940000000000000012 /* DiscoverInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000010 /* DiscoverInstrumentation.swift */; };
+		7A4401940000000000000013 /* DiscoverInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000010 /* DiscoverInstrumentation.swift */; };
+		7A4401940000000000000015 /* SavedInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000014 /* SavedInstrumentation.swift */; };
+		7A4401940000000000000016 /* SavedInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000014 /* SavedInstrumentation.swift */; };
+		7A4401940000000000000017 /* SavedInstrumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4401940000000000000014 /* SavedInstrumentation.swift */; };
 		E81A4C0326081900005CD003 /* DonationReminderSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */; };
 		E81A4C0426081900005CD004 /* DonationReminderSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */; };
 		E81A4C0626082000005CD006 /* FundraisingAnnouncementDismissActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */; };
@@ -3105,6 +3119,7 @@
 		6758267F2D68F543002B0EE7 /* MWKLanguageLinkController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKLanguageLinkController+Extensions.swift"; sourceTree = "<group>"; };
 		675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleCoordinator.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
+		67D6B7C730A2922400B78E05 /* ReferenceHighlightJavaScriptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceHighlightJavaScriptTests.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		7A4414420000000000000046 /* DiscoverInterestsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInterestsCoordinator.swift; sourceTree = "<group>"; };
 		675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAllArticlesCoordinator.swift; sourceTree = "<group>"; };
@@ -3355,6 +3370,7 @@
 		7A4414420000000000000006 /* SavedTabCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabCharacterizationTests.swift; sourceTree = "<group>"; };
 		04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFComponentNavigationControllerTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSetupCoordinatorTests.swift; sourceTree = "<group>"; };
+		7A4414420000000000000A10 /* SavedCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInterestsCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004C /* InMemoryKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueStore.swift; sourceTree = "<group>"; };
 		7A44B1C70000000000000001 /* YearInReviewSavedArticlesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewSavedArticlesTests.swift; sourceTree = "<group>"; };
@@ -3729,6 +3745,9 @@
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
 		B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableEducationPanelViewController.swift; sourceTree = "<group>"; };
 		B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMapTests.swift"; sourceTree = "<group>"; };
+		7A44019526090000005CE025 /* AnalyticsInspectorWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsInspectorWindowTests.swift; sourceTree = "<group>"; };
+		7A4401940000000000000018 /* DiscoverInstrumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInstrumentationTests.swift; sourceTree = "<group>"; };
+		7A440194000000000000001A /* SavedInstrumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedInstrumentationTests.swift; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE471E428C940033BD6E /* WMFAccountCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountCreator.swift; sourceTree = "<group>"; };
@@ -4192,6 +4211,9 @@
 		E7430460A0000000000000A1 /* WMFAuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFAuthenticationManagerTests.swift; sourceTree = "<group>"; };
 		E7430460A0000000000000A3 /* ProfileTemporaryAccountUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTemporaryAccountUITests.swift; sourceTree = "<group>"; };
 		E81A4C0126081900005CD001 /* DonationReminderSetupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationReminderSetupCoordinator.swift; sourceTree = "<group>"; };
+		7A44019526090000005CE021 /* AnalyticsInspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsInspectorController.swift; sourceTree = "<group>"; };
+		7A4401940000000000000010 /* DiscoverInstrumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInstrumentation.swift; sourceTree = "<group>"; };
+		7A4401940000000000000014 /* SavedInstrumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedInstrumentation.swift; sourceTree = "<group>"; };
 		E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundraisingAnnouncementDismissActionTests.swift; sourceTree = "<group>"; };
 		E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewSlideViewModelFactoryTests.swift; sourceTree = "<group>"; };
 		E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewAnnouncementViewModelFactoryTests.swift; sourceTree = "<group>"; };
@@ -6163,6 +6185,9 @@
 				E8D15C1126101A00005CE111 /* ShareReadingListCoordinator.swift */,
 				E8D15C2126101A00005CE121 /* DiscoverSettingsCoordinator.swift */,
 				E81A4D2126081900005CE021 /* SearchInstrumentation.swift */,
+				7A44019526090000005CE021 /* AnalyticsInspectorController.swift */,
+				7A4401940000000000000010 /* DiscoverInstrumentation.swift */,
+				7A4401940000000000000014 /* SavedInstrumentation.swift */,
 				E81A4D1126081900005CE011 /* SearchSettingsCoordinator.swift */,
 				E81A4E0126081900005CF001 /* SemanticSearchInfoCoordinator.swift */,
 			);
@@ -7080,7 +7105,10 @@
 				7A440194000000000000000E /* DiscoverSettingsCoordinatorTests.swift */,
 				04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */,
 				7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */,
+				7A4414420000000000000A10 /* SavedCoordinatorTests.swift */,
 				7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */,
+				7A4401940000000000000018 /* DiscoverInstrumentationTests.swift */,
+				7A440194000000000000001A /* SavedInstrumentationTests.swift */,
 				7A441442000000000000004C /* InMemoryKeyValueStore.swift */,
 				7A4414420000000000000A0E /* RemoteNotificationRegistrationFailureTests.swift */,
 				7A4414420000000000000008 /* UITestReadingListsSeederTests.swift */,
@@ -7101,6 +7129,7 @@
 				E81A4C0526082000005CD005 /* FundraisingAnnouncementDismissActionTests.swift */,
 				E81A4E0526082000005CE005 /* SemanticSearchPassageHighlightTests.swift */,
 				E81A4E2526082000005CE025 /* SearchInstrumentationTests.swift */,
+				7A44019526090000005CE025 /* AnalyticsInspectorWindowTests.swift */,
 				A04881C1695CEC2F4FDF1A89 /* MWKImageInfoFetcherTests.swift */,
 				E81A4C0726082000005CD007 /* YearInReviewSlideViewModelFactoryTests.swift */,
 				E81A4C0926082000005CD009 /* YearInReviewAnnouncementViewModelFactoryTests.swift */,
@@ -7112,6 +7141,7 @@
 				D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */,
 				00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */,
 				00A8F5872E7A1C0000A0E1F2 /* WidgetFeedResilienceTests.swift */,
+				67D6B7C730A2922400B78E05 /* ReferenceHighlightJavaScriptTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -9104,6 +9134,7 @@
 				A452F9FD24081B0200D8ED09 /* MockUIDevice.swift in Sources */,
 				B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */,
 				B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */,
+				67D6B7C830A2922400B78E05 /* ReferenceHighlightJavaScriptTests.swift in Sources */,
 				67DAEDE827E8FB63005CF9B6 /* NotificationsCenterDetailViewModelWelcomeTests.swift in Sources */,
 				B0E809111C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m in Sources */,
 				B0E808951C0D16330065EBC0 /* NSArray+WMFShuffle.m in Sources */,
@@ -9129,6 +9160,9 @@
 				E81A4C0626082000005CD006 /* FundraisingAnnouncementDismissActionTests.swift in Sources */,
 				E81A4E0626082000005CE006 /* SemanticSearchPassageHighlightTests.swift in Sources */,
 				E81A4E2626082000005CE026 /* SearchInstrumentationTests.swift in Sources */,
+				7A44019526090000005CE026 /* AnalyticsInspectorWindowTests.swift in Sources */,
+				7A4401940000000000000019 /* DiscoverInstrumentationTests.swift in Sources */,
+				7A440194000000000000001B /* SavedInstrumentationTests.swift in Sources */,
 				3F4CF854EA7F9FA3057C8E58 /* MWKImageInfoFetcherTests.swift in Sources */,
 				E81A4C0826082000005CD008 /* YearInReviewSlideViewModelFactoryTests.swift in Sources */,
 				E81A4C0A26082000005CD00A /* YearInReviewAnnouncementViewModelFactoryTests.swift in Sources */,
@@ -9200,6 +9234,7 @@
 				7A440194000000000000000F /* DiscoverSettingsCoordinatorTests.swift in Sources */,
 				80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */,
 				7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */,
+				7A4414420000000000000A11 /* SavedCoordinatorTests.swift in Sources */,
 				7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */,
 				7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */,
 				7A4414420000000000000A0F /* RemoteNotificationRegistrationFailureTests.swift in Sources */,
@@ -9531,6 +9566,9 @@
 				E8D15C1426101A00005CE114 /* ShareReadingListCoordinator.swift in Sources */,
 				E8D15C2426101A00005CE124 /* DiscoverSettingsCoordinator.swift in Sources */,
 				E81A4D2426081900005CE024 /* SearchInstrumentation.swift in Sources */,
+				7A44019526090000005CE024 /* AnalyticsInspectorController.swift in Sources */,
+				7A4401940000000000000011 /* DiscoverInstrumentation.swift in Sources */,
+				7A4401940000000000000015 /* SavedInstrumentation.swift in Sources */,
 				E81A4D1426081900005CE014 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0426081900005CF004 /* SemanticSearchInfoCoordinator.swift in Sources */,
 				BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */,
@@ -10323,6 +10361,9 @@
 				E8D15C1326101A00005CE113 /* ShareReadingListCoordinator.swift in Sources */,
 				E8D15C2326101A00005CE123 /* DiscoverSettingsCoordinator.swift in Sources */,
 				E81A4D2326081900005CE023 /* SearchInstrumentation.swift in Sources */,
+				7A44019526090000005CE023 /* AnalyticsInspectorController.swift in Sources */,
+				7A4401940000000000000012 /* DiscoverInstrumentation.swift in Sources */,
+				7A4401940000000000000016 /* SavedInstrumentation.swift in Sources */,
 				E81A4D1326081900005CE013 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0326081900005CF003 /* SemanticSearchInfoCoordinator.swift in Sources */,
 				672428982362113900490629 /* DiffFetcher.swift in Sources */,
@@ -10867,6 +10908,9 @@
 				E8D15C1226101A00005CE112 /* ShareReadingListCoordinator.swift in Sources */,
 				E8D15C2226101A00005CE122 /* DiscoverSettingsCoordinator.swift in Sources */,
 				E81A4D2226081900005CE022 /* SearchInstrumentation.swift in Sources */,
+				7A44019526090000005CE022 /* AnalyticsInspectorController.swift in Sources */,
+				7A4401940000000000000013 /* DiscoverInstrumentation.swift in Sources */,
+				7A4401940000000000000017 /* SavedInstrumentation.swift in Sources */,
 				E81A4D1226081900005CE012 /* SearchSettingsCoordinator.swift in Sources */,
 				E81A4E0226081900005CF002 /* SemanticSearchInfoCoordinator.swift in Sources */,
 				372F04852D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */,

@@ -79,6 +79,7 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
             let selectedIDs = self.viewModel.selectedArticleIDs
             let selectedArticles: [WMFArticle]
             if !self.discoverPages.isEmpty {
+                DiscoverInstrumentation.shared.logSaveSheetSaveTap()
                 selectedArticles = Self.selectedArticles(of: self.discoverPages, selectedIDs: selectedIDs, dataStore: self.dataStore)
             } else {
                 selectedArticles = Self.selectedArticles(of: self.articles, selectedIDs: selectedIDs)
@@ -106,6 +107,9 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
         }
         presentingViewController.present(navigationController, animated: true)
         startImportIfNeeded()
+        if !discoverPages.isEmpty {
+            DiscoverInstrumentation.shared.logSaveSheetImpression(itemCount: discoverPages.count)
+        }
         return true
     }
 
@@ -128,7 +132,14 @@ final class CreateReadingListCoordinator: NSObject, Coordinator {
 
     private func close() {
         logCancelImportIfNeeded()
+        logDiscoverCancelIfNeeded()
         dismiss(animated: true)
+    }
+
+    private func logDiscoverCancelIfNeeded() {
+        if !discoverPages.isEmpty {
+            DiscoverInstrumentation.shared.logSaveSheetCancelTap()
+        }
     }
 
     private func logCancelImportIfNeeded() {
@@ -216,5 +227,6 @@ extension CreateReadingListCoordinator: UIAdaptivePresentationControllerDelegate
     /// A swipe down closes the form like the close button does.
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         logCancelImportIfNeeded()
+        logDiscoverCancelIfNeeded()
     }
 }

@@ -33,13 +33,16 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
             return
         }
         donateCount = getDonateCount(startDate: dateRange.start, endDate: dateRange.end)
+        // The donations are on the device, so a logged-out donor's slide is stored too.
+        isEvaluated = true
         
-        if let globalUserID {
+        if let globalUserID,
+           let editCountDateRange = WMFYearInReviewDataController.editCountDateRange(config: yirConfig) {
             do {
-                let dataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
-                editCount = try await dataController.fetchEditCount(startDate: dateRange.start, endDate: dateRange.end)
-                isEvaluated = true
+                let dataController = WMFGlobalEditorMetricsDataController(globalUserID: globalUserID)
+                editCount = try await dataController.fetchEditCount(startDate: editCountDateRange.start, endDate: editCountDateRange.end)
             } catch {
+                // Keep the stored slide, which has the last edit count, instead of storing one without it.
                 isEvaluated = false
             }
         }

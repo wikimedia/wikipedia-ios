@@ -25,6 +25,7 @@ private final class LoggingSpy: WMFYearInReviewLoggingDelegate {
     func logYearInReviewDidTapNext(slideLoggingID: String) { next.append(slideLoggingID) }
     func logYearInReviewDidTapDonate(slideLoggingID: String) { donate.append(slideLoggingID) }
     func logYearInReviewDidTapShare(slideLoggingID: String) { share.append(slideLoggingID) }
+    func logYearInReviewDidTapShareHighlights() {}
 }
 
 @MainActor
@@ -37,15 +38,16 @@ struct WMFYearInReviewViewModelTests {
 
     private static func strings() -> WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
-            wIconAccessibilityLabel: "Wikipedia",
             closeButtonAccessibilityLabel: "Close",
             moreButtonAccessibilityLabel: "More",
             shareButtonTitle: "Share",
+            shareHighlightsButtonTitle: "Share highlights",
             donateButtonTitle: "Donate",
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
-            slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
+            slideAccessibilityHint: "Swipe up or down with three fingers to change the slide.",
+            revealAnswerAccessibilityHint: "Double tap to reveal the answer."
         )
     }
 
@@ -256,17 +258,6 @@ struct WMFYearInReviewViewModelTests {
         #expect(logging.donate.isEmpty)
     }
 
-    // MARK: - Accessibility
-
-    @Test
-    func theSlidePositionReadsAsOneBased() {
-        let viewModel = makeViewModel()
-        #expect(viewModel.slidePositionAccessibilityValue == "1 of 3")
-
-        viewModel.currentSlideID = "slide2"
-        #expect(viewModel.slidePositionAccessibilityValue == "3 of 3")
-    }
-
     // MARK: - Donate button
 
     /// The slide-level half of the rule. `theCountryCheckHidesTheToolbarDonateButton` covers the region half.
@@ -433,7 +424,6 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.pagerSlides.map(\.id) == ["guess", "reveal", "last"])
         viewModel.currentSlideID = "reveal"
         #expect(viewModel.currentSlideIndex == 1)
-        #expect(viewModel.slidePositionAccessibilityValue == "2 of 3")
     }
 
     /// When VoiceOver turns off on the answer, the position is the slide that has the answer.

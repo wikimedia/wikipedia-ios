@@ -5,13 +5,25 @@ import UIKit
 @MainActor
 private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
     var appeared: [String] = []
+    var shared: [String] = []
+    var sharedHighlights = 0
 
     func logYearInReviewIntroDidTapLearnMore() {}
     func logYearInReviewSlideDidAppear(slideLoggingID: String) { appeared.append(slideLoggingID) }
     func logYearInReviewDidTapDone(slideLoggingID: String) {}
     func logYearInReviewDidTapNext(slideLoggingID: String) {}
     func logYearInReviewDidTapDonate(slideLoggingID: String) {}
-    func logYearInReviewDidTapShare(slideLoggingID: String) {}
+    func logYearInReviewDidTapShare(slideLoggingID: String) { shared.append(slideLoggingID) }
+    func logYearInReviewDidTapShareHighlights() { sharedHighlights += 1 }
+}
+
+@MainActor
+private final class EndCoordinatorSpy: WMFYearInReviewCoordinating {
+    var actions: [WMFYearInReviewAction] = []
+
+    func handleYearInReviewAction(_ action: WMFYearInReviewAction) {
+        actions.append(action)
+    }
 }
 
 @MainActor
@@ -23,15 +35,16 @@ struct WMFYearInReviewEndPageTests {
 
     private static func strings() -> WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
-            wIconAccessibilityLabel: "Wikipedia",
             closeButtonAccessibilityLabel: "Close",
             moreButtonAccessibilityLabel: "More",
             shareButtonTitle: "Share",
+            shareHighlightsButtonTitle: "Share highlights",
             donateButtonTitle: "Donate",
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
-            slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
+            slideAccessibilityHint: "Swipe up or down with three fingers to change the slide.",
+            revealAnswerAccessibilityHint: "Double tap to reveal the answer."
         )
     }
 
@@ -84,7 +97,6 @@ struct WMFYearInReviewEndPageTests {
         #expect(viewModel.isOnEnd)
         #expect(viewModel.currentPageIndex == 3)
         #expect(viewModel.currentSlideIndex == 2)
-        #expect(viewModel.slidePositionAccessibilityValue == "4 of 4")
     }
 
     // MARK: - End screen state
@@ -126,6 +138,78 @@ struct WMFYearInReviewEndPageTests {
         viewModel.endUsesLightContent = true
 
         #expect(viewModel.currentContentColor == WMFYearInReviewSlideViewModel.ContentStyle.light.color)
+    }
+
+    // MARK: - Share highlights
+
+    /// The view model keeps the coordinator as a weak reference, so the caller keeps the spy.
+    private func makeViewModel(coordinator: WMFYearInReviewCoordinating) -> WMFYearInReviewViewModel {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: [WMFYearInReviewSlideViewModel(id: "slide0", loggingID: "logging0")],
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { false }
+        )
+        viewModel.endViewModel = WMFYearInReviewEndViewModel(isContributor: false)
+        return viewModel
+    }
+
+    private static func highlights(articlesRead: Int? = 120, minutesRead: Int? = 900) -> WMFYearInReviewHighlights {
+        WMFYearInReviewHighlights(
+            articlesRead: articlesRead,
+            minutesRead: minutesRead,
+            rotation: [],
+            rabbitHole: nil,
+            nicheCategory: nil,
+            localizedStrings: .init(title: "", articlesReadLabel: "", minutesReadLabel: "", rotationLabel: "", rotationRank: { "\($0)" }, rabbitHoleLabel: "", nicheCategoryLabel: "", createdWith: "")
+        )
+    }
+
+    @Test
+    func theEndScreenSharesTheHighlights() {
+        let coordinator = EndCoordinatorSpy()
+        let viewModel = makeViewModel(coordinator: coordinator)
+        viewModel.highlights = Self.highlights()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
+        #expect(viewModel.showsShareHighlightsButton)
+        #expect(viewModel.showsShareButton == false, "the end screen has no toolbar share button")
+
+        let buttonFrame = CGRect(x: 100, y: 400, width: 180, height: 44)
+        viewModel.tappedShareHighlights(sourceRect: { buttonFrame })
+
+        #expect(logging.sharedHighlights == 1)
+        #expect(logging.shared.isEmpty, "a highlights share is not logged as a slide share")
+        if case .shareHighlights(let getSourceRect) = coordinator.actions.last {
+            #expect(getSourceRect() == buttonFrame, "the share sheet on iPad points at the button")
+        } else {
+            Issue.record("expected the highlights to be shared, got \(String(describing: coordinator.actions.last))")
+        }
+    }
+
+    @Test
+    func withoutHighlightsTheEndScreenHasNoShareButton() {
+        let coordinator = EndCoordinatorSpy()
+        let viewModel = makeViewModel(coordinator: coordinator)
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.tappedShareHighlights(sourceRect: { .zero })
+
+        #expect(viewModel.showsShareHighlightsButton == false, "the collective flow has no highlights")
+        #expect(coordinator.actions.isEmpty)
+        #expect(logging.sharedHighlights == 0)
+    }
+
+    @Test
+    func withOneHighlightTheEndScreenHasNoShareButton() {
+        let viewModel = makeViewModel()
+        viewModel.highlights = Self.highlights(minutesRead: nil)
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
+        #expect(viewModel.showsShareHighlightsButton == false)
     }
 
     @Test

@@ -993,16 +993,19 @@ import WMFTestKitchen
         guard let config = streamConfigs[stream] else {
             if stream == .productMetricsAppBase {
                 storageManager.push(data: data, stream: stream)
+                WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .recorded)
                 return
             }
 
             DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .unconfiguredStream)
+            WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .droppedUnconfiguredStream)
             return
         }
         guard samplingController.inSample(stream: stream, config: config) else {
             DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .notInSample)
+            WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .droppedNotInSample)
             return
         }
 
@@ -1016,6 +1019,7 @@ import WMFTestKitchen
         #endif
 
         storageManager.push(data: data, stream: stream)
+        WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .recorded)
     }
 }
 

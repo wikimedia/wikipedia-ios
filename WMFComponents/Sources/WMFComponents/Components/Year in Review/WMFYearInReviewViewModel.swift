@@ -18,40 +18,45 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let progressBarTopGap = WMFSpacing.medium
 
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
-    /// .riv, no logging, and no share or donate button.
+    /// .riv, no slide logging, and no toolbar buttons. Its own button shares the highlights.
     public static let endPageID = "yearInReviewEnd"
 
     public struct LocalizedStrings {
-        public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
         public let moreButtonAccessibilityLabel: String
         public let shareButtonTitle: String
+        public let shareHighlightsButtonTitle: String
         public let donateButtonTitle: String
         public let learnMoreButtonTitle: String
         public let aboutInsightsButtonTitle: String
         public let shareFeedbackButtonTitle: String
-        public let slidePositionAccessibilityValue: (Int, Int) -> String
+        /// Tells a VoiceOver reader how to change the slide. A one-finger swipe does not change it.
+        public let slideAccessibilityHint: String
+        /// On a slide with an answer, while VoiceOver runs. A double tap shows the answer.
+        public let revealAnswerAccessibilityHint: String
 
         public init(
-            wIconAccessibilityLabel: String,
             closeButtonAccessibilityLabel: String,
             moreButtonAccessibilityLabel: String,
             shareButtonTitle: String,
+            shareHighlightsButtonTitle: String,
             donateButtonTitle: String,
             learnMoreButtonTitle: String,
             aboutInsightsButtonTitle: String,
             shareFeedbackButtonTitle: String,
-            slidePositionAccessibilityValue: @escaping (Int, Int) -> String
+            slideAccessibilityHint: String,
+            revealAnswerAccessibilityHint: String
         ) {
-            self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
             self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.shareButtonTitle = shareButtonTitle
+            self.shareHighlightsButtonTitle = shareHighlightsButtonTitle
             self.donateButtonTitle = donateButtonTitle
             self.learnMoreButtonTitle = learnMoreButtonTitle
             self.aboutInsightsButtonTitle = aboutInsightsButtonTitle
             self.shareFeedbackButtonTitle = shareFeedbackButtonTitle
-            self.slidePositionAccessibilityValue = slidePositionAccessibilityValue
+            self.slideAccessibilityHint = slideAccessibilityHint
+            self.revealAnswerAccessibilityHint = revealAnswerAccessibilityHint
         }
     }
 
@@ -60,8 +65,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// The slide that shows its answer in place. The answer has its own logging ID.
     private var answerShownSlideID: String?
 
-    /// True while VoiceOver runs. `WMFYearInReviewView` sets it. A VoiceOver reader cannot tap an
-    /// answer in the .riv, so the answer of a slide is the next slide in the pager.
+    /// When true, the answer of a slide is the next slide in the pager. Nothing sets it now: with
+    /// VoiceOver, a double tap shows the answer in place, the same as a tap on a card.
     @Published var showsAnswersAsSlides = false
 
     /// The slides in the pager, in order. Without VoiceOver, a slide and its answer take one position.
@@ -85,6 +90,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     /// The end screen, shown as the page after the last slide. The coordinator sets it. `nil` means there is no end screen.
     @Published public var endViewModel: WMFYearInReviewEndViewModel?
+
+    /// What "Share highlights" on the end screen shares. The coordinator sets it. `nil` in the
+    /// collective flow, which has no highlights.
+    @Published public var highlights: WMFYearInReviewHighlights?
 
     /// The content style that each loaded slide reads from its .riv, by slide id.
     @Published private(set) var loadedContentStyles: [String: WMFYearInReviewSlideViewModel.ContentStyle] = [:]
@@ -243,10 +252,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return currentSlideIndex == max(pagerSlides.count - 1, 0)
     }
 
-    var slidePositionAccessibilityValue: String {
-        localizedStrings.slidePositionAccessibilityValue(currentPageIndex + 1, pageCount)
-    }
-
     var progressBarTopInset: CGFloat {
         topSafeAreaInset + Self.progressBarTopGap
     }
@@ -264,6 +269,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// the only action on the slide.
     var showsShareButton: Bool {
         showsShareButton(on: currentSlide)
+    }
+
+    /// The end screen shows "Share highlights" only with enough highlights.
+    var showsShareHighlightsButton: Bool {
+        highlights?.isShareable ?? false
     }
 
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
@@ -318,6 +328,12 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         guard let slide = currentShownSlide else { return }
         loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: currentLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
+    }
+
+    func tappedShareHighlights(sourceRect: @escaping @MainActor @Sendable () -> CGRect) {
+        guard showsShareHighlightsButton else { return }
+        loggingDelegate?.logYearInReviewDidTapShareHighlights()
+        coordinatorDelegate?.handleYearInReviewAction(.shareHighlights(getSourceRect: sourceRect))
     }
 
     func tappedDonate(sourceRect: @escaping @MainActor () -> CGRect) {
