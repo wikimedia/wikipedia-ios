@@ -748,8 +748,6 @@
 "reading-list-add-saved-title" = "သိမ်းထားသော ဆောင်းပါးများ တွေ့ရှိပါသည်";
 "reading-list-api-error-generic" = "သင်၏စာဖတ်စာရင်းကို sync လုပ်နေစဉ် မမျော်လင့်ထားသောအမှားတစ်ခု ဖြစ်ပွားခဲ့သည်။";
 "reading-list-create-new-list-button-title" = "စာဖတ်စာရင်း ဖန်တီးရန်";
-"reading-list-create-new-list-description" = "ဖော်ပြချက်";
-"reading-list-create-new-list-reading-list-name" = "စာရင်းနာမည်ကို ဖတ်နေသည်";
 "reading-list-create-new-list-title" = "စာရင်းသစ်တစ်ခု ဖန်တီးရန်";
 "reading-list-deleted-accessibility-notification" = "စာဖတ်စာရင်း ဖျက်ပြီးပြီ";
 "reading-list-do-not-keep-button-title" = "ဟင်းအင်း၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲမှ ဖျက်လိုက်ပါ။";
@@ -762,7 +760,9 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "မစီထားသော ဆောင်းပါးများအတွက် ကန့်သတ်ချက်ရောက်ပါပြီ";
 "reading-list-login-or-create-account-button-title" = "အကောင့်ထဲဝင်ရန် (သို့) အကောင့်ဖန်တီးရန်";
 "reading-list-name-user-created-annotation" = "_[အသုံးပြုသူ ဖန်တီးခဲ့သော]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "အရေးမကြီးသော ဖော်ပြချက်တို";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "စာရင်းထေါင်းစဉ် ဖတ်နေသည်";
 "reading-list-sync-disabled-panel-title" = "Sync လုပ်ဆောင်ချက် ပိတ်ထားပြီး";
 "reading-list-sync-enable-button-title" = "Sync လုပ်ခြင်းကို ဖွင့်ရန်";

@@ -201,8 +201,6 @@
 "page-protected-can-not-edit-title" = "এই পৃষ্ঠাটো সুৰক্ষিত";
 "page-similar-titles" = "একে ধৰণৰ পৃষ্ঠা";
 "places-empty-search-title" = "ৱিকিপিডিয়াৰ ভৌগোলিক অৱস্থানযুক্ত প্ৰবন্ধসমূহ অনুসন্ধান কৰক";
-// Fuzzy
-"reading-list-create-new-list-description" = "বিৱৰণ";
 "reading-list-create-new-list-title" = "এটা নতুন তালিকা সৃষ্টি কৰক";
 "relative-date-hours-abbreviated" = "$1 ঘণ্টা";
 "relative-date-hours-ago-abbreviated" = "$1 ঘণ্টা আগতে";

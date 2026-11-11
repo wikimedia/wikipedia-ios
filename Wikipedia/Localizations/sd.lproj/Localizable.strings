@@ -750,8 +750,6 @@
 "reading-list-add-saved-button-title" = "ھا، انھن کي منھنجي پڙھڻ جي فھرستن ۾ شامل ڪريو";
 "reading-list-add-saved-title" = "سانڍيل مضمون لڌا";
 "reading-list-create-new-list-button-title" = "پڙھڻ جي فھرست تخليقيو";
-"reading-list-create-new-list-description" = "تشريح";
-"reading-list-create-new-list-reading-list-name" = "پڙھڻ جي فھرست جو نالو";
 "reading-list-create-new-list-title" = "ڪا نئين فھرست تخليقيو";
 "reading-list-deleted-accessibility-notification" = "پڙھڻ جي فھرست ڊاٿي وئي";
 "reading-list-do-not-keep-button-title" = "نہ، مضمونن کي آلي مان ڊاھيو";
@@ -765,7 +763,9 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "غير مرتب مضمونن لاءِ آخري حد";
 "reading-list-login-or-create-account-button-title" = "داخل ٿيو يا کاتو کوليو";
 "reading-list-name-user-created-annotation" = "_[واپرائيندڙ سرجيل]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "مرضي مطابق مختصر تشريح";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "پڙھڻ جي فھرست جو عنوان";
 "reading-list-unable-to-create" = "توھان جي پڙھڻ جي فھرست سرجڻ دوران ھڪ غير متوقع چُڪَ پيش آئي. مھرباني ڪري بعد ۾ ٻيھر ڪوشش ڪريو.";
 "reading-list-unable-to-delete" = "توھان جي پڙھڻ جي فھرست ڊاھڻ وقت ڪا غير متوقع چڪ پيش آئي. مھرباني ڪري بعد ۾ ٻيھر ڪوشش ڪريو.";

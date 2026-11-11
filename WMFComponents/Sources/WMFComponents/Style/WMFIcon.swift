@@ -40,6 +40,8 @@ public enum WMFIcon {
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
     public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
     public static let share = UIImage(named: "swipe-action-share", in: .module, with: nil)
+    /// Three connected dots, from the Year in Review design. No SF Symbol has this shape.
+    static let yearInReviewShare = UIImage(named: "yir-share", in: .module, with: nil)
     public static let delete = UIImage(named: "swipe-action-delete", in: .module, with: nil)
 
     // Project icons
@@ -186,6 +188,10 @@ public enum WMFSFSymbolIcon {
     case docText
     case docOnDoc
     case chevronUpChevronDown
+    case listBulletRectanglePortrait
+    case arrowClockwise
+    case wrenchAdjustable
+    case squareGrid2x2
     case globe
     case newspaper
     case person2Fill
@@ -484,6 +490,14 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "doc.on.doc", withConfiguration: configuration)
         case .chevronUpChevronDown:
             image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
+        case .listBulletRectanglePortrait:
+            image = UIImage(systemName: "list.bullet.rectangle.portrait", withConfiguration: configuration)
+        case .arrowClockwise:
+            image = UIImage(systemName: "arrow.clockwise", withConfiguration: configuration)
+        case .wrenchAdjustable:
+            image = UIImage(systemName: "wrench.adjustable", withConfiguration: configuration)
+        case .squareGrid2x2:
+            image = UIImage(systemName: "square.grid.2x2", withConfiguration: configuration)
         case .globe:
             image = UIImage(systemName: "globe", withConfiguration: configuration)
         case .squareSplit:

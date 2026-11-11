@@ -1,10 +1,8 @@
 import Foundation
 
-/// Decides when the Discover reading list is due for a new generation. Mirrors the Android task:
-/// at least one day since the last generation, and the cadence's day has arrived.
+/// Decides when the Discover reading list is due for a new generation. A new list is due the
+/// first time the app opens in a new period: a new day, a week that starts on Monday, or a month.
 public enum WMFDiscoverSchedule {
-
-    static let minimumSecondsBetweenGenerations: TimeInterval = 60 * 60 * 24
 
     /// True when a new list is due. A list that was never generated is always due.
     public static func isGenerationDue(cadence: WMFDiscoverCadence, lastGeneratedDate: Date?, now: Date = Date(), calendar: Calendar = .current) -> Bool {
@@ -12,18 +10,24 @@ public enum WMFDiscoverSchedule {
             return true
         }
 
-        guard now.timeIntervalSince(lastGeneratedDate) >= minimumSecondsBetweenGenerations else {
+        guard let periodStart = periodStart(for: cadence, containing: now, calendar: calendar) else {
             return false
         }
 
+        return lastGeneratedDate < periodStart
+    }
+
+    private static func periodStart(for cadence: WMFDiscoverCadence, containing date: Date, calendar: Calendar) -> Date? {
         switch cadence {
         case .daily:
-            return true
+            return calendar.startOfDay(for: date)
         case .weekly:
-            // Android regenerates on Monday, whatever the locale's first weekday is.
-            return calendar.component(.weekday, from: now) == 2
+            // The week starts on Monday, whatever the locale's first weekday is.
+            var mondayCalendar = calendar
+            mondayCalendar.firstWeekday = 2
+            return mondayCalendar.dateInterval(of: .weekOfYear, for: date)?.start
         case .monthly:
-            return calendar.component(.day, from: now) == 1
+            return calendar.dateInterval(of: .month, for: date)?.start
         }
     }
 }

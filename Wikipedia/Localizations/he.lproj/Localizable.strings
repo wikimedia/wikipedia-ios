@@ -946,8 +946,6 @@
 "reading-list-api-error-generic" = "שגיאה בלתי צפויה אירעה בזמן סינכרון רשימות הקריאה שלך";
 "reading-list-api-error-list-limit" = "הרשימה הזאת לא סונכרנה משום שהגעת למגבלה של מספר הרשימות שניתן לסנכרן.";
 "reading-list-create-new-list-button-title" = "יצירת רשימת קריאה";
-"reading-list-create-new-list-description" = "תיאור";
-"reading-list-create-new-list-reading-list-name" = "שם רשימת הקריאה";
 "reading-list-create-new-list-title" = "יצירת רשימה חדשה";
 "reading-list-deleted-accessibility-notification" = "רשימת הקריאה נמחקה";
 "reading-list-detail-search-placeholder" = "חיפוש ברשימת קריאה";
@@ -968,7 +966,9 @@
 "reading-list-list-limit-reached" = "הגעת למגבלה של $1 רשימות קריאה לחשבון אחד";
 "reading-list-login-or-create-account-button-title" = "כניסה לחשבון או יצירת חשבון";
 "reading-list-name-user-created-annotation" = "_[המשתמש נוצר]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "תיאור קצר אופציונלי";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "כותרת רשימת הקריאה";
 "reading-list-sync-disabled-panel-message" = "סנכרון רשימות הקריאה של חשבון הוויקיפדיה שלך בוטל במכשיר אחר. באפשרותך להפעיל את הסנכרון מחדש באמצעות עדכון ההגדרות.";
 "reading-list-sync-disabled-panel-title" = "הסנכרון בוטל";

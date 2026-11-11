@@ -282,6 +282,54 @@
 			<string>%1$d lignes non éditées</string>
 		</dict>
 	</dict>
+	<key>discover-list-onboarding-toast-daily</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Vos recommandations sont stockées localement sur votre appareil.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> Découverte s'actualisera avec %1$d nouvel article chaque jour</string>
+			<key>other</key>
+			<string>Découverte s'actualisera avec %1$d nouveaux articles chaque jour</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-monthly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Vos recommandations sont stockées localement sur votre appareil.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> Découvertes'actualisera avec %1$d nouvel article chaque mois</string>
+			<key>other</key>
+			<string>Découverte s'actualisera avec %1$d nouvel article chaque mois</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-weekly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Vos recommandations sont stockées localement sur votre appareil.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> Découverte s'actualisera avec %1$d nouvel article chaque semaine</string>
+			<key>other</key>
+			<string>Découverte s'actualisera avec %1$d nouvel article chaque semaine</string>
+		</dict>
+	</dict>
 	<key>evergreen-account-creation-activity-title-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -360,6 +408,22 @@
 			<string>%1$d pied</string>
 			<key>other</key>
 			<string>%1$d pieds</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-meters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d mètre</string>
+			<key>other</key>
+			<string>%1$d mètres</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>

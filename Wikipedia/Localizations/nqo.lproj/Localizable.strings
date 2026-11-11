@@ -558,8 +558,6 @@
 "reading-list-add-saved-title" = "ߞߎߡߘߊ߫ ߟߊ߬ߡߙߊ߬ߣߍ߲ ߠߎ߬ ߠߎ߬ ߓߘߊ߫ ߛߐ߬ߘߐ߲߬";
 "reading-list-api-error-entry-limit" = "ߟߊ߬ߘߏ߲߬ߣߍ߲ ߣߌ߲߬ ߡߊ߫ ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ߫ ߞߵߊ߬ ߡߊߛߐ߬ߘߐ߲߬ ߌ ߓߘߊ߫ ߛߋ߫ ߞߊߓߋ߫ ߦߙߌߞߊ߫ ߟߊߘߏ߲߬ߣߍ߲ ߠߎ߬ ߞߐߘߊ߲ ߘߐ߫ ߛߙߍߘߍ ߣߌ߲߬ ߘߐ߫.";
 "reading-list-create-new-list-button-title" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߛߌ߲ߘߌ߫";
-"reading-list-create-new-list-description" = "ߞߊ߲߬ߛߓߍߟߌ";
-"reading-list-create-new-list-reading-list-name" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߕߐ߮";
 "reading-list-create-new-list-title" = "ߛߙߍߘߍ߫ ߞߎߘߊ ߘߏ߫ ߛߌ߲ߘߌ߫";
 "reading-list-deleted-accessibility-notification" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߓߘߊ߫ ߖߏ߰ߛߌ߬";
 "reading-list-do-not-keep-button-title" = "ߒ߬ߒ߫߸ ߞߎߡߘߊ ߟߎ߫ ߖߏ߰ߛߌ߬ ߞߍߟߊ߲ ߞߣߐ߫";
@@ -573,7 +571,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ߞߎߡߘߊ ߟߎ߬ ߢߣߊߕߐ߬ߡߐ߲߫";
 "reading-list-login-or-create-account-button-title" = "ߌ ߜߊ߲߬ߞߎ߲߫ ߥߟߊ߫ ߞߊ߬ ߖߊ߬ߕߋ߬ߘߊ ߟߊߞߊ߬";
 "reading-list-name-user-created-annotation" = "_[ߟߊ߬ߓߊ߰ߙߊ߬ߟߊ߬ ߛߌ߲ߘߌߣߍ߲]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "ߞߊ߬ߘߌߦߊߒߢߍ ߛߓߍߟߌ߫ ߛߎߘߎ߲";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߞߎ߲߬ߕߐ߮";
 "reading-list-sync-disabled-panel-title" = "ߕߎ߬ߡߊ߬ߡߐ߲߰ߦߊ ߓߘߊ߫ ߓߴߊ߬ ߟߊ߫";
 "reading-list-sync-enable-button-title" = "ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ ߓߌ߬ߟߵߊ߬ ߟߊ߫";

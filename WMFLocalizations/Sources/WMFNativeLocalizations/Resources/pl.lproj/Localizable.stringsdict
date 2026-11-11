@@ -576,5 +576,129 @@
 			<string>%2$d dni</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-intro-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dziękujemy za spędzenie %1$#@v1@ na czytaniu godnej zaufania Wikipedii w 2026 roku.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d dnia</string>
+			<key>other</key>
+			<string>%1$d dni</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-minutes-read-comparison-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>To dłużej niż %1$#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d pełne dni</string>
+			<key>one</key>
+			<string>cały dzień</string>
+			<key>other</key>
+			<string>%1$d pełnych dni</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-time-article-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Łącznie spędziłeś na tym artykule %1$#@v1@ w ciągu całego 2026 roku!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d minuty</string>
+			<key>one</key>
+			<string>%1$d minutę</string>
+			<key>other</key>
+			<string>%1$d minut</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-rabbit-hole-reveal-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Przejście przez %1$#@v1@ w głąb imponuje.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d linki</string>
+			<key>one</key>
+			<string>%1$d link</string>
+			<key>other</key>
+			<string>%1$d linków</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-reread-articles-visit-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d wizyty</string>
+			<key>one</key>
+			<string>%1$d wizyta</string>
+			<key>other</key>
+			<string>%1$d wizyt</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-top-topic-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Od %1$@ do %2$@, %3$d spośród przeczytanych przez Ciebie artykułów %3$#@v3@ z tym tematem.</string>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>były powiązane</string>
+			<key>one</key>
+			<string>był powiązany</string>
+			<key>other</key>
+			<string>było powiązanych</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>To plasuje Cię w czołowych %1$@ czytelników Wikipedii na świecie. Przeciętny człowiek czyta %2$#@v2@ rocznie.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%2$d artykuły</string>
+			<key>one</key>
+			<string>%2$d artykuł</string>
+			<key>other</key>
+			<string>%2$d artykułów</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

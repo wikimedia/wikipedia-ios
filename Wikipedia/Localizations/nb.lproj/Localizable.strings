@@ -863,8 +863,6 @@
 "reading-list-api-error-generic" = "En uventet feil oppsto under synkronisering av leselister.";
 "reading-list-api-error-list-limit" = "Denne listen synkroniseres ikke fordi du har nådd grensen for antall synkroniserte lister.";
 "reading-list-create-new-list-button-title" = "Opprett leseliste";
-"reading-list-create-new-list-description" = "Beskrivelse";
-"reading-list-create-new-list-reading-list-name" = "Navn på leseliste";
 "reading-list-create-new-list-title" = "Opprett en ny liste";
 "reading-list-deleted-accessibility-notification" = "Leseliste slettet";
 "reading-list-do-not-keep-button-title" = "Nei, slett artikler fra enheten";
@@ -884,7 +882,9 @@
 "reading-list-list-limit-reached" = "Du har nådd grensen på $1 leselister per konto";
 "reading-list-login-or-create-account-button-title" = "Logg inn eller opprett konto";
 "reading-list-name-user-created-annotation" = "_[brukerskapt]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "valgfri kort beskrivelse";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "tittel på leseliste";
 "reading-list-sync-disabled-panel-message" = "Synkronisering av leselister har blitt deaktivert for Wikipedia-kontoen din fra en annen enhet. Du kan aktivere synkronisering igjen fra innstillingene dine.";
 "reading-list-sync-disabled-panel-title" = "Synkronisering er skrudd av";

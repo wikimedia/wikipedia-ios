@@ -677,8 +677,6 @@
 "reading-list-api-error-generic" = "Gbɛ ŋmɛ kaŋa kpeɛ la a saŋa na fo naŋ da boɔrɔ fo gama.";
 "reading-list-api-error-list-limit" = "A gama ama ba yi bonso fo ta la a namba naŋ ba naŋ boɔrɔ.";
 "reading-list-create-new-list-button-title" = "Maale kannoo gama";
-"reading-list-create-new-list-description" = "Bigruu";
-"reading-list-create-new-list-reading-list-name" = "Kannoo gane yuori";
 "reading-list-create-new-list-title" = "Kuri bompaala";
 "reading-list-deleted-accessibility-notification" = "Kannoo gama sãã la";
 "reading-list-do-not-keep-button-title" = "Aayi, iri a Aatekel bare a taŋgaraa zu";
@@ -698,7 +696,9 @@
 "reading-list-list-limit-reached" = "Fo ta la a tɛgoo zie $1 kanne a gama na be a toŋ tone bone";
 "reading-list-login-or-create-account-button-title" = "Kpɛ bee kuri toŋ toŋ zie";
 "reading-list-name-user-created-annotation" = "_[toŋ tons kuri la]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Boɔbu ŋmaa bigruu";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Yelzu kannoo";
 "reading-lists-article-added-confirmation" = "Eŋ a Aatekel \"$1\"";
 "reading-lists-article-api-failure" = "Aatekel ba tõɔ sync";

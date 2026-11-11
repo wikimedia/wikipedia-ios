@@ -699,8 +699,6 @@
 "reading-list-api-error-generic" = "Óvænt villa kom upp við að samstilla leslistana þína.";
 "reading-list-api-error-list-limit" = "Þessi listi er ekki samstilltur því þú hefur náð mesta mögulega fjölda samstilltra lista.";
 "reading-list-create-new-list-button-title" = "Búa til leslista";
-"reading-list-create-new-list-description" = "Lýsing";
-"reading-list-create-new-list-reading-list-name" = "Nafn á leslista";
 "reading-list-create-new-list-title" = "Búa til nýjan leslista";
 "reading-list-deleted-accessibility-notification" = "Leslista eytt";
 "reading-list-do-not-keep-button-title" = "Nei, eyða greinum af tæki";
@@ -720,7 +718,9 @@
 "reading-list-list-limit-reached" = "Þú hefur náð hámarkinu með $1 leslista á hvern notandaaðgang";
 "reading-list-login-or-create-account-button-title" = "Skráðu þig inn til að búa til aðgang";
 "reading-list-name-user-created-annotation" = "_[bjó til notanda]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "stutt valkvæð lýsing";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titill leslista";
 "reading-list-sync-disabled-panel-message" = "Samstilling leslista er óvirk á Wikipedia-notandaaðgangi á öðru tæki. Þú getur kveikt aftur á samstillingu með því að breyta stillingunum þínum.";
 "reading-list-sync-disabled-panel-title" = "Samstilling óvirk";

@@ -100,7 +100,9 @@
 "places-accessibility-show-as-map" = "Ipakita sa mapa";
 "places-no-saved-articles-have-location" = "Ni isa sa iyong artikulong nai-save ay may impormasyon sa lokasyon";
 "places-title" = "Mga lugar";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Maikling deskripsiyon (optional)";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Pamagat ng Listahang-binasa";
 "saved-pages-progress-syncing" = "Kasalukuyang dinadownload ang article...";
 "search-field-placeholder-text" = "Hanapin sa Wikipedia";

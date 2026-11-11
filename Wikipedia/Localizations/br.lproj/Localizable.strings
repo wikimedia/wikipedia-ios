@@ -1188,8 +1188,6 @@
 "reading-list-api-error-generic" = "Ur fazi dic'hortoz zo bet p'edomp o kempredañ ho rolloù-lenn.";
 "reading-list-api-error-list-limit" = "Ar roll-mañ n'eo ket kempredet abalamour m'hoc'h eus tizhet an niver uhelañ a rolloù kempredet.";
 "reading-list-create-new-list-button-title" = "Krouiñ ar roll-lenn";
-"reading-list-create-new-list-description" = "Deskrivadur";
-"reading-list-create-new-list-reading-list-name" = "Anv ar roll-lenn";
 "reading-list-create-new-list-title" = "Krouiñ ur roll nevez";
 "reading-list-deleted-accessibility-notification" = "Roll-lenn dilamet";
 "reading-list-detail-search-placeholder" = "Furchal ar roll-lenn";
@@ -1210,7 +1208,9 @@
 "reading-list-list-limit-reached" = "Tizhet hoc'h eus ar vevenn a $1 roll lenn dre gont";
 "reading-list-login-or-create-account-button-title" = "Kevreañ pe krouiñ ur gont";
 "reading-list-name-user-created-annotation" = "_[implijer krouet]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Deskrivadur berr diret";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titl ar roll lenn";
 "reading-list-sync-disabled-panel-message" = "Diweredekaet dre un ardivink all eo bet kempredañ ar rolloù lenn evit ho kont Wikipedia. Gweredekaaat ar c'hempredañ en-dro a c'hallit ober dre hizivaat ho arventennoù.";
 "reading-list-sync-disabled-panel-title" = "Sinkroneladur diweredekaet";

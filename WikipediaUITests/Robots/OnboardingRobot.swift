@@ -174,33 +174,8 @@ extension OnboardingRobot {
 // MARK: - Interests
 
 extension OnboardingRobot {
-    @discardableResult
-    func searchInterests(for term: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let searchField = base.app.searchFields[AccessibilityIdentifiers.Interests.searchField]
-        base.assertExists(searchField, timeout: 10, file: file, line: line)
-        searchField.tap()
-        searchField.typeText(term)
-        return self
-    }
-
-    @discardableResult
-    func addFirstSearchResult(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let firstResult = base.app.descendants(matching: .any)
-            .matching(identifier: AccessibilityIdentifiers.Interests.searchResultRow)
-            .firstMatch
-        base.assertExists(firstResult, timeout: 10, file: file, line: line)
-        firstResult.tap()
-        return self
-    }
-
-    @discardableResult
-    func assertHasSelections(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.assertExists(
-            base.app.buttons[AccessibilityIdentifiers.Interests.deselectAllButton],
-            timeout: 10,
-            file: file,
-            line: line
-        )
-        return self
+    /// The interests step, once it is on screen.
+    func interests(file: StaticString = #filePath, line: UInt = #line) -> InterestsRobot {
+        InterestsRobot(base: base).assertVisible(file: file, line: line)
     }
 }

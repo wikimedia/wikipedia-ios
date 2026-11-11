@@ -223,6 +223,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(generateDiscoverReadingListIfNeeded),
+                                               name: WMFNSNotification.coreDataStoreSetup,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(userWasLoggedIn(_:)),
                                                name: WMFAuthenticationManager.didLogInNotification,
                                                object: nil)
@@ -476,7 +481,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
-        savedTabBadgeController?.refreshDiscoverAnnouncement()
+        savedTabBadgeController?.refreshDiscover()
+        generateDiscoverReadingListIfNeeded()
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updateActivityTabYearInReviewBadge()
@@ -2028,14 +2034,20 @@ extension WMFAppViewController: Themeable {
 
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
-        tabBar.apply(theme: theme)
-        savedTabBadgeController?.apply(theme: theme)
+        applyTabBarTheme(theme)
 
         UISwitch.appearance().onTintColor = theme.colors.accent
 
         readingListHintPresenter.apply(theme: theme)
 
         setNeedsStatusBarAppearanceUpdate()
+    }
+
+    /// Themes the tab bar and puts the Saved tab badge style back on top of the new appearance.
+    /// `UITabBar.apply(theme:)` alone replaces the appearance that the badge controller wrote.
+    func applyTabBarTheme(_ theme: Theme) {
+        tabBar.apply(theme: theme)
+        savedTabBadgeController?.apply(theme: theme)
     }
 
     @objc private func updateAppThemeIfNecessary() {
@@ -2190,10 +2202,15 @@ extension WMFAppViewController {
     }
 
     func showImportedReadingList(_ readingList: ReadingList) {
+        showReadingList(readingList, fromImport: true)
+    }
+
+    /// Closes any modal, then opens the reading list on top of the Saved tab root.
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
         dismissPresentedViewControllers()
         selectedIndex = WMFAppTabType.saved.rawValue
         currentTabNavigationController?.popToRootViewController(animated: false)
-        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: true, theme: theme)
+        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
         currentTabNavigationController?.pushViewController(detailVC, animated: true)
     }
 
@@ -2278,6 +2295,7 @@ extension WMFAppViewController {
             NavigationEventsFunnel.shared.logTappedPlaces()
         } else if rootViewController is WMFSavedHostingController {
             NavigationEventsFunnel.shared.logTappedSaved()
+            SavedInstrumentation.shared.logSavedTabTap()
         } else if rootViewController is WMFActivityTabViewController {
             NavigationEventsFunnel.shared.logTappedActivityTab()
         } else if rootViewController is SearchViewController {
@@ -2333,6 +2351,11 @@ extension WMFAppViewController {
     private func showLoggedOutPanelIfNeeded() {
         let authenticationManager = dataStore.authenticationManager
         guard authenticationManager.isUserUnawareOfLogout else { return }
+        guard WMFAuthenticationManager.shouldShowLoggedOutAlert(isUserUnawareOfLogout: authenticationManager.isUserUnawareOfLogout, isPermanentAccountLoggedIn: authenticationManager.authStateIsPermanent) else {
+            // Logged in again since the logout, so the alert no longer applies.
+            authenticationManager.userDidAcknowledgeUnintentionalLogout()
+            return
+        }
         DispatchQueue.main.async {
             self.presentLoggedOutAlert(authenticationManager)
         }

@@ -142,7 +142,7 @@
 "activity-tab-onboarding-fourth-item-subtitle" = "Valitse näytettävät moduulit. Kaikki henkilökohtaiset tiedot pidetään yksityisinä laitteellasi, ja voit poistaa selaushistoriasi milloin tahansa.";
 "activity-tab-onboarding-fourth-item-title" = "Pidä ohjat käsissäsi";
 "activity-tab-onboarding-header" = "Aktiviteettitoiminnon esittely";
-"activity-tab-onboarding-second-button-title" = "Lisätietoja Aktiviteetti-osiosta";
+"activity-tab-onboarding-second-button-title" = "Lisätietoja Toiminta-osiosta";
 "activity-tab-onboarding-third-item-title-updated" = "Hakutoiminnossa hyödynnetään nyt lukuhistoriaa";
 "activity-tab-satisfied" = "Tyytyväinen";
 "activity-tab-saved" = "Tässä kuussa tallennetut artikkelit";
@@ -361,6 +361,18 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 rivi ilman muutoksia|$1 riviä ilman muutoksia}}";
 "diff-user-button-accessibility-text" = "Kaksoisnapauta avataksesi valikon";
 "dim-images" = "Himmennä kuvia";
+"discover-list-about" = "Tietoja ominaisuudesta";
+"discover-list-customize" = "Mukauta Löydä artikkeleita";
+"discover-list-description-weekly" = "Viikottainen lukulistasi. Opi uusista aiheista, juuri sinulle valittuina. Päivittyy viikon alussa.";
+"discover-list-empty-message" = "Sinulle ei valitettavasti ole suosituksia juuri nyt.";
+"discover-list-error-subtitle" = "Lukulistan lataaminen epäonnistui.";
+"discover-list-error-title" = "Verkkovirhe";
+"discover-list-save-list" = "Tallenna lista";
+"discover-list-title" = "Löydä artikkeleita";
+"discover-setup-source-history" = "Valitse puolestani lukuhistoriani perusteella";
+"discover-setup-source-interests" = "Anna minun valita kiinnostuksenkohteideni perusteella";
+"discover-setup-source-saved" = "Valitse puolestani tallentamieni artikkelien perusteella";
+"discover-setup-title" = "Kuinka meidän pitäisi laatia suositeltu lukulistasi?";
 "donate-accessibility-amount-button-hint" = "Kaksoisnapauta valitaksesi lahjoituksen määrän.";
 "donate-accessibility-donate-hint-format" = "Lahjoita $1 Wikimedia-säätiölle kaksoisnapauttamalla.";
 "donate-accessibility-email-opt-in-hint" = "Anna kaksoisnapautuksella Wikimedia-säätiölle lupa lähettää sinulle sähköpostia.";
@@ -1019,8 +1031,6 @@
 "reading-list-api-error-generic" = "Odottamaton virhe tapahtui lukulistaasi synkronoidessa.";
 "reading-list-api-error-list-limit" = "Tätä luetteloa ei synkronoida, koska olet saavuttanut synkronoitujen listojen lukumäärän rajan.";
 "reading-list-create-new-list-button-title" = "Luo lukulista";
-"reading-list-create-new-list-description" = "Kuvaus";
-"reading-list-create-new-list-reading-list-name" = "Lukulistan nimi";
 "reading-list-create-new-list-title" = "Luo uusi lista";
 "reading-list-deleted-accessibility-notification" = "Lukulista poistettu";
 "reading-list-do-not-keep-button-title" = "Ei, poista artikkelit laitteesta";
@@ -1040,7 +1050,9 @@
 "reading-list-list-limit-reached" = "Olet ylittänyt $1 listan tunnuskohtaisen rajoituksen";
 "reading-list-login-or-create-account-button-title" = "Kirjaudu sisään tai luo tunnus";
 "reading-list-name-user-created-annotation" = "_[käyttäjä luotu]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Valinnainen lyhyt kuvaus";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Lukulistan nimi";
 "reading-list-sync-disabled-panel-message" = "Lukulistojen synkronointi on poistettu käytöstä Wikipedia-tunnuksellesi toisella laitteella. Sen voi kytkeä takaisin päälle asetuksia päivittämällä.";
 "reading-list-sync-disabled-panel-title" = "Sykronointi poistettu käytöstä";
@@ -1164,6 +1176,9 @@
 "settings-temp-accounts-talk-page-footer" = "Tilapäinen tunnus vanhentuu 90 vuorokaudessa";
 "settings-title" = "Asetukset";
 "settings-year-in-review-header" = "Vuosikatsauksen poistaminen käytöstä tyhjentää kaikki tallennetut henkilökohtaiset tiedot ja piilottaa vuosikatsauksen.";
+"settings-year-in-review-turn-off-alert-cancel" = "Ei kiitos";
+"settings-year-in-review-turn-off-alert-confirm" = "Kyllä, olen varma";
+"settings-year-in-review-turn-off-alert-title" = "Haluatko varmasti poistaa vuosikatsauksen käytöstä?";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
 "share-article-name-on-wikipedia" = "\"$1\" Wikipediassa:";
 "share-building" = "Luodaan Share-a-fact korttia...";
@@ -1406,6 +1421,7 @@
 "year-in-review-2026-reread-articles-empty-title" = "Et lue samoja tekstejä moneen kertaan";
 "year-in-review-2026-reread-articles-title" = "Joitakin artikkeleja, joiden pariin olet palannut uudelleen:";
 "year-in-review-2026-reread-articles-visit-count" = "{{PLURAL:$1|$1 vierailu|$1 vierailua}}";
+"year-in-review-2026-store-card-button-title" = "Vieraile kaupassa";
 "year-in-review-2026-total-articles-empty-subtitle" = "Odotahan, kunnes sinulle selviää, mitä kaikkea Wikipediasta voi oppia.";
 "year-in-review-2026-total-articles-empty-title" = "Miljoonat artikkelit odottavat sinua";
 "year-in-review-2026-total-articles-subtitle" = "Olet tutkiskellut asioita ahkerasti tänä vuonna. Jokainen artikkeli kasvatti tietojasi.";

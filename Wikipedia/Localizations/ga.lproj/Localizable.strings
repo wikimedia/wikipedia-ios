@@ -1104,8 +1104,6 @@
 "reading-list-api-error-generic" = "Tharla earráid gan choinne agus do liostaí léitheoireachta á sioncrónú.";
 "reading-list-api-error-list-limit" = "Níl an liosta seo sioncrónaithe mar go bhfuil an teorainn sroichte agat maidir le líon na liostaí sioncrónaithe.";
 "reading-list-create-new-list-button-title" = "Cruthaigh liosta léitheoireachta";
-"reading-list-create-new-list-description" = "Sainchuntas";
-"reading-list-create-new-list-reading-list-name" = "Ainm an liosta léitheoireachta";
 "reading-list-create-new-list-title" = "Cruthaigh liosta nua";
 "reading-list-deleted-accessibility-notification" = "Scriosadh liosta léitheoireachta";
 "reading-list-detail-search-placeholder" = "Cuardaigh liosta léitheoireachta";
@@ -1126,7 +1124,9 @@
 "reading-list-list-limit-reached" = "Tá an teorainn de $1 liosta léitheoireachta in aghaidh an chuntais sroichte agat";
 "reading-list-login-or-create-account-button-title" = "Logáil isteach nó cruthaigh cuntas";
 "reading-list-name-user-created-annotation" = "_[cruthaíodh úsáideoir]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "sainchuntas roghnach gearr";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "teideal ar liosta léitheoireachta";
 "reading-list-sync-disabled-panel-message" = "Tá sioncrónú liosta léitheoireachta díchumasaithe do do chuntas Vicipéid ar ghléas eile. Is féidir leat sioncrónú a chasadh air arís trí do shocruithe a nuashonrú.";
 "reading-list-sync-disabled-panel-title" = "Díchumasaíodh sioncronú";

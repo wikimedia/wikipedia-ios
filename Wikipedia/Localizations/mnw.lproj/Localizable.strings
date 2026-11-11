@@ -589,8 +589,6 @@
 "reading-list-api-error-generic" = "အဃော မပချဳကရာင် စရင်လိက်ပရေင်မၞးဂှ် အရာမဗၠေတ် မဟွံစၟဳလဝ်မွဲ မံက်ဂတဝ်ကၠုင်၊၊";
 "reading-list-api-error-list-limit" = "စရင်ဏအ်ဂှ် ပချဳဓရာင် ဟွံဂွံ၊ ဟိုတ်နူ ၜိုတ်မကဵုလဝ် လၟိဟ်ဂၞန် သွက်ဂွံ ပချဳဓရာင် ပ္ဍဲစရင်ဏအ်ဂှ် ပေင်အာ၊၊";
 "reading-list-create-new-list-button-title" = "ခၞံကၠောန် စရင် လိက်ဗွဟ်";
-"reading-list-create-new-list-description" = "ကဵုယၟု";
-"reading-list-create-new-list-reading-list-name" = "ယၟု စရင် လိက်ဗွဟ်";
 "reading-list-create-new-list-title" = "ခၞံကၠောန် စရင် တၟိ";
 "reading-list-deleted-accessibility-notification" = "စရင် လိက်ဗွဟ် ပလီုထောအ်တုဲ";
 "reading-list-do-not-keep-button-title" = "ဟအှ်ေ၊ ဇိုတ်ထောအ် လိက်ပရေင်တအ် နူကဵု device";
@@ -610,7 +608,9 @@
 "reading-list-list-limit-reached" = "မၞး စိုပ်အာ အပိုင်အခြာ $1 စရင် လိက်ဗွဟ် သွက် အကံက်မွဲ၊၊";
 "reading-list-login-or-create-account-button-title" = "လုပ်လံက်အေန် ဟွံသေင်မ္ဂး ခၞံကၠောန် အကံက်";
 "reading-list-name-user-created-annotation" = "_[user created]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "ချူဗၟံက်ထ္ၜး ဂၠေအ်အ် ဗီုမဒးစိုတ်";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "က္ဍိုပ်လိက် စရင် လိက်ဗွဟ်";
 "reading-list-sync-disabled-panel-message" = "ကချဳဓရာင် စရင် လိက်ဗွဟ် သွက် အကံက် ဝဳကဳပဳဒဳယာ မၞး ဟွံကၠောန် ကမၠောန် ပ္ဍဲ device တၞဟ်၊၊ နကဵု မၞး တၟိဗဟဵုပတိုန် ဒၞာဲမဖျေဟ်ဒၞာဲမၞးဂှ် မၞး ကလေင် ပံက် ကချဳဓရာင် ဂွံမာန်ရ၊၊";
 "reading-list-sync-disabled-panel-title" = "ကချဳဓရာင် ဟွံသၟဟ်အစောံ";

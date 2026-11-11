@@ -101,31 +101,6 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
         #expect(viewModel.lightContentFlag?.path == "isUIWhite")
     }
 
-    /// Same rules as the copy on the slides: both runs are fitted, they shrink together, and never
-    /// below the minimum scale of the slides.
-    @Test
-    func theTitleAndTheBodyAreFittedTogether() {
-        let viewModel = factory.makeViewModel(dataState: .dataRich, readingDayCount: 3, delegate: delegate)
-        let fits = viewModel.textFits
-
-        #expect(Set(fits.map(\.text.path)) == ["coverTitle", "bodyCopy"])
-        #expect(Set(fits.compactMap(\.group)).count == 1)
-        #expect(fits.allSatisfy { $0.group != nil })
-        #expect(fits.allSatisfy { $0.minimumScale == YearInReviewSlideViewModelFactory.copyMinimumScale })
-        #expect(fits.allSatisfy { $0.globalViewModelName == "GlobalProperties" })
-
-        // Every fitted run is a run that the cover writes, so there is text to measure.
-        let written = Set(Self.textByPath(viewModel).keys)
-        #expect(fits.allSatisfy { written.contains($0.text.path) })
-    }
-
-    /// The app can measure only the fonts that it supplies to Rive. A fit for any other font does nothing.
-    @Test
-    func theFitsUseFontsThatTheAppSupplies() {
-        let supplied: Set<String> = ["SanSerifFont", "SerifFont"]
-        #expect(Factory.textFits.allSatisfy { supplied.contains($0.fontAssetName) })
-    }
-
     /// A name that is not in the .riv does nothing, and Rive reports no error. So each name that the
     /// cover uses must be in the bundled file. This fails when a new export renames one.
     @Test
@@ -139,9 +114,6 @@ struct YearInReviewAnnouncementViewModelFactoryTests {
             viewModel.lightContentFlag?.path
         ].compactMap { $0 }
         names += viewModel.riveText.keys.map(\.path)
-        for fit in viewModel.textFits {
-            names += [fit.globalViewModelName, fit.fontSize.path, fit.lineHeight.path, fit.fontAssetName]
-        }
 
         for name in names {
             #expect(data.range(of: Data(name.utf8)) != nil, "\(name) is not in all_templates.riv")

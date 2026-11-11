@@ -662,8 +662,6 @@
 "reading-list-api-error-generic" = "Sinchronizuojant jūsų skaitymo sąrašus įvyko netikėta klaida.";
 "reading-list-api-error-list-limit" = "Šis sąrašas nesinchronizuojamas, nes pasiekėte sinchronizuojamų sąrašų limitą.";
 "reading-list-create-new-list-button-title" = "Sukurti skaitymo sąrašą";
-"reading-list-create-new-list-description" = "Aprašymas";
-"reading-list-create-new-list-reading-list-name" = "Skaitymo sąrašo pavadinimas";
 "reading-list-create-new-list-title" = "Sukurti naują sąrašą";
 "reading-list-deleted-accessibility-notification" = "Skaitymo sąrašas ištrintas";
 "reading-list-do-not-keep-button-title" = "Ne, ištrinti straipsnius iš įrenginio";
@@ -683,7 +681,9 @@
 "reading-list-list-limit-reached" = "Pasiekėte paskyros skaitymo sąrašo limitą $1";
 "reading-list-login-or-create-account-button-title" = "Prisijunkite arba sukurkite paskyrą";
 "reading-list-name-user-created-annotation" = "_[sukurta naudotojo]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "pasirinktinis trumpas aprašymas";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "skaitymo sąrašo pavadinimas";
 "reading-list-sync-disabled-panel-message" = "Skaitymo sąrašo sinchronizavimas išjungtas jūsų Vikipedijos paskyrai kitame įrenginyje. Galite vėl įjungti sinchronizavimą atnaujinant savo nustatymus.";
 "reading-list-sync-disabled-panel-title" = "Sinchronizavimas išjungtas";

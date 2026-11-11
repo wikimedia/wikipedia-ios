@@ -828,8 +828,6 @@
 "reading-list-api-error-generic" = "Terjadi kesalahan tak terduga saat menyinkronkan daftar bacaan Anda.";
 "reading-list-api-error-list-limit" = "Daftar ini tidak disinkronkan karena Anda telah mencapai batas jumlah daftar yang disinkronkan.";
 "reading-list-create-new-list-button-title" = "Buat daftar bacaan";
-"reading-list-create-new-list-description" = "Deskripsi";
-"reading-list-create-new-list-reading-list-name" = "Nama daftar bacaan";
 "reading-list-create-new-list-title" = "Buat daftar baru";
 "reading-list-deleted-accessibility-notification" = "Daftar bacaan dihapus";
 "reading-list-do-not-keep-button-title" = "Tidak, hapus artikel dari perangkat";
@@ -849,7 +847,9 @@
 "reading-list-list-limit-reached" = "Anda telah mencapai batas $1 daftar bacaan per akun";
 "reading-list-login-or-create-account-button-title" = "Masuk log atau buat akun";
 "reading-list-name-user-created-annotation" = "_[dibuat pengguna]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "deskripsi singkat opsional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "judul daftar bacaan";
 "reading-list-sync-disabled-panel-message" = "Sinkronisasi daftar bacaan telah dinonaktifkan untuk akun Wikipedia Anda di perangkat lain. Anda dapat mengaktifkan kembali sinkronisasi dengan memperbarui pengaturan Anda.";
 "reading-list-sync-disabled-panel-title" = "Sinkronisasi dinonaktifkan";

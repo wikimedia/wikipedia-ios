@@ -44,3 +44,13 @@ extension ProfileRobot {
         return self
     }
 }
+
+// MARK: - Navigation
+
+extension ProfileRobot {
+    @discardableResult
+    func openSettings(file: StaticString = #filePath, line: UInt = #line) -> SettingsRobot {
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Profile.settingsRow, file: file, line: line)
+        return SettingsRobot(base: base).assertVisible(file: file, line: line)
+    }
+}

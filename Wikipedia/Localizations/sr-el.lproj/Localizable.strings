@@ -699,8 +699,6 @@
 "reading-list-api-error-generic" = "Došlo je do neočekivane greške pri sinhronizovanju liste za čitanje.";
 "reading-list-api-error-list-limit" = "Ova lista nije sinhronizovana jer ste dostigli ograničenje za dozvoljeni broj sinhronizovanih lista.";
 "reading-list-create-new-list-button-title" = "Napravi listu za čitanje";
-"reading-list-create-new-list-description" = "Opis";
-"reading-list-create-new-list-reading-list-name" = "Ime liste za čitanje";
 "reading-list-create-new-list-title" = "Napravi novu listu";
 "reading-list-deleted-accessibility-notification" = "Lista za čitanje je izbrisana";
 "reading-list-do-not-keep-button-title" = "Ne, izbriši članke sa uređaja";
@@ -720,7 +718,9 @@
 "reading-list-list-limit-reached" = "Dostigli ste ograničenje od $1 lista za čitanje po nalogu";
 "reading-list-login-or-create-account-button-title" = "Prijava/registracija";
 "reading-list-name-user-created-annotation" = "_[napravio korisnik]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "opcionalan kratak opis";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "naslov liste za čitanje";
 "reading-list-sync-disabled-panel-message" = "Sinhronizacija liste za čitanje je onemogućena za vaš nalog na drugom uređaju. Možete je ponovo uključiti u podešavanjima.";
 "reading-list-sync-disabled-panel-title" = "Sinhronizacija je onemogućena";

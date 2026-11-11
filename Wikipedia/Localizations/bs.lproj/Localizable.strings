@@ -685,8 +685,6 @@
 "reading-list-api-error-generic" = "Došlo je do neočekivane greške prilikom ažuriranja Vaših spiskova za čitanje.";
 "reading-list-api-error-list-limit" = "Ovaj unos nije sinhronizovan jer ste dosegli ograničenje broja sinhronizovanih spiskova.";
 "reading-list-create-new-list-button-title" = "Napravi spisak za čitanje";
-"reading-list-create-new-list-description" = "Opis";
-"reading-list-create-new-list-reading-list-name" = "Naziv spiska za čitanje";
 "reading-list-create-new-list-title" = "Napravi novi spisak";
 "reading-list-deleted-accessibility-notification" = "Spisak za čitanje izbrisan";
 "reading-list-do-not-keep-button-title" = "Ne, izbriši članke sa uređaja";
@@ -706,7 +704,9 @@
 "reading-list-list-limit-reached" = "Dostigli ste ograničenje od $1 spiskova za čitanje po računu.";
 "reading-list-login-or-create-account-button-title" = "Prijavi se ili napravi račun";
 "reading-list-name-user-created-annotation" = "_[korisnički napravljeno]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "neobavezni kratki opis";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "naslov spiska za čitanje";
 "reading-list-sync-disabled-panel-message" = "Sinhronizacija spiska za čitanje je onemogućena za Vaš Wikipedia račun na drugom uređaju. Možete ponovo upaliti sinhronizaciju ažurirajući Vaše postavke.";
 "reading-list-sync-disabled-panel-title" = "Sinhronizacija onemogućena";

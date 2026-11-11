@@ -1,6 +1,7 @@
 import Foundation
 
-class WMFUserDefaultsStore: WMFKeyValueStore {
+/// `UserDefaults` is thread-safe, but the SDK does not mark it `Sendable`.
+final class WMFUserDefaultsStore: WMFKeyValueStore, @unchecked Sendable {
     
     private let defaults: UserDefaults
     

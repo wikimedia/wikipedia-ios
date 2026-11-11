@@ -858,8 +858,6 @@
 "reading-list-api-error-generic" = "Pri sinhroniziranju vaših bralnih seznamov je prišlo do nepričakovane napake.";
 "reading-list-api-error-list-limit" = "Ta seznam ni sinhroniziran, ker ste dosegli omejitev števila sinhroniziranih seznamov.";
 "reading-list-create-new-list-button-title" = "Ustvari seznam za branje";
-"reading-list-create-new-list-description" = "Opis";
-"reading-list-create-new-list-reading-list-name" = "Ime seznama za branje";
 "reading-list-create-new-list-title" = "Ustvari nov seznam";
 "reading-list-deleted-accessibility-notification" = "Seznam za branje izbrisan";
 "reading-list-do-not-keep-button-title" = "Ne, izbriši članke iz naprave";
@@ -879,7 +877,9 @@
 "reading-list-list-limit-reached" = "Dosegli ste omejitev $1 bralnih seznamov na račun";
 "reading-list-login-or-create-account-button-title" = "Prijava ali registracija";
 "reading-list-name-user-created-annotation" = "_[uporabniško ustvarjeno]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "izbirni kratki opis";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "naslov bralnega seznama";
 "reading-list-sync-disabled-panel-message" = "Sinhroniziranje bralnih seznamov je bilo za vaš račun v Wikipediji v drugi napravi onemogočeno. Sinhroniziranje lahko znova vklopite tako, da posodobite nastavitve.";
 "reading-list-sync-disabled-panel-title" = "Sinhronizacija je onemogočena";

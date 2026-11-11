@@ -141,7 +141,7 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: .readingList,
             tabConfig: tabConfig
         )
         articleCoordinator.start()
@@ -285,7 +285,7 @@ extension SavedAllArticlesCoordinator {
     }
 
     private func unsaveAndAnnounceAndLog(articles: [WMFArticle]) {
-        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
+        dataStore.readingListsController.unsaveAndSync(articles)
 
         let articlesCount = articles.count
         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
@@ -298,6 +298,7 @@ extension SavedAllArticlesCoordinator {
 
 extension SavedAllArticlesCoordinator: WMFSavedAllArticlesLoggingDelegate {
     func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool) {
+        SavedInstrumentation.shared.logSavedArticleTap()
         if let siteURL = article.project.siteURL, let articleURL = siteURL.wmf_URL(withTitle: article.title) {
             ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
         }

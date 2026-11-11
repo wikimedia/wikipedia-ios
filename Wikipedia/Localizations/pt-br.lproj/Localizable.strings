@@ -401,6 +401,39 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
 "diff-user-button-accessibility-text" = "Toque duas vezes para abrir o menu";
 "dim-images" = "Imagens fracas";
+"discover-announcement-get-started" = "Começar";
+"discover-announcement-new-tag" = "Novo";
+"discover-announcement-no-thanks" = "Não, obrigado";
+"discover-announcement-no-thanks-toast" = "Para configurar sua lista de leitura recomendada posteriormente, acesse Configurações.";
+"discover-entry-card-unseen-list" = "Nova lista";
+"discover-list-about" = "Sobre este recurso";
+"discover-list-customize" = "Personalizar Descobrir";
+"discover-list-description-weekly" = "Sua lista de leitura semanal. Aprenda sobre novos tópicos, escolhidos especialmente para você. Atualizações no início da semana.";
+"discover-list-error-title" = "Erro de rede";
+"discover-list-save-list" = "Salvar lista";
+"discover-list-title" = "Descobrir";
+"discover-settings-cadence-daily" = "Todo dia";
+"discover-settings-cadence-monthly" = "Todo mês";
+"discover-settings-cadence-weekly" = "Toda semana";
+"discover-settings-interests-title" = "Interesses";
+"discover-settings-reading-list-title" = "Lista de leitura de Descobrir";
+"discover-settings-source-alert-adjust" = "Ajustar";
+"discover-settings-source-alert-message" = "Se você ajustar a forma como o Descobrir gera recomendações, suas recomendações atuais serão substituídas.";
+"discover-settings-source-alert-never-mind" = "Melhor não";
+"discover-settings-source-alert-title" = "Ajustar como o Descobrir é construído?";
+"discover-settings-source-changed-toast-history" = "Suas recomendações agora são baseadas no seu histórico de leitura.";
+"discover-settings-source-changed-toast-interests" = "Suas recomendações agora são baseadas nos seus interesses.";
+"discover-settings-source-changed-toast-saved" = "Suas recomendações agora são baseadas nos artigos que você salvou.";
+"discover-settings-source-history" = "Com base no seu histórico de leitura";
+"discover-settings-source-interests" = "Com base nos seus interesses";
+"discover-settings-source-saved" = "Com base nos seus artigos salvos";
+"discover-settings-source-title" = "Como o Descobrir é construído";
+"discover-settings-turn-off-alert-confirm" = "Desativar";
+"discover-settings-your-list-header" = "Sua lista";
+"discover-setup-source-history" = "Escolha para mim com base no meu histórico de leitura";
+"discover-setup-source-interests" = "Deixe-me escolher com base nos meus interesses";
+"discover-setup-source-saved" = "Escolha por mim com base nos meus artigos salvos";
+"discover-setup-title" = "Como devemos criar sua lista de leitura recomendadas?";
 "donate-accessibility-amount-button-hint" = "Toque duas vezes para selecionar o valor da doação.";
 "donate-accessibility-donate-hint-format" = "Toque duas vezes para doar $1 à Fundação Wikimedia.";
 "donate-accessibility-email-opt-in-hint" = "Toque duas vezes para autorizar a Fundação Wikimedia a enviar-lhe e-mails.";
@@ -408,8 +441,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Toque duas vezes para ativar doações mensais automáticas desse valor.";
 "donate-accessibility-textfield-hint" = "Insira o valor personalizado que deseja doar.";
 "donate-accessibility-transaction-fee-hint" = "Toque duas vezes para adicionar a taxa de transação ao valor da doação.";
-// Fuzzy
-"donate-already-donated" = "Obrigado, prezado(a) apoiador(a)! Sua generosidade ajuda a manter a Wikipédia e outros projetos de conhecimento livre prosperando.";
+"donate-already-donated" = "Obrigado, caro doador! Sua generosidade ajuda a manter a Wikipédia e outros projetos de conhecimento livre em pleno funcionamento.";
 "donate-apple-fine-print" = "A Apple não está encarregada de arrecadar dinheiro para essa finalidade.";
 "donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode me mandar um e-mail ocasionalmente.";
 "donate-help-frequently-asked-questions" = "Perguntas mais frequentes";
@@ -1216,8 +1248,6 @@
 "reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar suas listas de leitura.";
 "reading-list-api-error-list-limit" = "Esta lista não é sincronizada porque você atingiu o limite para o número de listas sincronizadas.";
 "reading-list-create-new-list-button-title" = "Criar lista de leitura";
-"reading-list-create-new-list-description" = "Descrição";
-"reading-list-create-new-list-reading-list-name" = "Nome da lista de leitura";
 "reading-list-create-new-list-title" = "Criar uma nova lista";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-detail-search-placeholder" = "Pesquisar na lista de leitura";
@@ -1238,7 +1268,9 @@
 "reading-list-list-limit-reached" = "Atingiu o limite de $1 listas de leitura por conta";
 "reading-list-login-or-create-account-button-title" = "Faça login ou crie uma conta";
 "reading-list-name-user-created-annotation" = "_[criada pelo usuário]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descrição curta opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Título da lista de leitura";
 "reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia outro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
 "reading-list-sync-disabled-panel-title" = "Sincronização desativada";
@@ -1335,6 +1367,8 @@
 "search-semantic-results-error-title" = "Algo deu errado";
 // Fuzzy
 "search-semantic-results-last-updated" = "Última atualização $1";
+"search-semantic-results-rate-limited-subtitle" = "Espere um momento e tente novamente.";
+"search-semantic-results-unavailable-subtitle" = "Por favor, tente novamente mais tarde.";
 "search-title" = "Pesquisar";
 "search-widget-announcement-body" = "Adicione o widget de Pesquisa da Wikipédia à sua tela inicial ou tela de bloqueio para obter respostas mais rápidas, na ponta dos dedos.";
 "search-widget-announcement-title" = "Novo widget de pesquisa disponível";
@@ -1742,6 +1776,7 @@
 "year-in-review-2026-collective-hours-read-title" = "Horas que passamos lendo a Wikipédia em 2026:";
 "year-in-review-2026-collective-intro-subtitle" = "Desta vez, não houve atividade suficiente para gerar sua própria Retrospectiva do ano, mas você ainda pode explorar o que o mundo descobriu em conjunto.";
 "year-in-review-2026-collective-intro-title" = "Nossa retrospectiva do ano já está disponível";
+"year-in-review-2026-collective-languages-data" = "$1+";
 "year-in-review-2026-collective-languages-subtitle" = "A Wikipédia é escrita e mantida por comunidades de voluntários de todo o mundo — prova de que o conhecimento humano vai muito além de uma única língua.";
 "year-in-review-2026-collective-languages-title" = "Idiomas em que a Wikipédia está disponível:";
 "year-in-review-2026-collective-saved-articles-subtitle" = "Os leitores marcaram como favoritos milhares e milhares de artigos para ler pela primeira, terceira ou centésima vez.";
@@ -1755,16 +1790,26 @@
 "year-in-review-2026-edits-title" = "Edições feitas por você:";
 "year-in-review-2026-favorite-time-empty-subtitle" = "Não há um dia ou horário específico para decidir explorar as páginas da Wikipédia.";
 "year-in-review-2026-favorite-time-empty-title" = "Você lê basicamente quando quiser";
+"year-in-review-2026-favorite-time-subtitle" = "$1 das suas explorações ocorreu durante esse horário do dia. Coincidência ou... não?";
 "year-in-review-2026-favorite-time-title" = "Melhor horário para explorar:";
 "year-in-review-2026-feedback-email-first-line" = "Tenho alguns comentários sobre a Respectiva do Ano:";
 "year-in-review-2026-feedback-email-subject" = "Comentários sobre a Retrospectiva do ano";
 "year-in-review-2026-games-card-button-title" = "Comece a jogar";
 "year-in-review-2026-games-card-subtitle" = "Teste seus conhecimentos da Wikipédia com jogos rápidos inspirados no conhecimento mundial.";
 "year-in-review-2026-games-card-title" = "Pronto para mais um desafio?";
+"year-in-review-2026-highlights-articles-read" = "Número de artigos lidos:";
+"year-in-review-2026-highlights-created-with" = "Criado com o aplicativo da Wikipédia";
+"year-in-review-2026-highlights-minutes-read" = "Total de minutos lidos:";
+"year-in-review-2026-highlights-niche-category" = "Categoria nicho explorada:";
+"year-in-review-2026-highlights-rabbit-hole" = "Maior aventura:";
+"year-in-review-2026-highlights-rotation" = "Artigos na minha seleção:";
+"year-in-review-2026-highlights-title" = "Resumo do Ano da Wikipédia para 2026";
 "year-in-review-2026-interests-card-button-title" = "Personalizar interesses";
 "year-in-review-2026-interests-card-subtitle" = "Escolha os assuntos que mais lhe interessam e receba recomendações personalizadas de acordo com seus interesses.";
 "year-in-review-2026-interests-card-title" = "Deixe sua casa com a sua cara";
 "year-in-review-2026-intro-title" = "A sua Retrospectiva do Ano da Wikipédia já está disponível";
+"year-in-review-2026-login-prompt-collective-message" = "Ao entrar, você terá acesso às melhores partes do aplicativo. Comece a preparar o Resumo do Ano para o próximo ano criando uma conta hoje mesmo.";
+"year-in-review-2026-login-prompt-collective-title" = "A Wikipédia fica melhor com uma conta";
 "year-in-review-2026-minutes-read-comparison-egg" = "Isso leva mais tempo do que cozinhar um ovo duro.";
 "year-in-review-2026-minutes-read-comparison-fall-asleep" = "Isso é mais tempo do que a média que as pessoas levam para adormecer.";
 "year-in-review-2026-minutes-read-comparison-honeybee" = "Isso leva mais tempo do que uma abelha rainha leva para pôr até 2.000 ovos.";
@@ -1801,6 +1846,9 @@
 "year-in-review-2026-saved-articles-empty-subtitle" = "No momento, você tem 0 artigos salvos. Procure o ícone de marcador em um artigo para poder ler o que quiser... mais tarde.";
 "year-in-review-2026-saved-articles-empty-title" = "Você tem 0 artigos salvos";
 "year-in-review-2026-saved-articles-title" = "Artigos que você salvou para ler mais tarde:";
+"year-in-review-2026-share-text" = "Aqui está o meu Resumo do Ano da Wikipédia para 2026, direto do aplicativo da Wikipédia: $1";
+"year-in-review-2026-store-card-button-title" = "Visitar a loja";
+"year-in-review-2026-store-card-subtitle" = "Como você ajuda a manter o conhecimento livre, estamos oferecendo a você um desconto de $1 na loja da Wikipédia. Não é necessário usar nenhum código; o desconto é aplicado automaticamente na finalização da compra.";
 "year-in-review-2026-store-card-title" = "Um pequeno agradecimento";
 "year-in-review-2026-tabs-card-title" = "Volte às suas abas abertas";
 "year-in-review-2026-thank-you-donor-subtitle" = "Como doador, suas contribuições mantêm a Wikipédia livre de anúncios, confiável e acessível a todos. Não temos palavras para agradecer pelo seu apoio à Wikipédia!";
@@ -1808,6 +1856,7 @@
 "year-in-review-2026-thank-you-editor-subtitle" = "Como editor, suas contribuições mantêm a Wikipédia livre de anúncios, confiável e acessível a todos. Não temos palavras para agradecer pelo seu apoio à Wikipédia!";
 "year-in-review-2026-thank-you-title" = "Obrigado!";
 "year-in-review-2026-top-topic-empty-subtitle" = "Com tantos interesses, não há um único tema que defina seus hábitos de leitura.";
+"year-in-review-2026-top-topic-empty-title" = "O seu tópico n.º 1 de 2026 é… todos eles";
 "year-in-review-2026-top-topic-sentence-africa" = "Suas leituras o levaram a viajar pela África este ano.";
 "year-in-review-2026-top-topic-sentence-architecture" = "Você passou o ano valorizando as coisas que foram feitas para durar.";
 "year-in-review-2026-top-topic-sentence-art" = "Você se sentia atraído pelo belo, pelo ousado e, às vezes, pelo desconcertante.";
@@ -1846,7 +1895,7 @@
 "year-in-review-2026-top-topic-sentence-transportation" = "Você investigou como o mundo se desloca de um lugar para outro.";
 "year-in-review-2026-top-topic-sentence-tv-and-film" = "Suas leituras serviram também como lista de páginas vigiadas este ano.";
 "year-in-review-2026-top-topic-sentence-video-games" = "Você aprimorou seus conhecimentos sobre videogames.";
-"year-in-review-2026-top-topic-title" = "Seu tema mais comentado de 2026:";
+"year-in-review-2026-top-topic-title" = "Seu tema mais popular de 2026:";
 "year-in-review-2026-total-articles-empty-subtitle" = "É só esperar até descobrir tudo o que há para aprender na Wikipédia.";
 "year-in-review-2026-total-articles-empty-title" = "Você tem milhões de artigos para descobrir";
 "year-in-review-2026-total-articles-subtitle" = "Você vem explorando esse assunto o ano todo. Cada artigo contribuiu com algo para o seu conhecimento.";

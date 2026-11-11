@@ -1,7 +1,8 @@
 import Foundation
+import WMFTestKitchen
 
-// Sendable: the only stored property is the immutable `stateLock`. All other state
-// is read through the environment stores.
+// Sendable: the stored properties are immutable and Sendable. All other state is read
+// through the environment stores.
 public final class WMFDiscoverDataController: Sendable {
 
     public enum ExperimentAssignment: String, Sendable {
@@ -17,6 +18,9 @@ public final class WMFDiscoverDataController: Sendable {
 
     public static let shared = WMFDiscoverDataController()
 
+    /// The name of the experiment in the events, as the instrumentation spec names it.
+    public static let experimentName = "ios-discover-test"
+
     /// Applies until the remote feature config carries `iosv1.discoverExperimentControlPercentage`.
     /// Everyone stays in the control group, so a release without the remote key exposes nobody.
     public static let defaultExperimentControlPercentage = 100
@@ -24,25 +28,53 @@ public final class WMFDiscoverDataController: Sendable {
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
 
+    private let developerSettingsDataController: WMFDeveloperSettingsDataController
     private let stateLock = NSLock()
 
-    private init() {}
+    init(developerSettingsDataController: WMFDeveloperSettingsDataController = .shared) {
+        self.developerSettingsDataController = developerSettingsDataController
+    }
 
     // MARK: - Availability
 
-    /// True while the developer setting that gates the whole feature is on.
+    /// True when the remote feature config turns the Discover experiment on, or when the developer
+    /// setting forces it on. A config without `iosv1.discoverExperimentEnabled` keeps the feature off.
     public var isEnabled: Bool {
-        WMFDeveloperSettingsDataController.shared.enableDiscover
+        if developerSettingsDataController.enableDiscover {
+            return true
+        }
+
+        return developerSettingsDataController.loadFeatureConfig()?.ios.discoverExperimentEnabled ?? false
     }
 
     /// True when the Saved tab shows the onboarding announcement card and its badge: the feature
-    /// is on, the reader is in group B and the card has not gone away yet.
+    /// is on, the reader is in group B, the card has not gone away yet and the reader has not
+    /// turned Discover on by another route.
     public var shouldShowAnnouncement: Bool {
-        guard isEnabled, experimentAssignment == .groupB else {
+        guard isEnabled, experimentAssignment == .groupB, !isListTurnedOn else {
             return false
         }
 
         return !hasDismissedAnnouncement
+    }
+
+    /// True when the Saved tab badge announces a Discover list the reader has not opened yet: the
+    /// feature is on, the reader turned Discover on and a list was generated since their last visit.
+    /// A synchronous view of `WMFDiscoverReadingListDataController.hasUnseenList` for the badge.
+    public var shouldShowUnseenListBadge: Bool {
+        guard isEnabled, isListTurnedOn else {
+            return false
+        }
+
+        let hasUnseenList: Bool? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue)
+        return hasUnseenList ?? false
+    }
+
+    /// True when the reader turned Discover on in its settings. A synchronous view of
+    /// `WMFDiscoverSettings.isEnabled` for the badge and the events.
+    public var isListTurnedOn: Bool {
+        let storedSettings: WMFDiscoverSettings? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverSettings.rawValue)
+        return storedSettings?.isEnabled ?? false
     }
 
     // MARK: - Announcement
@@ -76,7 +108,7 @@ public final class WMFDiscoverDataController: Sendable {
     /// The share of readers in the control group, 0 to 100, from the remote feature config when
     /// it carries the key. Changing the share re-rolls every reader's bucket.
     public var experimentControlPercentage: Int {
-        let remotePercentage = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.discoverExperimentControlPercentage
+        let remotePercentage = developerSettingsDataController.loadFeatureConfig()?.ios.discoverExperimentControlPercentage
         guard let remotePercentage, (0...100).contains(remotePercentage) else {
             return Self.defaultExperimentControlPercentage
         }
@@ -104,6 +136,20 @@ public final class WMFDiscoverDataController: Sendable {
         return developerSettingsForcedAssignment ?? assignment
     }
 
+    /// The experiment fields of every Discover event, in the shape the Android app sends. Nil
+    /// before the reader has a group.
+    public var experimentData: ExperimentData? {
+        guard let experimentAssignment else { return nil }
+
+        let coordinator = developerSettingsForcedAssignment == nil ? ExperimentData.coordinatorCustom : ExperimentData.coordinatorForced
+        return ExperimentData(
+            enrolled: Self.experimentName,
+            assigned: experimentAssignment == .groupB ? "treatment" : "control",
+            coordinator: coordinator,
+            subjectId: WMFDataEnvironment.current.appInstallIDUtility?()
+        )
+    }
+
     public var experimentAssignment: ExperimentAssignment? {
         if let developerSettingsForcedAssignment {
             return developerSettingsForcedAssignment
@@ -128,12 +174,38 @@ public final class WMFDiscoverDataController: Sendable {
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         try experimentsDataController.resetExperiment(.discover)
+        try setHasSentExposure(false)
+    }
+
+    // MARK: - Exposure
+
+    /// True when the exposure event should go out: the reader has a group and no exposure went
+    /// out before. Each install sends one, in both groups, when the bucket is assigned.
+    public var shouldSendExposure: Bool {
+        experimentAssignment != nil && !hasSentExposure
+    }
+
+    /// True after the exposure event went out on this install.
+    public var hasSentExposure: Bool {
+        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.discoverExposureSent.rawValue)) ?? false
+    }
+
+    public func markExposureSent() throws {
+        try setHasSentExposure(true)
+    }
+
+    private func setHasSentExposure(_ hasSentExposure: Bool) throws {
+        guard let userDefaultsStore else {
+            throw DiscoverError.missingUserDefaultsStore
+        }
+
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverExposureSent.rawValue, value: hasSentExposure)
     }
 
     // Overrides assignment at read time only, so the persisted bucket survives
     // turning the developer setting back off.
     private var developerSettingsForcedAssignment: ExperimentAssignment? {
-        WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment
+        developerSettingsDataController.forceDiscoverExperimentAssignment
     }
 }
 

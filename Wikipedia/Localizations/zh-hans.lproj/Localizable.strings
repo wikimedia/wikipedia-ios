@@ -1004,7 +1004,7 @@
 "notifications-center-language-project-name-format" = "$1$2";
 "notifications-center-login-notifications" = "登录通知";
 "notifications-center-mark" = "标记";
-"notifications-center-mark-all-as-read" = "标记所有为已读";
+"notifications-center-mark-all-as-read" = "全部标记为已读";
 "notifications-center-mark-all-as-read-confirmation-format" = "您确定要将您所有的 {{PLURAL:$1|$1条消息}} 标记为已读？这会将您所有设备上的通知都标记为已读。";
 "notifications-center-mark-all-as-read-missing-number" = "您确定要将您的所有消息都标记为已读？这会将您所有设备上的通知都标记为已读。";
 "notifications-center-mark-as-read" = "标记为已读";
@@ -1210,8 +1210,6 @@
 "reading-list-api-error-generic" = "同步您的阅读列表时发生意外错误。";
 "reading-list-api-error-list-limit" = "此列表未同步，因为您已达到同步列表的数量限制。";
 "reading-list-create-new-list-button-title" = "创建阅读列表";
-"reading-list-create-new-list-description" = "描述";
-"reading-list-create-new-list-reading-list-name" = "阅读列表名称";
 "reading-list-create-new-list-title" = "创建新列表";
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-detail-search-placeholder" = "搜索阅读列表";
@@ -1232,7 +1230,9 @@
 "reading-list-list-limit-reached" = "您已超过每账号$1个阅读列表限制";
 "reading-list-login-or-create-account-button-title" = "登录或创建账号";
 "reading-list-name-user-created-annotation" = "_[用户创建]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "可选简短描述";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "阅读列表标题";
 "reading-list-sync-disabled-panel-message" = "您的维基百科账号在另一台设备上的阅读列表同步已被禁用。您可以通过更新设置重新打开同步。";
 "reading-list-sync-disabled-panel-title" = "同步被禁用";
