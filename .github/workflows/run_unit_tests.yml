@@ -1,128 +1,68 @@
 name: Run Unit Tests
 
+# DIAGNOSTICS BRANCH ONLY, not for merging. Replaces the unit-test jobs with one job
+# that measures where Swift package resolution spends its time on a fresh runner:
+#   1. a direct download of Rive's prebuilt framework (the binaryTarget zip),
+#   2. xcodebuild -resolvePackageDependencies for WMFComponents, as CI runs it (cold),
+#   3. swift package resolve -v for WMFComponents, which prints per-package timings.
+
 on:
-  pull_request:
-    branches:
-      - 'main'
-      - 'release-candidate/**'
-      - 'hotfix/**'
   workflow_dispatch:
 
 env:
   XCODE_VERSION: "27.1"
-  IOS_VERSION: "27.0"
-  SIMULATOR_NAME: "iPhone 17"
 
 concurrency:
-  group: "unit-tests-${{ github.ref }}"  # One group per branch
-  cancel-in-progress: true                # Cancel older runs in the same group
+  group: "unit-tests-${{ github.ref }}"
+  cancel-in-progress: true
 
-# Two macOS jobs instead of one per scheme. macOS runners are the scarce resource:
-# PR runs spend far longer queued for one than running on it.
-#
-# - The app job is the longest one (about 30 minutes), so it gets its own runner.
-# - The package jobs share a runner. Testing WMFComponents compiles WMFData (and
-#   WMFDataMocks) into the same DerivedData, so the WMFData tests that follow reuse
-#   that build instead of compiling the package again. Together they take about as
-#   long as the app job, so the run does not get longer when runners are free.
 jobs:
-  test-app:
+  package-resolution-diagnostics:
     runs-on: xcode-27
     permissions:
-      actions: read
       contents: read
-    name: Test Wikipedia
+    name: Package resolution diagnostics
     steps:
       - uses: actions/checkout@v7
 
-      - name: Prepare simulator
-        id: simulator
-        uses: ./.github/actions/prepare-simulator
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
-          ios-version: ${{ env.IOS_VERSION }}
-          simulator-name: ${{ env.SIMULATOR_NAME }}
+      - name: Select Xcode
+        run: sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
-      - name: Test Wikipedia
-        uses: ./.github/actions/unit-test-scheme
-        with:
-          scheme: Wikipedia
-          destination: ${{ steps.simulator.outputs.destination }}
-
-  test-packages:
-    runs-on: xcode-27
-    permissions:
-      actions: read
-      contents: read
-    name: Test WMFComponents and WMFData
-    outputs:
-      wmfcomponents: ${{ steps.wmfcomponents-tests.outcome }}
-      wmfdata: ${{ steps.wmfdata-tests.outcome }}
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Prepare simulator
-        id: simulator
-        uses: ./.github/actions/prepare-simulator
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
-          ios-version: ${{ env.IOS_VERSION }}
-          simulator-name: ${{ env.SIMULATOR_NAME }}
-
-      - name: Test WMFComponents
-        id: wmfcomponents-tests
-        uses: ./.github/actions/unit-test-scheme
-        with:
-          scheme: WMFComponents
-          destination: ${{ steps.simulator.outputs.destination }}
-
-      # The lint and the WMFData tests run even when the WMFComponents tests fail, so
-      # one run reports both packages. A lint failure skips only the WMFData tests.
-      - name: Ensure tests reset WMFData global environment state
-        id: wmfdata-lint
-        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
-        run: scripts/lint-wmfdata-test-fixtures.sh
-
-      - name: Test WMFData
-        id: wmfdata-tests
-        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' }}
-        uses: ./.github/actions/unit-test-scheme
-        with:
-          scheme: WMFData
-          destination: ${{ steps.simulator.outputs.destination }}
-
-  # Branch protection on main requires checks named "Test WMFComponents" and
-  # "Test WMFData", the names of the per-scheme jobs this workflow used to have.
-  # These two jobs keep reporting those names from the shared packages job's
-  # results, on cheap Ubuntu runners, so PRs aren't left waiting for checks that
-  # never come. Once the required checks are switched to "Test WMFComponents
-  # and WMFData", delete both jobs and the test-packages outputs.
-  report-wmfcomponents:
-    needs: test-packages
-    if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
-    permissions: {}
-    name: Test WMFComponents
-    steps:
-      - name: Report the WMFComponents tests from "Test WMFComponents and WMFData"
-        env:
-          OUTCOME: ${{ needs.test-packages.outputs.wmfcomponents }}
+      - name: 1. Download Rive's prebuilt framework directly
         run: |
-          echo "WMFComponents tests: ${OUTCOME:-did not run}"
-          test "${OUTCOME}" = "success"
+          RESOLVED="Wikipedia.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+          VERSION=$(jq -r '.pins[] | select(.identity == "rive-ios") | .state.version' "${RESOLVED}")
+          URL=$(curl -sSL "https://raw.githubusercontent.com/rive-app/rive-ios/${VERSION}/Package.swift" \
+            | grep -o 'https://[^"]*\.zip' | head -n 1)
+          echo "rive-ios ${VERSION}: ${URL}"
+          for attempt in 1 2; do
+            curl -sSL -o "${RUNNER_TEMP}/rive-${attempt}.zip" \
+              -w "attempt ${attempt}: size=%{size_download} bytes, total=%{time_total}s, connect=%{time_connect}s, first byte=%{time_starttransfer}s, speed=%{speed_download} B/s\n" \
+              "${URL}"
+          done
+          ls -la "${RUNNER_TEMP}"/rive-*.zip
 
-  report-wmfdata:
-    needs: test-packages
-    if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
-    permissions: {}
-    name: Test WMFData
-    steps:
-      # Skipped counts as a failure: the WMFData tests are skipped when the
-      # fixture lint fails, which used to fail the separate WMFData job.
-      - name: Report the WMFData tests from "Test WMFComponents and WMFData"
-        env:
-          OUTCOME: ${{ needs.test-packages.outputs.wmfdata }}
+      - name: 2. xcodebuild -resolvePackageDependencies (as CI runs it, cold)
         run: |
-          echo "WMFData tests: ${OUTCOME:-did not run}"
-          test "${OUTCOME}" = "success"
+          set -o pipefail
+          START=$(date +%s)
+          xcodebuild -resolvePackageDependencies \
+            -scheme WMFComponents \
+            -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
+            -clonedSourcePackagesDirPath "${RUNNER_TEMP}/SourcePackages" \
+            2>&1 | grep -v -E "DVTAssertions|SimDevice native architecture|^Object:|^Method:|^Thread:|feedbackassistant|^\)$" \
+            | while IFS= read -r line; do printf '%s +%ss %s\n' "$(date +%T)" "$(( $(date +%s) - START ))" "${line}"; done
+          echo "xcodebuild resolve took $(( $(date +%s) - START ))s"
+          echo "SourcePackages contents:"
+          du -sh "${RUNNER_TEMP}/SourcePackages"/* "${RUNNER_TEMP}/SourcePackages/artifacts"/* 2>/dev/null || true
+
+      - name: 3. swift package resolve -v (per-package timings)
+        working-directory: WMFComponents
+        run: |
+          set -o pipefail
+          START=$(date +%s)
+          swift package resolve -v 2>&1 \
+            | while IFS= read -r line; do printf '%s +%ss %s\n' "$(date +%T)" "$(( $(date +%s) - START ))" "${line}"; done
+          echo "swift package resolve took $(( $(date +%s) - START ))s"
+          du -sh .build/artifacts/* .build/checkouts/* 2>/dev/null || true
