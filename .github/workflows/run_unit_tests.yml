@@ -86,12 +86,12 @@ jobs:
           compilation-cache: "true"
 
       - name: Save compilation cache
-        if: ${{ !cancelled() && github.event_name == 'schedule' }}
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
         continue-on-error: true
         uses: actions/cache/save@v6
         with:
           path: ${{ env.COMPILATION_CACHE_PATH }}
-          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}-${{ github.run_id }}
 
   test-packages:
     runs-on: xcode-27
