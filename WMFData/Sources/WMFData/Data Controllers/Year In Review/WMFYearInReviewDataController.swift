@@ -269,11 +269,13 @@ import CoreData
         case .editCount:
             // Android counts its total edits slide from one edit, also before the edit slides are built here.
             return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0
+        case .saveCount:
+            return (try? decoder.decode(SavedArticleSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .viewCount:
             return (try? decoder.decode(WMFYearInReviewViewCountSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .mostViewedArticles:
             return (try? decoder.decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
-        case .donateCount, .saveCount, .mostReadDate, .location:
+        case .donateCount, .mostReadDate, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
             return 0
         }
@@ -993,13 +995,66 @@ public struct WMFYearInReviewNicheCategorySlideData: Codable, Sendable {
     }
 }
 
-public class SavedArticleSlideData: NSObject, Codable {
-    public let savedArticlesCount: Int
-    public let articleTitles: [String]
+/// Sendable: every stored property is a `let` of a Sendable type, and the class is final.
+public final class SavedArticleSlideData: NSObject, Codable, Sendable {
 
-    public init(savedArticlesCount: Int, articleTitles: [String]) {
+    /// One article on the saved slide.
+    public struct Article: Codable, Sendable, Equatable {
+        /// The title as shown to the reader.
+        public let title: String
+        /// The title with spaces, not underscores, that the API reads, for the thumbnail. `nil` when unknown.
+        public let pageTitle: String?
+        /// The short description of the article. `nil` when the article has none.
+        public let articleDescription: String?
+        /// The `WMFProject.id` of the wiki the article is on. `nil` when unknown.
+        public let projectID: String?
+
+        public init(title: String, pageTitle: String?, articleDescription: String?, projectID: String?) {
+            self.title = title
+            self.pageTitle = pageTitle
+            self.articleDescription = articleDescription
+            self.projectID = projectID
+        }
+
+        public var project: WMFProject? {
+            projectID.flatMap { WMFProject(id: $0) }
+        }
+    }
+
+    /// The slide shows at most this number of articles.
+    public static let maximumArticleCount = 3
+
+    /// The number of articles saved in the data period that are still saved when the slide is built.
+    /// Unsaving an article clears its saved date, so an article saved and then unsaved is not counted.
+    /// The same fetch gives this count and `articles`, so they always count the same articles.
+    public let savedArticlesCount: Int
+    /// Up to `maximumArticleCount` saved articles, picked at random. `nil` in data stored by an
+    /// older build, which did not store the descriptions or the wikis.
+    public let articles: [Article]?
+    /// Only in data stored by an older build. Newer data gets the titles from `articles`.
+    private let legacyArticleTitles: [String]?
+
+    /// The titles of `articles`, or the stored titles in data from an older build.
+    public var articleTitles: [String] {
+        articles?.map(\.title) ?? legacyArticleTitles ?? []
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case savedArticlesCount
+        case articles
+        case legacyArticleTitles = "articleTitles"
+    }
+
+    public init(savedArticlesCount: Int, articles: [Article]?) {
         self.savedArticlesCount = savedArticlesCount
-        self.articleTitles = articleTitles
+        self.articles = articles
+        self.legacyArticleTitles = nil
+    }
+
+    /// If false, show the empty state ("You have 0 articles saved"). A non-empty list means that the
+    /// reader saved at least one article in the data period.
+    public var isEligible: Bool {
+        !(articles ?? []).isEmpty
     }
 }
 
@@ -1014,7 +1069,8 @@ public struct DonateAndEditCounts: Codable {
 }
 
 public protocol SavedArticleSlideDataDelegate: AnyObject {
-    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData
+    /// `nil` if the saved articles cannot be read. Then the slide stays unevaluated and is built again later.
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData?
 }
 
 public protocol LegacyPageViewsDataDelegate: AnyObject {

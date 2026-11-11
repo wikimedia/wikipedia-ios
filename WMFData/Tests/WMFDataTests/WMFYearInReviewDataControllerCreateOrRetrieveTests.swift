@@ -200,11 +200,28 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentData))
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentDataWithoutCategory), "A stored nil category is a choice, not old data")
     }
+
+    func testSavedDataWithoutArticlesIsAnOlderFormat() throws {
+        // An older build stored only the count and the titles.
+        let legacyData = Data(#"{"savedArticlesCount":3,"articleTitles":["Cat"]}"#.utf8)
+        let currentData = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 3, articles: [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: "Small mammal", projectID: "wikipedia~en")
+        ]))
+        let currentDataWithoutArticles = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 0, articles: []))
+
+        XCTAssertFalse(YearInReviewSaveCountSlideDataController.hasCurrentFormat(legacyData))
+        XCTAssertFalse(YearInReviewSaveCountSlideDataController.hasCurrentFormat(nil))
+        XCTAssertTrue(YearInReviewSaveCountSlideDataController.hasCurrentFormat(currentData))
+        XCTAssertTrue(YearInReviewSaveCountSlideDataController.hasCurrentFormat(currentDataWithoutArticles), "No saved articles is a result, not old data")
+    }
 }
 
 extension WMFYearInReviewDataControllerCreateOrRetrieveTests: SavedArticleSlideDataDelegate {
-    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> WMFData.SavedArticleSlideData {
-        return SavedArticleSlideData(savedArticlesCount: 30, articleTitles: ["Cat", "Dog", "Bird"])
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> WMFData.SavedArticleSlideData? {
+        let titles = ["Cat", "Dog", "Bird"]
+        return SavedArticleSlideData(savedArticlesCount: 30, articles: titles.map {
+            SavedArticleSlideData.Article(title: $0, pageTitle: $0, articleDescription: nil, projectID: "wikipedia~en")
+        })
     }
 }
 

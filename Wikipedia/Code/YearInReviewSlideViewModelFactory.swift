@@ -42,6 +42,8 @@ struct YearInReviewSlideViewModelFactory {
         "rabbitHoleReveal": "rabbit_hole_reveal",
         "rereadArticles": "revisited_articles",
         "rereadArticlesEmpty": "revisited_articles_empty",
+        "savedArticles": "saved_articles",
+        "savedArticlesEmpty": "saved_articles_empty",
         "collectiveHoursRead": "collective_hours_read",
         "collectiveLanguages": "collective_languages",
         "collectiveArticles": "collective_articles",
@@ -77,7 +79,7 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, reading streak, articles visited multiple times, topic, biggest reading day, rabbit hole, niche interest, edit and contributor slides have real data so far.
+    /// Only the total articles, days visited, reading streak, articles visited multiple times, saved, topic, biggest reading day, rabbit hole, niche interest, edit and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
     /// The days visited, biggest reading day, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
@@ -151,6 +153,7 @@ struct YearInReviewSlideViewModelFactory {
             rabbitHoles: storedRabbitHoles(in: report),
             nicheCategory: storedNicheCategory(in: report),
             rereadArticles: storedRereadArticles(in: report) ?? [],
+            savedArticles: storedSavedArticles(in: report),
             isLoggedIn: isLoggedIn,
             editCount: storedEditCount(in: report),
             editViewCount: storedViewCount(in: report),
@@ -174,6 +177,8 @@ struct YearInReviewSlideViewModelFactory {
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
         var nicheCategory: WMFYearInReviewNicheCategorySlideData?
         var rereadArticles: [RereadArticle] = []
+        /// `nil` shows the empty saved slide.
+        var savedArticles: SavedArticleSlideData?
         /// The edit slides need an account.
         var isLoggedIn = false
         /// `nil` when the edit count was never fetched, for example after a failed request. Then no
@@ -184,8 +189,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
-    /// not in the flow: time spent, reading pattern,
-    /// longest read, geography, saved and the end screen.
+    /// not in the flow: time spent, reading pattern, longest read, geography and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
             totalArticlesSlide(readCount: data.readCount, topReadPercentage: data.topReadPercentage, averageReadCount: data.averageReadCount)
@@ -201,6 +205,7 @@ struct YearInReviewSlideViewModelFactory {
             slides.append(nicheInterest)
         }
         slides.append(rereadArticlesSlide(data.rereadArticles))
+        slides.append(savedArticlesSlide(data.savedArticles))
         if data.isLoggedIn, let editCount = data.editCount {
             slides += editorSlides(editCount: editCount, viewCount: data.editViewCount, mostViewedArticles: data.mostViewedArticles)
         }
@@ -209,7 +214,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// In the same order as `personalizedSlides(_:)`.
     private func personalizedEmptySlides(isLoggedIn: Bool) -> [WMFYearInReviewSlideViewModel] {
-        var slides = [totalArticlesEmptySlide(), readingStreakEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
+        var slides = [totalArticlesEmptySlide(), readingStreakEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide(), savedArticlesEmptySlide()]
         if isLoggedIn {
             slides.append(editsEmptySlide())
         }
@@ -461,6 +466,57 @@ struct YearInReviewSlideViewModelFactory {
             id: "rereadArticlesEmpty",
             artboard: "frame13-empty",
             stateMachine: "frame13-empty-statemachine",
+            headline: headline,
+            bodyText: bodyText,
+            items: [],
+            accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    // MARK: - Saved articles
+
+    /// The saved articles, from the report the app fills in the background. `nil` when the report
+    /// does not have this slide yet.
+    private func storedSavedArticles(in report: WMFYearInReviewReport?) -> SavedArticleSlideData? {
+        storedSlideData(.saveCount, as: SavedArticleSlideData.self, logName: "saved articles", in: report)
+    }
+
+    /// Lists up to three saved articles with their thumbnails and descriptions. Shows the empty
+    /// version unless the reader saved at least one article in the data period.
+    func savedArticlesSlide(_ slideData: SavedArticleSlideData?) -> WMFYearInReviewSlideViewModel {
+        guard let slideData, slideData.isEligible, let articles = slideData.articles else {
+            return savedArticlesEmptySlide()
+        }
+
+        let bodyText = "\(CommonStrings.yearInReviewSavedArticlesTitle) \(decimalString(slideData.savedArticlesCount))"
+        let shownArticles = Array(articles.prefix(SavedArticleSlideData.maximumArticleCount))
+        let items = shownArticles.map { article in
+            ListItem(title: article.title, subtitle: article.articleDescription ?? "")
+        }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        for (index, article) in shownArticles.enumerated() {
+            guard let project = article.project else { continue }
+            thumbnails[ListImagePath.icon(index + 1)] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.pageTitle ?? article.title)
+        }
+        return listSlide(
+            id: "savedArticles",
+            artboard: "frame15",
+            stateMachine: "frame15-statemachine",
+            headline: nil,
+            bodyText: bodyText,
+            items: items,
+            articleThumbnails: thumbnails,
+            accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
+    private func savedArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewSavedArticlesEmptyTitle
+        let bodyText = CommonStrings.yearInReviewSavedArticlesEmptySubtitle
+        return listSlide(
+            id: "savedArticlesEmpty",
+            artboard: "frame15-empty",
+            stateMachine: "frame15-empty-statemachine",
             headline: headline,
             bodyText: bodyText,
             items: [],
