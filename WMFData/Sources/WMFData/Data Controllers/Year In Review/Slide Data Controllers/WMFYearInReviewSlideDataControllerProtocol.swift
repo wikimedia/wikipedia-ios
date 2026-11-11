@@ -26,6 +26,11 @@ protocol YearInReviewSlideDataControllerProtocol: Sendable {
     /// True if the stored data of this slide uses the current format.
     /// If false, the report builds the slide again, also when the slide is frozen.
     static func hasCurrentFormat(_ data: Data?) -> Bool
+
+    /// True if a stored slide in an older format stays in the report when building it again fails.
+    /// If false, the report deletes that slide. Return true only if the slide's data type hides the
+    /// parts that the older format got wrong.
+    static var keepsOutdatedDataOnFailedRebuild: Bool { get }
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies)
 }
@@ -34,6 +39,10 @@ extension YearInReviewSlideDataControllerProtocol {
     /// Most slides did not change their format. Thus, the stored data is always current.
     static func hasCurrentFormat(_ data: Data?) -> Bool {
         true
+    }
+
+    static var keepsOutdatedDataOnFailedRebuild: Bool {
+        false
     }
 }
 

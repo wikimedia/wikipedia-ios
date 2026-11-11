@@ -154,7 +154,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
-            readData: try readData(readCount: 20, minutesRead: 0),
+            readData: try readData(minutesRead: 5),
             daysVisited: try daysVisitedData(dayCount: 30),
             readingStreak: readingStreakData(dayCount: 11, first: (3, 4), last: (3, 14)),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
@@ -174,7 +174,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame4", "frame6", "frame7", "frame8", "frame9", "frame11a", "frame12", "frame13", "frame15", "frame16", "frame17", "frame18"])
+        #expect(artboards == ["frame1", "frame2", "frame3", "frame4", "frame6", "frame7", "frame8", "frame9", "frame11a", "frame12", "frame13", "frame15", "frame16", "frame17", "frame18"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
@@ -333,6 +333,52 @@ struct YearInReviewSlideViewModelFactoryTests {
     func slideIdsAreUnique(experience: WMFYearInReviewDataController.YiRSlidesExperience) {
         let ids = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides.map(\.id)
         #expect(Set(ids).count == ids.count, "duplicate slide id in \(ids)")
+    }
+
+    // MARK: - Minutes read
+
+    /// `format` is `nil` for data from builds before the minutes read slide.
+    private func readData(readCount: Int = 10, minutesRead: Int, format: Int? = WMFYearInReviewReadData.currentMinutesReadFormat) throws -> WMFYearInReviewReadData {
+        var json: [String: Any] = ["readCount": readCount, "minutesRead": minutesRead]
+        json["minutesReadFormat"] = format
+        let data = try JSONSerialization.data(withJSONObject: json)
+        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: data)
+    }
+
+    @Test
+    func theMinutesReadSlideShowsTheMinutesAndTheComparison() throws {
+        let slide = try #require(factory.minutesReadSlide(try readData(minutesRead: 924)))
+
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewMinutesReadTitle)
+        #expect(text(slide, "data") == "924")
+        let bodyCopy = try #require(text(slide, "bodyCopy"))
+        #expect(bodyCopy == "\(CommonStrings.yearInReviewMinutesReadComparisonNightSleep) \(CommonStrings.yearInReviewMinutesReadSubtitle)")
+        let accessibilityLabel = try #require(slide.localizedStrings.accessibilityLabel)
+        #expect(accessibilityLabel.contains("924"))
+        #expect(accessibilityLabel.contains(bodyCopy))
+    }
+
+    @Test
+    func theMinutesReadSlideNamesTheDaysForAVeryLongReadingTime() throws {
+        let slide = try #require(factory.minutesReadSlide(try readData(minutesRead: 2880)))
+
+        #expect(text(slide, "bodyCopy")?.hasPrefix(CommonStrings.yearInReviewMinutesReadComparisonDays(dayCount: 2)) == true)
+    }
+
+    @Test(arguments: [0, 300_001])
+    func theMinutesReadSlideDoesNotShowWithoutEnoughOrWithTooManyMinutes(minutesRead: Int) throws {
+        #expect(factory.minutesReadSlide(try readData(minutesRead: minutesRead)) == nil)
+    }
+
+    @Test
+    func theMinutesReadSlideDoesNotShowWithoutStoredData() {
+        #expect(factory.minutesReadSlide(nil) == nil)
+    }
+
+    @Test
+    func theMinutesReadSlideDoesNotShowOutdatedData() throws {
+        #expect(factory.minutesReadSlide(try readData(minutesRead: 924, format: nil)) == nil, "old reports counted all page views")
+        #expect(factory.minutesReadSlide(try readData(minutesRead: 924, format: WMFYearInReviewReadData.currentMinutesReadFormat - 1)) == nil)
     }
 
     // MARK: - Days visited
@@ -952,12 +998,6 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     // MARK: - Highlights
 
-    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
-    private func readData(readCount: Int, minutesRead: Int) throws -> WMFYearInReviewReadData {
-        let json: [String: Any] = ["readCount": readCount, "minutesRead": minutesRead]
-        return try JSONDecoder().decode(WMFYearInReviewReadData.self, from: JSONSerialization.data(withJSONObject: json))
-    }
-
     @Test
     func theHighlightsHaveEveryStatThatTheReaderHas() throws {
         let highlights = factory.highlights(
@@ -1019,6 +1059,19 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(highlights.isShareable)
     }
 
+    /// The minutes follow the minutes read slide, so the image never shows minutes that the slide hid.
+    @Test(arguments: [
+        (minutesRead: 924, format: nil as Int?),
+        (minutesRead: 924, format: WMFYearInReviewReadData.currentMinutesReadFormat - 1),
+        (minutesRead: WMFYearInReviewReadData.maximumMinutesRead + 1, format: WMFYearInReviewReadData.currentMinutesReadFormat)
+    ])
+    func theHighlightsLeaveOutTheMinutesThatTheSlideHid(minutesRead: Int, format: Int?) throws {
+        let readData = try readData(readCount: 20, minutesRead: minutesRead, format: format)
+
+        #expect(factory.minutesReadSlide(readData) == nil)
+        #expect(factory.highlights(readData: readData, rereadArticles: [], rabbitHoles: nil, nicheCategory: nil).minutesRead == nil)
+    }
+
     /// Only the built-in text activities get the share text. Every other activity, such as Instagram,
     /// TikTok or Save to Files, gets only the image.
     @Test
@@ -1042,7 +1095,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let planPages: Set<String> = [
-            "total_articles", "total_articles_empty", "visits", "reading_streak", "reading_streak_empty", "top_topic", "top_topic_empty", "other_top_topics",
+            "total_articles", "total_articles_empty", "visits", "minutes_read", "reading_streak", "reading_streak_empty", "top_topic", "top_topic_empty", "other_top_topics",
             "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
             "saved_articles", "saved_articles_empty",
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
@@ -1058,5 +1111,6 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
         #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: YearInReviewSlideViewModelFactory.contributorSlideID) == "thank_you")
         #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "rabbitHoleReveal") == "rabbit_hole_reveal")
+        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "minutesRead") == "minutes_read")
     }
 }
