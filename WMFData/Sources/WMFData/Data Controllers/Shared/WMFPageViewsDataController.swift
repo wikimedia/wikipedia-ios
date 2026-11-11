@@ -98,6 +98,13 @@ public struct WMFPageViewLink: Sendable {
     public let timestamp: Date
 }
 
+/// The time that the reader spent on one page view.
+public struct WMFPageViewReadingTime: Sendable {
+    public let page: WMFPage
+    public let timestamp: Date
+    public let numberOfSeconds: Int
+}
+
 public final class WMFLegacyPageView: Codable, @unchecked Sendable {
     public let title: String
     let project: WMFProject
@@ -598,6 +605,30 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
                     return nil
                 }
                 return WMFPageViewLink(id: id, previousID: result["previousPageView"] as? NSManagedObjectID, timestamp: timestamp)
+            }
+        }
+    }
+
+    /// The article page views inside the window that have reading time. The window includes
+    /// `startDate` and `endDate`. Main pages are not left out.
+    public func fetchArticleReadingTimes(startDate: Date, endDate: Date) async throws -> [WMFPageViewReadingTime] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && numberOfSeconds > 0 && page.namespaceID == 0", startDate as CVarArg, endDate as CVarArg)
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = ["timestamp", "numberOfSeconds", "page.projectID", "page.title", "page.namespaceID"]
+
+            return try backgroundContext.fetch(request).compactMap { result in
+                guard let timestamp = result["timestamp"] as? Date,
+                      let numberOfSeconds = result["numberOfSeconds"] as? Int64,
+                      let projectID = result["page.projectID"] as? String,
+                      let title = result["page.title"] as? String,
+                      let namespaceID = result["page.namespaceID"] as? Int16 else {
+                    return nil
+                }
+                return WMFPageViewReadingTime(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), timestamp: timestamp, numberOfSeconds: Int(numberOfSeconds))
             }
         }
     }

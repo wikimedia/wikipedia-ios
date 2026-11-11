@@ -11,19 +11,20 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory(hidesDonate: { false })
 
-    /// The total articles, reading streak, top topic, articles visited multiple times and contributor slides always
+    /// The total articles, reading streak, top topic, articles visited multiple times, saved and contributor slides always
     /// show, in their full or their empty version, so Year in Review never opens with no slides. The
-    /// test host has no stored report and no donations, so the days visited, runners-up and rabbit hole
-    /// slides do not show and the contributor slide is the "You matter" version.
+    /// test host has no stored report and no donations, so the days visited, runners-up, rabbit hole
+    /// and edit slides do not show and the contributor slide is the "You matter" version.
     @Test
-    func makesTheTotalArticlesTheReadingStreakTheTopTopicTheArticlesVisitedMultipleTimesAndTheContributorSlides() {
+    func makesTheTotalArticlesTheReadingStreakTheTopTopicTheArticlesVisitedMultipleTimesTheSavedAndTheContributorSlides() {
         let slides = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true).slides
 
-        #expect(slides.count == 5)
+        #expect(slides.count == 6)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
         #expect(["frame4", "frame4-empty"].contains(slides[1].animation?.artboardName ?? ""))
         #expect(["frame6", "frame6-empty"].contains(slides[2].animation?.artboardName ?? ""))
         #expect(["frame13", "frame13-empty"].contains(slides[3].animation?.artboardName ?? ""))
+        #expect(["frame15", "frame15-empty"].contains(slides[4].animation?.artboardName ?? ""))
         #expect(slides.last?.animation?.artboardName == "end")
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
     }
@@ -44,13 +45,13 @@ struct YearInReviewSlideViewModelFactoryTests {
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["data"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
-            case "frame13-empty":
+            case "frame13-empty", "frame15-empty":
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["bodyText"]?.isEmpty == false)
                 #expect(slide.articleThumbnails.isEmpty)
                 // The empty frame has no rows, so it does not get a row count.
                 #expect(slide.numbers.isEmpty)
-            case "frame13":
+            case "frame13", "frame15":
                 #expect(byPath["bodyText"]?.isEmpty == false)
                 // An unused row is written as an empty string, so all three rows are always present.
                 for number in 1...3 {
@@ -61,7 +62,7 @@ struct YearInReviewSlideViewModelFactoryTests {
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["data"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"] != nil)
-            case "frame6-empty", "frame4-empty":
+            case "frame6-empty", "frame4-empty", "frame16-empty":
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
                 #expect(byPath["data"] == nil)
@@ -84,7 +85,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
         let artboards = factory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame15-empty", "frame16-empty", "end"])
     }
 
     /// The developer settings can force the empty version of each personalized slide.
@@ -92,11 +93,64 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame15-empty", "frame16-empty", "end"])
     }
 
-    /// The order of T438549: total articles, visits, reading streak, top topic, runners-up, rabbit holes, niche interest,
-    /// then the articles visited multiple times. The rabbit hole reveal is the answer of its guess slide, not a slide.
+    /// Without a fetched edit count, for example after a failed request, no edit slide shows, so an
+    /// editor is never told they made 0 edits.
+    @Test
+    func withoutAnEditCountNoEditSlideShows() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(
+            isLoggedIn: true,
+            editCount: nil,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
+        )
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(!artboards.contains { ["frame16", "frame16-empty", "frame17", "frame18"].contains($0) })
+    }
+
+    /// A fetched edit count of 0 shows the empty edits slide.
+    @Test
+    func aFetchedEditCountOfZeroShowsTheEmptyEditsSlide() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(isLoggedIn: true, editCount: 0)
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards.last == "frame16-empty")
+    }
+
+    /// The most-viewed articles are not limited to the year, so a reader without edits this year gets
+    /// only the empty edits slide, not the views or most-viewed articles slides.
+    @Test
+    func aFetchedEditCountOfZeroHidesTheViewsAndMostViewedSlides() {
+        let data = YearInReviewSlideViewModelFactory.PersonalizedData(
+            isLoggedIn: true,
+            editCount: 0,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
+        )
+
+        let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(artboards.last == "frame16-empty")
+        #expect(!artboards.contains("frame17"))
+        #expect(!artboards.contains("frame18"))
+    }
+
+    /// The edits slides need an account, so a logged-out reader does not get the empty edits slide.
+    @Test
+    func aLoggedOutReaderGetsNoEditsSlide() {
+        let artboards = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: false, forcesAllEmptyStates: true).slides.map { $0.animation?.artboardName ?? "nil" }
+
+        #expect(!artboards.contains("frame16-empty"))
+    }
+
+    /// The order of T438549: total articles, visits, reading streak, top topic, runners-up, biggest reading day and its
+    /// articles, rabbit holes, niche interest, the articles visited multiple times, saved, then the edit slides. The rabbit hole
+    /// reveal is the answer of its guess slide, not a slide.
     @Test
     func thePersonalizedSlidesShowInTheOrderOfTheFlow() throws {
         let data = YearInReviewSlideViewModelFactory.PersonalizedData(
@@ -104,24 +158,32 @@ struct YearInReviewSlideViewModelFactoryTests {
             daysVisited: try daysVisitedData(dayCount: 30),
             readingStreak: readingStreakData(dayCount: 11, first: (3, 4), last: (3, 14)),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
+            biggestReadingDay: try biggestReadingDayData(articles: [("Moon", "Natural satellite"), ("Cat", nil)]),
             rabbitHoles: try rabbitHolesData([("Moon", "Cat", 5), ("Paris", "Europe", 3)], deepestIsOnTop: true),
             nicheCategory: WMFYearInReviewNicheCategorySlideData(categoryName: "Executed female serial killers"),
             rereadArticles: [
                 .init(title: "Dam", visitCount: 3, project: nil),
                 .init(title: "Gravity dam", visitCount: 2, project: nil)
-            ]
+            ],
+            savedArticles: savedData(count: 4, articles: [("Dam", "Barrier that stops water")]),
+            isLoggedIn: true,
+            editCount: 12,
+            editViewCount: 1_000,
+            mostViewedArticles: [.init(title: "Dam", projectID: "wikipedia~en", viewsCount: 800)]
         )
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame3", "frame4", "frame6", "frame7", "frame11a", "frame12", "frame13"])
+        #expect(artboards == ["frame1", "frame2", "frame3", "frame4", "frame6", "frame7", "frame8", "frame9", "frame11a", "frame12", "frame13", "frame15", "frame16", "frame17", "frame18"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func onlyListSlidesSetTheLayoutDirection(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
-        let listFrames: Set<String> = ["frame7", "frame13", "frame13-empty"]
-        let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+        let listFrames: Set<String> = ["frame7", "frame9", "frame13", "frame13-empty", "frame15", "frame15-empty", "frame18"]
+        let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides
+            + factory.topicSlides(try topTopicsData(runnerUpIDs: ["biology", "sports"]))
+            + factory.biggestReadingDaySlides(try biggestReadingDayData(articles: [("Moon", nil), ("Cat", nil)]))
         for slide in slides {
             let artboard = slide.animation?.artboardName ?? ""
             if listFrames.contains(artboard) {
@@ -369,6 +431,69 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 1, peakMonth: 3, peakMonthDayCount: 1)) == nil)
     }
 
+    // MARK: - Saved articles
+
+    private func savedData(count: Int, articles: [(title: String, description: String?)], projectID: String? = "wikipedia~en") -> SavedArticleSlideData {
+        SavedArticleSlideData(
+            savedArticlesCount: count,
+            articles: articles.map { .init(title: $0.title, pageTitle: $0.title, articleDescription: $0.description, projectID: projectID) }
+        )
+    }
+
+    @Test
+    func theSavedSlideShowsTheCountAndUpToThreeArticlesWithTheirDescriptions() {
+        let slide = factory.savedArticlesSlide(savedData(count: 26, articles: [
+            ("Dam", "Barrier that stops water"),
+            ("Moon", nil),
+            ("Cat", "Small domesticated carnivorous mammal"),
+            ("Dog", "Domesticated canine")
+        ]))
+
+        #expect(slide.animation?.artboardName == "frame15")
+        #expect(slide.animation?.stateMachineName == "frame15-statemachine")
+        #expect(text(slide, "bodyText") == "\(CommonStrings.yearInReviewSavedArticlesTitle) \(decimal(26))")
+        #expect(text(slide, "headline") == nil)
+        #expect(text(slide, "articleTitle1") == "Dam")
+        #expect(text(slide, "subTitle1") == "Barrier that stops water")
+        #expect(text(slide, "articleTitle2") == "Moon")
+        // Without a description, the row writes an empty subtitle so the copy inside the .riv does not show.
+        #expect(text(slide, "subTitle2") == "")
+        #expect(text(slide, "articleTitle3") == "Cat")
+        #expect(slide.numbers.first(where: { $0.key.path == "numOfListItems" })?.value == 3)
+        #expect(slide.articleThumbnails.count == 3)
+        #expect(slide.articleThumbnails.first(where: { $0.key.path == "icon1" })?.value.title == "Dam")
+    }
+
+    @Test
+    func oneSavedArticleShowsTheFullSlideWithOneRow() {
+        let slide = factory.savedArticlesSlide(savedData(count: 1, articles: [("Dam", nil)]))
+
+        #expect(slide.animation?.artboardName == "frame15")
+        #expect(slide.numbers.first(where: { $0.key.path == "numOfListItems" })?.value == 1)
+        #expect(text(slide, "articleTitle2") == "")
+    }
+
+    @Test
+    func withoutAWikiTheSavedSlideKeepsThePlaceholderImage() {
+        let slide = factory.savedArticlesSlide(savedData(count: 1, articles: [("Dam", nil)], projectID: nil))
+
+        #expect(slide.articleThumbnails.isEmpty)
+    }
+
+    @Test
+    func noSavedArticlesShowTheEmptyState() throws {
+        // An older build stored only the count and the titles.
+        let legacy = try JSONDecoder().decode(SavedArticleSlideData.self, from: Data(#"{"savedArticlesCount":5,"articleTitles":["Dam"]}"#.utf8))
+        for slideData in [nil, savedData(count: 0, articles: []), legacy] {
+            let slide = factory.savedArticlesSlide(slideData)
+
+            #expect(slide.animation?.artboardName == "frame15-empty")
+            #expect(slide.animation?.stateMachineName == "frame15-empty-statemachine")
+            #expect(text(slide, "headline") == CommonStrings.yearInReviewSavedArticlesEmptyTitle)
+            #expect(text(slide, "bodyText") == CommonStrings.yearInReviewSavedArticlesEmptySubtitle)
+        }
+    }
+
     // MARK: - Reading streak
 
     private func readingStreakData(dayCount: Int, first: (month: Int, day: Int), last: (month: Int, day: Int)) -> WMFYearInReviewReadingStreakSlideData {
@@ -423,6 +548,69 @@ struct YearInReviewSlideViewModelFactoryTests {
         }
 
         #expect(factory.readingStreakSlide(readingStreakData(dayCount: 3, first: (3, 4), last: (3, 6))).animation?.artboardName == "frame4")
+    }
+
+    // MARK: - Biggest reading day
+
+    /// The payload's memberwise init is internal to WMFData, so the tests decode it like the app does.
+    private func biggestReadingDayData(month: Int = 3, day: Int = 7, minuteCount: Int = 43, articles: [(title: String, description: String?)], articleCount: Int? = nil) throws -> WMFYearInReviewBiggestReadingDaySlideData {
+        let articleJSON: [[String: Any]] = articles.map { article in
+            var json: [String: Any] = ["title": article.title, "projectID": "wikipedia~en"]
+            json["description"] = article.description
+            return json
+        }
+        let json: [String: Any] = ["year": 2026, "month": month, "day": day, "minuteCount": minuteCount, "articleCount": articleCount ?? articles.count, "articles": articleJSON]
+        return try JSONDecoder().decode(WMFYearInReviewBiggestReadingDaySlideData.self, from: try JSONSerialization.data(withJSONObject: json))
+    }
+
+    @Test
+    func theBiggestReadingDaySlideShowsTheDateWithoutTheYearAndTheMinutes() throws {
+        let slides = factory.biggestReadingDaySlides(try biggestReadingDayData(month: 3, day: 7, minuteCount: 43, articles: [("Moon", nil)]))
+        let slide = try #require(slides.first)
+
+        #expect(slides.count == 1, "one article is not enough for the articles slide")
+        #expect(slide.id == "biggestReadingDay")
+        #expect(slide.loggingID == "biggest_reading_day")
+        #expect(slide.animation?.artboardName == "frame8")
+        #expect(slide.animation?.stateMachineName == "frame8-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewBiggestReadingDayTitle)
+        let date = try #require(Calendar.current.date(from: DateComponents(year: 2026, month: 3, day: 7)))
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+        let day = formatter.string(from: date)
+        #expect(text(slide, "data") == day.localizedUppercase)
+        #expect(text(slide, "data")?.contains("2026") == false)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewBiggestReadingDaySubtitle(minuteCount: 43))
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewBiggestReadingDayTitle) \(day). \(CommonStrings.yearInReviewBiggestReadingDaySubtitle(minuteCount: 43))")
+    }
+
+    @Test
+    func theArticlesSlideShowsUpToThreeArticlesWithTheirDescriptions() throws {
+        let slideData = try biggestReadingDayData(articles: [("Moon", "Natural satellite"), ("Cat", nil), ("Paris", "Capital of France")], articleCount: 7)
+        let slides = factory.biggestReadingDaySlides(slideData)
+        let slide = try #require(slides.last)
+
+        #expect(slides.count == 2)
+        #expect(slide.id == "biggestReadingDayArticles")
+        #expect(slide.loggingID == "biggest_reading_day_articles")
+        #expect(slide.animation?.artboardName == "frame9")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewArticlesReadTitle)
+        #expect(text(slide, "articleTitle1") == "Moon")
+        #expect(text(slide, "subTitle1") == "Natural satellite")
+        #expect(text(slide, "subTitle2") == "", "an article without a description clears the copy inside the .riv")
+        #expect(text(slide, "articleTitle3") == "Paris")
+        #expect(slide.numbers[WMFRiveNumber(path: "numOfListItems")] == 3)
+        #expect(Set(slide.articleThumbnails.keys.map(\.path)) == ["icon1", "icon2", "icon3"])
+        #expect(slide.localizedStrings.accessibilityLabel == "\(CommonStrings.yearInReviewArticlesReadTitle) Moon, Natural satellite. Cat. Paris, Capital of France.")
+    }
+
+    /// Neither slide has an empty version.
+    @Test
+    func theBiggestReadingDaySlidesNeedTwoMinutesAndAtMostTheMaximum() throws {
+        #expect(factory.biggestReadingDaySlides(nil).isEmpty)
+        #expect(factory.biggestReadingDaySlides(try biggestReadingDayData(minuteCount: 1, articles: [("Moon", nil), ("Cat", nil)])).isEmpty)
+        #expect(factory.biggestReadingDaySlides(try biggestReadingDayData(minuteCount: 300_001, articles: [("Moon", nil), ("Cat", nil)])).isEmpty)
+        #expect(factory.biggestReadingDaySlides(try biggestReadingDayData(minuteCount: 300_000, articles: [("Moon", nil), ("Cat", nil)])).count == 2)
     }
 
     // MARK: - Niche interest
@@ -564,10 +752,84 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(WMFArticleTopic.women.yearInReviewSentence == WMFArticleTopic.biography.yearInReviewSentence)
     }
 
+    // MARK: - Edits
+
     @Test
-    func thePositionValueReadsAsOneBased() {
-        let strings = factory.makeLocalizedStrings()
-        #expect(strings.slidePositionAccessibilityValue(2, 5) == "2 of 5")
+    func theEditsSlideShowsTheEditCount() throws {
+        let slide = factory.editsSlide(editCount: 357)
+
+        #expect(slide.id == "edits")
+        #expect(slide.animation?.artboardName == "frame16")
+        #expect(slide.animation?.stateMachineName == "frame16-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewEditsTitle)
+        #expect(text(slide, "data") == "357")
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewEditsSubtitle)
+        let accessibilityLabel = try #require(slide.localizedStrings.accessibilityLabel)
+        #expect(accessibilityLabel.contains("357"))
+    }
+
+    /// One edit is enough for the full slide.
+    @Test
+    func oneEditShowsTheFullEditsSlide() {
+        #expect(factory.editsSlide(editCount: 1).animation?.artboardName == "frame16")
+    }
+
+    @Test
+    func noEditsShowsTheEmptyEditsSlide() {
+        let slide = factory.editsSlide(editCount: 0)
+
+        #expect(slide.id == "editsEmpty")
+        #expect(slide.animation?.artboardName == "frame16-empty")
+        #expect(slide.animation?.stateMachineName == "frame16-empty-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewEditsEmptyTitle)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewEditsEmptySubtitle)
+        #expect(text(slide, "data") == nil)
+    }
+
+    // MARK: - Edit views
+
+    @Test
+    func theEditViewsSlideShowsTheViewCount() throws {
+        let slide = try #require(factory.editViewsSlide(viewCount: 26))
+
+        #expect(slide.id == "editViews")
+        #expect(slide.animation?.artboardName == "frame17")
+        #expect(slide.animation?.stateMachineName == "frame17-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewEditViewsTitle)
+        #expect(text(slide, "data") == "26")
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewEditViewsSubtitle)
+    }
+
+    /// The slide needs more than 25 views. It has no empty version.
+    @Test(arguments: [nil, 0, 25] as [Int?])
+    func theEditViewsSlideNeedsMoreThan25Views(viewCount: Int?) {
+        #expect(factory.editViewsSlide(viewCount: viewCount) == nil)
+    }
+
+    // MARK: - Most-viewed articles
+
+    @Test
+    func theMostViewedArticlesSlideListsUpToThreeArticlesWithTheirViews() throws {
+        let articles = [("IOS", 109), ("Test5", 22), ("Test 2", 9), ("Test 3", 1)].map {
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: $0.0, projectID: "wikipedia~en", viewsCount: $0.1)
+        }
+        let slide = try #require(factory.mostViewedArticlesSlide(articles))
+
+        #expect(slide.id == "mostViewedArticles")
+        #expect(slide.animation?.artboardName == "frame18")
+        #expect(slide.animation?.stateMachineName == "frame18-statemachine")
+        #expect(text(slide, "bodyText") == CommonStrings.yearInReviewMostViewedEditedArticlesTitle)
+        #expect(text(slide, "articleTitle1") == "IOS")
+        #expect(text(slide, "subTitle1") == CommonStrings.yearInReviewMostViewedEditedArticlesViewCount(109))
+        #expect(text(slide, "articleTitle3") == "Test 2")
+        #expect(slide.text.keys.contains { $0.path == "articleTitle4" } == false)
+        #expect(slide.articleThumbnails.count == 3)
+    }
+
+    /// The slide has no empty version.
+    @Test
+    func theMostViewedArticlesSlideDoesNotShowWithoutArticles() {
+        #expect(factory.mostViewedArticlesSlide([]) == nil)
     }
 
     // MARK: - Contributor
@@ -835,10 +1097,15 @@ struct YearInReviewSlideViewModelFactoryTests {
         let planPages: Set<String> = [
             "total_articles", "total_articles_empty", "visits", "minutes_read", "reading_streak", "reading_streak_empty", "top_topic", "top_topic_empty", "other_top_topics",
             "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
+            "saved_articles", "saved_articles_empty",
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
             "collective_volunteer_editors", "collective_edits", "collective_global_reach", "thank_you", "you_matter"
         ]
-        let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config())
+        // TODO: The 2026 instrumentation plan does not name the edit slides yet, so they log their raw
+        // ids. Remove this filter when their page names are added to `loggingIDs` (see the TODO there).
+        let slidesWithoutPlanPages: Set<String> = ["edits", "editsEmpty", "editViews", "mostViewedArticles"]
+        let slides = (factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config()))
+            .filter { !slidesWithoutPlanPages.contains($0.id) }
         for slide in slides {
             #expect(planPages.contains(slide.loggingID), "\(slide.id) logs \(slide.loggingID)")
         }

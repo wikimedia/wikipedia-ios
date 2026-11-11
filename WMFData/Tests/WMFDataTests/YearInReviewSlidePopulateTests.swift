@@ -123,13 +123,15 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testMostReadDateIsNotEvaluatedWithoutPageViews() async throws {
+    /// The slide is frozen, so an empty result is stored and not fetched again on each build.
+    func testMostReadDateIsEvaluatedWithoutPageViews() async throws {
         let controller = YearInReviewMostReadDateSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
 
-        try await controller.populateSlideData(in: try context())
+        let payload = try await populatedPayload(controller)
 
         XCTAssertNil(controller.mostReadDate, "no dates were recorded")
-        XCTAssertFalse(controller.isEvaluated)
+        XCTAssertNil(payload)
+        XCTAssertTrue(controller.isEvaluated)
     }
 
     // MARK: - readCount
@@ -826,6 +828,160 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertFalse(payload.isEligible)
     }
 
+    // MARK: - biggestReadingDay
+
+    private typealias BiggestReadingDayData = WMFYearInReviewBiggestReadingDaySlideData
+
+    private actor DescriptionRecorder {
+        private(set) var requestedTitles: [String] = []
+        func record(_ title: String) { requestedTitles.append(title) }
+    }
+
+    private func biggestReadingDayController(
+        mainPageIdentifier: WMFMainPageIdentifying? = nil,
+        recorder: DescriptionRecorder = DescriptionRecorder(),
+        failingTitles: Set<String> = []
+    ) -> YearInReviewBiggestReadingDaySlideDataController {
+        var dependencies = makeDependencies()
+        dependencies.mainPageIdentifier = mainPageIdentifier
+        let controller = YearInReviewBiggestReadingDaySlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        controller.fetchDescription = { _, title in
+            await recorder.record(title)
+            if failingTitles.contains(title) {
+                throw URLError(.notConnectedToInternet)
+            }
+            return "About \(title)"
+        }
+        return controller
+    }
+
+    private func biggestReadingDayPayload(_ controller: YearInReviewBiggestReadingDaySlideDataController) async throws -> BiggestReadingDayData {
+        let payload = try decode(BiggestReadingDayData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    private func seedReadingTime(_ title: String, seconds: Int, at date: Date, namespaceID: Int16 = 0, project: WMFProject? = nil) async throws {
+        let pageViewsDataController = try WMFPageViewsDataController()
+        let pageViewID = try await pageViewsDataController.addPageView(title: title, namespaceID: namespaceID, project: project ?? enProject, previousPageViewObjectID: nil, timestamp: date)
+        try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: try XCTUnwrap(pageViewID), numberOfSeconds: Double(seconds))
+    }
+
+    func testBiggestReadingDayIsTheDayWithTheMostReadingTime() async throws {
+        // March 4: 2 + 3 + 1 + 4 minutes on four articles, Alpha twice.
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 180, at: try date(month: 3, day: 4, hour: 10))
+        try await seedReadingTime("Gamma", seconds: 60, at: try date(month: 3, day: 4, hour: 11))
+        try await seedReadingTime("Alpha", seconds: 240, at: try date(month: 3, day: 4, hour: 20))
+        try await seedReadingTime("Delta", seconds: 30, at: try date(month: 3, day: 4, hour: 21))
+        // More page views, but less time.
+        for hour in 8...16 {
+            try await seedReadingTime("Epsilon", seconds: 60, at: try date(month: 6, day: 1, hour: hour))
+        }
+
+        let recorder = DescriptionRecorder()
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(recorder: recorder))
+
+        XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 3, day: 4))
+        XCTAssertEqual(payload.minuteCount, 10, "630 seconds are 10 whole minutes")
+        XCTAssertEqual(payload.articleCount, 4)
+        XCTAssertEqual(payload.articles, [
+            BiggestReadingDayData.Article(title: "Alpha", projectID: enProject.id, description: "About Alpha"),
+            BiggestReadingDayData.Article(title: "Beta", projectID: enProject.id, description: "About Beta"),
+            BiggestReadingDayData.Article(title: "Gamma", projectID: enProject.id, description: "About Gamma")
+        ])
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertTrue(payload.showsArticles)
+        let requestedTitles = await recorder.requestedTitles
+        XCTAssertEqual(Set(requestedTitles), ["Alpha", "Beta", "Gamma"])
+    }
+
+    func testBiggestReadingDayLeavesOutMainPagesAndOtherNamespaces() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 60, at: try date(month: 3, day: 4, hour: 10))
+        try await seedReadingTime("Pagina_principale", seconds: 6000, at: try date(month: 5, day: 1, hour: 9), project: itProject)
+        try await seedReadingTime("Main_Page", seconds: 6000, at: try date(month: 5, day: 2, hour: 9))
+        try await seedReadingTime("Talk:Alpha", seconds: 6000, at: try date(month: 5, day: 3, hour: 9), namespaceID: 1)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(mainPageIdentifier: identifier))
+
+        XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 3, day: 4))
+        XCTAssertEqual(payload.minuteCount, 3)
+        XCTAssertEqual(payload.articles.map(\.title), ["Alpha", "Beta"])
+    }
+
+    func testBiggestReadingDayWithOneArticleShowsOnlyTheDay() async throws {
+        try await seedReadingTime("Alpha", seconds: 150, at: try date(month: 3, day: 4, hour: 9))
+
+        let recorder = DescriptionRecorder()
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(recorder: recorder))
+
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertFalse(payload.showsArticles)
+        XCTAssertNil(payload.articles.first?.description)
+        let requestedTitles = await recorder.requestedTitles
+        XCTAssertTrue(requestedTitles.isEmpty, "descriptions load only for the articles slide")
+    }
+
+    func testBiggestReadingDayUnderTwoMinutesIsNotEligible() async throws {
+        try await seedReadingTime("Alpha", seconds: 60, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 59, at: try date(month: 3, day: 4, hour: 10))
+
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController())
+
+        XCTAssertEqual(payload.minuteCount, 1)
+        XCTAssertFalse(payload.isEligible)
+        XCTAssertFalse(payload.showsArticles)
+    }
+
+    func testBiggestReadingDayWithoutReadingTimeHasNoData() async throws {
+        try await seedPageViews([pageView("Alpha", at: try date(month: 3, day: 4, hour: 9))])
+
+        let controller = biggestReadingDayController()
+        let payload = try await populatedPayload(controller)
+
+        XCTAssertNil(payload)
+        XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testBiggestReadingDayLeavesOutADescriptionThatFails() async throws {
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 60, at: try date(month: 3, day: 4, hour: 10))
+
+        let payload = try await biggestReadingDayPayload(biggestReadingDayController(failingTitles: ["Beta"]))
+
+        XCTAssertEqual(payload.articles.map(\.description), ["About Alpha", nil])
+        XCTAssertTrue(payload.showsArticles)
+    }
+
+    func testBiggestReadingDayOverTheMaximumIsNotEligible() {
+        let page = WMFPage(namespaceID: 0, projectID: enProject.id, title: "Alpha")
+        let when = Date(timeIntervalSince1970: 1_780_000_000)
+        let seconds = (BiggestReadingDayData.maximumMinuteCount + 1) * 60
+        let payload = YearInReviewBiggestReadingDaySlideDataController.slideData(readingTimes: [WMFPageViewReadingTime(page: page, timestamp: when, numberOfSeconds: seconds)], calendar: .current)
+
+        XCTAssertEqual(payload?.minuteCount, BiggestReadingDayData.maximumMinuteCount + 1)
+        XCTAssertEqual(payload?.isEligible, false)
+    }
+
+    func testBiggestReadingDayTieGoesToTheMoreRecentDay() throws {
+        let calendar = Calendar.current
+        let alpha = WMFPage(namespaceID: 0, projectID: enProject.id, title: "Alpha")
+        let beta = WMFPage(namespaceID: 0, projectID: enProject.id, title: "Beta")
+        let readingTimes = [
+            WMFPageViewReadingTime(page: alpha, timestamp: try date(month: 3, day: 4, hour: 9), numberOfSeconds: 300),
+            WMFPageViewReadingTime(page: alpha, timestamp: try date(month: 8, day: 1, hour: 9), numberOfSeconds: 150),
+            WMFPageViewReadingTime(page: beta, timestamp: try date(month: 8, day: 1, hour: 10), numberOfSeconds: 150)
+        ]
+
+        let payload = try XCTUnwrap(YearInReviewBiggestReadingDaySlideDataController.slideData(readingTimes: readingTimes, calendar: calendar))
+
+        XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 8, day: 1))
+        XCTAssertEqual(payload.articles.map(\.title), ["Beta", "Alpha"], "a tie between articles goes to the more recently read one")
+    }
+
     /// Inserts a second CDPage row for an article, with its own page view and topics. The app does not do this on
     /// purpose, but CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can.
     private func insertDuplicatePageRow(title: String, project: WMFProject, viewedAt timestamp: Date, topicLabels: [String]) async throws {
@@ -981,13 +1137,14 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     // MARK: - saveCount
 
     private final class StubSavedArticleDelegate: SavedArticleSlideDataDelegate {
-        let data: SavedArticleSlideData
-        init(data: SavedArticleSlideData) { self.data = data }
-        func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData { data }
+        let data: SavedArticleSlideData?
+        init(data: SavedArticleSlideData?) { self.data = data }
+        func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData? { data }
     }
 
     func testSaveCountTakesItsPayloadFromTheHostDelegate() async throws {
-        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 7, articleTitles: ["A", "B", "C"]))
+        let articles = ["A", "B", "C"].map { SavedArticleSlideData.Article(title: $0, pageTitle: $0, articleDescription: nil, projectID: "wikipedia~en") }
+        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 7, articles: articles))
         let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(savedSlideDataDelegate: delegate))
 
         let payload = try decode(SavedArticleSlideData.self, from: try await populatedPayload(controller))
@@ -997,6 +1154,31 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
+    func testSaveCountStoresTheArticlesWithTheirDescriptionsAndWikis() async throws {
+        let articles = [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: "Small mammal", projectID: "wikipedia~en"),
+            SavedArticleSlideData.Article(title: "Hund", pageTitle: "Hund", articleDescription: nil, projectID: "wikipedia~de")
+        ]
+        let delegate = StubSavedArticleDelegate(data: SavedArticleSlideData(savedArticlesCount: 2, articles: articles))
+        let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(savedSlideDataDelegate: delegate))
+
+        let payload = try decode(SavedArticleSlideData.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.articles, articles)
+        XCTAssertEqual(payload.articles?.last?.project, .wikipedia(WMFLanguage(languageCode: "de", languageVariantCode: nil)))
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testSaveCountIsNotEligibleWithoutSavedArticles() throws {
+        XCTAssertFalse(SavedArticleSlideData(savedArticlesCount: 0, articles: []).isEligible)
+        let legacy = try JSONDecoder().decode(SavedArticleSlideData.self, from: Data(#"{"savedArticlesCount":4,"articleTitles":["Cat"]}"#.utf8))
+        XCTAssertFalse(legacy.isEligible, "older data has no articles to list")
+        XCTAssertEqual(legacy.articleTitles, ["Cat"], "older data keeps its stored titles")
+        XCTAssertTrue(SavedArticleSlideData(savedArticlesCount: 1, articles: [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: nil, articleDescription: nil, projectID: nil)
+        ]).isEligible)
+    }
+
     func testSaveCountIsNotEvaluatedWithoutADelegate() async throws {
         let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
 
@@ -1004,6 +1186,25 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
         XCTAssertNil(payload, "no delegate means no payload")
         XCTAssertFalse(controller.isEvaluated)
+    }
+
+    func testSaveCountIsNotEvaluatedWhenTheSavedArticlesCannotBeRead() async throws {
+        let controller = YearInReviewSaveCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(savedSlideDataDelegate: StubSavedArticleDelegate(data: nil)))
+
+        let payload = try await populatedPayload(controller)
+
+        XCTAssertNil(payload, "a failed read must not freeze an empty slide")
+        XCTAssertFalse(controller.isEvaluated)
+    }
+
+    func testSavedDataStoresTheTitlesOnlyInTheArticles() throws {
+        let data = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 1, articles: [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: nil, projectID: "wikipedia~en")
+        ]))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+
+        XCTAssertNil(json["articleTitles"], "the titles are not stored twice")
+        XCTAssertEqual(try JSONDecoder().decode(SavedArticleSlideData.self, from: data).articleTitles, ["Cat"])
     }
 
     // MARK: - location
@@ -1058,15 +1259,22 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testEditCountRequestsTheContributorRange() async throws {
+    private var configWithContribDates: WMFFeatureConfigResponse.Common.YearInReview {
+        var config = config
+        config.contribStartDateString = "2025-12-01T00:00:00Z"
+        config.contribEndDateString = "2026-12-01T00:00:00Z"
+        return config
+    }
+
+    func testEditCountRequestsTheContribDatesOfTheConfig() async throws {
         let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.basicService = service
-        let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Editor", globalUserID: 1))
+        let controller = YearInReviewEditCountSlideDataController(year: year, yirConfig: configWithContribDates, dependencies: makeDependencies(username: "Editor", globalUserID: 1))
 
         _ = try await populatedPayload(controller)
 
         let path = try XCTUnwrap(service.requestedURLs.first?.path)
-        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026, not the insights range: \(path)")
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "contribStartDate to contribEndDate: \(path)")
     }
 
     func testEditCountIsNotEvaluatedWithoutAGlobalUserID() async throws {
@@ -1092,15 +1300,33 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testDonateCountRequestsTheContributorRangeForItsEditCount() async throws {
+    func testDonateCountIsEvaluatedForALoggedOutUser() async throws {
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertNil(payload.editCount, "no global user id means no edit count")
+        XCTAssertTrue(controller.isEvaluated, "the donations are on the device, so the slide is stored")
+    }
+
+    func testDonateCountIsNotEvaluatedWhenTheEditCountFails() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "missing-resource")
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+
+        try await controller.populateSlideData(in: try context())
+
+        XCTAssertFalse(controller.isEvaluated, "the stored slide keeps its last edit count")
+    }
+
+    func testDonateCountRequestsTheContribDatesForItsEditCount() async throws {
         let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.basicService = service
-        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: configWithContribDates, dependencies: makeDependencies(globalUserID: 1))
 
         _ = try await populatedPayload(controller)
 
         let path = try XCTUnwrap(service.requestedURLs.first?.path)
-        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "December 1, 2025 to November 30, 2026: \(path)")
+        XCTAssertTrue(path.hasSuffix("/monthly/20251201/20261201"), "contribStartDate to contribEndDate: \(path)")
     }
 
     func testDonateCountCountsOnlyDonationsInTheContributorRange() async throws {
@@ -1125,55 +1351,40 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
     // MARK: - viewCount
 
-    private struct StubUserImpactProvider: YearInReviewUserImpactDataProviding {
-        let totalPageviewsCount: Int?
-        let error: (any Error)?
+    func testViewCountSumsTheMonthlyViewsFromTheMetricsAPI() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edited-page-views-get")
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
 
-        init(totalPageviewsCount: Int?, error: (any Error)? = nil) {
-            self.totalPageviewsCount = totalPageviewsCount
-            self.error = error
-        }
+        let payload = try decode(WMFYearInReviewViewCountSlideData.self, from: try await populatedPayload(controller))
 
-        func fetchTotalPageViewsCount(userID: Int, project: WMFProject, language: String) async throws -> Int? {
-            if let error { throw error }
-            return totalPageviewsCount
-        }
-    }
-
-    private struct StubUserImpactError: Error {}
-
-    func testViewCountReportsTheTotalPageviewsOnTheUsersEdits() async throws {
-        let controller = YearInReviewViewCountSlideDataController(
-            year: year,
-            yirConfig: config,
-            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: 1234))
-        )
-
-        let payload = try decode(Int.self, from: try await populatedPayload(controller))
-
-        XCTAssertEqual(payload, 1234)
+        XCTAssertEqual(payload.editedPageViewCount, 1234, "1000 + 200 + 34 across the three monthly buckets")
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testViewCountIsNotEvaluatedWithoutAUserID() async throws {
-        let controller = YearInReviewViewCountSlideDataController(
-            year: year,
-            yirConfig: config,
-            dependencies: makeDependencies(userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: 1234))
-        )
+    func testViewCountRequestsTheEditedPageViewsOfTheGlobalUserInTheContribDates() async throws {
+        let service = WMFRecordingMockBasicService(jsonResourceName: "yir-metrics-edited-page-views-get")
+        WMFDataEnvironment.current.basicService = service
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: configWithContribDates, dependencies: makeDependencies(globalUserID: 1))
+
+        _ = try await populatedPayload(controller)
+
+        let path = try XCTUnwrap(service.requestedURLs.first?.path)
+        XCTAssertTrue(path.hasSuffix("/metrics/pageviews/v3/per_editor/1/monthly/20251201/20261201"), "contribStartDate to contribEndDate: \(path)")
+    }
+
+    func testViewCountIsNotEvaluatedWithoutAGlobalUserID() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edited-page-views-get")
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(userID: 42))
 
         let payload = try await populatedPayload(controller)
 
-        XCTAssertNil(payload, "no user id means no payload")
+        XCTAssertNil(payload, "no global user id means no payload")
         XCTAssertFalse(controller.isEvaluated)
     }
 
     func testViewCountPropagatesAFetchFailure() async throws {
-        let controller = YearInReviewViewCountSlideDataController(
-            year: year,
-            yirConfig: config,
-            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(totalPageviewsCount: nil, error: StubUserImpactError()))
-        )
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "missing-resource")
+        let controller = YearInReviewViewCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(globalUserID: 1))
 
         do {
             _ = try await populatedPayload(controller)
@@ -1181,6 +1392,45 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         } catch {
             XCTAssertFalse(controller.isEvaluated)
         }
+    }
+
+    /// Older builds stored a bare Growth page view count (all time, one wiki). It must not pass as
+    /// the current format, or a run that cannot fetch the new count would keep it.
+    func testViewCountRejectsTheOlderGrowthFormat() throws {
+        XCTAssertFalse(YearInReviewViewCountSlideDataController.hasCurrentFormat(try JSONEncoder().encode(Int?.some(5000))))
+        XCTAssertFalse(YearInReviewViewCountSlideDataController.hasCurrentFormat(try JSONEncoder().encode(Int?.none)))
+        XCTAssertFalse(YearInReviewViewCountSlideDataController.hasCurrentFormat(nil))
+        XCTAssertTrue(YearInReviewViewCountSlideDataController.hasCurrentFormat(try JSONEncoder().encode(WMFYearInReviewViewCountSlideData(editedPageViewCount: 5000))))
+    }
+
+    // MARK: - mostViewedArticles
+
+    private struct StubUserImpactProvider: YearInReviewUserImpactDataProviding {
+        let mostViewedArticles: [WMFYearInReviewMostViewedArticlesSlideData.Article]
+
+        func fetchMostViewedArticles(userID: Int, project: WMFProject, language: String) async throws -> [WMFYearInReviewMostViewedArticlesSlideData.Article] {
+            return mostViewedArticles
+        }
+    }
+
+    func testMostViewedArticlesSortsByViewsAndDropsArticlesWithoutViews() async throws {
+        let articles = [
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "B", projectID: "wikipedia~en", viewsCount: 10),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "A", projectID: "wikipedia~en", viewsCount: 10),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "C", projectID: "wikipedia~en", viewsCount: 500),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "D", projectID: "wikipedia~en", viewsCount: 1),
+            WMFYearInReviewMostViewedArticlesSlideData.Article(title: "E", projectID: "wikipedia~en", viewsCount: 0)
+        ]
+        let controller = YearInReviewMostViewedArticlesSlideDataController(
+            year: year,
+            yirConfig: config,
+            dependencies: makeDependencies(userID: 42, userImpactDataProvider: StubUserImpactProvider(mostViewedArticles: articles))
+        )
+
+        let payload = try decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.articles.map(\.title), ["C", "A", "B", "D"], "the slide decides how many it shows")
+        XCTAssertTrue(controller.isEvaluated)
     }
 
     // MARK: - rabbitHoles

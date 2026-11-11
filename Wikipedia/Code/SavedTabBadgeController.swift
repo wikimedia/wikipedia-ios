@@ -50,6 +50,7 @@ final class SavedTabBadgeController {
     private let userInterfaceIdiom: UIUserInterfaceIdiom
     private var theme: Theme
     private let discoverDataController: SavedTabDiscoverProviding
+    private let logDiscoverExperimentExposure: @MainActor () -> Void
 
     private var isSyncInProgress = false
     private var showsDiscoverDot = false
@@ -59,12 +60,13 @@ final class SavedTabBadgeController {
     private var showStarTask: Task<Void, Never>?
     private var discoverObservation: AnyCancellable?
 
-    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, discoverDataController: SavedTabDiscoverProviding = WMFDiscoverDataController.shared) {
+    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, discoverDataController: SavedTabDiscoverProviding = WMFDiscoverDataController.shared, logDiscoverExperimentExposure: @escaping @MainActor () -> Void = { DiscoverInstrumentation.shared.logExperimentExposure() }) {
         self.tabBarItem = tabBarItem
         self.tabBar = tabBar
         self.userInterfaceIdiom = userInterfaceIdiom
         self.theme = theme
         self.discoverDataController = discoverDataController
+        self.logDiscoverExperimentExposure = logDiscoverExperimentExposure
         beginProgressObservations()
         discoverObservation = NotificationCenter.default.publisher(for: WMFNSNotification.discoverAnnouncementStateDidChange)
             .merge(with: NotificationCenter.default.publisher(for: WMFNSNotification.discoverListStateDidChange))
@@ -89,10 +91,12 @@ final class SavedTabBadgeController {
 
     // MARK: - Discover
 
-    /// Re-reads the Discover gates. Rolls the experiment bucket on the first call while the feature is on.
+    /// Re-reads the Discover gates. Rolls the experiment bucket on the first call while the feature
+    /// is on, and sends the exposure event once the reader has a group.
     func refreshDiscover() {
         if discoverDataController.isEnabled {
             try? discoverDataController.assignExperimentBucketIfNeeded()
+            logDiscoverExperimentExposure()
         }
         showsDiscoverDot = discoverDataController.shouldShowAnnouncement || discoverDataController.shouldShowUnseenListBadge
         render()

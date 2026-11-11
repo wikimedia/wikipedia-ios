@@ -99,6 +99,11 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
+        // A slide that this run did not evaluate again keeps its last data. The view count slide
+        // without data is not in the current format, so it is deleted.
+        let slideIDs = Set(report?.slides.map(\.id) ?? [])
+        XCTAssertTrue(slideIDs.isSuperset(of: [.readCount, .saveCount, .mostReadDate, .editCount, .donateCount]))
+        XCTAssertFalse(slideIDs.contains(.viewCount))
         XCTAssertEqual(report?.slides.count, 6)
     }
 
@@ -174,6 +179,28 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertEqual(report?.slides.count, 3)
     }
 
+    /// The report can fill before the app knows the user. That run must not replace the stored edit
+    /// count with an empty one.
+    func testARunWithoutTheUserKeepsTheStoredEditCount() async throws {
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: 1, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        XCTAssertEqual(try editCount(in: report), 47)
+
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        XCTAssertEqual(try editCount(in: report), 47, "the run without a global user id keeps the last edit count")
+    }
+
+    private func editCount(in report: WMFYearInReviewReport?) throws -> Int? {
+        guard let data = report?.slides.first(where: { $0.id == .editCount })?.data else {
+            return nil
+        }
+        return try JSONDecoder().decode(Int.self, from: data)
+    }
+
     // MARK: - Niche interest slide format
 
     /// Saves a report with only a niche interest slide, then populates the report again.
@@ -231,11 +258,28 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentData))
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentDataWithoutCategory), "A stored nil category is a choice, not old data")
     }
+
+    func testSavedDataWithoutArticlesIsAnOlderFormat() throws {
+        // An older build stored only the count and the titles.
+        let legacyData = Data(#"{"savedArticlesCount":3,"articleTitles":["Cat"]}"#.utf8)
+        let currentData = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 3, articles: [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: "Small mammal", projectID: "wikipedia~en")
+        ]))
+        let currentDataWithoutArticles = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 0, articles: []))
+
+        XCTAssertFalse(YearInReviewSaveCountSlideDataController.hasCurrentFormat(legacyData))
+        XCTAssertFalse(YearInReviewSaveCountSlideDataController.hasCurrentFormat(nil))
+        XCTAssertTrue(YearInReviewSaveCountSlideDataController.hasCurrentFormat(currentData))
+        XCTAssertTrue(YearInReviewSaveCountSlideDataController.hasCurrentFormat(currentDataWithoutArticles), "No saved articles is a result, not old data")
+    }
 }
 
 extension WMFYearInReviewDataControllerCreateOrRetrieveTests: SavedArticleSlideDataDelegate {
-    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> WMFData.SavedArticleSlideData {
-        return SavedArticleSlideData(savedArticlesCount: 30, articleTitles: ["Cat", "Dog", "Bird"])
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> WMFData.SavedArticleSlideData? {
+        let titles = ["Cat", "Dog", "Bird"]
+        return SavedArticleSlideData(savedArticlesCount: 30, articles: titles.map {
+            SavedArticleSlideData.Article(title: $0, pageTitle: $0, articleDescription: nil, projectID: "wikipedia~en")
+        })
     }
 }
 

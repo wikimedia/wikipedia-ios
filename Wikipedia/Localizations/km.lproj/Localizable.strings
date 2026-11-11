@@ -569,8 +569,6 @@
 "reading-list-add-saved-button-title" = "បាទ/ចាស៎ បន្ថែមអត្ថបទទាំងនេះទៅក្នុងបញ្ជីអានរបស់ខ្ញុំ";
 "reading-list-add-saved-title" = "រកឃើញអត្ថបទដែលបានរក្សាទុក";
 "reading-list-create-new-list-button-title" = "បង្កើតបញ្ជីអាន";
-"reading-list-create-new-list-description" = "ការពិពណ៌នា";
-"reading-list-create-new-list-reading-list-name" = "ឈ្មោះបញ្ជីអាន";
 "reading-list-create-new-list-title" = "បង្កើតបញ្ជីថ្មីមួយ";
 "reading-list-deleted-accessibility-notification" = "បានលុបបញ្ជីអាន";
 "reading-list-do-not-keep-button-title" = "ទេ។ សូមលុបអត្ថបទពីឧបករណ៍នេះ";
@@ -578,7 +576,9 @@
 "reading-list-keep-button-title" = "បាទ/ចាស៎។ សូមទុកអត្ថបទនៅលើឧបករណ៍នេះ";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "តម្រៀបអត្ថបទ";
 "reading-list-login-or-create-account-button-title" = "កត់ឈ្មោះចូលឬបង្កើតគណនី";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "ចំណារពន្យល់សង្ខេប(សរសេរក៏បានមិនសរសេរក៏បាន)";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ចំណងជើងបញ្ជីអត្ថបទចង់អាន";
 "reading-themes-controls-accessibility-black-theme-button" = "រចនាបថខ្មៅ";
 "reading-themes-controls-accessibility-brightness-slider" = "របារកែសម្រួលពន្លឺ";

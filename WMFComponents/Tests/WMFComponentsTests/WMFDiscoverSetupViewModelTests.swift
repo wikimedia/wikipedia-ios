@@ -202,7 +202,23 @@ final class WMFDiscoverSetupViewModelTests {
         settings.isEnabled = true
         settings.source = currentSource
         try await dataController.saveSettings(settings)
-        return WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: currentSource, presentation: .settings, readingListDataController: dataController)
+        let viewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: currentSource, presentation: .settings, readingListDataController: dataController)
+        viewModel.loggingDelegate = loggingDelegate
+        return viewModel
+    }
+
+    @Test
+    func fromSettingsEverySourceTapIsReported() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let dataController = makeDataController()
+            let viewModel = try await makeSettingsViewModel(dataController: dataController)
+
+            viewModel.select(.history)
+            viewModel.cancelAdjust()
+            viewModel.select(.saved)
+
+            #expect(loggingDelegate.selectedSources == [.history, .saved], "the saved source counts too, like on the onboarding screen")
+        }
     }
 
     @Test
@@ -275,6 +291,23 @@ final class WMFDiscoverSetupViewModelTests {
             #expect(viewModel.selectedSource == .interests)
             #expect(viewModel.commitTask == nil)
             #expect(await dataController.settings.source == .saved, "the interests screen saves the source, after the reader selected an interest")
+        }
+    }
+
+    /// Back on the interests screen that Adjust opened. Nothing was saved, so the row shows the saved source again.
+    @Test
+    func backFromTheInterestsScreenShowsTheSavedSourceAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let dataController = makeDataController()
+            let viewModel = try await makeSettingsViewModel(dataController: dataController)
+            viewModel.select(.interests)
+            viewModel.confirmAdjust()
+            #expect(viewModel.selectedSource == .interests)
+
+            viewModel.undoChooseInterests()
+
+            #expect(viewModel.selectedSource == .saved)
+            #expect(await dataController.settings.source == .saved)
         }
     }
 
@@ -402,9 +435,17 @@ final class WMFDiscoverSetupViewModelTests {
 
     private final class MockLoggingDelegate: WMFDiscoverSetupLoggingDelegate {
         var impressions = 0
+        var backTaps = 0
+        var selectedSources: [WMFDiscoverSource] = []
         var continueSources: [WMFDiscoverSource] = []
+        var adjustTaps = 0
+        var cancelAdjustTaps = 0
 
         func discoverSetupDidAppear() { impressions += 1 }
+        func discoverSetupDidTapBack() { backTaps += 1 }
+        func discoverSetupDidSelect(source: WMFDiscoverSource) { selectedSources.append(source) }
         func discoverSetupDidTapContinue(source: WMFDiscoverSource) { continueSources.append(source) }
+        func discoverSetupDidTapAdjust() { adjustTaps += 1 }
+        func discoverSetupDidCancelAdjust() { cancelAdjustTaps += 1 }
     }
 }
