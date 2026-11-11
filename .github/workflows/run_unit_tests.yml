@@ -47,7 +47,10 @@ jobs:
       - name: Machine load before resolving
         run: |
           uptime
-          top -l 1 -n 8 -o cpu -stats pid,command,cpu,mem | tail -n 12 || true
+          # Two samples a second apart: the first top sample always reports 0% CPU.
+          top -l 2 -s 1 -n 10 -o cpu -stats pid,command,cpu,mem | tail -n 11 || true
+          echo "Spotlight indexing: $(mdutil -s / 2>/dev/null | tail -n 1)"
+          ps -Ao pcpu,pmem,comm -r | head -n 12 || true
 
       - name: xcodebuild -resolvePackageDependencies (cold)
         run: |
@@ -65,4 +68,7 @@ jobs:
       - name: Machine load after resolving
         run: |
           uptime
-          top -l 1 -n 8 -o cpu -stats pid,command,cpu,mem | tail -n 12 || true
+          # Two samples a second apart: the first top sample always reports 0% CPU.
+          top -l 2 -s 1 -n 10 -o cpu -stats pid,command,cpu,mem | tail -n 11 || true
+          echo "Spotlight indexing: $(mdutil -s / 2>/dev/null | tail -n 1)"
+          ps -Ao pcpu,pmem,comm -r | head -n 12 || true
