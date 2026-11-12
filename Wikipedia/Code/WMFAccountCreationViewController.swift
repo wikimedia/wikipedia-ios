@@ -280,7 +280,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let actionContext = category.map { ["invoke_source": $0.rawValue] }
+        let actionContext = category.map { ["invoke_source": $0.invokeSource] }
         authInstrument.submitInteraction(action: "impression", actionContext: actionContext)
 
         usernameField.becomeFirstResponder()
@@ -380,7 +380,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 
                 var actionContext: [String: String]? = nil
                 if let category {
-                    actionContext = ["invoke_source": category.rawValue]
+                    actionContext = ["invoke_source": category.invokeSource]
                 }
                 self.authInstrument.submitInteraction(action: "success", actionContext: actionContext)
                 

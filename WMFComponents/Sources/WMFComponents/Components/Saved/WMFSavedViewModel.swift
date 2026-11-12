@@ -3,15 +3,16 @@ import Combine
 import WMFData
 import WMFNativeLocalizations
 
+@MainActor
 public protocol WMFSavedLoggingDelegate: AnyObject {
-    @MainActor func savedDidAppear()
+    func savedDidAppear()
     /// A segment is on screen: at first load and after every switch.
-    @MainActor func savedDidShowSegment(_ segment: WMFSavedViewModel.Segment)
+    func savedDidShowSegment(_ segment: WMFSavedViewModel.Segment)
     /// The reader switched to a segment.
-    @MainActor func savedDidSelectSegment(_ segment: WMFSavedViewModel.Segment)
-    @MainActor func savedDidTapEditAllArticles()
-    @MainActor func savedDidTapProfile()
-    @MainActor func savedDidTapTabs()
+    func savedDidSelectSegment(_ segment: WMFSavedViewModel.Segment)
+    func savedDidTapEditAllArticles()
+    func savedDidTapProfile()
+    func savedDidTapTabs()
 }
 
 /// The Saved tab container: the segment picker, the search field and the navigation bar state
@@ -54,6 +55,8 @@ public final class WMFSavedViewModel: ObservableObject {
     public let allArticlesViewModel: WMFSavedAllArticlesViewModel
     public let readingListsViewModel: WMFReadingListsViewModel
     public let progressViewModel: WMFSavedProgressViewModel
+    /// The Discover card pinned above both segments. Nil when Discover is off.
+    public let discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel?
 
     public var didTapProfile: (() -> Void)?
     public var didTapTabs: (() -> Void)?
@@ -63,11 +66,14 @@ public final class WMFSavedViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    public init(allArticlesViewModel: WMFSavedAllArticlesViewModel, readingListsViewModel: WMFReadingListsViewModel, progressViewModel: WMFSavedProgressViewModel) {
+    public init(allArticlesViewModel: WMFSavedAllArticlesViewModel, readingListsViewModel: WMFReadingListsViewModel, progressViewModel: WMFSavedProgressViewModel, discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel? = nil) {
         self.allArticlesViewModel = allArticlesViewModel
         self.readingListsViewModel = readingListsViewModel
         self.progressViewModel = progressViewModel
+        self.discoverHeaderViewModel = discoverHeaderViewModel
         self.sortOrder = allArticlesViewModel.sortOrder
+        allArticlesViewModel.discoverHeaderViewModel = discoverHeaderViewModel
+        readingListsViewModel.discoverHeaderViewModel = discoverHeaderViewModel
         bind()
     }
 
@@ -121,6 +127,7 @@ public final class WMFSavedViewModel: ObservableObject {
 
     public func viewWillAppear() {
         refreshProfileButtonBadge()
+        discoverHeaderViewModel?.refresh()
     }
 
     public func viewDidAppear() {

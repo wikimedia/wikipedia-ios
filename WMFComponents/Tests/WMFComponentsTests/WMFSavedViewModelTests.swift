@@ -1,4 +1,5 @@
 import XCTest
+import WMFDataTestSupport
 @testable import WMFComponents
 @testable import WMFData
 import WMFDataMocks
@@ -6,13 +7,21 @@ import WMFDataMocks
 @MainActor
 final class WMFSavedViewModelTests: XCTestCase {
 
+    private let fixture = WMFDataTestFixture()
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private var delegate: MockDelegate!
     private var loggingDelegate: MockLoggingDelegate!
 
     override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
         delegate = MockDelegate()
         loggingDelegate = MockLoggingDelegate()
+    }
+
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     private func article(_ title: String) -> WMFSavedArticle {
@@ -41,6 +50,67 @@ final class WMFSavedViewModelTests: XCTestCase {
         for _ in 0..<50 where !condition() {
             try? await Task.sleep(nanoseconds: 10_000_000)
         }
+    }
+
+    // MARK: - Discover header
+
+    private func makeDiscoverEnvironment() async throws {
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
+        await fixture.resetWMFDataTestState()
+        WMFDeveloperSettingsDataController.shared.enableDiscover = true
+        WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+    }
+
+    private func makeViewModel(discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel) -> WMFSavedViewModel {
+        let dataController = WMFLegacyReadingListsDataController(delegate: delegate, userDefaultsStore: WMFMockKeyValueStore())
+        let allArticlesViewModel = WMFSavedAllArticlesViewModel(dataController: dataController)
+        let readingListsViewModel = WMFReadingListsViewModel(dataController: dataController)
+        return WMFSavedViewModel(allArticlesViewModel: allArticlesViewModel, readingListsViewModel: readingListsViewModel, progressViewModel: WMFSavedProgressViewModel(), discoverHeaderViewModel: discoverHeaderViewModel)
+    }
+
+    func testTheAnnouncementIsSharedByBothSegmentsAndHidesOnBoth() async throws {
+        try await makeDiscoverEnvironment()
+        let announcementViewModel = WMFDiscoverAnnouncementViewModel()
+        let entryCardViewModel = WMFDiscoverEntryCardViewModel()
+        await entryCardViewModel.refreshTask?.value
+        let discoverHeaderViewModel = WMFSavedDiscoverHeaderViewModel(announcementViewModel: announcementViewModel, entryCardViewModel: entryCardViewModel)
+        let viewModel = makeViewModel(discoverHeaderViewModel: discoverHeaderViewModel)
+
+        XCTAssertTrue(viewModel.discoverHeaderViewModel === discoverHeaderViewModel)
+        XCTAssertEqual(viewModel.allArticlesViewModel.discoverHeader, .announcement)
+        XCTAssertEqual(viewModel.readingListsViewModel.discoverHeader, .announcement)
+
+        announcementViewModel.tapNoThanks()
+
+        XCTAssertNil(viewModel.allArticlesViewModel.discoverHeader)
+        XCTAssertNil(viewModel.readingListsViewModel.discoverHeader)
+    }
+
+    /// The card needs a list to show, so the test generates one from a mocked network before the card appears.
+    func testTheEntryCardReplacesTheAnnouncementOnBothSegments() async throws {
+        try await makeDiscoverEnvironment()
+        try await WMFDiscoverInterestsDataController().addPage(title: "Cat", project: project)
+        let relatedPagesDataController = WMFRelatedPagesDataController(basicService: WMFMockBasicService(jsonResourceName: "related-pages-get"))
+        let readingListDataController = WMFDiscoverReadingListDataController(relatedPagesDataController: relatedPagesDataController)
+        try await readingListDataController.saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 3, cadence: .weekly, source: .interests))
+        _ = try await readingListDataController.generateRecommendations()
+        let announcementViewModel = WMFDiscoverAnnouncementViewModel()
+        let entryCardViewModel = WMFDiscoverEntryCardViewModel(readingListDataController: readingListDataController)
+        await entryCardViewModel.refreshTask?.value
+        let discoverHeaderViewModel = WMFSavedDiscoverHeaderViewModel(announcementViewModel: announcementViewModel, entryCardViewModel: entryCardViewModel)
+        let viewModel = makeViewModel(discoverHeaderViewModel: discoverHeaderViewModel)
+
+        XCTAssertEqual(viewModel.allArticlesViewModel.discoverHeader, .entryCard)
+        XCTAssertEqual(viewModel.readingListsViewModel.discoverHeader, .entryCard)
+    }
+
+    func testWithoutADiscoverHeaderTheSegmentsShowNoCard() async {
+        let viewModel = await makeViewModel()
+        XCTAssertNil(viewModel.discoverHeaderViewModel)
+        XCTAssertNil(viewModel.allArticlesViewModel.discoverHeader)
+        XCTAssertNil(viewModel.readingListsViewModel.discoverHeader)
     }
 
     // MARK: - Segments
@@ -222,6 +292,7 @@ private final class MockDelegate: WMFLegacyReadingListsDataControllerDelegate {
     func fetchArticles(inReadingList readingListID: String) async throws -> [WMFSavedArticle] { [] }
     func defaultReadingListID() async throws -> String? { readingLists.first { $0.isDefault }?.id }
     func isDefaultReadingListEnabled() async -> Bool { true }
+    func isInitialSyncPending() async -> Bool { false }
     func sortOrder(forReadingList readingListID: String) async throws -> WMFReadingListSortOrder? { sortOrders[readingListID] }
     func setSortOrder(_ sortOrder: WMFReadingListSortOrder, forReadingList readingListID: String) async throws { sortOrders[readingListID] = sortOrder }
     func createReadingList(name: String, description: String?) async throws -> WMFReadingList {

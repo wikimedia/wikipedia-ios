@@ -31,7 +31,7 @@ public final class WMFHomeFeedSettingsViewModel: ObservableObject {
 
         sections.append(SettingsSection(header: forYouHeader, footer: nil, items: [
             SettingsItem(image: nil, color: nil, title: modulesTitle, subtitle: forYouModulesSubtitle, accessory: .chevron(label: nil), action: didTapForYouModules),
-            SettingsItem(image: nil, color: nil, title: whatsDrivingTitle, subtitle: whatsDrivingSubtitle, accessory: .chevron(label: nil), action: didTapForYouWhatsDriving)
+            SettingsItem(image: nil, color: nil, title: whatsDrivingTitle, subtitle: whatsDrivingSubtitle, accessory: .chevron(label: nil), accessibilityIdentifier: AccessibilityIdentifiers.HomeFeedSettings.whatsDrivingRow, action: didTapForYouWhatsDriving)
         ]))
 
         self.sections = sections

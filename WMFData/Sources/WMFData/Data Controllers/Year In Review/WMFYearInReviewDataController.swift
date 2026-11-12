@@ -24,18 +24,25 @@ import CoreData
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
     
-    /// The Year in Review experience for the user. A data-rich user sees the personalized slides. A
-    /// low-data user sees the collective slides.
-    public enum YiRUserDataState: String, Sendable {
+    /// Which entry point and announcement to show. Only the local reading history decides it.
+    /// Use "data-rich" and "low-data" only for the entry points and the announcement.
+    public enum YiRDataState: String, Sendable, CaseIterable {
         case dataRich = "data-rich"
         case lowData = "low-data"
     }
 
-    /// The experience that the developer settings force, regardless of the personalized data.
-    public enum YiRForcedExperience: String, Sendable, CaseIterable {
-        case dataRich = "data-rich"
-        case lowData = "low-data"
-        /// A data-rich user whose personalized slides all show their empty version. Use it to check the empty states.
+    /// Which slides to show after the reader taps Explore. Use "personalized" and "collective"
+    /// only for the slides.
+    public enum YiRSlidesExperience: String, Sendable {
+        case personalized
+        case collective
+    }
+
+    /// The slides that the developer settings force, regardless of the personalized data.
+    public enum YiRForcedSlidesExperience: String, Sendable, CaseIterable {
+        case personalized
+        case collective
+        /// The personalized slides, each in its empty version. Use it to check the empty states.
         case allEmptyStates = "all-empty-states"
     }
 
@@ -46,13 +53,11 @@ import CoreData
     public var config: WMFFeatureConfigResponse.Common.YearInReview? {
         let remoteConfig = developerSettingsDataController.loadFeatureConfig()?.common.yir(year: Self.targetYear)
 
-        // TEMPORARY: while the developer force flag is on, use the test wiki entry first, then the
-        // remote entry of this build's environment, then the local copy. Builds without the flag
-        // use only the remote entry, so the remote config still controls launch.
+        // TEMPORARY: while the developer force flag is on, use the remote entry, then the local copy.
+        // The test wiki config has no `yirv2` entry, so a staging build uses the local copy. Builds
+        // without the flag use only the remote entry, so the remote config still controls launch.
         if developerSettingsDataController.forceYiREntryPoint2026 {
-            return developerSettingsDataController.loadTestWikiFeatureConfig()?.common.yir(year: Self.targetYear)
-                ?? remoteConfig
-                ?? WMFYearInReviewLocalConfig.year2026
+            return remoteConfig ?? WMFYearInReviewLocalConfig.year2026
         }
 
         return remoteConfig
@@ -87,13 +92,26 @@ import CoreData
 
     /// The period for the contributor slide and for donor and editor rewards: December 1 of the
     /// previous year to December 1 of `year`, at 00:00 UTC. The end date is the first instant
-    /// outside the period. This is set in the app, not in the remote config.
+    /// outside the period. This is set in the app, not in the remote config. Edits use
+    /// `editCountDateRange(config:)` instead.
     public static func contributorDateRange(year: Int) -> DateInterval? {
         guard let start = utcDate(year: year - 1, month: 12, day: 1),
               let end = utcDate(year: year, month: 12, day: 1) else {
             return nil
         }
         return DateInterval(start: start, end: end)
+    }
+
+    /// The period for the edit count: `contribStartDate` to `contribEndDate` of the remote config, or
+    /// `contributorDateRange(year:)` when the config does not have them. The monthly metrics API
+    /// rounds the end down to the start of its month, so the end date is the first month not counted.
+    public static func editCountDateRange(config: WMFFeatureConfigResponse.Common.YearInReview) -> DateInterval? {
+        if let start = config.contribStartDate,
+           let end = config.contribEndDate,
+           start < end {
+            return DateInterval(start: start, end: end)
+        }
+        return contributorDateRange(year: config.year)
     }
 
     private static func utcDate(year: Int, month: Int, day: Int) -> Date? {
@@ -104,69 +122,171 @@ import CoreData
         return calendar.date(from: DateComponents(year: year, month: month, day: day))
     }
 
-    // MARK: - User Data State
+    // MARK: - Data State
 
-    /// A user is data rich when at least this number of personalized slides have enough data to
-    /// show their full version.
-    static let dataRichEligibleSlideThreshold = 2
+    /// A reader is data rich when they read at least this number of articles in the data window.
+    static let dataRichArticleThreshold = 3
 
-    /// Which Year in Review experience to show. The developer settings override wins, but only when
-    /// `forceYiREntryPoint2026` is on. Otherwise the slides in the stored report decide. Without a
-    /// report, the user is low data.
-    @MainActor
-    public func fetchUserDataState() throws -> YiRUserDataState {
-        switch forcedExperience {
-        case .dataRich, .allEmptyStates:
-            return .dataRich
-        case .lowData:
+    /// Which entry point and announcement to show. The developer settings override wins, but only
+    /// when `forceYiREntryPoint2026` is on. Otherwise the number of articles read in the data window
+    /// decides, with the same rule as the read count slide. Only local data is used: no slide
+    /// eligibility and no API calls.
+    public func fetchDataState(mainPageIdentifier: WMFMainPageIdentifying?) async throws -> YiRDataState {
+        if let forcedDataState {
+            return forcedDataState
+        }
+
+        guard let config,
+              let startDate = config.dataStartDate,
+              let endDate = config.dataEndDate else {
             return .lowData
+        }
+
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let readCount = try await YearInReviewReadCountSlideDataController.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
+        return readCount >= Self.dataRichArticleThreshold ? .dataRich : .lowData
+    }
+
+    private var forcedDataState: YiRDataState? {
+        guard developerSettingsDataController.forceYiREntryPoint2026 else {
+            return nil
+        }
+        return developerSettingsDataController.forceYiRDataState
+    }
+
+    // MARK: - Slides Experience
+
+    /// A logged-in reader sees the personalized slides when at least this number of personalized
+    /// slides have enough data to show their full version.
+    static let personalizedEligibleSlideThreshold = 2
+
+    /// Which slides to show. Call it after the reader taps Explore and after any log in. The
+    /// developer settings override wins, but only when `forceYiREntryPoint2026` is on. A logged-out
+    /// reader always sees the collective slides. Otherwise the slides in the stored report decide.
+    /// Without a report, the reader sees the collective slides.
+    @MainActor
+    public func fetchSlidesExperience(isLoggedIn: Bool) throws -> YiRSlidesExperience {
+        switch forcedSlidesExperience {
+        case .personalized, .allEmptyStates:
+            return .personalized
+        case .collective:
+            return .collective
         case nil:
             break
         }
 
-        guard let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
-            return .lowData
+        guard isLoggedIn,
+              let report = try fetchYearInReviewReport(forYear: Self.targetYear) else {
+            return .collective
         }
-        let eligibleSlideCount = report.slides.count(where: Self.hasEnoughData)
-        return eligibleSlideCount >= Self.dataRichEligibleSlideThreshold ? .dataRich : .lowData
+        return Self.eligibleSlideCount(for: report.slides) >= Self.personalizedEligibleSlideThreshold ? .personalized : .collective
     }
 
     /// True if the developer settings force the empty version of each personalized slide.
     public var forcesAllEmptyStates: Bool {
-        forcedExperience == .allEmptyStates
+        forcedSlidesExperience == .allEmptyStates
     }
 
-    /// The developer settings override. It has an effect only when `forceYiREntryPoint2026` is on.
-    private var forcedExperience: YiRForcedExperience? {
+    private var forcedSlidesExperience: YiRForcedSlidesExperience? {
         guard developerSettingsDataController.forceYiREntryPoint2026 else {
             return nil
         }
-        return developerSettingsDataController.forceYiRExperience
+        return developerSettingsDataController.forceYiRSlidesExperience
     }
 
-    /// True if the slide can show its full version, not its empty version.
-    static func hasEnoughData(_ slide: WMFYearInReviewSlide) -> Bool {
+    /// The number of slides that the report shows in their full version, not their empty version.
+    /// The edit views and most-viewed articles slides show only after at least one edit in the
+    /// period, the same rule as the app's editor slides. The most-viewed articles are not limited to
+    /// the period, so without this a past editor could reach the personalized flow and see only
+    /// empty slides.
+    ///
+    /// Whether the reader edited comes from `editCount(in:)`, the same rule as the app's slides. The
+    /// edit count slide counts once when the reader edited, also when the count is only in the
+    /// donate count slide.
+    static func eligibleSlideCount(for slides: [WMFYearInReviewSlide]) -> Int {
+        let hasEdits = ((try? editCount(in: slides)) ?? nil).map { $0 > 0 } ?? false
+        let otherSlideCount = slides.reduce(0) { count, slide in
+            guard slide.id != .editCount else {
+                return count
+            }
+            let needsEdits = slide.id == .viewCount || slide.id == .mostViewedArticles
+            guard hasEdits || !needsEdits else {
+                return count
+            }
+            return count + fullSlideCount(for: slide)
+        }
+        return otherSlideCount + (hasEdits ? 1 : 0)
+    }
+
+    /// The edits in the contributor period, from the edit count slide, or else from the edit count
+    /// in the donate count slide. `nil` when no slide has it, for example after a failed request.
+    /// The slide count and the app's edit slides both read it here, so they agree on whether the
+    /// reader edited.
+    public static func editCount(in slides: [WMFYearInReviewSlide]) throws -> Int? {
+        let decoder = JSONDecoder()
+        if let data = slides.first(where: { $0.id == .editCount })?.data,
+           let editCount = try decoder.decode(Int?.self, from: data) {
+            return editCount
+        }
+        if let data = slides.first(where: { $0.id == .donateCount })?.data {
+            return try decoder.decode(DonateAndEditCounts.self, from: data).editCount
+        }
+        return nil
+    }
+
+    /// The number of slides that this report entry shows in their full version, not their empty
+    /// version. The read count entry holds two slides, the total articles and the minutes read, and
+    /// each counts on its own. The top topics entry holds two slides, the top topic and the runners-up,
+    /// and Android counts each of them. The biggest reading day entry also holds two slides: the day
+    /// and its articles. The rabbit holes entry is one slide: the reveal replaces the guess in place.
+    static func fullSlideCount(for slide: WMFYearInReviewSlide) -> Int {
         guard let data = slide.data else {
-            return false
+            return 0
         }
         let decoder = JSONDecoder()
         switch slide.id {
         case .readCount:
-            return (try? decoder.decode(WMFYearInReviewReadData.self, from: data))?.isEligible ?? false
+            guard let readData = try? decoder.decode(WMFYearInReviewReadData.self, from: data) else {
+                return 0
+            }
+            return (readData.isEligible ? 1 : 0) + (readData.isMinutesReadEligible ? 1 : 0)
         case .topArticles:
-            return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible ?? false
+            return (try? decoder.decode(WMFYearInReviewTopArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .topTopics:
-            return (try? decoder.decode(WMFYearInReviewTopTopicsSlideData.self, from: data))?.isEligible ?? false
+            guard let topTopics = try? decoder.decode(WMFYearInReviewTopTopicsSlideData.self, from: data) else {
+                return 0
+            }
+            return (topTopics.isEligible ? 1 : 0) + (topTopics.showsRunnerUps ? 1 : 0)
         case .daysVisited:
-            return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible ?? false
-        case .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location:
+            return (try? decoder.decode(WMFYearInReviewDaysVisitedSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .mostReadCategories:
+            return (try? decoder.decode(WMFYearInReviewNicheCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .rabbitHoles:
+            return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .readingStreak:
+            return (try? decoder.decode(WMFYearInReviewReadingStreakSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .biggestReadingDay:
+            guard let biggestReadingDay = try? decoder.decode(WMFYearInReviewBiggestReadingDaySlideData.self, from: data) else {
+                return 0
+            }
+            return (biggestReadingDay.isEligible ? 1 : 0) + (biggestReadingDay.showsArticles ? 1 : 0)
+        case .editCount:
+            // Android counts its total edits slide from one edit, also before the edit slides are built here.
+            return (try? decoder.decode(Int.self, from: data)).map { $0 > 0 ? 1 : 0 } ?? 0
+        case .saveCount:
+            return (try? decoder.decode(SavedArticleSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .viewCount:
+            return (try? decoder.decode(WMFYearInReviewViewCountSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .mostViewedArticles:
+            return (try? decoder.decode(WMFYearInReviewMostViewedArticlesSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .donateCount, .mostReadDate, .location:
             // These slides are not in the 2026 flow yet. Add each one when its slide is built.
-            return false
+            return 0
         }
     }
 
     /// How many distinct days the reader opened at least one article, in the same data window as
-    /// `fetchUserDataState()`. The announcement copy shows this number.
+    /// `fetchDataState(mainPageIdentifier:)`. The announcement copy shows this number.
     ///
     /// The window is applied to the page view timestamps in the fetch, then each is turned into a
     /// day in `calendar`. The window bounds are UTC instants, so comparing local starts of day with
@@ -567,15 +687,27 @@ import CoreData
                 fetchLimit: 1,
                 in: backgroundContext
             )?.first
-            return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
+            let cdSlides = cdReport?.slides as? Set<CDYearInReviewSlide> ?? []
+            return Set(cdSlides.compactMap { cdSlide -> String? in
+                guard let id = cdSlide.id else {
+                    return nil
+                }
+                // A slide in an older format counts as missing. Thus, the report builds it again.
+                if let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: id),
+                   !slideID.dataController().hasCurrentFormat(cdSlide.data) {
+                    return nil
+                }
+                return id
+            })
         }
 
-        // For any slide IDs missing, create associated slide data controllers and populate their data. Set evaluated flag if population succeeds
+        // For any slide IDs missing, create associated slide data controllers and populate their data.
+        // Each controller sets its own evaluated flag. One that returns early, for example without a
+        // user id, stays unevaluated, so its empty data is not stored.
         var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
         for index in slideDataControllers.indices {
             do {
                 try await slideDataControllers[index].populateSlideData(in: backgroundContext)
-                slideDataControllers[index].isEvaluated = true
             } catch {
                 slideDataControllers[index].isEvaluated = false
             }
@@ -601,12 +733,27 @@ import CoreData
 
             var finalCDSlides: Set<CDYearInReviewSlide> = []
 
-            // Only preserve existing slides that should freeze
+            // Make the new slides first, so the loop below knows which slides were actually rebuilt.
+            var newCDSlides: Set<CDYearInReviewSlide> = []
+            for slideDataController in evaluatedSlideDataControllers {
+                if let cdSlide = try? slideDataController.makeCDSlide(in: backgroundContext) {
+                    newCDSlides.insert(cdSlide)
+                }
+            }
+            let rebuiltSlideIDs = Set(newCDSlides.compactMap(\.id))
+
+            // A rebuilt slide replaces the stored one. A slide that this run did not build again stays,
+            // so a failed fetch keeps the last good data. A slide in an older format is deleted, unless
+            // its data controller keeps outdated data on a failed rebuild.
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
+                guard !newCDSlides.contains(slide) else {
+                    continue
+                }
                 if let cdSlideID = slide.id,
                    let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
                     let dataController = slideID.dataController()
-                    if dataController.shouldFreeze {
+                    let keepsOldFormat = dataController.keepsOutdatedDataOnFailedRebuild
+                    if !rebuiltSlideIDs.contains(cdSlideID) && (dataController.hasCurrentFormat(slide.data) || keepsOldFormat) {
                         finalCDSlides.insert(slide)
                     } else {
                         backgroundContext.delete(slide)
@@ -614,11 +761,7 @@ import CoreData
                 }
             }
 
-            for slideDataController in evaluatedSlideDataControllers {
-                if let cdSlide = try? slideDataController.makeCDSlide(in: backgroundContext) {
-                    finalCDSlides.insert(cdSlide)
-                }
-            }
+            finalCDSlides.formUnion(newCDSlides)
 
             cdReport.slides = Set(finalCDSlides) as NSSet
 
@@ -836,7 +979,17 @@ public struct WMFYearInReviewReadData: Codable {
     /// The number of unique articles read. Pages outside the main namespace and main pages are
     /// left out.
     public let readCount: Int
+    /// The whole minutes spent reading the articles in `readCount`. See `YearInReviewReadCountSlideDataController.fetchReadData`.
     public let minutesRead: Int
+
+    /// The rules that `minutesRead` uses. Change it when the rules change, so stored reports build the
+    /// slide again. `nil` in data from builds before the minutes read slide, which counted all page views.
+    /// 1: only articles, and each page view before August 31, 2026 adds at most 30 minutes.
+    /// 2: the same, but the limit applies only before the release of the timer fix, August 11, 2026.
+    /// 3: the same, and an article with more than 60 minutes from January 1 through August 31, 2026 gets
+    ///    no minutes from that period.
+    public static let currentMinutesReadFormat = 3
+    var minutesReadFormat: Int? = WMFYearInReviewReadData.currentMinutesReadFormat
 
     /// If false, show the empty state of the total articles slide.
     public var isEligible: Bool {
@@ -844,13 +997,86 @@ public struct WMFYearInReviewReadData: Codable {
     }
 }
 
-public class SavedArticleSlideData: NSObject, Codable {
-    public let savedArticlesCount: Int
-    public let articleTitles: [String]
+/// The data of the niche interest slide: one category that the reader read 2 or more articles in.
+/// The data controller picks the category at random when it builds the report. After that, the
+/// slide always shows the same category.
+public struct WMFYearInReviewNicheCategorySlideData: Codable, Sendable {
+    /// The category name with spaces, not underscores. It is nil when no category is a candidate.
+    public let categoryName: String?
 
-    public init(savedArticlesCount: Int, articleTitles: [String]) {
+    public init(categoryName: String?) {
+        self.categoryName = categoryName
+    }
+
+    /// If false, do not show the niche interest slide. This slide has no empty version.
+    public var isEligible: Bool {
+        guard let categoryName else {
+            return false
+        }
+        return !categoryName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
+/// Sendable: every stored property is a `let` of a Sendable type, and the class is final.
+public final class SavedArticleSlideData: NSObject, Codable, Sendable {
+
+    /// One article on the saved slide.
+    public struct Article: Codable, Sendable, Equatable {
+        /// The title as shown to the reader.
+        public let title: String
+        /// The title with spaces, not underscores, that the API reads, for the thumbnail. `nil` when unknown.
+        public let pageTitle: String?
+        /// The short description of the article. `nil` when the article has none.
+        public let articleDescription: String?
+        /// The `WMFProject.id` of the wiki the article is on. `nil` when unknown.
+        public let projectID: String?
+
+        public init(title: String, pageTitle: String?, articleDescription: String?, projectID: String?) {
+            self.title = title
+            self.pageTitle = pageTitle
+            self.articleDescription = articleDescription
+            self.projectID = projectID
+        }
+
+        public var project: WMFProject? {
+            projectID.flatMap { WMFProject(id: $0) }
+        }
+    }
+
+    /// The slide shows at most this number of articles.
+    public static let maximumArticleCount = 3
+
+    /// The number of articles saved in the data period that are still saved when the slide is built.
+    /// Unsaving an article clears its saved date, so an article saved and then unsaved is not counted.
+    /// The same fetch gives this count and `articles`, so they always count the same articles.
+    public let savedArticlesCount: Int
+    /// Up to `maximumArticleCount` saved articles, picked at random. `nil` in data stored by an
+    /// older build, which did not store the descriptions or the wikis.
+    public let articles: [Article]?
+    /// Only in data stored by an older build. Newer data gets the titles from `articles`.
+    private let legacyArticleTitles: [String]?
+
+    /// The titles of `articles`, or the stored titles in data from an older build.
+    public var articleTitles: [String] {
+        articles?.map(\.title) ?? legacyArticleTitles ?? []
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case savedArticlesCount
+        case articles
+        case legacyArticleTitles = "articleTitles"
+    }
+
+    public init(savedArticlesCount: Int, articles: [Article]?) {
         self.savedArticlesCount = savedArticlesCount
-        self.articleTitles = articleTitles
+        self.articles = articles
+        self.legacyArticleTitles = nil
+    }
+
+    /// If false, show the empty state ("You have 0 articles saved"). A non-empty list means that the
+    /// reader saved at least one article in the data period.
+    public var isEligible: Bool {
+        !(articles ?? []).isEmpty
     }
 }
 
@@ -865,7 +1091,8 @@ public struct DonateAndEditCounts: Codable {
 }
 
 public protocol SavedArticleSlideDataDelegate: AnyObject {
-    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData
+    /// `nil` if the saved articles cannot be read. Then the slide stays unevaluated and is built again later.
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData?
 }
 
 public protocol LegacyPageViewsDataDelegate: AnyObject {

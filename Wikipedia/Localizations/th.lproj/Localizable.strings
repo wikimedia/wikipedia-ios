@@ -185,8 +185,6 @@
 "clearing-cache-complete" = "การล้างแคชเสร็จสมบูรณ์";
 "clearing-cache-in-progress" = "อยู่ระหว่างการล้างแคช";
 "close-all-tabs" = "ปิดแท็บทั้งหมด";
-"close-all-tabs-confirmation" = "คุณต้องการปิด $1 แท็บหรือไม่ คุณไม่สามารถเรียกคืนได้";
-"close-all-tabs-confirmation-number" = "ปิด $1 แท็บหรือไม่";
 "close-all-tabs-confirmation-subtitle-with-value" = "คุณต้องการปิด {{PLURAL:$1|$1 แท็บ}}หรือไม่? การดำเนินการนี้ไม่สามารถย้อนกลับได้";
 "close-all-tabs-confirmation-title-with-value" = "ปิด {{PLURAL:$1|$1 แท็บ}}หรือไม่?";
 "close-button-accessibility-label" = "ปิด";
@@ -790,8 +788,6 @@
 "reading-list-add-saved-title" = "พบบทความที่บันทึกไว้";
 "reading-list-api-error-generic" = "เกิดข้อผิดพลาดที่ไม่คาดคิดขณะซิงค์รายการอ่านของคุณ";
 "reading-list-create-new-list-button-title" = "สร้างรายการอ่าน";
-"reading-list-create-new-list-description" = "คำอธิบาย";
-"reading-list-create-new-list-reading-list-name" = "ชื่อรายการอ่าน";
 "reading-list-create-new-list-title" = "สร้างรายการใหม่";
 "reading-list-deleted-accessibility-notification" = "ลบรายการอ่านแล้ว";
 "reading-list-do-not-keep-button-title" = "ไม่ ลบบทความจากอุปกรณ์";
@@ -806,7 +802,9 @@
 "reading-list-list-limit-exceeded-title" = "คุณเกินขีดจำกัดของ {{PLURAL:$1|$1 รายการอ่าน}} ต่อบัญชี";
 "reading-list-login-or-create-account-button-title" = "เข้าสู่ระบบหรือสร้างบัญชี";
 "reading-list-name-user-created-annotation" = "_[สร้างโดยผู้ใช้]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "คำอธิบายอย่างย่อ";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ชื่อเรื่องรายการอ่าน";
 "reading-list-sync-disabled-panel-message" = "การซิงค์รายการอ่านถูกปิดใช้งานสำหรับบัญชีวิกิพีเดียของคุณบนอุปกรณ์อื่น คุณสามารถเปิดการซิงค์ได้อีกครั้งโดยปรับปรุงการตั้งค่าของคุณ";
 "reading-list-sync-disabled-panel-title" = "ปิดใช้งานการซิงค์แล้ว";

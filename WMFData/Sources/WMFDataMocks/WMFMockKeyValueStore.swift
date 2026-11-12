@@ -1,35 +1,36 @@
 import Foundation
+import os
 import WMFData
 
+/// Keeps the values in memory. The lock makes the store safe to use from any actor, like the real stores.
 public final class WMFMockKeyValueStore: WMFKeyValueStore {
-    
-    public init() {
-        self.savedObjects = [:]
-    }
-    
-    private var savedObjects: [String: Codable] = [:]
-    public func load<T>(key: String...) throws -> T? where T : Decodable, T : Encodable {
+
+    private let savedData = OSAllocatedUnfairLock<[String: Data]>(initialState: [:])
+
+    public init() {}
+
+    public func load<T: Codable>(key: String...) throws -> T? {
         let defaultsKey = key.joined(separator: ".")
-        return savedObjects[defaultsKey] as? T
+        guard let data = savedData.withLock({ $0[defaultsKey] }) else { return nil }
+        return try JSONDecoder().decode(T.self, from: data)
     }
-    
-    public func save<T>(key: String..., value: T) throws where T : Decodable, T : Encodable {
+
+    public func save<T: Codable>(key: String..., value: T) throws {
         let defaultsKey = key.joined(separator: ".")
-        savedObjects[defaultsKey] = value
+        let data = try JSONEncoder().encode(value)
+        savedData.withLock { $0[defaultsKey] = data }
     }
 
     public func remove(key: String...) throws {
         let defaultsKey = key.joined(separator: ".")
-        savedObjects.removeValue(forKey: defaultsKey)
+        savedData.withLock { _ = $0.removeValue(forKey: defaultsKey) }
     }
 
     public func keys(inDirectory directory: String) throws -> [String] {
         let prefix = directory + "."
-        return savedObjects
-            .keys
+        return savedData.withLock { $0.keys }
             .filter { $0.hasPrefix(prefix) }
             .map { String($0.dropFirst(prefix.count)) }
             .sorted()
     }
-
 }

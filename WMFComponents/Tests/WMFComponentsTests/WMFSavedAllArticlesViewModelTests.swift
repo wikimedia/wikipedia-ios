@@ -24,6 +24,21 @@ final class WMFSavedAllArticlesViewModelTests: XCTestCase {
         }
     }
 
+    func testNoArticlesWhileTheFirstSyncIsPendingKeepsLoadingAndReloads() async {
+        let delegate = MockDelegate()
+        delegate.initialSyncPending = true
+        let viewModel = makeViewModel(delegate: delegate)
+        viewModel.loadArticles()
+        for _ in 0..<50 where viewModel.state == .undefined {
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        XCTAssertEqual(viewModel.state, .loading)
+
+        delegate.savedArticles = [article("Dog", lists: ["animals"])]
+        await load(viewModel, from: delegate)
+        XCTAssertEqual(viewModel.state, .data, "a reload while loading is not dropped")
+    }
+
     func testTagTapSendsTheArticleAsItIsNowNotAsTheRowWasBuilt() async {
         let delegate = MockDelegate()
         delegate.savedArticles = [article("Dog", lists: ["animals"])]
@@ -47,12 +62,14 @@ final class WMFSavedAllArticlesViewModelTests: XCTestCase {
 
 private final class MockDelegate: WMFLegacyReadingListsDataControllerDelegate {
     var savedArticles: [WMFSavedArticle] = []
+    var initialSyncPending = false
 
     func fetchSavedArticles() async throws -> [WMFSavedArticle] { savedArticles }
     func fetchReadingLists() async throws -> [WMFReadingList] { [] }
     func fetchArticles(inReadingList readingListID: String) async throws -> [WMFSavedArticle] { [] }
     func defaultReadingListID() async throws -> String? { nil }
     func isDefaultReadingListEnabled() async -> Bool { false }
+    func isInitialSyncPending() async -> Bool { initialSyncPending }
     func sortOrder(forReadingList readingListID: String) async throws -> WMFReadingListSortOrder? { nil }
     func setSortOrder(_ sortOrder: WMFReadingListSortOrder, forReadingList readingListID: String) async throws {}
     func createReadingList(name: String, description: String?) async throws -> WMFReadingList {

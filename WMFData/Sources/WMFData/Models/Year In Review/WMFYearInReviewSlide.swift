@@ -24,6 +24,10 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable, Sendable {
     case location
     case topTopics
     case daysVisited
+    case mostViewedArticles
+    case rabbitHoles
+    case readingStreak
+    case biggestReadingDay
 
     public static func < (lhs: WMFYearInReviewPersonalizedSlideID, rhs: WMFYearInReviewPersonalizedSlideID) -> Bool {
         return lhs.rawValue < rhs.rawValue
@@ -53,6 +57,14 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable, Sendable {
             return YearInReviewTopTopicsSlideDataController.self
         case .daysVisited:
             return YearInReviewDaysVisitedSlideDataController.self
+        case .mostViewedArticles:
+            return YearInReviewMostViewedArticlesSlideDataController.self
+        case .rabbitHoles:
+            return YearInReviewRabbitHolesSlideDataController.self
+        case .readingStreak:
+            return YearInReviewReadingStreakSlideDataController.self
+        case .biggestReadingDay:
+            return YearInReviewBiggestReadingDaySlideDataController.self
         }
     }
 }

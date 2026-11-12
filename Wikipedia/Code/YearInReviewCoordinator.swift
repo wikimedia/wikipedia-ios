@@ -1,3 +1,6 @@
+import CocoaLumberjackSwift
+import LinkPresentation
+import SwiftUI
 import UIKit
 import WMF
 import WMFComponents
@@ -8,21 +11,83 @@ import WMFNativeLocalizations
 /// navigation bar, the toolbar and the injected text.
 final class YearInReviewCoordinator: NSObject, Coordinator {
 
+    /// A report build and the user it was started for.
+    private struct ReportBuild {
+        let username: String?
+        let task: Task<WMFYearInReviewReport?, Error>
+    }
+
+    /// Only one build runs at a time, so two builds never write the report at the same time.
+    @MainActor
+    private static var reportBuild: ReportBuild?
+
+    /// Builds the report, or waits for the build that is already running. The build is not tied to a
+    /// screen, so it finishes when the reader closes the announcement. Like Android, the report is
+    /// built when the reader asks for Year in Review, not at launch, and after any log in.
+    ///
+    /// A running build for another user, such as one started before a log in, does not count: this
+    /// waits for it, then builds again.
+    ///
+    /// - Parameter regenerate: deletes the report first, so every slide is built again from the
+    ///   current data, frozen slides too. Only the developer settings use it. It always builds again.
+    @MainActor
+    @discardableResult
+    static func buildReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+        // Fill the user first, so the key is the user that the build is for. At cold launch the cache
+        // is empty, and a key read before this would not match a later call for the same user.
+        // Without the user, the edit slides have no ids and would be stored empty.
+        // When the wait times out, this build runs without the user and does not make the edit
+        // slides. The fetch keeps going, so build again when it caches the user: the edit slides
+        // were not evaluated, so that build makes them.
+        var permanentUser: WMFCurrentUser?
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL {
+            permanentUser = await dataStore.authenticationManager.fetchPermanentUserIfNeeded(siteURL: siteURL) {
+                Task { @MainActor in
+                    await buildReportLoggingError(dataStore: dataStore)
+                }
+            }
+        }
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        while let running = reportBuild {
+            let result = await running.task.result
+            if !regenerate, running.username == username {
+                return try result.get()
+            }
+        }
+        let task = Task { @MainActor in
+            defer { reportBuild = nil }
+            do {
+                return try await populateReport(dataStore: dataStore, permanentUser: permanentUser, regenerate: regenerate)
+            } catch {
+                YearInReviewInstrument.shared.logError(message: String(describing: error))
+                throw error
+            }
+        }
+        reportBuild = ReportBuild(username: username, task: task)
+        return try await task.value
+    }
+
+    @MainActor
+    static func buildReportLoggingError(dataStore: MWKDataStore) async {
+        do {
+            try await buildReport(dataStore: dataStore)
+        } catch {
+            DDLogError("Error populating the Year in Review report: \(error)")
+        }
+    }
+
     /// Fills the Year in Review report for the target year. The data controller checks the remote
     /// config, the active dates, the Settings toggle and the country, and returns `nil` when one of
     /// them stops the population.
-    ///
-    /// - Parameter regenerate: deletes the report first, so every slide is built again from the
-    ///   current data, frozen slides too. Only the developer settings use it.
-    @discardableResult
-    static func populateReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+    /// - Parameter permanentUser: The user of the app language site, from `buildReport`.
+    @MainActor
+    private static func populateReport(dataStore: MWKDataStore, permanentUser: WMFCurrentUser?, regenerate: Bool) async throws -> WMFYearInReviewReport? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
               let countryCode = Locale.current.region?.identifier else {
             return nil
         }
 
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
         let dataController = try WMFYearInReviewDataController()
 
         if regenerate {
@@ -55,15 +120,35 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// TODO: add when data ticket is available
     private var introSlideLoggingID: String = ""
 
-    /// The data state the announcement was built with. It picks the slides opened from the
-    /// announcement and the log in prompt copy.
-    private var announcementUserDataState: WMFYearInReviewDataController.YiRUserDataState = .lowData
+    /// The data state the announcement was built with. It picks the log in prompt copy. It does not
+    /// pick the slides: those are chosen after the reader taps Explore and logs in.
+    private var announcementDataState: WMFYearInReviewDataController.YiRDataState = .lowData
 
     /// The navigation controller the announcement is presented in. The slides replace the
     /// announcement inside it, so it holds whichever of the two is showing.
     private weak var announcementNavigationController: UINavigationController?
 
     private weak var viewModel: WMFYearInReviewViewModel?
+    private weak var hostingController: WMFYearInReviewHostingController?
+    private weak var announcementViewModel: WMFYearInReviewAnnouncementViewModel?
+
+    /// The slides that `viewModel` shows. A donation turns "You matter" into "Thank you" only in the
+    /// personalized slides.
+    private var slidesExperience: WMFYearInReviewDataController.YiRSlidesExperience = .collective
+
+    /// The "Your Year in Review" announcement is for readers with enough reading history.
+    private var isAnnouncementPersonalized: Bool {
+        announcementDataState == .dataRich
+    }
+
+    private var areSlidesPersonalized: Bool {
+        slidesExperience == .personalized
+    }
+
+    /// The direction of the app language, so the share images mirror for right-to-left languages.
+    private var shareImageLayoutDirection: LayoutDirection {
+        UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+    }
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
     private let slideFactory = YearInReviewSlideViewModelFactory()
@@ -83,10 +168,46 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         NotificationCenter.default.addObserver(self, selector: #selector(localDonationHistoryDidChange), name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
     }
     
+    /// The profile calls this after its sheet closes, so nothing shows while the report is built. If
+    /// the reader opened another screen in that time, the slides do not open.
     @discardableResult
     func start() -> Bool {
-        presentYearInReview()
+        YearInReviewInstrument.shared.startFunnel()
+        afterReportIsBuilt { [weak self] in
+            guard let self, navigationController.presentedViewController == nil else {
+                YearInReviewInstrument.shared.stopFunnel()
+                return
+            }
+            presentYearInReview()
+        }
         return true
+    }
+
+    /// True from a request to open the slides until the report is built. Other requests in that time
+    /// are ignored, so the slides open only once.
+    private var isWaitingForReport = false
+
+    /// Builds the report, then runs `action`. The Explore button shows a spinner while it waits.
+    private func afterReportIsBuilt(_ action: @escaping @MainActor () -> Void) {
+        announcementViewModel?.isLoadingExplore = true
+        guard !isWaitingForReport else { return }
+        isWaitingForReport = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            await Self.buildReportLoggingError(dataStore: dataStore)
+            isWaitingForReport = false
+            announcementViewModel?.isLoadingExplore = false
+            action()
+        }
+    }
+
+    /// Builds the report, then replaces the announcement with the slides. If the reader closed the
+    /// announcement while the report was built, the slides do not open.
+    private func transitionAnnouncementAfterReportIsBuilt() {
+        afterReportIsBuilt { [weak self] in
+            guard let self, announcementNavigationController?.presentingViewController != nil else { return }
+            transitionAnnouncementToYearInReview()
+        }
     }
 
     /// Loads the announcement data and shows the announcement. Returns true only when it is on screen.
@@ -112,7 +233,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     @MainActor
     private func presentAnnouncement() async -> Bool {
-        let userDataState = (try? dataController.fetchUserDataState()) ?? .lowData
+        let dataState = (try? await dataController.fetchDataState(mainPageIdentifier: dataStore)) ?? .lowData
         let readingDayCount = (try? await dataController.fetchReadingDayCount()) ?? 0
 
         // Something may have been presented while the data loaded.
@@ -120,13 +241,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return false
         }
 
-        announcementUserDataState = userDataState
+        announcementDataState = dataState
         let viewModel = announcementFactory.makeViewModel(
-            userDataState: userDataState,
+            dataState: dataState,
             readingDayCount: readingDayCount,
             delegate: self
         )
 
+        announcementViewModel = viewModel
         let hostingController = WMFYearInReviewAnnouncementHostingController(viewModel: viewModel)
         // Full screen from the first frame, same style as the slides.
         let announcementNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
@@ -136,6 +258,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         announcementNavigationController.overrideUserInterfaceStyle = .light
         self.announcementNavigationController = announcementNavigationController
         navigationController.present(announcementNavigationController, animated: true)
+
+        let instrument = YearInReviewInstrument.shared
+        instrument.startFunnel()
+        instrument.logImpression(page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
 
         // Marked here, when it is on screen, so an early exit above does not use it up.
         dataController.hasPresentedYiRFeatureAnnouncement = true
@@ -147,37 +273,63 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// Builds the slides and their hosting controller. Shared by the direct presentation and the
     /// in place transition from the announcement.
     ///
-    /// `userDataState` is nil for the profile entry point, which does not pick slides here. The data
-    /// controller picks it then, and the developer settings can override it.
-    ///
-    /// TODO: Decide which slides to show when the report is built, once each slide knows whether it
-    /// has data. `userDataState` is a temporary proxy for that (see `dataRichEligibleSlideThreshold`
-    /// in `WMFYearInReviewDataController`). Remove this parameter when that work lands.
-    private func makeYearInReviewHostingController(userDataState: WMFYearInReviewDataController.YiRUserDataState?) -> WMFYearInReviewHostingController {
-        // `fetchUserDataState()` runs on the main actor. This method only runs on the main thread,
-        // because it presents view controllers.
-        let userDataState = userDataState ?? MainActor.assumeIsolated {
-            (try? dataController.fetchUserDataState()) ?? .lowData
+    /// The slides are chosen here, so after any log in. A logged-out reader always gets the
+    /// collective slides.
+    private func makeYearInReviewHostingController() -> WMFYearInReviewHostingController {
+        // The slides get a funnel of their own, separate from the announcement, as on Android.
+        YearInReviewInstrument.shared.stopFunnel()
+        YearInReviewInstrument.shared.startFunnel()
+
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        // `fetchSlidesExperience(isLoggedIn:)` runs on the main actor. This method only runs on the
+        // main thread, because it presents view controllers.
+        let experience = MainActor.assumeIsolated {
+            (try? dataController.fetchSlidesExperience(isLoggedIn: isLoggedIn)) ?? .collective
         }
 
+        // The slides and the highlights come from one read of the stored report.
+        let slidesAndHighlights = slideFactory.makeSlidesAndHighlights(
+            experience: experience,
+            isLoggedIn: isLoggedIn,
+            forcesAllEmptyStates: dataController.forcesAllEmptyStates
+        )
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(
-                userDataState: userDataState,
-                isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
-                forcesAllEmptyStates: dataController.forcesAllEmptyStates
-            ),
+            slides: slidesAndHighlights.slides,
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
             loggingDelegate: self
         )
 
-        self.viewModel = viewModel
+        // The gift card follows the slides that were built, so the end screen agrees with the last slide.
+        let hasContributorSlide = viewModel.slides.contains { $0.id == YearInReviewSlideViewModelFactory.contributorSlideID }
+        viewModel.endViewModel = makeEndViewModel(isContributor: hasContributorSlide)
+        viewModel.highlights = slidesAndHighlights.highlights
 
-        return WMFYearInReviewHostingController(viewModel: viewModel)
+        self.viewModel = viewModel
+        self.slidesExperience = experience
+
+        WMFRiveLogger.failureHandler = { [weak self, weak viewModel] failure in
+            guard let self, let viewModel else { return }
+            // Neighbor slides load too, and some slides share an artboard, so the current slide wins.
+            let currentSlide = viewModel.currentSlide
+            let slide = currentSlide?.animation == failure.animation ? currentSlide : viewModel.slides.first { $0.animation == failure.animation }
+            // Other Rive views, such as the announcement, use the same handler.
+            guard let slide else { return }
+            YearInReviewInstrument.shared.logError(
+                elementID: "rive",
+                page: slide.loggingID,
+                personalized: areSlidesPersonalized,
+                message: "\(failure.stage.rawValue): \(failure.reason)"
+            )
+        }
+
+        let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
+        self.hostingController = hostingController
+        return hostingController
     }
 
-    private func presentYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState? = nil) {
-        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
+    private func presentYearInReview() {
+        let hostingController = makeYearInReviewHostingController()
         let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
         // Year in Review is always light, whatever the system style is.
         presentedNavigationController.overrideUserInterfaceStyle = .light
@@ -189,14 +341,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     /// Replaces the announcement with the first slide inside the same full screen navigation
     /// controller, so nothing is dismissed and presented again.
-    private func transitionAnnouncementToYearInReview(userDataState: WMFYearInReviewDataController.YiRUserDataState?) {
+    private func transitionAnnouncementToYearInReview() {
         guard let announcementNavigationController,
               announcementNavigationController.presentingViewController != nil else {
-            presentYearInReview(userDataState: userDataState)
+            presentYearInReview()
             return
         }
 
-        let hostingController = makeYearInReviewHostingController(userDataState: userDataState)
+        let hostingController = makeYearInReviewHostingController()
 
         // The announcement blocks swipe to dismiss. The slides never did.
         announcementNavigationController.isModalInPresentation = false
@@ -211,27 +363,30 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Announcement log in prompt
 
-    /// Asks logged-out readers to log in first. Logging in or creating an account opens the slides
-    /// for `userDataStateAfterLogin`. Continuing without logging in always opens the low data slides.
-    private func presentAnnouncementLoginPrompt(userDataStateAfterLogin: WMFYearInReviewDataController.YiRUserDataState) {
+    /// Asks logged-out readers to log in first. The slides open after the log in screen closes, and
+    /// they are chosen then: logging in can open the personalized slides. Continuing without logging
+    /// in, or closing the log in screen, opens the collective slides.
+    private func presentAnnouncementLoginPrompt() {
         guard let announcement = navigationController.presentedViewController else {
-            presentYearInReview(userDataState: .lowData)
+            presentYearInReview()
             return
         }
 
-        let copy = announcementFactory.makeLoginPromptCopy(userDataState: announcementUserDataState)
+        let copy = announcementFactory.makeLoginPromptCopy(dataState: announcementDataState)
 
         let alert = UIAlertController(title: copy.title, message: copy.message, preferredStyle: .alert)
         alert.overrideUserInterfaceStyle = .light
 
         let loginAction = UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
+            self?.logLoginPromptClick(elementID: "login_button")
             self?.dismissAnnouncement {
-                self?.startAnnouncementLogin(userDataStateAfterLogin: userDataStateAfterLogin)
+                self?.startAnnouncementLogin()
             }
         }
 
         let continueAction = UIAlertAction(title: CommonStrings.continueWithoutLoggingIn, style: .default) { [weak self] _ in
-            self?.transitionAnnouncementToYearInReview(userDataState: .lowData)
+            self?.logLoginPromptClick(elementID: "continue_button")
+            self?.transitionAnnouncementAfterReportIsBuilt()
         }
 
         alert.addAction(loginAction)
@@ -242,13 +397,28 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         announcement.present(alert, animated: true)
     }
 
-    private func startAnnouncementLogin(userDataStateAfterLogin: WMFYearInReviewDataController.YiRUserDataState) {
+    private func logLoginPromptClick(elementID: String) {
+        YearInReviewInstrument.shared.logClick(
+            elementID: elementID,
+            actionSource: "login_dialog",
+            page: YearInReviewInstrument.announcementPage,
+            personalized: isAnnouncementPersonalized
+        )
+    }
+
+    private func startAnnouncementLogin() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme, loggingCategory: .yir)
 
         // The log in screen calls this before it dismisses itself, so wait for that to finish.
         loginCoordinator.loginSuccessCompletion = { [weak self] in
             Task { @MainActor [weak self] in
-                self?.presentYearInReviewAfterCurrentDismissal(userDataState: userDataStateAfterLogin)
+                self?.presentYearInReviewAfterCurrentDismissal()
+            }
+        }
+
+        loginCoordinator.loginDismissedCompletion = { [weak self] in
+            Task { @MainActor [weak self] in
+                self?.presentYearInReviewAfterCurrentDismissal()
             }
         }
 
@@ -256,26 +426,29 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
             guard let self else { return }
             guard let accountCreation = navigationController.presentedViewController else {
-                presentYearInReview(userDataState: userDataStateAfterLogin)
+                presentYearInReview()
                 return
             }
             accountCreation.dismiss(animated: true) { [weak self] in
-                self?.presentYearInReview(userDataState: userDataStateAfterLogin)
+                self?.presentYearInReviewAfterCurrentDismissal()
             }
         }
 
         loginCoordinator.start()
     }
 
-    /// Presents the slides once any dismissal in progress is done.
-    private func presentYearInReviewAfterCurrentDismissal(userDataState: WMFYearInReviewDataController.YiRUserDataState) {
-        guard let transitionCoordinator = navigationController.transitionCoordinator else {
-            presentYearInReview(userDataState: userDataState)
-            return
-        }
+    /// Builds the report after the log in, then presents the slides once any dismissal in progress is done.
+    private func presentYearInReviewAfterCurrentDismissal() {
+        afterReportIsBuilt { [weak self] in
+            guard let self else { return }
+            guard let transitionCoordinator = navigationController.transitionCoordinator else {
+                presentYearInReview()
+                return
+            }
 
-        transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.presentYearInReview(userDataState: userDataState)
+            transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
+                self?.presentYearInReview()
+            }
         }
     }
 
@@ -320,14 +493,18 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     /// The rebuilt slide reads the saved donation. The reader stays on the same slide, which
-    /// becomes the "Thank you" version. Does nothing when Year in Review is closed.
+    /// becomes the "Thank you" version. Does nothing when Year in Review is closed, in the
+    /// collective slides, or for a logged-out reader, who always sees "You matter".
     private func showThankYouSlideAfterDonation() {
         guard let viewModel,
-              let slide = slideFactory.makeContributorSlide(isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
+              let slide = slideFactory.makeContributorSlide(experience: slidesExperience, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent),
               slide.id == YearInReviewSlideViewModelFactory.contributorSlideID else {
             return
         }
         viewModel.replaceSlide(id: YearInReviewSlideViewModelFactory.nonContributorSlideID, with: slide)
+
+        // The reader is now a contributor. Make the end screen again to add the gift card.
+        viewModel.endViewModel = makeEndViewModel(isContributor: true)
     }
 
     /// The pages are translated per app language, so the URLs are built rather than hardcoded.
@@ -348,9 +525,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         showHelpPage(url: yearInReviewHelpURL(pathComponents: [], section: nil))
     }
 
-    /// "About your insights" in the more menu opens the FAQ.
+    /// "About your insights" in the more menu opens the FAQ. The section link skips the page banners.
     private func showAboutInsights() {
-        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: nil))
+        showHelpPage(url: yearInReviewHelpURL(pathComponents: ["Frequently Asked Questions"], section: "Frequently asked questions"))
     }
 
     private func showHelpPage(url: URL?) {
@@ -359,7 +536,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
 
-        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true, keepsLinksInPresentedStack: true)
         let webViewController = SinglePageWebViewController(configType: .standard(config), theme: .light)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
         presentedViewController.present(webNavigationController, animated: true)
@@ -389,6 +566,171 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         UIApplication.shared.open(mailtoURL)
     }
 
+    private var isExportingShareImage = false
+
+    /// Shares a still image of the slide, with the share text and the app link. `slideID` can be the
+    /// ID of an answer, for example the rabbit hole reveal.
+    private func shareSlide(slideID: String) {
+        let slidesAndAnswers = viewModel?.slides.flatMap { [$0] + ($0.answer.map { [$0] } ?? []) } ?? []
+        guard !isExportingShareImage,
+              let slide = slidesAndAnswers.first(where: { $0.id == slideID }) else {
+            return
+        }
+        isExportingShareImage = true
+        let layoutDirection = shareImageLayoutDirection
+        let presenter = hostingController?.navigationController
+
+        Task { @MainActor [weak self, weak presenter] in
+            defer { self?.isExportingShareImage = false }
+            do {
+                let image = try await WMFYearInReviewSlideImageExporter.image(
+                    for: slide,
+                    caption: CommonStrings.yearInReviewHighlightsCreatedWith,
+                    layoutDirection: layoutDirection
+                )
+                self?.presentShareSheet(image: image, from: presenter)
+            } catch {
+                DDLogError("Could not make the Year in Review share image for \(slideID): \(error)")
+                YearInReviewInstrument.shared.logError(elementID: "rive", page: slide.loggingID, personalized: self?.areSlidesPersonalized ?? false, message: String(describing: error))
+                WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
+            }
+        }
+    }
+
+    /// Shares the image of the highlights from the end screen, with the share text and the app link.
+    /// - Parameter getSourceRect: The frame of the button in global coordinates. The share sheet on iPad
+    ///   points at it. It is read when the share sheet opens, after the image is drawn.
+    private func shareHighlights(getSourceRect: @escaping @MainActor @Sendable () -> CGRect) {
+        guard !isExportingShareImage,
+              let highlights = viewModel?.highlights, highlights.isShareable else {
+            return
+        }
+        // The same as the slide share: a second tap does nothing while the image is drawn.
+        isExportingShareImage = true
+        let layoutDirection = shareImageLayoutDirection
+        let presenter = hostingController?.navigationController
+
+        Task { @MainActor [weak self, weak presenter] in
+            defer { self?.isExportingShareImage = false }
+            // ImageRenderer only runs on the main actor, so the drawing cannot move to another thread.
+            guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: layoutDirection) else {
+                DDLogError("Could not make the Year in Review highlights image")
+                WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
+                return
+            }
+            self?.presentShareSheet(image: image, from: presenter, globalSourceRect: getSourceRect())
+        }
+    }
+
+    /// The export takes about a second. If the reader closed the slides, opened them again, or opened
+    /// another screen from them in that time, the share sheet does not open.
+    /// - Parameter globalSourceRect: Where the share sheet points on iPad, in global coordinates.
+    ///   `nil` or empty points at the bottom middle of the screen.
+    private func presentShareSheet(image: UIImage, from presenter: UIViewController?, globalSourceRect: CGRect? = nil) {
+        guard let presenter,
+              presenter === hostingController?.navigationController,
+              presenter.viewIfLoaded?.window != nil,
+              presenter.presentedViewController == nil else {
+            return
+        }
+        let text = CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink)
+        let activityViewController = UIActivityViewController(
+            activityItems: [
+                YearInReviewShareImageItem(image: image, title: CommonStrings.yearInReviewHighlightsTitle, url: URL(string: WMFYearInReviewDataController.appShareLink)),
+                YearInReviewShareTextItem(text: text, placeholderImage: image)
+            ],
+            applicationActivities: nil
+        )
+        activityViewController.popoverPresentationController?.sourceView = presenter.view
+        if let globalSourceRect, !globalSourceRect.isEmpty {
+            activityViewController.popoverPresentationController?.sourceRect = presenter.view.convert(globalSourceRect, from: nil)
+        } else {
+            activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        }
+        presenter.present(activityViewController, animated: true)
+    }
+}
+
+/// The share image. The top of the share sheet shows it with a short title and the app link, not as
+/// one of two images.
+private final class YearInReviewShareImageItem: NSObject, UIActivityItemSource {
+
+    /// The header of the share sheet draws the icon small, so a small copy saves scaling the full
+    /// image each time.
+    private static let iconSize = CGSize(width: 120, height: 120)
+
+    private let image: UIImage
+    private let title: String
+    private let url: URL?
+    private lazy var icon: UIImage = {
+        let aspectRatio = image.size.height / max(image.size.width, 1)
+        let size = CGSize(width: Self.iconSize.width, height: Self.iconSize.width * aspectRatio)
+        return image.preparingThumbnail(of: size) ?? image
+    }()
+
+    /// - Parameters:
+    ///   - title: A short title for the header of the share sheet. The share text goes with the text item.
+    ///   - url: The app link, which the header shows under the title.
+    init(image: UIImage, title: String, url: URL?) {
+        self.image = image
+        self.title = title
+        self.url = url
+    }
+
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        image
+    }
+
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        image
+    }
+
+    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        let metadata = LPLinkMetadata()
+        metadata.title = title
+        metadata.originalURL = url
+        metadata.url = url
+        metadata.imageProvider = NSItemProvider(object: image)
+        metadata.iconProvider = NSItemProvider(object: icon)
+        return metadata
+    }
+}
+
+/// The share text, for the built-in activities that take text. Every other activity gets only the image.
+///
+/// The share sheet shows an app only if the app accepts every item. Instagram and TikTok accept images
+/// and not text, so with a text item they do not show. Thus, the placeholder of this item is the image
+/// too, and the text replaces it only for the activities in `textActivityTypes`. iOS does not say which
+/// items an app accepts, so this lists the system activities that take text instead of the apps that do
+/// not. New apps need no change, and an image-only app never gets text it does not accept. Other apps
+/// that take text, for example WhatsApp, get only the image.
+final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+
+    /// The built-in activities that put the text and the link next to the image.
+    static let textActivityTypes: Set<UIActivity.ActivityType> = [.message, .mail, .copyToPasteboard]
+
+    private let text: String
+    private let placeholderImage: UIImage
+
+    init(text: String, placeholderImage: UIImage) {
+        self.text = text
+        self.placeholderImage = placeholderImage
+    }
+
+    static func takesText(_ activityType: UIActivity.ActivityType?) -> Bool {
+        guard let activityType else {
+            return false
+        }
+        return textActivityTypes.contains(activityType)
+    }
+
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        placeholderImage
+    }
+
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        Self.takesText(activityType) ? text : nil
+    }
 }
 
 // MARK: - WMFYearInReviewCoordinating
@@ -397,15 +739,22 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
     func handleYearInReviewAction(_ action: WMFYearInReviewAction) {
         switch action {
         case .close:
+            WMFRiveLogger.failureHandler = nil
             navigationController.presentedViewController?.dismiss(animated: true)
+            YearInReviewInstrument.shared.stopFunnel()
         case .learnMore:
+            YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: areSlidesPersonalized)
             showProjectPage()
         case .aboutInsights:
+            YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", personalized: areSlidesPersonalized)
             showAboutInsights()
         case .shareFeedback:
+            YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", personalized: areSlidesPersonalized)
             shareFeedback()
-        case .share:
-            break
+        case .share(let slideID):
+            shareSlide(slideID: slideID)
+        case .shareHighlights(let getSourceRect):
+            shareHighlights(getSourceRect: getSourceRect)
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }
@@ -417,32 +766,45 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
 extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
 
     func yearInReviewAnnouncementDidTapExplore() {
-        let userDataState = announcementUserDataState
-
+        logAnnouncementClick(elementID: "explore_button")
         guard dataStore.authenticationManager.authStateIsPermanent else {
-            presentAnnouncementLoginPrompt(userDataStateAfterLogin: userDataState)
+            presentAnnouncementLoginPrompt()
             return
         }
 
-        transitionAnnouncementToYearInReview(userDataState: userDataState)
+        transitionAnnouncementAfterReportIsBuilt()
     }
 
     func yearInReviewAnnouncementDidTapClose() {
+        logAnnouncementClick(elementID: "close_button")
+        YearInReviewInstrument.shared.stopFunnel()
         navigationController.presentedViewController?.dismiss(animated: true) {
             WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
+        }
+        // So the slides open at once the next time.
+        let dataStore = dataStore
+        Task { @MainActor in
+            await Self.buildReportLoggingError(dataStore: dataStore)
         }
     }
 
     func yearInReviewAnnouncementDidTapLearnMore() {
+        YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: isAnnouncementPersonalized)
         showProjectPage()
     }
 
     func yearInReviewAnnouncementDidTapAboutInsights() {
+        YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", personalized: isAnnouncementPersonalized)
         showAboutInsights()
     }
 
     func yearInReviewAnnouncementDidTapShareFeedback() {
+        YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", personalized: isAnnouncementPersonalized)
         shareFeedback()
+    }
+
+    private func logAnnouncementClick(elementID: String) {
+        YearInReviewInstrument.shared.logClick(elementID: elementID, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
     }
 }
 
@@ -450,30 +812,155 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
 
 extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 
-    func logYearInReviewIntroDidTapLearnMore() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(slideLoggingID: introSlideLoggingID)
-    }
+    /// The 2026 plan has no event for the intro learn more button.
+    func logYearInReviewIntroDidTapLearnMore() {}
 
     func logYearInReviewSlideDidAppear(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewSlideImpression(slideLoggingID: slideLoggingID)
+        // The pager can settle on a slide while the slides close.
+        guard YearInReviewInstrument.shared.isFunnelRunning else { return }
+        YearInReviewInstrument.shared.logImpression(page: slideLoggingID, personalized: areSlidesPersonalized)
     }
 
     func logYearInReviewDidTapDone(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
+        YearInReviewInstrument.shared.logClick(elementID: "close_button", page: slideLoggingID, personalized: areSlidesPersonalized)
     }
 
-    func logYearInReviewDidTapNext(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
-    }
+    /// The 2026 plan has no event for the next button.
+    func logYearInReviewDidTapNext(slideLoggingID: String) {}
 
     func logYearInReviewDidTapDonate(slideLoggingID: String) {
-        guard let metricsID = DonateCoordinator.metricsID(for: .yearInReview(slideLoggingID: slideLoggingID), languageCode: dataStore.languageLinkController.appLanguage?.languageCode) else {
-            return
-        }
-        DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
+        YearInReviewInstrument.shared.logClick(
+            elementID: "donate_button",
+            page: slideLoggingID,
+            personalized: areSlidesPersonalized,
+            campaignID: YearInReviewInstrument.campaignID(page: slideLoggingID)
+        )
     }
 
     func logYearInReviewDidTapShare(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
+        YearInReviewInstrument.shared.logClick(elementID: "share_button", page: slideLoggingID, personalized: areSlidesPersonalized)
+    }
+
+    /// A separate element from the slide share button, so the two shares can be counted apart.
+    func logYearInReviewDidTapShareHighlights() {
+        YearInReviewInstrument.shared.logClick(elementID: "share_highlights_button", page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+    }
+}
+
+// MARK: - Instrumentation
+
+/// Sends the Year in Review 2026 events to Test Kitchen. One funnel runs from the announcement, or
+/// from the first slide when there is no announcement, until the reader closes Year in Review. The
+/// funnel adds `time_spent_ms` to each event.
+@MainActor
+final class YearInReviewInstrument {
+
+    static let shared = YearInReviewInstrument()
+
+    static let announcementPage = "announcement"
+    /// The end screen, which comes after the last slide.
+    static let endPage = "end"
+
+    /// The donate flow sends the same value to `app_donor_experience`.
+    nonisolated static func campaignID(page: String) -> String {
+        "appmenu_yir_\(page)"
+    }
+
+    private let instrument = TestKitchenAdapter.shared.client
+        .getInstrument(name: "apps-year-in-review")
+        .setDefaultActionSource("main")
+
+    func startFunnel() {
+        instrument.startFunnel(name: "year-in-review")
+    }
+
+    func stopFunnel() {
+        instrument.stopFunnel()
+    }
+
+    var isFunnelRunning: Bool {
+        instrument.funnel != nil
+    }
+
+    func logImpression(actionSource: String? = nil, page: String? = nil, personalized: Bool?) {
+        instrument.submitInteraction(
+            action: "impression",
+            actionSource: actionSource,
+            actionContext: actionContext(page: page, personalized: personalized)
+        )
+    }
+
+    func logClick(elementID: String, actionSource: String? = nil, page: String? = nil, personalized: Bool? = nil, campaignID: String? = nil) {
+        var context = actionContext(page: page, personalized: personalized)
+        context["campaign_id"] = campaignID
+        instrument.submitInteraction(
+            action: "click",
+            actionSource: actionSource,
+            elementId: elementID,
+            actionContext: context
+        )
+    }
+
+    /// `elementID` is `rive` for a failure on a Rive page. A report that does not build has none.
+    func logError(elementID: String? = nil, page: String? = nil, personalized: Bool? = nil, message: String) {
+        var context = actionContext(page: page, personalized: personalized)
+        context["message"] = message
+        instrument.submitInteraction(
+            action: "error",
+            elementId: elementID,
+            actionContext: context
+        )
+    }
+
+    private func actionContext(page: String?, personalized: Bool?) -> [String: Any] {
+        var context: [String: Any] = [:]
+        context["page"] = page
+        context["personalized"] = personalized
+        return context
+    }
+}
+
+// MARK: - End screen
+
+extension YearInReviewCoordinator {
+
+    /// The store page with the contributor discount already applied.
+    private static let storeDiscountURL = URL(string: "https://store.wikimedia.org/discount/WikiLove?utm_campaign=bf45f7&utm_source=discount_shareable_link")
+
+    /// The languages the quiz site is available in. Any other language gets English.
+    private static let whichWikipediaLanguageCodes: Set<String> = ["ar", "en", "es", "fr", "ja", "ms", "pt"]
+
+    /// The quiz page in the reader's primary app language, or English if the site does not have it.
+    private var whichWikipediaURL: URL? {
+        let appLanguageCode = WMFDataEnvironment.current.primaryAppLanguage?.languageCode.lowercased() ?? "en"
+        let languageCode = Self.whichWikipediaLanguageCodes.contains(appLanguageCode) ? appLanguageCode : "en"
+        return URL(string: "https://wikipedia25.org/\(languageCode)/which-wikipedia-of-the-future-are-you")
+    }
+
+    /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
+    private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
+        MainActor.assumeIsolated {
+            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor)
+            buildEndViewModel(viewModel)
+            return viewModel
+        }
+    }
+
+    /// Attaches the coordinator callbacks to the end screen view model.
+    @MainActor
+    private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
+        viewModel.didTapStore = { [weak self] in
+            self?.showStore()
+        }
+        viewModel.didTapWhichWikipedia = { [weak self] in
+            self?.showHelpPage(url: self?.whichWikipediaURL)
+        }
+    }
+
+    private func showStore() {
+        guard let url = Self.storeDiscountURL else {
+            return
+        }
+        UIApplication.shared.open(url)
     }
 }
