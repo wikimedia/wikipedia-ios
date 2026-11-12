@@ -46,6 +46,18 @@ platform :ios do
     end
   end
 
+  # Shared helper: What to Test notes for an external beta, by locale, from
+  # the JSON the Beta workflow writes. There is always a "default" entry.
+  def beta_localized_build_info
+    localized_notes = JSON.parse(File.read("/tmp/what_to_test.json")) rescue {}
+    localized_build_info = localized_notes.transform_values { |notes| { whats_new: notes } }
+    unless localized_build_info.key?("default")
+      default_notes = localized_notes["en-US"] || "See release notes for details"
+      localized_build_info["default"] = { whats_new: default_notes }
+    end
+    localized_build_info
+  end
+
   # Shared helper: build the app. Defaults to the production Wikipedia
   # scheme; the Alpha build passes its own scheme/configuration.
   def build_the_app(scheme: "Wikipedia", configuration: "Release", archive_name: "Wikipedia")
@@ -158,13 +170,13 @@ platform :ios do
   # Cloud will push for this workflow (alphas, betas), used to catch a stale
   # build counter. expected_version, when given, fails the run if the build
   # came out with any other version.
-  def xcode_cloud_build(app_identifier:, workflow_name:, branch:, tag_prefix:, expected_version: nil)
+  def xcode_cloud_build(app_identifier:, workflow_name:, branch:, tag_prefix:, expected_version: nil, reference_wait: 0)
     client = xcode_cloud_client
 
     app_id = client.app_id(app_identifier)
     product_id = client.product_id(app_id)
     workflow_id = client.workflow_id(product_id, workflow_name)
-    reference_id = client.git_reference_id(workflow_id, "refs/heads/#{branch}")
+    reference_id = client.git_reference_id(workflow_id, "refs/heads/#{branch}", wait: reference_wait)
     UI.message("Workflow #{workflow_name.inspect} (#{workflow_id}), branch #{branch} (#{reference_id})")
 
     if ENV["XCODE_CLOUD_LOOKUP_ONLY"] == "true"
@@ -236,6 +248,8 @@ platform :ios do
       branch: branch,
       tag_prefix: "betas",
       expected_version: env_or("EXPECTED_VERSION", nil),
+      # V2 Deploy Beta pushes a new release candidate branch just before this.
+      reference_wait: 300,
     )
   end
 
@@ -311,31 +325,49 @@ platform :ios do
 
     build_the_app
 
-    # Read localized notes from JSON file written by workflow
-    localized_notes = JSON.parse(File.read("/tmp/what_to_test.json")) rescue {}
-
-    # Build localized_build_info hash
-    localized_build_info = localized_notes.transform_values do |notes|
-      { whats_new: notes }
-    end
-
-    # Ensure there's always a default
-    unless localized_build_info.key?("default")
-      default_notes = localized_notes["en-US"] || "See release notes for details"
-      localized_build_info["default"] = { whats_new: default_notes }
-    end
-
     upload_to_testflight(
       api_key: api_key,
       distribute_external: true,
       notify_external_testers: true,
-      localized_build_info: localized_build_info,
+      localized_build_info: beta_localized_build_info,
       submit_beta_review: true,
       skip_waiting_for_build_processing: false,
       groups: ["External Testers"],
     )
 
     cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 2c: Beta on Xcode Cloud (v2_deploy_beta, RELEASE_BUILDER=xcode-cloud)
+  #
+  # Same distribution as beta above, for a build Xcode Cloud has already
+  # uploaded (its Beta Build workflow distributes to internal testers only).
+  # Runs on Linux: distribute_only talks to the App Store Connect API and
+  # needs no archive or macOS tooling.
+  # ----------------------------------------------------------
+  desc "Distribute an uploaded build (VERSION, BUILD_NUMBER) to external TestFlight testers, submit for beta review"
+  lane :distribute_beta do
+    version = ENV["VERSION"].to_s
+    build_number = ENV["BUILD_NUMBER"].to_s
+    build_id = ENV["BUILD_ID"].to_s
+    UI.user_error!("VERSION and BUILD_NUMBER are required") if version.empty? || build_number.empty?
+
+    # pilot waits for processing on upload, not on distribute_only.
+    xcode_cloud_client.wait_for_build_processing(build_id) unless build_id.empty?
+
+    upload_to_testflight(
+      api_key: get_api_key,
+      distribute_only: true,
+      app_platform: "ios",
+      app_version: version,
+      build_number: build_number,
+      distribute_external: true,
+      notify_external_testers: true,
+      localized_build_info: beta_localized_build_info,
+      submit_beta_review: true,
+      groups: ["External Testers"],
+    )
   end
 
   # ----------------------------------------------------------

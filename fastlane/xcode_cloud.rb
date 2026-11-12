@@ -57,13 +57,23 @@ module XcodeCloud
 
     # The repository has thousands of tags, and gitReferences has no filter,
     # so this pages until it finds the branch rather than reading every page.
-    def git_reference_id(workflow_id, canonical_name)
+    #
+    # A branch pushed moments ago can take a while to appear in Xcode Cloud,
+    # so wait (seconds) keeps looking for that long before giving up.
+    def git_reference_id(workflow_id, canonical_name, wait: 0, interval: 15, sleeper: ->(s) { sleep(s) }, clock: -> { Time.now })
       repository = get("/v1/ciWorkflows/#{workflow_id}/repository")["data"]
       raise Error, "Workflow #{workflow_id} has no repository" if repository.nil?
-      paginate("/v1/scmRepositories/#{repository['id']}/gitReferences", "limit" => "200") do |reference|
-        return reference["id"] if reference.dig("attributes", "canonicalName") == canonical_name
+      deadline = clock.call + wait
+      loop do
+        paginate("/v1/scmRepositories/#{repository['id']}/gitReferences", "limit" => "200") do |reference|
+          return reference["id"] if reference.dig("attributes", "canonicalName") == canonical_name
+        end
+        break if clock.call >= deadline
+        @log.call("Xcode Cloud cannot see #{canonical_name} yet, looking again in #{interval}s")
+        sleeper.call(interval)
       end
-      raise Error, "Xcode Cloud cannot see #{canonical_name} in repository #{repository['id']}"
+      raise Error, "Xcode Cloud cannot see #{canonical_name} in repository #{repository['id']}" \
+                   "#{wait.positive? ? " after #{wait} seconds" : ''}"
     end
 
     # ---- Build runs -------------------------------------------------------
