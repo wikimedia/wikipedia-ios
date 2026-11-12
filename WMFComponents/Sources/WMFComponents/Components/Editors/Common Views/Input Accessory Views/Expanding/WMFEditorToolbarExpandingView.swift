@@ -25,14 +25,6 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
         case primary
         case secondary
 
-        static func visible(rawValue: RawValue) -> ActionsType {
-            if rawValue == 0 {
-                return .primary
-            } else {
-                return .secondary
-            }
-        }
-
         static func next(rawValue: RawValue) -> ActionsType {
             if rawValue == 0 {
                 return .secondary

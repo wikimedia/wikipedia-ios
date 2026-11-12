@@ -797,19 +797,6 @@ public class CommonStrings: NSObject {
 
     @objc public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
 
-    public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
-        let format = WMFLocalizedString("activity-tab-you-read", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.")
-        return String.localizedStringWithFormat(format, amount ?? 0)
-    }
-    public static func activityTabArticleSavedNumber(amount: Int? = 0) -> String {
-        let format = WMFLocalizedString("activity-tab-you-saved", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.")
-        return String.localizedStringWithFormat(format, amount ?? 0)
-    }
-    public static func activityTabArticleEditedNumber(amount: Int? = 0) -> String {
-        let format = WMFLocalizedString("activity-tab-you-edited", value: "You edited {{PLURAL:%1$d|%1$d time|%1$d times}} this week.", comment: "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.")
-        return String.localizedStringWithFormat(format, amount ?? 0)
-    }
-    
     public static let satisfactionSurveyTitle = WMFLocalizedString("activity-tab-survey-title", value: "Satisfaction survey", comment: "Satisfaction survey view title")
     public static let surveyVerySatisfied = WMFLocalizedString("activity-tab-very-satisfied", value: "Very satisfied", comment: "Satisfaction survey very satisfied")
     public static let surveySatisfied = WMFLocalizedString("activity-tab-satisfied", value: "Satisfied", comment: "Satisfaction survey satisfied")

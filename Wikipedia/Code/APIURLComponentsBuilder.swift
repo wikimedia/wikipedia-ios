@@ -16,24 +16,6 @@ public struct APIURLComponentsBuilder {
         return components
     }
     
-    func components(byAssigningPayloadToPercentEncodedQuery payload: NSObject) throws -> URLComponents {
-        guard JSONSerialization.isValidJSONObject(payload) else {
-            throw APIURLComponentsBuilderError.failureConvertingJsonDataToString
-        }
-        let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
-        
-        guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
-            throw APIURLComponentsBuilderError.failureConvertingJsonDataToString
-        }
-        
-        let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
-        
-        var components = hostComponents
-        components.replacePercentEncodedPathWithPathComponents(basePathComponents)
-        components.percentEncodedQuery = encodedPayloadJsonString
-        return components
-    }
-
     /// RESTBase is a set of REST APIs utilized by the app for the feed, page summaries, page content, and others
     /// They exist on most wikis - example doc for enwiki, change the domain for other wikis: https://en.wikipedia.org/api/rest_v1/
     struct RESTBase {
