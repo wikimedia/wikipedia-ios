@@ -102,12 +102,25 @@ final class InsertMediaSearchViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.delegate?.insertMediaSearchViewController(self, didFind: searchResults)
                     }
-                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
+                    let keepShownResults = { (error: Error) in
+                        guard InsertMediaSearchViewController.shouldReportFullTextFailure(error) else {
+                            return
+                        }
+                        failure(error)
+                    }
+                    self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: keepShownResults, success: success)
                 } else {
                     success(results)
                 }
             }
         }
+    }
+
+    /// A full text search that fails after the prefix results are on screen keeps those results, as the article
+    /// search does. Only a cancellation reaches the delegate, so that a new search clears the old results.
+    static func shouldReportFullTextFailure(_ error: Error) -> Bool {
+        let nserror = error as NSError
+        return nserror.domain == NSURLErrorDomain && nserror.code == NSURLErrorCancelled
     }
 
     func searchForArticleTitle() {
