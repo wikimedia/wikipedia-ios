@@ -316,15 +316,21 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         !showsDonateButton(on: toolbarSlide)
     }
 
-    /// How far the toolbar buttons have faded toward the end screen. During a swipe it is
-    /// `endPageReveal`. When the pager rests on a page, it comes from the current page, because the
-    /// end screen can become current without a scroll step that sets the reveal to 1, for example
-    /// after a VoiceOver page scroll or a pager rebuild.
+    /// How far the toolbar buttons have faded toward the end screen. While the pager is between the
+    /// last slide and the end screen, it is `endPageReveal`. Elsewhere it comes from the current page,
+    /// because the end screen can become current without a scroll step that sets the reveal to 1, for
+    /// example after a VoiceOver page scroll or a pager rebuild.
+    ///
+    /// It must not guess "at rest" from the position alone. The current page changes only when the
+    /// pager is within 1 pt of a page and the finger is up (`WMFYearInReviewPageObserver`), so in the
+    /// last frames of a swipe the current page is still the one the reader left. A position check
+    /// would show that page's buttons for those frames, and the donate button would flicker.
     var toolbarEndReveal: CGFloat {
         let position = pagerPosition.value
-        let isAtRest = abs(position - position.rounded()) < 0.01
-        guard isAtRest else { return endPageReveal.value }
-        return isOnEnd ? 1 : 0
+        let lastSlidePosition = CGFloat(pagerSlides.count - 1)
+        let isBetweenLastSlideAndEnd = position > lastSlidePosition && position < lastSlidePosition + 1
+        guard endViewModel != nil, isBetweenLastSlideAndEnd else { return isOnEnd ? 1 : 0 }
+        return endPageReveal.value
     }
 
     /// The last slide or the end screen.

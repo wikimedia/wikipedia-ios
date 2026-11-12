@@ -224,6 +224,26 @@ struct WMFYearInReviewEndPageTests {
         #expect(viewModel.toolbarEndReveal == 0)
     }
 
+    /// The current page changes only when the pager is within 1 pt of a page. Until then, the
+    /// toolbar follows the swipe, so the donate button does not jump to the page the reader left.
+    @Test
+    func theToolbarRevealFollowsTheSwipeUntilThePageChanges() {
+        let viewModel = makeViewModel(slidesShowDonate: false)
+
+        // Swiping back from the end screen, a few points before the last slide.
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.pagerDidScroll(toPosition: 2.005)
+        #expect(viewModel.toolbarEndReveal == viewModel.endPageReveal.value)
+        #expect(viewModel.toolbarEndReveal < 0.5)
+
+        // Swiping to the end screen, a few points before it.
+        viewModel.pagerDidScroll(toPosition: 2)
+        viewModel.currentSlideID = "slide2"
+        viewModel.pagerDidScroll(toPosition: 2.995)
+        #expect(viewModel.toolbarEndReveal == viewModel.endPageReveal.value)
+        #expect(viewModel.toolbarEndReveal > 0.5)
+    }
+
     @Test
     func theEndScreenUsesDarkControls() {
         let viewModel = makeViewModel()
