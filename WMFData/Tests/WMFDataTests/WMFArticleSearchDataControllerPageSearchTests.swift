@@ -125,6 +125,20 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         XCTAssertEqual(parameters["codistancefrompoint"] as? String, "48.856600|2.352200")
     }
 
+    // MARK: - Language variants
+
+    func testWikipediaSearchDecodesVariantTitles() async throws {
+        let service = CapturingSearchService(json: #"{"query":{"pages":[{"pageid":130,"ns":0,"title":"Linux内核","varianttitles":{"zh-hans":"Linux内核","zh-tw":"Linux內核"}}]}}"#)
+        let controller = WMFArticleSearchDataController(basicService: service)
+        let zhProject = WMFProject.wikipedia(WMFLanguage(languageCode: "zh", languageVariantCode: "zh-Hant-TW"))
+
+        let response = try await controller.searchPages(term: "Linux", project: zhProject, limit: 5, fullText: false)
+        _ = try await controller.searchPages(term: "Linux", project: .commons, namespace: 6, limit: 5, fullText: false)
+
+        XCTAssertEqual(response.results.first?.variantTitles?["zh-tw"], "Linux內核")
+        XCTAssertEqual(service.capturedParameters.map { $0["inprop"] as? String }, ["varianttitles", nil], "Commons has no language variants")
+    }
+
     // MARK: - Helpers
 
     func testDimensionParsing() {

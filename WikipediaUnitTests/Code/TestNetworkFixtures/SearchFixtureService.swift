@@ -122,6 +122,13 @@ extension Array where Element == [String: Any] {
     }
 }
 
+extension Dictionary where Key == String, Value == Any {
+    /// `true` when the request asks for each page's title in every language variant.
+    var requestsVariantTitles: Bool {
+        (self["prop"] as? String)?.split(separator: "|").contains("info") == true && self["inprop"] as? String == "varianttitles"
+    }
+}
+
 private extension NSLock {
     func withLock<T>(_ body: () -> T) -> T {
         lock()

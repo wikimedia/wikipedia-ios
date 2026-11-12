@@ -152,6 +152,39 @@ struct WMFSearchFetcherTests {
         #expect(result.searchTerm == "foo")
     }
 
+    // MARK: - Language variants
+
+    @Test(arguments: [("zh-Hant-TW", "臺北車站"), (nil, "台北车站")] as [(String?, String)])
+    func showsTheTitleInTheLanguageVariant(languageVariantCode: String?, displayTitle: String) async throws {
+        let harness = try makeHarness(fixture: "VariantTitlesSearch")
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        var siteURL = try #require(URL(string: "https://zh.wikipedia.org"))
+        siteURL.wmf_languageVariantCode = languageVariantCode
+
+        let result = try #require(try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15).results.first)
+
+        #expect(try #require(harness.service.capturedParameters).requestsVariantTitles)
+        #expect(result.title == "台北车站")
+        #expect(result.displayTitle == displayTitle)
+    }
+
+    @Test(arguments: ["en", "de"])
+    func keepsTitlesForLanguagesWithoutVariants(languageCode: String) async throws {
+        let harness = try makeHarness(fixture: "DisplayTitleSearch")
+        defer {
+            harness.fetcher.cancelAllFetches()
+        }
+        let siteURL = try #require(URL(string: "https://\(languageCode).wikipedia.org"))
+
+        let results = try await harness.fetcher.fetchArticles(forSearchTerm: "foo", siteURL: siteURL, resultLimit: 15).results
+
+        #expect(results.map(\.title) == ["IPhone", "Homo sapiens", "Berlin"])
+        #expect(results.map(\.displayTitle) == ["iPhone", "Homo sapiens", "Berlin"])
+        #expect(results.map(\.displayTitleHTML) == ["iPhone", "<i>Homo sapiens</i>", "Berlin"])
+    }
+
     // MARK: - Harness
 
     private struct Harness {

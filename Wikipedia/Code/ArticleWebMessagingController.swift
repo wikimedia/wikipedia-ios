@@ -71,7 +71,7 @@ class ArticleWebMessagingController: NSObject {
             editedDaysAgo = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
         }
         let menu = PageContentService.Footer.Menu(items: menuItems, editedDaysAgo: editedDaysAgo)
-        let readMore = PageContentService.Footer.ReadMore(itemCount: 3, apiBaseURL: restAPIBaseURL.absoluteString)
+        let readMore = PageContentService.Footer.ReadMore(itemCount: 3, apiBaseURL: restAPIBaseURL.absoluteString, langCode: articleURL.wmf_legacyLanguageVariantCode)
         let parameters = PageContentService.Footer.Parameters(title: title, menu: menu, readMore: readMore)
         guard let parametersJS = try? PageContentService.getJavascriptFor(parameters) else {
             return

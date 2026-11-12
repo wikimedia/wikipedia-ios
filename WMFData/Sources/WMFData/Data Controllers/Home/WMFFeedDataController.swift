@@ -46,7 +46,8 @@ public final actor WMFFeedDataController: WMFFeedDataControlling {
             return
         }
 
-        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: [:], acceptType: .json)
+        let acceptLanguage = project.languageVariantCode.map { WMFAcceptLanguageUtils.acceptLanguageHeaderValue(forLanguageVariantCode: $0) }
+        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptLanguage: acceptLanguage, parameters: [:], acceptType: .json)
         basicService.performDecodableGET(request: request) { (result: Result<WMFFeedAPIResponse, Error>) in
             completion(result)
         }

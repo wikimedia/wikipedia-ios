@@ -87,7 +87,7 @@ public actor WMFArticleSearchDataController {
 
         let limitString = String(limit)
         let namespaceString = String(namespace)
-        var properties = "description|pageprops|pageimages|revisions|coordinates"
+        var properties = "description|pageprops|pageimages|revisions|coordinates|info"
         if case .commons = project {
             properties = "description|pageprops|pageimages|revisions"
         }
@@ -106,6 +106,10 @@ public actor WMFArticleSearchDataController {
             "format": "json",
             "formatversion": "2"
         ]
+
+        if case .wikipedia = project {
+            parameters["inprop"] = Self.variantTitlesProperty
+        }
 
         if fullText {
             parameters["generator"] = "search"
@@ -165,7 +169,8 @@ public actor WMFArticleSearchDataController {
 
             parameters = [
                 "action": "query",
-                "prop": "coordinates|pageimages|description|pageprops",
+                "prop": "coordinates|pageimages|description|pageprops|info",
+                "inprop": Self.variantTitlesProperty,
                 "coprop": "type|dim",
                 // Without this parameter the API gives no distance. Thus every result reports
                 // zero metres, and the caller sorts the results incorrectly.
@@ -197,7 +202,8 @@ public actor WMFArticleSearchDataController {
             let coordinates = String(format: "%f|%f", latitude, longitude)
             parameters = [
                 "action": "query",
-                "prop": "coordinates|pageimages|description|pageprops|extracts",
+                "prop": "coordinates|pageimages|description|pageprops|extracts|info",
+                "inprop": Self.variantTitlesProperty,
                 "coprop": "type|dim",
                 "colimit": limitString,
                 "pithumbsize": String(thumbnailWidth),
@@ -226,6 +232,9 @@ public actor WMFArticleSearchDataController {
 
     /// The name of the CirrusSearch header that carries the id of the request.
     static let searchIDHeader = "x-search-id"
+
+    /// The API doesn't convert titles to the user's language variant (Linux内核 on zh-tw), so searches ask for the title in every variant.
+    static let variantTitlesProperty = "varianttitles"
 
     private func performQuery(project: WMFProject, parameters: [String: Any]) async throws -> WMFServiceResponse<WMFArticleSearchAPIResponse> {
         guard let service = basicService else {
@@ -358,12 +367,14 @@ public struct WMFArticleSearchResult: Decodable, Sendable, Equatable {
     /// The plain text extract of the page.
     public let extract: String?
     public let coordinate: WMFArticleSearchCoordinate?
+    /// The title in each language variant, keyed by the legacy variant code, for example `zh-tw`.
+    public let variantTitles: [String: String]?
 
     public init(pageID: Int, namespace: Int, title: String, displayTitle: String?, description: String?, index: Int?, thumbnail: WMFArticleSearchThumbnail?) {
         self.init(pageID: pageID, namespace: namespace, title: title, displayTitle: displayTitle, description: description, index: index, thumbnail: thumbnail, revisionID: nil, extract: nil, coordinate: nil)
     }
 
-    public init(pageID: Int, namespace: Int, title: String, displayTitle: String?, description: String?, index: Int?, thumbnail: WMFArticleSearchThumbnail?, revisionID: Int?, extract: String?, coordinate: WMFArticleSearchCoordinate?) {
+    public init(pageID: Int, namespace: Int, title: String, displayTitle: String?, description: String?, index: Int?, thumbnail: WMFArticleSearchThumbnail?, revisionID: Int?, extract: String?, coordinate: WMFArticleSearchCoordinate?, variantTitles: [String: String]? = nil) {
         self.pageID = pageID
         self.namespace = namespace
         self.title = title
@@ -374,6 +385,7 @@ public struct WMFArticleSearchResult: Decodable, Sendable, Equatable {
         self.revisionID = revisionID
         self.extract = extract
         self.coordinate = coordinate
+        self.variantTitles = variantTitles
     }
 
     public var isMainNamespace: Bool {
@@ -396,6 +408,7 @@ public struct WMFArticleSearchResult: Decodable, Sendable, Equatable {
         case revisions
         case extract
         case coordinates
+        case variantTitles = "varianttitles"
     }
 
     private enum PagePropsKeys: String, CodingKey {
@@ -416,6 +429,7 @@ public struct WMFArticleSearchResult: Decodable, Sendable, Equatable {
         thumbnail = try container.decodeIfPresent(WMFArticleSearchThumbnail.self, forKey: .thumbnail)
         revisionID = try container.decodeIfPresent([Revision].self, forKey: .revisions)?.first?.revid
         coordinate = try container.decodeIfPresent([WMFArticleSearchCoordinate].self, forKey: .coordinates)?.first
+        variantTitles = try container.decodeIfPresent([String: String].self, forKey: .variantTitles)
 
         // The `inprop=displaytitle` and `ppprop=displaytitle` parameters put the display title in different places.
         if let displayTitle = try container.decodeIfPresent(String.self, forKey: .displayTitle) {

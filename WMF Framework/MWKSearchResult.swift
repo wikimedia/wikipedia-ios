@@ -52,9 +52,9 @@ public class MWKSearchResult: NSObject, NSSecureCoding, NSCopying {
         super.init()
     }
 
-    /// - Parameter languageVariantCode: The language variant of the site. The initializer sets it on the thumbnail URL.
+    /// - Parameter languageVariantCode: The language variant of the site. The initializer shows the title in this variant and sets it on the thumbnail URL.
     public init(result: WMFArticleSearchResult, languageVariantCode: String?) {
-        let displayTitleHTML = result.displayTitle ?? result.title
+        let displayTitleHTML = MWKSearchResult.variantTitle(of: result, languageVariantCode: languageVariantCode) ?? result.displayTitle ?? result.title
         articleID = result.pageID
         revID = result.revisionID ?? 0
         title = result.title
@@ -87,6 +87,17 @@ public class MWKSearchResult: NSObject, NSSecureCoding, NSCopying {
     /// The content group calls this method after it decodes the object.
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         thumbnailURL?.wmf_languageVariantCode = languageVariantCode
+    }
+
+    /// The result's title in the language variant, from varianttitles, which is keyed by the legacy variant code (zh-tw)
+    private static func variantTitle(of result: WMFArticleSearchResult, languageVariantCode: String?) -> String? {
+        guard let languageVariantCode,
+              let legacyLanguageVariantCode = WikipediaLookup.legacyLanguageVariantCode(for: languageVariantCode),
+              let variantTitle = result.variantTitles?[legacyLanguageVariantCode],
+              !variantTitle.isEmpty else {
+            return nil
+        }
+        return variantTitle
     }
 
     static func geoType(from typeString: String?) -> WMFGeoType? {

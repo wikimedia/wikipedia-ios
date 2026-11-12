@@ -54,6 +54,14 @@ extension URL {
         set { (self as NSURL).wmf_languageVariantCode = newValue }
     }
     
+    /// The legacy MediaWiki variant code (e.g. zh-tw) for the URL's BCP 47 wmf_languageVariantCode (e.g. zh-Hant-TW)
+    public var wmf_legacyLanguageVariantCode: String? {
+        guard let languageVariantCode = wmf_languageVariantCode else {
+            return nil
+        }
+        return WikipediaLookup.legacyLanguageVariantCode(for: languageVariantCode)
+    }
+    
     public var wmf_contentLanguageCode: String? {
         return (self as NSURL).wmf_contentLanguageCode
     }

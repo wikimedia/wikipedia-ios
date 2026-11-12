@@ -21,12 +21,14 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     let footerText: String?
     
     private var summary: WMFArticleSummary?
+    @Published var displayTitle: String
     @Published var articleDescription: String
     @Published var uiImage: UIImage?
     
     internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil, bottomButtonAction: (() -> Void)? = nil, footerText: String? = nil) {
         self.id = id
         self.title = title
+        self.displayTitle = title
         self.projectID = projectID
         self.iconImage = iconImage
         self.iconAccessibilityLabel = iconAccessibilityLabel
@@ -60,6 +62,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         let summary = try? await summaryDataController.fetchArticleSummary(project: project, title: title)
         
         self.summary = summary
+        self.displayTitle = WMFArticleDisplayTitle.displayTitle(title: title, summaryDisplayTitle: summary?.displayTitle, project: project)
         
         if let desc = summary?.description, !desc.isEmpty {
             self.articleDescription = desc
@@ -84,7 +87,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
             return nil
         }
         
-        return WMFArticlePreviewViewModel(url: nil, titleHtml: self.title.normalizedForDisplay, description: self.articleDescription, image: self.uiImage, backgroundImage: nil, isSaved: false, snippet: summary.extract)
+        return WMFArticlePreviewViewModel(url: nil, titleHtml: self.displayTitle.normalizedForDisplay, description: self.articleDescription, image: self.uiImage, backgroundImage: nil, isSaved: false, snippet: summary.extract)
     }
     
     var accessibilityLabelParts: String {
@@ -94,8 +97,8 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
             accessibilityLabel.append(iconAccessibilityLabel + ", ")
         }
         
-        if !title.isEmpty {
-            accessibilityLabel.append(title.normalizedForDisplay + ", ")
+        if !displayTitle.isEmpty {
+            accessibilityLabel.append(displayTitle.normalizedForDisplay + ", ")
         }
         
         if !articleDescription.isEmpty {
@@ -177,7 +180,7 @@ struct WMFAsyncPageRow: View {
     @ViewBuilder
     var regularTextView: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(viewModel.title.normalizedForDisplay)
+            Text(viewModel.displayTitle.normalizedForDisplay)
                 .font(WMFSwiftUIFont.font(.callout))
                 .foregroundColor(Color(theme.text))
                 .lineLimit(1)

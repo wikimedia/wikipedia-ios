@@ -50,7 +50,8 @@ public actor WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
             return
         }
 
-        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptType: .json)
+        let acceptLanguage = project.languageVariantCode.map { WMFAcceptLanguageUtils.acceptLanguageHeaderValue(forLanguageVariantCode: $0) }
+        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptLanguage: acceptLanguage, acceptType: .json)
         service.performDecodableGET(request: request) { [weak self] (result: Result<WMFArticleSummary, Error>) in
             switch result {
             case .success(let summary):
