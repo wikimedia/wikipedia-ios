@@ -19,6 +19,7 @@
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
 "about-wikipedia" = "Wikipedia {{Identical|Wikipedia}}";
+"about-year-in-review-illustrations-attribution" = "Credit for the person who made the Year in Review illustrations. Shown in the content license section of the About page.";
 "account-creation-captcha-cannot-see-image" = "Text asking the user if they cannot see the captcha image. $1 is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
 "account-creation-captcha-request-account" = "Text for link to 'Request an account' page.";
@@ -361,6 +362,7 @@
 "discover-announcement-title" = "Title of the card that introduces the Discover reading list on the Saved tab.";
 "discover-entry-card-byline" = "Byline on the Discover card at the top of the Saved tab. $1 is replaced with the account name of the reader or the word for 'you'.";
 "discover-entry-card-unseen-list" = "Accessibility label of the dot on the Discover card at the top of the Saved tab. The dot marks a list the reader has not opened yet.";
+"discover-interests-subtitle" = "Text under the header of the interests screen when it is opened from Discover. It tells the reader that these interests do not change the For You feed.";
 "discover-list-about" = "Menu item on the Discover reading list screen that explains how Discover works.";
 "discover-list-byline" = "Byline under the title of the Discover reading list. $1 is replaced with the account name of the reader or the word for 'you', $2 with the number of articles in the list.";
 "discover-list-byline-you" = "Word used in the Discover reading list byline in place of the account name when the reader is logged out. Appears as 'Made for you'.";
@@ -1805,6 +1807,7 @@
 "year-in-review-2026-highlights-minutes-read" = "Label on the Year in Review highlights image. The number of minutes the reader spent reading this year follows it.";
 "year-in-review-2026-highlights-niche-category" = "Label on the Year in Review highlights image. The name of an unusual category the reader read about this year follows it.";
 "year-in-review-2026-highlights-rabbit-hole" = "Label on the Year in Review highlights image. The articles in the longest chain of links the reader followed this year follow it.";
+"year-in-review-2026-highlights-rank" = "Marker before each article in the \"Articles in my rotation\" list on the Year in Review highlights image, for example \"(1)\". $1 is replaced with the position of the article in the list, from 1 to 3.";
 "year-in-review-2026-highlights-rotation" = "Label on the Year in Review highlights image. A list of the articles the reader read many times this year follows it.";
 "year-in-review-2026-highlights-title" = "Title of the image the reader shares with their Year in Review highlights.";
 "year-in-review-2026-interests-card-button-title" = "Button on the Year in Review card that opens the interests screen.";
@@ -1829,6 +1832,7 @@
 "year-in-review-2026-most-time-article-subtitle" = "Shown on the Year in Review slide that reveals the article the reader spent the most time on this year. $1 is replaced with the number of minutes the reader spent on that article.";
 "year-in-review-2026-most-time-article-title" = "Title of the Year in Review slide that asks the reader which of the listed articles they spent the most time on. The list of articles follows it.";
 "year-in-review-2026-most-viewed-edited-articles-title" = "Title of the Year in Review slide that lists the articles the user edited that received the most views after the edit. The list of articles follows it.";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "Shown under each article on the Year in Review slide of the articles the user edited that received the most views. $1 is replaced with the number of views the article received.";
 "year-in-review-2026-niche-interest-subtitle" = "Subtitle of the Year in Review slide that shows an uncommon article category the reader read a lot.";
 "year-in-review-2026-niche-interest-title" = "Title of the Year in Review slide that shows an uncommon article category the reader read a lot. The name of the category follows it.";
 "year-in-review-2026-outro-share-button-title" = "Button on the last Year in Review slide. Tapping it shares the highlights of the Year in Review of the reader.";
@@ -1851,11 +1855,13 @@
 "year-in-review-2026-reread-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.";
 "year-in-review-2026-reread-articles-title" = "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.";
 "year-in-review-2026-reread-articles-visit-count" = "Shown under each article on the Year in Review slide of articles visited multiple times. $1 is replaced with the number of times the reader visited the article this year.";
+"year-in-review-2026-reveal-answer-accessibility-hint" = "VoiceOver hint on a Year in Review slide that asks the reader to guess, for example the rabbit hole slide. A double tap shows the answer.";
 "year-in-review-2026-runner-up-topics-title" = "Title of the Year in Review slide that lists the topics the reader read most after the top topic. The list of topics follows it.";
 "year-in-review-2026-saved-articles-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-title" = "Title of the Year in Review slide that shows the number of articles the reader saved this year. The number follows it.";
 "year-in-review-2026-share-text" = "Text the reader shares with their Year in Review highlights. $1 is replaced with a link to the Wikipedia app.";
+"year-in-review-2026-slide-accessibility-hint" = "VoiceOver hint on each Year in Review slide. A one-finger swipe does not change the slide.";
 "year-in-review-2026-store-card-button-title" = "Button on the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-store-card-subtitle" = "Subtitle of the Year in Review card that gives a discount on the Wikipedia store. $1 is replaced with a percentage, for example \"15%\".";
 "year-in-review-2026-store-card-title" = "Title of the Year in Review card that gives a discount on the Wikipedia store.";

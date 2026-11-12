@@ -17,6 +17,7 @@
 // Author: Envlh
 // Author: Eric.LEWIN
 // Author: Escargot bleu
+// Author: Feldo
 // Author: Fitoschido
 // Author: Gomoko
 // Author: Grey Olson
@@ -201,6 +202,11 @@
 "activity-tab-very-satisfied" = "Très satisfait";
 "activity-tab-very-unsatisfied" = "Très insatisfait";
 "activity-tab-week-graph-label" = "Semaine";
+"activity-tab-year-in-review-cta" = "Démarrer";
+"activity-tab-year-in-review-data-rich-subtitle" = "Redécouvrez votre année sur Wikipédia.";
+"activity-tab-year-in-review-data-rich-title" = "Votre Bilan annuel est ici";
+"activity-tab-year-in-review-low-data-subtitle" = "Redécouvrez l'année sur Wikipédia.";
+"activity-tab-year-in-review-low-data-title" = "Notre Bilan annuel est disponible ici.";
 "activity-tab-you-edited" = "Vous avez édité {{PLURAL:$1|$1 fois}} cette semaine.";
 "activity-tab-you-read" = "Vous avez lu {{PLURAL:$1|$1 article|$1 articles}} cette semaine.";
 "activity-tab-you-saved" = "Vous avez enregistré $1 article{{PLURAL:$1||s}}";
@@ -302,14 +308,13 @@
 "clearing-cache-error" = "Erreur lors de la suppression du cache.";
 "clearing-cache-in-progress" = "Nettoyage du cache en cours.";
 "close-all-tabs" = "Fermer tous les onglets";
-"close-all-tabs-confirmation" = "Voulez-vous fermer l'ensemble des $1 onglets ? Cette action est irréversible.";
-"close-all-tabs-confirmation-number" = "Fermer les $1 onglets ?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Voulez-vous fermer {{PLURAL:$1|$1 onglet|$1 onglets}} ? Cette action est irréversible.";
 "close-all-tabs-confirmation-title-with-value" = "Fermer {{PLURAL:$1|$1 onglet|$1 onglets}} ?";
 "close-button-accessibility-label" = "Fermer";
 "close-tabs" = "Fermer les onglets";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 onglet fermé|$1 onglets fermés}}.";
 "community-detail-back-button-title" = "Retourner au flux Communauté";
+"community-feed-preferences-global-card-footer-text" = "Cette carte est indépendante de la langue ; en la désactivant, vous la supprimerez du flux d’exploration.";
 "compass-direction" = "à $1 heures";
 "confirm-donation-history-deletion-subtitle" = "Ceci ne s’appliquera qu’aux dons effectués à partir de cet appareil.";
 "confirm-donation-history-deletion-title" = "Confirmer la suppression";
@@ -416,6 +421,23 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 ligne non éditée|$1 lignes non éditées}}";
 "diff-user-button-accessibility-text" = "Taper deux fois pour ouvrir le menu";
 "dim-images" = "Assombrir les images";
+"discover-announcement-body" = "Votre liste de lecture hebdomadaire d'articles Wikipédia, spécialement choisie pour vous.";
+"discover-announcement-get-started" = "Démarrer";
+"discover-announcement-new-tag" = "Nouveau";
+"discover-announcement-no-thanks" = "Non merci";
+"discover-announcement-no-thanks-toast" = "Pour configurer votre liste de lectures recommandées plus tard, allez aux Paramètres.";
+"discover-announcement-title" = "Découvrez des articles choisis pour vous";
+"discover-list-about" = "À propos de cette fonctionnalité";
+"discover-list-byline" = "Faits pour $1 • $2";
+"discover-list-byline-you" = "vous";
+"discover-list-customize" = "Personnaliser la Découverte";
+"discover-list-error-subtitle" = "Impossible de charger la liste de lecture.";
+"discover-list-error-title" = "Erreur réseau";
+"discover-list-onboarding-toast-daily" = "{{PLURAL:$1| Découverte s'actualisera avec $1 nouvel article chaque jour|Découverte s'actualisera avec $1 nouveaux articles chaque jour}}. Vos recommandations sont stockées localement sur votre appareil.";
+"discover-list-onboarding-toast-monthly" = "{{PLURAL:$1| Découvertes'actualisera avec $1 nouvel article chaque mois|Découverte s'actualisera avec $1 nouvel article chaque mois}}. Vos recommandations sont stockées localement sur votre appareil.";
+"discover-list-onboarding-toast-weekly" = "{{PLURAL:$1| Découverte s'actualisera avec $1 nouvel article chaque semaine|Découverte s'actualisera avec $1 nouvel article chaque semaine}}. Vos recommandations sont stockées localement sur votre appareil.";
+"discover-list-save-list" = "Enregistrer la liste";
+"discover-list-title" = "Découverte";
 "donate-accessibility-amount-button-hint" = "Appuyez deux fois pour sélectionner le montant du don.";
 "donate-accessibility-donate-hint-format" = "Appuyez deux fois pour faire un don de $1 à la Fondation Wikimedia.";
 "donate-accessibility-email-opt-in-hint" = "Appuyez deux fois pour autoriser la Fondation Wikimedia à vous envoyer un courriel.";
@@ -423,7 +445,6 @@
 "donate-accessibility-monthly-recurring-hint" = "Double-cliquez pour activer les dons mensuels automatiques de ce montant.";
 "donate-accessibility-textfield-hint" = "Saisissez le montant personnalisé à donner.";
 "donate-accessibility-transaction-fee-hint" = "Double-appuyez pour ajouter des frais de transaction au montant du don.";
-// Fuzzy
 "donate-already-donated" = "Merci, cher donneur ! Votre générosité aide à faire prospérer Wikipédia et ses autres projets de connaissances gratuites.";
 "donate-apple-fine-print" = "Apple n'est pas responsable de la collecte de fonds à cet effet.";
 "donate-email-opt-in-text" = "Oui, la Fondation Wikimedia peut m'envoyer un courriel de temps en temps.";
@@ -446,6 +467,12 @@
 "donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
 "donate-wikimedia-fine-print-1" = "Nous ne vendons ni n'échangeons vos informations avec qui que ce soit. En faisant un don, vous acceptez de partager vos informations personnelles avec la Fondation Wikimedia, l'organisation à but non lucratif qui héberge Wikipédia et d'autres projets Wikimedia, ainsi qu'avec ses prestataires de services, conformément à notre [politique de don]( $1 ). La Fondation Wikimedia et ses prestataires de services sont situés aux États-Unis et dans d'autres pays dont les lois sur la protection de la vie privée peuvent différer des vôtres. Pour plus d'informations, veuillez consulter notre [politique de don]( $1 ).";
 "donate-wikimedia-fine-print-2" = "Pour les donateurs réguliers, les prélèvements mensuels fixes seront effectués par la Fondation Wikimedia à la date anniversaire de votre premier don, jusqu'à ce que vous nous informiez de votre souhait d'y mettre fin. Les dons effectués les 29, 30 ou 31 du mois seront automatiquement renouvelés le dernier jour du mois, pour les mois les plus courts, à une date aussi proche que possible de la date initiale. Pour toute question, veuillez contacter donate@wikimedia.org.";
+"donation-reminder-setup-toggle-title" = "Rappels de dons";
+"donation-reminder-setup-trigger-detail-accessibility-label" = "Plus d'informations";
+"donation-reminder-setup-trigger-group-detail-articles" = "Le nombre d'articles est stocké localement sur votre appareil.";
+"donation-reminder-setup-trigger-group-title-articles" = "Chaque fois que je lis";
+"donation-reminder-setup-trigger-unit-articles" = "Articles";
+"donation-reminder-setup-update-button-title" = "Créer un rappel";
 "edit-link-display-text-title" = "Texte affiché";
 "edit-link-link-target-title" = "Lien cible";
 "edit-link-remove-link-title" = "Supprimer un lien";
@@ -671,7 +698,7 @@
 "featured-widget-from-language-wikipedia" = "De Wikipédia en $1";
 "featured-widget-from-wikipedia" = "De Wikipédia";
 "featured-widget-language-failure" = "L’édition de Wikipédia dans votre langue principale ne prend pas en charge l’article mis en avant. Vous pouvez mettre à jour votre édition principale de Wikipédia dans le menu Paramètres de l’application.";
-"featured-widget-title" = "Article mis en avant";
+"featured-widget-title" = "Article vedette";
 "fetcher-error-generic" = "Une erreur s'est produite. Veuillez réessayer plus tard.";
 "fetcher-error-unexpected-response" = "L'application a reçu une réponse inattendue du serveur. Veuillez réessayer plus tard.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
@@ -704,6 +731,10 @@
 "find-replace-header" = "Trouver et remplacer";
 "find-replace-header-close-accessibility" = "Fermer la fonction rechercher et remplacer";
 "find-textfield-accessibility" = "Trouver";
+"for-you-end-of-feed-add-interests-format" = "Ajouter de $1";
+"for-you-end-of-feed-add-interests-link" = "nouveaux intérêts";
+"for-you-end-of-feed-community-format" = "Voir ce qui se passe dans la $1";
+"for-you-end-of-feed-community-link" = "communauté";
 "forgot-password-button-title" = "Réinitialiser";
 "forgot-password-email-sent" = "Un courriel avec les instructions de réinitialisation du mot de passe a été envoyé";
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
@@ -734,10 +765,11 @@
 "home-feed-for-you-continue-reading-subtitle" = "Reprendre les articles que vous n'avez pas terminés.";
 "home-feed-for-you-settings-header" = "Désactiver un module le masque dans votre flux « Pour vous ». Vous pouvez le réactiver ici à tout moment.";
 "home-feed-for-you-settings-title" = "Modules";
+"home-feed-interests-deselect-all" = "Tout désélectionner";
 "home-feed-interests-settings-empty-message" = "Vos centres d'intérêt s'afficheront ici.";
 "home-feed-interests-settings-title" = "Vos centres d'intérêt";
 "home-feed-modules-featured-article-subtitle" = "Les articles mis en avant sont parmi les articles de la plus haute qualité sur Wikipédia, sélectionnés quotidiennement par les contributeurs.";
-"home-feed-modules-featured-article-title" = "Article mis en avant";
+"home-feed-modules-featured-article-title" = "Article vedette";
 "home-feed-modules-in-the-news-subtitle" = "Articles qui ont été mis à jour de manière substantielle pour refléter des événements récents ou d'actualité d'intérêt général";
 "home-feed-modules-in-the-news-title" = "Dans l’actualité";
 "home-feed-modules-on-this-day-subtitle" = "Plus d’événements historiques de ce jour";
@@ -902,8 +934,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
 "nearby-distance-label-feet" = "{{PLURAL:$1|$1 pied|$1 pieds}}";
 "nearby-distance-label-km" = "$1 km";
-// Fuzzy
-"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 mètre|$1 mètres}}";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "Vous vous êtes connecté avec un mot de passe temporaire. Pour achever de vous connecter, saisissez un nouveau mot de passe ici.";
 "new-password-title" = "Définir votre mot de passe";
@@ -1148,8 +1179,6 @@
 "reading-list-api-error-generic" = "Une erreur inattendue est survenue lors de la synchronisation de vos listes de lecture.";
 "reading-list-api-error-list-limit" = "Cette liste n’est pas synchronisée parce que vous avez atteint la limite du nombre de listes synchronisées.";
 "reading-list-create-new-list-button-title" = "Créer la liste de lecture";
-"reading-list-create-new-list-description" = "Description";
-"reading-list-create-new-list-reading-list-name" = "Nom de la liste de lecture";
 "reading-list-create-new-list-title" = "Créer une nouvelle liste";
 "reading-list-deleted-accessibility-notification" = "Liste de lecture supprimée";
 "reading-list-detail-search-placeholder" = "Rechercher dans la liste de lecture";
@@ -1170,7 +1199,9 @@
 "reading-list-list-limit-reached" = "Vous avez atteint la limite de $1 listes de lecture par compte";
 "reading-list-login-or-create-account-button-title" = "Se connecter ou créer un compte";
 "reading-list-name-user-created-annotation" = "_[créée par utilisateur]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "courte description optionnelle";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titre de la liste de lecture";
 "reading-list-sync-disabled-panel-message" = "La synchronisation des listes de lecture a été désactivée de votre compte Wikipédia sur un autre appareil. Vous pouvez la réactiver en mettant à jour vos paramètres.";
 "reading-list-sync-disabled-panel-title" = "Synchronisation désactivée";

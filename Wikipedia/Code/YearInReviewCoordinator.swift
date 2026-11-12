@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import LinkPresentation
 import SwiftUI
 import UIKit
 import WMF
@@ -32,6 +33,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     @MainActor
     @discardableResult
     static func buildReport(dataStore: MWKDataStore, regenerate: Bool = false) async throws -> WMFYearInReviewReport? {
+        // Fill the user first, so the key is the user that the build is for. At cold launch the cache
+        // is empty, and a key read before this would not match a later call for the same user.
+        // Without the user, the edit slides have no ids and would be stored empty.
+        // When the wait times out, this build runs without the user and does not make the edit
+        // slides. The fetch keeps going, so build again when it caches the user: the edit slides
+        // were not evaluated, so that build makes them.
+        var permanentUser: WMFCurrentUser?
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL {
+            permanentUser = await dataStore.authenticationManager.fetchPermanentUserIfNeeded(siteURL: siteURL) {
+                Task { @MainActor in
+                    await buildReportLoggingError(dataStore: dataStore)
+                }
+            }
+        }
         let username = dataStore.authenticationManager.authStatePermanentUsername
         while let running = reportBuild {
             let result = await running.task.result
@@ -42,7 +57,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let task = Task { @MainActor in
             defer { reportBuild = nil }
             do {
-                return try await populateReport(dataStore: dataStore, regenerate: regenerate)
+                return try await populateReport(dataStore: dataStore, permanentUser: permanentUser, regenerate: regenerate)
             } catch {
                 YearInReviewInstrument.shared.logError(message: String(describing: error))
                 throw error
@@ -64,14 +79,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// Fills the Year in Review report for the target year. The data controller checks the remote
     /// config, the active dates, the Settings toggle and the country, and returns `nil` when one of
     /// them stops the population.
-    private static func populateReport(dataStore: MWKDataStore, regenerate: Bool) async throws -> WMFYearInReviewReport? {
+    /// - Parameter permanentUser: The user of the app language site, from `buildReport`.
+    @MainActor
+    private static func populateReport(dataStore: MWKDataStore, permanentUser: WMFCurrentUser?, regenerate: Bool) async throws -> WMFYearInReviewReport? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
               let countryCode = Locale.current.region?.identifier else {
             return nil
         }
 
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: appLanguage.siteURL)
         let dataController = try WMFYearInReviewDataController()
 
         if regenerate {
@@ -127,6 +143,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     private var areSlidesPersonalized: Bool {
         slidesExperience == .personalized
+    }
+
+    /// The direction of the app language, so the share images mirror for right-to-left languages.
+    private var shareImageLayoutDirection: LayoutDirection {
+        UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
     }
 
     /// Makes the slides and the strings. This type only injects them and keeps the delegates.
@@ -266,12 +287,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             (try? dataController.fetchSlidesExperience(isLoggedIn: isLoggedIn)) ?? .collective
         }
 
+        // The slides and the highlights come from one read of the stored report.
+        let slidesAndHighlights = slideFactory.makeSlidesAndHighlights(
+            experience: experience,
+            isLoggedIn: isLoggedIn,
+            forcesAllEmptyStates: dataController.forcesAllEmptyStates
+        )
         let viewModel = WMFYearInReviewViewModel(
-            slides: slideFactory.makeSlides(
-                experience: experience,
-                isLoggedIn: isLoggedIn,
-                forcesAllEmptyStates: dataController.forcesAllEmptyStates
-            ),
+            slides: slidesAndHighlights.slides,
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
             loggingDelegate: self
@@ -280,6 +303,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // The gift card follows the slides that were built, so the end screen agrees with the last slide.
         let hasContributorSlide = viewModel.slides.contains { $0.id == YearInReviewSlideViewModelFactory.contributorSlideID }
         viewModel.endViewModel = makeEndViewModel(isContributor: hasContributorSlide)
+        viewModel.highlights = slidesAndHighlights.highlights
 
         self.viewModel = viewModel
         self.slidesExperience = experience
@@ -512,7 +536,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
 
-        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true, keepsLinksInPresentedStack: true)
         let webViewController = SinglePageWebViewController(configType: .standard(config), theme: .light)
         let webNavigationController = WMFComponentNavigationController(rootViewController: webViewController, modalPresentationStyle: .formSheet)
         presentedViewController.present(webNavigationController, animated: true)
@@ -553,7 +577,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return
         }
         isExportingShareImage = true
-        let layoutDirection: LayoutDirection = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+        let layoutDirection = shareImageLayoutDirection
         let presenter = hostingController?.navigationController
 
         Task { @MainActor [weak self, weak presenter] in
@@ -573,45 +597,139 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
+    /// Shares the image of the highlights from the end screen, with the share text and the app link.
+    /// - Parameter getSourceRect: The frame of the button in global coordinates. The share sheet on iPad
+    ///   points at it. It is read when the share sheet opens, after the image is drawn.
+    private func shareHighlights(getSourceRect: @escaping @MainActor @Sendable () -> CGRect) {
+        guard !isExportingShareImage,
+              let highlights = viewModel?.highlights, highlights.isShareable else {
+            return
+        }
+        // The same as the slide share: a second tap does nothing while the image is drawn.
+        isExportingShareImage = true
+        let layoutDirection = shareImageLayoutDirection
+        let presenter = hostingController?.navigationController
+
+        Task { @MainActor [weak self, weak presenter] in
+            defer { self?.isExportingShareImage = false }
+            // ImageRenderer only runs on the main actor, so the drawing cannot move to another thread.
+            guard let image = WMFYearInReviewHighlightsShareView.image(for: highlights, layoutDirection: layoutDirection) else {
+                DDLogError("Could not make the Year in Review highlights image")
+                WMFToastManager.sharedInstance.showToast(CommonStrings.genericErrorDescription, sticky: false, dismissPreviousToasts: true)
+                return
+            }
+            self?.presentShareSheet(image: image, from: presenter, globalSourceRect: getSourceRect())
+        }
+    }
+
     /// The export takes about a second. If the reader closed the slides, opened them again, or opened
     /// another screen from them in that time, the share sheet does not open.
-    private func presentShareSheet(image: UIImage, from presenter: UIViewController?) {
+    /// - Parameter globalSourceRect: Where the share sheet points on iPad, in global coordinates.
+    ///   `nil` or empty points at the bottom middle of the screen.
+    private func presentShareSheet(image: UIImage, from presenter: UIViewController?, globalSourceRect: CGRect? = nil) {
         guard let presenter,
               presenter === hostingController?.navigationController,
               presenter.viewIfLoaded?.window != nil,
               presenter.presentedViewController == nil else {
             return
         }
-        let text = YearInReviewShareTextItem(text: CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink))
-        let activityViewController = UIActivityViewController(activityItems: [image, text], applicationActivities: nil)
+        let text = CommonStrings.yearInReviewShareText(url: WMFYearInReviewDataController.appShareLink)
+        let activityViewController = UIActivityViewController(
+            activityItems: [
+                YearInReviewShareImageItem(image: image, title: CommonStrings.yearInReviewHighlightsTitle, url: URL(string: WMFYearInReviewDataController.appShareLink)),
+                YearInReviewShareTextItem(text: text, placeholderImage: image)
+            ],
+            applicationActivities: nil
+        )
         activityViewController.popoverPresentationController?.sourceView = presenter.view
-        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        if let globalSourceRect, !globalSourceRect.isEmpty {
+            activityViewController.popoverPresentationController?.sourceRect = presenter.view.convert(globalSourceRect, from: nil)
+        } else {
+            activityViewController.popoverPresentationController?.sourceRect = CGRect(x: presenter.view.bounds.midX, y: presenter.view.bounds.maxY, width: 0, height: 0)
+        }
         presenter.present(activityViewController, animated: true)
     }
 }
 
-/// The share text, left out where only the image can go. Instagram and TikTok share one item, and
-/// the image is the priority.
-private final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+/// The share image. The top of the share sheet shows it with a short title and the app link, not as
+/// one of two images.
+private final class YearInReviewShareImageItem: NSObject, UIActivityItemSource {
 
-    private static let imageOnlyActivityPrefixes = ["com.burbn.instagram", "com.zhiliaoapp.musically", "com.ss.iphone.ugc.Ame"]
+    /// The header of the share sheet draws the icon small, so a small copy saves scaling the full
+    /// image each time.
+    private static let iconSize = CGSize(width: 120, height: 120)
 
-    private let text: String
+    private let image: UIImage
+    private let title: String
+    private let url: URL?
+    private lazy var icon: UIImage = {
+        let aspectRatio = image.size.height / max(image.size.width, 1)
+        let size = CGSize(width: Self.iconSize.width, height: Self.iconSize.width * aspectRatio)
+        return image.preparingThumbnail(of: size) ?? image
+    }()
 
-    init(text: String) {
-        self.text = text
+    /// - Parameters:
+    ///   - title: A short title for the header of the share sheet. The share text goes with the text item.
+    ///   - url: The app link, which the header shows under the title.
+    init(image: UIImage, title: String, url: URL?) {
+        self.image = image
+        self.title = title
+        self.url = url
     }
 
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        text
+        image
     }
 
     func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-        guard let activityType,
-              Self.imageOnlyActivityPrefixes.contains(where: { activityType.rawValue.hasPrefix($0) }) else {
-            return text
+        image
+    }
+
+    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        let metadata = LPLinkMetadata()
+        metadata.title = title
+        metadata.originalURL = url
+        metadata.url = url
+        metadata.imageProvider = NSItemProvider(object: image)
+        metadata.iconProvider = NSItemProvider(object: icon)
+        return metadata
+    }
+}
+
+/// The share text, for the built-in activities that take text. Every other activity gets only the image.
+///
+/// The share sheet shows an app only if the app accepts every item. Instagram and TikTok accept images
+/// and not text, so with a text item they do not show. Thus, the placeholder of this item is the image
+/// too, and the text replaces it only for the activities in `textActivityTypes`. iOS does not say which
+/// items an app accepts, so this lists the system activities that take text instead of the apps that do
+/// not. New apps need no change, and an image-only app never gets text it does not accept. Other apps
+/// that take text, for example WhatsApp, get only the image.
+final class YearInReviewShareTextItem: NSObject, UIActivityItemSource {
+
+    /// The built-in activities that put the text and the link next to the image.
+    static let textActivityTypes: Set<UIActivity.ActivityType> = [.message, .mail, .copyToPasteboard]
+
+    private let text: String
+    private let placeholderImage: UIImage
+
+    init(text: String, placeholderImage: UIImage) {
+        self.text = text
+        self.placeholderImage = placeholderImage
+    }
+
+    static func takesText(_ activityType: UIActivity.ActivityType?) -> Bool {
+        guard let activityType else {
+            return false
         }
-        return nil
+        return textActivityTypes.contains(activityType)
+    }
+
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        placeholderImage
+    }
+
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        Self.takesText(activityType) ? text : nil
     }
 }
 
@@ -635,6 +753,8 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
             shareFeedback()
         case .share(let slideID):
             shareSlide(slideID: slideID)
+        case .shareHighlights(let getSourceRect):
+            shareHighlights(getSourceRect: getSourceRect)
         case .donate(let getSourceRect, let slideLoggingID):
             donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID)
         }
@@ -720,6 +840,11 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     func logYearInReviewDidTapShare(slideLoggingID: String) {
         YearInReviewInstrument.shared.logClick(elementID: "share_button", page: slideLoggingID, personalized: areSlidesPersonalized)
     }
+
+    /// A separate element from the slide share button, so the two shares can be counted apart.
+    func logYearInReviewDidTapShareHighlights() {
+        YearInReviewInstrument.shared.logClick(elementID: "share_highlights_button", page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+    }
 }
 
 // MARK: - Instrumentation
@@ -733,6 +858,8 @@ final class YearInReviewInstrument {
     static let shared = YearInReviewInstrument()
 
     static let announcementPage = "announcement"
+    /// The end screen, which comes after the last slide.
+    static let endPage = "end"
 
     /// The donate flow sends the same value to `app_donor_experience`.
     nonisolated static func campaignID(page: String) -> String {

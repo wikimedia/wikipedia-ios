@@ -26,6 +26,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     @discardableResult
     func start() -> Bool {
         let viewModel = WMFDiscoverReadingListViewModel(username: dataStore.authenticationManager.authStatePermanentUsername)
+        viewModel.loggingDelegate = self
 
         viewModel.didTapArticle = { [weak self] page in
             self?.showArticle(page, inNewTab: false)
@@ -42,16 +43,20 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
             self?.shareArticle(page, sourceRect: sourceRect)
         }
         viewModel.didTapSaveList = { [weak self] pages in
+            DiscoverInstrumentation.shared.logListSaveTap()
             self?.showSaveListSheet(for: pages)
         }
         viewModel.didTapShareList = { [weak self, weak viewModel] pages, sourceRect in
             guard let viewModel else { return }
+            DiscoverInstrumentation.shared.logListShareTap()
             self?.shareList(pages, title: viewModel.title, sourceRect: sourceRect)
         }
         viewModel.didTapAbout = { [weak self] in
+            DiscoverInstrumentation.shared.logListAboutTap()
             self?.showAbout()
         }
         viewModel.didTapCustomize = { [weak self] in
+            DiscoverInstrumentation.shared.logListCustomizeTap()
             self?.showSettings()
         }
 
@@ -70,7 +75,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: .discover,
             tabConfig: tabConfig
         )
         articleCoordinator.start()
@@ -155,7 +160,7 @@ final class DiscoverReadingListCoordinator: NSObject, Coordinator {
     private var aboutURL: URL? {
         guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
         return WMFProject.mediawiki.translatedHelpURL(
-            pathComponents: ["Wikimedia Apps", "Team", "Discover Reading List On iOS"],
+            pathComponents: ["Wikimedia Apps", "Team", "Discover on iOS"],
             section: nil,
             language: appLanguage)
     }
@@ -276,5 +281,13 @@ extension WMFDiscoverRecommendedPage {
         }
         articleURL.wmf_languageVariantCode = project.languageVariantCode
         return articleURL
+    }
+}
+
+// MARK: - WMFDiscoverReadingListLoggingDelegate
+
+extension DiscoverReadingListCoordinator: WMFDiscoverReadingListLoggingDelegate {
+    func discoverReadingListDidShow(itemCount: Int) {
+        DiscoverInstrumentation.shared.logListImpression(itemCount: itemCount)
     }
 }

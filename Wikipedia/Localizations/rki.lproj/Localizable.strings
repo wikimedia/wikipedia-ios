@@ -247,8 +247,6 @@
 "clearing-cache-error" = "ကက်ရှ်ကို ရှင်းလင်းရာမာ အမှားအယွင်းဟိနီပါရေ။";
 "clearing-cache-in-progress" = "ကက်ရှ် ရှင်းလင်းခြင်းကို လုပ်ဆောင်နီပါရေ။";
 "close-all-tabs" = "tab အားနုန်းကို ပိတ်ပါ";
-"close-all-tabs-confirmation" = "$1 တက်ဘ်တိအားနုန်းကို ပိတ်ချင်ပါလား။  ‌ေဒေလုပ်ဆောင်ချက်ကို ပြန်ပြင်လို့မရပါ။";
-"close-all-tabs-confirmation-number" = "$1 tab အားနုန်းကို ပိတ်ပါ";
 "close-all-tabs-confirmation-subtitle-with-value" = "{{PLURAL:$1|$1 တဘ်|$1 တဘ်တိ}} ကို ပိတ်ချင်ပါသလား။ ‌ဒေလုပ်ဆောင်ချက်ကို ပြန်ပြင်လို့မရပါ။";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} ကို ပိတ်ဖို့လား။";
 "close-button-accessibility-label" = "ပိတ်ပါ";
@@ -1186,8 +1184,6 @@
 "reading-list-api-error-generic" = "သင်ဧ့စာဖတ်စာရင်းကို sync လုပ်နီစိုင် မမျော်လင့်ထားရေအမှားတစ်ခု ဖြစ်ပွားခရေ";
 "reading-list-api-error-list-limit" = "စင့်ခ်လုပ်ထားရေစရင်းတိဧ့ ကန့်သတ်ချက်သို့ သင်ရောက်ရှိလားခြင်းကြောင့် ဒေစရင်းကို စင့်ခ်လုပ်မထားပါ။";
 "reading-list-create-new-list-button-title" = "စာဖတ်စရင်း ဖန်တီးဖို့";
-"reading-list-create-new-list-description" = "ဖော်ပြချက်";
-"reading-list-create-new-list-reading-list-name" = "စရင်းနာမည်ကို ဖတ်နီရေ";
 "reading-list-create-new-list-title" = "စရင်းသစ်တစ်ခု ဖန်တီးဖို့";
 "reading-list-deleted-accessibility-notification" = "စာဖတ်စရင်း ဖျက်ပြီးယာ";
 "reading-list-detail-search-placeholder" = "စာဖတ်ခြင်းစရင်းကို ယှာပါ";
@@ -1208,7 +1204,9 @@
 "reading-list-list-limit-reached" = "သင်ရေ အကောင့်တစ်ခုကေ $1 စာဖတ်ခြင်းစာရင်းဧ့ ကန့်သတ်ချက်သို့ ရောက်ဟိလားပါယာ";
 "reading-list-login-or-create-account-button-title" = "အကောင့်ထဲဝင်ဖို့ ယင်းသို့မဟုတ် အကောင့်ဖန်တီးဖို့";
 "reading-list-name-user-created-annotation" = "_[အသုံးပြုသူ ဖန်တီးခရေ]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "အရေးမကြီးရေ ဖော်ပြချက်တို";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "စာရင်းခေါင်းစိုင် ဖတ်နီရေ";
 "reading-list-sync-disabled-panel-message" = "အခြားစက်ဝန်က သင့် Wikipedia အကောင့်အတွက် ဖတ်ခြင်းစာကေးစင့်ခ်လုပ်ခြင်းကို ပိတ်ထားရေ။  သင်ဧ့ဆက်တင်တိကို အပ်ဒိတ်လုပ်ခြင်းနန့် စင့်ခ်ကို ပြန်ဖွင့်နှိုင်ရေ။";
 "reading-list-sync-disabled-panel-title" = "Sync လုပ်ဆောင်ချက် ပိတ်ထားပြီး";

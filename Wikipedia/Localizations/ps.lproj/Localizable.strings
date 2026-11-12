@@ -197,7 +197,6 @@
 "clearing-cache-error" = "د نيوک سپاکولو تېروتنه.";
 "clearing-cache-in-progress" = "نيونگه سپاکول دوام لري.";
 "close-all-tabs" = "ټولې کړکۍ وتړئ";
-"close-all-tabs-confirmation-number" = "ټولې  $1 ريښکې وتړي؟";
 "close-button-accessibility-label" = "تړل";
 "close-tabs" = "ريښکې تړل";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 ريښکه تړل‌شوې ده|$1 ريښکې تړل‌شوې دي}}.";

@@ -59,8 +59,11 @@ final class YearInReviewSlideDataControllerFactory {
             .topArticles,
             .topTopics,
             .daysVisited,
+            .mostViewedArticles,
             .rabbitHoles,
-            .readingPattern
+            .readingStreak,
+            .readingPattern,
+            .biggestReadingDay
         ]
         
         let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: WMFUserImpactDataController.shared, mainPageIdentifier: mainPageIdentifier)
