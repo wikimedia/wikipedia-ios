@@ -34,54 +34,6 @@
 			<string>%1$d days</string>
 		</dict>
 	</dict>
-	<key>activity-tab-you-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>You edited %1$#@v1@ this week.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d time</string>
-			<key>other</key>
-			<string>%1$d times</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-read</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>You read %1$#@v1@ this week.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d article</string>
-			<key>other</key>
-			<string>%1$d articles</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-saved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>You saved %1$#@v1@ this week.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d article</string>
-			<key>other</key>
-			<string>%1$d articles</string>
-		</dict>
-	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

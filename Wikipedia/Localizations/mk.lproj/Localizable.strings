@@ -154,9 +154,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Пристигна вашиот Преглед на годината";
 "activity-tab-year-in-review-low-data-subtitle" = "Навратете се на годината на Википедија.";
 "activity-tab-year-in-review-low-data-title" = "Пристигна нашиот Преглед на годината";
-"activity-tab-you-edited" = "Неделава уредивте {{PLURAL:$1|еднаш|$1 пати}}.";
-"activity-tab-you-read" = "Неделава прочитавте {{PLURAL:$1|$1 статија|$1 статии}}.";
-"activity-tab-you-saved" = "Неделава зачувавте {{PLURAL:$1|$1 статија|$1 статии}}.";
 "activity-tab-your-impact" = "Ваше влијание";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "advanced-settings-title" = "Напредни нагодувања";
@@ -1215,7 +1212,6 @@
 "potd-sample-entry-description" = "Трка со впрегнати бикови во рало. Западна Суматра, Индонезија. 2015, Финалист-45.";
 "potd-widget-description" = "Уживајте во убава дневна слика избрана од нашата заедница.";
 "potd-widget-title" = "Слика на денот";
-"preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "privacy-policy-title" = "Правила за лични податоци";
 "problem-with-feature-title" = "Проблем со функцијата";
 "profile-button-accessibility-hint" = "Води до поглед на профилот.";
@@ -1393,7 +1389,6 @@
 "settings-clear-cache" = "Исчисти меѓускладирани податоци";
 "settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
 "settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
-"settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Исчисти";
 "settings-clear-donation-history" = "Исчисти историја на дарување";
 "settings-community-feed-title" = "Заедница";

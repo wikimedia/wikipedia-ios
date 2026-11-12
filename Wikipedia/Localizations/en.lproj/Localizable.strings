@@ -140,9 +140,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Your Year in Review is here";
 "activity-tab-year-in-review-low-data-subtitle" = "Rediscover the year on Wikipedia.";
 "activity-tab-year-in-review-low-data-title" = "Our Year in Review is here";
-"activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
-"activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
-"activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "activity-tab-your-impact" = "Your impact";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
@@ -1201,7 +1198,6 @@
 "potd-sample-entry-description" = "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "Enjoy a beautiful daily photo selected by our community.";
 "potd-widget-title" = "Picture of the day";
-"preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
 "privacy-policy-title" = "Privacy policy";
 "problem-with-feature-title" = "Problem with feature";
 "profile-button-accessibility-hint" = "Navigates to the profile view.";
@@ -1379,7 +1375,6 @@
 "settings-clear-cache" = "Clear cached data";
 "settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
-"settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
 "settings-clear-donation-history" = "Clear donation history";
 "settings-community-feed-title" = "Community";

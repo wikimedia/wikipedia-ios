@@ -59,15 +59,6 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNa
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == usernameField {
-            emailField.becomeFirstResponder()
-        } else if textField == emailField {
-            save()
-        }
-        return true
-    }
-
     @IBAction func textFieldDidChange(_ sender: UITextField) {
         guard
             let username = usernameField.text,

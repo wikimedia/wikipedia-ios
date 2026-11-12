@@ -188,9 +188,6 @@
 "activity-tab-year-in-review-data-rich-title" = "مرور سال شما آماده است";
 "activity-tab-year-in-review-low-data-subtitle" = "سال گذشته در ویکی‌پدیا را دوباره مرور کنید.";
 "activity-tab-year-in-review-low-data-title" = "مرور سال ما آماده است";
-"activity-tab-you-edited" = "شما این هفته {{PLURAL:$1|بار}} ویرایش انجام داده‌اید";
-"activity-tab-you-read" = "شما این هفته {{PLURAL:$1|مقاله}} را خواندید.";
-"activity-tab-you-saved" = "شما این هفته {{PLURAL:$1|مقاله}} را ذخیره کردید.";
 "activity-tab-your-impact" = "اثرگذاری شما";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "advanced-settings-title" = "تنظیمات پیشرفته";
@@ -1250,7 +1247,6 @@
 "potd-sample-entry-description" = "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "از مشاهدهٔ یک تصویر روزانهٔ زیبا، که توسط احتماع ما انتخاب شده، لذت ببرید.";
 "potd-widget-title" = "نگارهٔ روز";
-"preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این نرم‌افزار جهت بهتر ساختن نرم‌افزار اجازه دهید";
 "privacy-policy-title" = "سیاست محرمانگی";
 "problem-with-feature-title" = "مشکل با ویژگی";
 "profile-button-accessibility-hint" = "به نمایه هدایت می‌شود.";
@@ -1428,7 +1424,6 @@
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
 "settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته‌شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما حذف نخواهند شد.";
 "settings-clear-cache-are-you-sure-title" = "داده‌‌های گرفته‌شده پاک‌شوند؟";
-"settings-clear-cache-cancel" = "لغو";
 "settings-clear-cache-ok" = "پاک‌سازی حافظهٔ نهان";
 "settings-clear-donation-history" = "پاک‌کردن سابقهٔ کمک‌های مالی";
 "settings-community-feed-title" = "جامعه";

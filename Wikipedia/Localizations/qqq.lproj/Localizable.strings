@@ -140,9 +140,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Title of the Year in Review entry point on the Activity tab, shown to users with enough data for a personalized experience.";
 "activity-tab-year-in-review-low-data-subtitle" = "Subtitle of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
 "activity-tab-year-in-review-low-data-title" = "Title of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
-"activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"activity-tab-you-saved" = "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-your-impact" = "Title for editing section in activity tab.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "advanced-settings-title" = "Title for advanced settings screen";
@@ -1201,7 +1198,6 @@
 "potd-sample-entry-description" = "Text for sample entry image caption. It is displayed when app is unable to fetch Picture of the day data.";
 "potd-widget-description" = "Text for description of Picture of the day widget displayed when adding to home screen.";
 "potd-widget-title" = "Text for title of Picture of the day widget.";
-"preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "privacy-policy-title" = "Title for the privacy Policy";
 "problem-with-feature-title" = "Button title text that allows user to send feedback to the iOS support email about a particular feature.";
 "profile-button-accessibility-hint" = "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.";
@@ -1379,7 +1375,6 @@
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
-"settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-clear-donation-history" = "Title of the row on the settings screen that deletes the locally saved donation history.";
 "settings-community-feed-title" = "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}";
