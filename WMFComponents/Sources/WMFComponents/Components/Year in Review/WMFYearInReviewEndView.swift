@@ -73,18 +73,28 @@ public struct WMFYearInReviewEndView: View {
     /// The middle of the navigation bar is about this far above the bottom of `topInset`.
     private static let navigationBarHalfHeight: CGFloat = 22
 
+    /// Called once for each pull down past the top by more than `pullDownDistance`. The pager does not
+    /// take drags on this screen, so this is how the reader goes back to the last slide.
+    private let onPullDownPastTop: (() -> Void)?
+
+    private static let pullDownDistance: CGFloat = 60
+
+    @State private var didReportPullDown = false
+
     public init(
         viewModel: WMFYearInReviewEndViewModel,
         topInset: CGFloat = 0,
         onUsesLightContentChange: ((Bool) -> Void)? = nil,
         shareHighlightsTitle: String? = nil,
-        onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)? = nil
+        onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)? = nil,
+        onPullDownPastTop: (() -> Void)? = nil
     ) {
         self.viewModel = viewModel
         self.topInset = topInset
         self.onUsesLightContentChange = onUsesLightContentChange
         self.shareHighlightsTitle = shareHighlightsTitle
         self.onShareHighlights = onShareHighlights
+        self.onPullDownPastTop = onPullDownPastTop
     }
 
     public var body: some View {
@@ -97,6 +107,9 @@ public struct WMFYearInReviewEndView: View {
                 ) { card in
                     cardView(card)
                 }
+                // The bounce below applies to all the scroll views inside. The carousel must not
+                // bounce up and down, or it takes the vertical drags.
+                .scrollBounceBehavior(.basedOnSize, axes: .vertical)
             }
             .padding(.bottom, 24)
             .background(alignment: .top) {
@@ -111,11 +124,11 @@ public struct WMFYearInReviewEndView: View {
         .coordinateSpace(name: Self.scrollSpaceName)
         .modifier(ScrollGeometryOffsetModifier { offset in
             updateUsesLightContent(scrollOffset: offset)
+            reportPullDown(scrollOffset: offset)
         })
-        // This scroll view is in the vertical pager. If the content fits, it does not bounce.
-        // Thus, a pull down goes to the pager, and the pager shows the last slide.
-        // This applies only to the vertical axis. The horizontal card carousel does not change.
-        .scrollBounceBehavior(.basedOnSize)
+        // The pager does not take drags on this screen. Thus, this scroll view always bounces,
+        // also when the content fits, so that a pull down at the top can go back to the last slide.
+        .scrollBounceBehavior(.always, axes: .vertical)
         .background(Color(uiColor: WMFYearInReviewEndViewModel.skyBottomColor).ignoresSafeArea())
     }
 
@@ -124,6 +137,15 @@ public struct WMFYearInReviewEndView: View {
         let controlsY = topInset - Self.navigationBarHalfHeight
         let usesLightContent = scrollOffset + controlsY > WMFYearInReviewEndViewModel.skyHeight * Self.lightContentSkyFraction
         onUsesLightContentChange?(usesLightContent)
+    }
+
+    private func reportPullDown(scrollOffset: CGFloat) {
+        if scrollOffset >= 0 {
+            didReportPullDown = false
+        } else if scrollOffset < -Self.pullDownDistance, !didReportPullDown {
+            didReportPullDown = true
+            onPullDownPastTop?()
+        }
     }
 
     // MARK: - Hero
@@ -288,7 +310,7 @@ public struct WMFYearInReviewEndView: View {
     private func cardView(_ card: WMFYearInReviewEndViewModel.Card) -> some View {
         VStack(spacing: 18) {
             // The text shows in capital letters. VoiceOver reads the text as written.
-            Text(card.title.localizedUppercase)
+            Text(card.uppercasedTitle)
                 .accessibilityLabel(card.title)
                 .font(Font(cardTitleFont))
                 .foregroundColor(Color(uiColor: WMFTheme.light.text))

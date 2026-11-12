@@ -927,6 +927,15 @@ extension YearInReviewCoordinator {
     /// The store page with the contributor discount already applied.
     private static let storeDiscountURL = URL(string: "https://store.wikimedia.org/discount/WikiLove?utm_campaign=bf45f7&utm_source=discount_shareable_link")
 
+    /// The blog post about the most-read English Wikipedia articles of 2026.
+    private static let topReadURL = URL(string: "https://wikimediafoundation.org/news/2026/12/01/wikipedia-most-read-articles-2026/?utm_campaign=26yir&utm_source=26appyir&utm_medium=26ioscard")
+
+    /// The most-read articles card is about English Wikipedia, so it only shows when English is
+    /// one of the reader's app languages, in any position.
+    private var hasEnglishAppLanguage: Bool {
+        dataStore.languageLinkController.preferredLanguages.contains { $0.languageCode == "en" }
+    }
+
     /// The languages the quiz site is available in. Any other language gets English.
     private static let whichWikipediaLanguageCodes: Set<String> = ["ar", "en", "es", "fr", "ja", "ms", "pt"]
 
@@ -940,7 +949,7 @@ extension YearInReviewCoordinator {
     /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
     private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
         MainActor.assumeIsolated {
-            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor)
+            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor, hasEnglishAppLanguage: hasEnglishAppLanguage)
             buildEndViewModel(viewModel)
             return viewModel
         }
@@ -951,6 +960,9 @@ extension YearInReviewCoordinator {
     private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
         viewModel.didTapStore = { [weak self] in
             self?.showStore()
+        }
+        viewModel.didTapTopRead = { [weak self] in
+            self?.showHelpPage(url: Self.topReadURL)
         }
         viewModel.didTapWhichWikipedia = { [weak self] in
             self?.showHelpPage(url: self?.whichWikipediaURL)
