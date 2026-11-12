@@ -62,8 +62,8 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
 
     // MARK: - Slides
 
-    private func readCountSlide(_ readCount: Int, year: Int? = nil) throws -> WMFYearInReviewSlide {
-        let data = try JSONEncoder().encode(WMFYearInReviewReadData(readCount: readCount, minutesRead: 0))
+    private func readCountSlide(_ readCount: Int, minutesRead: Int = 0, year: Int? = nil) throws -> WMFYearInReviewSlide {
+        let data = try JSONEncoder().encode(WMFYearInReviewReadData(readCount: readCount, minutesRead: minutesRead))
         return WMFYearInReviewSlide(year: year ?? self.year, id: .readCount, data: data)
     }
 
@@ -255,6 +255,24 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(experience, .collective)
     }
 
+    func testTotalArticlesAndMinutesReadCountAsTwoSlides() async throws {
+        try await saveReport([try readCountSlide(3, minutesRead: 5)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized, "the total articles and minutes read slides share one report entry")
+    }
+
+    func testMinutesReadCountsWithoutEnoughArticles() async throws {
+        try await saveReport([try readCountSlide(2, minutesRead: 5), try topArticlesSlide(articleCount: 2)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized, "the minutes read slide does not depend on the article count")
+    }
+
+    func testMinutesReadAboveTheMaximumDoesNotCount() async throws {
+        try await saveReport([try readCountSlide(3, minutesRead: WMFYearInReviewReadData.maximumMinutesRead + 1)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the minutes read slide hides above the maximum")
+    }
+
     func testOneSlideWithEnoughDataIsCollective() async throws {
         try await saveReport([try readCountSlide(500), try topArticlesSlide(articleCount: 1)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
@@ -433,10 +451,31 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         try await saveReport([
             try readCountSlide(3),
             WMFYearInReviewSlide(year: year, id: .topArticles, data: nil),
-            WMFYearInReviewSlide(year: year, id: .saveCount, data: try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 50, articleTitles: ["A", "B", "C"])))
+            WMFYearInReviewSlide(year: year, id: .viewCount, data: try JSONEncoder().encode(50))
         ])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .collective, "slides that are not in the 2026 flow do not count")
+    }
+
+    func testSavedSlideWithASavedArticleCountsTowardPersonalized() async throws {
+        let savedData = SavedArticleSlideData(savedArticlesCount: 1, articles: [
+            SavedArticleSlideData.Article(title: "A", pageTitle: "A", articleDescription: nil, projectID: "wikipedia~en")
+        ])
+        try await saveReport([
+            try readCountSlide(3),
+            WMFYearInReviewSlide(year: year, id: .saveCount, data: try JSONEncoder().encode(savedData))
+        ])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
+    }
+
+    func testSavedSlideWithoutSavedArticlesDoesNotCount() async throws {
+        try await saveReport([
+            try readCountSlide(3),
+            WMFYearInReviewSlide(year: year, id: .saveCount, data: try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 0, articles: [])))
+        ])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective)
     }
 
     func testNoReportIsCollective() async throws {

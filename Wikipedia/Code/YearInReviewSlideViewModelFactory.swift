@@ -31,6 +31,7 @@ struct YearInReviewSlideViewModelFactory {
         "totalArticles": "total_articles",
         "totalArticlesEmpty": "total_articles_empty",
         "daysVisited": "visits",
+        "minutesRead": "minutes_read",
         "readingStreak": "reading_streak",
         "readingStreakEmpty": "reading_streak_empty",
         "topTopic": "top_topic",
@@ -44,6 +45,8 @@ struct YearInReviewSlideViewModelFactory {
         "rabbitHoleReveal": "rabbit_hole_reveal",
         "rereadArticles": "revisited_articles",
         "rereadArticlesEmpty": "revisited_articles_empty",
+        "savedArticles": "saved_articles",
+        "savedArticlesEmpty": "saved_articles_empty",
         "collectiveHoursRead": "collective_hours_read",
         "collectiveLanguages": "collective_languages",
         "collectiveArticles": "collective_articles",
@@ -79,9 +82,9 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, reading streak, articles visited multiple times, topic, biggest reading day, longest read, rabbit hole, niche interest, edit and contributor slides have real data so far.
+    /// Only the total articles, days visited, minutes read, reading streak, articles visited multiple times, saved, topic, biggest reading day, longest read, rabbit hole, niche interest, edit and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
-    /// The days visited, biggest reading day, longest read, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
+    /// The days visited, minutes read, biggest reading day, longest read, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
     ///
@@ -154,6 +157,7 @@ struct YearInReviewSlideViewModelFactory {
             rabbitHoles: storedRabbitHoles(in: report),
             nicheCategory: storedNicheCategory(in: report),
             rereadArticles: storedRereadArticles(in: report) ?? [],
+            savedArticles: storedSavedArticles(in: report),
             isLoggedIn: isLoggedIn,
             editCount: storedEditCount(in: report),
             editViewCount: storedViewCount(in: report),
@@ -163,7 +167,8 @@ struct YearInReviewSlideViewModelFactory {
 
     /// The stored data of the personalized slides.
     struct PersonalizedData {
-        /// For the total articles slide and the highlights. `nil` shows the empty total articles slide.
+        /// For the total articles and minutes read slides and the highlights, so they always come from
+        /// the same report. `nil` shows the empty total articles slide and no minutes read slide.
         var readData: WMFYearInReviewReadData?
         /// No stored data means no qualifying articles.
         var readCount: Int { readData?.readCount ?? 0 }
@@ -178,6 +183,8 @@ struct YearInReviewSlideViewModelFactory {
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
         var nicheCategory: WMFYearInReviewNicheCategorySlideData?
         var rereadArticles: [RereadArticle] = []
+        /// `nil` shows the empty saved slide.
+        var savedArticles: SavedArticleSlideData?
         /// The edit slides need an account.
         var isLoggedIn = false
         /// `nil` when the edit count was never fetched, for example after a failed request. Then no
@@ -188,13 +195,16 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
-    /// not in the flow: time spent, reading pattern, geography, saved and the end screen.
+    /// not in the flow: reading pattern, geography and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
             totalArticlesSlide(readCount: data.readCount, topReadPercentage: data.topReadPercentage, averageReadCount: data.averageReadCount)
         ]
         if let daysVisited = daysVisitedSlide(data.daysVisited) {
             slides.append(daysVisited)
+        }
+        if let minutesRead = minutesReadSlide(data.readData) {
+            slides.append(minutesRead)
         }
         slides.append(readingStreakSlide(data.readingStreak))
         slides += topicSlides(data.topTopics)
@@ -205,6 +215,7 @@ struct YearInReviewSlideViewModelFactory {
             slides.append(nicheInterest)
         }
         slides.append(rereadArticlesSlide(data.rereadArticles))
+        slides.append(savedArticlesSlide(data.savedArticles))
         if data.isLoggedIn, let editCount = data.editCount {
             slides += editorSlides(editCount: editCount, viewCount: data.editViewCount, mostViewedArticles: data.mostViewedArticles)
         }
@@ -213,7 +224,7 @@ struct YearInReviewSlideViewModelFactory {
 
     /// In the same order as `personalizedSlides(_:)`.
     private func personalizedEmptySlides(isLoggedIn: Bool) -> [WMFYearInReviewSlideViewModel] {
-        var slides = [totalArticlesEmptySlide(), readingStreakEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide()]
+        var slides = [totalArticlesEmptySlide(), readingStreakEmptySlide(), topTopicEmptySlide(), rereadArticlesEmptySlide(), savedArticlesEmptySlide()]
         if isLoggedIn {
             slides.append(editsEmptySlide())
         }
@@ -253,8 +264,8 @@ struct YearInReviewSlideViewModelFactory {
 
     // MARK: - Total articles
 
-    /// The number of unique articles read and the minutes read, from the report the app fills in
-    /// the background. `nil` when the report does not have this slide yet.
+    /// The number of unique articles read and the minutes spent reading, from the report the app fills in the background.
+    /// `nil` when the report does not have this slide yet.
     private func storedReadData(in report: WMFYearInReviewReport?) -> WMFYearInReviewReadData? {
         storedSlideData(.readCount, as: WMFYearInReviewReadData.self, logName: "total articles", in: report)
     }
@@ -307,6 +318,52 @@ struct YearInReviewSlideViewModelFactory {
         formatter.numberStyle = .percent
         formatter.maximumFractionDigits = 2
         return formatter.string(from: NSNumber(value: percentage / 100)) ?? "\(percentage)%"
+    }
+
+    // MARK: - Minutes read
+
+    /// `nil` unless the reader read for at least `WMFYearInReviewReadData.minimumMinutesRead` minutes, and
+    /// not more than `WMFYearInReviewReadData.maximumMinutesRead`, which is most likely an error.
+    /// The slide has no empty version. Its copy compares the time to a known duration.
+    func minutesReadSlide(_ readData: WMFYearInReviewReadData?) -> WMFYearInReviewSlideViewModel? {
+        guard let readData, SlideEligibility.minutesRead(readData) != nil else {
+            return nil
+        }
+
+        let headline = CommonStrings.yearInReviewMinutesReadTitle
+        let count = NumberFormatter.localizedString(from: NSNumber(value: readData.minutesRead), number: .decimal)
+        // An eligible reader has at least one minute, so there is always a comparison. If not, the
+        // thresholds and `minimumMinutesRead` no longer match.
+        guard let comparison = minutesReadComparison(forMinutes: readData.minutesRead) else {
+            assertionFailure("No minutes read comparison for \(readData.minutesRead) minutes")
+            return nil
+        }
+        let bodyText = "\(comparison) \(CommonStrings.yearInReviewMinutesReadSubtitle)"
+        return dataSlide(
+            id: "minutesRead",
+            artboard: "frame3",
+            stateMachine: "frame3-statemachine",
+            headline: headline,
+            data: count,
+            bodyText: bodyText,
+            accessibilityLabel: "\(headline) \(count). \(bodyText)"
+        )
+    }
+
+    private func minutesReadComparison(forMinutes minutes: Int) -> String? {
+        switch WMFYearInReviewMinutesReadComparison.comparison(forMinutes: minutes) {
+        case .hummingbird: return CommonStrings.yearInReviewMinutesReadComparisonHummingbird
+        case .sunlight: return CommonStrings.yearInReviewMinutesReadComparisonSunlight
+        case .egg: return CommonStrings.yearInReviewMinutesReadComparisonEgg
+        case .fallAsleep: return CommonStrings.yearInReviewMinutesReadComparisonFallAsleep
+        case .sitcom: return CommonStrings.yearInReviewMinutesReadComparisonSitcom
+        case .spaceStation: return CommonStrings.yearInReviewMinutesReadComparisonSpaceStation
+        case .marathon: return CommonStrings.yearInReviewMinutesReadComparisonMarathon
+        case .nightSleep: return CommonStrings.yearInReviewMinutesReadComparisonNightSleep
+        case .honeybee: return CommonStrings.yearInReviewMinutesReadComparisonHoneybee
+        case .days(let dayCount): return CommonStrings.yearInReviewMinutesReadComparisonDays(dayCount: dayCount)
+        case nil: return nil
+        }
     }
 
     // MARK: - Days visited
@@ -465,6 +522,57 @@ struct YearInReviewSlideViewModelFactory {
             id: "rereadArticlesEmpty",
             artboard: "frame13-empty",
             stateMachine: "frame13-empty-statemachine",
+            headline: headline,
+            bodyText: bodyText,
+            items: [],
+            accessibilityLabel: "\(headline). \(bodyText)"
+        )
+    }
+
+    // MARK: - Saved articles
+
+    /// The saved articles, from the report the app fills in the background. `nil` when the report
+    /// does not have this slide yet.
+    private func storedSavedArticles(in report: WMFYearInReviewReport?) -> SavedArticleSlideData? {
+        storedSlideData(.saveCount, as: SavedArticleSlideData.self, logName: "saved articles", in: report)
+    }
+
+    /// Lists up to three saved articles with their thumbnails and descriptions. Shows the empty
+    /// version unless the reader saved at least one article in the data period.
+    func savedArticlesSlide(_ slideData: SavedArticleSlideData?) -> WMFYearInReviewSlideViewModel {
+        guard let slideData, slideData.isEligible, let articles = slideData.articles else {
+            return savedArticlesEmptySlide()
+        }
+
+        let bodyText = "\(CommonStrings.yearInReviewSavedArticlesTitle) \(decimalString(slideData.savedArticlesCount))"
+        let shownArticles = Array(articles.prefix(SavedArticleSlideData.maximumArticleCount))
+        let items = shownArticles.map { article in
+            ListItem(title: article.title, subtitle: article.articleDescription ?? "")
+        }
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        for (index, article) in shownArticles.enumerated() {
+            guard let project = article.project else { continue }
+            thumbnails[ListImagePath.icon(index + 1)] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.pageTitle ?? article.title)
+        }
+        return listSlide(
+            id: "savedArticles",
+            artboard: "frame15",
+            stateMachine: "frame15-statemachine",
+            headline: nil,
+            bodyText: bodyText,
+            items: items,
+            articleThumbnails: thumbnails,
+            accessibilityLabel: listAccessibilityLabel(heading: bodyText, items: items)
+        )
+    }
+
+    private func savedArticlesEmptySlide() -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewSavedArticlesEmptyTitle
+        let bodyText = CommonStrings.yearInReviewSavedArticlesEmptySubtitle
+        return listSlide(
+            id: "savedArticlesEmpty",
+            artboard: "frame15-empty",
+            stateMachine: "frame15-empty-statemachine",
             headline: headline,
             bodyText: bodyText,
             items: [],
@@ -921,9 +1029,10 @@ struct YearInReviewSlideViewModelFactory {
             readCount >= WMFYearInReviewReadData.minimumReadCount ? readCount : nil
         }
 
-        /// No slide shows the minutes yet. The highlights show them when there are any.
-        static func minutesRead(_ minutesRead: Int) -> Int? {
-            minutesRead > 0 ? minutesRead : nil
+        /// The minutes read slide needs minutes in the current format, from
+        /// `WMFYearInReviewReadData.minimumMinutesRead` to `maximumMinutesRead`.
+        static func minutesRead(_ readData: WMFYearInReviewReadData) -> Int? {
+            readData.isMinutesReadEligible ? readData.minutesRead : nil
         }
 
         /// The reread articles slide needs at least two articles visited multiple times.
@@ -981,7 +1090,7 @@ struct YearInReviewSlideViewModelFactory {
     /// showed its empty version. Product decided this, so the count is part of more shared images.
     func highlights(readData: WMFYearInReviewReadData?, rereadArticles: [RereadArticle], rabbitHoles: WMFYearInReviewRabbitHolesSlideData?, nicheCategory: WMFYearInReviewNicheCategorySlideData?) -> WMFYearInReviewHighlights {
         let articlesRead = readData.flatMap { $0.readCount >= Self.minimumHighlightsReadCount ? $0.readCount : nil }
-        let minutesRead = readData.flatMap { SlideEligibility.minutesRead($0.minutesRead) }
+        let minutesRead = readData.flatMap(SlideEligibility.minutesRead)
         let rotation = SlideEligibility.rereadArticles(rereadArticles)?.map(\.title) ?? []
         let rabbitHole = rabbitHoles.flatMap { SlideEligibility.rabbitHoles($0)?.deepest }.map { deepest in
             WMFYearInReviewHighlights.RabbitHole(firstTitle: deepest.firstArticle.title, lastTitle: deepest.lastArticle.title)

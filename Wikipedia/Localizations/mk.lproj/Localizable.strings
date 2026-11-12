@@ -33,6 +33,7 @@
 "about-translators-details" = "Прилогов го преведоа доброволни преведувачи на $1";
 "about-wikimedia-foundation" = "Фондацијата Викимедија";
 "about-wikipedia" = "Википедија";
+"about-year-in-review-illustrations-attribution" = "Илустрации на Преглед на годината од Шерон Парк за Фондацијата Викимедија";
 "account-creation-captcha-cannot-see-image" = "Не ја гледате сликата? $1";
 "account-creation-captcha-obtaining" = "Правам нова сликичка...";
 "account-creation-captcha-request-account" = "Побарајте сметка.";
@@ -375,6 +376,7 @@
 "discover-announcement-title" = "Откријте статии избрани токму за вас";
 "discover-entry-card-byline" = "Направено за $1";
 "discover-entry-card-unseen-list" = "Нов список";
+"discover-interests-subtitle" = "Тука направените промени го засегаат само она што го гледате во Откриј";
 "discover-list-about" = "За функцијава";
 "discover-list-byline" = "Направено за $1 • $2";
 "discover-list-byline-you" = "вас";
@@ -1819,6 +1821,7 @@
 "year-in-review-2026-highlights-minutes-read" = "Вкупно минути проведени во читање:";
 "year-in-review-2026-highlights-niche-category" = "Посебно истражена категорија:";
 "year-in-review-2026-highlights-rabbit-hole" = "Најдолго вовлекување:";
+"year-in-review-2026-highlights-rank" = "($1)";
 "year-in-review-2026-highlights-rotation" = "Статии на кои се навраќам:";
 "year-in-review-2026-highlights-title" = "Преглед на годината 2026 на Википедија";
 "year-in-review-2026-interests-card-button-title" = "Прилагоди интереси";
@@ -1843,6 +1846,7 @@
 "year-in-review-2026-most-time-article-subtitle" = "Во 2026 година проведовте вкупно {{PLURAL:$1|$1 минута|$1 минути}} на оваа статија!";
 "year-in-review-2026-most-time-article-title" = "На што проведовте највеќе време?";
 "year-in-review-2026-most-viewed-edited-articles-title" = "Најгледани статии од вашето уредување наваму:";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "{{PLURAL:$1|$1 посета|$1 посети}}";
 "year-in-review-2026-niche-interest-subtitle" = "Од некаква причина, целосно се вложивте на оваа категорија!";
 "year-in-review-2026-niche-interest-title" = "Имате прилично специфични интереси, како на пример:";
 "year-in-review-2026-outro-share-button-title" = "Сподели најважни моменти";
