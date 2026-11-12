@@ -519,15 +519,17 @@ public class Session: NSObject {
                 completionHandler(nil, nil, response, error)
                 return
             }
+            let httpResponse = response as? HTTPURLResponse
             let handleErrorResponse = {
                 do {
                     let errorResult: E = try self.jsonDecodeData(data: data)
                     completionHandler(nil, errorResult, response, nil)
                 } catch let errorResultParsingError {
-                    completionHandler(nil, nil, response, errorResultParsingError)
+                    // A busy server answers with text. The status is the error, not the parse failure.
+                    completionHandler(nil, nil, response, Session.nonJSONError(for: httpResponse) ?? errorResultParsingError)
                 }
             }
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            guard let httpResponse, httpResponse.statusCode == 200 else {
                 handleErrorResponse()
                 return
             }
@@ -678,17 +680,11 @@ public class Session: NSObject {
 
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
     @discardableResult public func getJSONDictionary(from url: URL?, ignoreCache: Bool = false, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        return getJSONDictionary(from: url, headers: [:], ignoreCache: ignoreCache, completionHandler: completionHandler)
-    }
-    
-    /// - Parameter headers: request headers that override the default headers, e.g. Accept-Language
-    @objc(getJSONDictionaryFromURL:headers:ignoreCache:completionHandler:)
-    @discardableResult public func getJSONDictionary(from url: URL?, headers: [String: String], ignoreCache: Bool = false, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         guard let url = url else {
             completionHandler(nil, nil, RequestError.invalidParameters)
             return nil
         }
-        var getRequest = request(with: url, method: .get, headers: headers)
+        var getRequest = request(with: url, method: .get)
         if ignoreCache {
             getRequest.cachePolicy = .reloadIgnoringLocalCacheData
             getRequest.prefersPersistentCacheOverError = false

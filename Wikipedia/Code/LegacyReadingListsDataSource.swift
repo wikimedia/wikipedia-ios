@@ -80,6 +80,12 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
         }
     }
 
+    public func isInitialSyncPending() async -> Bool {
+        await MainActor.run {
+            dataStore.readingListsController.syncState.contains(.needsSync)
+        }
+    }
+
     public func sortOrder(forReadingList readingListID: String) async throws -> WMFReadingListSortOrder? {
         await MainActor.run {
             guard let list = Self.readingList(withID: readingListID, in: dataStore.viewContext),
@@ -158,7 +164,7 @@ public final class LegacyReadingListsDataSource: WMFLegacyReadingListsDataContro
     public func unsaveArticles(ids articleIDs: [String]) async throws {
         await MainActor.run {
             let articles = self.articles(withIDs: articleIDs)
-            dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
+            dataStore.readingListsController.unsaveAndSync(articles)
         }
     }
 

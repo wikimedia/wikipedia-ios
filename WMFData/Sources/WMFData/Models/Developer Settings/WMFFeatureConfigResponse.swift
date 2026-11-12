@@ -18,10 +18,14 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let activeEndDateString: String
             public let dataStartDateString: String
             public let dataEndDateString: String
+            /// The period for the edit slides. Not in the 2025 config, so it is optional. A `var` with a
+            /// default, so the memberwise init does not need it.
+            public var contribStartDateString: String? = nil
+            public var contribEndDateString: String? = nil
             public let languages: Int
             public let articles: Int
             public let savedArticlesApps: Int
-            /// Not in the 2025 config, so it is optional.
+            /// Not in the 2025 config, so it is optional. The config key is `editors`, the same key Android reads.
             public let volunteerEditors: Int?
             public let viewsApps: Int
             public let editsApps: Int
@@ -43,10 +47,12 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
                 case activeEndDateString = "activeEndDate"
                 case dataStartDateString = "dataStartDate"
                 case dataEndDateString = "dataEndDate"
+                case contribStartDateString = "contribStartDate"
+                case contribEndDateString = "contribEndDate"
                 case languages
                 case articles
                 case savedArticlesApps
-                case volunteerEditors
+                case volunteerEditors = "editors"
                 case viewsApps
                 case editsApps
                 case editsPerMinute
@@ -80,6 +86,14 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             var dataEndDate: Date? {
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
                 return dateFormatter.date(from: dataEndDateString)
+            }
+
+            var contribStartDate: Date? {
+                contribStartDateString.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
+            }
+
+            var contribEndDate: Date? {
+                contribEndDateString.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
             }
             
             func isActive(for date: Date) -> Bool {
@@ -137,6 +151,11 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
         public let visualEditorEnabled: Bool?
         public let semanticSearchLanguages: [String]
         public let semanticSearchEnabled: Bool?
+        /// Turns the Discover experiment on. Nil keeps the experiment off.
+        public let discoverExperimentEnabled: Bool?
+        /// The share of readers in the Discover experiment's control group, 0 to 100. Nil keeps
+        /// the app default.
+        public let discoverExperimentControlPercentage: Int?
         
         public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
@@ -149,11 +168,13 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let apiKey: String
         }
 
-        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil) {
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil, discoverExperimentEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) {
             self.hCaptcha = hCaptcha
             self.visualEditorEnabled = visualEditorEnabled
             self.semanticSearchLanguages = semanticSearchLanguages
             self.semanticSearchEnabled = semanticSearchEnabled
+            self.discoverExperimentEnabled = discoverExperimentEnabled
+            self.discoverExperimentControlPercentage = discoverExperimentControlPercentage
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -161,6 +182,8 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             case visualEditorEnabled
             case semanticSearchLanguages = "semanticSearchLanguagesv2"
             case semanticSearchEnabled = "semanticSearchEnabledv2"
+            case discoverExperimentEnabled
+            case discoverExperimentControlPercentage
         }
 
         public init(from decoder: Decoder) throws {
@@ -169,6 +192,8 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
             semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
             semanticSearchEnabled = try container.decodeIfPresent(Bool.self, forKey: .semanticSearchEnabled)
+            discoverExperimentEnabled = try container.decodeIfPresent(Bool.self, forKey: .discoverExperimentEnabled)
+            discoverExperimentControlPercentage = try container.decodeIfPresent(Int.self, forKey: .discoverExperimentControlPercentage)
         }
     }
     

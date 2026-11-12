@@ -210,6 +210,17 @@ We do not have a mocked Core Data store specifically. Instead we create an actua
 
 For larger references, WMFArticleTabsDataControllerTests showcases how to test a data controller that leans heavily on Core Data. WMFWatchlistDataControllerTests showcases how to test a data controller that leans heavily on other types of backends (mediawiki service, user defaults, and shared cache stores).
 
+#### Core Data model migrations
+
+Every change to the WMFData Core Data model is a new model version (`WMFData N.xcdatamodel`, with `.xccurrentversion` pointing at it). Readers in production update from any version that shipped, and WMFCoreDataStore opens their database by lightweight migration. WMFCoreDataStoreMigrationTests proves that this works, so every new model version must extend it:
+
+1. Add the previous version's file name to `previousModelVersionFileNames` and move `currentModelVersionFileName` to the new version. The generic test then writes a database with every older `.mom`, opens it with the current model and checks that its pages survive.
+2. Add one test in the "Per version" section for the new version. It seeds, with the previous model, the rows that the feature must keep (use entity names and `setValue`, because the older model's classes may not exist any more), opens the database with the current model through `migrateDatabase(from:seed:verify:)`, and checks that those rows survive and that the new entities work through their data controllers.
+
+Leave the tests of the older versions as they are.
+
+Lightweight migration only infers simple changes: new entities, attributes and relationships, optionality, defaults and renames with a renaming identifier. If a model version needs more than that (a split attribute, a changed type, data moved between entities), the migrated store fails to open and this test fails. That failure means the version is not finished: it needs a mapping model before it ships.
+
 ---
 
 ## WMFComponents

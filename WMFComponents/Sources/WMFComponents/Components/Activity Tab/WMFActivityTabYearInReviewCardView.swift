@@ -9,10 +9,28 @@ struct WMFActivityTabYearInReviewCardView: View {
         return appEnvironment.theme
     }
 
-    // The gradient artwork is dark in every theme, so the foreground is fixed rather than
+    // The gradient is dark in every theme, so the foreground is fixed rather than
     // following theme.text.
     private var foreground: Color {
         Color(uiColor: WMFColor.white)
+    }
+
+    // Stops come from Figma. The center sits below the card, so only the top of the glow shows.
+    // Figma's export leaves endRadiusFraction at 0.5, which puts every light stop below the card.
+    // At 1, the 0.15 stop falls on the bottom edge, as in the design.
+    private var backgroundGradient: EllipticalGradient {
+        EllipticalGradient(
+            stops: [
+                Gradient.Stop(color: Color(red: 0.95, green: 0.95, blue: 0.95), location: 0.15),
+                Gradient.Stop(color: Color(red: 0.27, green: 0.83, blue: 0.94), location: 0.25),
+                Gradient.Stop(color: Color(red: 0, green: 0.6, blue: 0.85), location: 0.35),
+                Gradient.Stop(color: Color(red: 0, green: 0.26, blue: 0.48), location: 0.53),
+                Gradient.Stop(color: Color(red: 0.05, green: 0.15, blue: 0.32), location: 0.63),
+                Gradient.Stop(color: Color(red: 0.02, green: 0.09, blue: 0.22), location: 0.75)
+            ],
+            center: UnitPoint(x: 0.5, y: 1.15),
+            endRadiusFraction: 1
+        )
     }
 
     private var accessibilityLabel: String {
@@ -40,12 +58,7 @@ struct WMFActivityTabYearInReviewCardView: View {
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity)
         .padding(24)
-        .background(
-            Image("yir_teaser_gradient", bundle: .module)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .accessibilityHidden(true)
-        )
+        .background(backgroundGradient)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         // Tap handling sits above the horizontal padding so the gutter beside the card is not
         // part of the tap target.

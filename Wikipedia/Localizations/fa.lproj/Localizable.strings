@@ -260,8 +260,6 @@
 "clearing-cache-error" = "خطای پاکسازی حافظهٔ نهان.";
 "clearing-cache-in-progress" = "در حال پاکسازی کاشه.";
 "close-all-tabs" = "بستن همهٔ زبانه‌ها";
-"close-all-tabs-confirmation" = "آیا می‌خواهید همهٔ $1 زبانه را ببندید؟ این اقدام قابل بازگشت نیست.";
-"close-all-tabs-confirmation-number" = "همهٔ $1 زبانه بسته شوند؟";
 "close-all-tabs-confirmation-subtitle-with-value" = "آیا می‌خواهید {{PLURAL:$1|زبانه}} را ببندید؟ این اقدام قابل بازگشت نیست.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|زبانه}} بسته شود؟";
 "close-button-accessibility-label" = "بستن";
@@ -380,6 +378,7 @@
 "donate-accessibility-monthly-recurring-hint" = "برای فعال‌سازی اهدای خودکار ماهانهٔ این مبلغ، دو بار ضربه بزنید.";
 "donate-accessibility-textfield-hint" = "مبلغ سفارشی برای کمک را وارد کنید.";
 "donate-accessibility-transaction-fee-hint" = "برای افزودن کارمزد تراکنش مبلغ کمک اهدایی دو بار ضربه بزنید.";
+// Fuzzy
 "donate-already-donated" = "از شما اهداکنندهٔ عزیز سپاسگزاریم! سخاوت شما به ادامه‌ی شکوفایی ویکی‌پدیا و سایر پروژه‌های دانش آزاد آن کمک خواهد کرد.";
 "donate-apple-fine-print" = "شرکت اپل مسؤولیتی برای جمع‌آوری پول برای این منظور ندارد.";
 "donate-email-opt-in-text" = "بله، بنیاد ویکی‌مدیا می‌تواند گاهی برای من ایمیل ارسال کند.";
@@ -1097,8 +1096,6 @@
 "reading-list-api-error-generic" = "یک خطای غیرمنتظره در هنگام همگام‌سازی فهرست‌های مطالعهٔ شما رخ داد.";
 "reading-list-api-error-list-limit" = "این فهرست همگام‌سازی نشد؛ زیرا شما به محدودیت تعداد فهرست‌های همگام‌سازی‌شده رسیده‌اید.";
 "reading-list-create-new-list-button-title" = "ایجاد فهرست مطالعه";
-"reading-list-create-new-list-description" = "توصیف";
-"reading-list-create-new-list-reading-list-name" = "نام فهرست مطالعه";
 "reading-list-create-new-list-title" = "ایجاد یک فهرست تازه";
 "reading-list-deleted-accessibility-notification" = "فهرست مطالعه حذف شد";
 "reading-list-detail-search-placeholder" = "جستجو در فهرست مطالعه";
@@ -1119,7 +1116,9 @@
 "reading-list-list-limit-reached" = "شما به محدودۀ $1 فهرست‌های مطالعه برای هر حساب رسیده‌اید";
 "reading-list-login-or-create-account-button-title" = "ورود یا ایجاد حساب";
 "reading-list-name-user-created-annotation" = "_[ایجاد توسط کاربر]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "توصیف کوتاه اختیاری";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "عنوان فهرست مطالعه";
 "reading-list-sync-disabled-panel-message" = "همگام‌سازی فهرست مطالعه برای حساب ویکی‌پدیای شما بر روی دستگاه دیگری غیرفعال شده است. می‌توانید با بروزرسانی تنظیمات خود، قابلیت همگام‌سازی را دوباره فعال کنید.";
 "reading-list-sync-disabled-panel-title" = "همگام‌سازی غیر فعال شد";

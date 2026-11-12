@@ -183,8 +183,6 @@
 "clearing-cache-complete" = "Limpeza da cache concluída.";
 "clearing-cache-in-progress" = "Limpeza da cache em andamento.";
 "close-all-tabs" = "Fechar todos os separadores";
-"close-all-tabs-confirmation" = "Deseja fechar todos os $1 separadores? Esta ação não pode ser anulada.";
-"close-all-tabs-confirmation-number" = "Fechar todos os $1 separadores?";
 "close-all-tabs-confirmation-title-with-value" = "Fechar {{PLURAL:$1|$1 separador|$1 separadores}}?";
 "close-button-accessibility-label" = "Fechar";
 "close-tabs" = "Fechar separadores";
@@ -286,6 +284,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Premir duas vezes para ativar donativos mensais automáticos deste montante.";
 "donate-accessibility-textfield-hint" = "Inserir o montante personalizado do donativo.";
 "donate-accessibility-transaction-fee-hint" = "Premir duas vezes para adicionar taxa da transação ao montante do donativo.";
+// Fuzzy
 "donate-already-donated" = "Obrigado, caro doador! A sua generosidade ajuda a manter a Wikipédia e os seus/outros projetos de conhecimento livre a prosperar.";
 "donate-apple-fine-print" = "A Apple não é responsável por arrecadar fundos para este fim.";
 "donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode enviar-me correio eletrónico ocasionalmente.";
@@ -893,8 +892,6 @@
 "reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar as suas listas de leitura.";
 "reading-list-api-error-list-limit" = "Esta lista não está sincronizada, porque atingiu o limite do número de listas sincronizadas.";
 "reading-list-create-new-list-button-title" = "Criar lista de leitura";
-"reading-list-create-new-list-description" = "Descrição";
-"reading-list-create-new-list-reading-list-name" = "Nome da lista de leitura";
 "reading-list-create-new-list-title" = "Criar uma lista nova";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
@@ -914,7 +911,9 @@
 "reading-list-list-limit-reached" = "Atingiu o limite de $1 listas de leitura por conta";
 "reading-list-login-or-create-account-button-title" = "Iniciar sessão ou criar conta";
 "reading-list-name-user-created-annotation" = "_[criada pelo utilizador]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descrição breve opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "título da lista de leitura";
 "reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia noutro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
 "reading-list-sync-disabled-panel-title" = "Sincronização desativada";

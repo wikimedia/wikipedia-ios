@@ -50,6 +50,21 @@ extension ReadingListDetailRobot {
     }
 
     @discardableResult
+    func assertDescription(_ description: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(descriptionTextField, timeout: 15, description: "reading list description field", file: file, line: line)
+        let predicate = NSPredicate(format: "value == %@", description)
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: descriptionTextField)
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [expectation], timeout: 10),
+            .completed,
+            "Expected the reading list description field to read '\(description)', got '\(descriptionTextField.value ?? "")'.",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
     func assertArticleVisible(_ title: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(articleCell(title), timeout: 15, description: "reading list article cell '\(title)'", file: file, line: line)
         return self
@@ -247,6 +262,10 @@ private extension ReadingListDetailRobot {
 
     var titleTextField: XCUIElement {
         base.app.textFields[AccessibilityIdentifiers.ReadingListDetail.titleTextField]
+    }
+
+    var descriptionTextField: XCUIElement {
+        base.app.textFields[AccessibilityIdentifiers.ReadingListDetail.descriptionTextField]
     }
 
     func articleCell(_ title: String) -> XCUIElement {

@@ -250,10 +250,6 @@ public class Configuration: NSObject {
     
     /// Returns the default request headers for Page Content Service API requests
     public func pageContentServiceHeaders(for url: URL) -> [String: String] {
-        return languageVariantHeaders(for: url)
-    }
-    
-    private func languageVariantHeaders(for url: URL) -> [String: String] {
         
         // Only send the variant code, since most sites don't process multi-language Accept-Language headers (T256491).
         // Regional Chinese variants also send the legacy code first, see WMFAcceptLanguageUtils.
@@ -281,15 +277,6 @@ public class Configuration: NSObject {
         let builder = feedContentAPIType.builder(withWikiHost: url?.host)
         let components = builder.components(byAppending: pathComponents)
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
-    }
-    
-    /// Returns the default request headers for Feed Content API requests
-    @objc(feedContentAPIHeadersForURL:)
-    public func feedContentAPIHeaders(for url: URL?) -> [String: String] {
-        guard let url else {
-            return [:]
-        }
-        return languageVariantHeaders(for: url)
     }
     
     /// Announcements are located in the wikifeeds repository. It can be run locally with: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/wikifeeds

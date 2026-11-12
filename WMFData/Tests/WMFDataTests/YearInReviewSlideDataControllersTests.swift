@@ -42,8 +42,8 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         )
     }
 
-    private func userInfo(username: String? = nil, userID: Int? = nil) -> YearInReviewUserInfo {
-        YearInReviewUserInfo(username: username, userID: userID, globalUserID: nil, project: enProject)
+    private func userInfo(username: String? = nil, userID: Int? = nil, globalUserID: Int? = nil) -> YearInReviewUserInfo {
+        YearInReviewUserInfo(username: username, userID: userID, globalUserID: globalUserID, project: enProject)
     }
 
     // MARK: - Identity
@@ -63,6 +63,9 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewLocationSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.location.rawValue)
         XCTAssertEqual(YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.topTopics.rawValue)
         XCTAssertEqual(YearInReviewDaysVisitedSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.daysVisited.rawValue)
+        XCTAssertEqual(YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.rabbitHoles.rawValue)
+        XCTAssertEqual(YearInReviewReadingStreakSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.readingStreak.rawValue)
+        XCTAssertEqual(YearInReviewBiggestReadingDaySlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.biggestReadingDay.rawValue)
     }
 
     func testSlideYearIsRetained() {
@@ -81,6 +84,8 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewTopReadArticleSlideDataController.personalizationSources, [.readingHistory])
         XCTAssertEqual(YearInReviewTopTopicsSlideDataController.personalizationSources, [.readingHistory])
         XCTAssertEqual(YearInReviewDaysVisitedSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewRabbitHolesSlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewBiggestReadingDaySlideDataController.personalizationSources, [.readingHistory])
 
         XCTAssertEqual(YearInReviewEditCountSlideDataController.personalizationSources, [.account])
         XCTAssertEqual(YearInReviewViewCountSlideDataController.personalizationSources, [.account])
@@ -103,6 +108,8 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewTopTopicsSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldFreeze)
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldFreeze)
+        XCTAssertTrue(YearInReviewBiggestReadingDaySlideDataController.shouldFreeze)
     }
 
     // MARK: - shouldPopulate
@@ -121,14 +128,16 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewTopTopicsSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
+        XCTAssertTrue(YearInReviewBiggestReadingDaySlideDataController.shouldPopulate(from: config, userInfo: anonymous))
     }
 
-    func testViewCountSlideRequiresUserID() {
+    func testViewCountSlideRequiresGlobalUserID() {
         let config = WMFFeatureConfigResponse.Common.YearInReview.testConfig
 
-        XCTAssertTrue(YearInReviewViewCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo(userID: 42)))
-        // A username without a userID is not enough.
-        XCTAssertFalse(YearInReviewViewCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo(username: "user", userID: nil)))
+        XCTAssertTrue(YearInReviewViewCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo(globalUserID: 7)))
+        // The metrics API needs the global user id. A local userID is not enough.
+        XCTAssertFalse(YearInReviewViewCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo(username: "user", userID: 42)))
     }
 
     func testEditCountSlideRequiresUsername() {

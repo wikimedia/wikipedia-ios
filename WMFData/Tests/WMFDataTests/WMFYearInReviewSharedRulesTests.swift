@@ -66,6 +66,41 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         XCTAssertEqual(range.end, date("2026-12-01T00:00:00Z"))
     }
 
+    func testEditCountDateRangeIsTheContribDatesOfTheConfig() throws {
+        var config = YearInReview.testConfig
+        config.contribStartDateString = "2025-11-15T00:00:00Z"
+        config.contribEndDateString = "2026-11-15T00:00:00Z"
+
+        let range = try XCTUnwrap(WMFYearInReviewDataController.editCountDateRange(config: config))
+
+        XCTAssertEqual(range.start, date("2025-11-15T00:00:00Z"))
+        XCTAssertEqual(range.end, date("2026-11-15T00:00:00Z"))
+    }
+
+    func testTheConfigDecodesTheContribDatesAndAllowsThemToBeMissing() throws {
+        var json = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(YearInReview.testConfig)) as? [String: Any])
+        json.removeValue(forKey: "contribStartDate")
+        json.removeValue(forKey: "contribEndDate")
+        let withoutContribDates = try JSONDecoder().decode(YearInReview.self, from: JSONSerialization.data(withJSONObject: json))
+        XCTAssertNil(withoutContribDates.contribStartDate)
+
+        json["contribStartDate"] = "2025-12-01T00:00:00Z"
+        json["contribEndDate"] = "2026-12-01T00:00:00Z"
+        let withContribDates = try JSONDecoder().decode(YearInReview.self, from: JSONSerialization.data(withJSONObject: json))
+        XCTAssertEqual(withContribDates.contribStartDate, date("2025-12-01T00:00:00Z"))
+        XCTAssertEqual(withContribDates.contribEndDate, date("2026-12-01T00:00:00Z"))
+    }
+
+    func testEditCountDateRangeIsTheContributorPeriodWithoutContribDates() throws {
+        var config = YearInReview.testConfig
+        config.contribStartDateString = nil
+        config.contribEndDateString = nil
+
+        let range = try XCTUnwrap(WMFYearInReviewDataController.editCountDateRange(config: config))
+
+        XCTAssertEqual(range, WMFYearInReviewDataController.contributorDateRange(year: config.year))
+    }
+
     // MARK: - Local config
 
     private func makeFeatureConfig(_ yearInReviewConfigs: [YearInReview]) -> WMFFeatureConfigResponse {
@@ -177,7 +212,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
 
     // MARK: - Clearing data
 
-    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited]
+    private let allSlideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited, .rabbitHoles, .mostViewedArticles, .readingStreak, .biggestReadingDay]
 
     private func storedSlideIDs(year: Int) async throws -> Set<WMFYearInReviewPersonalizedSlideID> {
         let store = try XCTUnwrap(store)
@@ -199,7 +234,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         try await dataController.deletePersonalizedData(for: .readingHistory)
 
         let remaining = try await storedSlideIDs(year: 2026)
-        XCTAssertEqual(remaining, [.editCount, .donateCount, .saveCount, .viewCount])
+        XCTAssertEqual(remaining, [.editCount, .donateCount, .saveCount, .viewCount, .mostViewedArticles])
     }
 
     func testLogoutDeletesAccountSlidesIncludingDonateSlide() async throws {
@@ -209,7 +244,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         try await dataController.deletePersonalizedData(for: .account)
 
         let remaining = try await storedSlideIDs(year: 2026)
-        XCTAssertEqual(remaining, [.readCount, .mostReadDate, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited])
+        XCTAssertEqual(remaining, [.readCount, .mostReadDate, .mostReadCategories, .location, .topArticles, .topTopics, .daysVisited, .rabbitHoles, .readingStreak, .biggestReadingDay])
     }
 
     func testDeletingDonationHistoryDeletesOnlyDonateSlide() async throws {

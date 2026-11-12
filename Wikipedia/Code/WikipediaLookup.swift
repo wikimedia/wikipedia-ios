@@ -83,7 +83,6 @@ import CocoaLumberjackSwift
     }()
 
     /// Returns the legacy MediaWiki variant code (e.g. zh-tw) for a BCP 47 language variant code (e.g. zh-Hant-TW)
-    @objc(legacyLanguageVariantCodeForLanguageVariantCode:)
     static func legacyLanguageVariantCode(for languageVariantCode: String) -> String? {
         return legacyLanguageVariantCodesByLanguageVariantCode[languageVariantCode]
     }

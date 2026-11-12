@@ -19,17 +19,6 @@ final class PageContentServiceHeadersTests: XCTestCase {
     func testLanguagesWithoutVariantsSendNoHeaders() {
         for languageCode in ["en", "de"] {
             XCTAssertEqual(headers(languageCode: languageCode, languageVariantCode: nil), [:], languageCode)
-            let feedURL = URL(string: "https://\(languageCode).wikipedia.org/api/rest_v1/feed/featured/2026/10/14")!
-            XCTAssertEqual(configuration.feedContentAPIHeaders(for: feedURL), [:], languageCode)
-        }
-    }
-
-    func testFeedRequestKeepsTheDefaultAcceptLanguageForLanguagesWithoutVariants() {
-        let session = Session(configuration: configuration)
-        for languageCode in ["en", "de"] {
-            let url = URL(string: "https://\(languageCode).wikipedia.org/api/rest_v1/feed/featured/2026/10/14")!
-            let request = session.request(with: url, headers: configuration.feedContentAPIHeaders(for: url))
-            XCTAssertEqual(request.value(forHTTPHeaderField: "Accept-Language"), Locale.acceptLanguageHeaderForPreferredLanguages, languageCode)
         }
     }
 
@@ -46,20 +35,6 @@ final class PageContentServiceHeadersTests: XCTestCase {
         let readMore = PageContentService.Footer.ReadMore(itemCount: 3, apiBaseURL: "https://zh.wikipedia.org/api/rest_v1/", langCode: url.wmf_legacyLanguageVariantCode)
         let json = try XCTUnwrap(String(data: PageContentService.paramsEncoder.encode(readMore), encoding: .utf8))
         XCTAssertTrue(json.contains("\"langCode\":\"zh-tw\""))
-    }
-
-    func testFeedContentHeadersSendLegacyCodeFirstForRegionalChineseVariant() {
-        var url = URL(string: "https://zh.wikipedia.org/api/rest_v1/feed/featured/2026/10/14")!
-        url.wmf_languageVariantCode = "zh-Hant-TW"
-        XCTAssertEqual(configuration.feedContentAPIHeaders(for: url), ["Accept-Language": "zh-tw,zh-Hant-TW;q=0.9"])
-        XCTAssertEqual(configuration.feedContentAPIHeaders(for: nil), [:])
-    }
-
-    func testFeedContentHeadersOverrideSessionDefaultAcceptLanguage() {
-        var url = URL(string: "https://zh.wikipedia.org/api/rest_v1/feed/featured/2026/10/14")!
-        url.wmf_languageVariantCode = "zh-Hant-HK"
-        let request = Session(configuration: configuration).request(with: url, headers: configuration.feedContentAPIHeaders(for: url))
-        XCTAssertEqual(request.value(forHTTPHeaderField: "Accept-Language"), "zh-hk,zh-Hant-HK;q=0.9")
     }
 
     func testChineseLegacyCodesMatchLanguageVariantsFile() throws {

@@ -243,8 +243,6 @@
 "clearing-cache-error" = "Earráid ag glanadh an taisce.";
 "clearing-cache-in-progress" = "Ag glanadh an taisce ar siúl.";
 "close-all-tabs" = "Dún gach cluaisín";
-"close-all-tabs-confirmation" = "Ar mhaith leat na $1 cluaisín go léir a dhúnadh? Ní féidir an gníomh seo a chealú.";
-"close-all-tabs-confirmation-number" = "Dún gach cluaisín $1?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Ar mhaith leat {{PLURAL:$1|$1 cluaisín|$1 cluaisíní}} a dhúnadh? Ní féidir an gníomh seo a chealú.";
 "close-all-tabs-confirmation-title-with-value" = "Dún {{PLURAL:$1|$1 cluaisín|$1 cluaisíní}}?";
 "close-button-accessibility-label" = "Dún";
@@ -365,6 +363,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tapáil faoi dhó chun síntiúis mhíosúla uathoibríocha den mhéid seo a chumasú.";
 "donate-accessibility-textfield-hint" = "Cuir isteach méid saincheaptha le síntiús.";
 "donate-accessibility-transaction-fee-hint" = "Tapáil faoi dhó chun an táille idirbhirt a chur leis an méid síntiúis.";
+// Fuzzy
 "donate-already-donated" = "Go raibh maith agat, a dheontóir dhílis! Cuidíonn do fhlaithiúlacht le Vicipéid agus a tionscadail eolais shaor eile a choinneáil rathúil.";
 "donate-apple-fine-print" = "Níl Apple i gceannas ar airgead a bhailiú chun na críche seo.";
 "donate-email-opt-in-text" = "Sea, is féidir le Fondúireacht Wikimedia ríomhphost a sheoladh chugam ó am go ham.";
@@ -1109,8 +1108,6 @@
 "reading-list-api-error-generic" = "Tharla earráid gan choinne agus do liostaí léitheoireachta á sioncrónú.";
 "reading-list-api-error-list-limit" = "Níl an liosta seo sioncrónaithe mar go bhfuil an teorainn sroichte agat maidir le líon na liostaí sioncrónaithe.";
 "reading-list-create-new-list-button-title" = "Cruthaigh liosta léitheoireachta";
-"reading-list-create-new-list-description" = "Sainchuntas";
-"reading-list-create-new-list-reading-list-name" = "Ainm an liosta léitheoireachta";
 "reading-list-create-new-list-title" = "Cruthaigh liosta nua";
 "reading-list-deleted-accessibility-notification" = "Scriosadh liosta léitheoireachta";
 "reading-list-detail-search-placeholder" = "Cuardaigh liosta léitheoireachta";
@@ -1131,7 +1128,9 @@
 "reading-list-list-limit-reached" = "Tá an teorainn de $1 liosta léitheoireachta in aghaidh an chuntais sroichte agat";
 "reading-list-login-or-create-account-button-title" = "Logáil isteach nó cruthaigh cuntas";
 "reading-list-name-user-created-annotation" = "_[cruthaíodh úsáideoir]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "sainchuntas roghnach gearr";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "teideal ar liosta léitheoireachta";
 "reading-list-sync-disabled-panel-message" = "Tá sioncrónú liosta léitheoireachta díchumasaithe do do chuntas Vicipéid ar ghléas eile. Is féidir leat sioncrónú a chasadh air arís trí do shocruithe a nuashonrú.";
 "reading-list-sync-disabled-panel-title" = "Díchumasaíodh sioncronú";

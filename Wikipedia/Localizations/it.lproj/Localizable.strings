@@ -227,8 +227,6 @@
 "clearing-cache-complete" = "Cancellazione della cache completata.";
 "clearing-cache-in-progress" = "Cancellazione della cache in corso.";
 "close-all-tabs" = "Chiudi tutte le schede";
-"close-all-tabs-confirmation" = "Vuoi chiudere tutte le schede $1? Questa azione non può essere annullata.";
-"close-all-tabs-confirmation-number" = "Chiudere tutte le $1 schede?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Vuoi chiudere {{PLURAL:$1|$1 scheda|$1 schede}}? Questa azione non può essere annullata.";
 "close-all-tabs-confirmation-title-with-value" = "Chiudi {{PLURAL:$1|$1 scheda|$1 schede}}?";
 "close-button-accessibility-label" = "Chiudi";
@@ -320,6 +318,11 @@
 "diff-thanks-sent-cannot-unsend" = "Non si può richiamare e annullare l'invio di ringraziamenti";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 riga non modificata|$1 righe non modificate}}";
 "dim-images" = "Attenuazione immagini";
+"discover-announcement-new-tag" = "Nuovo";
+"discover-announcement-no-thanks" = "No, grazie";
+"discover-settings-interests-title" = "Interessi";
+"discover-settings-source-alert-never-mind" = "Non importa";
+"discover-settings-turn-off-alert-title" = "Vuoi disattivare Discover?";
 "donate-accessibility-amount-button-hint" = "Tocca due volte per selezionare l'importo da donare.";
 "donate-accessibility-donate-hint-format" = "Tocca due volte per donare $1 alla Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Tocca due volte per dare il permesso alla Wikimedia Foundation di inviarti delle email.";
@@ -800,8 +803,6 @@
 "reading-list-add-saved-title" = "Voci salvate trovate";
 "reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
 "reading-list-create-new-list-button-title" = "Crea elenco di lettura";
-"reading-list-create-new-list-description" = "Descrizione";
-"reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
 "reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
 "reading-list-detail-search-placeholder" = "Cerca elenco di lettura";
@@ -810,8 +811,8 @@
 "reading-list-list-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura per utenza.";
 "reading-list-login-or-create-account-button-title" = "Accedi o registrati";
 "reading-list-name-user-created-annotation" = "_[utenza creata]";
-"reading-list-new-list-description-placeholder" = "breve descrizione facoltativa";
-"reading-list-new-list-name-placeholder" = "titolo dell'elenco di lettura";
+"reading-list-new-list-description-placeholder" = "Breve descrizione facoltativa";
+"reading-list-new-list-name-placeholder" = "Titolo elenco di lettura";
 "reading-list-sync-disabled-panel-title" = "Sincronizzazione disattivata";
 "reading-list-sync-enable-button-title" = "Attiva sincronizzazione";
 "reading-list-sync-enabled-panel-message" = "La sincronizzazione degli elenchi di lettura è attivata su questo account. Per bloccarla, puoi disattivare la sincronizzazione di questo account aggiornando le tue impostazioni.";
