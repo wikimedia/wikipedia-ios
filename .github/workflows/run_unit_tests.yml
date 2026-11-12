@@ -22,7 +22,7 @@ env:
   # content of their inputs, so unlike a DerivedData cache it still hits after
   # actions/checkout gives every file a new modification date.
   #
-  # Only the app job uses it. With the build running before the simulator boots
+  # Only the Wikipedia scheme uses it. With the build running before the simulator boots
   # (see the unit-test-scheme action), a warm cache cut the app build from 300s to
   # 224s in a trial, and its restore took 11s when the cache service answered
   # promptly (up to about 2.5 minutes when it didn't). The packages compile far
@@ -41,21 +41,25 @@ concurrency:
   group: "unit-tests-${{ github.ref }}"  # One group per branch
   cancel-in-progress: true                # Cancel older runs in the same group
 
-# Two macOS jobs instead of one per scheme. macOS runners are the scarce resource:
-# PR runs spend far longer queued for one than running on it.
+# One macOS job for all three schemes. macOS runners are the scarce resource: PR
+# runs spend far longer queued for one than running on it, so each push asks for
+# one runner instead of two. The job checks out, prepares the runner and boots the
+# simulator once.
 #
-# - The app job is the longest one (about 15-20 minutes), so it gets its own runner.
-# - The package jobs share a runner. Testing WMFComponents compiles WMFData (and
-#   WMFDataMocks) into the same DerivedData, so the WMFData tests that follow reuse
-#   that build instead of compiling the package again. Together they take about as
-#   long as the app job, so the run does not get longer when runners are free.
+# All three schemes build before the simulator boots: a just-booted simulator
+# loads the runner heavily for several minutes, which slows compiling several
+# times over. Then the simulator boots and the three test runs follow.
 jobs:
-  test-app:
+  test:
     runs-on: xcode-27
     permissions:
       actions: read
       contents: read
-    name: Test Wikipedia
+    name: Test Wikipedia, WMFComponents and WMFData
+    outputs:
+      wikipedia: ${{ steps.wikipedia-tests.outcome }}
+      wmfcomponents: ${{ steps.wmfcomponents-tests.outcome }}
+      wmfdata: ${{ steps.wmfdata-tests.outcome }}
     steps:
       - uses: actions/checkout@v7
 
@@ -80,47 +84,20 @@ jobs:
           restore-keys: |
             compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-
 
-      - name: Test Wikipedia
+      # Each scheme's build and tests run even when another scheme fails, so one
+      # run reports all three.
+      - name: Build Wikipedia for testing
+        id: wikipedia-build
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: Wikipedia
           destination: ${{ steps.simulator.outputs.destination }}
-          simulator-udid: ${{ steps.simulator.outputs.udid }}
           compilation-cache: "true"
+          mode: build
 
-      - name: Save compilation cache
-        if: ${{ !cancelled() && github.event_name == 'schedule' }}
-        continue-on-error: true
-        uses: actions/cache/save@v6
-        with:
-          path: ${{ env.COMPILATION_CACHE_PATH }}
-          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
-
-  test-packages:
-    runs-on: xcode-27
-    permissions:
-      actions: read
-      contents: read
-    name: Test WMFComponents and WMFData
-    outputs:
-      wmfcomponents: ${{ steps.wmfcomponents-tests.outcome }}
-      wmfdata: ${{ steps.wmfdata-tests.outcome }}
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Prepare simulator
-        id: simulator
-        uses: ./.github/actions/prepare-simulator
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
-          ios-version: ${{ env.IOS_VERSION }}
-          simulator-name: ${{ env.SIMULATOR_NAME }}
-          boot: "false"
-
-      # Both package schemes build before the simulator boots: a WMFData build that
-      # ran after the boot took 172-352s, against 37s before it.
       - name: Build WMFComponents for testing
         id: wmfcomponents-build
+        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFComponents
@@ -136,6 +113,25 @@ jobs:
           destination: ${{ steps.simulator.outputs.destination }}
           mode: build
 
+      - name: Save compilation cache
+        if: ${{ !cancelled() && github.event_name == 'schedule' }}
+        continue-on-error: true
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ env.COMPILATION_CACHE_PATH }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
+
+      - name: Test Wikipedia
+        id: wikipedia-tests
+        if: ${{ !cancelled() && steps.wikipedia-build.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: Wikipedia
+          destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
+          compilation-cache: "true"
+          mode: test
+
       - name: Test WMFComponents
         id: wmfcomponents-tests
         if: ${{ !cancelled() && steps.wmfcomponents-build.outcome == 'success' }}
@@ -146,8 +142,7 @@ jobs:
           simulator-udid: ${{ steps.simulator.outputs.udid }}
           mode: test
 
-      # The lint and the WMFData tests run even when the WMFComponents tests fail, so
-      # one run reports both packages. A lint failure skips only the WMFData tests.
+      # A lint failure skips only the WMFData tests.
       - name: Ensure tests reset WMFData global environment state
         id: wmfdata-lint
         if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
@@ -163,38 +158,36 @@ jobs:
           simulator-udid: ${{ steps.simulator.outputs.udid }}
           mode: test
 
-  # Branch protection on main requires checks named "Test WMFComponents" and
-  # "Test WMFData", the names of the per-scheme jobs this workflow used to have.
-  # These two jobs keep reporting those names from the shared packages job's
-  # results, on cheap Ubuntu runners, so PRs aren't left waiting for checks that
-  # never come. Once the required checks are switched to "Test WMFComponents
-  # and WMFData", delete both jobs and the test-packages outputs.
-  report-wmfcomponents:
-    needs: test-packages
+  # Branch protection on main requires checks named "Test Wikipedia", "Test
+  # WMFComponents" and "Test WMFData", the names of the per-scheme jobs this
+  # workflow used to have. These jobs keep reporting those names from the shared
+  # job's results, on cheap Ubuntu runners, so PRs aren't left waiting for checks
+  # that never come. Once the required check is switched to "Test Wikipedia,
+  # WMFComponents and WMFData", delete these jobs and the test job's outputs.
+  #
+  # Skipped counts as a failure: a scheme's tests are skipped when its build
+  # fails, or, for WMFData, when the fixture lint fails.
+  report:
+    needs: test
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     permissions: {}
-    name: Test WMFComponents
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scheme: Wikipedia
+            output: wikipedia
+          - scheme: WMFComponents
+            output: wmfcomponents
+          - scheme: WMFData
+            output: wmfdata
+    name: Test ${{ matrix.scheme }}
     steps:
-      - name: Report the WMFComponents tests from "Test WMFComponents and WMFData"
+      - name: Report the ${{ matrix.scheme }} tests from the shared test job
         env:
-          OUTCOME: ${{ needs.test-packages.outputs.wmfcomponents }}
+          SCHEME: ${{ matrix.scheme }}
+          OUTCOME: ${{ needs.test.outputs[matrix.output] }}
         run: |
-          echo "WMFComponents tests: ${OUTCOME:-did not run}"
-          test "${OUTCOME}" = "success"
-
-  report-wmfdata:
-    needs: test-packages
-    if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
-    permissions: {}
-    name: Test WMFData
-    steps:
-      # Skipped counts as a failure: the WMFData tests are skipped when the
-      # fixture lint fails, which used to fail the separate WMFData job.
-      - name: Report the WMFData tests from "Test WMFComponents and WMFData"
-        env:
-          OUTCOME: ${{ needs.test-packages.outputs.wmfdata }}
-        run: |
-          echo "WMFData tests: ${OUTCOME:-did not run}"
+          echo "${SCHEME} tests: ${OUTCOME:-did not run}"
           test "${OUTCOME}" = "success"
