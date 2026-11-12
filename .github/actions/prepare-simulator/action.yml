@@ -15,11 +15,21 @@ inputs:
   simulator-name:
     description: iOS simulator device name.
     required: true
+  boot:
+    description: >-
+      "false" only finds the simulator and outputs its UDID, so the caller can boot
+      it after building (see the unit-test-scheme action). A just-booted simulator
+      loads the machine heavily for several minutes.
+    required: false
+    default: "true"
 
 outputs:
   destination:
     description: xcodebuild destination for the selected simulator.
     value: ${{ steps.destination.outputs.destination }}
+  udid:
+    description: UDID of the selected simulator, empty when none was found.
+    value: ${{ steps.destination.outputs.udid }}
 
 runs:
   using: composite
@@ -32,6 +42,14 @@ runs:
       run: |
         sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
+    # Spotlight indexes a fresh runner VM for its first minutes, which adds load
+    # while xcodebuild resolves packages and compiles. Nothing in CI searches it.
+    - name: Turn off Spotlight indexing
+      continue-on-error: true
+      shell: bash
+      run: |
+        sudo mdutil -a -i off
+
     - name: List available simulators
       shell: bash
       run: |
@@ -43,6 +61,7 @@ runs:
       env:
         IOS_VERSION: ${{ inputs.ios-version }}
         SIMULATOR_NAME: ${{ inputs.simulator-name }}
+        BOOT: ${{ inputs.boot }}
       run: |
         RUNTIME="com.apple.CoreSimulator.SimRuntime.iOS-${IOS_VERSION//./-}"
         UDID="$(xcrun simctl list devices available -j \
@@ -50,7 +69,10 @@ runs:
             '.devices[$runtime][]? | select(.name == $name) | .udid' \
           | head -n 1)"
 
-        if [ -n "${UDID}" ]; then
+        if [ -n "${UDID}" ] && [ "${BOOT}" != "true" ]; then
+          echo "Found ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${UDID}); booting it after the build"
+          DESTINATION="platform=iOS Simulator,id=${UDID}"
+        elif [ -n "${UDID}" ]; then
           # Boot before testing so the first UI test does not pay for a cold boot inside
           # Xcode's app launch timeout.
           echo "Booting ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${UDID})"
@@ -63,4 +85,5 @@ runs:
         fi
 
         echo "destination=${DESTINATION}" >> "$GITHUB_OUTPUT"
+        echo "udid=${UDID}" >> "$GITHUB_OUTPUT"
         echo "Using simulator destination: ${DESTINATION}"
