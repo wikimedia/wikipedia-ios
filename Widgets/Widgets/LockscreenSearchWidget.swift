@@ -3,6 +3,7 @@ import WidgetKit
 import WMF
 import WMFComponents
 import WMFNativeLocalizations
+import WMFData
 
 // MARK: - Widget
 
@@ -41,7 +42,7 @@ struct LockscreenSearchWidgetConfiguration {
     let siteURL: URL
     
     init() {
-        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
+        let sharedCache = WMFSharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
         let cache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         self.languageCode = cache.settings.languageCode
         self.siteURL = cache.settings.siteURL

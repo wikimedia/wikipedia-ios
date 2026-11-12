@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // shared cache store up front. Local notification logging depends on it during background refresh.
         if WMFDeveloperSettingsDataController.enableDailyTopReadNotifications,
            WMFDataEnvironment.current.sharedCacheStore == nil {
-            WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+            WMFDataEnvironment.current.sharedCacheStore = WMFSharedContainerCacheStore()
         }
         registerBackgroundTasks()
 

@@ -140,7 +140,7 @@ class TalkPageDataController {
 
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {
         
-        let sharedCache = SharedContainerCache.init(fileName: cachedFileName(), subdirectoryPathComponent: SharedContainerCacheCommonNames.talkPageCache)
+        let sharedCache = WMFSharedContainerCache(fileName: cachedFileName(), subdirectoryPathComponent: SharedContainerCacheCommonNames.talkPageCache)
         var cache = sharedCache.loadCache() ?? TalkPageCache(talkPages: [])
         
         group.enter()

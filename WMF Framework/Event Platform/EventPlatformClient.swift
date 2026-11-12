@@ -282,8 +282,8 @@ import WMFTestKitchen
     /// per-launch network refresh. Config changes deploy on a roughly daily cadence.
     private static let streamConfigCacheMaxAge: TimeInterval = 60 * 60 * 24
 
-    private static var streamConfigCache: SharedContainerCache {
-        SharedContainerCache(fileName: SharedContainerCacheCommonNames.streamConfigCache)
+    private static var streamConfigCache: WMFSharedContainerCache {
+        WMFSharedContainerCache(fileName: SharedContainerCacheCommonNames.streamConfigCache)
     }
 
     public override init() {
