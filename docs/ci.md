@@ -141,7 +141,7 @@ submits a build already in TestFlight rather than building one, and
 `V2 Deploy Hotfix` builds the production app from a `hotfix/YYYY.MM.DD` branch,
 cut by `V2 Cut Hotfix Branch`, and uploads it to internal TestFlight only.
 
-#### Where hotfixes build: `RELEASE_BUILDER`
+#### Where hotfixes and betas build: `RELEASE_BUILDER`
 
 `RELEASE_BUILDER` works like `ALPHA_BUILDER`, for the production app. Hotfix and
 Beta share it, because both build that app from the same Xcode Cloud workflow,
@@ -152,6 +152,16 @@ Beta share it, because both build that app from the same Xcode Cloud workflow,
 | unset or `xcode-cloud` (the default) | The job runs on Linux. It starts Xcode Cloud's **Beta Build** on `hotfix/<version>` through the App Store Connect API (fastlane lane `xcode_cloud_release`). Xcode Cloud takes the version from the branch name, sets its own build number, uploads to internal TestFlight and pushes `betas/<build>`. The job then checks that the version came out as asked, sets the What to Test notes and creates or updates the hotfix task. No macOS runner is used. |
 | `github` | The fallback. The job runs on a macOS runner, archives with fastlane `internal_beta`, takes the highest `betas/` tag + 1 and pushes the tag itself. |
 
+`V2 Deploy Beta` follows the same switch:
+
+| `RELEASE_BUILDER` | What happens when `V2 Deploy Beta` runs |
+| --- | --- |
+| unset or `xcode-cloud` (the default) | The job runs on Linux. With `mode=new` it pushes the new `release-candidate/<version>` branch **before** building, because Xcode Cloud builds from GitHub. If the build then fails, the run deletes that branch again, so a failed start leaves no branch without its release task; re-run with `mode=new`. It starts Beta Build on the branch, and Xcode Cloud versions, uploads to internal TestFlight and tags `betas/<build>` as for a hotfix. The job then distributes the build to the External Testers group with the localized What to Test notes and submits it for beta review (fastlane `distribute_beta`). The Phabricator comments and release task are handled as before. |
+| `github` | The fallback. The job runs on a macOS runner, archives and distributes with fastlane `beta`, then pushes the branch and the tag, as before. |
+
+**lookup_only** on `V2 Deploy Beta` needs `mode=existing`, since `mode=new`
+would push a branch first.
+
 The run's **builder** input overrides the variable for that run, and
 **lookup_only** checks the key, the Beta Build workflow and the hotfix branch
 without building.
@@ -161,7 +171,7 @@ Beta Build must be set up for this before the variable is left unset:
 1. Start condition **manual only**, and allow manual builds of `hotfix/*` and
    `release-candidate/*` branches.
 2. Post-action **TestFlight Internal Testing only**. A hotfix must never reach
-   external testers by itself.
+   external testers by itself; Beta goes external through `distribute_beta`.
 3. Environment variable `APPS_BOT_TOKEN`, holding the wmf-apps-ci token with
    the `workflow` scope (see below). Without that scope, the tag push is refused
    for any commit whose workflow files differ from `main`'s.
