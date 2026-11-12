@@ -15876,3 +15876,7 @@
 	};
 	rootObject = D499142D181D51DE00E6073C /* Project object */;
 }
+		7D8C00232FCF000000000001 /* InsertMediaSearchViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00222FCF000000000001 /* InsertMediaSearchViewControllerTests.swift */; };
+		7D8C00222FCF000000000001 /* InsertMediaSearchViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchViewControllerTests.swift; sourceTree = "<group>"; };
+				7D8C00222FCF000000000001 /* InsertMediaSearchViewControllerTests.swift */,
+				7D8C00232FCF000000000001 /* InsertMediaSearchViewControllerTests.swift in Sources */,
