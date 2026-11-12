@@ -122,8 +122,6 @@
 "clearing-cache-complete" = "Кэш тазалау тамамланды.";
 "clearing-cache-in-progress" = "Кэш тазалана турады.";
 "close-all-tabs" = "Бютеу салгъычланы джаб";
-"close-all-tabs-confirmation" = "Бютеу $1 салгъынчы джабаргъа излеймисиз? Бу этиу кери алыналлыкъ тюлдю.";
-"close-all-tabs-confirmation-number" = "Бютеу $1 салгъыч джабылсынмы?";
 "close-button-accessibility-label" = "Джаб";
 "close-tabs" = "Салгъычланы джаб";
 "compass-direction" = "сагъат $1 табада";
@@ -841,8 +839,6 @@
 "reading-list-api-error-generic" = "Окъуу тизмелеригизни синхронизация этген заманда сакъланмагъан халат болду.";
 "reading-list-api-error-list-limit" = "Синхронизация этилген тизме саны лимитге джетгенигиз ючюн, бу тизме синхронизация этилалмайды.";
 "reading-list-create-new-list-button-title" = "Окъуу тизмеге къура";
-"reading-list-create-new-list-description" = "Ачыкълау";
-"reading-list-create-new-list-reading-list-name" = "Окъуу тизмени аты";
 "reading-list-create-new-list-title" = "Джангы тизмени болдур";
 "reading-list-deleted-accessibility-notification" = "Окъуу тизме кетерилди";
 "reading-list-do-not-keep-button-title" = "Огъай, девайсдан статьяланы кетер";
@@ -862,7 +858,9 @@
 "reading-list-list-limit-reached" = "Хыйсаб башына $1 окъуу тизме мардагъа джетдигиз";
 "reading-list-login-or-create-account-button-title" = "Кир неда хыйсаб къура";
 "reading-list-name-user-created-annotation" = "_[хайырланыучу болдурулду]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "амалсыз болмагъан къысха ачыкълау";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "окъуу тизмени башлыгъы";
 "reading-list-sync-disabled-panel-message" = "Башха девайсда Википедия хыйсабыгъыз ючюн окъуу тизме синхронизациясы джукълатылгъанды. Джарашдырыуларыгъызны джангыртыб, синхронизацияны джангыдан этерге боллукъсуз.";
 "reading-list-sync-disabled-panel-title" = "Синхронизация джукълатылыбды";

@@ -50,6 +50,7 @@ final class WMFRiveAnimationViewModel: ObservableObject {
     private var bools: [WMFRiveBool: Bool]
     private var enums: [WMFRiveEnum: String] = [:]
     private var images: [WMFRiveImage: Data]
+    private var showsSettledState = false
     private var bound: Bound?
     /// The images that are bound to `bound.main`. A decoded image only, not the data.
     private var boundImages: Set<WMFRiveImage> = []
@@ -134,6 +135,9 @@ final class WMFRiveAnimationViewModel: ObservableObject {
                 // The values changed while the file loaded.
                 applyCurrentValues()
             }
+            if showsSettledState {
+                advanceToSettledState(rive)
+            }
             validatePathsInDebug()
             applyImages()
             watchTrigger()
@@ -189,6 +193,16 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         applyCurrentValues()
     }
 
+    /// `true` shows the animation at the end of its intro, for Reduce Motion. The first frame of most
+    /// intros is empty, so a paused animation shows nothing. Call it before `loadIfNeeded()`.
+    func update(showsSettledState newValue: Bool) {
+        guard newValue != showsSettledState else { return }
+        showsSettledState = newValue
+        if newValue {
+            restart()
+        }
+    }
+
     func update(images newImages: [WMFRiveImage: Data]) {
         guard newImages != images else { return }
         images = newImages
@@ -238,6 +252,16 @@ final class WMFRiveAnimationViewModel: ObservableObject {
         }
         for (image, flag) in missingImageFlags {
             instance.setValue(of: BoolProperty(path: flag.path), to: !boundImages.contains(image))
+        }
+    }
+
+    /// Small steps, because one advance does at most one state transition, and the glyph scripts
+    /// count their time in advances.
+    private func advanceToSettledState(_ rive: Rive) {
+        let step: TimeInterval = 0.1
+        let duration: TimeInterval = 10
+        for _ in 0..<Int(duration / step) {
+            rive.stateMachine.advance(by: step)
         }
     }
 

@@ -2034,14 +2034,20 @@ extension WMFAppViewController: Themeable {
 
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
-        tabBar.apply(theme: theme)
-        savedTabBadgeController?.apply(theme: theme)
+        applyTabBarTheme(theme)
 
         UISwitch.appearance().onTintColor = theme.colors.accent
 
         readingListHintPresenter.apply(theme: theme)
 
         setNeedsStatusBarAppearanceUpdate()
+    }
+
+    /// Themes the tab bar and puts the Saved tab badge style back on top of the new appearance.
+    /// `UITabBar.apply(theme:)` alone replaces the appearance that the badge controller wrote.
+    func applyTabBarTheme(_ theme: Theme) {
+        tabBar.apply(theme: theme)
+        savedTabBadgeController?.apply(theme: theme)
     }
 
     @objc private func updateAppThemeIfNecessary() {
@@ -2289,6 +2295,7 @@ extension WMFAppViewController {
             NavigationEventsFunnel.shared.logTappedPlaces()
         } else if rootViewController is WMFSavedHostingController {
             NavigationEventsFunnel.shared.logTappedSaved()
+            SavedInstrumentation.shared.logSavedTabTap()
         } else if rootViewController is WMFActivityTabViewController {
             NavigationEventsFunnel.shared.logTappedActivityTab()
         } else if rootViewController is SearchViewController {
@@ -2344,6 +2351,11 @@ extension WMFAppViewController {
     private func showLoggedOutPanelIfNeeded() {
         let authenticationManager = dataStore.authenticationManager
         guard authenticationManager.isUserUnawareOfLogout else { return }
+        guard WMFAuthenticationManager.shouldShowLoggedOutAlert(isUserUnawareOfLogout: authenticationManager.isUserUnawareOfLogout, isPermanentAccountLoggedIn: authenticationManager.authStateIsPermanent) else {
+            // Logged in again since the logout, so the alert no longer applies.
+            authenticationManager.userDidAcknowledgeUnintentionalLogout()
+            return
+        }
         DispatchQueue.main.async {
             self.presentLoggedOutAlert(authenticationManager)
         }

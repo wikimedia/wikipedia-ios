@@ -2,9 +2,23 @@ import SwiftUI
 import WMFData
 import WMFNativeLocalizations
 
+@MainActor
+public protocol WMFDiscoverSettingsLoggingDelegate: AnyObject {
+    func discoverSettingsDidTurnOn()
+    /// The switch went off. The alert asks for confirmation next.
+    func discoverSettingsDidTapTurnOff()
+    func discoverSettingsDidConfirmTurnOff()
+    func discoverSettingsDidCancelTurnOff()
+    func discoverSettingsDidChangeArticleCount(_ articleCount: Int)
+    func discoverSettingsDidChangeCadence(_ cadence: WMFDiscoverCadence)
+    func discoverSettingsDidTapInterests()
+}
+
 /// The Discover settings screen: the switch, the list size, the cadence and the source.
 @MainActor
 public final class WMFDiscoverSettingsViewModel: ObservableObject {
+
+    public weak var loggingDelegate: WMFDiscoverSettingsLoggingDelegate?
 
     @Published public private(set) var settings: WMFDiscoverSettings
     /// The number of interests the reader picked. Nil until it is read.
@@ -14,6 +28,9 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var didTapSource: (() -> Void)?
     public var didTapInterests: (() -> Void)?
     public var didTurnOff: (() -> Void)?
+    /// Called when the switch goes on with interests as the source and no interest picked. A list
+    /// from no interests is empty, so the coordinator opens the interests screen at once.
+    public var didTurnOnWithoutInterests: (() -> Void)?
     /// Called when the screen has gone away: Back, or Settings closing over it. The saves made
     /// here are stored by then, so the coordinator reads the settings the reader left.
     public var didLeave: (() -> Void)?
@@ -43,13 +60,20 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
 
     // MARK: - Refresh
 
-    /// Reads the settings again. The source screen and the interests screen change them behind this screen.
+    /// Reads the settings again. The source screen and the interests screen change them behind
+    /// this screen. A save that starts during the read is awaited and the settings are read again,
+    /// so the read never hides a change made on this screen.
     public func refresh() {
         refreshTask?.cancel()
         refreshTask = Task { [weak self] in
             guard let self else { return }
-            await self.saveTask?.value
-            let settings = await self.dataController.settings
+            var awaitedSaveTask: Task<Void, Never>?
+            var settings: WMFDiscoverSettings
+            repeat {
+                awaitedSaveTask = self.saveTask
+                await awaitedSaveTask?.value
+                settings = await self.dataController.settings
+            } while awaitedSaveTask != self.saveTask
             let interestCount = await Self.fetchInterestCount(interestsDataController: self.interestsDataController)
             guard !Task.isCancelled else { return }
             self.settings = settings
@@ -69,9 +93,16 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
             set: { [weak self] newValue in
                 guard let self else { return }
                 if newValue {
+                    if !self.settings.isEnabled {
+                        self.loggingDelegate?.discoverSettingsDidTurnOn()
+                    }
                     self.update { $0.isEnabled = true }
+                    if self.settings.source == .interests, (self.interestCount ?? 0) == 0 {
+                        self.didTurnOnWithoutInterests?()
+                    }
                 } else {
                     // The switch stays on until the reader confirms.
+                    self.loggingDelegate?.discoverSettingsDidTapTurnOff()
                     self.isShowingTurnOffAlert = true
                 }
             }
@@ -81,6 +112,7 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     /// Turning off also throws the current list away, so the switch does not go through `update`.
     public func confirmTurnOff() {
         isShowingTurnOffAlert = false
+        loggingDelegate?.discoverSettingsDidConfirmTurnOff()
         settings.isEnabled = false
         enqueue { dataController in
             try await dataController.turnOff()
@@ -90,6 +122,13 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
 
     public func cancelTurnOff() {
         isShowingTurnOffAlert = false
+        loggingDelegate?.discoverSettingsDidCancelTurnOff()
+    }
+
+    /// Back on the interests screen that the switch opened. No interest was picked, so the switch
+    /// goes back off, with no alert and no toast: no list was made in between.
+    public func undoTurnOn() {
+        update { $0.isEnabled = false }
     }
 
     // MARK: - List size
@@ -101,7 +140,11 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var articleCountBinding: Binding<Int> {
         Binding(
             get: { [weak self] in self?.settings.articleCount ?? WMFDiscoverSettings.defaultArticleCount },
-            set: { [weak self] newValue in self?.update { $0.articleCount = newValue } }
+            set: { [weak self] newValue in
+                guard let self, newValue != self.settings.articleCount else { return }
+                self.update { $0.articleCount = newValue }
+                self.loggingDelegate?.discoverSettingsDidChangeArticleCount(self.settings.articleCount)
+            }
         )
     }
 
@@ -110,7 +153,11 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     public var cadenceBinding: Binding<WMFDiscoverCadence> {
         Binding(
             get: { [weak self] in self?.settings.cadence ?? WMFDiscoverSettings.default.cadence },
-            set: { [weak self] newValue in self?.update { $0.cadence = newValue } }
+            set: { [weak self] newValue in
+                guard let self, newValue != self.settings.cadence else { return }
+                self.update { $0.cadence = newValue }
+                self.loggingDelegate?.discoverSettingsDidChangeCadence(newValue)
+            }
         )
     }
 
@@ -161,6 +208,7 @@ public final class WMFDiscoverSettingsViewModel: ObservableObject {
     }
 
     func tapInterests() {
+        loggingDelegate?.discoverSettingsDidTapInterests()
         didTapInterests?()
     }
 

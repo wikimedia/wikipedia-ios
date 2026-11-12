@@ -37,7 +37,6 @@ struct WMFYearInReviewEndPageTests {
 
     private static func strings() -> WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
-            wIconAccessibilityLabel: "Wikipedia",
             closeButtonAccessibilityLabel: "Close",
             moreButtonAccessibilityLabel: "More",
             shareButtonTitle: "Share",
@@ -46,7 +45,8 @@ struct WMFYearInReviewEndPageTests {
             learnMoreButtonTitle: "Learn more",
             aboutInsightsButtonTitle: "About your insights",
             shareFeedbackButtonTitle: "Share feedback",
-            slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
+            slideAccessibilityHint: "Swipe up or down with three fingers to change the slide.",
+            revealAnswerAccessibilityHint: "Double tap to reveal the answer."
         )
     }
 
@@ -101,7 +101,6 @@ struct WMFYearInReviewEndPageTests {
         #expect(viewModel.isOnEnd)
         #expect(viewModel.currentPageIndex == 3)
         #expect(viewModel.currentSlideIndex == 2)
-        #expect(viewModel.slidePositionAccessibilityValue == "4 of 4")
     }
 
     // MARK: - End screen state
@@ -341,6 +340,61 @@ struct WMFYearInReviewEndViewModelTests {
     func aNonContributorGetsOnlyTheQuizCard() {
         let viewModel = WMFYearInReviewEndViewModel(isContributor: false)
         #expect(viewModel.cards.map(\.id) == ["whichWikipedia"])
+    }
+
+    @Test
+    func anEnglishReaderGetsTheTopReadCardBeforeTheQuizCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, hasEnglishAppLanguage: true)
+        #expect(viewModel.cards.map(\.id) == ["topRead", "whichWikipedia"])
+    }
+
+    @Test
+    func anEnglishContributorGetsTheGiftCardThenTheTopReadCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true)
+        #expect(viewModel.cards.map(\.id) == ["contributorGift", "topRead", "whichWikipedia"])
+    }
+
+    @Test
+    func aReaderWithoutEnglishDoesNotGetTheTopReadCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: false)
+        #expect(!viewModel.cards.contains { $0.action == .topRead })
+    }
+
+    @Test
+    func theTopReadCardCapitalizesItsTitleInEnglish() throws {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, hasEnglishAppLanguage: true)
+        let card = try #require(viewModel.cards.first { $0.action == .topRead })
+        #expect(card.uppercasedTitle == "2026'S MOST-READ ARTICLES")
+    }
+
+    @Test
+    func aTitleWithAnEnglishLocaleKeepsTheDotlessCapitalI() {
+        // Turkish capitalizes "i" as "İ". The English locale keeps it "I", whatever the device locale.
+        let english = WMFYearInReviewEndViewModel.Card(id: "en", title: "articles", body: "", buttonTitle: "", action: .topRead, uppercaseLocale: Locale(identifier: "en"))
+        #expect(english.uppercasedTitle == "ARTICLES")
+        #expect("articles".uppercased(with: Locale(identifier: "tr")) == "ARTİCLES")
+    }
+
+    @Test
+    func aTranslatedTitleIsCapitalizedWithTheDeviceLocale() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true)
+        for card in viewModel.cards where card.action != .topRead {
+            #expect(card.uppercaseLocale == nil)
+            #expect(card.uppercasedTitle == card.title.localizedUppercase)
+        }
+    }
+
+    @Test
+    func theTopReadCardCallsItsAction() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, hasEnglishAppLanguage: true)
+        var tappedTopRead = 0
+        var tappedQuiz = 0
+        viewModel.didTapTopRead = { tappedTopRead += 1 }
+        viewModel.didTapWhichWikipedia = { tappedQuiz += 1 }
+
+        viewModel.didTap(viewModel.cards[0])
+        #expect(tappedTopRead == 1)
+        #expect(tappedQuiz == 0)
     }
 
     @Test

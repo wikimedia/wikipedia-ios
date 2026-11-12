@@ -5,7 +5,6 @@ import UIKit
 enum WMFYearInReviewNavigationItems {
 
     struct Strings {
-        let wIconAccessibilityLabel: String
         let closeButtonAccessibilityLabel: String
         let moreButtonAccessibilityLabel: String
         let learnMoreTitle: String
@@ -28,7 +27,7 @@ enum WMFYearInReviewNavigationItems {
     ) {
         let titleConfig = WMFNavigationBarTitleConfig(
             title: "",
-            customView: showsWikipediaLogo ? makeTitleView(accessibilityLabel: strings.wIconAccessibilityLabel) : nil,
+            customView: showsWikipediaLogo ? makeTitleView() : nil,
             alignment: .centerCompact
         )
 
@@ -105,11 +104,11 @@ enum WMFYearInReviewNavigationItems {
     }
 
     @MainActor
-    private static func makeTitleView(accessibilityLabel: String) -> UIView {
+    private static func makeTitleView() -> UIView {
         let imageView = UIImageView(image: UIImage(named: "W", in: .module, with: nil))
         imageView.contentMode = .scaleAspectFit
-        imageView.isAccessibilityElement = true
-        imageView.accessibilityLabel = accessibilityLabel
+        // Only decoration: VoiceOver does not stop on it between the close and more buttons.
+        imageView.isAccessibilityElement = false
         imageView.frame = CGRect(x: 0, y: 0, width: 24, height: 20)
         return imageView
     }

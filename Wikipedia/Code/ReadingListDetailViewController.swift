@@ -286,7 +286,7 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
 
                 guard let self else { return }
 
-                let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+                let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .readingList)
                 coordinator.start()
             }
         } else {
@@ -294,7 +294,7 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
                 return
             }
 
-            let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+            let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .readingList)
             coordinator.start()
         }
     }
