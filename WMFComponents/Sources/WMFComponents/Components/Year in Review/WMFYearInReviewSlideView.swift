@@ -5,6 +5,9 @@ struct WMFYearInReviewSlideView: View {
     let slide: WMFYearInReviewSlideViewModel
     /// Only the current slide plays. The pager builds the next slide before the reader swipes to it.
     var isCurrent: Bool = true
+    /// `false` shows only the background. Each Rive view holds screen-sized Metal buffers, so the
+    /// pager loads only the slides near the current one when it builds all slides at once.
+    var loadsAnimation: Bool = true
     /// Called with the value of `slide.lightContentFlag` after the slide loads.
     var onLightContentFlag: (@MainActor (Bool) -> Void)? = nil
     var accessibilityFocus: AccessibilityFocusState<String?>.Binding? = nil
@@ -70,7 +73,10 @@ struct WMFYearInReviewSlideView: View {
 
     @ViewBuilder
     private var content: some View {
-        if let animation = slide.animation {
+        if !loadsAnimation {
+            Color(uiColor: WMFYearInReviewViewModel.chromeBackgroundColor)
+                .accessibilityHidden(true)
+        } else if let animation = slide.animation {
             // The answer loads with the slide, under it, so it is ready when the reader taps.
             ZStack {
                 if let answer, let answerAnimation = answer.animation {

@@ -123,6 +123,12 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .biggestReadingDay, data: try JSONSerialization.data(withJSONObject: json))
     }
 
+    private func longestReadSlide(longestSeconds: Int, otherSeconds: Int) throws -> WMFYearInReviewSlide {
+        let articles = [("Alpha", longestSeconds), ("Beta", otherSeconds)].map { ["title": $0.0, "projectID": "wikipedia~en", "seconds": $0.1] as [String: Any] }
+        let json: [String: Any] = ["articles": articles, "longestIsOnTop": true]
+        return WMFYearInReviewSlide(year: year, id: .longestRead, data: try JSONSerialization.data(withJSONObject: json))
+    }
+
     private func nicheInterestSlide(categoryName: String?) throws -> WMFYearInReviewSlide {
         let data = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: categoryName))
         return WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: data)
@@ -415,10 +421,23 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(experience, .personalized)
     }
 
+    /// The reveal replaces the guess in place, so the longest read entry is one slide.
+    func testLongestReadCountsAsOneSlide() async throws {
+        try await saveReport([try readCountSlide(3), try longestReadSlide(longestSeconds: 300, otherSeconds: 120)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
+    }
+
     func testReadingPatternWithOneReadInEachTimeOfDayIsNotEnoughData() async throws {
         try await saveReport([try readCountSlide(3), try readingPatternSlide(readCount: 1)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .collective, "the reading pattern slide shows its empty version")
+    }
+
+    func testLongestReadWithATieDoesNotCount() async throws {
+        try await saveReport([try readCountSlide(3), try longestReadSlide(longestSeconds: 300, otherSeconds: 300)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "without a clear winner the slide does not show")
     }
 
     func testTwoRabbitHolesCountAsOneSlide() async throws {

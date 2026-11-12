@@ -991,6 +991,139 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload.articles.map(\.title), ["Beta", "Alpha"], "a tie between articles goes to the more recently read one")
     }
 
+    // MARK: - longestRead
+
+    private typealias LongestReadData = WMFYearInReviewLongestReadSlideData
+
+    private func longestReadController(
+        mainPageIdentifier: WMFMainPageIdentifying? = nil,
+        recorder: DescriptionRecorder = DescriptionRecorder(),
+        failingTitles: Set<String> = []
+    ) async throws -> YearInReviewLongestReadSlideDataController {
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
+        let controller = YearInReviewLongestReadSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        controller.fetchDescription = { _, title in
+            await recorder.record(title)
+            if failingTitles.contains(title) {
+                throw URLError(.notConnectedToInternet)
+            }
+            return "About \(title)"
+        }
+        return controller
+    }
+
+    private func longestReadPayload(_ controller: YearInReviewLongestReadSlideDataController) async throws -> LongestReadData {
+        let payload = try decode(LongestReadData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    private func longestReadData(_ readingTimes: [(title: String, seconds: Int, date: Date)]) -> LongestReadData {
+        let times = readingTimes.map {
+            WMFPageViewReadingTime(page: WMFPage(namespaceID: 0, projectID: enProject.id, title: $0.title), timestamp: $0.date, numberOfSeconds: $0.seconds)
+        }
+        return YearInReviewLongestReadSlideDataController.slideData(readingTimes: times, year: year, calendar: .current, longestIsOnTop: true)
+    }
+
+    func testLongestReadAddsTheTimeOfAllVisits() async throws {
+        try await seedReadingTime("Alpha", seconds: 100, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Alpha", seconds: 200, at: try date(month: 10, day: 2, hour: 9))
+        try await seedReadingTime("Beta", seconds: 250, at: try date(month: 5, day: 1, hour: 9))
+        try await seedReadingTime("Gamma", seconds: 90, at: try date(month: 6, day: 1, hour: 9))
+
+        let recorder = DescriptionRecorder()
+        let payload = try await longestReadPayload(longestReadController(recorder: recorder))
+
+        XCTAssertEqual(payload.articles, [
+            LongestReadData.Article(title: "Alpha", projectID: enProject.id, description: "About Alpha", seconds: 300),
+            LongestReadData.Article(title: "Beta", projectID: enProject.id, description: "About Beta", seconds: 250)
+        ])
+        XCTAssertEqual(payload.minuteCount, 5)
+        XCTAssertTrue(payload.isEligible)
+        let requestedTitles = await recorder.requestedTitles
+        XCTAssertEqual(Set(requestedTitles), ["Alpha", "Beta"])
+    }
+
+    func testLongestReadLeavesOutMainPagesAndOtherNamespaces() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 90, at: try date(month: 3, day: 4, hour: 10))
+        try await seedReadingTime("Pagina_principale", seconds: 600, at: try date(month: 5, day: 1, hour: 9), project: itProject)
+        try await seedReadingTime("Main_Page", seconds: 600, at: try date(month: 5, day: 2, hour: 9))
+        try await seedReadingTime("Talk:Alpha", seconds: 600, at: try date(month: 5, day: 3, hour: 9), namespaceID: 1)
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
+        let payload = try await longestReadPayload(longestReadController(mainPageIdentifier: identifier))
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Alpha", "Beta"])
+    }
+
+    func testLongestReadLeavesOutADescriptionThatFails() async throws {
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 90, at: try date(month: 3, day: 4, hour: 10))
+
+        let payload = try await longestReadPayload(longestReadController(failingTitles: ["Beta"]))
+
+        XCTAssertEqual(payload.articles.map(\.description), ["About Alpha", nil])
+    }
+
+    func testLongestReadWithOneArticleIsNotEligibleAndLoadsNoDescription() async throws {
+        try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
+        try await seedReadingTime("Beta", seconds: 60, at: try date(month: 3, day: 4, hour: 10))
+
+        let recorder = DescriptionRecorder()
+        let payload = try await longestReadPayload(longestReadController(recorder: recorder))
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Alpha"], "an article needs more than 60 seconds")
+        XCTAssertFalse(payload.isEligible)
+        let requestedTitles = await recorder.requestedTitles
+        XCTAssertTrue(requestedTitles.isEmpty)
+    }
+
+    func testLongestReadLeavesOutOnlyTheLongVisitsBeforeSeptember() throws {
+        let payload = longestReadData([
+            ("Alpha", 3600, try date(month: 8, day: 31, hour: 22)),
+            ("Alpha", 100, try date(month: 8, day: 31, hour: 23)),
+            ("Beta", 3599, try date(month: 2, day: 1, hour: 9)),
+            ("Gamma", 4000, try date(month: 9, day: 1, hour: 0))
+        ])
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Gamma", "Beta"], "only Alpha's visit of 60 minutes is left out")
+        XCTAssertEqual(payload.articles.map(\.seconds), [4000, 3599])
+    }
+
+    func testLongestReadKeepsTheOtherVisitsOfAnArticleWithALongVisit() throws {
+        let payload = longestReadData([
+            ("Alpha", 7200, try date(month: 4, day: 1, hour: 9)),
+            ("Alpha", 200, try date(month: 10, day: 1, hour: 9)),
+            ("Beta", 100, try date(month: 10, day: 2, hour: 9))
+        ])
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Alpha", "Beta"])
+        XCTAssertEqual(payload.longest?.seconds, 200)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testLongestReadWithATieIsNotEligible() throws {
+        let payload = longestReadData([
+            ("Alpha", 300, try date(month: 4, day: 1, hour: 9)),
+            ("Beta", 300, try date(month: 5, day: 1, hour: 9))
+        ])
+
+        XCTAssertEqual(payload.articles.map(\.title), ["Beta", "Alpha"], "a tie goes to the more recently read article")
+        XCTAssertFalse(payload.isEligible, "there is no clear winner")
+    }
+
+    func testLongestReadMinutesAreWholeMinutes() throws {
+        let payload = longestReadData([
+            ("Alpha", 119, try date(month: 4, day: 1, hour: 9)),
+            ("Beta", 61, try date(month: 5, day: 1, hour: 9))
+        ])
+
+        XCTAssertTrue(payload.isEligible)
+        XCTAssertEqual(payload.minuteCount, 1)
+    }
+
     /// Inserts a second CDPage row for an article, with its own page view and topics. The app does not do this on
     /// purpose, but CDPage has no uniqueness constraint, so two concurrent fetchOrCreate calls can.
     private func insertDuplicatePageRow(title: String, project: WMFProject, viewedAt timestamp: Date, topicLabels: [String]) async throws {

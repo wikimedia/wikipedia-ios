@@ -67,6 +67,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewReadingPatternSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.readingPattern.rawValue)
         XCTAssertEqual(YearInReviewReadingStreakSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.readingStreak.rawValue)
         XCTAssertEqual(YearInReviewBiggestReadingDaySlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.biggestReadingDay.rawValue)
+        XCTAssertEqual(YearInReviewLongestReadSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.longestRead.rawValue)
     }
 
     func testSlideYearIsRetained() {
@@ -87,6 +88,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewDaysVisitedSlideDataController.personalizationSources, [.readingHistory])
         XCTAssertEqual(YearInReviewRabbitHolesSlideDataController.personalizationSources, [.readingHistory])
         XCTAssertEqual(YearInReviewBiggestReadingDaySlideDataController.personalizationSources, [.readingHistory])
+        XCTAssertEqual(YearInReviewLongestReadSlideDataController.personalizationSources, [.readingHistory])
 
         XCTAssertEqual(YearInReviewEditCountSlideDataController.personalizationSources, [.account])
         XCTAssertEqual(YearInReviewViewCountSlideDataController.personalizationSources, [.account])
@@ -111,6 +113,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldFreeze)
         XCTAssertTrue(YearInReviewBiggestReadingDaySlideDataController.shouldFreeze)
+        XCTAssertTrue(YearInReviewLongestReadSlideDataController.shouldFreeze)
     }
 
     // MARK: - shouldPopulate
@@ -131,6 +134,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertTrue(YearInReviewDaysVisitedSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
         XCTAssertTrue(YearInReviewBiggestReadingDaySlideDataController.shouldPopulate(from: config, userInfo: anonymous))
+        XCTAssertTrue(YearInReviewLongestReadSlideDataController.shouldPopulate(from: config, userInfo: anonymous))
     }
 
     func testViewCountSlideRequiresGlobalUserID() {

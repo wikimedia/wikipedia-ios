@@ -63,7 +63,8 @@ final class YearInReviewSlideDataControllerFactory {
             .rabbitHoles,
             .readingStreak,
             .readingPattern,
-            .biggestReadingDay
+            .biggestReadingDay,
+            .longestRead
         ]
         
         let dataControllerTypes = possibleSlideIDs
