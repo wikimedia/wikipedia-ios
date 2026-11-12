@@ -65,6 +65,7 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
+          boot: "false"
 
       # The cache steps never fail the job: without a cache, xcodebuild just
       # compiles from scratch.
@@ -75,14 +76,18 @@ jobs:
         with:
           path: ${{ env.COMPILATION_CACHE_PATH }}
           key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
+          # EXPERIMENT C: start from experiment A's cache (same build settings), so
+          # the first run is comparable with A's warm run.
           restore-keys: |
-            compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-
+            compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}-
+            compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-f79e0c411d4c63ef0dab99e68e3b13d108cb1d01-
 
       - name: Test Wikipedia
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: Wikipedia
           destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
           compilation-cache: "true"
 
       - name: Save compilation cache
@@ -112,6 +117,7 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
+          boot: "false"
 
       - name: Test WMFComponents
         id: wmfcomponents-tests
@@ -119,6 +125,7 @@ jobs:
         with:
           scheme: WMFComponents
           destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
 
       # The lint and the WMFData tests run even when the WMFComponents tests fail, so
       # one run reports both packages. A lint failure skips only the WMFData tests.
@@ -134,6 +141,7 @@ jobs:
         with:
           scheme: WMFData
           destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
 
   # Branch protection on main requires checks named "Test WMFComponents" and
   # "Test WMFData", the names of the per-scheme jobs this workflow used to have.

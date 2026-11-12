@@ -12,6 +12,12 @@ inputs:
     description: '"true" to build with Xcode''s compilation cache turned on.'
     required: false
     default: "false"
+  simulator-udid:
+    description: >-
+      EXPERIMENT C: when set, the simulator is booted only after the build, so
+      package resolution and compiling don't compete with a just-booted simulator.
+    required: false
+    default: ""
 
 runs:
   using: composite
@@ -21,6 +27,7 @@ runs:
       env:
         SCHEME: ${{ inputs.scheme }}
         DESTINATION: ${{ inputs.destination }}
+        SIMULATOR_UDID: ${{ inputs.simulator-udid }}
         CACHE_SETTING: ${{ inputs.compilation-cache == 'true' && 'COMPILATION_CACHE_ENABLE_CACHING=YES' || '' }}
       # ARCHS=arm64 and ONLY_ACTIVE_ARCH=YES: the runners and the simulator are arm64.
       # Under the Wikipedia scheme's custom "Test" configuration, Swift packages
@@ -32,22 +39,54 @@ runs:
       # build everything unoptimised for tests (no change to #if DEBUG paths), and skip
       # the index store, which only the editor reads.
       run: |
+        BUILD_SETTINGS=(
+          ${CACHE_SETTING}
+          ARCHS=arm64
+          ONLY_ACTIVE_ARCH=YES
+          SWIFT_OPTIMIZATION_LEVEL=-Onone
+          SWIFT_COMPILATION_MODE=singlefile
+          GCC_OPTIMIZATION_LEVEL=0
+          COMPILER_INDEX_STORE_ENABLE=NO
+        )
+
+        # EXPERIMENT C: build for a generic simulator first, with no simulator booted.
+        echo "Building scheme: ${SCHEME} for testing"
+        uptime
+        START=$(date +%s)
+        xcodebuild build-for-testing \
+          -scheme "${SCHEME}" \
+          -project Wikipedia.xcodeproj \
+          -onlyUsePackageVersionsFromResolvedFile \
+          -destination "generic/platform=iOS Simulator" \
+          "${BUILD_SETTINGS[@]}" \
+          | xcpretty
+        EXIT_CODE=${PIPESTATUS[0]}
+        echo "build-for-testing took $(( $(date +%s) - START ))s"
+        uptime
+        if [ "$EXIT_CODE" -ne 0 ]; then
+          exit "$EXIT_CODE"
+        fi
+
+        if [ -n "${SIMULATOR_UDID}" ]; then
+          START=$(date +%s)
+          xcrun simctl boot "${SIMULATOR_UDID}" || true
+          xcrun simctl bootstatus "${SIMULATOR_UDID}" -b
+          echo "Simulator boot took $(( $(date +%s) - START ))s"
+          uptime
+        fi
+
         echo "Running scheme: ${SCHEME} on ${DESTINATION}"
-        xcodebuild test \
+        START=$(date +%s)
+        xcodebuild test-without-building \
           -scheme "${SCHEME}" \
           -project Wikipedia.xcodeproj \
           -onlyUsePackageVersionsFromResolvedFile \
           -destination "${DESTINATION}" \
           -resultBundlePath "${SCHEME}_TestResults" \
-          ${CACHE_SETTING} \
-          ARCHS=arm64 \
-          ONLY_ACTIVE_ARCH=YES \
-          SWIFT_OPTIMIZATION_LEVEL=-Onone \
-          SWIFT_COMPILATION_MODE=singlefile \
-          GCC_OPTIMIZATION_LEVEL=0 \
-          COMPILER_INDEX_STORE_ENABLE=NO \
+          "${BUILD_SETTINGS[@]}" \
           | xcpretty
         EXIT_CODE=${PIPESTATUS[0]}
+        echo "test-without-building took $(( $(date +%s) - START ))s"
         if [ "$EXIT_CODE" -ne 0 ]; then
           exit "$EXIT_CODE"
         fi
