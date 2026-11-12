@@ -3,15 +3,11 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 #import "NSString+FormattedAttributedString.h"
-#import "WMFPageHistoryRevision.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFGradientView.h"
 
 #import "UIScrollView+ScrollSubviewToLocation.h"
 
-#import "WMFSearchResults.h"
-#import "MWKSearchRedirectMapping.h"
-#import "WMFSearchFetcher.h"
 
 #import "WMFArticleTextActivitySource.h"
 
@@ -24,17 +20,12 @@
 
 // Model
 #import "MWKLicense.h"
-#import "WMFArticleRevisionFetcher.h"
-#import "WMFRevisionQueryResults.h"
-#import "WMFArticleRevision.h"
 #import "MWKLanguageLinkFetcher.h"
 
 // View Controllers
 #import "WMFLanguagesViewController.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
-#import "WMFEmptyView.h"
-#import "UIViewController+WMFEmptyView.h"
 #import "WMFBarButtonItemPopoverMessageViewController.h"
 #import "WMFImageGalleryViewController.h"
 #import "AboutViewController.h"

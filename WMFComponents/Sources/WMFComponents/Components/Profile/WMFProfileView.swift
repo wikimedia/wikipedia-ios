@@ -33,6 +33,7 @@ public struct WMFProfileView: View {
             .scrollContentBackground(.hidden)
             Spacer()
         }
+        .ignoresSafeArea(.keyboard)
         .background(Color(uiColor: theme.midBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
     }
@@ -100,6 +101,7 @@ public struct WMFProfileView: View {
                 }
             }
         }
+        .accessibilityIdentifier(item.accessibilityIdentifier ?? "")
         .background(content: {
             GeometryReader { geometry in
                 Color.clear

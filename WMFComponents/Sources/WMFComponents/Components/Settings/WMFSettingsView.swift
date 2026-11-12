@@ -1,5 +1,18 @@
 import SwiftUI
 
+/// Applies an identifier only when one is provided, so rows without one keep their children's own identifiers.
+private struct OptionalAccessibilityIdentifier: ViewModifier {
+    let identifier: String?
+
+    func body(content: Content) -> some View {
+        if let identifier {
+            content.accessibilityIdentifier(identifier)
+        } else {
+            content
+        }
+    }
+}
+
 struct SettingsRow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
@@ -7,7 +20,7 @@ struct SettingsRow: View {
     let item: SettingsItem
 
     var body: some View {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .center, spacing: WMFSpacing.medium) {
             if let image = item.image, let color = item.color {
                 Image(uiImage: image)
                     .frame(width: 16, height: 16)
@@ -17,10 +30,14 @@ struct SettingsRow: View {
                             .fill(Color(uiColor: theme == .light ? color : theme.iconBackground))
                             .frame(width: 32, height: 32)
                     )
-                    .padding(.leading, 8)
-                    .padding(.trailing, 16)
+                    .padding(.leading, WMFSpacing.small)
+                    .padding(.trailing, WMFSpacing.large)
             }
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: WMFSpacing.xxSmall) {
+                if item.showsBetaBadge {
+                    WMFBetaBadge()
+                        .padding(.bottom, WMFSpacing.xxSmall)
+                }
                 Text(item.title)
                     .font(Font(WMFFont.for(.body)))
                 if let subtitle = item.subtitle {
@@ -32,7 +49,7 @@ struct SettingsRow: View {
             Spacer()
             accessoryView()
         }
-
+        .modifier(OptionalAccessibilityIdentifier(identifier: item.accessibilityIdentifier))
     }
 
     @ViewBuilder
@@ -41,7 +58,7 @@ struct SettingsRow: View {
         case .none:
             EmptyView()
         case .toggle(let binding):
-            Toggle("", isOn: binding)
+            Toggle(item.title, isOn: binding)
                 .labelsHidden()
                 .toggleStyle(SwitchToggleStyle(tint: Color(uiColor: theme.accent)))
         case .icon(let image):
@@ -50,7 +67,7 @@ struct SettingsRow: View {
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
             }
         case .chevron(label: let label):
-            HStack(spacing: 4) {
+            HStack(spacing: WMFSpacing.xSmall) {
                 if let label = label {
                     Text(label)
                         .font(Font(WMFFont.for(.body)))
@@ -104,6 +121,7 @@ public struct WMFSettingsView: View {
                 }
             }
             .scrollContentBackground(.hidden)
+            .ignoresSafeArea(.keyboard)
         }
         .environment(\.colorScheme, theme.preferredColorScheme)
     }

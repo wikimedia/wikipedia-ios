@@ -5,6 +5,7 @@ import Foundation
     @objc public static let talkPageCache = "Talk Page Cache"
     public static let widgetCache = "Widget Cache"
     @objc public static let didYouKnowCache = "Did You Know Cache"
+    public static let streamConfigCache = "Stream Config Cache"
 }
 
 public final class SharedContainerCache: SharedContainerCacheHousekeepingProtocol {
@@ -56,6 +57,18 @@ public final class SharedContainerCache: SharedContainerCacheHousekeepingProtoco
     
     public func removeCache() throws {
         try FileManager.default.removeItem(at: cacheDataFileURL)
+    }
+
+    /// The names, without extension, of the JSON files cached under `subdirectoryPathComponent`.
+    public static func fileNames(inSubdirectory subdirectoryPathComponent: String) -> [String] {
+        let subdirectoryURL = cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
+        guard let fileURLs = try? FileManager.default.contentsOfDirectory(at: subdirectoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles) else {
+            return []
+        }
+
+        return fileURLs
+            .filter { $0.pathExtension == "json" }
+            .map { $0.deletingPathExtension().lastPathComponent }
     }
 
     /// Persist only the last 50 visited talk pages

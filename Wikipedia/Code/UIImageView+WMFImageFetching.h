@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param imageURL url of the image you want to set.
  *  @param detectFaces Set to YES to detect faces.
  */
-- (void)wmf_setImageWithURL:(NSURL *)imageURL detectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+- (void)wmf_setImageWithURL:(NSURL *)imageURL detectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
  *  The URL to fetch, depending on the current values of @c wmf_imageMetadata and @c wmf_imageURL.

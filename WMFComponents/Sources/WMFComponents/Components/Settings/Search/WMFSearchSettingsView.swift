@@ -41,7 +41,7 @@ public struct WMFSearchSettingsView: View {
             }
             .scrollContentBackground(.hidden)
         }
-        .navigationTitle(viewModel.localizedStrings.title)
+        .navigationTitle(viewModel.title)
         .navigationBarTitleDisplayMode(.inline)
         .environment(\.colorScheme, theme.preferredColorScheme)
     }

@@ -25,7 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appViewController = WMFAppViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
+        #if UITEST
+        // Shared data controllers capture basicService when they are first created, so swap in
+        // the fixture service before anything at launch can create one with the live service.
+        TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
+        #endif
+
         registerUserDefaults()
         
 #if DEBUG
@@ -37,6 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.registerForRemoteNotifications()
         
         updateDynamicIconShortcutItems()
+
+
+        // Background launches can run refresh tasks before setupWMFDataEnvironment() finishes, so configure the
+        // shared cache store up front. Local notification logging depends on it during background refresh.
+        if WMFDeveloperSettingsDataController.enableDailyTopReadNotifications,
+           WMFDataEnvironment.current.sharedCacheStore == nil {
+            WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        }
         registerBackgroundTasks()
 
         return true
@@ -90,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Notifications
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
-        DDLogError("Remote notification registration failure: \(error.localizedDescription)")
+        DDLogError(RemoteNotificationRegistrationFailure.logMessage(for: error))
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -118,19 +132,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return !shouldOpenAppOnSearchTab
     }
 
+    /// Background app refresh with the daily top read notification prototype enabled. Local notifications are only
+    /// scheduled from here, to re-engage users who haven't opened the app.
+    private func performBackgroundAppRefreshWithLocalNotifications(task: BGTask) {
+        let completion = BackgroundAppRefreshCompletion(task: task) { [weak self] in
+            self?.scheduleBackgroundAppRefreshTask()
+        }
+
+        let work = Task { @MainActor in
+            async let localNotifications: Void = self.appViewController.performLocalNotificationsBackgroundRefresh()
+            let result = await withCheckedContinuation { continuation in
+                self.appViewController.performBackgroundFetch { result in
+                    continuation.resume(returning: result)
+                }
+            }
+            await localNotifications
+            completion.complete(success: result != .failed)
+        }
+
+        // Completes the task before iOS terminates the app if the fetches run past the background time budget.
+        task.expirationHandler = {
+            work.cancel()
+            Task { @MainActor in
+                completion.complete(success: false)
+            }
+        }
+    }
+
     private func registerBackgroundTasks() {
 
         BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundAppRefreshTaskIdentifier, using: .main) { [weak self] task in
-            self?.appViewController.performBackgroundFetch { [weak self] result in
-                switch result {
-                case .failed:
-                    task.setTaskCompleted(success: false)
-                default:
-                    task.setTaskCompleted(success: true)
+            guard WMFDeveloperSettingsDataController.enableDailyTopReadNotifications else {
+                self?.appViewController.performBackgroundFetch { [weak self] result in
+                    switch result {
+                    case .failed:
+                        task.setTaskCompleted(success: false)
+                    default:
+                        task.setTaskCompleted(success: true)
+                    }
+
+                    self?.scheduleBackgroundAppRefreshTask()
                 }
-                
-                self?.scheduleBackgroundAppRefreshTask()
+                return
             }
+
+            guard let self else {
+                task.setTaskCompleted(success: false)
+                return
+            }
+            self.performBackgroundAppRefreshWithLocalNotifications(task: task)
         }
         
         BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundDatabaseHousekeeperTaskIdentifier, using: .main) { [weak self] task in
@@ -145,4 +195,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
+
+/// Completes a background task exactly once, whether its work finishes or its time expires first.
+@MainActor
+private final class BackgroundAppRefreshCompletion {
+    private let task: BGTask
+    private let didComplete: @MainActor () -> Void
+    private var isCompleted = false
+
+    init(task: BGTask, didComplete: @escaping @MainActor () -> Void) {
+        self.task = task
+        self.didComplete = didComplete
+    }
+
+    func complete(success: Bool) {
+        guard !isCompleted else { return }
+        isCompleted = true
+        task.setTaskCompleted(success: success)
+        didComplete()
+    }
+}
 #endif
+
+enum RemoteNotificationRegistrationFailure {
+    // UIKit can pass nil to didFailToRegisterForRemoteNotificationsWithError. Swift imports the parameter as a non-optional Error, so a nil value is a null box pointer. Check the pointer before you touch the error.
+    static func logMessage(for error: any Error) -> String {
+        guard unsafeBitCast(error, to: UnsafeRawPointer?.self) != nil else {
+            return "Remote notification registration failure: nil error"
+        }
+        return "Remote notification registration failure: \(error.localizedDescription)"
+    }
+}

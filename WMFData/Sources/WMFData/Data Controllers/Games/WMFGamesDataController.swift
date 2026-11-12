@@ -234,10 +234,11 @@ extension WMFGamesDataController {
         if let lastDate = sorted.last?.date,
            let last = DateFormatter.onThisDayAPIDateFormatter.date(from: lastDate) {
             let today = Date()
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
             let lastDay = Calendar.current.startOfDay(for: last)
-            if !Calendar.current.isDate(lastDay, inSameDayAs: today) &&
-               !Calendar.current.isDate(lastDay, inSameDayAs: yesterday) {
+            let playedToday = Calendar.current.isDate(lastDay, inSameDayAs: today)
+            let playedYesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)
+                .map { Calendar.current.isDate(lastDay, inSameDayAs: $0) } ?? false
+            if !playedToday && !playedYesterday {
                 currentStreak = 0
             }
         } else {
@@ -287,10 +288,6 @@ extension WMFGamesDataController {
 
     public func markGamesAnnouncementSeen() {
         hasSeenGamesAnnouncement = true
-    }
-
-    public func resetAnnouncementSeen() {
-        hasSeenGamesAnnouncement = false
     }
 
     /// Returns true if the games announcement should be shown.
@@ -539,20 +536,6 @@ extension WMFGamesDataController {
 
     public func fetchWhichCameFirstSessions(project: WMFProject) async throws -> [WMFGameSession] {
         return try await fetchSessions(gameType: Self.whichCameFirstGameType, project: project)
-    }
-
-    public func clearAllSessions() async throws {
-        guard let moc = backgroundContext else {
-            throw CustomError.missingContext
-        }
-        try await moc.perform { [self] in
-            let sessions = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
-            for session in sessions {
-                moc.delete(session)
-            }
-            try moc.save()
-            NotificationCenter.default.post(name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
-        }
     }
 
     // MARK: - Private Encoding Helpers

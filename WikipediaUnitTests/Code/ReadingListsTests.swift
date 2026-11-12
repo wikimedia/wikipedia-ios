@@ -104,6 +104,39 @@ class ReadingListsTests: XCTestCase {
         
     }
     
+    func testCreatingReadingListWithUnsavedArticlesDoesNotPostTheUserSaveNotification() throws {
+        let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
+        let articles = articleURLs.compactMap { dataStore.fetchOrCreateArticle(with: $0) }
+        XCTAssertEqual(articles.count, 2)
+        XCTAssertFalse(articles.contains { $0.isSaved })
+
+        var notificationCount = 0
+        let observer = NotificationCenter.default.addObserver(forName: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: nil, queue: nil) { _ in
+            notificationCount += 1
+        }
+        defer { NotificationCenter.default.removeObserver(observer) }
+
+        let readingList = try dataStore.readingListsController.createReadingList(named: "foo", description: nil, with: articles)
+
+        XCTAssertEqual(notificationCount, 0, "adding articles to a list is not a tap on Save, so the reading list hint must not show")
+        XCTAssertEqual(readingList.articleKeys.count, 2)
+        let defaultReadingList = try XCTUnwrap(dataStore.viewContext.defaultReadingList)
+        for article in articles {
+            XCTAssertTrue(article.isSaved)
+            XCTAssertTrue(defaultReadingList.articleKeys.contains(try XCTUnwrap(article.key)), "the article must be in All articles")
+        }
+    }
+
+    func testCreatingReadingListPicksPreviewArticlesOnlyFromArticlesWithImages() throws {
+        let articleWithImage = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Foo")!))
+        articleWithImage.imageURLString = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/640px-Example.jpg"
+        let articleWithoutImage = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Bar")!))
+
+        let readingList = try dataStore.readingListsController.createReadingList(named: "foo", description: nil, with: [articleWithImage, articleWithoutImage])
+
+        XCTAssertEqual(readingList.previewArticles?.array as? [WMFArticle], [articleWithImage])
+    }
+
     func testAddingArticlesToExistingReadingList() {
         let readingListName = "foo"
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
@@ -228,6 +261,18 @@ class ReadingListsTests: XCTestCase {
 
         XCTAssertFalse(readingListsController.syncState.contains(.needsRemoteDisable), "Logout must clear a pending remote disable")
         XCTAssertFalse(readingListsController.isSyncEnabled)
+    }
+
+    func testAuthenticationManagerWillLogOutStopsSyncBeforeCompleting() throws {
+        let delegate = try XCTUnwrap(dataStore as? WMFAuthenticationManagerDelegate, "MWKDataStore should be the authentication manager's delegate")
+        let logoutMayProceed = expectation(description: "will log out completion")
+        DispatchQueue.global().async {
+            delegate.authenticationManagerWillLogOut {
+                XCTAssertTrue(Thread.isMainThread)
+                logoutMayProceed.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 10)
     }
 
     private func runSyncOperation(timeout: TimeInterval = 30) throws {

@@ -1,0 +1,167 @@
+import UIKit
+import WMFComponents
+import WMFData
+
+/// Presents the sheet of passages found inside articles for a search query.
+final class SemanticSearchResultsCoordinator: NSObject, Coordinator {
+
+    let navigationController: UINavigationController
+
+    private let query: String
+    private let project: WMFProject
+    private let instrumentation: SearchInstrumentation
+    /// The id is the search id of the request that gave the result, for the instrumentation. The flag
+    /// tells whether the article should ask for feedback: the reader ignored the prompt in the sheet.
+    private let didSelectResult: @MainActor @Sendable (WMFSemanticSearchResult, String?, Bool) -> Void
+
+    private var viewModel: WMFSemanticSearchResultsViewModel?
+    /// Kept after the sheet is dismissed to open an article, so `restore()` can show the same sheet again.
+    private var sheetNavigationController: UINavigationController?
+    private var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
+
+    init(
+        navigationController: UINavigationController,
+        query: String,
+        project: WMFProject,
+        instrumentation: SearchInstrumentation,
+        didSelectResult: @escaping @MainActor @Sendable (WMFSemanticSearchResult, String?, Bool) -> Void
+    ) {
+        self.navigationController = navigationController
+        self.query = query
+        self.project = project
+        self.instrumentation = instrumentation
+        self.didSelectResult = didSelectResult
+    }
+
+    @discardableResult
+    func start() -> Bool {
+        let viewModel = WMFSemanticSearchResultsViewModel(
+            query: query,
+            project: project,
+            readInArticleAction: { [weak self] result in
+                self?.open(result)
+            },
+            closeAction: { [weak self] in
+                self?.close()
+            },
+            feedbackAction: { [weak self] rating, text in
+                guard let self else { return }
+                self.instrumentation.logFeedbackSubmit(placement: .sheet, rating: rating, text: text, searchID: self.viewModel?.searchID)
+            },
+            feedbackTextFieldFocusAction: { [weak self] in
+                self?.expandSheet()
+            }
+        )
+
+        let hostingController = WMFSemanticSearchResultsHostingController(viewModel: viewModel)
+        let sheetNavigationController = WMFComponentNavigationController(
+            rootViewController: hostingController,
+            modalPresentationStyle: .pageSheet
+        )
+
+        viewModel.loggingDelegate = self
+        viewModel.feedbackPromptDelegate = self
+        self.viewModel = viewModel
+        self.sheetNavigationController = sheetNavigationController
+
+        viewModel.load()
+        present(sheetNavigationController)
+        return true
+    }
+
+    /// Presents the sheet again as the reader left it before opening an article from it.
+    func restore() {
+        guard let sheetNavigationController, sheetNavigationController.presentingViewController == nil else { return }
+
+        present(sheetNavigationController)
+        viewModel?.logImpressionIfLoaded()
+    }
+
+    private func present(_ sheetNavigationController: UINavigationController) {
+        // Each presentation gets a new sheet presentation controller, so configure it every time.
+        if let sheet = sheetNavigationController.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.selectedDetentIdentifier = selectedDetentIdentifier
+            sheet.prefersGrabberVisible = true
+            sheet.delegate = self
+        }
+
+        let presenter = navigationController.presentedViewController ?? navigationController
+        presenter.view.endEditing(true)
+        presenter.present(sheetNavigationController, animated: true)
+    }
+
+    private func open(_ result: WMFSemanticSearchResult) {
+        viewModel?.cancel()
+        selectedDetentIdentifier = sheetNavigationController?.sheetPresentationController?.selectedDetentIdentifier
+        let searchID = viewModel?.searchID
+        let isFeedbackIgnored = viewModel?.handOffFeedbackIfIgnored() ?? false
+        let needsFeedback = isFeedbackIgnored && instrumentation.canShowFeedbackPrompt(placement: .article)
+        sheetNavigationController?.dismiss(animated: true) { [weak self] in
+            self?.didSelectResult(result, searchID, needsFeedback)
+        }
+    }
+
+    /// At the medium detent the keyboard leaves little room to type and scroll.
+    private func expandSheet() {
+        guard let sheet = sheetNavigationController?.sheetPresentationController,
+              sheet.selectedDetentIdentifier != .large else { return }
+
+        sheet.animateChanges {
+            sheet.selectedDetentIdentifier = .large
+        }
+    }
+
+    /// The reader tapped the close button.
+    private func close() {
+        logClose()
+        dismiss()
+    }
+
+    private func dismiss() {
+        viewModel?.cancel()
+        sheetNavigationController?.dismiss(animated: true)
+        sheetNavigationController = nil
+    }
+
+    private func logClose() {
+        instrumentation.logResultsClose()
+    }
+}
+
+extension SemanticSearchResultsCoordinator: UISheetPresentationControllerDelegate {
+
+    /// The reader pulled the sheet down.
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        logClose()
+        viewModel?.cancel()
+        sheetNavigationController = nil
+    }
+
+}
+
+extension SemanticSearchResultsCoordinator: WMFSemanticSearchResultsLoggingDelegate {
+
+    func logResultsImpression(searchID: String?) {
+        instrumentation.logResultsImpression(searchID: searchID)
+    }
+
+    func logEmptyResultsImpression() {
+        instrumentation.logEmptyResultsImpression()
+    }
+
+    func logResultTap(position: Int, searchID: String?) {
+        instrumentation.logResultTap(position: position, searchID: searchID)
+    }
+}
+
+extension SemanticSearchResultsCoordinator: WMFSemanticSearchFeedbackPromptDelegate {
+
+    var canShowSheetFeedbackPrompt: Bool {
+        instrumentation.canShowFeedbackPrompt(placement: .sheet)
+    }
+
+    func sheetFeedbackPromptDidAppear() {
+        instrumentation.feedbackPromptDidAppear(placement: .sheet)
+    }
+}

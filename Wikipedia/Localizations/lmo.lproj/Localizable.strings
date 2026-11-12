@@ -230,7 +230,6 @@
 "empty-no-saved-pages-message" = "Salva i pagine per vardài dopo, magara anca quand che te see minga coness";
 "empty-no-saved-pages-title" = "Per intanta nanca ona pagina salvada";
 "empty-no-search-results-message" = "Nanca on risultad trovad";
-"empty-talk-page-title" = "A inn stad tacad foeura nan'mò di messagg di messag per quest utent chì";
 "error-generic-recovery-suggestion" = "In piasé, proeuvegh an'mò pussee tard";
 "error-unknown" = "A l'è capitad on error che a se conoss nò";
 "explore-another-random" = "On alter articol a sort";
@@ -238,7 +237,6 @@
 "explore-because-you-read-footer" = "Di alter vos correlade pussee";
 "explore-continue-reading-heading" = "Và adree a lensger";
 "explore-detail-back-button-title" = "Torna indree al Canal de esplorazzion";
-"explore-enable-location-title" = "Varda i vos arente al sit indove che te steet adess";
 "explore-featured-article-heading" = "Vos in vedrina";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
@@ -247,9 +245,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "A se poden sgiontà di alter lengue pussee in de la pagina di impostazzion de 'I me lengov'.";
 "explore-feed-preferences-card-hidden-title" = "Carta foura vista";
 "explore-feed-preferences-continue-reading-description" = "Ligam svelt per lensger ona vos averta";
-"explore-feed-preferences-customize-explore-feed" = "Personaliza el Canal de esplorazzion";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personaliza Canal de esplorazzion";
-"explore-feed-preferences-explore-tab" = "Scheda \"Esplora\"";
 "explore-feed-preferences-featured-article-description" = "Vos i vedrina de la sgiornada in su Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Smorzad";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Tuscoss pizzad";
@@ -264,7 +260,6 @@
 "explore-feed-preferences-randomizer-description" = "Insgenera vos a cas de lensger";
 "explore-feed-preferences-related-pages-description" = "Sugeriment basad sora la letura de la storia";
 "explore-feed-preferences-top-read-description" = "I vos pussee lensgiude del dì";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Smorza \"Esplora\"";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Pizza \"Esplora\"";
 "explore-main-page-heading" = "Incoeu in su Wikipedia";
 "explore-most-read-footer" = "Tute i vos pussee lensgiude";
@@ -322,12 +317,10 @@
 "history-clear-confirmation-heading" = "Te see sicur che te voeulet scancellà tut i to element recent?";
 "history-clear-delete-all" = "Sì, scassa tuscoss";
 "history-title" = "Storia";
-"home-button-explore-accessibility-label" = "Wikipedia, ritorna a Esplora";
 "home-button-saved-accessibility-label" = "Wikipedia, torna indree ai pagine salvade";
 "home-more-like-footer" = "Alter, compagn de $1";
 "home-nearby-footer" = "Pussee de sit arent a la toa posizzion";
 "home-nearby-location-footer" = "Di alter lì adree $1";
-"home-reading-list-prompt" = "Adess i to vos salvade i poden vesser organizade in liste de letura e fà andà in sicronia in su tut i dispositiv. Và dent per permeter ai to liste de letura de vesser salvade in di to preferenze.";
 "home-themes-action-title" = "Manesgia i preferenze";
 "home-title" = "Esplora";
 "icon-shortcut-nearby-title" = "Vos in del scircondari";
@@ -407,7 +400,6 @@
 "no-internet-connection" = "A gh'è minga de conession a l'internet";
 "notifications-center-agent-description-from-format" = "Da $1";
 "notifications-center-alert" = "Allarma";
-"notifications-center-badge-button-accessibility-label" = "Notifeghe con distintiv minga lensgiud";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notifeghe";
 "notifications-center-change-password" = "Cambia la parolla ciav";
 "notifications-center-checking-for-notifications" = "Adree a controllà i notifeghe...";

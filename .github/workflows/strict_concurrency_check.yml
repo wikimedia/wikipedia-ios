@@ -7,26 +7,40 @@ name: Strict Concurrency Check
 # warnings becomes a hard ERROR once the package flips to Swift 6 language mode, so
 # this is the burn-down metric for the migration (see the Swift 6.2 migration plan).
 #
-# Schemes still burning down their backlog are report-only (WMFData started at ~127).
+# One build covers both packages: WMFComponents depends on WMFData (and WMFDataMocks),
+# so building the WMFComponents scheme compiles every WMFData source as well. The job
+# builds BUILD_SCHEME once and counts the warnings of each scheme in REPORTED_SCHEMES
+# in that one log, which saves a macOS runner and a full WMFData build per run.
+#
+# Schemes still burning down their backlog are report-only.
 # As each scheme reaches zero, move it into GATED_SCHEMES below to make it a hard gate:
 # the job then fails if ANY concurrency warning appears in that scheme's own sources.
-# WMFComponents reached zero via default MainActor isolation and is gated.
+# WMFComponents reached zero via default MainActor isolation. WMFData reached zero
+# via Sendable services/models and lock-isolated singleton state (started at ~127).
+# Both are gated. Next up: WMF Framework and the app targets (they will need their
+# own build, since building the packages does not compile them).
 
 on:
   pull_request:
     branches:
       - 'main'
+      - 'release-candidate/**'
+      - 'hotfix/**'
   workflow_dispatch:
 
 env:
-  XCODE_VERSION: "26.5"
-  IOS_VERSION: "26.5"
+  XCODE_VERSION: "27.1"
+  IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
+  # The scheme that is built. Building it compiles every scheme in REPORTED_SCHEMES.
+  BUILD_SCHEME: "WMFComponents"
+  # Schemes whose own sources are checked for concurrency warnings. Space-separated.
+  REPORTED_SCHEMES: "WMFData WMFComponents"
   # Schemes that have completed their strict-concurrency burn-down. For these, the
   # job FAILS if any concurrency warning appears in the scheme's own sources.
   # (Concurrency-scoped on purpose: blanket warnings-as-errors would also trip on
   # unrelated warnings like deprecations.) Space-separated.
-  GATED_SCHEMES: "WMFComponents"
+  GATED_SCHEMES: "WMFData WMFComponents"
 
 concurrency:
   group: "strict-concurrency-${{ github.ref }}"
@@ -34,93 +48,95 @@ concurrency:
 
 jobs:
   strict-concurrency:
-    runs-on: macos-26
+    runs-on: xcode-27
     permissions:
       actions: read
       contents: read
-    strategy:
-      fail-fast: false
-      matrix:
-        # Leaf-first migration order. Add WMF / Wikipedia here as they begin their burn-down.
-        scheme: ["WMFData", "WMFComponents"]
-
-    name: Strict concurrency (${{ matrix.scheme }})
+    name: Strict concurrency (WMFData, WMFComponents)
     steps:
       - uses: actions/checkout@v7
-
-      - name: Select Xcode
-        run: |
-          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
       - name: Prepare simulator
         id: simulator
         uses: ./.github/actions/prepare-simulator
         with:
+          xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
-      - name: Build ${{ matrix.scheme }} with strict concurrency
+      - name: Build ${{ env.BUILD_SCHEME }} with strict concurrency
         run: |
-          SCHEME="${{ matrix.scheme }}"
-          echo "Building ${SCHEME} with SWIFT_STRICT_CONCURRENCY=complete"
-
-          GATED="NO"
-          for gated in ${GATED_SCHEMES}; do
-            if [ "${gated}" = "${SCHEME}" ]; then
-              GATED="YES"
-            fi
-          done
+          echo "Building ${BUILD_SCHEME} with SWIFT_STRICT_CONCURRENCY=complete"
 
           set -o pipefail
           xcodebuild build \
-            -scheme "${SCHEME}" \
+            -scheme "${BUILD_SCHEME}" \
             -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -destination "${{ steps.simulator.outputs.destination }}" \
             SWIFT_STRICT_CONCURRENCY=complete \
-            2>&1 | tee "${SCHEME}_strict.log"
+            2>&1 | tee strict.log
           BUILD_EXIT=${PIPESTATUS[0]}
           if [ "${BUILD_EXIT}" -ne 0 ]; then
-            echo "::error::${SCHEME} failed to build."
+            echo "::error::${BUILD_SCHEME} failed to build."
             exit "${BUILD_EXIT}"
           fi
 
-          # Count concurrency-related warnings in this scheme's OWN sources only.
-          # A scheme's build also compiles its package dependencies (e.g. building
-          # WMFComponents recompiles WMFData), whose warnings must not be attributed
-          # to this scheme. The pattern matches the strict-concurrency diagnostic
-          # vocabulary; plain warnings (deprecations etc.) are not counted.
+      - name: Count concurrency warnings per scheme
+        run: |
+          # Count concurrency-related warnings in each scheme's OWN library target only,
+          # so a warning in WMFData is never attributed to WMFComponents, and warnings in
+          # WMFDataMocks (compiled because WMFComponents depends on it) are not counted
+          # as WMFData's, just as when WMFData was built on its own. The pattern matches
+          # the strict-concurrency diagnostic vocabulary; plain warnings (deprecations
+          # etc.) are not counted.
           CONCURRENCY_PATTERN='[Ss]endable|concurren|actor|isolat|data race|main actor|nonisolated'
-          # Grep once; every stage tolerates zero matches. (The job runs under
-          # bash -e with pipefail, so an unguarded empty grep pipeline would
-          # fail the step exactly when a gated scheme is clean.)
-          MATCHES=$(grep "warning:" "${SCHEME}_strict.log" \
-            | grep "${SCHEME}/Sources" \
-            | grep -iE "${CONCURRENCY_PATTERN}" || true)
-          if [ -n "${MATCHES}" ]; then
-            COUNT=$(printf '%s\n' "${MATCHES}" | wc -l | tr -d ' ')
-          else
-            COUNT=0
-          fi
-          {
-            echo "## Strict concurrency: ${SCHEME}"
-            echo ""
-            echo "**Concurrency warnings in ${SCHEME} sources (errors under Swift 6 language mode): ${COUNT}**"
-            echo ""
-            if [ "${COUNT}" -gt 0 ]; then
-              echo "Top warnings:"
-              echo '```'
-              printf '%s\n' "${MATCHES}" \
-                | sed -E 's/^.*warning:/warning:/' \
-                | sort | uniq -c | sort -rn | head -20
-              echo '```'
-            else
-              echo "No concurrency warnings. 🎉"
-            fi
-          } >> "${GITHUB_STEP_SUMMARY}"
+          FAILED_SCHEMES=""
 
-          if [ "${GATED}" = "YES" ] && [ "${COUNT}" -gt 0 ]; then
-            echo "::error::${SCHEME} is a gated scheme (zero concurrency warnings) and this change introduced ${COUNT}. See the job summary for details."
+          for SCHEME in ${REPORTED_SCHEMES}; do
+            GATED="NO"
+            for gated in ${GATED_SCHEMES}; do
+              if [ "${gated}" = "${SCHEME}" ]; then
+                GATED="YES"
+              fi
+            done
+
+            # Grep once; every stage tolerates zero matches. (The step runs under
+            # bash -e with pipefail, so an unguarded empty grep pipeline would
+            # fail the step exactly when a gated scheme is clean.)
+            MATCHES=$(grep "warning:" strict.log \
+              | grep "${SCHEME}/Sources/${SCHEME}/" \
+              | grep -iE "${CONCURRENCY_PATTERN}" || true)
+            if [ -n "${MATCHES}" ]; then
+              COUNT=$(printf '%s\n' "${MATCHES}" | wc -l | tr -d ' ')
+            else
+              COUNT=0
+            fi
+            {
+              echo "## Strict concurrency: ${SCHEME}"
+              echo ""
+              echo "**Concurrency warnings in ${SCHEME} sources (errors under Swift 6 language mode): ${COUNT}**"
+              echo ""
+              if [ "${COUNT}" -gt 0 ]; then
+                echo "Top warnings:"
+                echo '```'
+                printf '%s\n' "${MATCHES}" \
+                  | sed -E 's/^.*warning:/warning:/' \
+                  | sort | uniq -c | sort -rn | head -20
+                echo '```'
+              else
+                echo "No concurrency warnings. 🎉"
+              fi
+              echo ""
+            } >> "${GITHUB_STEP_SUMMARY}"
+
+            echo "${SCHEME}: ${COUNT} concurrency warning(s) (gated: ${GATED})."
+            if [ "${GATED}" = "YES" ] && [ "${COUNT}" -gt 0 ]; then
+              echo "::error::${SCHEME} is a gated scheme (zero concurrency warnings) and this change introduced ${COUNT}. See the job summary for details."
+              FAILED_SCHEMES="${FAILED_SCHEMES} ${SCHEME}"
+            fi
+          done
+
+          if [ -n "${FAILED_SCHEMES}" ]; then
             exit 1
           fi
-
-          echo "${SCHEME}: ${COUNT} concurrency warning(s) (gated: ${GATED})."

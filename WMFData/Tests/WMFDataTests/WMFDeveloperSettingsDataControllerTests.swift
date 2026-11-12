@@ -27,6 +27,8 @@ final class WMFDeveloperSettingsDataControllerTests {
             #expect(yirConfig.languages == 300)
             #expect(yirConfig.articles == 10000000)
             #expect(yirConfig.savedArticlesApps == 37574993)
+            // The mock config has no volunteer editors value, the same as the 2025 config.
+            #expect(yirConfig.volunteerEditors == nil)
             #expect(yirConfig.viewsApps == 1000000000)
             #expect(yirConfig.editsApps == 124356)
             #expect(yirConfig.editsPerMinute == 342)
@@ -40,7 +42,44 @@ final class WMFDeveloperSettingsDataControllerTests {
             #expect(yirConfig.topReadPercentages.count == 8)
             #expect(yirConfig.hideCountryCodes.count == 22)
             #expect(yirConfig.hideDonateCountryCodes.count == 30)
+            #expect(config.ios.visualEditorEnabled == true)
+            #expect(controller.isVisualEditorEnabled)
         }
+    }
+
+    @Test
+    func visualEditorIsDisabledWithoutAFeatureConfig() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            let controller = WMFDeveloperSettingsDataController()
+
+            #expect(controller.loadFeatureConfig() == nil)
+            #expect(controller.isVisualEditorEnabled == false)
+        }
+    }
+
+    /// Older apps read `yir`. This app reads only `yirv2`, so an entry in `yir` does not count.
+    @Test
+    func yearInReviewEntriesComeOnlyFromYirV2() throws {
+        let entry = #"{"year": 2026, "activeStartDate": "2026-12-02T18:00:00Z", "activeEndDate": "2027-02-01T00:00:00Z", "dataStartDate": "2026-01-01T00:00:00Z", "dataEndDate": "2026-12-01T00:00:00Z", "languages": 300, "articles": 1, "savedArticlesApps": 1, "viewsApps": 1, "editsApps": 1, "editsPerMinute": 1, "averageArticlesReadPerYear": 1, "edits": 1, "editsEN": 1, "hoursReadEN": 1, "yearsReadEN": 1, "topReadEN": [], "topReadPercentages": [], "bytesAddedEN": 1, "hideCountryCodes": [], "hideDonateCountryCodes": []}"#
+
+        let v2 = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: Data(#"{"commonv1": {"yir": [], "yirv2": [\#(entry)]}, "iosv1": {}}"#.utf8))
+        let v1Only = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: Data(#"{"commonv1": {"yir": [\#(entry)]}, "iosv1": {}}"#.utf8))
+
+        #expect(v2.common.yir(year: 2026)?.languages == 300)
+        // The test wiki config has only `yir`. The other features still get their settings.
+        #expect(v1Only.common.yir.isEmpty)
+    }
+
+    @Test
+    func visualEditorIsDisabledWhenTheFeatureConfigOmitsTheKey() throws {
+        let json = Data("""
+        {"commonv1": {"yir": []}, "iosv1": {}}
+        """.utf8)
+
+        let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
+
+        #expect(config.ios.visualEditorEnabled == nil)
+        #expect(config.ios.hCaptcha == nil)
     }
 
     @Test
@@ -122,17 +161,39 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
+    @Test
+    func forceYiREntryPoint2026SkipsOnlyTheStartDate() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+            let common = WMFFeatureConfigResponse.Common.YearInReview.testConfig
+            let config = WMFFeatureConfigResponse.Common.YearInReview(year: 2026, activeStartDateString: "2026-12-02T20:00:00Z", activeEndDateString: "2027-02-01T00:00:00Z", dataStartDateString: common.dataStartDateString, dataEndDateString: common.dataEndDateString, languages: common.languages, articles: common.articles, savedArticlesApps: common.savedArticlesApps, volunteerEditors: common.volunteerEditors, viewsApps: common.viewsApps, editsApps: common.editsApps, editsPerMinute: common.editsPerMinute, averageArticlesReadPerYear: common.averageArticlesReadPerYear, edits: common.edits, editsEN: common.editsEN, hoursReadEN: common.hoursReadEN, yearsReadEN: common.yearsReadEN, topReadEN: common.topReadEN, topReadPercentages: common.topReadPercentages, bytesAddedEN: common.bytesAddedEN, hideCountryCodes: common.hideCountryCodes, hideDonateCountryCodes: common.hideDonateCountryCodes)
+            let beforeStart = dateFormatter.date(from: "2026-10-01T00:00:00Z")!
+            let afterEnd = dateFormatter.date(from: "2027-02-01T00:00:01Z")!
+
+            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = false
+            #expect(config.isActive(for: beforeStart) == false)
+
+            WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = true
+            #expect(config.isActive(for: beforeStart))
+            #expect(config.isActive(for: afterEnd) == false)
+        }
+    }
+
     private let requestRecordingService = WMFRequestRecordingMockService()
 
     private func configureRequestRecordingEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.basicService = requestRecordingService
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
+        WMFDataEnvironment.current.serviceEnvironment = .production
     }
 
     private func configureEnvironment() async {
         WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.serviceEnvironment = .production
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
     }
 }

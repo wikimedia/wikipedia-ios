@@ -15,7 +15,11 @@ private extension WMFMediaWikiServiceRequest.TokenType {
     }
 }
 
-public final class MediaWikiFetcher: Fetcher, WMFService {
+// @unchecked Sendable: WMFService now requires Sendable (its instances are shared
+// across concurrency domains). MediaWikiFetcher's Fetcher state (session, tokens)
+// is legacy-managed and already used from multiple queues; a real audit happens
+// when WMF Framework starts its own strict-concurrency burn-down.
+public final class MediaWikiFetcher: Fetcher, WMFService, @unchecked Sendable {
 
     public enum MediaWikiFetcherError: LocalizedError {
         case invalidRequest
@@ -138,7 +142,7 @@ public final class MediaWikiFetcher: Fetcher, WMFService {
             }
             
             guard HTTPStatusCode.isSuccessful(response.statusCode) else {
-                completion(.failure(RequestError.http(response.statusCode)))
+                completion(.failure(RequestError.from(response: response)))
                 return
             }
             
@@ -160,7 +164,7 @@ public final class MediaWikiFetcher: Fetcher, WMFService {
             }
             
             guard HTTPStatusCode.isSuccessful(response.statusCode) else {
-                completion(.failure(RequestError.http(response.statusCode)))
+                completion(.failure(RequestError.from(response: response)))
                 return
             }
             

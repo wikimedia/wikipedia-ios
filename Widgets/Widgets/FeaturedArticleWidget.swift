@@ -102,7 +102,14 @@ struct FeaturedArticleProvider: TimelineProvider {
                 if let data = featuredContent.thumbnailImageSource?.data {
                     entry.image = UIImage.downsampled(from: data, targetSize: context.featuredArticleRenderSize)
                 }
-                completion(Timeline(entries: [entry], policy: .after(currentDate.randomDateShortlyAfterMidnight() ?? currentDate)))
+                let nextUpdate: Date
+                if featuredContent.isFromCacheFallback {
+                    // Yesterday's article is standing in for a failed fetch; retry soon.
+                    nextUpdate = Calendar.current.date(byAdding: DateComponents(hour: 1), to: currentDate) ?? currentDate
+                } else {
+                    nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
+                }
+                completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
             case .failure(let fetchError):
                 completion(Timeline(entries: [FeaturedArticleEntry(date: currentDate, content: nil, fetchError: fetchError)], policy: .atEnd))
             }

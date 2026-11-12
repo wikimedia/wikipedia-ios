@@ -1,6 +1,7 @@
 import WMFComponents
 import WMF
 import WMFNativeLocalizations
+import WMFData
 
 typealias PageHistoryCollectionViewCellSelectionThemeModel = PageHistoryViewController.SelectionThemeModel
 
@@ -34,7 +35,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
     private var isLoadingData = false
 
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
-    private var firstRevision: WMFPageHistoryRevision?
+    private var firstRevision: WMFPageRevision?
 
     var shouldLoadNewData: Bool {
         if batchComplete || isLoadingData {
@@ -132,12 +133,13 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         view.addSubview(comparisonSelectionViewController.view)
         comparisonSelectionViewController.didMove(toParent: self)
         comparisonSelectionViewVisibleConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.bottomAnchor)
-        comparisonSelectionViewHiddenConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.topAnchor)
+        let hiddenConstraint = view.bottomAnchor.constraint(equalTo: comparisonSelectionViewController.view.topAnchor)
+        comparisonSelectionViewHiddenConstraint = hiddenConstraint
 
         let leadingConstraint = view.leadingAnchor.constraint(equalTo: comparisonSelectionViewController.view.leadingAnchor)
         let trailingConstraint = view.trailingAnchor.constraint(equalTo: comparisonSelectionViewController.view.trailingAnchor)
 
-        NSLayoutConstraint.activate([comparisonSelectionViewHiddenConstraint!, leadingConstraint, trailingConstraint])
+        NSLayoutConstraint.activate([hiddenConstraint, leadingConstraint, trailingConstraint])
     }
 
     private func setComparisonSelectionViewHidden(_ hidden: Bool, animated: Bool) {
@@ -348,7 +350,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         }
     }
 
-    private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
+    private func showDiff(from: WMFPageRevision?, to: WMFPageRevision, type: DiffContainerViewModel.DiffType) {
         if let siteURL = pageURL.wmf_site {
 
             if type == .single {
@@ -455,7 +457,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         }
     }
 
-    private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision? = nil, at indexPath: IndexPath) {
+    private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageRevision? = nil, at indexPath: IndexPath) {
         let item = item ?? pageHistorySections[indexPath.section].items[indexPath.item]
         let revisionID = NSNumber(value: item.revisionID)
         let isSelected = indexPathsSelectedForComparison.contains(indexPath)
@@ -849,8 +851,8 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
         }
 
         // show older revision as "from" no matter what order was selected
-        let fromRevision: WMFPageHistoryRevision
-        let toRevision: WMFPageHistoryRevision
+        let fromRevision: WMFPageRevision
+        let toRevision: WMFPageRevision
         if date1.compare(date2) == .orderedAscending {
             fromRevision = revision1
             toRevision = revision2
@@ -864,7 +866,7 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
 }
 
 extension PageHistoryViewController: DiffRevisionRetrieving {
-    func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
+    func retrievePreviousRevision(with sourceRevision: WMFPageRevision) -> WMFPageRevision? {
 
         for (sectionIndex, section) in pageHistorySections.enumerated() {
             for (itemIndex, item) in section.items.enumerated() {
@@ -882,10 +884,10 @@ extension PageHistoryViewController: DiffRevisionRetrieving {
         return nil
     }
 
-    func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
+    func retrieveNextRevision(with sourceRevision: WMFPageRevision) -> WMFPageRevision? {
 
         var previousSection: PageHistorySection?
-        var previousItem: WMFPageHistoryRevision?
+        var previousItem: WMFPageRevision?
 
         for section in pageHistorySections {
             for item in section.items {

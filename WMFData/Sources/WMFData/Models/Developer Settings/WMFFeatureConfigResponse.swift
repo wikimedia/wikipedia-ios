@@ -1,13 +1,13 @@
 import Foundation
 
-public struct WMFFeatureConfigResponse: Codable {
+public struct WMFFeatureConfigResponse: Codable, Sendable {
     
-    public struct Common: Codable {
+    public struct Common: Codable, Sendable {
         public let yir: [YearInReview]
         
-        public struct YearInReview: Codable {
+        public struct YearInReview: Codable, Sendable {
             
-            public struct TopReadPercentage: Codable {
+            public struct TopReadPercentage: Codable, Sendable {
                 public let identifier: String
                 public let min: Int
                 public let max: Int?
@@ -18,9 +18,15 @@ public struct WMFFeatureConfigResponse: Codable {
             public let activeEndDateString: String
             public let dataStartDateString: String
             public let dataEndDateString: String
+            /// The period for the edit slides. Not in the 2025 config, so it is optional. A `var` with a
+            /// default, so the memberwise init does not need it.
+            public var contribStartDateString: String? = nil
+            public var contribEndDateString: String? = nil
             public let languages: Int
             public let articles: Int
             public let savedArticlesApps: Int
+            /// Not in the 2025 config, so it is optional. The config key is `editors`, the same key Android reads.
+            public let volunteerEditors: Int?
             public let viewsApps: Int
             public let editsApps: Int
             public let editsPerMinute: Int
@@ -41,9 +47,12 @@ public struct WMFFeatureConfigResponse: Codable {
                 case activeEndDateString = "activeEndDate"
                 case dataStartDateString = "dataStartDate"
                 case dataEndDateString = "dataEndDate"
+                case contribStartDateString = "contribStartDate"
+                case contribEndDateString = "contribEndDate"
                 case languages
                 case articles
                 case savedArticlesApps
+                case volunteerEditors = "editors"
                 case viewsApps
                 case editsApps
                 case editsPerMinute
@@ -78,19 +87,40 @@ public struct WMFFeatureConfigResponse: Codable {
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
                 return dateFormatter.date(from: dataEndDateString)
             }
+
+            var contribStartDate: Date? {
+                contribStartDateString.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
+            }
+
+            var contribEndDate: Date? {
+                contribEndDateString.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
+            }
             
             func isActive(for date: Date) -> Bool {
-                
-                // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
-                let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                if developerSettingsDataController.showYiR2025 {
-                    return true
-                }
-                
+
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
-                    return false 
+                    return false
                 }
+
+                // While the developer settings flag for this config's year is on, skip only the start
+                // date, so testers see the feature before launch. The end date still applies. Each
+                // year has its own flag so that an old flag cannot force a new config active. The
+                // 2025 force flag went with the 2025 UI, so only 2026 has one.
+                if year == 2026, WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
+                    return date <= activeEndDate
+                }
+
                 return date >= activeStartDate && date <= activeEndDate
+            }
+
+            /// The "top X%" of readers globally that `readCount` puts the reader in, for example `50`
+            /// or `0.01`. The value comes from the `topReadPercentages` buckets. It is `nil` when the
+            /// count is not in a bucket, thus below the 50th percentile.
+            public func topReadPercentage(forReadCount readCount: Int) -> Double? {
+                let bucket = topReadPercentages.first { bucket in
+                    readCount >= bucket.min && readCount <= (bucket.max ?? .max)
+                }
+                return bucket.flatMap { Double($0.identifier) }
             }
         }
         
@@ -101,12 +131,33 @@ public struct WMFFeatureConfigResponse: Codable {
         public init(yir: [YearInReview]) {
             self.yir = yir
         }
+
+        // Older apps read `yir`, which is now empty, so they do not show an incomplete 2026 Year
+        // in Review. This app reads only `yirv2`.
+        enum CodingKeys: String, CodingKey {
+            case yir = "yirv2"
+        }
+
+        // A config without `yirv2`, such as the test wiki config, must still decode, because the
+        // other features read the same response.
+        public init(from decoder: any Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            yir = try container.decodeIfPresent([YearInReview].self, forKey: .yir) ?? []
+        }
     }
     
-    public struct IOS: Codable {
+    public struct IOS: Codable, Sendable {
         public let hCaptcha: HCaptcha?
+        public let visualEditorEnabled: Bool?
+        public let semanticSearchLanguages: [String]
+        public let semanticSearchEnabled: Bool?
+        /// Turns the Discover experiment on. Nil keeps the experiment off.
+        public let discoverExperimentEnabled: Bool?
+        /// The share of readers in the Discover experiment's control group, 0 to 100. Nil keeps
+        /// the app default.
+        public let discoverExperimentControlPercentage: Int?
         
-        public struct HCaptcha: Codable {
+        public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
             public let jsSrc: String
             public let endpoint: String
@@ -115,6 +166,34 @@ public struct WMFFeatureConfigResponse: Codable {
             public let reportapi: String
             public let sentry: Bool
             public let apiKey: String
+        }
+
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil, discoverExperimentEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) {
+            self.hCaptcha = hCaptcha
+            self.visualEditorEnabled = visualEditorEnabled
+            self.semanticSearchLanguages = semanticSearchLanguages
+            self.semanticSearchEnabled = semanticSearchEnabled
+            self.discoverExperimentEnabled = discoverExperimentEnabled
+            self.discoverExperimentControlPercentage = discoverExperimentControlPercentage
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case hCaptcha
+            case visualEditorEnabled
+            case semanticSearchLanguages = "semanticSearchLanguagesv2"
+            case semanticSearchEnabled = "semanticSearchEnabledv2"
+            case discoverExperimentEnabled
+            case discoverExperimentControlPercentage
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            hCaptcha = try container.decodeIfPresent(HCaptcha.self, forKey: .hCaptcha)
+            visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
+            semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
+            semanticSearchEnabled = try container.decodeIfPresent(Bool.self, forKey: .semanticSearchEnabled)
+            discoverExperimentEnabled = try container.decodeIfPresent(Bool.self, forKey: .discoverExperimentEnabled)
+            discoverExperimentControlPercentage = try container.decodeIfPresent(Int.self, forKey: .discoverExperimentControlPercentage)
         }
     }
     

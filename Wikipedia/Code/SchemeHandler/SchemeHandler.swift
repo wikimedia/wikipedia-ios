@@ -111,6 +111,13 @@ private extension SchemeHandler {
         var mutableRequest = originalRequest
         mutableRequest.url = newURL
         
+        if newURL.host == "maps.wikimedia.org" {
+            mutableRequest.setValue(
+                "https://maps.wikimedia.org/",
+                forHTTPHeaderField: "Referer"
+            )
+        }
+
         // set persistentCacheItemType in header if it doesn't already exist
         // set If-None-Match in header if it doesn't already exist
         
@@ -174,7 +181,7 @@ private extension SchemeHandler {
                     return
                 }
                 if let httpResponse = response as? HTTPURLResponse, !HTTPStatusCode.isSuccessful(httpResponse.statusCode) {
-                    let error = RequestError.from(code: httpResponse.statusCode)
+                    let error = RequestError.from(response: httpResponse)
                     self.removeSessionTask(request: urlSchemeTask.request)
                     urlSchemeTask.didFailWithError(error)
                     self.removeSchemeTask(urlSchemeTask: urlSchemeTask)

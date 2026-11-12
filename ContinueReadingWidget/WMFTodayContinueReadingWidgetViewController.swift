@@ -148,7 +148,7 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         if let imageURL = article.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth()) {
             self.collapseImageAndWidenLabels = false
             self.imageView.wmf_imageController = dataStore.cacheController
-            self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            self.imageView.wmf_setImage(with: imageURL, detectFaces: true, failure: { (error) in
                 self.collapseImageAndWidenLabels = true
                 combinedCompletion()
             }) {

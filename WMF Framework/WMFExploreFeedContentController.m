@@ -4,7 +4,7 @@
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
 #import <WMF/WMFRandomContentSource.h>
-#import <WMF/WMFAnnouncementsContentSource.h>
+#import <WMF/WMFFeedPromptsContentSource.h>
 #import <WMF/WMFOnThisDayContentSource.h>
 #import <WMF/WMFSuggestedEditsContentSource.h>
 #import <WMF/WMFAssertions.h>
@@ -149,7 +149,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
                                 [[WMFRandomContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
-                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore],
+                                [[WMFFeedPromptsContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore],
                                 [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration]]];
         }
         _contentSources = [mutableContentSources copy];
@@ -368,24 +368,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                 }];
     }];
     [self.operationQueue addOperation:op];
-}
-
-- (void)resetDailyGameContentGroups {
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
-    [moc performBlock:^{
-        for (id<WMFContentSource> source in self.contentSources) {
-            if ([source isKindOfClass:[WMFDailyGameContentSource class]]) {
-                WMFDailyGameContentSource *gameSource = (WMFDailyGameContentSource *)source;
-                [gameSource removeAllContentInManagedObjectContext:moc];
-            }
-        }
-        [self save:moc];
-        
-        // Give the FRC a moment to process the delete, then reload
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [self updateContentSource:[WMFDailyGameContentSource class] force:YES completion:nil];
-        });
-    }];
 }
 
 #pragma mark - Preferences

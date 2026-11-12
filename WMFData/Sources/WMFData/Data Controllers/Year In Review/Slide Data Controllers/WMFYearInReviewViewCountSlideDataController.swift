@@ -1,5 +1,26 @@
 import CoreData
 
+/// The "views your edits received" slide: the views on the pages the user edited, across all
+/// projects, from the metrics API.
+///
+/// Older builds stored this slide as a bare `Int` from the Growth user impact API (all time, one
+/// wiki). That data does not decode as this type, so `hasCurrentFormat` rejects it and the report
+/// never shows it.
+public struct WMFYearInReviewViewCountSlideData: Codable, Sendable, Equatable {
+    /// The edited articles must have more than this number of views to show the slide.
+    public static let minimumViewCount = 25
+
+    public let editedPageViewCount: Int
+
+    public init(editedPageViewCount: Int) {
+        self.editedPageViewCount = editedPageViewCount
+    }
+
+    public var isEligible: Bool {
+        editedPageViewCount > Self.minimumViewCount
+    }
+}
+
 // @unchecked: `isEvaluated` is mutable, but instances are confined to the sequential
 // populate flow in WMFYearInReviewDataController (mutated in a loop, then read in a
 // single Core Data perform closure) — see YearInReviewSlideDataControllerProtocol.
@@ -7,28 +28,32 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     let id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = true
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account]
     static let shouldFreeze = false
-    
-    private var viewCount: Int?
-    
-    private let userID: Int?
-    
-    private let languageCode: String?
-    private let project: WMFProject?
-    
-    private let dataController = WMFUserImpactDataController.shared
-    
+
+    private var slideData: WMFYearInReviewViewCountSlideData?
+
+    private let globalUserID: Int?
+
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
+
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.userID = dependencies.userID
-        self.languageCode = dependencies.languageCode
-        self.project = dependencies.project
+        self.yirConfig = yirConfig
+        self.globalUserID = dependencies.globalUserID
     }
 
+    /// The views on the pages the user edited, across all projects, in the same period as the edit count.
     func populateSlideData(in context: NSManagedObjectContext) async throws {
-        guard let userID, let languageCode else { return }
-        viewCount = try await self.fetchEditViews(project: project, userId: userID, language: languageCode)
+        guard let globalUserID else { return }
+
+        guard let dateRange = WMFYearInReviewDataController.editCountDateRange(config: yirConfig) else {
+            return
+        }
+
+        let metricsDataController = WMFGlobalEditorMetricsDataController(globalUserID: globalUserID)
+        let viewCount = try await metricsDataController.fetchEditedPageViewCount(startDate: dateRange.start, endDate: dateRange.end)
+        slideData = WMFYearInReviewViewCountSlideData(editedPageViewCount: viewCount)
         isEvaluated = true
     }
 
@@ -36,21 +61,20 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.data = try viewCount.map { try JSONEncoder().encode($0) }
+        slide.data = try slideData.map { try JSONEncoder().encode($0) }
         return slide
     }
 
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isActive(for: Date()) && userInfo.userID != nil
+        return config.isActive(for: Date()) && userInfo.globalUserID != nil
     }
-    
-    private func fetchEditViews(project: WMFProject?, userId: Int, language: String) async throws -> (Int?) {
-        
-        guard let project = project else {
-            throw WMFDataControllerError.mediaWikiServiceUnavailable
+
+    /// An older build stored a bare `Int` from the Growth API. It does not decode, so the report
+    /// deletes it and builds the slide again, also when this run cannot fetch the new count.
+    static func hasCurrentFormat(_ data: Data?) -> Bool {
+        guard let data else {
+            return false
         }
-        
-        let response = try await dataController.fetch(userID: userId, project: project, language: language)
-        return response.totalPageviewsCount
+        return (try? JSONDecoder().decode(WMFYearInReviewViewCountSlideData.self, from: data)) != nil
     }
 }

@@ -48,4 +48,8 @@ public final class SharedContainerCacheStore: WMFKeyValueStore {
         let sharedContainerCache = SharedContainerCache(fileName: fileName, subdirectoryPathComponent: subdirectoryPathComponent)
         try? sharedContainerCache.removeCache()
       }
+
+    public func keys(inDirectory directory: String) throws -> [String] {
+        SharedContainerCache.fileNames(inSubdirectory: directory)
+    }
 }

@@ -8,7 +8,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     let id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = false
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account, .donations]
     static let shouldFreeze = false
     
     private let globalUserID: Int?
@@ -29,20 +29,20 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
-        guard let startDate = yirConfig.dataStartDate,
-              let endDate = yirConfig.dataEndDate else {
+        guard let dateRange = WMFYearInReviewDataController.contributorDateRange(year: year) else {
             return
         }
-        donateCount = getDonateCount(startDate: startDate, endDate: endDate)
+        donateCount = getDonateCount(startDate: dateRange.start, endDate: dateRange.end)
+        // The donations are on the device, so a logged-out donor's slide is stored too.
+        isEvaluated = true
         
         if let globalUserID,
-           let startDate = yirConfig.dataStartDate,
-           let endDate = yirConfig.dataEndDate {
+           let editCountDateRange = WMFYearInReviewDataController.editCountDateRange(config: yirConfig) {
             do {
-                let dataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
-                editCount = try await dataController.fetchEditCount(startDate: startDate, endDate: endDate)
-                isEvaluated = true
+                let dataController = WMFGlobalEditorMetricsDataController(globalUserID: globalUserID)
+                editCount = try await dataController.fetchEditCount(startDate: editCountDateRange.start, endDate: editCountDateRange.end)
             } catch {
+                // Keep the stored slide, which has the last edit count, instead of storing one without it.
                 isEvaluated = false
             }
         }

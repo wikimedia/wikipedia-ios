@@ -9,8 +9,20 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     // MARK: - Nested Types
 
     public enum Origin {
-        case banner
+        case banner(URL)
         case settings
+        case notNowToast(URL)
+        
+        var isBanner: Bool {
+            if case .banner = self { return true }
+            return false
+        }
+        
+        var needsToggle: Bool {
+            if case .settings = self { return true }
+            if case .notNowToast = self { return true }
+            return false
+        }
     }
 
     private struct Selection {
@@ -79,6 +91,8 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         didSet {
             guard oldValue != isReminderEnabled else { return }
 
+            logDidToggleReminder?(isReminderEnabled)
+
             if var savedReminder = WMFDonationReminderDataController.shared.loadReminder() {
                 savedReminder.isEnabled = isReminderEnabled
                 WMFDonationReminderDataController.shared.saveReminder(savedReminder)
@@ -94,6 +108,13 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     @Published var customAmount: Decimal = 0
     @Published var customAmountHasFocus: Bool = false
     @Published var isShowingTriggerGroupDetail: Bool = false
+
+    public var logSetupFormDidAppear: (@MainActor @Sendable () -> Void)?
+    public var logDidTapLearnMore: (@MainActor @Sendable () -> Void)?
+    public var logDidTapReportProblem: (@MainActor @Sendable () -> Void)?
+    public var logDidTapConfirm: (@MainActor @Sendable (_ milestoneDefault: Bool, _ readFreq: Int, _ donateAmount: Decimal) -> Void)?
+    public var logDidTapNoThanks: (@MainActor @Sendable () -> Void)?
+    public var logDidToggleReminder: (@MainActor @Sendable (_ isEnabled: Bool) -> Void)?
 
     public var didConfirmReminder: (@MainActor @Sendable (WMFDonationReminder) -> Void)?
     public var didTapAboutExperiment: (@MainActor @Sendable () -> Void)?
@@ -113,7 +134,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         case .banner:
             self.selectedTriggerOptionIdentifier = configuration.defaultTriggerOptionIdentifier
             self.selectedPresetAmount = configuration.defaultAmount
-        case .settings:
+        case .settings, .notNowToast:
             let selection = Self.selection(for: savedReminder, configuration: configuration)
             self.selectedTriggerOptionIdentifier = selection.triggerOptionIdentifier
             self.selectedPresetAmount = selection.presetAmount
@@ -153,7 +174,13 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     }
 
     var hasPendingChanges: Bool {
-        guard origin == .settings, let initialReminder else { return true }
+        switch origin {
+        case .banner:
+            return true
+        case .settings, .notNowToast:
+            break
+        }
+        guard let initialReminder else { return true }
 
         return selectedTriggerOption?.trigger != initialReminder.trigger || finalAmount != initialReminder.amount || isReminderEnabled != initialReminder.isEnabled
     }
@@ -230,13 +257,18 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     func confirm() {
         guard let selectedTriggerOption, isConfirmButtonEnabled, isReminderEnabled else { return }
 
+        if case .articlesRead(let count) = selectedTriggerOption.trigger {
+            let isDefault = selectedTriggerOptionIdentifier == configuration.defaultTriggerOptionIdentifier && finalAmount == configuration.defaultAmount
+            logDidTapConfirm?(isDefault, count, finalAmount)
+        }
+
         let createdDate: Date
         let progress: WMFDonationReminder.Progress?
         switch origin {
         case .banner:
             createdDate = Date()
             progress = nil
-        case .settings:
+        case .settings, .notNowToast:
             createdDate = WMFDonationReminderDataController.shared.loadReminder()?.createdDate ?? Date()
             progress = WMFDonationReminder.Progress(currentCycleStartDate: Date(), timesReminderShown: 0)
         }
@@ -261,6 +293,8 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     }
 
     func declineReminder() {
+        logDidTapNoThanks?()
+
         guard let trigger = (selectedTriggerOption ?? configuration.triggerOptions.first)?.trigger else { return }
 
         let optOutReminder = WMFDonationReminder(

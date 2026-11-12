@@ -1,6 +1,7 @@
 import Foundation
 
-class WMFUserDefaultsStore: WMFKeyValueStore {
+/// `UserDefaults` is thread-safe, but the SDK does not mark it `Sendable`.
+final class WMFUserDefaultsStore: WMFKeyValueStore, @unchecked Sendable {
     
     private let defaults: UserDefaults
     
@@ -26,6 +27,14 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
            let defaultsKey = key.joined(separator: ".")
            defaults.removeObject(forKey: defaultsKey)
        }
+
+    func keys(inDirectory directory: String) throws -> [String] {
+        let prefix = directory + "."
+        return defaults.dictionaryRepresentation()
+            .keys
+            .filter { $0.hasPrefix(prefix) }
+            .map { String($0.dropFirst(prefix.count)) }
+    }
 
     private func load<T: Codable>(defaultsKey: String) throws -> T? {
         do {

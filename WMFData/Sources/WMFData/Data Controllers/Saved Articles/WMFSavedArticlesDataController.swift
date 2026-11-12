@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 
 public actor WMFSavedArticlesDataController {
 
@@ -35,15 +36,30 @@ public actor WMFSavedArticlesDataController {
 
         let articleThumbTuples = Array(
             titleURLTuples
-                .filter { $0.1 != nil } // only non-nil URLS
+                .compactMap { title, thumbURL -> (String, URL)? in
+                    guard let thumbURL else { return nil }
+                    return (title, thumbURL)
+                }
                 .prefix(3)
         )
 
-        let thumbURLs = articleThumbTuples.map { $0.1! }
+        let thumbURLs = articleThumbTuples.map { $0.1 }
 
         let titles = articleThumbTuples.map { $0.0 }
 
         return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: thumbURLs, dateLastSaved: lastDate, articleTitles: titles)
+    }
+
+    public func fetchSavedArticlesCount() async throws -> Int {
+        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
+        let context = try coreDataStore.newBackgroundContext
+
+        return try await context.perform {
+            let request = NSFetchRequest<CDPage>(entityName: "CDPage")
+            request.predicate = NSPredicate(format: "savedInfo != nil")
+
+            return try context.count(for: request)
+        }
     }
 
     // MARK: - Private functions
@@ -135,7 +151,8 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
-    public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
+    /// Saved pages, newest first, up to `limit`.
+    public func fetchTimelinePages(limit: Int = 1000) async throws -> [WMFPageWithTimestamp] {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -153,7 +170,7 @@ public actor WMFSavedArticlesDataController {
                 let pages: [CDPage] = try coreDataStore.fetch(
                     entityType: CDPage.self,
                     predicate: predicate,
-                    fetchLimit: 1000,
+                    fetchLimit: limit,
                     sortDescriptors: [sortDescriptor],
                     in: context
                 )

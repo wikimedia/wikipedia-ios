@@ -1,115 +1,52 @@
 import Foundation
 import WMF
+import WMFData
 
 public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: (count: Int, limit: Bool)]
 
 public final class PageHistoryFetcher: WMFLegacyFetcher {
-    @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) {
-        var params: [String: AnyObject] = [
-            "action": "query" as AnyObject,
-            "prop": "revisions" as AnyObject,
-            "rvprop": "ids|timestamp|user|size|parsedcomment|flags" as AnyObject,
-            "rvlimit": 51 as AnyObject,
-            "rvdir": "older" as AnyObject,
-            "titles": requestParams.title as AnyObject,
-            "continue": requestParams.pagingInfo.continueKey as AnyObject? ?? "" as AnyObject,
-            "format": "json" as AnyObject
-            // ,"rvdiffto": -1 //Add this to fake out "error" api response.
-        ]
-        
-        if let rvContinueKey = requestParams.pagingInfo.rvContinueKey {
-            params["rvcontinue"] = rvContinueKey as AnyObject?
+
+    /// The number of revisions in one page. The last revision waits for the next page so that its size difference is known.
+    private static let revisionsPerPage = 51
+
+    func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) {
+        guard let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            failure(RequestError.invalidParameters)
+            return
         }
-        
-        performMediaWikiAPIGET(for: siteURL, withQueryParameters: params) { (result, response, error) in
-            if let error = error {
+
+        Task {
+            do {
+                let page = try await WMFPageHistoryDataController.shared.fetchRevisions(
+                    project: project,
+                    title: requestParams.title,
+                    limit: PageHistoryFetcher.revisionsPerPage,
+                    direction: .older,
+                    continueToken: requestParams.pagingInfo.continueKey,
+                    rvContinueToken: requestParams.pagingInfo.rvContinueKey
+                )
+                success(HistoryFetchResults(page: page, pendingRevision: requestParams.lastRevisionFromPreviousCall))
+            } catch {
                 failure(error)
-                return
-            }
-            guard let result = result, let results = self.parseSections(result) else {
-                failure(RequestError.unexpectedResponse)
-                return
-            }
-            results.updateFirstRevisionSize(with: requestParams.lastRevisionFromPreviousCall)
-            success(results)
-        }
-    }
-    
-    private func parseSections(_ responseDict: [String: Any]) -> HistoryFetchResults? {
-        guard let query = responseDict["query"] as? [String: Any], let pages = query["pages"] as? [String: AnyObject] else {
-            assertionFailure("couldn't parse page history response")
-            return nil
-        }
-        
-        var lastRevision: WMFPageHistoryRevision?
-        var revisionsByDay = RevisionsByDay()
-        for (_, value) in pages {
-            let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
-            
-            guard let val = value["revisions"], let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision] else {
-                assertionFailure("couldn't parse page history revisions")
-                return nil
-            }
-            
-            revisionsByDay = parse(revisions: revisions, existingRevisions: revisionsByDay)
-            
-            if let earliestRevision = revisions.last, earliestRevision.parentID == 0 {
-                earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
-                HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
-            } else {
-                lastRevision = revisions.last
             }
         }
-        
-        return HistoryFetchResults(pagingInfo: parsePagingInfo(responseDict), revisionsByDay: revisionsByDay, lastRevision: lastRevision)
-    }
-    
-    private func parsePagingInfo(_ responseDict: [String: Any]) -> (continueKey: String?, rvContinueKey: String?, batchComplete: Bool) {
-        var continueKey: String? = nil
-        var rvContinueKey: String? = nil
-        if let continueInfo = responseDict["continue"] as? [String: Any] {
-            continueKey = continueInfo["continue"] as? String
-            rvContinueKey = continueInfo["rvcontinue"] as? String
-        }
-        let batchComplete = responseDict["batchcomplete"] != nil
-        
-        return (continueKey, rvContinueKey, batchComplete)
-    }
-    
-    private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
-    private func parse(revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
-        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
-            var revisionsByDay = revisionsByDay
-            
-            itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
-            HistoryFetchResults.update(revisionsByDay:&revisionsByDay, revision: itemPair.current)
-            
-            return revisionsByDay
-        })
     }
 
     // MARK: Creation date
 
-    public func fetchFirstRevision(for pageTitle: String, pageURL: URL, completion: @escaping (Result<WMFPageHistoryRevision, RequestError>) -> Void) {
-        let params: [String: AnyObject] = [
-            "action": "query" as AnyObject,
-            "prop": "revisions" as AnyObject,
-            "rvlimit": 1 as AnyObject,
-            "rvdir": "newer" as AnyObject,
-            "titles": pageTitle as AnyObject,
-            "format": "json" as AnyObject
-        ]
-        
-        performMediaWikiAPIGET(for: pageURL, withQueryParameters: params) { (result, response, error) in
-            guard let result = result, let results = self.parseSections(result) else {
+    public func fetchFirstRevision(for pageTitle: String, pageURL: URL, completion: @escaping (Result<WMFPageRevision, RequestError>) -> Void) {
+        guard let project = WikimediaProject(siteURL: pageURL)?.wmfProject else {
+            completion(.failure(.invalidParameters))
+            return
+        }
+
+        Task {
+            do {
+                let revision = try await WMFPageHistoryDataController.shared.fetchFirstRevision(project: project, title: pageTitle)
+                completion(.success(revision))
+            } catch {
                 completion(.failure(.unexpectedResponse))
-                return
             }
-            guard let firstRevision = results.lastRevision ?? results.items().first?.items.first else {
-                completion(.failure(.unexpectedResponse))
-                return
-            }
-            completion(.success(firstRevision))
         }
     }
 
@@ -271,48 +208,66 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
 
 private typealias RevisionsByDay = [Int: PageHistorySection]
 private typealias PagingInfo = (continueKey: String?, rvContinueKey: String?, batchComplete: Bool)
-open class HistoryFetchResults: NSObject {
+
+/// One page of revision history, grouped by day.
+final class HistoryFetchResults {
     fileprivate let pagingInfo: PagingInfo
-    let lastRevision: WMFPageHistoryRevision?
-    fileprivate var revisionsByDay: RevisionsByDay
-    
-    @objc open func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
+    /// The last revision of the page. Its size difference is not known until the next page arrives.
+    let lastRevision: WMFPageRevision?
+    fileprivate let revisionsByDay: RevisionsByDay
+
+    func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
         return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
-    
-    @objc open func items() -> [PageHistorySection] {
+
+    func items() -> [PageHistorySection] {
         return self.revisionsByDay.keys.sorted(by: <).compactMap { self.revisionsByDay[$0] }
     }
-    
-    @objc open func batchComplete() -> Bool {
+
+    func batchComplete() -> Bool {
         return self.pagingInfo.batchComplete
     }
-    
-    fileprivate func updateFirstRevisionSize(with lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
-        guard let previouslyParsedRevision = lastRevisionFromPreviousCall, let parentSize = items().first?.items.first?.articleSizeAtRevision else { return }
-        previouslyParsedRevision.revisionSize = previouslyParsedRevision.articleSizeAtRevision - parentSize
-    }
-    
-    fileprivate init(pagingInfo: PagingInfo, revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
-        self.pagingInfo = pagingInfo
+
+    /// Build the results from one API page.
+    ///
+    /// The pending revision from the previous page gets its size difference from the first revision of this page.
+    /// This page holds back its own last revision in the same way, unless the batch is complete.
+    fileprivate init(page: WMFPageRevisionsPage, pendingRevision: WMFPageRevision?) {
+        var revisions = page.revisions
+
+        if var pendingRevision, let first = revisions.first {
+            pendingRevision.revisionSize = pendingRevision.articleSizeAtRevision - first.articleSizeAtRevision
+            revisions.insert(pendingRevision, at: 0)
+        }
+
+        var lastRevision: WMFPageRevision?
+        if let last = revisions.last, !page.batchComplete, last.parentID != 0 {
+            lastRevision = revisions.removeLast()
+        }
+
+        var revisionsByDay = RevisionsByDay()
+        for revision in revisions {
+            HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: revision)
+        }
+
+        self.pagingInfo = (page.continueToken, page.rvContinueToken, page.batchComplete)
         self.revisionsByDay = revisionsByDay
         self.lastRevision = lastRevision
     }
 }
 
-open class PageHistoryRequestParameters: NSObject {
+final class PageHistoryRequestParameters {
     fileprivate let pagingInfo: PagingInfo
-    fileprivate let lastRevisionFromPreviousCall: WMFPageHistoryRevision?
+    fileprivate let lastRevisionFromPreviousCall: WMFPageRevision?
     fileprivate let title: String
-    
-    fileprivate init(title: String, pagingInfo: PagingInfo, lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
+
+    fileprivate init(title: String, pagingInfo: PagingInfo, lastRevisionFromPreviousCall: WMFPageRevision?) {
         self.title = title
         self.pagingInfo = pagingInfo
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
     }
-    
-    // TODO: get rid of this when the VC is swift and we can use default values in the other init
-    @objc public init(title: String) {
+
+    init(title: String) {
         self.title = title
         pagingInfo = (nil, nil, false)
         lastRevisionFromPreviousCall = nil
@@ -320,13 +275,13 @@ open class PageHistoryRequestParameters: NSObject {
 }
 
 extension HistoryFetchResults {
-    fileprivate static func update(revisionsByDay: inout RevisionsByDay, revision: WMFPageHistoryRevision) {
+    fileprivate static func update(revisionsByDay: inout RevisionsByDay, revision: WMFPageRevision) {
         let distanceToToday = revision.daysFromToday()
-        
+
         guard revision.user != nil else {
             return
         }
-        
+
         guard let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] else {
             guard let revisionDate = revision.revisionDate else {
                 return
@@ -336,7 +291,7 @@ extension HistoryFetchResults {
             revisionsByDay[distanceToToday] = newSection
             return
         }
-        
+
         let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
         let items = existingRevisionsOnCurrentDay.items + [revision]
         revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)

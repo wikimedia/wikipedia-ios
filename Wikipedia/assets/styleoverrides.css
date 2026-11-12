@@ -1,26 +1,23 @@
 
 /* FIND IN PAGE STYLES */
 
+/*
+    Same colors as the Page Content Service find-in-page (::search-text) and passage highlight
+    (pcs-highlight) styles, in every theme. The app finds matches itself, with these spans, so the
+    ::search-text rules of the Page Content Service do not apply to them.
+*/
 .findInPageMatch {
-    background-color: rgba(255, 204, 51, 0.3) !important;
-    color: black !important;
-    border-radius: 2px !important
-}
-
-.pcs-theme-dark .findInPageMatch,
-.pcs-theme-black .findInPageMatch {
-    background-color: rgba(247, 215, 121, 0.7) !important;
-    color: black !important;
-    border-radius: 2px !important
+    background-color: #f7d779b3 !important;
+    color: #000 !important
 }
 
 .findInPageMatch_Focus {
-    background-color: #fc3 !important
+    background-color: #f7d779 !important;
+    color: #000 !important
 }
 
-.pcs-theme-dark .findInPageMatch_Focus,
-.pcs-theme-black .findInPageMatch_Focus {
-    background-color: #fc3 !important
+a .findInPageMatch {
+    text-decoration: underline !important
 }
 
 /* MISC STYLES */
@@ -111,8 +108,13 @@ body {
 
 /* DONATION REMINDER CARD STYLES */
 
+#wmf-donation-reminder-card-container {
+    padding: 8px 0 0 0 !important;
+    margin: 0 !important;
+}
+
 #wmf-donation-reminder-card {
-    margin: 16px 0;
+    margin: 0 0 16px 0 !important;
     padding: 16px;
     border: 1px solid #eaecf0;
     border-radius: 12px;
@@ -136,14 +138,12 @@ body {
 
 #wmf-donation-reminder-card .wmf-donation-reminder-card-heading {
     margin: 0 0 8px 0 !important;
-    font-size: 16px;
     font-weight: 700;
     line-height: 1.3;
 }
 
 #wmf-donation-reminder-card .wmf-donation-reminder-card-body {
     margin: 0 0 12px 0 !important;
-    font-size: 14px;
     line-height: 1.4;
 }
 
@@ -156,12 +156,14 @@ body {
 
 a.wmf-donation-reminder-card-donate {
     display: inline-block;
-    padding: 10px 16px;
-    border-radius: 20px;
+    padding: 14px 20px;
+    border-radius: 1000px;
     background-color: #36c;
     color: #ffffff !important;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.43px;
     text-decoration: none !important;
 }
 
@@ -173,14 +175,75 @@ a.wmf-donation-reminder-card-donate {
 
 a.wmf-donation-reminder-card-not-now {
     display: inline-block;
-    padding: 10px 16px;
-    color: #54595d !important;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 14px 20px;
+    color: #36c !important;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.43px;
     text-decoration: none !important;
 }
 
 .pcs-theme-dark a.wmf-donation-reminder-card-not-now,
 .pcs-theme-black a.wmf-donation-reminder-card-not-now {
-    color: #a2a9b1 !important;
+    color: #6699ff !important;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 12px 0 !important;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border: 1px solid #eaecf0;
+    border-radius: 14px;
+    color: #202122;
+    font-size: 0.75em;
+    font-weight: 400;
+}
+
+.pcs-theme-sepia #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill {
+    border-color: #cbc8c1;
+}
+
+.pcs-theme-dark #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill,
+.pcs-theme-black #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-pill {
+    border-color: #72777d;
+    color: #f8f9fa;
+}
+
+#wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon {
+    display: inline-block;
+    flex-shrink: 0;
+    background-color: #72777d;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.pcs-theme-sepia #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon {
+    background-color: #646059;
+}
+
+.pcs-theme-dark #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon,
+.pcs-theme-black #wmf-donation-reminder-card .wmf-donation-reminder-card-beta-icon {
+    background-color: #c8ccd1;
+}
+
+#wmf-donation-reminder-card a.wmf-donation-reminder-card-learn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.875em;
+    font-weight: 600;
+    text-decoration: none !important;
 }

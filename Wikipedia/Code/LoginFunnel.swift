@@ -69,16 +69,6 @@
         logEvent(category: .setting, label: .login, action: .logout)
     }
     
-    // MARK: - Sync popovers
-    
-    public func logLoginImpressionInSyncPopover() {
-        logEvent(category: .loginToSyncPopover, label: nil, action: .impression)
-    }
-    
-    public func logLoginStartInSyncPopover() {
-        logEvent(category: .loginToSyncPopover, label: nil, action: .loginStart)
-    }
-    
     // MARK: - Activity tab
     
     public func logLoginStartFromActivityTab() {

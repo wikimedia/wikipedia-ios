@@ -117,7 +117,8 @@ fileprivate extension WMFData.WMFServiceRequest {
     }
 }
 
-public class WMFMockWatchlistMediaWikiService: WMFService {
+// @unchecked Sendable: test-only; the demo-app toggle is set before requests begin.
+public final class WMFMockWatchlistMediaWikiService: WMFService, @unchecked Sendable {
 
     public var randomizeGetWatchStatusResponse: Bool = false // used in WMFComponents Demo app
     
@@ -125,7 +126,7 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
             return
@@ -134,7 +135,7 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         completion(.success(jsonData))
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -149,7 +150,7 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         completion(.success(jsonDict))
     }
     
-    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -166,7 +167,7 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         completion(.success(response))
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
         
     }
     

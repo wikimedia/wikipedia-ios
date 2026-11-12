@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - 'main'
+      - 'release-candidate/**'
+      - 'hotfix/**'
   workflow_dispatch:
 
 permissions:
@@ -11,8 +13,8 @@ permissions:
   contents: read
 
 env:
-  XCODE_VERSION: "26.5"
-  IOS_VERSION: "26.5"
+  XCODE_VERSION: "27.1"
+  IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
   UI_TEST_CONFIGURATION: "English (Light, E2E)"
   E2E_SMOKE_TEST_LIST: "WikipediaUITests/E2ESmokeTests.txt"
@@ -23,28 +25,13 @@ concurrency:
 
 jobs:
   run-e2e-ui-tests:
-    runs-on: macos-26
+    runs-on: xcode-27
     name: Test WikipediaUITests E2E
     steps:
-      - name: Verify selected release tag
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          SELECTED_REF: ${{ github.ref }}
-          SELECTED_REF_NAME: ${{ github.ref_name }}
-          SELECTED_REF_TYPE: ${{ github.ref_type }}
-        run: |
-          if [ "$SELECTED_REF_TYPE" != "tag" ]; then
-            echo "Manual E2E UI test runs must use a tag from the 'Use workflow from' selector."
-            echo "Selected ref: $SELECTED_REF"
-            exit 1
-          fi
-
-          gh release view "$SELECTED_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null
-          echo "Verified GitHub release tag: $SELECTED_REF_NAME"
-
       - name: Check out selected ref
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
 
       - name: Ensure UI tests use test-plan appearance and language
         run: scripts/lint-ui-tests.sh
@@ -90,6 +77,7 @@ jobs:
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -testPlan UITests \
             -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             "${only_testing_args[@]}" \

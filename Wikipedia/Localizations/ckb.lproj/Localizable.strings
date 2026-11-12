@@ -179,7 +179,6 @@
 "explore-another-random" = "وتارێکی تر بە ھەڵکەوت";
 "explore-because-you-read" = "لەبەر ئەوەی ئەمەت خوێندەوە:";
 "explore-continue-reading-heading" = "بەردەوامبوون لە خوێندنەوە";
-"explore-enable-location-title" = "بە وتارەکانی نزیک ناوچەکەت بگەڕێ";
 "explore-featured-article-heading" = "وتاری ھەڵبژێردراو";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "لە $1 ویکیپیدیا";
 "explore-featured-article-sub-heading-from-wikipedia" = "لە ویکیپیدیا";
@@ -235,7 +234,6 @@
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
 "history-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "history-title" = "مێژوو";
-"home-button-explore-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ گەڕان";
 "home-button-saved-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ خەزێنەکراوەکان";
 "home-more-like-footer" = "زیاتر وەک $1";
 "home-nearby-footer" = "شوێنی زیاتر لە نزیک شوێنەکەت";
@@ -307,7 +305,6 @@
 "no-internet-connection" = "پەیوەندیی ئینتەرنێت نییە";
 "notifications-center-agent-description-from-format" = "لە $1ەوە";
 "notifications-center-alert" = "ھۆشدار";
-"notifications-center-badge-button-accessibility-label" = "ئاگادارکەرەوەکان بە نیشانەی نەخوێندراوەوە";
 "notifications-center-cell-notification-type-accessibility-label-format" = "ئاگادارکەرەوەی $1";
 "notifications-center-change-password" = "گۆڕینی تێپەڕوشە";
 "notifications-center-checking-for-notifications" = "گەڕان بۆ ئاگادارییەکان...";
@@ -509,7 +506,6 @@
 "two-factor-login-with-regular-code" = "کۆدی دووپاتکردنەوە بەکاربھێنە";
 "unknown-generic-text" = "نەزانراو";
 "unwatch" = "لابردنی چاودێری";
-"vanish-account-username-field" = "ناوی بەکارھێنەر و پەڕەی بەکارھێنەر";
 "vanish-account-warning-title" = "ئاگاداری";
 "variants-alert-dismiss-button" = "نا سپاس";
 "variants-alert-preferences-button" = "بەسەر ھەڵبژاردەکانتدا بچۆرەوە";
@@ -519,24 +515,10 @@
 "watchlist-user-button-user-contributions" = "بەشدارییەکانی بەکارھێنەر";
 "watchlist-user-button-user-page" = "پەڕەی بەکارھێنەر";
 "watchlist-user-button-user-talk-page" = "پەڕەی وتووێژی بەکارھێنەر";
-"welcome-exploration-explore-feed-description" = "ئەو وتارانەی لە لایەن کۆمەڵگەکەمانەوە پێشنیار کراون";
 "welcome-exploration-explore-feed-title" = "گەڕان و دۆزینەوە لە پەڕەی سەرەکی";
-"welcome-exploration-on-this-day-description" = "بگەڕێوە بۆ مێژوو تا بزانی ئەمڕۆ لە مێژوودا چی ڕوویداوە";
-"welcome-exploration-on-this-day-title" = "لەم ڕۆژەدا";
-"welcome-exploration-places-description" = "شوێنەواری نزیک خۆت بدۆزەرەوە یانیش بۆ شوێنەکانی تری جیھان بگەڕێ";
-"welcome-exploration-places-title" = "خانەی شوێنەکان";
 "welcome-explore-continue-button" = "دەست پێ بکە";
-"welcome-explore-new-ways-title" = "ڕێگەی نوێ بۆ گەڕان";
 "welcome-explore-tell-me-more-done-button" = "تێگەیشتم";
-"welcome-intro-free-encyclopedia-description" = "ویکیپیدیا لە لایەن خۆبەخشان دەنووسرێتەوە و ھەنووکە زیاتر لە ٤٠ ملیۆن وتار بە زیاتر لە ٣٠٠ زمانی جیاواز ھەن.";
-"welcome-intro-free-encyclopedia-more" = "زیاتر فێرببە دەربارەی ویکیپیدیا";
-"welcome-intro-free-encyclopedia-more-about" = "لەبارەی ویکیپیدیاوە";
-"welcome-intro-free-encyclopedia-more-description" = "ویکیپیدیا پرۆژەیەکی جیھانییە بۆ دروستکردنی ئینسایکڵۆپیدیای ئازاد بە ھەموو زمانەکانی جیھان. ھەمووکەسێک دەتوانێت بەشداری لە ویکیپیدیا بکات بەڵام بە مەرجی بێلایەنیی و دانانی سەرچاوەی جێباوەڕ بۆ نووسراوەکانیان و پەسەندکردنی مەرجەکانی بەکارھێنان و سیاسەتەکان.";
-"welcome-intro-free-encyclopedia-title" = "ئینسایکڵۆپیدیای ئازاد";
 "welcome-languages-add-button" = "زیادکردنی زمانێکی تر";
-"welcome-languages-add-or-edit-button" = "زیادکردن یان دەستکاریکردنی زمانەکان";
-"welcome-languages-description" = "ئەم زمانانەمان لەسەر ئامێرەکەت دۆزییەوە:";
-"welcome-languages-search-title" = "بە زیاتر لە ٣٠٠ زمان بگەڕێ";
 "widget-onthisday-description" = "بزانە لەمڕۆی مێژوودا چی ڕوویداوە.";
 "wikimedia-articletopics-topic-africa" = "ئەفریقا";
 "wikimedia-articletopics-topic-asia" = "ئاسیا";

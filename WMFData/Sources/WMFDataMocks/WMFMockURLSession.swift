@@ -12,7 +12,8 @@ struct WMFMockData: Codable {
     let twoString: String
 }
 
-final class WMFMockSuccessURLSession: WMFURLSession {
+// @unchecked Sendable: test-only; the recorded url var is written and read serially by tests.
+final class WMFMockSuccessURLSession: WMFURLSession, @unchecked Sendable {
     
     var url: URL?
     
@@ -33,7 +34,29 @@ final class WMFMockSuccessURLSession: WMFURLSession {
     }
 }
 
-final class WMFMockServerErrorSession: WMFURLSession {
+/// Answers with the mock data and the given response headers.
+final class WMFMockHeadersURLSession: WMFURLSession {
+
+    private let headerFields: [String: String]
+
+    init(headerFields: [String: String]) {
+        self.headerFields = headerFields
+    }
+
+    func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
+        let data = try? JSONEncoder().encode(WMFMockData(oneInt: 1, twoString: "two"))
+        let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 200, httpVersion: nil, headerFields: headerFields)
+
+        completionHandler(data, response, nil)
+        return WMFMockURLSessionDataTask()
+    }
+
+    func clearCachedData() {
+        // no-op
+    }
+}
+
+final class WMFMockServerErrorSession: WMFURLSession, @unchecked Sendable {
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 500, httpVersion: nil, headerFields: nil)
@@ -47,7 +70,7 @@ final class WMFMockServerErrorSession: WMFURLSession {
     }
 }
 
-final class WMFMockNoInternetConnectionSession: WMFURLSession {
+final class WMFMockNoInternetConnectionSession: WMFURLSession, @unchecked Sendable {
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
 
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
@@ -60,7 +83,7 @@ final class WMFMockNoInternetConnectionSession: WMFURLSession {
     }
 }
 
-final class WMFMockMissingDataSession: WMFURLSession {
+final class WMFMockMissingDataSession: WMFURLSession, @unchecked Sendable {
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 200, httpVersion: nil, headerFields: nil)

@@ -209,23 +209,25 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
-        
+    func fetchImageRecommendationsIfNeeded(completion: @escaping @MainActor @Sendable () -> Void) {
+
         guard imageRecommendations.isEmpty else {
             completion()
             return
         }
-        
+
         loading = true
         growthTasksDataController.getImageRecommendationsCombined { [weak self] result in
-            guard let self else {
-                completion()
-                return
-            }
-            
-            switch result {
-            case .success(let pages):
-                DispatchQueue.main.async {
+            // The data controller calls back off-main; hop to the main actor before
+            // touching view model state.
+            Task { @MainActor [weak self] in
+                guard let self else {
+                    completion()
+                    return
+                }
+
+                switch result {
+                case .success(let pages):
                     self.loadingError = nil
                     let imageDataArray = self.getFirstImageData(for: pages)
 
@@ -235,25 +237,21 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
                             self.imageRecommendations.append(combinedImageRecommendation)
                         }
                     }
-                    
+
                     guard let firstRecommendation = self.imageRecommendations.first else {
-                        DispatchQueue.main.async {
-                            self.loading = false
-                            completion()
-                        }
+                        self.loading = false
+                        completion()
                         return
                     }
-                    
+
                     self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] error in
                         self?.currentRecommendation = firstRecommendation
                         self?.loading = false
                         self?.loadingError = error
                         completion()
                     }
-                }
-                
-            case .failure(let error):
-                DispatchQueue.main.async {
+
+                case .failure(let error):
                     self.loading = false
                     self.loadingError = error
                     completion()
@@ -262,7 +260,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    public func next(completion: @escaping () -> Void) {
+    public func next(completion: @escaping @MainActor @Sendable () -> Void) {
         guard !imageRecommendations.isEmpty else {
             self.currentRecommendation = nil
             completion()
@@ -297,7 +295,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    public func sendFeedback(editRevId: UInt64?, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func sendFeedback(editRevId: UInt64?, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         
         guard !needsSuppressPosting else {
             completion(.success(()))
@@ -313,7 +311,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     }
 
 
-    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
+    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping @MainActor @Sendable (Error?) -> Void) {
         let group = DispatchGroup()
         var populateError: Error? = nil
 
@@ -336,7 +334,10 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         startTime = Date()
 
         group.notify(queue: .main) {
-            completion(populateError)
+            let error = populateError
+            Task { @MainActor in
+                completion(error)
+            }
         }
     }
 

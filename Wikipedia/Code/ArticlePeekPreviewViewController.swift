@@ -204,7 +204,7 @@ class ArticlePeekPreviewViewController: UIViewController {
         // Location action
         if let article,
            article.location != nil {
-            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
+            let placeActionTitle = CommonStrings.viewOnMapTitle
             let placeAction = UIAction(title: placeActionTitle, image: WMFSFSymbolIcon.for(symbol: .map), handler: { (action) in
                 self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
             })

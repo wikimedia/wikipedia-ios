@@ -13,21 +13,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
     private var _titleHTML: String? = nil
-    private var _titleBoldedString: String? = nil
 
     public var theme: Theme = Theme.standard
 
     private func updateTitleLabel() {
         if let titleHTML = _titleHTML {
-            let attributedTitle = NSMutableAttributedString.mutableAttributedStringFromHtml(titleHTML, styles: styles)
-            if let boldString = _titleBoldedString, let boldFont {
-                let boldUIFont = WMFFont.for(boldFont, compatibleWith: traitCollection)
-                let range = (attributedTitle.string as NSString).range(of: boldString, options: .caseInsensitive)
-                if range.location != NSNotFound {
-                    attributedTitle.addAttribute(.font, value: boldUIFont, range: range)
-                }
-            }
-            titleLabel.attributedText = attributedTitle
+            titleLabel.attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(titleHTML, styles: styles)
         } else {
             let titleFont = WMFFont.for(.callout, compatibleWith: traitCollection)
             titleLabel.font = titleFont
@@ -42,12 +33,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             _titleHTML = newValue
             updateTitleLabel()
         }
-    }
-
-    public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
-        _titleHTML = titleHTML
-        _titleBoldedString = boldedString
-        updateTitleLabel()
     }
 
     public var actions: [Action] {
@@ -91,7 +76,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     override open func reset() {
         super.reset()
         _titleHTML = nil
-        _titleBoldedString = nil
         updateStyles()
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
@@ -217,7 +201,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     public var styles: HtmlUtils.Styles!
-    public var boldFont: WMFFont!
     public var descriptionTextStyle: WMFFont!
     public var extractTextStyle: WMFFont!
     public var saveButtonTextStyle: WMFFont!

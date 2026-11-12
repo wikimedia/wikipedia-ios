@@ -20,6 +20,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let dataController: WMFActivityTabDataController
 
     @objc var disableModalsOnAppearance: Bool = false
+    private var yearInReviewDataStateTask: Task<Void, Never>?
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
@@ -41,6 +42,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(yearInReviewEntryPointNeedsUpdate), name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
 
         embedHostingController()
 
@@ -118,6 +120,44 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
+    
+    private static let yearInReviewEntryPointSource = "activity_tab_entry_point"
+
+    private func configureYearInReviewEntryPoint() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+            viewModel.yearInReviewViewModel = nil
+            return
+        }
+
+        if viewModel.yearInReviewViewModel == nil {
+            let yirViewModel = WMFActivityTabYearInReviewViewModel()
+            yirViewModel.onTap = { [weak self, weak yirViewModel] in
+                YearInReviewInstrument.shared.logClick(elementID: "get_started_button", actionSource: Self.yearInReviewEntryPointSource, personalized: yirViewModel?.isDataRich ?? false)
+                Task { @MainActor [weak self] in
+                    self?.requestPortraitOnIPad()
+                    await self?.yirCoordinator?.presentFeatureAnnouncementFromEntryPoint()
+                }
+            }
+            viewModel.yearInReviewViewModel = yirViewModel
+        }
+
+        // The data controller applies the developer settings override. Otherwise the local reading history decides.
+        yearInReviewDataStateTask?.cancel()
+        yearInReviewDataStateTask = Task { @MainActor [weak self, dataStore] in
+            let dataState = (try? await yirDataController.fetchDataState(mainPageIdentifier: dataStore)) ?? .lowData
+            guard !Task.isCancelled else { return }
+            self?.viewModel.yearInReviewViewModel?.isDataRich = dataState == .dataRich
+        }
+    }
+    
+    /// On iPad, asks the window to switch to portrait before Year in Review opens, so it does not
+    /// open in landscape first. The Year in Review screens keep it there while they are visible.
+    private func requestPortraitOnIPad() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+
+        view.window?.windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait)) { _ in }
+    }
 
     private func embedHostingController() {
         addChild(hostingController)
@@ -163,6 +203,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        markYearInReviewAsSeen()
+        logYearInReviewEntryPointImpression()
+
         reachabilityNotifier.start()
 
         if !reachabilityNotifier.isReachable {
@@ -190,7 +234,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode
 
         viewModel.updateID(userID: userID)
-        viewModel.updateYourImpactOnWikipediaSubtitle(CommonStrings.onLangWikipedia(with: primaryAppLanguageCode))
+        viewModel.updateYourImpactOnWikipediaSubtitle(WMFCommonStringsWrapper.onLangWikipedia(with: primaryAppLanguageCode))
         viewModel.getURL = getURL
 
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
@@ -210,8 +254,33 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
+    /// Logs an impression of the Year in Review card each time the Activity tab appears with it.
+    private func logYearInReviewEntryPointImpression() {
+        guard viewModel.yearInReviewViewModel != nil else { return }
+        // `isDataRich` is right only after the data state is read.
+        Task { @MainActor [weak self] in
+            await self?.yearInReviewDataStateTask?.value
+            guard let yirViewModel = self?.viewModel.yearInReviewViewModel else { return }
+            YearInReviewInstrument.shared.logImpression(actionSource: Self.yearInReviewEntryPointSource, personalized: yirViewModel.isDataRich)
+        }
+    }
+
+    private func markYearInReviewAsSeen() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
+              !yirDataController.hasTappedActivityTabAfterYiRReady else {
+            return
+        }
+        yirDataController.hasTappedActivityTabAfterYiRReady = true
+        NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+    }
+
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
+    }
+
+    @objc private func yearInReviewEntryPointNeedsUpdate() {
+        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {
@@ -318,6 +387,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
+        
+        configureYearInReviewEntryPoint()
 
         configureNavigationBar()
     }
@@ -486,6 +557,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 viewModel.fetchData()
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+            }
+            do {
+                try await WMFYearInReviewDataController().deletePersonalizedData(for: .readingHistory)
+            } catch {
+                DDLogError("Failure deleting Year in Review reading data: \(error)")
             }
         }
     }
@@ -876,7 +952,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             imageType: .plainX,
             target: self,
             action: #selector(closeTapped),
-            alignment: .trailing
+            alignment: .leading
         )
 
         configureNavigationBar(

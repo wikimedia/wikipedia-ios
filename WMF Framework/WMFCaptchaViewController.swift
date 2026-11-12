@@ -89,7 +89,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             assertionFailure("Unable to determine fullCaptchaImageURL")
             return
         }
-        captchaImageView.wmf_setImage(with: fullCaptchaImageURL, detectFaces: false, onGPU: false, failure: { (error) in
+        captchaImageView.wmf_setImage(with: fullCaptchaImageURL, detectFaces: false, failure: { (error) in
             
         }) { 
             
@@ -175,7 +175,12 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         
         WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
         
-        self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
+        guard let captchaBaseURL = captchaBaseURL() else {
+            assertionFailure("Expected a captcha site URL from the delegate")
+            return
+        }
+        
+        self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL, success: { result in
             DispatchQueue.main.async {
                 guard let previousCaptcha = self.captcha,
                 let previousCaptchaURL = previousCaptcha.classicInfo?.captchaURL else {

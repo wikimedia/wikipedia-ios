@@ -46,6 +46,13 @@ open class WMFComponentViewController: UIViewController {
         .store(in: &cancellables)
     }
 
+    // MARK: - Lifecycle
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+    }
+
     // MARK: - Subclass Overrides
 
     public func appEnvironmentDidChange() {

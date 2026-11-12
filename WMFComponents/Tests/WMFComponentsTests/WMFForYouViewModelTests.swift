@@ -308,4 +308,100 @@ final class WMFForYouViewModelTests: XCTestCase {
         XCTAssertEqual(WMFForYouModule.becauseYouRead.loggingId, "BecauseYouReadCard")
         XCTAssertEqual(WMFForYouModule.continueReading.loggingId, "ContinueReadingCard")
     }
+
+    // MARK: - Feed emptiness
+
+    /// `WMFHomeView` swaps the feed for the empty state on `isFeedEmpty`, so these pin down the
+    /// three ways a feed with data can still have nothing to show: no pages, every module turned
+    /// off, and every card hidden.
+
+    @MainActor
+    func testFeedWithVisibleModulesIsNotEmpty() {
+        let viewModel = twoModuleViewModel()
+
+        XCTAssertFalse(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testFeedWithNoPagesIsEmpty() {
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: [],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        )
+
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
+
+        XCTAssertTrue(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testFeedIsEmptyWhenEveryModuleIsTurnedOff() {
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: [interestPage(.architecture, ["A1"])],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: WMFForYouBecauseYouReadArticles(recentlyRead: article("Read"), articles: [article("B1")]),
+            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("C1"), fromReadingListArticles: [])
+        )
+
+        let viewModel = WMFForYouViewModel(
+            response: response,
+            moduleVisibility: WMFForYouModuleVisibility(basedOnInterests: false, becauseYouRead: false, continueReading: false),
+            summaryDataController: MockArticleSummaryDataController()
+        )
+
+        XCTAssertTrue(viewModel.isFeedEmpty, "The pages exist, but none of them may be shown")
+    }
+
+    @MainActor
+    func testFeedIsEmptyWhenEveryCardIsHidden() {
+        let viewModel = twoModuleViewModel()
+
+        viewModel.hiddenCardKeys = Set(cardKeys(of: viewModel))
+
+        XCTAssertTrue(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testTurningOffOneModuleKeepsTheOthers() {
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: [interestPage(.architecture, ["A1"])],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: WMFForYouBecauseYouReadArticles(recentlyRead: article("Read"), articles: [article("B1")]),
+            continueReadingArticles: nil
+        )
+
+        let viewModel = WMFForYouViewModel(
+            response: response,
+            moduleVisibility: WMFForYouModuleVisibility(basedOnInterests: false, becauseYouRead: true, continueReading: true),
+            summaryDataController: MockArticleSummaryDataController()
+        )
+
+        XCTAssertEqual(viewModel.visibleArticlesByPage.map { $0.page.module }, [.becauseYouRead])
+        XCTAssertFalse(viewModel.isFeedEmpty)
+    }
+
+    @MainActor
+    func testAModuleWithEveryCardHiddenLeavesTheFeed() {
+        let viewModel = twoModuleViewModel()
+        let firstPage = viewModel.pages[0]
+
+        viewModel.hiddenCardKeys = Set(firstPage.articleViewModels.map { $0.cardUniqueKey })
+
+        XCTAssertEqual(viewModel.visibleArticlesByPage.map { $0.page.id }, [viewModel.pages[1].id])
+        XCTAssertFalse(viewModel.isFeedEmpty, "One whole module is gone, but the other still shows")
+    }
+
+    @MainActor
+    func testAHiddenCardIsLeftOutButItsModuleStays() {
+        let viewModel = twoModuleViewModel()
+        let hiddenKey = viewModel.pages[0].articleViewModels[0].cardUniqueKey
+
+        viewModel.hiddenCardKeys = [hiddenKey]
+
+        let visible = viewModel.visibleArticlesByPage
+        XCTAssertEqual(visible.count, 2)
+        XCTAssertEqual(visible[0].articles.map { $0.cardUniqueKey }, [viewModel.pages[0].articleViewModels[1].cardUniqueKey])
+    }
 }

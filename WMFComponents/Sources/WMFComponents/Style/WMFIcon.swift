@@ -34,12 +34,14 @@ public enum WMFIcon {
     public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
     public static let settingsPreferences = UIImage(named: "settings-preferences", in: .module, with: nil)
     public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
-    public static let settingsPrivacy = UIImage(named: "settings-privacy.pdf", in: .module, with: nil)
+    public static let settingsPrivacy = UIImage(named: "settings-privacy", in: .module, with: nil)
 
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
     public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
     public static let share = UIImage(named: "swipe-action-share", in: .module, with: nil)
+    /// Three connected dots, from the Year in Review design. No SF Symbol has this shape.
+    static let yearInReviewShare = UIImage(named: "yir-share", in: .module, with: nil)
     public static let delete = UIImage(named: "swipe-action-delete", in: .module, with: nil)
 
     // Project icons
@@ -137,6 +139,7 @@ public enum WMFSFSymbolIcon {
     case leave
     case gear
     case booksVertical
+    case booksVerticalFill
     case creditCard
     case flask
     case gearShape
@@ -170,6 +173,7 @@ public enum WMFSFSymbolIcon {
     case widgetAdd
     case testTubeFill
     case clock
+    case clockFill
     case calendarBadgeClock
     case gameControllerFill
     case medal
@@ -178,14 +182,21 @@ public enum WMFSFSymbolIcon {
     case house
     case sliderHorizontal3
     case clockArrowCounterclockwise
+    case clockArrowTriangleheadCounterclockwiseRotate90
     case sparkles
     case xmarkCircle
     case docText
     case docOnDoc
     case chevronUpChevronDown
+    case listBulletRectanglePortrait
+    case arrowClockwise
+    case wrenchAdjustable
+    case squareGrid2x2
     case globe
     case newspaper
     case person2Fill
+    case handThumbsUp
+    case handThumbsDown
 
     public var name: String? {
         switch self {
@@ -370,6 +381,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "gear", withConfiguration: configuration)
         case .booksVertical:
             image = UIImage(systemName: "books.vertical", withConfiguration: configuration)
+        case .booksVerticalFill:
+            image = UIImage(systemName: "books.vertical.fill", withConfiguration: configuration)
         case .creditCard:
             image = UIImage(systemName: "creditcard", withConfiguration: configuration)
         case .flask:
@@ -440,6 +453,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "testtube.2", withConfiguration: configuration)
         case .clock:
             image = UIImage(systemName: "clock", withConfiguration: configuration)
+        case .clockFill:
+            image = UIImage(systemName: "clock.fill", withConfiguration: configuration)
         case .calendarBadgeClock:
             image = UIImage(systemName: "calendar.badge.clock", withConfiguration: configuration)
         case .gameControllerFill:
@@ -456,6 +471,13 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "slider.horizontal.3", withConfiguration: configuration)
         case .clockArrowCounterclockwise:
             image = UIImage(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90", withConfiguration: configuration)
+        case .clockArrowTriangleheadCounterclockwiseRotate90:
+            // The trianglehead symbol ships with iOS 18. Older systems get the closest symbol.
+            if #available(iOS 18, *) {
+                image = UIImage(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90", withConfiguration: configuration)
+            } else {
+                image = UIImage(systemName: "clock.arrow.circlepath", withConfiguration: configuration)
+            }
         case .starSquare:
             image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
         case .sparkles:
@@ -468,6 +490,14 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "doc.on.doc", withConfiguration: configuration)
         case .chevronUpChevronDown:
             image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
+        case .listBulletRectanglePortrait:
+            image = UIImage(systemName: "list.bullet.rectangle.portrait", withConfiguration: configuration)
+        case .arrowClockwise:
+            image = UIImage(systemName: "arrow.clockwise", withConfiguration: configuration)
+        case .wrenchAdjustable:
+            image = UIImage(systemName: "wrench.adjustable", withConfiguration: configuration)
+        case .squareGrid2x2:
+            image = UIImage(systemName: "square.grid.2x2", withConfiguration: configuration)
         case .globe:
             image = UIImage(systemName: "globe", withConfiguration: configuration)
         case .squareSplit:
@@ -476,6 +506,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "newspaper", withConfiguration: configuration)
         case .person2Fill:
             image = UIImage(systemName: "person.2.fill", withConfiguration: configuration)
+        case .handThumbsUp:
+            image = UIImage(systemName: "hand.thumbsup", withConfiguration: configuration)
+        case .handThumbsDown:
+            image = UIImage(systemName: "hand.thumbsdown", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

@@ -1,6 +1,6 @@
 {
   "commonv1": {
-    "yir": [
+    "yirv2": [
       {
         "year": 2025,
         "activeStartDate": "2025-12-01T00:00:00Z",
@@ -140,6 +140,7 @@
     }
   },
   "iosv1": {
+    "visualEditorEnabled": true,
     "hCaptcha": {
       "baseURL": "https://meta.wikimedia.org",
       "jsSrc": "https://assets-hcaptcha.wikimedia.org/1/api.js",
