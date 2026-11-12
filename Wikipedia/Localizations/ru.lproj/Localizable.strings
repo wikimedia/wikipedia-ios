@@ -313,8 +313,6 @@
 "clearing-cache-error" = "Ошибка при очистке кэша.";
 "clearing-cache-in-progress" = "В процессе очистки кэша.";
 "close-all-tabs" = "Закрыть все вкладки";
-"close-all-tabs-confirmation" = "Хотите закрыть все $1 вкладок? Это действие нельзя отменить.";
-"close-all-tabs-confirmation-number" = "Закрыть все $1 вкладок";
 "close-all-tabs-confirmation-subtitle-with-value" = "Хотите закрыть {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}? Это действие нельзя отменить.";
 "close-all-tabs-confirmation-title-with-value" = "Закрыть {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}?";
 "close-button-accessibility-label" = "Закрыть";
@@ -435,6 +433,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Нажмите дважды, чтобы включить автоматические ежемесячные пожертвования на эту сумму.";
 "donate-accessibility-textfield-hint" = "Введите произвольную сумму для пожертвования.";
 "donate-accessibility-transaction-fee-hint" = "Нажмите дважды, чтобы добавить комиссию за транзакцию к сумме пожертвования.";
+// Fuzzy
 "donate-already-donated" = "Спасибо за ваше пожертвование! Ваша поддержка помогает процветать Википедии и другим проектам, распространяющим свободные знания.";
 "donate-apple-fine-print" = "Apple не занимается сбором денег для этой цели.";
 "donate-email-opt-in-text" = "Да, Фонд Викимедиа может время от времени присылать мне электронные письма.";
@@ -1167,8 +1166,6 @@
 "reading-list-api-error-generic" = "При синхронизации списков для чтения произошла непредвиденная ошибка.";
 "reading-list-api-error-list-limit" = "Этот список не синхронизирован, потому что вы достигли лимита для количества синхронизированных списков.";
 "reading-list-create-new-list-button-title" = "Создать список для чтения";
-"reading-list-create-new-list-description" = "Описание";
-"reading-list-create-new-list-reading-list-name" = "Название списка для чтения";
 "reading-list-create-new-list-title" = "Создать новый список";
 "reading-list-deleted-accessibility-notification" = "Список для чтения удалён";
 "reading-list-detail-search-placeholder" = "Поиск в списке для чтения";
@@ -1189,7 +1186,9 @@
 "reading-list-list-limit-reached" = "Вы достигли ограничения в количестве списков для чтения ($1) на одну учётную запись";
 "reading-list-login-or-create-account-button-title" = "Войти или создать учётную запись";
 "reading-list-name-user-created-annotation" = "_[участник создан]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Необязательное краткое описание";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
 "reading-list-sync-disabled-panel-message" = "Синхронизация списков для чтения была выключена для вашей учётной записи на другом устройстве. Вы можете её включить снова в настройках.";
 "reading-list-sync-disabled-panel-title" = "Синхронизация отключена";

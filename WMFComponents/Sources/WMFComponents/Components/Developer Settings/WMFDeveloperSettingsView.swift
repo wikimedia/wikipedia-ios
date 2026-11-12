@@ -172,8 +172,8 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
-                captionedRow(caption: "Keeps Discover hidden in production while its user stories ship. Without this, no gate below is evaluated.") {
-                    Toggle("Enable Discover", isOn: $viewModel.enableDiscover)
+                captionedRow(caption: "Forces Discover on without the remote feature config. In production the remote key discoverExperimentEnabled turns it on. Without either, no gate below is evaluated.") {
+                    Toggle("Force Discover On", isOn: $viewModel.enableDiscover)
                 }
                 captionedRow(caption: "Overrides the persisted A/B bucket at read time. Switching it back to Off restores the persisted bucket.") {
                     Picker("Force Experiment Group", selection: $viewModel.forceDiscoverExperimentAssignment) {
@@ -197,15 +197,6 @@ struct WMFDeveloperSettingsView: View {
                     } label: {
                         Text("Reset onboarding card")
                             .foregroundStyle(Color(theme.link))
-                    }
-                }
-                // TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).
-                if let showDiscoverReadingList = viewModel.showDiscoverReadingList {
-                    captionedRow(caption: "Temporary entry point. Discover gets its own entry in the app when the feature is complete.") {
-                        Button(action: showDiscoverReadingList) {
-                            Text("Open Discover reading list")
-                                .foregroundStyle(Color(theme.link))
-                        }
                     }
                 }
             } header: {
@@ -301,6 +292,11 @@ struct WMFDeveloperSettingsView: View {
                 } label: {
                     Text("Reset counters")
                         .foregroundStyle(Color(theme.link))
+                }
+                if viewModel.showsAnalyticsInspectorToggle {
+                    captionedRow(caption: "Shows a floating pill with the last analytics event. Tap it to list, search and share every event since the app opened.", control: {
+                        Toggle("Show Analytics Inspector", isOn: $viewModel.showAnalyticsInspector)
+                    })
                 }
             } header: {
                 sectionHeader("Event Logging")

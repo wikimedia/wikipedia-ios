@@ -50,6 +50,19 @@ public struct WMFYearInReviewEndView: View {
     /// sky scrolled away from under them.
     private let onUsesLightContentChange: ((Bool) -> Void)?
 
+    /// The title of the button that shares the highlights. `nil` hides the button, for example in the
+    /// collective flow, which has no highlights.
+    private let shareHighlightsTitle: String?
+    /// Gets the frame of the button in global coordinates, so the share sheet on iPad points at it.
+    /// The closure reads the frame when it is called, not at the time of the tap.
+    private let onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)?
+
+    @State private var shareHighlightsButtonFrame: CGRect = .zero
+
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    /// The largest Dynamic Type size of the share highlights button title.
+    private static let shareHighlightsMaximumTypeSize: DynamicTypeSize = .accessibility2
+
     private static let scrollSpaceName = "yearInReviewEndScroll"
 
     /// The controls are dark on the light top of the sky. They become light when the part of the sky
@@ -60,10 +73,28 @@ public struct WMFYearInReviewEndView: View {
     /// The middle of the navigation bar is about this far above the bottom of `topInset`.
     private static let navigationBarHalfHeight: CGFloat = 22
 
-    public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0, onUsesLightContentChange: ((Bool) -> Void)? = nil) {
+    /// Called once for each pull down past the top by more than `pullDownDistance`. The pager does not
+    /// take drags on this screen, so this is how the reader goes back to the last slide.
+    private let onPullDownPastTop: (() -> Void)?
+
+    private static let pullDownDistance: CGFloat = 60
+
+    @State private var didReportPullDown = false
+
+    public init(
+        viewModel: WMFYearInReviewEndViewModel,
+        topInset: CGFloat = 0,
+        onUsesLightContentChange: ((Bool) -> Void)? = nil,
+        shareHighlightsTitle: String? = nil,
+        onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)? = nil,
+        onPullDownPastTop: (() -> Void)? = nil
+    ) {
         self.viewModel = viewModel
         self.topInset = topInset
         self.onUsesLightContentChange = onUsesLightContentChange
+        self.shareHighlightsTitle = shareHighlightsTitle
+        self.onShareHighlights = onShareHighlights
+        self.onPullDownPastTop = onPullDownPastTop
     }
 
     public var body: some View {
@@ -76,6 +107,9 @@ public struct WMFYearInReviewEndView: View {
                 ) { card in
                     cardView(card)
                 }
+                // The bounce below applies to all the scroll views inside. The carousel must not
+                // bounce up and down, or it takes the vertical drags.
+                .scrollBounceBehavior(.basedOnSize, axes: .vertical)
             }
             .padding(.bottom, 24)
             .background(alignment: .top) {
@@ -90,11 +124,11 @@ public struct WMFYearInReviewEndView: View {
         .coordinateSpace(name: Self.scrollSpaceName)
         .modifier(ScrollGeometryOffsetModifier { offset in
             updateUsesLightContent(scrollOffset: offset)
+            reportPullDown(scrollOffset: offset)
         })
-        // This scroll view is in the vertical pager. If the content fits, it does not bounce.
-        // Thus, a pull down goes to the pager, and the pager shows the last slide.
-        // This applies only to the vertical axis. The horizontal card carousel does not change.
-        .scrollBounceBehavior(.basedOnSize)
+        // The pager does not take drags on this screen. Thus, this scroll view always bounces,
+        // also when the content fits, so that a pull down at the top can go back to the last slide.
+        .scrollBounceBehavior(.always, axes: .vertical)
         .background(Color(uiColor: WMFYearInReviewEndViewModel.skyBottomColor).ignoresSafeArea())
     }
 
@@ -103,6 +137,15 @@ public struct WMFYearInReviewEndView: View {
         let controlsY = topInset - Self.navigationBarHalfHeight
         let usesLightContent = scrollOffset + controlsY > WMFYearInReviewEndViewModel.skyHeight * Self.lightContentSkyFraction
         onUsesLightContentChange?(usesLightContent)
+    }
+
+    private func reportPullDown(scrollOffset: CGFloat) {
+        if scrollOffset >= 0 {
+            didReportPullDown = false
+        } else if scrollOffset < -Self.pullDownDistance, !didReportPullDown {
+            didReportPullDown = true
+            onPullDownPastTop?()
+        }
     }
 
     // MARK: - Hero
@@ -153,6 +196,46 @@ public struct WMFYearInReviewEndView: View {
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
                 .padding(.top, 24)
+
+            if let shareHighlightsTitle {
+                shareHighlightsButton(title: shareHighlightsTitle)
+                    .padding(.top, 40)
+            }
+        }
+    }
+
+    private func shareHighlightsButton(title: String) -> some View {
+        Button {
+            onShareHighlights? { shareHighlightsButtonFrame }
+        } label: {
+            HStack(spacing: 10) {
+                Image(uiImage: WMFIcon.yearInReviewShare ?? UIImage())
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 15, height: 17)
+                Text(title)
+                    // Scales with Dynamic Type, the same as the body copy above, up to a cap so the button stays on the screen.
+                    .font(Font(WMFFont.for(.body, sized: min(dynamicTypeSize, Self.shareHighlightsMaximumTypeSize))))
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.horizontal, 20)
+        }
+        .buttonStyle(
+            CapsuleButtonStyle(
+                kind: .primary,
+                layout: .hug,
+                // Always light, so the colors do not change in dark mode: the link color on white text.
+                theme: WMFTheme.light,
+                // Large text and translations on two lines make the title taller than the default height.
+                growsWithContent: true
+            )
+        )
+        .onGeometryChange(for: CGRect.self) { proxy in
+            proxy.frame(in: .global)
+        } action: { frame in
+            shareHighlightsButtonFrame = frame
         }
     }
 
@@ -227,7 +310,7 @@ public struct WMFYearInReviewEndView: View {
     private func cardView(_ card: WMFYearInReviewEndViewModel.Card) -> some View {
         VStack(spacing: 18) {
             // The text shows in capital letters. VoiceOver reads the text as written.
-            Text(card.title.localizedUppercase)
+            Text(card.uppercasedTitle)
                 .accessibilityLabel(card.title)
                 .font(Font(cardTitleFont))
                 .foregroundColor(Color(uiColor: WMFTheme.light.text))
@@ -292,14 +375,14 @@ private struct ScrollOffsetKey: PreferenceKey {
 }
 
 
-/// EB Garamond for the body copy of the end screen. It is the file that the slides use (#6328).
-/// It is registered for this process the first time it is used.
-private enum WMFYearInReviewEndFont {
+/// EB Garamond for the body copy of the end screen and the highlights image. It is the file that
+/// the slides use (#6328). It is registered for this process the first time it is used.
+enum WMFYearInReviewEndFont {
 
-    private static let postScriptName = "EBGaramond-Regular"
+    private static let postScriptName = "EBGaramond-Medium"
 
     private static let isRegistered: Bool = {
-        guard let url = Bundle.module.url(forResource: "EBGaramond-Regular", withExtension: "ttf") else {
+        guard let url = Bundle.module.url(forResource: "EBGaramond-Medium", withExtension: "ttf") else {
             return false
         }
         // A font that is already registered gives an error, but `UIFont(name:size:)` still finds it.
@@ -313,5 +396,13 @@ private enum WMFYearInReviewEndFont {
             return WMFFont.for(.georgiaCallout, compatibleWith: traitCollection)
         }
         return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font, compatibleWith: traitCollection)
+    }
+
+    /// A fixed size that does not follow Dynamic Type, for images that are shared.
+    static func fixed(size: CGFloat) -> UIFont {
+        guard isRegistered, let font = UIFont(name: postScriptName, size: size) else {
+            return UIFont(name: "Georgia", size: size) ?? UIFont.systemFont(ofSize: size)
+        }
+        return font
     }
 }

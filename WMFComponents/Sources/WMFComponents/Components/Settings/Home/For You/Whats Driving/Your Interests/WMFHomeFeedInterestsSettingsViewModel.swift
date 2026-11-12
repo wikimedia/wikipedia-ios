@@ -46,39 +46,26 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     @Published public private(set) var searchLanguages: [WMFLanguage]
 
     private let dataController: WMFHomeDataController
-    private let injectedPageInterestDataController: WMFPageInterestDataController?
-    private var resolvedPageInterestDataController: WMFPageInterestDataController?
+    private let interestsStore: WMFInterestsStore
     private let searchDataController: WMFArticleSearchDataController
     private(set) var project: WMFProject
     private var fetchTask: Task<Void, Never>?
     private var searchTask: Task<Void, Never>?
 
     private static let maxGridArticles = 25
+    static let minimumSuggestedCards = 6
 
-    /// Resolved lazily: the Core Data store may not be ready when this view model is created
-    /// early in app launch (e.g. the onboarding coordinator builds it up front). Re-attempting
-    /// on each access until it succeeds means selections persist once the store is available,
-    /// rather than being silently dropped by a nil controller captured at init time.
-    private var pageInterestDataController: WMFPageInterestDataController? {
-        if let injectedPageInterestDataController {
-            return injectedPageInterestDataController
-        }
-        if let resolvedPageInterestDataController {
-            return resolvedPageInterestDataController
-        }
-        let controller = try? WMFPageInterestDataController()
-        resolvedPageInterestDataController = controller
-        return controller
-    }
-    
     // MARK: - App-side actions
     let logImpressionIfNeeded: (() -> Void)?
     let logDidTapTopic: () -> Void
     let logDidTapArticle: () -> Void
     let logDidTapDeselectAll: () -> Void
 
+    /// Pass `discoverInterestsStore` to edit the Discover interests. Without it the screen edits
+    /// the For You interests through `dataController` and `pageInterestDataController`.
     public init(dataController: WMFHomeDataController = WMFHomeDataController.shared,
                 pageInterestDataController: WMFPageInterestDataController? = nil,
+                discoverInterestsStore: WMFDiscoverInterestsStore? = nil,
                 searchDataController: WMFArticleSearchDataController = WMFArticleSearchDataController.shared,
                 project: WMFProject,
                 searchLanguages: [WMFLanguage] = [],
@@ -87,7 +74,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
                 logDidTapArticle: @escaping () -> Void,
                 logDidTapDeselectAll: @escaping () -> Void) {
         self.dataController = dataController
-        self.injectedPageInterestDataController = pageInterestDataController
+        self.interestsStore = discoverInterestsStore ?? WMFForYouInterestsStore(homeDataController: dataController, pageInterestDataController: pageInterestDataController)
         self.searchDataController = searchDataController
         self.project = project
 
@@ -100,8 +87,8 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         self.searchLanguages = resolvedSearchLanguages
         self.searchLanguage = resolvedSearchLanguages.first(where: { $0 == projectLanguage }) ?? resolvedSearchLanguages[0]
 
-        self.selectedTopics = dataController.interestTopics()
-        
+        self.selectedTopics = interestsStore.loadTopics()
+
         self.logImpressionIfNeeded = logImpressionIfNeeded
         self.logDidTapTopic = logDidTapTopic
         self.logDidTapArticle = logDidTapArticle
@@ -110,12 +97,17 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         Task { [weak self] in
             guard let self else { return }
             await loadSavedInterests()
-            if selectedTopics.isEmpty {
-                fetchRandomArticles()
-            } else if let topic = selectedTopics.last {
-                fetchArticles(for: topic)
-            }
+            reloadGrid()
         }
+    }
+
+    var subtitle: String? {
+        interestsStore.subtitle
+    }
+
+    /// Called by the view controller when the reader leaves the screen for good.
+    public func didLeave() {
+        interestsStore.didLeave(hasChanges: hasChanges)
     }
 
     /// Topics as displayed in the chips row: selected topics first, in the order they were
@@ -145,27 +137,21 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         } else {
             selectedTopics.append(topic)
         }
-        dataController.setInterestTopics(selectedTopics)
+        interestsStore.setTopics(selectedTopics)
         noteChanges()
-
-        if selectedTopics.isEmpty {
-            fetchRandomArticles()
-        } else if let topic = selectedTopics.last {
-            fetchArticles(for: topic)
-        }
+        reloadGrid()
     }
 
     /// Toggles the saved state of an article card in-place (no grid reorder).
     /// Saved articles float to the top only when the article list next reloads.
     func toggleArticleSelection(_ vm: WMFInterestArticleCardViewModel) {
         logDidTapArticle()
-        let cardProject = vm.project
         if vm.isSelected {
             vm.isSelected = false
-            Task { try? await pageInterestDataController?.removePageInterest(title: vm.title, project: cardProject) }
+            interestsStore.removePage(title: vm.title, project: vm.project)
         } else {
             vm.isSelected = true
-            Task { try? await pageInterestDataController?.addPageInterest(title: vm.title, project: cardProject) }
+            interestsStore.addPage(title: vm.title, project: vm.project)
         }
         recountSelectedArticles()
         noteChanges()
@@ -177,13 +163,11 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     func deselectAll() {
         logDidTapDeselectAll()
         selectedTopics = []
-        dataController.setInterestTopics([])
+        interestsStore.setTopics([])
 
         for card in gridViewModels where card.isSelected {
             card.isSelected = false
-            let cardProject = card.project
-            let cardTitle = card.title
-            Task { try? await pageInterestDataController?.removePageInterest(title: cardTitle, project: cardProject) }
+            interestsStore.removePage(title: card.title, project: card.project)
         }
         recountSelectedArticles()
         noteChanges()
@@ -219,11 +203,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             searchLanguage = language
         }
 
-        if selectedTopics.isEmpty {
-            fetchRandomArticles()
-        } else if let topic = selectedTopics.last {
-            fetchArticles(for: topic)
-        }
+        reloadGrid()
     }
 
     /// Adds a searched article to the selected interests.
@@ -243,8 +223,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             }
         } else {
             gridViewModels.insert(card, at: 0)
-            let cardTitle = card.title
-            Task { try? await pageInterestDataController?.addPageInterest(title: cardTitle, project: resultProject) }
+            interestsStore.addPage(title: card.title, project: resultProject)
         }
         recountSelectedArticles()
         noteChanges()
@@ -280,8 +259,10 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
                 let results = try await searchDataController.search(term: term, project: .wikipedia(language))
                 guard !Task.isCancelled else { return }
                 self.searchRows = results.map { result in
-                    let alreadySelected = self.gridViewModels.contains { $0.id == result.title.normalizedForCoreData && $0.isSelected }
-                    let card = WMFInterestArticleCardViewModel(searchResult: result, project: .wikipedia(language), isSelected: alreadySelected)
+                    let resultProject = WMFProject.wikipedia(language)
+                    let resultID = WMFInterestArticleCardViewModel.identifier(title: result.title, project: resultProject)
+                    let alreadySelected = self.gridViewModels.contains { $0.id == resultID && $0.isSelected }
+                    let card = WMFInterestArticleCardViewModel(searchResult: result, project: resultProject, isSelected: alreadySelected)
                     return SearchRow(id: result.pageID, result: result, card: card)
                 }
             } catch {
@@ -299,12 +280,12 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     }
 
     private func loadSavedInterests() async {
-        let interests = (try? await pageInterestDataController?.fetchAllPageInterests()) ?? []
+        let pages = await interestsStore.loadPages()
 
         var cards: [WMFInterestArticleCardViewModel] = []
         var seenIDs = Set<String>()
-        for interest in interests {
-            let card = WMFInterestArticleCardViewModel(pageInterest: interest, project: interest.project ?? project)
+        for page in pages {
+            let card = WMFInterestArticleCardViewModel(title: page.title, project: page.project ?? project, isSelected: true)
             guard seenIDs.insert(card.id).inserted else { continue }
             cards.append(card)
         }
@@ -313,17 +294,30 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         recountSelectedArticles()
     }
 
+    /// Articles for the last selected topic, or the default grid when no topic is selected.
+    private func reloadGrid() {
+        if let topic = selectedTopics.last {
+            fetchArticles(for: topic)
+        } else {
+            fetchSuggestedArticles()
+        }
+    }
+
     /// Rebuilds gridViewModels: currently selected VMs at top, then new random/topic articles, capped at maxGridArticles.
     /// Only called when the article list reloads — not on individual card selection.
     func buildGrid(from articles: [WMFRandomArticle]) {
-        let savedVMs = gridViewModels.filter { $0.isSelected }
-        let savedIDs = Set(savedVMs.map { $0.id })
-        let remainingSlots = max(0, Self.maxGridArticles - savedVMs.count)
-        let randomVMs = articles
-            .filter { !savedIDs.contains($0.title.normalizedForCoreData) }
-            .prefix(remainingSlots)
-            .map { WMFInterestArticleCardViewModel(article: $0, project: project) }
-        gridViewModels = savedVMs + randomVMs
+        gridViewModels = gridViewModels.filter { $0.isSelected }
+        appendToGrid(articles)
+    }
+
+    /// Adds articles the grid does not show yet, up to maxGridArticles.
+    private func appendToGrid(_ articles: [WMFRandomArticle]) {
+        var shownIDs = Set(gridViewModels.map { $0.id })
+        for article in articles where gridViewModels.count < Self.maxGridArticles {
+            let card = WMFInterestArticleCardViewModel(article: article, project: project)
+            guard shownIDs.insert(card.id).inserted else { continue }
+            gridViewModels.append(card)
+        }
     }
 
     func fetchRandomArticles() {
@@ -331,12 +325,49 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         isFetchingArticles = true
         fetchTask = Task { [weak self] in
             guard let self else { return }
-            do {
-                let articles = try await dataController.fetchRandomArticles(project: project)
+            await loadRandomArticles()
+            self.isFetchingArticles = false
+        }
+    }
+
+    private func loadRandomArticles() async {
+        do {
+            let articles = try await dataController.fetchRandomArticles(project: project)
+            guard !Task.isCancelled else { return }
+            buildGrid(from: articles)
+        } catch {
+            // TODO: Error state
+        }
+    }
+
+    /// No topic selected: the selected articles, then the store's suggestions. Random articles
+    /// fill the grid when fewer than `minimumSuggestedCards` are shown, so a new reader still has
+    /// something to pick. A store without suggestions gets random articles only.
+    func fetchSuggestedArticles() {
+        fetchTask?.cancel()
+        isFetchingArticles = true
+        fetchTask = Task { [weak self] in
+            guard let self else { return }
+            let suggestions = await interestsStore.suggestedPages()
+            guard !Task.isCancelled else { return }
+            guard let suggestions else {
+                await loadRandomArticles()
+                self.isFetchingArticles = false
+                return
+            }
+
+            gridViewModels = gridViewModels.filter { $0.isSelected }
+            var shownIDs = Set(gridViewModels.map { $0.id })
+            for suggestion in suggestions where gridViewModels.count < Self.maxGridArticles {
+                let card = WMFInterestArticleCardViewModel(title: suggestion.title, project: suggestion.project ?? project, isSelected: false)
+                guard shownIDs.insert(card.id).inserted else { continue }
+                gridViewModels.append(card)
+            }
+
+            if gridViewModels.count < Self.minimumSuggestedCards {
+                let articles = (try? await dataController.fetchRandomArticles(project: project)) ?? []
                 guard !Task.isCancelled else { return }
-                self.buildGrid(from: articles)
-            } catch {
-                // TODO: Error state
+                appendToGrid(articles)
             }
             self.isFetchingArticles = false
         }

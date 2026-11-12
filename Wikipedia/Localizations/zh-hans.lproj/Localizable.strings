@@ -85,6 +85,7 @@
 // Author: 王庭茂
 // Author: 神樂坂秀吉
 // Author: 科劳
+// Author: 薛定谔的呼噜猫
 // Author: 铁桶
 
 "about-content-license" = "内容许可协议";
@@ -108,6 +109,7 @@
 "about-translators-details" = "由$1的志愿者翻译";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "about-wikipedia" = "维基百科";
+"about-year-in-review-illustrations-attribution" = "由 Sharon Park 为维基媒体基金会创作的年度回顾插图";
 "account-creation-captcha-cannot-see-image" = "看不到图片？$1";
 "account-creation-captcha-obtaining" = "正在获取新验证码...";
 "account-creation-captcha-request-account" = "请申请账号。";
@@ -116,16 +118,16 @@
 "account-creation-have-account" = "已经拥有账号？$1";
 "account-creation-log-in" = "请登录。";
 "account-creation-logging-in" = "正在登录...";
-"account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后才能创建账号。";
+"account-creation-missing-fields" = "您必须输入用户名、密码，并再次确认密码后才能创建账号。";
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
 "account-creation-title" = "创建新账号";
 "account-group-title" = "您的账号";
 "account-request-vanishing" = "隐退账号";
-"account-talk-page-title" = "您的讨论页";
+"account-talk-page-title" = "讨论页";
 "account-talk-preferences-auto-sign-discussions" = "自动签名讨论";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "自动签名的讨论将使用签名设置中定义的签名";
-"account-talk-preferences-title" = "讨论页参数设置";
+"account-talk-preferences-title" = "讨论页偏好设置";
 "action-add-to" = "添加至…";
 "action-add-to-reading-list" = "添加至阅读列表";
 "action-add-to-reading-list-short" = "添加至列表";
@@ -222,6 +224,9 @@
 "activity-tab-very-satisfied" = "非常满意";
 "activity-tab-very-unsatisfied" = "非常不满意";
 "activity-tab-week-graph-label" = "周";
+"activity-tab-year-in-review-cta" = "开始";
+"activity-tab-year-in-review-data-rich-subtitle" = "重温您在维基百科上的时光。";
+"activity-tab-year-in-review-data-rich-title" = "您的年度回顾在此";
 "activity-tab-you-edited" = "您本周已编辑{{PLURAL:$1|$1}}次。";
 "activity-tab-you-read" = "您本周已阅读{{PLURAL:$1|$1}}篇条目。";
 "activity-tab-you-saved" = "您本周已保存{{PLURAL:$1|$1}}篇条目。";
@@ -323,8 +328,6 @@
 "clearing-cache-error" = "清除缓存时出错。";
 "clearing-cache-in-progress" = "正在清空缓存。";
 "close-all-tabs" = "关闭所有标签页";
-"close-all-tabs-confirmation" = "您是否要关闭所有 $1 个标签页？此操作无法取消。";
-"close-all-tabs-confirmation-number" = "关闭所有 $1 个标签页？";
 "close-all-tabs-confirmation-subtitle-with-value" = "您是否要关闭 {{PLURAL:$1|$1}} 个标签页？此操作无法取消。";
 "close-all-tabs-confirmation-title-with-value" = "关闭 {{PLURAL:$1|$1}} 个标签页？";
 "close-button-accessibility-label" = "关闭";
@@ -445,6 +448,7 @@
 "donate-accessibility-monthly-recurring-hint" = "双击以启用每月自动捐赠此金额。";
 "donate-accessibility-textfield-hint" = "输入自定义捐赠金额。";
 "donate-accessibility-transaction-fee-hint" = "双击以添加交易手续费至捐赠金额。";
+// Fuzzy
 "donate-already-donated" = "谢谢您，亲爱的捐赠者！您的慷慨解囊会帮助维基百科与其他自由知识项目网站蓬勃发展。";
 "donate-apple-fine-print" = "Apple不负责为此目的筹集资金。";
 "donate-email-opt-in-text" = "是的，维基媒体基金会可以偶尔向我发送电子邮件。";
@@ -1008,7 +1012,7 @@
 "notifications-center-language-project-name-format" = "$1$2";
 "notifications-center-login-notifications" = "登录通知";
 "notifications-center-mark" = "标记";
-"notifications-center-mark-all-as-read" = "标记所有为已读";
+"notifications-center-mark-all-as-read" = "全部标记为已读";
 "notifications-center-mark-all-as-read-confirmation-format" = "您确定要将您所有的 {{PLURAL:$1|$1条消息}} 标记为已读？这会将您所有设备上的通知都标记为已读。";
 "notifications-center-mark-all-as-read-missing-number" = "您确定要将您的所有消息都标记为已读？这会将您所有设备上的通知都标记为已读。";
 "notifications-center-mark-as-read" = "标记为已读";
@@ -1215,8 +1219,6 @@
 "reading-list-api-error-generic" = "同步您的阅读列表时发生意外错误。";
 "reading-list-api-error-list-limit" = "此列表未同步，因为您已达到同步列表的数量限制。";
 "reading-list-create-new-list-button-title" = "创建阅读列表";
-"reading-list-create-new-list-description" = "描述";
-"reading-list-create-new-list-reading-list-name" = "阅读列表名称";
 "reading-list-create-new-list-title" = "创建新列表";
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-detail-search-placeholder" = "搜索阅读列表";
@@ -1237,7 +1239,9 @@
 "reading-list-list-limit-reached" = "您已超过每账号$1个阅读列表限制";
 "reading-list-login-or-create-account-button-title" = "登录或创建账号";
 "reading-list-name-user-created-annotation" = "_[用户创建]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "可选简短描述";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "阅读列表标题";
 "reading-list-sync-disabled-panel-message" = "您的维基百科账号在另一台设备上的阅读列表同步已被禁用。您可以通过更新设置重新打开同步。";
 "reading-list-sync-disabled-panel-title" = "同步被禁用";
@@ -1318,6 +1322,8 @@
 "search-recent-empty" = "尚无最近搜索";
 "search-recent-title" = "最近搜索";
 "search-result-redirected-from" = "重定向自：$1";
+"search-semantic-entry-point-hidden-toast-title" = "模块已隐藏";
+"search-semantic-info-title" = "这是什么功能？";
 "search-title" = "搜索";
 "search-widget-announcement-body" = "将维基百科搜索小部件添加到您的主屏幕或锁屏，即可快速获取答案，一切尽在指尖。";
 "search-widget-announcement-title" = "有新的搜索小工具可用";

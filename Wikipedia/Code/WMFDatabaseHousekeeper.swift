@@ -13,25 +13,20 @@ import WMF
         
         let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController, cleanupLevel: cleanupLevel)
 
-        try deleteStaleAnnouncements(moc)
+        try deleteAnnouncements(moc)
 
         return urls
     }
     
-    private func deleteStaleAnnouncements(_ moc: NSManagedObjectContext) throws {
+    /// Delete the announcement groups that earlier app versions saved. The app does not show announcements.
+    private func deleteAnnouncements(_ moc: NSManagedObjectContext) throws {
         guard let announcementContentGroups = moc.orderedGroups(of: .announcement, with: nil) else {
             return
         }
-        let currentDate = Date()
         for announcementGroup in announcementContentGroups {
-            guard let announcement = announcementGroup.contentPreview as? WMFAnnouncement,
-                  let endDate = announcement.endTime,
-                  currentDate > endDate else {
-                continue
-            }
             moc.delete(announcementGroup)
         }
-        
+
         if moc.hasChanges {
             try moc.save()
         }

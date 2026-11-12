@@ -1,7 +1,14 @@
 name: Prepare simulator
-description: Warm CoreSimulator and expose the shared xcodebuild simulator destination.
+description: Select Xcode, warm CoreSimulator and expose the shared xcodebuild simulator destination.
 
 inputs:
+  xcode-version:
+    description: >-
+      Xcode version to select (e.g. "27.1" for /Applications/Xcode_27.1.app) before
+      listing simulators, since the runtimes on offer depend on the selected Xcode.
+      Optional: when empty, the runner's current Xcode is used.
+    required: false
+    default: ""
   ios-version:
     description: iOS simulator runtime version.
     required: true
@@ -17,6 +24,14 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Select Xcode
+      if: inputs.xcode-version != ''
+      shell: bash
+      env:
+        XCODE_VERSION: ${{ inputs.xcode-version }}
+      run: |
+        sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
     - name: List available simulators
       shell: bash
       run: |

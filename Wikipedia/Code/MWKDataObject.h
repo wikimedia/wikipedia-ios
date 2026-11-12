@@ -1,6 +1,6 @@
-#import <WMF/WMFMTLModel.h>
+#import <Foundation/Foundation.h>
 
-@interface MWKDataObject : WMFMTLModel
+@interface MWKDataObject : NSObject
 
 - (id)dataExport;
 

@@ -306,6 +306,22 @@
 			<string>%1$d weider Artikele</string>
 		</dict>
 	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Fannt %1$#@v1@ am Joresréckbléck beieneen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Äre Liesdag</string>
+			<key>other</key>
+			<string>Är %1$d Liesdeeg</string>
+		</dict>
+	</dict>
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -915,6 +931,68 @@
 			<string>%1$d Byte</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-biggest-reading-day-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dir hutt insgesamt %1$#@v1@ op Wikipedia verbruecht. Zimmlech produktiv, gell?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Minutt</string>
+			<key>other</key>
+			<string>%1$d Minutten</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-collective-hours-read-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Zesummegerechent, op alle Sproochen, hu Lieser wéi Dir geschat %1$#@v1@ mat Liesen op der Wikipedia verbruecht.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Joer</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-days-visited-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Är Aktivitéit hat hiren Héichpunkt am %1$@, wou Dir op %2$#@v2@ gelies hutt.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Dag</string>
+			<key>other</key>
+			<string>%2$d verschiddenen Deeg</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-intro-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Merci, datt Dir am Joer 2026 op %1$#@v1@ Är zouverléisseg Wikipedia-App benotzt hutt.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Dag</string>
+			<key>other</key>
+			<string>%1$d Deeg</string>
+		</dict>
+	</dict>
 	<key>year-in-review-2026-minutes-read-comparison-days</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -931,6 +1009,54 @@
 			<string>%1$d ganzer Deeg</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-most-time-article-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dir hutt am Joer Joer insgesamt %1$#@v1@ mat dësem Artikel verbruecht!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Minutt</string>
+			<key>other</key>
+			<string>%1$d Minutte</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-viewed-edited-articles-view-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Opruff</string>
+			<key>other</key>
+			<string>%1$d Opriff</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-rabbit-hole-reveal-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ déif – beandrockend.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Link</string>
+			<key>other</key>
+			<string>%1$d Linken</string>
+		</dict>
+	</dict>
 	<key>year-in-review-2026-reread-articles-visit-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -945,6 +1071,27 @@
 			<string>%1$d Opruff</string>
 			<key>other</key>
 			<string>%1$d Opriff</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-top-topic-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vu(n) %1$@ bis %2$@,  mat deem Theema ze dinn.</string>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Domat gehéiert Dir zu den Top %1$@ vun de Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest %2$#@v2@ am Joer.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Artikel</string>
+			<key>other</key>
+			<string>%2$d Artikelen</string>
 		</dict>
 	</dict>
 </dict>

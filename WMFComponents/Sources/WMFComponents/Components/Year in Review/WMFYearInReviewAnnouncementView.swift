@@ -50,7 +50,6 @@ public struct WMFYearInReviewAnnouncementView: View {
             numbers: viewModel.riveNumbers,
             accessibilityLabel: viewModel.localizedStrings.animationAccessibilityLabel,
             readBool: viewModel.lightContentFlag,
-            textFits: viewModel.textFits,
             onReadBool: { [weak viewModel] isLight in
                 viewModel?.didReadLightContentFlag(isLight)
             }

@@ -259,8 +259,6 @@
 "clearing-cache-error" = "Fejl under rydning af cache.";
 "clearing-cache-in-progress" = "Rydning af cache i gang.";
 "close-all-tabs" = "Luk alle faner";
-"close-all-tabs-confirmation" = "Vil du lukke alle $1 faner? Denne handling kan ikke fortrydes.";
-"close-all-tabs-confirmation-number" = "Luk alle $1 faner?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Vil du lukke {{PLURAL:$1|$1 fane|$1 faner}}? Denne handling kan ikke fortrydes.";
 "close-all-tabs-confirmation-title-with-value" = "Luk {{PLURAL:$1|$1 fane|$1 faner}}?";
 "close-button-accessibility-label" = "Luk";
@@ -374,6 +372,31 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1| $1 linje uredigeret| $1 linjer uredigeret}}";
 "diff-user-button-accessibility-text" = "Dobbelttryk for at åbne menuen";
 "dim-images" = "Mørklæg billeder";
+"discover-announcement-body" = "Din ugentlige læseliste med Wikipedia-artikler, der er skræddersyet til dig.";
+"discover-announcement-get-started" = "Kom i gang";
+"discover-announcement-new-tag" = "Ny";
+"discover-announcement-no-thanks" = "Nej tak";
+"discover-announcement-no-thanks-toast" = "For at oprette din anbefalede læseliste senere skal du gå til Indstillinger.";
+"discover-announcement-title" = "Opdag artikler udvalgt til dig";
+"discover-list-about" = "Om denne funktion";
+"discover-list-byline" = "Lavet for $1 • $2";
+"discover-list-byline-you" = "dig";
+"discover-list-customize" = "Tilpas Opdag";
+"discover-list-description-daily" = "Din daglige læseliste. Lær om nye emner, udvalgt specielt til dig. Opdateringer hver dag.";
+"discover-list-description-monthly" = "Din månedlige læseliste. Lær om nye emner, udvalgt specielt til dig. Opdateringer i begyndelsen af hver måned.";
+"discover-list-description-weekly" = "Din ugentlige læseliste. Lær om nye emner, udvalgt specielt til dig. Opdateringer i starten af ugen.";
+"discover-list-empty-message" = "Der er desværre ingen anbefalinger til dig på nuværende tidspunkt.";
+"discover-list-error-subtitle" = "Læselisten kunne ikke indlæses.";
+"discover-list-error-title" = "Netværksfejl";
+"discover-list-onboarding-toast-daily" = "{{PLURAL:$1|Opdag opdateres med $1 ny artikel hver dag|Opdag opdateres med $1 nye artikler hver dag}}. Dine anbefalinger gemmes lokalt på din enhed.";
+"discover-list-onboarding-toast-monthly" = "{{PLURAL:$1| Opdag opdateres med $1 ny artikel hver måned|Opdag opdateres med $1 nye artikler hver måned}}. Dine anbefalinger gemmes lokalt på din enhed.";
+"discover-list-onboarding-toast-weekly" = "{{PLURAL:$1| Opdag opdateres med $1 ny artikel hver uge|Opdag opdateres med $1 nye artikler hver uge}}. Dine anbefalinger gemmes lokalt på din enhed.";
+"discover-list-save-list" = "Gem liste";
+"discover-list-title" = "Opdag";
+"discover-setup-source-history" = "Vælg for mig baseret på min læsehistorik";
+"discover-setup-source-interests" = "Lad mig vælge ud fra mine interesser";
+"discover-setup-source-saved" = "Vælg for mig baseret på mine gemte artikler";
+"discover-setup-title" = "Hvordan skal vi opbygge din anbefalede læseliste?";
 "donate-accessibility-amount-button-hint" = "Tryk to gange for at vælge donationsbeløb.";
 "donate-accessibility-donate-hint-format" = "Tryk to gange for at donere $1 til Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Dobbelttryk for at give Wikimedia Foundation tilladelse til at sende dig en e-mail.";
@@ -381,7 +404,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tryk to gange for at aktivere automatiske månedlige donationer af dette beløb.";
 "donate-accessibility-textfield-hint" = "Indtast det beløb du ønsker at donere.";
 "donate-accessibility-transaction-fee-hint" = "Tryk to gange for at tilføje transaktionsgebyr til donationsbeløbet.";
-"donate-already-donated" = "Tak, kære donor! Din gavmildhed hjælper med at holde Wikipedia og dets søsterwebsteder i gang.";
+"donate-already-donated" = "Tak, kære donor! Din gavmildhed hjælper Wikipedia og andre frie vidensprojekter.";
 "donate-apple-fine-print" = "Apple er ikke ansvarlig for at rejse penge til dette formål.";
 "donate-email-opt-in-text" = "Ja, Wikimedia Foundation må gerne sende mig en lejlighedsvis e-mail.";
 "donate-help-frequently-asked-questions" = "Ofte stillede spørgsmål";
@@ -1198,8 +1221,6 @@
 "reading-list-api-error-generic" = "Der opstod en uventet fejl under synkronisering af dine læselister.";
 "reading-list-api-error-list-limit" = "Denne liste er ikke synkroniseret, da du har nået begrænsningen for antallet af synkroniserede lister.";
 "reading-list-create-new-list-button-title" = "Opret læseliste";
-"reading-list-create-new-list-description" = "Beskrivelse";
-"reading-list-create-new-list-reading-list-name" = "Navn på læseliste";
 "reading-list-create-new-list-title" = "Opret en ny liste";
 "reading-list-deleted-accessibility-notification" = "Læseliste slettet";
 "reading-list-detail-search-placeholder" = "Søge i læseliste";
@@ -1220,7 +1241,9 @@
 "reading-list-list-limit-reached" = "Du har nået grænsen på $1 læselister pr. konto";
 "reading-list-login-or-create-account-button-title" = "Log ind eller opret konto";
 "reading-list-name-user-created-annotation" = "_[bruger oprettet]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "valgfri kort beskrivelse";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titel på læseliste";
 "reading-list-sync-disabled-panel-message" = "Synkronisering af læselister er blevet deaktiveret for din Wikipedia-konto på en anden enhed. Du kan slå synkronisering til igen ved at opdatere dine indstillinger.";
 "reading-list-sync-disabled-panel-title" = "Synkronisering deaktiveret";
@@ -1309,6 +1332,9 @@
 "search-semantic-entry-point-hide-accessibility-label" = "Skjul søgning i artikler";
 "search-semantic-entry-point-info-accessibility-label" = "Om søgning i artikler";
 "search-semantic-entry-point-try-it-now" = "Prøv det nu";
+"search-semantic-info-sources" = "Passagerne er hentet fra artikler, som folk har undersøgt, skrevet og redigeret, og hver enkelt er understøttet af citerede kilder, som du selv kan tjekke.";
+"search-semantic-info-summary" = "Find svar på dine spørgsmål i Wikipedia-artikler og spring direkte til den relevante passage.";
+"search-semantic-info-title" = "Hvad er denne funktion?";
 "search-semantic-results-contributors" = "{{PLURAL:$1| $1 bidragyder| $1 bidragydere}}";
 "search-semantic-results-empty-title" = "Ingen resultater for denne søgning";
 "search-semantic-results-error-subtitle" = "Prøv venligst igen.";
@@ -1391,6 +1417,9 @@
 "settings-temp-accounts-talk-page-footer" = "Midlertidig konto udløber om 90 dage";
 "settings-title" = "Indstillinger";
 "settings-year-in-review-header" = "Hvis du slår Årsoversigt fra, ryddes alle gemte personlige indsigter, og Årsoversigten skjules.";
+"settings-year-in-review-turn-off-alert-cancel" = "Nej, tak";
+"settings-year-in-review-turn-off-alert-confirm" = "Ja, jeg er sikker";
+"settings-year-in-review-turn-off-alert-title" = "Er du sikker på, at du vil deaktivere Årsoversigt?";
 "share-a-fact-made-with" = "Lavet med Wikipediaprogrammet";
 "share-article-name-on-wikipedia" = "\"$1\" på Wikipedia:";
 "share-building" = "Bygger Del-et-fakt-kort …";
@@ -1594,6 +1623,10 @@
 "which-came-first-share-activity-text" = "Jeg spiller \"Hvad kom først?\", et quizspil i Wikipedia-appen til iOS https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
 "which-came-first-share-score-button" = "Del score";
 "which-came-first-share-score-summary" = "Jeg scorede $1/$2 på \"Hvad kom først?\" i dag.";
+"which-came-first-splash-about-button" = "Om dette spil";
+"which-came-first-splash-continue-button" = "Fortsæt dagens spil";
+"which-came-first-splash-review-button" = "Gennemgå resultater";
+"which-came-first-splash-subtitle" = "Gæt hvilken begivenhed der indtraf først på denne dag i historien.";
 "which-came-first-splash-title" = "Hvad kom først?";
 "which-came-first-submit-button" = "Send";
 "which-came-first-title" = "Hvad kom først?";

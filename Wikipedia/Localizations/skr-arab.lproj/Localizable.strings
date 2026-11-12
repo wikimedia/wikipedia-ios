@@ -129,6 +129,13 @@
 "diff-single-line-format" = "سطر $1";
 "diff-thanks-send-button-title" = "'شکریہ' بھیڄو";
 "dim-images" = "مدھم تصویر";
+"discover-announcement-get-started" = "شروع کرو";
+"discover-announcement-new-tag" = "نواں";
+"discover-announcement-no-thanks" = "کو، شکریہ";
+"discover-entry-card-unseen-list" = "نویں تندیر";
+"discover-list-error-title" = "نیٹ ورک خرابی";
+"discover-settings-cadence-daily" = "ہر روز";
+"discover-settings-turn-off-alert-confirm" = "بند کرو";
 "donation-reminder-wrap-up-survey-title" = "سروے";
 "edit-link-remove-link-title" = "لنک ہٹاؤ";
 "edit-link-title" = "روابط وچ ترمیم کرو";
@@ -375,7 +382,6 @@
 "project-name-wikiversity" = "وکی ورسٹی";
 "project-name-wikivoyage" = "وکی سیرسپاٹا";
 "project-name-wiktionary" = "وکشنری";
-"reading-list-create-new-list-description" = "تفصیل";
 "reading-list-create-new-list-title" = "نویں لسٹ بݨاؤ";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مضموناں دی چھانٹی کرو";
 "reading-lists-default-list-title" = "محفوظ";
@@ -509,4 +515,5 @@
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-2026-announcement-explore" = "پھلورو";
+"year-in-review-2026-highlights-rank" = "($1)";
 "yesterday-title" = "کل";

@@ -2,10 +2,11 @@ import Foundation
 import Combine
 import WMFData
 
+@MainActor
 public protocol WMFSavedAllArticlesLoggingDelegate: AnyObject {
-    @MainActor func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool)
-    @MainActor func savedAllArticlesDidTapOpenInNewTab()
-    @MainActor func savedAllArticlesDidTapShare(fromLongPress: Bool)
+    func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool)
+    func savedAllArticlesDidTapOpenInNewTab()
+    func savedAllArticlesDidTapShare(fromLongPress: Bool)
 }
 
 @MainActor
@@ -29,20 +30,21 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     @Published public var hasSelection = false
     @Published public var searchText: String = ""
     @Published public private(set) var sortOrder: WMFReadingListSortOrder = .byRecentlyAdded
-    /// Mirrors the shared Discover card so the list re-renders when the card is answered.
-    @Published public private(set) var isAnnouncementVisible = false
+    /// Mirrors the shared Discover header so the list re-renders when the card changes.
+    @Published public private(set) var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
     
     // MARK: - Properties
     
     private let dataController: WMFLegacyReadingListsDataController
-    /// The Discover onboarding card shown above the list. Shared with the Reading lists segment.
-    public var announcementViewModel: WMFDiscoverAnnouncementViewModel? {
-        didSet { bindAnnouncement() }
+    /// The Discover card shown above the list. Shared with the Reading lists segment.
+    public var discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel? {
+        didSet { bindDiscoverHeader() }
     }
-    private var announcementCancellable: AnyCancellable?
+    private var discoverHeaderCancellable: AnyCancellable?
     public weak var loggingDelegate: WMFSavedAllArticlesLoggingDelegate?
     
     private var rowViewModelCache: [String: WMFPageRowSavedViewModel] = [:]
+    private var loadTask: Task<Void, Never>?
     
     // MARK: - Closures
     
@@ -63,14 +65,18 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         self.dataController = dataController
         setupSearchBinding()
     }
+
+    deinit {
+        loadTask?.cancel()
+    }
     
-    private func bindAnnouncement() {
-        announcementCancellable = announcementViewModel?.$isVisible
-            .sink { [weak self] isVisible in
-                self?.isAnnouncementVisible = isVisible
+    private func bindDiscoverHeader() {
+        discoverHeaderCancellable = discoverHeaderViewModel?.$header
+            .sink { [weak self] header in
+                self?.discoverHeader = header
             }
-        if announcementViewModel == nil {
-            isAnnouncementVisible = false
+        if discoverHeaderViewModel == nil {
+            discoverHeader = nil
         }
     }
     
@@ -88,18 +94,18 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     // MARK: - Public Methods
     
     public func loadArticles() {
-        
-        // prevent duplicate loading
-        guard state != .loading else {
-            return
-        }
-        
-        Task {
+        loadTask?.cancel()
+        loadTask = Task { [weak self] in
+            guard let self else { return }
             let fetchedArticles = (try? await dataController.fetchSavedArticles()) ?? []
-            self.sortOrder = (try? await dataController.savedArticlesSortOrder()) ?? .byRecentlyAdded
+            let sortOrder = (try? await dataController.savedArticlesSortOrder()) ?? .byRecentlyAdded
+            let isSyncPending = fetchedArticles.isEmpty ? await dataController.isInitialSyncPending() : false
+            guard !Task.isCancelled else { return }
+
+            self.sortOrder = sortOrder
             self.articles = fetchedArticles
             self.filterArticles(with: self.searchText)
-            self.state = fetchedArticles.isEmpty ? .empty : .data
+            self.state = fetchedArticles.isEmpty ? (isSyncPending ? .loading : .empty) : .data
         }
     }
     

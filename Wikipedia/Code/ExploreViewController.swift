@@ -242,9 +242,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal)
 
-        navigationItem.backButtonDisplayMode = .minimal
+        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+
         navigationItem.backBarButtonItem?.accessibilityLabel = CommonStrings.exploreTabTitle
         
         let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))

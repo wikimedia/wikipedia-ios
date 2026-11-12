@@ -21,6 +21,43 @@ final class WMFDiscoverDataControllerTests {
     }
 
     @Test
+    func remoteFlagTurnsDiscoverOn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentEnabled: true)
+
+            #expect(controller.isEnabled)
+        }
+    }
+
+    @Test
+    func remoteFlagOffKeepsDiscoverOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentEnabled: false)
+
+            #expect(controller.isEnabled == false)
+        }
+    }
+
+    @Test
+    func remoteConfigWithoutTheFlagKeepsDiscoverOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentControlPercentage: 50)
+
+            #expect(controller.isEnabled == false)
+        }
+    }
+
+    @Test
+    func developerToggleForcesDiscoverOnOverTheRemoteFlag() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentEnabled: false)
+            WMFDeveloperSettingsDataController.shared.enableDiscover = true
+
+            #expect(controller.isEnabled)
+        }
+    }
+
+    @Test
     func announcementFollowsTheGroupBAssignment() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableDiscover = true
@@ -32,6 +69,23 @@ final class WMFDiscoverDataControllerTests {
 
             WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
             #expect(controller.shouldShowAnnouncement)
+        }
+    }
+
+    @Test
+    func turningDiscoverOnHidesTheAnnouncementWithoutDismissingIt() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableDiscover = true
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+
+            #expect(controller.shouldShowAnnouncement)
+
+            var settings = await WMFDiscoverReadingListDataController.shared.settings
+            settings.isEnabled = true
+            try await WMFDiscoverReadingListDataController.shared.saveSettings(settings)
+
+            #expect(controller.hasDismissedAnnouncement == false)
+            #expect(controller.shouldShowAnnouncement == false)
         }
     }
 
@@ -156,23 +210,29 @@ final class WMFDiscoverDataControllerTests {
 
         let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
 
+        #expect(config.ios.discoverExperimentEnabled == nil)
         #expect(config.ios.discoverExperimentControlPercentage == nil)
     }
 
     @Test
-    func featureConfigDecodesTheDiscoverControlPercentage() throws {
+    func featureConfigDecodesTheDiscoverKeys() throws {
         let json = Data("""
-        {"commonv1": {"yir": []}, "iosv1": {"discoverExperimentControlPercentage": 50}}
+        {"commonv1": {"yir": []}, "iosv1": {"discoverExperimentEnabled": true, "discoverExperimentControlPercentage": 50}}
         """.utf8)
 
         let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
 
+        #expect(config.ios.discoverExperimentEnabled == true)
         #expect(config.ios.discoverExperimentControlPercentage == 50)
     }
 
     private func saveRemoteControlPercentage(_ percentage: Int) throws {
+        try saveRemoteConfig(discoverExperimentControlPercentage: percentage)
+    }
+
+    private func saveRemoteConfig(discoverExperimentEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) throws {
         let sharedCacheStore = try #require(WMFDataEnvironment.current.sharedCacheStore)
-        let ios = WMFFeatureConfigResponse.IOS(hCaptcha: nil, discoverExperimentControlPercentage: percentage)
+        let ios = WMFFeatureConfigResponse.IOS(hCaptcha: nil, discoverExperimentEnabled: discoverExperimentEnabled, discoverExperimentControlPercentage: discoverExperimentControlPercentage)
         let config = WMFFeatureConfigResponse(common: WMFFeatureConfigResponse.Common(yir: []), ios: ios, cachedDate: Date())
         try sharedCacheStore.save(key: "Developer Settings", "AppsFeatureConfig", value: config)
     }

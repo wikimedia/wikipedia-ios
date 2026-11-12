@@ -18,6 +18,9 @@ public struct WMFRiveView: View {
     /// `false` keeps the animation on its first frame. A pager sets it only on the current page, so
     /// a page that is built off-screen does not play its intro before the reader sees it.
     private let isPlaying: Bool
+    /// `true` plays the animation also when Reduce Motion is on, for a small loading animation
+    /// that has no end state.
+    private let playsWithReduceMotion: Bool
     private let onReadBool: (@MainActor (Bool) -> Void)?
     private let onWatchedEvent: (@MainActor () -> Void)?
 
@@ -31,8 +34,8 @@ public struct WMFRiveView: View {
         accessibilityLabel: String? = nil,
         frameRate: Int? = nil,
         isPlaying: Bool = true,
+        playsWithReduceMotion: Bool = false,
         readBool: WMFRiveBool? = nil,
-        textFits: [WMFRiveTextFit] = [],
         onReadBool: (@MainActor (Bool) -> Void)? = nil,
         watchedTrigger: WMFRiveTrigger? = nil,
         missingImageFlags: [WMFRiveImage: WMFRiveBool] = [:],
@@ -46,6 +49,7 @@ public struct WMFRiveView: View {
         self.accessibilityLabel = accessibilityLabel
         self.frameRate = frameRate
         self.isPlaying = isPlaying
+        self.playsWithReduceMotion = playsWithReduceMotion
         self.onReadBool = onReadBool
         self.onWatchedEvent = onWatchedEvent
         _viewModel = StateObject(wrappedValue: WMFRiveAnimationViewModel(
@@ -56,8 +60,7 @@ public struct WMFRiveView: View {
             images: images,
             readBool: readBool,
             watchedTrigger: watchedTrigger,
-            missingImageFlags: missingImageFlags,
-            textFits: textFits
+            missingImageFlags: missingImageFlags
         ))
     }
 
@@ -66,7 +69,11 @@ public struct WMFRiveView: View {
             .onAppear {
                 // Before the load, so the first frame already has the layout direction.
                 viewModel.update(enums: enums)
+                viewModel.update(showsSettledState: showsSettledState)
                 viewModel.loadIfNeeded()
+            }
+            .onChange(of: showsSettledState) {
+                viewModel.update(showsSettledState: showsSettledState)
             }
             .onChange(of: environmentLayoutDirection) {
                 viewModel.update(enums: enums)
@@ -103,6 +110,12 @@ public struct WMFRiveView: View {
             }
     }
 
+    /// Not a pause: a paused view does not draw the images that arrive after the load, or the
+    /// changes after a tap.
+    private var showsSettledState: Bool {
+        !playsWithReduceMotion && (reduceMotion || !playAnimatedImages)
+    }
+
     private var enums: [WMFRiveEnum: String] {
         guard let layoutDirection else { return [:] }
         return [layoutDirection.property: layoutDirection.value(for: environmentLayoutDirection)]
@@ -111,9 +124,10 @@ public struct WMFRiveView: View {
     @ViewBuilder
     private var content: some View {
         if let accessibilityLabel {
+            // No image trait: with it, VoiceOver Image Descriptions reads the pixels after the label
+            // ("Screenshot" and text recognized from the glyphs).
             animationLayer
                 .accessibilityElement()
-                .accessibilityAddTraits(.isImage)
                 .accessibilityLabel(accessibilityLabel)
         } else {
             animationLayer
@@ -128,7 +142,7 @@ public struct WMFRiveView: View {
 
     private var representable: RiveUIViewRepresentable {
         var representable = RiveUIViewRepresentable(rive: viewModel.rive)
-            .paused(reduceMotion || !playAnimatedImages || !isPlaying)
+            .paused(!isPlaying)
 
         if let frameRate {
             representable = representable.frameRate(.fps(frameRate))
