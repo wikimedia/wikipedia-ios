@@ -50,6 +50,19 @@ public struct WMFYearInReviewEndView: View {
     /// sky scrolled away from under them.
     private let onUsesLightContentChange: ((Bool) -> Void)?
 
+    /// The title of the button that shares the highlights. `nil` hides the button, for example in the
+    /// collective flow, which has no highlights.
+    private let shareHighlightsTitle: String?
+    /// Gets the frame of the button in global coordinates, so the share sheet on iPad points at it.
+    /// The closure reads the frame when it is called, not at the time of the tap.
+    private let onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)?
+
+    @State private var shareHighlightsButtonFrame: CGRect = .zero
+
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    /// The largest Dynamic Type size of the share highlights button title.
+    private static let shareHighlightsMaximumTypeSize: DynamicTypeSize = .accessibility2
+
     private static let scrollSpaceName = "yearInReviewEndScroll"
 
     /// The controls are dark on the light top of the sky. They become light when the part of the sky
@@ -68,10 +81,19 @@ public struct WMFYearInReviewEndView: View {
 
     @State private var didReportPullDown = false
 
-    public init(viewModel: WMFYearInReviewEndViewModel, topInset: CGFloat = 0, onUsesLightContentChange: ((Bool) -> Void)? = nil, onPullDownPastTop: (() -> Void)? = nil) {
+    public init(
+        viewModel: WMFYearInReviewEndViewModel,
+        topInset: CGFloat = 0,
+        onUsesLightContentChange: ((Bool) -> Void)? = nil,
+        shareHighlightsTitle: String? = nil,
+        onShareHighlights: (@MainActor @Sendable (@escaping @MainActor @Sendable () -> CGRect) -> Void)? = nil,
+        onPullDownPastTop: (() -> Void)? = nil
+    ) {
         self.viewModel = viewModel
         self.topInset = topInset
         self.onUsesLightContentChange = onUsesLightContentChange
+        self.shareHighlightsTitle = shareHighlightsTitle
+        self.onShareHighlights = onShareHighlights
         self.onPullDownPastTop = onPullDownPastTop
     }
 
@@ -174,6 +196,46 @@ public struct WMFYearInReviewEndView: View {
                 .foregroundColor(Color(uiColor: WMFColor.white))
                 .multilineTextAlignment(.center)
                 .padding(.top, 24)
+
+            if let shareHighlightsTitle {
+                shareHighlightsButton(title: shareHighlightsTitle)
+                    .padding(.top, 40)
+            }
+        }
+    }
+
+    private func shareHighlightsButton(title: String) -> some View {
+        Button {
+            onShareHighlights? { shareHighlightsButtonFrame }
+        } label: {
+            HStack(spacing: 10) {
+                Image(uiImage: WMFIcon.yearInReviewShare ?? UIImage())
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 15, height: 17)
+                Text(title)
+                    // Scales with Dynamic Type, the same as the body copy above, up to a cap so the button stays on the screen.
+                    .font(Font(WMFFont.for(.body, sized: min(dynamicTypeSize, Self.shareHighlightsMaximumTypeSize))))
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.horizontal, 20)
+        }
+        .buttonStyle(
+            CapsuleButtonStyle(
+                kind: .primary,
+                layout: .hug,
+                // Always light, so the colors do not change in dark mode: the link color on white text.
+                theme: WMFTheme.light,
+                // Large text and translations on two lines make the title taller than the default height.
+                growsWithContent: true
+            )
+        )
+        .onGeometryChange(for: CGRect.self) { proxy in
+            proxy.frame(in: .global)
+        } action: { frame in
+            shareHighlightsButtonFrame = frame
         }
     }
 
@@ -313,9 +375,9 @@ private struct ScrollOffsetKey: PreferenceKey {
 }
 
 
-/// EB Garamond for the body copy of the end screen. It is the file that the slides use (#6328).
-/// It is registered for this process the first time it is used.
-private enum WMFYearInReviewEndFont {
+/// EB Garamond for the body copy of the end screen and the highlights image. It is the file that
+/// the slides use (#6328). It is registered for this process the first time it is used.
+enum WMFYearInReviewEndFont {
 
     private static let postScriptName = "EBGaramond-Medium"
 
@@ -334,5 +396,13 @@ private enum WMFYearInReviewEndFont {
             return WMFFont.for(.georgiaCallout, compatibleWith: traitCollection)
         }
         return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font, compatibleWith: traitCollection)
+    }
+
+    /// A fixed size that does not follow Dynamic Type, for images that are shared.
+    static func fixed(size: CGFloat) -> UIFont {
+        guard isRegistered, let font = UIFont(name: postScriptName, size: size) else {
+            return UIFont(name: "Georgia", size: size) ?? UIFont.systemFont(ofSize: size)
+        }
+        return font
     }
 }

@@ -456,8 +456,6 @@
 "reading-list-api-error-generic" = "Neatendita eraro okazis dum la sinkronigado de viaj legolistoj.";
 "reading-list-api-error-list-limit" = "Ĉi tiu listo ne estas sinkronigita, ĉar vi atingis la limon por la nombro de sinkronigitaj listoj.";
 "reading-list-create-new-list-button-title" = "Krei legoliston";
-"reading-list-create-new-list-description" = "Priskribo";
-"reading-list-create-new-list-reading-list-name" = "Nomo de la legolisto";
 "reading-list-create-new-list-title" = "Krei novan liston";
 "reading-list-deleted-accessibility-notification" = "Legolisto forigita";
 "reading-list-detail-search-placeholder" = "Serĉi tra legolisto";
@@ -478,7 +476,9 @@
 "reading-list-list-limit-reached" = "Vi atingis la limon de po $1 legolistoj por konto";
 "reading-list-login-or-create-account-button-title" = "Ensaluti aŭ krei novan konton";
 "reading-list-name-user-created-annotation" = "_[uzanto kreita]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "nedeviga mallonga priskribo";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titolo de la legolisto";
 "reading-list-sync-disabled-panel-message" = "La sinkronigado de legolistoj estas malŝaltita por via vikipedia konto je alia aparato. Vi povas reŝalti la sinkronigadon ĝisdatigante viajn agordojn.";
 "reading-list-sync-disabled-panel-title" = "Sinkronigado malŝaltita";

@@ -98,6 +98,13 @@ public struct WMFPageViewLink: Sendable {
     public let timestamp: Date
 }
 
+/// The time that the reader spent on one page view.
+public struct WMFPageViewReadingTime: Sendable {
+    public let page: WMFPage
+    public let timestamp: Date
+    public let numberOfSeconds: Int
+}
+
 public final class WMFLegacyPageView: Codable, @unchecked Sendable {
     public let title: String
     let project: WMFProject
@@ -401,6 +408,90 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
     }
 
+    /// A limit on the seconds of each stored page view with a timestamp before `date`.
+    public struct PageViewSecondsCap: Sendable {
+        public let maximumSeconds: Int
+        public let date: Date
+
+        public init(maximumSeconds: Int, before date: Date) {
+            self.maximumSeconds = maximumSeconds
+            self.date = date
+        }
+    }
+
+    /// Leaves out the seconds of a page's views from `startDate` up to, but not including, `endDate`, when
+    /// those views add up to more than `maximumSeconds` for that page. The total uses the stored seconds,
+    /// before any `PageViewSecondsCap`. The page still appears in the result, so it still counts as read.
+    public struct PageViewSecondsExclusion: Sendable {
+        public let startDate: Date
+        public let endDate: Date
+        public let maximumSeconds: Int
+
+        public init(from startDate: Date, upTo endDate: Date, maximumSeconds: Int) {
+            self.startDate = startDate
+            self.endDate = endDate
+            self.maximumSeconds = maximumSeconds
+        }
+
+        func contains(_ timestamp: Date) -> Bool {
+            timestamp >= startDate && timestamp < endDate
+        }
+    }
+
+    /// The total seconds spent on each page in the date range. A page can have more than one stored row,
+    /// so this groups them.
+    /// - Parameter cap: If set, each page view before `cap.date` adds at most `cap.maximumSeconds`.
+    ///   Use it to limit time that the measurement bug before July 2026 inflated. See `clampInflatedPageViewSecondsIfNeeded`.
+    /// - Parameter exclusion: If set, a page whose views in the exclusion range add up to too much time gets
+    ///   no seconds from those views. Its views outside that range still count.
+    public func fetchPageViewSeconds(startDate: Date, endDate: Date, cap: PageViewSecondsCap? = nil, exclusion: PageViewSecondsExclusion? = nil) async throws -> [WMFPage: Int] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            // Core Data cannot cap each row inside a grouped sum, so this fetches each row and adds them here.
+            // The page attributes come in the same request, so no page is faulted in one by one.
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = ["page.projectID", "page.title", "page.namespaceID", "numberOfSeconds", "timestamp"]
+
+            var secondsByPage: [WMFPage: Int] = [:]
+            // For each page, the stored seconds and the counted seconds of its views in the exclusion range.
+            var excludableStoredSecondsByPage: [WMFPage: Int] = [:]
+            var excludableCountedSecondsByPage: [WMFPage: Int] = [:]
+            for dict in try backgroundContext.fetch(request) {
+                guard let projectID = dict["page.projectID"] as? String,
+                      let title = dict["page.title"] as? String,
+                      let namespaceID = dict["page.namespaceID"] as? NSNumber else { continue }
+                let wmfPage = WMFPage(namespaceID: namespaceID.intValue, projectID: projectID, title: title)
+                let timestamp = dict["timestamp"] as? Date
+
+                // A page with no stored seconds still counts as a page read, with zero seconds.
+                let storedSeconds = Int((dict["numberOfSeconds"] as? NSNumber)?.int64Value ?? 0)
+                var seconds = storedSeconds
+                if let cap, let timestamp, timestamp < cap.date {
+                    seconds = min(seconds, cap.maximumSeconds)
+                }
+                secondsByPage[wmfPage, default: 0] += seconds
+
+                if let exclusion, let timestamp, exclusion.contains(timestamp) {
+                    excludableStoredSecondsByPage[wmfPage, default: 0] += storedSeconds
+                    excludableCountedSecondsByPage[wmfPage, default: 0] += seconds
+                }
+            }
+
+            if let exclusion {
+                for (page, storedSeconds) in excludableStoredSecondsByPage where storedSeconds > exclusion.maximumSeconds {
+                    secondsByPage[page, default: 0] -= excludableCountedSecondsByPage[page] ?? 0
+                }
+            }
+            return secondsByPage
+        }
+    }
+
+    /// The whole minutes of all page views in the date range, for every namespace and main pages too.
+    /// The Activity tab uses this. The Year in Review minutes read slide counts only articles, the same
+    /// pages as its total articles slide, so its value can be lower. See `YearInReviewReadCountSlideDataController.fetchReadData`.
     public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
@@ -514,6 +605,30 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
                     return nil
                 }
                 return WMFPageViewLink(id: id, previousID: result["previousPageView"] as? NSManagedObjectID, timestamp: timestamp)
+            }
+        }
+    }
+
+    /// The article page views inside the window that have reading time. The window includes
+    /// `startDate` and `endDate`. Main pages are not left out.
+    public func fetchArticleReadingTimes(startDate: Date, endDate: Date) async throws -> [WMFPageViewReadingTime] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && numberOfSeconds > 0 && page.namespaceID == 0", startDate as CVarArg, endDate as CVarArg)
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = ["timestamp", "numberOfSeconds", "page.projectID", "page.title", "page.namespaceID"]
+
+            return try backgroundContext.fetch(request).compactMap { result in
+                guard let timestamp = result["timestamp"] as? Date,
+                      let numberOfSeconds = result["numberOfSeconds"] as? Int64,
+                      let projectID = result["page.projectID"] as? String,
+                      let title = result["page.title"] as? String,
+                      let namespaceID = result["page.namespaceID"] as? Int16 else {
+                    return nil
+                }
+                return WMFPageViewReadingTime(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), timestamp: timestamp, numberOfSeconds: Int(numberOfSeconds))
             }
         }
     }

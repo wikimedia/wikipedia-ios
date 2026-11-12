@@ -286,8 +286,6 @@
 "clearing-cache-error" = "Fehler beim Leeren des Caches.";
 "clearing-cache-in-progress" = "Cache wird geleert.";
 "close-all-tabs" = "Alle Tabs schließen";
-"close-all-tabs-confirmation" = "Möchtest du alle $1 Tabs schließen? Dies kann nicht rückgängig gemacht werden.";
-"close-all-tabs-confirmation-number" = "Alle $1 Tabs schließen?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Möchtest du {{PLURAL:$1|$1 Tab|$1 Tabs}} schließen? Diese Aktion kann nicht rückgängig gemacht werden.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} schließen?";
 "close-button-accessibility-label" = "Schließen";
@@ -407,6 +405,29 @@
 "discover-announcement-no-thanks" = "Nein danke";
 "discover-announcement-no-thanks-toast" = "Du kannst deine empfohlene Leseliste später in den Einstellungen einrichten.";
 "discover-announcement-title" = "Entdecke für dich ausgewählte Artikel";
+"discover-list-about" = "Über diese Funktion";
+"discover-list-description-weekly" = "Deine wöchentliche Leseliste. Erfahre mehr über neue, für dich ausgewählte Themen. Sie wird am Anfang jeder Woche aktualisiert.";
+"discover-list-error-title" = "Netzwerkfehler";
+"discover-list-save-list" = "Liste speichern";
+"discover-list-title" = "Entdecken";
+"discover-settings-cadence-daily" = "Täglich";
+"discover-settings-cadence-monthly" = "Jeden Monat";
+"discover-settings-cadence-weekly" = "Wöchentlich";
+"discover-settings-interests-title" = "Interessen";
+"discover-settings-source-alert-adjust" = "Anpassen";
+"discover-settings-source-alert-message" = "Wenn du die Art und Weise änderst, wie Empfehlungen generiert werden, werden deine aktuellen Empfehlungen ersetzt.";
+"discover-settings-source-alert-never-mind" = "Egal";
+"discover-settings-source-changed-toast-history" = "Deine Empfehlungen basieren nun auf deiner Lesehistorie.";
+"discover-settings-source-changed-toast-interests" = "Deine Empfehlungen basieren nun auf deinen Interessen.";
+"discover-settings-source-changed-toast-saved" = "Deine Empfehlungen basieren nun auf deinen gespeicherten Artikeln.";
+"discover-settings-source-history" = "Basierend auf deinem Leseverlauf";
+"discover-settings-source-interests" = "Basierend auf deinen Interessen";
+"discover-settings-source-saved" = "Basierend auf deinen gespeicherten Artikeln";
+"discover-settings-turn-off-alert-confirm" = "Ausschalten";
+"discover-setup-source-history" = "Wähle basierend auf meinem Leseverlauf";
+"discover-setup-source-interests" = "Ich möchte basierend auf meinen Interessen wählen";
+"discover-setup-source-saved" = "Wähle anhand meiner gespeicherten Artikel";
+"discover-setup-title" = "Wie sollen wir deine empfohlene Leseliste erstellen?";
 "donate-accessibility-amount-button-hint" = "Doppeltippen, um den Spendenbetrag auszuwählen.";
 "donate-accessibility-donate-hint-format" = "Doppeltippen, um $1 an die Wikimedia Foundation zu spenden.";
 "donate-accessibility-email-opt-in-hint" = "Doppeltippen, um der Wikimedia Foundation die Erlaubnis zu geben, dir eine E-Mail zu senden.";
@@ -414,8 +435,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Doppeltippen, um automatische monatliche Spenden dieses Betrags zu aktivieren.";
 "donate-accessibility-textfield-hint" = "Gib den gewünschten Spendenbetrag ein.";
 "donate-accessibility-transaction-fee-hint" = "Doppeltippen, um die Transaktionsgebühr zum Spendenbetrag hinzuzufügen.";
-// Fuzzy
-"donate-already-donated" = "Vielen Dank für deine Spende! Deine Großzügigkeit trägt dazu bei, dass Wikipedia und ihre Schwesterprojekte weiter bestehen können.";
+"donate-already-donated" = "Vielen Dank, lieber Spender! Deine Großzügigkeit trägt dazu bei, dass Wikipedia und ihre Schwesterprojekte weiter bestehen können.";
 "donate-apple-fine-print" = "Apple ist nicht dafür zuständig, Geld für diesen Zweck zu sammeln.";
 "donate-email-opt-in-text" = "Ja, die Wikimedia Foundation kann mir gelegentlich eine E-Mail schicken.";
 "donate-help-frequently-asked-questions" = "Häufig gestellte Fragen";
@@ -1232,8 +1252,6 @@
 "reading-list-api-error-generic" = "Beim Synchronisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-api-error-list-limit" = "Diese Liste ist nicht synchronisiert, da du die Grenze für die Anzahl an synchronisierten Listen erreicht hast.";
 "reading-list-create-new-list-button-title" = "Leseliste erstellen";
-"reading-list-create-new-list-description" = "Beschreibung";
-"reading-list-create-new-list-reading-list-name" = "Name der Leseliste";
 "reading-list-create-new-list-title" = "Eine neue Liste erstellen";
 "reading-list-deleted-accessibility-notification" = "Leseliste gelöscht";
 "reading-list-detail-search-placeholder" = "Leseliste durchsuchen";
@@ -1254,7 +1272,9 @@
 "reading-list-list-limit-reached" = "Du hast die Grenze von $1 Leselisten pro Benutzerkonto erreicht";
 "reading-list-login-or-create-account-button-title" = "Anmelden oder Benutzerkonto erstellen";
 "reading-list-name-user-created-annotation" = "_[user created]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "optionale Kurzbeschreibung";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Titel der Leseliste";
 "reading-list-sync-disabled-panel-message" = "Die Synchronisierung von Leselisten wurden auf einem anderen Gerät für dein Wikipedia-Benutzerkonto deaktiviert. Du kannst die Synchronisierung erneut anschalten, indem du deine Einstellungen aktualisierst.";
 "reading-list-sync-disabled-panel-title" = "Synchronisierung deaktiviert";
@@ -1405,6 +1425,7 @@
 "settings-on" = "Ein";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet.";
+"settings-recommendations-header" = "Empfehlungen";
 "settings-search-footer-text" = "Konfiguriere die App so, dass beim Start der Suchreiter anstelle des Entdecken-Reiters angezeigt wird.";
 "settings-search-footer-text-home" = "Die App beim Öffnen den Reiter „Suchen“ statt „Start“ anzeigen lassen";
 "settings-search-open-app-on-search" = "App mit dem Suchreiter öffnen";
@@ -1428,6 +1449,9 @@
 "settings-temp-accounts-talk-page-footer" = "Das temporäre Konto läuft in 90 Tagen ab.";
 "settings-title" = "Einstellungen";
 "settings-year-in-review-header" = "Wenn du den Jahresrückblick deaktivierst, werden alle gespeicherten personalisierten Einblicke gelöscht und der Jahresrückblick ausgeblendet.";
+"settings-year-in-review-turn-off-alert-cancel" = "Nein danke";
+"settings-year-in-review-turn-off-alert-confirm" = "Ja, ich bin mir sicher";
+"settings-year-in-review-turn-off-alert-title" = "Bist du sicher, dass du den Jahresrückblick deaktivieren möchtest?";
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
 "share-article-name-on-wikipedia" = "„$1“ auf Wikipedia:";
 "share-building" = "Erstelle Teile-einen-Fakt-Karte …";
@@ -1797,7 +1821,6 @@
 "year-in-review-2026-games-card-subtitle" = "Stell dein Wikipedia-Wissen mit kurzen Spielen auf die Probe, inspiriert vom Wissen der Welt.";
 "year-in-review-2026-games-card-title" = "Bereit für die nächste Herausforderung?";
 "year-in-review-2026-highlights-articles-read" = "Anzahl gelesener Artikel:";
-// Fuzzy
 "year-in-review-2026-highlights-created-with" = "Erstellt mit der Wikipedia-App";
 "year-in-review-2026-highlights-minutes-read" = "Lesezeit in Minuten:";
 "year-in-review-2026-highlights-niche-category" = "Erkundete Nischenkategorie:";

@@ -125,8 +125,6 @@
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Resikin";
 "close-all-tabs" = "Sineb makasami tab";
-"close-all-tabs-confirmation" = "Napiké ragané jagi nyineb $1 tab makasami? Parilaksana puniki nénten prasida kawaliang.";
-"close-all-tabs-confirmation-number" = "Sineb $1 tab makasami?";
 "close-button-accessibility-label" = "Sineb";
 "close-tabs" = "Sineb tab";
 "compass-direction" = "ring pukul $1 tepet";

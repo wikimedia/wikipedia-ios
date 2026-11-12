@@ -22,7 +22,7 @@ struct WMFAppOnboardingLoadingView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 32)
 
-            WMFRiveView(viewModel.loadingAnimation)
+            WMFRiveView(viewModel.loadingAnimation, playsWithReduceMotion: true)
                 .frame(width: 200, height: 200)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

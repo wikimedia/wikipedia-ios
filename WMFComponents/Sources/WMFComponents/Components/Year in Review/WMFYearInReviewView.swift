@@ -122,6 +122,10 @@ public struct WMFYearInReviewView: View {
                         viewModel.endUsesLightContent = usesLightContent
                     }
                 },
+                shareHighlightsTitle: viewModel.showsShareHighlightsButton ? viewModel.localizedStrings.shareHighlightsButtonTitle : nil,
+                onShareHighlights: { sourceRect in
+                    viewModel.tappedShareHighlights(sourceRect: sourceRect)
+                },
                 onPullDownPastTop: {
                     goBackFromEnd()
                 }

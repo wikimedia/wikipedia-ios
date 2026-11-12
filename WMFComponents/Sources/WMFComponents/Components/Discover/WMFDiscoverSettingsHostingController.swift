@@ -32,6 +32,14 @@ public final class WMFDiscoverSettingsHostingController: WMFComponentHostingCont
         }
     }
 
+    /// After the transition, so a Back swipe that the reader cancels does not count as leaving.
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isMovingFromParent || isBeingDismissed || navigationController?.isBeingDismissed == true {
+            viewModel.leave()
+        }
+    }
+
     public override func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
         view.backgroundColor = theme.midBackground
@@ -43,7 +51,7 @@ public final class WMFDiscoverSettingsHostingController: WMFComponentHostingCont
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFDiscoverReadingListView.title, customView: nil, alignment: .centerCompact)
         configureNavigationBar(
             titleConfig: titleConfig,
-            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true),
+            backButtonConfig: WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal),
             closeButtonConfig: nil,
             profileButtonConfig: nil,
             tabsButtonConfig: nil,

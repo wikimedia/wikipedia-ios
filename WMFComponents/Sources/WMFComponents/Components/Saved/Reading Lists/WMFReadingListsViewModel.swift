@@ -2,10 +2,11 @@ import SwiftUI
 import Combine
 import WMFData
 
+@MainActor
 public protocol WMFReadingListsLoggingDelegate: AnyObject {
-    @MainActor func readingListsDidTapEdit()
-    @MainActor func readingListsDidDelete(count: Int)
-    @MainActor func readingListsDidFailToDelete(error: Error)
+    func readingListsDidTapEdit()
+    func readingListsDidDelete(count: Int)
+    func readingListsDidFailToDelete(error: Error)
 }
 
 @MainActor
