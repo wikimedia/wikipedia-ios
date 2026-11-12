@@ -174,6 +174,30 @@ struct WMFYearInReviewEndViewModelTests {
     }
 
     @Test
+    func theTopReadCardCapitalizesItsTitleInEnglish() throws {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, hasEnglishAppLanguage: true)
+        let card = try #require(viewModel.cards.first { $0.action == .topRead })
+        #expect(card.uppercasedTitle == "2026'S MOST-READ ARTICLES")
+    }
+
+    @Test
+    func aTitleWithAnEnglishLocaleKeepsTheDotlessCapitalI() {
+        // Turkish capitalizes "i" as "İ". The English locale keeps it "I", whatever the device locale.
+        let english = WMFYearInReviewEndViewModel.Card(id: "en", title: "articles", body: "", buttonTitle: "", action: .topRead, uppercaseLocale: Locale(identifier: "en"))
+        #expect(english.uppercasedTitle == "ARTICLES")
+        #expect("articles".uppercased(with: Locale(identifier: "tr")) == "ARTİCLES")
+    }
+
+    @Test
+    func aTranslatedTitleIsCapitalizedWithTheDeviceLocale() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true)
+        for card in viewModel.cards where card.action != .topRead {
+            #expect(card.uppercaseLocale == nil)
+            #expect(card.uppercasedTitle == card.title.localizedUppercase)
+        }
+    }
+
+    @Test
     func theTopReadCardCallsItsAction() {
         let viewModel = WMFYearInReviewEndViewModel(isContributor: false, hasEnglishAppLanguage: true)
         var tappedTopRead = 0

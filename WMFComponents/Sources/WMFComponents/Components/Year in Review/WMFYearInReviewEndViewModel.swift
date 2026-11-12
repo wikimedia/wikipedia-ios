@@ -18,6 +18,24 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
         public let body: String
         public let buttonTitle: String
         public let action: Action
+        public let uppercaseLocale: Locale?
+
+        init(id: String, title: String, body: String, buttonTitle: String, action: Action, uppercaseLocale: Locale? = nil) {
+            self.id = id
+            self.title = title
+            self.body = body
+            self.buttonTitle = buttonTitle
+            self.action = action
+            self.uppercaseLocale = uppercaseLocale
+        }
+
+        /// The title in capital letters, as the card shows it.
+        public var uppercasedTitle: String {
+            guard let uppercaseLocale else {
+                return title.localizedUppercase
+            }
+            return title.uppercased(with: uppercaseLocale)
+        }
     }
 
     // MARK: - Design colors
@@ -103,7 +121,8 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
                 title: topReadTitle,
                 body: topReadBody,
                 buttonTitle: topReadButtonTitle,
-                action: .topRead
+                action: .topRead,
+                uppercaseLocale: Locale(identifier: "en")
             ))
         }
         cards.append(Card(
