@@ -83,9 +83,16 @@ public final class WMFLocationSearchFetcher: NSObject {
                 let locationResults = results.map { MWKLocationSearchResult(result: $0, languageVariantCode: languageVariantCode) }
                 completion(WMFLocationSearchResults(searchSiteURL: siteURL, region: region, searchTerm: searchTerm, results: locationResults))
             } catch {
-                failure(error)
+                failure(WMFLocationSearchFetcher.failureError(for: error))
             }
         }
+    }
+
+    /// A network error reaches the caller as it is. Every other error, such as an API error body, becomes
+    /// the "No results found" error. The legacy fetcher did the same, and Places shows this error in a toast.
+    static func failureError(for error: Error) -> Error {
+        let nserror = error as NSError
+        return nserror.domain == NSURLErrorDomain ? error : noResultsError
     }
 
     private static var noResultsError: NSError {
