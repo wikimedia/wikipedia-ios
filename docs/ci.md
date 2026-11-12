@@ -92,7 +92,10 @@ also build every merge by itself. Setup for `xcode-cloud`:
 1. In Xcode Cloud, set Alpha Build's start condition to manual only. Check it still
    has its TestFlight Internal Testing post-action, and the
    `APPS_BOT_TOKEN` environment variable, which its tag script needs.
-2. Set its next build number above the highest `alphas/` tag.
+2. Set its next build number above the highest `alphas/` tag: App Store
+   Connect > the Alpha app > Xcode Cloud > Settings > Build Number. Only a person
+   can change it; Apple's API has no way to read or set it. If it is behind, the
+   lane fails within seconds of starting a build and says what to set it to.
 3. The App Store Connect API key in the `APP_STORE_*` secrets must have a role
    allowed to start Xcode Cloud builds. If the lane fails on `POST
    /v1/ciBuildRuns` with 403, that is why. To check the lookups without starting
@@ -103,6 +106,12 @@ To fall back, set `ALPHA_BUILDER` to `github`. Nothing in Xcode Cloud needs to
 change. Before switching back to `xcode-cloud`, raise Alpha Build's next build
 number above the highest `alphas/` tag again, because the GitHub path has used
 numbers that Xcode Cloud does not know about.
+
+When an Xcode Cloud build fails, the run doesn't send you to App Store Connect.
+The lane fetches the failed actions' errors and warnings and shows them as
+annotations on the run's summary page, with the source file where Xcode Cloud
+gives one. It also attaches their log bundles to the run as an
+`xcode-cloud-logs-<run id>` artifact, kept for 14 days.
 
 Cancelling a run on the Xcode Cloud path doesn't stop the Xcode Cloud build. It
 still uploads and tags; only the notes and Phabricator comments are lost.

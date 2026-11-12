@@ -310,6 +310,11 @@ jobs:
     timeout-minutes: 160
     env:
       BUNDLE_PATH: vendor/bundle
+      # Lanes run inside fastlane/, so this has to be absolute.
+      XCODE_CLOUD_LOGS_DIR: ${{ github.workspace }}/xcode-cloud-logs
+      # Keep fastlane's update notice and release notes out of the log.
+      FASTLANE_SKIP_UPDATE_CHECK: "true"
+      FASTLANE_HIDE_CHANGELOG: "true"
 
     steps:
       - uses: actions/checkout@v7
@@ -385,3 +390,14 @@ jobs:
           phab-task-urls: ${{ steps.notes.outputs.phab_task_urls }}
           version: ${{ steps.xcode_cloud.outputs.version }}
           build: ${{ steps.xcode_cloud.outputs.build }}
+
+      # When Xcode Cloud fails, the lane saves its log bundles here; the
+      # errors themselves are already annotations on this run.
+      - name: Attach Xcode Cloud logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: xcode-cloud-logs-${{ github.run_id }}
+          path: xcode-cloud-logs/
+          if-no-files-found: ignore
+          retention-days: 14

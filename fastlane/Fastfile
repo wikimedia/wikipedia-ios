@@ -164,10 +164,27 @@ platform :ios do
       next
     end
 
-    run = client.start_build_run(workflow_id: workflow_id, git_reference_id: reference_id)
-    UI.message("Started Xcode Cloud build #{run.dig('attributes', 'number')} (run #{run['id']})")
+    # Read before starting, so a tag the build pushes cannot count against it.
+    highest_tag = `git tag --list 'alphas/*'`.lines.map { |t| t.strip.delete_prefix("alphas/") }
+                                               .grep(/\A\d+\z/).map(&:to_i).max
 
-    run = client.wait_for_build_run(run["id"], timeout: 90 * 60)
+    run = client.start_build_run(workflow_id: workflow_id, git_reference_id: reference_id)
+    number = run.dig("attributes", "number")
+    UI.message("Started Xcode Cloud build #{number} (run #{run['id']})")
+
+    # Xcode Cloud numbers builds from its own counter, which only a person
+    # can change. If it is behind our tags, the build would archive and then
+    # fail pushing a tag that already exists - say so now, not ten minutes
+    # from now. The build already started cannot be stopped through the API.
+    if number && highest_tag && number.to_i <= highest_tag
+      UI.user_error!(
+        "Xcode Cloud assigned build #{number}, but alphas/#{highest_tag} already exists, so the build will fail at its tag push. " \
+        "Set the next build number above #{highest_tag} in App Store Connect > the Alpha app > Xcode Cloud > Settings > Build Number, then re-run. See docs/ci.md."
+      )
+    end
+
+    logs_dir = ENV["XCODE_CLOUD_LOGS_DIR"].to_s.empty? ? nil : ENV["XCODE_CLOUD_LOGS_DIR"]
+    run = client.wait_for_build_run(run["id"], timeout: 90 * 60, logs_dir: logs_dir)
     sha = run.dig("attributes", "sourceCommit", "commitSha")
     build = client.produced_build(run["id"])
     UI.success("Xcode Cloud built #{sha}: TestFlight #{build[:version]} (#{build[:build_number]})")

@@ -1,6 +1,7 @@
 require 'json'
 require 'net/http'
 require 'uri'
+require 'fileutils'
 
 # Starts and follows Xcode Cloud builds through the App Store Connect API, so
 # a GitHub Actions job on Linux can hand the archive to Xcode Cloud and still
@@ -16,11 +17,15 @@ module XcodeCloud
   class Error < StandardError; end
 
   class Client
-    def initialize(key_id:, issuer_id:, key:, log: ->(message) { puts(message) })
+    # log: progress messages. annotate: lines that must start at column 0
+    # to become GitHub annotations (::error::), so they bypass fastlane's
+    # timestamp prefix.
+    def initialize(key_id:, issuer_id:, key:, log: ->(message) { puts(message) }, annotate: ->(line) { $stdout.puts(line) })
       @key_id = key_id
       @issuer_id = issuer_id
       @key = key
       @log = log
+      @annotate = annotate
     end
 
     # ---- Lookups ----------------------------------------------------------
@@ -82,8 +87,10 @@ module XcodeCloud
     end
 
     # Returns the finished build run. Raises if it does not succeed or does
-    # not finish within timeout seconds.
-    def wait_for_build_run(id, timeout:, interval: 60, sleeper: ->(s) { sleep(s) }, clock: -> { Time.now })
+    # not finish within timeout seconds. On failure, the raised message
+    # carries the failed action and its first error (see failure_report),
+    # and log bundles are saved to logs_dir when one is given.
+    def wait_for_build_run(id, timeout:, interval: 60, logs_dir: nil, sleeper: ->(s) { sleep(s) }, clock: -> { Time.now })
       deadline = clock.call + timeout
       last_progress = nil
       loop do
@@ -98,8 +105,11 @@ module XcodeCloud
         if progress == "COMPLETE"
           status = attributes["completionStatus"]
           return run if status == "SUCCEEDED"
-          raise Error, "Xcode Cloud build #{attributes['number']} finished as #{status}. " \
-                       "See the build in App Store Connect > Xcode Cloud for the logs."
+          detail = failure_report(id, dir: logs_dir)
+          raise Error, "Xcode Cloud build #{attributes['number']} finished as #{status}" \
+                       "#{detail ? " - #{detail}" : ''}. " \
+                       "Errors are listed above#{logs_dir ? ' and the logs are attached to this run' : ''}; " \
+                       "the full build is in App Store Connect > Xcode Cloud."
         end
 
         if clock.call >= deadline
@@ -107,6 +117,47 @@ module XcodeCloud
         end
         sleeper.call(interval)
       end
+    end
+
+    # Explains a failed build run: for every action that did not succeed,
+    # emits its errors (and the first few warnings) as GitHub annotations,
+    # and downloads its log bundles into dir. Returns a one-line summary of
+    # the first failure, or nil.
+    #
+    # This runs while a failure is already being reported, so nothing in it
+    # may raise: each lookup that fails is logged and skipped, and the
+    # caller's error stands.
+    MAX_WARNINGS = 20
+    REPOSITORY_ROOT = "/Volumes/workspace/repository/"
+
+    def failure_report(run_id, dir: nil)
+      summary = nil
+      actions = safely("the build's actions") { paginate("/v1/ciBuildRuns/#{run_id}/actions", "limit" => "50") } || []
+      actions.each do |action|
+        attributes = action["attributes"] || {}
+        status = attributes["completionStatus"]
+        next if status == "SUCCEEDED"
+
+        name = attributes["name"] || attributes["actionType"] || action["id"]
+        @log.call("Xcode Cloud action #{name.inspect} finished as #{status}")
+
+        issues = safely("the issues for #{name}") { paginate("/v1/ciBuildActions/#{action['id']}/issues", "limit" => "200") } || []
+        errors, others = issues.partition { |i| %w[ERROR TEST_FAILURE].include?(i.dig("attributes", "issueType")) }
+        errors.each { |issue| annotate("error", name, issue) }
+        others.first(MAX_WARNINGS).each { |issue| annotate("warning", name, issue) }
+        if others.length > MAX_WARNINGS
+          @log.call("...and #{others.length - MAX_WARNINGS} more warnings")
+        end
+
+        first_error = errors.first&.dig("attributes", "message").to_s.lines.first&.strip
+        summary ||= first_error.to_s.empty? ? "#{name} #{status&.downcase}" : "#{name}: #{first_error}"
+
+        download_logs(action["id"], name, dir) if dir
+      end
+      summary
+    rescue StandardError => e
+      @log.call("Could not explain the failure: #{e.message}")
+      summary
     end
 
     # The TestFlight build a build run produced: its id, marketing version and
@@ -183,6 +234,64 @@ module XcodeCloud
     end
 
     private
+
+    def safely(what)
+      yield
+    rescue StandardError => e
+      @log.call("Could not fetch #{what}: #{e.message}")
+      nil
+    end
+
+    # One annotation per issue. GitHub reads these only at the start of a
+    # line, with %, CR and LF escaped in the message.
+    def annotate(level, action_name, issue)
+      attributes = issue["attributes"] || {}
+      message = attributes["message"].to_s
+      source = attributes["fileSource"] || {}
+      properties = ["title=Xcode Cloud: #{action_name}"]
+      path = source["path"].to_s
+      unless path.empty?
+        properties << "file=#{path.delete_prefix(REPOSITORY_ROOT)}"
+        properties << "line=#{source['lineNumber']}" if source["lineNumber"]
+      end
+      escaped = message.gsub("%", "%25").gsub("\r", "%0D").gsub("\n", "%0A")
+      @annotate.call("::#{level} #{properties.map { |p| p.gsub(',', '%2C').gsub('::', '%3A%3A') }.join(',')}::#{escaped}")
+    end
+
+    # Log bundles are behind pre-signed URLs, so they are fetched without the
+    # API token.
+    def download_logs(action_id, action_name, dir)
+      artifacts = safely("the artifacts for #{action_name}") { paginate("/v1/ciBuildActions/#{action_id}/artifacts", "limit" => "50") } || []
+      logs = artifacts.select { |a| a.dig("attributes", "fileType") == "LOG_BUNDLE" }
+      if logs.empty?
+        @log.call("No log bundle for #{action_name}")
+        return
+      end
+      FileUtils.mkdir_p(dir)
+      logs.each do |artifact|
+        attributes = artifact["attributes"]
+        url = attributes["downloadUrl"]
+        next if url.to_s.empty?
+        file_name = "#{action_name}-#{attributes['fileName'] || artifact['id']}".gsub(%r{[^\w.\-]+}, "_")
+        path = File.join(dir, file_name)
+        safely("the log bundle #{file_name}") do
+          fetch_to_file(URI(url), path)
+          @log.call("Saved #{file_name} (#{File.size(path)} bytes)")
+        end
+      end
+    end
+
+    def fetch_to_file(uri, path, redirects: 3)
+      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
+        http.request(Net::HTTP::Get.new(uri)) do |response|
+          if response.is_a?(Net::HTTPRedirection) && redirects.positive?
+            return fetch_to_file(URI(response["location"]), path, redirects: redirects - 1)
+          end
+          raise Error, "GET #{uri.host}#{uri.path} returned #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+          File.open(path, "wb") { |f| response.read_body { |chunk| f.write(chunk) } }
+        end
+      end
+    end
 
     # Yields each record when given a block (so the caller can stop early),
     # otherwise returns them all.
