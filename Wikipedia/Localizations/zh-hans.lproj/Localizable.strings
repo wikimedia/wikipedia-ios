@@ -85,6 +85,7 @@
 // Author: 王庭茂
 // Author: 神樂坂秀吉
 // Author: 科劳
+// Author: 薛定谔的呼噜猫
 // Author: 铁桶
 
 "about-content-license" = "内容许可协议";
@@ -108,6 +109,7 @@
 "about-translators-details" = "由$1的志愿者翻译";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "about-wikipedia" = "维基百科";
+"about-year-in-review-illustrations-attribution" = "由 Sharon Park 为维基媒体基金会创作的年度回顾插图";
 "account-creation-captcha-cannot-see-image" = "看不到图片？$1";
 "account-creation-captcha-obtaining" = "正在获取新验证码...";
 "account-creation-captcha-request-account" = "请申请账号。";
@@ -116,16 +118,16 @@
 "account-creation-have-account" = "已经拥有账号？$1";
 "account-creation-log-in" = "请登录。";
 "account-creation-logging-in" = "正在登录...";
-"account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后才能创建账号。";
+"account-creation-missing-fields" = "您必须输入用户名、密码，并再次确认密码后才能创建账号。";
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
 "account-creation-title" = "创建新账号";
 "account-group-title" = "您的账号";
 "account-request-vanishing" = "隐退账号";
-"account-talk-page-title" = "您的讨论页";
+"account-talk-page-title" = "讨论页";
 "account-talk-preferences-auto-sign-discussions" = "自动签名讨论";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "自动签名的讨论将使用签名设置中定义的签名";
-"account-talk-preferences-title" = "讨论页参数设置";
+"account-talk-preferences-title" = "讨论页偏好设置";
 "action-add-to" = "添加至…";
 "action-add-to-reading-list" = "添加至阅读列表";
 "action-add-to-reading-list-short" = "添加至列表";
@@ -222,6 +224,9 @@
 "activity-tab-very-satisfied" = "非常满意";
 "activity-tab-very-unsatisfied" = "非常不满意";
 "activity-tab-week-graph-label" = "周";
+"activity-tab-year-in-review-cta" = "开始";
+"activity-tab-year-in-review-data-rich-subtitle" = "重温您在维基百科上的时光。";
+"activity-tab-year-in-review-data-rich-title" = "您的年度回顾在此";
 "activity-tab-your-impact" = "您的影响";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
 "advanced-settings-title" = "高级设置";

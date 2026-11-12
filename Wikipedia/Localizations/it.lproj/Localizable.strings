@@ -1118,6 +1118,7 @@
 "wikitext-upload-save-anonymously-or-login" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1accedi$2 avrai maggiore privacy.";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "$1 {{PLURAL:$1|visualizzazione|visualizzazioni}}";
 "year-in-review-button-title" = "Anno in Rassegna";
 "year-in-review-feature-announcement-title-personalized" = "Esplora il tuo Anno in Rassegna su Wikipedia";
 "yesterday-title" = "Ieri";

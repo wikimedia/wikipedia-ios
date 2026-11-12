@@ -8,6 +8,7 @@
 // Author: Doraemonluonbentoi
 // Author: Flyplanevn27
 // Author: Harriettruong3
+// Author: HungKhanh0106
 // Author: KhangND
 // Author: Leducthn
 // Author: Macofe
@@ -237,7 +238,7 @@
 "diff-single-header-subtitle-bytes-added" = "$1 ký tự được thêm";
 "diff-single-header-subtitle-bytes-removed" = "$1 byte được xóa";
 "diff-single-header-summary-heading" = "Tóm lược sửa đổi";
-"diff-single-intro-title" = "Giới thiệu";
+"diff-single-intro-title" = "Mở đầu";
 "diff-single-line-format" = "Dòng $1";
 "diff-thanks-anonymous-no-thanks" = "Người dùng chưa đăng nhập không thể gửi lời cảm ơn";
 "diff-thanks-login-subtitle" = "Lời cảm ơn là một cách dễ dàng để thể hiện sự đánh giá cao đối với công việc của một người dùng trên Wikipedia. Bạn phải đăng nhập để gửi lời cảm ơn.";
@@ -253,6 +254,8 @@
 "diff-unedited-lines-format" = "$1 dòng chưa được sửa đổi";
 "diff-user-button-accessibility-text" = "Nhấn đúp để mở menu";
 "dim-images" = "Làm tối các hình ảnh";
+"discover-announcement-body" = "Danh sách bài viết Wikipedia hằng tuần được chọn lọc dành riêng cho bạn.";
+"discover-list-description-weekly" = "Danh sách đọc hằng tuần dành riêng cho bạn. Khám phá những chủ đề mới được chọn lọc phù hợp với sở thích của bạn. Danh sách được cập nhật vào đầu mỗi tuần.";
 "donate-payment-method-prompt-apple-pay-button-title" = "Quyên góp bằng Apple Pay";
 "donate-payment-method-prompt-message" = "Quyên góp bằng Apple Pay hoặc chọn phương thức thanh toán khác.";
 "donate-payment-method-prompt-other-button-title" = "Phương thức thanh toán khác";

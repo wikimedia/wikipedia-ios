@@ -4,6 +4,7 @@ public struct WMFGamesSplashScreenView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFGamesSplashScreenViewModel
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     public init(viewModel: WMFGamesSplashScreenViewModel) {
         self.viewModel = viewModel
@@ -24,18 +25,18 @@ public struct WMFGamesSplashScreenView: View {
                         Image(uiImage: viewModel.icon ?? UIImage())
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 44, height: 44)
+                            .frame(width: horizontalSizeClass == .regular ? 72 : 44, height: horizontalSizeClass == .regular ? 72 : 44)
                             .foregroundColor(Color(uiColor: WMFColor.white))
                             .padding(.bottom, 24)
 
                         Text(viewModel.title)
-                            .font(Font(WMFFont.for(.georgiaTitle1)))
+                            .font(horizontalSizeClass == .regular ? Font.custom("Georgia", size: 44) : Font(WMFFont.for(.georgiaTitle1)))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .padding(.bottom, 8)
 
                         Text(viewModel.subtitle)
-                            .font(Font(WMFFont.for(.body)))
+                            .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .title2 : .body)))
                             .foregroundColor(Color(uiColor: WMFColor.white))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 32)
@@ -63,6 +64,8 @@ public struct WMFGamesSplashScreenView: View {
                     .padding(.bottom, 24)
                 }
                 .frame(minHeight: UIScreen.main.bounds.height - 100)
+                .frame(maxWidth: horizontalSizeClass == .regular ? 750 : .infinity)
+                .frame(maxWidth: .infinity)
             }
         }
     }
