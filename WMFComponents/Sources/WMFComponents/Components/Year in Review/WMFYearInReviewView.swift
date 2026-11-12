@@ -138,6 +138,7 @@ public struct WMFYearInReviewView: View {
             WMFYearInReviewSlideView(
                 slide: slide,
                 isCurrent: slide.id == viewModel.currentSlideID,
+                loadsAnimation: loadsAnimation(slideID: slide.id),
                 onLightContentFlag: { lightContent in
                     viewModel.slideDidLoad(lightContent: lightContent, slideID: slide.id)
                 },
@@ -158,6 +159,15 @@ public struct WMFYearInReviewView: View {
                 .id(slide.id)
                 .accessibilityHidden(isHiddenFromVoiceOver(slide.id))
         }
+    }
+
+    /// While VoiceOver runs, the pager builds every slide. With all of them loaded, an iPhone 12
+    /// went over its memory limit (2 GB). So only the current slide and its neighbours load, as
+    /// in the lazy stack.
+    private func loadsAnimation(slideID: String) -> Bool {
+        guard voiceOverEnabled else { return true }
+        guard let index = viewModel.pageIDs.firstIndex(of: slideID) else { return false }
+        return abs(index - viewModel.currentPageIndex) <= 1
     }
 
     /// VoiceOver reaches only the current page. A one-finger swipe then goes from the page to the
