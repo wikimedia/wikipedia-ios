@@ -156,10 +156,6 @@ public protocol WMFArticleTabsDataControlling {
     
     // MARK: - Experiment
 
-    private func shouldAssignToBucketV2() -> Bool {
-        return experimentsDataController?.bucketForExperiment(.moreDynamicTabsV2) == nil
-    }
-    
     public var shouldShowMoreDynamicTabsV2: Bool {
         return true
     }
@@ -184,42 +180,6 @@ public protocol WMFArticleTabsDataControlling {
         return endDate >= Date()
     }
     
-    private func qualifiesForExperiment() -> Bool {
-        guard let primaryAppLanguageProject else {
-            return false
-        }
-        
-        return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
-    }
-
-    public func getMoreDynamicTabsExperimentAssignmentV2() throws -> MoreDynamicTabsExperimentAssignment {
-        
-        guard qualifiesForExperiment() else {
-            throw CustomError.doesNotQualifyForExperiment
-        }
-
-        let assignment: MoreDynamicTabsExperimentAssignment
-        assignment = .groupC
-        
-        self.assignmentCache = assignment
-        return assignment
-    }
-    
-    public func assignExperimentV2IfNeeded() throws -> MoreDynamicTabsExperimentAssignment {
-        guard qualifiesForExperiment() else {
-            throw CustomError.doesNotQualifyForExperiment
-        }
-        
-        guard isBeforeAssignmentEndDate else {
-            throw CustomError.pastAssignmentEndDate
-        }
-
-        let assignment: MoreDynamicTabsExperimentAssignment
-        assignment = .groupC
-        self.assignmentCache = assignment
-        return assignment
-    }
-
     public var moreDynamicTabsGroupCEnabled: Bool {
         return true
     }
@@ -556,10 +516,6 @@ public protocol WMFArticleTabsDataControlling {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue, value: seenCount)
     }
 
-    public func updateSurveyDataTappedLongPressFlag() {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue, value: true)
-    }
-    
     public func shouldShowSurvey() -> Bool {
         return false
     }

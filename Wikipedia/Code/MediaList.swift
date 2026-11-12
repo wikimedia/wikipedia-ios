@@ -19,10 +19,6 @@ public struct MediaListItemOriginal: Codable {
     enum CodingKeys: String, CodingKey {
         case source
     }
-
-    public init(source: String) {
-        self.source = source
-    }
 }
 
 public enum MediaListItemType: String, Codable {

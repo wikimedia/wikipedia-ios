@@ -80,10 +80,6 @@ class WMFEditorToolbarNavigatorButton: WMFComponentView {
         button?.addTarget(target, action: action, for: controlEvent)
     }
 
-    func removeTarget(_ target: Any?, action: Selector?, for controlEvent: UIControl.Event) {
-        button?.removeTarget(target, action: action, for: controlEvent)
-    }
-    
     // MARK: - Private Helpers
     
     private func createButtonConfig(image: UIImage? = nil) -> UIButton.Configuration {

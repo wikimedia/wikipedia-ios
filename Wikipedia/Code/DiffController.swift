@@ -92,16 +92,6 @@ class DiffController {
         }
     }
     
-    func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageRevision, Error>) -> Void)) {
-
-        guard let articleTitle = articleTitle.normalizedPageTitle else {
-            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
-            return
-        }
-        
-        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle, completion: completion)
-    }
-    
     struct DeepLinkModelsResponse {
         let from: WMFPageRevision?
         let to: WMFPageRevision?

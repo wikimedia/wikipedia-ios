@@ -163,12 +163,6 @@ import Foundation
 
 }
 
-// MARK: Types
-
-public enum WMFGrowthTaskType: String {
-    case imageRecommendation = "image-recommendation"
-}
-
 // MARK: Objective-C Helpers
 
 public extension WMFGrowthTasksDataController {

@@ -17,8 +17,6 @@
 @class WMFNotificationsController;
 @class WMFAuthenticationManager;
 
-@protocol ABTestsPersisting;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
