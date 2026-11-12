@@ -44,11 +44,13 @@ env:
 # Which machine archives the app is chosen by the ALPHA_BUILDER repository
 # variable (Settings > Secrets and variables > Actions > Variables):
 #
-# - unset or "github": build-github archives on a macOS runner, as before.
-# - "xcode-cloud": build-xcode-cloud starts the Xcode Cloud "Alpha Build"
-#   workflow through the App Store Connect API and waits for it on Linux, so
-#   no macOS runner is used. That Xcode Cloud workflow must be manual-start
-#   only, so this variable is the one switch between the two paths.
+# - unset or "xcode-cloud" (the default): build-xcode-cloud starts the Xcode
+#   Cloud "Alpha Build" workflow through the App Store Connect API and waits
+#   for it on Linux, so no macOS runner is used. That Xcode Cloud workflow
+#   must be manual-start only, so this variable is the one switch between the
+#   two paths.
+# - "github": the fallback. build-github archives on a macOS runner, as
+#   before Xcode Cloud.
 #
 # A manual run can override the variable for that run only with the builder
 # input, and builds the branch it is run from on either path. See docs/ci.md.
@@ -82,7 +84,7 @@ jobs:
             ALPHA_BUILDER="$BUILDER_INPUT"
           fi
 
-          case "${ALPHA_BUILDER:-github}" in
+          case "${ALPHA_BUILDER:-xcode-cloud}" in
             github) BUILDER=github ;;
             xcode-cloud) BUILDER=xcode-cloud ;;
             *)

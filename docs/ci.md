@@ -67,8 +67,8 @@ the one switch:
 
 | `ALPHA_BUILDER` | What happens on a merge |
 | --- | --- |
-| unset or `github` | The `build-github` job archives on a macOS runner. The build number is the highest `alphas/` tag + 1, and the job pushes the tag. |
-| `xcode-cloud` | The `build-xcode-cloud` job, on Linux, starts the Xcode Cloud **Alpha Build** workflow on `main` through the App Store Connect API (fastlane lane `xcode_cloud_alpha`, in [xcode_cloud.rb](../fastlane/xcode_cloud.rb)). It waits for the build, waits for TestFlight to process it, sets the What to Test notes and comments on Phabricator. Xcode Cloud sets the version and build number and pushes the `alphas/` tag itself (see below). No macOS runner is used. |
+| unset or `xcode-cloud` (the default) | The `build-xcode-cloud` job, on Linux, starts the Xcode Cloud **Alpha Build** workflow on `main` through the App Store Connect API (fastlane lane `xcode_cloud_alpha`, in [xcode_cloud.rb](../fastlane/xcode_cloud.rb)). It waits for the build, waits for TestFlight to process it, sets the What to Test notes and comments on Phabricator. Xcode Cloud sets the version and build number and pushes the `alphas/` tag itself (see below). No macOS runner is used. |
+| `github` | The fallback. The `build-github` job archives on a macOS runner. The build number is the highest `alphas/` tag + 1, and the job pushes the tag. |
 
 Both paths produce the same notes and Phabricator comments, from the
 [alpha-release-notes](../.github/actions/alpha-release-notes/action.yml) and
@@ -87,7 +87,8 @@ allows that branch.
 
 For the variable to be the only switch, the Xcode Cloud **Alpha Build**
 workflow's start condition must be **manual only**. Otherwise Xcode Cloud would
-also build every merge by itself. Setup for `xcode-cloud`:
+also build every merge by itself. Xcode Cloud is the default, so this setup has
+to be in place whenever `ALPHA_BUILDER` is unset:
 
 1. In Xcode Cloud, set Alpha Build's start condition to manual only. Check it still
    has its TestFlight Internal Testing post-action, and the
@@ -100,8 +101,6 @@ also build every merge by itself. Setup for `xcode-cloud`:
    allowed to start Xcode Cloud builds. If the lane fails on `POST
    /v1/ciBuildRuns` with 403, that is why. To check the lookups without starting
    a build, run the lane with `XCODE_CLOUD_LOOKUP_ONLY=true`.
-4. Set `ALPHA_BUILDER` to `xcode-cloud`.
-
 To fall back, set `ALPHA_BUILDER` to `github`. Nothing in Xcode Cloud needs to
 change. Before switching back to `xcode-cloud`, raise Alpha Build's next build
 number above the highest `alphas/` tag again, because the GitHub path has used
