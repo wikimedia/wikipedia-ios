@@ -310,7 +310,7 @@ public struct WMFYearInReviewEndView: View {
     private func cardView(_ card: WMFYearInReviewEndViewModel.Card) -> some View {
         VStack(spacing: 18) {
             // The text shows in capital letters. VoiceOver reads the text as written.
-            Text(card.title.localizedUppercase)
+            Text(card.uppercasedTitle)
                 .accessibilityLabel(card.title)
                 .font(Font(cardTitleFont))
                 .foregroundColor(Color(uiColor: WMFTheme.light.text))
