@@ -138,12 +138,47 @@ Release submission and wrap-up are covered by `V2 Submit App Store`, which
 submits a build already in TestFlight rather than building one, and
 `V2 Release Wrap Up`.
 
+`V2 Deploy Hotfix` builds the production app from a `hotfix/YYYY.MM.DD` branch,
+cut by `V2 Cut Hotfix Branch`, and uploads it to internal TestFlight only.
+
+#### Where hotfixes build: `RELEASE_BUILDER`
+
+`RELEASE_BUILDER` works like `ALPHA_BUILDER`, for the production app. Hotfix and
+Beta share it, because both build that app from the same Xcode Cloud workflow,
+**Beta Build**, and draw on its one build counter and the `betas/` tags.
+
+| `RELEASE_BUILDER` | What happens when `V2 Deploy Hotfix` runs |
+| --- | --- |
+| unset or `xcode-cloud` (the default) | The job runs on Linux. It starts Xcode Cloud's **Beta Build** on `hotfix/<version>` through the App Store Connect API (fastlane lane `xcode_cloud_release`). Xcode Cloud takes the version from the branch name, sets its own build number, uploads to internal TestFlight and pushes `betas/<build>`. The job then checks that the version came out as asked, sets the What to Test notes and creates or updates the hotfix task. No macOS runner is used. |
+| `github` | The fallback. The job runs on a macOS runner, archives with fastlane `internal_beta`, takes the highest `betas/` tag + 1 and pushes the tag itself. |
+
+The run's **builder** input overrides the variable for that run, and
+**lookup_only** checks the key, the Beta Build workflow and the hotfix branch
+without building.
+
+Beta Build must be set up for this before the variable is left unset:
+
+1. Start condition **manual only**, and allow manual builds of `hotfix/*` and
+   `release-candidate/*` branches.
+2. Post-action **TestFlight Internal Testing only**. A hotfix must never reach
+   external testers by itself.
+3. Environment variable `APPS_BOT_TOKEN`, holding the wmf-apps-ci token with
+   the `workflow` scope (see below). Without that scope, the tag push is refused
+   for any commit whose workflow files differ from `main`'s.
+4. Next build number above the highest `betas/` tag: App Store Connect > the
+   Wikipedia app > Xcode Cloud > Settings > Build Number. The lane fails within
+   seconds of starting a build if it is behind.
+
+Failures are reported on the run in the same way as for Alpha: errors as
+annotations, with log bundles attached.
+
 ### Xcode Cloud fallback
 
 Xcode Cloud has equivalent workflows named "Beta Build", "Alpha Build" and
 "Experimental Build". These are the fallback for when GitHub Actions is
-unavailable (except Alpha Build, which is the primary Alpha path when
-`ALPHA_BUILDER` is `xcode-cloud`, above), and they set version and build numbers and push tags using the same
+unavailable, except that Alpha Build and Beta Build are now the primary paths
+for Alpha and hotfixes when `ALPHA_BUILDER` and `RELEASE_BUILDER` are unset
+(above), and they set version and build numbers and push tags using the same
 prefixes as the table above, via [ci_pre_xcodebuild.sh](../ci_scripts/ci_pre_xcodebuild.sh),
 [ci_post_xcodebuild.sh](../ci_scripts/ci_post_xcodebuild.sh) and
 [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh).
@@ -164,11 +199,10 @@ Xcode Cloud in return. A stale value is not dangerous - App Store Connect
 rejects a duplicate build number, so the upload fails rather than two builds
 quietly sharing a number.
 
-Also note the version is always the current UTC date, from
-`date -u "+%Y.%m.%d"` in ci_pre_xcodebuild.sh. There is no way to pass one in.
-That is fine for Alpha and Experimental, but it means a fallback Beta build
-cannot target a release candidate's ship date - it will stamp today's instead,
-creating a second version alongside the cycle's in App Store Connect.
+The version is the current UTC date, from `date -u "+%Y.%m.%d"` in
+ci_pre_xcodebuild.sh, except for Beta Build on a `release-candidate/` or
+`hotfix/` branch, which takes the version from the branch name, so a release
+carries the date it is meant to ship.
 
 ## Relationship between wmf-apps-ci, GitHub Actions, and PR Status Checks
 
