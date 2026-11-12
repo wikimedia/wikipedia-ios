@@ -308,6 +308,8 @@ jobs:
     # Up to 90 minutes for the Xcode Cloud build, 15 for the TestFlight
     # build to appear and 45 for it to finish processing.
     timeout-minutes: 160
+    env:
+      BUNDLE_PATH: vendor/bundle
 
     steps:
       - uses: actions/checkout@v7
@@ -316,15 +318,16 @@ jobs:
           filter: blob:none
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Not bundler-cache: that installs from Gemfile.lock frozen, and the
-      # locked CFPropertyList needs Ruby < 3.2. A plain bundle install
-      # re-resolves the way the macOS jobs' does.
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-
+      # Uses the runner's preinstalled Ruby: the organisation only allows
+      # actions owned by wikimedia or GitHub, which rules out
+      # ruby/setup-ruby. A plain bundle install re-resolves the way the
+      # macOS jobs' does (the locked CFPropertyList needs Ruby < 3.2, so a
+      # frozen install would fail), into the workspace because the system
+      # gem directory needs sudo.
       - name: Install fastlane
-        run: bundle install
+        run: |
+          ruby -v
+          bundle install
 
       - name: Build on Xcode Cloud
         id: xcode_cloud
