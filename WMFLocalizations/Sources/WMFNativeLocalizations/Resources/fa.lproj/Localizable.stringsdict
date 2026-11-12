@@ -304,6 +304,146 @@
 			<string>%1$d سطر ویرایش نشدند</string>
 		</dict>
 	</dict>
+	<key>discover-list-onboarding-toast-daily</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>بخش کشف هر روز با %1$#@v1@ به‌روز می‌شود. پیشنهادهای شما به‌صورت محلی در دستگاهتان ذخیره می‌شوند.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مقالهٔ جدید</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-monthly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>بخش کشف هر ماه با %1$#@v1@ به‌روز می‌شود. پیشنهادهای شما به‌صورت محلی در دستگاهتان ذخیره می‌شوند.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مقالهٔ جدید</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-weekly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>بخش کشف هر هفته با %1$#@v1@ به‌روز می‌شود. پیشنهادهای شما به‌صورت محلی در دستگاهتان ذخیره می‌شوند.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مقالهٔ جدید</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>در تاریخ %1$@ از ما خواستید پس از خواندن %2$#@v2@، کمک مالی را به شما یادآوری کنیم. اگر ویکی‌پدیا به‌اندازهٔ %3$@ به دانش شما افزوده است، به آن 2%% از خوانندگان که کمک مالی می‌کنند بپیوندید و امروز به تعهد خود عمل کنید.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d مقاله</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>از زمانی که متعهد به پرداخت %2$@ شدید، %1$#@v1@ خوانده‌اید!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مقاله</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ خوانده‌اید!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مقالهٔ دیگر</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-activity-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ خود را در بخش فعالیت دوباره مرور کنید</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مطالعهٔ اخیر</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-saved-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ خود را همگام‌سازی کنید</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مقالهٔ ذخیره‌شدهٔ</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ خود را یکجا در مرور سال ببینید</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d روز مطالعهٔ</string>
+		</dict>
+	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مورد انتخاب شده</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -811,6 +951,34 @@
 			<string>مقالات</string>
 		</dict>
 	</dict>
+	<key>search-semantic-results-contributors</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d مشارکت‌کننده</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-references</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d منبع</string>
+		</dict>
+	</dict>
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -879,6 +1047,160 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d پالایه</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-biggest-reading-day-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>در مجموع %1$#@v1@ در ویکی‌پدیا وقت گذراندید. چه روز پرباری!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d دقیقه</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-collective-hours-read-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>خوانندگانی مانند شما در مجموع و به همهٔ زبان‌ها، حدود %1$#@v1@ را صرف خواندن ویکی‌پدیا کردند.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d سال</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-days-visited-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>اوج فعالیت شما در %1$@ بود که در %2$#@v2@ مطالعه کردید.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d روز متفاوت</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-intro-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>از اینکه در سال ۲۰۲۶، %1$#@v1@ را با برنامهٔ همیشگی ویکی‌پدیای خود گذراندید سپاسگزاریم.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d روز</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-minutes-read-comparison-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>این مدت از %1$#@v1@ هم بیشتر است.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d روز کامل</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-time-article-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>در طول سال ۲۰۲۶، در مجموع %1$#@v1@ را صرف این مقاله کردید!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d دقیقه</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-viewed-edited-articles-view-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d بازدید</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-rabbit-hole-reveal-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ پیش‌رفتن واقعاً چشمگیر است.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d پیوند</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-reread-articles-visit-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d بازدید</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-top-topic-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>از %1$@ تا %2$@، %3$#@v3@ به این موضوع مربوط بود.</string>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%3$d مقاله از مقاله‌های شما</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>این شما را در میان %1$@ برتر خوانندگان ویکی‌پدیا در جهان قرار می‌دهد. هر فرد به‌طور میانگین سالانه %2$#@v2@ می‌خواند.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d مقاله</string>
 		</dict>
 	</dict>
 </dict>
