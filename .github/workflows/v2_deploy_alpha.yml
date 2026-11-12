@@ -320,13 +320,21 @@ jobs:
 
       # Uses the runner's preinstalled Ruby: the organisation only allows
       # actions owned by wikimedia or GitHub, which rules out
-      # ruby/setup-ruby. A plain bundle install re-resolves the way the
-      # macOS jobs' does (the locked CFPropertyList needs Ruby < 3.2, so a
-      # frozen install would fail), into the workspace because the system
-      # gem directory needs sudo.
-      - name: Install fastlane
+      # ruby/setup-ruby. That Ruby is Ubuntu's package, which ships without
+      # the bundle command, so install the locked Bundler into the user gem
+      # directory (the system one needs sudo) and put it on the PATH.
+      - name: Install Bundler
         run: |
           ruby -v
+          gem install --user-install --no-document bundler -v "$(tail -1 Gemfile.lock | tr -d ' ')"
+          echo "$(ruby -e 'print Gem.user_dir')/bin" >> "$GITHUB_PATH"
+
+      # A plain bundle install re-resolves the way the macOS jobs' does (the
+      # locked CFPropertyList needs Ruby < 3.2, so a frozen install would
+      # fail), into the workspace via BUNDLE_PATH.
+      - name: Install fastlane
+        run: |
+          bundle -v
           bundle install
 
       - name: Build on Xcode Cloud
