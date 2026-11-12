@@ -55,9 +55,48 @@ review, so designers can sign off before a task goes through PR review.
 
 `V2 Deploy Alpha` builds the `Alpha` scheme. It currently points at test.wikipedia.org for donate, campaign, and feature configs.
 It builds on every merge into `main`, and skips the build when the latest
-commit is already tagged. Runs are serialized, because the build number comes
-from the highest `alphas/` tag and that tag is not pushed until the run
-finishes.
+commit is already tagged. Runs are serialized, and GitHub keeps only the newest
+pending run, so a burst of merges collapses into one build.
+
+#### Where Alpha builds: `ALPHA_BUILDER`
+
+Alpha is our most frequent build, and it lands during peak developer hours, so
+it can be moved off our macOS runners and onto Xcode Cloud. The `ALPHA_BUILDER`
+repository variable (Settings > Secrets and variables > Actions > Variables) is
+the one switch:
+
+| `ALPHA_BUILDER` | What happens on a merge |
+| --- | --- |
+| unset or `github` | The `build-github` job archives on a macOS runner. The build number is the highest `alphas/` tag + 1, and the job pushes the tag. |
+| `xcode-cloud` | The `build-xcode-cloud` job, on Linux, starts the Xcode Cloud **Alpha Build** workflow on `main` through the App Store Connect API (fastlane lane `xcode_cloud_alpha`, in [xcode_cloud.rb](../fastlane/xcode_cloud.rb)). It waits for the build, waits for TestFlight to process it, sets the What to Test notes and comments on Phabricator. Xcode Cloud sets the version and build number and pushes the `alphas/` tag itself (see below). No macOS runner is used. |
+
+Both paths produce the same notes and Phabricator comments, from the
+[alpha-release-notes](../.github/actions/alpha-release-notes/action.yml) and
+[alpha-phabricator-comments](../.github/actions/alpha-phabricator-comments/action.yml)
+actions. On the Xcode Cloud path the workflow can only build `main`: a dispatch
+from another branch fails rather than building `main` quietly.
+
+For the variable to be the only switch, the Xcode Cloud **Alpha Build**
+workflow's start condition must be **manual only**. Otherwise Xcode Cloud would
+also build every merge by itself. Setup for `xcode-cloud`:
+
+1. In Xcode Cloud, set Alpha Build's start condition to manual only. Check it still
+   has its TestFlight Internal Testing post-action, and the
+   `APPS_BOT_TOKEN` environment variable, which its tag script needs.
+2. Set its next build number above the highest `alphas/` tag.
+3. The App Store Connect API key in the `APP_STORE_*` secrets must have a role
+   allowed to start Xcode Cloud builds. If the lane fails on `POST
+   /v1/ciBuildRuns` with 403, that is why. To check the lookups without starting
+   a build, run the lane with `XCODE_CLOUD_LOOKUP_ONLY=true`.
+4. Set `ALPHA_BUILDER` to `xcode-cloud`.
+
+To fall back, set `ALPHA_BUILDER` to `github`. Nothing in Xcode Cloud needs to
+change. Before switching back to `xcode-cloud`, raise Alpha Build's next build
+number above the highest `alphas/` tag again, because the GitHub path has used
+numbers that Xcode Cloud does not know about.
+
+Cancelling a run on the Xcode Cloud path doesn't stop the Xcode Cloud build. It
+still uploads and tags; only the notes and Phabricator comments are lost.
 
 `V2 Deploy Beta` builds the production app from a `release-candidate/YYYY.MM.DD`
 branch. Unlike the other two it does not use the current date: dispatch it with
@@ -86,7 +125,8 @@ submits a build already in TestFlight rather than building one, and
 
 Xcode Cloud has equivalent workflows named "Beta Build", "Alpha Build" and
 "Experimental Build". These are the fallback for when GitHub Actions is
-unavailable, and they set version and build numbers and push tags using the same
+unavailable (except Alpha Build, which is the primary Alpha path when
+`ALPHA_BUILDER` is `xcode-cloud`, above), and they set version and build numbers and push tags using the same
 prefixes as the table above, via [ci_pre_xcodebuild.sh](../ci_scripts/ci_pre_xcodebuild.sh),
 [ci_post_xcodebuild.sh](../ci_scripts/ci_post_xcodebuild.sh) and
 [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh).

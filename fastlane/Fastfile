@@ -1,4 +1,5 @@
 require 'json'
+require_relative 'xcode_cloud'
 
 default_platform(:ios)
 
@@ -113,6 +114,81 @@ platform :ios do
     )
 
     cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 1c: Alpha on Xcode Cloud (v2_deploy_alpha, ALPHA_BUILDER=xcode-cloud)
+  #
+  # Runs on Linux. Starts the Xcode Cloud "Alpha Build" workflow on main
+  # through the App Store Connect API and waits for it, so the archive never
+  # takes a macOS runner. That workflow keeps its own start condition set to
+  # manual: only this lane starts it, so the ALPHA_BUILDER repository variable
+  # is the one switch between the two paths.
+  #
+  # Xcode Cloud owns the build number (CI_BUILD_NUMBER, set by
+  # ci_scripts/ci_pre_xcodebuild.sh) and pushes the alphas/ tag itself
+  # (ci_scripts/tag_script_xcodebuild.sh), so this lane only reports what was
+  # built. Notes are set afterwards by alpha_what_to_test, once the workflow
+  # has worked them out from the commit Xcode Cloud actually built.
+  # ----------------------------------------------------------
+  def xcode_cloud_client
+    XcodeCloud::Client.new(
+      key_id: ENV["APP_STORE_API_KEY_ID"],
+      issuer_id: ENV["APP_STORE_ISSUER_ID"],
+      key: ENV["APP_STORE_API_KEY"],
+      log: ->(message) { UI.message(message) },
+    )
+  end
+
+  def write_github_outputs(values)
+    values.each { |key, value| UI.message("#{key}=#{value}") }
+    path = ENV["GITHUB_OUTPUT"].to_s
+    return if path.empty?
+    File.open(path, "a") { |f| values.each { |key, value| f.puts("#{key}=#{value}") } }
+  end
+
+  desc "Start the Xcode Cloud Alpha Build on main and wait for it"
+  lane :xcode_cloud_alpha do
+    client = xcode_cloud_client
+    workflow_name = ENV["XCODE_CLOUD_WORKFLOW"].to_s.empty? ? "Alpha Build" : ENV["XCODE_CLOUD_WORKFLOW"]
+
+    app_id = client.app_id("org.wikimedia.wikipedia.tfbeta")
+    product_id = client.product_id(app_id)
+    workflow_id = client.workflow_id(product_id, workflow_name)
+    reference_id = client.git_reference_id(workflow_id, "refs/heads/main")
+    UI.message("Workflow #{workflow_name.inspect} (#{workflow_id}), main (#{reference_id})")
+
+    if ENV["XCODE_CLOUD_LOOKUP_ONLY"] == "true"
+      UI.success("Lookups succeeded; not starting a build")
+      next
+    end
+
+    run = client.start_build_run(workflow_id: workflow_id, git_reference_id: reference_id)
+    UI.message("Started Xcode Cloud build #{run.dig('attributes', 'number')} (run #{run['id']})")
+
+    run = client.wait_for_build_run(run["id"], timeout: 90 * 60)
+    sha = run.dig("attributes", "sourceCommit", "commitSha")
+    build = client.produced_build(run["id"])
+    UI.success("Xcode Cloud built #{sha}: TestFlight #{build[:version]} (#{build[:build_number]})")
+
+    write_github_outputs(
+      sha: sha,
+      version: build[:version],
+      build: build[:build_number],
+      build_id: build[:id],
+    )
+  end
+
+  desc "Wait for a TestFlight build to finish processing, then set its What to Test notes"
+  lane :alpha_what_to_test do
+    build_id = ENV["BUILD_ID"].to_s
+    UI.user_error!("BUILD_ID is required") if build_id.empty?
+    notes = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
+
+    client = xcode_cloud_client
+    client.wait_for_build_processing(build_id)
+    client.set_what_to_test(build_id, notes)
+    UI.success("Set What to Test on build #{build_id}")
   end
 
   # ----------------------------------------------------------
