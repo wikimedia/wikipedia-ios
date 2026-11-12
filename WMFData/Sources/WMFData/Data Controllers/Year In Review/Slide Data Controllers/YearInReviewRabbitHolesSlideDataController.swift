@@ -56,16 +56,19 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
 
     private var slideData: SlideData?
 
-    private weak var mainPageIdentifier: WMFMainPageIdentifying?
+    private let mainPageTitles: YearInReviewMainPageTitles?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
 
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
-        self.mainPageIdentifier = dependencies.mainPageIdentifier
+        self.mainPageTitles = dependencies.mainPageTitles
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
+        guard let mainPageTitles else {
+            throw YearInReviewMainPageTitles.LookupError.unavailable
+        }
         guard let startDate = yirConfig.dataStartDate,
               let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
@@ -73,10 +76,8 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
 
         let pageViewsDataController = try WMFPageViewsDataController()
 
-        let excludedTitles = try await YearInReviewMainPageTitles.excludedTitles(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
-
         // Pages that are not articles, and main pages, are not in the links, so they end a chain.
-        let links = try await pageViewsDataController.fetchArticlePageViewLinks(startDate: startDate, endDate: endDate, excludedTitles: excludedTitles)
+        let links = try await pageViewsDataController.fetchArticlePageViewLinks(startDate: startDate, endDate: endDate, excludedTitles: mainPageTitles.excludedTitles)
         let chains = Self.deepestChains(in: links)
         let pages = try await pageViewsDataController.fetchPages(ofPageViews: chains.flatMap { [$0.firstID, $0.lastID] })
 

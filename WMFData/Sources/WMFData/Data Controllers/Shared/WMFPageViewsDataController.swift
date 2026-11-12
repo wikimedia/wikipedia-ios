@@ -609,6 +609,29 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
     }
 
+    /// The page and time of each article page view inside the window, also those without reading
+    /// time. The window includes `startDate` and `endDate`. Main pages are not left out.
+    public func fetchArticlePageViewTimestamps(startDate: Date, endDate: Date) async throws -> [WMFPageWithTimestamp] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && page.namespaceID == 0", startDate as CVarArg, endDate as CVarArg)
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = ["timestamp", "page.projectID", "page.title", "page.namespaceID"]
+
+            return try backgroundContext.fetch(request).compactMap { result in
+                guard let timestamp = result["timestamp"] as? Date,
+                      let projectID = result["page.projectID"] as? String,
+                      let title = result["page.title"] as? String,
+                      let namespaceID = result["page.namespaceID"] as? Int16 else {
+                    return nil
+                }
+                return WMFPageWithTimestamp(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), timestamp: timestamp)
+            }
+        }
+    }
+
     /// The article page views inside the window that have reading time. The window includes
     /// `startDate` and `endDate`. Main pages are not left out.
     public func fetchArticleReadingTimes(startDate: Date, endDate: Date) async throws -> [WMFPageViewReadingTime] {

@@ -143,7 +143,8 @@ import CoreData
         }
 
         let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-        let readCount = try await YearInReviewReadCountSlideDataController.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
+        let mainPageTitles = try await YearInReviewMainPageTitles.lookUp(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
+        let readCount = try await YearInReviewReadCountSlideDataController.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageTitles: mainPageTitles)
         return readCount >= Self.dataRichArticleThreshold ? .dataRich : .lowData
     }
 

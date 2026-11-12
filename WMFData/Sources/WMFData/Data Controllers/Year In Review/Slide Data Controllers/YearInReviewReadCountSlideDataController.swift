@@ -19,18 +19,21 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     private var readData: WMFYearInReviewReadData?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
-    private weak var mainPageIdentifier: WMFMainPageIdentifying?
+    private let mainPageTitles: YearInReviewMainPageTitles?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
-        self.mainPageIdentifier = dependencies.mainPageIdentifier
+        self.mainPageTitles = dependencies.mainPageTitles
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         
+        guard let mainPageTitles else {
+            throw YearInReviewMainPageTitles.LookupError.unavailable
+        }
         guard let startDate = yirConfig.dataStartDate,
               let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
@@ -38,21 +41,19 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         
         let dataController = try WMFPageViewsDataController()
 
-        readData = try await Self.fetchReadData(startDate: startDate, endDate: endDate, pageViewsDataController: dataController, mainPageIdentifier: mainPageIdentifier)
+        readData = try await Self.fetchReadData(startDate: startDate, endDate: endDate, pageViewsDataController: dataController, mainPageTitles: mainPageTitles)
         
         isEvaluated = true
     }
-
-    private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
 
     /// The number of distinct articles read in the date range. Pages outside the main namespace and
     /// main pages do not count. The Year in Review entry point calls this. It needs no reading time, so it
     /// skips the seconds, but it uses the same `articles(from:)` rule as `fetchReadData`, so the entry
     /// point and the total articles slide always agree.
-    static func fetchReadCount(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> Int {
+    static func fetchReadCount(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageTitles: YearInReviewMainPageTitles) async throws -> Int {
         let pageViewCounts = try await pageViewsDataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
         // A page can have more than one stored row, so count each page once.
-        return await articles(from: Set(pageViewCounts.map(\.page)), mainPageIdentifier: mainPageIdentifier).count
+        return articles(from: Set(pageViewCounts.map(\.page)), mainPageTitles: mainPageTitles).count
     }
 
     /// The most seconds that one page view from before the July 2026 timer fix adds to the minutes read.
@@ -115,7 +116,7 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     /// - An article with more than `maximumSecondsPerArticleInExclusionPeriod` of stored time from
     ///   `exclusionPeriodStartDate` up to `exclusionPeriodEndDate` gets no minutes from that period. It still
     ///   counts in `readCount`, and its page views after that period still add minutes.
-    static func fetchReadData(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> WMFYearInReviewReadData {
+    static func fetchReadData(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageTitles: YearInReviewMainPageTitles) async throws -> WMFYearInReviewReadData {
         let cap = WMFPageViewsDataController.PageViewSecondsCap(
             maximumSeconds: maximumSecondsPerPageViewBeforeTimerFix,
             before: timerFixReleaseDate
@@ -126,29 +127,14 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
             maximumSeconds: maximumSecondsPerArticleInExclusionPeriod
         )
         let secondsByPage = try await pageViewsDataController.fetchPageViewSeconds(startDate: startDate, endDate: endDate, cap: cap, exclusion: exclusion)
-        let articles = await articles(from: Set(secondsByPage.keys), mainPageIdentifier: mainPageIdentifier)
+        let articles = articles(from: Set(secondsByPage.keys), mainPageTitles: mainPageTitles)
         let totalSeconds = articles.reduce(0) { $0 + (secondsByPage[$1] ?? 0) }
         return WMFYearInReviewReadData(readCount: articles.count, minutesRead: totalSeconds / 60)
     }
 
     /// The pages that count as articles: pages in the main namespace that are not a main page.
-    private static func articles(from pages: Set<WMFPage>, mainPageIdentifier: WMFMainPageIdentifying?) async -> Set<WMFPage> {
-        let articles = pages.filter { $0.namespaceID == articleNamespaceID }
-
-        // Get the main page title once for each wiki, not once for each article. Each request can go to the main actor.
-        var mainPageTitles: [String: String] = [:]
-        for projectID in Set(articles.map(\.projectID)) {
-            if let project = WMFProject(id: projectID),
-               let title = await mainPageIdentifier?.mainPageTitle(for: project) {
-                mainPageTitles[projectID] = WMFMainPageTitle.canonicalized(title)
-            }
-        }
-
-        return articles.filter { page in
-            let title = WMFMainPageTitle.canonicalized(page.title)
-            // The app does not record the English main page, but older data can contain it.
-            return title != englishMainPageTitle && title != mainPageTitles[page.projectID]
-        }
+    private static func articles(from pages: Set<WMFPage>, mainPageTitles: YearInReviewMainPageTitles) -> Set<WMFPage> {
+        pages.filter { $0.namespaceID == articleNamespaceID && !mainPageTitles.isMainPage($0) }
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {

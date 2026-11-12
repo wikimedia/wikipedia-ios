@@ -55,7 +55,9 @@ struct YearInReviewSlideDataControllerDependencies {
     let globalUserID: Int?
     let languageCode: String?
     let userImpactDataProvider: (any YearInReviewUserImpactDataProviding)?
-    var mainPageIdentifier: (any WMFMainPageIdentifying)? = nil
+    /// The main pages to leave out of the reading history. The factory looks them up once for each report build.
+    /// `nil` when the lookup failed. Then the slides that need it throw, so they are built again next time.
+    var mainPageTitles: YearInReviewMainPageTitles? = .englishOnly
 }
 
 protocol YearInReviewUserImpactDataProviding: Sendable {

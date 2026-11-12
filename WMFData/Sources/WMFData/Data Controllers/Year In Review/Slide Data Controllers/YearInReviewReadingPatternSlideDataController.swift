@@ -50,25 +50,27 @@ final class YearInReviewReadingPatternSlideDataController: YearInReviewSlideData
 
     private var slideData: SlideData?
 
-    private weak var mainPageIdentifier: WMFMainPageIdentifying?
+    private let mainPageTitles: YearInReviewMainPageTitles?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
 
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
-        self.mainPageIdentifier = dependencies.mainPageIdentifier
+        self.mainPageTitles = dependencies.mainPageTitles
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
+        guard let mainPageTitles else {
+            throw YearInReviewMainPageTitles.LookupError.unavailable
+        }
         guard let startDate = yirConfig.dataStartDate,
               let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
 
-        let pageViewsDataController = try WMFPageViewsDataController()
-        let excludedTitles = try await YearInReviewMainPageTitles.excludedTitles(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
-        let links = try await pageViewsDataController.fetchArticlePageViewLinks(startDate: startDate, endDate: endDate, excludedTitles: excludedTitles)
-        slideData = Self.slideData(readDates: links.map(\.timestamp), calendar: .current)
+        let pageViews = try await WMFPageViewsDataController().fetchArticlePageViewTimestamps(startDate: startDate, endDate: endDate)
+        let readDates = pageViews.filter { !mainPageTitles.isMainPage($0.page) }.map(\.timestamp)
+        slideData = Self.slideData(readDates: readDates, calendar: .current)
 
         isEvaluated = true
     }
