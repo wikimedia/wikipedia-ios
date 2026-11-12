@@ -6,6 +6,21 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      builder:
+        description: 'Where to archive. "variable" follows the ALPHA_BUILDER repository variable; the others override it for this run only, e.g. to try Xcode Cloud from a branch.'
+        required: false
+        type: choice
+        default: variable
+        options:
+          - variable
+          - github
+          - xcode-cloud
+      lookup_only:
+        description: 'Xcode Cloud only: check the API key, workflow and branch can be found, then stop without starting a build. No upload, tag or comments.'
+        required: false
+        type: boolean
+        default: false
 
 # Serialize runs. On the GitHub path the build number is read from the highest
 # alphas/ tag at checkout, but that tag is not pushed until the end of the run,
@@ -35,13 +50,15 @@ env:
 #   no macOS runner is used. That Xcode Cloud workflow must be manual-start
 #   only, so this variable is the one switch between the two paths.
 #
-# See docs/ci.md.
+# A manual run can override the variable for that run only with the builder
+# input, and builds the branch it is run from on either path. See docs/ci.md.
 jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
       skip: ${{ steps.duplicate_check.outputs.skip }}
       builder: ${{ steps.builder.outputs.builder }}
+      lookup_only: ${{ steps.builder.outputs.lookup_only }}
 
     steps:
       # fetch-depth: 0 is needed for the tag list, but a full clone of this
@@ -57,8 +74,14 @@ jobs:
         id: builder
         env:
           ALPHA_BUILDER: ${{ vars.ALPHA_BUILDER }}
-          REF: ${{ github.ref }}
+          BUILDER_INPUT: ${{ inputs.builder }}
+          LOOKUP_ONLY: ${{ inputs.lookup_only }}
         run: |
+          # Push events have no inputs, so they always follow the variable.
+          if [ -n "$BUILDER_INPUT" ] && [ "$BUILDER_INPUT" != "variable" ]; then
+            ALPHA_BUILDER="$BUILDER_INPUT"
+          fi
+
           case "${ALPHA_BUILDER:-github}" in
             github) BUILDER=github ;;
             xcode-cloud) BUILDER=xcode-cloud ;;
@@ -68,30 +91,35 @@ jobs:
               ;;
           esac
 
-          # Xcode Cloud always builds main (it is started on the branch, not
-          # on a commit), so a dispatch from another branch would quietly
-          # build something other than what was asked for.
-          if [ "$BUILDER" = "xcode-cloud" ] && [ "$REF" != "refs/heads/main" ]; then
-            echo "::error::ALPHA_BUILDER is xcode-cloud, which can only build main. Run this from main, or set ALPHA_BUILDER to github to build $REF."
+          if [ "$LOOKUP_ONLY" = "true" ] && [ "$BUILDER" != "xcode-cloud" ]; then
+            echo "::error::lookup_only only applies to the Xcode Cloud path. Set builder to xcode-cloud."
             exit 1
           fi
 
           echo "builder=$BUILDER" >> $GITHUB_OUTPUT
-          echo "Building with: $BUILDER"
+          echo "lookup_only=${LOOKUP_ONLY:-false}" >> $GITHUB_OUTPUT
+          echo "Building ${GITHUB_REF_NAME} with: $BUILDER (lookup only: ${LOOKUP_ONLY:-false})"
 
       # -------------------------------------------------------
       # Check for duplicate build
       #
-      # Xcode Cloud builds whatever main points at when the build starts,
-      # so check that commit rather than the one this run was triggered by.
+      # Xcode Cloud builds whatever the branch points at when the build
+      # starts, so check that commit rather than the one this run was
+      # triggered by. A lookup-only run builds nothing, so never skips.
       # -------------------------------------------------------
       - name: Check for duplicate build
         id: duplicate_check
         env:
           BUILDER: ${{ steps.builder.outputs.builder }}
+          LOOKUP_ONLY: ${{ steps.builder.outputs.lookup_only }}
         run: |
+          if [ "$LOOKUP_ONLY" = "true" ]; then
+            echo "Lookup only, not checking for a duplicate"
+            echo "skip=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
           if [ "$BUILDER" = "xcode-cloud" ]; then
-            LATEST_COMMIT=$(git rev-parse origin/main)
+            LATEST_COMMIT=$(git rev-parse "origin/${GITHUB_REF_NAME}")
           else
             LATEST_COMMIT=$(git rev-parse HEAD)
           fi
@@ -268,6 +296,9 @@ jobs:
   # ci_scripts/tag_script_xcodebuild.sh. This job reports what was built,
   # then sets the notes and comments on Phabricator.
   #
+  # Runs from any branch: the Xcode Cloud build is started on the branch
+  # the run was dispatched from (main for merges).
+  #
   # If this run is cancelled mid-wait the Xcode Cloud build carries on and
   # still uploads and tags; only the notes and Phabricator comments are lost.
   build-xcode-cloud:
@@ -301,18 +332,22 @@ jobs:
           APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
           APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
           APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          BRANCH: ${{ github.ref_name }}
+          XCODE_CLOUD_LOOKUP_ONLY: ${{ needs.prepare.outputs.lookup_only }}
         run: bundle exec fastlane xcode_cloud_alpha
 
-      # main may have moved since checkout, and Xcode Cloud has pushed its
-      # tag; fetch both so the notes can walk back from the built commit.
+      # The branch may have moved since checkout, and Xcode Cloud has pushed
+      # its tag; fetch both so the notes can walk back from the built commit.
       - name: Fetch the built commit
+        if: needs.prepare.outputs.lookup_only != 'true'
         env:
           SHA: ${{ steps.xcode_cloud.outputs.sha }}
         run: |
-          git fetch --filter=blob:none --tags origin main
+          git fetch --filter=blob:none --tags origin "${GITHUB_REF_NAME}"
           git cat-file -e "$SHA^{commit}"
 
       - name: Release notes
+        if: needs.prepare.outputs.lookup_only != 'true'
         id: notes
         uses: ./.github/actions/alpha-release-notes
         with:
@@ -322,6 +357,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set What to Test in TestFlight
+        if: needs.prepare.outputs.lookup_only != 'true'
         env:
           APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
           APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
@@ -331,6 +367,7 @@ jobs:
         run: bundle exec fastlane alpha_what_to_test
 
       - name: Post to Phabricator tasks
+        if: needs.prepare.outputs.lookup_only != 'true'
         uses: ./.github/actions/alpha-phabricator-comments
         with:
           phab-token: ${{ secrets.PHAB_BOT_API_KEY }}

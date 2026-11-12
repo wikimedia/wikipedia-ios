@@ -119,8 +119,8 @@ platform :ios do
   # ----------------------------------------------------------
   # Workflow 1c: Alpha on Xcode Cloud (v2_deploy_alpha, ALPHA_BUILDER=xcode-cloud)
   #
-  # Runs on Linux. Starts the Xcode Cloud "Alpha Build" workflow on main
-  # through the App Store Connect API and waits for it, so the archive never
+  # Runs on Linux. Starts the Xcode Cloud "Alpha Build" workflow on main (or
+  # BRANCH) through the App Store Connect API and waits for it, so the archive never
   # takes a macOS runner. That workflow keeps its own start condition set to
   # manual: only this lane starts it, so the ALPHA_BUILDER repository variable
   # is the one switch between the two paths.
@@ -147,7 +147,7 @@ platform :ios do
     File.open(path, "a") { |f| values.each { |key, value| f.puts("#{key}=#{value}") } }
   end
 
-  desc "Start the Xcode Cloud Alpha Build on main and wait for it"
+  desc "Start the Xcode Cloud Alpha Build on a branch (default main) and wait for it"
   lane :xcode_cloud_alpha do
     client = xcode_cloud_client
     workflow_name = ENV["XCODE_CLOUD_WORKFLOW"].to_s.empty? ? "Alpha Build" : ENV["XCODE_CLOUD_WORKFLOW"]
@@ -155,8 +155,9 @@ platform :ios do
     app_id = client.app_id("org.wikimedia.wikipedia.tfbeta")
     product_id = client.product_id(app_id)
     workflow_id = client.workflow_id(product_id, workflow_name)
-    reference_id = client.git_reference_id(workflow_id, "refs/heads/main")
-    UI.message("Workflow #{workflow_name.inspect} (#{workflow_id}), main (#{reference_id})")
+    branch = ENV["BRANCH"].to_s.empty? ? "main" : ENV["BRANCH"]
+    reference_id = client.git_reference_id(workflow_id, "refs/heads/#{branch}")
+    UI.message("Workflow #{workflow_name.inspect} (#{workflow_id}), branch #{branch} (#{reference_id})")
 
     if ENV["XCODE_CLOUD_LOOKUP_ONLY"] == "true"
       UI.success("Lookups succeeded; not starting a build")

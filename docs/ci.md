@@ -73,8 +73,17 @@ the one switch:
 Both paths produce the same notes and Phabricator comments, from the
 [alpha-release-notes](../.github/actions/alpha-release-notes/action.yml) and
 [alpha-phabricator-comments](../.github/actions/alpha-phabricator-comments/action.yml)
-actions. On the Xcode Cloud path the workflow can only build `main`: a dispatch
-from another branch fails rather than building `main` quietly.
+actions. Either path builds the branch the run is dispatched from (`main` for
+merges).
+
+To try a path without changing the variable, dispatch `V2 Deploy Alpha`
+manually and set **builder** to `github` or `xcode-cloud`. That applies to that
+run only. Tick **lookup_only** (Xcode Cloud only) to check that the API key can
+see the app, the Alpha Build workflow and the branch, and stop before starting
+a build. Without it, a manual run is a real deploy: an Alpha in TestFlight, an
+`alphas/` tag on the branch's commit and Phabricator comments. Xcode Cloud can
+build a branch other than `main` only if Alpha Build's manual start condition
+allows that branch.
 
 For the variable to be the only switch, the Xcode Cloud **Alpha Build**
 workflow's start condition must be **manual only**. Otherwise Xcode Cloud would
