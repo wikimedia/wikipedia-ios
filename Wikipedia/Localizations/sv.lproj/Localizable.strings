@@ -174,9 +174,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Din årsöversikt är här";
 "activity-tab-year-in-review-low-data-subtitle" = "Återupptäck året på Wikipedia.";
 "activity-tab-year-in-review-low-data-title" = "Vår årsöversikt är här";
-"activity-tab-you-edited" = "Du redigerade {{PLURAL:$1|$1 gång|$1 gånger}} denna vecka.";
-"activity-tab-you-read" = "Du läste {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
-"activity-tab-you-saved" = "Du sparade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "activity-tab-your-impact" = "Din påverkan";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
 "advanced-settings-title" = "Avancerade inställningar";
@@ -275,8 +272,6 @@
 "clearing-cache-error" = "Fel när cacheminnet skulle rensas.";
 "clearing-cache-in-progress" = "Cacheminnet rensas.";
 "close-all-tabs" = "Stäng alla flikar";
-"close-all-tabs-confirmation" = "Vill du stänga alla $1 flikar? Den här åtgärden kan inte ångras.";
-"close-all-tabs-confirmation-number" = "Stäng alla $1 flikar?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Vill du stänga {{PLURAL:$1|$1 flik|$1 flikar}}? Detta kan inte ångras.";
 "close-all-tabs-confirmation-title-with-value" = "Stänga {{PLURAL:$1|$1 flik|$1 flikar}}?";
 "close-button-accessibility-label" = "Stäng";
@@ -390,6 +385,20 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 oredigerad rad|$1 oredigerade rader}}";
 "diff-user-button-accessibility-text" = "Dubbeltryck för att öppna menyn";
 "dim-images" = "Mörklägg bilder";
+"discover-announcement-get-started" = "Kom igång";
+"discover-announcement-new-tag" = "Ny";
+"discover-announcement-no-thanks" = "Nej tack";
+"discover-list-about" = "Om den här funktionen";
+"discover-list-byline" = "Tillverkad för $1 • $2";
+"discover-list-byline-you" = "dej";
+"discover-list-customize" = "Justera Upptäck";
+"discover-list-error-subtitle" = "Det gick inte att läsa in läslistan.";
+"discover-list-error-title" = "Nätverksfel";
+"discover-list-save-list" = "Spara listan";
+"discover-list-title" = "Upptäck";
+"discover-save-list-default-name" = "Upptäck $1";
+"discover-save-list-subtitle" = "Namnge läslista och välj artiklar att spara.";
+"discover-save-list-title" = "Spara läslista";
 "donate-accessibility-amount-button-hint" = "Dubbeltryck för att välja donationsbelopp.";
 "donate-accessibility-donate-hint-format" = "Dubbeltryck för att donera $1 till Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Dubbeltryck för att ge Wikimedia Foundation tillåtelse att skicka e-post till dig.";
@@ -397,7 +406,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltryck för att aktivera automatiska månadsdonationer med detta belopp.";
 "donate-accessibility-textfield-hint" = "Ange anpassat belopp att donera.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltryck för att lägga till transaktionsavgiften i donationsbeloppet.";
-"donate-already-donated" = "Tack, kära donator! Din generositet hjälper Wikipedia och dess och andra fria kunskapsprojekt att blomstra.";
+"donate-already-donated" = "Tack, kära donator! Din generositet hjälper Wikipedia och andra fria kunskapsprojekt att blomstra.";
 "donate-apple-fine-print" = "Apple är inte ansvarig för att samla in pengar till detta ändamål.";
 "donate-email-opt-in-text" = "Ja, Wikimedia Foundation får skicka e-postmeddelande till mig ibland.";
 "donate-help-frequently-asked-questions" = "Vanliga frågor och svar";
@@ -1179,7 +1188,6 @@
 "potd-sample-entry-description" = "En jockey håller i springande två tjurar i pacu jawi (från Minangkabau, \"tjurlopp\"), ett traditionellt tjurlopp i Tanah Datar, Sumatera Barat, Indonesien. 2015, Final-45.";
 "potd-widget-description" = "Njut av dagens vackra foto som väljs ut av vår gemenskap.";
 "potd-widget-title" = "Dagens bild";
-"preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "privacy-policy-title" = "Integritetspolicy";
 "problem-with-feature-title" = "Problem med funktion";
 "profile-button-accessibility-hint" = "Navigerar till profilvyn.";
@@ -1213,8 +1221,6 @@
 "reading-list-api-error-generic" = "Ett oväntat fel uppstod när dina läslistor synkroniserades.";
 "reading-list-api-error-list-limit" = "Denna lista är inte synkroniserad eftersom du har nått gränsen för antalet synkroniserade listor.";
 "reading-list-create-new-list-button-title" = "Spara läslista";
-"reading-list-create-new-list-description" = "Beskrivning";
-"reading-list-create-new-list-reading-list-name" = "Namn på läslista";
 "reading-list-create-new-list-title" = "Skapa en ny lista";
 "reading-list-deleted-accessibility-notification" = "Läslistor raderades";
 "reading-list-detail-search-placeholder" = "Sök efter läslista";
@@ -1235,8 +1241,8 @@
 "reading-list-list-limit-reached" = "Du har nått gränsen på $1 läslistor per konto.";
 "reading-list-login-or-create-account-button-title" = "Logga in eller skapa konto";
 "reading-list-name-user-created-annotation" = "_[användarskapad]";
-"reading-list-new-list-description-placeholder" = "valfri kort beskrivning";
-"reading-list-new-list-name-placeholder" = "titel på läslista";
+"reading-list-new-list-description-placeholder" = "Valfri kort beskrivning";
+"reading-list-new-list-name-placeholder" = "Titel på läslista";
 "reading-list-sync-disabled-panel-message" = "Synkronisering av läslistor har inaktiverats för ditt Wikipedia-konto på en annan enhet. Du kan aktivera synkronisering igen genom att uppdatera dina inställningar.";
 "reading-list-sync-disabled-panel-title" = "Synkronisering inaktiverad";
 "reading-list-sync-enable-button-title" = "Aktivera synkronisering";
@@ -1317,13 +1323,10 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-semantic-entry-point-accessibility-hint" = "Sökningar inom artiklar för din fråga";
-// Fuzzy
 "search-semantic-entry-point-description" = "Sök i artiklar och gå direkt till relevant avsnitt";
 "search-semantic-entry-point-hidden-toast-modify" = "Modifiera";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-subtitle" = "Du kan göra den synlig igen via Inställningar.";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-title" = "Modul har dolts.";
+"search-semantic-entry-point-hidden-toast-subtitle" = "Du kan göra den synlig igen via Inställningar";
+"search-semantic-entry-point-hidden-toast-title" = "Modul har dolts";
 "search-semantic-entry-point-hide-accessibility-label" = "Dölj sökning i artiklar";
 "search-semantic-entry-point-info-accessibility-label" = "Om att söka i artiklar";
 "search-semantic-entry-point-try-it-now" = "Prova det nu";
@@ -1331,7 +1334,6 @@
 "search-semantic-results-empty-title" = "Inga resultat för den här sökningen";
 "search-semantic-results-error-subtitle" = "Försök igen.";
 "search-semantic-results-error-title" = "Någonting gick fel";
-// Fuzzy
 "search-semantic-results-last-updated" = "Senast uppdaterad $1";
 "search-semantic-results-rate-limited-subtitle" = "Vänta en stund och försök igen.";
 "search-semantic-results-rate-limited-title" = "För många sökningar";
@@ -1359,7 +1361,6 @@
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
-"settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Rensa cachen";
 "settings-clear-donation-history" = "Rensa donationshistorik";
 "settings-community-feed-title" = "Gemenskap";
@@ -1410,6 +1411,8 @@
 "settings-temp-accounts-talk-page-footer" = "Det tillfälliga kontot löper ut om 90 dagar.";
 "settings-title" = "Inställningar";
 "settings-year-in-review-header" = "Om du inaktiverar årsöversikten kommer alla lagrade personliga insikter att rensas och dölja årsöversikten.";
+"settings-year-in-review-turn-off-alert-cancel" = "Nej tack";
+"settings-year-in-review-turn-off-alert-confirm" = "Ja, jag är säker";
 "share-a-fact-made-with" = "Skapad med Wikipedia-appen";
 "share-article-name-on-wikipedia" = "\"$1\" på Wikipedia:";
 "share-building" = "Bygger Dela-ett-faktum-kort…";
@@ -1733,6 +1736,8 @@
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "wmf-localizations-tests-nonexistent-key" = "rulla tillbaka";
 "year-in-review-2026-announcement-exit-toast-title" = "Du kan komma åt din årsöversikt senare i Aktivitet.";
+"year-in-review-2026-announcement-explore" = "Utforska";
+"year-in-review-2026-collective-languages-data" = "$1+";
 "year-in-review-2026-feedback-email-first-line" = "Jag har återkoppling om årsöversikten:";
 "year-in-review-2026-feedback-email-subject" = "Återkoppling om årsöversikten";
 "year-in-review-button-title" = "Årsöversikt";

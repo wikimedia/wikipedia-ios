@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
@@ -92,5 +93,35 @@ struct WMFRelatedPagesDataControllerTests {
 
         let software = try #require(pages.first(where: { $0.pageid == 32106 }))
         #expect(software.displayTitle == "软件")
+    }
+
+    // MARK: - Extracts
+
+    @Test
+    func fetchRelatedPagesAsksForTheExtractsByDefault() async throws {
+        let service = WMFRecordingBasicService()
+        let controller = WMFRelatedPagesDataController(basicService: service)
+
+        _ = try? await controller.fetchRelatedPages(title: "Cat", project: project)
+
+        let parameters = try #require(service.parameters.first)
+        #expect(parameters["prop"] as? String == "pageimages|description|info|extracts|pageprops")
+        #expect(parameters["exchars"] as? String == "500")
+        #expect(parameters["exintro"] as? String == "1")
+        #expect(parameters["explaintext"] as? String == "1")
+    }
+
+    @Test
+    func fetchRelatedPagesCanLeaveTheExtractsOut() async throws {
+        let service = WMFRecordingBasicService()
+        let controller = WMFRelatedPagesDataController(basicService: service)
+
+        _ = try? await controller.fetchRelatedPages(title: "Cat", project: project, includesExtracts: false)
+
+        let parameters = try #require(service.parameters.first)
+        #expect(parameters["prop"] as? String == "pageimages|description|info|pageprops")
+        #expect(parameters["exchars"] == nil)
+        #expect(parameters["exintro"] == nil)
+        #expect(parameters["explaintext"] == nil)
     }
 }

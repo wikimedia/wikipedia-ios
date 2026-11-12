@@ -187,9 +187,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Uw jaaroverzicht is er";
 "activity-tab-year-in-review-low-data-subtitle" = "Herontdek het jaar op Wikipedia.";
 "activity-tab-year-in-review-low-data-title" = "Ons jaaroverzicht is er";
-"activity-tab-you-edited" = "U hebt deze week {{PLURAL:$1|één keer|$1 keer}} een pagina bewerkt.";
-"activity-tab-you-read" = "U hebt deze week {{PLURAL:$1|één pagina|$1 pagina's}} gelezen.";
-"activity-tab-you-saved" = "U hebt deze week {{PLURAL:$1|één pagina|$1 pagina's}} opgeslagen.";
 "activity-tab-your-impact" = "Uw bijdrage";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
 "advanced-settings-title" = "Geavanceerde instellingen";
@@ -288,8 +285,6 @@
 "clearing-cache-error" = "Fout bij het wissen van de cache.";
 "clearing-cache-in-progress" = "Bezig met wissen van cache.";
 "close-all-tabs" = "Alle tabbladen sluiten";
-"close-all-tabs-confirmation" = "Wilt u alle $1 tabbladen sluiten? Dit kan niet ongedaan worden gemaakt.";
-"close-all-tabs-confirmation-number" = "Alle $1 tabbladen sluiten?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Wilt u {{PLURAL:$1|één tabblad|$1 tabbladen}} sluiten? Dit kan niet ongedaan worden gemaakt.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|Eén tabblad|$1 tabbladen}} sluiten?";
 "close-button-accessibility-label" = "Sluiten";
@@ -410,7 +405,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltik om automatische maandelijkse donaties van dit bedrag in te schakelen.";
 "donate-accessibility-textfield-hint" = "Voer een aangepast bedrag in om te doneren.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltik om de transactiekosten toe te voegen aan het donatiebedrag.";
-"donate-already-donated" = "Bedankt, beste donateur! Door uw vrijgevingheid kunnen Wikipedia en andere projecten voor vrije kennis blijven floreren.";
+"donate-already-donated" = "Bedankt, beste donateur! Door uw vrijgevigheid kunnen Wikipedia en andere projecten voor vrije kennis blijven floreren.";
 "donate-apple-fine-print" = "Apple is niet verantwoordelijk voor het inzamelen van geld voor dit doel.";
 "donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag mij af en toe een e-mail sturen.";
 "donate-help-frequently-asked-questions" = "Veelgestelde vragen";
@@ -1192,7 +1187,6 @@
 "potd-sample-entry-description" = "Twee stieren rennen terwijl de jockey ze vasthoudt in pacu jawi (van Minangkabau, \"stierrace\"), een traditionele stierenrace in Tanah Datar, West-Sumatra, Indonesië. 2015, Finale-45.";
 "potd-widget-description" = "Geniet van een prachtige dagelijkse foto, uitgekozen door onze gemeenschap.";
 "potd-widget-title" = "Afbeelding van de dag";
-"preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "privacy-policy-title" = "Privacybeleid";
 "problem-with-feature-title" = "Probleem met functie";
 "profile-button-accessibility-hint" = "Naar de profielweergave.";
@@ -1226,8 +1220,6 @@
 "reading-list-api-error-generic" = "Er is een onverwachte fout opgetreden bij het synchroniseren van uw leeslijsten.";
 "reading-list-api-error-list-limit" = "Deze lijst wordt niet gesynchroniseerd omdat u de limiet voor het aantal gesynchroniseerde lijsten heeft bereikt.";
 "reading-list-create-new-list-button-title" = "Leeslijst aanmaken";
-"reading-list-create-new-list-description" = "Beschrijving";
-"reading-list-create-new-list-reading-list-name" = "Naam leeslijst";
 "reading-list-create-new-list-title" = "Nieuwe lijst aanmaken";
 "reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
 "reading-list-detail-search-placeholder" = "Leeslijst doorzoeken";
@@ -1248,8 +1240,8 @@
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
 "reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
 "reading-list-name-user-created-annotation" = "_[aangemaakt door gebruiker]";
-"reading-list-new-list-description-placeholder" = "optionele korte beschrijving";
-"reading-list-new-list-name-placeholder" = "titel van leeslijst";
+"reading-list-new-list-description-placeholder" = "Optionele korte beschrijving";
+"reading-list-new-list-name-placeholder" = "Titel van de leeslijst";
 "reading-list-sync-disabled-panel-message" = "Synchronisatie van leeslijsten is uitgeschakeld voor uw Wikipedia-account op een ander apparaat. U kunt synchronisatie weer inschakelen door uw instellingen bij te werken.";
 "reading-list-sync-disabled-panel-title" = "Synchronisatie uitgeschakeld";
 "reading-list-sync-enable-button-title" = "Synchronisatie inschakelen";
@@ -1371,7 +1363,6 @@
 "settings-clear-cache" = "Cache legen";
 "settings-clear-cache-are-you-sure-message" = "Door het legen van de cache wordt er ongeveer $1 aan ruimte vrijgemaakt. Uw opgeslagen pagina's worden niet verwijderd.";
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
-"settings-clear-cache-cancel" = "Annuleren";
 "settings-clear-cache-ok" = "Cache wissen";
 "settings-clear-donation-history" = "Donatiegeschiedenis wissen";
 "settings-community-feed-title" = "Gemeenschap";

@@ -133,6 +133,8 @@ extension APIReadingListEntry {
 public class ReadingListsAPIController: Fetcher {
     private let builder = Configuration.current.pageContentServiceBuilder(withWikiHost: "en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
+    /// Entries per page of the entries endpoint. The server default is 10, the maximum is 100. Every page is one request.
+    static let entriesPageSize = 100
     var lastRequestType: APIReadingListRequestType?
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
@@ -292,51 +294,6 @@ public class ReadingListsAPIController: Fetcher {
                 }
                 return (id, error)
             }, nil)
-        }
-    }
-    
-    /**
-     Adds a new entry to a reading list using the reading list API
-     - parameters:
-     - listID: The list ID of the list that is getting an entry
-     - project: The project name of the new entry
-     - title: The title of the new entry
-     - completion: Called after the request completes
-     - entryID: The entry ID if it was created
-     - error: Any error preventing entry creation
-     */
-    func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let title = title.precomposedStringWithCanonicalMapping
-        let project = project.precomposedStringWithCanonicalMapping
-        let bodyParams = ["project": project, "title": title]
-        // "" for trailing slash is required, server 404s otherwise
-        post(path: ["\(listID)", "entries", ""], bodyParameters: bodyParams) { (result, response, error) in
-            if let apiError = error as? APIReadingListError {
-                switch apiError {
-                case .duplicateEntry:
-                    // TODO: Remove when error response returns ID
-                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
-                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
-                            completion(nil, error ?? ReadingListError.unableToAddEntry)
-                            return
-                        }
-                        completion(entry.id, nil)
-                    })
-                default:
-                    completion(nil, apiError)
-                }
-                return
-            } else if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            guard let id = result?["id"] as? Int64 else {
-                completion(nil, ReadingListError.unableToAddEntry)
-                return
-            }
-            
-            completion(id, nil)
         }
     }
     
@@ -537,9 +494,9 @@ public class ReadingListsAPIController: Fetcher {
     }
     
     public func getAllEntriesForReadingListWithID(next: String? = nil, entries: [APIReadingListEntry] = [], readingListID: Int64, completion: @escaping ([APIReadingListEntry], Error?) -> Swift.Void ) {
-        var queryParameters: [String: Any]? = nil
+        var queryParameters: [String: Any] = ["limit": ReadingListsAPIController.entriesPageSize]
         if let next = next {
-            queryParameters = ["next": next]
+            queryParameters["next"] = next
         }
         // "" for trailing slash is required, server 404s otherwise
         get(path: ["\(readingListID)", "entries", ""], queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in

@@ -382,7 +382,6 @@
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Imaxe del día pal $1";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
-"preference-summary-eventlogging-opt-in" = "Permite a la Fundación Wikimedia collechar información tocante a cómo uses la app p'ameyorala";
 "reading-list-add-generic-hint-title" = "¿Amestar esti artículu a una llista de llectura?";
 "reading-list-add-hint-title" = "¿Añadir «$1» a una llista de llectura?";
 "reading-list-add-saved-button-title" = "Si, amestalos a les mios llistes de llectura";
@@ -392,8 +391,6 @@
 "reading-list-api-error-generic" = "Asocedió un error inesperáu al sincronizar les llistes de llectura.";
 "reading-list-api-error-list-limit" = "Esta llista nun ta sincronizada porque aportasti a la llende del númberu de llistes sincronizaes.";
 "reading-list-create-new-list-button-title" = "Crear llista de llectura";
-"reading-list-create-new-list-description" = "Descripción";
-"reading-list-create-new-list-reading-list-name" = "Nome de la llista de llectura";
 "reading-list-create-new-list-title" = "Crear una llista nueva";
 "reading-list-deleted-accessibility-notification" = "Desaniciada la llista de llectura";
 "reading-list-do-not-keep-button-title" = "Non, desaniciar los artículos del preséu";
@@ -413,7 +410,9 @@
 "reading-list-list-limit-reached" = "Aportasti a la llende de $1 llistes de llectura per cuenta";
 "reading-list-login-or-create-account-button-title" = "Aniciar sesión o crear una cuenta";
 "reading-list-name-user-created-annotation" = "_[creada pol usuariu]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descripción curtia opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "títulu de la llista de llectura";
 "reading-list-sync-disabled-panel-message" = "La sincronización de llistes de llectura desactivóse pa la to cuenta de Wikipedia notru preséu. Puedes reactivar la sincronización anovando les preferencies.";
 "reading-list-sync-disabled-panel-title" = "Sincronización desactivada";
@@ -482,7 +481,6 @@
 "settings-clear-cache" = "Borrar los datos de la caché";
 "settings-clear-cache-are-you-sure-message" = "Si se borren los datos de la caché lliberaránse cerca de $1 d'espaciu. Nun se borrarán les páxines guardaes.";
 "settings-clear-cache-are-you-sure-title" = "¿Borrar los datos de la caché?";
-"settings-clear-cache-cancel" = "Zarrar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Amosar les llingües na gueta";

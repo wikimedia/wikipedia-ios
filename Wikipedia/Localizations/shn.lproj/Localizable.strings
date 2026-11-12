@@ -442,7 +442,6 @@
 "places-unknown-distance" = "ဢမ်ႇႁူႉတၢင်းၵႆၸမ်";
 "potd-description-prefix" = "ၶႅပ်းႁၢင်ႈဝၼ်းမိူဝ်ႈၼႆႉ တွၼ်ႈတႃႇ $1";
 "potd-empty-error-description" = "တွၼ်ႈတႃႇ ၸူၵ်းဢွၵ်ႇ ၶႅပ်းႁၢင်ႈဝၼ်းမိူဝ်ႈၼႆႉ တွၼ်ႈတႃႇ $1 ၼႆႉ ဢမ်ႇၶႅမ်ႉလႅပ်ႈ";
-"preference-summary-eventlogging-opt-in" = "ပၼ်သုၼ်ႇ ဝီႇၶီႇၽီးတီးယႃး တွၼ်ႈတႃႇ ၵဵပ်းႁွမ်ၶေႃႈမုၼ်း လွင်ႈဝႃႈ ၸဝ်ႈၵဝ်ႇ ႁဵတ်းႁိုဝ်ၸႂ်ႉ ဢႅပ်ႉ၊ ပဵၼ်တွၼ်ႈတႃႇႁဵတ်းႁႂ်ႈ ဢႅပ်ႉ တိူဝ်းၶႅမ်ႉမႃးလီ";
 "reading-list-add-generic-hint-title" = "တေဢဝ်ပွင်ႈလိၵ်ႈၼႆႉ သႂ်ႇၶဝ်ႈၼႂ်း သဵၼ်ႈမၢႆလူၼႄႇ?";
 "reading-list-add-hint-title" = "တေဢဝ် \"$1\" ၼႆႉ ထႅမ်သႂ်ႇတီႈၼႂ်း သဵၼ်ႈမၢႆလူၼႄႇ?";
 "reading-list-add-saved-button-title" = "မႅၼ်ႈယဝ်ႉ၊ ဢဝ်ၶဝ် ထႅမ်သႂ်ႇၸူးၼႂ်း သဵၼ်ႈမၢႆလူၵဝ်ၶႃႈလႄႈ";
@@ -452,8 +451,6 @@
 "reading-list-api-error-generic" = "ၽွင်းၶူၼ်းၽဵင်ႇ သဵၼ်ႈမၢႆလူၸဝ်ႈၵဝ်ႇၼၼ်ႉ လွင်ႈၽိတ်းပိူင် ဢၼ်ဢမ်ႇထၢင်ႇဝႆႉၼၼ်ႉ လႆႈပေႃႇပဵၼ်မႃး။";
 "reading-list-api-error-list-limit" = "သဵၼ်ႈမၢႆဢၼ်ၼႆႉ တေဢမ်ႇၶူၼ်းၽဵင်ႇပၼ် ယွၼ်ႉပိူဝ်ႈဝႃႈ သဵၼ်ႈမၢႆၶူၼ်းၽဵင်ႇၼႆႉ ၽႅဝ်ထိုင် မၢႆမၵ်းၶၢၼ်းဝႆႉယဝ်ႈ။";
 "reading-list-create-new-list-button-title" = "ၵေႃႇသၢင်ႈ သဵၼ်ႈမၢႆလူ";
-"reading-list-create-new-list-description" = "ၶေႃႈသပ်းလႅင်း";
-"reading-list-create-new-list-reading-list-name" = "ၸိုဝ်ႈသဵၼ်ႈမၢႆလူ";
 "reading-list-create-new-list-title" = "ၵေႃႇသၢင်ႈ သဵၼ်ႈမၢႆမႂ်ႇ";
 "reading-list-deleted-accessibility-notification" = "မွတ်ႇပႅတ်ႈ သဵၼ်ႈမၢႆလူယဝ်ႉယဝ်ႈ";
 "reading-list-do-not-keep-button-title" = "ဢမ်ႇ၊ မွတ်ႇပႅတ်ႇပွင်ႈၵႂၢမ်းၵႃႈတီႈ ၶိူင်ႈၸႂ်ႉ";
@@ -474,7 +471,9 @@
 "reading-list-list-limit-reached" = "ၸဝ်ႈၵဝ်ႇလႆႈၽႅဝ်ထိုင် လွင်ႈမၵ်းၶၢၼ်း ႁင်း သဵၼ်ႈမၢႆလူ $1 ဢၼ် တႃႇ ဢၶွင်ႉၼိုင်ႈဢၼ်";
 "reading-list-login-or-create-account-button-title" = "လွၵ်ႉဢိၼ်ႇ ဢမ်ႇၼၼ် သၢင်ႈဢၶွင်ႉ";
 "reading-list-name-user-created-annotation" = "_[ၵေႃႇသၢင်ႈ ၽူႈၸႂ်ႉတိုဝ်းယဝ်ႉယဝ်ႈ]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "ၶေႃႈသပ်းလႅင်းဢၼ်ပွတ်း ဢၼ်လိူၵ်ႈသၢင်ႈ";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ႁူဝ်ၶေႃႈသဵၼ်ႈမၢႆလူ";
 "reading-list-sync-disabled-panel-message" = "လွင်ႈၶူၼ်းၽဵင်ႇသဵၼ်ႈမၢႆလူၼႆႉ ထုၵ်ႇဢိုတ်ႈဝႆႉ တွၼ်ႈတႃႇ ဢၶွင်ႉဝီႇၶီႇၽီးတီးယႃးၸဝ်ႈၵဝ်ႇ ၵႃႈတီႈၼိူဝ်ၶိူင်ႈတၢင်ႇဢၼ်။ ႁဵတ်းဢၢပ်ႉတဵတ်ႉၵၢၼ်တင်ႈၸဝ်ႈၵဝ်ႇသေၵေႃႈ ၸဝ်ႈၵဝ်ႇၸၢင်ႈၶိုၼ်း ပိုၼ်ႇလွင်ႈၶူၼ်းၽဵင်ႇလႆႈယူႇ။";
 "reading-list-sync-disabled-panel-title" = "လွင်ႈၶူၼ်းၽဵင်ႇ ဢိုတ်းဝႆႉယဝ်ႉ";
@@ -547,7 +546,6 @@
 "settings-clear-cache" = "ၽဵဝ်ႈလၢင်ႉပႅတ်ႈ ၶေႃႈမုၼ်းသိူင်ႇတူဝ်";
 "settings-clear-cache-are-you-sure-message" = "လွင်ႈၽဵဝ်ႈလၢင်ႉပႅတ်ႈ ၶေႃႈမုၼ်းသိူင်ႇတူဝ်ၼၼ်ႉ မၼ်းတေႁႂ်ႈ ဢွင်ႈတီႈပဝ်ႇ $1 လိူဝ်မႃး။ မၼ်းတေဢမ်ႇမွတ်ႇပႅတ်ႈ ၼႃႈလိၵ်ႈဢၼ်ၸဝ်ႈၵဝ်ႇသိမ်းဝႆႉၼၼ်ႉ။";
 "settings-clear-cache-are-you-sure-title" = "တေၽဵဝ်ႈလၢင်ႉပႅတ်ႈ ၶေႃႈမုၼ်းသိူင်ႇတူဝ်ၼႄႇ?";
-"settings-clear-cache-cancel" = "ယႃႉၶိုၼ်း";
 "settings-clear-cache-ok" = "ၽဵဝ်ႈလၢင်ႉသိူင်ႇတူဝ်";
 "settings-help-and-feedback" = "လွင်ႈၸွႆႈထႅမ်လႄႈ ၶေႃႈၶႆႈၸႂ်";
 "settings-language-bar" = "ၼႄ ၽႃႇသႃႇၵႂၢမ်း တီႈလွင်ႈၶူၼ်ႉႁႃ";

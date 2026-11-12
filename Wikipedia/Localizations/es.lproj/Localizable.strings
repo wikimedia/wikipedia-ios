@@ -199,9 +199,6 @@
 "activity-tab-unsatisfied" = "Insatisfecho";
 "activity-tab-very-satisfied" = "Muy satisfecho";
 "activity-tab-very-unsatisfied" = "Muy insatisfecho";
-"activity-tab-you-edited" = "Editaste {{PLURAL:$1|$1 una vez|$1 veces}} esta semana.";
-"activity-tab-you-read" = "Leíste {{PLURAL:$1|$1 artículo|$1 artículos}} esta semana.";
-"activity-tab-you-saved" = "Guardaste {{PLURAL:$1|$1 artículo|$1 artículos}} esta semana.";
 "activity-tab-your-impact" = "Tu impacto";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "advanced-settings-title" = "Ajustes avanzados";
@@ -264,8 +261,6 @@
 "clearing-cache-complete" = "Limpieza de caché completada.";
 "clearing-cache-in-progress" = "Limpieza de caché en curso.";
 "close-all-tabs" = "Cerrar todas las pestañas";
-"close-all-tabs-confirmation" = "¿Quieres cerrar todas las $1 pestañas? Esta acción no se puede deshacer.";
-"close-all-tabs-confirmation-number" = "¿Cerrar todas las $1 pestañas?";
 "close-button-accessibility-label" = "Cerrar";
 "close-tabs" = "Cerrar pestañas";
 "compass-direction" = "a las $1 en punto";
@@ -380,6 +375,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Toca dos veces para habilitar donaciones mensuales automáticas por esta cantidad.";
 "donate-accessibility-textfield-hint" = "Ingresa una cantidad personalizada para donar.";
 "donate-accessibility-transaction-fee-hint" = "Toca dos veces para agregar el costo de la transacción al donativo.";
+// Fuzzy
 "donate-already-donated" = "¡Gracias por tu donación! Tu generosidad mantiene viva la Wikipedia y otros proyectos de conocimiento libre.";
 "donate-apple-fine-print" = "Apple no es responsable de recaudar fondos para esta causa.";
 "donate-email-opt-in-text" = "Sí, acepto que Wikimedia Foundation me envíe correos ocasionalmente.";
@@ -1002,7 +998,6 @@
 "potd-sample-entry-description" = "Dos toros corriendo mientras el jockey se les agarra a en pacu jawi (del minangkabau, \"carrera de toros\"), una carrera de toros tradicional en Tanah Datar, Sumatra Occidental, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "Disfruta una hermosa foto diaria seleccionada por nuestra comunidad.";
 "potd-widget-title" = "Imagen del día";
-"preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
 "privacy-policy-title" = "Política de privacidad";
 "problem-with-feature-title" = "Problema con función";
 "profile-button-accessibility-hint" = "Navega a la vista de perfil.";
@@ -1034,8 +1029,6 @@
 "reading-list-api-error-generic" = "Hubo un error inesperado al sincronizar tus listas de lectura.";
 "reading-list-api-error-list-limit" = "Esta lista no está sincronizada porque has alcanzado el límite de listas sincronizadas.";
 "reading-list-create-new-list-button-title" = "Crear lista de lectura";
-"reading-list-create-new-list-description" = "Descripción";
-"reading-list-create-new-list-reading-list-name" = "Nombre de la lista de lectura";
 "reading-list-create-new-list-title" = "Crear una lista nueva";
 "reading-list-deleted-accessibility-notification" = "Leyendo la lista eliminada";
 "reading-list-detail-search-placeholder" = "Buscar lista de lectura";
@@ -1056,7 +1049,9 @@
 "reading-list-list-limit-reached" = "Has alcanzado el límite de $1 listas de lectura por cuenta";
 "reading-list-login-or-create-account-button-title" = "Acceder o crear cuenta";
 "reading-list-name-user-created-annotation" = "_[creado por el usuario]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descripción breve opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "título de la lista de lectura";
 "reading-list-sync-disabled-panel-message" = "La sincronización de listas de lectura se ha desactivado en tu cuenta Wikipedia en otro dispositivo. Puedes reactivar la sincronización actualizando tus preferencias.";
 "reading-list-sync-disabled-panel-title" = "Sincronización desactivada";
@@ -1158,7 +1153,6 @@
 "settings-clear-cache" = "Borrar datos en antememoria";
 "settings-clear-cache-are-you-sure-message" = "El borrado de los datos almacenados en caché liberará alrededor de $1 de espacio. No eliminará tus páginas guardadas.";
 "settings-clear-cache-are-you-sure-title" = "\n¿Quieres borrar los datos en la caché?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Vaciar antememoria";
 "settings-donate" = "Donar";
 "settings-help-and-feedback" = "Ayuda y comentarios";

@@ -1,9 +1,6 @@
 import WMFNativeLocalizations
 
 protocol InsertMediaSearchViewControllerDelegate: InsertMediaViewController {
-    func insertMediaSearchViewController(_ insertMediaSearchViewController: InsertMediaSearchViewController, didFailWithError error: Error)
-    func insertMediaSearchViewController(_ insertMediaSearchViewController: InsertMediaSearchViewController, didFind searchResults: [InsertMediaSearchResult])
-    func insertMediaSearchViewController(_ insertMediaSearchViewController: InsertMediaSearchViewController, didFind imageInfo: MWKImageInfo, for searchResult: InsertMediaSearchResult, at index: Int)
 }
 
 final class InsertMediaSearchViewController: UIViewController {
@@ -60,10 +57,7 @@ final class InsertMediaSearchViewController: UIViewController {
         }
         let searchResults: (WMFSearchResults) -> [InsertMediaSearchResult] = { (results: WMFSearchResults) in
             assert(!Thread.isMainThread)
-            guard let results = results.results else {
-                return []
-            }
-            return results.compactMap { (result: MWKSearchResult) in
+            return results.results.compactMap { (result: MWKSearchResult) in
                 guard
                     let fileTitle = result.displayTitle,
                     let thumbnailURL = result.thumbnailURL
@@ -99,7 +93,8 @@ final class InsertMediaSearchViewController: UIViewController {
             }
         }
         searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: false, appendToPreviousResults: nil, failure: failure) { results in
-            if let resultsArray = results.results {
+            let resultsArray = results.results
+            do {
                 if resultsArray.isEmpty {
                     self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
                 } else if resultsArray.count < 12 {
@@ -111,8 +106,6 @@ final class InsertMediaSearchViewController: UIViewController {
                 } else {
                     success(results)
                 }
-            } else {
-                self.searchFetcher.fetchFiles(forSearchTerm: searchTerm, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: failure, success: success)
             }
         }
     }

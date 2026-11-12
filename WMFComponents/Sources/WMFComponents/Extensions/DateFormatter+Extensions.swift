@@ -10,6 +10,14 @@ public extension DateFormatter {
 		return dateFormatter
 	}()
 
+	/// Short date and short time in the device locale: e.g. `10/2/26, 10:52 PM`
+	static let wmfShortDateShortTimeFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		return dateFormatter
+	}()
+
 	/// Full date only: e.g. `Tuesday, August 22, 2023`
 	static var wmfFullDateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -113,15 +121,6 @@ public extension DateFormatter {
         return formatter
     }()
     
-    /// Parses a `yyyy-MM-dd` string and returns "Month Day" e.g. `December 19`
-    static func wmfMonthDayFromDailyGameDate(_ dateString: String) -> String {
-        let parser = DateFormatter()
-        parser.dateFormat = "yyyy-MM-dd"
-        parser.locale = Locale(identifier: "en_US_POSIX")
-        guard let date = parser.date(from: dateString) else { return dateString }
-        return wmfMonthDayDateFormatter.string(from: date)
-    }
-
     /// Parses a `yyyy-MM-dd` string and returns "Month Day, Year" e.g. `December 19, 2025`
     static func wmfMonthDayYearFromDailyGameDate(_ dateString: String) -> String {
         let parser = DateFormatter()

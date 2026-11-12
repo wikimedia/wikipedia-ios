@@ -152,9 +152,6 @@
 "activity-tab-year-in-review-data-rich-title" = "İllik icmalınız buradadır";
 "activity-tab-year-in-review-low-data-subtitle" = "Vikipediyada ilinizi yenidən kəşf edin.";
 "activity-tab-year-in-review-low-data-title" = "İllik İcmalımız buradadır";
-"activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz.";
-"activity-tab-you-read" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} oxumusunuz.";
-"activity-tab-you-saved" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız.";
 "activity-tab-your-impact" = "Sizin təsiriniz";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";
 "advanced-settings-title" = "Qabaqcıl parametrlər";
@@ -252,8 +249,6 @@
 "clearing-cache-error" = "Keşi təmizləmə xətası.";
 "clearing-cache-in-progress" = "Keş təmizlənir.";
 "close-all-tabs" = "Bütün vərəqələri bağla";
-"close-all-tabs-confirmation" = "$1 vərəqənin hamısını bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
-"close-all-tabs-confirmation-number" = "Bütün $1 vərəqə bağlansın?";
 "close-all-tabs-confirmation-subtitle-with-value" = "{{PLURAL:$1|$1 vərəqəni}} bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 vərəqə}} bağlansın?";
 "close-button-accessibility-label" = "Bağla";
@@ -373,6 +368,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu məbləğin avtomatik aylıq ianələrini aktiv etmək üçün iki dəfə toxunun.";
 "donate-accessibility-textfield-hint" = "İanə etmək üçün fərdi məbləği daxil edin.";
 "donate-accessibility-transaction-fee-hint" = "İanə məbləğinə əməliyyat haqqı əlavə etmək üçün iki dəfə toxunun.";
+// Fuzzy
 "donate-already-donated" = "Təşəkkürlər, əziz donor! Səxavətiniz Vikipediya və onun və digər azad bilik layihələrinin inkişaf etməsinə kömək edir.";
 "donate-apple-fine-print" = "Apple bu məqsədlə pul yığmaqdan məsul deyil.";
 "donate-email-opt-in-text" = "Bəli, Vikimedia Fondu mənə vaxtaşırı e-poçt göndərə bilər.";
@@ -1151,7 +1147,6 @@
 "potd-sample-entry-description" = "Tanah Datar, Qərbi Sumatra, İndoneziyada ənənəvi öküz yarışı olan pacu jawi (Minanqkabaudan \"öküz yarışı\") yarışında jokey onları tutarkən qaçan iki öküz. 2015, Final-45.";
 "potd-widget-description" = "Cəmiyyətimiz tərəfindən seçilmiş gözəl gündəlik fotoşəkildən həzz alın.";
 "potd-widget-title" = "Günün şəkli";
-"preference-summary-eventlogging-opt-in" = "Proqramı daha yaxşı etmək üçün proqramdan necə istifadə etdiyiniz barədə məlumat toplamaq üçün Vikimedia Fonduna icazə verin";
 "privacy-policy-title" = "Məxfilik siyasəti";
 "problem-with-feature-title" = "Funksiya ilə bağlı problem";
 "profile-button-accessibility-hint" = "Profil görünüşünə keçir.";
@@ -1185,8 +1180,6 @@
 "reading-list-api-error-generic" = "Oxuma siyahılarınızı sinxronlaşdırarkən gözlənilməz xəta baş verdi.";
 "reading-list-api-error-list-limit" = "Sinxronlaşdırılmış siyahıların sayı limitinə çatdığınız üçün bu siyahı sinxronlaşdırılmayıb.";
 "reading-list-create-new-list-button-title" = "Oxuma siyahısı yarat";
-"reading-list-create-new-list-description" = "Təsvir";
-"reading-list-create-new-list-reading-list-name" = "Oxuma siyahısının adı";
 "reading-list-create-new-list-title" = "Yeni siyahı yarat";
 "reading-list-deleted-accessibility-notification" = "Oxuma siyahısı silindi";
 "reading-list-detail-search-placeholder" = "Oxuma siyahısında axtar";
@@ -1207,7 +1200,9 @@
 "reading-list-list-limit-reached" = "Hər hesab üçün $1 oxuma siyahısı limitinə çatmısınız";
 "reading-list-login-or-create-account-button-title" = "Daxil olun və ya hesab yaradın";
 "reading-list-name-user-created-annotation" = "_[istifadəçi yaratdı]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "istəyə bağlı qısa təsvir";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "oxuma siyahısının başlığı";
 "reading-list-sync-disabled-panel-message" = "Oxuma siyahısının sinxronizasiyası başqa cihazda Vikipediya hesabınız üçün deaktiv edilib. Parametrlərinizi güncəlləməklə sinxronizasiyanı yenidən aktiv edə bilərsiniz.";
 "reading-list-sync-disabled-panel-title" = "Sinxronizasiya deaktiv edilib";
@@ -1289,13 +1284,10 @@
 "search-recent-title" = "Son axtarılanlar";
 "search-result-redirected-from" = "$1 səhifəsindən istiqamətləndirilmişdir";
 "search-semantic-entry-point-accessibility-hint" = "Sorğunuz üçün məqalələr daxilində axtarışlar";
-// Fuzzy
 "search-semantic-entry-point-description" = "Məqalələr daxilində axtarış edin və birbaşa müvafiq hissəyə keçin";
 "search-semantic-entry-point-hidden-toast-modify" = "Dəyişdir";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-subtitle" = "Parametrlər vasitəsilə onu yenidən görünən edə bilərsiniz.";
-// Fuzzy
-"search-semantic-entry-point-hidden-toast-title" = "Modul gizlədilib.";
+"search-semantic-entry-point-hidden-toast-subtitle" = "Parametrlər vasitəsilə onu yenidən görünən edə bilərsiniz";
+"search-semantic-entry-point-hidden-toast-title" = "Modul gizlədilib";
 "search-semantic-entry-point-hide-accessibility-label" = "Məqalələr daxilində axtarışı gizlət";
 "search-semantic-entry-point-info-accessibility-label" = "Məqalələr daxilində axtarış haqqında";
 "search-semantic-entry-point-try-it-now" = "İndi sınayın";
@@ -1303,7 +1295,6 @@
 "search-semantic-results-empty-title" = "Bu axtarış üçün nəticə yoxdur";
 "search-semantic-results-error-subtitle" = "Zəhmət olmasa, yenidən cəhd edin.";
 "search-semantic-results-error-title" = "Xəta baş verdi";
-// Fuzzy
 "search-semantic-results-last-updated" = "Son yeniləmə: $1";
 "search-semantic-results-rate-limited-subtitle" = "Bir az gözləyin və yenidən cəhd edin.";
 "search-semantic-results-rate-limited-title" = "Həddindən artıq çox axtarış";
@@ -1331,7 +1322,6 @@
 "settings-clear-cache" = "Keşdəki datanı sil";
 "settings-clear-cache-are-you-sure-message" = "Keşdəki datanın təmizlənməsi təxminən $1 yer boşaldacaq. O, saxladığınız səhifələri silməyəcək.";
 "settings-clear-cache-are-you-sure-title" = "Keşdəki data silinsin?";
-"settings-clear-cache-cancel" = "İmtina";
 "settings-clear-cache-ok" = "Keşi təmizlə";
 "settings-clear-donation-history" = "İanə tarixçəsini təmizlə";
 "settings-community-feed-title" = "İcma";

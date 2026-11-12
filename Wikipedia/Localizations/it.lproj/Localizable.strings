@@ -168,9 +168,6 @@
 "activity-tab-very-satisfied" = "Molto soddisfatto";
 "activity-tab-very-unsatisfied" = "Molto insoddisfatto";
 "activity-tab-week-graph-label" = "Settimana";
-"activity-tab-you-edited" = "Hai modificato {{PLURAL:$1|$1 volta|$1 volte}} questa settimana.";
-"activity-tab-you-read" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
-"activity-tab-you-saved" = "Hai salvato {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
 "activity-tab-your-impact" = "Il tuo impatto";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
@@ -227,8 +224,6 @@
 "clearing-cache-complete" = "Cancellazione della cache completata.";
 "clearing-cache-in-progress" = "Cancellazione della cache in corso.";
 "close-all-tabs" = "Chiudi tutte le schede";
-"close-all-tabs-confirmation" = "Vuoi chiudere tutte le schede $1? Questa azione non può essere annullata.";
-"close-all-tabs-confirmation-number" = "Chiudere tutte le $1 schede?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Vuoi chiudere {{PLURAL:$1|$1 scheda|$1 schede}}? Questa azione non può essere annullata.";
 "close-all-tabs-confirmation-title-with-value" = "Chiudi {{PLURAL:$1|$1 scheda|$1 schede}}?";
 "close-button-accessibility-label" = "Chiudi";
@@ -320,6 +315,11 @@
 "diff-thanks-sent-cannot-unsend" = "Non si può richiamare e annullare l'invio di ringraziamenti";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 riga non modificata|$1 righe non modificate}}";
 "dim-images" = "Attenuazione immagini";
+"discover-announcement-new-tag" = "Nuovo";
+"discover-announcement-no-thanks" = "No, grazie";
+"discover-settings-interests-title" = "Interessi";
+"discover-settings-source-alert-never-mind" = "Non importa";
+"discover-settings-turn-off-alert-title" = "Vuoi disattivare Discover?";
 "donate-accessibility-amount-button-hint" = "Tocca due volte per selezionare l'importo da donare.";
 "donate-accessibility-donate-hint-format" = "Tocca due volte per donare $1 alla Wikimedia Foundation.";
 "donate-accessibility-email-opt-in-hint" = "Tocca due volte per dare il permesso alla Wikimedia Foundation di inviarti delle email.";
@@ -778,7 +778,6 @@
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
 "potd-sample-entry-description" = "Due tori che corrono mentre il fantino li tiene in pacu jawi (da Minangkabau, \"corsa dei tori\"), una tradizionale corsa di tori a Tanah Datar, Sumatra occidentale, in Indonesia. 2015, Finale-45.";
 "potd-widget-title" = "Immagine del giorno";
-"preference-summary-eventlogging-opt-in" = "Consenti alla Wikimedia Foundation di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "privacy-policy-title" = "Informativa sulla privacy";
 "profile-button-accessibility-label" = "Profilo";
 "profile-page-join-title" = "Entra / unisciti a Wikipedia";
@@ -800,8 +799,6 @@
 "reading-list-add-saved-title" = "Voci salvate trovate";
 "reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
 "reading-list-create-new-list-button-title" = "Crea elenco di lettura";
-"reading-list-create-new-list-description" = "Descrizione";
-"reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
 "reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
 "reading-list-detail-search-placeholder" = "Cerca elenco di lettura";
@@ -810,8 +807,8 @@
 "reading-list-list-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura per utenza.";
 "reading-list-login-or-create-account-button-title" = "Accedi o registrati";
 "reading-list-name-user-created-annotation" = "_[utenza creata]";
-"reading-list-new-list-description-placeholder" = "breve descrizione facoltativa";
-"reading-list-new-list-name-placeholder" = "titolo dell'elenco di lettura";
+"reading-list-new-list-description-placeholder" = "Breve descrizione facoltativa";
+"reading-list-new-list-name-placeholder" = "Titolo elenco di lettura";
 "reading-list-sync-disabled-panel-title" = "Sincronizzazione disattivata";
 "reading-list-sync-enable-button-title" = "Attiva sincronizzazione";
 "reading-list-sync-enabled-panel-message" = "La sincronizzazione degli elenchi di lettura è attivata su questo account. Per bloccarla, puoi disattivare la sincronizzazione di questo account aggiornando le tue impostazioni.";
@@ -871,7 +868,6 @@
 "settings-clear-cache" = "Cancella i dati nella cache";
 "settings-clear-cache-are-you-sure-message" = "Cancellando i dati della cache libererai circa $1 di spazio. Questo non cancellerà gli elenchi di lettura.";
 "settings-clear-cache-are-you-sure-title" = "Vuoi cancellare i dati nella cache?";
-"settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
 "settings-donate" = "Dona";
 "settings-explore-games-subtitle" = "Giochi giornalieri basati sui contenuti di Wikipedia";
@@ -1122,6 +1118,7 @@
 "wikitext-upload-save-anonymously-or-login" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1accedi$2 avrai maggiore privacy.";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "$1 {{PLURAL:$1|visualizzazione|visualizzazioni}}";
 "year-in-review-button-title" = "Anno in Rassegna";
 "year-in-review-feature-announcement-title-personalized" = "Esplora il tuo Anno in Rassegna su Wikipedia";
 "yesterday-title" = "Ieri";

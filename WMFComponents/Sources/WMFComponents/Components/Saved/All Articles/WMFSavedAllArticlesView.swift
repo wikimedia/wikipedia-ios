@@ -6,8 +6,9 @@ public struct WMFSavedAllArticlesView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSavedAllArticlesViewModel
-    /// Mirrors `showsAnnouncement` so the card fades in and out instead of popping.
-    @State private var isAnnouncementShown = false
+    /// Mirrors `discoverHeader` so the card fades in and out instead of popping.
+    @State private var shownDiscoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
+    @Environment(\.isSearching) private var isSearching
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
     private let emptyStateTitle = CommonStrings.allArticlesEmptySavedTitle
@@ -26,7 +27,7 @@ public struct WMFSavedAllArticlesView: View {
                 ProgressView()
             case .empty:
                 VStack(spacing: 0) {
-                    announcementCard
+                    discoverHeaderCard
                     emptyStateView
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
@@ -37,11 +38,11 @@ public struct WMFSavedAllArticlesView: View {
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadArticles()
-            isAnnouncementShown = showsAnnouncement
+            shownDiscoverHeader = discoverHeader
         }
-        .onChange(of: showsAnnouncement) { _, shows in
+        .onChange(of: discoverHeader) { _, header in
             withAnimation {
-                isAnnouncementShown = shows
+                shownDiscoverHeader = header
             }
         }
     }
@@ -72,29 +73,26 @@ public struct WMFSavedAllArticlesView: View {
         .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEmptyView)
     }
     
-    // MARK: - Discover Announcement
+    // MARK: - Discover
 
     /// The card shows while the reader is not editing or searching.
-    private var showsAnnouncement: Bool {
-        viewModel.isAnnouncementVisible && !viewModel.isEditing && viewModel.searchText.isEmpty
+    private var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header? {
+        guard !viewModel.isEditing, !isSearching else { return nil }
+        return viewModel.discoverHeader
     }
 
     @ViewBuilder
-    private var announcementCard: some View {
-        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
-            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
-                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
-                .readableWidth()
+    private var discoverHeaderCard: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
                 .transition(.opacity)
         }
     }
 
     @ViewBuilder
-    private var announcementRow: some View {
-        if isAnnouncementShown, let announcementViewModel = viewModel.announcementViewModel {
-            WMFDiscoverAnnouncementView(viewModel: announcementViewModel)
-                .padding(EdgeInsets(top: WMFSpacing.small, leading: WMFSpacing.large, bottom: WMFSpacing.large, trailing: WMFSpacing.large))
-                .readableWidth()
+    private var discoverHeaderRow: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
@@ -107,7 +105,7 @@ public struct WMFSavedAllArticlesView: View {
     private var articleListView: some View {
         VStack(spacing: 0) {
             List {
-                announcementRow
+                discoverHeaderRow
                 ForEach(viewModel.filteredArticles, id: \.id) { article in
                     let rowModel = viewModel.rowViewModel(for: article)
                     

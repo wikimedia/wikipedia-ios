@@ -833,7 +833,6 @@
 "potd-sample-entry-description" = "Dva bika tečeta, medtem ko ju džokej drži v pacu jawi (iz Minangkabau, »tekma bikov«), tradicionalna tekma bikov v Tanah Datar, Zahodna Sumatra, Indonezija. 2015, finale-45.";
 "potd-widget-description" = "Uživajte v čudoviti dnevni fotografiji, ki jo je izbrala naša skupnost.";
 "potd-widget-title" = "Slika dneva";
-"preference-summary-eventlogging-opt-in" = "Omogočite Fundaciji Wikimedia zbiranje podatkov o tem, kako uporabljate aplikacijo, da bo ta postala še boljša.";
 "privacy-policy-title" = "Pravilnik o zasebnosti";
 "problem-with-feature-title" = "Problem z možnostjo";
 "profile-button-accessibility-hint" = "Pomakne se na pogled profila.";
@@ -859,8 +858,6 @@
 "reading-list-api-error-generic" = "Pri sinhroniziranju vaših bralnih seznamov je prišlo do nepričakovane napake.";
 "reading-list-api-error-list-limit" = "Ta seznam ni sinhroniziran, ker ste dosegli omejitev števila sinhroniziranih seznamov.";
 "reading-list-create-new-list-button-title" = "Ustvari seznam za branje";
-"reading-list-create-new-list-description" = "Opis";
-"reading-list-create-new-list-reading-list-name" = "Ime seznama za branje";
 "reading-list-create-new-list-title" = "Ustvari nov seznam";
 "reading-list-deleted-accessibility-notification" = "Seznam za branje izbrisan";
 "reading-list-do-not-keep-button-title" = "Ne, izbriši članke iz naprave";
@@ -880,7 +877,9 @@
 "reading-list-list-limit-reached" = "Dosegli ste omejitev $1 bralnih seznamov na račun";
 "reading-list-login-or-create-account-button-title" = "Prijava ali registracija";
 "reading-list-name-user-created-annotation" = "_[uporabniško ustvarjeno]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "izbirni kratki opis";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "naslov bralnega seznama";
 "reading-list-sync-disabled-panel-message" = "Sinhroniziranje bralnih seznamov je bilo za vaš račun v Wikipediji v drugi napravi onemogočeno. Sinhroniziranje lahko znova vklopite tako, da posodobite nastavitve.";
 "reading-list-sync-disabled-panel-title" = "Sinhronizacija je onemogočena";
@@ -967,7 +966,6 @@
 "settings-clear-cache" = "Počisti predpomnjene podatke";
 "settings-clear-cache-are-you-sure-message" = "Počiščenje predpomnjenih podatkov bo sprostilo približno $1 prostora. Vaše shranjene strani ne bodo izbrisane.";
 "settings-clear-cache-are-you-sure-title" = "Počistim predpomnjene podatke?";
-"settings-clear-cache-cancel" = "Prekliči";
 "settings-clear-cache-ok" = "Počisti predpomnenje";
 "settings-donate" = "Donirajte";
 "settings-help-and-feedback" = "Pomoč in odziv";

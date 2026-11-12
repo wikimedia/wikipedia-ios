@@ -23,6 +23,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     private var sharedCacheStore: WMFKeyValueStore? {
         _sharedCacheStore.value ?? WMFDataEnvironment.current.sharedCacheStore
     }
+    private let injectedUserDefaultsStore: WMFKeyValueStore?
     private let _featureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
     private var featureConfig: WMFFeatureConfigResponse? {
         get { _featureConfig.value }
@@ -32,15 +33,21 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
-    public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    /// A nil user defaults store reads the environment's store at call time.
+    public init(
+        service: WMFService? = WMFDataEnvironment.current.basicService,
+        sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore,
+        userDefaultsStore: WMFKeyValueStore? = nil
+    ) {
         self.service = service
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
+        self.injectedUserDefaultsStore = userDefaultsStore
         super.init()
     }
 
     // MARK: - Local Settings
 
-    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
+    private var userDefaultsStore: WMFKeyValueStore? { injectedUserDefaultsStore ?? WMFDataEnvironment.current.userDefaultsStore }
 
     /// Shared read and write for the plain on/off settings below. Each one lives in user defaults
     /// and is off when nothing has been stored yet.
@@ -90,6 +97,19 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public var allowGestureZoomArticleWebview: Bool {
         get { loadFlag(.allowGestureZoomArticleWebview) }
         set { saveFlag(.allowGestureZoomArticleWebview, newValue) }
+    }
+
+    /// Debugging convenience: shows the Analytics Inspector pill over the app with the events the
+    /// event pipeline receives.
+    public var showAnalyticsInspector: Bool {
+        get { loadFlag(.developerSettingsShowAnalyticsInspector) }
+        set {
+            let oldValue = showAnalyticsInspector
+            saveFlag(.developerSettingsShowAnalyticsInspector, newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.analyticsInspectorVisibilityDidChange, object: nil)
+            }
+        }
     }
 
     // MARK: - Year in Review
@@ -316,7 +336,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Discover
 
-    /// Gates the whole Discover feature while its user stories ship one by one. Off in production.
+    /// Forces the whole Discover feature on, without the remote feature config. In production the
+    /// remote key `iosv1.discoverExperimentEnabled` turns the feature on.
     public var enableDiscover: Bool {
         get { loadFlag(.developerSettingsEnableDiscover) }
         set {

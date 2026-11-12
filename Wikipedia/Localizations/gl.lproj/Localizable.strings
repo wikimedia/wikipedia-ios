@@ -437,7 +437,6 @@
 "places-unknown-distance" = "distancia descoñecida";
 "potd-description-prefix" = "Imaxe do día para $1";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
-"preference-summary-eventlogging-opt-in" = "Permitir que a Fundación Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
 "reading-list-add-generic-hint-title" = "Engadir este artigo a unha lista de lectura?";
 "reading-list-add-hint-title" = "Engdir \"$1\" á lista de lectura?";
 "reading-list-add-saved-button-title" = "Si, engadilos ás miñas listas de lectura";
@@ -447,8 +446,6 @@
 "reading-list-api-error-generic" = "Houbo un erro inesperado ó sincronizar as súas listas de lectura.";
 "reading-list-api-error-list-limit" = "Esta lista non está sincronizada porque alcanzou o límite de número de listas sincronizadas.";
 "reading-list-create-new-list-button-title" = "Crear unha listaxe de lectura";
-"reading-list-create-new-list-description" = "Descrición";
-"reading-list-create-new-list-reading-list-name" = "Nome da listaxe de lectura";
 "reading-list-create-new-list-title" = "Crear unha listaxe nova";
 "reading-list-deleted-accessibility-notification" = "A lista de lectura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Non, eliminar artigos do dispositivo";
@@ -468,7 +465,9 @@
 "reading-list-list-limit-reached" = "Alcanzou o límite de $1 listas de lectura por conta";
 "reading-list-login-or-create-account-button-title" = "Iniciar sesión ou crear unha conta";
 "reading-list-name-user-created-annotation" = "_[creada polo usuario]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descrición breve opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "título da lista de lectura";
 "reading-list-sync-disabled-panel-message" = "A sincronización das listaxes de lectura foi desactivada para a súa conta da Wikipedia noutro dispositivo. Pode reactivar a sincronización mudando os seus axustes.";
 "reading-list-sync-disabled-panel-title" = "Sincronización desactivada";
@@ -542,7 +541,6 @@
 "settings-clear-cache" = "Borrar os datos da caché";
 "settings-clear-cache-are-you-sure-message" = "Se se borran os datos da caché liberaranse preto de $1 de espazo. Non borrará as súas páxinas gardadas.";
 "settings-clear-cache-are-you-sure-title" = "Borrar os datos da caché?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Axuda e comentarios";
 "settings-language-bar" = "Amosar as linguas ó procurar";

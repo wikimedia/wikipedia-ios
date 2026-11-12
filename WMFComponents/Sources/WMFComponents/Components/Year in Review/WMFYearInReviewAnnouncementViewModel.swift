@@ -19,7 +19,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
         /// Drawn inside the artwork. VoiceOver reads it after the headline.
         public let body: String
         public let exploreButtonTitle: String
-        public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
         public let moreButtonAccessibilityLabel: String
         public let learnMoreButtonTitle: String
@@ -30,7 +29,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
             animationAccessibilityLabel: String,
             body: String,
             exploreButtonTitle: String,
-            wIconAccessibilityLabel: String,
             closeButtonAccessibilityLabel: String,
             moreButtonAccessibilityLabel: String,
             learnMoreButtonTitle: String,
@@ -40,7 +38,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
             self.animationAccessibilityLabel = animationAccessibilityLabel
             self.body = body
             self.exploreButtonTitle = exploreButtonTitle
-            self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
             self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.learnMoreButtonTitle = learnMoreButtonTitle
@@ -58,9 +55,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
     /// slides. When the artwork loads, its value replaces `contentStyle`.
     public let lightContentFlag: WMFRiveBool?
 
-    /// Makes long translations smaller so they stay inside the artwork, the same as on the slides.
-    public let textFits: [WMFRiveTextFit]
-
     /// Which color the navigation bar items use above the artwork. The value passed in shows only
     /// until the artwork loads and reports `lightContentFlag`.
     @Published public private(set) var contentStyle: WMFYearInReviewSlideViewModel.ContentStyle
@@ -77,7 +71,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
         localizedStrings: LocalizedStrings,
         contentStyle: WMFYearInReviewSlideViewModel.ContentStyle = .light,
         lightContentFlag: WMFRiveBool? = nil,
-        textFits: [WMFRiveTextFit] = [],
         delegate: WMFYearInReviewAnnouncementDelegate?
     ) {
         self.animation = animation
@@ -86,7 +79,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.contentStyle = contentStyle
         self.lightContentFlag = lightContentFlag
-        self.textFits = textFits
         self.delegate = delegate
     }
 

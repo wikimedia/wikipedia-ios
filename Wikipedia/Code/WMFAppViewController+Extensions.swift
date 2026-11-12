@@ -24,14 +24,6 @@ extension Notification.Name {
     public static let dismissReadingListToast = Notification.Name.dismissReadingListToast
 }
 
-@objc public enum AppTab: Int {
-    case main = 0
-    case places = 1
-    case saved = 2
-    case activity = 3
-    case search = 4
-}
-
 extension WMFAppViewController {
 
     @objc func shouldOpenAppOnSearchTab() -> Bool {
@@ -363,10 +355,6 @@ protocol NotificationsCenterFlowViewController where Self: UIViewController {
 
 extension WMFAppViewController: WMFWatchlistDelegate {
 
-    public func emptyViewDidTapSearch() {
-        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
-    }
-
     public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
         let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
@@ -630,10 +618,10 @@ extension WMFAppViewController: WMFWatchlistLoggingDelegate {
 
 }
 
-// MARK: Importing Reading Lists - CreateReadingListDelegate
+// MARK: Importing Reading Lists - CreateReadingListCoordinatorDelegate
 
-extension WMFAppViewController: CreateReadingListDelegate {
-    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
+extension WMFAppViewController: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(_ coordinator: CreateReadingListCoordinator, didCreateReadingListWith name: String, description: String, articles: [WMFArticle]) {
 
         guard !articles.isEmpty else {
             WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
@@ -641,7 +629,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
         }
 
         do {
-            createReadingListViewController.createReadingListButton.isEnabled = false
+            coordinator.setCreating(true)
             let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
             ReadingListsFunnel.shared.logCompletedImport(articlesCount: articles.count)
             showImportedReadingList(readingList)
@@ -649,11 +637,11 @@ extension WMFAppViewController: CreateReadingListDelegate {
         } catch let error {
             switch error {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
-                createReadingListViewController.handleReadingListNameError(readingListError)
+                coordinator.handleReadingListNameError(readingListError)
             default:
                 WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
-                createReadingListViewController.createReadingListButton.isEnabled = true
             }
+            coordinator.setCreating(false)
         }
     }
 
@@ -928,6 +916,23 @@ extension WMFAppViewController {
         || WMFAppEnvironment.current.traitCollection.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory
     }
 
+}
+
+// MARK: - Discover
+
+extension WMFAppViewController {
+
+    /// Generates the Discover reading list when its cadence is due. Runs each time the app becomes
+    /// active. On a cold launch the Core Data store is not ready yet, so it runs again when the
+    /// store posts `coreDataStoreSetup`.
+    @objc func generateDiscoverReadingListIfNeeded() {
+        guard WMFDiscoverDataController.shared.isEnabled, WMFDataEnvironment.current.coreDataStore != nil else { return }
+        Task {
+            let dataController = WMFDiscoverReadingListDataController.shared
+            guard await dataController.settings.isEnabled else { return }
+            _ = try? await dataController.generateRecommendationsIfNeeded()
+        }
+    }
 }
 
 // MARK: - Tabs

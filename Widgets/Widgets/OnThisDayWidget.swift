@@ -194,11 +194,6 @@ final class OnThisDayData {
             sendDataToWidget(fetchedImage.image.staticImage)
         })
     }
-    
-    private func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
-        let errorEntry = OnThisDayEntry.errorEntry(for: .noInternet)
-        completion(errorEntry)
-    }
 }
 
 // MARK: - Model

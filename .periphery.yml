@@ -1,0 +1,23 @@
+# Periphery finds unused Swift code. See docs/periphery.md.
+# Run it with scripts/periphery, not with "periphery scan" alone.
+
+project: Wikipedia.xcodeproj
+schemes:
+  - Wikipedia
+  - WMFData
+  - WMFComponents
+
+# Periphery cannot see calls from Objective-C. Without this option, every
+# @objc declaration shows as unused.
+retain_objc_accessible: true
+retain_swift_ui_previews: true
+retain_codable_properties: true
+
+# These checks give many results that are not about unused code.
+disable_redundant_public_analysis: true
+disable_unused_import_analysis: true
+
+relative_results: true
+
+report_exclude:
+  - Wikipedia/Third Party Code/**

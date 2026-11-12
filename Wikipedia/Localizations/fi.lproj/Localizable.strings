@@ -142,7 +142,7 @@
 "activity-tab-onboarding-fourth-item-subtitle" = "Valitse näytettävät moduulit. Kaikki henkilökohtaiset tiedot pidetään yksityisinä laitteellasi, ja voit poistaa selaushistoriasi milloin tahansa.";
 "activity-tab-onboarding-fourth-item-title" = "Pidä ohjat käsissäsi";
 "activity-tab-onboarding-header" = "Aktiviteettitoiminnon esittely";
-"activity-tab-onboarding-second-button-title" = "Lisätietoja Aktiviteetti-osiosta";
+"activity-tab-onboarding-second-button-title" = "Lisätietoja Toiminta-osiosta";
 "activity-tab-onboarding-third-item-title-updated" = "Hakutoiminnossa hyödynnetään nyt lukuhistoriaa";
 "activity-tab-satisfied" = "Tyytyväinen";
 "activity-tab-saved" = "Tässä kuussa tallennetut artikkelit";
@@ -160,9 +160,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Vuosikatsauksesi on valmistunut";
 "activity-tab-year-in-review-low-data-subtitle" = "Palauta vuoden tapahtumat mieleesi Wikipediassa.";
 "activity-tab-year-in-review-low-data-title" = "Vuosikatsauksemme on valmistunut";
-"activity-tab-you-edited" = "Muokkasit {{PLURAL:$1|$1 kerran|$1 kertaa}} tällä viikolla.";
-"activity-tab-you-read" = "Olet lukenut {{PLURAL:$1|$1 artikkelin|$1 artikkelia}} tällä viikolla.";
-"activity-tab-you-saved" = "Olet tallentanut {{PLURAL:$1|$1 artikkelin|$1 artikkelia}} tällä viikolla.";
 "activity-tab-your-impact" = "Vaikutuksesi";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "advanced-settings-title" = "Lisäasetukset";
@@ -254,8 +251,6 @@
 "clearing-cache-error" = "Virhe välimuistia tyhjennettäessä.";
 "clearing-cache-in-progress" = "Väliuistin tyhjennys on käynnissä.";
 "close-all-tabs" = "Sulje kaikki välilehdet";
-"close-all-tabs-confirmation" = "Haluatko sulkea kaikki $1 välilehteä? Tätä toimintoa ei voi perua.";
-"close-all-tabs-confirmation-number" = "Suljetaanko kaikki $1 välilehteä?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Haluatko sulkea {{PLURAL:$1|$1 välilehden|$1 välilehteä}}? Tätä toimintoa ei voi perua.";
 "close-all-tabs-confirmation-title-with-value" = "Suljetaanko {{PLURAL:$1|$1 välilehti|$1 välilehteä}}?";
 "close-button-accessibility-label" = "Sulje";
@@ -366,11 +361,24 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 rivi ilman muutoksia|$1 riviä ilman muutoksia}}";
 "diff-user-button-accessibility-text" = "Kaksoisnapauta avataksesi valikon";
 "dim-images" = "Himmennä kuvia";
+"discover-list-about" = "Tietoja ominaisuudesta";
+"discover-list-customize" = "Mukauta Löydä artikkeleita";
+"discover-list-description-weekly" = "Viikottainen lukulistasi. Opi uusista aiheista, juuri sinulle valittuina. Päivittyy viikon alussa.";
+"discover-list-empty-message" = "Sinulle ei valitettavasti ole suosituksia juuri nyt.";
+"discover-list-error-subtitle" = "Lukulistan lataaminen epäonnistui.";
+"discover-list-error-title" = "Verkkovirhe";
+"discover-list-save-list" = "Tallenna lista";
+"discover-list-title" = "Löydä artikkeleita";
+"discover-setup-source-history" = "Valitse puolestani lukuhistoriani perusteella";
+"discover-setup-source-interests" = "Anna minun valita kiinnostuksenkohteideni perusteella";
+"discover-setup-source-saved" = "Valitse puolestani tallentamieni artikkelien perusteella";
+"discover-setup-title" = "Kuinka meidän pitäisi laatia suositeltu lukulistasi?";
 "donate-accessibility-amount-button-hint" = "Kaksoisnapauta valitaksesi lahjoituksen määrän.";
 "donate-accessibility-donate-hint-format" = "Lahjoita $1 Wikimedia-säätiölle kaksoisnapauttamalla.";
 "donate-accessibility-email-opt-in-hint" = "Anna kaksoisnapautuksella Wikimedia-säätiölle lupa lähettää sinulle sähköpostia.";
 "donate-accessibility-textfield-hint" = "Anna mukautettu lahjoitussumma.";
 "donate-accessibility-transaction-fee-hint" = "Lisää tapahtuman käsittelymaksu lahjoitussummaan kaksoisnapautuksella.";
+// Fuzzy
 "donate-already-donated" = "Kiitos lahjoituksestasi! Anteliaisuutesi auttaa Wikipediaa ja sen vapaan tiedonsaannin hankkeita menestymään.";
 "donate-apple-fine-print" = "Apple ei vastaa rahankeräyksestä tähän tarkoitukseen.";
 "donate-email-opt-in-text" = "Kyllä, Wikimedia-säätiö saa toisinaan lähettää minulle sähköpostia.";
@@ -991,7 +999,6 @@
 "potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";
 "potd-widget-description" = "Nauti kauniista päivän kuvasta, jonka yhteisömme on valinnut.";
 "potd-widget-title" = "Päivän kuva";
-"preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "privacy-policy-title" = "Tietosuojakäytäntö";
 "problem-with-feature-title" = "Ongelma ominaisuudessa";
 "profile-button-accessibility-hint" = "Siirtyy profiilinäkymään.";
@@ -1024,8 +1031,6 @@
 "reading-list-api-error-generic" = "Odottamaton virhe tapahtui lukulistaasi synkronoidessa.";
 "reading-list-api-error-list-limit" = "Tätä luetteloa ei synkronoida, koska olet saavuttanut synkronoitujen listojen lukumäärän rajan.";
 "reading-list-create-new-list-button-title" = "Luo lukulista";
-"reading-list-create-new-list-description" = "Kuvaus";
-"reading-list-create-new-list-reading-list-name" = "Lukulistan nimi";
 "reading-list-create-new-list-title" = "Luo uusi lista";
 "reading-list-deleted-accessibility-notification" = "Lukulista poistettu";
 "reading-list-do-not-keep-button-title" = "Ei, poista artikkelit laitteesta";
@@ -1045,7 +1050,9 @@
 "reading-list-list-limit-reached" = "Olet ylittänyt $1 listan tunnuskohtaisen rajoituksen";
 "reading-list-login-or-create-account-button-title" = "Kirjaudu sisään tai luo tunnus";
 "reading-list-name-user-created-annotation" = "_[käyttäjä luotu]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "Valinnainen lyhyt kuvaus";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "Lukulistan nimi";
 "reading-list-sync-disabled-panel-message" = "Lukulistojen synkronointi on poistettu käytöstä Wikipedia-tunnuksellesi toisella laitteella. Sen voi kytkeä takaisin päälle asetuksia päivittämällä.";
 "reading-list-sync-disabled-panel-title" = "Sykronointi poistettu käytöstä";
@@ -1139,7 +1146,6 @@
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
 "settings-clear-cache-are-you-sure-title" = "Tyhjennetäänkö välimuisti?";
-"settings-clear-cache-cancel" = "Peruuta";
 "settings-clear-cache-ok" = "Tyhjennä välimuisti";
 "settings-donate" = "Lahjoita";
 "settings-help-and-feedback" = "Ohje ja palaute";
@@ -1170,6 +1176,9 @@
 "settings-temp-accounts-talk-page-footer" = "Tilapäinen tunnus vanhentuu 90 vuorokaudessa";
 "settings-title" = "Asetukset";
 "settings-year-in-review-header" = "Vuosikatsauksen poistaminen käytöstä tyhjentää kaikki tallennetut henkilökohtaiset tiedot ja piilottaa vuosikatsauksen.";
+"settings-year-in-review-turn-off-alert-cancel" = "Ei kiitos";
+"settings-year-in-review-turn-off-alert-confirm" = "Kyllä, olen varma";
+"settings-year-in-review-turn-off-alert-title" = "Haluatko varmasti poistaa vuosikatsauksen käytöstä?";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
 "share-article-name-on-wikipedia" = "\"$1\" Wikipediassa:";
 "share-building" = "Luodaan Share-a-fact korttia...";
@@ -1403,6 +1412,7 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 4.0$4 ja $5GFDL$6 lisensseillä. Hyväksyt, että hyperlinkki tai URL on riittää nimeämiseen Creative Commons -lisenssin mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "year-in-review-2026-highlights-articles-read" = "Luettujen artikkelien määrä:";
+// Fuzzy
 "year-in-review-2026-highlights-created-with" = "Luotu Wikipedia-sovelluksella";
 "year-in-review-2026-highlights-minutes-read" = "Lukuminuutteja yhteensä:";
 "year-in-review-2026-highlights-rabbit-hole" = "Pisin kujanjuoksu:";
@@ -1411,6 +1421,7 @@
 "year-in-review-2026-reread-articles-empty-title" = "Et lue samoja tekstejä moneen kertaan";
 "year-in-review-2026-reread-articles-title" = "Joitakin artikkeleja, joiden pariin olet palannut uudelleen:";
 "year-in-review-2026-reread-articles-visit-count" = "{{PLURAL:$1|$1 vierailu|$1 vierailua}}";
+"year-in-review-2026-store-card-button-title" = "Vieraile kaupassa";
 "year-in-review-2026-total-articles-empty-subtitle" = "Odotahan, kunnes sinulle selviää, mitä kaikkea Wikipediasta voi oppia.";
 "year-in-review-2026-total-articles-empty-title" = "Miljoonat artikkelit odottavat sinua";
 "year-in-review-2026-total-articles-subtitle" = "Olet tutkiskellut asioita ahkerasti tänä vuonna. Jokainen artikkeli kasvatti tietojasi.";

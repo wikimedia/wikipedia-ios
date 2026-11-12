@@ -1,0 +1,41 @@
+name: Unit test scheme
+description: Run one scheme's unit tests with xcodebuild and report its coverage.
+
+inputs:
+  scheme:
+    description: Scheme to test (Wikipedia, WMFComponents or WMFData).
+    required: true
+  destination:
+    description: xcodebuild destination, from the prepare-simulator action.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Test ${{ inputs.scheme }} scheme
+      shell: bash
+      env:
+        SCHEME: ${{ inputs.scheme }}
+        DESTINATION: ${{ inputs.destination }}
+      run: |
+        echo "Running scheme: ${SCHEME} on ${DESTINATION}"
+        xcodebuild test \
+          -scheme "${SCHEME}" \
+          -project Wikipedia.xcodeproj \
+          -onlyUsePackageVersionsFromResolvedFile \
+          -destination "${DESTINATION}" \
+          -resultBundlePath "${SCHEME}_TestResults" \
+          | xcpretty
+        EXIT_CODE=${PIPESTATUS[0]}
+        if [ "$EXIT_CODE" -ne 0 ]; then
+          exit "$EXIT_CODE"
+        fi
+
+    - name: Coverage summary
+      uses: ./.github/actions/coverage-summary
+      with:
+        artifact-name: ${{ inputs.scheme }}-coverage
+        coverage-json-path: ${{ inputs.scheme }}_coverage.json
+        result-bundle-path: ${{ inputs.scheme }}_TestResults.xcresult
+        scheme: ${{ inputs.scheme }}
+        workflow-file: run_unit_tests.yml

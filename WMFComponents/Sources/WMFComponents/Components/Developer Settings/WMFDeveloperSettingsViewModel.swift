@@ -63,10 +63,6 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
     @Published public private(set) var isRegeneratingYiR2026Report = false
     @Published public var yiR2026ReportAlertMessage: String?
 
-    /// Set by the app. Nil hides the Discover section.
-    /// TODO: Remove this temporary entry point when the Saved tab shows the pinned Discover list (T442158).
-    public var showDiscoverReadingList: (@MainActor () -> Void)?
-
     /// Set by the app after init. Nil hides the "Run notification refresh now" button.
     @Published public var localNotificationActions: WMFDeveloperSettingsLocalNotificationActions?
     @Published var localNotificationLogSummaryLines: [String] = []
@@ -88,6 +84,15 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
     @Published public var enableDeveloperMode: Bool = WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
         didSet {
             WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode = enableDeveloperMode
+        }
+    }
+
+    /// Set by the app. False hides the Analytics Inspector toggle in builds that do not have the inspector.
+    @Published public var showsAnalyticsInspectorToggle = false
+
+    @Published public var showAnalyticsInspector: Bool = WMFDeveloperSettingsDataController.shared.showAnalyticsInspector {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.showAnalyticsInspector = showAnalyticsInspector
         }
     }
 

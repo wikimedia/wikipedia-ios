@@ -2,10 +2,11 @@ import SwiftUI
 import Combine
 import WMFData
 
+@MainActor
 public protocol WMFReadingListsLoggingDelegate: AnyObject {
-    @MainActor func readingListsDidTapEdit()
-    @MainActor func readingListsDidDelete(count: Int)
-    @MainActor func readingListsDidFailToDelete(error: Error)
+    func readingListsDidTapEdit()
+    func readingListsDidDelete(count: Int)
+    func readingListsDidFailToDelete(error: Error)
 }
 
 @MainActor
@@ -27,15 +28,15 @@ public final class WMFReadingListsViewModel: ObservableObject {
     @Published public private(set) var sortOrder: WMFReadingListSortOrder
     /// The lists the user asked to delete and is being asked to confirm. Set only for lists with articles.
     @Published public var pendingDeletion: [WMFReadingList]?
-    /// Mirrors the shared Discover card so the list re-renders when the card is answered.
-    @Published public private(set) var isAnnouncementVisible = false
+    /// Mirrors the shared Discover header so the list re-renders when the card changes.
+    @Published public private(set) var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
 
     public let filter: WMFReadingListsFilter
-    /// The Discover onboarding card shown above the list. Shared with the All articles segment.
-    public var announcementViewModel: WMFDiscoverAnnouncementViewModel? {
-        didSet { bindAnnouncement() }
+    /// The Discover card shown above the list. Shared with the All articles segment.
+    public var discoverHeaderViewModel: WMFSavedDiscoverHeaderViewModel? {
+        didSet { bindDiscoverHeader() }
     }
-    private var announcementCancellable: AnyCancellable?
+    private var discoverHeaderCancellable: AnyCancellable?
 
     public var didTapReadingList: ((WMFReadingList) -> Void)?
     public var didTapCreateList: (() -> Void)?
@@ -64,13 +65,13 @@ public final class WMFReadingListsViewModel: ObservableObject {
         loadTask?.cancel()
     }
 
-    private func bindAnnouncement() {
-        announcementCancellable = announcementViewModel?.$isVisible
-            .sink { [weak self] isVisible in
-                self?.isAnnouncementVisible = isVisible
+    private func bindDiscoverHeader() {
+        discoverHeaderCancellable = discoverHeaderViewModel?.$header
+            .sink { [weak self] header in
+                self?.discoverHeader = header
             }
-        if announcementViewModel == nil {
-            isAnnouncementVisible = false
+        if discoverHeaderViewModel == nil {
+            discoverHeader = nil
         }
     }
 
@@ -104,7 +105,10 @@ public final class WMFReadingListsViewModel: ObservableObject {
             }
             self.readingLists = lists
             let isEmpty = lists.isEmpty && searchText.isEmpty
-            let newState: State = isEmpty ? .empty : .data
+            let isSyncPending = isEmpty ? await dataController.isInitialSyncPending() : false
+            guard !Task.isCancelled else { return }
+
+            let newState: State = isEmpty ? (isSyncPending ? .loading : .empty) : .data
             if newState != self.state {
                 self.state = newState
             }

@@ -1,5 +1,6 @@
 import Foundation
 import WMFNativeLocalizations
+import WMFData
 
 enum DiffError: Error {
     case generateUrlFailure
@@ -91,20 +92,10 @@ class DiffController {
         }
     }
     
-    func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
-
-        guard let articleTitle = articleTitle.normalizedPageTitle else {
-            completion(.failure(DiffError.fetchRevisionConstructTitleFailure))
-            return
-        }
-        
-        diffFetcher.fetchFirstRevisionModel(siteURL: siteURL, articleTitle: articleTitle, completion: completion)
-    }
-    
     struct DeepLinkModelsResponse {
-        let from: WMFPageHistoryRevision?
-        let to: WMFPageHistoryRevision?
-        let first: WMFPageHistoryRevision
+        let from: WMFPageRevision?
+        let to: WMFPageRevision?
+        let first: WMFPageRevision
         let articleTitle: String
     }
     
@@ -140,9 +131,9 @@ class DiffController {
             return
         }
         
-        var fromResponse: WMFPageHistoryRevision?
-        var toResponse: WMFPageHistoryRevision?
-        var firstResponse: WMFPageHistoryRevision?
+        var fromResponse: WMFPageRevision?
+        var toResponse: WMFPageRevision?
+        var firstResponse: WMFPageRevision?
         
         let group = DispatchGroup()
         
@@ -198,7 +189,7 @@ class DiffController {
         }
     }
     
-    func fetchAdjacentRevisionModel(sourceRevision: WMFPageHistoryRevision, direction: RevisionDirection, articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
+    func fetchAdjacentRevisionModel(sourceRevision: WMFPageRevision, direction: RevisionDirection, articleTitle: String, completion: @escaping ((Result<WMFPageRevision, Error>) -> Void)) {
         
         if let revisionRetrievingDelegate = revisionRetrievingDelegate {
             

@@ -163,7 +163,6 @@
 "places-search-top-articles-that-match-scope" = "Tuvumā";
 "places-title" = "Vietas";
 "places-unknown-distance" = "nezināms attālums";
-"reading-list-create-new-list-description" = "Apraksts";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Kārtot rakstus";
 "reading-list-sync-disabled-panel-title" = "Sinhronizācija izslēgta";
 "reading-list-sync-enable-button-title" = "Iespējot sinhronizāciju";
@@ -183,7 +182,6 @@
 "search-result-redirected-from" = "Pāradresēts no: $1";
 "search-title" = "Meklēt";
 "settings-account" = "Konts";
-"settings-clear-cache-cancel" = "Atcelt";
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
 "settings-language-bar" = "Rādīt valodas meklēšanā";
 "settings-my-languages" = "Manas valodas";

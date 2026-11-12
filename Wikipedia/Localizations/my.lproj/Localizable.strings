@@ -123,9 +123,6 @@
 "activity-tab-very-satisfied" = "အလွန်ကျေနပ်ပါသည်";
 "activity-tab-very-unsatisfied" = "အလွန်မကျေနပ်ပါ";
 "activity-tab-week-graph-label" = "အပတ်";
-"activity-tab-you-edited" = "သင် ဒီအပတ်မှာ {{PLURAL:$1| $1 ကြိမ်|$1 ကြိမ်}}ကို တည်းဖြတ်ခဲ့သည်။";
-"activity-tab-you-read" = "ဒီအပတ်မှာ {{PLURAL:$1| $1 ဆောင်းပါး| $1 ဆောင်းပါးများ}}ကို သင်ဖတ်ပြီးပါပြီ။";
-"activity-tab-you-saved" = "သင် ဒီအပတ်မှာ {{PLURAL:$1| $1 ကြိမ်|$1 ကြိမ်}}ကို သိမ်းဆည်းခဲ့သည်။";
 "activity-tab-your-impact" = "သင်၏ အကျိုးသက်ရောက်မှု";
 "add-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါး {{PLURAL:$1|$၁ ခု|$1 ခု}} ပေါင်းထည့်ရန်";
 "advanced-settings-title" = "အဆင့်မြင့် အပြင်အဆင်များ";
@@ -728,7 +725,6 @@
 "places-unknown-distance" = "မသိရသော အကွာအဝေး";
 "potd-description-prefix" = "$1 အတွက် တစ်နေ့တာဓါတ်ပုံ";
 "potd-widget-title" = "ယနေ့အတွက် ဓာတ်ပုံ";
-"preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "privacy-policy-title" = "ကိုယ်ရေးကိုယ်တာ မူဝါဒ";
 "profile-page-join-subtext" = "သင့်ရဲ့ ပံ့ပိုးကူညီမှုတွေကို ခြေရာခံဖို့၊ ဆောင်းပါးတွေကို အော့ဖ်လိုင်းမှာ သိမ်းဆည်းဖို့နဲ့ စက်ပစ္စည်းတွေမှာ ထပ်တူပြုဖို့ ဝီကီပီးဒီးယားအကောင့်တစ်ခု စာရင်းသွင်းလိုက်ပါ။";
 "profile-page-join-title" = "ဝီကီပီးဒီးယားသို့ လော့ဂ်အင် / ပါဝင်ရန်";
@@ -752,8 +748,6 @@
 "reading-list-add-saved-title" = "သိမ်းထားသော ဆောင်းပါးများ တွေ့ရှိပါသည်";
 "reading-list-api-error-generic" = "သင်၏စာဖတ်စာရင်းကို sync လုပ်နေစဉ် မမျော်လင့်ထားသောအမှားတစ်ခု ဖြစ်ပွားခဲ့သည်။";
 "reading-list-create-new-list-button-title" = "စာဖတ်စာရင်း ဖန်တီးရန်";
-"reading-list-create-new-list-description" = "ဖော်ပြချက်";
-"reading-list-create-new-list-reading-list-name" = "စာရင်းနာမည်ကို ဖတ်နေသည်";
 "reading-list-create-new-list-title" = "စာရင်းသစ်တစ်ခု ဖန်တီးရန်";
 "reading-list-deleted-accessibility-notification" = "စာဖတ်စာရင်း ဖျက်ပြီးပြီ";
 "reading-list-do-not-keep-button-title" = "ဟင်းအင်း၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲမှ ဖျက်လိုက်ပါ။";
@@ -766,7 +760,9 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "မစီထားသော ဆောင်းပါးများအတွက် ကန့်သတ်ချက်ရောက်ပါပြီ";
 "reading-list-login-or-create-account-button-title" = "အကောင့်ထဲဝင်ရန် (သို့) အကောင့်ဖန်တီးရန်";
 "reading-list-name-user-created-annotation" = "_[အသုံးပြုသူ ဖန်တီးခဲ့သော]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "အရေးမကြီးသော ဖော်ပြချက်တို";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "စာရင်းထေါင်းစဉ် ဖတ်နေသည်";
 "reading-list-sync-disabled-panel-title" = "Sync လုပ်ဆောင်ချက် ပိတ်ထားပြီး";
 "reading-list-sync-enable-button-title" = "Sync လုပ်ခြင်းကို ဖွင့်ရန်";
@@ -832,7 +828,6 @@
 "settings-account" = "အကောင့်";
 // Fuzzy
 "settings-appearance" = "စာဖတ် အပြင်အဆင်များ";
-"settings-clear-cache-cancel" = "မလုပ်တော့ပါ";
 "settings-donate" = "လှူဒါန်း​ရန်";
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";
 "settings-language-bar" = "ရှာဖွေမှုတွင် ဘာသာစကားများ ပြရန်";

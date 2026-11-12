@@ -446,7 +446,6 @@
 "potd-description-prefix" = "Bildo de la tago por $1";
 "potd-empty-error-description" = "Malsukcesis ricevi bildon de la tago por $1";
 "potd-widget-title" = "Bildo de la tago";
-"preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informojn pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
 "reading-list-add-generic-hint-title" = "Ĉu aldoni ĉi tiun artikolon al legolisto?";
 "reading-list-add-hint-title" = "Ĉu aldoni \"$1\" al legolisto?";
 "reading-list-add-saved-button-title" = "Jes, aldonu ilin al miaj legolistoj";
@@ -456,8 +455,6 @@
 "reading-list-api-error-generic" = "Neatendita eraro okazis dum la sinkronigado de viaj legolistoj.";
 "reading-list-api-error-list-limit" = "Ĉi tiu listo ne estas sinkronigita, ĉar vi atingis la limon por la nombro de sinkronigitaj listoj.";
 "reading-list-create-new-list-button-title" = "Krei legoliston";
-"reading-list-create-new-list-description" = "Priskribo";
-"reading-list-create-new-list-reading-list-name" = "Nomo de la legolisto";
 "reading-list-create-new-list-title" = "Krei novan liston";
 "reading-list-deleted-accessibility-notification" = "Legolisto forigita";
 "reading-list-detail-search-placeholder" = "Serĉi tra legolisto";
@@ -478,7 +475,9 @@
 "reading-list-list-limit-reached" = "Vi atingis la limon de po $1 legolistoj por konto";
 "reading-list-login-or-create-account-button-title" = "Ensaluti aŭ krei novan konton";
 "reading-list-name-user-created-annotation" = "_[uzanto kreita]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "nedeviga mallonga priskribo";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "titolo de la legolisto";
 "reading-list-sync-disabled-panel-message" = "La sinkronigado de legolistoj estas malŝaltita por via vikipedia konto je alia aparato. Vi povas reŝalti la sinkronigadon ĝisdatigante viajn agordojn.";
 "reading-list-sync-disabled-panel-title" = "Sinkronigado malŝaltita";
@@ -550,7 +549,6 @@
 "settings-clear-cache" = "Malplenigi la kaŝmemorigitajn datumojn";
 "settings-clear-cache-are-you-sure-message" = "Malplenigi la kaŝmemorigitajn datumojn liberigos ĉirkaŭ $1 da spaco. Tio ne forigos viajn konservitajn paĝojn.";
 "settings-clear-cache-are-you-sure-title" = "Ĉu malplenigi la datumojn?";
-"settings-clear-cache-cancel" = "Nuligi";
 "settings-clear-cache-ok" = "Malplenigi la kaŝmemoron";
 "settings-help-and-feedback" = "Helpo kaj prikomentado";
 "settings-language-bar" = "Montri lingvojn dum serĉado";

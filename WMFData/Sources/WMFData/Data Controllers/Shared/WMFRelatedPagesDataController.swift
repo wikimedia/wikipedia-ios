@@ -68,7 +68,8 @@ public actor WMFRelatedPagesDataController {
     /// - Parameters:
     ///   - limit: The number of search results to ask for. Only the first `maximumPageLimit` results carry an extract.
     ///   - offset: Skips this many search results, so a caller that already used the first page of results can ask for the next one.
-    public func fetchRelatedPages(title: String, project: WMFProject, limit: Int = WMFRelatedPagesDataController.defaultPageLimit, offset: Int = 0) async throws -> [WMFRelatedPage] {
+    ///   - includesExtracts: Asks for the extract of each page. The extracts make the request many times slower, so a caller that does not show them passes false and gets pages with a nil `extract`.
+    public func fetchRelatedPages(title: String, project: WMFProject, limit: Int = WMFRelatedPagesDataController.defaultPageLimit, offset: Int = 0, includesExtracts: Bool = true) async throws -> [WMFRelatedPage] {
         guard let service else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -86,20 +87,23 @@ public actor WMFRelatedPagesDataController {
             "gsrnamespace": "0",
             "gsrlimit": String(limit),
             "gsrqiprofile": "classic_noboostlinks",
-            "prop": "pageimages|description|info|extracts|pageprops",
+            "prop": includesExtracts ? "pageimages|description|info|extracts|pageprops" : "pageimages|description|info|pageprops",
             "ppprop": "mainpage|disambiguation",
             "piprop": "thumbnail",
             "pilicense": "any",
             "pithumbsize": "160",
             "pilimit": String(limit),
-            "exchars": "500",
-            "exintro": "1",
-            "explaintext": "1",
             "inprop": "varianttitles|displaytitle",
             "maxage": "86400",
             "smaxage": "86400",
             "origin": "*"
         ]
+
+        if includesExtracts {
+            parameters["exchars"] = "500"
+            parameters["exintro"] = "1"
+            parameters["explaintext"] = "1"
+        }
 
         if offset > 0 {
             parameters["gsroffset"] = String(offset)
@@ -107,15 +111,17 @@ public actor WMFRelatedPagesDataController {
 
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
 
-        let response: Response = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<Response, Error>) in
-                switch result {
-                case .success(let response):
-                    continuation.resume(returning: response)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
+        try Task.checkCancellation()
+        let cancellation = WMFRequestCancellation()
+        let response: Response = try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                let task = service.performCancellableDecodableGET(request: request) { (result: Result<Response, Error>) in
+                    continuation.resume(with: result)
                 }
+                cancellation.setTask(task)
             }
+        } onCancel: {
+            cancellation.cancel()
         }
 
         guard let pages = response.query?.pages else {
