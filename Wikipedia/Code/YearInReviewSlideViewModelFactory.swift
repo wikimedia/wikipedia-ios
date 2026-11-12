@@ -39,6 +39,8 @@ struct YearInReviewSlideViewModelFactory {
         "runnerUpTopics": "other_top_topics",
         "biggestReadingDay": "biggest_reading_day",
         "biggestReadingDayArticles": "biggest_reading_day_articles",
+        "longestReadGuess": "longest_read_guess",
+        "longestReadReveal": "longest_read_reveal",
         "rabbitHoleGuess": "rabbit_hole_guess",
         "rabbitHoleReveal": "rabbit_hole_reveal",
         "rereadArticles": "revisited_articles",
@@ -80,9 +82,9 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// Only the total articles, days visited, minutes read, reading streak, articles visited multiple times, saved, topic, biggest reading day, rabbit hole, niche interest, edit and contributor slides have real data so far.
+    /// Only the total articles, days visited, minutes read, reading streak, articles visited multiple times, saved, topic, biggest reading day, longest read, rabbit hole, niche interest, edit and contributor slides have real data so far.
     /// The personalized slides show the user's data, but a slide without enough data shows its empty version.
-    /// The days visited, minutes read, biggest reading day, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
+    /// The days visited, minutes read, biggest reading day, longest read, rabbit hole, niche interest, edit views and most-viewed articles slides have no empty version, so they do not show without enough data.
     /// The collective slides show data for all readers. Every flow ends with the contributor slide,
     /// but only the personalized flow can end with "Thank you", the same as on Android.
     ///
@@ -151,6 +153,7 @@ struct YearInReviewSlideViewModelFactory {
             readingStreak: storedReadingStreak(in: report),
             topTopics: storedTopTopics(in: report),
             biggestReadingDay: storedBiggestReadingDay(in: report),
+            longestRead: storedLongestRead(in: report),
             rabbitHoles: storedRabbitHoles(in: report),
             nicheCategory: storedNicheCategory(in: report),
             rereadArticles: storedRereadArticles(in: report) ?? [],
@@ -176,6 +179,7 @@ struct YearInReviewSlideViewModelFactory {
         var readingStreak: WMFYearInReviewReadingStreakSlideData?
         var topTopics: WMFYearInReviewTopTopicsSlideData?
         var biggestReadingDay: WMFYearInReviewBiggestReadingDaySlideData?
+        var longestRead: WMFYearInReviewLongestReadSlideData?
         var rabbitHoles: WMFYearInReviewRabbitHolesSlideData?
         var nicheCategory: WMFYearInReviewNicheCategorySlideData?
         var rereadArticles: [RereadArticle] = []
@@ -191,7 +195,7 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The personalized slides in the order of T438549. These slides are not built yet, so they are
-    /// not in the flow: reading pattern, longest read, geography and the end screen.
+    /// not in the flow: reading pattern, geography and the end screen.
     func personalizedSlides(_ data: PersonalizedData) -> [WMFYearInReviewSlideViewModel] {
         var slides = [
             totalArticlesSlide(readCount: data.readCount, topReadPercentage: data.topReadPercentage, averageReadCount: data.averageReadCount)
@@ -205,6 +209,7 @@ struct YearInReviewSlideViewModelFactory {
         slides.append(readingStreakSlide(data.readingStreak))
         slides += topicSlides(data.topTopics)
         slides += biggestReadingDaySlides(data.biggestReadingDay)
+        slides += longestReadSlides(data.longestRead)
         slides += rabbitHoleSlides(data.rabbitHoles)
         if let nicheInterest = nicheInterestSlide(data.nicheCategory) {
             slides.append(nicheInterest)
@@ -903,6 +908,114 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
+    // MARK: - Longest read
+
+    /// The longest read articles, from the report the app fills in the background. `nil` when the
+    /// report does not have this slide yet.
+    private func storedLongestRead(in report: WMFYearInReviewReport?) -> WMFYearInReviewLongestReadSlideData? {
+        storedSlideData(.longestRead, as: WMFYearInReviewLongestReadSlideData.self, logName: "longest read", in: report)
+    }
+
+    /// Properties on the `Interaction1` view model in the templates file. The guess frame shows one
+    /// article on each card. The reveal frame shows the longest read article with the result
+    /// properties. The view model has no no-image flags.
+    private enum LongestReadPath {
+        static let headline = WMFRiveText(path: "headline")
+        /// The guess frame fires it after the reader taps a card and the exit animation ends.
+        static let frameComplete = WMFRiveTrigger(path: "frameComplete")
+        /// Like frame11a, the guess frame rests after the cards come in, then moves the bottom card
+        /// again and again until the reader taps. 2.4 seconds is inside the rest (seen on the
+        /// simulator). The reveal frame keeps the usual time.
+        static let guessSharePoseTime: TimeInterval = 2.4
+
+        struct Article {
+            let title: WMFRiveText
+            let description: WMFRiveText
+            let thumbnail: WMFRiveImage
+        }
+
+        static let topCard = Article(title: WMFRiveText(path: "articleTitleTop"), description: WMFRiveText(path: "subTitleTop"), thumbnail: WMFRiveImage(path: "thumbnailTop"))
+        static let bottomCard = Article(title: WMFRiveText(path: "articleTitleBot"), description: WMFRiveText(path: "subTitleBot"), thumbnail: WMFRiveImage(path: "thumbnailBot"))
+        static let result = Article(title: WMFRiveText(path: "resultTitle"), description: WMFRiveText(path: "resultSubTitle"), thumbnail: WMFRiveImage(path: "resultThumbnail"))
+    }
+
+    /// One slide: the guess, with the reveal as its answer. A tap on a card replaces the guess with the
+    /// reveal in place. No slide without two articles and a clear winner.
+    func longestReadSlides(_ slideData: WMFYearInReviewLongestReadSlideData?) -> [WMFYearInReviewSlideViewModel] {
+        guard let slideData, case let (longest, other)? = SlideEligibility.longestRead(slideData) else {
+            return []
+        }
+        let (topCard, bottomCard) = slideData.longestIsOnTop ? (longest, other) : (other, longest)
+        return [longestReadGuessSlide(topCard: topCard, bottomCard: bottomCard, reveal: longestReadRevealSlide(longest, minuteCount: slideData.minuteCount))]
+    }
+
+    private func longestReadGuessSlide(topCard: WMFYearInReviewLongestReadSlideData.Article, bottomCard: WMFYearInReviewLongestReadSlideData.Article, reveal: WMFYearInReviewSlideViewModel) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewMostTimeArticleTitle
+        let cardLabels = [topCard, bottomCard].map { longestReadAccessibilityLabel($0) }
+        return longestReadSlide(
+            id: "longestReadGuess",
+            artboard: "frame10a",
+            headline: headline,
+            articles: [(LongestReadPath.topCard, topCard), (LongestReadPath.bottomCard, bottomCard)],
+            answer: reveal,
+            answerTrigger: LongestReadPath.frameComplete,
+            sharePoseTime: LongestReadPath.guessSharePoseTime,
+            accessibilityLabel: ([headline] + cardLabels).joined(separator: " ")
+        )
+    }
+
+    private func longestReadRevealSlide(_ article: WMFYearInReviewLongestReadSlideData.Article, minuteCount: Int) -> WMFYearInReviewSlideViewModel {
+        let headline = CommonStrings.yearInReviewMostTimeArticleSubtitle(minuteCount: minuteCount)
+        return longestReadSlide(
+            id: "longestReadReveal",
+            artboard: "frame10b",
+            headline: headline,
+            articles: [(LongestReadPath.result, article)],
+            accessibilityLabel: "\(longestReadAccessibilityLabel(article)) \(headline)"
+        )
+    }
+
+    private func longestReadAccessibilityLabel(_ article: WMFYearInReviewLongestReadSlideData.Article) -> String {
+        guard let description = article.description else {
+            return "\(article.title)."
+        }
+        return "\(article.title), \(description)."
+    }
+
+    private func longestReadSlide(
+        id: String,
+        artboard: String,
+        headline: String,
+        articles: [(LongestReadPath.Article, WMFYearInReviewLongestReadSlideData.Article)],
+        answer: WMFYearInReviewSlideViewModel? = nil,
+        answerTrigger: WMFRiveTrigger? = nil,
+        sharePoseTime: TimeInterval? = nil,
+        accessibilityLabel: String
+    ) -> WMFYearInReviewSlideViewModel {
+        var text = [LongestReadPath.headline: headline]
+        var thumbnails: [WMFRiveImage: WMFYearInReviewSlideViewModel.ArticleThumbnail] = [:]
+        for (path, article) in articles {
+            text[path.title] = article.title
+            text[path.description] = article.description ?? ""
+            if let project = article.project {
+                thumbnails[path.thumbnail] = WMFYearInReviewSlideViewModel.ArticleThumbnail(project: project, title: article.title)
+            }
+        }
+        return WMFYearInReviewSlideViewModel(
+            id: id,
+            loggingID: Self.loggingID(forSlideID: id),
+            animation: WMFRiveAnimation(resourceName: templatesResourceName, artboardName: artboard, stateMachineName: "\(artboard)-statemachine"),
+            text: text,
+            articleThumbnails: thumbnails,
+            answer: answer,
+            answerTrigger: answerTrigger,
+            localizedStrings: .init(accessibilityLabel: accessibilityLabel),
+            contentStyle: .dark,
+            lightContentFlag: Self.lightContentFlag,
+            sharePoseTime: sharePoseTime
+        )
+    }
+
     // MARK: - Eligibility
 
     /// When each personalized slide shows its data. The slides and the highlights both read these
@@ -925,6 +1038,16 @@ struct YearInReviewSlideViewModelFactory {
         /// The reread articles slide needs at least two articles visited multiple times.
         static func rereadArticles(_ articles: [RereadArticle]) -> [RereadArticle]? {
             articles.count >= WMFYearInReviewTopArticlesSlideData.minimumArticleCount ? articles : nil
+        }
+
+        /// The longest read slide needs two articles and a clear winner: the longest read, then the other.
+        static func longestRead(_ slideData: WMFYearInReviewLongestReadSlideData) -> (longest: WMFYearInReviewLongestReadSlideData.Article, other: WMFYearInReviewLongestReadSlideData.Article)? {
+            guard slideData.isEligible,
+                  let longest = slideData.longest,
+                  let other = slideData.other else {
+                return nil
+            }
+            return (longest, other)
         }
 
         /// The rabbit hole slide needs two rabbit holes: the deepest, then the other.
