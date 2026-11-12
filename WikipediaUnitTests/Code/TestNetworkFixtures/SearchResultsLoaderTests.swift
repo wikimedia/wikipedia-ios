@@ -118,6 +118,43 @@ struct SearchResultsLoaderTests {
         #expect(!harness.service.capturedRequests.containsFullTextSearchRequest)
     }
 
+    /// The API reports an error in the body of a 200 response. The loader must fail, not show an empty result.
+    @Test
+    func prefixAPIErrorBodyIsAPrefixFailure() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseData = try apiErrorBody()
+        let loader = SearchResultsLoader(fetcher: harness.fetcher)
+
+        await #expect(performing: {
+            try await loader.fetchResults(for: "foo", siteURL: siteURL)
+        }, throws: { error in
+            guard case SearchResultsLoader.Failure.fetch(_, let type) = error else { return false }
+            return type == .prefix
+        })
+        #expect(!harness.service.capturedRequests.containsFullTextSearchRequest)
+    }
+
+    @Test
+    func fullTextAPIErrorBodyWithPrefixResultsKeepsThePrefixResults() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseDataQueue = [try fixtureData(named: "ArticleSearchPrefixMany", limitedTo: 3), try apiErrorBody()]
+        let loader = SearchResultsLoader(fetcher: harness.fetcher)
+
+        let outcome = try await loader.fetchResults(for: "foo", siteURL: siteURL)
+
+        #expect(outcome.type == .prefix)
+        #expect(outcome.results.results.count == 3)
+        #expect(harness.service.capturedRequests.containsFullTextSearchRequest)
+    }
+
+    private func apiErrorBody() throws -> Data {
+        try JSONSerialization.data(withJSONObject: [
+            "errors": [["code": "cirrussearch-backend-error", "html": "Search is currently too busy.", "module": "query+prefixsearch"]]
+        ])
+    }
+
     private var siteURL: URL {
         URL(string: "https://en.wikipedia.org")!
     }
