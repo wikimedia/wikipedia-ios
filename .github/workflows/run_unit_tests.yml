@@ -12,62 +12,117 @@ env:
   XCODE_VERSION: "27.1"
   IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
-  SCHEMES: "Wikipedia WMFComponents WMFData"
 
 concurrency:
   group: "unit-tests-${{ github.ref }}"  # One group per branch
   cancel-in-progress: true                # Cancel older runs in the same group
 
+# Two macOS jobs instead of one per scheme. macOS runners are the scarce resource:
+# PR runs spend far longer queued for one than running on it.
+#
+# - The app job is the longest one (about 30 minutes), so it gets its own runner.
+# - The package jobs share a runner. Testing WMFComponents compiles WMFData (and
+#   WMFDataMocks) into the same DerivedData, so the WMFData tests that follow reuse
+#   that build instead of compiling the package again. Together they take about as
+#   long as the app job, so the run does not get longer when runners are free.
 jobs:
-  run-unit-tests:
+  test-app:
     runs-on: xcode-27
     permissions:
       actions: read
       contents: read
-    strategy:
-      matrix:
-        scheme: ["Wikipedia", "WMFComponents", "WMFData"]
-
-    name: Test ${{ matrix.scheme }}
+    name: Test Wikipedia
     steps:
       - uses: actions/checkout@v7
-
-      - name: Select Xcode
-        run: |
-          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
       - name: Prepare simulator
         id: simulator
         uses: ./.github/actions/prepare-simulator
         with:
+          xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
+      - name: Test Wikipedia
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: Wikipedia
+          destination: ${{ steps.simulator.outputs.destination }}
+
+  test-packages:
+    runs-on: xcode-27
+    permissions:
+      actions: read
+      contents: read
+    name: Test WMFComponents and WMFData
+    outputs:
+      wmfcomponents: ${{ steps.wmfcomponents-tests.outcome }}
+      wmfdata: ${{ steps.wmfdata-tests.outcome }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
+      - name: Test WMFComponents
+        id: wmfcomponents-tests
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFComponents
+          destination: ${{ steps.simulator.outputs.destination }}
+
+      # The lint and the WMFData tests run even when the WMFComponents tests fail, so
+      # one run reports both packages. A lint failure skips only the WMFData tests.
       - name: Ensure tests reset WMFData global environment state
-        if: matrix.scheme == 'WMFData'
+        id: wmfdata-lint
+        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
         run: scripts/lint-wmfdata-test-fixtures.sh
 
-      - name: Test ${{ matrix.scheme }} scheme
-        run: |
-          echo "Running scheme: ${{ matrix.scheme }} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
-          xcodebuild test \
-            -scheme "${{ matrix.scheme }}" \
-            -project Wikipedia.xcodeproj \
-            -onlyUsePackageVersionsFromResolvedFile \
-            -destination "${{ steps.simulator.outputs.destination }}" \
-            -resultBundlePath "${{ matrix.scheme }}_TestResults" \
-            | xcpretty
-          EXIT_CODE=${PIPESTATUS[0]}
-          if [ "$EXIT_CODE" -ne 0 ]; then
-            exit "$EXIT_CODE"
-          fi
-
-      - name: Coverage summary
-        if: success()
-        uses: ./.github/actions/coverage-summary
+      - name: Test WMFData
+        id: wmfdata-tests
+        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
         with:
-          artifact-name: ${{ matrix.scheme }}-coverage
-          coverage-json-path: ${{ matrix.scheme }}_coverage.json
-          result-bundle-path: ${{ matrix.scheme }}_TestResults.xcresult
-          scheme: ${{ matrix.scheme }}
-          workflow-file: run_unit_tests.yml
+          scheme: WMFData
+          destination: ${{ steps.simulator.outputs.destination }}
+
+  # Branch protection on main requires checks named "Test WMFComponents" and
+  # "Test WMFData", the names of the per-scheme jobs this workflow used to have.
+  # These two jobs keep reporting those names from the shared packages job's
+  # results, on cheap Ubuntu runners, so PRs aren't left waiting for checks that
+  # never come. Once the required checks are switched to "Test WMFComponents
+  # and WMFData", delete both jobs and the test-packages outputs.
+  report-wmfcomponents:
+    needs: test-packages
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions: {}
+    name: Test WMFComponents
+    steps:
+      - name: Report the WMFComponents tests from "Test WMFComponents and WMFData"
+        env:
+          OUTCOME: ${{ needs.test-packages.outputs.wmfcomponents }}
+        run: |
+          echo "WMFComponents tests: ${OUTCOME:-did not run}"
+          test "${OUTCOME}" = "success"
+
+  report-wmfdata:
+    needs: test-packages
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions: {}
+    name: Test WMFData
+    steps:
+      # Skipped counts as a failure: the WMFData tests are skipped when the
+      # fixture lint fails, which used to fail the separate WMFData job.
+      - name: Report the WMFData tests from "Test WMFComponents and WMFData"
+        env:
+          OUTCOME: ${{ needs.test-packages.outputs.wmfdata }}
+        run: |
+          echo "WMFData tests: ${OUTCOME:-did not run}"
+          test "${OUTCOME}" = "success"

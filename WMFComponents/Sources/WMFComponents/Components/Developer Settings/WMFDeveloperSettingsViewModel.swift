@@ -87,6 +87,15 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    /// Set by the app. False hides the Analytics Inspector toggle in builds that do not have the inspector.
+    @Published public var showsAnalyticsInspectorToggle = false
+
+    @Published public var showAnalyticsInspector: Bool = WMFDeveloperSettingsDataController.shared.showAnalyticsInspector {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.showAnalyticsInspector = showAnalyticsInspector
+        }
+    }
+
     @Published public var forceYiREntryPoint2026: Bool = WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = forceYiREntryPoint2026
