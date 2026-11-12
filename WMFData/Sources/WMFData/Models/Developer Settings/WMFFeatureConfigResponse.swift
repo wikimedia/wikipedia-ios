@@ -166,6 +166,7 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
             public let reportapi: String
             public let sentry: Bool
             public let apiKey: String
+            public let editApiKey: String?
         }
 
         public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = [], semanticSearchEnabled: Bool? = nil, discoverExperimentEnabled: Bool? = nil, discoverExperimentControlPercentage: Int? = nil) {
