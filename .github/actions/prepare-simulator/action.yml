@@ -34,11 +34,12 @@ runs:
 
     # The runner image ships simulator devices for every platform, but the project only
     # builds for iOS. Every xcodebuild call loads the whole device list, and for each
-    # tvOS, watchOS or visionOS device whose runtime isn't loaded it logs a
-    # DVTAssertions "SimDevice native architecture is nil" warning. Those warnings came
-    # alongside xcodebuild calls that took up to about 2 minutes to start, so the
-    # devices are deleted first. iOS devices are kept, and so are the runtimes.
-    # This never fails the job.
+    # tvOS, watchOS or visionOS device whose runtime isn't loaded it logs a block of
+    # DVTAssertions "SimDevice native architecture is nil" warnings. Deleting those
+    # devices keeps the warnings out of the test logs. It's a log clean-up only: in
+    # trials it made no measurable difference to how long xcodebuild took to start
+    # (slow starts came from the just-booted simulator loading the runner instead).
+    # iOS devices are kept, and so are the runtimes. This never fails the job.
     - name: Remove simulators for other platforms
       shell: bash
       continue-on-error: true
