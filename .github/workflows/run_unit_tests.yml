@@ -119,13 +119,35 @@ jobs:
           simulator-name: ${{ env.SIMULATOR_NAME }}
           boot: "false"
 
+      # EXPERIMENT C: build both package schemes before the simulator boots. A
+      # just-booted simulator loads the machine heavily for several minutes, and a
+      # WMFData build that ran after the boot took 172-352s.
+      - name: Build WMFComponents for testing
+        id: wmfcomponents-build
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFComponents
+          destination: ${{ steps.simulator.outputs.destination }}
+          mode: build
+
+      - name: Build WMFData for testing
+        id: wmfdata-build
+        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFData
+          destination: ${{ steps.simulator.outputs.destination }}
+          mode: build
+
       - name: Test WMFComponents
         id: wmfcomponents-tests
+        if: ${{ !cancelled() && steps.wmfcomponents-build.outcome == 'success' }}
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFComponents
           destination: ${{ steps.simulator.outputs.destination }}
           simulator-udid: ${{ steps.simulator.outputs.udid }}
+          mode: test
 
       # The lint and the WMFData tests run even when the WMFComponents tests fail, so
       # one run reports both packages. A lint failure skips only the WMFData tests.
@@ -136,12 +158,13 @@ jobs:
 
       - name: Test WMFData
         id: wmfdata-tests
-        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' && steps.wmfdata-build.outcome == 'success' }}
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFData
           destination: ${{ steps.simulator.outputs.destination }}
           simulator-udid: ${{ steps.simulator.outputs.udid }}
+          mode: test
 
   # Branch protection on main requires checks named "Test WMFComponents" and
   # "Test WMFData", the names of the per-scheme jobs this workflow used to have.
