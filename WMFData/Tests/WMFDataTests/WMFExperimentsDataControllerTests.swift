@@ -124,7 +124,8 @@ final class WMFExperimentsDataControllerTests {
             .yirLoginPrompt: 50,
             .donationReminder: 33,
             .semanticSearch: 50,
-            .discover: 50
+            .discover: 50,
+            .semanticSearchInterleaved: 50
         ]
 
         for experiment in WMFExperimentsDataController.Experiment.allCases {
