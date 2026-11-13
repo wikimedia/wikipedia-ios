@@ -72,9 +72,9 @@ final class YearInReviewSlideDataControllerFactory {
             .map { $0.dataController() }
             .filter { $0.shouldPopulate(from: config, userInfo: userInfo) }
 
-        // Look up the main pages once for all the slides, and only when a slide reads the reading history.
+        // Look up the main pages once for all the slides, and only when a slide leaves them out.
         var mainPageTitles: YearInReviewMainPageTitles? = .englishOnly
-        if dataControllerTypes.contains(where: { $0.personalizationSources.contains(.readingHistory) }),
+        if dataControllerTypes.contains(where: { $0.excludesMainPages }),
            let startDate = config.dataStartDate,
            let endDate = config.dataEndDate {
             do {

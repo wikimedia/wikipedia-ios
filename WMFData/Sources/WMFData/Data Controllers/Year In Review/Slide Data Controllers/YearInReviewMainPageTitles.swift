@@ -43,12 +43,12 @@ struct YearInReviewMainPageTitles: Sendable {
         return YearInReviewMainPageTitles(canonicalTitlesByProjectID: titles)
     }
 
-    /// Looks up the main page of each wiki with page views from `startDate` to `endDate`.
+    /// Looks up the main page of each wiki with article page views from `startDate` to `endDate`.
     static func lookUp(startDate: Date, endDate: Date, pageViewsDataController: WMFPageViewsDataController, mainPageIdentifier: WMFMainPageIdentifying?) async throws -> YearInReviewMainPageTitles {
         guard mainPageIdentifier != nil else {
             return .englishOnly
         }
-        let projectIDs = try await pageViewsDataController.fetchPageViewProjectIDs(startDate: startDate, endDate: endDate)
+        let projectIDs = try await pageViewsDataController.fetchArticlePageViewProjectIDs(startDate: startDate, endDate: endDate)
         return await lookUp(projectIDs: projectIDs, mainPageIdentifier: mainPageIdentifier)
     }
 

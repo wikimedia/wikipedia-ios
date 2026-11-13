@@ -52,6 +52,7 @@ final class YearInReviewRabbitHolesSlideDataController: YearInReviewSlideDataCon
     let year: Int
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
+    static let excludesMainPages = true
     static let shouldFreeze = true
 
     private var slideData: SlideData?

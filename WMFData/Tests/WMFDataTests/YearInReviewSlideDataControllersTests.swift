@@ -98,6 +98,24 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewDonateCountSlideDataController.personalizationSources, [.account, .donations])
     }
 
+    func testExcludesMainPages() {
+        // Only these slides use `mainPageTitles`, so only these make the factory look up the main pages.
+        XCTAssertTrue(YearInReviewReadCountSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewTopTopicsSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewBiggestReadingDaySlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewLongestReadSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewReadingPatternSlideDataController.excludesMainPages)
+
+        XCTAssertFalse(YearInReviewMostReadDateSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewMostReadCategoriesSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewLocationSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewDaysVisitedSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewReadingStreakSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewEditCountSlideDataController.excludesMainPages)
+    }
+
     func testShouldFreezeFlags() {
         XCTAssertFalse(YearInReviewDonateCountSlideDataController.shouldFreeze)
         XCTAssertFalse(YearInReviewViewCountSlideDataController.shouldFreeze)

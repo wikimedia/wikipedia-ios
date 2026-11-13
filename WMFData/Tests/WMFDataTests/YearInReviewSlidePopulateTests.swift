@@ -1749,6 +1749,16 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertEqual(payload, ReadingPatternData(timeOfDay: .nights, timeOfDayReadCount: 2, totalReadCount: 2))
     }
 
+    func testMainPageLookupSkipsWikisWithOnlyPagesThatAreNotArticles() async throws {
+        try await addRead("Talk:Moon", namespaceID: 1, at: try date(month: 2, day: 3, hour: 9))
+        let startDate = try XCTUnwrap(config.dataStartDate)
+        let endDate = try XCTUnwrap(config.dataEndDate)
+
+        let projectIDs = try await WMFPageViewsDataController().fetchArticlePageViewProjectIDs(startDate: startDate, endDate: endDate)
+
+        XCTAssertTrue(projectIDs.isEmpty)
+    }
+
     func testReadingPatternWithoutReadsIsNotEligible() async throws {
         let payload = try await readingPatternPayload()
 
@@ -1861,6 +1871,31 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         let readCount = try XCTUnwrap(controllers.first { $0.id == WMFYearInReviewPersonalizedSlideID.readCount.rawValue })
         let readData = try decode(WMFYearInReviewReadData.self, from: try await populatedPayload(readCount))
         XCTAssertEqual(readData.readCount, 2, "the main page does not count")
+    }
+
+    /// When every slide that leaves out main pages is already in the report, the factory does not look them up.
+    func testTheFactorySkipsTheMainPageLookupWhenNoSlideLeavesOutMainPages() async throws {
+        try await addRead("Moon", at: try date(month: 2, day: 1, hour: 9))
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let factory = YearInReviewSlideDataControllerFactory(
+            year: year,
+            config: config,
+            username: nil,
+            userID: nil,
+            globalUserID: nil,
+            project: enProject,
+            savedSlideDataDelegate: StubSavedArticleDelegate(data: nil),
+            legacyPageViewsDataDelegate: StubLegacyPageViewsDelegate(views: []),
+            mainPageIdentifier: identifier
+        )
+        let slidesThatLeaveOutMainPages: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .topArticles, .topTopics, .rabbitHoles, .biggestReadingDay, .longestRead, .readingPattern]
+        XCTAssertTrue(slidesThatLeaveOutMainPages.allSatisfy { $0.dataController().excludesMainPages && $0.dataController().shouldFreeze })
+
+        let controllers = try await factory.makeSlideDataControllers(missingFrom: Set(slidesThatLeaveOutMainPages.map(\.rawValue)))
+
+        XCTAssertTrue(controllers.contains { $0.id == WMFYearInReviewPersonalizedSlideID.readingStreak.rawValue }, "the reading streak slide is still built")
+        XCTAssertFalse(controllers.contains { type(of: $0).excludesMainPages })
+        XCTAssertTrue(identifier.requestedProjectIDs.isEmpty, "no main page lookup")
     }
 }
 

@@ -56,6 +56,7 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     let year: Int
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
+    static let excludesMainPages = true
     static let shouldFreeze = true
 
     /// The main namespace. Talk, user, template and other pages are left out.

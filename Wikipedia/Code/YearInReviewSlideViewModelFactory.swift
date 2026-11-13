@@ -289,7 +289,7 @@ struct YearInReviewSlideViewModelFactory {
         let count = NumberFormatter.localizedString(from: NSNumber(value: readCount), number: .decimal)
         let bodyText: String
         if let topReadPercentage, let averageReadCount {
-            bodyText = CommonStrings.yearInReviewTotalArticlesTopPercentSubtitle(percent: percentString(topReadPercentage), averageReadCount: averageReadCount)
+            bodyText = CommonStrings.yearInReviewTotalArticlesTopPercentSubtitle(percent: percentString(topReadPercentage / 100, fractionDigits: 2), averageReadCount: averageReadCount)
         } else {
             bodyText = CommonStrings.yearInReviewTotalArticlesSubtitle
         }
@@ -318,12 +318,14 @@ struct YearInReviewSlideViewModelFactory {
         )
     }
 
-    /// `percentage` is out of 100, for example `0.01` becomes "0.01%".
-    private func percentString(_ percentage: Double) -> String {
+    /// `fraction` is from 0 to 1, for example `0.0001` with 2 fraction digits becomes "0.01%", and
+    /// `0.5` with 0 fraction digits becomes "50%".
+    private func percentString(_ fraction: Double, fractionDigits: Int, locale: Locale = .current) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: NSNumber(value: percentage / 100)) ?? "\(percentage)%"
+        formatter.locale = locale
+        formatter.maximumFractionDigits = fractionDigits
+        return formatter.string(from: NSNumber(value: fraction)) ?? "\(fraction * 100)%"
     }
 
     // MARK: - Minutes read
@@ -490,7 +492,9 @@ struct YearInReviewSlideViewModelFactory {
 
         let headline = CommonStrings.yearInReviewFavoriteTimeTitle
         let timeOfDayName = Self.name(of: timeOfDay)
-        let bodyText = CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: wholePercentString(slideData.share, locale: locale))
+        // Rounding must not show 100% when some reads were at another time of day, for example 199 of 200.
+        let share = slideData.timeOfDayReadCount < slideData.totalReadCount ? min(slideData.share, 0.99) : slideData.share
+        let bodyText = CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: percentString(share, fractionDigits: 0, locale: locale))
         // `dataSlide` shows the data in capitals, so the time of day is passed as written.
         return dataSlide(
             id: "readingPattern",
@@ -526,15 +530,6 @@ struct YearInReviewSlideViewModelFactory {
         case .nights: CommonStrings.yearInReviewTimeOfDayNights
         case .lateNights: CommonStrings.yearInReviewTimeOfDayLateNights
         }
-    }
-
-    /// `share` is from 0 to 1 and shows as a whole percentage, for example `0.5` becomes "50%".
-    private func wholePercentString(_ share: Double, locale: Locale) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .percent
-        formatter.locale = locale
-        formatter.maximumFractionDigits = 0
-        return formatter.string(from: NSNumber(value: share)) ?? "\(Int((share * 100).rounded()))%"
     }
 
     // MARK: - Articles visited multiple times

@@ -464,6 +464,15 @@ struct YearInReviewSlideViewModelFactoryTests {
     }
 
     @Test
+    func theReadingPatternShareShowsAtMost99PercentWhenSomeReadsWereAtAnotherTime() {
+        let almostAll = factory.readingPatternSlide(readingPatternData(.evenings, readCount: 199, totalReadCount: 200), locale: Locale(identifier: "en_US"))
+        let all = factory.readingPatternSlide(readingPatternData(.evenings, readCount: 200, totalReadCount: 200), locale: Locale(identifier: "en_US"))
+
+        #expect(text(almostAll, "bodyCopy") == CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: "99%"))
+        #expect(text(all, "bodyCopy") == CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: "100%"))
+    }
+
+    @Test
     func eachTimeOfDayHasItsOwnName() {
         let names = WMFYearInReviewTimeOfDay.allCases.map { YearInReviewSlideViewModelFactory.name(of: $0) }
 

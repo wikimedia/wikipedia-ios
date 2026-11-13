@@ -30,8 +30,10 @@ public struct WMFYearInReviewReadingPatternSlideData: Codable, Sendable, Equatab
     }
 
     /// If false, show the empty state ("You read basically whenever").
+    /// `timeOfDay` is set and `totalReadCount` is at least `timeOfDayReadCount` whenever
+    /// `timeOfDayReadCount` is more than 0, so this check covers both.
     public var isEligible: Bool {
-        timeOfDay != nil && timeOfDayReadCount >= Self.minimumReadCount && totalReadCount > 0
+        timeOfDayReadCount >= Self.minimumReadCount
     }
 }
 
@@ -46,6 +48,7 @@ final class YearInReviewReadingPatternSlideDataController: YearInReviewSlideData
     let year: Int
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
+    static let excludesMainPages = true
     static let shouldFreeze = true
 
     private var slideData: SlideData?
@@ -68,7 +71,7 @@ final class YearInReviewReadingPatternSlideDataController: YearInReviewSlideData
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
 
-        let pageViews = try await WMFPageViewsDataController().fetchArticlePageViewTimestamps(startDate: startDate, endDate: endDate)
+        let pageViews = try await WMFPageViewsDataController().fetchArticleReadingTimes(startDate: startDate, endDate: endDate, requiresReadingTime: false)
         let readDates = pageViews.filter { !mainPageTitles.isMainPage($0.page) }.map(\.timestamp)
         slideData = Self.slideData(readDates: readDates, calendar: .current)
 
