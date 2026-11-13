@@ -57,6 +57,19 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         )
     }
 
+    /// Looks up the main pages the way the slide factory does: once, for the wikis read in the window.
+    /// Call it after the page views are stored.
+    private func makeDependencies(mainPageIdentifier: WMFMainPageIdentifying?) async throws -> YearInReviewSlideDataControllerDependencies {
+        var dependencies = makeDependencies()
+        dependencies.mainPageTitles = try await YearInReviewMainPageTitles.lookUp(
+            startDate: try XCTUnwrap(config.dataStartDate),
+            endDate: try XCTUnwrap(config.dataEndDate),
+            pageViewsDataController: try WMFPageViewsDataController(),
+            mainPageIdentifier: mainPageIdentifier
+        )
+        return dependencies
+    }
+
     /// A date inside `testConfig`'s data window (2026-01-01 to 2026-12-01).
     private func date(month: Int, day: Int, hour: Int) throws -> Date {
         var components = DateComponents()
@@ -172,8 +185,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     }
 
     private func readCountPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> WMFYearInReviewReadData {
-        var dependencies = makeDependencies()
-        dependencies.mainPageIdentifier = mainPageIdentifier
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
         let controller = YearInReviewReadCountSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
         return try decode(WMFYearInReviewReadData.self, from: try await populatedPayload(controller))
     }
@@ -337,8 +349,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     }
 
     private func topArticlesPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> TopArticlesData {
-        var dependencies = makeDependencies()
-        dependencies.mainPageIdentifier = mainPageIdentifier
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
         let controller = YearInReviewTopReadArticleSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
         let payload = try decode(TopArticlesData.self, from: try await populatedPayload(controller))
         XCTAssertTrue(controller.isEvaluated)
@@ -469,8 +480,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     }
 
     private func topTopicsPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil, illustrationFetcher: StubIllustrationFetcher = StubIllustrationFetcher()) async throws -> TopTopicsData {
-        var dependencies = makeDependencies()
-        dependencies.mainPageIdentifier = mainPageIdentifier
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
         let controller = YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
         controller.fetchIllustrationData = { try illustrationFetcher.fetch($0) }
         let payload = try decode(TopTopicsData.self, from: try await populatedPayload(controller))
@@ -841,9 +851,8 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         mainPageIdentifier: WMFMainPageIdentifying? = nil,
         recorder: DescriptionRecorder = DescriptionRecorder(),
         failingTitles: Set<String> = []
-    ) -> YearInReviewBiggestReadingDaySlideDataController {
-        var dependencies = makeDependencies()
-        dependencies.mainPageIdentifier = mainPageIdentifier
+    ) async throws -> YearInReviewBiggestReadingDaySlideDataController {
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
         let controller = YearInReviewBiggestReadingDaySlideDataController(year: year, yirConfig: config, dependencies: dependencies)
         controller.fetchDescription = { _, title in
             await recorder.record(title)
@@ -880,7 +889,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         }
 
         let recorder = DescriptionRecorder()
-        let payload = try await biggestReadingDayPayload(biggestReadingDayController(recorder: recorder))
+        let payload = try await biggestReadingDayPayload(try await biggestReadingDayController(recorder: recorder))
 
         XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 3, day: 4))
         XCTAssertEqual(payload.minuteCount, 10, "630 seconds are 10 whole minutes")
@@ -905,7 +914,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         try await seedReadingTime("Talk:Alpha", seconds: 6000, at: try date(month: 5, day: 3, hour: 9), namespaceID: 1)
 
         let identifier = StubMainPageIdentifier(mainPages: [(title: "Pagina principale", projectID: itProject.id)])
-        let payload = try await biggestReadingDayPayload(biggestReadingDayController(mainPageIdentifier: identifier))
+        let payload = try await biggestReadingDayPayload(try await biggestReadingDayController(mainPageIdentifier: identifier))
 
         XCTAssertEqual(payload.dateComponents, DateComponents(year: 2026, month: 3, day: 4))
         XCTAssertEqual(payload.minuteCount, 3)
@@ -916,7 +925,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         try await seedReadingTime("Alpha", seconds: 150, at: try date(month: 3, day: 4, hour: 9))
 
         let recorder = DescriptionRecorder()
-        let payload = try await biggestReadingDayPayload(biggestReadingDayController(recorder: recorder))
+        let payload = try await biggestReadingDayPayload(try await biggestReadingDayController(recorder: recorder))
 
         XCTAssertTrue(payload.isEligible)
         XCTAssertFalse(payload.showsArticles)
@@ -929,7 +938,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         try await seedReadingTime("Alpha", seconds: 60, at: try date(month: 3, day: 4, hour: 9))
         try await seedReadingTime("Beta", seconds: 59, at: try date(month: 3, day: 4, hour: 10))
 
-        let payload = try await biggestReadingDayPayload(biggestReadingDayController())
+        let payload = try await biggestReadingDayPayload(try await biggestReadingDayController())
 
         XCTAssertEqual(payload.minuteCount, 1)
         XCTAssertFalse(payload.isEligible)
@@ -939,7 +948,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     func testBiggestReadingDayWithoutReadingTimeHasNoData() async throws {
         try await seedPageViews([pageView("Alpha", at: try date(month: 3, day: 4, hour: 9))])
 
-        let controller = biggestReadingDayController()
+        let controller = try await biggestReadingDayController()
         let payload = try await populatedPayload(controller)
 
         XCTAssertNil(payload)
@@ -950,7 +959,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         try await seedReadingTime("Alpha", seconds: 120, at: try date(month: 3, day: 4, hour: 9))
         try await seedReadingTime("Beta", seconds: 60, at: try date(month: 3, day: 4, hour: 10))
 
-        let payload = try await biggestReadingDayPayload(biggestReadingDayController(failingTitles: ["Beta"]))
+        let payload = try await biggestReadingDayPayload(try await biggestReadingDayController(failingTitles: ["Beta"]))
 
         XCTAssertEqual(payload.articles.map(\.description), ["About Alpha", nil])
         XCTAssertTrue(payload.showsArticles)
@@ -990,9 +999,8 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         mainPageIdentifier: WMFMainPageIdentifying? = nil,
         recorder: DescriptionRecorder = DescriptionRecorder(),
         failingTitles: Set<String> = []
-    ) -> YearInReviewLongestReadSlideDataController {
-        var dependencies = makeDependencies()
-        dependencies.mainPageIdentifier = mainPageIdentifier
+    ) async throws -> YearInReviewLongestReadSlideDataController {
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
         let controller = YearInReviewLongestReadSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
         controller.fetchDescription = { _, title in
             await recorder.record(title)
@@ -1572,8 +1580,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
     private typealias RabbitHolesData = WMFYearInReviewRabbitHolesSlideData
 
     private func rabbitHolesPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> RabbitHolesData {
-        var dependencies = makeDependencies()
-        dependencies.mainPageIdentifier = mainPageIdentifier
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
         let controller = YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
         let payload = try decode(RabbitHolesData.self, from: try await populatedPayload(controller))
         XCTAssertTrue(controller.isEvaluated)
@@ -1692,6 +1699,203 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         let payload = try await rabbitHolesPayload()
 
         XCTAssertEqual(payload.rabbitHoles.map(\.firstArticle.title), ["Paris"])
+    }
+
+    // MARK: - readingPattern
+
+    private typealias ReadingPatternData = WMFYearInReviewReadingPatternSlideData
+
+    private func readingPatternPayload(mainPageIdentifier: WMFMainPageIdentifying? = nil) async throws -> ReadingPatternData {
+        let dependencies = try await makeDependencies(mainPageIdentifier: mainPageIdentifier)
+        let controller = YearInReviewReadingPatternSlideDataController(year: year, yirConfig: config, dependencies: dependencies)
+        let payload = try decode(ReadingPatternData.self, from: try await populatedPayload(controller))
+        XCTAssertTrue(controller.isEvaluated)
+        return payload
+    }
+
+    private func addRead(_ title: String, namespaceID: Int16 = 0, at date: Date) async throws {
+        _ = try await WMFPageViewsDataController().addPageView(title: title, namespaceID: namespaceID, project: enProject, previousPageViewObjectID: nil, timestamp: date)
+    }
+
+    private func readDates(hours: [Int], minute: Int = 0, calendar: Calendar = .current) throws -> [Date] {
+        try hours.enumerated().map { index, hour in
+            try XCTUnwrap(calendar.date(from: DateComponents(year: 2026, month: 3, day: 1 + index, hour: hour, minute: minute)))
+        }
+    }
+
+    func testReadingPatternFindsTheTimeOfDayWithTheMostReads() async throws {
+        try await addRead("Moon", at: try date(month: 2, day: 1, hour: 18))
+        try await addRead("Moon", at: try date(month: 2, day: 2, hour: 19))
+        try await addRead("Cat", at: try date(month: 2, day: 3, hour: 20))
+        try await addRead("Paris", at: try date(month: 2, day: 4, hour: 9))
+
+        let payload = try await readingPatternPayload()
+
+        XCTAssertEqual(payload, ReadingPatternData(timeOfDay: .evenings, timeOfDayReadCount: 3, totalReadCount: 4))
+        XCTAssertEqual(payload.share, 0.75)
+        XCTAssertTrue(payload.isEligible)
+    }
+
+    func testReadingPatternLeavesOutMainPagesAndPagesThatAreNotArticles() async throws {
+        try await addRead("Hauptseite", at: try date(month: 2, day: 1, hour: 9))
+        try await addRead("Main_Page", at: try date(month: 2, day: 2, hour: 9))
+        try await addRead("Talk:Moon", namespaceID: 1, at: try date(month: 2, day: 3, hour: 9))
+        try await addRead("Moon", at: try date(month: 2, day: 4, hour: 22))
+        try await addRead("Cat", at: try date(month: 2, day: 5, hour: 23))
+
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let payload = try await readingPatternPayload(mainPageIdentifier: identifier)
+
+        XCTAssertEqual(payload, ReadingPatternData(timeOfDay: .nights, timeOfDayReadCount: 2, totalReadCount: 2))
+    }
+
+    func testMainPageLookupSkipsWikisWithOnlyPagesThatAreNotArticles() async throws {
+        try await addRead("Talk:Moon", namespaceID: 1, at: try date(month: 2, day: 3, hour: 9))
+        let startDate = try XCTUnwrap(config.dataStartDate)
+        let endDate = try XCTUnwrap(config.dataEndDate)
+
+        let projectIDs = try await WMFPageViewsDataController().fetchArticlePageViewProjectIDs(startDate: startDate, endDate: endDate)
+
+        XCTAssertTrue(projectIDs.isEmpty)
+    }
+
+    func testReadingPatternWithoutReadsIsNotEligible() async throws {
+        let payload = try await readingPatternPayload()
+
+        XCTAssertEqual(payload, ReadingPatternData(timeOfDay: nil, timeOfDayReadCount: 0, totalReadCount: 0))
+        XCTAssertEqual(payload.share, 0)
+        XCTAssertFalse(payload.isEligible)
+    }
+
+    func testReadingPatternWithOneReadInEachTimeOfDayIsNotEligible() throws {
+        let payload = YearInReviewReadingPatternSlideDataController.slideData(readDates: try readDates(hours: [0, 6, 12, 14, 18, 22]), calendar: .current)
+
+        XCTAssertEqual(payload.timeOfDayReadCount, 1)
+        XCTAssertEqual(payload.totalReadCount, 6)
+        XCTAssertFalse(payload.isEligible, "a time of day needs two reads")
+    }
+
+    func testReadingPatternTieGoesToTheEarlierTimeOfDayInTheList() throws {
+        let payload = YearInReviewReadingPatternSlideDataController.slideData(readDates: try readDates(hours: [2, 3, 15, 16]), calendar: .current)
+
+        XCTAssertEqual(payload.timeOfDay, .afternoons, "afternoons come before late nights in the list")
+        XCTAssertEqual(payload.timeOfDayReadCount, 2)
+    }
+
+    /// The first and the last minute of each time of day.
+    func testReadingPatternTimeOfDayBounds() throws {
+        let bounds: [(hour: Int, minute: Int, timeOfDay: WMFYearInReviewTimeOfDay)] = [
+            (0, 0, .lateNights), (4, 59, .lateNights),
+            (5, 0, .mornings), (11, 59, .mornings),
+            (12, 0, .middays), (12, 59, .middays),
+            (13, 0, .afternoons), (16, 59, .afternoons),
+            (17, 0, .evenings), (20, 59, .evenings),
+            (21, 0, .nights), (23, 59, .nights)
+        ]
+        for bound in bounds {
+            let dates = try readDates(hours: [bound.hour, bound.hour], minute: bound.minute)
+            let payload = YearInReviewReadingPatternSlideDataController.slideData(readDates: dates, calendar: .current)
+            XCTAssertEqual(payload.timeOfDay, bound.timeOfDay, "\(bound.hour):\(bound.minute)")
+        }
+    }
+
+    /// The hour comes from the time zone of the calendar, not from UTC.
+    func testReadingPatternUsesTheTimeZoneOfTheCalendar() throws {
+        var newYork = Calendar(identifier: .gregorian)
+        newYork.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        // 19:00 in New York is 23:00 or 0:00 in UTC.
+        let dates = try readDates(hours: [19, 19], calendar: newYork)
+
+        XCTAssertEqual(YearInReviewReadingPatternSlideDataController.slideData(readDates: dates, calendar: newYork).timeOfDay, .evenings)
+    }
+
+    func testEveryHourHasOneTimeOfDay() {
+        for hour in 0..<24 {
+            let timesOfDay = WMFYearInReviewTimeOfDay.allCases.filter { $0.hours.contains(hour) }
+            XCTAssertEqual(timesOfDay.count, 1, "hour \(hour)")
+            XCTAssertEqual(WMFYearInReviewTimeOfDay(hour: hour), timesOfDay.first)
+        }
+        XCTAssertNil(WMFYearInReviewTimeOfDay(hour: 24))
+        XCTAssertNil(WMFYearInReviewTimeOfDay(hour: -1))
+    }
+
+    // MARK: - Main page titles
+
+    func testMainPageTitlesIgnoreCaseAndUnderscores() async {
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let titles = await YearInReviewMainPageTitles.lookUp(projectIDs: [enProject.id, enProject.id], mainPageIdentifier: identifier)
+
+        XCTAssertEqual(identifier.requestedProjectIDs, [enProject.id], "each wiki is asked once")
+        XCTAssertTrue(titles.isMainPage(title: "hauptseite", projectID: enProject.id))
+        XCTAssertFalse(titles.isMainPage(title: "Hauptseite", projectID: "wikipedia~it"), "the main page of another wiki")
+        XCTAssertTrue(titles.isMainPage(title: "main_page", projectID: "wikipedia~it"), "the English main page on every wiki")
+        XCTAssertFalse(titles.isMainPage(title: "Moon", projectID: enProject.id))
+        XCTAssertEqual(titles.excludedTitles, [nil: ["Main Page"], enProject.id: ["HAUPTSEITE"]])
+    }
+
+    func testWithoutAMainPageIdentifierOnlyTheEnglishMainPageIsLeftOut() async throws {
+        try await addRead("Moon", at: try date(month: 2, day: 1, hour: 9))
+
+        let titles = try await YearInReviewMainPageTitles.lookUp(startDate: try XCTUnwrap(config.dataStartDate), endDate: try XCTUnwrap(config.dataEndDate), pageViewsDataController: try WMFPageViewsDataController(), mainPageIdentifier: nil)
+
+        XCTAssertEqual(titles.excludedTitles, YearInReviewMainPageTitles.englishOnly.excludedTitles)
+        XCTAssertTrue(titles.isMainPage(title: "Main Page", projectID: enProject.id))
+    }
+
+    /// The factory looks up the main pages once for the whole report build. The slides share the result.
+    func testTheSlidesShareOneMainPageLookupForEachWiki() async throws {
+        let itProject = WMFProject.wikipedia(WMFLanguage(languageCode: "it", languageVariantCode: nil))
+        try await addRead("Moon", at: try date(month: 2, day: 1, hour: 9))
+        try await addRead("Hauptseite", at: try date(month: 2, day: 2, hour: 9))
+        _ = try await WMFPageViewsDataController().addPageView(title: "Luna", namespaceID: 0, project: itProject, previousPageViewObjectID: nil, timestamp: try date(month: 2, day: 3, hour: 9))
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let factory = YearInReviewSlideDataControllerFactory(
+            year: year,
+            config: config,
+            username: nil,
+            userID: nil,
+            globalUserID: nil,
+            project: enProject,
+            savedSlideDataDelegate: StubSavedArticleDelegate(data: nil),
+            legacyPageViewsDataDelegate: StubLegacyPageViewsDelegate(views: []),
+            mainPageIdentifier: identifier
+        )
+
+        let controllers = try await factory.makeSlideDataControllers(missingFrom: [])
+        let localSlideIDs: Set<String> = [WMFYearInReviewPersonalizedSlideID.readCount, .topArticles, .rabbitHoles, .readingPattern].map(\.rawValue).reduce(into: []) { $0.insert($1) }
+        for controller in controllers where localSlideIDs.contains(controller.id) {
+            _ = try await populatedPayload(controller)
+        }
+
+        XCTAssertEqual(identifier.requestedProjectIDs.sorted(), [enProject.id, itProject.id].sorted(), "one request for each wiki, not one for each slide")
+        let readCount = try XCTUnwrap(controllers.first { $0.id == WMFYearInReviewPersonalizedSlideID.readCount.rawValue })
+        let readData = try decode(WMFYearInReviewReadData.self, from: try await populatedPayload(readCount))
+        XCTAssertEqual(readData.readCount, 2, "the main page does not count")
+    }
+
+    /// When every slide that leaves out main pages is already in the report, the factory does not look them up.
+    func testTheFactorySkipsTheMainPageLookupWhenNoSlideLeavesOutMainPages() async throws {
+        try await addRead("Moon", at: try date(month: 2, day: 1, hour: 9))
+        let identifier = StubMainPageIdentifier(mainPages: [(title: "Hauptseite", projectID: enProject.id)])
+        let factory = YearInReviewSlideDataControllerFactory(
+            year: year,
+            config: config,
+            username: nil,
+            userID: nil,
+            globalUserID: nil,
+            project: enProject,
+            savedSlideDataDelegate: StubSavedArticleDelegate(data: nil),
+            legacyPageViewsDataDelegate: StubLegacyPageViewsDelegate(views: []),
+            mainPageIdentifier: identifier
+        )
+        let slidesThatLeaveOutMainPages: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .topArticles, .topTopics, .rabbitHoles, .biggestReadingDay, .longestRead, .readingPattern]
+        XCTAssertTrue(slidesThatLeaveOutMainPages.allSatisfy { $0.dataController().excludesMainPages && $0.dataController().shouldFreeze })
+
+        let controllers = try await factory.makeSlideDataControllers(missingFrom: Set(slidesThatLeaveOutMainPages.map(\.rawValue)))
+
+        XCTAssertTrue(controllers.contains { $0.id == WMFYearInReviewPersonalizedSlideID.readingStreak.rawValue }, "the reading streak slide is still built")
+        XCTAssertFalse(controllers.contains { type(of: $0).excludesMainPages })
+        XCTAssertTrue(identifier.requestedProjectIDs.isEmpty, "no main page lookup")
     }
 }
 

@@ -11,20 +11,21 @@ struct YearInReviewSlideViewModelFactoryTests {
 
     private let factory = YearInReviewSlideViewModelFactory(hidesDonate: { false })
 
-    /// The total articles, reading streak, top topic, articles visited multiple times, saved and contributor slides always
+    /// The total articles, reading streak, reading pattern, top topic, articles visited multiple times, saved and contributor slides always
     /// show, in their full or their empty version, so Year in Review never opens with no slides. The
     /// test host has no stored report and no donations, so the days visited, runners-up, rabbit hole
     /// and edit slides do not show and the contributor slide is the "You matter" version.
     @Test
-    func makesTheTotalArticlesTheReadingStreakTheTopTopicTheArticlesVisitedMultipleTimesTheSavedAndTheContributorSlides() {
+    func makesTheTotalArticlesTheReadingStreakTheReadingPatternTheTopTopicTheArticlesVisitedMultipleTimesTheSavedAndTheContributorSlides() {
         let slides = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true).slides
 
-        #expect(slides.count == 6)
+        #expect(slides.count == 7)
         #expect(["frame1", "frame1-empty"].contains(slides.first?.animation?.artboardName ?? ""))
         #expect(["frame4", "frame4-empty"].contains(slides[1].animation?.artboardName ?? ""))
-        #expect(["frame6", "frame6-empty"].contains(slides[2].animation?.artboardName ?? ""))
-        #expect(["frame13", "frame13-empty"].contains(slides[3].animation?.artboardName ?? ""))
-        #expect(["frame15", "frame15-empty"].contains(slides[4].animation?.artboardName ?? ""))
+        #expect(["frame5", "frame5-empty"].contains(slides[2].animation?.artboardName ?? ""))
+        #expect(["frame6", "frame6-empty"].contains(slides[3].animation?.artboardName ?? ""))
+        #expect(["frame13", "frame13-empty"].contains(slides[4].animation?.artboardName ?? ""))
+        #expect(["frame15", "frame15-empty"].contains(slides[5].animation?.artboardName ?? ""))
         #expect(slides.last?.animation?.artboardName == "end")
         #expect(slides.allSatisfy { $0.animation?.resourceName == "all_templates" })
     }
@@ -62,7 +63,7 @@ struct YearInReviewSlideViewModelFactoryTests {
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["data"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"] != nil)
-            case "frame6-empty", "frame4-empty", "frame16-empty":
+            case "frame6-empty", "frame4-empty", "frame16-empty", "frame5-empty":
                 #expect(byPath["headline"]?.isEmpty == false)
                 #expect(byPath["bodyCopy"]?.isEmpty == false)
                 #expect(byPath["data"] == nil)
@@ -85,7 +86,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func withoutAConfigTheCollectiveFlowShowsTheEmptySlides() {
         let artboards = factory.makeSlidesAndHighlights(experience: .collective, isLoggedIn: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame15-empty", "frame16-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame5-empty", "frame6-empty", "frame13-empty", "frame15-empty", "frame16-empty", "end"])
     }
 
     /// The developer settings can force the empty version of each personalized slide.
@@ -93,7 +94,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     func allEmptyStatesShowsOnlyEmptySlides() {
         let artboards = factory.makeSlidesAndHighlights(experience: .personalized, isLoggedIn: true, forcesAllEmptyStates: true).slides.map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1-empty", "frame4-empty", "frame6-empty", "frame13-empty", "frame15-empty", "frame16-empty", "end"])
+        #expect(artboards == ["frame1-empty", "frame4-empty", "frame5-empty", "frame6-empty", "frame13-empty", "frame15-empty", "frame16-empty", "end"])
     }
 
     /// Without a fetched edit count, for example after a failed request, no edit slide shows, so an
@@ -148,7 +149,7 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(!artboards.contains("frame16-empty"))
     }
 
-    /// The order of T438549: total articles, visits, reading streak, top topic, runners-up, biggest reading day and its
+    /// The order of T438549: total articles, visits, minutes read, reading streak, reading pattern, top topic, runners-up, biggest reading day and its
     /// articles, longest read, rabbit holes, niche interest, the articles visited multiple times, saved, then the edit slides.
     /// The longest read and rabbit hole reveals are the answers of their guess slides, not slides.
     @Test
@@ -157,6 +158,7 @@ struct YearInReviewSlideViewModelFactoryTests {
             readData: try readData(minutesRead: 5),
             daysVisited: try daysVisitedData(dayCount: 30),
             readingStreak: readingStreakData(dayCount: 11, first: (3, 4), last: (3, 14)),
+            readingPattern: WMFYearInReviewReadingPatternSlideData(timeOfDay: .evenings, timeOfDayReadCount: 10, totalReadCount: 20),
             topTopics: try topTopicsData(runnerUpIDs: ["biology", "sports"]),
             biggestReadingDay: try biggestReadingDayData(articles: [("Moon", "Natural satellite"), ("Cat", nil)]),
             longestRead: try longestReadData([("Moon", "Natural satellite", 600), ("Cat", nil, 300)], longestIsOnTop: true),
@@ -175,7 +177,7 @@ struct YearInReviewSlideViewModelFactoryTests {
 
         let artboards = factory.personalizedSlides(data).map { $0.animation?.artboardName ?? "nil" }
 
-        #expect(artboards == ["frame1", "frame2", "frame3", "frame4", "frame6", "frame7", "frame8", "frame9", "frame10a", "frame11a", "frame12", "frame13", "frame15", "frame16", "frame17", "frame18"])
+        #expect(artboards == ["frame1", "frame2", "frame3", "frame4", "frame5", "frame6", "frame7", "frame8", "frame9", "frame10a", "frame11a", "frame12", "frame13", "frame15", "frame16", "frame17", "frame18"])
     }
 
     /// Only the List view model has the layoutDir enum, so only the list frames set it.
@@ -430,6 +432,69 @@ struct YearInReviewSlideViewModelFactoryTests {
         #expect(factory.daysVisitedSlide(nil) == nil)
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 0)) == nil)
         #expect(factory.daysVisitedSlide(try daysVisitedData(dayCount: 1, peakMonth: 3, peakMonthDayCount: 1)) == nil)
+    }
+
+    // MARK: - Reading pattern
+
+    private func readingPatternData(_ timeOfDay: WMFYearInReviewTimeOfDay?, readCount: Int, totalReadCount: Int) -> WMFYearInReviewReadingPatternSlideData {
+        WMFYearInReviewReadingPatternSlideData(timeOfDay: timeOfDay, timeOfDayReadCount: readCount, totalReadCount: totalReadCount)
+    }
+
+    @Test
+    func theReadingPatternSlideShowsTheTimeOfDayAndItsShare() {
+        let slide = factory.readingPatternSlide(readingPatternData(.evenings, readCount: 5, totalReadCount: 10), locale: Locale(identifier: "en_US"))
+
+        #expect(slide.id == "readingPattern")
+        #expect(slide.loggingID == "reading_pattern")
+        #expect(slide.animation?.artboardName == "frame5")
+        #expect(slide.animation?.stateMachineName == "frame5-statemachine")
+        #expect(text(slide, "headline") == CommonStrings.yearInReviewFavoriteTimeTitle)
+        #expect(text(slide, "data") == CommonStrings.yearInReviewTimeOfDayEvenings.localizedUppercase)
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: "50%"))
+        let label = slide.localizedStrings.accessibilityLabel ?? ""
+        #expect(label.contains(CommonStrings.yearInReviewTimeOfDayEvenings))
+        #expect(label.contains(text(slide, "bodyCopy") ?? "-"))
+    }
+
+    @Test
+    func theReadingPatternShareIsAWholePercentage() {
+        let slide = factory.readingPatternSlide(readingPatternData(.lateNights, readCount: 2, totalReadCount: 3), locale: Locale(identifier: "en_US"))
+
+        #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: "67%"))
+    }
+
+    @Test
+    func theReadingPatternShareShowsAtMost99PercentWhenSomeReadsWereAtAnotherTime() {
+        let almostAll = factory.readingPatternSlide(readingPatternData(.evenings, readCount: 199, totalReadCount: 200), locale: Locale(identifier: "en_US"))
+        let all = factory.readingPatternSlide(readingPatternData(.evenings, readCount: 200, totalReadCount: 200), locale: Locale(identifier: "en_US"))
+
+        #expect(text(almostAll, "bodyCopy") == CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: "99%"))
+        #expect(text(all, "bodyCopy") == CommonStrings.yearInReviewFavoriteTimeSubtitle(percent: "100%"))
+    }
+
+    @Test
+    func eachTimeOfDayHasItsOwnName() {
+        let names = WMFYearInReviewTimeOfDay.allCases.map { YearInReviewSlideViewModelFactory.name(of: $0) }
+
+        #expect(Set(names).count == WMFYearInReviewTimeOfDay.allCases.count)
+        #expect(names.allSatisfy { !$0.isEmpty })
+    }
+
+    @Test
+    func theReadingPatternSlideNeedsTwoReadsInOneTimeOfDay() {
+        for slideData in [nil, readingPatternData(nil, readCount: 0, totalReadCount: 0), readingPatternData(.mornings, readCount: 1, totalReadCount: 1)] {
+            let slide = factory.readingPatternSlide(slideData)
+
+            #expect(slide.id == "readingPatternEmpty")
+            #expect(slide.loggingID == "reading_pattern_empty")
+            #expect(slide.animation?.artboardName == "frame5-empty")
+            #expect(slide.animation?.stateMachineName == "frame5-empty-statemachine")
+            #expect(text(slide, "headline") == CommonStrings.yearInReviewFavoriteTimeEmptyTitle)
+            #expect(text(slide, "bodyCopy") == CommonStrings.yearInReviewFavoriteTimeEmptySubtitle)
+            #expect(text(slide, "data") == nil)
+        }
+
+        #expect(factory.readingPatternSlide(readingPatternData(.mornings, readCount: 2, totalReadCount: 2)).animation?.artboardName == "frame5")
     }
 
     // MARK: - Saved articles
@@ -1162,7 +1227,7 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let planPages: Set<String> = [
-            "total_articles", "total_articles_empty", "visits", "minutes_read", "reading_streak", "reading_streak_empty", "top_topic", "top_topic_empty", "other_top_topics",
+            "total_articles", "total_articles_empty", "visits", "minutes_read", "reading_streak", "reading_streak_empty", "reading_pattern", "reading_pattern_empty", "top_topic", "top_topic_empty", "other_top_topics",
             "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
             "saved_articles", "saved_articles_empty",
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",

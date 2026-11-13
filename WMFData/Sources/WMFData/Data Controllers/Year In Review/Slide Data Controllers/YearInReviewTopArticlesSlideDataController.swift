@@ -40,24 +40,10 @@ public protocol WMFMainPageIdentifying: AnyObject {
     func mainPageTitle(for project: WMFProject) async -> String?
 }
 
-extension WMFMainPageIdentifying {
-    /// `title` has spaces, not underscores.
-    func isMainPage(title: String, project: WMFProject) async -> Bool {
-        guard let mainPageTitle = await mainPageTitle(for: project) else {
-            return false
-        }
-        return WMFMainPageTitle.matches(title, mainPageTitle: mainPageTitle)
-    }
-}
-
 /// Compares titles the same way as the app-side main page lookup: case and underscores are ignored.
 enum WMFMainPageTitle {
     static func canonicalized(_ title: String) -> String {
         title.uppercased().replacingOccurrences(of: "_", with: " ")
-    }
-
-    static func matches(_ title: String, mainPageTitle: String) -> Bool {
-        canonicalized(title) == canonicalized(mainPageTitle)
     }
 }
 
@@ -70,6 +56,7 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     let year: Int
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
+    static let excludesMainPages = true
     static let shouldFreeze = true
 
     /// The main namespace. Talk, user, template and other pages are left out.
@@ -78,17 +65,20 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     private var slideData: WMFYearInReviewTopArticlesSlideData?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
-    private weak var mainPageIdentifier: WMFMainPageIdentifying?
+    private let mainPageTitles: YearInReviewMainPageTitles?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
 
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
-        self.mainPageIdentifier = dependencies.mainPageIdentifier
+        self.mainPageTitles = dependencies.mainPageTitles
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
+        guard let mainPageTitles else {
+            throw YearInReviewMainPageTitles.LookupError.unavailable
+        }
         let dataController = try WMFPageViewsDataController()
 
         guard let startDate = yirConfig.dataStartDate,
@@ -102,35 +92,15 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
                 // The title breaks a tie, so the order is the same on each run.
                 .sorted { ($0.count, $1.page.title) > ($1.count, $0.page.title) }
 
-            // The main page check can go to the main actor, so check only until the slide is full.
-            var articles: [WMFYearInReviewTopArticlesSlideData.Article] = []
-            for item in candidates {
-                guard articles.count < WMFYearInReviewTopArticlesSlideData.maximumArticleCount else {
-                    break
-                }
-                let title = item.page.title.replacingOccurrences(of: "_", with: " ")
-                guard await !isMainPage(title: title, projectID: item.page.projectID) else {
-                    continue
-                }
-                articles.append(WMFYearInReviewTopArticlesSlideData.Article(title: title, projectID: item.page.projectID, visitCount: item.count))
-            }
+            let articles = candidates
+                .filter { !mainPageTitles.isMainPage($0.page) }
+                .prefix(WMFYearInReviewTopArticlesSlideData.maximumArticleCount)
+                .map { WMFYearInReviewTopArticlesSlideData.Article(title: $0.page.title.replacingOccurrences(of: "_", with: " "), projectID: $0.page.projectID, visitCount: $0.count) }
 
             slideData = WMFYearInReviewTopArticlesSlideData(articles: articles)
         }
 
         isEvaluated = true
-    }
-
-    private func isMainPage(title: String, projectID: String) async -> Bool {
-        // The app does not record the English main page, but older data can contain it.
-        if title == "Main Page" {
-            return true
-        }
-        guard let project = WMFProject(id: projectID),
-              let mainPageIdentifier else {
-            return false
-        }
-        return await mainPageIdentifier.isMainPage(title: title, project: project)
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
