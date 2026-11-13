@@ -172,6 +172,51 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
+                captionedRow(caption: "Local flag for semantic search interleaved (phase 2, experiment 2) until a remote config key powers it. Has no effect while Enable Semantic Search (Dive) is on. Target languages: fr, ar, ja.") {
+                    Toggle("Enable Semantic Search Interleaved", isOn: $viewModel.enableSemanticSearchInterleaved)
+                }
+                captionedRow(caption: "Overrides the persisted bucket at read time. Switching it back to Off restores the persisted bucket.") {
+                    Picker("Force Experiment Group", selection: $viewModel.forceSemanticSearchInterleavedExperimentAssignment) {
+                        Text("Off").tag(WMFSemanticSearchInterleavedDataController.ExperimentAssignment?.none)
+                        Text("Control").tag(WMFSemanticSearchInterleavedDataController.ExperimentAssignment?.some(.control))
+                        Text("Treatment").tag(WMFSemanticSearchInterleavedDataController.ExperimentAssignment?.some(.treatment))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                captionedRow(caption: "Adds this language to the target languages (fr, ar, ja), so searches in it enroll and interleave.") {
+                    Picker("Add Target Language", selection: $viewModel.addSemanticSearchInterleavedTargetLanguageCode) {
+                        Text("Off").tag(String?.none)
+                        Text("English (en)").tag(String?.some("en"))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                captionedRow(caption: "Forces what the lexical and semantic requests do for treatment readers, to reach every fallback state. Needs the treatment arm and a target language. The search screen reads it once it exists.") {
+                    Picker("Force Retrieval State", selection: $viewModel.forceSemanticSearchInterleavedRetrievalScenario) {
+                        Text("Off").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.none)
+                        Text("Semantic times out").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.semanticTimesOut))
+                        Text("Semantic fails").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.semanticFails))
+                        Text("Semantic rate limited").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.semanticRateLimited))
+                        Text("Semantic returns nothing").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.semanticReturnsNothing))
+                        Text("Lexical returns nothing (semantic only)").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.lexicalReturnsNothing))
+                        Text("Both return nothing").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.bothReturnNothing))
+                        Text("Both fail").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.bothFail))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
+                captionedRow(caption: "Removes the persisted bucket so the next eligible search re-rolls the assignment.") {
+                    Button {
+                        viewModel.clearSemanticSearchInterleavedExperimentAssignment()
+                    } label: {
+                        Text("Clear experiment assignment")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
+            } header: {
+                sectionHeader("Semantic Search Interleaved")
+            }
+            .listRowBackground(rowBackground)
+
+            Section {
                 captionedRow(caption: "Forces Discover on without the remote feature config. In production the remote key discoverExperimentEnabled turns it on. Without either, no gate below is evaluated.") {
                     Toggle("Force Discover On", isOn: $viewModel.enableDiscover)
                 }
