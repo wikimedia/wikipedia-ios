@@ -348,6 +348,15 @@ import CoreData
         }
     }
 
+    /// Set on the reader's first touch on the slides, so the swipe-up hint shows once per device.
+    public var hasSeenYiRSwipeOnboarding: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReview2026SwipeOnboarding.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReview2026SwipeOnboarding.rawValue, value: newValue)
+        }
+    }
+
     /// Set as soon as the announcement is presented, so a force quit before interacting with it does
     /// not earn a second showing.
     public var hasPresentedYiRFeatureAnnouncement: Bool {

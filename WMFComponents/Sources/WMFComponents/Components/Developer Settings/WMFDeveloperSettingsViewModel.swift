@@ -108,6 +108,14 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    /// The seen flag of the swipe-up hint on the first Year in Review slide. Turning it off shows
+    /// the hint again the next time the slides open, like Android's developer preference.
+    @Published public var hasSeenYiRSwipeOnboarding: Bool = (try? WMFYearInReviewDataController())?.hasSeenYiRSwipeOnboarding ?? false {
+        didSet {
+            (try? WMFYearInReviewDataController())?.hasSeenYiRSwipeOnboarding = hasSeenYiRSwipeOnboarding
+        }
+    }
+
     @Published public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? = WMFDeveloperSettingsDataController.shared.forceYiRDataState {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceYiRDataState = forceYiRDataState

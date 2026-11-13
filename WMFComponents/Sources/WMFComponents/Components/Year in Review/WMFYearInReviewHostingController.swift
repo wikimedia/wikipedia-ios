@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import Combine
+import UIKit.UIGestureRecognizerSubclass
 
 public final class WMFYearInReviewHostingController: WMFComponentHostingController<WMFYearInReviewView>, WMFNavigationBarConfiguring {
 
@@ -99,6 +100,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
                 self?.refreshToolbarItems()
             }
             .store(in: &cancellables)
+
+        // The view model is main actor isolated, so this publishes on the main thread already.
+        viewModel.$isShowingSwipeOnboarding
+            .removeDuplicates()
+            .sink { [weak self] isShowing in
+                self?.setSwipeOnboardingVisible(isShowing)
+            }
+            .store(in: &cancellables)
     }
 
     public override func viewDidLayoutSubviews() {
@@ -126,6 +135,62 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         lockToPortraitOnIPad()
+
+        // The slides are on screen now: presented, or swapped in for the announcement. Start the
+        // 2-second wait, and if it started, watch for the reader's first touch anywhere on the
+        // screen, the bars included. That touch hides the hint, or stops it from showing.
+        guard let containerView = navigationController?.view,
+              viewModel.scheduleSwipeOnboardingIfNeeded() else { return }
+        containerView.addGestureRecognizer(WMFFirstTouchGestureRecognizer { [weak self] in
+            self?.viewModel.dismissSwipeOnboarding()
+        })
+    }
+
+    // MARK: - Swipe onboarding
+
+    private var swipeOnboardingOverlay: UIView?
+
+    /// The hint covers the whole screen, the navigation bar and the toolbar included. It does not
+    /// take touches: the reader's first swipe moves the pager and hides the hint at the same time.
+    private func setSwipeOnboardingVisible(_ isVisible: Bool) {
+        if isVisible {
+            guard swipeOnboardingOverlay == nil, let containerView = navigationController?.view else { return }
+            let overlay = makeSwipeOnboardingOverlay()
+            overlay.frame = containerView.bounds
+            overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            overlay.alpha = 0
+            containerView.addSubview(overlay)
+            swipeOnboardingOverlay = overlay
+            UIView.animate(withDuration: 0.3) {
+                overlay.alpha = 1
+            }
+        } else {
+            guard let overlay = swipeOnboardingOverlay else { return }
+            swipeOnboardingOverlay = nil
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState, .curveEaseOut]) {
+                overlay.alpha = 0
+            } completion: { _ in
+                overlay.removeFromSuperview()
+            }
+        }
+    }
+
+    /// Black at partial opacity, the way the system dims content behind an alert, and the same as
+    /// the For You feed's hint. No blur, so the slide stays recognisable.
+    private func makeSwipeOnboardingOverlay() -> UIView {
+        let overlay = UIView()
+        overlay.backgroundColor = WMFColor.black.withAlphaComponent(0.42)
+        overlay.isUserInteractionEnabled = false
+        overlay.accessibilityElementsHidden = true
+
+        let imageView = UIImageView(image: WMFIcon.swipeUpGesture)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        overlay.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: overlay.centerYAnchor)
+        ])
+        return overlay
     }
 
     // MARK: - Orientation
@@ -348,4 +413,25 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         viewModel.tappedClose()
     }
 
+}
+
+/// Reports the first touch that starts in its view, then turns itself off. It never delays or
+/// cancels a touch, so the pager, the slides and the bar buttons get every touch as before.
+private final class WMFFirstTouchGestureRecognizer: UIGestureRecognizer {
+
+    private let onFirstTouch: @MainActor () -> Void
+
+    init(onFirstTouch: @escaping @MainActor () -> Void) {
+        self.onFirstTouch = onFirstTouch
+        super.init(target: nil, action: nil)
+        cancelsTouchesInView = false
+        delaysTouchesBegan = false
+        delaysTouchesEnded = false
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        onFirstTouch()
+        state = .failed
+        isEnabled = false
+    }
 }
