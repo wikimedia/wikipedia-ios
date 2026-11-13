@@ -1,0 +1,1391 @@
+{
+  "merge_version": 1,
+  "splitmix64": [
+    {
+      "seed": "1234567",
+      "outputs": [
+        "6457827717110365317",
+        "3203168211198807973",
+        "9817491932198370423",
+        "4593380528125082431",
+        "16408922859458223821"
+      ]
+    },
+    {
+      "seed": "0",
+      "outputs": [
+        "16294208416658607535",
+        "7960286522194355700",
+        "487617019471545679",
+        "17909611376780542444",
+        "1961750202426094747"
+      ]
+    },
+    {
+      "seed": "18446744073709551615",
+      "outputs": [
+        "16490336266968443936",
+        "16834447057089888969",
+        "4048727598324417001",
+        "7862637804313477842",
+        "13015481187462834606"
+      ]
+    }
+  ],
+  "vectors": [
+    {
+      "name": "disjoint_lists/seed_1234567",
+      "seed": "1234567",
+      "list_length": 10,
+      "lexical": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "semantic": [
+        201,
+        202,
+        203,
+        204,
+        205
+      ],
+      "expected": {
+        "coin_flips": "LLSLS",
+        "slots": [
+          {
+            "page_id": 101,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 201,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 102,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 202,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 203,
+            "team": "semantic",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 103,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 104,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 204,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 205,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 105,
+            "team": "lexical",
+            "rank": 5,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "disjoint_lists/seed_0",
+      "seed": "0",
+      "list_length": 10,
+      "lexical": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "semantic": [
+        201,
+        202,
+        203,
+        204,
+        205
+      ],
+      "expected": {
+        "coin_flips": "SLLSL",
+        "slots": [
+          {
+            "page_id": 201,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 101,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 102,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 202,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 103,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 203,
+            "team": "semantic",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 204,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 104,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 105,
+            "team": "lexical",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 205,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "partial_overlap/seed_1234567",
+      "seed": "1234567",
+      "list_length": 8,
+      "lexical": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "semantic": [
+        3,
+        6,
+        1,
+        7,
+        8
+      ],
+      "expected": {
+        "coin_flips": "LLSL",
+        "slots": [
+          {
+            "page_id": 1,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 3,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 2,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 6,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 7,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 4,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 5,
+            "team": "lexical",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 8,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "partial_overlap/seed_0",
+      "seed": "0",
+      "list_length": 8,
+      "lexical": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "semantic": [
+        3,
+        6,
+        1,
+        7,
+        8
+      ],
+      "expected": {
+        "coin_flips": "SLLS",
+        "slots": [
+          {
+            "page_id": 3,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 1,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 2,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 6,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 4,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 7,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 8,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 5,
+            "team": "lexical",
+            "rank": 5,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "identical_lists/seed_1234567",
+      "seed": "1234567",
+      "list_length": 6,
+      "lexical": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "semantic": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "expected": {
+        "coin_flips": "LLS",
+        "slots": [
+          {
+            "page_id": 11,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 12,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": true
+          },
+          {
+            "page_id": 13,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": true
+          },
+          {
+            "page_id": 14,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": true
+          },
+          {
+            "page_id": 15,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": true
+          },
+          {
+            "page_id": 16,
+            "team": "lexical",
+            "rank": 6,
+            "also_in_other": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "identical_lists/seed_0",
+      "seed": "0",
+      "list_length": 6,
+      "lexical": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "semantic": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "expected": {
+        "coin_flips": "SLL",
+        "slots": [
+          {
+            "page_id": 11,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 12,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": true
+          },
+          {
+            "page_id": 13,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": true
+          },
+          {
+            "page_id": 14,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": true
+          },
+          {
+            "page_id": 15,
+            "team": "lexical",
+            "rank": 5,
+            "also_in_other": true
+          },
+          {
+            "page_id": 16,
+            "team": "semantic",
+            "rank": 6,
+            "also_in_other": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "lexical_empty/seed_1234567",
+      "seed": "1234567",
+      "list_length": 5,
+      "lexical": [],
+      "semantic": [
+        21,
+        22,
+        23
+      ],
+      "expected": {
+        "coin_flips": "",
+        "slots": [
+          {
+            "page_id": 21,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 22,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 23,
+            "team": "semantic",
+            "rank": 3,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "semantic_empty/seed_1234567",
+      "seed": "1234567",
+      "list_length": 5,
+      "lexical": [
+        31,
+        32,
+        33
+      ],
+      "semantic": [],
+      "expected": {
+        "coin_flips": "",
+        "slots": [
+          {
+            "page_id": 31,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 32,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 33,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "both_empty/seed_1234567",
+      "seed": "1234567",
+      "list_length": 10,
+      "lexical": [],
+      "semantic": [],
+      "expected": {
+        "coin_flips": "",
+        "slots": []
+      }
+    },
+    {
+      "name": "fewer_results_than_list_length/seed_1234567",
+      "seed": "1234567",
+      "list_length": 10,
+      "lexical": [
+        41,
+        42
+      ],
+      "semantic": [
+        51
+      ],
+      "expected": {
+        "coin_flips": "L",
+        "slots": [
+          {
+            "page_id": 41,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 51,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 42,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "fewer_results_than_list_length/seed_0",
+      "seed": "0",
+      "list_length": 10,
+      "lexical": [
+        41,
+        42
+      ],
+      "semantic": [
+        51
+      ],
+      "expected": {
+        "coin_flips": "S",
+        "slots": [
+          {
+            "page_id": 51,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 41,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 42,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "same_page_twice_within_semantic/seed_1234567",
+      "seed": "1234567",
+      "list_length": 8,
+      "lexical": [
+        61,
+        62,
+        63
+      ],
+      "semantic": [
+        71,
+        72,
+        71,
+        73
+      ],
+      "expected": {
+        "coin_flips": "LLS",
+        "slots": [
+          {
+            "page_id": 61,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 71,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 62,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 72,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 73,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 63,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "same_page_twice_within_semantic/seed_0",
+      "seed": "0",
+      "list_length": 8,
+      "lexical": [
+        61,
+        62,
+        63
+      ],
+      "semantic": [
+        71,
+        72,
+        71,
+        73
+      ],
+      "expected": {
+        "coin_flips": "SLL",
+        "slots": [
+          {
+            "page_id": 71,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 61,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 62,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 72,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 63,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 73,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "same_page_twice_within_lexical/seed_1234567",
+      "seed": "1234567",
+      "list_length": 8,
+      "lexical": [
+        81,
+        81,
+        82,
+        83
+      ],
+      "semantic": [
+        91,
+        92
+      ],
+      "expected": {
+        "coin_flips": "LL",
+        "slots": [
+          {
+            "page_id": 81,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 91,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 82,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 92,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 83,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "same_page_twice_within_lexical/seed_0",
+      "seed": "0",
+      "list_length": 8,
+      "lexical": [
+        81,
+        81,
+        82,
+        83
+      ],
+      "semantic": [
+        91,
+        92
+      ],
+      "expected": {
+        "coin_flips": "SL",
+        "slots": [
+          {
+            "page_id": 91,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 81,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 82,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 92,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 83,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "odd_list_length/seed_1234567",
+      "seed": "1234567",
+      "list_length": 5,
+      "lexical": [
+        301,
+        302,
+        303,
+        304,
+        305
+      ],
+      "semantic": [
+        401,
+        402,
+        403,
+        404,
+        405
+      ],
+      "expected": {
+        "coin_flips": "LLS",
+        "slots": [
+          {
+            "page_id": 301,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 401,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 302,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 402,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 403,
+            "team": "semantic",
+            "rank": 3,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "odd_list_length/seed_0",
+      "seed": "0",
+      "list_length": 5,
+      "lexical": [
+        301,
+        302,
+        303,
+        304,
+        305
+      ],
+      "semantic": [
+        401,
+        402,
+        403,
+        404,
+        405
+      ],
+      "expected": {
+        "coin_flips": "SLL",
+        "slots": [
+          {
+            "page_id": 401,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 301,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 302,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 402,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 303,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "first_pick_takes_other_teams_only_item/seed_1234567",
+      "seed": "1234567",
+      "list_length": 4,
+      "lexical": [
+        100,
+        101,
+        102
+      ],
+      "semantic": [
+        100
+      ],
+      "expected": {
+        "coin_flips": "L",
+        "slots": [
+          {
+            "page_id": 100,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 101,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 102,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "first_pick_takes_other_teams_only_item/seed_0",
+      "seed": "0",
+      "list_length": 4,
+      "lexical": [
+        100,
+        101,
+        102
+      ],
+      "semantic": [
+        100
+      ],
+      "expected": {
+        "coin_flips": "S",
+        "slots": [
+          {
+            "page_id": 100,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 101,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 102,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "zero_list_length/seed_1234567",
+      "seed": "1234567",
+      "list_length": 0,
+      "lexical": [
+        1,
+        2,
+        3
+      ],
+      "semantic": [
+        4,
+        5,
+        6
+      ],
+      "expected": {
+        "coin_flips": "",
+        "slots": []
+      }
+    },
+    {
+      "name": "list_length_shorter_than_inputs/seed_1234567",
+      "seed": "1234567",
+      "list_length": 10,
+      "lexical": [
+        501,
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        508,
+        509,
+        510
+      ],
+      "semantic": [
+        505,
+        601,
+        502,
+        602,
+        603,
+        604,
+        605,
+        606,
+        607,
+        608
+      ],
+      "expected": {
+        "coin_flips": "LLSLS",
+        "slots": [
+          {
+            "page_id": 501,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 505,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 502,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": true
+          },
+          {
+            "page_id": 601,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 602,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 503,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 504,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 603,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 604,
+            "team": "semantic",
+            "rank": 6,
+            "also_in_other": false
+          },
+          {
+            "page_id": 506,
+            "team": "lexical",
+            "rank": 6,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "list_length_shorter_than_inputs/seed_0",
+      "seed": "0",
+      "list_length": 10,
+      "lexical": [
+        501,
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        508,
+        509,
+        510
+      ],
+      "semantic": [
+        505,
+        601,
+        502,
+        602,
+        603,
+        604,
+        605,
+        606,
+        607,
+        608
+      ],
+      "expected": {
+        "coin_flips": "SLLSL",
+        "slots": [
+          {
+            "page_id": 505,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": true
+          },
+          {
+            "page_id": 501,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 502,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": true
+          },
+          {
+            "page_id": 601,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 503,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 602,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 603,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 504,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 506,
+            "team": "lexical",
+            "rank": 6,
+            "also_in_other": false
+          },
+          {
+            "page_id": 604,
+            "team": "semantic",
+            "rank": 6,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "max_seed/seed_18446744073709551615",
+      "seed": "18446744073709551615",
+      "list_length": 10,
+      "lexical": [
+        701,
+        702,
+        703,
+        704,
+        705
+      ],
+      "semantic": [
+        801,
+        802,
+        803,
+        804,
+        805
+      ],
+      "expected": {
+        "coin_flips": "SSLLS",
+        "slots": [
+          {
+            "page_id": 801,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 701,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 802,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 702,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 703,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 803,
+            "team": "semantic",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 704,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 804,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 805,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 705,
+            "team": "lexical",
+            "rank": 5,
+            "also_in_other": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "seed_high_bit_only/seed_9223372036854775808",
+      "seed": "9223372036854775808",
+      "list_length": 10,
+      "lexical": [
+        701,
+        702,
+        703,
+        704,
+        705
+      ],
+      "semantic": [
+        801,
+        802,
+        803,
+        804,
+        805
+      ],
+      "expected": {
+        "coin_flips": "LSLLL",
+        "slots": [
+          {
+            "page_id": 701,
+            "team": "lexical",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 801,
+            "team": "semantic",
+            "rank": 1,
+            "also_in_other": false
+          },
+          {
+            "page_id": 802,
+            "team": "semantic",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 702,
+            "team": "lexical",
+            "rank": 2,
+            "also_in_other": false
+          },
+          {
+            "page_id": 703,
+            "team": "lexical",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 803,
+            "team": "semantic",
+            "rank": 3,
+            "also_in_other": false
+          },
+          {
+            "page_id": 704,
+            "team": "lexical",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 804,
+            "team": "semantic",
+            "rank": 4,
+            "also_in_other": false
+          },
+          {
+            "page_id": 705,
+            "team": "lexical",
+            "rank": 5,
+            "also_in_other": false
+          },
+          {
+            "page_id": 805,
+            "team": "semantic",
+            "rank": 5,
+            "also_in_other": false
+          }
+        ]
+      }
+    }
+  ]
+}
