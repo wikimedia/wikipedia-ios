@@ -94,7 +94,7 @@ public final class WMFDiscoverEntryCardViewModel: ObservableObject {
     }
 
     private func performRefresh(startsGenerationWhenDue: Bool) async {
-        guard discoverDataController.isEnabled else {
+        guard discoverDataController.isAvailableToReader else {
             isVisible = false
             return
         }
