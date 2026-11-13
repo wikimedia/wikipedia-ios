@@ -189,7 +189,11 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
 
     @Published public var forceYiREndCardsExperimentAssignment: WMFYearInReviewEndCardsDataController.Assignment? = WMFDeveloperSettingsDataController.shared.forceYiREndCardsExperimentAssignment {
         didSet {
-            WMFDeveloperSettingsDataController.shared.forceYiREndCardsExperimentAssignment = forceYiREndCardsExperimentAssignment
+            do {
+                try WMFYearInReviewEndCardsDataController().setDeveloperSettingsForcedAssignment(forceYiREndCardsExperimentAssignment)
+            } catch {
+                debugPrint("Resetting the Year in Review end cards experiment failed: \(error)")
+            }
         }
     }
 

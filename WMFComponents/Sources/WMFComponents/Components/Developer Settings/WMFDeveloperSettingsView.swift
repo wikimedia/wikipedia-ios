@@ -83,7 +83,7 @@ struct WMFDeveloperSettingsView: View {
                     }
                     .disabled(!viewModel.forceYiREntryPoint2026 || viewModel.isRegeneratingYiR2026Report)
                 }
-                captionedRow(caption: "Overrides the persisted end screen cards A/B bucket at read time. Group B adds the games and interests cards. Readers whose primary app language has no game stay out of the experiment.") {
+                captionedRow(caption: "Overrides the persisted end screen cards A/B bucket at read time. Group B adds the games and interests cards. Readers whose primary app language has no game stay out of the experiment. Off clears the bucket and the exposure, so the next end screen rolls a new bucket.") {
                     Picker("Force End Cards Group", selection: $viewModel.forceYiREndCardsExperimentAssignment) {
                         Text("Off").tag(WMFYearInReviewEndCardsDataController.Assignment?.none)
                         Text("Control (A)").tag(WMFYearInReviewEndCardsDataController.Assignment?.some(.control))

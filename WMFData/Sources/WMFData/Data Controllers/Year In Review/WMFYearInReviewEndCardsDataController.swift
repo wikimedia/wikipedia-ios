@@ -158,6 +158,17 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
         try setHasSentExposure(false)
     }
 
+    /// Sets the developer settings override. Turning it off also clears the bucket and the exposure
+    /// flag, so the next end screen rolls a real bucket and sends a real exposure. Otherwise the
+    /// forced exposure would use up the one exposure of the install.
+    public func setDeveloperSettingsForcedAssignment(_ newValue: Assignment?) throws {
+        let oldValue = developerSettingsForcedAssignment
+        developerSettingsDataController.forceYiREndCardsExperimentAssignment = newValue
+        if oldValue != nil, newValue == nil {
+            try clearAssignment()
+        }
+    }
+
     // MARK: - Exposure
 
     /// Call on each impression of the end screen, and only there, so that only readers who saw the

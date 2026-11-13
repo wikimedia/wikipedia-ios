@@ -201,6 +201,37 @@ struct WMFYearInReviewEndCardsDataControllerTests {
         #expect(sent == 1)
     }
 
+    @Test
+    func turningTheDeveloperOverrideOffClearsTheBucketAndTheExposure() throws {
+        let controller = makeController()
+        try controller.setDeveloperSettingsForcedAssignment(.groupB)
+        try controller.assignIfNeeded()
+        var coordinators: [String?] = []
+        try controller.recordEndScreenImpression { coordinators.append($0.coordinator) }
+
+        try controller.setDeveloperSettingsForcedAssignment(nil)
+
+        #expect(developerSettings.forceYiREndCardsExperimentAssignment == nil)
+        #expect(controller.assignment == nil)
+        #expect(controller.hasSentExposure == false)
+        try controller.assignIfNeeded()
+        try controller.recordEndScreenImpression { coordinators.append($0.coordinator) }
+        #expect(coordinators == ["forced", "custom"])
+    }
+
+    @Test
+    func switchingBetweenForcedGroupsKeepsTheBucketAndTheExposure() throws {
+        let controller = makeController()
+        let rolled = try #require(try controller.assignIfNeeded())
+        try controller.recordEndScreenImpression { _ in }
+
+        try controller.setDeveloperSettingsForcedAssignment(.groupB)
+        try controller.setDeveloperSettingsForcedAssignment(.control)
+
+        #expect(controller.hasSentExposure)
+        #expect(WMFExperimentsDataController(store: experimentStore).bucketForExperiment(.yirEndCards).flatMap { $0 == .yirEndCardsGroupB ? .groupB : .control } == rolled)
+    }
+
     // MARK: - Language change after enrollment
 
     @Test
