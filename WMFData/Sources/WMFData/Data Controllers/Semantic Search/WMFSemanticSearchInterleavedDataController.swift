@@ -12,6 +12,7 @@ public final class WMFSemanticSearchInterleavedDataController: Sendable {
 
     public enum ExperimentError: Error {
         case missingExperimentStore
+        case missingUserDefaultsStore
         case unexpectedBucketValue
     }
 
@@ -53,16 +54,14 @@ public final class WMFSemanticSearchInterleavedDataController: Sendable {
     //
     // Dive. This experiment stays off while Dive (`isSemanticSearchEnabled`) is on. The Dive remote flag
     // is already off, so this only matters if both flags get turned on.
-    //
-    // Forced retrieval scenarios. Align their names with the `interleave_state` values of EF-3. Nothing
-    // reads them until the search screen is built (US-1 and US-4).
 
-    static let experimentName = "semantic-search-interleaving"
+    public static let experimentName = "semantic-search-interleaving"
     private static let treatmentPercentage = 50
     private static let controlPercentage = 100 - treatmentPercentage
     public static let developerSettingsTargetLanguageCodes = ["fr", "ar", "ja"]
 
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
+    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
 
     private let stateLock = NSLock()
 
@@ -169,6 +168,32 @@ public final class WMFSemanticSearchInterleavedDataController: Sendable {
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         try experimentsDataController.resetExperiment(.semanticSearchInterleaved)
+        try setHasSentExposure(false)
+    }
+
+    // MARK: - Exposure
+
+    /// True when a search in `languageCode` should send the exposure event: the reader has a group and no
+    /// exposure went out before. Each install sends one, in either arm.
+    public func shouldSendExposure(languageCode: String) -> Bool {
+        isEligible(languageCode: languageCode) && experimentAssignment != nil && !hasSentExposure
+    }
+
+    /// True after the exposure event went out on this install.
+    public var hasSentExposure: Bool {
+        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.semanticSearchInterleavedExposureSent.rawValue)) ?? false
+    }
+
+    public func markExposureSent() throws {
+        try setHasSentExposure(true)
+    }
+
+    private func setHasSentExposure(_ hasSentExposure: Bool) throws {
+        guard let userDefaultsStore else {
+            throw ExperimentError.missingUserDefaultsStore
+        }
+
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.semanticSearchInterleavedExposureSent.rawValue, value: hasSentExposure)
     }
 
     private var developerSettingsForcedAssignment: ExperimentAssignment? {

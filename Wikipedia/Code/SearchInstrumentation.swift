@@ -79,6 +79,7 @@ final class SearchInstrumentation {
     private let client: TestKitchenClient
     private let instrument: InstrumentImpl
     private let dataController: WMFSemanticSearchDataController
+    private let interleavedDataController: WMFSemanticSearchInterleavedDataController
     /// Off for searches that are not reading, like picking a link target in the editor. Then
     /// nothing goes out.
     private let isEnabled: Bool
@@ -87,10 +88,11 @@ final class SearchInstrumentation {
     /// What the feedback prompt did in the current funnel.
     private var feedbackPromptRecord = FeedbackPromptRecord(funnelToken: nil)
 
-    init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared, isEnabled: Bool = true) {
+    init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared, interleavedDataController: WMFSemanticSearchInterleavedDataController = .shared, isEnabled: Bool = true) {
         self.client = client
         self.instrument = client.getInstrument(name: Self.instrumentName)
         self.dataController = dataController
+        self.interleavedDataController = interleavedDataController
         self.isEnabled = isEnabled
     }
 
@@ -296,6 +298,75 @@ final class SearchInstrumentation {
         )
     }
 
+    // MARK: - Semantic search interleaved
+
+    // TODO: Still to be settled. The event names, `action_context` keys and attempt outcomes below are
+    // provisional and follow the EF-3 acceptance criteria.
+
+    /// The reader first entered a non-empty query on a target wiki, in either arm. Sent with the
+    /// experiment data of the interleaved experiment, outside the search funnel.
+    func logInterleavedExposure(arm: String, wiki: String) {
+        guard isEnabled else { return }
+        client.submitExperimentExposure(experimentData: interleavedExperimentData(arm: arm), mediawikiDatabase: wiki)
+    }
+
+    func logInterleavedQueryInput(_ attempt: WMFSemanticSearchInterleavedAttemptLog) {
+        submitInterleaved(action: "query_input", arm: attempt.arm, wiki: attempt.wiki, actionContext: Self.interleavedAttemptContext(attempt))
+    }
+
+    func logInterleavedRetrievalEligible(_ attempt: WMFSemanticSearchInterleavedAttemptLog) {
+        submitInterleaved(action: "retrieval_eligible", arm: attempt.arm, wiki: attempt.wiki, actionContext: Self.interleavedAttemptContext(attempt))
+    }
+
+    func logInterleavedRequestIssued(_ attempt: WMFSemanticSearchInterleavedAttemptLog, trigger: WMFSemanticSearchInterleavedTrigger) {
+        var actionContext = Self.interleavedAttemptContext(attempt)
+        actionContext["trigger"] = trigger.rawValue
+        submitInterleaved(action: "init", actionSubtype: "interleaved_search", arm: attempt.arm, wiki: attempt.wiki, actionContext: actionContext)
+    }
+
+    func logInterleavedAttemptEnded(attemptID: String, outcome: WMFSemanticSearchInterleavedAttemptOutcome, arm: String, wiki: String) {
+        submitInterleaved(action: "attempt_end", arm: arm, wiki: wiki, actionContext: [
+            "attempt_id": attemptID,
+            "outcome": outcome.rawValue,
+            "arm": arm
+        ])
+    }
+
+    /// The list rendered: one event for the list, then one impression for each result.
+    func logInterleavedListRendered(list: WMFSemanticSearchInterleavedListLog, results: [WMFSemanticSearchInterleavedResultLog]) {
+        var actionContext = Self.interleavedAttemptContext(WMFSemanticSearchInterleavedAttemptLog(attemptID: list.attemptID, query: list.query, wiki: list.wiki, deviceLanguage: list.deviceLanguage, arm: list.arm))
+        actionContext["list_id"] = list.listID
+        actionContext["merge_version"] = list.mergeVersion
+        actionContext["lexical_version"] = list.lexicalVersion
+        actionContext["seed"] = list.seed
+        actionContext["coin_flips"] = list.coinFlips
+        actionContext["list_length"] = list.listLength
+        actionContext["result_count"] = results.count
+        actionContext["interleave_state"] = list.interleaveState?.rawValue
+        actionContext["trigger"] = list.trigger.rawValue
+        actionContext["latency_lexical_ms"] = list.latency.lexicalMs
+        actionContext["latency_semantic_ms"] = list.latency.semanticMs
+        actionContext["latency_merge_ms"] = list.latency.mergeMs
+        actionContext["latency_total_ms"] = list.latency.totalMs
+        actionContext["search_id_pre"] = list.searchIDs.prefix
+        actionContext["search_id_ful"] = list.searchIDs.fullText
+        actionContext["search_id_sem"] = list.searchIDs.semantic
+        actionContext["semantic_model"] = list.semanticModel
+        actionContext["semantic_index_version"] = list.semanticIndexVersion
+        submitInterleaved(action: "impression", actionSubtype: "interleaved_list", arm: list.arm, wiki: list.wiki, actionContext: actionContext)
+
+        for result in results {
+            submitInterleaved(action: "impression", actionSubtype: "\(result.team.rawValue)_result", elementId: "search_result", arm: list.arm, wiki: list.wiki, actionContext: Self.interleavedResultContext(list: list, result: result))
+        }
+    }
+
+    /// `millisecondsSinceRender` is the time since the list rendered.
+    func logInterleavedResultTap(list: WMFSemanticSearchInterleavedListLog, result: WMFSemanticSearchInterleavedResultLog, millisecondsSinceRender: Int) {
+        var actionContext = Self.interleavedResultContext(list: list, result: result)
+        actionContext["ms_since_render"] = millisecondsSinceRender
+        submitInterleaved(action: "click", actionSubtype: "\(result.team.rawValue)_result", elementId: "search_result", arm: list.arm, wiki: list.wiki, actionContext: actionContext)
+    }
+
     // MARK: - Private
 
     private static func queryContext(_ searchTerm: String) -> [String: Any] {
@@ -317,6 +388,67 @@ final class SearchInstrumentation {
             mediawikiDatabase: project?.mediaWikiDatabase,
             experimentData: dataController.experimentData
         )
+    }
+
+    /// The experiment data of the interleaved experiment. The sandbox in developer settings sends arms
+    /// that are not the reader's own, and goes out as forced.
+    private func interleavedExperimentData(arm: String) -> ExperimentData {
+        if let experimentData = interleavedDataController.experimentData, experimentData.assigned == arm {
+            return experimentData
+        }
+        return ExperimentData(
+            enrolled: WMFSemanticSearchInterleavedDataController.experimentName,
+            assigned: arm,
+            coordinator: ExperimentData.coordinatorForced,
+            subjectId: WMFDataEnvironment.current.appInstallIDUtility?()
+        )
+    }
+
+    private func submitInterleaved(action: String, actionSubtype: String? = nil, elementId: String? = nil, arm: String, wiki: String, actionContext: [String: Any]) {
+        guard isEnabled else { return }
+        instrument.submitInteraction(
+            action: action,
+            actionSource: Self.actionSource,
+            actionSubtype: actionSubtype,
+            elementId: elementId,
+            actionContext: actionContext.isEmpty ? nil : actionContext,
+            mediawikiDatabase: wiki,
+            experimentData: interleavedExperimentData(arm: arm)
+        )
+    }
+
+    /// The query features of an event: the text cut at the limit, the length in graphemes (counted on
+    /// the full text), the wiki, the device language and the arm.
+    private static func interleavedAttemptContext(_ attempt: WMFSemanticSearchInterleavedAttemptLog) -> [String: Any] {
+        let isTruncated = attempt.query.count > queryLimit
+        return [
+            "attempt_id": attempt.attemptID,
+            "query": isTruncated ? String(attempt.query.prefix(queryLimit)) : attempt.query,
+            "query_trunc": isTruncated,
+            "query_length": attempt.query.count,
+            "wiki": attempt.wiki,
+            "device_language": attempt.deviceLanguage,
+            "arm": attempt.arm
+        ]
+    }
+
+    /// An impression or a click of one result. `action_subtype` tells lexical from semantic on both.
+    private static func interleavedResultContext(list: WMFSemanticSearchInterleavedListLog, result: WMFSemanticSearchInterleavedResultLog) -> [String: Any] {
+        var actionContext: [String: Any] = [
+            "list_id": list.listID,
+            "arm": list.arm,
+            "position": result.position,
+            "page_id": result.details.pageID,
+            "team": result.team.rawValue,
+            "rank": result.rank,
+            "also_in_other": result.alsoInOther
+        ]
+        actionContext["visible"] = result.details.isVisible
+        actionContext["section"] = result.details.section
+        actionContext["descriptor_type"] = result.details.descriptorType
+        actionContext["thumbnail_present"] = result.details.hasThumbnail
+        actionContext["score"] = result.details.score
+        return actionContext
     }
 
     private func searchIDContext(_ searchID: String?) -> [String: Any] {
@@ -348,7 +480,7 @@ private extension WMFSearchType {
     }
 }
 
-private extension WMFProject {
+extension WMFProject {
 
     /// The MediaWiki database of the project, as the events name it (`frwiki`).
     var mediaWikiDatabase: String? {

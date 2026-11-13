@@ -141,6 +141,7 @@ public enum WMFUserDefaultsKey: String {
     case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
     case semanticSearchExposureSent = "semantic-search-exposure-sent"
+    case semanticSearchInterleavedExposureSent = "semantic-search-interleaved-exposure-sent"
 
     // Semantic search interleaved (phase 2, experiment 2)
     case developerSettingsEnableSemanticSearchInterleaved = "dev-settings-enable-semantic-search-interleaved"

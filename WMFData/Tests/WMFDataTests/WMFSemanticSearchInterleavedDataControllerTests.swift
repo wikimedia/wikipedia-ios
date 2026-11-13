@@ -262,6 +262,24 @@ final class WMFSemanticSearchInterleavedDataControllerTests {
         }
     }
 
+    @Test
+    func exposureIsSentOncePerInstallInEitherArm() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearchInterleaved = true
+            #expect(controller.shouldSendExposure(languageCode: "fr") == false, "A reader with no arm has no exposure")
+
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = .control
+            #expect(controller.shouldSendExposure(languageCode: "fr"))
+            #expect(controller.shouldSendExposure(languageCode: "en") == false, "Not a target language")
+
+            try controller.markExposureSent()
+            #expect(controller.shouldSendExposure(languageCode: "fr") == false)
+
+            try controller.clearExperimentAssignment()
+            #expect(controller.hasSentExposure == false, "A new assignment sends a new exposure")
+        }
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
