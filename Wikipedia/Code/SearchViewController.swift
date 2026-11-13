@@ -141,6 +141,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         vc.semanticSearchInfoTappedAction = { [weak self] languageCode in
             self?.showSemanticSearchInfo(languageCode: languageCode)
         }
+        vc.semanticResultTappedAction = { [weak self] result, searchID in
+            self?.openInterleavedSemanticSearchResult(result, searchID: searchID)
+        }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             
@@ -193,8 +196,14 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         SearchSettingsCoordinator(navigationController: navigationController).start()
     }
 
+    /// A semantic row of the interleaved list opens like any search result, so coming back focuses the search field again.
+    private func openInterleavedSemanticSearchResult(_ result: WMFSemanticSearchResult, searchID: String?) {
+        guard let project = searchResultsVC.siteURL.flatMap({ SearchResultsMapper.project(for: $0) }) else { return }
+        openSemanticSearchResult(result, project: project, searchID: searchID, needsFeedback: false, pushedSource: .searchResults)
+    }
+
     /// Opens the article at the section of the passage and highlights the passage in it.
-    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject, searchID: String?, needsFeedback: Bool) {
+    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject, searchID: String?, needsFeedback: Bool, pushedSource: PushedArticleSource = .semanticSearchSheet) {
         guard let dataStore, let navigationController,
               let siteURL = project.siteURL,
               var articleURL = siteURL.wmf_URL(withTitle: result.title)?.wmf_URL(withOptionalFragment: result.sectionTitle.map(Self.sectionAnchor))
@@ -213,7 +222,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             semanticSearchInstrumentation: searchResultsVC.instrumentation,
             needsSemanticSearchFeedback: needsFeedback
         )
-        pushedArticleSource = .semanticSearchSheet
+        pushedArticleSource = pushedSource
         if !coordinator.start() {
             navigate(to: articleURL)
         }

@@ -107,6 +107,15 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private var recentSearchTermPendingInit: String?
     /// The reader used the keyboard microphone for the text in the search bar.
     private var isDictating = false
+    /// The query attempt, the rendered list and whether the next search came from a submit, for the events of the
+    /// semantic search interleaved experiment.
+    var interleavedAttemptTracker = WMFSemanticSearchInterleavedAttemptTracker()
+    var interleavedRenderedList: InterleavedRenderedList?
+    var interleavedPendingSubmit = false
+    /// The semantic rows of the list, so a tap opens the article at the passage. The id is the search ID of the semantic request.
+    var interleavedSemanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
+    var interleavedSemanticSearchID: String?
+    var semanticResultTappedAction: ((WMFSemanticSearchResult, String?) -> Void)?
     /// The text an edit by the reader would leave in the search bar. The clear button empties the
     /// bar without asking for that edit, so an empty bar that doesn't match it is a tap on clear.
     var expectedSearchBarText: String?
@@ -346,7 +355,12 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     private func performSearch(for searchTerm: String, siteURL: URL) async {
         guard !Task.isCancelled else { return }
-        
+
+        // TODO: What counts as a submit is provisional. A search the reader picked from their recent searches or
+        // restored from an activity is a submit, and typing is a pause.
+        let trigger: WMFSemanticSearchInterleavedTrigger = (recentSearchTermPendingInit == searchTerm || interleavedPendingSubmit) ? .submit : .pause
+        interleavedPendingSubmit = false
+
         if let project = SearchResultsMapper.project(for: siteURL) {
             let origin: SearchInstrumentation.SearchOrigin
             if recentSearchTermPendingInit == searchTerm {
@@ -362,18 +376,50 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         if let languageCode = siteURL.wmf_languageCode {
             enrollInSemanticSearchExperimentIfNeeded(languageCode: languageCode)
             enrollInSemanticSearchInterleavedExperimentIfNeeded(languageCode: languageCode)
+            interleavedRequestIssued(for: searchTerm, siteURL: siteURL, trigger: trigger)
+            if takesPartInSemanticSearchExperiment,
+               WMFSemanticSearchInterleavedDataController.shared.shouldInterleave(languageCode: languageCode),
+               let project = SearchResultsMapper.project(for: siteURL) {
+                await performInterleavedSearch(for: searchTerm, siteURL: siteURL, project: project, trigger: trigger)
+                return
+            }
         }
         do {
+            let clock = ContinuousClock()
+            let start = clock.now
             let outcome = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
             guard !Task.isCancelled else { return }
             NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
             displayedSearchResults = outcome
             instrumentation.logLexicalResultsImpression(searchIDs: outcome.results.lexicalSearchIDs)
             displaySearchResults(outcome.results, siteURL: siteURL)
+            logInterleavedControlList(outcome, searchTerm: searchTerm, siteURL: siteURL, trigger: trigger, totalMs: (clock.now - start).milliseconds)
         } catch is CancellationError {
             return
         } catch let SearchResultsLoader.Failure.fetch(error, _) {
             guard !Task.isCancelled, !(error as NSError).wmf_isCancelledError() else { return }
+            interleavedRetrievalFailed(siteURL: siteURL)
+            displaySearchError(error)
+        } catch {
+            assertionFailure("Unexpected search error: \(error)")
+        }
+    }
+
+    /// The treatment arm of the semantic search interleaved experiment: the lexical and the semantic
+    /// requests, merged into one list. Sends no events yet.
+    private func performInterleavedSearch(for searchTerm: String, siteURL: URL, project: WMFProject, trigger: WMFSemanticSearchInterleavedTrigger) async {
+        do {
+            let forcedScenario = siteURL.wmf_languageCode.flatMap { WMFSemanticSearchInterleavedDataController.shared.forcedRetrievalScenario(languageCode: $0) }
+            let outcome = try await interleavedLoader.fetchResults(for: searchTerm, siteURL: siteURL, project: project, forcedScenario: forcedScenario)
+            guard !Task.isCancelled else { return }
+            NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+            displayedSearchResults = nil
+            displayInterleavedSearchResults(outcome, searchTerm: searchTerm, siteURL: siteURL, trigger: trigger)
+        } catch is CancellationError {
+            return
+        } catch let SearchResultsLoader.Failure.fetch(error, _) {
+            guard !Task.isCancelled, !(error as NSError).wmf_isCancelledError() else { return }
+            interleavedRetrievalFailed(siteURL: siteURL)
             displaySearchError(error)
         } catch {
             assertionFailure("Unexpected search error: \(error)")
@@ -382,8 +428,12 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     private lazy var fetcher = WMFSearchFetcher()
     private lazy var resultsLoader = SearchResultsLoader(fetcher: fetcher)
+    private lazy var interleavedLoader = SemanticSearchInterleavedLoader(lexicalLoader: resultsLoader)
 
     func resetSearchResults() {
+        interleavedRenderedList = nil
+        interleavedSemanticResultsByArticleURL = [:]
+        interleavedSemanticSearchID = nil
         searchTask?.cancel()
         searchTask = nil
         fetcher.cancelAllFetches()
@@ -452,6 +502,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard let term, term.wmf_hasNonWhitespaceText else { return }
         searchTerm = term
         showSearchResults(animated: false)
+        interleavedPendingSubmit = true
         search(for: term)
     }
 
@@ -589,6 +640,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
                 return
             }
             searchTerm = text
+            interleavedQueryChanged(text)
             resultsViewModel.semanticSearchEntryPointViewModel?.update(query: text)
 
             searchTask?.cancel()
@@ -600,6 +652,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
             }
         } else {
             searchTerm = nil
+            interleavedSearchEnded()
             resetSearchResults()
             resultsViewModel.hideSemanticSearchEntryPoint()
             showRecentSearches(animated: true)
@@ -632,6 +685,7 @@ extension SearchResultsViewController: UISearchControllerDelegate {
     /// The reader cancelled or left without opening an article: the funnel ends. A push to an
     /// article keeps the search active, so it does not come through here.
     func willDismissSearchController(_ searchController: UISearchController) {
+        interleavedSearchEnded()
         instrumentation.endSearch()
         searchBarIPadCustomizer.willDismissSearchController(searchController)
         parentSearchControllerDelegate?.willDismissSearchController?(searchController)

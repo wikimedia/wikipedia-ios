@@ -49,8 +49,14 @@ extension SearchResultsViewController {
                     let position = self.searchResultsByArticleURL[result.id]?.index?.intValue ?? (index + 1)
                     self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
                 }
+                self.logInterleavedTap(at: index)
                 self.saveLastSearch()
-                self.articleTappedAction?(result.articleURL, false)
+                if let semanticResult = self.interleavedSemanticResultsByArticleURL[result.id], let semanticResultTappedAction = self.semanticResultTappedAction {
+                    // A semantic row opens the article at its passage and highlights it.
+                    semanticResultTappedAction(semanticResult, self.interleavedSemanticSearchID)
+                } else {
+                    self.articleTappedAction?(result.articleURL, false)
+                }
             },
             openAction: { [weak self] result, _ in
                 ArticleTabsFunnel.shared.logLongPressOpen()
@@ -101,6 +107,75 @@ extension SearchResultsViewController {
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
         updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
+    }
+
+    /// The list of the semantic search interleaved experiment. Each row carries a debug badge with the
+    /// request that gave it and the state of the list. Semantic rows show the title only.
+    func displayInterleavedSearchResults(_ outcome: SemanticSearchInterleavedLoader.Outcome, searchTerm: String, siteURL: URL, trigger: WMFSemanticSearchInterleavedTrigger) {
+        displayedSearchTerm = searchTerm
+        displayedSiteURL = siteURL
+        let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.redirectMappings)
+
+        var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+        var semanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
+        var resultLogs: [WMFSemanticSearchInterleavedResultLog] = []
+        let results = outcome.items.enumerated().compactMap { index, item -> SearchResult? in
+            var searchResult: SearchResult?
+            var section: String?
+            switch item.source {
+            case .lexicalPrefix, .lexicalFullText:
+                guard let mwkResult = outcome.lexicalResultsByPageID[item.pageID], let result = mapper.searchResult(from: mwkResult) else {
+                    return nil
+                }
+                searchResultsByArticleURL[result.id] = mwkResult
+                searchResult = result
+            case .semantic:
+                guard let semanticResult = outcome.semanticResultsByPageID[item.pageID], let articleURL = siteURL.wmf_URL(withTitle: semanticResult.title) else {
+                    return nil
+                }
+                section = semanticResult.sectionTitle
+                semanticResultsByArticleURL[articleURL.absoluteString] = semanticResult
+                searchResult = SearchResult(
+                    articleURL: articleURL,
+                    pageTitle: semanticResult.title,
+                    title: semanticResult.title,
+                    titleHTML: semanticResult.title,
+                    description: nil,
+                    thumbnailURL: semanticResult.thumbnailURL,
+                    isArticle: SearchResultsMapper.isArticle(articleURL),
+                    isSavable: articleURL.namespace == .main)
+            }
+            searchResult?.sourceBadge = Self.sourceBadge(for: item.source, state: outcome.state)
+            if let searchResult {
+                // The merge says which team placed the result and where it ranked. Without a merge the list is the lexical list.
+                let slot = outcome.merge?.slots[index]
+                resultLogs.append(WMFSemanticSearchInterleavedResultLog(
+                    position: resultLogs.count + 1,
+                    team: slot?.searchType ?? .lexical,
+                    rank: slot?.rank ?? index + 1,
+                    alsoInOther: slot?.alsoInOther ?? false,
+                    details: WMFSemanticSearchInterleavedResultDetails(pageID: item.pageID, section: section, score: nil, descriptorType: nil, hasThumbnail: searchResult.thumbnailURL != nil, isVisible: nil)))
+            }
+            return searchResult
+        }
+        self.searchResultsByArticleURL = searchResultsByArticleURL
+        interleavedSemanticResultsByArticleURL = semanticResultsByArticleURL
+        interleavedSemanticSearchID = outcome.searchIDs.semantic
+
+        resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project)
+        resultsViewModel.hideSemanticSearchEntryPoint()
+        logInterleavedList(arm: "treatment", searchTerm: searchTerm, siteURL: siteURL, trigger: trigger, state: outcome.state, merge: outcome.merge, latency: outcome.latency, searchIDs: outcome.searchIDs, listLength: WMFSemanticSearchInterleavedConfiguration.listLength, results: resultLogs)
+    }
+
+    /// The request that gave the row, and how the list came out.
+    private static func sourceBadge(for source: WMFSemanticSearchInterleavedList.Source, state: WMFSemanticSearchInterleaveState) -> String {
+        let name: String
+        switch source {
+        case .lexicalPrefix: name = "Lexical prefix"
+        case .lexicalFullText: name = "Lexical full text"
+        case .semantic: name = "Semantic"
+        }
+        return "\(name) · \(state.rawValue)"
     }
 
     // MARK: - Semantic search entry point
@@ -317,5 +392,131 @@ extension SearchResultsViewController: UISearchBarDelegate {
         if searchText.isEmpty, expectedSearchBarText != searchText {
             instrumentation.logSearchClose()
         }
+    }
+}
+
+// MARK: - Semantic search interleaved events
+
+/// The list that rendered last, so a tap can say which result it was and how long after the render.
+struct InterleavedRenderedList {
+    let list: WMFSemanticSearchInterleavedListLog
+    let results: [WMFSemanticSearchInterleavedResultLog]
+    let renderedAt: ContinuousClock.Instant
+}
+
+extension SearchResultsViewController {
+
+    /// The arm of a reader who takes part in the experiment on this wiki, nil for everyone else.
+    func interleavedArm(for siteURL: URL?) -> String? {
+        guard takesPartInSemanticSearchExperiment, let languageCode = siteURL?.wmf_languageCode else { return nil }
+        let dataController = WMFSemanticSearchInterleavedDataController.shared
+        guard dataController.isEligible(languageCode: languageCode) else { return nil }
+        return dataController.experimentAssignment?.rawValue
+    }
+
+    /// The reader typed. Typing is where the funnel of an attempt starts.
+    func interleavedQueryChanged(_ text: String) {
+        guard let siteURL, let languageCode = siteURL.wmf_languageCode, interleavedArm(for: siteURL) != nil else { return }
+        logInterleavedExposureIfNeeded(siteURL: siteURL, languageCode: languageCode)
+        let steps = interleavedAttemptTracker.queryChanged(length: text.count, minimumLength: WMFSemanticSearchInterleavedConfiguration.minimumQueryLength(languageCode: languageCode))
+        sendInterleavedSteps(steps, query: text, siteURL: siteURL)
+    }
+
+    /// The app is about to ask for results, in either arm.
+    func interleavedRequestIssued(for searchTerm: String, siteURL: URL, trigger: WMFSemanticSearchInterleavedTrigger) {
+        guard let languageCode = siteURL.wmf_languageCode, let arm = interleavedArm(for: siteURL), let project = SearchResultsMapper.project(for: siteURL), let wiki = project.mediaWikiDatabase else { return }
+        logInterleavedExposureIfNeeded(siteURL: siteURL, languageCode: languageCode)
+        let steps = interleavedAttemptTracker.requestIssued(length: searchTerm.count, minimumLength: WMFSemanticSearchInterleavedConfiguration.minimumQueryLength(languageCode: languageCode))
+        sendInterleavedSteps(steps, query: searchTerm, siteURL: siteURL)
+        instrumentation.logInterleavedRequestIssued(interleavedAttemptLog(query: searchTerm, wiki: wiki, arm: arm), trigger: trigger)
+    }
+
+    /// The query was cleared or the reader left the search.
+    func interleavedSearchEnded() {
+        let steps = interleavedAttemptTracker.reset()
+        interleavedRenderedList = nil
+        sendInterleavedSteps(steps, query: "", siteURL: siteURL)
+    }
+
+    func interleavedRetrievalFailed(siteURL: URL) {
+        sendInterleavedSteps(interleavedAttemptTracker.retrievalFailed(), query: "", siteURL: siteURL)
+    }
+
+    /// The control arm shows today's lexical list. It sends the same events as treatment, with no merge fields and no state.
+    func logInterleavedControlList(_ outcome: SearchResultsLoader.Outcome, searchTerm: String, siteURL: URL, trigger: WMFSemanticSearchInterleavedTrigger, totalMs: Int) {
+        guard interleavedArm(for: siteURL) == "control" else { return }
+        let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.results.redirectMappings)
+        var resultLogs: [WMFSemanticSearchInterleavedResultLog] = []
+        for mwkResult in outcome.results.results where mapper.searchResult(from: mwkResult) != nil {
+            resultLogs.append(WMFSemanticSearchInterleavedResultLog(
+                position: resultLogs.count + 1,
+                team: .lexical,
+                rank: resultLogs.count + 1,
+                alsoInOther: false,
+                details: WMFSemanticSearchInterleavedResultDetails(pageID: mwkResult.articleID, section: nil, score: nil, descriptorType: nil, hasThumbnail: mwkResult.thumbnailURL != nil, isVisible: nil)))
+        }
+        let searchIDs = outcome.results.lexicalSearchIDs
+        // TODO: The list length of a control list is the number of rows it shows, since it has no merge.
+        logInterleavedList(
+            arm: "control", searchTerm: searchTerm, siteURL: siteURL, trigger: trigger, state: nil, merge: nil,
+            latency: WMFSemanticSearchInterleavedLatency(lexicalMs: totalMs, semanticMs: nil, mergeMs: 0, totalMs: totalMs),
+            searchIDs: WMFSemanticSearchInterleavedIDs(prefix: searchIDs.prefix, fullText: searchIDs.fullText, semantic: nil),
+            listLength: resultLogs.count, results: resultLogs)
+    }
+
+    func logInterleavedList(arm: String, searchTerm: String, siteURL: URL, trigger: WMFSemanticSearchInterleavedTrigger, state: WMFSemanticSearchInterleaveState?, merge: WMFInterleaveResult<WMFSemanticSearchInterleavedList.Item>?, latency: WMFSemanticSearchInterleavedLatency, searchIDs: WMFSemanticSearchInterleavedIDs, listLength: Int, results: [WMFSemanticSearchInterleavedResultLog]) {
+        guard let project = SearchResultsMapper.project(for: siteURL), let wiki = project.mediaWikiDatabase else { return }
+        let list = WMFSemanticSearchInterleavedListLog(
+            listID: UUID().uuidString, attemptID: interleavedAttemptTracker.attemptID, query: searchTerm, wiki: wiki,
+            deviceLanguage: Self.interleavedDeviceLanguage, arm: arm,
+            mergeVersion: merge?.mergeVersion, lexicalVersion: WMFLexicalListBuilder.lexicalVersion,
+            seed: merge?.seedLog, coinFlips: merge?.coinFlipsLog, listLength: listLength,
+            interleaveState: state, trigger: trigger, latency: latency, searchIDs: searchIDs,
+            semanticModel: nil, semanticIndexVersion: nil)
+        interleavedAttemptTracker.listRendered()
+        interleavedRenderedList = InterleavedRenderedList(list: list, results: results, renderedAt: ContinuousClock.now)
+        instrumentation.logInterleavedListRendered(list: list, results: results)
+    }
+
+    /// The reader tapped the row at `index` of the list that rendered.
+    func logInterleavedTap(at index: Int) {
+        guard let rendered = interleavedRenderedList, rendered.results.indices.contains(index) else { return }
+        let milliseconds = (ContinuousClock.now - rendered.renderedAt).milliseconds
+        instrumentation.logInterleavedResultTap(list: rendered.list, result: rendered.results[index], millisecondsSinceRender: milliseconds)
+    }
+
+    // MARK: - Private
+
+    private func logInterleavedExposureIfNeeded(siteURL: URL, languageCode: String) {
+        let dataController = WMFSemanticSearchInterleavedDataController.shared
+        guard dataController.shouldSendExposure(languageCode: languageCode), let arm = interleavedArm(for: siteURL), let wiki = SearchResultsMapper.project(for: siteURL)?.mediaWikiDatabase else { return }
+        instrumentation.logInterleavedExposure(arm: arm, wiki: wiki)
+        do {
+            try dataController.markExposureSent()
+        } catch {
+            DDLogError("Recording the semantic search interleaved exposure failed: \(error)")
+        }
+    }
+
+    private func sendInterleavedSteps(_ steps: [WMFSemanticSearchInterleavedAttemptTracker.Step], query: String, siteURL: URL?) {
+        guard !steps.isEmpty, let arm = interleavedArm(for: siteURL), let wiki = siteURL.flatMap({ SearchResultsMapper.project(for: $0) })?.mediaWikiDatabase else { return }
+        for step in steps {
+            switch step {
+            case .queryInput(let attemptID):
+                instrumentation.logInterleavedQueryInput(interleavedAttemptLog(attemptID: attemptID, query: query, wiki: wiki, arm: arm))
+            case .retrievalEligible(let attemptID):
+                instrumentation.logInterleavedRetrievalEligible(interleavedAttemptLog(attemptID: attemptID, query: query, wiki: wiki, arm: arm))
+            case .attemptEnded(let attemptID, let outcome):
+                instrumentation.logInterleavedAttemptEnded(attemptID: attemptID, outcome: outcome, arm: arm, wiki: wiki)
+            }
+        }
+    }
+
+    private func interleavedAttemptLog(attemptID: String? = nil, query: String, wiki: String, arm: String) -> WMFSemanticSearchInterleavedAttemptLog {
+        WMFSemanticSearchInterleavedAttemptLog(attemptID: attemptID ?? interleavedAttemptTracker.attemptID, query: query, wiki: wiki, deviceLanguage: Self.interleavedDeviceLanguage, arm: arm)
+    }
+
+    private static var interleavedDeviceLanguage: String {
+        Locale.current.language.languageCode?.identifier ?? ""
     }
 }

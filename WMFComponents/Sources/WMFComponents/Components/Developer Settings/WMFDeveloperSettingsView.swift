@@ -190,7 +190,7 @@ struct WMFDeveloperSettingsView: View {
                     }
                     .tint(Color(theme.secondaryText))
                 }
-                captionedRow(caption: "Forces what the lexical and semantic requests do for treatment readers, to reach every fallback state. Needs the treatment arm and a target language. The search screen reads it once it exists.") {
+                captionedRow(caption: "Forces what the lexical and semantic requests do for treatment readers, to reach every fallback state. Needs the treatment arm and a target language. Each row of the list shows the state it ended in.") {
                     Picker("Force Retrieval State", selection: $viewModel.forceSemanticSearchInterleavedRetrievalScenario) {
                         Text("Off").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.none)
                         Text("Semantic times out").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.semanticTimesOut))

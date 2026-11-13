@@ -49,6 +49,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         public let hasLocation: Bool
         public let isSavable: Bool
         public var isSaved: Bool
+        /// Debug label of the semantic search interleaved experiment: which request gave the result.
+        public var sourceBadge: String?
 
         public var id: String {
             articleURL.absoluteString
@@ -68,7 +70,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             isArticle: Bool = true,
             hasLocation: Bool = false,
             isSavable: Bool = true,
-            isSaved: Bool = false
+            isSaved: Bool = false,
+            sourceBadge: String? = nil
         ) {
             self.articleURL = articleURL
             self.pageTitle = pageTitle
@@ -80,6 +83,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             self.hasLocation = hasLocation
             self.isSavable = isSavable
             self.isSaved = isSaved
+            self.sourceBadge = sourceBadge
         }
     }
 
