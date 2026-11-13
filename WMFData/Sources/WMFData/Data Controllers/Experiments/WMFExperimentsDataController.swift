@@ -41,6 +41,7 @@ public final class WMFExperimentsDataController {
         case donationReminder
         case semanticSearch
         case discover
+        case semanticSearchInterleaved
 
         var config: ExperimentConfig {
             switch self {
@@ -54,6 +55,8 @@ public final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.semanticSearchConfig
             case .discover:
                 return WMFExperimentsDataController.discoverConfig
+            case .semanticSearchInterleaved:
+                return WMFExperimentsDataController.semanticSearchInterleavedConfig
             }
         }
     }
@@ -64,6 +67,7 @@ public final class WMFExperimentsDataController {
         case donationReminderPercent
         case semanticSearchPercent
         case discoverPercent
+        case semanticSearchInterleavedPercent
     }
 
     enum BucketFileName: String, Sendable {
@@ -72,6 +76,7 @@ public final class WMFExperimentsDataController {
         case donationReminderBucket
         case semanticSearchBucket
         case discoverBucket
+        case semanticSearchInterleavedBucket
     }
 
     public enum BucketValue: String, Sendable {
@@ -85,6 +90,8 @@ public final class WMFExperimentsDataController {
         case semanticSearchGroupB = "SemanticSearch_GroupB"
         case discoverControl = "Discover_Control"
         case discoverGroupB = "Discover_GroupB"
+        case semanticSearchInterleavedControl = "SemanticSearchInterleaved_Control"
+        case semanticSearchInterleavedGroupB = "SemanticSearchInterleaved_GroupB"
     }
     
     // MARK: Properties
@@ -101,6 +108,8 @@ public final class WMFExperimentsDataController {
     private static let semanticSearchConfig = ExperimentConfig(experiment: .semanticSearch, percentageFileName: .semanticSearchPercent, bucketFileName: .semanticSearchBucket, bucketValueControl: .semanticSearchControl, bucketValueTest: .semanticSearchGroupB, bucketValueTest2: nil)
 
     private static let discoverConfig = ExperimentConfig(experiment: .discover, percentageFileName: .discoverPercent, bucketFileName: .discoverBucket, bucketValueControl: .discoverControl, bucketValueTest: .discoverGroupB, bucketValueTest2: nil)
+
+    private static let semanticSearchInterleavedConfig = ExperimentConfig(experiment: .semanticSearchInterleaved, percentageFileName: .semanticSearchInterleavedPercent, bucketFileName: .semanticSearchInterleavedBucket, bucketValueControl: .semanticSearchInterleavedControl, bucketValueTest: .semanticSearchInterleavedGroupB, bucketValueTest2: nil)
 
     private let store: WMFKeyValueStore
     
@@ -180,6 +189,13 @@ public final class WMFExperimentsDataController {
                     bucket = .discoverControl
                 } else {
                     bucket = .discoverGroupB
+                }
+
+            case .semanticSearchInterleaved:
+                if randomInt <= percentage {
+                    bucket = .semanticSearchInterleavedControl
+                } else {
+                    bucket = .semanticSearchInterleavedGroupB
                 }
             }
         }

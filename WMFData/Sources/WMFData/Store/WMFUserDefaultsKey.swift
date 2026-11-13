@@ -142,6 +142,12 @@ public enum WMFUserDefaultsKey: String {
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
     case semanticSearchExposureSent = "semantic-search-exposure-sent"
 
+    // Semantic search interleaved (phase 2, experiment 2)
+    case developerSettingsEnableSemanticSearchInterleaved = "dev-settings-enable-semantic-search-interleaved"
+    case developerSettingsForceSemanticSearchInterleavedExperimentAssignment = "dev-settings-force-semantic-search-interleaved-experiment-assignment"
+    case developerSettingsAddSemanticSearchInterleavedTargetLanguageCode = "dev-settings-add-semantic-search-interleaved-target-language-code"
+    case developerSettingsForceSemanticSearchInterleavedRetrievalScenario = "dev-settings-force-semantic-search-interleaved-retrieval-scenario"
+
     // Local notifications
     case localNotificationsHandledDays = "local-notifications-handled-days"
     case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"

@@ -181,6 +181,30 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var enableSemanticSearchInterleaved: Bool = WMFDeveloperSettingsDataController.shared.enableSemanticSearchInterleaved {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearchInterleaved = enableSemanticSearchInterleaved
+        }
+    }
+
+    @Published public var forceSemanticSearchInterleavedExperimentAssignment: WMFSemanticSearchInterleavedDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = forceSemanticSearchInterleavedExperimentAssignment
+        }
+    }
+
+    @Published public var addSemanticSearchInterleavedTargetLanguageCode: String? = WMFDeveloperSettingsDataController.shared.addSemanticSearchInterleavedTargetLanguageCode {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.addSemanticSearchInterleavedTargetLanguageCode = addSemanticSearchInterleavedTargetLanguageCode
+        }
+    }
+
+    @Published public var forceSemanticSearchInterleavedRetrievalScenario: WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario? = WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedRetrievalScenario {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedRetrievalScenario = forceSemanticSearchInterleavedRetrievalScenario
+        }
+    }
+
     @Published public var enableDiscover: Bool = WMFDeveloperSettingsDataController.shared.enableDiscover {
         didSet {
             WMFDeveloperSettingsDataController.shared.enableDiscover = enableDiscover
@@ -293,6 +317,19 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Fundraising state cleared. The campaign banner can show again.")))
+        }
+    }
+
+    public func clearSemanticSearchInterleavedExperimentAssignment() {
+        let title: String
+        do {
+            try WMFSemanticSearchInterleavedDataController.shared.clearExperimentAssignment()
+            title = "Semantic search interleaved arm cleared. The next search on a target language wiki re-rolls the assignment."
+        } catch {
+            title = "Could not clear the semantic search interleaved arm: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
         }
     }
 
