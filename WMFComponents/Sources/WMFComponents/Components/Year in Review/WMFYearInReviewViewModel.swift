@@ -18,8 +18,13 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let progressBarTopGap = WMFSpacing.medium
 
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
-    /// .riv, no slide logging, and no toolbar buttons. Its own button shares the highlights.
+    /// .riv, no slide impression, and no share button in the toolbar. It keeps the donate button of the
+    /// slide chrome, and its own button shares the highlights.
     public static let endPageID = "yearInReviewEnd"
+
+    /// The `page` name of the end screen in the instrumentation, the same as Android. The donate
+    /// campaign ID is made from it.
+    public static let endLoggingID = "end"
 
     public struct LocalizedStrings {
         public let closeButtonAccessibilityLabel: String
@@ -157,7 +162,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             ?? 0
     }
 
-    /// `nil` on the end screen, so it has no share or donate button and logs no slide impression.
+    /// `nil` on the end screen, so it has no share button and logs no slide impression.
     public var currentSlide: WMFYearInReviewSlideViewModel? {
         let pagerSlides = pagerSlides
         guard !isOnEnd, pagerSlides.indices.contains(currentSlideIndex) else { return nil }
@@ -173,6 +178,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return currentSlide
     }
 
+    /// Empty on the end screen. Only the donate tap logs `endLoggingID` there, so the Done, Learn
+    /// more, About insights and Share feedback data stay as before.
     private var currentLoggingID: String {
         currentShownSlide?.loggingID ?? ""
     }
@@ -278,11 +285,17 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
     var showsDonateButton: Bool {
-        showsDonateButton(on: currentSlide)
+        isOnEnd ? endShowsDonateButton : showsDonateButton(on: currentSlide)
+    }
+
+    /// The end screen keeps the donate button of the slide chrome, but not the share button
+    /// (T438574). Android shows it there too.
+    var endShowsDonateButton: Bool {
+        endViewModel != nil && !hidesDonate()
     }
 
     /// The slide whose buttons are in the toolbar. On the end screen, it is the last slide. The end
-    /// screen hides its buttons, and they fade in while the reader swipes back to it.
+    /// screen hides its share button, and it fades in while the reader swipes back to the last slide.
     var toolbarSlide: WMFYearInReviewSlideViewModel? {
         isOnEnd ? pagerSlides.last : currentSlide
     }
@@ -291,8 +304,38 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         showsShareButton(on: toolbarSlide)
     }
 
+    /// On the last slide, the toolbar also holds the donate button of the end screen, so that it
+    /// fades in during the swipe instead of appearing when the swipe ends.
     var toolbarShowsDonateButton: Bool {
-        showsDonateButton(on: toolbarSlide)
+        showsDonateButton(on: toolbarSlide) || (toolbarIsOnLastPage && endShowsDonateButton)
+    }
+
+    /// The donate button of the last slide stays during the swipe to the end screen. If only the end
+    /// screen has one, for example after "You matter" with its own donate button, it fades in.
+    var toolbarDonateButtonFadesIn: Bool {
+        !showsDonateButton(on: toolbarSlide)
+    }
+
+    /// How far the toolbar buttons have faded toward the end screen. While the pager is between the
+    /// last slide and the end screen, it is `endPageReveal`. Elsewhere it comes from the current page,
+    /// because the end screen can become current without a scroll step that sets the reveal to 1, for
+    /// example after a VoiceOver page scroll or a pager rebuild.
+    ///
+    /// It must not guess "at rest" from the position alone. The current page changes only when the
+    /// pager is within 1 pt of a page and the finger is up (`WMFYearInReviewPageObserver`), so in the
+    /// last frames of a swipe the current page is still the one the reader left. A position check
+    /// would show that page's buttons for those frames, and the donate button would flicker.
+    var toolbarEndReveal: CGFloat {
+        let position = pagerPosition.value
+        let lastSlidePosition = CGFloat(pagerSlides.count - 1)
+        let isBetweenLastSlideAndEnd = position > lastSlidePosition && position < lastSlidePosition + 1
+        guard endViewModel != nil, isBetweenLastSlideAndEnd else { return isOnEnd ? 1 : 0 }
+        return endPageReveal.value
+    }
+
+    /// The last slide or the end screen.
+    private var toolbarIsOnLastPage: Bool {
+        isOnEnd || (currentSlide != nil && isLastSlide)
     }
 
     private func showsShareButton(on slide: WMFYearInReviewSlideViewModel?) -> Bool {
@@ -337,8 +380,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func tappedDonate(sourceRect: @escaping @MainActor () -> CGRect) {
-        guard currentSlide != nil else { return }
-        let slideLoggingID = currentLoggingID
+        guard currentSlide != nil || isOnEnd else { return }
+        let slideLoggingID = isOnEnd ? Self.endLoggingID : currentLoggingID
         loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slideLoggingID))
     }

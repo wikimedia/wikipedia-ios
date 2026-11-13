@@ -8,8 +8,10 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
     private var cancellables = Set<AnyCancellable>()
     /// The color that `applyContentColor()` last gave the bar items.
     private var appliedContentColor: UIColor?
-    /// The share and donate views in the toolbar. They fade out while the end screen comes in.
-    private var fadingToolbarViews: [UIView] = []
+    /// The share button. It fades out as the end screen comes in.
+    private var fadingOutToolbarViews: [UIView] = []
+    /// The donate button of the end screen when the last slide does not have one. It fades in.
+    private var fadingInToolbarViews: [UIView] = []
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
@@ -78,6 +80,20 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
         // The donate button becomes a spinner while the donate configuration loads.
         viewModel.$isLoadingDonate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.refreshToolbarItems()
+            }
+            .store(in: &cancellables)
+
+        // The toolbar buttons and which of them fade depend on the end screen and the last slide.
+        // They change without a page change, for example when the "Thank you" slide replaces
+        // "You matter" after a donation from the end screen.
+        Publishers.Merge3(
+            viewModel.$endViewModel.map { _ in () },
+            viewModel.$slides.map { _ in () },
+            viewModel.$showsAnswersAsSlides.map { _ in () }
+        )
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.refreshToolbarItems()
@@ -156,39 +172,47 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
     private func refreshToolbarItems() {
         var items: [UIBarButtonItem] = []
+        var fadingOutViews: [UIView] = []
+        var fadingInViews: [UIView] = []
 
-        // On the end screen, these are the buttons of the last slide, hidden by `applyToolbarReveal()`.
+        // On the end screen, the share button is the one of the last slide, hidden by `applyToolbarReveal()`.
         if viewModel.toolbarShowsShareButton {
-            items.append(
-                makeToolbarItem(
-                    title: viewModel.localizedStrings.shareButtonTitle,
-                    symbol: .share,
-                    action: #selector(tappedShare)
-                )
+            let item = makeToolbarItem(
+                title: viewModel.localizedStrings.shareButtonTitle,
+                symbol: .share,
+                action: #selector(tappedShare)
             )
+            items.append(item)
+            fadingOutViews += [item.customView].compactMap { $0 }
         }
 
         items.append(UIBarButtonItem(systemItem: .flexibleSpace))
 
         if viewModel.toolbarShowsDonateButton {
+            let item: UIBarButtonItem
             if viewModel.isLoadingDonate {
                 let spinner = UIActivityIndicatorView(style: .medium)
                 spinner.color = WMFColor.white
                 spinner.startAnimating()
-                items.append(UIBarButtonItem(customView: spinner))
+                item = UIBarButtonItem(customView: spinner)
             } else {
-                items.append(
-                    makeToolbarItem(
-                        title: viewModel.localizedStrings.donateButtonTitle,
-                        symbol: .heartFilled,
-                        action: #selector(tappedDonate)
-                    )
+                item = makeToolbarItem(
+                    title: viewModel.localizedStrings.donateButtonTitle,
+                    symbol: .heartFilled,
+                    action: #selector(tappedDonate)
                 )
+            }
+            items.append(item)
+            // The end screen keeps the donate button of the last slide, so only a button that the
+            // last slide does not have fades.
+            if viewModel.toolbarDonateButtonFadesIn {
+                fadingInViews += [item.customView].compactMap { $0 }
             }
         }
 
         // The placeholder is always hidden, so it does not fade.
-        fadingToolbarViews = items.compactMap(\.customView)
+        fadingOutToolbarViews = fadingOutViews
+        fadingInToolbarViews = fadingInViews
 
         // If the page has no toolbar buttons, add a placeholder.
         // The placeholder keeps the toolbar at the same height on all pages.
@@ -200,16 +224,25 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
         applyToolbarReveal()
     }
 
-    /// The end screen has no share or donate button. They fade out as it comes in, and fade in as the
-    /// reader swipes back, so they do not appear or disappear at once when the swipe ends.
+    /// The end screen has no share button. It fades out as the end screen comes in, and fades in as
+    /// the reader swipes back, so it does not appear or disappear at once when the swipe ends. A donate
+    /// button that only the end screen has fades the other way.
     private func applyToolbarReveal() {
-        let reveal = viewModel.endPageReveal.value
-        let isHidden = reveal > 0.5
-        for view in fadingToolbarViews {
-            view.alpha = 1 - reveal
-            view.isUserInteractionEnabled = !isHidden
-            view.accessibilityElementsHidden = isHidden
+        let reveal = viewModel.toolbarEndReveal
+        for view in fadingOutToolbarViews {
+            applyToolbarVisibility(to: view, alpha: 1 - reveal)
         }
+        for view in fadingInToolbarViews {
+            applyToolbarVisibility(to: view, alpha: reveal)
+        }
+    }
+
+    /// A button that is less than half visible cannot be tapped and VoiceOver skips it.
+    private func applyToolbarVisibility(to view: UIView, alpha: CGFloat) {
+        let isHidden = alpha < 0.5
+        view.alpha = alpha
+        view.isUserInteractionEnabled = !isHidden
+        view.accessibilityElementsHidden = isHidden
     }
 
     /// Makes an item that has the same size as a toolbar button, but the user cannot see it or use it.

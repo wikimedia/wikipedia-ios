@@ -5,14 +5,16 @@ import UIKit
 @MainActor
 private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
     var appeared: [String] = []
+    var donate: [String] = []
+    var done: [String] = []
     var shared: [String] = []
     var sharedHighlights = 0
 
     func logYearInReviewIntroDidTapLearnMore() {}
     func logYearInReviewSlideDidAppear(slideLoggingID: String) { appeared.append(slideLoggingID) }
-    func logYearInReviewDidTapDone(slideLoggingID: String) {}
+    func logYearInReviewDidTapDone(slideLoggingID: String) { done.append(slideLoggingID) }
     func logYearInReviewDidTapNext(slideLoggingID: String) {}
-    func logYearInReviewDidTapDonate(slideLoggingID: String) {}
+    func logYearInReviewDidTapDonate(slideLoggingID: String) { donate.append(slideLoggingID) }
     func logYearInReviewDidTapShare(slideLoggingID: String) { shared.append(slideLoggingID) }
     func logYearInReviewDidTapShareHighlights() { sharedHighlights += 1 }
 }
@@ -48,9 +50,11 @@ struct WMFYearInReviewEndPageTests {
         )
     }
 
-    private func makeViewModel(slideCount: Int = 3, hasEnd: Bool = true, hidesDonate: @escaping () -> Bool = { false }) -> WMFYearInReviewViewModel {
+    /// - Parameter slidesShowDonate: `false` is like "You matter", which has its own donate button
+    ///   instead of the toolbar button.
+    private func makeViewModel(slideCount: Int = 3, hasEnd: Bool = true, slidesShowDonate: Bool = true, hidesDonate: @escaping () -> Bool = { false }) -> WMFYearInReviewViewModel {
         let slides = (0..<slideCount).map { index in
-            WMFYearInReviewSlideViewModel(id: "slide\(index)", loggingID: "logging\(index)")
+            WMFYearInReviewSlideViewModel(id: "slide\(index)", loggingID: "logging\(index)", showsDonateButton: slidesShowDonate)
         }
         let viewModel = WMFYearInReviewViewModel(
             slides: slides,
@@ -111,14 +115,133 @@ struct WMFYearInReviewEndPageTests {
         #expect(viewModel.showsShareButton == false)
     }
 
+    /// The end screen keeps the donate button of the slide chrome, but not the share button (T438574).
     @Test
-    func theEndScreenHasNoToolbarButtons() {
+    func theEndScreenShowsTheDonateButtonButNotTheShareButton() {
         let viewModel = makeViewModel()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
         #expect(viewModel.showsShareButton == false)
+        #expect(viewModel.showsDonateButton)
+        #expect(viewModel.toolbarShowsDonateButton)
+    }
+
+    @Test
+    func theEndScreenHidesTheDonateButtonWhereDonationsAreNotAccepted() {
+        let viewModel = makeViewModel(hidesDonate: { true })
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
         #expect(viewModel.showsDonateButton == false)
+        #expect(viewModel.toolbarShowsDonateButton == false)
+    }
+
+    /// The donate button of the last slide stays in the toolbar during the swipe to the end screen.
+    @Test
+    func theDonateButtonOfTheLastSlideDoesNotFade() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = "slide2"
+
+        #expect(viewModel.toolbarShowsDonateButton)
+        #expect(viewModel.toolbarDonateButtonFadesIn == false)
+    }
+
+    /// After a last slide without a toolbar donate button, the end screen's button fades in during the swipe.
+    @Test
+    func theEndScreenDonateButtonFadesInAfterALastSlideWithoutOne() {
+        let viewModel = makeViewModel(slidesShowDonate: false)
+
+        viewModel.currentSlideID = "slide2"
+        #expect(viewModel.showsDonateButton == false)
+        #expect(viewModel.toolbarShowsDonateButton)
+        #expect(viewModel.toolbarDonateButtonFadesIn)
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        #expect(viewModel.showsDonateButton)
+        #expect(viewModel.toolbarShowsDonateButton)
+        #expect(viewModel.toolbarDonateButtonFadesIn)
+    }
+
+    /// Only the last slide holds the end screen's donate button.
+    @Test
+    func anEarlierSlideWithoutADonateButtonHasNone() {
+        let viewModel = makeViewModel(slidesShowDonate: false)
+
+        viewModel.currentSlideID = "slide1"
+
+        #expect(viewModel.toolbarShowsDonateButton == false)
+    }
+
+    @Test
+    func withoutAnEndScreenTheLastSlideKeepsItsOwnButtons() {
+        let viewModel = makeViewModel(hasEnd: false, slidesShowDonate: false)
+
+        viewModel.currentSlideID = "slide2"
+
+        #expect(viewModel.toolbarShowsDonateButton == false)
+    }
+
+    /// The same page name as Android, so the campaign ID is `appmenu_yir_end`.
+    @Test
+    func tappingDonateOnTheEndScreenLogsTheEndPage() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.tappedDonate(sourceRect: { .zero })
+
+        #expect(logging.donate == [WMFYearInReviewViewModel.endLoggingID])
+        #expect(WMFYearInReviewViewModel.endLoggingID == "end")
+    }
+
+    /// Only the donate tap uses the end page name. Done keeps the empty ID it had before.
+    @Test
+    func tappingDoneOnTheEndScreenKeepsTheEmptyLoggingID() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.tappedClose()
+
+        #expect(logging.done == [""])
+    }
+
+    /// The end screen can become current without a scroll step that sets the reveal to 1, for
+    /// example after a VoiceOver page scroll. At rest, the toolbar follows the current page.
+    @Test
+    func theToolbarRevealFollowsTheCurrentPageAtRest() {
+        let viewModel = makeViewModel(slidesShowDonate: false)
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        #expect(viewModel.endPageReveal.value == 0)
+        #expect(viewModel.toolbarEndReveal == 1)
+
+        viewModel.pagerDidScroll(toPosition: 2.4)
+        #expect(viewModel.toolbarEndReveal == viewModel.endPageReveal.value)
+
+        viewModel.pagerDidScroll(toPosition: 2)
+        viewModel.currentSlideID = "slide2"
+        #expect(viewModel.toolbarEndReveal == 0)
+    }
+
+    /// The current page changes only when the pager is within 1 pt of a page. Until then, the
+    /// toolbar follows the swipe, so the donate button does not jump to the page the reader left.
+    @Test
+    func theToolbarRevealFollowsTheSwipeUntilThePageChanges() {
+        let viewModel = makeViewModel(slidesShowDonate: false)
+
+        // Swiping back from the end screen, a few points before the last slide.
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.pagerDidScroll(toPosition: 2.005)
+        #expect(viewModel.toolbarEndReveal == viewModel.endPageReveal.value)
+        #expect(viewModel.toolbarEndReveal < 0.5)
+
+        // Swiping to the end screen, a few points before it.
+        viewModel.pagerDidScroll(toPosition: 2)
+        viewModel.currentSlideID = "slide2"
+        viewModel.pagerDidScroll(toPosition: 2.995)
+        #expect(viewModel.toolbarEndReveal == viewModel.endPageReveal.value)
+        #expect(viewModel.toolbarEndReveal > 0.5)
     }
 
     @Test
