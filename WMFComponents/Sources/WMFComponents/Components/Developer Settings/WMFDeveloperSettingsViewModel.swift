@@ -187,6 +187,16 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var forceYiREndCardsExperimentAssignment: WMFYearInReviewEndCardsDataController.Assignment? = WMFDeveloperSettingsDataController.shared.forceYiREndCardsExperimentAssignment {
+        didSet {
+            do {
+                try WMFYearInReviewEndCardsDataController().setDeveloperSettingsForcedAssignment(forceYiREndCardsExperimentAssignment)
+            } catch {
+                debugPrint("Resetting the Year in Review end cards experiment failed: \(error)")
+            }
+        }
+    }
+
     @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment

@@ -160,4 +160,8 @@ public enum WMFUserDefaultsKey: String {
     case discoverOnboardingToastShown = "discover-onboarding-toast-shown"
     case discoverHasUnseenList = "discover-has-unseen-list"
     case discoverExposureSent = "discover-exposure-sent"
+
+    // Year in Review end screen cards experiment
+    case developerSettingsForceYiREndCardsExperimentAssignment = "dev-settings-force-yir-end-cards-experiment-assignment"
+    case yirEndCardsExposureSent = "yir-end-cards-exposure-sent"
 }
