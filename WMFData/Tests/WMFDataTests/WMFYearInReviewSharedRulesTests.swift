@@ -289,6 +289,16 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         XCTAssertTrue(dataController.hasSeenYiRIntroSlide)
     }
 
+    func testSwipeOnboardingFlagStartsUnsetAndPersists() throws {
+        XCTAssertFalse(try makeDataController().hasSeenYiRSwipeOnboarding)
+
+        let dataController = try makeDataController()
+        dataController.hasSeenYiRSwipeOnboarding = true
+
+        // A new data controller reads the same store, as on the next launch.
+        XCTAssertTrue(try makeDataController().hasSeenYiRSwipeOnboarding)
+    }
+
     func testSavingOneYearsReportKeepsOtherYearsSlides() async throws {
         let dataController = try makeDataController()
         try await dataController.createNewYearInReviewReport(year: 2025, slides: [WMFYearInReviewSlide(year: 2025, id: .readCount, data: nil)])

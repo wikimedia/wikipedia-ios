@@ -74,6 +74,17 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// VoiceOver, a double tap shows the answer in place, the same as a tap on a card.
     @Published var showsAnswersAsSlides = false
 
+    /// Whether the one-time swipe-up hint is on screen. `WMFYearInReviewHostingController` draws it
+    /// over the whole screen, the bars included.
+    @Published public private(set) var isShowingSwipeOnboarding = false
+
+    /// The wait before the hint shows. Once set, it is never cleared, so the hint is scheduled at
+    /// most once per visit.
+    private(set) var swipeOnboardingTask: Task<Void, Never>?
+    private let swipeOnboardingDelay: Duration
+    /// Holds the seen flag. Without it, the hint never shows.
+    private let swipeOnboardingDataController: WMFYearInReviewDataController?
+
     /// The slides in the pager, in order. Without VoiceOver, a slide and its answer take one position.
     var pagerSlides: [WMFYearInReviewSlideViewModel] {
         guard showsAnswersAsSlides else { return slides }
@@ -126,14 +137,18 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// True where donations are not accepted. Tests pass a fixed value.
     private let hidesDonate: () -> Bool
 
-    /// - Parameter hidesDonate: Without the data controller, the country check cannot run. Then the
-    ///   donate button hides, so it never shows where donations are not accepted.
+    /// - Parameters:
+    ///   - hidesDonate: Without the data controller, the country check cannot run. Then the
+    ///     donate button hides, so it never shows where donations are not accepted.
+    ///   - swipeOnboardingDelay: How long the first slide plays before the swipe-up hint shows.
     public init(
         slides: [WMFYearInReviewSlideViewModel],
         localizedStrings: LocalizedStrings,
         coordinatorDelegate: WMFYearInReviewCoordinating?,
         loggingDelegate: WMFYearInReviewLoggingDelegate?,
-        hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true }
+        hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true },
+        swipeOnboardingDelay: Duration = .seconds(2),
+        swipeOnboardingDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController()
     ) {
         self.slides = slides
         self.currentSlideID = slides.first?.id
@@ -141,6 +156,12 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
         self.hidesDonate = hidesDonate
+        self.swipeOnboardingDelay = swipeOnboardingDelay
+        self.swipeOnboardingDataController = swipeOnboardingDataController
+    }
+
+    deinit {
+        swipeOnboardingTask?.cancel()
     }
 
     /// Whether the reader is on the end screen, not on a slide.
@@ -265,6 +286,38 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     public func onAppear() {
         logSlideAppearance()
+    }
+
+    // MARK: - Swipe onboarding
+
+    /// Called when the slides are on screen. Shows the swipe-up hint after a short wait, once per
+    /// device.
+    ///
+    /// - Returns: True when the hint is scheduled. The caller then reports the reader's first touch
+    ///   through `dismissSwipeOnboarding()`.
+    @discardableResult
+    public func scheduleSwipeOnboardingIfNeeded() -> Bool {
+        guard swipeOnboardingTask == nil,
+              !showsAnswersAsSlides,
+              let swipeOnboardingDataController,
+              !swipeOnboardingDataController.hasSeenYiRSwipeOnboarding else {
+            return false
+        }
+        let delay = swipeOnboardingDelay
+        swipeOnboardingTask = Task { [weak self] in
+            try? await Task.sleep(for: delay)
+            guard !Task.isCancelled else { return }
+            self?.isShowingSwipeOnboarding = true
+        }
+        return true
+    }
+
+    /// The reader's first touch. Hides the hint and marks it seen. A touch during the wait also
+    /// marks it seen: the reader already knows how to move through the slides.
+    public func dismissSwipeOnboarding() {
+        swipeOnboardingTask?.cancel()
+        isShowingSwipeOnboarding = false
+        swipeOnboardingDataController?.hasSeenYiRSwipeOnboarding = true
     }
 
     func tappedClose() {
