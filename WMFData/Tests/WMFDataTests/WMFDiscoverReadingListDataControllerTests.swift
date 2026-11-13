@@ -808,7 +808,7 @@ final class WMFDiscoverReadingListDataControllerTests {
     }
 
     @Test
-    func unseenListBadgeNeedsTheFeatureAndTheListTurnedOn() async throws {
+    func unseenListBadgeNeedsTheFeatureGroupBAndTheListTurnedOn() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             try await addInterest("Cat")
             let controller = makeController()
@@ -819,6 +819,12 @@ final class WMFDiscoverReadingListDataControllerTests {
             #expect(badgeController.shouldShowUnseenListBadge == false)
 
             WMFDeveloperSettingsDataController.shared.enableDiscover = true
+            #expect(badgeController.shouldShowUnseenListBadge == false, "The feature alone does not show the badge")
+
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .control
+            #expect(badgeController.shouldShowUnseenListBadge == false, "The control group does not see the badge")
+
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
             #expect(badgeController.shouldShowUnseenListBadge)
 
             try await saveSettings(WMFDiscoverSettings(isEnabled: false, articleCount: 2, cadence: .weekly, source: .interests), in: controller)
