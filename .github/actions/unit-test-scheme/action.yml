@@ -1,37 +1,117 @@
 name: Unit test scheme
-description: Run one scheme's unit tests with xcodebuild and report its coverage.
+description: Build and run one scheme's unit tests with xcodebuild and report its coverage.
 
 inputs:
   scheme:
     description: Scheme to test (Wikipedia, WMFComponents or WMFData).
     required: true
   destination:
-    description: xcodebuild destination, from the prepare-simulator action.
+    description: xcodebuild destination for the tests, from the prepare-simulator action.
     required: true
+  simulator-udid:
+    description: >-
+      Simulator to boot after the build and before the tests, from the
+      prepare-simulator action (with boot set to "false"). Empty to leave booting
+      to xcodebuild.
+    required: false
+    default: ""
+  compilation-cache:
+    description: '"true" to build with Xcode''s compilation cache turned on.'
+    required: false
+    default: "false"
+  mode:
+    description: >-
+      "all" builds, boots the simulator and tests. "build" only builds for testing,
+      and "test" only boots the simulator and runs what an earlier "build" built, so
+      a job can build several schemes before the simulator boots.
+    required: false
+    default: "all"
 
 runs:
   using: composite
   steps:
-    - name: Test ${{ inputs.scheme }} scheme
+    - name: ${{ inputs.mode == 'build' && 'Build' || 'Test' }} ${{ inputs.scheme }} scheme
       shell: bash
       env:
         SCHEME: ${{ inputs.scheme }}
         DESTINATION: ${{ inputs.destination }}
+        SIMULATOR_UDID: ${{ inputs.simulator-udid }}
+        MODE: ${{ inputs.mode }}
+        CACHE_SETTING: ${{ inputs.compilation-cache == 'true' && 'COMPILATION_CACHE_ENABLE_CACHING=YES' || '' }}
+      # Build settings, all set on the command line so local Xcode builds are unaffected:
+      # - ARCHS=arm64, ONLY_ACTIVE_ARCH=YES: the runners and the simulator are arm64.
+      #   Under the Wikipedia scheme's custom "Test" configuration, Swift packages
+      #   (which have no such configuration) otherwise build an x86_64 slice as well,
+      #   which is never run. From #6389.
+      # - SWIFT_OPTIMIZATION_LEVEL, SWIFT_COMPILATION_MODE, GCC_OPTIMIZATION_LEVEL: the
+      #   same "Test" configuration builds the Swift packages with release optimisation
+      #   (-O, whole-module), which is slow to compile and gains nothing for unit tests.
+      #   #if DEBUG code paths are unchanged.
+      # - COMPILER_INDEX_STORE_ENABLE=NO: the index store is only read by the editor.
+      #
+      # The build runs before the simulator boots. A just-booted simulator starts
+      # hundreds of iOS background services, which load the machine heavily for
+      # several minutes and made package resolution and compiling several times
+      # slower. So xcodebuild builds for a generic simulator first, then the
+      # simulator boots, then the tests run without building again.
       run: |
+        BUILD_SETTINGS=(
+          ${CACHE_SETTING}
+          ARCHS=arm64
+          ONLY_ACTIVE_ARCH=YES
+          SWIFT_OPTIMIZATION_LEVEL=-Onone
+          SWIFT_COMPILATION_MODE=singlefile
+          GCC_OPTIMIZATION_LEVEL=0
+          COMPILER_INDEX_STORE_ENABLE=NO
+        )
+
+        if [ "${MODE}" != "test" ]; then
+          echo "Building scheme: ${SCHEME} for testing"
+          START=$(date +%s)
+          xcodebuild build-for-testing \
+            -scheme "${SCHEME}" \
+            -project Wikipedia.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
+            -destination "generic/platform=iOS Simulator" \
+            "${BUILD_SETTINGS[@]}" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          echo "build-for-testing took $(( $(date +%s) - START ))s"
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
+        fi
+
+        if [ "${MODE}" = "build" ]; then
+          exit 0
+        fi
+
+        if [ -n "${SIMULATOR_UDID}" ]; then
+          # Booting is a no-op when an earlier scheme in the job already booted it.
+          START=$(date +%s)
+          xcrun simctl boot "${SIMULATOR_UDID}" || true
+          xcrun simctl bootstatus "${SIMULATOR_UDID}" -b
+          echo "Simulator boot took $(( $(date +%s) - START ))s"
+        fi
+
         echo "Running scheme: ${SCHEME} on ${DESTINATION}"
-        xcodebuild test \
+        START=$(date +%s)
+        xcodebuild test-without-building \
           -scheme "${SCHEME}" \
           -project Wikipedia.xcodeproj \
           -onlyUsePackageVersionsFromResolvedFile \
           -destination "${DESTINATION}" \
           -resultBundlePath "${SCHEME}_TestResults" \
+          "${BUILD_SETTINGS[@]}" \
           | xcpretty
         EXIT_CODE=${PIPESTATUS[0]}
+        echo "test-without-building took $(( $(date +%s) - START ))s"
         if [ "$EXIT_CODE" -ne 0 ]; then
           exit "$EXIT_CODE"
         fi
 
     - name: Coverage summary
+      if: inputs.mode != 'build'
       uses: ./.github/actions/coverage-summary
       with:
         artifact-name: ${{ inputs.scheme }}-coverage

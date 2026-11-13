@@ -6,12 +6,36 @@ on:
       - 'main'
       - 'release-candidate/**'
       - 'hotfix/**'
+  # A nightly run on main fills the compilation cache that PR runs start from (see
+  # below). It runs once a day, outside working hours, rather than on every merge,
+  # so it doesn't compete with PRs for macOS runners. It runs after the 02:00 UTC
+  # nightly UI tests. Scheduled runs always use the default branch (main).
+  schedule:
+    - cron: '17 4 * * *'
   workflow_dispatch:
 
 env:
   XCODE_VERSION: "27.1"
   IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
+  # Xcode's compilation cache (Xcode 26+). It stores compiler outputs keyed by the
+  # content of their inputs, so unlike a DerivedData cache it still hits after
+  # actions/checkout gives every file a new modification date.
+  #
+  # Only the app job uses it. With the build running before the simulator boots
+  # (see the unit-test-scheme action), a warm cache cut the app build from 300s to
+  # 224s in a trial, and its restore took 11s when the cache service answered
+  # promptly (up to about 2.5 minutes when it didn't). The packages compile far
+  # less, so for them restoring and saving the cache would only add time.
+  #
+  # The nightly run on main builds from an empty cache and saves it, so a saved
+  # cache only ever holds one main build and cannot grow without bound. PR runs
+  # restore the newest main cache and never save, which also keeps PR runs from
+  # filling the repository's cache storage. (GitHub only lets a PR read caches
+  # saved on its base branch, so main is the one place a shared cache can come
+  # from.) The cache is keyed by file contents, so a cache up to a day old still
+  # covers every file that hasn't changed since.
+  COMPILATION_CACHE_PATH: "~/Library/Developer/Xcode/DerivedData/CompilationCache.noindex"
 
 concurrency:
   group: "unit-tests-${{ github.ref }}"  # One group per branch
@@ -20,7 +44,7 @@ concurrency:
 # Two macOS jobs instead of one per scheme. macOS runners are the scarce resource:
 # PR runs spend far longer queued for one than running on it.
 #
-# - The app job is the longest one (about 30 minutes), so it gets its own runner.
+# - The app job is the longest one (about 15-20 minutes), so it gets its own runner.
 # - The package jobs share a runner. Testing WMFComponents compiles WMFData (and
 #   WMFDataMocks) into the same DerivedData, so the WMFData tests that follow reuse
 #   that build instead of compiling the package again. Together they take about as
@@ -42,12 +66,35 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
+          boot: "false"
+
+      # The cache steps never fail the job: without a cache, xcodebuild just
+      # compiles from scratch.
+      - name: Restore compilation cache
+        if: github.event_name != 'schedule'
+        continue-on-error: true
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ env.COMPILATION_CACHE_PATH }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
+          restore-keys: |
+            compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-
 
       - name: Test Wikipedia
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: Wikipedia
           destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
+          compilation-cache: "true"
+
+      - name: Save compilation cache
+        if: ${{ !cancelled() && github.event_name == 'schedule' }}
+        continue-on-error: true
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ env.COMPILATION_CACHE_PATH }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
 
   test-packages:
     runs-on: xcode-27
@@ -68,13 +115,36 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
+          boot: "false"
 
-      - name: Test WMFComponents
-        id: wmfcomponents-tests
+      # Both package schemes build before the simulator boots: a WMFData build that
+      # ran after the boot took 172-352s, against 37s before it.
+      - name: Build WMFComponents for testing
+        id: wmfcomponents-build
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFComponents
           destination: ${{ steps.simulator.outputs.destination }}
+          mode: build
+
+      - name: Build WMFData for testing
+        id: wmfdata-build
+        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFData
+          destination: ${{ steps.simulator.outputs.destination }}
+          mode: build
+
+      - name: Test WMFComponents
+        id: wmfcomponents-tests
+        if: ${{ !cancelled() && steps.wmfcomponents-build.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFComponents
+          destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
+          mode: test
 
       # The lint and the WMFData tests run even when the WMFComponents tests fail, so
       # one run reports both packages. A lint failure skips only the WMFData tests.
@@ -85,11 +155,13 @@ jobs:
 
       - name: Test WMFData
         id: wmfdata-tests
-        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' && steps.wmfdata-build.outcome == 'success' }}
         uses: ./.github/actions/unit-test-scheme
         with:
           scheme: WMFData
           destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
+          mode: test
 
   # Branch protection on main requires checks named "Test WMFComponents" and
   # "Test WMFData", the names of the per-scheme jobs this workflow used to have.
