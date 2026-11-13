@@ -1,0 +1,52 @@
+name: Alpha Phabricator comments
+description: >-
+  Tell each Phabricator task new in an Alpha build that it is available in
+  TestFlight. Shared by both build paths in V2 Deploy Alpha.
+
+inputs:
+  phab-token:
+    description: Phabricator bot API token.
+    required: true
+  phab-task-urls:
+    description: Comma separated Phabricator task URLs (from the alpha-release-notes action).
+    required: false
+    default: ""
+  version:
+    description: Marketing version of the build (YYYY.MM.DD).
+    required: true
+  build:
+    description: Build number of the build.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Post to Phabricator tasks
+      shell: bash
+      env:
+        PHAB_TOKEN: ${{ inputs.phab-token }}
+        PHAB_TASK_URLS: ${{ inputs.phab-task-urls }}
+        VERSION: ${{ inputs.version }}
+        BUILD: ${{ inputs.build }}
+      run: |
+        if [ -z "$PHAB_TASK_URLS" ]; then
+          echo "No Phabricator tasks to comment on"
+          exit 0
+        fi
+
+        MESSAGE="Available in: TestFlight Wikipedia Alpha $VERSION ($BUILD)"
+
+        echo "$PHAB_TASK_URLS" | tr ',' '\n' | while IFS= read -r url; do
+          TASK_ID=$(echo "$url" | grep -oEi "T[0-9]+$")
+          if [ -z "$TASK_ID" ]; then
+            continue
+          fi
+          echo "Commenting on $TASK_ID..."
+          curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+            https://phabricator.wikimedia.org/api/maniphest.edit \
+            -d "api.token=$PHAB_TOKEN" \
+            -d "transactions[0][type]=comment" \
+            -d "transactions[0][value]=$MESSAGE" \
+            -d "objectIdentifier=$TASK_ID"
+          echo "✓ Commented on $TASK_ID"
+        done
