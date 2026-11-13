@@ -83,6 +83,14 @@ struct WMFDeveloperSettingsView: View {
                     }
                     .disabled(!viewModel.forceYiREntryPoint2026 || viewModel.isRegeneratingYiR2026Report)
                 }
+                captionedRow(caption: "Overrides the persisted end screen cards A/B bucket at read time. Group B adds the games and interests cards. Readers whose primary app language has no game stay out of the experiment.") {
+                    Picker("Force End Cards Group", selection: $viewModel.forceYiREndCardsExperimentAssignment) {
+                        Text("Off").tag(WMFYearInReviewEndCardsDataController.Assignment?.none)
+                        Text("Control (A)").tag(WMFYearInReviewEndCardsDataController.Assignment?.some(.control))
+                        Text("Group B").tag(WMFYearInReviewEndCardsDataController.Assignment?.some(.groupB))
+                    }
+                    .tint(Color(theme.secondaryText))
+                }
             } header: {
                 sectionHeader("Year in Review")
             }

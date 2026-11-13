@@ -41,6 +41,7 @@ public final class WMFExperimentsDataController {
         case donationReminder
         case semanticSearch
         case discover
+        case yirEndCards
 
         var config: ExperimentConfig {
             switch self {
@@ -54,6 +55,8 @@ public final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.semanticSearchConfig
             case .discover:
                 return WMFExperimentsDataController.discoverConfig
+            case .yirEndCards:
+                return WMFExperimentsDataController.yirEndCardsConfig
             }
         }
     }
@@ -64,6 +67,7 @@ public final class WMFExperimentsDataController {
         case donationReminderPercent
         case semanticSearchPercent
         case discoverPercent
+        case yirEndCardsPercent
     }
 
     enum BucketFileName: String, Sendable {
@@ -72,6 +76,7 @@ public final class WMFExperimentsDataController {
         case donationReminderBucket
         case semanticSearchBucket
         case discoverBucket
+        case yirEndCardsBucket
     }
 
     public enum BucketValue: String, Sendable {
@@ -85,6 +90,8 @@ public final class WMFExperimentsDataController {
         case semanticSearchGroupB = "SemanticSearch_GroupB"
         case discoverControl = "Discover_Control"
         case discoverGroupB = "Discover_GroupB"
+        case yirEndCardsControl = "YirEndCards_Control"
+        case yirEndCardsGroupB = "YirEndCards_GroupB"
     }
     
     // MARK: Properties
@@ -101,6 +108,8 @@ public final class WMFExperimentsDataController {
     private static let semanticSearchConfig = ExperimentConfig(experiment: .semanticSearch, percentageFileName: .semanticSearchPercent, bucketFileName: .semanticSearchBucket, bucketValueControl: .semanticSearchControl, bucketValueTest: .semanticSearchGroupB, bucketValueTest2: nil)
 
     private static let discoverConfig = ExperimentConfig(experiment: .discover, percentageFileName: .discoverPercent, bucketFileName: .discoverBucket, bucketValueControl: .discoverControl, bucketValueTest: .discoverGroupB, bucketValueTest2: nil)
+
+    private static let yirEndCardsConfig = ExperimentConfig(experiment: .yirEndCards, percentageFileName: .yirEndCardsPercent, bucketFileName: .yirEndCardsBucket, bucketValueControl: .yirEndCardsControl, bucketValueTest: .yirEndCardsGroupB, bucketValueTest2: nil)
 
     private let store: WMFKeyValueStore
     
@@ -180,6 +189,13 @@ public final class WMFExperimentsDataController {
                     bucket = .discoverControl
                 } else {
                     bucket = .discoverGroupB
+                }
+
+            case .yirEndCards:
+                if randomInt <= percentage {
+                    bucket = .yirEndCardsControl
+                } else {
+                    bucket = .yirEndCardsGroupB
                 }
             }
         }

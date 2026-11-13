@@ -6,6 +6,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 /// Presents the Year in Review flow. Slide content is drawn by Rive; the app supplies the
 /// navigation bar, the toolbar and the injected text.
@@ -158,6 +159,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     /// DonateCoordinator drives a multi-step flow of its own, so it has to outlive this call.
     private var donateCoordinator: DonateCoordinator?
+
+    /// The end screen cards open these flows after Year in Review closes, so they outlive the slides.
+    private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
 
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -739,9 +744,7 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
     func handleYearInReviewAction(_ action: WMFYearInReviewAction) {
         switch action {
         case .close:
-            WMFRiveLogger.failureHandler = nil
-            navigationController.presentedViewController?.dismiss(animated: true)
-            YearInReviewInstrument.shared.stopFunnel()
+            closeYearInReview()
         case .learnMore:
             YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: areSlidesPersonalized)
             showProjectPage()
@@ -821,6 +824,20 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         YearInReviewInstrument.shared.logImpression(page: slideLoggingID, personalized: areSlidesPersonalized)
     }
 
+    /// The first impression of the end screen enrolls the reader in the end screen cards experiment
+    /// (T441006), as on Android.
+    func logYearInReviewEndDidAppear() {
+        guard YearInReviewInstrument.shared.isFunnelRunning else { return }
+        YearInReviewInstrument.shared.logImpression(page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+        do {
+            try WMFYearInReviewEndCardsDataController().recordEndScreenImpression { experimentData in
+                TestKitchenAdapter.shared.client.submitExperimentExposure(experimentData: experimentData)
+            }
+        } catch {
+            DDLogError("Recording the Year in Review end cards exposure failed: \(error)")
+        }
+    }
+
     func logYearInReviewDidTapDone(slideLoggingID: String) {
         YearInReviewInstrument.shared.logClick(elementID: "close_button", page: slideLoggingID, personalized: areSlidesPersonalized)
     }
@@ -882,11 +899,18 @@ final class YearInReviewInstrument {
         instrument.funnel != nil
     }
 
+    /// Like Android, every Year in Review event carries the end screen cards experiment once the
+    /// reader has a group. Readers whose primary app language has no game have none.
+    private var experimentData: ExperimentData? {
+        WMFYearInReviewEndCardsDataController().experimentData
+    }
+
     func logImpression(actionSource: String? = nil, page: String? = nil, personalized: Bool?) {
         instrument.submitInteraction(
             action: "impression",
             actionSource: actionSource,
-            actionContext: actionContext(page: page, personalized: personalized)
+            actionContext: actionContext(page: page, personalized: personalized),
+            experimentData: experimentData
         )
     }
 
@@ -897,7 +921,8 @@ final class YearInReviewInstrument {
             action: "click",
             actionSource: actionSource,
             elementId: elementID,
-            actionContext: context
+            actionContext: context,
+            experimentData: experimentData
         )
     }
 
@@ -908,7 +933,8 @@ final class YearInReviewInstrument {
         instrument.submitInteraction(
             action: "error",
             elementId: elementID,
-            actionContext: context
+            actionContext: context,
+            experimentData: experimentData
         )
     }
 
@@ -949,24 +975,109 @@ extension YearInReviewCoordinator {
     /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
     private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
         MainActor.assumeIsolated {
-            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor, hasEnglishAppLanguage: hasEnglishAppLanguage)
+            let engagementCards = assignEndCardsExperiment()
+            let viewModel = WMFYearInReviewEndViewModel(
+                isContributor: isContributor,
+                hasEnglishAppLanguage: hasEnglishAppLanguage,
+                showsGamesCard: engagementCards?.showsGamesCard ?? false,
+                showsInterestsCard: engagementCards?.showsInterestsCard ?? false
+            )
             buildEndViewModel(viewModel)
             return viewModel
         }
     }
 
-    /// Attaches the coordinator callbacks to the end screen view model.
+    /// The extra cards of the end screen cards experiment (T441006). Nil when the assignment fails.
+    private func assignEndCardsExperiment() -> WMFYearInReviewEndCardsDataController.EngagementCards? {
+        do {
+            return try WMFYearInReviewEndCardsDataController().assignEngagementCardsIfNeeded()
+        } catch {
+            DDLogError("Assigning the Year in Review end cards experiment failed: \(error)")
+            return nil
+        }
+    }
+
+    /// Attaches the coordinator callbacks to the end screen view model. The element IDs are the same
+    /// as on Android.
     @MainActor
     private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
         viewModel.didTapStore = { [weak self] in
+            self?.logEndCardClick(elementID: "visit_store_button")
             self?.showStore()
         }
+        viewModel.didTapGames = { [weak self] in
+            self?.closeYearInReviewForGames()
+        }
+        viewModel.didTapInterests = { [weak self] in
+            self?.showInterests()
+        }
         viewModel.didTapTopRead = { [weak self] in
+            self?.logEndCardClick(elementID: "explore_top_read_button")
             self?.showHelpPage(url: Self.topReadURL)
         }
         viewModel.didTapWhichWikipedia = { [weak self] in
+            self?.logEndCardClick(elementID: "take_quiz_button")
             self?.showHelpPage(url: self?.whichWikipediaURL)
         }
+    }
+
+    @MainActor
+    private func logEndCardClick(elementID: String) {
+        YearInReviewInstrument.shared.logClick(elementID: elementID, page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+    }
+
+    /// Android opens the games over Year in Review. Here Year in Review closes first, like the close
+    /// button: the game opens articles in the navigation controller it was given, and shows the
+    /// reading list toast through its tab bar, so it needs the tab's navigation controller. A second
+    /// tap while the slides close does nothing, so the game opens once.
+    @MainActor
+    private func closeYearInReviewForGames() {
+        let presentedViewController = navigationController.presentedViewController
+        guard presentedViewController?.isBeingDismissed != true else { return }
+
+        logEndCardClick(elementID: "play_game_button")
+        closeYearInReview { [weak self] in
+            self?.showGames()
+        }
+    }
+
+    /// The close button and the games card close Year in Review the same way.
+    @MainActor
+    private func closeYearInReview(completion: (@MainActor () -> Void)? = nil) {
+        WMFRiveLogger.failureHandler = nil
+        YearInReviewInstrument.shared.stopFunnel()
+        guard let presentedViewController = navigationController.presentedViewController else {
+            completion?()
+            return
+        }
+        presentedViewController.dismiss(animated: true, completion: completion)
+    }
+
+    /// Today's Which Came First game in the primary app language. The experiment only takes readers
+    /// whose primary app language has the game.
+    @MainActor
+    private func showGames() {
+        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
+        let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: siteURL)
+        coordinator.didFinish = { [weak self] in
+            self?.whichCameFirstCoordinator = nil
+        }
+        whichCameFirstCoordinator = coordinator
+        coordinator.start()
+    }
+
+    /// The interests screen of the Home feed, in a sheet over Year in Review, as on Android. Closing
+    /// the sheet goes back to the end screen.
+    @MainActor
+    private func showInterests() {
+        guard let yearInReviewNavigationController = navigationController.presentedViewController as? UINavigationController,
+              yearInReviewNavigationController.presentedViewController == nil else {
+            return
+        }
+        logEndCardClick(elementID: "customize_interests_button")
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: yearInReviewNavigationController, theme: theme, initialView: .interests(nil), presentation: .modal)
+        homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
     }
 
     private func showStore() {

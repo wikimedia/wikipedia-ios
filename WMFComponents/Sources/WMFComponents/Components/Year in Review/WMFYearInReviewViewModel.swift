@@ -88,7 +88,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         didSet {
             guard currentSlideID != oldValue else { return }
             answerShownSlideID = nil
-            logSlideAppearance()
+            if isOnEnd {
+                loggingDelegate?.logYearInReviewEndDidAppear()
+            } else {
+                logSlideAppearance()
+            }
         }
     }
     @Published public var isLoadingDonate: Bool = false

@@ -187,6 +187,12 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var forceYiREndCardsExperimentAssignment: WMFYearInReviewEndCardsDataController.Assignment? = WMFDeveloperSettingsDataController.shared.forceYiREndCardsExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceYiREndCardsExperimentAssignment = forceYiREndCardsExperimentAssignment
+        }
+    }
+
     @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment

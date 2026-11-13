@@ -9,6 +9,8 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     public struct Card: Identifiable {
         public enum Action {
             case store
+            case games
+            case interests
             case topRead
             case whichWikipedia
         }
@@ -88,23 +90,39 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     private let topReadBody = "Learn what everyone read about on Wikipedia this year. Did the World Cup make the list?"
     private let topReadButtonTitle = "Explore the top 25"
 
+    private let gamesTitle = CommonStrings.yearInReviewGamesCardTitle
+    private let gamesBody = CommonStrings.yearInReviewGamesCardSubtitle
+    private let gamesButtonTitle = CommonStrings.yearInReviewGamesCardButtonTitle
+
+    private let interestsTitle = CommonStrings.yearInReviewInterestsCardTitle
+    private let interestsBody = CommonStrings.yearInReviewInterestsCardSubtitle
+    private let interestsButtonTitle = CommonStrings.yearInReviewInterestsCardButtonTitle
+
     private let whichWikipediaTitle = CommonStrings.yearInReviewQuizCardTitle
     private let whichWikipediaBody = CommonStrings.yearInReviewQuizCardSubtitle
     private let whichWikipediaButtonTitle = CommonStrings.yearInReviewQuizCardButtonTitle
 
     // MARK: - State
 
-    /// The cards in display order. The contributor gift card is only here for contributors, and the
-    /// most-read articles card is only here for readers with English as an app language.
+    /// The cards in display order. The contributor gift card is only here for contributors, the
+    /// games and interests cards are only here for group B of the end screen cards experiment
+    /// (T441006), and the most-read articles card is only here for readers with English as an app
+    /// language.
     public let cards: [Card]
 
     // MARK: - Callbacks
 
     public var didTapStore: (@MainActor @Sendable () -> Void)?
+    public var didTapGames: (@MainActor @Sendable () -> Void)?
+    public var didTapInterests: (@MainActor @Sendable () -> Void)?
     public var didTapTopRead: (@MainActor @Sendable () -> Void)?
     public var didTapWhichWikipedia: (@MainActor @Sendable () -> Void)?
 
-    public init(isContributor: Bool, hasEnglishAppLanguage: Bool = false) {
+    /// - Parameters:
+    ///   - showsGamesCard: true for group B of the end screen cards experiment while the primary app
+    ///     language has the game.
+    ///   - showsInterestsCard: true for group B of the end screen cards experiment.
+    public init(isContributor: Bool, hasEnglishAppLanguage: Bool = false, showsGamesCard: Bool = false, showsInterestsCard: Bool = false) {
         var cards: [Card] = []
         if isContributor {
             cards.append(Card(
@@ -113,6 +131,24 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
                 body: contributorGiftBody,
                 buttonTitle: contributorGiftButtonTitle,
                 action: .store
+            ))
+        }
+        if showsGamesCard {
+            cards.append(Card(
+                id: "games",
+                title: gamesTitle,
+                body: gamesBody,
+                buttonTitle: gamesButtonTitle,
+                action: .games
+            ))
+        }
+        if showsInterestsCard {
+            cards.append(Card(
+                id: "interests",
+                title: interestsTitle,
+                body: interestsBody,
+                buttonTitle: interestsButtonTitle,
+                action: .interests
             ))
         }
         if hasEnglishAppLanguage {
@@ -141,6 +177,10 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
         switch card.action {
         case .store:
             didTapStore?()
+        case .games:
+            didTapGames?()
+        case .interests:
+            didTapInterests?()
         case .topRead:
             didTapTopRead?()
         case .whichWikipedia:

@@ -365,6 +365,26 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    // MARK: - Year in Review end screen cards
+
+    /// Debugging convenience: overrides the persisted Year in Review end screen cards bucket at read
+    /// time without re-rolling it. The language gate still applies. Nil means no override.
+    public var forceYiREndCardsExperimentAssignment: WMFYearInReviewEndCardsDataController.Assignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiREndCardsExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFYearInReviewEndCardsDataController.Assignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiREndCardsExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiREndCardsExperimentAssignment.rawValue)
+            }
+        }
+    }
+
     // MARK: - Local Notifications
 
     /// Gates the daily top read local notification prototype. Off by default.

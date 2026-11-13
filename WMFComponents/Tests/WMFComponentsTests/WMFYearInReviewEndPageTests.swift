@@ -5,6 +5,7 @@ import UIKit
 @MainActor
 private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
     var appeared: [String] = []
+    var endAppeared = 0
     var donate: [String] = []
     var done: [String] = []
     var shared: [String] = []
@@ -12,6 +13,7 @@ private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
 
     func logYearInReviewIntroDidTapLearnMore() {}
     func logYearInReviewSlideDidAppear(slideLoggingID: String) { appeared.append(slideLoggingID) }
+    func logYearInReviewEndDidAppear() { endAppeared += 1 }
     func logYearInReviewDidTapDone(slideLoggingID: String) { done.append(slideLoggingID) }
     func logYearInReviewDidTapNext(slideLoggingID: String) {}
     func logYearInReviewDidTapDonate(slideLoggingID: String) { donate.append(slideLoggingID) }
@@ -344,6 +346,37 @@ struct WMFYearInReviewEndPageTests {
 
         #expect(logging.appeared.isEmpty)
     }
+
+    /// The end screen impression enrolls the reader in the end screen cards experiment (T441006).
+    @Test
+    func goingToTheEndScreenLogsTheEndImpressionOnce() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
+        #expect(logging.endAppeared == 1)
+    }
+
+    @Test
+    func aSlideDoesNotLogTheEndImpression() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = "slide1"
+
+        #expect(logging.endAppeared == 0)
+    }
+
+    @Test
+    func goingBackToTheEndScreenLogsTheEndImpressionAgain() {
+        let viewModel = makeViewModel()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.currentSlideID = "slide2"
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
+        #expect(logging.endAppeared == 2)
+    }
 }
 
 @MainActor
@@ -402,6 +435,59 @@ struct WMFYearInReviewEndViewModelTests {
             #expect(card.uppercaseLocale == nil)
             #expect(card.uppercasedTitle == card.title.localizedUppercase)
         }
+    }
+
+    // MARK: - End screen cards experiment (T441006)
+
+    @Test
+    func groupBGetsTheGamesAndInterestsCardsAfterTheGiftCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, showsGamesCard: true, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["contributorGift", "games", "interests", "whichWikipedia"])
+    }
+
+    @Test
+    func groupBWithEnglishPutsTheTopReadCardBeforeTheQuizCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true, showsGamesCard: true, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["contributorGift", "games", "interests", "topRead", "whichWikipedia"])
+    }
+
+    @Test
+    func groupBNonContributorStartsWithTheGamesCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, showsGamesCard: true, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["games", "interests", "whichWikipedia"])
+    }
+
+    /// An enrolled group B reader whose primary app language no longer has the game.
+    @Test
+    func groupBWithoutTheGameLanguageGetsOnlyTheInterestsCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["interests", "whichWikipedia"])
+    }
+
+    @Test
+    func theControlGroupGetsNoEngagementCards() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true)
+        #expect(!viewModel.cards.contains { $0.action == .games || $0.action == .interests })
+    }
+
+    @Test
+    func theGamesAndInterestsCardsCallTheirActions() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, showsGamesCard: true, showsInterestsCard: true)
+        var tappedGames = 0
+        var tappedInterests = 0
+        var tappedQuiz = 0
+        viewModel.didTapGames = { tappedGames += 1 }
+        viewModel.didTapInterests = { tappedInterests += 1 }
+        viewModel.didTapWhichWikipedia = { tappedQuiz += 1 }
+
+        viewModel.didTap(viewModel.cards[0])
+        #expect(tappedGames == 1)
+        #expect(tappedInterests == 0)
+
+        viewModel.didTap(viewModel.cards[1])
+        #expect(tappedGames == 1)
+        #expect(tappedInterests == 1)
+        #expect(tappedQuiz == 0)
     }
 
     @Test
