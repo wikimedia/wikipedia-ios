@@ -408,9 +408,10 @@ final public class WMFSettingsViewModel: ObservableObject {
         })
     }
 
-    /// The Discover row stays behind the developer setting until the feature ships.
+    /// The Discover row shows only to group B of the experiment. The control group does not see
+    /// it. See `WMFDiscoverDataController.isAvailableToReader`.
     private func getRecommendationsSection() async -> SettingsSection? {
-        guard WMFDiscoverDataController.shared.isEnabled else {
+        guard WMFDiscoverDataController.shared.isAvailableToReader else {
             return nil
         }
 

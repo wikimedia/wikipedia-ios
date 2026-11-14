@@ -29,6 +29,7 @@ final class WMFDiscoverEntryCardViewModelTests {
         coreDataStore = try await fixture.makeTemporaryCoreDataStore()
         await fixture.resetWMFDataTestState()
         developerSettingsDataController.enableDiscover = true
+        developerSettingsDataController.forceDiscoverExperimentAssignment = .groupB
     }
 
     private func makeDataController(jsonResourceName: String = "related-pages-get") -> WMFDiscoverReadingListDataController {
