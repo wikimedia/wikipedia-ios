@@ -9,6 +9,8 @@ public final class ArticlesSavedViewModel: ObservableObject {
     @Published public var articlesSavedThumbURLs: [URL?] = []
     @Published public var articleTitles: [String] = []
     public var onTapSaved: (() -> Void)?
+    /// Called after a fetch has updated the values above.
+    var onSavedDataUpdated: (() -> Void)?
 
     private var dataController: WMFSavedArticlesDataController
     private let dateFormatter: (Date) -> String
@@ -40,6 +42,7 @@ public final class ArticlesSavedViewModel: ObservableObject {
                 self.dateTimeLastSavedAccessibilityLabel = data.dateLastSaved.map(self.dateAccessibilityFormatter) ?? ""
                 self.articlesSavedThumbURLs = data.articleThumbURLs
                 self.articleTitles = data.articleTitles
+                self.onSavedDataUpdated?()
             }
         }
     }
