@@ -25,10 +25,15 @@
     "localName" : "Afrikaans"
   },
   {
+    "languageCode" : "ak",
+    "languageName" : "Akan",
+    "localName" : "Akan"
+  },
+  {
     "altISOCode" : "gsw",
     "languageCode" : "als",
     "languageName" : "Alemannisch",
-    "localName" : "Alemannisch"
+    "localName" : "Alemannic"
   },
   {
     "languageCode" : "alt",
@@ -226,6 +231,11 @@
     "localName" : "Tibetan"
   },
   {
+    "languageCode" : "bol",
+    "languageName" : "bòo pìkkà",
+    "localName" : "Bole"
+  },
+  {
     "languageCode" : "bpy",
     "languageName" : "বিষ্ণুপ্রিয়া মণিপুরী",
     "localName" : "Bishnupriya"
@@ -363,7 +373,7 @@
   {
     "languageCode" : "dga",
     "languageName" : "Dagaare",
-    "localName" : "Dagaare"
+    "localName" : "Southern Dagaare"
   },
   {
     "languageCode" : "din",
@@ -373,7 +383,7 @@
   {
     "languageCode" : "diq",
     "languageName" : "Zazaki",
-    "localName" : "Zazaki"
+    "localName" : "Dimli"
   },
   {
     "languageCode" : "dsb",
@@ -468,7 +478,7 @@
   {
     "languageCode" : "fiu-vro",
     "languageName" : "võro",
-    "localName" : "võro"
+    "localName" : "Võro"
   },
   {
     "languageCode" : "fj",
@@ -726,6 +736,11 @@
     "localName" : "Icelandic"
   },
   {
+    "languageCode" : "isv",
+    "languageName" : "medžuslovjansky",
+    "localName" : "Interslavic"
+  },
+  {
     "languageCode" : "it",
     "languageName" : "italiano",
     "localName" : "Italian"
@@ -769,6 +784,16 @@
     "languageCode" : "kab",
     "languageName" : "Taqbaylit",
     "localName" : "Kabyle"
+  },
+  {
+    "languageCode" : "kai",
+    "languageName" : "Karai-karai",
+    "localName" : "Karekare"
+  },
+  {
+    "languageCode" : "kaj",
+    "languageName" : "Jju",
+    "localName" : "Jju"
   },
   {
     "languageCode" : "kbd",
@@ -826,6 +851,11 @@
     "localName" : "Kannada"
   },
   {
+    "languageCode" : "knc",
+    "languageName" : "Yerwa Kanuri",
+    "localName" : "Central Kanuri"
+  },
+  {
     "languageCode" : "ko",
     "languageName" : "한국어",
     "localName" : "Korean"
@@ -847,7 +877,7 @@
   },
   {
     "languageCode" : "ks",
-    "languageName" : "कॉशुर \/ کٲشُر",
+    "languageName" : "کٲشُر",
     "localName" : "Kashmiri"
   },
   {
@@ -969,6 +999,11 @@
     "languageCode" : "mad",
     "languageName" : "Madhurâ",
     "localName" : "Madurese"
+  },
+  {
+    "languageCode" : "mag",
+    "languageName" : "मगही",
+    "localName" : "Magahi"
   },
   {
     "languageCode" : "mai",
@@ -1177,6 +1212,11 @@
     "localName" : "Northern Sotho"
   },
   {
+    "languageCode" : "nup",
+    "languageName" : "Nupe",
+    "localName" : "Nupe"
+  },
+  {
     "languageCode" : "nv",
     "languageName" : "Diné bizaad",
     "localName" : "Navajo"
@@ -1259,7 +1299,7 @@
   {
     "languageCode" : "pih",
     "languageName" : "Norfuk \/ Pitkern",
-    "localName" : "Norfuk \/ Pitkern"
+    "localName" : "Pitcairn-Norfolk"
   },
   {
     "languageCode" : "pl",
@@ -1282,6 +1322,11 @@
     "localName" : "Pontic"
   },
   {
+    "languageCode" : "ppl",
+    "languageName" : "Nawat",
+    "localName" : "Nawat"
+  },
+  {
     "languageCode" : "ps",
     "languageName" : "پښتو",
     "localName" : "Pashto"
@@ -1300,6 +1345,11 @@
     "languageCode" : "qu",
     "languageName" : "Runa Simi",
     "localName" : "Quechua"
+  },
+  {
+    "languageCode" : "rki",
+    "languageName" : "ရခိုင်",
+    "localName" : "Arakanese"
   },
   {
     "languageCode" : "rm",
@@ -1408,7 +1458,7 @@
   },
   {
     "languageCode" : "shn",
-    "languageName" : "ၽႃႇသႃႇတႆး ",
+    "languageName" : "တႆး",
     "localName" : "Shan"
   },
   {
@@ -1507,6 +1557,11 @@
     "localName" : "Swahili"
   },
   {
+    "languageCode" : "syl",
+    "languageName" : "ꠍꠤꠟꠐꠤ",
+    "localName" : "Sylheti"
+  },
+  {
     "languageCode" : "szl",
     "languageName" : "ślůnski",
     "localName" : "Silesian"
@@ -1524,7 +1579,7 @@
   {
     "languageCode" : "tay",
     "languageName" : "Tayal",
-    "localName" : "Tayal"
+    "localName" : "Atayal"
   },
   {
     "languageCode" : "tcy",
@@ -1600,6 +1655,11 @@
     "languageCode" : "to",
     "languageName" : "lea faka-Tonga",
     "localName" : "Tongan"
+  },
+  {
+    "languageCode" : "tok",
+    "languageName" : "toki pona",
+    "localName" : "Toki Pona"
   },
   {
     "languageCode" : "tpi",
