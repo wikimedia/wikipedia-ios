@@ -99,6 +99,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
 
         apply(theme: theme)
         previewWebViewContainer.webView.uiDelegate = self
+        previewWebViewContainer.webView.scrollView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -244,6 +245,13 @@ extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, R
     
     var referenceRectVerticalOffset: CGFloat {
         return 0
+    }
+}
+
+extension EditPreviewViewController: UIScrollViewDelegate {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        // call the first completion
+        scrollViewAnimationCompletions.popLast()?()
     }
 }
 
