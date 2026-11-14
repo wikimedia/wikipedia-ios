@@ -81,15 +81,24 @@ extension WMFSourceEditorFormatterLink {
         guard let selectedText = textView.text(in: preselectedTextRange) else {
                   return
               }
+        let replacementText: String
+
+        if let pipeIndex = selectedText.firstIndex(of: "|") {
+            let labelStartIndex = selectedText.index(after: pipeIndex)
+            let label = selectedText[labelStartIndex...]
+
+            replacementText = label.isEmpty ? selectedText : String(label)
+        } else {
+            replacementText = selectedText
+        }
         
         if let markupStartPosition = textView.position(from: preselectedTextRange.start, offset: -2),
            let markupEndPosition = textView.position(from: preselectedTextRange.end, offset: 2),
            let newSelectedRange = textView.textRange(from: markupStartPosition, to: markupEndPosition) {
-            textView.replace(newSelectedRange, withText: selectedText)
+            textView.replace(newSelectedRange, withText: replacementText)
 
-            if let newStartPosition = textView.position(from: preselectedTextRange.start, offset: -2),
-               let newEndPosition = textView.position(from: preselectedTextRange.end, offset: -2) {
-                textView.selectedTextRange = textView.textRange(from: newStartPosition, to: newEndPosition)
+            if let newEndPosition = textView.position(from: markupStartPosition,offset: replacementText.count) {
+                textView.selectedTextRange = textView.textRange(from: markupStartPosition,to: newEndPosition)
             }
         }
     }
