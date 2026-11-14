@@ -43,15 +43,36 @@ extension NotificationsCenterCommonViewModel {
 
 extension NotificationsCenterCommonViewModel {
     
+    /// Returns the project-specific namespace prefix for the notification's own page, derived from the
+    /// server-provided full title (e.g. "Commons" for a "Commons:Village pump" title on Commons).
+    /// Falls back to the canonical name, which is only correct on Wikipedia projects
+    /// (e.g. PageNamespace.wikipedia's canonical name is always "Wikipedia").
+    /// - Parameter pageNamespace: The namespace the caller wants a prefix for. The server-derived prefix
+    ///   is only used when it matches the notification's own namespace (i.e. no talk-page conversion).
+    func namespacePrefix(for pageNamespace: PageNamespace) -> String {
+        if pageNamespace == linkData?.titleNamespace,
+           pageNamespace != .main,
+           let fullTitle = notification.titleFull?.normalizedPageTitle,
+           let titleText = notification.titleText?.normalizedPageTitle,
+           fullTitle.hasSuffix(titleText) {
+            let prefix = fullTitle.dropLast(titleText.count)
+            if prefix.hasSuffix(":") {
+                return String(prefix.dropLast())
+            }
+        }
+
+        return pageNamespace.canonicalName
+    }
+
     /// Generates a wiki url with the titleText value from the notification
     /// Prefixes titleText text with PageNamespace parameter
     func customPrefixTitleURL(pageNamespace: PageNamespace) -> URL? {
         guard let data = linkData,
               let title = data.title,
-              let denormalizedNamespace = pageNamespace.canonicalName.denormalizedPageTitle else {
+              let denormalizedNamespace = namespacePrefix(for: pageNamespace).denormalizedPageTitle else {
             return nil
         }
-        
+
         let prefix = pageNamespace != .main ? "\(denormalizedNamespace):" : ""
 
         guard let url = configuration.articleURLForHost(data.host, languageVariantCode: data.languageVariantCode, appending: ["\(prefix + title)"]) else {
