@@ -88,7 +88,12 @@ extension WMFReadingThemesControlsViewControllerDelegate where Self: ReadingThem
         let multiplier = fontSizeMultipliers[value]
         let nsNumber = NSNumber(value: multiplier)
         UserDefaults.standard.wmf_setArticleFontSizeMultiplier(nsNumber)
-        
+
+        // Broadcast so articles elsewhere in the navigation stack (and other observers)
+        // also pick up the new size; only updating the visible web view leaves them stale.
+        let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
+        NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
+
         updateWebViewTextSize(textSize: multiplier)
     }
 }
