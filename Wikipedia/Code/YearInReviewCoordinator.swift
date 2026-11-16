@@ -297,7 +297,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             slides: slidesAndHighlights.slides,
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
-            loggingDelegate: self
+            loggingDelegate: self,
+            swipeOnboardingDataController: dataController
         )
 
         // The gift card follows the slides that were built, so the end screen agrees with the last slide.

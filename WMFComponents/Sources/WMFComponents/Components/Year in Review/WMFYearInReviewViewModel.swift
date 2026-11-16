@@ -141,6 +141,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     ///   - hidesDonate: Without the data controller, the country check cannot run. Then the
     ///     donate button hides, so it never shows where donations are not accepted.
     ///   - swipeOnboardingDelay: How long the first slide plays before the swipe-up hint shows.
+    ///   - swipeOnboardingDataController: Reads and saves whether the user has seen the swipe-up.  With `nil`, the hint never shows.
     public init(
         slides: [WMFYearInReviewSlideViewModel],
         localizedStrings: LocalizedStrings,
@@ -148,7 +149,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         loggingDelegate: WMFYearInReviewLoggingDelegate?,
         hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true },
         swipeOnboardingDelay: Duration = .seconds(2),
-        swipeOnboardingDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController()
+        swipeOnboardingDataController: WMFYearInReviewDataController? = nil
     ) {
         self.slides = slides
         self.currentSlideID = slides.first?.id
