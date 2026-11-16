@@ -111,18 +111,19 @@ extension SearchResultsViewController {
 
         var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
         let results = outcome.items.compactMap { item -> SearchResult? in
+            var searchResult: SearchResult?
             switch item.source {
             case .lexicalPrefix, .lexicalFullText:
                 guard let mwkResult = outcome.lexicalResultsByPageID[item.pageID], let result = mapper.searchResult(from: mwkResult) else {
                     return nil
                 }
                 searchResultsByArticleURL[result.id] = mwkResult
-                return result
+                searchResult = result
             case .semantic:
                 guard let semanticResult = outcome.semanticResultsByPageID[item.pageID], let articleURL = siteURL.wmf_URL(withTitle: semanticResult.title) else {
                     return nil
                 }
-                return SearchResult(
+                searchResult = SearchResult(
                     articleURL: articleURL,
                     pageTitle: semanticResult.title,
                     title: semanticResult.title,
@@ -132,6 +133,10 @@ extension SearchResultsViewController {
                     isArticle: SearchResultsMapper.isArticle(articleURL),
                     isSavable: articleURL.namespace == .main)
             }
+#if DEBUG
+            searchResult?.sourceBadge = Self.sourceBadge(for: item.source, state: outcome.state)
+#endif
+            return searchResult
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
@@ -145,6 +150,17 @@ extension SearchResultsViewController {
             merge: outcome.merge,
             searchIDs: outcome.searchIDs,
             listLength: WMFSemanticSearchInterleavedConfiguration.listLength)
+    }
+
+    /// Debug builds label each row with the request that gave it and the state the list ended in.
+    private static func sourceBadge(for source: WMFSemanticSearchInterleavedList.Source, state: WMFSemanticSearchInterleaveState) -> String {
+        let name: String
+        switch source {
+        case .lexicalPrefix: name = "Lexical prefix"
+        case .lexicalFullText: name = "Lexical full text"
+        case .semantic: name = "Semantic"
+        }
+        return "\(name) · \(state.rawValue)"
     }
 
     /// The control arm shows today's lexical list. It sends the same event as treatment, with no merge fields and no state.
