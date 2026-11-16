@@ -308,6 +308,8 @@ import Contacts
 
         WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
 
+        NotificationCenter.default.post(name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
+
         return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
 
     }
@@ -349,6 +351,7 @@ import Contacts
     public func deleteLocalDonationHistory() {
         hasLocallySavedDonations = false
         try? self.sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+        NotificationCenter.default.post(name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
     }
 
     // MARK: - Testing

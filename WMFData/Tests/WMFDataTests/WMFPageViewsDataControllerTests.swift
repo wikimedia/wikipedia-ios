@@ -227,6 +227,23 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         XCTAssertEqual(timeline.map { $0.page.title }, ["Newest", "Middle", "Older"])
     }
 
+    // MARK: - fetchRecentlyReadPagesWithTimestamps
+
+    func testFetchRecentlyReadPagesWithTimestampsKeepsTheLatestViewOfEachPageAndStopsAtTheLimit() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+        try await addView(title: "Cat", timestamp: makeDate(2026, 1, 1))
+        try await addView(title: "Cat", timestamp: makeDate(2026, 1, 4))
+        try await addView(title: "Dog", timestamp: makeDate(2026, 1, 3))
+        try await addView(title: "Ant", timestamp: makeDate(2026, 1, 2))
+
+        let all = try await dataController.fetchRecentlyReadPagesWithTimestamps(project: enProject, minimumSeconds: 0, withinDays: 36500)
+        let limited = try await dataController.fetchRecentlyReadPagesWithTimestamps(project: enProject, minimumSeconds: 0, withinDays: 36500, limit: 2)
+
+        XCTAssertEqual(all.map { $0.page.title }, ["Cat", "Dog", "Ant"])
+        XCTAssertEqual(all.map(\.timestamp), [makeDate(2026, 1, 4), makeDate(2026, 1, 3), makeDate(2026, 1, 2)])
+        XCTAssertEqual(limited.map { $0.page.title }, ["Cat", "Dog"])
+    }
+
     // MARK: - fetchPageViewMinutes / fetchPageViewDates
 
     func testFetchPageViewMinutesSumsSecondsIntoMinutes() async throws {

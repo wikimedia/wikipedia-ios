@@ -43,6 +43,17 @@ import Foundation
     @objc public static func standardizeWidthToMediaWiki(_ width: Int) -> Int {
         return width.standardizeToMediaWiki()
     }
+
+    /// Replaces the width prefix of a Wikimedia thumbnail file name, for example `160px-Cat.jpg` to `960px-Cat.jpg`.
+    /// A URL that is not a sized thumbnail comes back unchanged.
+    public static func thumbnailURL(from thumbnailURL: URL, width: Int) -> URL {
+        let fileName = thumbnailURL.lastPathComponent
+        guard let range = fileName.range(of: #"^\d+px-"#, options: .regularExpression) else {
+            return thumbnailURL
+        }
+        let resizedFileName = fileName.replacingCharacters(in: range, with: "\(width)px-")
+        return thumbnailURL.deletingLastPathComponent().appendingPathComponent(resizedFileName)
+    }
 }
 
 fileprivate extension Int {

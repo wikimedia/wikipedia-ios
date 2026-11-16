@@ -23,6 +23,14 @@ final class WMFSemanticSearchFeedbackViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.isTextFieldVisible)
     }
 
+    func testTextStopsAtTheLimit() {
+        let viewModel = makeViewModel(style: .card)
+
+        viewModel.text = String(repeating: "a", count: WMFSemanticSearchFeedbackViewModel.textLimit + 5)
+
+        XCTAssertEqual(viewModel.text.count, WMFSemanticSearchFeedbackViewModel.textLimit)
+    }
+
     func testCardShowsTheTextFieldRightAway() {
         let viewModel = makeViewModel(style: .card)
 

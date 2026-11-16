@@ -77,11 +77,11 @@ extension EditNoticesViewController: UITextViewDelegate {
                 return nil
             }
 
-            dismiss(animated: true) {
-                self.delegate?.editNoticesControllerUserTapped(url: fullURL)
+            return UIAction { [weak self] _ in
+                self?.dismiss(animated: true) { [weak self] in
+                    self?.delegate?.editNoticesControllerUserTapped(url: fullURL)
+                }
             }
-
-            return nil
         }
         return defaultAction
     }

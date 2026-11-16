@@ -23,6 +23,16 @@ public enum EventCategoryMEP: String, Codable {
     case encourage
     case widgetChallenge = "widget_challenge"
     case game
+
+    /// The `invoke_source` of the `apps-authentication` events. The legacy login funnel keeps `rawValue`.
+    public var invokeSource: String {
+        switch self {
+        case .yir:
+            return "year-in-review"
+        default:
+            return rawValue
+        }
+    }
 }
 
 public enum EventLabelMEP: String, Codable {

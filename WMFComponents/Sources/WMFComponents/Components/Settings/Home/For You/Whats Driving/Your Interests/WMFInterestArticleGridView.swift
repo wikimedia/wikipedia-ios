@@ -135,6 +135,7 @@ private struct WMFInterestArticleCardView: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityAddTraits(viewModel.isSelected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Interests.articleCard)
     }
 
     /// Always laid out — only its visibility changes — so the title/description are sized

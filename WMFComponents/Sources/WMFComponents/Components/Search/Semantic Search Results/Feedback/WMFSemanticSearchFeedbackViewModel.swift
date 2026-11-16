@@ -24,8 +24,17 @@ public final class WMFSemanticSearchFeedbackViewModel: ObservableObject {
     let style: Style
     let languageCode: String?
 
+    /// The text field takes at most this many characters.
+    public static let textLimit = 230
+
     @Published private(set) var rating: Rating?
-    @Published var text = ""
+    @Published var text = "" {
+        didSet {
+            if text.count > Self.textLimit {
+                text = String(text.prefix(Self.textLimit))
+            }
+        }
+    }
     /// Mirrors the focus of the text field, so the keyboard is up exactly while this is true.
     @Published var isTextFieldFocused = false {
         didSet {

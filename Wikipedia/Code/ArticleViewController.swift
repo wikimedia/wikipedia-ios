@@ -50,6 +50,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Passages of a semantic search result to highlight once the article is set up. Used once.
     var semanticSearchPassages: [String] = []
     var pendingSemanticSearchScroll: SemanticSearchScroll?
+    /// The id of the semantic search request that gave the passage, for the instrumentation.
+    var semanticSearchID: String?
+    /// The instrumentation of the search that opened the article, for the feedback card.
+    var semanticSearchInstrumentation: SearchInstrumentation?
     /// The reader opened the article from a passage found by the search and ignored the feedback prompt there.
     var needsSemanticSearchFeedback = false
     var semanticSearchFeedbackTask: Task<Void, Never>?
@@ -695,7 +699,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         NotificationCenter.default.post(name: NSNotification.articleViewControllerDidDisappear, object: nil)
         wTipObservationTask?.cancel()
         wTipObservationTask = nil
-        skipSemanticSearchFeedback()
+        skipSemanticSearchFeedback(reason: .leftArticle)
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         trackArticleWillDisappear()
@@ -954,7 +958,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
-        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false)
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal)
 
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
@@ -973,8 +977,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: tabsLeadingButton)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
-        
-        navigationItem.backButtonDisplayMode = .minimal
+
         let returnAccessibilityTitle = WMFLocalizedString("article-return-button-accessibility-title", value: "Return to: %1$@", comment: "Accessibility title read by assistive technologies for the button that takes the user back to the previous article. The %1$@ placeholder is replaced with the previous article title.")
         navigationItem.backBarButtonItem?.accessibilityLabel = String.localizedStringWithFormat(returnAccessibilityTitle, articleURL.wmf_title ?? String())
     }
@@ -1157,6 +1160,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let block = {
             self.webView.alpha = hidden ? 0 : 1
+        }
+        // The feedback prompt of a semantic search waits for the content to show.
+        defer {
+            if !hidden {
+                scheduleSemanticSearchFeedbackIfNeeded()
+            }
         }
         guard animated else {
             block()
@@ -1715,26 +1724,29 @@ extension ArticleViewController {
 
 extension ArticleViewController: WKNavigationDelegate {
 
+    static func shouldAllowNavigation(type navigationType: WKNavigationType) -> Bool {
+        switch navigationType {
+        case .backForward, .reload, .other:
+            return true
+        default:
+            return false
+        }
+    }
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow)
-        default:
+        } else {
             decisionHandler(.cancel)
         }
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow, preferences)
-        default:
+        } else {
             decisionHandler(.cancel, preferences)
         }
     }

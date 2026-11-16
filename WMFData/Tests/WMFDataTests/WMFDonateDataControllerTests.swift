@@ -1,5 +1,6 @@
 import Contacts
 import Foundation
+import os
 import Testing
 import WMFDataTestSupport
 @testable import WMFData
@@ -111,6 +112,28 @@ struct WMFDonateDataControllerTests {
         })
         #expect(error.domain == NSURLErrorDomain)
         #expect(error.code == NSURLErrorNotConnectedToInternet)
+    }
+
+    /// Year in Review waits for this notification. Apple Pay reports success before the donation is saved.
+    @Test
+    func savingAndDeletingTheLocalDonationHistoryPostsANotification() async throws {
+        try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+            WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        }) {
+            let postCount = OSAllocatedUnfairLock(initialState: 0)
+            let observer = NotificationCenter.default.addObserver(forName: WMFNSNotification.localDonationHistoryDidChange, object: nil, queue: nil) { _ in
+                postCount.withLock { $0 += 1 }
+            }
+            defer { NotificationCenter.default.removeObserver(observer) }
+
+            _ = controller.saveLocalDonationHistory(type: .oneTime, amount: 5, currencyCode: "USD", isNative: true)
+            #expect(postCount.withLock { $0 } == 1)
+            #expect(controller.loadLocalDonationHistory(startDate: nil, endDate: nil)?.count == 1, "the donation is saved before the notification")
+
+            controller.deleteLocalDonationHistory()
+            #expect(postCount.withLock { $0 } == 2)
+        }
     }
 }
 

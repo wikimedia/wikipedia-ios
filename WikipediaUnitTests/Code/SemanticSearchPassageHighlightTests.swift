@@ -2,8 +2,9 @@ import XCTest
 import WebKit
 @testable import WMF
 
-/// Covers `window.wmf.findInPage.highlightPassages` in `assets/index.js`, which highlights the
-/// passages of a semantic search result inside the article.
+/// Covers `window.wmf.utilities.whenSectionsAreShown` in `assets/index.js`, which the semantic
+/// search waits for before it highlights a passage. The passage matching itself is
+/// `pcs.c1.Highlight` in the Page Content Service, and is tested there.
 @MainActor
 final class SemanticSearchPassageHighlightTests: XCTestCase {
 
@@ -39,18 +40,6 @@ final class SemanticSearchPassageHighlightTests: XCTestCase {
         try await super.tearDown()
     }
 
-    private func highlight(_ passages: [String], anchor: String?) async throws -> [String] {
-        let passagesJSON = try XCTUnwrap(String(data: JSONEncoder().encode(passages), encoding: .utf8))
-        let anchorJS = anchor.map { "`\($0)`" } ?? "null"
-        let result = try await webView.evaluateJavaScript("window.wmf.findInPage.highlightPassages(\(passagesJSON), \(anchorJS))")
-        return try XCTUnwrap(result as? [String])
-    }
-
-    private func evaluate<T>(_ script: String) async throws -> T {
-        let result = try await webView.evaluateJavaScript(script)
-        return try XCTUnwrap(result as? T)
-    }
-
     private func callAsync<T>(_ functionBody: String) async throws -> T {
         let result = try await webView.callAsyncJavaScript(functionBody, contentWorld: .page)
         return try XCTUnwrap(result as? T)
@@ -80,83 +69,6 @@ final class SemanticSearchPassageHighlightTests: XCTestCase {
         XCTAssertEqual(heights.count, 2)
         XCTAssertLessThan(heights[0], 2000, "While the section is hidden, the page is as tall as the view.")
         XCTAssertGreaterThanOrEqual(heights[1], 2000, "The promise resolves once the sections are shown.")
-    }
-
-    func testPassageSpanningALinkIsHighlightedInOneRun() async throws {
-        let ids = try await highlight(["transmission de l'information est un processus"], anchor: "Définition")
-
-        XCTAssertEqual(ids.count, 4, "One span per text node the passage crosses (the link, the text after it, the text after the reference marker) plus one for the marker in between.")
-        let highlightedText: String = try await evaluate("[...document.querySelectorAll('.findInPageMatch')].map(span => span.textContent).join('').replace(/\\s+/g, ' ')")
-        XCTAssertEqual(highlightedText, "transmission de l’information[3] est un processus")
-        let linkText: String = try await evaluate("document.querySelector('a[href=\"./Transmission\"]').textContent")
-        XCTAssertEqual(linkText, "transmission", "The link keeps its text and now wraps a highlight span.")
-        let spansInsideLinks: Int = try await evaluate("document.querySelectorAll('a .findInPageMatch[data-passage]').length")
-        XCTAssertEqual(spansInsideLinks, 1)
-        let spansInsideMarkers: Int = try await evaluate("document.querySelectorAll('sup.mw-ref .findInPageMatch').length")
-        XCTAssertEqual(spansInsideMarkers, 0, "The marker text is not matched; the marker is wrapped whole instead.")
-        let wrappedMarkers: Int = try await evaluate("document.querySelectorAll('.findInPageMatch[data-passage] > sup.mw-ref').length")
-        XCTAssertEqual(wrappedMarkers, 1, "A reference marker between two runs of the passage takes the highlight.")
-        let spansInOtherSection: Int = try await evaluate("document.querySelectorAll('section[data-mw-section-id=\"2\"] .findInPageMatch').length")
-        XCTAssertEqual(spansInOtherSection, 0, "Only the section of the anchor is searched when it contains the passage.")
-    }
-
-    func testReferenceMarkerOutsideThePassageIsNotHighlighted() async throws {
-        let ids = try await highlight(["est un processus"], anchor: "Définition")
-
-        XCTAssertEqual(ids.count, 1)
-        let wrappedMarkers: Int = try await evaluate("document.querySelectorAll('.findInPageMatch[data-passage] > sup.mw-ref').length")
-        XCTAssertEqual(wrappedMarkers, 0, "A marker next to the passage, but not between two of its runs, keeps its own style.")
-    }
-
-    func testRemovingTheHighlightRestoresTheReferenceMarker() async throws {
-        _ = try await highlight(["transmission de l'information est un processus"], anchor: "Définition")
-        _ = try await webView.evaluateJavaScript("window.wmf.findInPage.removeSearchTermHighlights()")
-
-        let spans: Int = try await evaluate("document.querySelectorAll('.findInPageMatch').length")
-        XCTAssertEqual(spans, 0)
-        let markerParent: String = try await evaluate("document.getElementById('cite_ref-3').parentElement.tagName")
-        XCTAssertEqual(markerParent, "P", "The marker goes back to its paragraph once the wrapper span is removed.")
-    }
-
-    func testFallsBackToTheWholeArticleWhenTheSectionDoesNotHaveThePassage() async throws {
-        let ids = try await highlight(["processus complexe aussi"], anchor: "Définition")
-
-        XCTAssertEqual(ids.count, 1)
-        let spansInOtherSection: Int = try await evaluate("document.querySelectorAll('section[data-mw-section-id=\"2\"] .findInPageMatch').length")
-        XCTAssertEqual(spansInOtherSection, 1)
-    }
-
-    func testMissingAnchorSearchesTheWholeArticle() async throws {
-        let ids = try await highlight(["processus complexe aussi"], anchor: "Not_there")
-
-        XCTAssertEqual(ids.count, 1)
-    }
-
-    func testPassageThatIsNotInTheArticleHighlightsNothing() async throws {
-        let ids = try await highlight(["ce texte a été supprimé"], anchor: "Définition")
-
-        XCTAssertEqual(ids, [])
-        let spans: Int = try await evaluate("document.querySelectorAll('.findInPageMatch').length")
-        XCTAssertEqual(spans, 0)
-    }
-
-    func testInvisibleCharactersDoNotBreakTheMatch() async throws {
-        let ids = try await highlight(["information invisible"], anchor: "Notes")
-
-        XCTAssertEqual(ids.count, 1)
-        let highlightedText: String = try await evaluate("document.querySelector('.findInPageMatch').textContent")
-        XCTAssertEqual(highlightedText, "in\u{00AD}for\u{200B}mation \u{200F}invisible", "The article keeps its characters; only the comparison ignores them.")
-    }
-
-    func testANewCallReplacesThePreviousHighlight() async throws {
-        _ = try await highlight(["est un processus"], anchor: "Définition")
-        let ids = try await highlight(["processus complexe aussi"], anchor: "Histoire")
-
-        XCTAssertEqual(ids.count, 1)
-        let spans: Int = try await evaluate("document.querySelectorAll('.findInPageMatch').length")
-        XCTAssertEqual(spans, 1)
-        let paragraph: String = try await evaluate("document.querySelector('section[data-mw-section-id=\"1\"] p').textContent.replace(/\\s+/g, ' ')")
-        XCTAssertEqual(paragraph, "La transmission de l’information[3] est un processus complexe.", "The text of the first section is back in one piece.")
     }
 }
 

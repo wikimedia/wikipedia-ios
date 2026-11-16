@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
@@ -8,8 +9,8 @@ struct WMFRelatedPagesDataControllerTests {
 
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
-    private func makeController() -> WMFRelatedPagesDataController {
-        let mockService = WMFMockBasicService(jsonResourceName: "related-pages-get")
+    private func makeController(jsonResourceName: String = "related-pages-get") -> WMFRelatedPagesDataController {
+        let mockService = WMFMockBasicService(jsonResourceName: jsonResourceName)
         return WMFRelatedPagesDataController(basicService: mockService)
     }
 
@@ -51,5 +52,76 @@ struct WMFRelatedPagesDataControllerTests {
         let pages = try await controller.fetchRelatedPages(title: "Cat", project: project)
 
         #expect(pages.map(\.title) == ["Trap–neuter–return", "Purr", "Feral cat"])
+    }
+
+    @Test
+    func fetchRelatedPagesKeepsTheCanonicalTitleAndExposesTheDisplayTitle() async throws {
+        let controller = makeController(jsonResourceName: "related-pages-display-title-get")
+        let pages = try await controller.fetchRelatedPages(title: "IPhone", project: project)
+
+        let iPhone = try #require(pages.first(where: { $0.pageid == 17916616 }))
+        #expect(iPhone.title == "IPhone 3G")
+        #expect(iPhone.displayTitle == "iPhone 3G")
+    }
+
+    @Test
+    func fetchRelatedPagesLeavesTheDisplayTitleNilWhenTheResponseHasNone() async throws {
+        let controller = makeController(jsonResourceName: "related-pages-display-title-get")
+        let pages = try await controller.fetchRelatedPages(title: "IPhone", project: project)
+
+        let plain = try #require(pages.first(where: { $0.pageid == 1234 }))
+        #expect(plain.title == "Plain title")
+        #expect(plain.displayTitle == nil)
+    }
+
+    @Test
+    func fetchRelatedPagesPrefersTheVariantTitleOfTheProjectVariant() async throws {
+        let traditionalChinese = WMFProject.wikipedia(WMFLanguage(languageCode: "zh", languageVariantCode: "zh-hant"))
+        let controller = makeController(jsonResourceName: "related-pages-display-title-get")
+        let pages = try await controller.fetchRelatedPages(title: "软件", project: traditionalChinese)
+
+        let software = try #require(pages.first(where: { $0.pageid == 32106 }))
+        #expect(software.title == "软件")
+        #expect(software.displayTitle == "軟體")
+    }
+
+    @Test
+    func fetchRelatedPagesFallsBackToTheDisplayTitleWhenTheVariantIsMissing() async throws {
+        let unknownVariant = WMFProject.wikipedia(WMFLanguage(languageCode: "zh", languageVariantCode: "zh-sg"))
+        let controller = makeController(jsonResourceName: "related-pages-display-title-get")
+        let pages = try await controller.fetchRelatedPages(title: "软件", project: unknownVariant)
+
+        let software = try #require(pages.first(where: { $0.pageid == 32106 }))
+        #expect(software.displayTitle == "软件")
+    }
+
+    // MARK: - Extracts
+
+    @Test
+    func fetchRelatedPagesAsksForTheExtractsByDefault() async throws {
+        let service = WMFRecordingBasicService()
+        let controller = WMFRelatedPagesDataController(basicService: service)
+
+        _ = try? await controller.fetchRelatedPages(title: "Cat", project: project)
+
+        let parameters = try #require(service.parameters.first)
+        #expect(parameters["prop"] as? String == "pageimages|description|info|extracts|pageprops")
+        #expect(parameters["exchars"] as? String == "500")
+        #expect(parameters["exintro"] as? String == "1")
+        #expect(parameters["explaintext"] as? String == "1")
+    }
+
+    @Test
+    func fetchRelatedPagesCanLeaveTheExtractsOut() async throws {
+        let service = WMFRecordingBasicService()
+        let controller = WMFRelatedPagesDataController(basicService: service)
+
+        _ = try? await controller.fetchRelatedPages(title: "Cat", project: project, includesExtracts: false)
+
+        let parameters = try #require(service.parameters.first)
+        #expect(parameters["prop"] as? String == "pageimages|description|info|pageprops")
+        #expect(parameters["exchars"] == nil)
+        #expect(parameters["exintro"] == nil)
+        #expect(parameters["explaintext"] == nil)
     }
 }

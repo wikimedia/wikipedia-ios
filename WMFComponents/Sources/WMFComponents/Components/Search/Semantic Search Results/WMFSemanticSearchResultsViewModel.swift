@@ -2,6 +2,23 @@ import Foundation
 import WMFData
 import WMFNativeLocalizations
 
+/// Receives the moments of the sheet that the instrumentation records. The app side implements it.
+@MainActor
+public protocol WMFSemanticSearchResultsLoggingDelegate: AnyObject {
+    func logResultsImpression(searchID: String?)
+    func logEmptyResultsImpression()
+    /// position is 1-indexed
+    func logResultTap(position: Int, searchID: String?)
+}
+
+/// Decides whether the sheet may show the feedback prompt, and learns when it shows. The app side
+/// implements it, so the prompt follows the search session instead of one sheet.
+@MainActor
+public protocol WMFSemanticSearchFeedbackPromptDelegate: AnyObject {
+    var canShowSheetFeedbackPrompt: Bool { get }
+    func sheetFeedbackPromptDidAppear()
+}
+
 @MainActor
 public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
@@ -36,6 +53,13 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     @Published private(set) var state: State = .loading
     @Published private(set) var results: [WMFSemanticSearchResultViewModel] = []
+    /// The id of the request that gave the results on screen, for the instrumentation of the
+    /// search. Nil until the results arrive, or when the response has no id.
+    public private(set) var searchID: String?
+
+    public weak var loggingDelegate: WMFSemanticSearchResultsLoggingDelegate?
+    public weak var feedbackPromptDelegate: WMFSemanticSearchFeedbackPromptDelegate?
+
     @Published private(set) var isFeedbackVisible = false
 
     /// The prompt above the passages asking whether the reader found what they were looking for.
@@ -55,9 +79,14 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     private let feedbackTextFieldFocusAction: Action?
     private let feedbackDelay: Duration
     private var feedbackTask: Task<Void, Never>?
-    /// The sheet has had its one chance to ask: the reader submitted the banner, or an article
-    /// opened from a passage took over asking. The banner doesn't come back and no other article asks.
-    private var hasAskedForFeedback = false
+    /// The banner got on screen in this sheet. It doesn't come back.
+    private var hasShownFeedback = false
+    private var isSheetVisible = false
+
+    /// The delegate has the last word, so the banner shows at most once per search session.
+    private var canShowFeedback: Bool {
+        !hasShownFeedback && (feedbackPromptDelegate?.canShowSheetFeedbackPrompt ?? true)
+    }
 
     private(set) lazy var betaLabel = CommonStrings.betaLabel(languageCode: languageCode)
     private(set) lazy var emptyTitle = WMFLocalizedString("search-semantic-results-empty-title", languageCode: languageCode, value: "No results for this search", comment: "Shown in the sheet of passages found inside articles when the search returns nothing.")
@@ -69,12 +98,7 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
     private(set) lazy var backendUnavailableErrorTitle = WMFLocalizedString("search-semantic-results-unavailable-title", languageCode: languageCode, value: "Search is not available right now", comment: "Title shown in the sheet of passages found inside articles when the search service is down.")
     private(set) lazy var backendUnavailableErrorSubtitle = WMFLocalizedString("search-semantic-results-unavailable-subtitle", languageCode: languageCode, value: "Please try again later.", comment: "Subtitle shown in the sheet of passages found inside articles when the search service is down.")
 
-    private lazy var resultLocalizedStrings = WMFSemanticSearchResultViewModel.LocalizedStrings(
-        readInArticleTitle: WMFLocalizedString("search-semantic-results-read-in-article", languageCode: languageCode, value: "Read in article", comment: "Call to action at the end of a passage found inside an article. Opens the article at that passage."),
-        contributorsFormat: WMFLocalizedString("search-semantic-results-contributors", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d contributor|%1$d contributors}}", comment: "Number of people who edited the article a passage comes from. %1$d is replaced with the number of contributors."),
-        referencesFormat: WMFLocalizedString("search-semantic-results-references", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d reference|%1$d references}}", comment: "Number of references of the article a passage comes from. %1$d is replaced with the number of references."),
-        lastUpdatedFormat: WMFLocalizedString("search-semantic-results-last-updated", languageCode: languageCode, value: "Last update %1$@", comment: "Date of the last edit of the article a passage comes from, shown where the reference count is not available. %1$@ is replaced with the date in the short numeric style of the device, e.g. 9/26/26.")
-    )
+    private lazy var resultLocalizedStrings = WMFSemanticSearchResultViewModel.LocalizedStrings.forLanguage(languageCode)
 
     public init(query: String, project: WMFProject, readInArticleAction: @escaping ResultAction, closeAction: @escaping Action, feedbackAction: FeedbackAction? = nil, feedbackTextFieldFocusAction: Action? = nil, feedbackDelay: Duration = .seconds(3)) {
         self.query = query
@@ -97,8 +121,10 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     public func load() {
         cancel()
+        cancelScheduledFeedback()
         state = .loading
         results = []
+        searchID = nil
         loadTask = Task { [weak self] in
             await self?.fetch()
         }
@@ -115,9 +141,12 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
             let response = try await WMFSemanticSearchDataController.shared.fetchResults(query: query, project: project)
             guard !Task.isCancelled else { return }
 
+            searchID = response.searchID
             let readInArticleAction: ResultAction = { [weak self] in self?.readInArticle($0) }
             results = response.results.map { WMFSemanticSearchResultViewModel(result: $0, project: project, localizedStrings: resultLocalizedStrings, readInArticleAction: readInArticleAction) }
             state = results.isEmpty ? .empty : .results
+            logImpressionIfLoaded()
+            scheduleFeedbackIfNeeded()
         } catch is CancellationError {
             return
         } catch {
@@ -174,34 +203,72 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
 
     // MARK: - Feedback
 
-    /// Shows the feedback prompt a moment after the sheet appears. Call it when the sheet appears.
+    /// Call it when the sheet appears. The feedback prompt shows a moment after results are on screen.
     public func sheetDidAppear() {
-        guard feedbackTask == nil, !hasAskedForFeedback else { return }
+        isSheetVisible = true
+        scheduleFeedbackIfNeeded()
+    }
 
-        feedbackTask = Task { [weak self, feedbackDelay] in
-            try? await Task.sleep(for: feedbackDelay)
-            guard !Task.isCancelled else { return }
-            self?.isFeedbackVisible = true
-        }
+    /// Stops the prompt that was due, so a sheet off screen doesn't count as asking. Call it when
+    /// the sheet disappears.
+    public func sheetDidDisappear() {
+        isSheetVisible = false
+        cancelScheduledFeedback()
     }
 
     /// Call it when opening an article from a passage. Returns true when the reader neither
-    /// answered the prompt nor started to, so the article should ask instead. In that case the
-    /// sheet stops asking, so a reader who comes back to it and opens another passage isn't asked twice.
+    /// answered the prompt nor started to, so the article may ask instead. The banner hides.
     public func handOffFeedbackIfIgnored() -> Bool {
-        guard !hasAskedForFeedback, !feedbackViewModel.hasRated else { return false }
-
-        hasAskedForFeedback = true
         isFeedbackVisible = false
+        cancelScheduledFeedback()
+        return !feedbackViewModel.hasRated
+    }
+
+    /// The banner is part of the results list, so the delay starts once the sheet is on screen with
+    /// results. Time spent loading or on an error doesn't count.
+    private var isReadyForFeedback: Bool {
+        isSheetVisible && state == .results && canShowFeedback
+    }
+
+    private func scheduleFeedbackIfNeeded() {
+        guard feedbackTask == nil, isReadyForFeedback else { return }
+
+        feedbackTask = Task { [weak self, feedbackDelay] in
+            try? await Task.sleep(for: feedbackDelay)
+            guard !Task.isCancelled, let self else { return }
+
+            self.feedbackTask = nil
+            guard self.isReadyForFeedback else { return }
+            self.isFeedbackVisible = true
+            self.hasShownFeedback = true
+            self.feedbackPromptDelegate?.sheetFeedbackPromptDidAppear()
+        }
+    }
+
+    private func cancelScheduledFeedback() {
         feedbackTask?.cancel()
-        return true
+        feedbackTask = nil
     }
 
     private func submitFeedback(rating: WMFSemanticSearchFeedbackViewModel.Rating, text: String?) {
-        hasAskedForFeedback = true
         isFeedbackVisible = false
         feedbackAction?(rating, text)
         WMFToastPresenter.shared.show(WMFToastConfig(title: feedbackViewModel.thanksToastTitle))
+    }
+
+    // MARK: - Logging
+
+    /// Records an impression of the loaded passages, or of the empty state. Call it again when the
+    /// sheet comes back on screen, so each presentation counts.
+    public func logImpressionIfLoaded() {
+        switch state {
+        case .results:
+            loggingDelegate?.logResultsImpression(searchID: searchID)
+        case .empty:
+            loggingDelegate?.logEmptyResultsImpression()
+        case .loading, .error:
+            break
+        }
     }
 
     // MARK: - Actions
@@ -212,6 +279,9 @@ public final class WMFSemanticSearchResultsViewModel: ObservableObject {
         guard !feedbackViewModel.isTextFieldFocused else {
             feedbackViewModel.isTextFieldFocused = false
             return
+        }
+        if let index = results.firstIndex(where: { $0.result == result }) {
+            loggingDelegate?.logResultTap(position: index + 1, searchID: searchID)
         }
         readInArticleAction(result)
     }

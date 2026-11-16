@@ -196,10 +196,6 @@ final class WatchlistFunnel {
         logEvent(action: .learnOnboard)
     }
     
-    func logOpenWatchlistFromAccount() {
-        logEvent(action: .openWatchlistAccount)
-    }
-    
     func logOpenWatchlistFromArticleAddedToast(project: WikimediaProject) {
         logEvent(action: .openWatchlistArticle, project: project)
     }
@@ -254,10 +250,6 @@ final class WatchlistFunnel {
     
     func logThanksTapCancel(project: WikimediaProject) {
         logEvent(action: .userThankCancel, project: project)
-    }
-    
-    func logThanksDisplaySuccessToast(project: WikimediaProject) {
-        logEvent(action: .userThankConfirm, project: project)
     }
     
     func logOpenFilterSettings() {

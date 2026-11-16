@@ -23,6 +23,22 @@ extension WikipediaAppRobot {
     }
 }
 
+// MARK: - Deep links
+
+extension WikipediaAppRobot {
+    @discardableResult
+    func openSharedReadingListLink(pageIDs: [Int], languageCode: String, file: StaticString = #filePath, line: UInt = #line) -> CreateReadingListRobot {
+        let payload: [String: Any] = ["list": [languageCode: pageIDs]]
+        guard let payloadData = try? JSONSerialization.data(withJSONObject: payload),
+              let url = URL(string: "wikipedia://\(languageCode).wikipedia.org/wiki/Special:ReadingLists?limport=\(payloadData.base64EncodedString())") else {
+            XCTFail("Could not build the shared reading list link.", file: file, line: line)
+            return CreateReadingListRobot(base: base, configuration: configuration)
+        }
+        base.app.open(url)
+        return CreateReadingListRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+}
+
 // MARK: - App lifecycle
 
 extension WikipediaAppRobot {
@@ -42,7 +58,10 @@ extension XCTestCase {
         resetsPreferredLanguages: Bool = true,
         suppressesActivityTabOnboarding: Bool = true,
         suppressesGamesAnnouncement: Bool = true,
-        suppressesHomeOnboarding: Bool = true
+        suppressesHomeOnboarding: Bool = true,
+        readingListsSeed: UITestReadingListsSeed? = nil,
+        centralAuthUsername: String? = nil,
+        discoverState: UITestConfiguration.DiscoverState = .off
     ) -> WikipediaAppRobot {
         let app = XCUIApplication()
         let configuration = UITestConfiguration(
@@ -50,7 +69,10 @@ extension XCTestCase {
             resetsPreferredLanguages: resetsPreferredLanguages,
             suppressesActivityTabOnboarding: suppressesActivityTabOnboarding,
             suppressesGamesAnnouncement: suppressesGamesAnnouncement,
-            suppressesHomeOnboarding: suppressesHomeOnboarding
+            suppressesHomeOnboarding: suppressesHomeOnboarding,
+            readingListsSeed: readingListsSeed,
+            centralAuthUsername: centralAuthUsername,
+            discoverState: discoverState
         )
         app.configureForUITestLaunch(configuration: configuration)
         app.launch()

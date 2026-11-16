@@ -27,8 +27,6 @@ public protocol ImageOriginConvertible {
 }
 
 
-public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { return c.asImageOrigin() }
-
 @objc(WMFImage) public class Image: NSObject {
     @objc open var staticImage: UIImage
     @objc open var animatedImage: FLAnimatedImage?

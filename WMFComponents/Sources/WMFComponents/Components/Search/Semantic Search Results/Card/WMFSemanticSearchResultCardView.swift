@@ -58,7 +58,9 @@ struct WMFSemanticSearchResultCardView: View {
                 .truncationMode(.tail)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityLabel(viewModel.passageText)
-            callToActionText
+            if viewModel.showsReadInArticle {
+                callToActionText
+            }
         }
     }
 

@@ -92,7 +92,6 @@
 "forgot-password-username-or-email-title" = "O";
 "history-clear-delete-all" = "Òc, suprimir tot";
 "history-title" = "Istoric";
-"home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
 "home-button-saved-accessibility-label" = "Wikipèdia, tornar a Enregistrats";
 "home-more-like-footer" = "Mai coma $1";
 // Fuzzy
@@ -159,7 +158,6 @@
 "search-title" = "Recercar";
 // Fuzzy
 "settings-appearance" = "Aparéncia";
-"settings-clear-cache-cancel" = "Anullar";
 "settings-help-and-feedback" = "Ajuda e comentaris";
 "settings-my-languages" = "Mas lengas";
 // Fuzzy

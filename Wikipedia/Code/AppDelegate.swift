@@ -25,7 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appViewController = WMFAppViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
+        #if UITEST
+        // Shared data controllers capture basicService when they are first created, so swap in
+        // the fixture service before anything at launch can create one with the live service.
+        TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
+        #endif
+
         registerUserDefaults()
         
 #if DEBUG
@@ -98,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Notifications
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
-        DDLogError("Remote notification registration failure: \(error.localizedDescription)")
+        DDLogError(RemoteNotificationRegistrationFailure.logMessage(for: error))
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -210,3 +216,13 @@ private final class BackgroundAppRefreshCompletion {
     }
 }
 #endif
+
+enum RemoteNotificationRegistrationFailure {
+    // UIKit can pass nil to didFailToRegisterForRemoteNotificationsWithError. Swift imports the parameter as a non-optional Error, so a nil value is a null box pointer. Check the pointer before you touch the error.
+    static func logMessage(for error: any Error) -> String {
+        guard unsafeBitCast(error, to: UnsafeRawPointer?.self) != nil else {
+            return "Remote notification registration failure: nil error"
+        }
+        return "Remote notification registration failure: \(error.localizedDescription)"
+    }
+}

@@ -121,9 +121,6 @@
 "activity-tab-very-satisfied" = "Muito satisfeito(a)";
 "activity-tab-very-unsatisfied" = "Muito insatisfeito(a)";
 "activity-tab-week-graph-label" = "Semana";
-"activity-tab-you-edited" = "Você editou {{PLURAL:$1|$1 vez|$1 vezes}} esta semana.";
-"activity-tab-you-read" = "Você leu {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
-"activity-tab-you-saved" = "Você guardou {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
 "alert-temporary-account" = "Está a utilizar uma conta temporária. A conta expirará em 90 dias.";
@@ -183,8 +180,6 @@
 "clearing-cache-complete" = "Limpeza da cache concluída.";
 "clearing-cache-in-progress" = "Limpeza da cache em andamento.";
 "close-all-tabs" = "Fechar todos os separadores";
-"close-all-tabs-confirmation" = "Deseja fechar todos os $1 separadores? Esta ação não pode ser anulada.";
-"close-all-tabs-confirmation-number" = "Fechar todos os $1 separadores?";
 "close-all-tabs-confirmation-title-with-value" = "Fechar {{PLURAL:$1|$1 separador|$1 separadores}}?";
 "close-button-accessibility-label" = "Fechar";
 "close-tabs" = "Fechar separadores";
@@ -286,6 +281,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Premir duas vezes para ativar donativos mensais automáticos deste montante.";
 "donate-accessibility-textfield-hint" = "Inserir o montante personalizado do donativo.";
 "donate-accessibility-transaction-fee-hint" = "Premir duas vezes para adicionar taxa da transação ao montante do donativo.";
+// Fuzzy
 "donate-already-donated" = "Obrigado, caro doador! A sua generosidade ajuda a manter a Wikipédia e os seus/outros projetos de conhecimento livre a prosperar.";
 "donate-apple-fine-print" = "A Apple não é responsável por arrecadar fundos para este fim.";
 "donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode enviar-me correio eletrónico ocasionalmente.";
@@ -415,10 +411,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Podem ser adicionados idiomas na página das definições ‘Meus idiomas’.";
 "explore-feed-preferences-card-hidden-title" = "Cartão ocultado";
 "explore-feed-preferences-continue-reading-description" = "Hiperligação rápida para regressar à leitura de um artigo aberto";
-"explore-feed-preferences-customize-explore-feed" = "Personalizar o feed Explorar";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalizar o feed Explorar";
-"explore-feed-preferences-customize-explore-feed-footer-text" = "Ocultar um tipo de cartão impede que esse tipo de cartão apareça no feed Explorar.";
-"explore-feed-preferences-explore-tab" = "Separador Explorar";
 "explore-feed-preferences-featured-article-description" = "Artigo destacado do dia na Wikipédia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Desligado";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Todas";
@@ -432,7 +425,6 @@
 "explore-feed-preferences-hide-card-action-title" = "Ocultar este cartão";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ocultar todos os cartões \"$1\"";
 "explore-feed-preferences-in-the-news-description" = "Artigos sobre atualidades";
-"explore-feed-preferences-languages-footer-text" = "Ocultar todos os cartões do feed Explorar em todas as línguas desativa o separador Explorar.";
 "explore-feed-preferences-on-this-day-description" = "Acontecimentos da história neste dia";
 "explore-feed-preferences-places-description" = "Artigos da Wikipédia perto da sua localização";
 "explore-feed-preferences-potd-description" = "Imagem destacada do dia na wiki Commons";
@@ -454,16 +446,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Desativar o cartão 'Os mais lidos' desativa-o em todas as línguas disponíveis.";
 "explore-feed-preferences-show-top-read-title" = "Mostrar o cartão 'Os mais lidos'";
 "explore-feed-preferences-top-read-description" = "Artigos mais lidos do dia";
-"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Desativar o feed Explorar";
-"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar todos os cartões do feed Explorar desativa o separador Explorar e substitui-o por um de Definições";
-"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Desativar o feed Explorar?";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desativar Explorar";
-"explore-feed-preferences-turn-off-explore-tab-message" = "O separador Explorar pode voltar a ser ativado nas definições do feed Explorar";
-"explore-feed-preferences-turn-off-explore-tab-title" = "Desativar o separador Explorar?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Desativar o separador Explorar substitui-o por um de Definições.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ao escolher mostrar cartões do feed Explorar está a ativar o separador Explorar";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
@@ -540,7 +523,6 @@
 "history-clear-confirmation-heading" = "Tem a certeza de que deseja eliminar todos os seus elementos recentes?";
 "history-clear-delete-all" = "Sim, eliminar todos";
 "history-title" = "Histórico";
-"home-button-explore-accessibility-label" = "Wikipédia, voltar a Explorar";
 "home-button-saved-accessibility-label" = "Wikipédia, voltar aos Guardados";
 "home-more-like-footer" = "Mais, como $1";
 "home-nearby-footer" = "Mais lugares nas suas redondezas";
@@ -877,7 +859,6 @@
 "potd-sample-entry-description" = "Dois touros em corrida enquanto o jóquei se segura a eles numa ''pacu jawi'' (\"corrida de touros\", em menancabo), uma corrida de touros tradicional em Tanah Datar, Sumatra Ocidental, Indonésia. 2015, Final-45.";
 "potd-widget-description" = "Desfrute de uma linda foto diária selecionada pela nossa comunidade.";
 "potd-widget-title" = "Imagem do dia";
-"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia Foundation recolha informações sobre o seu uso da aplicação para melhorá-la";
 "privacy-policy-title" = "Política de privacidade";
 "problem-with-feature-title" = "Problema com a funcionalidade";
 "profile-button-accessibility-hint" = "Navegue para a visualização do perfil.";
@@ -907,8 +888,6 @@
 "reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar as suas listas de leitura.";
 "reading-list-api-error-list-limit" = "Esta lista não está sincronizada, porque atingiu o limite do número de listas sincronizadas.";
 "reading-list-create-new-list-button-title" = "Criar lista de leitura";
-"reading-list-create-new-list-description" = "Descrição";
-"reading-list-create-new-list-reading-list-name" = "Nome da lista de leitura";
 "reading-list-create-new-list-title" = "Criar uma lista nova";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
@@ -928,7 +907,9 @@
 "reading-list-list-limit-reached" = "Atingiu o limite de $1 listas de leitura por conta";
 "reading-list-login-or-create-account-button-title" = "Iniciar sessão ou criar conta";
 "reading-list-name-user-created-annotation" = "_[criada pelo utilizador]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descrição breve opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "título da lista de leitura";
 "reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia noutro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
 "reading-list-sync-disabled-panel-title" = "Sincronização desativada";
@@ -1020,7 +1001,6 @@
 "settings-clear-cache" = "Limpar dados da cache";
 "settings-clear-cache-are-you-sure-message" = "Limpar os dados da cache libertará cerca de $1 de espaço. Não apaga as suas páginas guardadas.";
 "settings-clear-cache-are-you-sure-title" = "Limpar dados da cache?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-donate" = "Fazer donativo";
 "settings-help-and-feedback" = "Ajuda e comentários";
@@ -1254,25 +1234,10 @@
 "watchlist-user-button-user-talk-page" = "Página de discussão do utilizador";
 "watchlist-watch-subtitle" = "Premindo a estrela ou a operação \"Vigiar\" na barra de ferramentas inferior de um artigo, pode adicionar essa página à sua lista de páginas vigiadas.";
 "watchlist-watch-title" = "Vigiar artigos";
-"welcome-data-privacy-title" = "Dados e Privacidade";
-"welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "O feed \"Explorar\"";
-"welcome-exploration-on-this-day-description" = "Retroceda no tempo para saber o que aconteceu hoje na história";
-"welcome-exploration-on-this-day-title" = "Neste dia";
-"welcome-exploration-places-description" = "Descubra marcos próximos de si ou procure lugares do mundo";
-"welcome-exploration-places-title" = "Separador de 'Lugares'";
 "welcome-explore-continue-button" = "Começar";
-"welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
-"welcome-intro-free-encyclopedia-description" = "A Wikipédia é escrita de forma colaborativa por voluntários e contém mais de 40 milhões de artigos em mais de 300 idiomas.";
-"welcome-intro-free-encyclopedia-more" = "Saiba mais sobre a Wikipédia";
-"welcome-intro-free-encyclopedia-more-about" = "Sobre a Wikipédia";
-"welcome-intro-free-encyclopedia-more-description" = "A Wikipédia é um projeto global para criar enciclopédias gratuitas em todos os idiomas do mundo. Praticamente qualquer pessoa com acesso à Internet pode participar, fornecendo informação apresentada de um ponto de vista neutro e apoiada em referências.";
-"welcome-intro-free-encyclopedia-title" = "A enciclopédia livre";
 "welcome-languages-add-button" = "Adicionar outro idioma";
-"welcome-languages-add-or-edit-button" = "Adicionar ou editar os idiomas preferidos";
-"welcome-languages-description" = "Nós encontrámos os seguintes idiomas no seu dispositivo:";
-"welcome-languages-search-title" = "Procure em mais de 300 idiomas";
 "widget-onthisday-description" = "Explorar o que aconteceu neste dia ao longo da história.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopédia livre na internet que qualquer pessoa pode editar";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, surge na internet.";

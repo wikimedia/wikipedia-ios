@@ -14,7 +14,7 @@ on:
         type: string
 
 env:
-  XCODE_VERSION: "26.6"
+  XCODE_VERSION: "27.1"
 
 # Serialize runs, for the same reason as V2 Deploy Alpha: the build number is
 # read from the highest exp/ tag at checkout, but that tag is not pushed
@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   build-and-upload:
-    runs-on: macos-26
+    runs-on: xcode-27
 
     steps:
       # fetch-depth: 0 is needed for the tag list and the PR lookback, but
