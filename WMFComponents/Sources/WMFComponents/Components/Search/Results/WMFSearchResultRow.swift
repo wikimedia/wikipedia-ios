@@ -133,6 +133,15 @@ struct WMFSearchResultRow: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text(attributedTitle)
                     .lineLimit(1)
+                if let sourceBadge = result.sourceBadge {
+                    Text(sourceBadge)
+                        .font(Font(WMFFont.for(.caption1)))
+                        .foregroundStyle(Color(theme.secondaryText))
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color(theme.midBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                }
                 if let description = result.description, let displayedDescription = result.displayedDescription {
                     Text(displayedDescription)
                         .font(Font(WMFFont.for(.subheadline)))
