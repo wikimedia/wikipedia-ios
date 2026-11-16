@@ -1089,6 +1089,9 @@ extension YearInReviewCoordinator {
         }
         logEndCardClick(elementID: "customize_interests_button")
         let coordinator = HomeFeedSettingsCoordinator(navigationController: yearInReviewNavigationController, theme: theme, initialView: .interests(nil), presentation: .modal)
+        coordinator.didFinish = { [weak self] in
+            self?.homeFeedSettingsCoordinator = nil
+        }
         homeFeedSettingsCoordinator = coordinator
         coordinator.start()
     }
