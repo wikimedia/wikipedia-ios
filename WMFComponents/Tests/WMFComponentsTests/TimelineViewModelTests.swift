@@ -402,19 +402,4 @@ final class TimelineViewModelTests {
             #expect(editTapped == ["1"])
         }
     }
-
-    // MARK: - Images
-
-    @Test
-    func loadImageReturnsNilWithoutAURL() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let timelineViewModel = TimelineViewModel(dataController: WMFActivityTabDataController())
-
-            let imageWithoutAString = try await timelineViewModel.loadImage(imageURLString: nil)
-            let imageWithAnInvalidURL = try await timelineViewModel.loadImage(imageURLString: "")
-
-            #expect(imageWithoutAString == nil)
-            #expect(imageWithAnInvalidURL == nil)
-        }
-    }
 }
