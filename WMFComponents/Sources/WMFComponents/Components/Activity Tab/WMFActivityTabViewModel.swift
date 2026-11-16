@@ -219,7 +219,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public init(
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
-        authenticationState: LoginState
+        authenticationState: LoginState,
+        savedArticlesDataController: WMFSavedArticlesDataController = .shared
     ) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
@@ -245,6 +246,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         )
 
         self.articlesSavedViewModel = ArticlesSavedViewModel(
+            dataController: savedArticlesDataController,
             dateFormatter: dateFormatter,
             dateAccessibilityFormatter: dateAccessibilityFormatter
         )
@@ -265,6 +267,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
                     .store(in: &cancellables)
 
         self.timelineViewModel.activityTabViewModel = self
+
+        // The saved fetch waits for article summaries and is not awaited by `fetchData`, so the
+        // count can arrive after `fetchData` has finished.
+        self.articlesSavedViewModel.onSavedDataUpdated = { [weak self] in
+            self?.updateExploreAndEmptyState()
+        }
     }
 
     // MARK: - Loading
@@ -289,16 +297,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
 
-            shouldShowExploreCTA = articlesReadViewModel.totalArticlesRead == 0 &&
-                                   articlesSavedViewModel.articlesSavedAmount == 0 &&
-                                   isExploreFeedOn
-
-            isEmpty =
-                articlesReadViewModel.hoursRead == 0 &&
-                articlesReadViewModel.minutesRead == 0 &&
-                articlesSavedViewModel.articlesSavedAmount == 0 &&
-                (globalEditCount == 0 || globalEditCount == nil) &&
-                shouldShowEmptyState
+            updateExploreAndEmptyState()
 
             let elapsed = start.duration(to: .now)
             let minimum = Duration.milliseconds(500)
@@ -315,6 +314,19 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
 
     // MARK: - Updates
+
+    private func updateExploreAndEmptyState() {
+        shouldShowExploreCTA = articlesReadViewModel.totalArticlesRead == 0 &&
+                               articlesSavedViewModel.articlesSavedAmount == 0 &&
+                               isExploreFeedOn
+
+        isEmpty =
+            articlesReadViewModel.hoursRead == 0 &&
+            articlesReadViewModel.minutesRead == 0 &&
+            articlesSavedViewModel.articlesSavedAmount == 0 &&
+            (globalEditCount == 0 || globalEditCount == nil) &&
+            shouldShowEmptyState
+    }
 
     private func getGlobalEditCount() async {
         guard case .loggedIn = authenticationState else { return }
