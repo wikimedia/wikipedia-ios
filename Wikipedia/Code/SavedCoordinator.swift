@@ -28,6 +28,8 @@ final class SavedCoordinator: NSObject, Coordinator {
         }
     }
     private let dataStore: MWKDataStore
+    private let savedInstrumentation: SavedInstrumentation
+    private let discoverInstrumentation: DiscoverInstrumentation
 
     private(set) weak var savedViewController: WMFSavedHostingController?
     private weak var viewModel: WMFSavedViewModel?
@@ -35,9 +37,16 @@ final class SavedCoordinator: NSObject, Coordinator {
     private var readingListsCoordinator: ReadingListsCoordinator?
     private var progressObserver: SavedArticleDownloadProgressObserver?
 
-    init(theme: Theme, dataStore: MWKDataStore) {
+    init(
+        theme: Theme,
+        dataStore: MWKDataStore,
+        savedInstrumentation: SavedInstrumentation? = nil,
+        discoverInstrumentation: DiscoverInstrumentation? = nil
+    ) {
         self.theme = theme
         self.dataStore = dataStore
+        self.savedInstrumentation = savedInstrumentation ?? .shared
+        self.discoverInstrumentation = discoverInstrumentation ?? .shared
         super.init()
     }
 
@@ -194,6 +203,7 @@ final class SavedCoordinator: NSObject, Coordinator {
 extension SavedCoordinator: WMFSavedLoggingDelegate {
     func savedDidAppear() {
         ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
+        logSavedImpression()
     }
 
     func savedDidShowSegment(_ segment: WMFSavedViewModel.Segment) {
@@ -211,6 +221,21 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
             NavigationEventsFunnel.shared.logEvent(action: .savedAll)
         case .readingLists:
             NavigationEventsFunnel.shared.logEvent(action: .savedLists)
+        }
+        logSavedImpression()
+    }
+
+    /// The counts are what the screen holds at this moment. Before the first load they are 0.
+    /// The announcement card counts an impression each time the screen does, while it is on screen.
+    private func logSavedImpression() {
+        guard let viewModel else { return }
+        savedInstrumentation.logImpression(
+            segment: viewModel.segment,
+            listCount: viewModel.readingListsViewModel.readingLists.count,
+            articleCount: viewModel.allArticlesViewModel.articles.count
+        )
+        if viewModel.discoverHeaderViewModel?.announcementViewModel.isVisible == true {
+            discoverInstrumentation.logAnnouncementImpression()
         }
     }
 
@@ -234,18 +259,24 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
 // MARK: - WMFDiscoverAnnouncementLoggingDelegate
 
 extension SavedCoordinator: WMFDiscoverAnnouncementLoggingDelegate {
-    // Instrumentation lands with T440585.
-    func discoverAnnouncementDidAppear() {}
-    func discoverAnnouncementDidTapGetStarted() {}
-    func discoverAnnouncementDidTapNoThanks() {}
+    func discoverAnnouncementDidTapGetStarted() {
+        discoverInstrumentation.logAnnouncementGetStartedTap()
+    }
+
+    func discoverAnnouncementDidTapNoThanks() {
+        discoverInstrumentation.logAnnouncementNoThanksTap()
+    }
 }
 
 // MARK: - WMFDiscoverEntryCardLoggingDelegate
 
 extension SavedCoordinator: WMFDiscoverEntryCardLoggingDelegate {
-    // Instrumentation lands with T440585.
+    /// No event of its own: the impression of the segment says that Discover is on.
     func discoverEntryCardDidAppear() {}
-    func discoverEntryCardDidTap() {}
+
+    func discoverEntryCardDidTap() {
+        discoverInstrumentation.logEntryCardTap(segment: viewModel?.segment ?? .allArticles)
+    }
 }
 
 // MARK: - YearInReviewBadgeDelegate

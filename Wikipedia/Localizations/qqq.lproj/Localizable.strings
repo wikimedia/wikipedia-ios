@@ -19,6 +19,7 @@
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
 "about-wikipedia" = "Wikipedia {{Identical|Wikipedia}}";
+"about-year-in-review-illustrations-attribution" = "Credit for the person who made the Year in Review illustrations. Shown in the content license section of the About page.";
 "account-creation-captcha-cannot-see-image" = "Text asking the user if they cannot see the captcha image. $1 is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
 "account-creation-captcha-request-account" = "Text for link to 'Request an account' page.";
@@ -139,9 +140,6 @@
 "activity-tab-year-in-review-data-rich-title" = "Title of the Year in Review entry point on the Activity tab, shown to users with enough data for a personalized experience.";
 "activity-tab-year-in-review-low-data-subtitle" = "Subtitle of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
 "activity-tab-year-in-review-low-data-title" = "Title of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
-"activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"activity-tab-you-saved" = "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-your-impact" = "Title for editing section in activity tab.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "advanced-settings-title" = "Title for advanced settings screen";
@@ -1200,7 +1198,6 @@
 "potd-sample-entry-description" = "Text for sample entry image caption. It is displayed when app is unable to fetch Picture of the day data.";
 "potd-widget-description" = "Text for description of Picture of the day widget displayed when adding to home screen.";
 "potd-widget-title" = "Text for title of Picture of the day widget.";
-"preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "privacy-policy-title" = "Title for the privacy Policy";
 "problem-with-feature-title" = "Button title text that allows user to send feedback to the iOS support email about a particular feature.";
 "profile-button-accessibility-hint" = "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.";
@@ -1378,7 +1375,6 @@
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
-"settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-clear-donation-history" = "Title of the row on the settings screen that deletes the locally saved donation history.";
 "settings-community-feed-title" = "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}";
@@ -1792,10 +1788,10 @@
 "year-in-review-2026-edits-empty-title" = "Title of the Year in Review slide shown when the user did not make edits this year.";
 "year-in-review-2026-edits-subtitle" = "Subtitle of the Year in Review slide that shows the number of edits the user made this year.";
 "year-in-review-2026-edits-title" = "Title of the Year in Review slide that shows the number of edits the user made this year. The number follows it.";
-"year-in-review-2026-favorite-time-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader does not have one time of day when they read most.";
-"year-in-review-2026-favorite-time-empty-title" = "Title of the Year in Review slide shown when the reader does not have one time of day when they read most.";
-"year-in-review-2026-favorite-time-subtitle" = "Subtitle of the Year in Review slide that shows the time of day when the reader read most. $1 is replaced with a percentage, for example \"50%\".";
-"year-in-review-2026-favorite-time-title" = "Title of the Year in Review slide that shows the time of day when the reader read most. The time of day follows it, for example \"Evenings\".";
+"year-in-review-2026-favorite-time-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not read 2 or more articles in any one time of day this year. The times of day are Mornings (5:00 AM to 11:59 AM), Middays (12:00 PM to 12:59 PM), Afternoons (1:00 PM to 4:59 PM), Evenings (5:00 PM to 8:59 PM), Nights (9:00 PM to 11:59 PM) or Late nights (12:00 AM to 4:59 AM).";
+"year-in-review-2026-favorite-time-empty-title" = "Title of the Year in Review slide shown when the reader did not read 2 or more articles in any one time of day this year. The times of day are Mornings (5:00 AM to 11:59 AM), Middays (12:00 PM to 12:59 PM), Afternoons (1:00 PM to 4:59 PM), Evenings (5:00 PM to 8:59 PM), Nights (9:00 PM to 11:59 PM) or Late nights (12:00 AM to 4:59 AM).";
+"year-in-review-2026-favorite-time-subtitle" = "Subtitle of the Year in Review slide that shows the time of day when the reader read the most articles this year. $1 is replaced with the percentage of all the articles the reader opened this year that they opened in that time of day, for example \"50%\". The time of day is one of Mornings (5:00 AM to 11:59 AM), Middays (12:00 PM to 12:59 PM), Afternoons (1:00 PM to 4:59 PM), Evenings (5:00 PM to 8:59 PM), Nights (9:00 PM to 11:59 PM) or Late nights (12:00 AM to 4:59 AM).";
+"year-in-review-2026-favorite-time-title" = "Title of the Year in Review slide that shows the time of day when the reader read the most articles this year. The time of day follows it. It is one of Mornings (5:00 AM to 11:59 AM), Middays (12:00 PM to 12:59 PM), Afternoons (1:00 PM to 4:59 PM), Evenings (5:00 PM to 8:59 PM), Nights (9:00 PM to 11:59 PM) or Late nights (12:00 AM to 4:59 AM), in the reader's time zone.";
 "year-in-review-2026-feedback-email-first-line" = "Opening line of the pre-filled feedback email body for the Year in Review feature.";
 "year-in-review-2026-feedback-email-subject" = "Subject line of the pre-filled feedback email for the Year in Review feature.";
 "year-in-review-2026-games-card-button-title" = "Button on the Year in Review card that opens the games.";
@@ -1806,6 +1802,7 @@
 "year-in-review-2026-highlights-minutes-read" = "Label on the Year in Review highlights image. The number of minutes the reader spent reading this year follows it.";
 "year-in-review-2026-highlights-niche-category" = "Label on the Year in Review highlights image. The name of an unusual category the reader read about this year follows it.";
 "year-in-review-2026-highlights-rabbit-hole" = "Label on the Year in Review highlights image. The articles in the longest chain of links the reader followed this year follow it.";
+"year-in-review-2026-highlights-rank" = "Marker before each article in the \"Articles in my rotation\" list on the Year in Review highlights image, for example \"(1)\". $1 is replaced with the position of the article in the list, from 1 to 3.";
 "year-in-review-2026-highlights-rotation" = "Label on the Year in Review highlights image. A list of the articles the reader read many times this year follows it.";
 "year-in-review-2026-highlights-title" = "Title of the image the reader shares with their Year in Review highlights.";
 "year-in-review-2026-interests-card-button-title" = "Button on the Year in Review card that opens the interests screen.";
@@ -1830,6 +1827,7 @@
 "year-in-review-2026-most-time-article-subtitle" = "Shown on the Year in Review slide that reveals the article the reader spent the most time on this year. $1 is replaced with the number of minutes the reader spent on that article.";
 "year-in-review-2026-most-time-article-title" = "Title of the Year in Review slide that asks the reader which of the listed articles they spent the most time on. The list of articles follows it.";
 "year-in-review-2026-most-viewed-edited-articles-title" = "Title of the Year in Review slide that lists the articles the user edited that received the most views after the edit. The list of articles follows it.";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "Shown under each article on the Year in Review slide of the articles the user edited that received the most views. $1 is replaced with the number of views the article received.";
 "year-in-review-2026-niche-interest-subtitle" = "Subtitle of the Year in Review slide that shows an uncommon article category the reader read a lot.";
 "year-in-review-2026-niche-interest-title" = "Title of the Year in Review slide that shows an uncommon article category the reader read a lot. The name of the category follows it.";
 "year-in-review-2026-outro-share-button-title" = "Button on the last Year in Review slide. Tapping it shares the highlights of the Year in Review of the reader.";
@@ -1852,11 +1850,13 @@
 "year-in-review-2026-reread-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not visit at least two articles two or more times each, or when the reader does not have enough data for a personalized Year in Review.";
 "year-in-review-2026-reread-articles-title" = "Title of the Year in Review slide that lists up to three articles the reader visited two or more times this year. The list of articles follows it.";
 "year-in-review-2026-reread-articles-visit-count" = "Shown under each article on the Year in Review slide of articles visited multiple times. $1 is replaced with the number of times the reader visited the article this year.";
+"year-in-review-2026-reveal-answer-accessibility-hint" = "VoiceOver hint on a Year in Review slide that asks the reader to guess, for example the rabbit hole slide. A double tap shows the answer.";
 "year-in-review-2026-runner-up-topics-title" = "Title of the Year in Review slide that lists the topics the reader read most after the top topic. The list of topics follows it.";
 "year-in-review-2026-saved-articles-empty-subtitle" = "Subtitle of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-empty-title" = "Title of the Year in Review slide shown when the reader did not save articles this year.";
 "year-in-review-2026-saved-articles-title" = "Title of the Year in Review slide that shows the number of articles the reader saved this year. The number follows it.";
 "year-in-review-2026-share-text" = "Text the reader shares with their Year in Review highlights. $1 is replaced with a link to the Wikipedia app.";
+"year-in-review-2026-slide-accessibility-hint" = "VoiceOver hint on each Year in Review slide. A one-finger swipe does not change the slide.";
 "year-in-review-2026-store-card-button-title" = "Button on the Year in Review card that gives a discount on the Wikipedia store.";
 "year-in-review-2026-store-card-subtitle" = "Subtitle of the Year in Review card that gives a discount on the Wikipedia store. $1 is replaced with a percentage, for example \"15%\".";
 "year-in-review-2026-store-card-title" = "Title of the Year in Review card that gives a discount on the Wikipedia store.";
@@ -1865,6 +1865,12 @@
 "year-in-review-2026-thank-you-editor-and-donor-subtitle" = "Subtitle of the Year in Review slide that thanks the user, for users who edited and donated.";
 "year-in-review-2026-thank-you-editor-subtitle" = "Subtitle of the Year in Review slide that thanks the user, for users who edited.";
 "year-in-review-2026-thank-you-title" = "Title of the Year in Review slide that thanks the user for editing or donating.";
+"year-in-review-2026-time-of-day-afternoons" = "Time of day on the Year in Review slide that shows when the reader read the most articles this year. Afternoons are from 1:00 PM to 4:59 PM. It follows the title \"Favorite time to explore:\".";
+"year-in-review-2026-time-of-day-evenings" = "Time of day on the Year in Review slide that shows when the reader read the most articles this year. Evenings are from 5:00 PM to 8:59 PM. It follows the title \"Favorite time to explore:\".";
+"year-in-review-2026-time-of-day-late-nights" = "Time of day on the Year in Review slide that shows when the reader read the most articles this year. Late nights are from 12:00 AM to 4:59 AM. It follows the title \"Favorite time to explore:\".";
+"year-in-review-2026-time-of-day-middays" = "Time of day on the Year in Review slide that shows when the reader read the most articles this year. Middays are from 12:00 PM to 12:59 PM. It follows the title \"Favorite time to explore:\".";
+"year-in-review-2026-time-of-day-mornings" = "Time of day on the Year in Review slide that shows when the reader read the most articles this year. Mornings are from 5:00 AM to 11:59 AM. It follows the title \"Favorite time to explore:\".";
+"year-in-review-2026-time-of-day-nights" = "Time of day on the Year in Review slide that shows when the reader read the most articles this year. Nights are from 9:00 PM to 11:59 PM. It follows the title \"Favorite time to explore:\".";
 "year-in-review-2026-top-topic-empty-subtitle" = "Subtitle of the Year in Review slide shown when no one topic is the top topic of the reader this year.";
 "year-in-review-2026-top-topic-empty-title" = "Title of the Year in Review slide shown when no one topic is the top topic of the reader this year.";
 "year-in-review-2026-top-topic-sentence-africa" = "Shown after the subtitle of the Year in Review slide that shows the top topic of the reader, when the top topic is \"Africa\".";

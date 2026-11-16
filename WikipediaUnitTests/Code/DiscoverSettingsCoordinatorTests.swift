@@ -121,6 +121,72 @@ final class DiscoverSettingsCoordinatorTests: XCTestCase {
         XCTAssertEqual(navigationController.viewControllers.count, 3)
     }
 
+    // MARK: - Discover turned on
+
+    /// The switch goes on with interests as the source and no interest picked. The interests
+    /// screen opens at once, so the reader does not meet an empty list.
+    func testTurnOnWithoutInterestsOpensTheInterestsScreen() async throws {
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let coordinator = makeCoordinator(navigationController: navigationController)
+        let viewModel = WMFDiscoverSettingsViewModel(settings: .default, interestCount: 0, dataController: dataController)
+        coordinator.showSettings(viewModel: viewModel)
+        XCTAssertNil(coordinator.interestsCoordinator)
+
+        viewModel.isEnabledBinding.wrappedValue = true
+
+        XCTAssertNotNil(coordinator.interestsCoordinator)
+    }
+
+    /// Back on that screen with no interest picked. Discover goes back off, as it was before the switch.
+    func testBackFromTheInterestsScreenOpenedByTheSwitchTurnsDiscoverOff() throws {
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let coordinator = makeCoordinator(navigationController: navigationController)
+        let viewModel = WMFDiscoverSettingsViewModel(settings: .default, interestCount: 0, dataController: dataController)
+        coordinator.showSettings(viewModel: viewModel)
+        viewModel.isEnabledBinding.wrappedValue = true
+        XCTAssertTrue(viewModel.settings.isEnabled)
+        let interestsCoordinator = try XCTUnwrap(coordinator.interestsCoordinator)
+
+        interestsCoordinator.didGoBack?()
+
+        XCTAssertFalse(viewModel.settings.isEnabled)
+        XCTAssertFalse(viewModel.isShowingTurnOffAlert)
+    }
+
+    /// Back on the interests screen that Adjust to interests opened. The source screen shows the
+    /// saved source again.
+    func testBackFromTheInterestsScreenOpenedByAdjustShowsTheSavedSourceAgain() async throws {
+        _ = try await saveSettings(source: .saved, articleCount: 5)
+        let sourceViewModel = WMFDiscoverSetupViewModel(availableSources: [.interests, .saved, .history], currentSource: .saved, presentation: .settings, readingListDataController: dataController)
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let coordinator = makeCoordinator(navigationController: navigationController)
+        coordinator.showSource(viewModel: sourceViewModel)
+        sourceViewModel.select(.interests)
+        sourceViewModel.confirmAdjust()
+        XCTAssertEqual(sourceViewModel.selectedSource, .interests)
+        let interestsCoordinator = try XCTUnwrap(coordinator.interestsCoordinator)
+
+        interestsCoordinator.didGoBack?()
+
+        XCTAssertEqual(sourceViewModel.selectedSource, .saved)
+        let settings = await dataController.settings
+        XCTAssertEqual(settings.source, .saved)
+    }
+
+    /// From the Interests row the source is interests already, so Back has nothing to undo.
+    func testBackFromTheInterestsScreenOpenedByTheRowUndoesNothing() async throws {
+        let settings = try await saveSettings(source: .interests, articleCount: 5)
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let coordinator = makeCoordinator(navigationController: navigationController)
+        let viewModel = WMFDiscoverSettingsViewModel(settings: settings, interestCount: 2, dataController: dataController)
+        coordinator.showSettings(viewModel: viewModel)
+
+        viewModel.didTapInterests?()
+
+        let interestsCoordinator = try XCTUnwrap(coordinator.interestsCoordinator)
+        XCTAssertNil(interestsCoordinator.didGoBack)
+    }
+
     // MARK: - Back from the Discover settings
 
     func testBackFromTheDiscoverSettingsMakesTheList() async throws {

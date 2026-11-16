@@ -71,8 +71,10 @@ public struct WMFYearInReviewSlideViewModel: Identifiable {
     /// A boolean in the .riv that the artwork sets. True asks for light controls. When the slide
     /// loads, its value replaces `contentStyle`.
     public let lightContentFlag: WMFRiveBool?
+
     /// The animation time that the share image shows. `nil` uses `WMFYearInReviewSlideImageExporter.poseTime`.
     public let sharePoseTime: TimeInterval?
+
 
     public init(
         id: String,

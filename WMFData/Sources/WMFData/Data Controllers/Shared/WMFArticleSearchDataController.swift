@@ -104,7 +104,9 @@ public actor WMFArticleSearchDataController {
             "redirects": "1",
             "continue": "",
             "format": "json",
-            "formatversion": "2"
+            "formatversion": "2",
+            "errorformat": "html",
+            "errorsuselocal": "1"
         ]
 
         if fullText {
@@ -179,7 +181,9 @@ public actor WMFArticleSearchDataController {
                 "pilimit": limitString,
                 "ppprop": "displaytitle",
                 "format": "json",
-                "formatversion": "2"
+                "formatversion": "2",
+                "errorformat": "html",
+                "errorsuselocal": "1"
             ]
 
             switch sortStyle {
@@ -213,7 +217,9 @@ public actor WMFArticleSearchDataController {
                 "explaintext": "",
                 "exchars": String(extractCharacters),
                 "format": "json",
-                "formatversion": "2"
+                "formatversion": "2",
+                "errorformat": "html",
+                "errorsuselocal": "1"
             ]
         }
 
@@ -241,7 +247,7 @@ public actor WMFArticleSearchDataController {
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
         let cancellation = WMFRequestCancellation()
 
-        return try await withTaskCancellationHandler {
+        let response: WMFServiceResponse<WMFArticleSearchAPIResponse> = try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in
                 let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<WMFArticleSearchAPIResponse>, Error>) in
                     continuation.resume(with: result)
@@ -251,6 +257,13 @@ public actor WMFArticleSearchDataController {
         } onCancel: {
             cancellation.cancel()
         }
+
+        // The API reports its errors in the body of a 200 response. A body with an error is not an empty result.
+        if let error = response.value.errors?.first {
+            throw WMFDataControllerError.mediaWikiResponseError(error)
+        }
+
+        return response
     }
 }
 
@@ -258,6 +271,7 @@ public actor WMFArticleSearchDataController {
 
 struct WMFArticleSearchAPIResponse: Decodable, Sendable {
     let query: WMFArticleSearchQuery?
+    let errors: [WMFMediaWikiError]?
 }
 
 struct WMFArticleSearchQuery: Decodable, Sendable {

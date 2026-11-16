@@ -9,6 +9,7 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     public struct Card: Identifiable {
         public enum Action {
             case store
+            case topRead
             case whichWikipedia
         }
 
@@ -17,6 +18,24 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
         public let body: String
         public let buttonTitle: String
         public let action: Action
+        public let uppercaseLocale: Locale?
+
+        init(id: String, title: String, body: String, buttonTitle: String, action: Action, uppercaseLocale: Locale? = nil) {
+            self.id = id
+            self.title = title
+            self.body = body
+            self.buttonTitle = buttonTitle
+            self.action = action
+            self.uppercaseLocale = uppercaseLocale
+        }
+
+        /// The title in capital letters, as the card shows it.
+        public var uppercasedTitle: String {
+            guard let uppercaseLocale else {
+                return title.localizedUppercase
+            }
+            return title.uppercased(with: uppercaseLocale)
+        }
     }
 
     // MARK: - Design colors
@@ -63,21 +82,29 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     private let contributorGiftBody = CommonStrings.yearInReviewStoreCardSubtitle(percent: NumberFormatter.localizedString(from: NSNumber(value: storeDiscount), number: .percent))
     private let contributorGiftButtonTitle = CommonStrings.yearInReviewStoreCardButtonTitle
 
+    /// The most-read articles card only goes to readers with English as an app language, because
+    /// it links to an English blog post. So its copy is in English and is not translated.
+    private let topReadTitle = "2026's most-read articles"
+    private let topReadBody = "Learn what everyone read about on Wikipedia this year. Did the World Cup make the list?"
+    private let topReadButtonTitle = "Explore the top 25"
+
     private let whichWikipediaTitle = CommonStrings.yearInReviewQuizCardTitle
     private let whichWikipediaBody = CommonStrings.yearInReviewQuizCardSubtitle
     private let whichWikipediaButtonTitle = CommonStrings.yearInReviewQuizCardButtonTitle
 
     // MARK: - State
 
-    /// The cards in display order. The contributor gift card is only here for contributors.
+    /// The cards in display order. The contributor gift card is only here for contributors, and the
+    /// most-read articles card is only here for readers with English as an app language.
     public let cards: [Card]
 
     // MARK: - Callbacks
 
     public var didTapStore: (@MainActor @Sendable () -> Void)?
+    public var didTapTopRead: (@MainActor @Sendable () -> Void)?
     public var didTapWhichWikipedia: (@MainActor @Sendable () -> Void)?
 
-    public init(isContributor: Bool) {
+    public init(isContributor: Bool, hasEnglishAppLanguage: Bool = false) {
         var cards: [Card] = []
         if isContributor {
             cards.append(Card(
@@ -86,6 +113,16 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
                 body: contributorGiftBody,
                 buttonTitle: contributorGiftButtonTitle,
                 action: .store
+            ))
+        }
+        if hasEnglishAppLanguage {
+            cards.append(Card(
+                id: "topRead",
+                title: topReadTitle,
+                body: topReadBody,
+                buttonTitle: topReadButtonTitle,
+                action: .topRead,
+                uppercaseLocale: Locale(identifier: "en")
             ))
         }
         cards.append(Card(
@@ -104,6 +141,8 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
         switch card.action {
         case .store:
             didTapStore?()
+        case .topRead:
+            didTapTopRead?()
         case .whichWikipedia:
             didTapWhichWikipedia?()
         }

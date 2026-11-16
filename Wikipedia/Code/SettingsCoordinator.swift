@@ -287,6 +287,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showDiscoverSettings() {
         guard let settingsNavigationController else { return }
+        DiscoverInstrumentation.shared.logSettingsRowTap()
         let coordinator = DiscoverSettingsCoordinator(navigationController: settingsNavigationController, dataStore: dataStore, theme: theme, origin: .settings)
         discoverSettingsCoordinator = coordinator
         coordinator.start()

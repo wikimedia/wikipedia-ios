@@ -83,19 +83,6 @@ final class WMFDiscoverAnnouncementViewModelTests: XCTestCase {
         XCTAssertEqual(loggingDelegate.noThanksTaps, 1)
     }
 
-    func testTheImpressionIsLoggedOncePerInstance() {
-        let viewModel = makeViewModel()
-        viewModel.viewDidAppear()
-        viewModel.viewDidAppear()
-        XCTAssertEqual(loggingDelegate.impressions, 1)
-
-        let hidden = makeViewModel()
-        WMFDeveloperSettingsDataController.shared.enableDiscover = false
-        hidden.refresh()
-        hidden.viewDidAppear()
-        XCTAssertEqual(loggingDelegate.impressions, 1, "a hidden card is not an impression")
-    }
-
     func testRefreshFollowsTheDeveloperSettings() {
         let viewModel = makeViewModel()
         XCTAssertTrue(viewModel.isVisible)
@@ -110,11 +97,9 @@ final class WMFDiscoverAnnouncementViewModelTests: XCTestCase {
     }
 
     private final class MockLoggingDelegate: WMFDiscoverAnnouncementLoggingDelegate {
-        var impressions = 0
         var getStartedTaps = 0
         var noThanksTaps = 0
 
-        func discoverAnnouncementDidAppear() { impressions += 1 }
         func discoverAnnouncementDidTapGetStarted() { getStartedTaps += 1 }
         func discoverAnnouncementDidTapNoThanks() { noThanksTaps += 1 }
     }

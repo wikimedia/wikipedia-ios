@@ -293,23 +293,6 @@ final class RemoteNotificationsModelController {
         return try distinctWikis(moc: viewContext, predicate: predicate)
     }
     
-    func distinctWikis(backgroundContext: NSManagedObjectContext, predicate: NSPredicate?, completion: @escaping (Result<Set<String>, Error>) -> Void) {
-        backgroundContext.perform { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            do {
-                let results = try self.distinctWikis(moc: backgroundContext, predicate: predicate)
-                completion(.success(results))
-            } catch let error {
-                completion(.failure(error))
-            }
-            
-        }
-    }
-    
     // MARK: Filter Settings
     
     func getFilterSettingsFromLibrary() -> NSDictionary? {

@@ -49,7 +49,8 @@ final class WMFHomeFeedInterestsSettingsViewControllerTests {
         show(viewController)
 
         let doneButton = try #require(viewController.navigationItem.rightBarButtonItem)
-        #expect(doneButton.title == CommonStrings.doneTitle)
+        #expect(doneButton.tag == WMFLargeCloseButtonImageType.prominentCheck.rawValue, "Done uses the checkmark of the other screens")
+        #expect(doneButton.accessibilityLabel == CommonStrings.doneTitle)
         #expect(doneButton.accessibilityIdentifier == AccessibilityIdentifiers.Interests.doneButton)
         #expect(doneButton.isEnabled == false)
 

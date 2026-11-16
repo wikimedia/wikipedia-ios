@@ -2,10 +2,11 @@ import Foundation
 import Combine
 import WMFData
 
+@MainActor
 public protocol WMFSavedAllArticlesLoggingDelegate: AnyObject {
-    @MainActor func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool)
-    @MainActor func savedAllArticlesDidTapOpenInNewTab()
-    @MainActor func savedAllArticlesDidTapShare(fromLongPress: Bool)
+    func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool)
+    func savedAllArticlesDidTapOpenInNewTab()
+    func savedAllArticlesDidTapShare(fromLongPress: Bool)
 }
 
 @MainActor

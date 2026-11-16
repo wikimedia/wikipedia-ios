@@ -34,54 +34,6 @@
 			<string>%1$d dage</string>
 		</dict>
 	</dict>
-	<key>activity-tab-you-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Du redigerede %1$#@v1@ i denne uge.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d gang</string>
-			<key>other</key>
-			<string>%1$d gange</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-read</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Du læste %1$#@v1@ i denne uge.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d artikel</string>
-			<key>other</key>
-			<string>%1$d artikler</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-saved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Du gemte %1$#@v1@ i denne uge.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d artikel</string>
-			<key>other</key>
-			<string>%1$d artikler</string>
-		</dict>
-	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -328,6 +280,54 @@
 			<string> %1$d linje uredigeret</string>
 			<key>other</key>
 			<string> %1$d linjer uredigeret</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-daily</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Dine anbefalinger gemmes lokalt på din enhed.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Opdag opdateres med %1$d ny artikel hver dag</string>
+			<key>other</key>
+			<string>Opdag opdateres med %1$d nye artikler hver dag</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-monthly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Dine anbefalinger gemmes lokalt på din enhed.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> Opdag opdateres med %1$d ny artikel hver måned</string>
+			<key>other</key>
+			<string>Opdag opdateres med %1$d nye artikler hver måned</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-weekly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Dine anbefalinger gemmes lokalt på din enhed.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> Opdag opdateres med %1$d ny artikel hver uge</string>
+			<key>other</key>
+			<string>Opdag opdateres med %1$d nye artikler hver uge</string>
 		</dict>
 	</dict>
 	<key>donation-reminder-card-body</key>

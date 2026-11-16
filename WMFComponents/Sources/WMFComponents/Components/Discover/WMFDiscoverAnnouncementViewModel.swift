@@ -1,10 +1,12 @@
 import Foundation
 import WMFData
 
+/// The impression has no callback here. The Saved screen logs it with its own impression, each
+/// time the card is on screen.
+@MainActor
 public protocol WMFDiscoverAnnouncementLoggingDelegate: AnyObject {
-    @MainActor func discoverAnnouncementDidAppear()
-    @MainActor func discoverAnnouncementDidTapGetStarted()
-    @MainActor func discoverAnnouncementDidTapNoThanks()
+    func discoverAnnouncementDidTapGetStarted()
+    func discoverAnnouncementDidTapNoThanks()
 }
 
 /// The onboarding card that introduces Discover on the Saved tab. One instance is shared by the
@@ -22,7 +24,6 @@ public final class WMFDiscoverAnnouncementViewModel: ObservableObject {
     public weak var loggingDelegate: WMFDiscoverAnnouncementLoggingDelegate?
 
     private let dataController: WMFDiscoverDataController
-    private var didLogImpression = false
 
     public init(dataController: WMFDiscoverDataController = .shared) {
         self.dataController = dataController
@@ -32,12 +33,6 @@ public final class WMFDiscoverAnnouncementViewModel: ObservableObject {
     /// Re-reads the persisted state, for example after the developer settings change.
     public func refresh() {
         isVisible = dataController.shouldShowAnnouncement
-    }
-
-    public func viewDidAppear() {
-        guard isVisible, !didLogImpression else { return }
-        didLogImpression = true
-        loggingDelegate?.discoverAnnouncementDidAppear()
     }
 
     public func tapGetStarted() {

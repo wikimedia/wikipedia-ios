@@ -413,10 +413,10 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
 extension WMFImageRecommendationBottomSheetView: UITextViewDelegate {
     public func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
         if case .link = textItem.content {
-            delegate?.goToImageCommonsPage()
-            return nil // Prevent default action
+            return UIAction { [weak self] _ in
+                self?.delegate?.goToImageCommonsPage()
+            }
         }
         return defaultAction
     }
 }
-

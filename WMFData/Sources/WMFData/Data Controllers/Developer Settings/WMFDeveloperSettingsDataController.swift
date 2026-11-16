@@ -99,6 +99,19 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { saveFlag(.allowGestureZoomArticleWebview, newValue) }
     }
 
+    /// Debugging convenience: shows the Analytics Inspector pill over the app with the events the
+    /// event pipeline receives.
+    public var showAnalyticsInspector: Bool {
+        get { loadFlag(.developerSettingsShowAnalyticsInspector) }
+        set {
+            let oldValue = showAnalyticsInspector
+            saveFlag(.developerSettingsShowAnalyticsInspector, newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.analyticsInspectorVisibilityDidChange, object: nil)
+            }
+        }
+    }
+
     // MARK: - Year in Review
 
     /// Debugging convenience: while on, 2026 Year in Review shows before its launch date. The 2026
@@ -323,7 +336,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     // MARK: - Discover
 
-    /// Gates the whole Discover feature while its user stories ship one by one. Off in production.
+    /// Forces the whole Discover feature on, without the remote feature config. In production the
+    /// remote key `iosv1.discoverExperimentEnabled` turns the feature on.
     public var enableDiscover: Bool {
         get { loadFlag(.developerSettingsEnableDiscover) }
         set {

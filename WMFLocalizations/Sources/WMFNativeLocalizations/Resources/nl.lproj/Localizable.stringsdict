@@ -34,54 +34,6 @@
 			<string>%1$d dagen</string>
 		</dict>
 	</dict>
-	<key>activity-tab-you-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt deze week %1$#@v1@ een pagina bewerkt.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>één keer</string>
-			<key>other</key>
-			<string>%1$d keer</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-read</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt deze week %1$#@v1@ gelezen.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>één pagina</string>
-			<key>other</key>
-			<string>%1$d pagina's</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-saved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt deze week %1$#@v1@ opgeslagen.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>één pagina</string>
-			<key>other</key>
-			<string>%1$d pagina's</string>
-		</dict>
-	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

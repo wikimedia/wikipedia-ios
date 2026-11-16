@@ -126,9 +126,11 @@ extension NotificationsCenterCommonViewModel {
 
         } else {
 
-            let prefix = namespace != .main ? "\(namespace.canonicalName):" : ""
+            // namespacePrefix(for:) prefers the project-specific namespace name from the server-provided
+            // full title (e.g. "Commons:" on Commons) over the Wikipedia-only canonical name.
+            let prefix = namespace != .main ? "\(namespacePrefix(for: namespace)):" : ""
             return "\(prefix)\(normalizedTitle)"
-            
+
         }
     }
     private func getActionType(namespace: PageNamespace) -> NotificationsCenterActionData.LoggingLabel? {

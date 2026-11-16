@@ -189,9 +189,6 @@
 "activity-tab-very-satisfied" = "Çok memnunum";
 "activity-tab-very-unsatisfied" = "Hiç memnun değilim";
 "activity-tab-week-graph-label" = "Hafta";
-"activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|$1 kez}} düzenleme yaptınız.";
-"activity-tab-you-read" = "Bu hafta {{PLURAL:$1|$1 makale}} okudunuz.";
-"activity-tab-you-saved" = "Bu hafta {{PLURAL:$1|$1 makale}} kaydettiniz.";
 "activity-tab-your-impact" = "Etkiniz";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
@@ -266,8 +263,6 @@
 "clearing-cache-error" = "Önbellek temizlenirken hata oluştu.";
 "clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-all-tabs" = "Tüm sekmeleri kapat";
-"close-all-tabs-confirmation" = "Tüm $1 sekmeyi kapatmak ister misiniz? Bu işlem geri alınamaz.";
-"close-all-tabs-confirmation-number" = "Tüm $1 sekme kapatılsın mı?";
 "close-all-tabs-confirmation-subtitle-with-value" = "$1 {{PLURAL:$1|sekmeyi}} kapatmak istiyor musunuz? Bu işlem geri alınamaz.";
 "close-all-tabs-confirmation-title-with-value" = "$1 {{PLURAL:$1|sekme}} kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";
@@ -1073,7 +1068,6 @@
 "potd-sample-entry-description" = "Endonezya'nın Batı Sumatra ilinde yer alan Tanah Datar'da gerçekleştirilen geleneksel boğa yarışı pacu jawi'de (boğa yarışı) bir jokey, koşan iki boğaya tutunurken, 2015, Final-45.";
 "potd-widget-description" = "Topluluğumuz tarafından seçilen güzel günlük fotoğrafın keyfini çıkarın.";
 "potd-widget-title" = "Günün resmi";
-"preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "privacy-policy-title" = "Gizlilik ilkesi";
 "problem-with-feature-title" = "Özellikle ilgili sorun";
 "profile-button-accessibility-hint" = "Profil görünümüne gider.";
@@ -1107,8 +1101,6 @@
 "reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
 "reading-list-api-error-list-limit" = "Senkronize edilen liste sayısı limitine ulaştığınız için bu liste senkronize edilmiyor.";
 "reading-list-create-new-list-button-title" = "Okuma listesi oluşturun";
-"reading-list-create-new-list-description" = "Açıklama";
-"reading-list-create-new-list-reading-list-name" = "Okuma listesinin adı";
 "reading-list-create-new-list-title" = "Yeni bir liste oluşturun";
 "reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
 "reading-list-detail-search-placeholder" = "Okuma listesinde ara";
@@ -1129,7 +1121,9 @@
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
 "reading-list-name-user-created-annotation" = "_[kullanıcı oluşturuldu]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
 "reading-list-sync-disabled-panel-message" = "Başka bir cihazda Vikipedi hesabınız için okuma listesi senkronizasyonu devre dışı bırakıldı. Ayarlarınızı güncelleyerek senkronizasyonu tekrar açabilirsiniz.";
 "reading-list-sync-disabled-panel-title" = "Senkronize devre dışı";
@@ -1222,7 +1216,6 @@
 "settings-clear-cache" = "Önbellekteki verileri temizle";
 "settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
 "settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
-"settings-clear-cache-cancel" = "İptal";
 "settings-clear-cache-ok" = "Önbelleği temizle";
 "settings-donate" = "Bağış yap";
 "settings-explore-games-subtitle" = "Vikipedi içeriğine dayalı günlük oyunlar";

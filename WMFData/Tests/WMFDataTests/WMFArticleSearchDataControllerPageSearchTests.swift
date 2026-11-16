@@ -68,6 +68,42 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         XCTAssertEqual(response.results.count, 6)
     }
 
+    /// The API reports an error in the body of a 200 response. The search must fail, not return an empty result.
+    func testSearchPagesWithAPIErrorBodyThrows() async {
+        do {
+            _ = try await controller(fixture: "article-search-error-get").searchPages(term: "Barack", project: enProject, limit: 6, fullText: false)
+            XCTFail("Expected an error")
+        } catch {
+            guard case WMFDataControllerError.mediaWikiResponseError(let mediaWikiError) = error else {
+                return XCTFail("Unexpected error: \(error)")
+            }
+            XCTAssertEqual(mediaWikiError.code, "cirrussearch-backend-error")
+        }
+    }
+
+    func testSearchNearbyWithAPIErrorBodyThrows() async {
+        do {
+            _ = try await controller(fixture: "article-search-error-get").searchNearby(project: enProject, latitude: 48.8566, longitude: 2.3522, radius: 1000, limit: 5)
+            XCTFail("Expected an error")
+        } catch {
+            guard case WMFDataControllerError.mediaWikiResponseError = error else {
+                return XCTFail("Unexpected error: \(error)")
+            }
+        }
+    }
+
+    /// Without `errorformat=html` the API reports errors in a shape that the response model does not decode.
+    func testSearchPagesAsksForHTMLErrorFormat() async throws {
+        let service = CapturingSearchService()
+        let controller = WMFArticleSearchDataController(basicService: service)
+
+        _ = try await controller.searchPages(term: "Barack", project: enProject, limit: 6, fullText: false)
+
+        let parameters = try XCTUnwrap(service.capturedParameters.first)
+        XCTAssertEqual(parameters["errorformat"] as? String, "html")
+        XCTAssertEqual(parameters["errorsuselocal"] as? String, "1")
+    }
+
     func testSearchPagesRejectsWikidata() async {
         do {
             _ = try await controller(fixture: "article-search-prefix-get").searchPages(term: "Barack", project: .wikidata, limit: 6, fullText: false)

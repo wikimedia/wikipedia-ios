@@ -351,15 +351,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     }
 
-    fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let sections = articleFetchedResultsController?.sections,
-              indexPath.section < sections.count,
-              indexPath.item < sections[indexPath.section].numberOfObjects else {
-            return nil
-        }
-        return articleFetchedResultsController?.object(at: indexPath)
-    }
-
     public func logListViewImpression(forIndexPath indexPath: IndexPath) {
 
     }
@@ -966,30 +957,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     var useOverlay: Bool {
         return traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
-    }
-
-    func updateLayout(_ traitCollection: UITraitCollection, animated: Bool) {
-        if useOverlay {
-            switch viewMode {
-            case .search:
-                viewMode = .searchOverlay
-            case .list:
-                fallthrough
-            case .map:
-                viewMode = .listOverlay
-            default:
-                break
-            }
-        } else {
-            switch viewMode {
-            case .searchOverlay:
-                viewMode = .search
-            case .listOverlay:
-                viewMode = .map
-            default:
-                break
-            }
-        }
     }
 
     enum ViewMode {
@@ -1927,14 +1894,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     // MARK: - Search Filter Dropdown
 
-    fileprivate func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-
-    }
-
-    fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-
-    }
-
     fileprivate func updateSearchBarText(forSearch search: PlaceSearch) {
 
         guard let searchBar = navigationItem.searchController?.searchBar else {
@@ -1947,14 +1906,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             searchBar.text = search.string ?? search.localizedDescription
         }
 
-    }
-
-    fileprivate func updateSearchBarText() {
-        guard let search = currentSearch else {
-            navigationItem.searchController?.searchBar.text = nil
-            return
-        }
-        updateSearchBarText(forSearch: search)
     }
 
     func setupEmptySearchOverlayView() {
@@ -2235,13 +2186,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     // MARK: - UITableViewDelegate
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let article = article(at: indexPath) else {
-            return
-        }
-        perform(action: .read, onArticle: article)
-    }
 
     // MARK: - PlaceSearchSuggestionControllerDelegate
 

@@ -690,7 +690,10 @@ final class WMFDiscoverReadingListDataControllerTests {
                 await Task.yield()
             }
             try await saveSettings(WMFDiscoverSettings(isEnabled: true, articleCount: 2, cadence: .weekly, source: .history), in: controller)
-            _ = try await secondList
+            // The settings change stops the run. The stop can land before or after the run saves
+            // its list, so the run either returns the list or throws. The next generation is due
+            // on both paths: the stored inputs are the old ones or there are none.
+            _ = try? await secondList
 
             #expect(try await controller.isGenerationDue(now: date(2026, 10, 27)))
         }

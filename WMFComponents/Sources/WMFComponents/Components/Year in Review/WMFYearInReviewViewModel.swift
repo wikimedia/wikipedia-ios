@@ -18,40 +18,50 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     public static let progressBarTopGap = WMFSpacing.medium
 
     /// The id of the end screen page, which comes after the last slide. It is not a slide: it has no
-    /// .riv, no logging, and no share or donate button.
+    /// .riv, no slide impression, and no share button in the toolbar. It keeps the donate button of the
+    /// slide chrome, and its own button shares the highlights.
     public static let endPageID = "yearInReviewEnd"
 
+    /// The `page` name of the end screen in the instrumentation, the same as Android. The donate
+    /// campaign ID is made from it.
+    public static let endLoggingID = "end"
+
     public struct LocalizedStrings {
-        public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
         public let moreButtonAccessibilityLabel: String
         public let shareButtonTitle: String
+        public let shareHighlightsButtonTitle: String
         public let donateButtonTitle: String
         public let learnMoreButtonTitle: String
         public let aboutInsightsButtonTitle: String
         public let shareFeedbackButtonTitle: String
-        public let slidePositionAccessibilityValue: (Int, Int) -> String
+        /// Tells a VoiceOver reader how to change the slide. A one-finger swipe does not change it.
+        public let slideAccessibilityHint: String
+        /// On a slide with an answer, while VoiceOver runs. A double tap shows the answer.
+        public let revealAnswerAccessibilityHint: String
 
         public init(
-            wIconAccessibilityLabel: String,
             closeButtonAccessibilityLabel: String,
             moreButtonAccessibilityLabel: String,
             shareButtonTitle: String,
+            shareHighlightsButtonTitle: String,
             donateButtonTitle: String,
             learnMoreButtonTitle: String,
             aboutInsightsButtonTitle: String,
             shareFeedbackButtonTitle: String,
-            slidePositionAccessibilityValue: @escaping (Int, Int) -> String
+            slideAccessibilityHint: String,
+            revealAnswerAccessibilityHint: String
         ) {
-            self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
             self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.shareButtonTitle = shareButtonTitle
+            self.shareHighlightsButtonTitle = shareHighlightsButtonTitle
             self.donateButtonTitle = donateButtonTitle
             self.learnMoreButtonTitle = learnMoreButtonTitle
             self.aboutInsightsButtonTitle = aboutInsightsButtonTitle
             self.shareFeedbackButtonTitle = shareFeedbackButtonTitle
-            self.slidePositionAccessibilityValue = slidePositionAccessibilityValue
+            self.slideAccessibilityHint = slideAccessibilityHint
+            self.revealAnswerAccessibilityHint = revealAnswerAccessibilityHint
         }
     }
 
@@ -60,8 +70,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// The slide that shows its answer in place. The answer has its own logging ID.
     private var answerShownSlideID: String?
 
-    /// True while VoiceOver runs. `WMFYearInReviewView` sets it. A VoiceOver reader cannot tap an
-    /// answer in the .riv, so the answer of a slide is the next slide in the pager.
+    /// When true, the answer of a slide is the next slide in the pager. Nothing sets it now: with
+    /// VoiceOver, a double tap shows the answer in place, the same as a tap on a card.
     @Published var showsAnswersAsSlides = false
 
     /// The slides in the pager, in order. Without VoiceOver, a slide and its answer take one position.
@@ -85,6 +95,10 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     /// The end screen, shown as the page after the last slide. The coordinator sets it. `nil` means there is no end screen.
     @Published public var endViewModel: WMFYearInReviewEndViewModel?
+
+    /// What "Share highlights" on the end screen shares. The coordinator sets it. `nil` in the
+    /// collective flow, which has no highlights.
+    @Published public var highlights: WMFYearInReviewHighlights?
 
     /// The content style that each loaded slide reads from its .riv, by slide id.
     @Published private(set) var loadedContentStyles: [String: WMFYearInReviewSlideViewModel.ContentStyle] = [:]
@@ -148,7 +162,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
             ?? 0
     }
 
-    /// `nil` on the end screen, so it has no share or donate button and logs no slide impression.
+    /// `nil` on the end screen, so it has no share button and logs no slide impression.
     public var currentSlide: WMFYearInReviewSlideViewModel? {
         let pagerSlides = pagerSlides
         guard !isOnEnd, pagerSlides.indices.contains(currentSlideIndex) else { return nil }
@@ -164,6 +178,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return currentSlide
     }
 
+    /// Empty on the end screen. Only the donate tap logs `endLoggingID` there, so the Done, Learn
+    /// more, About insights and Share feedback data stay as before.
     private var currentLoggingID: String {
         currentShownSlide?.loggingID ?? ""
     }
@@ -243,10 +259,6 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return currentSlideIndex == max(pagerSlides.count - 1, 0)
     }
 
-    var slidePositionAccessibilityValue: String {
-        localizedStrings.slidePositionAccessibilityValue(currentPageIndex + 1, pageCount)
-    }
-
     var progressBarTopInset: CGFloat {
         topSafeAreaInset + Self.progressBarTopGap
     }
@@ -266,13 +278,24 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         showsShareButton(on: currentSlide)
     }
 
+    /// The end screen shows "Share highlights" only with enough highlights.
+    var showsShareHighlightsButton: Bool {
+        highlights?.isShareable ?? false
+    }
+
     /// Matches 2025 behavior. A slide with its own donate button does not show the toolbar button too.
     var showsDonateButton: Bool {
-        showsDonateButton(on: currentSlide)
+        isOnEnd ? endShowsDonateButton : showsDonateButton(on: currentSlide)
+    }
+
+    /// The end screen keeps the donate button of the slide chrome, but not the share button
+    /// (T438574). Android shows it there too.
+    var endShowsDonateButton: Bool {
+        endViewModel != nil && !hidesDonate()
     }
 
     /// The slide whose buttons are in the toolbar. On the end screen, it is the last slide. The end
-    /// screen hides its buttons, and they fade in while the reader swipes back to it.
+    /// screen hides its share button, and it fades in while the reader swipes back to the last slide.
     var toolbarSlide: WMFYearInReviewSlideViewModel? {
         isOnEnd ? pagerSlides.last : currentSlide
     }
@@ -281,8 +304,38 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         showsShareButton(on: toolbarSlide)
     }
 
+    /// On the last slide, the toolbar also holds the donate button of the end screen, so that it
+    /// fades in during the swipe instead of appearing when the swipe ends.
     var toolbarShowsDonateButton: Bool {
-        showsDonateButton(on: toolbarSlide)
+        showsDonateButton(on: toolbarSlide) || (toolbarIsOnLastPage && endShowsDonateButton)
+    }
+
+    /// The donate button of the last slide stays during the swipe to the end screen. If only the end
+    /// screen has one, for example after "You matter" with its own donate button, it fades in.
+    var toolbarDonateButtonFadesIn: Bool {
+        !showsDonateButton(on: toolbarSlide)
+    }
+
+    /// How far the toolbar buttons have faded toward the end screen. While the pager is between the
+    /// last slide and the end screen, it is `endPageReveal`. Elsewhere it comes from the current page,
+    /// because the end screen can become current without a scroll step that sets the reveal to 1, for
+    /// example after a VoiceOver page scroll or a pager rebuild.
+    ///
+    /// It must not guess "at rest" from the position alone. The current page changes only when the
+    /// pager is within 1 pt of a page and the finger is up (`WMFYearInReviewPageObserver`), so in the
+    /// last frames of a swipe the current page is still the one the reader left. A position check
+    /// would show that page's buttons for those frames, and the donate button would flicker.
+    var toolbarEndReveal: CGFloat {
+        let position = pagerPosition.value
+        let lastSlidePosition = CGFloat(pagerSlides.count - 1)
+        let isBetweenLastSlideAndEnd = position > lastSlidePosition && position < lastSlidePosition + 1
+        guard endViewModel != nil, isBetweenLastSlideAndEnd else { return isOnEnd ? 1 : 0 }
+        return endPageReveal.value
+    }
+
+    /// The last slide or the end screen.
+    private var toolbarIsOnLastPage: Bool {
+        isOnEnd || (currentSlide != nil && isLastSlide)
     }
 
     private func showsShareButton(on slide: WMFYearInReviewSlideViewModel?) -> Bool {
@@ -320,9 +373,15 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         coordinatorDelegate?.handleYearInReviewAction(.share(slideID: slide.id))
     }
 
+    func tappedShareHighlights(sourceRect: @escaping @MainActor @Sendable () -> CGRect) {
+        guard showsShareHighlightsButton else { return }
+        loggingDelegate?.logYearInReviewDidTapShareHighlights()
+        coordinatorDelegate?.handleYearInReviewAction(.shareHighlights(getSourceRect: sourceRect))
+    }
+
     func tappedDonate(sourceRect: @escaping @MainActor () -> CGRect) {
-        guard currentSlide != nil else { return }
-        let slideLoggingID = currentLoggingID
+        guard currentSlide != nil || isOnEnd else { return }
+        let slideLoggingID = isOnEnd ? Self.endLoggingID : currentLoggingID
         loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slideLoggingID))
     }

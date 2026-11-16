@@ -357,15 +357,15 @@
 "reading-list-add-hint-title" = "ဟော်ꩻလိတ်စာႏရင်ꩻကို ထဲမ်သော့ꩻနေ \"$1\"ဟောင်း?";
 "reading-list-add-saved-title" = "မော့ꩻ ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
 "reading-list-create-new-list-button-title" = "ဖန်ဆင်ꩻ ဟော်ꩻလိတ်စာႏရင်ꩻ";
-"reading-list-create-new-list-description" = "အွောန်ႏနယ်ချက်ခရာႏ";
-"reading-list-create-new-list-reading-list-name" = "အဝ်ႏဟော်ꩻ စာႏရင်ꩻမိဉ်ꩻ";
 "reading-list-create-new-list-title" = "ဖန်ဆင်ꩻ စာႏရင်ꩻတသာ";
 "reading-list-deleted-accessibility-notification" = "ယားကုဲင်ထွူလဲဉ်း ဟော်ꩻလိတ်စာႏရင်ꩻ";
 "reading-list-keep-button-title" = "မွေးသြ၊ ရောမ်ဖြုဲင်ꩻဖိုင်ႏယို သော့ꩻဟဝ်လွေꩻ စက်ကိုသြ";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ခြပ်စဲဉ်ႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
 "reading-list-login-or-create-account-button-title" = "နွို့အကောက်/ ဖန်ဆင်ꩻအကောက်";
 "reading-list-name-user-created-annotation" = "_[ကေားသုင်ꩻသား ဖန်ဆင်ꩻခါꩻလဲဉ်း]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "အရေꩻတန်တဝ်း အွောန်ႏနယ်ချက်ခရာႏ";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ဟော်ꩻထွား စာႏရင်ꩻကတူႏစဲဉ်ႏ";
 "reading-list-sync-disabled-panel-title" = "ပေ့ꩻခါꩻလဲဉ်းsync";
 "reading-list-sync-enable-button-title" = "ဗွောင်sync";
@@ -407,7 +407,6 @@
 "settings-appearance" = "ဟော်ꩻလိတ် အပွိုင်အဆင်ဖိုင်ႏ";
 "settings-clear-cache" = "သျင်ꩻထိုꩻ cachedဒေတာ";
 "settings-clear-cache-are-you-sure-title" = "သျင်ꩻထိုꩻသွူ cachedဒေတာနဲ့?";
-"settings-clear-cache-cancel" = "မာꩻတဝ်းဒွုမ်";
 "settings-clear-cache-ok" = "သျင်ꩻထိုꩻcache";
 "settings-help-and-feedback" = "အစွဲးအကမ်းတောမ်ႏ ဖေႏကျံႏညဏ်ႏချက်";
 "settings-language-bar" = "အွောန်ႏနယ်ဘာႏသာႏငဝ်းငွါ ထိုမ်ႏထွားမုꩻကို";

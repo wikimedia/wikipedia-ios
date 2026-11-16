@@ -81,7 +81,10 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         
         dataController.shouldCreateOrRetrieve = true
 
-        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount)
+        // The read count slide is frozen, so it is kept only if its data uses the current format.
+        // Data in an older format, or no data, makes the report build the slide again.
+        let readData = try JSONEncoder().encode(WMFYearInReviewReadData(readCount: 5, minutesRead: 10))
+        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, data: readData)
         let existingSlide2 = WMFYearInReviewSlide(year: year, id: .saveCount)
         let existingSlide3 = WMFYearInReviewSlide(year: year, id: .mostReadDate)
         let existingSlide4 = WMFYearInReviewSlide(year: year, id: .editCount)
@@ -96,7 +99,67 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
+        // A slide that this run did not evaluate again keeps its last data. The view count slide
+        // without data is not in the current format, so it is deleted.
+        let slideIDs = Set(report?.slides.map(\.id) ?? [])
+        XCTAssertTrue(slideIDs.isSuperset(of: [.readCount, .saveCount, .mostReadDate, .editCount, .donateCount]))
+        XCTAssertFalse(slideIDs.contains(.viewCount))
         XCTAssertEqual(report?.slides.count, 6)
+    }
+
+    func testOutdatedFrozenSlideStaysWhenItsRebuildFails() async throws {
+        // The read count data controller reads the store from the environment. With no store there,
+        // its rebuild fails. The report itself uses its own store. The fixture changes the environment
+        // under the global test lock, then restores it.
+        let report = try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.coreDataStore = nil
+        }) {
+            XCTAssertNil(WMFDataEnvironment.current.coreDataStore)
+            let dataController = try WMFMockYearInReviewDataController(coreDataStore: try await fixture.makeTemporaryCoreDataStore())
+
+            // Read data from before the minutes read slide: no format.
+            let oldData = try JSONSerialization.data(withJSONObject: ["readCount": 5, "minutesRead": 500])
+            try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [
+                WMFYearInReviewSlide(year: year, id: .readCount, data: oldData)
+            ]))
+
+            return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        }
+
+        let slide = try XCTUnwrap(report?.slides.first { $0.id == .readCount }, "the old slide stays when it cannot be built again")
+        let readData = try JSONDecoder().decode(WMFYearInReviewReadData.self, from: try XCTUnwrap(slide.data))
+        XCTAssertEqual(readData.readCount, 5)
+        XCTAssertFalse(readData.isMinutesReadEligible, "the old minutes used older rules, so they do not show")
+        XCTAssertEqual(WMFYearInReviewDataController.fullSlideCount(for: slide), 1)
+    }
+
+    /// Only a slide whose data controller opts in keeps outdated data on a failed rebuild. An older
+    /// niche interest slide cannot decode, so it is deleted even when the new one cannot be built.
+    func testOutdatedNicheInterestSlideIsDeletedWhenItsRebuildFails() async throws {
+        // The categories data controller reads the store from the environment. With no store there,
+        // its rebuild fails. The report itself uses its own store.
+        let report = try await fixture.withConfiguredEnvironment(configure: {
+            WMFDataEnvironment.current.coreDataStore = nil
+        }) {
+            XCTAssertNil(WMFDataEnvironment.current.coreDataStore)
+            let dataController = try WMFMockYearInReviewDataController(coreDataStore: try await fixture.makeTemporaryCoreDataStore())
+
+            let legacyData = try JSONEncoder().encode(["Cats", "Dogs"])
+            try await dataController.saveYearInReviewReport(WMFYearInReviewReport(year: year, slides: [
+                WMFYearInReviewSlide(year: year, id: .mostReadCategories, data: legacyData)
+            ]))
+
+            return try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        }
+
+        XCTAssertNil(report?.slides.first { $0.id == .mostReadCategories }, "the old niche interest slide is deleted, not kept")
+    }
+
+    func testOnlyReadCountKeepsOutdatedDataOnFailedRebuild() {
+        let slideIDs: [WMFYearInReviewPersonalizedSlideID] = [.readCount, .editCount, .donateCount, .saveCount, .mostReadDate, .viewCount, .topArticles, .mostReadCategories, .location, .topTopics, .daysVisited, .rabbitHoles]
+        for slideID in slideIDs {
+            XCTAssertEqual(slideID.dataController().keepsOutdatedDataOnFailedRebuild, slideID == .readCount, "\(slideID)")
+        }
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
@@ -114,6 +177,28 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 3)
+    }
+
+    /// The report can fill before the app knows the user. That run must not replace the stored edit
+    /// count with an empty one.
+    func testARunWithoutTheUserKeepsTheStoredEditCount() async throws {
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: 1, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        XCTAssertEqual(try editCount(in: report), 47)
+
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        XCTAssertEqual(try editCount(in: report), 47, "the run without a global user id keeps the last edit count")
+    }
+
+    private func editCount(in report: WMFYearInReviewReport?) throws -> Int? {
+        guard let data = report?.slides.first(where: { $0.id == .editCount })?.data else {
+            return nil
+        }
+        return try JSONDecoder().decode(Int.self, from: data)
     }
 
     // MARK: - Niche interest slide format
@@ -173,11 +258,28 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentData))
         XCTAssertTrue(YearInReviewMostReadCategoriesSlideDataController.hasCurrentFormat(currentDataWithoutCategory), "A stored nil category is a choice, not old data")
     }
+
+    func testSavedDataWithoutArticlesIsAnOlderFormat() throws {
+        // An older build stored only the count and the titles.
+        let legacyData = Data(#"{"savedArticlesCount":3,"articleTitles":["Cat"]}"#.utf8)
+        let currentData = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 3, articles: [
+            SavedArticleSlideData.Article(title: "Cat", pageTitle: "Cat", articleDescription: "Small mammal", projectID: "wikipedia~en")
+        ]))
+        let currentDataWithoutArticles = try JSONEncoder().encode(SavedArticleSlideData(savedArticlesCount: 0, articles: []))
+
+        XCTAssertFalse(YearInReviewSaveCountSlideDataController.hasCurrentFormat(legacyData))
+        XCTAssertFalse(YearInReviewSaveCountSlideDataController.hasCurrentFormat(nil))
+        XCTAssertTrue(YearInReviewSaveCountSlideDataController.hasCurrentFormat(currentData))
+        XCTAssertTrue(YearInReviewSaveCountSlideDataController.hasCurrentFormat(currentDataWithoutArticles), "No saved articles is a result, not old data")
+    }
 }
 
 extension WMFYearInReviewDataControllerCreateOrRetrieveTests: SavedArticleSlideDataDelegate {
-    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> WMFData.SavedArticleSlideData {
-        return SavedArticleSlideData(savedArticlesCount: 30, articleTitles: ["Cat", "Dog", "Bird"])
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> WMFData.SavedArticleSlideData? {
+        let titles = ["Cat", "Dog", "Bird"]
+        return SavedArticleSlideData(savedArticlesCount: 30, articles: titles.map {
+            SavedArticleSlideData.Article(title: $0, pageTitle: $0, articleDescription: nil, projectID: "wikipedia~en")
+        })
     }
 }
 

@@ -46,9 +46,6 @@ public struct WMFDiscoverAnnouncementView: View {
         )
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(AccessibilityIdentifiers.Discover.announcementCard)
-        .onAppear {
-            viewModel.viewDidAppear()
-        }
     }
 
     private var tag: some View {

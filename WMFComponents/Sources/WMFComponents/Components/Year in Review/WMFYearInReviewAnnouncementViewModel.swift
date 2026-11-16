@@ -19,7 +19,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
         /// Drawn inside the artwork. VoiceOver reads it after the headline.
         public let body: String
         public let exploreButtonTitle: String
-        public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String
         public let moreButtonAccessibilityLabel: String
         public let learnMoreButtonTitle: String
@@ -30,7 +29,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
             animationAccessibilityLabel: String,
             body: String,
             exploreButtonTitle: String,
-            wIconAccessibilityLabel: String,
             closeButtonAccessibilityLabel: String,
             moreButtonAccessibilityLabel: String,
             learnMoreButtonTitle: String,
@@ -40,7 +38,6 @@ public final class WMFYearInReviewAnnouncementViewModel: ObservableObject {
             self.animationAccessibilityLabel = animationAccessibilityLabel
             self.body = body
             self.exploreButtonTitle = exploreButtonTitle
-            self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
             self.moreButtonAccessibilityLabel = moreButtonAccessibilityLabel
             self.learnMoreButtonTitle = learnMoreButtonTitle

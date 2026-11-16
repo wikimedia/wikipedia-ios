@@ -679,7 +679,6 @@
 "potd-empty-error-description" = "Dobavljanje slike dana za $1 nije uspelo";
 "potd-widget-description" = "Uživajte u divnoj dnevnoj slici koju je odabrala naša zajednica.";
 "potd-widget-title" = "Slika dana";
-"preference-summary-eventlogging-opt-in" = "Dozvolite Zadužbini Vikimedija da prikuplja informacije o tome kako koristite aplikaciju u cilju njenog poboljšanja.";
 "project-name-mediawiki" = "Medijaviki";
 "project-name-wikibooks" = "Vikiknjige";
 "project-name-wikidata" = "Vikipodaci";
@@ -700,8 +699,6 @@
 "reading-list-api-error-generic" = "Došlo je do neočekivane greške pri sinhronizovanju liste za čitanje.";
 "reading-list-api-error-list-limit" = "Ova lista nije sinhronizovana jer ste dostigli ograničenje za dozvoljeni broj sinhronizovanih lista.";
 "reading-list-create-new-list-button-title" = "Napravi listu za čitanje";
-"reading-list-create-new-list-description" = "Opis";
-"reading-list-create-new-list-reading-list-name" = "Ime liste za čitanje";
 "reading-list-create-new-list-title" = "Napravi novu listu";
 "reading-list-deleted-accessibility-notification" = "Lista za čitanje je izbrisana";
 "reading-list-do-not-keep-button-title" = "Ne, izbriši članke sa uređaja";
@@ -721,7 +718,9 @@
 "reading-list-list-limit-reached" = "Dostigli ste ograničenje od $1 lista za čitanje po nalogu";
 "reading-list-login-or-create-account-button-title" = "Prijava/registracija";
 "reading-list-name-user-created-annotation" = "_[napravio korisnik]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "opcionalan kratak opis";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "naslov liste za čitanje";
 "reading-list-sync-disabled-panel-message" = "Sinhronizacija liste za čitanje je onemogućena za vaš nalog na drugom uređaju. Možete je ponovo uključiti u podešavanjima.";
 "reading-list-sync-disabled-panel-title" = "Sinhronizacija je onemogućena";
@@ -807,7 +806,6 @@
 "settings-clear-cache" = "Brisanje keširanih podataka";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodićete oko $1 prostora. Vaše sačuvane stranice se neće izbrisati.";
 "settings-clear-cache-are-you-sure-title" = "Obrisati keširane podatke?";
-"settings-clear-cache-cancel" = "Otkaži";
 "settings-clear-cache-ok" = "Obriši keš";
 // Fuzzy
 "settings-donate" = "Donacija";

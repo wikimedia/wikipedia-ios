@@ -221,6 +221,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             try await YearInReviewCoordinator.buildReport(dataStore: dataStore, regenerate: true) != nil
         }
         viewModel.configureLocalNotificationActions(dataStore: dataStore)
+        viewModel.showsAnalyticsInspectorToggle = AnalyticsInspectorController.isAvailableInThisBuild
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 
@@ -289,10 +290,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private func showWatchlist() {
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()
-    }
-
-    private func dismissProfile() {
-        navigationController.dismiss(animated: true, completion: nil)
     }
 
     private func login() {

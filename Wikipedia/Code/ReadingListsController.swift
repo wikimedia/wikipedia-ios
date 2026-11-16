@@ -373,9 +373,10 @@ public typealias ReadingListsController = WMFReadingListsController
                 continue
             }
 
-            // Need this to add to default reading list, otherwise article doesn't show up in "All articles" on SavedVC
-            if !article.isSaved, let articleUrl = article.url {
-                dataStore.savedPageList.toggleSavedPage(for: articleUrl)
+            // Save the article too, so it shows in "All articles". Do not use userSave here: it posts the
+            // notification that shows the "Add to a reading list?" hint, and the article is already in a list.
+            if !article.isSaved {
+                try article.addToDefaultReadingList()
             }
 
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {

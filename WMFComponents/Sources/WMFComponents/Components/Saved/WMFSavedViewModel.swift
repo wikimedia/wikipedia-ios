@@ -3,15 +3,16 @@ import Combine
 import WMFData
 import WMFNativeLocalizations
 
+@MainActor
 public protocol WMFSavedLoggingDelegate: AnyObject {
-    @MainActor func savedDidAppear()
+    func savedDidAppear()
     /// A segment is on screen: at first load and after every switch.
-    @MainActor func savedDidShowSegment(_ segment: WMFSavedViewModel.Segment)
+    func savedDidShowSegment(_ segment: WMFSavedViewModel.Segment)
     /// The reader switched to a segment.
-    @MainActor func savedDidSelectSegment(_ segment: WMFSavedViewModel.Segment)
-    @MainActor func savedDidTapEditAllArticles()
-    @MainActor func savedDidTapProfile()
-    @MainActor func savedDidTapTabs()
+    func savedDidSelectSegment(_ segment: WMFSavedViewModel.Segment)
+    func savedDidTapEditAllArticles()
+    func savedDidTapProfile()
+    func savedDidTapTabs()
 }
 
 /// The Saved tab container: the segment picker, the search field and the navigation bar state
