@@ -9,8 +9,12 @@ public enum WMFLexicalListBuilder {
 
     public static let lexicalVersion = 1
 
-    /// Full text results are added only when prefix search returns fewer results than this. Both apps request 30 on the first load.
-    public static let fullTextThreshold = 30
+    /// Full text results are added only when prefix search returns fewer results than this, which is the number of
+    /// results the first prefix request asks for.
+    ///
+    /// TODO: Provisional. It is 10 for now, with a request limit of 10, and was 30 with a limit of 30. The numbers still
+    /// need to be confirmed. The version stays 1 while they are provisional.
+    public static let fullTextThreshold = 10
 
     /// - Parameters:
     ///   - prefix: The prefix search results, in rank order.

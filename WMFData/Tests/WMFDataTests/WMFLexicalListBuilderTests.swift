@@ -48,7 +48,7 @@ final class WMFLexicalListBuilderTests: XCTestCase {
         }
     }
 
-    func testDefaultThresholdIsThirty() {
-        XCTAssertEqual(WMFLexicalListBuilder.fullTextThreshold, 30)
+    func testDefaultThresholdIsTen() {
+        XCTAssertEqual(WMFLexicalListBuilder.fullTextThreshold, 10)
     }
 }
