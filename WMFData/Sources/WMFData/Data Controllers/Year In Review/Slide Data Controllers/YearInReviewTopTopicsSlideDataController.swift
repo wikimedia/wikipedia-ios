@@ -83,6 +83,7 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
     let year: Int
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
+    static let excludesMainPages = true
     static let shouldFreeze = true
 
     /// The main namespace. Talk, user, template and other pages are left out.
@@ -95,17 +96,20 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
         try await WMFImageDataController.shared.fetchImageData(url: url)
     }
 
-    private weak var mainPageIdentifier: WMFMainPageIdentifying?
+    private let mainPageTitles: YearInReviewMainPageTitles?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
 
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
-        self.mainPageIdentifier = dependencies.mainPageIdentifier
+        self.mainPageTitles = dependencies.mainPageTitles
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
 
+        guard let mainPageTitles else {
+            throw YearInReviewMainPageTitles.LookupError.unavailable
+        }
         guard let startDate = yirConfig.dataStartDate,
               let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
@@ -116,21 +120,8 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
 
         let readPages = pageViewCounts.map(\.page).filter { $0.namespaceID == Self.articleNamespaceID }
 
-        // Get the main page title once for each wiki, not once for each article. Each request can go to the main actor.
-        var mainPageTitles: [String: String] = [:]
-        for projectID in Set(readPages.map(\.projectID)) {
-            if let title = await mainPageTitle(projectID: projectID) {
-                mainPageTitles[projectID] = WMFMainPageTitle.canonicalized(title)
-            }
-        }
-
         func isArticle(_ page: WMFPage) -> Bool {
-            guard page.namespaceID == Self.articleNamespaceID else {
-                return false
-            }
-            let title = WMFMainPageTitle.canonicalized(page.title)
-            // The app does not record the English main page, but older data can contain it.
-            return title != Self.englishMainPageTitle && title != mainPageTitles[page.projectID]
+            page.namespaceID == Self.articleNamespaceID && !mainPageTitles.isMainPage(page)
         }
 
         let readCount = Set(readPages).count(where: isArticle)
@@ -221,16 +212,6 @@ final class YearInReviewTopTopicsSlideDataController: YearInReviewSlideDataContr
             .map { SlideData.TopicCount(topicID: $0.key.rawValue, articleCount: $0.value.count) }
 
         return SlideData(readCount: readCount, topTopic: topTopic, runnerUps: Array(runnerUps))
-    }
-
-    private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
-
-    private func mainPageTitle(projectID: String) async -> String? {
-        guard let project = WMFProject(id: projectID),
-              let mainPageIdentifier else {
-            return nil
-        }
-        return await mainPageIdentifier.mainPageTitle(for: project)
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {

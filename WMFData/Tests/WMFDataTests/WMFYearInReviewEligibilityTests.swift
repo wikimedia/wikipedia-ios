@@ -106,6 +106,11 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         return WMFYearInReviewSlide(year: year, id: .daysVisited, data: data)
     }
 
+    private func readingPatternSlide(readCount: Int) throws -> WMFYearInReviewSlide {
+        let data = try JSONEncoder().encode(WMFYearInReviewReadingPatternSlideData(timeOfDay: .evenings, timeOfDayReadCount: readCount, totalReadCount: readCount + 1))
+        return WMFYearInReviewSlide(year: year, id: .readingPattern, data: data)
+    }
+
     private func readingStreakSlide(dayCount: Int) throws -> WMFYearInReviewSlide {
         let day = WMFYearInReviewReadingStreakSlideData.Day(year: year, month: 3, day: 4)
         let data = try JSONEncoder().encode(WMFYearInReviewReadingStreakSlideData(dayCount: dayCount, firstDay: day, lastDay: day))
@@ -410,11 +415,23 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(experience, .collective, "neither biggest reading day slide shows")
     }
 
+    func testReadingPatternWithTwoReadsInOneTimeOfDayCountsTowardPersonalized() async throws {
+        try await saveReport([try readCountSlide(3), try readingPatternSlide(readCount: 2)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .personalized)
+    }
+
     /// The reveal replaces the guess in place, so the longest read entry is one slide.
     func testLongestReadCountsAsOneSlide() async throws {
         try await saveReport([try readCountSlide(3), try longestReadSlide(longestSeconds: 300, otherSeconds: 120)])
         let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
         XCTAssertEqual(experience, .personalized)
+    }
+
+    func testReadingPatternWithOneReadInEachTimeOfDayIsNotEnoughData() async throws {
+        try await saveReport([try readCountSlide(3), try readingPatternSlide(readCount: 1)])
+        let experience = try await dataController.fetchSlidesExperience(isLoggedIn: true)
+        XCTAssertEqual(experience, .collective, "the reading pattern slide shows its empty version")
     }
 
     func testLongestReadWithATieDoesNotCount() async throws {

@@ -64,6 +64,7 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
         XCTAssertEqual(YearInReviewTopTopicsSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.topTopics.rawValue)
         XCTAssertEqual(YearInReviewDaysVisitedSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.daysVisited.rawValue)
         XCTAssertEqual(YearInReviewRabbitHolesSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.rabbitHoles.rawValue)
+        XCTAssertEqual(YearInReviewReadingPatternSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.readingPattern.rawValue)
         XCTAssertEqual(YearInReviewReadingStreakSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.readingStreak.rawValue)
         XCTAssertEqual(YearInReviewBiggestReadingDaySlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.biggestReadingDay.rawValue)
         XCTAssertEqual(YearInReviewLongestReadSlideDataController(year: year, yirConfig: config, dependencies: deps).id, WMFYearInReviewPersonalizedSlideID.longestRead.rawValue)
@@ -95,6 +96,24 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
 
         // The donate slide holds both the donation count and the global edit count.
         XCTAssertEqual(YearInReviewDonateCountSlideDataController.personalizationSources, [.account, .donations])
+    }
+
+    func testExcludesMainPages() {
+        // Only these slides use `mainPageTitles`, so only these make the factory look up the main pages.
+        XCTAssertTrue(YearInReviewReadCountSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewTopReadArticleSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewTopTopicsSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewRabbitHolesSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewBiggestReadingDaySlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewLongestReadSlideDataController.excludesMainPages)
+        XCTAssertTrue(YearInReviewReadingPatternSlideDataController.excludesMainPages)
+
+        XCTAssertFalse(YearInReviewMostReadDateSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewMostReadCategoriesSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewLocationSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewDaysVisitedSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewReadingStreakSlideDataController.excludesMainPages)
+        XCTAssertFalse(YearInReviewEditCountSlideDataController.excludesMainPages)
     }
 
     func testShouldFreezeFlags() {
