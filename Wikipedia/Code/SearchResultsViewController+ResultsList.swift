@@ -163,27 +163,6 @@ extension SearchResultsViewController {
         return "\(name) · \(state.rawValue)"
     }
 
-    /// The control arm shows today's lexical list. It sends the same event as treatment, with no merge fields and no state.
-    func logInterleavedControlList(_ outcome: SearchResultsLoader.Outcome, siteURL: URL) {
-        guard interleavedArm(for: siteURL) == "control", let project = SearchResultsMapper.project(for: siteURL) else { return }
-        let searchIDs = outcome.results.lexicalSearchIDs
-        let listLength = outcome.results.results.count
-        instrumentation.logInterleavedList(
-            project: project,
-            state: nil,
-            merge: nil,
-            searchIDs: WMFSemanticSearchInterleavedIDs(prefix: searchIDs.prefix, fullText: searchIDs.fullText, semantic: nil),
-            listLength: listLength)
-    }
-
-    /// The arm of a reader who takes part in the experiment on this wiki, nil for everyone else.
-    private func interleavedArm(for siteURL: URL) -> String? {
-        guard takesPartInSemanticSearchExperiment, let languageCode = siteURL.wmf_languageCode else { return nil }
-        let dataController = WMFSemanticSearchInterleavedDataController.shared
-        guard dataController.isEligible(languageCode: languageCode) else { return nil }
-        return dataController.experimentAssignment?.rawValue
-    }
-
     // MARK: - Semantic search entry point
 
     private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
