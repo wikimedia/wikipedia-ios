@@ -29,6 +29,7 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
 
     override func tearDown() async throws {
         store = nil
+        WMFDataEnvironment.current.mediaWikiService = nil
         await fixture.tearDown()
         try await super.tearDown()
     }
@@ -1481,6 +1482,84 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
 
         XCTAssertEqual(payload.donateCount, 3, "only the donations from December 1, 2025 to November 30, 2026 count")
+    }
+
+    // MARK: - donateCount: web donor status
+
+    /// The `userinfo` options of a logged-in reader with the given `wikimedia-donor` preference.
+    private func userInfoOptionsJSON(donorCode: Int?) -> String {
+        // The preference is a JSON object inside a JSON string, so its quotes are escaped.
+        let preference = donorCode.map { "{\"source\":\"reader-donor-account\",\"value\":\($0),\"timestamp\":1760000000}" } ?? ""
+        let escapedPreference = preference.replacingOccurrences(of: "\"", with: "\\\"")
+        return """
+        {"query": {"userinfo": {"id": 1, "name": "Reader", "options": {"skin": "vector-2022", "wikimedia-donor": "\(escapedPreference)"}}}}
+        """
+    }
+
+    func testDonateCountReadsTheWebDonorStatusOfALoggedInUser() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.mediaWikiService = WMFMockJSONService(json: userInfoOptionsJSON(donorCode: 1))
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Reader", globalUserID: 1))
+
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.isWebDonor, true)
+        XCTAssertEqual(payload.editCount, 47, "the edit count is read too")
+        XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testDonateCountDoesNotCountAContactableWebDonor() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.mediaWikiService = WMFMockJSONService(json: userInfoOptionsJSON(donorCode: 5))
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Reader", globalUserID: 1))
+
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.isWebDonor, false)
+        XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testDonateCountStoresNoWebConsentAsNotADonor() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.mediaWikiService = WMFMockJSONService(json: userInfoOptionsJSON(donorCode: nil))
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Reader", globalUserID: 1))
+
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertEqual(payload.isWebDonor, false, "the status was read, and the reader did not consent")
+    }
+
+    func testDonateCountDoesNotRequestTheWebDonorStatusOfALoggedOutUser() async throws {
+        let service = WMFMockJSONService(json: userInfoOptionsJSON(donorCode: 1))
+        WMFDataEnvironment.current.mediaWikiService = service
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies())
+
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
+
+        XCTAssertNil(payload.isWebDonor, "the preference belongs to the account")
+        XCTAssertTrue(service.requestedURLs.isEmpty, "no request without a username")
+        XCTAssertTrue(controller.isEvaluated)
+    }
+
+    func testDonateCountIsNotEvaluatedWhenTheWebDonorStatusFails() async throws {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
+        WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
+        let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Reader", globalUserID: 1))
+
+        try await controller.populateSlideData(in: try context())
+
+        XCTAssertFalse(controller.isEvaluated, "the stored slide keeps its last status")
+    }
+
+    /// A slide stored before the web donor status existed still decodes.
+    func testDonateCountPayloadWithoutTheWebDonorStatusDecodes() throws {
+        let data = try XCTUnwrap("{\"donateCount\": 2, \"editCount\": 3}".data(using: .utf8))
+
+        let payload = try decode(DonateAndEditCounts.self, from: data)
+
+        XCTAssertEqual(payload.donateCount, 2)
+        XCTAssertEqual(payload.editCount, 3)
+        XCTAssertNil(payload.isWebDonor)
     }
 
     // MARK: - viewCount

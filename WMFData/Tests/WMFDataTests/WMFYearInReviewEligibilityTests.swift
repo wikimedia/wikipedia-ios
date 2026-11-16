@@ -88,8 +88,8 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         WMFYearInReviewSlide(year: year, id: .editCount, data: try JSONEncoder().encode(editCount))
     }
 
-    private func donateCountSlide(editCount: Int?) throws -> WMFYearInReviewSlide {
-        WMFYearInReviewSlide(year: year, id: .donateCount, data: try JSONEncoder().encode(DonateAndEditCounts(donateCount: 0, editCount: editCount)))
+    private func donateCountSlide(editCount: Int?, isWebDonor: Bool? = nil) throws -> WMFYearInReviewSlide {
+        WMFYearInReviewSlide(year: year, id: .donateCount, data: try JSONEncoder().encode(DonateAndEditCounts(donateCount: 0, editCount: editCount, isWebDonor: isWebDonor)))
     }
 
     private func viewCountSlide(_ viewCount: Int) throws -> WMFYearInReviewSlide {
@@ -341,6 +341,15 @@ final class WMFYearInReviewEligibilityTests: XCTestCase {
         XCTAssertEqual(try WMFYearInReviewDataController.editCount(in: [try donateCountSlide(editCount: 12)]), 12)
         XCTAssertNil(try WMFYearInReviewDataController.editCount(in: [try donateCountSlide(editCount: nil)]))
         XCTAssertNil(try WMFYearInReviewDataController.editCount(in: [try readCountSlide(3)]))
+    }
+
+    /// The app reads the web donor status from the donate count slide. It is `nil` when the slide
+    /// does not have it, for a logged-out reader or an older slide.
+    func testTheWebDonorStatusComesFromTheDonateCountSlide() throws {
+        XCTAssertEqual(try WMFYearInReviewDataController.isWebDonor(in: [try donateCountSlide(editCount: 0, isWebDonor: true)]), true)
+        XCTAssertEqual(try WMFYearInReviewDataController.isWebDonor(in: [try donateCountSlide(editCount: 0, isWebDonor: false)]), false)
+        XCTAssertNil(try WMFYearInReviewDataController.isWebDonor(in: [try donateCountSlide(editCount: 0)]))
+        XCTAssertNil(try WMFYearInReviewDataController.isWebDonor(in: [try readCountSlide(3)]))
     }
 
     func testEditsDoNotChangeTheLoggedOutSlides() async throws {
