@@ -103,6 +103,71 @@ extension SearchResultsViewController {
         updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
     }
 
+    /// The list of the treatment arm of the semantic search interleaved experiment. Semantic rows show the title only.
+    func displayInterleavedSearchResults(_ outcome: SemanticSearchInterleavedLoader.Outcome, searchTerm: String, siteURL: URL) {
+        displayedSearchTerm = searchTerm
+        displayedSiteURL = siteURL
+        let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.redirectMappings)
+
+        var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+        let results = outcome.items.compactMap { item -> SearchResult? in
+            switch item.source {
+            case .lexicalPrefix, .lexicalFullText:
+                guard let mwkResult = outcome.lexicalResultsByPageID[item.pageID], let result = mapper.searchResult(from: mwkResult) else {
+                    return nil
+                }
+                searchResultsByArticleURL[result.id] = mwkResult
+                return result
+            case .semantic:
+                guard let semanticResult = outcome.semanticResultsByPageID[item.pageID], let articleURL = siteURL.wmf_URL(withTitle: semanticResult.title) else {
+                    return nil
+                }
+                return SearchResult(
+                    articleURL: articleURL,
+                    pageTitle: semanticResult.title,
+                    title: semanticResult.title,
+                    titleHTML: semanticResult.title,
+                    description: nil,
+                    thumbnailURL: semanticResult.thumbnailURL,
+                    isArticle: SearchResultsMapper.isArticle(articleURL),
+                    isSavable: articleURL.namespace == .main)
+            }
+        }
+        self.searchResultsByArticleURL = searchResultsByArticleURL
+
+        resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project)
+        resultsViewModel.hideSemanticSearchEntryPoint()
+
+        guard let project = mapper.project else { return }
+        instrumentation.logInterleavedList(
+            project: project,
+            state: outcome.state,
+            merge: outcome.merge,
+            searchIDs: outcome.searchIDs,
+            listLength: WMFSemanticSearchInterleavedConfiguration.listLength)
+    }
+
+    /// The control arm shows today's lexical list. It sends the same event as treatment, with no merge fields and no state.
+    func logInterleavedControlList(_ outcome: SearchResultsLoader.Outcome, siteURL: URL) {
+        guard interleavedArm(for: siteURL) == "control", let project = SearchResultsMapper.project(for: siteURL) else { return }
+        let searchIDs = outcome.results.lexicalSearchIDs
+        let listLength = outcome.results.results.count
+        instrumentation.logInterleavedList(
+            project: project,
+            state: nil,
+            merge: nil,
+            searchIDs: WMFSemanticSearchInterleavedIDs(prefix: searchIDs.prefix, fullText: searchIDs.fullText, semantic: nil),
+            listLength: listLength)
+    }
+
+    /// The arm of a reader who takes part in the experiment on this wiki, nil for everyone else.
+    private func interleavedArm(for siteURL: URL) -> String? {
+        guard takesPartInSemanticSearchExperiment, let languageCode = siteURL.wmf_languageCode else { return nil }
+        let dataController = WMFSemanticSearchInterleavedDataController.shared
+        guard dataController.isEligible(languageCode: languageCode) else { return nil }
+        return dataController.experimentAssignment?.rawValue
+    }
+
     // MARK: - Semantic search entry point
 
     private func updateSemanticSearchEntryPoint(query: String?, languageCode: String?, project: WMFProject?) {
