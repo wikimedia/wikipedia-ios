@@ -244,7 +244,7 @@ extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, R
     }
     
     var referenceRectVerticalOffset: CGFloat {
-        return 0
+        return webView.safeAreaInsets.top
     }
 }
 
