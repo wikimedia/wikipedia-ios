@@ -1162,22 +1162,31 @@ struct YearInReviewSlideViewModelFactoryTests {
     @Test(arguments: [WMFYearInReviewDataController.YiRSlidesExperience.personalized, .collective])
     func theSlidesLogThePageNamesOfTheInstrumentationPlan(experience: WMFYearInReviewDataController.YiRSlidesExperience) throws {
         let planPages: Set<String> = [
-            "total_articles", "total_articles_empty", "visits", "minutes_read", "reading_streak", "reading_streak_empty", "top_topic", "top_topic_empty", "other_top_topics",
-            "rabbit_hole_guess", "rabbit_hole_reveal", "revisited_articles", "revisited_articles_empty",
+            "total_articles", "total_articles_empty", "visits", "time_spent", "reading_streak", "reading_streak_empty", "top_topic", "top_topic_empty", "other_top_topics",
+            "biggest_reading_day", "biggest_reading_day_articles", "longest_read_guess", "longest_read_reveal",
+            "rabbit_hole_guess", "rabbit_hole_reveal", "category", "revisited_articles", "revisited_articles_empty",
             "saved_articles", "saved_articles_empty",
+            "total_edits", "total_edits_empty", "edited_article_views", "most_viewed_edited_articles",
             "collective_hours_read", "collective_languages", "collective_articles", "collective_saved_articles",
             "collective_volunteer_editors", "collective_edits", "collective_global_reach", "thank_you", "you_matter"
         ]
-        // TODO: The 2026 instrumentation plan does not name the edit slides yet, so they log their raw
-        // ids. Remove this filter when their page names are added to `loggingIDs` (see the TODO there).
-        let slidesWithoutPlanPages: Set<String> = ["edits", "editsEmpty", "editViews", "mostViewedArticles"]
-        let slides = (factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config()))
-            .filter { !slidesWithoutPlanPages.contains($0.id) }
+        let slides = factory.makeSlidesAndHighlights(experience: experience, isLoggedIn: true).slides + factory.collectiveSlides(config: try config())
         for slide in slides {
             #expect(planPages.contains(slide.loggingID), "\(slide.id) logs \(slide.loggingID)")
         }
-        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: YearInReviewSlideViewModelFactory.contributorSlideID) == "thank_you")
-        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "rabbitHoleReveal") == "rabbit_hole_reveal")
-        #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: "minutesRead") == "minutes_read")
+        let renamedSlides = [
+            YearInReviewSlideViewModelFactory.contributorSlideID: "thank_you",
+            "rabbitHoleReveal": "rabbit_hole_reveal",
+            "minutesRead": "time_spent",
+            "nicheInterest": "category",
+            "edits": "total_edits",
+            "editsEmpty": "total_edits_empty",
+            "editViews": "edited_article_views",
+            "mostViewedArticles": "most_viewed_edited_articles"
+        ]
+        for (slideID, page) in renamedSlides {
+            #expect(YearInReviewSlideViewModelFactory.loggingID(forSlideID: slideID) == page)
+            #expect(planPages.contains(page))
+        }
     }
 }
