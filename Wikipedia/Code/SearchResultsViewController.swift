@@ -376,7 +376,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             displayedSearchResults = outcome
             instrumentation.logLexicalResultsImpression(searchIDs: outcome.results.lexicalSearchIDs)
             displaySearchResults(outcome.results, siteURL: siteURL)
-            logInterleavedControlList(outcome, siteURL: siteURL)
         } catch is CancellationError {
             return
         } catch let SearchResultsLoader.Failure.fetch(error, _) {

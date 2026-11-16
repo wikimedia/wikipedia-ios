@@ -383,26 +383,6 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertNil(context["page_id"])
     }
 
-    func testControlListHasNoMergeFieldsAndNoState() throws {
-        WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = .control
-        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = nil }
-
-        instrumentation.logInterleavedList(project: project, state: nil, merge: nil, searchIDs: WMFSemanticSearchInterleavedIDs(prefix: "pre", fullText: "ful", semantic: nil), listLength: 24)
-
-        let event = try XCTUnwrap(sender.events.first)
-        let context = try context(of: event)
-        XCTAssertEqual(event.experimentData?.assigned, "control")
-        XCTAssertEqual(context["arm"], "control")
-        XCTAssertEqual(context["search_id_pre"], "pre")
-        XCTAssertEqual(context["search_id_ful"], "ful")
-        XCTAssertNil(context["search_id_sem"])
-        XCTAssertNil(context["interleave_state"], "The control arm has no state")
-        XCTAssertNil(context["seed"])
-        XCTAssertNil(context["coin_flips"])
-        XCTAssertEqual(context["merge_version"], "1", "Both versions are always logged")
-        XCTAssertEqual(context["lexical_version"], "1")
-    }
-
     func testInterleavedListNeedsAnAssignment() {
         WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = nil
 
