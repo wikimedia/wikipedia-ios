@@ -46,7 +46,7 @@ public actor WMFReadingChallengeCompletionDataController {
 
     // MARK: - Properties
 
-    nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
+    nonisolated private let userDefaultsStore: WMFKeyValueStore?
     nonisolated(unsafe) private let legacyDefaults: UserDefaults?
     private let injectedCoreDataStore: WMFCoreDataStore?
 

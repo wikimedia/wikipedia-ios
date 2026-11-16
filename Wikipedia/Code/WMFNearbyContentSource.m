@@ -1,7 +1,5 @@
 #import <WMF/WMFLocationSearchResults.h>
-#import <WMF/MWKLocationSearchResult.h>
 
-#import <WMF/WMFLocationSearchFetcher.h>
 #import <WMF/CLLocation+WMFComparison.h>
 
 #import <WMF/WMF-Swift.h>
@@ -47,7 +45,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (WMFLocationSearchFetcher *)locationSearchFetcher {
     if (_locationSearchFetcher == nil) {
-        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] initWithSession:self.dataStore.session configuration:self.dataStore.configuration];
+        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
     }
     return _locationSearchFetcher;
 }

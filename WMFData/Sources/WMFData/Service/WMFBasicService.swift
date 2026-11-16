@@ -145,13 +145,14 @@ public final class WMFBasicService: WMFService {
         task.resume()
     }
     
-    private func performGET<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) {
+    @discardableResult
+    private func performGET<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFURLSessionDataTask? {
          
         guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
               request.method == .GET else {
             completion(nil, nil, WMFServiceError.invalidRequest)
-            return
+            return nil
         }
         
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
@@ -172,7 +173,7 @@ public final class WMFBasicService: WMFService {
         
         guard let url = components?.url else {
             completion(nil, nil, WMFServiceError.invalidRequest)
-            return
+            return nil
         }
         
         var urlRequest = URLRequest(url: url)
@@ -217,6 +218,7 @@ public final class WMFBasicService: WMFService {
             completion(data, response, error)
         }
         task.resume()
+        return task
     }
     
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
@@ -260,6 +262,34 @@ public final class WMFBasicService: WMFService {
         return headers
     }
     
+    public func performCancellableDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) -> WMFURLSessionDataTask? {
+        return performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
+            completion(result.map(\.value))
+        }
+    }
+
+    public func performCancellableDecodableGETWithResponse<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<WMFServiceResponse<T>, Error>) -> Void) -> WMFURLSessionDataTask? {
+        return performGET(request: request) { data, response, error in
+
+            if let error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data else {
+                completion(.failure(WMFServiceError.missingData))
+                return
+            }
+
+            do {
+                let value: T = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(WMFServiceResponse(value: value, headers: Self.headers(of: response))))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
     public func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         
         performPOST(request: request) { data, response, error in

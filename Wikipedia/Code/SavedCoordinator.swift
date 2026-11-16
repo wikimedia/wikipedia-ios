@@ -28,6 +28,8 @@ final class SavedCoordinator: NSObject, Coordinator {
         }
     }
     private let dataStore: MWKDataStore
+    private let savedInstrumentation: SavedInstrumentation
+    private let discoverInstrumentation: DiscoverInstrumentation
 
     private(set) weak var savedViewController: WMFSavedHostingController?
     private weak var viewModel: WMFSavedViewModel?
@@ -35,9 +37,16 @@ final class SavedCoordinator: NSObject, Coordinator {
     private var readingListsCoordinator: ReadingListsCoordinator?
     private var progressObserver: SavedArticleDownloadProgressObserver?
 
-    init(theme: Theme, dataStore: MWKDataStore) {
+    init(
+        theme: Theme,
+        dataStore: MWKDataStore,
+        savedInstrumentation: SavedInstrumentation? = nil,
+        discoverInstrumentation: DiscoverInstrumentation? = nil
+    ) {
         self.theme = theme
         self.dataStore = dataStore
+        self.savedInstrumentation = savedInstrumentation ?? .shared
+        self.discoverInstrumentation = discoverInstrumentation ?? .shared
         super.init()
     }
 
@@ -62,7 +71,8 @@ final class SavedCoordinator: NSObject, Coordinator {
         let viewModel = WMFSavedViewModel(
             allArticlesViewModel: allArticlesCoordinator.viewModel,
             readingListsViewModel: readingListsCoordinator.viewModel,
-            progressViewModel: progressViewModel
+            progressViewModel: progressViewModel,
+            discoverHeaderViewModel: makeDiscoverHeaderViewModel()
         )
         viewModel.loggingDelegate = self
         viewModel.didTapProfile = { [weak self] in
@@ -79,10 +89,65 @@ final class SavedCoordinator: NSObject, Coordinator {
 
         self.allArticlesCoordinator = allArticlesCoordinator
         self.readingListsCoordinator = readingListsCoordinator
-        self.progressObserver = SavedArticleDownloadProgressObserver(viewModel: progressViewModel)
+        self.progressObserver = SavedArticleDownloadProgressObserver(
+            viewModel: progressViewModel,
+            isInitialSyncPending: { [dataStore] in dataStore.readingListsController.isInitialSyncPending },
+            isServerBusy: { [dataStore] in dataStore.session.serverBusyPauseUntil != nil }
+        )
         self.viewModel = viewModel
         self.savedViewController = hostingController
         return hostingController
+    }
+
+    // MARK: - Discover
+
+    private let discoverNoThanksToastTitle = WMFLocalizedString("discover-announcement-no-thanks-toast", value: "To set up your recommended reading list later, go to Settings.", comment: "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.")
+
+    /// Each card decides for itself whether it shows, and rechecks every time Saved appears, so a
+    /// developer setting flipped while the app runs takes effect without a relaunch.
+    private func makeDiscoverHeaderViewModel() -> WMFSavedDiscoverHeaderViewModel {
+        WMFSavedDiscoverHeaderViewModel(announcementViewModel: makeDiscoverAnnouncementViewModel(), entryCardViewModel: makeDiscoverEntryCardViewModel())
+    }
+
+    private func makeDiscoverAnnouncementViewModel() -> WMFDiscoverAnnouncementViewModel {
+        let viewModel = WMFDiscoverAnnouncementViewModel()
+        viewModel.loggingDelegate = self
+        viewModel.didTapGetStarted = { [weak self] in
+            self?.showDiscoverSetup()
+        }
+        viewModel.didTapNoThanks = { [weak self] in
+            guard let self else { return }
+            WMFToastPresenter.shared.show(WMFToastConfig(title: self.discoverNoThanksToastTitle))
+        }
+        return viewModel
+    }
+
+    private func makeDiscoverEntryCardViewModel() -> WMFDiscoverEntryCardViewModel {
+        let viewModel = WMFDiscoverEntryCardViewModel()
+        viewModel.loggingDelegate = self
+        viewModel.usernameProvider = { [dataStore] in
+            dataStore.authenticationManager.authStatePermanentUsername
+        }
+        viewModel.didTap = { [weak self] in
+            self?.showDiscoverReadingList()
+        }
+        return viewModel
+    }
+
+    /// The coordinators outlive the tap: they load before the push and answer the screens' callbacks.
+    private var discoverSetupCoordinator: DiscoverSetupCoordinator?
+    private var discoverReadingListCoordinator: DiscoverReadingListCoordinator?
+
+    private func showDiscoverSetup() {
+        let coordinator = DiscoverSetupCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        discoverSetupCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private func showDiscoverReadingList() {
+        let coordinator = DiscoverReadingListCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        discoverReadingListCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - Profile, tabs and Year in Review
@@ -138,6 +203,7 @@ final class SavedCoordinator: NSObject, Coordinator {
 extension SavedCoordinator: WMFSavedLoggingDelegate {
     func savedDidAppear() {
         ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
+        logSavedImpression()
     }
 
     func savedDidShowSegment(_ segment: WMFSavedViewModel.Segment) {
@@ -156,6 +222,21 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
         case .readingLists:
             NavigationEventsFunnel.shared.logEvent(action: .savedLists)
         }
+        logSavedImpression()
+    }
+
+    /// The counts are what the screen holds at this moment. Before the first load they are 0.
+    /// The announcement card counts an impression each time the screen does, while it is on screen.
+    private func logSavedImpression() {
+        guard let viewModel else { return }
+        savedInstrumentation.logImpression(
+            segment: viewModel.segment,
+            listCount: viewModel.readingListsViewModel.readingLists.count,
+            articleCount: viewModel.allArticlesViewModel.articles.count
+        )
+        if viewModel.discoverHeaderViewModel?.announcementViewModel.isVisible == true {
+            discoverInstrumentation.logAnnouncementImpression()
+        }
     }
 
     func savedDidTapEditAllArticles() {
@@ -172,6 +253,29 @@ extension SavedCoordinator: WMFSavedLoggingDelegate {
 
     func savedDidTapTabs() {
         ArticleTabsFunnel.shared.logIconClick(interface: .saved, project: nil)
+    }
+}
+
+// MARK: - WMFDiscoverAnnouncementLoggingDelegate
+
+extension SavedCoordinator: WMFDiscoverAnnouncementLoggingDelegate {
+    func discoverAnnouncementDidTapGetStarted() {
+        discoverInstrumentation.logAnnouncementGetStartedTap()
+    }
+
+    func discoverAnnouncementDidTapNoThanks() {
+        discoverInstrumentation.logAnnouncementNoThanksTap()
+    }
+}
+
+// MARK: - WMFDiscoverEntryCardLoggingDelegate
+
+extension SavedCoordinator: WMFDiscoverEntryCardLoggingDelegate {
+    /// No event of its own: the impression of the segment says that Discover is on.
+    func discoverEntryCardDidAppear() {}
+
+    func discoverEntryCardDidTap() {
+        discoverInstrumentation.logEntryCardTap(segment: viewModel?.segment ?? .allArticles)
     }
 }
 

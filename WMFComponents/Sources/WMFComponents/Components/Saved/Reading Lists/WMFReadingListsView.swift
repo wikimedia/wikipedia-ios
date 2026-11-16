@@ -6,6 +6,9 @@ public struct WMFReadingListsView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFReadingListsViewModel
+    /// Mirrors `discoverHeader` so the card fades in and out instead of popping.
+    @State private var shownDiscoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
+    @Environment(\.isSearching) private var isSearching
 
     private let deleteTitle = CommonStrings.deleteActionTitle
     private let cancelTitle = CommonStrings.cancelActionTitle
@@ -23,7 +26,10 @@ public struct WMFReadingListsView: View {
             case .loading:
                 ProgressView()
             case .empty:
-                emptyState
+                VStack(spacing: 0) {
+                    discoverHeaderCard
+                    emptyState
+                }
             case .data:
                 listView
             }
@@ -31,6 +37,12 @@ public struct WMFReadingListsView: View {
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadReadingLists()
+            shownDiscoverHeader = discoverHeader
+        }
+        .onChange(of: discoverHeader) { _, header in
+            withAnimation {
+                shownDiscoverHeader = header
+            }
         }
         .alert(
             CommonStrings.deleteReadingListsAlertTitle(readingListsCount: viewModel.pendingDeletion?.count ?? 1),
@@ -50,6 +62,33 @@ public struct WMFReadingListsView: View {
         }
     }
 
+    // MARK: - Discover
+
+    /// The card shows while the reader is not editing or searching.
+    private var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header? {
+        guard !viewModel.isEditing, !isSearching else { return nil }
+        return viewModel.discoverHeader
+    }
+
+    @ViewBuilder
+    private var discoverHeaderCard: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
+                .transition(.opacity)
+        }
+    }
+
+    @ViewBuilder
+    private var discoverHeaderRow: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
+                .transition(.opacity)
+        }
+    }
+
     private var emptyState: some View {
         let emptyViewModel = WMFEmptyViewModel(
             localizedStrings: WMFEmptyViewModel.LocalizedStrings(title: emptyTitle, subtitle: emptyMessage, titleFilter: nil, buttonTitle: createNewListTitle, attributedFilterString: nil),
@@ -57,14 +96,24 @@ public struct WMFReadingListsView: View {
             imageColor: nil,
             numberOfFilters: nil
         )
-        return WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true, mainAction: { viewModel.didTapCreateList?() })
-            .accessibilityElement(children: .contain)
-            .accessibilityIdentifier(AccessibilityIdentifiers.Saved.readingListsEmptyView)
+
+        return WMFEmptyView(
+            viewModel: emptyViewModel,
+            type: .noItems,
+            isScrollable: false,
+            mainAction: { viewModel.didTapCreateList?() }
+        )
+        .padding(.horizontal, WMFSpacing.xxLarge)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: appEnvironment.theme.paperBackground))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Saved.readingListsEmptyView)
     }
 
     private var listView: some View {
         VStack(spacing: 0) {
             List {
+                discoverHeaderRow
                 ForEach(viewModel.rows) { row in
                     let readingList = row.readingList
                     let isSelected = viewModel.selectedIDs.contains(readingList.id)
@@ -84,6 +133,7 @@ public struct WMFReadingListsView: View {
                         Divider()
                             .background(Color(uiColor: appEnvironment.theme.border))
                     }
+                    .readableWidth()
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color(uiColor: isSelected ? appEnvironment.theme.batchSelectionBackground : appEnvironment.theme.paperBackground))

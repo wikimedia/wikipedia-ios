@@ -75,11 +75,6 @@ final class TalkPagesFunnel {
         logEvent(action: .replyClick, routingSource: routingSource, project: project, talkPageType: talkPageType, lastViewDidAppearDate: lastViewDidAppearDate)
     }
     
-    // Note: Pull to refresh is not implemented in the UI yet
-    public func logPulledToRefresh(routingSource: RoutingUserInfoSourceValue, project: WikimediaProject, talkPageType: TalkPageType, lastViewDidAppearDate: Date) {
-        logEvent(action: .refresh, routingSource: routingSource, project: project, talkPageType: talkPageType, lastViewDidAppearDate: lastViewDidAppearDate)
-    }
-    
     public func logChangedLanguage(routingSource: RoutingUserInfoSourceValue, project: WikimediaProject, talkPageType: TalkPageType, lastViewDidAppearDate: Date) {
         logEvent(action: .langChange, routingSource: routingSource, project: project, talkPageType: talkPageType, lastViewDidAppearDate: lastViewDidAppearDate)
     }

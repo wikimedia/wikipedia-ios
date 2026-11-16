@@ -33,9 +33,12 @@ public struct WMFNavigationBarTitleConfig {
 
 public struct WMFNavigationBarBackButtonConfig {
     let needsCustomTruncateBackButtonTitle: Bool
+    /// What the Back button on the next screen shows: this screen's title (`.default`), "Back" (`.generic`) or only the chevron (`.minimal`).
+    let backButtonDisplayMode: UINavigationItem.BackButtonDisplayMode
     
-    public init(needsCustomTruncateBackButtonTitle: Bool) {
+    public init(needsCustomTruncateBackButtonTitle: Bool, backButtonDisplayMode: UINavigationItem.BackButtonDisplayMode = .default) {
         self.needsCustomTruncateBackButtonTitle = needsCustomTruncateBackButtonTitle
+        self.backButtonDisplayMode = backButtonDisplayMode
     }
 }
 
@@ -181,6 +184,10 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             if titleConfig.title.count > 10 {
                 navigationItem.backButtonTitle = titleConfig.title.prefix(10) + "..."
             }
+        }
+
+        if let backButtonConfig {
+            navigationItem.backButtonDisplayMode = backButtonConfig.backButtonDisplayMode
         }
 
         if let profileButtonConfig {

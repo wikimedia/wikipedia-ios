@@ -19,6 +19,11 @@ public enum AccessibilityIdentifiers {
         public static let leadImage = "Article Lead Image"
         public static let linkPreview = "Article Link Preview"
         public static let moreButton = "Article More Button"
+        public static let overflowEditItem = "Article Overflow Edit Item"
+        public static let overflowRevisionHistoryItem = "Article Overflow Revision History Item"
+        public static let overflowShareItem = "Article Overflow Share Item"
+        public static let overflowTalkPageItem = "Article Overflow Talk Page Item"
+        public static let overflowWatchItem = "Article Overflow Watch Item"
         public static let readingThemesBlackButton = "Article Reading Themes Black Button"
         public static let readingThemesBrightnessSlider = "Article Reading Themes Brightness Slider"
         public static let readingThemesDarkButton = "Article Reading Themes Dark Button"
@@ -51,6 +56,24 @@ public enum AccessibilityIdentifiers {
         public static let placesButton = "Root Tab Places Button"
         public static let savedButton = "Root Tab Saved Button"
         public static let searchButton = Search.tabButton
+    }
+
+    public enum Discover {
+        public static let announcementCard = "Discover Announcement Card"
+        public static let announcementGetStartedButton = "Discover Announcement Get Started Button"
+        public static let announcementNoThanksButton = "Discover Announcement No Thanks Button"
+        public static let entryCard = "Discover Entry Card"
+        public static let setupView = "Discover Setup View"
+        public static let setupContinueButton = "Discover Setup Continue Button"
+        public static func setupSourceRow(_ source: String) -> String {
+            "Discover Setup Source \(source)"
+        }
+        public static let settingsView = "Discover Settings View"
+        public static let settingsToggle = "Discover Settings Toggle"
+        public static let settingsArticleCountStepper = "Discover Settings Article Count Stepper"
+        public static let settingsCadenceMenu = "Discover Settings Cadence Menu"
+        public static let settingsSourceRow = "Discover Settings Source Row"
+        public static let settingsInterestsRow = "Discover Settings Interests Row"
     }
 
     public enum Home {
@@ -114,6 +137,10 @@ public enum AccessibilityIdentifiers {
         public static let nameErrorLabel = "Create Reading List Name Error Label"
         public static let nameTextField = "Create Reading List Name Text Field"
         public static let view = "Create Reading List View"
+
+        public static func articleRow(_ title: String) -> String {
+            "Create Reading List Article Row \(title)"
+        }
     }
 
     public enum AddToReadingList {
@@ -131,6 +158,16 @@ public enum AccessibilityIdentifiers {
         public static let view = "Profile View"
         public static let temporaryAccountUserPageRow = "Profile Temporary Account User Page Row"
         public static let joinWikipediaRow = "Profile Join Wikipedia Row"
+        public static let settingsRow = "Profile Settings Row"
+    }
+
+    public enum Settings {
+        public static let homeFeedRow = "Settings Home Feed Row"
+    }
+
+    public enum HomeFeedSettings {
+        public static let whatsDrivingRow = "Home Feed Settings Whats Driving Row"
+        public static let yourInterestsRow = "Home Feed Settings Your Interests Row"
     }
 
     public enum Search {
@@ -196,10 +233,15 @@ public enum AccessibilityIdentifiers {
     }
 
     public enum Interests {
+        public static let articleCard = "Interests Article Card"
+        public static let headerTitle = "Interests Header Title"
+        public static let selectedCount = "Interests Selected Count"
         public static let deselectAllButton = "Interests Deselect All Button"
+        public static let doneButton = "Interests Done Button"
         public static let searchCancelButton = "Interests Search Cancel Button"
         public static let searchField = "Interests Search Field"
         public static let searchResultRow = "Interests Search Result Row"
+        public static let subtitle = "Interests Subtitle"
         public static let view = "Interests View"
     }
 

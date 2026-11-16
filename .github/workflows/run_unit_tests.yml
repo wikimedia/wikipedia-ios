@@ -5,68 +5,189 @@ on:
     branches:
       - 'main'
       - 'release-candidate/**'
+      - 'hotfix/**'
+  # A nightly run on main fills the compilation cache that PR runs start from (see
+  # below). It runs once a day, outside working hours, rather than on every merge,
+  # so it doesn't compete with PRs for macOS runners. It runs after the 02:00 UTC
+  # nightly UI tests. Scheduled runs always use the default branch (main).
+  schedule:
+    - cron: '17 4 * * *'
   workflow_dispatch:
 
 env:
   XCODE_VERSION: "27.1"
   IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
-  SCHEMES: "Wikipedia WMFComponents WMFData"
+  # Xcode's compilation cache (Xcode 26+). It stores compiler outputs keyed by the
+  # content of their inputs, so unlike a DerivedData cache it still hits after
+  # actions/checkout gives every file a new modification date.
+  #
+  # Only the Wikipedia scheme uses it. With the build running before the simulator boots
+  # (see the unit-test-scheme action), a warm cache cut the app build from 300s to
+  # 224s in a trial, and its restore took 11s when the cache service answered
+  # promptly (up to about 2.5 minutes when it didn't). The packages compile far
+  # less, so for them restoring and saving the cache would only add time.
+  #
+  # The nightly run on main builds from an empty cache and saves it, so a saved
+  # cache only ever holds one main build and cannot grow without bound. PR runs
+  # restore the newest main cache and never save, which also keeps PR runs from
+  # filling the repository's cache storage. (GitHub only lets a PR read caches
+  # saved on its base branch, so main is the one place a shared cache can come
+  # from.) The cache is keyed by file contents, so a cache up to a day old still
+  # covers every file that hasn't changed since.
+  COMPILATION_CACHE_PATH: "~/Library/Developer/Xcode/DerivedData/CompilationCache.noindex"
 
 concurrency:
   group: "unit-tests-${{ github.ref }}"  # One group per branch
   cancel-in-progress: true                # Cancel older runs in the same group
 
+# One macOS job for all three schemes. macOS runners are the scarce resource: PR
+# runs spend far longer queued for one than running on it, so each push asks for
+# one runner instead of two. The job checks out, prepares the runner and boots the
+# simulator once.
+#
+# All three schemes build before the simulator boots: a just-booted simulator
+# loads the runner heavily for several minutes, which slows compiling several
+# times over. Then the simulator boots and the three test runs follow.
 jobs:
-  run-unit-tests:
+  test:
     runs-on: xcode-27
     permissions:
       actions: read
       contents: read
-    strategy:
-      matrix:
-        scheme: ["Wikipedia", "WMFComponents", "WMFData"]
-
-    name: Test ${{ matrix.scheme }}
+    name: Test Wikipedia, WMFComponents and WMFData
+    outputs:
+      wikipedia: ${{ steps.wikipedia-tests.outcome }}
+      wmfcomponents: ${{ steps.wmfcomponents-tests.outcome }}
+      wmfdata: ${{ steps.wmfdata-tests.outcome }}
     steps:
       - uses: actions/checkout@v7
-
-      - name: Select Xcode
-        run: |
-          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
       - name: Prepare simulator
         id: simulator
         uses: ./.github/actions/prepare-simulator
         with:
+          xcode-version: ${{ env.XCODE_VERSION }}
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
+          boot: "false"
 
+      # The cache steps never fail the job: without a cache, xcodebuild just
+      # compiles from scratch.
+      - name: Restore compilation cache
+        if: github.event_name != 'schedule'
+        continue-on-error: true
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ env.COMPILATION_CACHE_PATH }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
+          restore-keys: |
+            compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-
+
+      # Each scheme's build and tests run even when another scheme fails, so one
+      # run reports all three.
+      - name: Build Wikipedia for testing
+        id: wikipedia-build
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: Wikipedia
+          destination: ${{ steps.simulator.outputs.destination }}
+          compilation-cache: "true"
+          mode: build
+
+      - name: Build WMFComponents for testing
+        id: wmfcomponents-build
+        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFComponents
+          destination: ${{ steps.simulator.outputs.destination }}
+          mode: build
+
+      - name: Build WMFData for testing
+        id: wmfdata-build
+        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFData
+          destination: ${{ steps.simulator.outputs.destination }}
+          mode: build
+
+      - name: Save compilation cache
+        if: ${{ !cancelled() && github.event_name == 'schedule' }}
+        continue-on-error: true
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ env.COMPILATION_CACHE_PATH }}
+          key: compilation-cache-xcode-${{ env.XCODE_VERSION }}-Wikipedia-${{ github.sha }}
+
+      - name: Test Wikipedia
+        id: wikipedia-tests
+        if: ${{ !cancelled() && steps.wikipedia-build.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: Wikipedia
+          destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
+          compilation-cache: "true"
+          mode: test
+
+      - name: Test WMFComponents
+        id: wmfcomponents-tests
+        if: ${{ !cancelled() && steps.wmfcomponents-build.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
+        with:
+          scheme: WMFComponents
+          destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
+          mode: test
+
+      # A lint failure skips only the WMFData tests.
       - name: Ensure tests reset WMFData global environment state
-        if: matrix.scheme == 'WMFData'
+        id: wmfdata-lint
+        if: ${{ !cancelled() && steps.simulator.outcome == 'success' }}
         run: scripts/lint-wmfdata-test-fixtures.sh
 
-      - name: Test ${{ matrix.scheme }} scheme
-        run: |
-          echo "Running scheme: ${{ matrix.scheme }} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
-          xcodebuild test \
-            -scheme "${{ matrix.scheme }}" \
-            -project Wikipedia.xcodeproj \
-            -onlyUsePackageVersionsFromResolvedFile \
-            -destination "${{ steps.simulator.outputs.destination }}" \
-            -resultBundlePath "${{ matrix.scheme }}_TestResults" \
-            | xcpretty
-          EXIT_CODE=${PIPESTATUS[0]}
-          if [ "$EXIT_CODE" -ne 0 ]; then
-            exit "$EXIT_CODE"
-          fi
-
-      - name: Coverage summary
-        if: success()
-        uses: ./.github/actions/coverage-summary
+      - name: Test WMFData
+        id: wmfdata-tests
+        if: ${{ !cancelled() && steps.wmfdata-lint.outcome == 'success' && steps.wmfdata-build.outcome == 'success' }}
+        uses: ./.github/actions/unit-test-scheme
         with:
-          artifact-name: ${{ matrix.scheme }}-coverage
-          coverage-json-path: ${{ matrix.scheme }}_coverage.json
-          result-bundle-path: ${{ matrix.scheme }}_TestResults.xcresult
-          scheme: ${{ matrix.scheme }}
-          workflow-file: run_unit_tests.yml
+          scheme: WMFData
+          destination: ${{ steps.simulator.outputs.destination }}
+          simulator-udid: ${{ steps.simulator.outputs.udid }}
+          mode: test
+
+  # Branch protection on main requires checks named "Test Wikipedia", "Test
+  # WMFComponents" and "Test WMFData", the names of the per-scheme jobs this
+  # workflow used to have. These jobs keep reporting those names from the shared
+  # job's results, on cheap Ubuntu runners, so PRs aren't left waiting for checks
+  # that never come. Once the required check is switched to "Test Wikipedia,
+  # WMFComponents and WMFData", delete these jobs and the test job's outputs.
+  #
+  # Skipped counts as a failure: a scheme's tests are skipped when its build
+  # fails, or, for WMFData, when the fixture lint fails.
+  report:
+    needs: test
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions: {}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scheme: Wikipedia
+            output: wikipedia
+          - scheme: WMFComponents
+            output: wmfcomponents
+          - scheme: WMFData
+            output: wmfdata
+    name: Test ${{ matrix.scheme }}
+    steps:
+      - name: Report the ${{ matrix.scheme }} tests from the shared test job
+        env:
+          SCHEME: ${{ matrix.scheme }}
+          OUTCOME: ${{ needs.test.outputs[matrix.output] }}
+        run: |
+          echo "${SCHEME} tests: ${OUTCOME:-did not run}"
+          test "${OUTCOME}" = "success"

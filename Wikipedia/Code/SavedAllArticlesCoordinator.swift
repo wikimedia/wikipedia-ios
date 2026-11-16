@@ -15,6 +15,7 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
     private var dataSource: LegacyReadingListsDataSource?
     private var _viewModel: WMFSavedAllArticlesViewModel?
     private var readingListsCoordinator: ReadingListsCoordinator?
+    private var syncDidFinishObserver: NSObjectProtocol?
 
     /// The Saved tab builds its segments before its navigation controller exists, so the
     /// navigation controller is resolved when first needed.
@@ -23,6 +24,18 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         self.dataStore = dataStore
         self.theme = theme
         super.init()
+        // The articles come from the database. A sync adds to them after the screen loads.
+        syncDidFinishObserver = NotificationCenter.default.addObserver(forName: ReadingListsController.syncDidFinishNotification, object: nil, queue: nil) { [weak self] _ in
+            Task { @MainActor in
+                self?._viewModel?.loadArticles()
+            }
+        }
+    }
+
+    deinit {
+        if let syncDidFinishObserver {
+            NotificationCenter.default.removeObserver(syncDidFinishObserver)
+        }
     }
 
     // MARK: - Coordinator
@@ -128,7 +141,7 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: .readingList,
             tabConfig: tabConfig
         )
         articleCoordinator.start()
@@ -272,7 +285,7 @@ extension SavedAllArticlesCoordinator {
     }
 
     private func unsaveAndAnnounceAndLog(articles: [WMFArticle]) {
-        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
+        dataStore.readingListsController.unsaveAndSync(articles)
 
         let articlesCount = articles.count
         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
@@ -285,6 +298,7 @@ extension SavedAllArticlesCoordinator {
 
 extension SavedAllArticlesCoordinator: WMFSavedAllArticlesLoggingDelegate {
     func savedAllArticlesDidTapArticle(_ article: WMFSavedArticle, fromLongPress: Bool) {
+        SavedInstrumentation.shared.logSavedArticleTap()
         if let siteURL = article.project.siteURL, let articleURL = siteURL.wmf_URL(withTitle: article.title) {
             ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
         }

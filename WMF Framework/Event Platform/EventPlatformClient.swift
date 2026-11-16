@@ -3,7 +3,7 @@
  *
  * DESCRIPTION
  *     Collects events in an input buffer, adds some metadata, places them in an
- *     ouput buffer where they are periodically bursted to a remote endpoint via
+ *     output buffer where they are periodically bursted to a remote endpoint via
  *     HTTP POST.
  *
  *     Designed for use with Wikipedia iOS application producing events to a
@@ -993,16 +993,19 @@ import WMFTestKitchen
         guard let config = streamConfigs[stream] else {
             if stream == .productMetricsAppBase {
                 storageManager.push(data: data, stream: stream)
+                WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .recorded)
                 return
             }
 
             DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .unconfiguredStream)
+            WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .droppedUnconfiguredStream)
             return
         }
         guard samplingController.inSample(stream: stream, config: config) else {
             DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
             WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .notInSample)
+            WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .droppedNotInSample)
             return
         }
 
@@ -1016,20 +1019,12 @@ import WMFTestKitchen
         #endif
 
         storageManager.push(data: data, stream: stream)
+        WMFAnalyticsEventInspectorDataController.shared.record(payload: data, stream: stream.rawValue, outcome: .recorded)
     }
 }
 
 // MARK: Thread-safe accessors for collection properties
 private extension EventPlatformClient {
-
-    /**
-     * Thread-safe synchronous retrieval of buffered events
-     */
-    func getInputBuffer() -> [(Data, Stream)] {
-        queue.sync {
-            return self.inputBuffer
-        }
-    }
 
     /**
      * Thread-safe synchronous buffering of an event

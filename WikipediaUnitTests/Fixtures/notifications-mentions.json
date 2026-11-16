@@ -480,6 +480,68 @@
                 },
                 "iconUrl": "/w/extensions/Echo/modules/icons/mention-progressive.svg"
               }
+            },
+            {
+              "wiki": "commonswiki",
+              "id": 10,
+              "type": "mention",
+              "category": "mention",
+              "section": "alert",
+              "timestamp": {
+                "utciso8601": "2022-03-14T15:22:52Z",
+                "utcunix": 1647271372,
+                "unix": "1647271372",
+                "utcmw": "20220314152252",
+                "mw": "20220314152252",
+                "date": "14 March"
+              },
+              "title": {
+                "full": "Commons:Village pump",
+                "namespace": "Project",
+                "namespace-key": 4,
+                "text": "Village pump"
+              },
+              "agent": {
+                "id": 42540,
+                "name": "Fred The Bird"
+              },
+              "revid": 505586,
+              "read": "20220314181246",
+              "targetpages": [],
+              "*": {
+                "header": "Fred The Bird mentioned you on <strong>Commons:Village pump</strong> in \"<strong>Section Title</strong>\".",
+                "compactHeader": "Fred The Bird mentioned you on <strong>Commons:Village pump</strong> in \"<strong>Section Title</strong>\".",
+                "body": "Jack The Cat Reply text mention on project page.",
+                "icon": "mention",
+                "links": {
+                  "primary": {
+                    "url": "https://commons.wikimedia.org/wiki/Commons:Village_pump?markasread=90497&markasreadwiki=commonswiki#c-Fred_The_Bird-2022-03-14T15:22:00.000Z-New_topic",
+                    "label": "View mention"
+                  },
+                  "secondary": [
+                    {
+                      "url": "https://commons.wikimedia.org/wiki/User:Fred_The_Bird",
+                      "label": "Fred The Bird",
+                      "tooltip": "",
+                      "description": "",
+                      "icon": "userAvatar",
+                      "prioritized": true
+                    },
+                    {
+                      "url": "https://commons.wikimedia.org/w/index.php?title=Commons:Village_pump&oldid=prev&diff=505586",
+                      "label": "View changes",
+                      "description": "",
+                      "icon": "changes",
+                      "prioritized": true
+                    }
+                  ],
+                  "legacyPrimary": {
+                    "url": "//commons.wikimedia.org/wiki/Commons:Village_pump?markasread=90497&markasreadwiki=commonswiki#Section_Title",
+                    "label": "View mention"
+                  }
+                },
+                "iconUrl": "/w/extensions/Echo/modules/icons/mention-progressive.svg"
+              }
             }
       ],
       "continue": "1569862285|172771996"

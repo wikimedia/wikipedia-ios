@@ -193,35 +193,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func tappedArticle(_ item: HistoryItem) {
-        if let articleURL = item.url {
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
-            if let presented = navigationController.presentedViewController {
-                presented.dismiss(animated: true) {
-                    articleCoordinator.start()
-                }
-            }
-        }
-    }
-
-    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String) -> String {
-        guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
-            return genericString
-        }
-
-        if let language = Locale.current.localizedString(forLanguageCode: code) {
-            return String.localizedStringWithFormat(format, language)
-        } else {
-            if code == "test" {
-                return String.localizedStringWithFormat(format, "Test")
-            } else if code == "test2" {
-                return String.localizedStringWithFormat(format, "Test 2")
-            } else {
-                return genericString
-            }
-        }
-    }
-
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
         // If navigation controller is already displaying tab, just dismiss without pushing on any more tabs.
         if let displayedArticleViewController = navigationController.viewControllers.last as? ArticleViewController,
@@ -317,14 +288,6 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
             ArticleTabsFunnel.shared.logTabsOverviewArticleClick(project: project)
         }
-    }
-
-    func logArticleTabsOverviewTappedHideSuggestions() {
-        ArticleTabsFunnel.shared.logTabsOverflowHideArticleSuggestionsTap()
-    }
-
-    func logArticleTabsOverviewTappedShowSuggestions() {
-        ArticleTabsFunnel.shared.logTabsOverflowShowArticleSuggestionsTap()
     }
 
     func logArticleTabsOverviewTappedCloseAllTabs() {

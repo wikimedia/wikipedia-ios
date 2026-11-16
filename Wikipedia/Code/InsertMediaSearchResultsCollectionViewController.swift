@@ -191,10 +191,6 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
         }
     }
 
-    func scrollViewInsetsDidChange() {
-        wmf_setEmptyViewFrame(emptyViewFrame)
-    }
-
     // MARK: Scroll view delegate
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -23,16 +23,6 @@ public enum MagicWordKey: String {
 }
 public struct MagicWordUtils {
     
-    public static func getMagicWordsForKey(_ key: MagicWordKey, languageCode: String) -> [String] {
-        let magicWords = fromFile(with: languageCode)
-        
-        guard let magicWord = magicWords?.first(where: { $0.name == key.rawValue }) else {
-            return []
-        }
-        
-        return magicWord.aliases
-    }
-    
     public static func getMagicWordForKey(_ key: MagicWordKey, languageCode: String) -> String? {
         let magicWords = fromFile(with: languageCode)
         

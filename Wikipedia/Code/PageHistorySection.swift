@@ -1,11 +1,8 @@
 import Foundation
+import WMFData
 
-open class PageHistorySection: NSObject {
-    @objc public let sectionTitle: String
-    @objc public let items: [WMFPageHistoryRevision]
-    
-    @objc public init(sectionTitle: String, items: [WMFPageHistoryRevision]) {
-        self.sectionTitle = sectionTitle
-        self.items = items
-    }
+/// A group of revisions that share one calendar day.
+struct PageHistorySection {
+    let sectionTitle: String
+    let items: [WMFPageRevision]
 }

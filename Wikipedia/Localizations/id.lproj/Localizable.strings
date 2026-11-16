@@ -115,7 +115,6 @@
 "activity-tab-customize-empty-state" = "Modul aktivitas dimatikan. $1Nyalakan$2 untuk melihat pembaruan di tab ini.";
 "activity-tab-menu-clear-history" = "Hapus riwayat bacaan";
 "activity-tab-title" = "Aktivitas";
-"activity-tab-you-edited" = "Anda menyunting {{PLURAL:$1|$1 kali}} minggu ini.";
 "activity-tab-your-impact" = "Dampak Anda";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "advanced-settings-title" = "Pengaturan lanjutan";
@@ -257,6 +256,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Ketuk dua kali untuk menyalakan sumbangan bulanan otomatis sebesar jumlah tersebut.";
 "donate-accessibility-textfield-hint" = "Masukkan jumlah tertentu untuk disumbangkan.";
 "donate-accessibility-transaction-fee-hint" = "Ketuk dua kali untuk menambahkan biaya transaksi ke jumlah sumbangan.";
+// Fuzzy
 "donate-already-donated" = "Terima kasih, para penyumbang terhormat! Kedermawanan Anda membantu menjaga Wikipedia dan proyek pengetahuan bebas lainnya tetap berkembang.";
 "donate-apple-fine-print" = "Apple tidak memegang tanggung jawab atas pengumpulan uang sumbangan ini.";
 "donate-email-opt-in-text" = "Ya, Yayasan Wikimedia dapat sesekali mengirimi saya surel.";
@@ -804,7 +804,6 @@
 "potd-sample-entry-description" = "Dua ekor sapi jantan sedang berlari, sementara sang joki berpegangan pada mereka pada pacu jawi (dari bahasa Minangkabau, \"adu banteng\"), sebuah adu banteng tradisional di Tanah Datar, Sumatera Barat, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "Nikmati gambar yang indah setiap hari yang dipilih oleh komunitas kami.";
 "potd-widget-title" = "Gambar pilihan";
-"preference-summary-eventlogging-opt-in" = "Izinkan Wikimedia Foundation untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi untuk membuat aplikasi yang lebih baik";
 "privacy-policy-title" = "Kebijakan privasi";
 "profile-button-accessibility-label" = "Profil";
 "profile-page-logged-out-year-in-review-subtext" = "Masuk log atau buat akun untuk mendapatkan tinjauan tahunan yang lebih baik tahun depan.";
@@ -829,8 +828,6 @@
 "reading-list-api-error-generic" = "Terjadi kesalahan tak terduga saat menyinkronkan daftar bacaan Anda.";
 "reading-list-api-error-list-limit" = "Daftar ini tidak disinkronkan karena Anda telah mencapai batas jumlah daftar yang disinkronkan.";
 "reading-list-create-new-list-button-title" = "Buat daftar bacaan";
-"reading-list-create-new-list-description" = "Deskripsi";
-"reading-list-create-new-list-reading-list-name" = "Nama daftar bacaan";
 "reading-list-create-new-list-title" = "Buat daftar baru";
 "reading-list-deleted-accessibility-notification" = "Daftar bacaan dihapus";
 "reading-list-do-not-keep-button-title" = "Tidak, hapus artikel dari perangkat";
@@ -850,7 +847,9 @@
 "reading-list-list-limit-reached" = "Anda telah mencapai batas $1 daftar bacaan per akun";
 "reading-list-login-or-create-account-button-title" = "Masuk log atau buat akun";
 "reading-list-name-user-created-annotation" = "_[dibuat pengguna]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "deskripsi singkat opsional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "judul daftar bacaan";
 "reading-list-sync-disabled-panel-message" = "Sinkronisasi daftar bacaan telah dinonaktifkan untuk akun Wikipedia Anda di perangkat lain. Anda dapat mengaktifkan kembali sinkronisasi dengan memperbarui pengaturan Anda.";
 "reading-list-sync-disabled-panel-title" = "Sinkronisasi dinonaktifkan";
@@ -944,7 +943,6 @@
 "settings-clear-cache" = "Hapus data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Menghapus data cache akan membebaskan sekitar $1 ruang. Ini tidak akan menghapus halaman tersimpan Anda.";
 "settings-clear-cache-are-you-sure-title" = "Hapus data dalam cache?";
-"settings-clear-cache-cancel" = "Batal";
 "settings-clear-cache-ok" = "Hapus cache";
 "settings-donate" = "Menyumbang";
 "settings-help-and-feedback" = "Bantuan dan masukan";

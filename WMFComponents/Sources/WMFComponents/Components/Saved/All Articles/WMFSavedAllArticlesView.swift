@@ -6,6 +6,9 @@ public struct WMFSavedAllArticlesView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSavedAllArticlesViewModel
+    /// Mirrors `discoverHeader` so the card fades in and out instead of popping.
+    @State private var shownDiscoverHeader: WMFSavedDiscoverHeaderViewModel.Header?
+    @Environment(\.isSearching) private var isSearching
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
     private let emptyStateTitle = CommonStrings.allArticlesEmptySavedTitle
@@ -23,7 +26,11 @@ public struct WMFSavedAllArticlesView: View {
             case .loading, .undefined:
                 ProgressView()
             case .empty:
-                emptyStateView
+                VStack(spacing: 0) {
+                    discoverHeaderCard
+                    emptyStateView
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             case .data:
                 articleListView
             }
@@ -31,6 +38,12 @@ public struct WMFSavedAllArticlesView: View {
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadArticles()
+            shownDiscoverHeader = discoverHeader
+        }
+        .onChange(of: discoverHeader) { _, header in
+            withAnimation {
+                shownDiscoverHeader = header
+            }
         }
     }
     
@@ -60,11 +73,39 @@ public struct WMFSavedAllArticlesView: View {
         .accessibilityIdentifier(AccessibilityIdentifiers.Saved.allArticlesEmptyView)
     }
     
+    // MARK: - Discover
+
+    /// The card shows while the reader is not editing or searching.
+    private var discoverHeader: WMFSavedDiscoverHeaderViewModel.Header? {
+        guard !viewModel.isEditing, !isSearching else { return nil }
+        return viewModel.discoverHeader
+    }
+
+    @ViewBuilder
+    private var discoverHeaderCard: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
+                .transition(.opacity)
+        }
+    }
+
+    @ViewBuilder
+    private var discoverHeaderRow: some View {
+        if let shownDiscoverHeader, let discoverHeaderViewModel = viewModel.discoverHeaderViewModel {
+            WMFSavedDiscoverHeaderView(header: shownDiscoverHeader, viewModel: discoverHeaderViewModel)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(uiColor: appEnvironment.theme.paperBackground))
+                .transition(.opacity)
+        }
+    }
+
     // MARK: - Article List
     
     private var articleListView: some View {
         VStack(spacing: 0) {
             List {
+                discoverHeaderRow
                 ForEach(viewModel.filteredArticles, id: \.id) { article in
                     let rowModel = viewModel.rowViewModel(for: article)
                     
@@ -97,7 +138,7 @@ public struct WMFSavedAllArticlesView: View {
                             .background(Color(uiColor: appEnvironment.theme.border))
                             .frame(height: max(1.0 / UIScreen.main.scale, 0.5))
                     }
-                    
+                    .readableWidth()
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color(uiColor: rowModel.isSelected ? appEnvironment.theme.batchSelectionBackground : appEnvironment.theme.paperBackground))

@@ -224,17 +224,6 @@ private extension SavedArticlesFetcher {
             return
         }
 
-        if deferUpdateIfOverBudget() {
-            return
-        }
-        
-        isUpdating = true
-        
-        startBackgroundTask {
-            self.cancelAllRequests()
-            self.stop()
-        }
-        
         assert(Thread.isMainThread)
         
         let moc = dataStore.viewContext
@@ -248,6 +237,18 @@ private extension SavedArticlesFetcher {
             article = try moc.fetch(request).first
         } catch let error {
             DDLogError("Error fetching next article to download: \(error)")
+        }
+
+        // Only downloads use the API budget. A cycle that removes cached articles must not wait.
+        if article != nil, deferUpdateIfOverBudget() {
+            return
+        }
+        
+        isUpdating = true
+        
+        startBackgroundTask {
+            self.cancelAllRequests()
+            self.stop()
         }
         
         let updateAgain = {

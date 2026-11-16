@@ -58,6 +58,63 @@ extension SavedRobot {
     }
 }
 
+// MARK: - Discover announcement
+
+extension SavedRobot {
+    @discardableResult
+    func assertDiscoverAnnouncementVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(discoverAnnouncementCard, timeout: 15, description: "Discover announcement card", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertDiscoverAnnouncementAbsent(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.waitForElementToDisappear(discoverAnnouncementCard, timeout: 10, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapDiscoverGetStarted(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let button = base.app.buttons.matching(identifier: AccessibilityIdentifiers.Discover.announcementGetStartedButton).firstMatch
+        base.assertExists(button, timeout: 15, description: "Discover Get started button", file: file, line: line)
+        button.tap()
+        return self
+    }
+
+    @discardableResult
+    func tapDiscoverNoThanks(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let button = base.app.buttons.matching(identifier: AccessibilityIdentifiers.Discover.announcementNoThanksButton).firstMatch
+        base.assertExists(button, timeout: 15, description: "Discover No thanks button", file: file, line: line)
+        button.tap()
+        return self
+    }
+
+    @discardableResult
+    func assertDiscoverSetupVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(discoverSetupView, timeout: 15, description: "Discover setup screen", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapBackFromDiscoverSetup(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let navigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(navigationBar, timeout: 10, description: "Discover setup navigation bar", file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertVisible(backButton, timeout: 10, description: "Discover setup back button", file: file, line: line)
+        base.tapCenter(of: backButton, file: file, line: line)
+        base.waitForElementToDisappear(discoverSetupView, timeout: 10, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+
+    private var discoverSetupView: XCUIElement {
+        element(withIdentifier: AccessibilityIdentifiers.Discover.setupView)
+    }
+
+    private var discoverAnnouncementCard: XCUIElement {
+        element(withIdentifier: AccessibilityIdentifiers.Discover.announcementCard)
+    }
+}
+
 // MARK: - Segments
 
 extension SavedRobot {

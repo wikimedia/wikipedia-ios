@@ -30,11 +30,11 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let globalUserID else { return }
         
-        guard let dateRange = WMFYearInReviewDataController.contributorDateRange(year: year) else {
+        guard let dateRange = WMFYearInReviewDataController.editCountDateRange(config: yirConfig) else {
             return
         }
         
-        let editCountDataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
+        let editCountDataController = WMFGlobalEditorMetricsDataController(globalUserID: globalUserID)
         self.editCount = try await editCountDataController.fetchEditCount(startDate: dateRange.start, endDate: dateRange.end)
 
         isEvaluated = true

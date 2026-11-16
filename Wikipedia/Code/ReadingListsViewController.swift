@@ -20,7 +20,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     var editController: CollectionViewEditController!
     private let articles: [WMFArticle] // the articles that will be added to a reading list
     public weak var delegate: ReadingListsViewControllerDelegate?
-    private var createReadingListViewController: CreateReadingListViewController?
+    private var createReadingListCoordinator: CreateReadingListCoordinator?
     private var emptyViewController: WMFEmptyViewController?
 
     // MARK: - Fetching
@@ -108,15 +108,13 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     // MARK: - Reading list creation
 
     @objc func createReadingList(with articles: [WMFArticle] = [], moveFromReadingList: ReadingList? = nil) {
-        createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles, moveFromReadingList: moveFromReadingList)
-        guard let createReadingListViewController = createReadingListViewController else {
-            assertionFailure("createReadingListViewController is nil")
-            return
+        let coordinator = CreateReadingListCoordinator(presentingViewController: self, articles: articles, moveFromReadingList: moveFromReadingList)
+        coordinator.delegate = self
+        coordinator.didDismiss = { [weak self] in
+            self?.createReadingListCoordinator = nil
         }
-        createReadingListViewController.delegate = self
-        let navigationController = WMFComponentNavigationController(rootViewController: createReadingListViewController, modalPresentationStyle: .overFullScreen)
-
-        present(navigationController, animated: true, completion: nil)
+        createReadingListCoordinator = coordinator
+        coordinator.start()
     }
 
     @objc func presentCreateReadingListViewController() {
@@ -260,28 +258,27 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
 }
 
-// MARK: - CreateReadingListViewControllerDelegate
+// MARK: - CreateReadingListCoordinatorDelegate
 
-extension ReadingListsViewController: CreateReadingListDelegate {
-    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
+extension ReadingListsViewController: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(_ coordinator: CreateReadingListCoordinator, didCreateReadingListWith name: String, description: String, articles: [WMFArticle]) {
         do {
             let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
-            if let moveFromReadingList = createReadingListViewController.moveFromReadingList {
+            if let moveFromReadingList = coordinator.moveFromReadingList {
                 try readingListsController.remove(articles: articles, readingList: moveFromReadingList)
             }
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
-            createReadingListViewController.dismiss(animated: true, completion: nil)
+            coordinator.dismiss(animated: true)
             ReadingListsFunnel.shared.logCreateInAddToReadingList()
         } catch let error {
             switch error {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
-                createReadingListViewController.handleReadingListNameError(readingListError)
+                coordinator.handleReadingListNameError(readingListError)
             default:
-                createReadingListViewController.dismiss(animated: true) {
-                    self.handleReadingListError(error)
+                coordinator.dismiss(animated: true) { [weak self] in
+                    self?.handleReadingListError(error)
                 }
             }
-
         }
     }
 }

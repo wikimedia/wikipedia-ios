@@ -46,7 +46,6 @@ struct WMFPageRowSaved: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFPageRowSavedViewModel
-    @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     typealias FromLongPress = Bool
     let onTap: (FromLongPress) -> Void
@@ -54,73 +53,71 @@ struct WMFPageRowSaved: View {
     let onShare: (CGRect, FromLongPress) -> Void
     let onOpenInNewTab: () -> Void
     let onOpenInBackgroundTab: () -> Void
+    /// Set it to false where the row only selects the article, like in the create reading list form.
+    var showsContextMenu = true
 
-    private var maxReadableWidth: CGFloat {
-        switch dynamicTypeSize {
-        case .xSmall, .small, .medium, .large:
-            return 700
-        case .xLarge, .xxLarge, .xxxLarge:
-            return 800
-        case .accessibility1, .accessibility2:
-            return 900
-        case .accessibility3, .accessibility4, .accessibility5:
-            return .infinity // No limit for largest sizes
-        @unknown default:
-            return 700
+    @ViewBuilder
+    var body: some View {
+        if showsContextMenu {
+            rowButton
+                .contextMenu {
+                    contextMenuItems
+                } preview: {
+                    WMFArticlePreviewView(viewModel: getPreviewViewModel(from:viewModel))
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    swipeActionButtons
+                }
+        } else {
+            rowButton
         }
     }
 
-    var body: some View {
+    private var rowButton: some View {
         Button(action: {
             self.onTap(false)
         }) {
-            HStack(spacing: 0) {
-                Spacer(minLength: 0)
+            HStack(spacing: WMFSpacing.medium) {
+                if viewModel.isEditing {
+                    selectionIndicator
+                }
 
-                HStack(spacing: 12) {
-                    if viewModel.isEditing {
-                        selectionIndicator
-                    }
+                HStack(spacing: WMFSpacing.medium) {
 
-                    HStack(spacing: 12) {
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.title)
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
-                                .foregroundColor(Color(uiColor: appEnvironment.theme.text))
-                                .lineLimit(1)
+                    VStack(alignment: .leading, spacing: WMFSpacing.xSmall) {
+                        Text(viewModel.title)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundColor(Color(uiColor: appEnvironment.theme.text))
+                            .lineLimit(1)
 
 
-                            Text(viewModel.description ?? " ")
-                                .font(Font(WMFFont.for(.subheadline)))
-                                .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
-                                .lineLimit(1)
-
-                            Spacer()
-
-
-                            if viewModel.isAlertHidden {
-                                if !viewModel.readingListNames.isEmpty {
-                                    readingListTags
-                                }
-                            } else {
-                                WMFPageRowSavedAlertView(viewModel: viewModel)
-                            }
-
-                        }
+                        Text(viewModel.description ?? " ")
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
+                            .lineLimit(1)
 
                         Spacer()
 
-                        thumbnailView
-                    }
-                    .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .frame(maxWidth: maxReadableWidth, minHeight: 124, alignment: .leading)
 
-                Spacer(minLength: 0)
+                        if viewModel.isAlertHidden {
+                            if !viewModel.readingListNames.isEmpty {
+                                readingListTags
+                            }
+                        } else {
+                            WMFPageRowSavedAlertView(viewModel: viewModel)
+                        }
+
+                    }
+
+                    Spacer()
+
+                    thumbnailView
+                }
+                .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
             }
+            .padding(.horizontal, WMFSpacing.large)
+            .padding(.vertical, WMFSpacing.medium)
+            .frame(minHeight: 124, alignment: .leading)
         }
         .accessibilityElement()
         .accessibilityLabel("\(viewModel.title) - \(viewModel.description ?? "")")
@@ -137,72 +134,72 @@ struct WMFPageRowSaved: View {
             }
             .allowsHitTesting(false)
         )
-        .contextMenu {
-            Button {
-                onTap(true)
-            } label: {
-                Text(CommonStrings.articleTabsOpen)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
+    }
 
-            Button {
-                onDelete(true)
-            } label: {
-                Text(CommonStrings.unsaveTitle)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-            Button {
-                onOpenInNewTab()
-            } label: {
-                Text(CommonStrings.articleTabsOpenInNewTab)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-            Button {
-                onOpenInBackgroundTab()
-            } label: {
-                Text(CommonStrings.articleTabsOpenInBackgroundTab)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-            Button {
-                onShare(viewModel.geometryFrame, true)
-            } label: {
-                Text(CommonStrings.shortShareTitle)
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
-            }
-            .labelStyle(.titleAndIcon)
-
-        } preview: {
-            WMFArticlePreviewView(viewModel: getPreviewViewModel(from:viewModel))
+    @ViewBuilder
+    private var contextMenuItems: some View {
+        Button {
+            onTap(true)
+        } label: {
+            Text(CommonStrings.articleTabsOpen)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
         }
-        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+        .labelStyle(.titleAndIcon)
 
-            if !viewModel.isEditing {
+        Button {
+            onDelete(true)
+        } label: {
+            Text(CommonStrings.unsaveTitle)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
 
-                if let shareIcon = WMFIcon.share,
-                   let deleteIcon = WMFIcon.delete {
-                    Button(action: {
-                        onDelete(false)
-                    }) {
-                        Image(uiImage: deleteIcon)
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowDeleteSwipeButton)
-                    .tint(Color(uiColor: appEnvironment.theme.destructive))
+        Button {
+            onOpenInNewTab()
+        } label: {
+            Text(CommonStrings.articleTabsOpenInNewTab)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
 
-                    Button(action: {
-                        onShare(viewModel.geometryFrame, false)
-                    }) {
-                        Image(uiImage: shareIcon)
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowShareSwipeButton)
-                    .tint(Color(uiColor: appEnvironment.theme.secondaryAction))
+        Button {
+            onOpenInBackgroundTab()
+        } label: {
+            Text(CommonStrings.articleTabsOpenInBackgroundTab)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
+
+        Button {
+            onShare(viewModel.geometryFrame, true)
+        } label: {
+            Text(CommonStrings.shortShareTitle)
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+        }
+        .labelStyle(.titleAndIcon)
+    }
+
+    @ViewBuilder
+    private var swipeActionButtons: some View {
+        if !viewModel.isEditing {
+
+            if let shareIcon = WMFIcon.share,
+               let deleteIcon = WMFIcon.delete {
+                Button(action: {
+                    onDelete(false)
+                }) {
+                    Image(uiImage: deleteIcon)
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowDeleteSwipeButton)
+                .tint(Color(uiColor: appEnvironment.theme.destructive))
+
+                Button(action: {
+                    onShare(viewModel.geometryFrame, false)
+                }) {
+                    Image(uiImage: shareIcon)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Saved.rowShareSwipeButton)
+                .tint(Color(uiColor: appEnvironment.theme.secondaryAction))
             }
         }
     }

@@ -46,11 +46,6 @@ public final class ImageCacheController: CacheController {
         super.init(dbWriter: dbWriter, fileWriter: fileWriter)
     }
     
-    struct FetchResult {
-        let data: Data
-        let response: URLResponse
-    }
-    
     private var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
     
     // called when saving an image to persistent cache has completed. Hook here to allow additional saving into memoryCache.

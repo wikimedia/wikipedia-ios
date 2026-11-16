@@ -37,6 +37,7 @@
 // Author: Nyxomnis
 // Author: Pedian4169
 // Author: Rapsar
+// Author: Rumixist
 // Author: Sadrettin
 // Author: SaldırganSincap
 // Author: Sayginer
@@ -188,9 +189,6 @@
 "activity-tab-very-satisfied" = "Çok memnunum";
 "activity-tab-very-unsatisfied" = "Hiç memnun değilim";
 "activity-tab-week-graph-label" = "Hafta";
-"activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|$1 kez}} düzenleme yaptınız.";
-"activity-tab-you-read" = "Bu hafta {{PLURAL:$1|$1 makale}} okudunuz.";
-"activity-tab-you-saved" = "Bu hafta {{PLURAL:$1|$1 makale}} kaydettiniz.";
 "activity-tab-your-impact" = "Etkiniz";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
@@ -265,8 +263,6 @@
 "clearing-cache-error" = "Önbellek temizlenirken hata oluştu.";
 "clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-all-tabs" = "Tüm sekmeleri kapat";
-"close-all-tabs-confirmation" = "Tüm $1 sekmeyi kapatmak ister misiniz? Bu işlem geri alınamaz.";
-"close-all-tabs-confirmation-number" = "Tüm $1 sekme kapatılsın mı?";
 "close-all-tabs-confirmation-subtitle-with-value" = "$1 {{PLURAL:$1|sekmeyi}} kapatmak istiyor musunuz? Bu işlem geri alınamaz.";
 "close-all-tabs-confirmation-title-with-value" = "$1 {{PLURAL:$1|sekme}} kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";
@@ -378,6 +374,7 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 düzenlenmemiş çizgi|$1 düzenlenmemiş çizgi}}";
 "diff-user-button-accessibility-text" = "Menüyü açmak için iki kez dokunun";
 "dim-images" = "Resimleri karart";
+"discover-announcement-new-tag" = "Yeni";
 "donate-accessibility-amount-button-hint" = "Bağış tutarını seçmek için iki kez dokunun.";
 "donate-accessibility-donate-hint-format" = "Wikimedia Vakfı'na $1 bağışlamak için iki kez dokunun.";
 "donate-accessibility-email-opt-in-hint" = "Wikimedia Vakfı'nın size e-posta göndermesine izin vermek için iki kez dokunun.";
@@ -385,6 +382,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu tutarda otomatik aylık bağış etkinleştirmek için iki kez dokunun.";
 "donate-accessibility-textfield-hint" = "Bağış yapmak için özel tutarı girin.";
 "donate-accessibility-transaction-fee-hint" = "Bağış tutarına işlem ücreti eklemek için iki kez dokunun.";
+// Fuzzy
 "donate-already-donated" = "Teşekkürler sevgili bağışçı! Cömertliğiniz Vikipedi'nin ve diğer özgür bilgi projelerinin gelişmesine yardımcı oluyor.";
 "donate-apple-fine-print" = "Apple bu amaç için para toplamakla yükümlü değildir.";
 "donate-email-opt-in-text" = "Evet, Wikimedia Vakfı bana ara sıra e-posta gönderebilir.";
@@ -651,6 +649,7 @@
 "find-replace-header" = "Bul ve değiştir";
 "find-replace-header-close-accessibility" = "Kapat ve değiştir";
 "find-textfield-accessibility" = "Bul";
+"for-you-error-retry" = "Yeniden dene";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
 "forgot-password-instructions" = "Parola sıfırlama talimatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
@@ -672,6 +671,7 @@
 "history-clear-delete-all" = "Evet, tümünü sil";
 "history-title" = "Geçmiş";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
+"home-card-more-options-accessibility-label" = "Daha fazla seçenek";
 "home-community-tab-title" = "Topluluk";
 "home-edit-languages-title" = "Dil ekleyin veya düzenleyin";
 "home-feed-for-you-based-on-interests-subtitle" = "Seçtiğiniz konulara uygun maddeler.";
@@ -681,6 +681,7 @@
 "home-feed-for-you-continue-reading-subtitle" = "Bitirmediğiniz maddelere geri dönün";
 "home-feed-for-you-settings-header" = "Bir modülü devre dışı bırakmak, onu \"Size özel\" akışından gizler. Bu modülü istediğiniz zaman buradan yeniden etkinleştirebilirsiniz.";
 "home-feed-for-you-settings-title" = "Modüller";
+"home-feed-interests-deselect-all" = "Tüm seçimleri kaldır";
 "home-feed-interests-settings-empty-message" = "İlgi alanlarınız burada gösterilecektir.";
 "home-feed-interests-settings-title" = "İlgi alanlarınız";
 "home-feed-modules-featured-article-subtitle" = "Seçkin maddeler, editörler tarafından günlük olarak seçilen Vikipedi'nin en kaliteli maddeleridir";
@@ -711,12 +712,16 @@
 "home-feed-whats-driving-settings-title" = "Akışınızı ne belirliyor";
 "home-feed-whats-driving-your-interests-subtitle" = "İlgi alanı konularınızı düzenleyin";
 "home-feed-whats-driving-your-interests-title" = "İlgi alanlarınız";
+"home-for-you-next-module-accessibility-action" = "Sonraki parça";
+"home-for-you-previous-module-accessibility-action" = "Önceki parça";
 "home-for-you-tab-title" = "Size özel";
+"home-menu-hide-module" = "Parçayı gizle";
 "home-more-like-footer" = "$1 benzeri daha fazla madde";
 "home-nearby-footer" = "Konumunuza yakın daha fazla yer";
 "home-nearby-location-footer" = "$1 yakınından daha fazla";
 "home-news-footer" = "Gündemden daha fazla olay";
 "home-tab-title" = "Anasayfa";
+"home-tab-title-accessibility-label" = "Vikipedi, Ana Sayfanın başına kaydırın";
 "home-themes-action-title" = "Tercihleri yönet";
 "home-themes-prompt" = "Yazı araç çubuğundan veya kullanıcı ayarlarınızdan metin boyutu ve teması da dahil olmak üzere Okuma tercihlerinizi daha rahat bir okuma deneyimi için ayarlayın.";
 "home-title" = "Keşfet";
@@ -993,6 +998,8 @@
 "on-this-day-no-internet-error" = "Veri yok";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
+"one-time-onboarding-feature-control-title" = "İpleri elinde tut";
+"one-time-onboarding-feature-name-title" = "Yeni bir ad";
 "open-article" = "Maddeyi aç";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
 "page-history-bot-edits" = "bot";
@@ -1061,7 +1068,6 @@
 "potd-sample-entry-description" = "Endonezya'nın Batı Sumatra ilinde yer alan Tanah Datar'da gerçekleştirilen geleneksel boğa yarışı pacu jawi'de (boğa yarışı) bir jokey, koşan iki boğaya tutunurken, 2015, Final-45.";
 "potd-widget-description" = "Topluluğumuz tarafından seçilen güzel günlük fotoğrafın keyfini çıkarın.";
 "potd-widget-title" = "Günün resmi";
-"preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "privacy-policy-title" = "Gizlilik ilkesi";
 "problem-with-feature-title" = "Özellikle ilgili sorun";
 "profile-button-accessibility-hint" = "Profil görünümüne gider.";
@@ -1083,6 +1089,7 @@
 "project-name-wikiversity" = "Vikiversite";
 "project-name-wikivoyage" = "Vikigezgin";
 "project-name-wiktionary" = "Vikisözlük";
+"reading-challenge-random-article-button" = "Rastgele madde";
 "reading-challenge-random-button" = "Rastgele";
 "reading-list-add-generic-hint-title" = "Bu makaleyi bir okuma listesine eklemek istediğinize emin misiniz?";
 "reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";
@@ -1094,8 +1101,6 @@
 "reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
 "reading-list-api-error-list-limit" = "Senkronize edilen liste sayısı limitine ulaştığınız için bu liste senkronize edilmiyor.";
 "reading-list-create-new-list-button-title" = "Okuma listesi oluşturun";
-"reading-list-create-new-list-description" = "Açıklama";
-"reading-list-create-new-list-reading-list-name" = "Okuma listesinin adı";
 "reading-list-create-new-list-title" = "Yeni bir liste oluşturun";
 "reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
 "reading-list-detail-search-placeholder" = "Okuma listesinde ara";
@@ -1116,7 +1121,9 @@
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
 "reading-list-name-user-created-annotation" = "_[kullanıcı oluşturuldu]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
 "reading-list-sync-disabled-panel-message" = "Başka bir cihazda Vikipedi hesabınız için okuma listesi senkronizasyonu devre dışı bırakıldı. Ayarlarınızı güncelleyerek senkronizasyonu tekrar açabilirsiniz.";
 "reading-list-sync-disabled-panel-title" = "Senkronize devre dışı";
@@ -1209,7 +1216,6 @@
 "settings-clear-cache" = "Önbellekteki verileri temizle";
 "settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
 "settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
-"settings-clear-cache-cancel" = "İptal";
 "settings-clear-cache-ok" = "Önbelleği temizle";
 "settings-donate" = "Bağış yap";
 "settings-explore-games-subtitle" = "Vikipedi içeriğine dayalı günlük oyunlar";

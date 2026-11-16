@@ -27,7 +27,6 @@ struct WMFYearInReviewAnnouncementViewModelTests {
                 animationAccessibilityLabel: "Title",
                 body: "Body",
                 exploreButtonTitle: "Explore",
-                wIconAccessibilityLabel: "Wikipedia",
                 closeButtonAccessibilityLabel: "Close",
                 moreButtonAccessibilityLabel: "More",
                 learnMoreButtonTitle: "Learn more",

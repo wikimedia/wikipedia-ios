@@ -69,15 +69,16 @@ runs:
         GH_TOKEN: ${{ github.token }}
         WORKFLOW_FILE: ${{ inputs.workflow-file }}
       run: |
+        # The baseline comes from the newest successful main run that uploads one: a
+        # push to main, or a scheduled (nightly) run. Manual runs on main don't upload.
         RUN_ID=$(gh run list \
           --repo "$GITHUB_REPOSITORY" \
           --workflow "$WORKFLOW_FILE" \
           --branch main \
-          --event push \
           --status success \
-          --limit 1 \
-          --json databaseId \
-          --jq '.[0].databaseId // empty' || true)
+          --limit 20 \
+          --json databaseId,event \
+          --jq 'map(select(.event == "push" or .event == "schedule")) | .[0].databaseId // empty' || true)
 
         if [ -z "$RUN_ID" ]; then
           echo "No successful main coverage run found for $WORKFLOW_FILE."
@@ -137,7 +138,7 @@ runs:
         PYEOF
 
     - name: Upload coverage data
-      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+      if: success() && (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
       uses: actions/upload-artifact@v7
       with:
         name: ${{ inputs.artifact-name }}

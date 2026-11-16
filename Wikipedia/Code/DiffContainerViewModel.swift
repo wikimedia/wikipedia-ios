@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 final class DiffContainerViewModel {
     
@@ -25,7 +26,7 @@ final class DiffContainerViewModel {
     }
     var stateHandler: ((_ oldState: DiffContainerViewModel.State) -> Void)?
     
-    init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, listViewModel: [DiffListGroupViewModel]?, articleTitle: String?, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
+    init(type: DiffType, fromModel: WMFPageRevision?, toModel: WMFPageRevision?, listViewModel: [DiffListGroupViewModel]?, articleTitle: String?, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
         self.type = type
         
         if let toModel = toModel,

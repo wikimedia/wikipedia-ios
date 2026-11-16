@@ -55,10 +55,24 @@ final class WMFSettingsViewModelsReleaseTests: XCTestCase {
         await assertReleased {
             let viewModel = WMFYearInReviewSettingsViewModel(
                 dataController: WMFSettingsDataController.shared,
-                localizedStrings: .init(title: "Year in Review", description: "Description", toggleTitle: "Toggle")
+                localizedStrings: .init(title: "Year in Review", description: "Description", toggleTitle: "Toggle", turnOffAlertTitle: "Title", turnOffAlertMessage: "Message", turnOffAlertConfirmTitle: "Confirm", turnOffAlertCancelTitle: "Cancel")
             )
             await viewModel.loadAndBuild()
             XCTAssertFalse(viewModel.sections.isEmpty)
+            return viewModel
+        }
+    }
+
+    func testDiscoverSettingsViewModelIsReleased() async {
+        await assertReleased {
+            let viewModel = WMFDiscoverSettingsViewModel(settings: .default, interestCount: nil, dataController: WMFDiscoverReadingListDataController())
+            viewModel.didTapSource = {}
+            viewModel.didTapInterests = {}
+            _ = viewModel.isEnabledBinding
+            _ = viewModel.articleCountBinding
+            _ = viewModel.cadenceBinding
+            viewModel.refresh()
+            await viewModel.refreshTask?.value
             return viewModel
         }
     }
