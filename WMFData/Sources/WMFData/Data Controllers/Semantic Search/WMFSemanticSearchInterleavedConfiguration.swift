@@ -27,5 +27,5 @@ public enum WMFSemanticSearchInterleavedConfiguration {
     public static let semanticResultsLimit = 10
     public static let lexicalResultsLimit = 10
     public static let fullTextThreshold = 10
-    public static let semanticTimeoutSeconds = 1.5
+    public static let semanticTimeoutSeconds = 5.0
 }
