@@ -142,10 +142,6 @@ public actor WMFYearInReviewEndCardsDataController {
     }
 
     public func clearAssignment() async throws {
-        try clearAssignmentInActor()
-    }
-
-    private func clearAssignmentInActor() throws {
         guard let experimentStore else {
             throw CustomError.missingExperimentStore
         }
@@ -162,7 +158,7 @@ public actor WMFYearInReviewEndCardsDataController {
         let oldValue = developerSettingsForcedAssignment
         developerSettingsDataController.forceYiREndCardsExperimentAssignment = newValue
         if oldValue != nil, newValue == nil {
-            try clearAssignmentInActor()
+            try await clearAssignment()
         }
     }
 

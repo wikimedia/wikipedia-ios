@@ -164,11 +164,21 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
+    /// Sends the exposure event of the end screen cards experiment. Tests replace it.
+    private let submitExperimentExposure: @MainActor @Sendable (ExperimentData) -> Void
+
+    init(
+        navigationController: UINavigationController,
+        theme: Theme,
+        dataStore: MWKDataStore,
+        dataController: WMFYearInReviewDataController,
+        submitExperimentExposure: @escaping @MainActor @Sendable (ExperimentData) -> Void = { TestKitchenAdapter.shared.client.submitExperimentExposure(experimentData: $0) }
+    ) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.dataController = dataController
+        self.submitExperimentExposure = submitExperimentExposure
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(localDonationHistoryDidChange), name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
     }
@@ -831,10 +841,11 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     /// (T441006), as on Android. The exposure does not need the funnel, as on Android: a reader who
     /// sees the cards of a group is enrolled, also if the funnel stopped.
     private func recordEndCardsExposure() {
+        let submitExperimentExposure = submitExperimentExposure
         Task { @MainActor in
             do {
                 if let experimentData = try await WMFYearInReviewEndCardsDataController.shared.recordEndScreenImpression() {
-                    TestKitchenAdapter.shared.client.submitExperimentExposure(experimentData: experimentData)
+                    submitExperimentExposure(experimentData)
                 }
             } catch {
                 DDLogError("Recording the Year in Review end cards exposure failed: \(error)")
@@ -882,7 +893,8 @@ final class YearInReviewInstrument {
     /// The announcement events use this source. The slides use the default, `main`.
     static let announcementActionSource = "announcement"
     /// The end screen, which comes after the last slide.
-    static let endPage = "end"
+    /// The same value as the view model sends, so that the end screen impression is always found.
+    static let endPage = WMFYearInReviewViewModel.endLoggingID
 
     /// The donate flow sends the same value to `app_donor_experience`.
     nonisolated static func campaignID(page: String) -> String {
@@ -906,8 +918,10 @@ final class YearInReviewInstrument {
         instrument.funnel != nil
     }
 
-    /// Like Android, every Year in Review event carries the end screen cards experiment once the
-    /// reader has a group. Readers whose primary app language has no game have none.
+    /// Like Android, the slide and end screen events carry the end screen cards experiment once the
+    /// reader has a group. Readers whose primary app language has no game have none. The
+    /// announcement events never carry it: Android's announcement screen has an instrument with no
+    /// experiment.
     ///
     /// A copy of `WMFYearInReviewEndCardsDataController.shared.experimentData`, so that an event does
     /// not read the stores. The value only changes when the bucket is rolled or cleared, so it is read
@@ -925,12 +939,16 @@ final class YearInReviewInstrument {
         }
     }
 
+    private func experimentData(actionSource: String?) -> ExperimentData? {
+        actionSource == Self.announcementActionSource ? nil : experimentData
+    }
+
     func logImpression(actionSource: String? = nil, page: String? = nil, personalized: Bool?) {
         instrument.submitInteraction(
             action: "impression",
             actionSource: actionSource,
             actionContext: actionContext(page: page, personalized: personalized),
-            experimentData: experimentData
+            experimentData: experimentData(actionSource: actionSource)
         )
     }
 
@@ -942,7 +960,7 @@ final class YearInReviewInstrument {
             actionSource: actionSource,
             elementId: elementID,
             actionContext: context,
-            experimentData: experimentData
+            experimentData: experimentData(actionSource: actionSource)
         )
     }
 
