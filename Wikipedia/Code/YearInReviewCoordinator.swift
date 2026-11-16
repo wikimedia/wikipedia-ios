@@ -266,7 +266,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let instrument = YearInReviewInstrument.shared
         instrument.startFunnel()
-        instrument.logImpression(page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
+        instrument.logImpression(actionSource: YearInReviewInstrument.announcementActionSource, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
 
         // Marked here, when it is on screen, so an early exit above does not use it up.
         dataController.hasPresentedYiRFeatureAnnouncement = true
@@ -792,22 +792,22 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
     }
 
     func yearInReviewAnnouncementDidTapLearnMore() {
-        YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", actionSource: YearInReviewInstrument.announcementActionSource, personalized: isAnnouncementPersonalized)
         showProjectPage()
     }
 
     func yearInReviewAnnouncementDidTapAboutInsights() {
-        YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", actionSource: YearInReviewInstrument.announcementActionSource, personalized: isAnnouncementPersonalized)
         showAboutInsights()
     }
 
     func yearInReviewAnnouncementDidTapShareFeedback() {
-        YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", actionSource: YearInReviewInstrument.announcementActionSource, personalized: isAnnouncementPersonalized)
         shareFeedback()
     }
 
     private func logAnnouncementClick(elementID: String) {
-        YearInReviewInstrument.shared.logClick(elementID: elementID, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: elementID, actionSource: YearInReviewInstrument.announcementActionSource, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
     }
 }
 
@@ -819,6 +819,9 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     func logYearInReviewIntroDidTapLearnMore() {}
 
     func logYearInReviewSlideDidAppear(slideLoggingID: String) {
+        if slideLoggingID == YearInReviewInstrument.endPage {
+            recordEndCardsExposure()
+        }
         // The pager can settle on a slide while the slides close.
         guard YearInReviewInstrument.shared.isFunnelRunning else { return }
         YearInReviewInstrument.shared.logImpression(page: slideLoggingID, personalized: areSlidesPersonalized)
@@ -827,10 +830,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     /// The first impression of the end screen enrolls the reader in the end screen cards experiment
     /// (T441006), as on Android. The exposure does not need the funnel, as on Android: a reader who
     /// sees the cards of a group is enrolled, also if the funnel stopped.
-    func logYearInReviewEndDidAppear() {
-        if YearInReviewInstrument.shared.isFunnelRunning {
-            YearInReviewInstrument.shared.logImpression(page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
-        }
+    private func recordEndCardsExposure() {
         Task { @MainActor in
             do {
                 if let experimentData = try await WMFYearInReviewEndCardsDataController.shared.recordEndScreenImpression() {
@@ -862,9 +862,9 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         YearInReviewInstrument.shared.logClick(elementID: "share_button", page: slideLoggingID, personalized: areSlidesPersonalized)
     }
 
-    /// A separate element from the slide share button, so the two shares can be counted apart.
+    /// The plan names the share button on the end screen `share_button`, the same as on a slide. The `end` page tells them apart.
     func logYearInReviewDidTapShareHighlights() {
-        YearInReviewInstrument.shared.logClick(elementID: "share_highlights_button", page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "share_button", page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
     }
 }
 
@@ -879,6 +879,8 @@ final class YearInReviewInstrument {
     static let shared = YearInReviewInstrument()
 
     static let announcementPage = "announcement"
+    /// The announcement events use this source. The slides use the default, `main`.
+    static let announcementActionSource = "announcement"
     /// The end screen, which comes after the last slide.
     static let endPage = "end"
 
@@ -1031,6 +1033,7 @@ extension YearInReviewCoordinator {
             self?.showInterests()
         }
         viewModel.didTapTopRead = { [weak self] in
+            // Not in the plan. Android uses the same name.
             self?.logEndCardClick(elementID: "explore_top_read_button")
             self?.showHelpPage(url: Self.topReadURL)
         }

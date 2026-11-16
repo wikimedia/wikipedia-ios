@@ -5,7 +5,6 @@ import UIKit
 @MainActor
 private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
     var appeared: [String] = []
-    var endAppeared = 0
     var donate: [String] = []
     var done: [String] = []
     var shared: [String] = []
@@ -13,7 +12,6 @@ private final class EndLoggingSpy: WMFYearInReviewLoggingDelegate {
 
     func logYearInReviewIntroDidTapLearnMore() {}
     func logYearInReviewSlideDidAppear(slideLoggingID: String) { appeared.append(slideLoggingID) }
-    func logYearInReviewEndDidAppear() { endAppeared += 1 }
     func logYearInReviewDidTapDone(slideLoggingID: String) { done.append(slideLoggingID) }
     func logYearInReviewDidTapNext(slideLoggingID: String) {}
     func logYearInReviewDidTapDonate(slideLoggingID: String) { donate.append(slideLoggingID) }
@@ -197,15 +195,14 @@ struct WMFYearInReviewEndPageTests {
         #expect(WMFYearInReviewViewModel.endLoggingID == "end")
     }
 
-    /// Only the donate tap uses the end page name. Done keeps the empty ID it had before.
     @Test
-    func tappingDoneOnTheEndScreenKeepsTheEmptyLoggingID() {
+    func tappingDoneOnTheEndScreenLogsTheEndPage() {
         let viewModel = makeViewModel()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
         viewModel.tappedClose()
 
-        #expect(logging.done == [""])
+        #expect(logging.done == [WMFYearInReviewViewModel.endLoggingID])
     }
 
     /// The end screen can become current without a scroll step that sets the reveal to 1, for
@@ -338,44 +335,38 @@ struct WMFYearInReviewEndPageTests {
     }
 
     @Test
-    func goingToTheEndScreenLogsNoSlideAppearance() {
+    func goingToTheEndScreenLogsTheEndPageAppearance() {
         let viewModel = makeViewModel()
         logging.appeared.removeAll()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
-        #expect(logging.appeared.isEmpty)
+        #expect(logging.appeared == [WMFYearInReviewViewModel.endLoggingID])
     }
 
-    /// The end screen impression enrolls the reader in the end screen cards experiment (T441006).
+    /// The end screen impression also enrolls the reader in the end screen cards experiment
+    /// (T441006). The coordinator sends the exposure when the page is the end page.
     @Test
-    func goingToTheEndScreenLogsTheEndImpressionOnce() {
+    func settingTheEndScreenAgainLogsNoSecondImpression() {
         let viewModel = makeViewModel()
+        logging.appeared.removeAll()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
-        #expect(logging.endAppeared == 1)
-    }
-
-    @Test
-    func aSlideDoesNotLogTheEndImpression() {
-        let viewModel = makeViewModel()
-
-        viewModel.currentSlideID = "slide1"
-
-        #expect(logging.endAppeared == 0)
+        #expect(logging.appeared == [WMFYearInReviewViewModel.endLoggingID])
     }
 
     @Test
     func goingBackToTheEndScreenLogsTheEndImpressionAgain() {
         let viewModel = makeViewModel()
+        logging.appeared.removeAll()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
         viewModel.currentSlideID = "slide2"
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
-        #expect(logging.endAppeared == 2)
+        #expect(logging.appeared == [WMFYearInReviewViewModel.endLoggingID, "logging2", WMFYearInReviewViewModel.endLoggingID])
     }
 }
 
