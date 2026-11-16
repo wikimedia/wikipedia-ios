@@ -1,8 +1,8 @@
 {
-  "batchcomplete": "",
+  "batchcomplete": true,
   "query": {
-    "pages": {
-      "30817": {
+    "pages": [
+      {
         "pageid": 30817,
         "ns": 0,
         "title": "Chó",
@@ -12,13 +12,9 @@
           "width": 330,
           "height": 290
         },
-        "terms": {
-          "description": [
-            "động vật nuôi trong nhà để làm các nhiệm vụ khác nhau"
-          ]
-        }
+        "description": "động vật nuôi trong nhà để làm các nhiệm vụ khác nhau"
       }
-    }
+    ]
   },
   "limits": {
     "pageimages": 50
