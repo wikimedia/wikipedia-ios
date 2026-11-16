@@ -51,11 +51,8 @@ public final class WMFSemanticSearchInterleavedDataController: Sendable {
     //
     // Dive. This experiment stays off while Dive (`isSemanticSearchEnabled`) is on. The Dive remote flag
     // is already off, so this only matters if both flags get turned on.
-    //
-    // Forced retrieval scenarios. Align their names with the `interleave_state` values of EF-3. Nothing
-    // reads them until the search screen is built (US-1 and US-4).
 
-    static let experimentName = "semantic-search-phase-2-interleave"
+    public static let experimentName = "semantic-search-phase-2-interleave"
     private static let treatmentPercentage = 50
     private static let controlPercentage = 100 - treatmentPercentage
     public static let developerSettingsTargetLanguageCodes = ["fr", "ar", "ja"]

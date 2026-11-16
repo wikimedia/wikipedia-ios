@@ -28,7 +28,7 @@ extension WMFSemanticSearchDataController {
 
     // MARK: - Results
 
-    public func fetchResults(query: String, project: WMFProject) async throws -> WMFSemanticSearchResults {
+    public func fetchResults(query: String, project: WMFProject, limit: Int = WMFSemanticSearchDataController.resultsLimit) async throws -> WMFSemanticSearchResults {
         guard let basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -45,7 +45,7 @@ extension WMFSemanticSearchDataController {
             "gsrsearch": query,
             "gsrwhat": "text",
             "gsrnamespace": "0",
-            "gsrlimit": String(Self.resultsLimit),
+            "gsrlimit": String(limit),
             "gsrprop": "snippet|sectiontitle|redirecttitle",
             "cirrusSemanticSearch": "hl",
             "prop": "pageimages",
