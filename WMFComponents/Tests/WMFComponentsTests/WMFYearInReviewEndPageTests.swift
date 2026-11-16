@@ -195,15 +195,14 @@ struct WMFYearInReviewEndPageTests {
         #expect(WMFYearInReviewViewModel.endLoggingID == "end")
     }
 
-    /// Only the donate tap uses the end page name. Done keeps the empty ID it had before.
     @Test
-    func tappingDoneOnTheEndScreenKeepsTheEmptyLoggingID() {
+    func tappingDoneOnTheEndScreenLogsTheEndPage() {
         let viewModel = makeViewModel()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
         viewModel.tappedClose()
 
-        #expect(logging.done == [""])
+        #expect(logging.done == [WMFYearInReviewViewModel.endLoggingID])
     }
 
     /// The end screen can become current without a scroll step that sets the reveal to 1, for
@@ -336,13 +335,13 @@ struct WMFYearInReviewEndPageTests {
     }
 
     @Test
-    func goingToTheEndScreenLogsNoSlideAppearance() {
+    func goingToTheEndScreenLogsTheEndPageAppearance() {
         let viewModel = makeViewModel()
         logging.appeared.removeAll()
 
         viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
 
-        #expect(logging.appeared.isEmpty)
+        #expect(logging.appeared == [WMFYearInReviewViewModel.endLoggingID])
     }
 }
 

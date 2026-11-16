@@ -22,16 +22,11 @@ struct YearInReviewSlideViewModelFactory {
     }
 
     /// The `page` names of the 2026 instrumentation plan. The donate campaign ID is also made from them.
-    ///
-    /// TODO: The plan has no page names for the edit slides yet, so `edits`, `editsEmpty`,
-    /// `editViews` and `mostViewedArticles` are logged with their raw slide ids. Add their names here
-    /// when the 2026 instrumentation plan adds them, then remove `slidesWithoutPlanPages` from
-    /// `theSlidesLogThePageNamesOfTheInstrumentationPlan` in YearInReviewSlideViewModelFactoryTests.
     private static let loggingIDs: [String: String] = [
         "totalArticles": "total_articles",
         "totalArticlesEmpty": "total_articles_empty",
         "daysVisited": "visits",
-        "minutesRead": "minutes_read",
+        "minutesRead": "time_spent",
         "readingStreak": "reading_streak",
         "readingStreakEmpty": "reading_streak_empty",
         "readingPattern": "reading_pattern",
@@ -39,6 +34,7 @@ struct YearInReviewSlideViewModelFactory {
         "topTopic": "top_topic",
         "topTopicEmpty": "top_topic_empty",
         "runnerUpTopics": "other_top_topics",
+        "nicheInterest": "category",
         "biggestReadingDay": "biggest_reading_day",
         "biggestReadingDayArticles": "biggest_reading_day_articles",
         "longestReadGuess": "longest_read_guess",
@@ -49,6 +45,10 @@ struct YearInReviewSlideViewModelFactory {
         "rereadArticlesEmpty": "revisited_articles_empty",
         "savedArticles": "saved_articles",
         "savedArticlesEmpty": "saved_articles_empty",
+        "edits": "total_edits",
+        "editsEmpty": "total_edits_empty",
+        "editViews": "edited_article_views",
+        "mostViewedArticles": "most_viewed_edited_articles",
         "collectiveHoursRead": "collective_hours_read",
         "collectiveLanguages": "collective_languages",
         "collectiveArticles": "collective_articles",
