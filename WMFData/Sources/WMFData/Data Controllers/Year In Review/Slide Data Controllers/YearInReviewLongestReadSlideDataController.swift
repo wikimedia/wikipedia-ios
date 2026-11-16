@@ -69,9 +69,8 @@ final class YearInReviewLongestReadSlideDataController: YearInReviewSlideDataCon
     let year: Int
     var isEvaluated: Bool = false
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
+    static let excludesMainPages = true
     static let shouldFreeze = true
-
-    private static let englishMainPageTitle = WMFMainPageTitle.canonicalized("Main Page")
 
     private var slideData: SlideData?
 
@@ -80,36 +79,26 @@ final class YearInReviewLongestReadSlideDataController: YearInReviewSlideDataCon
         try await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title).description
     }
 
-    private weak var mainPageIdentifier: WMFMainPageIdentifying?
+    private let mainPageTitles: YearInReviewMainPageTitles?
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
 
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
-        self.mainPageIdentifier = dependencies.mainPageIdentifier
+        self.mainPageTitles = dependencies.mainPageTitles
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
+        guard let mainPageTitles else {
+            throw YearInReviewMainPageTitles.LookupError.unavailable
+        }
         guard let startDate = yirConfig.dataStartDate,
               let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
 
         let readingTimes = try await WMFPageViewsDataController().fetchArticleReadingTimes(startDate: startDate, endDate: endDate)
-
-        // Get the main page title once for each wiki. Each request can go to the main actor.
-        var mainPageTitles: [String: String] = [:]
-        for projectID in Set(readingTimes.map(\.page.projectID)) {
-            if let project = WMFProject(id: projectID),
-               let title = await mainPageIdentifier?.mainPageTitle(for: project) {
-                mainPageTitles[projectID] = WMFMainPageTitle.canonicalized(title)
-            }
-        }
-        let articleReadingTimes = readingTimes.filter { readingTime in
-            let title = WMFMainPageTitle.canonicalized(readingTime.page.title)
-            // The app does not record the English main page, but older data can contain it.
-            return title != Self.englishMainPageTitle && title != mainPageTitles[readingTime.page.projectID]
-        }
+        let articleReadingTimes = readingTimes.filter { !mainPageTitles.isMainPage($0.page) }
 
         var slideData = Self.slideData(readingTimes: articleReadingTimes, year: year, calendar: .current, longestIsOnTop: Bool.random())
         if slideData.isEligible {
