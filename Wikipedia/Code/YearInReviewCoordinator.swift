@@ -261,7 +261,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let instrument = YearInReviewInstrument.shared
         instrument.startFunnel()
-        instrument.logImpression(page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
+        instrument.logImpression(actionSource: YearInReviewInstrument.announcementActionSource, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
 
         // Marked here, when it is on screen, so an early exit above does not use it up.
         dataController.hasPresentedYiRFeatureAnnouncement = true
@@ -789,22 +789,22 @@ extension YearInReviewCoordinator: WMFYearInReviewAnnouncementDelegate {
     }
 
     func yearInReviewAnnouncementDidTapLearnMore() {
-        YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", actionSource: YearInReviewInstrument.announcementActionSource, personalized: isAnnouncementPersonalized)
         showProjectPage()
     }
 
     func yearInReviewAnnouncementDidTapAboutInsights() {
-        YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "about_insights_button", actionSource: YearInReviewInstrument.announcementActionSource, personalized: isAnnouncementPersonalized)
         showAboutInsights()
     }
 
     func yearInReviewAnnouncementDidTapShareFeedback() {
-        YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "share_feedback_button", actionSource: YearInReviewInstrument.announcementActionSource, personalized: isAnnouncementPersonalized)
         shareFeedback()
     }
 
     private func logAnnouncementClick(elementID: String) {
-        YearInReviewInstrument.shared.logClick(elementID: elementID, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: elementID, actionSource: YearInReviewInstrument.announcementActionSource, page: YearInReviewInstrument.announcementPage, personalized: isAnnouncementPersonalized)
     }
 }
 
@@ -841,9 +841,9 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         YearInReviewInstrument.shared.logClick(elementID: "share_button", page: slideLoggingID, personalized: areSlidesPersonalized)
     }
 
-    /// A separate element from the slide share button, so the two shares can be counted apart.
+    /// The plan names the share button on the end screen `share_button`, the same as on a slide. The `end` page tells them apart.
     func logYearInReviewDidTapShareHighlights() {
-        YearInReviewInstrument.shared.logClick(elementID: "share_highlights_button", page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+        YearInReviewInstrument.shared.logClick(elementID: "share_button", page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
     }
 }
 
@@ -858,6 +858,8 @@ final class YearInReviewInstrument {
     static let shared = YearInReviewInstrument()
 
     static let announcementPage = "announcement"
+    /// The announcement events use this source. The slides use the default, `main`.
+    static let announcementActionSource = "announcement"
     /// The end screen, which comes after the last slide.
     static let endPage = "end"
 
@@ -959,14 +961,22 @@ extension YearInReviewCoordinator {
     @MainActor
     private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
         viewModel.didTapStore = { [weak self] in
+            self?.logEndCardClick(elementID: "visit_store_button")
             self?.showStore()
         }
         viewModel.didTapTopRead = { [weak self] in
+            // Not in the plan. Android uses the same name.
+            self?.logEndCardClick(elementID: "explore_top_read_button")
             self?.showHelpPage(url: Self.topReadURL)
         }
         viewModel.didTapWhichWikipedia = { [weak self] in
+            self?.logEndCardClick(elementID: "take_quiz_button")
             self?.showHelpPage(url: self?.whichWikipediaURL)
         }
+    }
+
+    private func logEndCardClick(elementID: String) {
+        YearInReviewInstrument.shared.logClick(elementID: elementID, page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
     }
 
     private func showStore() {

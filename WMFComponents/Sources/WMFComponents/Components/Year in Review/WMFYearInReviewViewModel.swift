@@ -178,10 +178,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         return currentSlide
     }
 
-    /// Empty on the end screen. Only the donate tap logs `endLoggingID` there, so the Done, Learn
-    /// more, About insights and Share feedback data stay as before.
     private var currentLoggingID: String {
-        currentShownSlide?.loggingID ?? ""
+        isOnEnd ? Self.endLoggingID : currentShownSlide?.loggingID ?? ""
     }
 
     /// The color of the controls above the current slide. The value that the .riv sets wins over the
@@ -381,7 +379,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
 
     func tappedDonate(sourceRect: @escaping @MainActor () -> CGRect) {
         guard currentSlide != nil || isOnEnd else { return }
-        let slideLoggingID = isOnEnd ? Self.endLoggingID : currentLoggingID
+        let slideLoggingID = currentLoggingID
         loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
         coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: sourceRect, slideLoggingID: slideLoggingID))
     }
@@ -393,7 +391,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     }
 
     private func logSlideAppearance() {
-        guard currentSlide != nil else { return }
+        guard currentSlide != nil || isOnEnd else { return }
         loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: currentLoggingID)
     }
 }
