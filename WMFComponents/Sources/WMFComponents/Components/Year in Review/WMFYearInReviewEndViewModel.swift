@@ -108,7 +108,10 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     /// games and interests cards are only here for group B of the end screen cards experiment
     /// (T441006), and the most-read articles card is only here for readers with English as an app
     /// language.
-    public let cards: [Card]
+    @Published public private(set) var cards: [Card] = []
+
+    private let isContributor: Bool
+    private let hasEnglishAppLanguage: Bool
 
     // MARK: - Callbacks
 
@@ -123,6 +126,19 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
     ///     language has the game.
     ///   - showsInterestsCard: true for group B of the end screen cards experiment.
     public init(isContributor: Bool, hasEnglishAppLanguage: Bool = false, showsGamesCard: Bool = false, showsInterestsCard: Bool = false) {
+        self.isContributor = isContributor
+        self.hasEnglishAppLanguage = hasEnglishAppLanguage
+        self.cards = makeCards(showsGamesCard: showsGamesCard, showsInterestsCard: showsInterestsCard)
+    }
+
+    /// The coordinator rolls the bucket of the experiment after it builds this view model, and then
+    /// sets the extra cards here. This happens when Year in Review opens, before the reader gets to
+    /// the end screen.
+    public func showEngagementCards(showsGamesCard: Bool, showsInterestsCard: Bool) {
+        cards = makeCards(showsGamesCard: showsGamesCard, showsInterestsCard: showsInterestsCard)
+    }
+
+    private func makeCards(showsGamesCard: Bool, showsInterestsCard: Bool) -> [Card] {
         var cards: [Card] = []
         if isContributor {
             cards.append(Card(
@@ -168,7 +184,7 @@ public final class WMFYearInReviewEndViewModel: ObservableObject {
             buttonTitle: whichWikipediaButtonTitle,
             action: .whichWikipedia
         ))
-        self.cards = cards
+        return cards
     }
 
     // MARK: - Actions

@@ -5,13 +5,16 @@ import WMFTestKitchen
 /// `YearInReviewEndScreenABTest`. Group B also sees the games card and the interests card.
 ///
 /// Only readers whose primary app language has the Which Came First game are assigned a group.
-/// The bucket is rolled when the end screen is built, so its cards do not change while the reader
-/// swipes to it. The reader is enrolled when the exposure event goes out, on the first impression
-/// of the end screen. After that the reader stays in the test, even if the primary app language
-/// changes, so the events of one install do not leave the test.
+/// The bucket is rolled when Year in Review opens, so the cards are ready before the reader swipes
+/// to the end screen. The reader is enrolled when the exposure event goes out, on the first
+/// impression of the end screen. After that the reader stays in the test, even if the primary app
+/// language changes, so the events of one install do not leave the test.
 ///
-/// Not a singleton: it keeps no state in memory. All state is in the stores.
-public struct WMFYearInReviewEndCardsDataController: Sendable {
+/// An actor, so that a roll, a clear and the exposure flag never change the stores at the same time.
+/// Use `shared`, so that all callers go through the same actor.
+public actor WMFYearInReviewEndCardsDataController {
+
+    public static let shared = WMFYearInReviewEndCardsDataController()
 
     public enum Assignment: String, Sendable, CaseIterable {
         case control
@@ -23,7 +26,7 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
         public let showsGamesCard: Bool
         public let showsInterestsCard: Bool
 
-        static let none = EngagementCards(showsGamesCard: false, showsInterestsCard: false)
+        public static let none = EngagementCards(showsGamesCard: false, showsInterestsCard: false)
     }
 
     public enum CustomError: Error {
@@ -38,10 +41,6 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
     /// Half of the qualified readers stay in the control group.
     static let controlPercentage = 50
 
-    /// Covers every write of the bucket, so a roll and a clear at the same time do not mix.
-    /// The controller keeps no state in memory, so it needs no actor. The lock is for the store file.
-    private static let bucketLock = NSLock()
-
     private let injectedExperimentStore: WMFKeyValueStore?
     private let injectedUserDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataController
@@ -50,13 +49,9 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
     private var experimentStore: WMFKeyValueStore? { injectedExperimentStore ?? WMFDataEnvironment.current.sharedCacheStore }
     private var userDefaultsStore: WMFKeyValueStore? { injectedUserDefaultsStore ?? WMFDataEnvironment.current.userDefaultsStore }
 
-    /// Nil stores read the environment's stores at call time.
-    public init() {
-        self.init(experimentStore: nil)
-    }
-
+    /// Nil stores read the environment's stores at call time. Tests inject their own.
     init(
-        experimentStore: WMFKeyValueStore?,
+        experimentStore: WMFKeyValueStore? = nil,
         userDefaultsStore: WMFKeyValueStore? = nil,
         developerSettingsDataController: WMFDeveloperSettingsDataController = .shared,
         primaryAppLanguage: @escaping @Sendable () -> WMFLanguage? = { WMFDataEnvironment.current.primaryAppLanguage }
@@ -82,7 +77,7 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
     /// Rolls the bucket if the reader qualifies and has none, and returns the extra cards for the end
     /// screen. Group B gets the games card only while the primary app language has the game, and
     /// the interests card always.
-    public func assignEngagementCardsIfNeeded() throws -> EngagementCards {
+    public func assignEngagementCardsIfNeeded() async throws -> EngagementCards {
         try assignIfNeeded()
         guard assignment == .groupB else {
             return .none
@@ -96,9 +91,6 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
     @discardableResult
     func assignIfNeeded() throws -> Assignment? {
         if isQualified {
-            Self.bucketLock.lock()
-            defer { Self.bucketLock.unlock() }
-
             guard let experimentStore else {
                 throw CustomError.missingExperimentStore
             }
@@ -149,13 +141,14 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
         )
     }
 
-    public func clearAssignment() throws {
+    public func clearAssignment() async throws {
+        try clearAssignmentInActor()
+    }
+
+    private func clearAssignmentInActor() throws {
         guard let experimentStore else {
             throw CustomError.missingExperimentStore
         }
-
-        Self.bucketLock.lock()
-        defer { Self.bucketLock.unlock() }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         try experimentsDataController.resetExperiment(.yirEndCards)
@@ -165,24 +158,26 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
     /// Sets the developer settings override. Turning it off also clears the bucket and the exposure
     /// flag, so the next end screen rolls a real bucket and sends a real exposure. Otherwise the
     /// forced exposure would use up the one exposure of the install.
-    public func setDeveloperSettingsForcedAssignment(_ newValue: Assignment?) throws {
+    public func setDeveloperSettingsForcedAssignment(_ newValue: Assignment?) async throws {
         let oldValue = developerSettingsForcedAssignment
         developerSettingsDataController.forceYiREndCardsExperimentAssignment = newValue
         if oldValue != nil, newValue == nil {
-            try clearAssignment()
+            try clearAssignmentInActor()
         }
     }
 
     // MARK: - Exposure
 
     /// Call on each impression of the end screen, and only there, so that only readers who saw the
-    /// end screen are enrolled. Calls `sendExposure` once per install, in both groups, then records it.
-    public func recordEndScreenImpression(sendExposure: (ExperimentData) -> Void) throws {
+    /// end screen are enrolled. Returns the experiment data to send as the exposure, once per install
+    /// and in both groups, and records that it was sent. Returns nil after that, and for a reader
+    /// with no group.
+    public func recordEndScreenImpression() async throws -> ExperimentData? {
         guard !hasSentExposure, let experimentData else {
-            return
+            return nil
         }
-        sendExposure(experimentData)
         try setHasSentExposure(true)
+        return experimentData
     }
 
     public var hasSentExposure: Bool {

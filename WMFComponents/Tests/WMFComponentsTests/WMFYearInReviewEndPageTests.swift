@@ -457,6 +457,17 @@ struct WMFYearInReviewEndViewModelTests {
         #expect(viewModel.cards.map(\.id) == ["games", "interests", "whichWikipedia"])
     }
 
+    /// The coordinator sets the cards after the bucket is rolled. The other cards stay in place.
+    @Test
+    func theEngagementCardsCanBeAddedAfterTheViewModelIsBuilt() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true)
+        #expect(viewModel.cards.map(\.id) == ["contributorGift", "topRead", "whichWikipedia"])
+
+        viewModel.showEngagementCards(showsGamesCard: true, showsInterestsCard: true)
+
+        #expect(viewModel.cards.map(\.id) == ["contributorGift", "games", "interests", "topRead", "whichWikipedia"])
+    }
+
     /// An enrolled group B reader whose primary app language no longer has the game.
     @Test
     func groupBWithoutTheGameLanguageGetsOnlyTheInterestsCard() {

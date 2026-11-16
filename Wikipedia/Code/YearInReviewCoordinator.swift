@@ -831,12 +831,14 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         if YearInReviewInstrument.shared.isFunnelRunning {
             YearInReviewInstrument.shared.logImpression(page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
         }
-        do {
-            try WMFYearInReviewEndCardsDataController().recordEndScreenImpression { experimentData in
-                TestKitchenAdapter.shared.client.submitExperimentExposure(experimentData: experimentData)
+        Task { @MainActor in
+            do {
+                if let experimentData = try await WMFYearInReviewEndCardsDataController.shared.recordEndScreenImpression() {
+                    TestKitchenAdapter.shared.client.submitExperimentExposure(experimentData: experimentData)
+                }
+            } catch {
+                DDLogError("Recording the Year in Review end cards exposure failed: \(error)")
             }
-        } catch {
-            DDLogError("Recording the Year in Review end cards exposure failed: \(error)")
         }
     }
 
@@ -891,6 +893,7 @@ final class YearInReviewInstrument {
 
     func startFunnel() {
         instrument.startFunnel(name: "year-in-review")
+        refreshExperimentData()
     }
 
     func stopFunnel() {
@@ -903,8 +906,21 @@ final class YearInReviewInstrument {
 
     /// Like Android, every Year in Review event carries the end screen cards experiment once the
     /// reader has a group. Readers whose primary app language has no game have none.
-    private var experimentData: ExperimentData? {
-        WMFYearInReviewEndCardsDataController().experimentData
+    ///
+    /// A copy of `WMFYearInReviewEndCardsDataController.shared.experimentData`, so that an event does
+    /// not read the stores. The value only changes when the bucket is rolled or cleared, so it is read
+    /// again when a funnel starts and after the bucket is rolled.
+    private var experimentData: ExperimentData?
+    private var experimentDataRefreshTask: Task<Void, Never>?
+
+    /// Each refresh waits for the one before it, so an older read never replaces a newer one.
+    func refreshExperimentData() {
+        let previousRefreshTask = experimentDataRefreshTask
+        experimentDataRefreshTask = Task { [weak self] in
+            await previousRefreshTask?.value
+            let experimentData = await WMFYearInReviewEndCardsDataController.shared.experimentData
+            self?.experimentData = experimentData
+        }
     }
 
     func logImpression(actionSource: String? = nil, page: String? = nil, personalized: Bool?) {
@@ -977,25 +993,26 @@ extension YearInReviewCoordinator {
     /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
     private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
         MainActor.assumeIsolated {
-            let engagementCards = assignEndCardsExperiment()
-            let viewModel = WMFYearInReviewEndViewModel(
-                isContributor: isContributor,
-                hasEnglishAppLanguage: hasEnglishAppLanguage,
-                showsGamesCard: engagementCards?.showsGamesCard ?? false,
-                showsInterestsCard: engagementCards?.showsInterestsCard ?? false
-            )
+            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor, hasEnglishAppLanguage: hasEnglishAppLanguage)
             buildEndViewModel(viewModel)
+            assignEndCardsExperiment(viewModel: viewModel)
             return viewModel
         }
     }
 
-    /// The extra cards of the end screen cards experiment (T441006). Nil when the assignment fails.
-    private func assignEndCardsExperiment() -> WMFYearInReviewEndCardsDataController.EngagementCards? {
-        do {
-            return try WMFYearInReviewEndCardsDataController().assignEngagementCardsIfNeeded()
-        } catch {
-            DDLogError("Assigning the Year in Review end cards experiment failed: \(error)")
-            return nil
+    /// Rolls the bucket of the end screen cards experiment (T441006) and adds the extra cards of the
+    /// group. This runs when Year in Review opens, so the cards are there before the reader swipes to
+    /// the end screen. If the assignment fails, the end screen shows no extra cards.
+    @MainActor
+    private func assignEndCardsExperiment(viewModel: WMFYearInReviewEndViewModel) {
+        Task { @MainActor [weak viewModel] in
+            do {
+                let engagementCards = try await WMFYearInReviewEndCardsDataController.shared.assignEngagementCardsIfNeeded()
+                viewModel?.showEngagementCards(showsGamesCard: engagementCards.showsGamesCard, showsInterestsCard: engagementCards.showsInterestsCard)
+            } catch {
+                DDLogError("Assigning the Year in Review end cards experiment failed: \(error)")
+            }
+            YearInReviewInstrument.shared.refreshExperimentData()
         }
     }
 
