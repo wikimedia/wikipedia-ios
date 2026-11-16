@@ -80,14 +80,6 @@ final internal class NavigationEventsFunnel: NSObject {
             logEvent(action: .settingsOpenExplore)
         }
 
-        func logTappedSavedAllArticles() {
-            logEvent(action: .savedAll)
-        }
-
-        func logTappedSavedReadingLists() {
-            logEvent(action: .savedLists)
-        }
-
         @objc func logTappedSettingsCloseButton() {
             logEvent(action: .settingsClose)
         }

@@ -4,8 +4,8 @@ import WMFNativeLocalizations
 @MainActor
 public final class WMFActivityTabYearInReviewViewModel: ObservableObject {
 
-    /// Supplied by the Shared Logic task's data / low-data split. Defaults to false so an
-    /// unresolved value routes to the collective flow.
+    /// True for a data-rich reader. Defaults to false, so the low-data copy shows until the
+    /// reading history is counted.
     @Published public var isDataRich: Bool
 
     /// Isolated to the main actor: the view invokes it from `body`, and the Activity tab assigns a

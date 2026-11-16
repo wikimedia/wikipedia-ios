@@ -530,7 +530,6 @@
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar pilihan pada $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar pilihan pada $1";
-"preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
 "profile-button-accessibility-label" = "Profil";
 "profile-button-badge-accessibility-label" = "Profil dengan lencana yang belum dibaca";
 // Fuzzy
@@ -552,8 +551,6 @@
 "reading-list-api-error-generic" = "Ralat yang tidak dijangka berlaku semasa menyegerakkan senarai bacaan anda.";
 "reading-list-api-error-list-limit" = "Senarai ini tidak disegerakkan kerana anda telah mencapai had bagi bilangan senarai yang disegerakkan.";
 "reading-list-create-new-list-button-title" = "Cipta senarai bacaan";
-"reading-list-create-new-list-description" = "Keterangan";
-"reading-list-create-new-list-reading-list-name" = "Nama senarai bacaan";
 "reading-list-create-new-list-title" = "Cipta senarai baru";
 "reading-list-deleted-accessibility-notification" = "Senarai bacaan dipadamkan";
 "reading-list-do-not-keep-button-title" = "Tidak, padamkan rencana dari peranti";
@@ -573,7 +570,9 @@
 "reading-list-list-limit-reached" = "Anda telah mencapai had $1 senarai bacaan setiap akaun";
 "reading-list-login-or-create-account-button-title" = "Log masuk atau buka akaun";
 "reading-list-name-user-created-annotation" = "_[dicipta pengguna]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "penerangan pendek pilihan";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "tajuk senarai bacaan";
 "reading-list-sync-disabled-panel-message" = "Penyegerakan senarai bacaan telah dilumpuhkan untuk akaun Wikipedia anda pada peranti lain. Anda boleh mengaktifkan penyegerakan semula dengan mengemas kini tetapan anda.";
 "reading-list-sync-disabled-panel-title" = "Penyegerakan dilumpuhkan";
@@ -652,7 +651,6 @@
 "settings-clear-cache" = "Padamkan data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Mengosongkan data cache akan membebaskan kira-kira $1 ruang. Ia tidak akan memadamkan halaman anda disimpan.";
 "settings-clear-cache-are-you-sure-title" = "Padamkan data dalam cache?";
-"settings-clear-cache-cancel" = "Batalkan";
 "settings-clear-cache-ok" = "Padamkan cache";
 "settings-donate" = "Derma";
 "settings-help-and-feedback" = "Bantuan dan maklum balas";

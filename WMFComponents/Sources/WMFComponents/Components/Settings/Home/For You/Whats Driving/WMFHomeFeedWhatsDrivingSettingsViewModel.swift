@@ -27,6 +27,7 @@ public final class WMFHomeFeedWhatsDrivingSettingsViewModel: ObservableObject {
             title: WMFLocalizedString("home-feed-whats-driving-your-interests-title", value: "Your interests", comment: "Title for the Your interests row on the What's driving your feed screen."),
             subtitle: WMFLocalizedString("home-feed-whats-driving-your-interests-subtitle", value: "Edit your topics of interest", comment: "Subtitle for the Your interests row."),
             accessory: .chevron(label: nil),
+            accessibilityIdentifier: AccessibilityIdentifiers.HomeFeedSettings.yourInterestsRow,
             action: didTapYourInterests
         )
 

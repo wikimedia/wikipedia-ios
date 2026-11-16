@@ -121,9 +121,6 @@
 "activity-tab-very-satisfied" = "Muito satisfeito(a)";
 "activity-tab-very-unsatisfied" = "Muito insatisfeito(a)";
 "activity-tab-week-graph-label" = "Semana";
-"activity-tab-you-edited" = "Você editou {{PLURAL:$1|$1 vez|$1 vezes}} esta semana.";
-"activity-tab-you-read" = "Você leu {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
-"activity-tab-you-saved" = "Você guardou {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
 "alert-temporary-account" = "Está a utilizar uma conta temporária. A conta expirará em 90 dias.";
@@ -183,8 +180,6 @@
 "clearing-cache-complete" = "Limpeza da cache concluída.";
 "clearing-cache-in-progress" = "Limpeza da cache em andamento.";
 "close-all-tabs" = "Fechar todos os separadores";
-"close-all-tabs-confirmation" = "Deseja fechar todos os $1 separadores? Esta ação não pode ser anulada.";
-"close-all-tabs-confirmation-number" = "Fechar todos os $1 separadores?";
 "close-all-tabs-confirmation-title-with-value" = "Fechar {{PLURAL:$1|$1 separador|$1 separadores}}?";
 "close-button-accessibility-label" = "Fechar";
 "close-tabs" = "Fechar separadores";
@@ -286,6 +281,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Premir duas vezes para ativar donativos mensais automáticos deste montante.";
 "donate-accessibility-textfield-hint" = "Inserir o montante personalizado do donativo.";
 "donate-accessibility-transaction-fee-hint" = "Premir duas vezes para adicionar taxa da transação ao montante do donativo.";
+// Fuzzy
 "donate-already-donated" = "Obrigado, caro doador! A sua generosidade ajuda a manter a Wikipédia e os seus/outros projetos de conhecimento livre a prosperar.";
 "donate-apple-fine-print" = "A Apple não é responsável por arrecadar fundos para este fim.";
 "donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode enviar-me correio eletrónico ocasionalmente.";
@@ -863,7 +859,6 @@
 "potd-sample-entry-description" = "Dois touros em corrida enquanto o jóquei se segura a eles numa ''pacu jawi'' (\"corrida de touros\", em menancabo), uma corrida de touros tradicional em Tanah Datar, Sumatra Ocidental, Indonésia. 2015, Final-45.";
 "potd-widget-description" = "Desfrute de uma linda foto diária selecionada pela nossa comunidade.";
 "potd-widget-title" = "Imagem do dia";
-"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia Foundation recolha informações sobre o seu uso da aplicação para melhorá-la";
 "privacy-policy-title" = "Política de privacidade";
 "problem-with-feature-title" = "Problema com a funcionalidade";
 "profile-button-accessibility-hint" = "Navegue para a visualização do perfil.";
@@ -893,8 +888,6 @@
 "reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar as suas listas de leitura.";
 "reading-list-api-error-list-limit" = "Esta lista não está sincronizada, porque atingiu o limite do número de listas sincronizadas.";
 "reading-list-create-new-list-button-title" = "Criar lista de leitura";
-"reading-list-create-new-list-description" = "Descrição";
-"reading-list-create-new-list-reading-list-name" = "Nome da lista de leitura";
 "reading-list-create-new-list-title" = "Criar uma lista nova";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
@@ -914,7 +907,9 @@
 "reading-list-list-limit-reached" = "Atingiu o limite de $1 listas de leitura por conta";
 "reading-list-login-or-create-account-button-title" = "Iniciar sessão ou criar conta";
 "reading-list-name-user-created-annotation" = "_[criada pelo utilizador]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "descrição breve opcional";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "título da lista de leitura";
 "reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia noutro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
 "reading-list-sync-disabled-panel-title" = "Sincronização desativada";
@@ -1006,7 +1001,6 @@
 "settings-clear-cache" = "Limpar dados da cache";
 "settings-clear-cache-are-you-sure-message" = "Limpar os dados da cache libertará cerca de $1 de espaço. Não apaga as suas páginas guardadas.";
 "settings-clear-cache-are-you-sure-title" = "Limpar dados da cache?";
-"settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-donate" = "Fazer donativo";
 "settings-help-and-feedback" = "Ajuda e comentários";

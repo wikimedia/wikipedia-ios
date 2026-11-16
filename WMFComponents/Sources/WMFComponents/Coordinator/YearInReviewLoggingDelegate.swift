@@ -7,4 +7,6 @@ public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewDidTapNext(slideLoggingID: String)
     func logYearInReviewDidTapDonate(slideLoggingID: String)
     func logYearInReviewDidTapShare(slideLoggingID: String)
+    /// "Share highlights" on the end screen, which is not a slide.
+    func logYearInReviewDidTapShareHighlights()
 }

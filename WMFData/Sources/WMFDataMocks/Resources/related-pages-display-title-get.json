@@ -1,0 +1,61 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 17916616,
+        "ns": 0,
+        "title": "IPhone 3G",
+        "index": 1,
+        "description": "Smartphone developed by Apple Inc.",
+        "contentmodel": "wikitext",
+        "pagelanguage": "en",
+        "pagelanguagehtmlcode": "en",
+        "pagelanguagedir": "ltr",
+        "touched": "2026-06-21T21:49:54Z",
+        "lastrevid": 1353803747,
+        "length": 16020,
+        "displaytitle": "iPhone 3G",
+        "varianttitles": {
+          "en": "IPhone 3G"
+        },
+        "extract": "The iPhone 3G is a smartphone that was designed and marketed by Apple Inc."
+      },
+      {
+        "pageid": 32106,
+        "ns": 0,
+        "title": "软件",
+        "index": 2,
+        "description": "计算机程序和相关文档",
+        "contentmodel": "wikitext",
+        "pagelanguage": "zh",
+        "pagelanguagehtmlcode": "zh",
+        "pagelanguagedir": "ltr",
+        "touched": "2026-06-21T21:49:54Z",
+        "lastrevid": 1353803748,
+        "length": 16020,
+        "displaytitle": "软件",
+        "varianttitles": {
+          "zh": "软件",
+          "zh-hans": "软件",
+          "zh-hant": "軟體"
+        },
+        "extract": "软件是一系列按照特定顺序组织的计算机数据和指令的集合。"
+      },
+      {
+        "pageid": 1234,
+        "ns": 0,
+        "title": "Plain title",
+        "index": 3,
+        "contentmodel": "wikitext",
+        "pagelanguage": "en",
+        "pagelanguagehtmlcode": "en",
+        "pagelanguagedir": "ltr",
+        "touched": "2026-06-21T21:49:54Z",
+        "lastrevid": 1353803749,
+        "length": 100,
+        "extract": "A page without a display title in the response."
+      }
+    ]
+  }
+}

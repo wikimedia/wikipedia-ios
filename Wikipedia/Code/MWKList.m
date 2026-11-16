@@ -29,11 +29,18 @@
     return self;
 }
 
-+ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
-    if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKList new], mutableEntries)]) {
-        return MTLPropertyStoragePermanent;
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
     }
-    return MTLPropertyStorageNone;
+    if (![object isKindOfClass:[MWKList class]]) {
+        return NO;
+    }
+    return [self.entries isEqualToArray:[(MWKList *)object entries]];
+}
+
+- (NSUInteger)hash {
+    return self.entries.hash;
 }
 
 - (NSString *)description {

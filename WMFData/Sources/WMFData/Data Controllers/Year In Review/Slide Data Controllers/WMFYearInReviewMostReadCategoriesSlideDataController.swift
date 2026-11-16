@@ -1,6 +1,6 @@
 import CoreData
 
-// @unchecked: `isEvaluated` is mutable, but instances are confined to the sequential
+// @unchecked: `isEvaluated` and `selectedCategoryName` are mutable, but instances are confined to the sequential
 // populate flow in WMFYearInReviewDataController (mutated in a loop, then read in a
 // single Core Data perform closure) — see YearInReviewSlideDataControllerProtocol.
 final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlideDataControllerProtocol, @unchecked Sendable {
@@ -10,14 +10,21 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
 
-    private var mostReadCategories: [String]
+    /// The user must read at least this number of articles in a category for it to be a candidate.
+    static let minimumArticleCount = 2
+
+    /// A category name must have at least this number of spaces to be a first-choice candidate.
+    /// Names with more words are more specific, so they show a niche interest.
+    static let minimumSpaceCount = 2
+
+    /// The category that the slide shows. It is nil when no category is a candidate.
+    private var selectedCategoryName: String?
 
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
 
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
-        mostReadCategories = []
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
@@ -29,37 +36,52 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
 
         let categoryCounts = try await WMFCategoriesDataController().fetchCategoryCounts(startDate: startDate, endDate: endDate)
 
-        var filtered = categoryCounts
-            .filter { key, _ in
-                key.categoryName.components(separatedBy: "_").count - 1 >= 2
-            }
-            .sorted { $0.value > $1.value }
-            .prefix(5)
-
-        if filtered.isEmpty {
-            filtered = categoryCounts
-                .sorted { $0.value > $1.value }
-                .prefix(5)
+        let counts = categoryCounts.map { item in
+            (name: item.key.categoryName.replacingOccurrences(of: "_", with: " "), count: item.value)
         }
 
-        let filteredTop5 = filtered.map { item in
-            item.key.categoryName.replacingOccurrences(of: "_", with: " ")
-        }
-
-        mostReadCategories = filteredTop5
+        var generator = SystemRandomNumberGenerator()
+        selectedCategoryName = Self.selectCategoryName(from: counts, using: &generator)
 
         isEvaluated = true
+    }
+
+    /// Picks one category at random.
+    ///
+    /// 1. Keep the categories with `minimumArticleCount` or more articles.
+    /// 2. From those, keep the names with `minimumSpaceCount` or more spaces.
+    /// 3. If step 2 leaves no category, use the result of step 1 instead.
+    ///
+    /// The names are sorted before the pick, so a seeded generator gives the same result each time.
+    /// Returns nil when step 1 leaves no category.
+    static func selectCategoryName<Generator: RandomNumberGenerator>(from counts: [(name: String, count: Int)], using generator: inout Generator) -> String? {
+        let candidates = counts.filter { $0.count >= minimumArticleCount }
+        let specificCandidates = candidates.filter { candidate in
+            candidate.name.filter { $0 == " " }.count >= minimumSpaceCount
+        }
+        let pool = specificCandidates.isEmpty ? candidates : specificCandidates
+        return pool.map(\.name).sorted().randomElement(using: &generator)
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.data = try JSONEncoder().encode(mostReadCategories)
+        slide.data = try JSONEncoder().encode(WMFYearInReviewNicheCategorySlideData(categoryName: selectedCategoryName))
         return slide
     }
 
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
         return config.isActive(for: Date())
+    }
+
+    /// An older build stored this slide as an array of category names. That data does not decode as
+    /// `WMFYearInReviewNicheCategorySlideData`, so the report builds the slide again with the
+    /// current rules. Data in the current format keeps its category, also when the category is nil.
+    static func hasCurrentFormat(_ data: Data?) -> Bool {
+        guard let data else {
+            return false
+        }
+        return (try? JSONDecoder().decode(WMFYearInReviewNicheCategorySlideData.self, from: data)) != nil
     }
 }

@@ -125,6 +125,48 @@ final class SavedUITests: XCTestCase {
             .openTabs()
     }
 
+    // MARK: - Discover announcement
+
+    func testDiscoverAnnouncementShowsOnBothSegments() throws {
+        openSavedWithDiscover()
+            .assertDiscoverAnnouncementVisible()
+            .showReadingLists()
+            .assertDiscoverAnnouncementVisible()
+    }
+
+    func testDiscoverAnnouncementShowsAboveTheEmptyStates() throws {
+        openSavedWithDiscover(seed: fixture.seedWithoutArticlesOrLists)
+            .assertAllArticlesEmptyStateVisible()
+            .assertDiscoverAnnouncementVisible()
+            .showReadingLists()
+            .assertReadingListsEmptyStateVisible()
+            .assertDiscoverAnnouncementVisible()
+    }
+
+    func testDiscoverAnnouncementNoThanksHidesItOnBothSegmentsAndAfterRelaunch() throws {
+        openSavedWithDiscover()
+            .tapDiscoverNoThanks()
+            .assertDiscoverAnnouncementAbsent()
+            .showReadingLists()
+            .assertDiscoverAnnouncementAbsent()
+        relaunchKeepingData()
+            .assertDiscoverAnnouncementAbsent()
+    }
+
+    func testDiscoverAnnouncementGetStartedOpensSetupAndKeepsTheCard() throws {
+        openSavedWithDiscover()
+            .showReadingLists()
+            .tapDiscoverGetStarted()
+            .assertDiscoverSetupVisible()
+            .tapBackFromDiscoverSetup()
+            .assertDiscoverAnnouncementVisible()
+    }
+
+    func testDiscoverAnnouncementStaysHiddenWithoutTheFeature() throws {
+        openSaved()
+            .assertDiscoverAnnouncementAbsent()
+    }
+
     // MARK: - Reading lists
 
     func testSavedReadingListsShowsSeededLists() throws {
@@ -345,6 +387,69 @@ final class SavedUITests: XCTestCase {
             .assertCreateButtonEnabled(false)
     }
 
+    func testCreateReadingListButtonStaysDisabledForWhitespaceName() throws {
+        openSaved(seed: fixture.seedWithoutLists)
+            .showReadingLists()
+            .createListFromEmptyState()
+            .typeName("   ")
+            .assertCreateButtonEnabled(false)
+            .close()
+    }
+
+    func testCreateReadingListCloseDoesNotCreateList() throws {
+        let saved = openSaved(seed: fixture.seedWithoutLists).showReadingLists()
+        saved.createListFromEmptyState()
+            .typeName(SavedFixture.newListName)
+            .close()
+        saved.assertReadingListsEmptyStateVisible()
+    }
+
+    func testCreateReadingListShowsDescriptionInDetail() throws {
+        let saved = openSaved(seed: fixture.seedWithoutLists).showReadingLists()
+        saved.createListFromEmptyState()
+            .typeName(SavedFixture.newListName)
+            .typeDescription(SavedFixture.newListDescription)
+            .tapCreate()
+            .assertDismissed()
+        saved.openReadingList(SavedFixture.newListName)
+            .assertTitle(SavedFixture.newListName)
+            .assertDescription(SavedFixture.newListDescription)
+    }
+
+    func testCreateReadingListFromAllArticlesEditModeAddsArticle() throws {
+        let saved = openSaved()
+            .enterEditMode()
+            .selectArticleRow(fixture.openableArticleTitle)
+        saved.addSelectedArticlesToList()
+            .createNewList(named: SavedFixture.newListName)
+        saved.showReadingLists()
+            .openReadingList(SavedFixture.newListName)
+            .assertArticleVisible(fixture.openableArticleTitle)
+    }
+
+    func testCreateReadingListFromMoveSheetMovesArticle() throws {
+        let detail = openFirstList()
+            .enterEditMode()
+            .selectArticle(SavedFixture.latestArticleTitle)
+        detail.moveSelectedArticlesToList()
+            .createNewList(named: SavedFixture.newListName)
+        detail.assertArticleAbsent(SavedFixture.latestArticleTitle)
+            .tapBackToSaved()
+            .openReadingList(SavedFixture.newListName)
+            .assertArticleVisible(SavedFixture.latestArticleTitle)
+    }
+
+    func testCreateReadingListFromSharedLinkImportsArticles() throws {
+        let app = launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: fixture.seedWithoutArticlesOrLists)
+        app.home.assertVisible()
+        app.openSharedReadingListLink(pageIDs: [SavedFixture.importedArticlePageID], languageCode: SavedFixture.importedArticleLanguageCode)
+            .assertName(fixture.labels.importedListDefaultName)
+            .assertCreateButtonEnabled(true)
+            .createImportedList()
+            .assertTitle(fixture.labels.importedListDefaultName)
+            .assertArticleVisible(SavedFixture.importedArticleTitle)
+    }
+
     // MARK: - Helpers
 
     private var fixture: SavedFixture {
@@ -361,6 +466,13 @@ final class SavedUITests: XCTestCase {
             .openSaved(file: file, line: line)
     }
 
+    private func openSavedWithDiscover(seed: UITestReadingListsSeed? = nil, file: StaticString = #filePath, line: UInt = #line) -> SavedRobot {
+        launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: seed ?? fixture.seed, discoverState: .groupB)
+            .home
+            .assertVisible(file: file, line: line)
+            .openSaved(file: file, line: line)
+    }
+
     private func openFirstList(file: StaticString = #filePath, line: UInt = #line) -> ReadingListDetailRobot {
         openSaved(file: file, line: line)
             .showReadingLists(file: file, line: line)
@@ -370,7 +482,7 @@ final class SavedUITests: XCTestCase {
     /// Terminates the app and launches it again without a seed, so the data on device is kept.
     private func relaunchKeepingData(file: StaticString = #filePath, line: UInt = #line) -> SavedRobot {
         XCUIApplication().terminate()
-        return launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: nil)
+        return launchWikipediaAppRobot(onboardingState: .completed, readingListsSeed: nil, discoverState: .keep)
             .home
             .assertVisible(file: file, line: line)
             .openSaved(file: file, line: line)

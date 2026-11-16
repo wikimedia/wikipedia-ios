@@ -552,7 +552,6 @@
 "potd-empty-error-description" = "យកមើលរូបភាពថ្ងៃនេះសម្រាប់$1 មិនបានសម្រេច";
 "potd-widget-description" = "រីករាយជាមួយរូបភាពស្អាតៗប្រចាំថ្ងៃដែលសហគមយើងខ្ញុំបានសម្រាំង។";
 "potd-widget-title" = "រូបភាពប្រចាំថ្ងៃ";
-"preference-summary-eventlogging-opt-in" = "អនុញ្ញាតអោយមូលនិធិវិគីមេឌាប្រមូលព័ត៌មានអំពីរបៀបប្រើប្រាស់កម្មវិធីរបស់អ្នក ដើម្បីជួយកែច្នៃកម្មវិធីនេះអោយកាន់តែប្រសើរ";
 "project-name-mediawiki" = "មេឌាវិគី";
 "project-name-wikibooks" = "វិគីសៀវភៅ";
 "project-name-wikidata" = "វិគីទិន្នន័យ";
@@ -569,8 +568,6 @@
 "reading-list-add-saved-button-title" = "បាទ/ចាស៎ បន្ថែមអត្ថបទទាំងនេះទៅក្នុងបញ្ជីអានរបស់ខ្ញុំ";
 "reading-list-add-saved-title" = "រកឃើញអត្ថបទដែលបានរក្សាទុក";
 "reading-list-create-new-list-button-title" = "បង្កើតបញ្ជីអាន";
-"reading-list-create-new-list-description" = "ការពិពណ៌នា";
-"reading-list-create-new-list-reading-list-name" = "ឈ្មោះបញ្ជីអាន";
 "reading-list-create-new-list-title" = "បង្កើតបញ្ជីថ្មីមួយ";
 "reading-list-deleted-accessibility-notification" = "បានលុបបញ្ជីអាន";
 "reading-list-do-not-keep-button-title" = "ទេ។ សូមលុបអត្ថបទពីឧបករណ៍នេះ";
@@ -578,7 +575,9 @@
 "reading-list-keep-button-title" = "បាទ/ចាស៎។ សូមទុកអត្ថបទនៅលើឧបករណ៍នេះ";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "តម្រៀបអត្ថបទ";
 "reading-list-login-or-create-account-button-title" = "កត់ឈ្មោះចូលឬបង្កើតគណនី";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "ចំណារពន្យល់សង្ខេប(សរសេរក៏បានមិនសរសេរក៏បាន)";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "ចំណងជើងបញ្ជីអត្ថបទចង់អាន";
 "reading-themes-controls-accessibility-black-theme-button" = "រចនាបថខ្មៅ";
 "reading-themes-controls-accessibility-brightness-slider" = "របារកែសម្រួលពន្លឺ";
@@ -623,7 +622,6 @@
 "settings-account" = "គណនី";
 // Fuzzy
 "settings-appearance" = "ចំណង់ចំណូលចិត្តអំណាន";
-"settings-clear-cache-cancel" = "បោះបង់";
 "settings-help-and-feedback" = "ជំនួយនិងមតិយោបល់";
 "settings-language-bar" = "បង្ហាញភាសាក្នុងផ្ទាំងស្វែងរក";
 "settings-my-languages" = "ភាសារបស់ខ្ញុំ";

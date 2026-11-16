@@ -114,7 +114,7 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
             color: nil,
             title: localizedStrings.syncWithServerTitle,
             subtitle: nil,
-            accessory: .chevron(label: nil),
+            accessory: .none,
             action: { [weak self] in
                 self?.onSyncWithServer?()
             }
@@ -134,6 +134,7 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
         Binding(
             get: { [weak self] in self?.showSavedReadingList ?? false },
             set: { [weak self] newValue in
+                self?.showSavedReadingList = newValue
                 self?.onToggleShowSavedList?(newValue)
             }
         )

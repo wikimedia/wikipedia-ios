@@ -193,10 +193,6 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
 // MARK: ReadingListsViewControllerDelegate
 
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        // no-op
-    }
-    
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         if let moveFromReadingList = moveFromReadingList {
             do {

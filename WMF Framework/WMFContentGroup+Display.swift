@@ -33,14 +33,6 @@ extension WMFContentGroup {
                 fallback(imageInfo, traitCollection)
             return [imageURL]
 
-        case .announcement:
-            guard let announcement = contentPreview as? WMFAnnouncement else {
-                return nil
-            }
-            guard let imageURL = announcement.imageURL else {
-                return nil
-            }
-            return [imageURL]
         default:
             let count = countOfPreviewItems
             guard count > 0 else {

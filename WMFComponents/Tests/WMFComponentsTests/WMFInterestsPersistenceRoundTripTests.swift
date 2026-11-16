@@ -18,12 +18,14 @@ final class WMFInterestsPersistenceRoundTripTests {
         WMFDataEnvironment.current.coreDataStore = try await fixture.makeTemporaryCoreDataStore()
     }
 
-    private func waitFor(timeout: TimeInterval = 10, _ condition: @escaping () -> Bool) async throws {
+    private func waitFor(timeout: TimeInterval = 10, _ condition: @escaping () async -> Bool) async throws {
         let deadline = Date().addingTimeInterval(timeout)
-        while !condition() && Date() < deadline {
+        var isMet = await condition()
+        while !isMet && Date() < deadline {
             try await Task.sleep(nanoseconds: 50_000_000)
+            isMet = await condition()
         }
-        #expect(condition(), "Condition not met within \(timeout)s")
+        #expect(isMet, "Condition not met within \(timeout)s")
     }
 
     @Test
@@ -42,7 +44,7 @@ final class WMFInterestsPersistenceRoundTripTests {
 
             // Give the save Task time to persist
             try await waitFor {
-                let interests = (try? self.syncFetch(pageInterest)) ?? []
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return !interests.isEmpty
             }
 
@@ -76,8 +78,52 @@ final class WMFInterestsPersistenceRoundTripTests {
 
             let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
             try await waitFor {
-                let interests = (try? self.syncFetch(pageInterest)) ?? []
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return interests.contains { $0.title == "Marie_Curie" }
+            }
+        }
+    }
+
+    @Test
+    func deselectingAnArticleRemovesThePersistedInterest() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(WMFDataEnvironment.current.coreDataStore)
+            let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
+            try await pageInterest.addPageInterest(title: "Ada_Lovelace", project: project)
+
+            let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
+            let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+            try await waitFor {
+                viewModel.gridViewModels.contains { $0.isSelected }
+            }
+
+            let card = try #require(viewModel.gridViewModels.first { $0.isSelected })
+            viewModel.toggleArticleSelection(card)
+            try await waitFor {
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
+                return interests.isEmpty
+            }
+        }
+    }
+
+    @Test
+    func deselectAllRemovesEveryPersistedInterest() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(WMFDataEnvironment.current.coreDataStore)
+            let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
+            try await pageInterest.addPageInterest(title: "Alan_Turing", project: project)
+            try await pageInterest.addPageInterest(title: "Grace_Hopper", project: project)
+
+            let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
+            let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+            try await waitFor {
+                viewModel.gridViewModels.filter { $0.isSelected }.count == 2
+            }
+
+            viewModel.deselectAll()
+            try await waitFor {
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
+                return interests.isEmpty
             }
         }
     }
@@ -97,24 +143,12 @@ final class WMFInterestsPersistenceRoundTripTests {
             #expect(vm.addSearchResult(result))
 
             try await waitFor {
-                let interests = (try? self.syncFetch(pageInterest)) ?? []
+                let interests = (try? await pageInterest.fetchPageInterests(project: self.project)) ?? []
                 return !interests.isEmpty
             }
 
-            let interests = try self.syncFetch(pageInterest)
+            let interests = try await pageInterest.fetchPageInterests(project: project)
             #expect(interests.map { $0.title } == ["The_Macomber_Affair"])
         }
-    }
-
-    private nonisolated func syncFetch(_ controller: WMFPageInterestDataController) throws -> [WMFPageInterest] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var result: [WMFPageInterest] = []
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
-        Task {
-            result = (try? await controller.fetchPageInterests(project: project)) ?? []
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
     }
 }

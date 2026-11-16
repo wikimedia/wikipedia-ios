@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 import WMF.WMFLogging
 import CocoaLumberjackSwift
 
@@ -20,11 +21,7 @@ import CocoaLumberjackSwift
         return allWikipedias.map { (wikipedia) -> MWKLanguageLink in
             var localizedName = wikipedia.localName
             if !wikipedia.languageCode.contains("-") {
-                // Use localeOverrideCode for Locale lookup when the MW
-                // language code conflicts with ISO 639 (e.g. "als" is
-                // Alemannic in MW but Albanian in ISO 639-3). T398296
-                let lookupCode = wikipedia.localeOverrideCode ?? wikipedia.languageCode
-                if let iOSLocalizedName = Locale.current.localizedString(forLanguageCode: lookupCode) {
+                if let iOSLocalizedName = Locale.current.localizedString(forWikipediaLanguageCode: wikipedia.languageCode) {
                     localizedName = iOSLocalizedName
                 }
             } else if !Locale.current.isEnglish {

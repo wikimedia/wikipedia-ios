@@ -50,4 +50,14 @@ final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataContr
     static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
         return config.isActive(for: Date())
     }
+
+    /// An older build stored only the titles, without the descriptions or the wikis that the list
+    /// slide shows. The report builds that data again.
+    static func hasCurrentFormat(_ data: Data?) -> Bool {
+        guard let data,
+              let slideData = try? JSONDecoder().decode(SavedArticleSlideData.self, from: data) else {
+            return false
+        }
+        return slideData.articles != nil
+    }
 }

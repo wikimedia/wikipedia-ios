@@ -6,6 +6,12 @@ extension XCTestCase {
     var uiTestConfiguration: UITestConfiguration {
         UITestConfiguration()
     }
+
+    /// Skips the test in the live-network E2E configuration, for tests that depend on fixture
+    /// content or fixture-only state that live services do not reproduce.
+    func skipInE2E(_ reason: String) throws {
+        try XCTSkipIf(uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.e2e.rawValue, reason)
+    }
 }
 
 /// Captures the launch-time settings that make UI tests deterministic across theme, language, onboarding state, and network profile.
@@ -20,6 +26,7 @@ struct UITestConfiguration {
     let themeName: String?
     let languageCode: String
     let readingListsSeed: UITestReadingListsSeed?
+    let discoverState: DiscoverState
 
     var isRightToLeft: Bool {
         NSLocale.characterDirection(forLanguage: languageCode) == .rightToLeft
@@ -32,10 +39,12 @@ struct UITestConfiguration {
         suppressesGamesAnnouncement: Bool = true,
         suppressesHomeOnboarding: Bool = true,
         readingListsSeed: UITestReadingListsSeed? = nil,
-        centralAuthUsername: String? = nil
+        centralAuthUsername: String? = nil,
+        discoverState: DiscoverState = .off
     ) {
         self.onboardingState = onboardingState
         self.readingListsSeed = readingListsSeed
+        self.discoverState = discoverState
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
         self.themeName = ProcessInfo.processInfo.value(for: .appThemeName)
         self.resetsPreferredLanguages = resetsPreferredLanguages
@@ -84,7 +93,21 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.readingListsSeed, value: readingListsSeed.launchArgumentValue))
         }
 
+        if discoverState != .keep {
+            argumentValues.append(UITestLaunchArgumentValue(.discoverState, value: discoverState.rawValue))
+        }
+
         return argumentValues
+    }
+
+    /// What the launch does with the Discover flags, which persist across launches.
+    enum DiscoverState: String {
+        /// Discover off, the production default.
+        case off
+        /// Discover on, group B, and the onboarding card shown again.
+        case groupB
+        /// Leaves the flags as the previous launch left them.
+        case keep
     }
 
     /// Models the persisted onboarding flag that tests need to set before launch.

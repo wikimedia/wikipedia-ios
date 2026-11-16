@@ -18,8 +18,14 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
     private var imageTask: Task<Void, Never>?
     private var summaryTask: Task<Void, Never>?
 
+    /// Identity of a card: the wiki and the title, whatever the spacing of the title. Discover
+    /// suggestions come from several wikis, so the same title on two wikis is two cards.
+    static func identifier(title: String, project: WMFProject) -> String {
+        "\(project.id)/\(title.normalizedForCoreData)"
+    }
+
     init(article: WMFRandomArticle, project: WMFProject, isSelected: Bool = false) {
-        self.id = article.title.normalizedForCoreData
+        self.id = Self.identifier(title: article.title, project: project)
         self.title = article.title
         self.displayTitle = article.displayTitle ?? article.title.underscoresToSpaces
         self.project = project
@@ -29,20 +35,22 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
         self.isSelected = isSelected
     }
 
-    init(pageInterest: WMFPageInterest, project: WMFProject) {
-        self.id = pageInterest.title.normalizedForCoreData
-        self.title = pageInterest.title
-        self.displayTitle = pageInterest.title.underscoresToSpaces
+    /// A card known only by title, like a saved interest or a suggestion from reading history.
+    /// The description and the image come from the article summary when the card shows.
+    init(title: String, project: WMFProject, isSelected: Bool) {
+        self.id = Self.identifier(title: title, project: project)
+        self.title = title
+        self.displayTitle = title.underscoresToSpaces
         self.project = project
         self.description = nil
         self.thumbnailURL = nil
         self.needsSummary = true
-        self.isSelected = true
+        self.isSelected = isSelected
     }
 
     // Used when creating a card from an article search result
     init(searchResult: WMFArticleSearchResult, project: WMFProject, isSelected: Bool = false) {
-        self.id = searchResult.title.normalizedForCoreData
+        self.id = Self.identifier(title: searchResult.title, project: project)
         self.title = searchResult.title
         self.displayTitle = searchResult.displayTitle ?? searchResult.title.underscoresToSpaces
         self.project = project

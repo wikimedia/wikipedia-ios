@@ -106,9 +106,6 @@
 "activity-tab-unsatisfied" = "Незадовољан";
 "activity-tab-very-satisfied" = "Веома задовољан";
 "activity-tab-very-unsatisfied" = "Веома незадовољан";
-"activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 пут|$1 пута}} ове недеље.";
-"activity-tab-you-read" = "Прочитали сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
-"activity-tab-you-saved" = "Сачували сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "advanced-settings-title" = "Напредна подешавања";
 "alert-temporary-account" = "Користите привремени налог. Привремени налог ће истећи за 90 дана.";
@@ -166,7 +163,6 @@
 "clearing-cache-error" = "Грешка при чишћењеу кеша.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-all-tabs" = "Затвори све картице";
-"close-all-tabs-confirmation-number" = "Затвори свих $1 картица?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Желите ли да затворите {{PLURAL:$1|$1 картицу|$1 картице}}? Ово је неповратна радња.";
 "close-all-tabs-confirmation-title-with-value" = "Затвори {{PLURAL:$1|$1 картицу|$1 картица}}?";
 "close-button-accessibility-label" = "Затвори";
@@ -271,6 +267,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Тапните двапут да сваки месец донирате овај износ.";
 "donate-accessibility-textfield-hint" = "Други износ донације.";
 "donate-accessibility-transaction-fee-hint" = "Тапните двапут да додате и провизију за трансакцију износу донације.";
+// Fuzzy
 "donate-already-donated" = "Хвала, драги донаторе! Ваша великодушност помаже да Википедија и њени сестрински сајтови напредују.";
 "donate-apple-fine-print" = "Епл није задужен за прикупљање новца у ове сврхе.";
 "donate-email-opt-in-text" = "Да, нека ми Задужбина Викимедија периодично шаље имејлове.";
@@ -859,7 +856,6 @@
 "potd-empty-error-description" = "Добављање слике дана за $1 није успело";
 "potd-widget-description" = "Уживајте у дивној дневној слици коју је одабрала наша заједница.";
 "potd-widget-title" = "Слика дана";
-"preference-summary-eventlogging-opt-in" = "Дозволите Задужбини Викимедија да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
 "privacy-policy-title" = "Политика приватности";
 "problem-with-feature-title" = "Проблем са функцијом";
 "profile-button-accessibility-label" = "Профил";
@@ -885,8 +881,6 @@
 "reading-list-api-error-generic" = "Дошло је до неочекиване грешке при синхронизовању листе за читање.";
 "reading-list-api-error-list-limit" = "Ова листа није синхронизована јер сте достигли ограничење за дозвољени број синхронизованих листа.";
 "reading-list-create-new-list-button-title" = "Направи листу за читање";
-"reading-list-create-new-list-description" = "Опис";
-"reading-list-create-new-list-reading-list-name" = "Име листе за читање";
 "reading-list-create-new-list-title" = "Направи нову листу";
 "reading-list-deleted-accessibility-notification" = "Листа за читање је избрисана";
 "reading-list-do-not-keep-button-title" = "Не, избриши чланке са уређаја";
@@ -906,7 +900,9 @@
 "reading-list-list-limit-reached" = "Достигли сте ограничење од $1 листа за читање по налогу";
 "reading-list-login-or-create-account-button-title" = "Пријава/регистрација";
 "reading-list-name-user-created-annotation" = "_[направио корисник]";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "опционалан кратак опис";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "наслов листе за читање";
 "reading-list-sync-disabled-panel-message" = "Синхронизација листе за читање је онемогућена за ваш налог на другом уређају. Можете је поново укључити у подешавањима.";
 "reading-list-sync-disabled-panel-title" = "Синхронизација је онемогућена";
@@ -992,7 +988,6 @@
 "settings-clear-cache" = "Брисање кешираних података";
 "settings-clear-cache-are-you-sure-message" = "Чишћењем кешираних података ослободићете око $1 простора. Ваше сачуване странице се неће избрисати.";
 "settings-clear-cache-are-you-sure-title" = "Обрисати кеширане податке?";
-"settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Обриши кеш";
 "settings-donate" = "Донација";
 "settings-help-and-feedback" = "Помоћ и повратне информације";

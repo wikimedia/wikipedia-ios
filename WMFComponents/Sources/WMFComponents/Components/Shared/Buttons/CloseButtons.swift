@@ -34,13 +34,6 @@ import SwiftUI
         }
     }
 
-    func tintColor(theme: WMFTheme) -> UIColor {
-        switch self {
-        case .plainX: return theme.text
-        case .prominentCheck: return theme.link
-        }
-    }
-
     func swiftUITintColor(theme: WMFTheme) -> Color {
         switch self {
         case .plainX: return Color(theme.text)

@@ -1,16 +1,6 @@
 import UIKit
 import WMF
 
-class DebugAnnotation: MapAnnotation {
-    public var title: String?
-    public var subtitle: String?
-    
-    override func setup() {
-        self.title = nil
-        self.subtitle = nil
-    }
-}
-
 class ArticlePlace: MapAnnotation {
     public var nextCoordinate: CLLocationCoordinate2D?
     public let title: String?

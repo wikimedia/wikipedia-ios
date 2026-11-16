@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 enum DiffFetcherError: Error {
     case failureParsingRevisions
@@ -106,137 +107,51 @@ class DiffFetcher: Fetcher {
     }
     
     enum FetchRevisionModelRequest {
-        case adjacent(sourceRevision: WMFPageHistoryRevision, direction: FetchRevisionModelRequestDirection)
+        case adjacent(sourceRevision: WMFPageRevision, direction: FetchRevisionModelRequestDirection)
         case populateModel(revisionID: Int)
     }
-    
-    func fetchRevisionModel(_ siteURL: URL, articleTitle: String, request: FetchRevisionModelRequest, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
-        
-        let requestRevisionID: Int
-        var requestDirection: FetchRevisionModelRequestDirection? = nil
-        let requestNumberOfRevisions: Int
-        
-        switch request {
-        case .populateModel(let revisionID):
-            requestRevisionID = revisionID
-            requestNumberOfRevisions = 1
-        case .adjacent(let sourceRevision, let direction):
-            requestRevisionID = sourceRevision.revisionID
-            requestDirection = direction
-            requestNumberOfRevisions = 2
+
+    /// Fetch one revision. The request selects the revision by ID, or the revision next to a source revision.
+    func fetchRevisionModel(_ siteURL: URL, articleTitle: String, request: FetchRevisionModelRequest, completion: @escaping ((Result<WMFPageRevision, Error>) -> Void)) {
+        guard let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            completion(.failure(DiffFetcherError.failureParsingRevisions))
+            return
         }
-        
-        var parameters: [String: Any] = [
-            "action": "query",
-            "prop": "revisions",
-            "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
-            "rvlimit": requestNumberOfRevisions,
-            "rvstartid": requestRevisionID,
-            "titles": articleTitle,
-            "format": "json"
-        ]
-        
-        if let direction = requestDirection {
-            parameters["rvdir"] = direction.rawValue
-        }
-        
-        performMediaWikiAPIGET(for: siteURL, with: parameters, cancellationKey: nil) { (result, response, error) in
-            
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard
-                let query = result?["query"] as? [String : Any],
-                let pages = query["pages"] as? [String : Any] else {
-                    completion(.failure(DiffFetcherError.failureParsingRevisions))
-                    return
-            }
-            
-            for (_, value) in pages {
-                
-                guard let value = value as? [String: Any] else {
-                    completion(.failure(DiffFetcherError.failureParsingRevisions))
-                    return
-                }
-                
-                let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
-                
-                guard let val = value["revisions"],
-                    let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision] else {
-                    completion(.failure(DiffFetcherError.failureParsingRevisions))
-                    return
-                }
-                
-                let filteredRevisions: [WMFPageHistoryRevision]
+
+        Task {
+            do {
+                let revision: WMFPageRevision
                 switch request {
-                case .populateModel:
-                    filteredRevisions = revisions
-                case .adjacent(let sourceRevision, _):
-                    filteredRevisions = revisions.filter { $0.revisionID != sourceRevision.revisionID }
+                case .populateModel(let revisionID):
+                    revision = try await WMFPageHistoryDataController.shared.fetchRevision(project: project, title: articleTitle, revisionID: revisionID)
+                case .adjacent(let sourceRevision, let direction):
+                    let fetchDirection: WMFPageHistoryDataController.Direction = direction == .older ? .older : .newer
+                    revision = try await WMFPageHistoryDataController.shared.fetchAdjacentRevision(project: project, title: articleTitle, revisionID: sourceRevision.revisionID, direction: fetchDirection)
                 }
-                guard let singleRevision = filteredRevisions.first else {
-                                                                completion(.failure(DiffFetcherError.failureParsingRevisions))
-                                                                return
-                }
-                
-                completion(.success(singleRevision))
-                return
-            }
-            
-            completion(.failure(DiffFetcherError.failureParsingRevisions))
-        }
-    }
-    
-    public func fetchFirstRevisionModel(siteURL: URL, articleTitle: String, completion: @escaping (Result<WMFPageHistoryRevision, Error>) -> Void) {
-        let parameters: [String: Any] = [
-            "action": "query",
-            "prop": "revisions",
-            "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
-            "rvlimit": 1,
-            "rvdir": "newer",
-            "titles": articleTitle,
-            "format": "json"
-        ]
-        
-        performMediaWikiAPIGET(for: siteURL, with: parameters, cancellationKey: nil) { (result, response, error) in
-            if let error = error {
+                completion(.success(revision))
+            } catch {
                 completion(.failure(error))
-                return
             }
-            
-            guard
-                let query = result?["query"] as? [String : Any],
-                let pages = query["pages"] as? [String : Any] else {
-                    completion(.failure(DiffFetcherError.failureParsingRevisions))
-                    return
-            }
-            
-            for (_, value) in pages {
-                
-                guard let value = value as? [String: Any] else {
-                    completion(.failure(DiffFetcherError.failureParsingRevisions))
-                    return
-                }
-                
-                let transformer = MTLJSONAdapter.arrayTransformer(withModelClass: WMFPageHistoryRevision.self)
-                
-                guard let val = value["revisions"],
-                    let revisions = transformer?.transformedValue(val) as? [WMFPageHistoryRevision],
-                    let singleRevision = revisions.first else {
-                    completion(.failure(DiffFetcherError.failureParsingRevisions))
-                    return
-                }
-                
-                completion(.success(singleRevision))
-                return
-            }
-            
-            completion(.failure(DiffFetcherError.failureParsingRevisions))
         }
     }
-    
+
+    /// Fetch the first revision of the article.
+    public func fetchFirstRevisionModel(siteURL: URL, articleTitle: String, completion: @escaping (Result<WMFPageRevision, Error>) -> Void) {
+        guard let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            completion(.failure(DiffFetcherError.failureParsingRevisions))
+            return
+        }
+
+        Task {
+            do {
+                let revision = try await WMFPageHistoryDataController.shared.fetchFirstRevision(project: project, title: articleTitle)
+                completion(.success(revision))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
     public func fetchArticleTitle(siteURL: URL, revisionID: Int, completion: @escaping (Result<String, Error>) -> Void) {
         let parameters: [String: Any] = [
             "action": "query",

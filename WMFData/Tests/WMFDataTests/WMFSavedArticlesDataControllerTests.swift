@@ -91,6 +91,18 @@ final class WMFSavedArticlesDataControllerTests: XCTestCase {
         XCTAssertEqual(titles, ["Newest", "Middle", "Oldest"])
     }
 
+    func testFetchTimelinePagesStopsAtTheLimit() async throws {
+        let now = Date()
+        try await insertSavedPage(title: "Oldest", project: enProject, savedDate: now.addingTimeInterval(-3600))
+        try await insertSavedPage(title: "Newest", project: enProject, savedDate: now)
+        try await insertSavedPage(title: "Middle", project: enProject, savedDate: now.addingTimeInterval(-1800))
+
+        let controller = try makeController()
+        let pages = try await controller.fetchTimelinePages(limit: 2)
+
+        XCTAssertEqual(pages.map { $0.page.title }, ["Newest", "Middle"])
+    }
+
     func testFetchTimelinePagesDeduplicatesByArticleKeepingNewest() async throws {
         let now = Date()
         try await insertSavedPage(title: "Cat", project: enProject, savedDate: now.addingTimeInterval(-3600))

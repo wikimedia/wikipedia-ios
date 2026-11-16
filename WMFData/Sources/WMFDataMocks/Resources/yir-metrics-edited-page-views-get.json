@@ -1,0 +1,7 @@
+{
+  "items": [
+    { "timestamp": "2026-01-01T00:00:00.000Z", "view_count": 1000 },
+    { "timestamp": "2026-02-01T00:00:00.000Z", "view_count": 200 },
+    { "timestamp": "2026-03-01T00:00:00.000Z", "view_count": 34 }
+  ]
+}

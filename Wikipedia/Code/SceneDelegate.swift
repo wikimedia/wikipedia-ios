@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var appNeedsResume = true
+    private var analyticsInspectorController: AnalyticsInspectorController?
     // Tracks the most recent source used to open the app (external_link, widget, shortcut, notification, etc.)
     // This is consumed when the scene becomes active to submit the apps-open instrument.
     var lastOpenSource: String? = nil
@@ -68,6 +69,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         UNUserNotificationCenter.current().delegate = appViewController
         appViewController.launchApp(in: window, waitToResumeApp: appNeedsResume)
+
+        if AnalyticsInspectorController.isAvailableInThisBuild {
+            let analyticsInspectorController = AnalyticsInspectorController(windowScene: windowScene)
+            analyticsInspectorController.start()
+            self.analyticsInspectorController = analyticsInspectorController
+        } else {
+            WMFDeveloperSettingsDataController.shared.showAnalyticsInspector = false
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
