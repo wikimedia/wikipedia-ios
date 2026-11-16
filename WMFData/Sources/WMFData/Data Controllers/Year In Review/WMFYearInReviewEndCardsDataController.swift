@@ -38,8 +38,9 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
     /// Half of the qualified readers stay in the control group.
     static let controlPercentage = 50
 
-    /// Two calls at the same time must not roll two buckets.
-    private static let rollLock = NSLock()
+    /// Covers every write of the bucket, so a roll and a clear at the same time do not mix.
+    /// The controller keeps no state in memory, so it needs no actor. The lock is for the store file.
+    private static let bucketLock = NSLock()
 
     private let injectedExperimentStore: WMFKeyValueStore?
     private let injectedUserDefaultsStore: WMFKeyValueStore?
@@ -95,8 +96,8 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
     @discardableResult
     func assignIfNeeded() throws -> Assignment? {
         if isQualified {
-            Self.rollLock.lock()
-            defer { Self.rollLock.unlock() }
+            Self.bucketLock.lock()
+            defer { Self.bucketLock.unlock() }
 
             guard let experimentStore else {
                 throw CustomError.missingExperimentStore
@@ -152,6 +153,9 @@ public struct WMFYearInReviewEndCardsDataController: Sendable {
         guard let experimentStore else {
             throw CustomError.missingExperimentStore
         }
+
+        Self.bucketLock.lock()
+        defer { Self.bucketLock.unlock() }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         try experimentsDataController.resetExperiment(.yirEndCards)

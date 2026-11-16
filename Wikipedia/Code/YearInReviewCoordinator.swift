@@ -825,10 +825,12 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     }
 
     /// The first impression of the end screen enrolls the reader in the end screen cards experiment
-    /// (T441006), as on Android.
+    /// (T441006), as on Android. The exposure does not need the funnel, as on Android: a reader who
+    /// sees the cards of a group is enrolled, also if the funnel stopped.
     func logYearInReviewEndDidAppear() {
-        guard YearInReviewInstrument.shared.isFunnelRunning else { return }
-        YearInReviewInstrument.shared.logImpression(page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+        if YearInReviewInstrument.shared.isFunnelRunning {
+            YearInReviewInstrument.shared.logImpression(page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+        }
         do {
             try WMFYearInReviewEndCardsDataController().recordEndScreenImpression { experimentData in
                 TestKitchenAdapter.shared.client.submitExperimentExposure(experimentData: experimentData)
@@ -1041,23 +1043,34 @@ extension YearInReviewCoordinator {
         }
     }
 
-    /// The close button and the games card close Year in Review the same way.
+    /// The close button and the games card close Year in Review the same way. As before this change,
+    /// the funnel stops after the dismiss starts, and before it ends, so that a slide the pager settles
+    /// on during the animation logs nothing.
     @MainActor
     private func closeYearInReview(completion: (@MainActor () -> Void)? = nil) {
         WMFRiveLogger.failureHandler = nil
-        YearInReviewInstrument.shared.stopFunnel()
+        homeFeedSettingsCoordinator = nil
         guard let presentedViewController = navigationController.presentedViewController else {
+            YearInReviewInstrument.shared.stopFunnel()
             completion?()
             return
         }
         presentedViewController.dismiss(animated: true, completion: completion)
+        YearInReviewInstrument.shared.stopFunnel()
     }
 
     /// Today's Which Came First game in the primary app language. The experiment only takes readers
-    /// whose primary app language has the game.
+    /// whose primary app language has the game. The card reads the language from WMFData and this
+    /// method from the language link controller. The two are the same, but the guard makes sure that
+    /// the game never opens for a site that does not have it.
     @MainActor
     private func showGames() {
-        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
+        guard let appLanguage = dataStore.languageLinkController.appLanguage,
+              WMFGamesDataController.isWhichCameFirstSupported(project: .wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))) else {
+            DDLogError("The Year in Review games card opened for an app language without the game.")
+            return
+        }
+        let siteURL = appLanguage.siteURL
         let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: siteURL)
         coordinator.didFinish = { [weak self] in
             self?.whichCameFirstCoordinator = nil
