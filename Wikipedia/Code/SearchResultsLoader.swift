@@ -30,7 +30,7 @@ struct SearchResultsLoader {
 
     let fetcher: WMFSearchFetcher
 
-    func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = WMFMaxSearchResultLimit, fullTextSearchThreshold: Int = SearchResultsLoader.fullTextSearchThreshold) async throws -> Outcome {
+    func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = WMFMaxSearchResultLimit) async throws -> Outcome {
         let prefixResults: WMFSearchResults
         do {
             prefixResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit)
@@ -41,7 +41,7 @@ struct SearchResultsLoader {
         }
 
         let prefixCount = prefixResults.results.count
-        guard prefixCount < fullTextSearchThreshold else {
+        guard prefixCount < Self.fullTextSearchThreshold else {
             return Outcome(results: prefixResults, type: .prefix, prefixResultCount: prefixCount)
         }
 
@@ -57,6 +57,47 @@ struct SearchResultsLoader {
                 throw Failure.fetch(error, .full)
             }
             return Outcome(results: prefixResults, type: .prefix, prefixResultCount: prefixCount)
+        }
+    }
+}
+
+extension SearchResultsLoader {
+
+    /// The prefix results and, when prefix returned fewer than `fullTextSearchThreshold`, the full text results, each as
+    /// its request returned it. Unlike `fetchResults`, nothing is merged or de-duplicated by title, so each list is the one
+    /// its search ID gives.
+    struct RawOutcome {
+        let prefix: WMFSearchResults
+        let fullText: WMFSearchResults?
+    }
+
+    func fetchRawResults(for searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearchThreshold: Int) async throws -> RawOutcome {
+        let prefixResults: WMFSearchResults
+        do {
+            prefixResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit)
+        } catch let error as CancellationError {
+            throw error
+        } catch {
+            throw Failure.fetch(error, .prefix)
+        }
+
+        let prefixCount = prefixResults.results.count
+        guard prefixCount < fullTextSearchThreshold else {
+            return RawOutcome(prefix: prefixResults, fullText: nil)
+        }
+
+        try Task.checkCancellation()
+
+        do {
+            let fullTextResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: true, appendToPreviousResults: nil)
+            return RawOutcome(prefix: prefixResults, fullText: fullTextResults)
+        } catch let error as CancellationError {
+            throw error
+        } catch {
+            guard prefixCount > 0 else {
+                throw Failure.fetch(error, .full)
+            }
+            return RawOutcome(prefix: prefixResults, fullText: nil)
         }
     }
 }
@@ -136,7 +177,7 @@ struct SemanticSearchInterleavedLoader {
     func fetchResults(for searchTerm: String, siteURL: URL, project: WMFProject, forcedScenario: WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario? = nil) async throws -> Outcome {
         async let semanticFetch = Self.fetchSemantic(for: searchTerm, project: project, forcedScenario: forcedScenario)
 
-        var lexicalOutcome: SearchResultsLoader.Outcome?
+        var rawLexical: SearchResultsLoader.RawOutcome?
         var lexicalError: Error?
         switch forcedScenario {
         case .lexicalReturnsNothing, .bothReturnNothing:
@@ -145,7 +186,7 @@ struct SemanticSearchInterleavedLoader {
             lexicalError = SearchResultsLoader.Failure.fetch(ForcedFailure(), .prefix)
         default:
             do {
-                lexicalOutcome = try await lexicalLoader.fetchResults(
+                rawLexical = try await lexicalLoader.fetchRawResults(
                     for: searchTerm,
                     siteURL: siteURL,
                     resultLimit: UInt(WMFSemanticSearchInterleavedConfiguration.lexicalResultsLimit),
@@ -165,12 +206,14 @@ struct SemanticSearchInterleavedLoader {
             throw lexicalError
         }
 
-        let lexicalResults = lexicalOutcome?.results.results ?? []
-        let prefixCount = lexicalOutcome?.prefixResultCount ?? 0
-        let fullTextResults: [MWKSearchResult]? = lexicalOutcome?.type == .full ? Array(lexicalResults.dropFirst(prefixCount)) : nil
+        // The lists are the raw ones their search IDs give. The builder removes duplicates by page ID, so the
+        // backend can rebuild the same list from the search IDs.
+        let prefixResults = rawLexical?.prefix.results ?? []
+        let fullTextResults = rawLexical?.fullText?.results
+        let lexicalResults = prefixResults + (fullTextResults ?? [])
 
         let list = WMFSemanticSearchInterleavedList.build(
-            prefix: lexicalResults.prefix(prefixCount).map(\.articleID),
+            prefix: prefixResults.map(\.articleID),
             fullText: fullTextResults?.map(\.articleID),
             semantic: semantic.response,
             seed: WMFSearchResultsInterleaver.newSeed())
@@ -181,17 +224,22 @@ struct SemanticSearchInterleavedLoader {
         }
         let semanticResults = semanticAnswered?.results ?? []
 
+        var redirectMappings = rawLexical?.prefix.redirectMappings ?? []
+        for mapping in rawLexical?.fullText?.redirectMappings ?? [] where !redirectMappings.contains(mapping) {
+            redirectMappings.append(mapping)
+        }
+
         return Outcome(
             items: list.items,
             state: list.state,
             merge: list.merge,
             searchIDs: WMFSemanticSearchInterleavedIDs(
-                prefix: lexicalOutcome?.results.prefixSearchID,
-                fullText: lexicalOutcome?.results.fullTextSearchID,
+                prefix: rawLexical?.prefix.prefixSearchID,
+                fullText: rawLexical?.fullText?.fullTextSearchID,
                 semantic: semanticAnswered?.searchID),
             lexicalResultsByPageID: Dictionary(lexicalResults.map { ($0.articleID, $0) }, uniquingKeysWith: { first, _ in first }),
             semanticResultsByPageID: Dictionary(semanticResults.map { ($0.pageID, $0) }, uniquingKeysWith: { first, _ in first }),
-            redirectMappings: lexicalOutcome?.results.redirectMappings ?? [])
+            redirectMappings: redirectMappings)
     }
 
     /// A failure or a request that does not answer within the timeout gives the reader the lexical list alone.
