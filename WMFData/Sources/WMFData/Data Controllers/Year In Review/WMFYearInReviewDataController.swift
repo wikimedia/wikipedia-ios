@@ -143,7 +143,8 @@ import CoreData
         }
 
         let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-        let readCount = try await YearInReviewReadCountSlideDataController.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
+        let mainPageTitles = try await YearInReviewMainPageTitles.lookUp(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageIdentifier: mainPageIdentifier)
+        let readCount = try await YearInReviewReadCountSlideDataController.fetchReadCount(startDate: startDate, endDate: endDate, pageViewsDataController: pageViewsDataController, mainPageTitles: mainPageTitles)
         return readCount >= Self.dataRichArticleThreshold ? .dataRich : .lowData
     }
 
@@ -264,6 +265,8 @@ import CoreData
             return (try? decoder.decode(WMFYearInReviewNicheCategorySlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .rabbitHoles:
             return (try? decoder.decode(WMFYearInReviewRabbitHolesSlideData.self, from: data))?.isEligible == true ? 1 : 0
+        case .readingPattern:
+            return (try? decoder.decode(WMFYearInReviewReadingPatternSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .longestRead:
             return (try? decoder.decode(WMFYearInReviewLongestReadSlideData.self, from: data))?.isEligible == true ? 1 : 0
         case .readingStreak:

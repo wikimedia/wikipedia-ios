@@ -550,13 +550,14 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return results
     }
 
-    /// The wikis of the page views inside the window. The window includes `startDate` and `endDate`.
-    public func fetchPageViewProjectIDs(startDate: Date, endDate: Date) async throws -> Set<String> {
+    /// The wikis of the article page views inside the window. Pages outside the main namespace,
+    /// such as talk pages, do not count. The window includes `startDate` and `endDate`.
+    public func fetchArticlePageViewProjectIDs(startDate: Date, endDate: Date) async throws -> Set<String> {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         return try await backgroundContext.perform {
             let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
-            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && page.namespaceID == 0", startDate as CVarArg, endDate as CVarArg)
             request.resultType = .dictionaryResultType
             request.propertiesToFetch = ["page.projectID"]
             request.returnsDistinctResults = true
@@ -609,26 +610,35 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
     }
 
-    /// The article page views inside the window that have reading time. The window includes
-    /// `startDate` and `endDate`. Main pages are not left out.
-    public func fetchArticleReadingTimes(startDate: Date, endDate: Date) async throws -> [WMFPageViewReadingTime] {
+    /// The article page views inside the window. The window includes `startDate` and `endDate`.
+    /// Main pages are not left out.
+    /// - Parameter requiresReadingTime: If true, only the page views with reading time. If false,
+    ///   also those without, with `numberOfSeconds` 0.
+    public func fetchArticleReadingTimes(startDate: Date, endDate: Date, requiresReadingTime: Bool = true) async throws -> [WMFPageViewReadingTime] {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         return try await backgroundContext.perform {
+            var predicates = [
+                NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg),
+                NSPredicate(format: "page.namespaceID == 0")
+            ]
+            if requiresReadingTime {
+                predicates.append(NSPredicate(format: "numberOfSeconds > 0"))
+            }
             let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
-            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && numberOfSeconds > 0 && page.namespaceID == 0", startDate as CVarArg, endDate as CVarArg)
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
             request.resultType = .dictionaryResultType
-            request.propertiesToFetch = ["timestamp", "numberOfSeconds", "page.projectID", "page.title", "page.namespaceID"]
+            request.propertiesToFetch = ["timestamp", "numberOfSeconds", "page.projectID", "page.title"]
 
             return try backgroundContext.fetch(request).compactMap { result in
                 guard let timestamp = result["timestamp"] as? Date,
-                      let numberOfSeconds = result["numberOfSeconds"] as? Int64,
                       let projectID = result["page.projectID"] as? String,
-                      let title = result["page.title"] as? String,
-                      let namespaceID = result["page.namespaceID"] as? Int16 else {
+                      let title = result["page.title"] as? String else {
                     return nil
                 }
-                return WMFPageViewReadingTime(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), timestamp: timestamp, numberOfSeconds: Int(numberOfSeconds))
+                let numberOfSeconds = result["numberOfSeconds"] as? Int64 ?? 0
+                // The predicate keeps only the main namespace.
+                return WMFPageViewReadingTime(page: WMFPage(namespaceID: 0, projectID: projectID, title: title), timestamp: timestamp, numberOfSeconds: Int(numberOfSeconds))
             }
         }
     }
