@@ -151,13 +151,13 @@ extension ArticleRobot {
 
     @discardableResult
     func tapSearch(file: StaticString = #filePath, line: UInt = #line) -> SearchRobot {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, waitsForEnabled: true, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, timeout: Self.articleElementSearchTimeout, waitsForEnabled: true, file: file, line: line)
         return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
     @discardableResult
     func openTableOfContents(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.tableOfContentsButton, waitsForEnabled: true, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.tableOfContentsButton, timeout: Self.articleElementSearchTimeout, waitsForEnabled: true, file: file, line: line)
         return assertTableOfContentsVisible(file: file, line: line)
     }
 
@@ -181,7 +181,7 @@ extension ArticleRobot {
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.languagesButton, waitsForEnabled: true, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.languagesButton, timeout: Self.articleElementSearchTimeout, waitsForEnabled: true, file: file, line: line)
         base.assertExists(
             languagePickerView,
             timeout: 15,
@@ -219,7 +219,7 @@ extension ArticleRobot {
 
     @discardableResult
     func findInArticle(searchTerm: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.findInPageButton, waitsForEnabled: true, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.findInPageButton, timeout: Self.articleElementSearchTimeout, waitsForEnabled: true, file: file, line: line)
         base.assertExists(findInPageView, timeout: 10, description: "find in article bar", file: file, line: line)
 
         let textField = element(withIdentifier: AccessibilityIdentifiers.Article.findInPageTextField)
@@ -279,13 +279,13 @@ extension ArticleRobot {
             closeButton.tap()
         }
 
-        base.waitForElementToDisappear(findInPageView, timeout: 10, file: file, line: line)
+        base.waitForElementToDisappear(findInPageView, timeout: 30, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
 
     @discardableResult
     func openReadingThemeControls(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.themeButton, waitsForEnabled: true, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.themeButton, timeout: Self.articleElementSearchTimeout, waitsForEnabled: true, file: file, line: line)
         base.assertExists(
             readingThemesView,
             timeout: 10,
@@ -524,7 +524,7 @@ extension ArticleRobot {
 extension ArticleRobot {
     @discardableResult
     func openOverflowMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.moreButton, waitsForEnabled: true, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.moreButton, timeout: Self.articleElementSearchTimeout, waitsForEnabled: true, file: file, line: line)
         return self
     }
 
@@ -1000,10 +1000,13 @@ private extension ArticleRobot {
         base.assertExists(button, timeout: 15, description: description, file: file, line: line)
 
         base.tapCenter(of: button, file: file, line: line)
-        if !waitForArticleViewToDisappear(articleView, timeout: 5) {
+        // On CI the pop can outlast this wait while a single snapshot of the article takes
+        // 10+ seconds. Tap again only while the button is still there: once the pop has
+        // landed the button is gone, and tapping it would fail with "no matches found".
+        if !waitForArticleViewToDisappear(articleView, timeout: 15), button.exists {
             base.tapCenter(of: button, file: file, line: line)
-            base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
         }
+        base.waitForElementToDisappear(articleView, timeout: 30, file: file, line: line)
 
         return HomeRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }

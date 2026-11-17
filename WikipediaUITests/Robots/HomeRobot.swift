@@ -161,7 +161,8 @@ extension HomeRobot {
     func tapRootTab(_ tab: RootTab, file: StaticString = #filePath, line: UInt = #line) -> Self {
         dismissYearInReviewAnnouncementIfPresent()
         let button = rootTabButton(for: tab)
-        base.assertVisible(button, timeout: 15, description: tab.description, file: file, line: line)
+        // A cold launch on CI takes 40+ seconds and the tab bar settles after that.
+        base.assertVisible(button, timeout: 30, description: tab.description, file: file, line: line)
         base.tapCenter(of: button, file: file, line: line)
 
         switch tab {
