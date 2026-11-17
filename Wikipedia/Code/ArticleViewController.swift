@@ -1165,6 +1165,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
+    /// The web view is hidden while the article scrolls to its section or saved position.
+    var isWebViewHidden: Bool {
+        webView.alpha == 0
+    }
+
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let block = {
             self.webView.alpha = hidden ? 0 : 1
@@ -1717,6 +1722,8 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 
 extension ArticleViewController {
     func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
+        // A hidden web view stays blank and ignores touches. Show it with the error.
+        setWebViewHidden(false, animated: false)
         if showEmptyView {
             wmf_showEmptyView(of: .articleDidNotLoad, frame: view.bounds)
         }

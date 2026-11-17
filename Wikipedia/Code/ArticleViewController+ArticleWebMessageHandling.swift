@@ -88,17 +88,18 @@ extension ArticleViewController: ArticleWebMessageHandling {
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
         showDonationReminderCardIfNeeded()
         highlightSemanticSearchPassages()
-        showWebViewIfStillHiddenForSection()
+        showWebViewIfStillHidden()
     }
 
-    /// The web view stays hidden until the scroll to the section lands. If the section is not in
-    /// the article, the scroll never lands: show the article anyway a moment after it is set up.
-    private func showWebViewIfStillHiddenForSection() {
-        guard opensAtSection else { return }
+    /// The web view stays hidden until the scroll to the section, or to the saved position, lands.
+    /// If the scroll never lands, show the article anyway a moment after it is set up.
+    private func showWebViewIfStillHidden() {
+        guard isWebViewHidden else { return }
 
         Task { @MainActor [weak self] in
             try? await Task.sleep(for: .seconds(1))
-            self?.setWebViewHidden(false, animated: true)
+            guard let self, self.isWebViewHidden else { return }
+            self.setWebViewHidden(false, animated: true)
         }
     }
 

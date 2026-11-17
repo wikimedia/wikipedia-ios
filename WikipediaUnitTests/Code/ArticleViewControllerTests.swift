@@ -54,4 +54,35 @@ struct ArticleViewControllerTests {
 
         #expect(schemeHandler.accessed, "SchemeHandler was not accessed during article load.")
     }
+
+    /// An article view controller whose view is not loaded, so nothing loads from the network.
+    @MainActor
+    private func makeArticleViewController() async throws -> (ArticleViewController, MWKDataStore) {
+        let dataStore = await withCheckedContinuation { (continuation: CheckedContinuation<MWKDataStore, Never>) in
+            MWKDataStore.createTemporaryDataStore { result in
+                continuation.resume(returning: result)
+            }
+        }
+        let url = try #require(URL(string: "https://en.wikipedia.org/wiki/Dog#History"))
+        let articleViewController = try #require(ArticleViewController(articleURL: url, dataStore: dataStore, theme: .light, source: .undefined))
+        return (articleViewController, dataStore)
+    }
+
+    @MainActor
+    private func tearDown(_ dataStore: MWKDataStore) {
+        dataStore.clearTemporaryCache()
+        dataStore.session.teardown()
+    }
+
+    @MainActor
+    @Test
+    func loadFailureShowsTheHiddenWebView() async throws {
+        let (articleViewController, dataStore) = try await makeArticleViewController()
+        defer { tearDown(dataStore) }
+
+        articleViewController.setWebViewHidden(true, animated: false)
+        articleViewController.handleArticleLoadFailure(with: RequestError.unknown, showEmptyView: false)
+
+        #expect(!articleViewController.isWebViewHidden)
+    }
 }
