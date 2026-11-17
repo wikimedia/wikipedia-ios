@@ -344,6 +344,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { saveFlag(.developerSettingsEnableSemanticSearchInterleaved, newValue) }
     }
 
+    /// Labels each row of the interleaved list with the request that gave it and the state the list ended in.
+    public var showSemanticSearchInterleavedSourceBadge: Bool {
+        get { loadFlag(.developerSettingsShowSemanticSearchInterleavedSourceBadge) }
+        set { saveFlag(.developerSettingsShowSemanticSearchInterleavedSourceBadge, newValue) }
+    }
+
     public var forceSemanticSearchInterleavedExperimentAssignment: WMFSemanticSearchInterleavedDataController.ExperimentAssignment? {
         get {
             guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchInterleavedExperimentAssignment.rawValue) else {

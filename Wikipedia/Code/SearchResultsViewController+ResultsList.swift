@@ -110,6 +110,7 @@ extension SearchResultsViewController {
         let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.redirectMappings)
 
         var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+        let showsSourceBadge = WMFDeveloperSettingsDataController.shared.showSemanticSearchInterleavedSourceBadge
         let results = outcome.items.compactMap { item -> SearchResult? in
             var searchResult: SearchResult?
             switch item.source {
@@ -133,9 +134,9 @@ extension SearchResultsViewController {
                     isArticle: SearchResultsMapper.isArticle(articleURL),
                     isSavable: articleURL.namespace == .main)
             }
-#if DEBUG
-            searchResult?.sourceBadge = Self.sourceBadge(for: item.source, state: outcome.state)
-#endif
+            if showsSourceBadge {
+                searchResult?.sourceBadge = Self.sourceBadge(for: item.source, state: outcome.state)
+            }
             return searchResult
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
@@ -152,7 +153,7 @@ extension SearchResultsViewController {
             listLength: WMFSemanticSearchInterleavedConfiguration.listLength)
     }
 
-    /// Debug builds label each row with the request that gave it and the state the list ended in.
+    /// With the developer setting on, each row shows the request that gave it and the state the list ended in.
     private static func sourceBadge(for source: WMFSemanticSearchInterleavedList.Source, state: WMFSemanticSearchInterleaveState) -> String {
         let name: String
         switch source {
