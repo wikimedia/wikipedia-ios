@@ -63,9 +63,11 @@ final class WMFSemanticSearchResultsTests {
             #expect(first.snippetHTML.hasPrefix("<span class=\"searchmatch\">La complexité de la communication"))
             #expect(first.sectionTitle == nil)
             #expect(first.thumbnailURL == nil)
+            #expect(first.description == nil)
 
             let last = try #require(response.results.last)
             #expect(last.sectionTitle == "Différence entre communication et information")
+            #expect(last.description == "étude des échanges entre animaux")
             #expect(last.thumbnailURL?.host == "thumb.wikimedia.org")
         }
     }
