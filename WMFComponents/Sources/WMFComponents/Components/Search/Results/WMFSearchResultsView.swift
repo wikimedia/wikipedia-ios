@@ -57,7 +57,12 @@ public struct WMFSearchResultsView: View {
                     .accessibilityFocused($focusedElementID, equals: WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
             }
             ForEach(viewModel.results) { result in
-                WMFSearchResultRow(viewModel: viewModel, result: result, focusedElementID: $focusedElementID)
+                switch viewModel.rowStyle {
+                case .standard:
+                    WMFSearchResultRow(viewModel: viewModel, result: result, focusedElementID: $focusedElementID)
+                case .interleaved:
+                    WMFSearchResultInterleavedRow(viewModel: viewModel, rowViewModel: viewModel.interleavedRowViewModel(for: result), result: result, focusedElementID: $focusedElementID)
+                }
             }
         }
         .listStyle(.plain)

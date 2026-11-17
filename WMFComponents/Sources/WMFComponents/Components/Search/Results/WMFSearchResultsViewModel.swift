@@ -44,6 +44,10 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         public let title: String
         public let titleHTML: String
         public let description: String?
+        /// The start of the article's lead section. Only the semantic search interleaved treatment fetches it.
+        public let extract: String?
+        /// The section the extract comes from. Nil for the lead section.
+        public let sectionTitle: String?
         public let thumbnailURL: URL?
         public let isArticle: Bool
         public let hasLocation: Bool
@@ -66,6 +70,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             title: String,
             titleHTML: String,
             description: String?,
+            extract: String? = nil,
+            sectionTitle: String? = nil,
             thumbnailURL: URL?,
             isArticle: Bool = true,
             hasLocation: Bool = false,
@@ -78,6 +84,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             self.title = title
             self.titleHTML = titleHTML
             self.description = description
+            self.extract = extract
+            self.sectionTitle = sectionTitle
             self.thumbnailURL = thumbnailURL
             self.isArticle = isArticle
             self.hasLocation = hasLocation
@@ -102,11 +110,23 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?, ActionSource) -> Void
     public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
     public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
+    public typealias AttributionProvider = @Sendable (WMFProject, String) async throws -> WMFSemanticSearchAttribution
+
+    /// How the list draws its results. The semantic search interleaved treatment uses its own rows.
+    public enum RowStyle: Equatable, Sendable {
+        case standard
+        case interleaved
+    }
 
     @Published private(set) var results: [SearchResult] = []
     @Published private(set) var searchTerm: String?
     @Published private(set) var emptyState: EmptyState?
     @Published private(set) var project: WMFProject?
+    @Published private(set) var rowStyle: RowStyle = .standard
+    /// The view model of each card of the interleaved list, by result. The list keeps them, so a card that
+    /// scrolls away and back neither asks for its counts again nor changes size. Not published: a card
+    /// observes its own, so one that loads redraws that card only.
+    private var interleavedRowViewModels: [String: WMFSearchResultInterleavedRowViewModel] = [:]
     @Published private(set) var isRightToLeft: Bool = false
     @Published public private(set) var semanticSearchEntryPointViewModel: WMFSemanticSearchEntryPointViewModel?
     @Published private(set) var accessibilityFocusRequestID = 0
@@ -129,6 +149,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     private let saveOrUnsaveAction: SaveAction
     private let shareAction: ShareAction
     private let summaryProvider: SummaryProvider
+    private let attributionProvider: AttributionProvider
 
     public init(
         localizedStrings: LocalizedStrings,
@@ -141,7 +162,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         openOnMapAction: @escaping ResultAction,
         saveOrUnsaveAction: @escaping SaveAction,
         shareAction: @escaping ShareAction,
-        summaryProvider: SummaryProvider? = nil
+        summaryProvider: SummaryProvider? = nil,
+        attributionProvider: AttributionProvider? = nil
     ) {
         self.localizedStrings = localizedStrings
         self.noInternetConnectionImage = noInternetConnectionImage
@@ -156,13 +178,17 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.summaryProvider = summaryProvider ?? { project, title in
             try await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title)
         }
+        self.attributionProvider = attributionProvider ?? { project, title in
+            try await WMFSemanticSearchDataController.shared.fetchAttribution(title: title, project: project)
+        }
     }
 
     // MARK: - Public
 
-    public func showResults(_ newResults: [SearchResult], searchTerm: String?, project: WMFProject?) {
+    public func showResults(_ newResults: [SearchResult], searchTerm: String?, project: WMFProject?, rowStyle: RowStyle = .standard) {
         self.searchTerm = searchTerm
         self.project = project
+        self.rowStyle = rowStyle
         isRightToLeft = project?.isRTL ?? false
         results = newResults.map { result in
             var result = result
@@ -170,11 +196,13 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             return result
         }
         emptyState = results.isEmpty ? .noResults : nil
+        interleavedRowViewModels = rowStyle == .interleaved ? makeInterleavedRowViewModels(for: results) : [:]
         fulfillPendingAccessibilityFocusRequest()
     }
 
     public func showEmptyState(_ state: EmptyState) {
         results = []
+        interleavedRowViewModels = [:]
         emptyState = state
         hasPendingAccessibilityFocusRequest = false
     }
@@ -183,6 +211,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         results = []
         searchTerm = nil
         emptyState = nil
+        rowStyle = .standard
+        interleavedRowViewModels = [:]
     }
 
     public func showSemanticSearchEntryPoint(_ viewModel: WMFSemanticSearchEntryPointViewModel) {
@@ -286,6 +316,26 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             isSaved: result.isSaved,
             snippet: summary.extract
         )
+    }
+
+    /// The view model of the card of `result` in the interleaved list.
+    func interleavedRowViewModel(for result: SearchResult) -> WMFSearchResultInterleavedRowViewModel {
+        if let rowViewModel = interleavedRowViewModels[result.id] {
+            return rowViewModel
+        }
+        return makeInterleavedRowViewModel(for: result)
+    }
+
+    private func makeInterleavedRowViewModels(for results: [SearchResult]) -> [String: WMFSearchResultInterleavedRowViewModel] {
+        Dictionary(results.map { ($0.id, makeInterleavedRowViewModel(for: $0)) }, uniquingKeysWith: { first, _ in first })
+    }
+
+    private func makeInterleavedRowViewModel(for result: SearchResult) -> WMFSearchResultInterleavedRowViewModel {
+        WMFSearchResultInterleavedRowViewModel(
+            result: result,
+            project: project,
+            showsLastUpdatedInPlaceOfReferences: WMFSemanticSearchInterleavedDataController.shared.showsLastUpdatedInPlaceOfReferences(languageCode: languageCode),
+            attributionProvider: attributionProvider)
     }
 
     func loadImage(url: URL?) async -> UIImage? {
