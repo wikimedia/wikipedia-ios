@@ -236,6 +236,15 @@ import CoreData
         return nil
     }
 
+    /// True when the reader consented on the web to be recognized as a recent donor, from the
+    /// donate count slide. `nil` when no slide has the status, for example for a logged-out reader.
+    public static func isWebDonor(in slides: [WMFYearInReviewSlide]) throws -> Bool? {
+        guard let data = slides.first(where: { $0.id == .donateCount })?.data else {
+            return nil
+        }
+        return try JSONDecoder().decode(DonateAndEditCounts.self, from: data).isWebDonor
+    }
+
     /// The number of slides that this report entry shows in their full version, not their empty
     /// version. The read count entry holds two slides, the total articles and the minutes read, and
     /// each counts on its own. The top topics entry holds two slides, the top topic and the runners-up,
@@ -1088,10 +1097,14 @@ public final class SavedArticleSlideData: NSObject, Codable, Sendable {
 public struct DonateAndEditCounts: Codable {
     public let donateCount: Int?
     public let editCount: Int?
+    /// True when the reader consented on the web to be recognized as a recent donor. `nil` when
+    /// the status was not read, for a logged-out reader or in a slide stored before the status existed.
+    public let isWebDonor: Bool?
 
-    public init(donateCount: Int?, editCount: Int?) {
+    public init(donateCount: Int?, editCount: Int?, isWebDonor: Bool? = nil) {
         self.donateCount = donateCount
         self.editCount = editCount
+        self.isWebDonor = isWebDonor
     }
 }
 

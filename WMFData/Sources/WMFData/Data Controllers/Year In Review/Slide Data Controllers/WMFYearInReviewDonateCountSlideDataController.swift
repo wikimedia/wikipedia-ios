@@ -11,19 +11,22 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.account, .donations]
     static let shouldFreeze = false
     
+    private let username: String?
     private let globalUserID: Int?
     private let project: WMFProject?
     
-    private let service = WMFDataEnvironment.current.mediaWikiService
+    private let donorStatusDataController = WMFDonorStatusDataController()
     
     private var donateCount: Int?
     private var editCount: Int?
+    private var isWebDonor: Bool?
     
     private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
+        self.username = dependencies.username
         self.globalUserID = dependencies.globalUserID
         self.project = dependencies.project
     }
@@ -46,6 +49,17 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
                 isEvaluated = false
             }
         }
+
+        // The web donor status is a preference of the account, so only a logged-in reader has it.
+        if username != nil, let project {
+            do {
+                let status = try await donorStatusDataController.fetchWebDonorStatus(project: project)
+                isWebDonor = status?.isRecentDonor ?? false
+            } catch {
+                // A failed request means not a donor. The slide is stored, so the new edit count is kept.
+                isWebDonor = nil
+            }
+        }
     }
     
     func getDonateCount(startDate: Date, endDate: Date) -> Int? {
@@ -57,7 +71,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
         slide.id = id
         slide.year = Int32(year)
         
-        let payload = DonateAndEditCounts(donateCount: donateCount, editCount: editCount)
+        let payload = DonateAndEditCounts(donateCount: donateCount, editCount: editCount, isWebDonor: isWebDonor)
         slide.data = try JSONEncoder().encode(payload)
         
         return slide
