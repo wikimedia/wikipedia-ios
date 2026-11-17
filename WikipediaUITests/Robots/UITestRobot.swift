@@ -68,7 +68,14 @@ extension UITestRobot {
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
-        let predicate = NSPredicate(format: "exists == true && hittable == true")
+        // Asking for hittability while the element has no frame yet, as during a transition, records
+        // "Failed to determine hittability" instead of waiting, so the frame is checked first.
+        let predicate = NSPredicate { object, _ in
+            guard let element = object as? XCUIElement, element.exists, !element.frame.isEmpty else {
+                return false
+            }
+            return element.isHittable
+        }
         let expectation = testCase.expectation(for: predicate, evaluatedWith: element)
         let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
         XCTAssertEqual(
@@ -155,6 +162,16 @@ extension UITestRobot {
             button,
             timeout: timeout,
             description: "button with identifier '\(identifier)'",
+            file: file,
+            line: line
+        )
+        // A disabled button is hittable but ignores the tap: the article toolbar, for one, stays
+        // disabled until the article finishes loading.
+        let enabledExpectation = testCase.expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: button)
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [enabledExpectation], timeout: timeout),
+            .completed,
+            "Expected button with identifier '\(identifier)' to be enabled within \(timeout) seconds.",
             file: file,
             line: line
         )

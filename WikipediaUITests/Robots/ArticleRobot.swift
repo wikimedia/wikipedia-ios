@@ -7,7 +7,9 @@ import WMFComponents
 struct ArticleRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private let configuration: UITestConfiguration
-    private static let articleElementSearchTimeout: TimeInterval = 30
+    // Each scroll pass costs accessibility queries that take seconds on CI, and the footer of a
+    // long article sits several screens down.
+    private static let articleElementSearchTimeout: TimeInterval = 60
 
     init(base: UITestRobot, configuration: UITestConfiguration) {
         self.base = base
