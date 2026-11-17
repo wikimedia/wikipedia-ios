@@ -299,6 +299,21 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         XCTAssertTrue(try makeDataController().hasSeenYiRSwipeOnboarding)
     }
 
+    func testResetSwipeOnboardingForgetsTheSeenFlag() throws {
+        let dataController = try makeDataController()
+        dataController.hasSeenYiRSwipeOnboarding = true
+
+        try dataController.resetSwipeOnboarding()
+
+        XCTAssertFalse(try makeDataController().hasSeenYiRSwipeOnboarding)
+    }
+
+    func testResetSwipeOnboardingThrowsWithoutAUserDefaultsStore() throws {
+        let dataController = try WMFYearInReviewDataController(coreDataStore: try XCTUnwrap(store), userDefaultsStore: nil)
+
+        XCTAssertThrowsError(try dataController.resetSwipeOnboarding())
+    }
+
     func testSavingOneYearsReportKeepsOtherYearsSlides() async throws {
         let dataController = try makeDataController()
         try await dataController.createNewYearInReviewReport(year: 2025, slides: [WMFYearInReviewSlide(year: 2025, id: .readCount, data: nil)])

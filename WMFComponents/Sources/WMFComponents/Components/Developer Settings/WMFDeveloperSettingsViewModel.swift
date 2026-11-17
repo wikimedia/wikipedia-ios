@@ -108,14 +108,6 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
-    /// The seen flag of the swipe-up hint on the first Year in Review slide. Turning it off shows
-    /// the hint again the next time the slides open, like Android's developer preference.
-    @Published public var hasSeenYiRSwipeOnboarding: Bool = (try? WMFYearInReviewDataController())?.hasSeenYiRSwipeOnboarding ?? false {
-        didSet {
-            (try? WMFYearInReviewDataController())?.hasSeenYiRSwipeOnboarding = hasSeenYiRSwipeOnboarding
-        }
-    }
-
     @Published public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? = WMFDeveloperSettingsDataController.shared.forceYiRDataState {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceYiRDataState = forceYiRDataState
@@ -375,6 +367,20 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
             title = "Discover announcement reset. The card and the Saved badge show again."
         } catch {
             title = "Could not reset the Discover announcement: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    /// Shows the swipe-up hint on the first Year in Review slide again the next time the slides open.
+    public func resetYiRSwipeOnboarding() {
+        let title: String
+        do {
+            try WMFYearInReviewDataController().resetSwipeOnboarding()
+            title = "Year in Review swipe hint reset. It shows again the next time the slides open."
+        } catch {
+            title = "Could not reset the Year in Review swipe hint: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))

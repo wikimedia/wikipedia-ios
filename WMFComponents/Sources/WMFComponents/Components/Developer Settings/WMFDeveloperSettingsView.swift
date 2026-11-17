@@ -66,8 +66,13 @@ struct WMFDeveloperSettingsView: View {
                     Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026)
-                captionedRow(caption: "On after the swipe-up hint on the first slide has been seen. Turn it off to show the hint again the next time the slides open.") {
-                    Toggle("Year in Review Swipe Hint Seen", isOn: $viewModel.hasSeenYiRSwipeOnboarding)
+                captionedRow(caption: "Forgets that the swipe-up hint on the first slide was seen, so it shows again the next time the slides open.") {
+                    Button {
+                        viewModel.resetYiRSwipeOnboarding()
+                    } label: {
+                        Text("Reset Year in Review swipe hint")
+                            .foregroundStyle(Color(theme.link))
+                    }
                 }
                 if viewModel.regenerateYiR2026Report != nil {
                     captionedRow(caption: "Deletes the report and builds it again from your current reading history, frozen slides too. To try a new state, clear your history, read some articles, then tap this.") {
