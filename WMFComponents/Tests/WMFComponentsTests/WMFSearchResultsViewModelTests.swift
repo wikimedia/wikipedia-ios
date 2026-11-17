@@ -76,6 +76,27 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
     // MARK: - State
 
+    func testShowLoadingClearsTheListAndEveryOutcomeEndsIt() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)
+
+        viewModel.showLoading()
+        XCTAssertTrue(viewModel.isLoading)
+        XCTAssertTrue(viewModel.results.isEmpty)
+        XCTAssertNil(viewModel.emptyState)
+
+        viewModel.showResults([makeResult("Dog")], searchTerm: "dog", project: englishProject)
+        XCTAssertFalse(viewModel.isLoading)
+
+        viewModel.showLoading()
+        viewModel.showEmptyState(.noResults)
+        XCTAssertFalse(viewModel.isLoading)
+
+        viewModel.showLoading()
+        viewModel.reset()
+        XCTAssertFalse(viewModel.isLoading)
+    }
+
     func testInterleavedListKeepsOneRowViewModelPerResultUntilItIsReplaced() {
         let viewModel = makeViewModel(recorder: Recorder())
         let cat = makeResult("Cat")

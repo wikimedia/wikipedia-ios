@@ -389,6 +389,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// The treatment arm of the semantic search interleaved experiment: the lexical and the semantic
     /// requests, merged into one list.
     private func performInterleavedSearch(for searchTerm: String, siteURL: URL, project: WMFProject) async {
+        resultsViewModel.showLoading()
         do {
             let forcedScenario = siteURL.wmf_languageCode.flatMap { WMFSemanticSearchInterleavedDataController.shared.forcedRetrievalScenario(languageCode: $0) }
             let outcome = try await interleavedLoader.fetchResults(for: searchTerm, siteURL: siteURL, project: project, forcedScenario: forcedScenario)
