@@ -58,7 +58,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
     private let englishProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
-    private func makeViewModel(recorder: Recorder, summaryProvider: @escaping WMFSearchResultsViewModel.SummaryProvider = { _, _ in throw URLError(.notConnectedToInternet) }) -> WMFSearchResultsViewModel {
+    private func makeViewModel(recorder: Recorder, summaryProvider: @escaping WMFSearchResultsViewModel.SummaryProvider = { _, _ in throw URLError(.notConnectedToInternet) }, attributionProvider: @escaping WMFSearchResultsViewModel.AttributionProvider = { _, _ in throw URLError(.notConnectedToInternet) }) -> WMFSearchResultsViewModel {
         WMFSearchResultsViewModel(
             localizedStrings: localizedStrings,
             noInternetConnectionImage: nil,
@@ -70,10 +70,46 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
             openOnMapAction: { recorder.actions.openedOnMap.append(($0, $1)) },
             saveOrUnsaveAction: { recorder.actions.savedOrUnsaved.append(($0, $1, $2)) },
             shareAction: { recorder.actions.shared.append(($0, $1, $2, $3)) },
-            summaryProvider: summaryProvider)
+            summaryProvider: summaryProvider,
+            attributionProvider: attributionProvider)
     }
 
     // MARK: - State
+
+    func testInterleavedListKeepsOneRowViewModelPerResultUntilItIsReplaced() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        let cat = makeResult("Cat")
+        viewModel.showResults([cat, makeResult("Dog")], searchTerm: "c", project: englishProject, rowStyle: .interleaved)
+
+        let first = viewModel.interleavedRowViewModel(for: cat)
+        XCTAssertTrue(first === viewModel.interleavedRowViewModel(for: cat), "A card that scrolls away and back keeps its counts")
+
+        viewModel.showResults([cat], searchTerm: "ca", project: englishProject, rowStyle: .interleaved)
+        XCTAssertFalse(first === viewModel.interleavedRowViewModel(for: cat), "A new list starts with new cards")
+    }
+
+    func testResetDropsTheRowViewModels() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        let cat = makeResult("Cat")
+        viewModel.showResults([cat], searchTerm: "c", project: englishProject, rowStyle: .interleaved)
+        let first = viewModel.interleavedRowViewModel(for: cat)
+
+        viewModel.reset()
+
+        XCTAssertFalse(first === viewModel.interleavedRowViewModel(for: cat))
+    }
+
+    func testRowStyleIsStandardUnlessAskedForAndResetsWithTheList() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)
+        XCTAssertEqual(viewModel.rowStyle, .standard)
+
+        viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject, rowStyle: .interleaved)
+        XCTAssertEqual(viewModel.rowStyle, .interleaved)
+
+        viewModel.reset()
+        XCTAssertEqual(viewModel.rowStyle, .standard)
+    }
 
     func testShowResultsPopulatesResultsAndClearsEmptyState() {
         let recorder = Recorder()

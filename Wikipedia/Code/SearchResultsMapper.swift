@@ -40,6 +40,7 @@ struct SearchResultsMapper {
             title: title,
             titleHTML: result.displayTitleHTML ?? title,
             description: description(for: result),
+            extract: result.extract,
             thumbnailURL: result.thumbnailURL,
             isArticle: Self.isArticle(articleURL),
             hasLocation: result.location != nil,
@@ -53,8 +54,13 @@ struct SearchResultsMapper {
         return false
     }
 
+    /// The Wikidata description the way a lexical row shows it, with a capital first letter.
+    func capitalizedDescription(_ description: String?) -> String? {
+        (description as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: siteURL.wmf_languageCode)
+    }
+
     func description(for result: MWKSearchResult) -> String? {
-        let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: siteURL.wmf_languageCode)
+        let capitalizedWikidataDescription = capitalizedDescription(result.wikidataDescription)
         let mapping = redirectMappings.first(where: { $0.redirectToTitle == result.displayTitle })
         guard let redirectFromTitle = mapping?.redirectFromTitle else {
             return capitalizedWikidataDescription
