@@ -84,6 +84,11 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     private let swipeOnboardingDelay: Duration
     /// Holds the seen flag. Without it, the hint never shows.
     private let swipeOnboardingDataController: WMFYearInReviewDataController?
+    /// True while VoiceOver runs. Tests pass a fixed value.
+    private let isVoiceOverRunning: @MainActor () -> Bool
+    /// Set when VoiceOver turned on after the hint was scheduled. The hint then stays away for the
+    /// rest of the visit, and a later touch does not mark it seen.
+    private var isSwipeOnboardingStoppedForVoiceOver = false
 
     /// The slides in the pager, in order. Without VoiceOver, a slide and its answer take one position.
     var pagerSlides: [WMFYearInReviewSlideViewModel] {
@@ -142,6 +147,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     ///     donate button hides, so it never shows where donations are not accepted.
     ///   - swipeOnboardingDelay: How long the first slide plays before the swipe-up hint shows.
     ///   - swipeOnboardingDataController: Reads and saves whether the user has seen the swipe-up.  With `nil`, the hint never shows.
+    ///   - isVoiceOverRunning: With VoiceOver, the swipe-up hint does not show.
     public init(
         slides: [WMFYearInReviewSlideViewModel],
         localizedStrings: LocalizedStrings,
@@ -149,7 +155,8 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         loggingDelegate: WMFYearInReviewLoggingDelegate?,
         hidesDonate: @escaping () -> Bool = { (try? WMFYearInReviewDataController())?.shouldHideDonateButton() ?? true },
         swipeOnboardingDelay: Duration = .seconds(2),
-        swipeOnboardingDataController: WMFYearInReviewDataController? = nil
+        swipeOnboardingDataController: WMFYearInReviewDataController? = nil,
+        isVoiceOverRunning: @escaping @MainActor () -> Bool = { UIAccessibility.isVoiceOverRunning }
     ) {
         self.slides = slides
         self.currentSlideID = slides.first?.id
@@ -159,6 +166,7 @@ public final class WMFYearInReviewViewModel: ObservableObject {
         self.hidesDonate = hidesDonate
         self.swipeOnboardingDelay = swipeOnboardingDelay
         self.swipeOnboardingDataController = swipeOnboardingDataController
+        self.isVoiceOverRunning = isVoiceOverRunning
     }
 
     deinit {
@@ -294,12 +302,17 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// Called when the slides are on screen. Shows the swipe-up hint after a short wait, once per
     /// device.
     ///
+    /// A VoiceOver reader changes the slide with a three-finger swipe, and each slide's accessibility
+    /// hint already says so. The hint would point them at the wrong gesture, and it appearing
+    /// interrupts what VoiceOver is reading. Skip without writing the seen flag, as the For You feed
+    /// does: a reader who later turns VoiceOver off still gets the hint.
+    ///
     /// - Returns: True when the hint is scheduled. The caller then reports the reader's first touch
     ///   through `dismissSwipeOnboarding()`.
     @discardableResult
     public func scheduleSwipeOnboardingIfNeeded() -> Bool {
         guard swipeOnboardingTask == nil,
-              !showsAnswersAsSlides,
+              !isVoiceOverRunning(),
               let swipeOnboardingDataController,
               !swipeOnboardingDataController.hasSeenYiRSwipeOnboarding else {
             return false
@@ -316,9 +329,21 @@ public final class WMFYearInReviewViewModel: ObservableObject {
     /// The reader's first touch. Hides the hint and marks it seen. A touch during the wait also
     /// marks it seen: the reader already knows how to move through the slides.
     public func dismissSwipeOnboarding() {
+        guard !isSwipeOnboardingStoppedForVoiceOver else { return }
         swipeOnboardingTask?.cancel()
         isShowingSwipeOnboarding = false
         swipeOnboardingDataController?.hasSeenYiRSwipeOnboarding = true
+    }
+
+    /// Called when VoiceOver turns on or off. If it turned on during the wait or while the hint
+    /// shows, the hint goes away without being marked seen.
+    public func voiceOverStatusDidChange() {
+        guard isVoiceOverRunning(),
+              swipeOnboardingTask != nil,
+              !isSwipeOnboardingStoppedForVoiceOver else { return }
+        isSwipeOnboardingStoppedForVoiceOver = true
+        swipeOnboardingTask?.cancel()
+        isShowingSwipeOnboarding = false
     }
 
     func tappedClose() {

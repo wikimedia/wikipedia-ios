@@ -108,6 +108,14 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
                 self?.setSwipeOnboardingVisible(isShowing)
             }
             .store(in: &cancellables)
+
+        // VoiceOver turned on during the wait or while the hint shows: the hint goes away.
+        NotificationCenter.default.publisher(for: UIAccessibility.voiceOverStatusDidChangeNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.viewModel.voiceOverStatusDidChange()
+            }
+            .store(in: &cancellables)
     }
 
     public override func viewDidLayoutSubviews() {

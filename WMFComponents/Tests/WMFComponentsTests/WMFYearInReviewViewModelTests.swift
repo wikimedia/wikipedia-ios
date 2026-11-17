@@ -512,15 +512,27 @@ struct WMFYearInReviewViewModelTests {
         return try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore())
     }
 
-    private func makeOnboardingViewModel(dataController: WMFYearInReviewDataController) -> WMFYearInReviewViewModel {
+    /// Lets a test turn VoiceOver on or off while the view model lives.
+    @MainActor
+    private final class VoiceOverState {
+        var isRunning = false
+    }
+
+    private func makeOnboardingViewModel(
+        dataController: WMFYearInReviewDataController,
+        delay: Duration = .zero,
+        voiceOver: VoiceOverState? = nil
+    ) -> WMFYearInReviewViewModel {
+        let voiceOver = voiceOver ?? VoiceOverState()
         return WMFYearInReviewViewModel(
             slides: Self.slides(3),
             localizedStrings: Self.strings(),
             coordinatorDelegate: coordinator,
             loggingDelegate: logging,
             hidesDonate: { false },
-            swipeOnboardingDelay: .zero,
-            swipeOnboardingDataController: dataController
+            swipeOnboardingDelay: delay,
+            swipeOnboardingDataController: dataController,
+            isVoiceOverRunning: { voiceOver.isRunning }
         )
     }
 
@@ -573,14 +585,61 @@ struct WMFYearInReviewViewModelTests {
         #expect(viewModel.isShowingSwipeOnboarding == false)
     }
 
+    /// As in the For You feed: skipped without marking it seen, so the reader gets it once VoiceOver
+    /// is off.
     @Test
     func theSwipeHintIsNotScheduledWithVoiceOver() async throws {
         let dataController = try await Self.makeSwipeOnboardingDataController()
-        let viewModel = makeOnboardingViewModel(dataController: dataController)
-        viewModel.showsAnswersAsSlides = true
+        let voiceOver = VoiceOverState()
+        voiceOver.isRunning = true
+        let viewModel = makeOnboardingViewModel(dataController: dataController, voiceOver: voiceOver)
 
         #expect(viewModel.scheduleSwipeOnboardingIfNeeded() == false)
         #expect(dataController.hasSeenYiRSwipeOnboarding == false)
+    }
+
+    @Test
+    func voiceOverTurningOnDuringTheDelayStopsTheSwipeHintWithoutMarkingItSeen() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let voiceOver = VoiceOverState()
+        let viewModel = makeOnboardingViewModel(dataController: dataController, delay: .seconds(60), voiceOver: voiceOver)
+        #expect(viewModel.scheduleSwipeOnboardingIfNeeded())
+
+        voiceOver.isRunning = true
+        viewModel.voiceOverStatusDidChange()
+        await viewModel.swipeOnboardingTask?.value
+
+        #expect(viewModel.isShowingSwipeOnboarding == false)
+        #expect(dataController.hasSeenYiRSwipeOnboarding == false)
+    }
+
+    @Test
+    func voiceOverTurningOnHidesTheSwipeHintAndALaterTouchDoesNotMarkItSeen() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let voiceOver = VoiceOverState()
+        let viewModel = makeOnboardingViewModel(dataController: dataController, voiceOver: voiceOver)
+        viewModel.scheduleSwipeOnboardingIfNeeded()
+        await viewModel.swipeOnboardingTask?.value
+        #expect(viewModel.isShowingSwipeOnboarding)
+
+        voiceOver.isRunning = true
+        viewModel.voiceOverStatusDidChange()
+        viewModel.dismissSwipeOnboarding()
+
+        #expect(viewModel.isShowingSwipeOnboarding == false)
+        #expect(dataController.hasSeenYiRSwipeOnboarding == false)
+    }
+
+    @Test
+    func voiceOverTurningOffDoesNotStopTheSwipeHint() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let viewModel = makeOnboardingViewModel(dataController: dataController)
+        viewModel.scheduleSwipeOnboardingIfNeeded()
+        await viewModel.swipeOnboardingTask?.value
+
+        viewModel.voiceOverStatusDidChange()
+
+        #expect(viewModel.isShowingSwipeOnboarding)
     }
 
     /// The slides can appear again in one visit, for example after a full screen sheet closes.
