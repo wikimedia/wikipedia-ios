@@ -390,6 +390,20 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    /// Shows the swipe-up hint on the first Year in Review slide again the next time the slides open.
+    public func resetYiRSwipeOnboarding() {
+        let title: String
+        do {
+            try WMFYearInReviewDataController().resetSwipeOnboarding()
+            title = "Year in Review swipe hint reset. It shows again the next time the slides open."
+        } catch {
+            title = "Could not reset the Year in Review swipe hint: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
     // MARK: - Local Notifications
 
     func loadLocalNotificationLogSummary() async {

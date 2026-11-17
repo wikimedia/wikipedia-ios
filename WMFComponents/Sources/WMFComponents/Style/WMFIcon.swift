@@ -52,6 +52,10 @@ public enum WMFIcon {
     // License
     static let ccLicense = UIImage(named: "project-icons/license-cc", in: .module, with: nil)
 
+    // Onboarding
+    /// A hand swiping up beside an arrow. The Year in Review swipe hint shows it.
+    static let swipeUpGesture = UIImage(named: "swipe_up_gesture", in: .module, with: nil)
+
 }
 
 public enum WMFSFSymbolIcon {
