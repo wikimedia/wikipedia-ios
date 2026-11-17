@@ -49,7 +49,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         public let hasLocation: Bool
         public let isSavable: Bool
         public var isSaved: Bool
-        /// Debug label of the semantic search interleaved experiment: which request gave the result.
+        /// Developer label of the semantic search interleaved experiment: which request gave the result. Nil unless the developer setting is on.
         public var sourceBadge: String?
 
         public var id: String {
