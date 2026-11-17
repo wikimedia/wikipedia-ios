@@ -1,0 +1,363 @@
+{
+  "lexical_version": 1,
+  "vectors": [
+    {
+      "name": "prefix_fills_threshold_ignores_full_text",
+      "full_text_threshold": 3,
+      "prefix": [
+        1,
+        2,
+        3
+      ],
+      "full_text": [
+        4,
+        5
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "prefix_one_below_threshold_appends_full_text",
+      "full_text_threshold": 3,
+      "prefix": [
+        1,
+        2
+      ],
+      "full_text": [
+        3,
+        4
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "prefix_above_threshold_ignores_full_text",
+      "full_text_threshold": 3,
+      "prefix": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_text": [
+        5
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "full_text_not_requested",
+      "full_text_threshold": 3,
+      "prefix": [
+        1,
+        2
+      ],
+      "full_text": null,
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "full_text_empty",
+      "full_text_threshold": 3,
+      "prefix": [
+        1,
+        2
+      ],
+      "full_text": [],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "prefix_empty_uses_full_text",
+      "full_text_threshold": 3,
+      "prefix": [],
+      "full_text": [
+        7,
+        8,
+        9
+      ],
+      "expected": [
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "name": "both_empty",
+      "full_text_threshold": 3,
+      "prefix": [],
+      "full_text": [],
+      "expected": []
+    },
+    {
+      "name": "both_empty_full_text_not_requested",
+      "full_text_threshold": 3,
+      "prefix": [],
+      "full_text": null,
+      "expected": []
+    },
+    {
+      "name": "full_text_overlaps_prefix_keeps_prefix_position",
+      "full_text_threshold": 5,
+      "prefix": [
+        1,
+        2
+      ],
+      "full_text": [
+        2,
+        3,
+        1,
+        4
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "duplicate_within_prefix",
+      "full_text_threshold": 5,
+      "prefix": [
+        1,
+        2,
+        1,
+        3
+      ],
+      "full_text": [
+        4
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "duplicate_within_full_text",
+      "full_text_threshold": 5,
+      "prefix": [
+        1
+      ],
+      "full_text": [
+        2,
+        3,
+        2,
+        4,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "full_text_identical_to_prefix",
+      "full_text_threshold": 5,
+      "prefix": [
+        1,
+        2,
+        3
+      ],
+      "full_text": [
+        1,
+        2,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "threshold_zero_never_adds_full_text",
+      "full_text_threshold": 0,
+      "prefix": [],
+      "full_text": [
+        1,
+        2
+      ],
+      "expected": []
+    },
+    {
+      "name": "duplicate_in_prefix_counts_toward_threshold",
+      "full_text_threshold": 3,
+      "prefix": [
+        1,
+        1,
+        1
+      ],
+      "full_text": [
+        2
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "name": "threshold_30_prefix_29_appends_full_text",
+      "full_text_threshold": 30,
+      "prefix": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "full_text": [
+        100,
+        101,
+        5
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        100,
+        101
+      ]
+    },
+    {
+      "name": "threshold_30_prefix_30_ignores_full_text",
+      "full_text_threshold": 30,
+      "prefix": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "full_text": [
+        100,
+        101
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ]
+    }
+  ]
+}
