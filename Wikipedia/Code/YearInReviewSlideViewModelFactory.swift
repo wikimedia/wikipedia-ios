@@ -1388,17 +1388,30 @@ struct YearInReviewSlideViewModelFactory {
         let isDonor: Bool
     }
 
-    /// Edits come from the report, which has them only for a logged-in reader. Donations are stored
-    /// on the device, so they are read now, and a donation made a moment ago counts.
+    /// Edits and the web donor status come from the report, which has them only for a logged-in
+    /// reader. Donations in the app are stored on the device, so they are read now, and a donation
+    /// made a moment ago counts. A donor is a reader who donated in the app or consented on the web
+    /// to be recognized as a recent donor.
     private func storedContributorStatus(in report: WMFYearInReviewReport?) -> ContributorStatus {
-        let isDonor: Bool
+        let isAppDonor: Bool
         if let dateRange = WMFYearInReviewDataController.contributorDateRange(year: WMFYearInReviewDataController.targetYear),
            let donations = WMFDonateDataController.shared.loadLocalDonationHistory(startDate: dateRange.start, endDate: dateRange.end) {
-            isDonor = !donations.isEmpty
+            isAppDonor = !donations.isEmpty
         } else {
-            isDonor = false
+            isAppDonor = false
         }
-        return ContributorStatus(isEditor: (storedEditCount(in: report) ?? 0) > 0, isDonor: isDonor)
+        return ContributorStatus(isEditor: (storedEditCount(in: report) ?? 0) > 0, isDonor: isAppDonor || storedIsWebDonor(in: report))
+    }
+
+    /// True when the report has the reader's consent from the web. False when the report does not
+    /// have the status, for example for a logged-out reader.
+    private func storedIsWebDonor(in report: WMFYearInReviewReport?) -> Bool {
+        do {
+            return try WMFYearInReviewDataController.isWebDonor(in: report?.slides ?? []) ?? false
+        } catch {
+            DDLogError("Error reading the Year in Review web donor status: \(error)")
+            return false
+        }
     }
 
     /// The edits in the contributor period, from the report the app fills in the background. `nil`

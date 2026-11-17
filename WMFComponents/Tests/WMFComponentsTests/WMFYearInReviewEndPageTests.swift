@@ -343,6 +343,31 @@ struct WMFYearInReviewEndPageTests {
 
         #expect(logging.appeared == [WMFYearInReviewViewModel.endLoggingID])
     }
+
+    /// The end screen impression also enrolls the reader in the end screen cards experiment
+    /// (T441006). The coordinator sends the exposure when the page is the end page.
+    @Test
+    func settingTheEndScreenAgainLogsNoSecondImpression() {
+        let viewModel = makeViewModel()
+        logging.appeared.removeAll()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
+        #expect(logging.appeared == [WMFYearInReviewViewModel.endLoggingID])
+    }
+
+    @Test
+    func goingBackToTheEndScreenLogsTheEndImpressionAgain() {
+        let viewModel = makeViewModel()
+        logging.appeared.removeAll()
+
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+        viewModel.currentSlideID = "slide2"
+        viewModel.currentSlideID = WMFYearInReviewViewModel.endPageID
+
+        #expect(logging.appeared == [WMFYearInReviewViewModel.endLoggingID, "logging2", WMFYearInReviewViewModel.endLoggingID])
+    }
 }
 
 @MainActor
@@ -401,6 +426,59 @@ struct WMFYearInReviewEndViewModelTests {
             #expect(card.uppercaseLocale == nil)
             #expect(card.uppercasedTitle == card.title.localizedUppercase)
         }
+    }
+
+    // MARK: - End screen cards experiment (T441006)
+
+    @Test
+    func groupBGetsTheGamesAndInterestsCardsAfterTheGiftCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, showsGamesCard: true, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["contributorGift", "games", "interests", "whichWikipedia"])
+    }
+
+    @Test
+    func groupBWithEnglishPutsTheTopReadCardBeforeTheQuizCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true, showsGamesCard: true, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["contributorGift", "games", "interests", "topRead", "whichWikipedia"])
+    }
+
+    @Test
+    func groupBNonContributorStartsWithTheGamesCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, showsGamesCard: true, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["games", "interests", "whichWikipedia"])
+    }
+
+    /// An enrolled group B reader whose primary app language no longer has the game.
+    @Test
+    func groupBWithoutTheGameLanguageGetsOnlyTheInterestsCard() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, showsInterestsCard: true)
+        #expect(viewModel.cards.map(\.id) == ["interests", "whichWikipedia"])
+    }
+
+    @Test
+    func theControlGroupGetsNoEngagementCards() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: true, hasEnglishAppLanguage: true)
+        #expect(!viewModel.cards.contains { $0.action == .games || $0.action == .interests })
+    }
+
+    @Test
+    func theGamesAndInterestsCardsCallTheirActions() {
+        let viewModel = WMFYearInReviewEndViewModel(isContributor: false, showsGamesCard: true, showsInterestsCard: true)
+        var tappedGames = 0
+        var tappedInterests = 0
+        var tappedQuiz = 0
+        viewModel.didTapGames = { tappedGames += 1 }
+        viewModel.didTapInterests = { tappedInterests += 1 }
+        viewModel.didTapWhichWikipedia = { tappedQuiz += 1 }
+
+        viewModel.didTap(viewModel.cards[0])
+        #expect(tappedGames == 1)
+        #expect(tappedInterests == 0)
+
+        viewModel.didTap(viewModel.cards[1])
+        #expect(tappedGames == 1)
+        #expect(tappedInterests == 1)
+        #expect(tappedQuiz == 0)
     }
 
     @Test

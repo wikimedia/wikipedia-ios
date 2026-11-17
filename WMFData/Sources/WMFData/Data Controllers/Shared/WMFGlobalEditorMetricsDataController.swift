@@ -13,19 +13,20 @@ final class WMFGlobalEditorMetricsDataController {
         self.service = service
     }
     
-    /// The edits the user made in the period.
+    /// The edits the user made in the period. 0 when the user made no edits.
     func fetchEditCount(startDate: Date, endDate: Date) async throws -> Int {
-        let response: MetricsEditCountAPIRResponse = try await fetch(pathPrefix: "edits/v3/per_editor/\(globalUserID)/all_page_types/monthly", startDate: startDate, endDate: endDate)
-        return response.items.reduce(0) { $0 + $1.editCount }
+        let response: MetricsEditCountAPIRResponse? = try await fetch(pathPrefix: "edits/v3/per_editor/\(globalUserID)/all_page_types/monthly", startDate: startDate, endDate: endDate)
+        return response?.items.reduce(0) { $0 + $1.editCount } ?? 0
     }
-    
-    /// The views in the period on the pages the user edited.
+
+    /// The views in the period on the pages the user edited. 0 when there are no views.
     func fetchEditedPageViewCount(startDate: Date, endDate: Date) async throws -> Int {
-        let response: MetricsEditedPageViewsAPIResponse = try await fetch(pathPrefix: "pageviews/v3/per_editor/\(globalUserID)/monthly", startDate: startDate, endDate: endDate)
-        return response.items.reduce(0) { $0 + $1.viewCount }
+        let response: MetricsEditedPageViewsAPIResponse? = try await fetch(pathPrefix: "pageviews/v3/per_editor/\(globalUserID)/monthly", startDate: startDate, endDate: endDate)
+        return response?.items.reduce(0) { $0 + $1.viewCount } ?? 0
     }
-    
-    private func fetch<Response: Decodable & Sendable>(pathPrefix: String, startDate: Date, endDate: Date) async throws -> Response {
+
+    /// `nil` when the API has no data for the user in the period. The API then sends a 404, not an empty list.
+    private func fetch<Response: Decodable & Sendable>(pathPrefix: String, startDate: Date, endDate: Date) async throws -> Response? {
         guard let service = service else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -43,10 +44,14 @@ final class WMFGlobalEditorMetricsDataController {
         
         let request = WMFBasicServiceRequest(url: finalURL, method: .GET, contentType: .json, acceptType: .json)
         
-        return try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<Response, Error>) in
-                continuation.resume(with: result)
+        do {
+            return try await withCheckedThrowingContinuation { continuation in
+                service.performDecodableGET(request: request) { (result: Result<Response, Error>) in
+                    continuation.resume(with: result)
+                }
             }
+        } catch WMFServiceError.invalidHttpResponse(let statusCode?) where statusCode == 404 {
+            return nil
         }
     }
 }

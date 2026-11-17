@@ -78,16 +78,21 @@ enum WMFYearInReviewNavigationItems {
     /// changes, since each slide's artwork can be light or dark.
     @MainActor
     static func applyTintColor(_ color: UIColor, to navigationItem: UINavigationItem) {
-        navigationItem.leftBarButtonItem?.tintColor = color
-        navigationItem.rightBarButtonItem?.tintColor = color
+        // After the hosting controller adopts the navigation item, SwiftUI moves these items into
+        // item groups. Then `leftBarButtonItem` and `rightBarButtonItem` are nil (seen on iOS 18).
+        let closeItem = navigationItem.leftBarButtonItem ?? navigationItem.leadingItemGroups.first?.barButtonItems.first
+        let moreItem = navigationItem.rightBarButtonItem ?? navigationItem.trailingItemGroups.first?.barButtonItems.first
+
+        closeItem?.tintColor = color
+        moreItem?.tintColor = color
         navigationItem.titleView?.tintColor = color
 
         // Liquid glass bar button items keep their old glyph color after a tint change. A new image
         // makes the item draw its glyph again with the new tint. It updates the item in place, so it
         // does not flash.
         if #available(iOS 26.0, *) {
-            navigationItem.leftBarButtonItem?.image = closeImage
-            navigationItem.rightBarButtonItem?.image = moreImage
+            closeItem?.image = closeImage
+            moreItem?.image = moreImage
         }
     }
 

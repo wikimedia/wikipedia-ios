@@ -1,6 +1,8 @@
 import Testing
 import UIKit
 @testable import WMFComponents
+@testable import WMFData
+@testable import WMFDataMocks
 
 @MainActor
 private final class CoordinatorSpy: WMFYearInReviewCoordinating {
@@ -499,5 +501,154 @@ struct WMFYearInReviewViewModelTests {
         viewModel.answerDidShow(slideID: "guess")
 
         #expect(logging.appeared == ["last"])
+    }
+    // MARK: - Swipe onboarding
+
+    /// A data controller on a temporary store, so the seen flag starts unset and never touches the
+    /// real user defaults.
+    private static func makeSwipeOnboardingDataController() async throws -> WMFYearInReviewDataController {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        return try WMFYearInReviewDataController(coreDataStore: store, userDefaultsStore: WMFMockKeyValueStore())
+    }
+
+    /// Lets a test turn VoiceOver on or off while the view model lives.
+    @MainActor
+    private final class VoiceOverState {
+        var isRunning = false
+    }
+
+    private func makeOnboardingViewModel(
+        dataController: WMFYearInReviewDataController,
+        delay: Duration = .zero,
+        voiceOver: VoiceOverState? = nil
+    ) -> WMFYearInReviewViewModel {
+        let voiceOver = voiceOver ?? VoiceOverState()
+        return WMFYearInReviewViewModel(
+            slides: Self.slides(3),
+            localizedStrings: Self.strings(),
+            coordinatorDelegate: coordinator,
+            loggingDelegate: logging,
+            hidesDonate: { false },
+            swipeOnboardingDelay: delay,
+            swipeOnboardingDataController: dataController,
+            isVoiceOverRunning: { voiceOver.isRunning }
+        )
+    }
+
+    @Test
+    func theSwipeHintShowsAfterTheDelay() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let viewModel = makeOnboardingViewModel(dataController: dataController)
+
+        #expect(viewModel.scheduleSwipeOnboardingIfNeeded())
+        await viewModel.swipeOnboardingTask?.value
+
+        #expect(viewModel.isShowingSwipeOnboarding)
+    }
+
+    @Test
+    func aTouchHidesTheSwipeHintAndMarksItSeen() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let viewModel = makeOnboardingViewModel(dataController: dataController)
+        viewModel.scheduleSwipeOnboardingIfNeeded()
+        await viewModel.swipeOnboardingTask?.value
+
+        viewModel.dismissSwipeOnboarding()
+
+        #expect(viewModel.isShowingSwipeOnboarding == false)
+        #expect(dataController.hasSeenYiRSwipeOnboarding)
+    }
+
+    /// As on Android: a reader who touches the slides before the hint shows already knows how to
+    /// move through them.
+    @Test
+    func aTouchDuringTheDelayStopsTheSwipeHintAndMarksItSeen() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let viewModel = makeOnboardingViewModel(dataController: dataController)
+
+        viewModel.scheduleSwipeOnboardingIfNeeded()
+        viewModel.dismissSwipeOnboarding()
+        await viewModel.swipeOnboardingTask?.value
+
+        #expect(viewModel.isShowingSwipeOnboarding == false)
+        #expect(dataController.hasSeenYiRSwipeOnboarding)
+    }
+
+    @Test
+    func theSwipeHintIsNotScheduledOnceSeen() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        dataController.hasSeenYiRSwipeOnboarding = true
+        let viewModel = makeOnboardingViewModel(dataController: dataController)
+
+        #expect(viewModel.scheduleSwipeOnboardingIfNeeded() == false)
+        #expect(viewModel.isShowingSwipeOnboarding == false)
+    }
+
+    /// As in the For You feed: skipped without marking it seen, so the reader gets it once VoiceOver
+    /// is off.
+    @Test
+    func theSwipeHintIsNotScheduledWithVoiceOver() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let voiceOver = VoiceOverState()
+        voiceOver.isRunning = true
+        let viewModel = makeOnboardingViewModel(dataController: dataController, voiceOver: voiceOver)
+
+        #expect(viewModel.scheduleSwipeOnboardingIfNeeded() == false)
+        #expect(dataController.hasSeenYiRSwipeOnboarding == false)
+    }
+
+    @Test
+    func voiceOverTurningOnDuringTheDelayStopsTheSwipeHintWithoutMarkingItSeen() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let voiceOver = VoiceOverState()
+        let viewModel = makeOnboardingViewModel(dataController: dataController, delay: .seconds(60), voiceOver: voiceOver)
+        #expect(viewModel.scheduleSwipeOnboardingIfNeeded())
+
+        voiceOver.isRunning = true
+        viewModel.voiceOverStatusDidChange()
+        await viewModel.swipeOnboardingTask?.value
+
+        #expect(viewModel.isShowingSwipeOnboarding == false)
+        #expect(dataController.hasSeenYiRSwipeOnboarding == false)
+    }
+
+    @Test
+    func voiceOverTurningOnHidesTheSwipeHintAndALaterTouchDoesNotMarkItSeen() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let voiceOver = VoiceOverState()
+        let viewModel = makeOnboardingViewModel(dataController: dataController, voiceOver: voiceOver)
+        viewModel.scheduleSwipeOnboardingIfNeeded()
+        await viewModel.swipeOnboardingTask?.value
+        #expect(viewModel.isShowingSwipeOnboarding)
+
+        voiceOver.isRunning = true
+        viewModel.voiceOverStatusDidChange()
+        viewModel.dismissSwipeOnboarding()
+
+        #expect(viewModel.isShowingSwipeOnboarding == false)
+        #expect(dataController.hasSeenYiRSwipeOnboarding == false)
+    }
+
+    @Test
+    func voiceOverTurningOffDoesNotStopTheSwipeHint() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let viewModel = makeOnboardingViewModel(dataController: dataController)
+        viewModel.scheduleSwipeOnboardingIfNeeded()
+        await viewModel.swipeOnboardingTask?.value
+
+        viewModel.voiceOverStatusDidChange()
+
+        #expect(viewModel.isShowingSwipeOnboarding)
+    }
+
+    /// The slides can appear again in one visit, for example after a full screen sheet closes.
+    @Test
+    func theSwipeHintIsScheduledOncePerVisit() async throws {
+        let dataController = try await Self.makeSwipeOnboardingDataController()
+        let viewModel = makeOnboardingViewModel(dataController: dataController)
+
+        #expect(viewModel.scheduleSwipeOnboardingIfNeeded())
+        #expect(viewModel.scheduleSwipeOnboardingIfNeeded() == false)
     }
 }

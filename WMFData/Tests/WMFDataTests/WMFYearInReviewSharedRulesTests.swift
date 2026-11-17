@@ -119,7 +119,7 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
         let dataController = try makeDataController(remoteYearInReviewConfigs: [], forceYiR2026: true)
         let config = try XCTUnwrap(dataController.config)
         XCTAssertEqual(config.year, 2026)
-        XCTAssertEqual(config.activeStartDateString, "2026-12-02T18:00:00Z")
+        XCTAssertEqual(config.activeStartDateString, "2026-12-01T12:05:00Z")
         XCTAssertEqual(config.activeEndDateString, "2027-02-01T00:00:00Z")
         XCTAssertEqual(config.dataStartDateString, "2026-01-01T00:00:00Z")
         XCTAssertEqual(config.dataEndDateString, "2026-12-01T00:00:00Z")
@@ -287,6 +287,31 @@ final class WMFYearInReviewSharedRulesTests: XCTestCase {
 
         // UI state flags are not personal data and stay.
         XCTAssertTrue(dataController.hasSeenYiRIntroSlide)
+    }
+
+    func testSwipeOnboardingFlagStartsUnsetAndPersists() throws {
+        XCTAssertFalse(try makeDataController().hasSeenYiRSwipeOnboarding)
+
+        let dataController = try makeDataController()
+        dataController.hasSeenYiRSwipeOnboarding = true
+
+        // A new data controller reads the same store, as on the next launch.
+        XCTAssertTrue(try makeDataController().hasSeenYiRSwipeOnboarding)
+    }
+
+    func testResetSwipeOnboardingForgetsTheSeenFlag() throws {
+        let dataController = try makeDataController()
+        dataController.hasSeenYiRSwipeOnboarding = true
+
+        try dataController.resetSwipeOnboarding()
+
+        XCTAssertFalse(try makeDataController().hasSeenYiRSwipeOnboarding)
+    }
+
+    func testResetSwipeOnboardingThrowsWithoutAUserDefaultsStore() throws {
+        let dataController = try WMFYearInReviewDataController(coreDataStore: try XCTUnwrap(store), userDefaultsStore: nil)
+
+        XCTAssertThrowsError(try dataController.resetSwipeOnboarding())
     }
 
     func testSavingOneYearsReportKeepsOtherYearsSlides() async throws {

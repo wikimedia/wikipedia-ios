@@ -42,6 +42,7 @@ public final class WMFExperimentsDataController {
         case semanticSearch
         case discover
         case semanticSearchInterleaved
+        case yirEndCards
 
         var config: ExperimentConfig {
             switch self {
@@ -57,6 +58,8 @@ public final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.discoverConfig
             case .semanticSearchInterleaved:
                 return WMFExperimentsDataController.semanticSearchInterleavedConfig
+            case .yirEndCards:
+                return WMFExperimentsDataController.yirEndCardsConfig
             }
         }
     }
@@ -68,6 +71,7 @@ public final class WMFExperimentsDataController {
         case semanticSearchPercent
         case discoverPercent
         case semanticSearchInterleavedPercent
+        case yirEndCardsPercent
     }
 
     enum BucketFileName: String, Sendable {
@@ -77,6 +81,7 @@ public final class WMFExperimentsDataController {
         case semanticSearchBucket
         case discoverBucket
         case semanticSearchInterleavedBucket
+        case yirEndCardsBucket
     }
 
     public enum BucketValue: String, Sendable {
@@ -92,6 +97,8 @@ public final class WMFExperimentsDataController {
         case discoverGroupB = "Discover_GroupB"
         case semanticSearchInterleavedControl = "SemanticSearchInterleaved_Control"
         case semanticSearchInterleavedGroupB = "SemanticSearchInterleaved_GroupB"
+        case yirEndCardsControl = "YirEndCards_Control"
+        case yirEndCardsGroupB = "YirEndCards_GroupB"
     }
     
     // MARK: Properties
@@ -110,6 +117,9 @@ public final class WMFExperimentsDataController {
     private static let discoverConfig = ExperimentConfig(experiment: .discover, percentageFileName: .discoverPercent, bucketFileName: .discoverBucket, bucketValueControl: .discoverControl, bucketValueTest: .discoverGroupB, bucketValueTest2: nil)
 
     private static let semanticSearchInterleavedConfig = ExperimentConfig(experiment: .semanticSearchInterleaved, percentageFileName: .semanticSearchInterleavedPercent, bucketFileName: .semanticSearchInterleavedBucket, bucketValueControl: .semanticSearchInterleavedControl, bucketValueTest: .semanticSearchInterleavedGroupB, bucketValueTest2: nil)
+
+    private static let yirEndCardsConfig = ExperimentConfig(experiment: .yirEndCards, percentageFileName: .yirEndCardsPercent, bucketFileName: .yirEndCardsBucket, bucketValueControl: .yirEndCardsControl, bucketValueTest: .yirEndCardsGroupB, bucketValueTest2: nil)
+
 
     private let store: WMFKeyValueStore
     
@@ -196,6 +206,13 @@ public final class WMFExperimentsDataController {
                     bucket = .semanticSearchInterleavedControl
                 } else {
                     bucket = .semanticSearchInterleavedGroupB
+                }
+
+            case .yirEndCards:
+                if randomInt <= percentage {
+                    bucket = .yirEndCardsControl
+                } else {
+                    bucket = .yirEndCardsGroupB
                 }
             }
         }

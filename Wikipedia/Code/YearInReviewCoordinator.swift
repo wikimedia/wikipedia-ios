@@ -6,6 +6,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 /// Presents the Year in Review flow. Slide content is drawn by Rive; the app supplies the
 /// navigation bar, the toolbar and the injected text.
@@ -159,11 +160,25 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// DonateCoordinator drives a multi-step flow of its own, so it has to outlive this call.
     private var donateCoordinator: DonateCoordinator?
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
+    /// The end screen cards open these flows after Year in Review closes, so they outlive the slides.
+    private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+
+    /// Sends the exposure event of the end screen cards experiment. Tests replace it.
+    private let submitExperimentExposure: @MainActor @Sendable (ExperimentData) -> Void
+
+    init(
+        navigationController: UINavigationController,
+        theme: Theme,
+        dataStore: MWKDataStore,
+        dataController: WMFYearInReviewDataController,
+        submitExperimentExposure: @escaping @MainActor @Sendable (ExperimentData) -> Void = { TestKitchenAdapter.shared.client.submitExperimentExposure(experimentData: $0) }
+    ) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.dataController = dataController
+        self.submitExperimentExposure = submitExperimentExposure
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(localDonationHistoryDidChange), name: WMFNSNotification.localDonationHistoryDidChange, object: nil)
     }
@@ -187,6 +202,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// are ignored, so the slides open only once.
     private var isWaitingForReport = false
 
+    /// The extra end screen cards of the reader's group. Set before the slides open.
+    private var endCards: WMFYearInReviewEndCardsDataController.EngagementCards = .none
+
     /// Builds the report, then runs `action`. The Explore button shows a spinner while it waits.
     private func afterReportIsBuilt(_ action: @escaping @MainActor () -> Void) {
         announcementViewModel?.isLoadingExplore = true
@@ -195,6 +213,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         Task { @MainActor [weak self] in
             guard let self else { return }
             await Self.buildReportLoggingError(dataStore: dataStore)
+            // Before the slides show, so that the first slide impression already has the group.
+            endCards = await Self.assignEndCardsExperiment()
             isWaitingForReport = false
             announcementViewModel?.isLoadingExplore = false
             action()
@@ -297,7 +317,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             slides: slidesAndHighlights.slides,
             localizedStrings: slideFactory.makeLocalizedStrings(),
             coordinatorDelegate: self,
-            loggingDelegate: self
+            loggingDelegate: self,
+            swipeOnboardingDataController: dataController
         )
 
         // The gift card follows the slides that were built, so the end screen agrees with the last slide.
@@ -368,7 +389,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// in, or closing the log in screen, opens the collective slides.
     private func presentAnnouncementLoginPrompt() {
         guard let announcement = navigationController.presentedViewController else {
-            presentYearInReview()
+            presentYearInReviewAfterCurrentDismissal()
             return
         }
 
@@ -426,7 +447,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
             guard let self else { return }
             guard let accountCreation = navigationController.presentedViewController else {
-                presentYearInReview()
+                presentYearInReviewAfterCurrentDismissal()
                 return
             }
             accountCreation.dismiss(animated: true) { [weak self] in
@@ -739,9 +760,7 @@ extension YearInReviewCoordinator: WMFYearInReviewCoordinating {
     func handleYearInReviewAction(_ action: WMFYearInReviewAction) {
         switch action {
         case .close:
-            WMFRiveLogger.failureHandler = nil
-            navigationController.presentedViewController?.dismiss(animated: true)
-            YearInReviewInstrument.shared.stopFunnel()
+            closeYearInReview()
         case .learnMore:
             YearInReviewInstrument.shared.logClick(elementID: "learn_more_button", personalized: areSlidesPersonalized)
             showProjectPage()
@@ -816,9 +835,28 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     func logYearInReviewIntroDidTapLearnMore() {}
 
     func logYearInReviewSlideDidAppear(slideLoggingID: String) {
+        if slideLoggingID == YearInReviewInstrument.endPage {
+            recordEndCardsExposure()
+        }
         // The pager can settle on a slide while the slides close.
         guard YearInReviewInstrument.shared.isFunnelRunning else { return }
         YearInReviewInstrument.shared.logImpression(page: slideLoggingID, personalized: areSlidesPersonalized)
+    }
+
+    /// The first impression of the end screen enrolls the reader in the end screen cards experiment
+    /// (T441006), as on Android. The exposure does not need the funnel, as on Android: a reader who
+    /// sees the cards of a group is enrolled, also if the funnel stopped.
+    private func recordEndCardsExposure() {
+        let submitExperimentExposure = submitExperimentExposure
+        Task { @MainActor in
+            do {
+                if let experimentData = try await WMFYearInReviewEndCardsDataController.shared.recordEndScreenImpression() {
+                    submitExperimentExposure(experimentData)
+                }
+            } catch {
+                DDLogError("Recording the Year in Review end cards exposure failed: \(error)")
+            }
+        }
     }
 
     func logYearInReviewDidTapDone(slideLoggingID: String) {
@@ -861,7 +899,8 @@ final class YearInReviewInstrument {
     /// The announcement events use this source. The slides use the default, `main`.
     static let announcementActionSource = "announcement"
     /// The end screen, which comes after the last slide.
-    static let endPage = "end"
+    /// The same value as the view model sends, so that the end screen impression is always found.
+    static let endPage = WMFYearInReviewViewModel.endLoggingID
 
     /// The donate flow sends the same value to `app_donor_experience`.
     nonisolated static func campaignID(page: String) -> String {
@@ -874,6 +913,7 @@ final class YearInReviewInstrument {
 
     func startFunnel() {
         instrument.startFunnel(name: "year-in-review")
+        refreshExperimentData()
     }
 
     func stopFunnel() {
@@ -884,11 +924,46 @@ final class YearInReviewInstrument {
         instrument.funnel != nil
     }
 
+    /// Like Android, the slide and end screen events carry the end screen cards experiment once the
+    /// reader has a group. Readers whose primary app language has no game have none. The
+    /// announcement events never carry it: Android's announcement screen has an instrument with no
+    /// experiment.
+    ///
+    /// A copy of `WMFYearInReviewEndCardsDataController.shared.experimentData`, so that an event does
+    /// not read the stores. The value only changes when the bucket is rolled or cleared, so it is read
+    /// again when a funnel starts and after the bucket is rolled.
+    private var experimentData: ExperimentData?
+    private var experimentDataRefreshTask: Task<Void, Never>?
+
+    /// Each refresh waits for the one before it, so an older read never replaces a newer one.
+    /// Await the returned task to know that events now carry the current value.
+    @discardableResult
+    func refreshExperimentData() -> Task<Void, Never> {
+        let previousRefreshTask = experimentDataRefreshTask
+        let refreshTask = Task { [weak self] in
+            await previousRefreshTask?.value
+            let experimentData = await WMFYearInReviewEndCardsDataController.shared.experimentData
+            self?.experimentData = experimentData
+        }
+        experimentDataRefreshTask = refreshTask
+        return refreshTask
+    }
+
+    /// The experiment fields that the next slide or end screen event carries. For tests.
+    var currentExperimentData: ExperimentData? {
+        experimentData
+    }
+
+    private func experimentData(actionSource: String?) -> ExperimentData? {
+        actionSource == Self.announcementActionSource ? nil : experimentData
+    }
+
     func logImpression(actionSource: String? = nil, page: String? = nil, personalized: Bool?) {
         instrument.submitInteraction(
             action: "impression",
             actionSource: actionSource,
-            actionContext: actionContext(page: page, personalized: personalized)
+            actionContext: actionContext(page: page, personalized: personalized),
+            experimentData: experimentData(actionSource: actionSource)
         )
     }
 
@@ -899,7 +974,8 @@ final class YearInReviewInstrument {
             action: "click",
             actionSource: actionSource,
             elementId: elementID,
-            actionContext: context
+            actionContext: context,
+            experimentData: experimentData(actionSource: actionSource)
         )
     }
 
@@ -910,7 +986,8 @@ final class YearInReviewInstrument {
         instrument.submitInteraction(
             action: "error",
             elementId: elementID,
-            actionContext: context
+            actionContext: context,
+            experimentData: experimentData
         )
     }
 
@@ -951,18 +1028,45 @@ extension YearInReviewCoordinator {
     /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
     private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
         MainActor.assumeIsolated {
-            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor, hasEnglishAppLanguage: hasEnglishAppLanguage)
+            let viewModel = WMFYearInReviewEndViewModel(
+                isContributor: isContributor,
+                hasEnglishAppLanguage: hasEnglishAppLanguage,
+                showsGamesCard: endCards.showsGamesCard,
+                showsInterestsCard: endCards.showsInterestsCard
+            )
             buildEndViewModel(viewModel)
             return viewModel
         }
     }
 
-    /// Attaches the coordinator callbacks to the end screen view model.
+    /// Rolls the bucket of the end screen cards experiment (T441006), then waits until the events
+    /// carry the group. Returns the extra cards of the group, or none if the assignment fails.
+    @MainActor
+    static func assignEndCardsExperiment() async -> WMFYearInReviewEndCardsDataController.EngagementCards {
+        let engagementCards: WMFYearInReviewEndCardsDataController.EngagementCards
+        do {
+            engagementCards = try await WMFYearInReviewEndCardsDataController.shared.assignEngagementCardsIfNeeded()
+        } catch {
+            DDLogError("Assigning the Year in Review end cards experiment failed: \(error)")
+            engagementCards = .none
+        }
+        await YearInReviewInstrument.shared.refreshExperimentData().value
+        return engagementCards
+    }
+
+    /// Attaches the coordinator callbacks to the end screen view model. The element IDs are the same
+    /// as on Android.
     @MainActor
     private func buildEndViewModel(_ viewModel: WMFYearInReviewEndViewModel) {
         viewModel.didTapStore = { [weak self] in
             self?.logEndCardClick(elementID: "visit_store_button")
             self?.showStore()
+        }
+        viewModel.didTapGames = { [weak self] in
+            self?.closeYearInReviewForGames()
+        }
+        viewModel.didTapInterests = { [weak self] in
+            self?.showInterests()
         }
         viewModel.didTapTopRead = { [weak self] in
             // Not in the plan. Android uses the same name.
@@ -975,8 +1079,77 @@ extension YearInReviewCoordinator {
         }
     }
 
+    @MainActor
     private func logEndCardClick(elementID: String) {
         YearInReviewInstrument.shared.logClick(elementID: elementID, page: YearInReviewInstrument.endPage, personalized: areSlidesPersonalized)
+    }
+
+    /// Android opens the games over Year in Review. Here Year in Review closes first, like the close
+    /// button: the game opens articles in the navigation controller it was given, and shows the
+    /// reading list toast through its tab bar, so it needs the tab's navigation controller. A second
+    /// tap while the slides close does nothing, so the game opens once.
+    @MainActor
+    private func closeYearInReviewForGames() {
+        let presentedViewController = navigationController.presentedViewController
+        guard presentedViewController?.isBeingDismissed != true else { return }
+
+        logEndCardClick(elementID: "play_game_button")
+        closeYearInReview { [weak self] in
+            self?.showGames()
+        }
+    }
+
+    /// The close button and the games card close Year in Review the same way. As before this change,
+    /// the funnel stops after the dismiss starts, and before it ends, so that a slide the pager settles
+    /// on during the animation logs nothing.
+    @MainActor
+    private func closeYearInReview(completion: (@MainActor () -> Void)? = nil) {
+        WMFRiveLogger.failureHandler = nil
+        homeFeedSettingsCoordinator = nil
+        guard let presentedViewController = navigationController.presentedViewController else {
+            YearInReviewInstrument.shared.stopFunnel()
+            completion?()
+            return
+        }
+        presentedViewController.dismiss(animated: true, completion: completion)
+        YearInReviewInstrument.shared.stopFunnel()
+    }
+
+    /// Today's Which Came First game in the primary app language. The experiment only takes readers
+    /// whose primary app language has the game. The card reads the language from WMFData and this
+    /// method from the language link controller. The two are the same, but the guard makes sure that
+    /// the game never opens for a site that does not have it.
+    @MainActor
+    private func showGames() {
+        guard let appLanguage = dataStore.languageLinkController.appLanguage,
+              WMFGamesDataController.isWhichCameFirstSupported(project: .wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))) else {
+            DDLogError("The Year in Review games card opened for an app language without the game.")
+            return
+        }
+        let siteURL = appLanguage.siteURL
+        let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: siteURL)
+        coordinator.didFinish = { [weak self] in
+            self?.whichCameFirstCoordinator = nil
+        }
+        whichCameFirstCoordinator = coordinator
+        coordinator.start()
+    }
+
+    /// The interests screen of the Home feed, in a sheet over Year in Review, as on Android. Closing
+    /// the sheet goes back to the end screen.
+    @MainActor
+    private func showInterests() {
+        guard let yearInReviewNavigationController = navigationController.presentedViewController as? UINavigationController,
+              yearInReviewNavigationController.presentedViewController == nil else {
+            return
+        }
+        logEndCardClick(elementID: "customize_interests_button")
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: yearInReviewNavigationController, theme: theme, initialView: .interests(nil), presentation: .modal)
+        coordinator.didFinish = { [weak self] in
+            self?.homeFeedSettingsCoordinator = nil
+        }
+        homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
     }
 
     private func showStore() {

@@ -66,6 +66,14 @@ struct WMFDeveloperSettingsView: View {
                     Toggle("Force Year in Review 2026 Announcement", isOn: $viewModel.forceYiR2026Announcement)
                 }
                 .disabled(!viewModel.forceYiREntryPoint2026)
+                captionedRow(caption: "Forgets that the swipe-up hint on the first slide was seen, so it shows again the next time the slides open.") {
+                    Button {
+                        viewModel.resetYiRSwipeOnboarding()
+                    } label: {
+                        Text("Reset Year in Review swipe hint")
+                            .foregroundStyle(Color(theme.link))
+                    }
+                }
                 if viewModel.regenerateYiR2026Report != nil {
                     captionedRow(caption: "Deletes the report and builds it again from your current reading history, frozen slides too. To try a new state, clear your history, read some articles, then tap this.") {
                         Button {
@@ -82,6 +90,14 @@ struct WMFDeveloperSettingsView: View {
                         }
                     }
                     .disabled(!viewModel.forceYiREntryPoint2026 || viewModel.isRegeneratingYiR2026Report)
+                }
+                captionedRow(caption: "Overrides the persisted end screen cards A/B bucket at read time. Group B adds the games and interests cards. Readers whose primary app language has no game stay out of the experiment. Off clears the bucket and the exposure, so the next end screen rolls a new bucket.") {
+                    Picker("Force End Cards Group", selection: $viewModel.forceYiREndCardsExperimentAssignment) {
+                        Text("Off").tag(WMFYearInReviewEndCardsDataController.Assignment?.none)
+                        Text("Control (A)").tag(WMFYearInReviewEndCardsDataController.Assignment?.some(.control))
+                        Text("Group B").tag(WMFYearInReviewEndCardsDataController.Assignment?.some(.groupB))
+                    }
+                    .tint(Color(theme.secondaryText))
                 }
             } header: {
                 sectionHeader("Year in Review")

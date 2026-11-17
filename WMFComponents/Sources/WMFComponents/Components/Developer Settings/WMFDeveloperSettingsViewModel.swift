@@ -211,6 +211,23 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var forceYiREndCardsExperimentAssignment: WMFYearInReviewEndCardsDataController.Assignment? = WMFDeveloperSettingsDataController.shared.forceYiREndCardsExperimentAssignment {
+        didSet {
+            // Each change waits for the one before it, so the last choice is the one that stays.
+            let assignment = forceYiREndCardsExperimentAssignment
+            let previousTask = forceYiREndCardsExperimentAssignmentTask
+            forceYiREndCardsExperimentAssignmentTask = Task {
+                await previousTask?.value
+                do {
+                    try await WMFYearInReviewEndCardsDataController.shared.setDeveloperSettingsForcedAssignment(assignment)
+                } catch {
+                    debugPrint("Resetting the Year in Review end cards experiment failed: \(error)")
+                }
+            }
+        }
+    }
+    private var forceYiREndCardsExperimentAssignmentTask: Task<Void, Never>?
+
     @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment
@@ -404,6 +421,20 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
             title = "Discover announcement reset. The card and the Saved badge show again."
         } catch {
             title = "Could not reset the Discover announcement: \(error)"
+        }
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
+        }
+    }
+
+    /// Shows the swipe-up hint on the first Year in Review slide again the next time the slides open.
+    public func resetYiRSwipeOnboarding() {
+        let title: String
+        do {
+            try WMFYearInReviewDataController().resetSwipeOnboarding()
+            title = "Year in Review swipe hint reset. It shows again the next time the slides open."
+        } catch {
+            title = "Could not reset the Year in Review swipe hint: \(error)"
         }
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))

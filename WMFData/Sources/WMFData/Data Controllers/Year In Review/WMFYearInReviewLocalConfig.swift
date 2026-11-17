@@ -10,26 +10,25 @@ enum WMFYearInReviewLocalConfig {
 
     static let year2026 = YearInReview(
         year: 2026,
-        activeStartDateString: "2026-12-02T18:00:00Z",
+        activeStartDateString: "2026-12-01T12:05:00Z",
         activeEndDateString: "2027-02-01T00:00:00Z",
         dataStartDateString: "2026-01-01T00:00:00Z",
         dataEndDateString: "2026-12-01T00:00:00Z",
         contribStartDateString: "2025-12-01T00:00:00Z",
         contribEndDateString: "2026-12-01T00:00:00Z",
-        // Same values as the production `yirv2` entry (checked 2026-10-22).
+        // Same values as the production `yirv2` entry (checked 2026-11-16).
         languages: 300,
-        articles: 65667790,
+        articles: 68755256,
         savedArticlesApps: 46392587,
-        // Not in the production entry yet. The value is from the collective copy.
         volunteerEditors: 250000,
         viewsApps: 14085467928,
         editsApps: 1936242,
         editsPerMinute: 324,
         averageArticlesReadPerYear: 335,
-        edits: 78952894,
+        edits: 75006197,
         editsEN: 31004338,
-        hoursReadEN: 2376881343,
-        yearsReadEN: 270000,
+        hoursReadEN: 3986370291,
+        yearsReadEN: 450000,
         topReadEN: [
             "Charlie Kirk",
             "Deaths in 2025",
