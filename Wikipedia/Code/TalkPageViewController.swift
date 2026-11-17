@@ -1201,7 +1201,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
             case .failure(let error):
                 if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error,
                    self.shouldPresentHCaptchaChallenge(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, serverForceShowCaptcha: serverForceShowCaptcha) {
-                    self.presentHCaptchaChallenge(on: self, siteKey: siteKey, forceShowCaptcha: serverForceShowCaptcha, onSuccess: { [weak self] token in
+                    self.presentHCaptchaChallenge(on: self, siteKey: siteKey, onSuccess: { [weak self] token in
                         self?.publishReply(text: text, commentViewModel: commentViewModel, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
                     }, onError: { [weak self] in
                         self?.replyComposeController.isLoading = false
@@ -1247,7 +1247,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     }
 
     /// Presents an hCaptcha challenge, reporting the token via `onSuccess` (to retry) or `onError`.
-    fileprivate func presentHCaptchaChallenge(on presenter: UIViewController, siteKey: String?, forceShowCaptcha: Bool, onSuccess: @escaping (String) -> Void, onError: @escaping () -> Void) {
+    fileprivate func presentHCaptchaChallenge(on presenter: UIViewController, siteKey: String?, onSuccess: @escaping (String) -> Void, onError: @escaping () -> Void) {
         let hcaptchaVC = WMFHCaptchaViewController()
         hcaptchaVC.theme = theme
         let editApiKey = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha?.editApiKey
@@ -1342,7 +1342,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
             case .failure(let error):
                 if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error,
                    self.shouldPresentHCaptchaChallenge(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, serverForceShowCaptcha: serverForceShowCaptcha) {
-                    self.presentHCaptchaChallenge(on: composeViewController, siteKey: siteKey, forceShowCaptcha: serverForceShowCaptcha, onSuccess: { [weak self] token in
+                    self.presentHCaptchaChallenge(on: composeViewController, siteKey: siteKey, onSuccess: { [weak self] token in
                         self?.publishTopic(topicTitle: topicTitle, topicBody: topicBody, composeViewController: composeViewController, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
                     }, onError: {
                         composeViewController.setupNavigationBar(isPublishing: false)
