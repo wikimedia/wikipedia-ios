@@ -28,6 +28,7 @@ public enum WMFUserDefaultsKey: String {
     // profile badge is still eligible for the 2026 ones.
     case seenYearInReview2026FeatureAnnouncement = "year-in-review-feature-announcement-2026"
     case seenYearInReview2026IntroSlide = "seen-year-in-review-intro-slide-2026"
+    case seenYearInReview2026SwipeOnboarding = "seen-year-in-review-swipe-onboarding-2026"
     case yearInReview2026SurveyPresented = "year-in-review-survey-presented-2026"
     case tappedYIR2026 = "tapped-yir-2026"
 

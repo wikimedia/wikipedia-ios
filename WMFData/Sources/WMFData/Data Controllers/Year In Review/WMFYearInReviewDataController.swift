@@ -11,6 +11,7 @@ import CoreData
         case alreadyAssignedExperiment
         case notQualifiedForExperiment
         case missingPrimaryAppLanguage
+        case missingUserDefaultsStore
     }
 
     public let coreDataStore: WMFCoreDataStore
@@ -349,6 +350,24 @@ import CoreData
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReview2026IntroSlide.rawValue, value: newValue)
         }
+    }
+
+    /// Set on the reader's first touch on the slides, so the swipe-up hint shows once per device.
+    public var hasSeenYiRSwipeOnboarding: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReview2026SwipeOnboarding.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReview2026SwipeOnboarding.rawValue, value: newValue)
+        }
+    }
+
+    /// Forgets that the swipe-up hint was seen, so it shows again the next time the slides open.
+    /// For developer settings.
+    public func resetSwipeOnboarding() throws {
+        guard let userDefaultsStore else {
+            throw CustomError.missingUserDefaultsStore
+        }
+        try userDefaultsStore.remove(key: WMFUserDefaultsKey.seenYearInReview2026SwipeOnboarding.rawValue)
     }
 
     /// Set as soon as the announcement is presented, so a force quit before interacting with it does
