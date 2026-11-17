@@ -103,7 +103,7 @@ extension SearchResultsViewController {
         updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
     }
 
-    /// The list of the treatment arm of the semantic search interleaved experiment. Semantic rows show the title only.
+    /// The list of the treatment arm of the semantic search interleaved experiment. Semantic rows show the passage that matched and its section.
     func displayInterleavedSearchResults(_ outcome: SemanticSearchInterleavedLoader.Outcome, searchTerm: String, siteURL: URL) {
         displayedSearchTerm = searchTerm
         displayedSiteURL = siteURL
@@ -129,7 +129,9 @@ extension SearchResultsViewController {
                     pageTitle: semanticResult.title,
                     title: semanticResult.title,
                     titleHTML: semanticResult.title,
-                    description: nil,
+                    description: mapper.capitalizedDescription(semanticResult.description),
+                    extract: WMFSemanticSearchSnippet.plainText(html: semanticResult.snippetHTML),
+                    sectionTitle: semanticResult.sectionTitle,
                     thumbnailURL: semanticResult.thumbnailURL,
                     isArticle: SearchResultsMapper.isArticle(articleURL),
                     isSavable: articleURL.namespace == .main)
@@ -141,7 +143,7 @@ extension SearchResultsViewController {
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
-        resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project)
+        resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project, rowStyle: .interleaved)
         resultsViewModel.hideSemanticSearchEntryPoint()
 
         guard let project = mapper.project else { return }
