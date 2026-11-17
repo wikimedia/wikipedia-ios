@@ -281,6 +281,14 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         return webView
     }()
 
+    /// Shows while the web view is hidden, so the reader sees that the article is loading.
+    lazy var loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
     // MARK: Find In Page
 
     var findInPage = ArticleFindInPageState()
@@ -1171,6 +1179,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+        if hidden {
+            loadingIndicator.startAnimating()
+        } else {
+            loadingIndicator.stopAnimating()
+        }
         let block = {
             self.webView.alpha = hidden ? 0 : 1
         }
@@ -1214,6 +1227,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
+        loadingIndicator.color = theme.colors.secondaryText
         leadImageView.alpha = theme.imageOpacity
         toolbarController?.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
@@ -1620,6 +1634,15 @@ private extension ArticleViewController {
 
         // Add overlay to prevent interaction while reloading
         webView.wmf_addSubviewWithConstraintsToEdges(refreshOverlay)
+
+        view.addSubview(loadingIndicator)
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: webView.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: webView.centerYAnchor)
+        ])
+        if isWebViewHidden {
+            loadingIndicator.startAnimating()
+        }
 
         // Delegates
         webView.uiDelegate = self

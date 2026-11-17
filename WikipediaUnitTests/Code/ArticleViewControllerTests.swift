@@ -76,6 +76,21 @@ struct ArticleViewControllerTests {
 
     @MainActor
     @Test
+    func hiddenWebViewShowsTheLoadingIndicator() async throws {
+        let (articleViewController, dataStore) = try await makeArticleViewController()
+        defer { tearDown(dataStore) }
+
+        articleViewController.setWebViewHidden(true, animated: false)
+        #expect(articleViewController.isWebViewHidden)
+        #expect(articleViewController.loadingIndicator.isAnimating)
+
+        articleViewController.setWebViewHidden(false, animated: false)
+        #expect(!articleViewController.isWebViewHidden)
+        #expect(!articleViewController.loadingIndicator.isAnimating)
+    }
+
+    @MainActor
+    @Test
     func loadFailureShowsTheHiddenWebView() async throws {
         let (articleViewController, dataStore) = try await makeArticleViewController()
         defer { tearDown(dataStore) }
@@ -84,5 +99,6 @@ struct ArticleViewControllerTests {
         articleViewController.handleArticleLoadFailure(with: RequestError.unknown, showEmptyView: false)
 
         #expect(!articleViewController.isWebViewHidden)
+        #expect(!articleViewController.loadingIndicator.isAnimating)
     }
 }
