@@ -111,10 +111,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// bar without asking for that edit, so an empty bar that doesn't match it is a tap on clear.
     var expectedSearchBarText: String?
     var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
-    /// The semantic results of the interleaved list as the API returned them, by article URL. A row shows
-    /// the passage as plain text. This keeps the passage with its markup and its section, so that opening
-    /// the article from a semantic row can highlight it, as the semantic search sheet does.
-    var semanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
 
     var siteURL: URL? {
         get {
