@@ -39,6 +39,10 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     private let initialView: InitialView
     private let presentation: Presentation
 
+    /// Called after the close button of a `.modal` presentation dismisses the sheet. The owner can
+    /// release the coordinator here.
+    var didFinish: (@MainActor @Sendable () -> Void)?
+
     /// The navigation controller that sub-screens are pushed onto. For `.push` this is the provided
     /// `navigationController`; for `.modal` it becomes the modally-presented navigation controller.
     private var activeNavigationController: UINavigationController
@@ -214,6 +218,8 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func dismissModal() {
-        navigationController.dismiss(animated: true)
+        navigationController.dismiss(animated: true) { [weak self] in
+            self?.didFinish?()
+        }
     }
 }

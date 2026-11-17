@@ -307,6 +307,9 @@ public struct WMFYearInReviewEndView: View {
 
     // MARK: - Cards
 
+    /// The title wraps onto more lines, because long translations and large text do not fit on one
+    /// line. `fixedSize` makes the title as tall as all its lines, because in the carousel the card can
+    /// get less height than its text needs.
     private func cardView(_ card: WMFYearInReviewEndViewModel.Card) -> some View {
         VStack(spacing: 18) {
             // The text shows in capital letters. VoiceOver reads the text as written.
@@ -315,6 +318,7 @@ public struct WMFYearInReviewEndView: View {
                 .font(Font(cardTitleFont))
                 .foregroundColor(Color(uiColor: WMFTheme.light.text))
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
 
             Text(card.body)
                 .font(Font(bodyFont))

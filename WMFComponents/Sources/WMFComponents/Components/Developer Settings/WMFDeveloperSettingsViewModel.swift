@@ -187,6 +187,23 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var forceYiREndCardsExperimentAssignment: WMFYearInReviewEndCardsDataController.Assignment? = WMFDeveloperSettingsDataController.shared.forceYiREndCardsExperimentAssignment {
+        didSet {
+            // Each change waits for the one before it, so the last choice is the one that stays.
+            let assignment = forceYiREndCardsExperimentAssignment
+            let previousTask = forceYiREndCardsExperimentAssignmentTask
+            forceYiREndCardsExperimentAssignmentTask = Task {
+                await previousTask?.value
+                do {
+                    try await WMFYearInReviewEndCardsDataController.shared.setDeveloperSettingsForcedAssignment(assignment)
+                } catch {
+                    debugPrint("Resetting the Year in Review end cards experiment failed: \(error)")
+                }
+            }
+        }
+    }
+    private var forceYiREndCardsExperimentAssignmentTask: Task<Void, Never>?
+
     @Published public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = forceDiscoverExperimentAssignment
