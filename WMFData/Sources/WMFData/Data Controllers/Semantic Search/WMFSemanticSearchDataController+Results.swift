@@ -28,7 +28,8 @@ extension WMFSemanticSearchDataController {
 
     // MARK: - Results
 
-    public func fetchResults(query: String, project: WMFProject, limit: Int = WMFSemanticSearchDataController.resultsLimit) async throws -> WMFSemanticSearchResults {
+    /// - Parameter includesDescriptions: Asks for the short description of each article, for the rows that show it. Otherwise each result has a nil `description`.
+    public func fetchResults(query: String, project: WMFProject, limit: Int = WMFSemanticSearchDataController.resultsLimit, includesDescriptions: Bool = false) async throws -> WMFSemanticSearchResults {
         guard let basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -37,7 +38,7 @@ extension WMFSemanticSearchDataController {
             throw WMFDataControllerError.failureCreatingRequestURL
         }
 
-        let parameters: [String: Any] = [
+        var parameters: [String: Any] = [
             "action": "query",
             "format": "json",
             "formatversion": "2",
@@ -53,6 +54,10 @@ extension WMFSemanticSearchDataController {
             "errorformat": "html",
             "errorsuselocal": "1"
         ]
+
+        if includesDescriptions {
+            parameters["prop"] = "pageimages|description"
+        }
 
         let request = WMFBasicServiceRequest(
             url: url,
@@ -78,7 +83,8 @@ extension WMFSemanticSearchDataController {
                 snippetHTML: page.snippet ?? "",
                 sectionTitle: page.sectiontitle,
                 redirectTitle: page.redirecttitle,
-                thumbnailURL: page.thumbnail?.source.flatMap { URL(string: $0) }
+                thumbnailURL: page.thumbnail?.source.flatMap { URL(string: $0) },
+                description: page.description
             )
         }
 
@@ -182,6 +188,7 @@ extension WMFSemanticSearchDataController {
             let snippet: String?
             let sectiontitle: String?
             let redirecttitle: String?
+            let description: String?
             let thumbnail: Thumbnail?
 
             struct Thumbnail: Decodable, Sendable {

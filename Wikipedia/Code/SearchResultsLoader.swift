@@ -263,7 +263,7 @@ struct SemanticSearchInterleavedLoader {
         do {
             let results = try await withThrowingTaskGroup(of: WMFSemanticSearchResults.self) { group in
                 group.addTask {
-                    try await WMFSemanticSearchDataController.shared.fetchResults(query: searchTerm, project: project, limit: WMFSemanticSearchInterleavedConfiguration.semanticResultsLimit)
+                    try await WMFSemanticSearchDataController.shared.fetchResults(query: searchTerm, project: project, limit: WMFSemanticSearchInterleavedConfiguration.semanticResultsLimit, includesDescriptions: true)
                 }
                 group.addTask {
                     try await Task.sleep(for: .seconds(WMFSemanticSearchInterleavedConfiguration.semanticTimeoutSeconds))
