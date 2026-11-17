@@ -74,7 +74,7 @@ public struct WMFSearchResultsView: View {
             focusedElementID = viewModel.firstAccessibilityElementID
         }
         .scrollContentBackground(.hidden)
-        .scrollDismissesKeyboard(.never)
+        .scrollDismissesKeyboard(viewModel.rowStyle == .interleaved ? .immediately : .never)
         .contentMargins(.top, viewModel.topPadding, for: .scrollContent)
     }
 }
