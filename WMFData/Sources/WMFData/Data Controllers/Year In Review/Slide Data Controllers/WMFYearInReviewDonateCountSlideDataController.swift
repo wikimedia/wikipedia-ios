@@ -56,8 +56,8 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
                 let status = try await donorStatusDataController.fetchWebDonorStatus(project: project)
                 isWebDonor = status?.isRecentDonor ?? false
             } catch {
-                // Keep the stored slide, which has the last status, instead of storing one without it.
-                isEvaluated = false
+                // A failed request means not a donor. The slide is stored, so the new edit count is kept.
+                isWebDonor = nil
             }
         }
     }

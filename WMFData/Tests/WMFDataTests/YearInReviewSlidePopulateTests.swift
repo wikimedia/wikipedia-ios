@@ -1541,14 +1541,16 @@ final class YearInReviewSlidePopulateTests: XCTestCase {
         XCTAssertTrue(controller.isEvaluated)
     }
 
-    func testDonateCountIsNotEvaluatedWhenTheWebDonorStatusFails() async throws {
+    func testDonateCountKeepsTheEditCountWhenTheWebDonorStatusFails() async throws {
         WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "yir-metrics-edit-count-get")
         WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
         let controller = YearInReviewDonateCountSlideDataController(year: year, yirConfig: config, dependencies: makeDependencies(username: "Reader", globalUserID: 1))
 
-        try await controller.populateSlideData(in: try context())
+        let payload = try decode(DonateAndEditCounts.self, from: try await populatedPayload(controller))
 
-        XCTAssertFalse(controller.isEvaluated, "the stored slide keeps its last status")
+        XCTAssertTrue(controller.isEvaluated, "a failed donor status request does not discard the slide")
+        XCTAssertEqual(payload.editCount, 47, "the new edit count is stored")
+        XCTAssertNil(payload.isWebDonor, "a failed request means not a donor")
     }
 
     /// A slide stored before the web donor status existed still decodes.
