@@ -187,6 +187,12 @@ struct WMFDeveloperSettingsExportFile: Identifiable {
         }
     }
 
+    @Published public var showSemanticSearchInterleavedSourceBadge: Bool = WMFDeveloperSettingsDataController.shared.showSemanticSearchInterleavedSourceBadge {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.showSemanticSearchInterleavedSourceBadge = showSemanticSearchInterleavedSourceBadge
+        }
+    }
+
     @Published public var forceSemanticSearchInterleavedExperimentAssignment: WMFSemanticSearchInterleavedDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = forceSemanticSearchInterleavedExperimentAssignment
