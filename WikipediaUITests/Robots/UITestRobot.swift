@@ -68,16 +68,19 @@ extension UITestRobot {
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
-        // Asking for hittability while the element has no frame yet, as during a transition, records
-        // "Failed to determine hittability" instead of waiting, so the frame is checked first.
-        let predicate = NSPredicate { object, _ in
-            guard let element = object as? XCUIElement, element.exists, !element.frame.isEmpty else {
-                return false
-            }
-            return element.isHittable
-        }
+        let predicate = NSPredicate(format: "exists == true && hittable == true")
         let expectation = testCase.expectation(for: predicate, evaluatedWith: element)
-        let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
+        // While a screen lays itself out, the hittability query can land on a snapshot with no
+        // frame and records "Failed to determine hittability" as a failure instead of answering
+        // false. That issue is expected during the wait: the timeout below reports the real result.
+        let hittabilityOptions = XCTExpectedFailure.Options()
+        hittabilityOptions.isStrict = false
+        hittabilityOptions.issueMatcher = { issue in
+            issue.compactDescription.contains("Failed to determine hittability")
+        }
+        let result = XCTExpectFailure("Hittability queried mid-layout", options: hittabilityOptions) {
+            XCTWaiter.wait(for: [expectation], timeout: timeout)
+        }
         XCTAssertEqual(
             result,
             .completed,
@@ -151,9 +154,14 @@ extension UITestRobot {
 
 extension UITestRobot {
     @discardableResult
+    /// Taps the first button with the identifier once it is visible. `waitsForEnabled` also waits
+    /// for the button to report itself enabled, for UIKit bar buttons that start out disabled: the
+    /// article toolbar stays disabled until the article finishes loading. SwiftUI buttons can report
+    /// `enabled == false` for seconds while they remain tappable, so the wait is opt-in.
     func tapButton(
         withIdentifier identifier: String,
         timeout: TimeInterval = 15,
+        waitsForEnabled: Bool = false,
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
@@ -165,16 +173,17 @@ extension UITestRobot {
             file: file,
             line: line
         )
-        // A disabled button is hittable but ignores the tap: the article toolbar, for one, stays
-        // disabled until the article finishes loading.
-        let enabledExpectation = testCase.expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: button)
-        XCTAssertEqual(
-            XCTWaiter.wait(for: [enabledExpectation], timeout: timeout),
-            .completed,
-            "Expected button with identifier '\(identifier)' to be enabled within \(timeout) seconds.",
-            file: file,
-            line: line
-        )
+        if waitsForEnabled {
+            // A disabled button is hittable but ignores the tap.
+            let enabledExpectation = testCase.expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: button)
+            XCTAssertEqual(
+                XCTWaiter.wait(for: [enabledExpectation], timeout: timeout),
+                .completed,
+                "Expected button with identifier '\(identifier)' to be enabled within \(timeout) seconds.",
+                file: file,
+                line: line
+            )
+        }
         button.tap()
         return self
     }

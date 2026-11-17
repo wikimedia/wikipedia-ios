@@ -151,13 +151,13 @@ extension ArticleRobot {
 
     @discardableResult
     func tapSearch(file: StaticString = #filePath, line: UInt = #line) -> SearchRobot {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, waitsForEnabled: true, file: file, line: line)
         return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
     @discardableResult
     func openTableOfContents(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.tableOfContentsButton, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.tableOfContentsButton, waitsForEnabled: true, file: file, line: line)
         return assertTableOfContentsVisible(file: file, line: line)
     }
 
@@ -181,7 +181,7 @@ extension ArticleRobot {
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.languagesButton, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.languagesButton, waitsForEnabled: true, file: file, line: line)
         base.assertExists(
             languagePickerView,
             timeout: 15,
@@ -219,7 +219,7 @@ extension ArticleRobot {
 
     @discardableResult
     func findInArticle(searchTerm: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.findInPageButton, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.findInPageButton, waitsForEnabled: true, file: file, line: line)
         base.assertExists(findInPageView, timeout: 10, description: "find in article bar", file: file, line: line)
 
         let textField = element(withIdentifier: AccessibilityIdentifiers.Article.findInPageTextField)
@@ -285,7 +285,7 @@ extension ArticleRobot {
 
     @discardableResult
     func openReadingThemeControls(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.themeButton, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.themeButton, waitsForEnabled: true, file: file, line: line)
         base.assertExists(
             readingThemesView,
             timeout: 10,
@@ -454,6 +454,10 @@ extension ArticleRobot {
 
     @discardableResult
     func assertLinkedArticleVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        // The linked article renders seconds after the tap on CI. Searching for the description
+        // before the title exists scrolls the blank page, and that drag can land once the page has
+        // rendered and push the description off screen.
+        assertLoadedArticle(named: articleControlsFixture.linkedArticleTitle, file: file, line: line)
         assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
@@ -520,7 +524,7 @@ extension ArticleRobot {
 extension ArticleRobot {
     @discardableResult
     func openOverflowMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.moreButton, file: file, line: line)
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.moreButton, waitsForEnabled: true, file: file, line: line)
         return self
     }
 
