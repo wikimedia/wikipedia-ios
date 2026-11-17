@@ -123,6 +123,9 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published private(set) var emptyState: EmptyState?
     @Published private(set) var project: WMFProject?
     @Published private(set) var rowStyle: RowStyle = .standard
+    /// A spinner stands in for the list. Only the semantic search interleaved treatment sets it, because
+    /// it waits for two requests before it shows anything.
+    @Published private(set) var isLoading = false
     /// The view model of each card of the interleaved list, by result. The list keeps them, so a card that
     /// scrolls away and back neither asks for its counts again nor changes size. Not published: a card
     /// observes its own, so one that loads redraws that card only.
@@ -189,6 +192,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.searchTerm = searchTerm
         self.project = project
         self.rowStyle = rowStyle
+        isLoading = false
         isRightToLeft = project?.isRTL ?? false
         results = newResults.map { result in
             var result = result
@@ -200,7 +204,16 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         fulfillPendingAccessibilityFocusRequest()
     }
 
+    /// Replaces the list with a spinner until `showResults` or `showEmptyState` is called.
+    public func showLoading() {
+        results = []
+        interleavedRowViewModels = [:]
+        emptyState = nil
+        isLoading = true
+    }
+
     public func showEmptyState(_ state: EmptyState) {
+        isLoading = false
         results = []
         interleavedRowViewModels = [:]
         emptyState = state
@@ -212,6 +225,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         searchTerm = nil
         emptyState = nil
         rowStyle = .standard
+        isLoading = false
         interleavedRowViewModels = [:]
     }
 
