@@ -86,6 +86,18 @@ final class YearInReviewEndCardsExposureTests: XCTestCase {
         }
     }
 
+    /// The slides open only after this returns, so the first slide impression of the first open
+    /// already carries the group. Nothing waits here: the value must be there at once.
+    func testTheGroupIsReadyForTheFirstSlideImpression() async throws {
+        try await withGroupBReader { _ in
+            let cards = await YearInReviewCoordinator.assignEndCardsExperiment()
+
+            XCTAssertEqual(YearInReviewInstrument.shared.currentExperimentData?.assigned, "treatment")
+            XCTAssertTrue(cards.showsGamesCard)
+            XCTAssertTrue(cards.showsInterestsCard)
+        }
+    }
+
     func testASlideImpressionSendsNoExposure() async throws {
         try await withGroupBReader { coordinator in
             coordinator.logYearInReviewSlideDidAppear(slideLoggingID: "read_count")

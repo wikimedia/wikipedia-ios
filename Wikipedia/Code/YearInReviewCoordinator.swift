@@ -202,6 +202,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// are ignored, so the slides open only once.
     private var isWaitingForReport = false
 
+    /// The extra end screen cards of the reader's group. Set before the slides open.
+    private var endCards: WMFYearInReviewEndCardsDataController.EngagementCards = .none
+
     /// Builds the report, then runs `action`. The Explore button shows a spinner while it waits.
     private func afterReportIsBuilt(_ action: @escaping @MainActor () -> Void) {
         announcementViewModel?.isLoadingExplore = true
@@ -210,6 +213,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         Task { @MainActor [weak self] in
             guard let self else { return }
             await Self.buildReportLoggingError(dataStore: dataStore)
+            // Before the slides show, so that the first slide impression already has the group.
+            endCards = await Self.assignEndCardsExperiment()
             isWaitingForReport = false
             announcementViewModel?.isLoadingExplore = false
             action()
@@ -383,7 +388,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     /// in, or closing the log in screen, opens the collective slides.
     private func presentAnnouncementLoginPrompt() {
         guard let announcement = navigationController.presentedViewController else {
-            presentYearInReview()
+            presentYearInReviewAfterCurrentDismissal()
             return
         }
 
@@ -441,7 +446,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
             guard let self else { return }
             guard let accountCreation = navigationController.presentedViewController else {
-                presentYearInReview()
+                presentYearInReviewAfterCurrentDismissal()
                 return
             }
             accountCreation.dismiss(animated: true) { [weak self] in
@@ -930,13 +935,22 @@ final class YearInReviewInstrument {
     private var experimentDataRefreshTask: Task<Void, Never>?
 
     /// Each refresh waits for the one before it, so an older read never replaces a newer one.
-    func refreshExperimentData() {
+    /// Await the returned task to know that events now carry the current value.
+    @discardableResult
+    func refreshExperimentData() -> Task<Void, Never> {
         let previousRefreshTask = experimentDataRefreshTask
-        experimentDataRefreshTask = Task { [weak self] in
+        let refreshTask = Task { [weak self] in
             await previousRefreshTask?.value
             let experimentData = await WMFYearInReviewEndCardsDataController.shared.experimentData
             self?.experimentData = experimentData
         }
+        experimentDataRefreshTask = refreshTask
+        return refreshTask
+    }
+
+    /// The experiment fields that the next slide or end screen event carries. For tests.
+    var currentExperimentData: ExperimentData? {
+        experimentData
     }
 
     private func experimentData(actionSource: String?) -> ExperimentData? {
@@ -1013,27 +1027,30 @@ extension YearInReviewCoordinator {
     /// `makeYearInReviewHostingController` only runs on the main thread, because it presents view controllers.
     private func makeEndViewModel(isContributor: Bool) -> WMFYearInReviewEndViewModel {
         MainActor.assumeIsolated {
-            let viewModel = WMFYearInReviewEndViewModel(isContributor: isContributor, hasEnglishAppLanguage: hasEnglishAppLanguage)
+            let viewModel = WMFYearInReviewEndViewModel(
+                isContributor: isContributor,
+                hasEnglishAppLanguage: hasEnglishAppLanguage,
+                showsGamesCard: endCards.showsGamesCard,
+                showsInterestsCard: endCards.showsInterestsCard
+            )
             buildEndViewModel(viewModel)
-            assignEndCardsExperiment(viewModel: viewModel)
             return viewModel
         }
     }
 
-    /// Rolls the bucket of the end screen cards experiment (T441006) and adds the extra cards of the
-    /// group. This runs when Year in Review opens, so the cards are there before the reader swipes to
-    /// the end screen. If the assignment fails, the end screen shows no extra cards.
+    /// Rolls the bucket of the end screen cards experiment (T441006), then waits until the events
+    /// carry the group. Returns the extra cards of the group, or none if the assignment fails.
     @MainActor
-    private func assignEndCardsExperiment(viewModel: WMFYearInReviewEndViewModel) {
-        Task { @MainActor [weak viewModel] in
-            do {
-                let engagementCards = try await WMFYearInReviewEndCardsDataController.shared.assignEngagementCardsIfNeeded()
-                viewModel?.showEngagementCards(showsGamesCard: engagementCards.showsGamesCard, showsInterestsCard: engagementCards.showsInterestsCard)
-            } catch {
-                DDLogError("Assigning the Year in Review end cards experiment failed: \(error)")
-            }
-            YearInReviewInstrument.shared.refreshExperimentData()
+    static func assignEndCardsExperiment() async -> WMFYearInReviewEndCardsDataController.EngagementCards {
+        let engagementCards: WMFYearInReviewEndCardsDataController.EngagementCards
+        do {
+            engagementCards = try await WMFYearInReviewEndCardsDataController.shared.assignEngagementCardsIfNeeded()
+        } catch {
+            DDLogError("Assigning the Year in Review end cards experiment failed: \(error)")
+            engagementCards = .none
         }
+        await YearInReviewInstrument.shared.refreshExperimentData().value
+        return engagementCards
     }
 
     /// Attaches the coordinator callbacks to the end screen view model. The element IDs are the same
