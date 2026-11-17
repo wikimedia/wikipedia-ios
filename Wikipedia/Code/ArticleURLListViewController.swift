@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFData
 
 class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring {
     let articleURLs: [URL]
@@ -61,6 +62,29 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
         super.viewWillAppear(animated)
         
         configureNavigationBar()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        cancelDailyTopReadNotificationIfNeeded()
+    }
+
+    /// Viewing today's Top Read list on their own means the user doesn't need today's daily top read notification.
+    private func cancelDailyTopReadNotificationIfNeeded() {
+        // Background launches can load and display the view hierarchy, which shouldn't count as a user visit.
+        guard WMFDeveloperSettingsDataController.enableDailyTopReadNotifications,
+              let contentGroup,
+              contentGroup.contentGroupKind == .topRead,
+              contentGroup.isForToday,
+              UIApplication.shared.applicationState == .active else {
+            return
+        }
+
+        let appState = LocalNotificationCoordinator.applicationStateDescription
+        Task {
+            await WMFDailyTopReadNotificationDataController.shared.userDidViewTopRead(appState: appState)
+        }
     }
     
     private func configureNavigationBar() {

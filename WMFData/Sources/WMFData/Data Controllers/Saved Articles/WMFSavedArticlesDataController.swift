@@ -36,11 +36,14 @@ public actor WMFSavedArticlesDataController {
 
         let articleThumbTuples = Array(
             titleURLTuples
-                .filter { $0.1 != nil } // only non-nil URLS
+                .compactMap { title, thumbURL -> (String, URL)? in
+                    guard let thumbURL else { return nil }
+                    return (title, thumbURL)
+                }
                 .prefix(3)
         )
 
-        let thumbURLs = articleThumbTuples.map { $0.1! }
+        let thumbURLs = articleThumbTuples.map { $0.1 }
 
         let titles = articleThumbTuples.map { $0.0 }
 
@@ -148,7 +151,8 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
-    public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
+    /// Saved pages, newest first, up to `limit`.
+    public func fetchTimelinePages(limit: Int = 1000) async throws -> [WMFPageWithTimestamp] {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -166,7 +170,7 @@ public actor WMFSavedArticlesDataController {
                 let pages: [CDPage] = try coreDataStore.fetch(
                     entityType: CDPage.self,
                     predicate: predicate,
-                    fetchLimit: 1000,
+                    fetchLimit: limit,
                     sortDescriptors: [sortDescriptor],
                     in: context
                 )

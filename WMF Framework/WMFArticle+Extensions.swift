@@ -52,23 +52,23 @@ extension WMFArticle {
         }
     }
     
+    /// The feed preview that this article was saved from. The Explore feed compares it with the new preview.
     @objc public func feedArticlePreview() -> WMFFeedArticlePreview? {
-        
-        var dictionary: [AnyHashable: Any] = [
-            "displayTitle": displayTitle as Any,
-            "displayTitleHTML": displayTitleHTML,
-            "thumbnailURL": thumbnailURL as Any,
-            "imageURLString": imageURLString as Any,
-            "wikidataDescription": wikidataDescription as Any,
-            "snippet": snippet as Any,
-            "imageWidth": imageWidth as Any,
-            "imageHeight": imageHeight as Any
-        ]
-        
-        if let articleURLString = key?.decomposedStringWithCanonicalMapping {
-            dictionary["articleURL"] = URL(string: articleURLString)
+        guard let articleURLString = key?.decomposedStringWithCanonicalMapping,
+              let articleURL = URL(string: articleURLString),
+              let displayTitle else {
+            return nil
         }
-        
-        return try? WMFFeedArticlePreview(dictionary: dictionary)
+        return WMFFeedArticlePreview(
+            articleURL: articleURL,
+            displayTitle: displayTitle,
+            displayTitleHTML: displayTitleHTML,
+            wikidataDescription: wikidataDescription,
+            snippet: snippet,
+            thumbnailURL: thumbnailURL,
+            imageURLString: imageURLString,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight
+        )
     }
 }

@@ -39,11 +39,17 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
 
     private let userDefaultsKey = WMFUserDefaultsKey.isSubscribedToEchoNotifications.rawValue
     private let userDefaultsStore: WMFKeyValueStore?
-    public var onRequestPermissions: (() -> Void)?
-    public var onUnsubscribe: (() -> Void)?
-    public var onOpenSystemSettings: (() -> Void)?
+    public var onRequestPermissions: (@MainActor @Sendable () -> Void)?
+    public var onUnsubscribe: (@MainActor @Sendable () -> Void)?
+    public var onOpenSystemSettings: (@MainActor @Sendable () -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, onRequestPermissions: (() -> Void)? = nil, onUnsubscribe: (() -> Void)? = nil, onOpenSystemSettings: (() -> Void)? = nil) {
+    public init(
+        localizedStrings: LocalizedStrings,
+        userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
+        onRequestPermissions: (@MainActor @Sendable () -> Void)? = nil,
+        onUnsubscribe: (@MainActor @Sendable () -> Void)? = nil,
+        onOpenSystemSettings: (@MainActor @Sendable () -> Void)? = nil
+    ) {
         self.localizedStrings = localizedStrings
         self.userDefaultsStore = userDefaultsStore
         self.onRequestPermissions = onRequestPermissions
@@ -123,10 +129,10 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
 
     private var pushNotificationsBinding: Binding<Bool> {
         Binding(
-            get: { self.isPushEnabled },
-            set: { newValue in
+            get: { [weak self] in self?.isPushEnabled ?? false },
+            set: { [weak self] newValue in
                 Task { @MainActor in
-                    await self.setPushEnabled(newValue)
+                    await self?.setPushEnabled(newValue)
                 }
             }
         )

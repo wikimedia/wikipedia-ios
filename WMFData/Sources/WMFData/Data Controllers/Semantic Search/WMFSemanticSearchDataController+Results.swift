@@ -18,15 +18,17 @@ extension WMFSemanticSearchDataController {
         }
     }
 
-    public static let resultsPageSize = 3
+    /// The sheet shows at most this many passages. One request fetches all of them.
+    public static let resultsLimit = 8
+
+    /// The response header with the id CirrusSearch gives to each request.
+    static let searchIDHeader = "x-search-id"
 
     private var basicService: WMFService? { WMFDataEnvironment.current.basicService }
 
     // MARK: - Results
 
-    /// Fetches one page of passages for `query`. Pass the `nextOffset` of the previous page to
-    /// fetch the page after it.
-    public func fetchResults(query: String, project: WMFProject, offset: Int = 0) async throws -> WMFSemanticSearchResultsPage {
+    public func fetchResults(query: String, project: WMFProject) async throws -> WMFSemanticSearchResults {
         guard let basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -35,7 +37,7 @@ extension WMFSemanticSearchDataController {
             throw WMFDataControllerError.failureCreatingRequestURL
         }
 
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             "action": "query",
             "format": "json",
             "formatversion": "2",
@@ -43,7 +45,7 @@ extension WMFSemanticSearchDataController {
             "gsrsearch": query,
             "gsrwhat": "text",
             "gsrnamespace": "0",
-            "gsrlimit": String(Self.resultsPageSize),
+            "gsrlimit": String(Self.resultsLimit),
             "gsrprop": "snippet|sectiontitle|redirecttitle",
             "cirrusSemanticSearch": "hl",
             "prop": "pageimages",
@@ -52,10 +54,6 @@ extension WMFSemanticSearchDataController {
             "errorsuselocal": "1"
         ]
 
-        if offset > 0 {
-            parameters["gsroffset"] = String(offset)
-        }
-
         let request = WMFBasicServiceRequest(
             url: url,
             method: .GET,
@@ -63,7 +61,8 @@ extension WMFSemanticSearchDataController {
             parameters: parameters,
             acceptType: .json
         )
-        let response: SearchResponse = try await performDecodableGET(request: request, service: basicService)
+        let serviceResponse: WMFServiceResponse<SearchResponse> = try await performDecodableGET(request: request, service: basicService)
+        let response = serviceResponse.value
 
         if let error = response.errors?.first {
             throw SearchError(mediaWikiErrorCode: error.code)
@@ -83,7 +82,7 @@ extension WMFSemanticSearchDataController {
             )
         }
 
-        return WMFSemanticSearchResultsPage(results: results, nextOffset: response.continue?.gsroffset)
+        return WMFSemanticSearchResults(results: results, searchID: serviceResponse.header(Self.searchIDHeader))
     }
 
     // MARK: - Attribution
@@ -114,11 +113,11 @@ extension WMFSemanticSearchDataController {
             parameters: parameters,
             acceptType: .json
         )
-        let response: AttributionResponse = try await performDecodableGET(request: request, service: basicService)
-        let signals = response.trustAndRelevance
+        let response: WMFServiceResponse<AttributionResponse> = try await performDecodableGET(request: request, service: basicService)
+        let signals = response.value.trustAndRelevance
 
         return WMFSemanticSearchAttribution(
-            contributorCount: signals?.contributorCounts,
+            contributorCount: signals?.contributorCounts?.totalUnique,
             referenceCount: signals?.referenceCount,
             lastUpdated: signals?.lastUpdated.flatMap { DateFormatter.mediaWikiAPIDateFormatter.date(from: $0) }
         )
@@ -126,9 +125,9 @@ extension WMFSemanticSearchDataController {
 
     // MARK: - Service
 
-    private func performDecodableGET<T: Decodable & Sendable>(request: WMFBasicServiceRequest, service: WMFService) async throws -> T {
-        let value: T = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<T, Error>) in
+    private func performDecodableGET<T: Decodable & Sendable>(request: WMFBasicServiceRequest, service: WMFService) async throws -> WMFServiceResponse<T> {
+        let value: WMFServiceResponse<T> = try await withCheckedThrowingContinuation { continuation in
+            service.performDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
                 switch result {
                 case .success(let value):
                     continuation.resume(returning: value)
@@ -163,7 +162,6 @@ extension WMFSemanticSearchDataController {
 
     private struct SearchResponse: Decodable, Sendable {
         let query: Query?
-        let `continue`: Continue?
         let errors: [WMFMediaWikiError]?
 
         struct Query: Decodable, Sendable {
@@ -183,10 +181,6 @@ extension WMFSemanticSearchDataController {
                 let source: String?
             }
         }
-
-        struct Continue: Decodable, Sendable {
-            let gsroffset: Int?
-        }
     }
 
     private struct AttributionResponse: Decodable, Sendable {
@@ -198,13 +192,21 @@ extension WMFSemanticSearchDataController {
 
         struct TrustAndRelevance: Decodable, Sendable {
             let lastUpdated: String?
-            let contributorCounts: Int?
+            let contributorCounts: ContributorCounts?
             let referenceCount: Int?
 
             enum CodingKeys: String, CodingKey {
                 case lastUpdated = "last_updated"
                 case contributorCounts = "contributor_counts"
                 case referenceCount = "reference_count"
+            }
+        }
+
+        struct ContributorCounts: Decodable, Sendable {
+            let totalUnique: Int?
+
+            enum CodingKeys: String, CodingKey {
+                case totalUnique = "total_unique"
             }
         }
     }

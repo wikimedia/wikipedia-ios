@@ -20,15 +20,16 @@ public struct WMFSemanticSearchResult: Sendable, Equatable {
     }
 }
 
-/// A page of semantic search results in the order the API ranked them. `nextOffset` is nil on
-/// the last page.
-public struct WMFSemanticSearchResultsPage: Sendable, Equatable {
+/// The semantic search results of one request, in the order the API ranked them.
+public struct WMFSemanticSearchResults: Sendable, Equatable {
     public let results: [WMFSemanticSearchResult]
-    public let nextOffset: Int?
+    /// The id the search backend gives to the request, for the instrumentation of the search. Nil
+    /// when the response has no `x-search-id` header.
+    public let searchID: String?
 
-    public init(results: [WMFSemanticSearchResult], nextOffset: Int?) {
+    public init(results: [WMFSemanticSearchResult], searchID: String? = nil) {
         self.results = results
-        self.nextOffset = nextOffset
+        self.searchID = searchID
     }
 }
 

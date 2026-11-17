@@ -37,7 +37,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
         presentationGesture.addTarget(self, action: #selector(TableOfContentsAnimator.handlePresentationGesture(_:)))
         presentationGesture.maximumNumberOfTouches = 1
         presentationGesture.delegate = self
-        self.presentingViewController!.view.addGestureRecognizer(presentationGesture)
+        presentingViewController.view.addGestureRecognizer(presentationGesture)
     }
     
     deinit {
@@ -137,8 +137,12 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     
     // MARK: - Animation
     func animatePresentationWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
-        let presentedController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
+        guard let presentedController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to),
+              let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.to)
+        else {
+            transitionContext.completeTransition(false)
+            return
+        }
         let containerView = transitionContext.containerView
         
         // Position the presented view off the top of the container view
@@ -159,7 +163,10 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     func animateDismissalWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
-        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+        guard let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from) else {
+            transitionContext.completeTransition(false)
+            return
+        }
         
         animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () in
             var f = presentedControllerView.frame
@@ -218,19 +225,21 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
         }
         dismissalGesture = nil
     }
+
     @objc func handlePresentationGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
-        
         switch gesture.state {
         case (.began):
+            guard let presentedViewController else { return }
             self.isInteractive = true
-            self.presentingViewController?.present(self.presentedViewController!, animated: true, completion: nil)
+            self.presentingViewController?.present(presentedViewController, animated: true, completion: nil)
         case (.changed):
+            guard let presentedView = presentedViewController?.view else { return }
             let translation = gesture.translation(in: gesture.view)
-            let transitionProgress = max(min(translation.x * -tocMultiplier / self.presentedViewController!.view.bounds.maxX, 0.99), 0.01)
+            let transitionProgress = max(min(translation.x * -tocMultiplier / presentedView.bounds.maxX, 0.99), 0.01)
             self.update(transitionProgress)
         case (.ended):
             self.isInteractive = false
-            let velocityRequiredToPresent = -gesture.view!.bounds.width * tocMultiplier
+            let velocityRequiredToPresent = -(gesture.view?.bounds.width ?? 0) * tocMultiplier
             let velocityRequiredToDismiss = -velocityRequiredToPresent
             
             let velocityX = gesture.velocity(in: gesture.view).x
@@ -269,14 +278,15 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             self.isInteractive = true
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         case .changed:
+            guard let presentedView = presentedViewController?.view else { return }
             let translation = gesture.translation(in: gesture.view)
-            let transitionProgress = max(min(translation.x * tocMultiplier / self.presentedViewController!.view.bounds.maxX, 0.99), 0.01)
+            let transitionProgress = max(min(translation.x * tocMultiplier / presentedView.bounds.maxX, 0.99), 0.01)
         
             self.update(transitionProgress)
             DDLogDebug("TOC transition progress: \(transitionProgress)")
         case .ended:
             self.isInteractive = false
-            let velocityRequiredToPresent = -gesture.view!.bounds.width * tocMultiplier
+            let velocityRequiredToPresent = -(gesture.view?.bounds.width ?? 0) * tocMultiplier
             let velocityRequiredToDismiss = -velocityRequiredToPresent
             
             let velocityX = gesture.velocity(in: gesture.view).x
@@ -334,17 +344,20 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             
         } else if gestureRecognizer == self.presentationGesture {
             
-            let translation = presentationGesture.translation(in: presentationGesture.view)
-            let location = presentationGesture.location(in: presentationGesture.view)
-            let gestureWidth = presentationGesture.view!.frame.width * gesturePercentage
+            guard let gestureView = presentationGesture.view else { return false }
+
+            let translation = presentationGesture.translation(in: gestureView)
+            let location = presentationGesture.location(in: gestureView)
+            let gestureWidth = gestureView.frame.width * gesturePercentage
             let maxLocation: CGFloat
             let isInStartBoundary: Bool
+
             switch displaySide {
             case .left:
                 maxLocation = gestureWidth
                 isInStartBoundary = maxLocation - location.x > 0
             default:
-                maxLocation =  presentationGesture.view!.frame.maxX - gestureWidth
+                maxLocation = gestureView.frame.maxX - gestureWidth
                 isInStartBoundary = location.x - maxLocation > 0
             }
             if (translation.x * tocMultiplier < 0) && isInStartBoundary {

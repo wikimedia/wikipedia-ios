@@ -4,7 +4,13 @@ public struct WidgetSettings: Codable {
 
     // MARK: - Properties
 
-    public static let `default` = WidgetSettings(siteURL: URL(string: "https://en.wikipedia.org")!, languageCode: "en", languageVariantCode: nil, preferredLanguageCodes: ["en"])
+    public static let `default`: WidgetSettings = {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "en.wikipedia.org"
+        let siteURL = components.url ?? Configuration.production.defaultSiteURL
+        return WidgetSettings(siteURL: siteURL, languageCode: "en", languageVariantCode: nil, preferredLanguageCodes: ["en"])
+    }()
 
     public let siteURL: URL
     public let languageCode: String

@@ -8,7 +8,7 @@ final class YearInReviewLocationSlideDataController: YearInReviewSlideDataContro
     let id = WMFYearInReviewPersonalizedSlideID.location.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = false
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
     
     private var legacyPageViews: [WMFLegacyPageView]

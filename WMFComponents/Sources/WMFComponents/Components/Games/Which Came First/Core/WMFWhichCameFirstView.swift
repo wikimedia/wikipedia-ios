@@ -5,6 +5,7 @@ public struct WMFWhichCameFirstView: View {
 
     @ObservedObject var viewModel: WMFWhichCameFirstViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var theme: WMFTheme { appEnvironment.theme }
 
@@ -86,7 +87,7 @@ public struct WMFWhichCameFirstView: View {
                     if viewModel.showTitle {
                         Text(viewModel.localizedStrings.title)
                             .minimumScaleFactor(0.3)
-                            .font(Font(WMFFont.for(.georgiaTitle1)))
+                            .font(horizontalSizeClass == .regular ? Font.custom("Georgia", size: 44) : Font(WMFFont.for(.georgiaTitle1)))
                             .foregroundColor(Color(uiColor: theme.baseBackground))
                             .multilineTextAlignment(.center)
                             .layoutPriority(1)
@@ -128,6 +129,7 @@ public struct WMFWhichCameFirstView: View {
                     
                     footerArea
                 }
+                .frame(maxWidth: horizontalSizeClass == .regular ? 750 : .infinity)
                 .padding(.top, viewModel.cardViewModelA?.isRevealed == true ? -96 : -16)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .background(Color(uiColor: theme.midBackground))
@@ -148,6 +150,7 @@ public struct WMFWhichCameFirstView: View {
             .padding(.vertical, 12)
             .background(.regularMaterial, in: Capsule())
             .accessibilityElement(children: .ignore)
+            .accessibilityLabel(viewModel.localizedStrings.footera11y())
             
             Spacer()
 
@@ -161,12 +164,12 @@ public struct WMFWhichCameFirstView: View {
 
                         Text(viewModel.localizedStrings.submitButton)
                             .minimumScaleFactor(0.2)
-                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                            .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .semiboldHeadline : .semiboldSubheadline)))
                             .multilineTextAlignment(.center)
 
                         if let image = WMFSFSymbolIcon.for(
                             symbol: .chevronForward,
-                            font: .semiboldSubheadline,
+                            font: horizontalSizeClass == .regular ? .semiboldHeadline : .semiboldSubheadline,
                             compatibleWith: .wmfCappedForSFSymbols
                         ) {
                             Image(uiImage: image)
@@ -196,12 +199,12 @@ public struct WMFWhichCameFirstView: View {
                             : viewModel.localizedStrings.nextButton
                         )
                         .minimumScaleFactor(0.2)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .font(Font(WMFFont.for(horizontalSizeClass == .regular ? .semiboldHeadline : .semiboldSubheadline)))
                         .multilineTextAlignment(.center)
 
                         if let image = WMFSFSymbolIcon.for(
                             symbol: .chevronForward,
-                            font: .semiboldSubheadline,
+                            font: horizontalSizeClass == .regular ? .semiboldHeadline : .semiboldSubheadline,
                             compatibleWith: .wmfCappedForSFSymbols
                         ) {
                             Image(uiImage: image)
@@ -216,8 +219,10 @@ public struct WMFWhichCameFirstView: View {
                 .transition(.opacity)
             }
         }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(viewModel.localizedStrings.footera11y())
+        // Keep the Submit/Next button as its own accessibility element so
+        // VoiceOver reads the button's label and button trait separately from
+        // the "Question x of 5" progress indicator. (T435098)
+        .accessibilityElement(children: .contain)
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .animation(.spring(duration: 0.3), value: viewModel.phase)
@@ -291,9 +296,11 @@ private struct ProgressDotsView: View {
 
     @ScaledMetric(relativeTo: .title3) private var scaledDotSize: CGFloat = 20
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var dotSize: CGFloat {
-        dynamicTypeSize <= .xLarge ? scaledDotSize : scaledDotSize(for: .xLarge)
+        let size = dynamicTypeSize <= .xLarge ? scaledDotSize : scaledDotSize(for: .xLarge)
+        return horizontalSizeClass == .regular ? size * 1.5 : size
     }
 
     private func scaledDotSize(for size: DynamicTypeSize) -> CGFloat {
@@ -302,7 +309,7 @@ private struct ProgressDotsView: View {
     }
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: horizontalSizeClass == .regular ? 12 : 8) {
             ForEach(Array(progressResults.enumerated()), id: \.offset) { index, result in
                 ZStack {
                     if let result = result {

@@ -111,11 +111,12 @@
 "potd-description-prefix" = "$1 साठी आजचे चित्र";
 "potd-empty-error-description" = "$1 साठी आजचे चित्र आणण्यात अयशस्वी";
 // Fuzzy
-"preference-summary-eventlogging-opt-in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
 "reading-list-add-hint-title" = "$1 हे वाचनयादीत जोडायचे आहे?";
 // Fuzzy
 "reading-list-exists-with-same-name" = "$1 या नावाची वाचन यादी आधीच अस्तित्त्वात आहे.";
+// Fuzzy
 "reading-list-new-list-description-placeholder" = "पर्यायी लघु वर्णन";
+// Fuzzy
 "reading-list-new-list-name-placeholder" = "वाचन यादी शिर्षक";
 "reading-lists-article-added-confirmation" = "$1 येथे लेख जोडला आहे";
 "reading-lists-delete-reading-list-alert-title" = "काढून टाका {{PLURAL:$1|यादी|याद्या}}?";

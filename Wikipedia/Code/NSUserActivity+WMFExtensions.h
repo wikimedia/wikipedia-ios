@@ -2,7 +2,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
-    WMFUserActivityTypeExplore,
+    WMFUserActivityTypeHome,
     WMFUserActivityTypePlaces,
     WMFUserActivityTypeSavedPages,
     WMFUserActivityTypeSearch,
@@ -24,7 +24,7 @@ extern NSString *const WMFNavigateToActivityNotification;
 
 + (instancetype)wmf_contentActivityWithURL:(NSURL *)url;
 
-+ (instancetype)wmf_exploreViewActivity;
++ (instancetype)wmf_homeViewActivity;
 + (instancetype)wmf_savedPagesViewActivity;
 + (instancetype)wmf_activityTabActivity;
 

@@ -4,6 +4,7 @@ public class TestKitchenClient {
 
     public static let schemaAppBase = "/analytics/product_metrics/app/base/2.0.0"
     public static let streamAppBase = "product_metrics.app_base"
+    public static let experimentExposureAction = "experiment_exposure"
 
     private let contextController = ContextController()
     private let clientDataCallback: ClientDataCallback
@@ -33,6 +34,24 @@ public class TestKitchenClient {
             instrument: instrument,
             clientData: clientData,
             interactionData: interactionData
+        )
+
+        contextController.enrichEvent(event, streamConfig: streamConfig(for: TestKitchenClient.streamAppBase))
+
+        eventSender.sendEvents([event])
+    }
+
+    /// Sends the exposure event of an experiment. It goes out with no instrument,
+    /// so it has no instrument name and no funnel. `mediawikiDatabase` names the wiki
+    /// the exposure happened on; without it the event carries the primary wiki of the app.
+    public func submitExperimentExposure(experimentData: ExperimentData, mediawikiDatabase: String? = nil) {
+        let event = Event(
+            schema: TestKitchenClient.schemaAppBase,
+            stream: TestKitchenClient.streamAppBase,
+            dt: iso8601Timestamp(),
+            instrument: nil,
+            clientData: getClientData(mediawikiDatabase: mediawikiDatabase),
+            interactionData: InteractionData(action: TestKitchenClient.experimentExposureAction, experimentData: experimentData)
         )
 
         contextController.enrichEvent(event, streamConfig: streamConfig(for: TestKitchenClient.streamAppBase))

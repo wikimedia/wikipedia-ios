@@ -40,14 +40,8 @@ let WMFSessionBackgroundDate =  "WMFSessionBackgroundDate"
 let WMFSessionStartDate =  "WMFSessionStartDate"
 let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
 
-@objc public enum WMFAppDefaultTabType: Int {
-    case explore
-    case settings
-}
-
 @objc public extension UserDefaults {
     @objc(WMFUserDefaultsKey) class Key: NSObject {
-        @objc public static let defaultTabType = "WMFDefaultTabTypeKey"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
@@ -348,23 +342,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
     
     @objc func wmf_setDidSplitExistingReadingLists(_ didSplit: Bool) {
         self.set(didSplit, forKey: WMFDidSplitExistingReadingLists)
-    }
-
-    @objc var defaultTabType: WMFAppDefaultTabType {
-        get {
-            guard let defaultTabType = WMFAppDefaultTabType(rawValue: integer(forKey: UserDefaults.Key.defaultTabType)) else {
-                let explore = WMFAppDefaultTabType.explore
-                set(explore.rawValue, forKey: UserDefaults.Key.defaultTabType)
-                return explore
-            }
-            return defaultTabType
-        }
-        set {
-            set(newValue.rawValue, forKey: UserDefaults.Key.defaultTabType)
-            Task {
-                await WMFSettingsDataController.shared.setOpenAppOnSearchTab(newValue == .settings)
-            }
-        }
     }
     
     @objc func wmf_didShowTitleDescriptionEditingIntro() -> Bool {

@@ -51,13 +51,19 @@ class DatabasePopulationViewModel: ObservableObject {
     @Published var viewedArticlesCountString = "10"
     @Published var randomizeViewedAcrossLanguages = false
     @Published var viewedDateRange: ViewedDateRange = .pastYear
-    
+
+    @Published var discoverSource: WMFDiscoverSource = WMFDiscoverSettings.default.source
+    @Published var discoverArticleCountString = "\(WMFDiscoverSettings.defaultArticleCount)"
+    @Published var discoverStatus = ""
+    @Published var isDiscoverLoading = false
+
     private let dataStore = MWKDataStore.shared()
     private var legacyContext: NSManagedObjectContext {
         dataStore.viewContext
     }
     
     private let pageViewsDataController = try? WMFPageViewsDataController()
+    private let discoverDataController = WMFDiscoverReadingListDataController.shared
 
     init() {
         let moc = dataStore.viewContext
@@ -66,6 +72,10 @@ class DatabasePopulationViewModel: ObservableObject {
 
         listLimitString = "\(savedLists)"
         entryLimitString = "\(savedEntries)"
+
+        Task { [weak self] in
+            await self?.loadDiscoverState()
+        }
     }
 
     var listLimit: Int64 { Int64(listLimitString) ?? 10 }
@@ -171,6 +181,66 @@ class DatabasePopulationViewModel: ObservableObject {
                     NSLog("Error processing article batch: \(error)")
                 }
             }
+        }
+    }
+
+    // MARK: - Discover
+
+    private func loadDiscoverState() async {
+        let settings = await discoverDataController.settings
+        discoverSource = settings.source
+        discoverArticleCountString = "\(settings.articleCount)"
+        await refreshDiscoverStatus()
+    }
+
+    func generateDiscoverListNow() async {
+        await runDiscoverAction {
+            try await self.saveDiscoverSettings()
+            try await self.discoverDataController.generateRecommendations()
+        }
+    }
+
+    func expireDiscoverList() async {
+        await runDiscoverAction {
+            try await self.discoverDataController.expireAllRecommendations()
+        }
+    }
+
+    func resetDiscoverList() async {
+        await runDiscoverAction {
+            try await self.discoverDataController.deleteAllRecommendations()
+        }
+    }
+
+    private func runDiscoverAction(_ action: @escaping @Sendable () async throws -> Void) async {
+        isDiscoverLoading = true
+        discoverStatus = "Working…"
+        defer { isDiscoverLoading = false }
+
+        do {
+            try await action()
+            await refreshDiscoverStatus()
+        } catch {
+            discoverStatus = "Error: \(error)"
+        }
+    }
+
+    private func saveDiscoverSettings() async throws {
+        var settings = await discoverDataController.settings
+        settings.source = discoverSource
+        settings.articleCount = Int(discoverArticleCountString) ?? WMFDiscoverSettings.defaultArticleCount
+        try await discoverDataController.saveSettings(settings)
+    }
+
+    private func refreshDiscoverStatus() async {
+        do {
+            let current = try await discoverDataController.fetchCurrentRecommendations()
+            let expired = try await discoverDataController.fetchExpiredRecommendations()
+            let lastGenerated = await discoverDataController.lastGeneratedDate.map { DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .short) } ?? "never"
+            let titles = current.map { "\($0.project.languageCode ?? $0.project.id): \($0.title)" }.joined(separator: "\n")
+            discoverStatus = "Current: \(current.count), expired: \(expired.count), last generated: \(lastGenerated)\n\(titles)"
+        } catch {
+            discoverStatus = "Error: \(error)"
         }
     }
 }

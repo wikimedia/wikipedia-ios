@@ -162,7 +162,6 @@
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
 "history-clear-delete-all" = "Ih, kkes akk";
 "history-title" = "Amazray";
-"home-button-explore-accessibility-label" = "Wikipedia, uɣal ar umazray";
 "home-button-saved-accessibility-label" = "Wikipedia, uɣal ar Yettwasekles";
 "home-more-like-footer" = "Ugar am $1";
 // Fuzzy
@@ -263,7 +262,6 @@
 "places-unknown-distance" = "ameccaq arussin";
 "potd-description-prefix" = "Tugna n wass i $1";
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
-"preference-summary-eventlogging-opt-in" = "Eǧǧ Tasbeddit Wikimedia ad telqeḍ talɣut ɣef wamek tseqdaceḍ asnas akken ad yuɣal igarrez ugar.";
 "profile-button-accessibility-label" = "Amaɣnu";
 "profile-page-join-title" = "Qqen / Jerred di Wikipidya";
 "project-name-mediawiki" = "MediaWiki";
@@ -277,7 +275,6 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
-"reading-list-create-new-list-description" = "Aglam";
 "reading-themes-controls-accessibility-brightness-slider" = "Taḥnaččaḍt n tafat";
 "reading-themes-controls-accessibility-dark-theme-button" = "Asentel aberkan";
 "reading-themes-controls-accessibility-light-theme-button" = "Asentel aceɛlal";
@@ -306,7 +303,6 @@
 "settings-clear-cache" = "Sfeḍ akk isefka yeffren";
 "settings-clear-cache-are-you-sure-message" = "Asfaḍ n isefka n tuffirt ad iserreḥ azal n $1 n umḍiq. Ayagi ur itekkes ara isebtar-ik yettwaskelsen.";
 "settings-clear-cache-are-you-sure-title" = "Sfeḍ isefka yeffren?";
-"settings-clear-cache-cancel" = "Sefsex";
 "settings-clear-cache-ok" = "Sfeḍ tuffirt";
 "settings-donate" = "Mudd tawsa";
 "settings-help-and-feedback" = "Tallelt d iwenniten";
@@ -354,25 +350,10 @@
 "two-factor-login-with-regular-code" = "Seqdec tangalt n usenqed";
 "user-title" = "Aseqdac";
 "watchlist-filters-add-language" = "Rnu tutlayt...";
-"welcome-exploration-explore-feed-description" = "Taɣuri d imagraden n yal ass yelhan si tmezdagnut";
 "welcome-exploration-explore-feed-title" = "Snirem asuddem";
-"welcome-exploration-on-this-day-description" = "Uɣal ar deffir akken ad tissineḍ ayen yeḍran am ass-a deg umezruy.";
-"welcome-exploration-on-this-day-title" = "Ass-a";
-"welcome-exploration-places-description" = "Wali ticraḍ yersen iqerben ɛur-k neɣ nadi imeḍqan deg umaḍal";
-"welcome-exploration-places-title" = "Icerren n timnaḍin";
 "welcome-explore-continue-button" = "Bdu";
-"welcome-explore-new-ways-title" = "Tarrayin-nniden n usnirem";
 "welcome-explore-tell-me-more-done-button" = "Awi-t";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia uran-tt iwiziwen s uɛiwen , llant deg-s ugar n 40 n imeyaln n imagraden s 300 n tutlayin gar-asent taqbaylit.";
-"welcome-intro-free-encyclopedia-more" = "Issin ugar ɣef Wikipedia";
-"welcome-intro-free-encyclopedia-more-about" = "Ɣef Wikipedia";
-"welcome-intro-free-encyclopedia-more-description" = "Wikipedia d asenfaṛ amaḍalan i bennu n tsanayt tilellit di tutlayin n umaḍal meṛṛa. S wudem uhlis, yal yiwen s unekcum ar Internet yezmer ad ittekki s war tasnakta, s umuddu n timsisɣal.";
-"welcome-intro-free-encyclopedia-title" = "Tasanayt tilellit";
 "welcome-languages-add-button" = "Rnu tutlayt-nniḍen";
-"welcome-languages-add-or-edit-button" = "Rnu neɣ ẓreg tutlayin tebɣiḍ";
-"welcome-languages-description" = "Nufa-d tutlayin-agi deg ibenk-ik:";
-"welcome-languages-search-title" = "Nadi seg ugar n 300 tutlayin";
 "wikimedia-articletopics-topic-central-america" = "Amérique centrale";
 "wikimedia-articletopics-topic-education" = "Éducation";
 "wikimedia-articletopics-topic-europe" = "Europe";

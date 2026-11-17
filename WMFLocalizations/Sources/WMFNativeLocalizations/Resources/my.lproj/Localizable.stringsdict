@@ -34,54 +34,6 @@
 			<string>%1$d ရက်များ</string>
 		</dict>
 	</dict>
-	<key>activity-tab-you-edited</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>သင် ဒီအပတ်မှာ %1$#@v1@ကို တည်းဖြတ်ခဲ့သည်။</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string> %1$d ကြိမ်</string>
-			<key>other</key>
-			<string>%1$d ကြိမ်</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-read</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>ဒီအပတ်မှာ %1$#@v1@ကို သင်ဖတ်ပြီးပါပြီ။</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string> %1$d ဆောင်းပါး</string>
-			<key>other</key>
-			<string> %1$d ဆောင်းပါးများ</string>
-		</dict>
-	</dict>
-	<key>activity-tab-you-saved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>သင် ဒီအပတ်မှာ %1$#@v1@ကို သိမ်းဆည်းခဲ့သည်။</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string> %1$d ကြိမ်</string>
-			<key>other</key>
-			<string>%1$d ကြိမ်</string>
-		</dict>
-	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

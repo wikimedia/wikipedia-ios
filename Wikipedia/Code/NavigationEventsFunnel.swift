@@ -5,7 +5,7 @@ final internal class NavigationEventsFunnel: NSObject {
     @objc internal static let shared = NavigationEventsFunnel()
 
     internal enum NavigationAction: String, Codable {
-        case explore
+        case home
         case places
         case saved
         case savedAll = "saved_all"
@@ -52,8 +52,8 @@ final internal class NavigationEventsFunnel: NSObject {
         EventPlatformClient.shared.submit(stream: .navigation, event: event)
     }
 
-    @objc func logTappedExplore() {
-            logEvent(action: .explore)
+    @objc func logTappedHome() {
+            logEvent(action: .home)
         }
 
         @objc func logTappedPlaces() {
@@ -78,14 +78,6 @@ final internal class NavigationEventsFunnel: NSObject {
 
         @objc func logTappedSettingsFromExplore() {
             logEvent(action: .settingsOpenExplore)
-        }
-
-        func logTappedSavedAllArticles() {
-            logEvent(action: .savedAll)
-        }
-
-        func logTappedSavedReadingLists() {
-            logEvent(action: .savedLists)
         }
 
         @objc func logTappedSettingsCloseButton() {

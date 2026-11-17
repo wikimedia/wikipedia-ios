@@ -44,7 +44,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
-        let searchResultsVC = SearchResultsViewController(source: .unknown, dataStore: dataStore)
+        let searchResultsVC = SearchResultsViewController(source: .editor, dataStore: dataStore)
         searchResultsVC.showLanguageBar = false
         searchResultsVC.apply(theme: theme)
         searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in

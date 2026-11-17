@@ -50,6 +50,13 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Passages of a semantic search result to highlight once the article is set up. Used once.
     var semanticSearchPassages: [String] = []
     var pendingSemanticSearchScroll: SemanticSearchScroll?
+    /// The id of the semantic search request that gave the passage, for the instrumentation.
+    var semanticSearchID: String?
+    /// The instrumentation of the search that opened the article, for the feedback card.
+    var semanticSearchInstrumentation: SearchInstrumentation?
+    /// The reader opened the article from a passage found by the search and ignored the feedback prompt there.
+    var needsSemanticSearchFeedback = false
+    var semanticSearchFeedbackTask: Task<Void, Never>?
 
     /// When set before the initial load, article content is fetched at this specific revision
     /// (e.g. displaying a freshly published edit when returning from the web Visual Editor)
@@ -78,6 +85,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             WTip.willDisplayYearInReviewModal = willDisplayYearInReviewModal
         }
     }
+
+    /// True while the Year in Review announcement loads and shows, so a second appearance of the
+    /// article does not start it twice.
+    private var isPresentingYearInReview = false
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -508,6 +519,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
+        scheduleSemanticSearchFeedbackIfNeeded()
 
         if let project {
             if isMainPage {
@@ -636,23 +648,36 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentFundraisingOrYearInReviewOrGamesIfNeeded() {
-        if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
-            listenForTooltips()
-        }
-
         // Fundraising outranks Year in Review, and resolves asynchronously, so the rest of the
         // chain runs from its callback.
         showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
             guard let self else { return }
 
-            if self.needsYearInReviewAnnouncement() {
-                self.willDisplayYearInReviewModal = true
-                self.updateProfileButton()
-                self.presentYearInReviewAnnouncement()
-                // YIR showed — games deferred to next launch.
-            } else {
+            guard self.needsYearInReviewAnnouncement() else {
                 self.willDisplayYearInReviewModal = false
                 self.presentGamesAnnouncementIfNeeded()
+                return
+            }
+
+            // A second appearance while the first one is still loading must not start it again.
+            guard !self.isPresentingYearInReview else { return }
+            self.isPresentingYearInReview = true
+
+            // Held true while the announcement loads, so a tooltip does not appear under it.
+            self.willDisplayYearInReviewModal = true
+
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                defer { self.isPresentingYearInReview = false }
+
+                if await self.presentYearInReviewAnnouncement() {
+                    // YIR showed — games deferred to next launch.
+                    self.updateProfileButton()
+                } else {
+                    // It did not show, so the next prompt gets its turn.
+                    self.willDisplayYearInReviewModal = false
+                    self.presentGamesAnnouncementIfNeeded()
+                }
             }
         })
     }
@@ -674,6 +699,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         NotificationCenter.default.post(name: NSNotification.articleViewControllerDidDisappear, object: nil)
         wTipObservationTask?.cancel()
         wTipObservationTask = nil
+        skipSemanticSearchFeedback(reason: .leftArticle)
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         trackArticleWillDisappear()
@@ -932,7 +958,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
-        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false)
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false, backButtonDisplayMode: .minimal)
 
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
@@ -951,8 +977,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: tabsLeadingButton)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
-        
-        navigationItem.backButtonDisplayMode = .minimal
+
         let returnAccessibilityTitle = WMFLocalizedString("article-return-button-accessibility-title", value: "Return to: %1$@", comment: "Accessibility title read by assistive technologies for the button that takes the user back to the previous article. The %1$@ placeholder is replaced with the previous article title.")
         navigationItem.backBarButtonItem?.accessibilityLabel = String.localizedStringWithFormat(returnAccessibilityTitle, articleURL.wmf_title ?? String())
     }
@@ -1135,6 +1160,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let block = {
             self.webView.alpha = hidden ? 0 : 1
+        }
+        // The feedback prompt of a semantic search waits for the content to show.
+        defer {
+            if !hidden {
+                scheduleSemanticSearchFeedbackIfNeeded()
+            }
         }
         guard animated else {
             block()
@@ -1497,10 +1528,6 @@ private extension ArticleViewController {
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
-        // The Year in Review announcement defers to the fundraising banner for the rest of the
-        // session. Coming back from the background is the next app open, so clear it here.
-        Self.didShowFundraisingBannerThisSession = false
-
         startSignificantlyViewedTimer()
         trackAppDidBecomeActive()
     }
@@ -1683,7 +1710,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 extension ArticleViewController {
     func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
         if showEmptyView {
-            wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
+            wmf_showEmptyView(of: .articleDidNotLoad, frame: view.bounds)
         }
         showError(error)
         refreshControl.endRefreshing()
@@ -1697,26 +1724,29 @@ extension ArticleViewController {
 
 extension ArticleViewController: WKNavigationDelegate {
 
+    static func shouldAllowNavigation(type navigationType: WKNavigationType) -> Bool {
+        switch navigationType {
+        case .backForward, .reload, .other:
+            return true
+        default:
+            return false
+        }
+    }
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow)
-        default:
+        } else {
             decisionHandler(.cancel)
         }
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch navigationAction.navigationType {
-        case .reload:
-            fallthrough
-        case .other:
+        if Self.shouldAllowNavigation(type: navigationAction.navigationType) {
             setupArticleLoadWaitGroup()
             decisionHandler(.allow, preferences)
-        default:
+        } else {
             decisionHandler(.cancel, preferences)
         }
     }

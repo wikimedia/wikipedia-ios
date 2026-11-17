@@ -7,6 +7,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
+    case developerSettingsShowAnalyticsInspector = "dev-settings-show-analytics-inspector"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
 
     // Year in Review: shared across years.
@@ -27,6 +28,7 @@ public enum WMFUserDefaultsKey: String {
     // profile badge is still eligible for the 2026 ones.
     case seenYearInReview2026FeatureAnnouncement = "year-in-review-feature-announcement-2026"
     case seenYearInReview2026IntroSlide = "seen-year-in-review-intro-slide-2026"
+    case seenYearInReview2026SwipeOnboarding = "seen-year-in-review-swipe-onboarding-2026"
     case yearInReview2026SurveyPresented = "year-in-review-survey-presented-2026"
     case tappedYIR2026 = "tapped-yir-2026"
 
@@ -44,7 +46,7 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
     case hasSeenActivityTab = "has-seen-activity-tab"
-    case hasSeenActivityTabNewOnboarding = "has-seen-activity-tab-new-onboarding"
+    case hasSeenActivityTabOnboarding = "has-seen-activity-tab-new-onboarding"
     case hasSeenActiviyTabSurvey = "has-seen-activity-tab-survey"
     case activityTabVisitCount = "activity-tab-visit-count"
     case activityTabIsTimeSpentReadingOn = "activity-tab-time-spent-reading"
@@ -80,6 +82,10 @@ public enum WMFUserDefaultsKey: String {
     // Logging
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"
+    case eventLoggingDiagnostics = "event-logging-diagnostics"
+
+    // App lifecycle. Written by the app in NSUserDefaults+WMFExtensions.swift as a plain Date.
+    case appResignActiveDate = "WMFAppResignActiveDateKey"
 
     // Home feed: Community modules
     case homeFeedCommunityFeaturedArticleIsOn = "home-feed-community-featured-article-is-on"
@@ -131,7 +137,28 @@ public enum WMFUserDefaultsKey: String {
     // Semantic search
     case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
     case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"
-    case developerSettingsForceYiRUserDataState = "dev-settings-force-yir-user-data-state"
+    case developerSettingsForceYiRDataState = "dev-settings-force-yir-data-state"
+    case developerSettingsForceYiRSlidesExperience = "dev-settings-force-yir-slides-experience"
     case semanticSearchEntryPointHidden = "semantic-search-entry-point-hidden"
     case semanticSearchEntryPointUsed = "semantic-search-entry-point-used"
+    case semanticSearchExposureSent = "semantic-search-exposure-sent"
+
+    // Local notifications
+    case localNotificationsHandledDays = "local-notifications-handled-days"
+    case developerSettingsEnableDailyTopReadNotifications = "dev-settings-enable-daily-top-read-notifications"
+
+    // Reading list
+    case readingListsSortOrder = "reading-lists-sort-order"
+
+    // Discover
+    case developerSettingsEnableDiscover = "dev-settings-enable-discover"
+    case developerSettingsForceDiscoverExperimentAssignment = "dev-settings-force-discover-experiment-assignment"
+    case discoverOnboardingAnnouncementDismissed = "discover-onboarding-announcement-dismissed"
+    case discoverSettings = "discover-settings"
+    case discoverLastGeneratedDate = "discover-last-generated-date"
+    case discoverGeneratedListInputs = "discover-generated-list-inputs"
+    case discoverSeedOffsets = "discover-seed-offsets"
+    case discoverOnboardingToastShown = "discover-onboarding-toast-shown"
+    case discoverHasUnseenList = "discover-has-unseen-list"
+    case discoverExposureSent = "discover-exposure-sent"
 }

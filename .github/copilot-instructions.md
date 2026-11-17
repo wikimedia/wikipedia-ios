@@ -210,6 +210,17 @@ We do not have a mocked Core Data store specifically. Instead we create an actua
 
 For larger references, WMFArticleTabsDataControllerTests showcases how to test a data controller that leans heavily on Core Data. WMFWatchlistDataControllerTests showcases how to test a data controller that leans heavily on other types of backends (mediawiki service, user defaults, and shared cache stores).
 
+#### Core Data model migrations
+
+Every change to the WMFData Core Data model is a new model version (`WMFData N.xcdatamodel`, with `.xccurrentversion` pointing at it). Readers in production update from any version that shipped, and WMFCoreDataStore opens their database by lightweight migration. WMFCoreDataStoreMigrationTests proves that this works, so every new model version must extend it:
+
+1. Add the previous version's file name to `previousModelVersionFileNames` and move `currentModelVersionFileName` to the new version. The generic test then writes a database with every older `.mom`, opens it with the current model and checks that its pages survive.
+2. Add one test in the "Per version" section for the new version. It seeds, with the previous model, the rows that the feature must keep (use entity names and `setValue`, because the older model's classes may not exist any more), opens the database with the current model through `migrateDatabase(from:seed:verify:)`, and checks that those rows survive and that the new entities work through their data controllers.
+
+Leave the tests of the older versions as they are.
+
+Lightweight migration only infers simple changes: new entities, attributes and relationships, optionality, defaults and renames with a renaming identifier. If a model version needs more than that (a split attribute, a changed type, data moved between entities), the migrated store fails to open and this test fails. That failure means the version is not finished: it needs a mapping model before it ships.
+
 ---
 
 ## WMFComponents
@@ -327,13 +338,13 @@ Most of our remaining codebase is considered legacy, and we plan to slowly refac
 This is a legacy dynamic framework that contains reused code across legacy features and processes. It contains mostly the type of code you would see in WMFData (persistence and networking code), but may also contain some view code that needed to be reused across multiple features (like a view reused in both the app and widget). WMF Framework has set WMFComponents as a dependency.
 
 ### App Targets
-Wikipedia, Experimental, Staging
+Wikipedia, Experimental, Alpha
 
 Finally, this is the highest-level app-side code. It has set WMF Framework as a dependency. It holds everything else.
 
 ### Coordinators
 
-One last pattern that we do intend to keep on the app-side is Coordinators. These classes facilitate the instantiation and navigation of feature flows. Coordinators will live in the App-side code, as a part of the app targets (Wikipedia, Experimental, Staging). Coordinators have a navigationController property that we reference to push or present a new flow onto view UIKit APIs. Let's take a typical example of a WMFComponents feature button, that must display another feature upon tap:
+One last pattern that we do intend to keep on the app-side is Coordinators. These classes facilitate the instantiation and navigation of feature flows. Coordinators will live in the App-side code, as a part of the app targets (Wikipedia, Experimental, Alpha). Coordinators have a navigationController property that we reference to push or present a new flow onto view UIKit APIs. Let's take a typical example of a WMFComponents feature button, that must display another feature upon tap:
 
 Feature 1 view model code (which lives in WMFComponents) holds closure property like "didTapButton2: () -> Void". It is defined upon view model instantiation. App-side, to present feature 1, there is a Feature1Coordinator class that is created somewhere and started.
 

@@ -204,6 +204,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth done:WMFCommonStringsWrapper.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
+    [viewModel configureLocalNotificationActionsWithDataStore:[MWKDataStore shared]];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
     WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
@@ -262,6 +263,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     setDivHTML(@"wikipedia", WMFCommonStringsWrapper.plainWikipediaName);
     setDivHTML(@"contributors_title", WMFLocalizedStringWithDefaultValue(@"about-contributors", nil, nil, @"Contributors", @"Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Contributor}}"));
     setDivHTML(@"contributors_body", self.contributors);
+    setDivHTML(@"yir_illustrations_attribution", WMFLocalizedStringWithDefaultValue(@"about-year-in-review-illustrations-attribution", nil, nil, @"Year in Review Illustrations by Sharon Park for the Wikimedia Foundation", @"Credit for the person who made the Year in Review illustrations. Shown in the content license section of the About page."));
     setDivHTML(@"translators_title", WMFLocalizedStringWithDefaultValue(@"about-translators", nil, nil, @"Translators", @"Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Translator}}"));
     setDivHTML(@"libraries_title", WMFLocalizedStringWithDefaultValue(@"about-libraries", nil, nil, @"Libraries used", @"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations."));
     setDivHTML(@"libraries_body", [[self class] linkHTMLForURLString:@"wmflicense://licenses" title:WMFLocalizedStringWithDefaultValue(@"about-libraries-complete-list", nil, nil, @"Complete list", @"Title for link to complete list of libraries use by the app")]);

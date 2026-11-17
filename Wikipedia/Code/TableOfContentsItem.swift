@@ -16,11 +16,6 @@ public enum TableOfContentsItemType {
     }
 }
 
-public enum TableOfContentsBorderType {
-    case topOnly
-    case none
-}
-
 // MARK: - TOC Item
 
 public struct TableOfContentsItem: Equatable {

@@ -40,7 +40,7 @@ public extension Collection {
             })
         }
         group.notify(queue: DispatchQueue.global(qos: .default)) {
-            completion(results as! [R])
+            completion(results.compactMap { $0 })
         }
     }
 

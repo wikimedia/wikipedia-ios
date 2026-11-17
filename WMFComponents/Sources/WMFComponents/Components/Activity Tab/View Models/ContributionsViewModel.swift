@@ -18,8 +18,8 @@ final class ContributionsViewModel: ObservableObject {
         let thisMonthComponents = calendar.dateComponents([.year, .month], from: now)
         
         // Last month date + components
-        let lastMonthDate = calendar.date(byAdding: .month, value: -1, to: now)!
-        let lastMonthComponents = calendar.dateComponents([.year, .month], from: lastMonthDate)
+        let lastMonthComponents = calendar.date(byAdding: .month, value: -1, to: now)
+            .map { calendar.dateComponents([.year, .month], from: $0) }
         
         var thisMonthCount: Int = 0
         var lastMonthCount: Int = 0
@@ -30,8 +30,8 @@ final class ContributionsViewModel: ObservableObject {
             if components.year == thisMonthComponents.year &&
                components.month == thisMonthComponents.month {
                 thisMonthCount += count
-            } else if components.year == lastMonthComponents.year &&
-                      components.month == lastMonthComponents.month {
+            } else if components.year == lastMonthComponents?.year &&
+                      components.month == lastMonthComponents?.month {
                 lastMonthCount += count
             }
         }

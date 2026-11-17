@@ -157,7 +157,9 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         }
         set {
             UserDefaults.standard.wmf_setCurrentSearchContentLanguageCode(newValue)
-            delegate?.searchLanguagesBarViewController(self, didChangeSelectedSearchContentLanguageCode: newValue!)
+            if let newValue {
+                delegate?.searchLanguagesBarViewController(self, didChangeSelectedSearchContentLanguageCode: newValue)
+            }
             updateSearchLanguageButtons()
         }
     }

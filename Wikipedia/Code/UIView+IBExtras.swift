@@ -18,7 +18,7 @@ extension UIView {
     
     @IBInspectable var borderColor: UIColor {
         get {
-            return UIColor(cgColor:layer.borderColor!)
+            return layer.borderColor.map { UIColor(cgColor: $0) } ?? .clear
         }
         set {
             layer.borderColor = newValue.cgColor
@@ -45,7 +45,7 @@ extension UIView {
 
     @IBInspectable var shadowColor: UIColor {
         get {
-            return UIColor(cgColor:layer.shadowColor!)
+            return layer.shadowColor.map { UIColor(cgColor: $0) } ?? .clear
         }
         set {
             layer.shadowColor = newValue.cgColor

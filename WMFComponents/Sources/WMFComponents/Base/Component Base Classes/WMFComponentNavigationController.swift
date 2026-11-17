@@ -21,6 +21,10 @@ open class WMFComponentNavigationController: UINavigationController {
     
     var forcePortrait = false
 
+    /// Called after this navigation controller is dismissed, whichever screen is on top of its
+    /// stack. A dismissal that the reader starts and then stops does not call it.
+    public var didDismiss: (() -> Void)?
+
     // MARK: - Public
     
     @objc public init(rootViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle, customBarBackgroundColor: UIColor? = nil) {
@@ -40,6 +44,13 @@ open class WMFComponentNavigationController: UINavigationController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         triggerNavigationBarRender()
+    }
+
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isBeingDismissed {
+            didDismiss?()
+        }
     }
     
     private var shouldUseTransparentAppearance: Bool = false
@@ -219,17 +230,20 @@ open class WMFComponentNavigationController: UINavigationController {
 
 extension WMFComponentNavigationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard viewControllers.count > 1,
-              transitionCoordinator == nil else {
-            return false
+        guard gestureRecognizer == interactivePopGestureRecognizer else {
+            return true
         }
-        return true
+        return viewControllers.count > 1 && transitionCoordinator == nil
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == interactivePopGestureRecognizer {
+        false
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer == barHideOnSwipeGestureRecognizer else {
             return false
         }
-        return true
+        return otherGestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer.view == view
     }
 }

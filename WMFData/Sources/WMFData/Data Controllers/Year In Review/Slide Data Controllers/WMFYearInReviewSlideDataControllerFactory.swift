@@ -8,6 +8,7 @@ final class YearInReviewSlideDataControllerFactory {
     
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    private weak var mainPageIdentifier: WMFMainPageIdentifying?
     
     private let username: String?
     private let userID: Int?
@@ -22,7 +23,8 @@ final class YearInReviewSlideDataControllerFactory {
         globalUserID: Int?,
         project: WMFProject?,
         savedSlideDataDelegate: SavedArticleSlideDataDelegate,
-        legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate
+        legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate,
+        mainPageIdentifier: WMFMainPageIdentifying? = nil
     ) {
         self.year = year
         self.config = config
@@ -33,6 +35,7 @@ final class YearInReviewSlideDataControllerFactory {
         
         self.savedSlideDataDelegate = savedSlideDataDelegate
         self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
+        self.mainPageIdentifier = mainPageIdentifier
     }
     
     func makeSlideDataControllers(missingFrom existingSlideIDs: Set<String>) async throws -> [YearInReviewSlideDataControllerProtocol] {
@@ -53,20 +56,40 @@ final class YearInReviewSlideDataControllerFactory {
             .viewCount,
             .mostReadCategories,
             .location,
-            .topArticles
+            .topArticles,
+            .topTopics,
+            .daysVisited,
+            .mostViewedArticles,
+            .rabbitHoles,
+            .readingStreak,
+            .readingPattern,
+            .biggestReadingDay,
+            .longestRead
         ]
         
-        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: WMFUserImpactDataController.shared)
-        
-        var dataControllers: [YearInReviewSlideDataControllerProtocol] = []
-        
-        for possibleSlideId in possibleSlideIDs {
-            if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: possibleSlideId) {
-                let dataControllerType = possibleSlideId.dataController()
-                if dataControllerType.shouldPopulate(from: config, userInfo: userInfo) {
-                    dataControllers.append(dataControllerType.init(year: year, yirConfig: config, dependencies: dependencies))
-                }
+        let dataControllerTypes = possibleSlideIDs
+            .filter { shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: $0) }
+            .map { $0.dataController() }
+            .filter { $0.shouldPopulate(from: config, userInfo: userInfo) }
+
+        // Look up the main pages once for all the slides, and only when a slide leaves them out.
+        var mainPageTitles: YearInReviewMainPageTitles? = .englishOnly
+        if dataControllerTypes.contains(where: { $0.excludesMainPages }),
+           let startDate = config.dataStartDate,
+           let endDate = config.dataEndDate {
+            do {
+                mainPageTitles = try await YearInReviewMainPageTitles.lookUp(startDate: startDate, endDate: endDate, pageViewsDataController: try WMFPageViewsDataController(), mainPageIdentifier: mainPageIdentifier)
+            } catch {
+                // Without the main pages, the slides that leave them out would count them. Those
+                // slides fail this run, like a slide whose own fetch fails, so the next run builds them.
+                mainPageTitles = nil
             }
+        }
+
+        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode, userImpactDataProvider: WMFUserImpactDataController.shared, mainPageTitles: mainPageTitles)
+
+        let dataControllers: [YearInReviewSlideDataControllerProtocol] = dataControllerTypes.map {
+            $0.init(year: year, yirConfig: config, dependencies: dependencies)
         }
         
         return dataControllers

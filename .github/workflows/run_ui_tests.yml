@@ -11,8 +11,8 @@ permissions:
   contents: read
 
 env:
-  XCODE_VERSION: "26.5"
-  IOS_VERSION: "26.5"
+  XCODE_VERSION: "27.1"
+  IOS_VERSION: "27.0"
   SIMULATOR_NAME: "iPhone 17"
   UI_TEST_CONFIGURATION: "English (Light)"
 
@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   run-ui-tests:
-    runs-on: macos-26
+    runs-on: xcode-27
     name: Test WikipediaUITests
     steps:
       - name: Check out selected ref

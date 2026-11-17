@@ -1,10 +1,5 @@
 import Foundation
 
-internal struct ImageControllerPermanentCacheCompletion {
-    let success: () -> Void
-    let failure: (Error) -> Void
-}
-
 internal struct ImageControllerDataCompletion {
     let success: (Data, URLResponse) -> Void
     let failure: (Error) -> Void
@@ -60,22 +55,6 @@ internal class ImageControllerCompletionManager<T> {
                 self.completions[identifier] = completions
             }
         }
-    }
-    
-    func cancel(group: String, identifier: String) {
-        queue.async {
-            guard var tasks = self.tasks[group], let task = tasks[identifier] else {
-                return
-            }
-            self.completions.removeValue(forKey: identifier)
-            task.cancel()
-            tasks.removeValue(forKey: identifier)
-            self.tasks[group] = tasks
-        }
-    }
-    
-    func cancel(_ identifier: String) {
-        cancel(group: "", identifier: identifier)
     }
     
     func cancel(_ identifier: String, token: String) {

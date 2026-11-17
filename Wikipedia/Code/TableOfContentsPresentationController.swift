@@ -216,7 +216,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
             }
             self.backgroundView.frame = containerView.bounds
             let frame = self.frameOfPresentedViewInContainerView
-            self.presentedView!.frame = frame
+            self.presentedView?.frame = frame
             self.updateStatusBarBackgroundFrame()
             self.updateButtonConstraints()
             }, completion:nil)

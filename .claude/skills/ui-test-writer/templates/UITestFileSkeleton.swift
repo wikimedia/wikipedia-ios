@@ -6,7 +6,7 @@ final class FeatureUITests: XCTestCase {
 
     func testUserCanCompleteFeatureJourney() throws {
         launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
+            .home
             .assertVisible()
             // Continue with intent-level robot calls, for example:
             // .openSearch()
@@ -19,7 +19,7 @@ final class FeatureUITests: XCTestCase {
     //
     // private func openFeature(file: StaticString = #filePath, line: UInt = #line) -> FeatureRobot {
     //     launchWikipediaAppRobot(onboardingState: .completed)
-    //         .explore
+    //         .home
     //         .assertVisible(file: file, line: line)
     //         .openFeature(file: file, line: line)
     // }

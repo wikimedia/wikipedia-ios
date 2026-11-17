@@ -4,7 +4,7 @@
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
 #import <WMF/WMFRandomContentSource.h>
-#import <WMF/WMFAnnouncementsContentSource.h>
+#import <WMF/WMFFeedPromptsContentSource.h>
 #import <WMF/WMFOnThisDayContentSource.h>
 #import <WMF/WMFSuggestedEditsContentSource.h>
 #import <WMF/WMFAssertions.h>
@@ -149,7 +149,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
                                 [[WMFRandomContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
-                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore],
+                                [[WMFFeedPromptsContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore],
                                 [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration]]];
         }
         _contentSources = [mutableContentSources copy];

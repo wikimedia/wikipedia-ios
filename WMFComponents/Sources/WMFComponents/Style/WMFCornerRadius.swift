@@ -13,4 +13,6 @@ public enum WMFCornerRadius {
     public static let xLarge: CGFloat = 16
     /// 24pt. Cards that fill the screen, such as a Year in Review slide.
     public static let xxLarge: CGFloat = 24
+    /// 32pt. Grouped option lists, such as the Discover setup choices.
+    public static let xxxLarge: CGFloat = 32
 }

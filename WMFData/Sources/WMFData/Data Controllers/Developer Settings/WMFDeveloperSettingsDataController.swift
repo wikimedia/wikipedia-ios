@@ -4,7 +4,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var forceYiREntryPoint2026: Bool { get }
-    var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? { get }
+    var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? { get }
+    var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? { get }
     var forceYiR2026Announcement: Bool { get }
 }
 
@@ -17,10 +18,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private let service: WMFService?
     private let _sharedCacheStore: WMFLockIsolated<WMFKeyValueStore?>
+    /// Falls back to the environment's store because `shared` can be created during launch before
+    /// the app assigns `WMFDataEnvironment.current.sharedCacheStore`.
     private var sharedCacheStore: WMFKeyValueStore? {
-        get { _sharedCacheStore.value }
-        set { _sharedCacheStore.value = newValue }
+        _sharedCacheStore.value ?? WMFDataEnvironment.current.sharedCacheStore
     }
+    private let injectedUserDefaultsStore: WMFKeyValueStore?
     private let _featureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
     private var featureConfig: WMFFeatureConfigResponse? {
         get { _featureConfig.value }
@@ -30,25 +33,21 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
-    public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    /// A nil user defaults store reads the environment's store at call time.
+    public init(
+        service: WMFService? = WMFDataEnvironment.current.basicService,
+        sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore,
+        userDefaultsStore: WMFKeyValueStore? = nil
+    ) {
         self.service = service
         self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
+        self.injectedUserDefaultsStore = userDefaultsStore
         super.init()
-        NotificationCenter.default.addObserver(forName: WMFNSNotification.coreDataStoreSetup, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.handleSharedCacheStoreSetup()
-        }
-    }
-
-    private func handleSharedCacheStoreSetup() {
-        if sharedCacheStore == nil {
-            self.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
-        }
     }
 
     // MARK: - Local Settings
 
-    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
+    private var userDefaultsStore: WMFKeyValueStore? { injectedUserDefaultsStore ?? WMFDataEnvironment.current.userDefaultsStore }
 
     /// Shared read and write for the plain on/off settings below. Each one lives in user defaults
     /// and is off when nothing has been stored yet.
@@ -100,12 +99,26 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { saveFlag(.allowGestureZoomArticleWebview, newValue) }
     }
 
+    /// Debugging convenience: shows the Analytics Inspector pill over the app with the events the
+    /// event pipeline receives.
+    public var showAnalyticsInspector: Bool {
+        get { loadFlag(.developerSettingsShowAnalyticsInspector) }
+        set {
+            let oldValue = showAnalyticsInspector
+            saveFlag(.developerSettingsShowAnalyticsInspector, newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.analyticsInspectorVisibilityDidChange, object: nil)
+            }
+        }
+    }
+
     // MARK: - Year in Review
 
-    /// Debugging convenience: while on, 2026 Year in Review overrides every gate. The config counts
-    /// as active outside its date window, and the entry point presents even with no 2026 config
-    /// published, ignoring the opt-out toggle and the suppressed-country list. Replaces the separate
-    /// entry point and date window flags, so nothing below it is respected.
+    /// Debugging convenience: while on, 2026 Year in Review shows before its launch date. The 2026
+    /// config counts as active before its `activeStartDate`, but not after its `activeEndDate`. The
+    /// opt-out setting and the suppressed-country list still apply.
+    ///
+    /// While on, the 2026 config comes from the remote config, then from `WMFYearInReviewLocalConfig`.
     public var forceYiREntryPoint2026: Bool {
         get { loadFlag(.developerSettingsForceYiREntryPoint2026) }
         set {
@@ -113,26 +126,42 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             saveFlag(.developerSettingsForceYiREntryPoint2026, newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
             }
         }
     }
 
-    /// Debugging convenience: which Year in Review experience to force, regardless of how much
-    /// personalized data the account has. Nil means no override. Has an effect only when
+    /// Debugging convenience: which Year in Review entry point and announcement to force,
+    /// regardless of the reading history. Nil means no override. Has an effect only when
     /// `forceYiREntryPoint2026` is also true.
-    public var forceYiRUserDataState: WMFYearInReviewDataController.YiRUserDataState? {
-        get {
-            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue) else {
-                return nil
-            }
-            return WMFYearInReviewDataController.YiRUserDataState(rawValue: rawValue)
-        }
+    public var forceYiRDataState: WMFYearInReviewDataController.YiRDataState? {
+        get { loadRawValue(.developerSettingsForceYiRDataState) }
         set {
-            if let newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue, value: newValue.rawValue)
-            } else {
-                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceYiRUserDataState.rawValue)
-            }
+            saveRawValue(.developerSettingsForceYiRDataState, newValue)
+            NotificationCenter.default.post(name: WMFNSNotification.yearInReviewEntryPointNeedsUpdate, object: nil)
+        }
+    }
+
+    /// Debugging convenience: which Year in Review slides to force, regardless of the log in state
+    /// and the personalized data. Nil means no override. Has an effect only when
+    /// `forceYiREntryPoint2026` is also true.
+    public var forceYiRSlidesExperience: WMFYearInReviewDataController.YiRForcedSlidesExperience? {
+        get { loadRawValue(.developerSettingsForceYiRSlidesExperience) }
+        set { saveRawValue(.developerSettingsForceYiRSlidesExperience, newValue) }
+    }
+
+    private func loadRawValue<Value: RawRepresentable>(_ key: WMFUserDefaultsKey) -> Value? where Value.RawValue == String {
+        guard let rawValue: String = try? userDefaultsStore?.load(key: key.rawValue) else {
+            return nil
+        }
+        return Value(rawValue: rawValue)
+    }
+
+    private func saveRawValue<Value: RawRepresentable>(_ key: WMFUserDefaultsKey, _ value: Value?) where Value.RawValue == String {
+        if let value {
+            try? userDefaultsStore?.save(key: key.rawValue, value: value.rawValue)
+        } else {
+            try? userDefaultsStore?.remove(key: key.rawValue)
         }
     }
 
@@ -150,8 +179,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     // MARK: - Home
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
-    /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
-    /// `enableHomeTab` is also true.
+    /// feed (replacing the embedded legacy Explore feed) and its settings.
     @objc public var enableHomePhase2: Bool {
         get { loadFlag(.developerSettingsEnableHomePhase2) }
         set {
@@ -163,10 +191,10 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
-    /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
-    /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
+    /// True while the legacy Explore feed backs the Home tab's Community segment (phase 2 off).
+    /// In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB && !enableHomePhase2
+        !enableHomePhase2
     }
 
     // MARK: - Fundraising
@@ -180,7 +208,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     /// Debugging convenience: fetches the donate and fundraising campaign configs from Test Wiki
-    /// instead of Donate wiki, so unpublished campaigns can be tested without the Staging scheme.
+    /// instead of Donate wiki, so unpublished campaigns can be tested without the Alpha scheme.
     public var useTestWikiDonateConfigs: Bool {
         get { loadFlag(.developerSettingsUseTestWikiDonateConfigs) }
         set {
@@ -306,12 +334,63 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    // MARK: - Discover
+
+    /// Forces the whole Discover feature on, without the remote feature config. In production the
+    /// remote key `iosv1.discoverExperimentEnabled` turns the feature on.
+    public var enableDiscover: Bool {
+        get { loadFlag(.developerSettingsEnableDiscover) }
+        set {
+            saveFlag(.developerSettingsEnableDiscover, newValue)
+            NotificationCenter.default.post(name: WMFNSNotification.discoverAnnouncementStateDidChange, object: nil)
+        }
+    }
+
+    /// Debugging convenience: overrides the persisted Discover experiment bucket at read time
+    /// without re-rolling it. Nil means no override.
+    public var forceDiscoverExperimentAssignment: WMFDiscoverDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFDiscoverDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceDiscoverExperimentAssignment.rawValue)
+            }
+            NotificationCenter.default.post(name: WMFNSNotification.discoverAnnouncementStateDidChange, object: nil)
+        }
+    }
+
+    // MARK: - Local Notifications
+
+    /// Gates the daily top read local notification prototype. Off by default.
+    public var enableDailyTopReadNotifications: Bool {
+        get { Self.enableDailyTopReadNotifications }
+        set { saveFlag(.developerSettingsEnableDailyTopReadNotifications, newValue) }
+    }
+
+    /// Static so app launch and background refresh can read the flag without initializing `shared`.
+    public static var enableDailyTopReadNotifications: Bool {
+        (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDailyTopReadNotifications.rawValue)) ?? false
+    }
+
     // MARK: - Remote Feature Flags
 
     /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
     /// missing config keeps the legacy source editor flow.
     public var isVisualEditorEnabled: Bool {
         loadFeatureConfig()?.ios.visualEditorEnabled ?? false
+    }
+
+    /// True while the "Enable Semantic Search" developer setting is on. While it is off, comes from
+    /// `iosv1.semanticSearchEnabledv2` in the remote feature config. A missing key or a missing
+    /// config keeps the feature off.
+    public var isSemanticSearchEnabled: Bool {
+        enableSemanticSearch || (loadFeatureConfig()?.ios.semanticSearchEnabled ?? false)
     }
 
     // MARK: - Remote Settings
@@ -357,6 +436,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     @_spi(Testing) public func reset() {
         featureConfig = nil
-        sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+        _sharedCacheStore.value = WMFDataEnvironment.current.sharedCacheStore
     }
 }

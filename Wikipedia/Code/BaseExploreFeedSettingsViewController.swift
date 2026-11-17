@@ -34,7 +34,6 @@ extension ExploreFeedSettingsItem {
 }
 
 enum ExploreFeedSettingsMainType: Equatable {
-    case entireFeed
     case singleFeedCard(WMFContentGroupKind)
 }
 
@@ -80,20 +79,17 @@ class ExploreFeedSettingsPrimary: ExploreFeedSettingsItem {
 
     init(for type: ExploreFeedSettingsMainType) {
         self.type = type
-        if case let .singleFeedCard(contentGroupKind) = type {
+        switch type {
+        case .singleFeedCard(let contentGroupKind):
             title = contentGroupKind.switchTitle
             isOn = contentGroupKind.isInFeed
-        } else {
-            title = WMFLocalizedString("explore-feed-preferences-explore-tab", value: "Explore tab", comment: "Text for the setting that allows users to toggle whether the Explore tab is enabled or not")
-            isOn = UserDefaults.standard.defaultTabType == .explore
         }
     }
 
     func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
-        if case let .singleFeedCard(contentGroupKind) = type {
+        switch type {
+        case .singleFeedCard(let contentGroupKind):
             isOn = contentGroupKind.isInFeed
-        } else {
-            isOn = UserDefaults.standard.defaultTabType == .explore
         }
     }
 }

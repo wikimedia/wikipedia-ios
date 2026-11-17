@@ -27,8 +27,6 @@ public protocol ImageOriginConvertible {
 }
 
 
-public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { return c.asImageOrigin() }
-
 @objc(WMFImage) public class Image: NSObject {
     @objc open var staticImage: UIImage
     @objc open var animatedImage: FLAnimatedImage?
@@ -57,11 +55,5 @@ public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { re
         self.url = url
         self.image = image
         self.origin = origin
-    }
-
-    public init(url: URL, image: Image, originRawValue: Int) {
-        self.url = url
-        self.image = image
-        self.origin = ImageOrigin(rawValue: originRawValue)!
     }
 }

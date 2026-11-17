@@ -1,0 +1,151 @@
+import UIKit
+
+/// The navigation bar shared by the Year in Review slides and the announcement: the close button,
+/// the W, and the more menu.
+enum WMFYearInReviewNavigationItems {
+
+    struct Strings {
+        let closeButtonAccessibilityLabel: String
+        let moreButtonAccessibilityLabel: String
+        let learnMoreTitle: String
+        let aboutInsightsTitle: String
+        let shareFeedbackTitle: String
+    }
+
+    /// Sets up the whole navigation bar. `closeAction` is called on `viewController`.
+    /// - Parameter showsWikipediaLogo: shows the W in the middle. The announcement turns it off.
+    @MainActor
+    static func configure<ViewController: UIViewController & WMFNavigationBarConfiguring>(
+        _ viewController: ViewController,
+        strings: Strings,
+        tintColor: UIColor,
+        showsWikipediaLogo: Bool = true,
+        closeAction: Selector,
+        onLearnMore: @escaping () -> Void,
+        onAboutInsights: @escaping () -> Void,
+        onShareFeedback: @escaping () -> Void
+    ) {
+        let titleConfig = WMFNavigationBarTitleConfig(
+            title: "",
+            customView: showsWikipediaLogo ? makeTitleView() : nil,
+            alignment: .centerCompact
+        )
+
+        let closeConfig = WMFLargeCloseButtonConfig(
+            imageType: .plainX,
+            target: viewController,
+            action: closeAction,
+            alignment: .leading
+        )
+
+        viewController.configureNavigationBar(
+            titleConfig: titleConfig,
+            closeButtonConfig: closeConfig,
+            profileButtonConfig: nil,
+            tabsButtonConfig: nil,
+            searchBarConfig: nil,
+            hideNavigationBarOnScroll: false
+        )
+
+        if !showsWikipediaLogo {
+            viewController.navigationItem.titleView = nil
+        }
+
+        // The system close item cannot take an image. On iOS 26, use an image item, so that
+        // `applyTintColor` can change its glyph color.
+        if #available(iOS 26.0, *) {
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                image: closeImage,
+                style: .plain,
+                target: viewController,
+                action: closeAction
+            )
+        }
+
+        viewController.navigationItem.rightBarButtonItem = makeMoreButton(
+            strings: strings,
+            onLearnMore: onLearnMore,
+            onAboutInsights: onAboutInsights,
+            onShareFeedback: onShareFeedback
+        )
+        viewController.navigationItem.leftBarButtonItem?.accessibilityLabel = strings.closeButtonAccessibilityLabel
+        viewController.navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.YearInReview.closeButton
+
+        applyTintColor(tintColor, to: viewController.navigationItem)
+    }
+
+    /// Colors the close button, the W and the more button. The slides call this again when the slide
+    /// changes, since each slide's artwork can be light or dark.
+    @MainActor
+    static func applyTintColor(_ color: UIColor, to navigationItem: UINavigationItem) {
+        navigationItem.leftBarButtonItem?.tintColor = color
+        navigationItem.rightBarButtonItem?.tintColor = color
+        navigationItem.titleView?.tintColor = color
+
+        // Liquid glass bar button items keep their old glyph color after a tint change. A new image
+        // makes the item draw its glyph again with the new tint. It updates the item in place, so it
+        // does not flash.
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem?.image = closeImage
+            navigationItem.rightBarButtonItem?.image = moreImage
+        }
+    }
+
+    // MARK: - Private
+
+    @MainActor
+    private static var closeImage: UIImage {
+        WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont) ?? UIImage()
+    }
+
+    @MainActor
+    private static var moreImage: UIImage {
+        WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage()
+    }
+
+    @MainActor
+    private static func makeTitleView() -> UIView {
+        let imageView = UIImageView(image: UIImage(named: "W", in: .module, with: nil))
+        imageView.contentMode = .scaleAspectFit
+        // Only decoration: VoiceOver does not stop on it between the close and more buttons.
+        imageView.isAccessibilityElement = false
+        imageView.frame = CGRect(x: 0, y: 0, width: 24, height: 20)
+        return imageView
+    }
+
+    @MainActor
+    private static func makeMoreButton(
+        strings: Strings,
+        onLearnMore: @escaping () -> Void,
+        onAboutInsights: @escaping () -> Void,
+        onShareFeedback: @escaping () -> Void
+    ) -> UIBarButtonItem {
+        let learnMore = UIAction(
+            title: strings.learnMoreTitle,
+            image: WMFSFSymbolIcon.for(symbol: .infoCircle)
+        ) { _ in
+            onLearnMore()
+        }
+
+        let aboutInsights = UIAction(
+            title: strings.aboutInsightsTitle,
+            image: WMFSFSymbolIcon.for(symbol: .questionMarkBubble)
+        ) { _ in
+            onAboutInsights()
+        }
+
+        let shareFeedback = UIAction(
+            title: strings.shareFeedbackTitle,
+            image: WMFSFSymbolIcon.for(symbol: .ellipsisBubble)
+        ) { _ in
+            onShareFeedback()
+        }
+
+        let item = UIBarButtonItem(
+            image: moreImage,
+            menu: UIMenu(children: [learnMore, aboutInsights, shareFeedback])
+        )
+        item.accessibilityLabel = strings.moreButtonAccessibilityLabel
+        return item
+    }
+}

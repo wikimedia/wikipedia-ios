@@ -7,7 +7,7 @@ final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataCo
     let id = WMFYearInReviewPersonalizedSlideID.mostReadDate.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static let containsPersonalizedNetworkData = false
+    static let personalizationSources: Set<WMFYearInReviewPersonalizationSource> = [.readingHistory]
     static let shouldFreeze = true
     
     var mostReadDate: WMFPageViewDates?
@@ -33,9 +33,11 @@ final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataCo
         if let mostReadHour = dates?.times.max(by: { $0.viewCount < $1.viewCount }),
            let mostReadDay = dates?.days.max(by: { $0.viewCount < $1.viewCount }),
            let mostReadMonth = dates?.months.max(by: { $0.viewCount < $1.viewCount }) {
-                self.mostReadDate = WMFPageViewDates(days: [mostReadDay], times: [mostReadHour], months: [mostReadMonth])
-                isEvaluated = true
-            }
+            self.mostReadDate = WMFPageViewDates(days: [mostReadDay], times: [mostReadHour], months: [mostReadMonth])
+        }
+        // The fetch succeeded, so an empty result is evaluated too. The slide is frozen, so it is
+        // stored without data and not fetched again on each build.
+        isEvaluated = true
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {

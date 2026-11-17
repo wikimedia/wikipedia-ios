@@ -17,11 +17,6 @@ class IconTitleBadge: SizeThatFitsView {
     private let configuration: Configuration
     private var theme: Theme?
 
-    init(configuration: Configuration, frame: CGRect) {
-        self.configuration = configuration
-        super.init(frame: frame)
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

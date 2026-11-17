@@ -267,28 +267,6 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
 }
 
 extension SideScrollingCollectionViewCell {
-    public func subItemIndex(at point: CGPoint) -> Int { // NSNotFound for not found
-        let collectionViewFrame = collectionView.frame
-        guard collectionViewFrame.contains(point) else {
-            return NSNotFound
-        }
-        let pointInCollectionViewCoordinates = convert(point, to: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: pointInCollectionViewCoordinates) else {
-            return NSNotFound
-        }
-        
-        return indexPath.item
-    }
-    
-    public func viewForSubItem(at index: Int) -> UIView? {
-        guard index != NSNotFound, index >= 0, index < collectionView.numberOfItems(inSection: 0) else {
-            return nil
-        }
-        guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else {
-            return nil
-        }
-        return cell
-    }
 }
 
 extension SideScrollingCollectionViewCell: Themeable {

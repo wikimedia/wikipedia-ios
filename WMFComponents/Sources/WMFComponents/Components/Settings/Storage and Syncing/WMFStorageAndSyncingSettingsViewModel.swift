@@ -31,11 +31,16 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
 
     public let localizedStrings: LocalizedStrings
 
-    public var onToggleSync: ((Bool) -> Void)?
-    public var onToggleShowSavedList: ((Bool) -> Void)?
-    public var onSyncWithServer: (() -> Void)?
+    public var onToggleSync: (@MainActor @Sendable (Bool) -> Void)?
+    public var onToggleShowSavedList: (@MainActor @Sendable (Bool) -> Void)?
+    public var onSyncWithServer: (@MainActor @Sendable () -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, onToggleSync: ((Bool) -> Void)? = nil, onToggleShowSavedList: ((Bool) -> Void)? = nil, onSyncWithServer: (() -> Void)? = nil) {
+    public init(
+        localizedStrings: LocalizedStrings,
+        onToggleSync: (@MainActor @Sendable (Bool) -> Void)? = nil,
+        onToggleShowSavedList: (@MainActor @Sendable (Bool) -> Void)? = nil,
+        onSyncWithServer: (@MainActor @Sendable () -> Void)? = nil
+    ) {
         self.localizedStrings = localizedStrings
         self.onToggleSync = onToggleSync
         self.onToggleShowSavedList = onToggleShowSavedList
@@ -109,7 +114,7 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
             color: nil,
             title: localizedStrings.syncWithServerTitle,
             subtitle: nil,
-            accessory: .chevron(label: nil),
+            accessory: .none,
             action: { [weak self] in
                 self?.onSyncWithServer?()
             }
@@ -118,18 +123,19 @@ public final class WMFStorageAndSyncingSettingsViewModel: ObservableObject {
 
     private var syncSavedArticlesBinding: Binding<Bool> {
         Binding(
-            get: { self.isSyncEnabled },
-            set: { newValue in
-                self.onToggleSync?(newValue)
+            get: { [weak self] in self?.isSyncEnabled ?? false },
+            set: { [weak self] newValue in
+                self?.onToggleSync?(newValue)
             }
         )
     }
 
     private var showSavedReadingListBinding: Binding<Bool> {
         Binding(
-            get: { self.showSavedReadingList },
-            set: { newValue in
-                self.onToggleShowSavedList?(newValue)
+            get: { [weak self] in self?.showSavedReadingList ?? false },
+            set: { [weak self] newValue in
+                self?.showSavedReadingList = newValue
+                self?.onToggleShowSavedList?(newValue)
             }
         )
     }

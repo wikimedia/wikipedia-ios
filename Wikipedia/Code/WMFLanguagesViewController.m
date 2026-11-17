@@ -710,7 +710,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
             @strongify(self)
                 [self setActivityIndicatorVisible:NO];
             if (self.titleLanguageController.allLanguages.count == 0) {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoOtherArticleLanguages theme:self.theme frame:self.view.bounds];
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoOtherArticleLanguages frame:self.view.bounds];
                 [self.wmf_emptyView setAlpha:0];
                 [UIView animateWithDuration:WMFActivityCompletionAnimationDuration
                                  animations:^{

@@ -112,8 +112,13 @@ extension TalkPageCoffeeRollView: UITextViewDelegate {
 
     func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
         if case .link(let url) = textItem.content {
-            linkDelegate?.tappedLink(url, sourceTextView: textView)
-            return nil
+            return UIAction { [weak self, weak textView] _ in
+                guard let self, let textView else {
+                    return
+                }
+
+                linkDelegate?.tappedLink(url, sourceTextView: textView)
+            }
         }
         return defaultAction
     }

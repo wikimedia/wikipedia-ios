@@ -1,4 +1,5 @@
 import Foundation
+import WMFTestKitchen
 
 // Sendable: the only stored property is the immutable `stateLock`. All other state
 // is read through the environment stores.
@@ -17,10 +18,12 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     public static let shared = WMFSemanticSearchDataController()
 
-    // TODO: Remove when the `iosv1.semanticSearchLanguages` in the remote feature config is available.
-    public static let defaultTargetLanguageCodes = ["fr", "ar", "ja"]
+    /// The target languages while the developer setting is on and the remote config has none.
+    public static let developerSettingsTargetLanguageCodes = ["fr", "ar", "ja"]
 
     private static let experimentControlPercentage = 50
+    /// The name of the experiment in the `experiments.enrolled` column of the search events.
+    static let experimentName = "semantic-search-phase-2"
 
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
@@ -47,7 +50,7 @@ public final class WMFSemanticSearchDataController: Sendable {
     /// True when Settings offers the control that shows or hides the entry point: the reader is
     /// in group B while the feature is on.
     public var isSettingsEntryAvailable: Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
+        guard WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled else {
             return false
         }
 
@@ -89,7 +92,7 @@ public final class WMFSemanticSearchDataController: Sendable {
 
     /// True when a search in `languageCode` can enroll the reader in the experiment.
     public func isEligible(languageCode: String) -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableSemanticSearch else {
+        guard WMFDeveloperSettingsDataController.shared.isSemanticSearchEnabled else {
             return false
         }
 
@@ -100,23 +103,42 @@ public final class WMFSemanticSearchDataController: Sendable {
         targetLanguageCodes.contains(languageCode)
     }
 
-    /// The languages from `iosv1.semanticSearchLanguages` in the remote feature config. Until the
-    /// remote config has the key, the default target languages apply.
+    /// The languages from `iosv1.semanticSearchLanguagesv2` in the remote feature config. When the
+    /// remote config has none, the developer settings languages apply while the "Enable Semantic
+    /// Search" developer setting is on. Otherwise no language is targeted.
     public var targetLanguageCodes: [String] {
-        let remoteLanguageCodes = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.semanticSearchLanguages ?? []
-        return remoteLanguageCodes.isEmpty ? Self.defaultTargetLanguageCodes : remoteLanguageCodes
+        let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
+        let remoteLanguageCodes = developerSettingsDataController.loadFeatureConfig()?.ios.semanticSearchLanguages ?? []
+        guard remoteLanguageCodes.isEmpty, developerSettingsDataController.enableSemanticSearch else {
+            return remoteLanguageCodes
+        }
+        return Self.developerSettingsTargetLanguageCodes
     }
 
     // MARK: - Experiment Assignment
 
-    /// Rolls the experiment bucket the first time a reader runs an eligible search, and returns
-    /// the persisted bucket after that. Returns nil when the search is not eligible.
+    /// Rolls the experiment bucket when search opens for a reader with a target wiki among their
+    /// app languages, as on Android, and returns the persisted bucket after that. The search can
+    /// then be on any wiki: every event of it carries the group. Returns nil for other readers.
     @discardableResult
-    public func assignExperimentIfNeeded(languageCode: String) throws -> ExperimentAssignment? {
+    public func enrollIfNeeded() throws -> ExperimentAssignment? {
+        let appLanguageCodes = WMFDataEnvironment.current.appData.appLanguages.map(\.languageCode)
+        return try enroll(isEligible: appLanguageCodes.contains { isEligible(languageCode: $0) })
+    }
+
+    /// Rolls the experiment bucket for a search in a target language when the reader has none
+    /// yet, for example a search on a wiki outside their app languages, and returns the persisted
+    /// bucket after that. Returns nil when the search is not eligible.
+    @discardableResult
+    public func enrollIfNeeded(languageCode: String) throws -> ExperimentAssignment? {
+        try enroll(isEligible: isEligible(languageCode: languageCode))
+    }
+
+    private func enroll(isEligible: Bool) throws -> ExperimentAssignment? {
         stateLock.lock()
         defer { stateLock.unlock() }
 
-        guard isEligible(languageCode: languageCode) else {
+        guard isEligible else {
             return nil
         }
 
@@ -132,6 +154,20 @@ public final class WMFSemanticSearchDataController: Sendable {
         }
 
         return developerSettingsForcedAssignment ?? assignment
+    }
+
+    /// The experiment fields of every search event, in the shape the Android app sends. Nil before
+    /// the reader has a group.
+    public var experimentData: ExperimentData? {
+        guard let experimentAssignment else { return nil }
+
+        let coordinator = developerSettingsForcedAssignment == nil ? ExperimentData.coordinatorCustom : ExperimentData.coordinatorForced
+        return ExperimentData(
+            enrolled: Self.experimentName,
+            assigned: experimentAssignment == .groupB ? "treatment" : "control",
+            coordinator: coordinator,
+            subjectId: WMFDataEnvironment.current.appInstallIDUtility?()
+        )
     }
 
     public var experimentAssignment: ExperimentAssignment? {
@@ -158,6 +194,33 @@ public final class WMFSemanticSearchDataController: Sendable {
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         try experimentsDataController.resetExperiment(.semanticSearch)
+        try setHasSentExposure(false)
+    }
+
+    // MARK: - Exposure
+
+    /// True when a search in `languageCode` should send the exposure event: the reader has a
+    /// group and no exposure went out before. Each install sends one. A reader who hid the entry
+    /// point in Settings before their first search on a target wiki is not exposed, as on Android.
+    public func shouldSendExposure(languageCode: String) -> Bool {
+        isEligible(languageCode: languageCode) && experimentAssignment != nil && !isEntryPointHidden && !hasSentExposure
+    }
+
+    /// True after the exposure event went out on this install.
+    public var hasSentExposure: Bool {
+        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.semanticSearchExposureSent.rawValue)) ?? false
+    }
+
+    public func markExposureSent() throws {
+        try setHasSentExposure(true)
+    }
+
+    private func setHasSentExposure(_ hasSentExposure: Bool) throws {
+        guard let userDefaultsStore else {
+            throw ExperimentError.missingUserDefaultsStore
+        }
+
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.semanticSearchExposureSent.rawValue, value: hasSentExposure)
     }
 
     // Overrides assignment at read time only, so the persisted bucket survives

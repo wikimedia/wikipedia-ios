@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 
 extension URL {
@@ -66,6 +67,21 @@ extension URL {
         return components.url
     }
     
+    /// The URL of the original file of a Wikimedia Commons file page. Commons stores each original
+    /// under a path that comes from the MD5 hash of the file name, so no API request is necessary.
+    /// - Parameter fileName: The name without the "File:" prefix, for example "09 Sports.png".
+    static func commonsUploadURL(fileName: String) -> URL? {
+        let name = fileName.replacingOccurrences(of: " ", with: "_")
+        let hash = Insecure.MD5.hash(data: Data(name.utf8)).map { String(format: "%02x", $0) }.joined()
+
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "upload.wikimedia.org"
+        components.path = "/wikipedia/commons/\(hash.prefix(1))/\(hash.prefix(2))/\(name)"
+
+        return components.url
+    }
+
     static func donatePaymentSubmissionURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
