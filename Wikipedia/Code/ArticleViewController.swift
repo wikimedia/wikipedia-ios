@@ -1064,12 +1064,20 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         case .scrollToAnchor(let anchor, let attempt, let maxAttempts, let completion):
             scrollRestorationState = .none
             // An early attempt can run before the page script exists. Only the last attempt reports the error.
-            self.scroll(to: anchor, animated: false, reportsErrors: attempt >= maxAttempts) { [weak self] (success) in
-                guard !success, attempt < maxAttempts else {
-                    completion?(success, attempt >= maxAttempts)
-                    return
+            self.scroll(to: anchor, animated: false, reportsErrors: attempt >= maxAttempts) { [weak self] (result) in
+                switch result {
+                case .scrolled:
+                    completion?(true, attempt >= maxAttempts)
+                case .anchorNotFound:
+                    // The page has no such element. A retry can not find it: give up now.
+                    completion?(false, true)
+                case .failed:
+                    guard attempt < maxAttempts else {
+                        completion?(false, true)
+                        return
+                    }
+                    self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
                 }
-                self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
             }
 
             // HACK: Sometimes the `scroll_to_anchor` message is not triggered from the web view over the JS bridge, even after prepareForScrollToAnchor successfully goes through. This means the completion block above is queued to scrollToAnchorCompletions but never run. We are trying to scroll again here once more after a slight delay in hopes of triggering `scroll_to_anchor` again.
