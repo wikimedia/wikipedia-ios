@@ -13,7 +13,27 @@ if [[ ${CI_WORKFLOW} == "Run Tests" ]]; then
 fi
 
 # Update CFBundleShortVersionString to a date-based version (YYYY.MM.DD).
+#
+# Usually that is today's UTC date. A production build from a release
+# candidate or hotfix branch takes the version from the branch name instead -
+# release-candidate/2026.12.03 or hotfix/2026.11.20 - because a release is
+# versioned by the date it is meant to ship, not the date it was built, and
+# Xcode Cloud has no other way to be told the version. V2 Deploy Beta and
+# V2 Deploy Hotfix check the version that comes out matches.
 DATE_VERSION=$(date -u "+%Y.%m.%d")
+if [[ ${CI_WORKFLOW} == "Beta Build" ]]; then
+    case "${CI_BRANCH}" in
+        release-candidate/*|hotfix/*)
+            BRANCH_VERSION="${CI_BRANCH#*/}"
+            if echo "${BRANCH_VERSION}" | grep -Eq '^[0-9]{4}\.[0-9]{2}\.[0-9]{2}$'; then
+                DATE_VERSION="${BRANCH_VERSION}"
+            else
+                echo "${CI_BRANCH} does not end in a YYYY.MM.DD version"
+                exit 1
+            fi
+            ;;
+    esac
+fi
 echo "Setting CFBundleShortVersionString to ${DATE_VERSION}"
 
 PLISTS=(

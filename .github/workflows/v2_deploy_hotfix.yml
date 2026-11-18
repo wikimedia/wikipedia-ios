@@ -14,6 +14,20 @@ name: V2 Deploy Hotfix
 # matching ^Release. Titling it anything else keeps an in-flight release
 # candidate working while a hotfix ships.
 
+#
+# Where the app is archived is chosen by the RELEASE_BUILDER repository
+# variable, shared with V2 Deploy Beta because both build the production app
+# from the same Xcode Cloud workflow and build counter:
+#
+# - unset or "xcode-cloud" (the default): the job runs on Linux and starts the
+#   Xcode Cloud "Beta Build" workflow on the hotfix branch through the App
+#   Store Connect API, so no macOS runner is used. Xcode Cloud sets the
+#   version (from the branch name) and build number, uploads to internal
+#   TestFlight and pushes the betas/ tag.
+# - "github": the fallback. The job runs on a macOS runner and archives here.
+#
+# The builder input overrides the variable for one run. See docs/ci.md.
+
 on:
   workflow_dispatch:
     inputs:
@@ -21,6 +35,20 @@ on:
         description: 'Version (YYYY.MM.DD) of the hotfix branch to build, as created by V2 Cut Hotfix Branch'
         required: true
         type: string
+      builder:
+        description: 'Where to archive. "variable" follows the RELEASE_BUILDER repository variable; the others override it for this run only.'
+        required: false
+        type: choice
+        default: variable
+        options:
+          - variable
+          - xcode-cloud
+          - github
+      lookup_only:
+        description: 'Xcode Cloud only: check the API key, workflow and hotfix branch can be found, then stop without starting a build. No upload, tag or task.'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -37,11 +65,59 @@ env:
   XCODE_VERSION: "27.1"
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      builder: ${{ steps.builder.outputs.builder }}
+      lookup_only: ${{ steps.builder.outputs.lookup_only }}
+    steps:
+      - name: Choose builder
+        id: builder
+        env:
+          RELEASE_BUILDER: ${{ vars.RELEASE_BUILDER }}
+          BUILDER_INPUT: ${{ inputs.builder }}
+          LOOKUP_ONLY: ${{ inputs.lookup_only }}
+        run: |
+          if [ -n "$BUILDER_INPUT" ] && [ "$BUILDER_INPUT" != "variable" ]; then
+            RELEASE_BUILDER="$BUILDER_INPUT"
+          fi
+
+          case "${RELEASE_BUILDER:-xcode-cloud}" in
+            github) BUILDER=github ;;
+            xcode-cloud) BUILDER=xcode-cloud ;;
+            *)
+              echo "::error::RELEASE_BUILDER is '$RELEASE_BUILDER'. Use 'xcode-cloud', 'github', or leave it unset."
+              exit 1
+              ;;
+          esac
+
+          if [ "$LOOKUP_ONLY" = "true" ] && [ "$BUILDER" != "xcode-cloud" ]; then
+            echo "::error::lookup_only only applies to the Xcode Cloud path. Set builder to xcode-cloud."
+            exit 1
+          fi
+
+          echo "builder=$BUILDER" >> $GITHUB_OUTPUT
+          echo "lookup_only=${LOOKUP_ONLY:-false}" >> $GITHUB_OUTPUT
+          echo "Building with: $BUILDER (lookup only: ${LOOKUP_ONLY:-false})"
+
+  # One job for both paths: everything but the archive is git, Python and
+  # curl, so it runs on whichever machine the builder needs. Steps only one
+  # path needs say so in their if.
   build-and-upload:
-    runs-on: macos-26
+    needs: prepare
+    runs-on: ${{ needs.prepare.outputs.builder == 'xcode-cloud' && 'ubuntu-latest' || 'macos-26' }}
+    # Xcode Cloud: up to 90 minutes for the build, 15 for the TestFlight
+    # build to appear and 45 for it to finish processing.
+    timeout-minutes: ${{ needs.prepare.outputs.builder == 'xcode-cloud' && 160 || 360 }}
+    env:
+      XCODE_CLOUD: ${{ needs.prepare.outputs.builder == 'xcode-cloud' }}
+      LOOKUP_ONLY: ${{ needs.prepare.outputs.lookup_only }}
 
     steps:
+      # Only the Mac path pushes anything; on Xcode Cloud the tag is pushed by
+      # Xcode Cloud with its own copy of the token.
       - name: Check bot token is available
+        if: env.XCODE_CLOUD != 'true'
         env:
           APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
@@ -58,6 +134,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Select Xcode
+        if: env.XCODE_CLOUD != 'true'
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
           xcodebuild -version
@@ -95,8 +172,62 @@ jobs:
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
           echo "base_tag=$BASE_TAG" >> $GITHUB_OUTPUT
 
+      # Uses the runner's preinstalled Ruby (the organisation only allows
+      # actions owned by wikimedia or GitHub, which rules out
+      # ruby/setup-ruby). It ships without the bundle command, so install the
+      # locked Bundler into the user gem directory first. A plain bundle
+      # install re-resolves the way the Mac job's does.
+      - name: Install Bundler
+        if: env.XCODE_CLOUD == 'true'
+        run: |
+          ruby -v
+          gem install --user-install --no-document bundler -v "$(tail -1 Gemfile.lock | tr -d ' ')"
+          echo "$(ruby -e 'print Gem.user_dir')/bin" >> "$GITHUB_PATH"
+
+      - name: Install fastlane on Linux
+        if: env.XCODE_CLOUD == 'true'
+        env:
+          BUNDLE_PATH: vendor/bundle
+        run: bundle install
+
+      # Xcode Cloud builds whatever the branch points at when it starts, takes
+      # the version from the branch name (ci_scripts/ci_pre_xcodebuild.sh)
+      # and its own build number, uploads to internal TestFlight and pushes
+      # betas/<build>. The lane checks the version came out as asked.
+      - name: Build on Xcode Cloud
+        id: xcode_cloud
+        if: env.XCODE_CLOUD == 'true'
+        env:
+          BUNDLE_PATH: vendor/bundle
+          FASTLANE_SKIP_UPDATE_CHECK: "true"
+          FASTLANE_HIDE_CHANGELOG: "true"
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
+          EXPECTED_VERSION: ${{ github.event.inputs.version }}
+          XCODE_CLOUD_LOOKUP_ONLY: ${{ env.LOOKUP_ONLY }}
+          # Lanes run inside fastlane/, so this has to be absolute.
+          XCODE_CLOUD_LOGS_DIR: ${{ github.workspace }}/xcode-cloud-logs
+        run: bundle exec fastlane xcode_cloud_release
+
+      # The notes below are read from the checkout, so make it the commit
+      # Xcode Cloud built, in case the branch moved since it was checked out.
+      - name: Check out the built commit
+        if: env.XCODE_CLOUD == 'true' && env.LOOKUP_ONLY != 'true'
+        env:
+          SHA: ${{ steps.xcode_cloud.outputs.sha }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
+        run: |
+          if [ "$SHA" != "$(git rev-parse HEAD)" ]; then
+            git fetch --filter=blob:none origin "$BRANCH"
+            echo "::warning::$BRANCH moved after this run started; Xcode Cloud built $SHA."
+            git checkout -q "$SHA"
+          fi
+
       - name: Compute build number
         id: versioning
+        if: env.XCODE_CLOUD != 'true'
         run: |
           LATEST=$(git tag --list 'betas/*' \
             | sed 's|betas/||' \
@@ -108,9 +239,10 @@ jobs:
           echo "Version: ${{ github.event.inputs.version }}, Build: $BUILD"
 
       - name: Write TestFlight notes
+        if: env.LOOKUP_ONLY != 'true'
         env:
           VERSION: ${{ github.event.inputs.version }}
-          BUILD: ${{ steps.versioning.outputs.build }}
+          BUILD: ${{ steps.versioning.outputs.build || steps.xcode_cloud.outputs.build }}
           BASE_TAG: ${{ steps.branch.outputs.base_tag }}
         run: |
           {
@@ -126,6 +258,7 @@ jobs:
           cat /tmp/what_to_test.txt
 
       - name: Update version and build number
+        if: env.XCODE_CLOUD != 'true'
         env:
           VERSION: ${{ github.event.inputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
@@ -152,15 +285,18 @@ jobs:
           echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
 
       - name: Install fastlane
+        if: env.XCODE_CLOUD != 'true'
         run: bundle install
 
       - name: Write App Store API Key
+        if: env.XCODE_CLOUD != 'true'
         run: |
           mkdir -p ~/.appstore
           echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
           echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
 
       - name: Build and upload to internal TestFlight
+        if: env.XCODE_CLOUD != 'true'
         env:
           APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
           APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
@@ -169,7 +305,21 @@ jobs:
         run: |
           bundle exec fastlane internal_beta
 
+      - name: Set What to Test in TestFlight
+        if: env.XCODE_CLOUD == 'true' && env.LOOKUP_ONLY != 'true'
+        env:
+          BUNDLE_PATH: vendor/bundle
+          FASTLANE_SKIP_UPDATE_CHECK: "true"
+          FASTLANE_HIDE_CHANGELOG: "true"
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          BUILD_ID: ${{ steps.xcode_cloud.outputs.build_id }}
+          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
+        run: bundle exec fastlane testflight_what_to_test
+
       - name: Tag build
+        if: env.XCODE_CLOUD != 'true'
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
           APPS_BOT_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
@@ -182,11 +332,12 @@ jobs:
           git -c http.https://github.com/.extraheader= push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} "betas/$BUILD"
 
       - name: Create or update the hotfix task
+        if: env.LOOKUP_ONLY != 'true'
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           VERSION: ${{ github.event.inputs.version }}
           BRANCH: ${{ steps.branch.outputs.branch }}
-          BUILD: ${{ steps.versioning.outputs.build }}
+          BUILD: ${{ steps.versioning.outputs.build || steps.xcode_cloud.outputs.build }}
         run: |
           python3 << 'EOF'
           import urllib.request
@@ -272,3 +423,14 @@ jobs:
 
           print(f"✓ {'Updated' if existing else 'Created'} '{title}' (branch={branch}, build={build})")
           EOF
+
+      # When Xcode Cloud fails, the lane saves its log bundles here; the
+      # errors themselves are already annotations on this run.
+      - name: Attach Xcode Cloud logs
+        if: failure() && env.XCODE_CLOUD == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: xcode-cloud-logs-${{ github.run_id }}
+          path: xcode-cloud-logs/
+          if-no-files-found: ignore
+          retention-days: 14
