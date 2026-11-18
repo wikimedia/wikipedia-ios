@@ -538,7 +538,13 @@
     <div class="card"><div class="chartBox"><canvas id="ph-monthChart"></canvas></div></div>
   </section>
   <section id="ph-resultsRatio" hidden>
-    <div class="sec-head"><div><h2>Moves per task by month</h2><p class="sec-sub" id="ph-ratioSub"></p></div></div>
+    <div class="sec-head">
+      <div><h2>Moves per task by month</h2><p class="sec-sub" id="ph-ratioSub"></p></div>
+      <div class="seg" id="ph-ratioDen" role="group" aria-label="Divide moves by">
+        <button type="button" data-den="moved" aria-pressed="false">Per task moved</button>
+        <button type="button" data-den="closed" aria-pressed="true">Per task closed</button>
+      </div>
+    </div>
     <div class="card"><div class="chartBox"><canvas id="ph-ratioChart"></canvas></div></div>
   </section>
   <section id="ph-results3" hidden>
@@ -1738,13 +1744,13 @@ render();
 
     // cells hold matching moves and the set of tasks closed: per engineer, per engineer+board, per engineer+month
     const monthKey = ts => { const d = new Date(ts * 1000); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; };
-    const cellOf = (map, key) => { if (!map.has(key)) map.set(key, { moves: 0, tasks: new Set() }); return map.get(key); };
+    const cellOf = (map, key) => { if (!map.has(key)) map.set(key, { moves: 0, tasks: new Set(), moved: new Set() }); return map.get(key); };
     const agg = new Map(users.map(u => [u.phid, new Map()]));
     const byMonth = new Map(users.map(u => [u.phid, new Map()]));
     const totals = new Map(users.map(u => [u.phid, { moves: 0, tasks: new Set() }]));
     for (const mv of matched) {
       const u = who(mv);
-      totals.get(u).moves++; cellOf(agg.get(u), mv.board).moves++; cellOf(byMonth.get(u), monthKey(mv.date)).moves++;
+      totals.get(u).moves++; cellOf(agg.get(u), mv.board).moves++; const mc = cellOf(byMonth.get(u), monthKey(mv.date)); mc.moves++; mc.moved.add(mv.task);
     }
     for (const c of closedList) {
       totals.get(c.owner).tasks.add(c.task); cellOf(byMonth.get(c.owner), monthKey(c.date)).tasks.add(c.task);
@@ -1837,11 +1843,16 @@ render();
     }));
 
     // moves per task by month, whatever "Count" is set to: one line per engineer plus the team
-    const monthRatio = cell => cell && cell.tasks.size ? Math.round(cell.moves / cell.tasks.size * 100) / 100 : null;
+    // Divide each month's moves by the tasks closed that month, or by the distinct tasks moved that month.
+    const den = store.get('ratioDen') === 'moved' ? 'moved' : 'closed';
+    $('ratioDen').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.den === den)));
+    const denSet = cell => den === 'moved' ? cell.moved : cell.tasks;
+    const monthRatio = cell => cell && denSet(cell).size ? Math.round(cell.moves / denSet(cell).size * 100) / 100 : null;
     const teamCell = m => {
       let moves = 0; const t = new Set();
-      users.forEach(u => { const c = byMonth.get(u.phid).get(m); if (c) { moves += c.moves; c.tasks.forEach(x => t.add(x)); } });
-      return { moves, tasks: t };
+      const mv = new Set();
+      users.forEach(u => { const c = byMonth.get(u.phid).get(m); if (c) { moves += c.moves; c.tasks.forEach(x => t.add(x)); c.moved.forEach(x => mv.add(x)); } });
+      return { moves, tasks: t, moved: mv };
     };
     const ratioCells = [
       ...users.map(u => ({ label: u.name, color: u.color, cells: months.map(m => byMonth.get(u.phid).get(m)), team: false })),
@@ -1864,13 +1875,17 @@ render();
         plugins: { ...baseOpts.plugins, tooltip: { callbacks: {
           label: ctx => {
             const c = ctx.dataset.cells[ctx.dataIndex];
-            return ctx.raw == null ? null : `${ctx.dataset.label}: ${ctx.raw.toFixed(2)} (${c.moves} move${c.moves === 1 ? '' : 's'} ÷ ${c.tasks.size} task${c.tasks.size === 1 ? '' : 's'})`;
+            return ctx.raw == null ? null : `${ctx.dataset.label}: ${ctx.raw.toFixed(2)} (${c.moves} move${c.moves === 1 ? '' : 's'} ÷ ${denSet(c).size} task${denSet(c).size === 1 ? '' : 's'} ${den})`;
           },
         } } },
       },
     }));
-    $('ratioSub').textContent = `Each month's matching moves ÷ tasks closed that month. Gaps are months with no tasks closed. ` +
-      `Overall: team ${teamClosed.size ? (matched.length / teamClosed.size).toFixed(2) : '–'} (${matched.length} moves ÷ ${teamClosed.size} tasks).`;
+    const teamMoved = new Set(matched.map(mv => mv.task));
+    const teamDen = den === 'moved' ? teamMoved : teamClosed;
+    $('ratioSub').textContent = (den === 'moved'
+      ? `Each month's matching moves ÷ the distinct tasks moved that month (how often each task moved). `
+      : `Each month's matching moves ÷ tasks closed that month (credited to the assignee). Gaps are months with no tasks closed. `) +
+      `Overall: team ${teamDen.size ? (matched.length / teamDen.size).toFixed(2) : '–'} (${matched.length} moves ÷ ${teamDen.size} tasks ${den}).`;
 
     // transitions table (helps discover names)
     const trans = new Map();
@@ -1942,6 +1957,13 @@ render();
   TEAM.on(renderEngineerChecks);
   renderEngineerChecks();
   { const saved = store.get('monthMode'); if (saved) $('monthMode').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.mode === saved))); }
+  { const d = store.get('ratioDen'); if (d) $('ratioDen').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.den === d))); }
+  $('ratioDen').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    store.set('ratioDen', b.dataset.den);
+    $('ratioDen').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    if (data) apply();
+  });
   $('monthMode').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     store.set('monthMode', b.dataset.mode);
