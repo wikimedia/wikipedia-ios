@@ -207,6 +207,8 @@
   .tab-intro { color: var(--ink-2); font-size: 0.9rem; margin: -8px 0 16px; max-width: 76ch; }
   .status-line { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 18px; }
   td.na { color: var(--muted); }
+  details.collapsible { margin-bottom: 0; }
+  details.collapsible > summary .sum-title { font-size: 1.02rem; letter-spacing: -0.01em; }
 </style>
 </head>
 <body>
@@ -551,12 +553,21 @@
     <div class="card"><div class="chartBox"><canvas id="ph-ratioChart"></canvas></div></div>
   </section>
   <section id="ph-results3" hidden>
-    <div class="sec-head"><div><h2>Column transitions seen</h2><p class="sec-sub">Every move by the team on these boards, whatever the column filter. Use it to find the column names to filter on.</p></div></div>
-    <div class="tbl-scroll"><table class="wide left" id="ph-transTable"></table></div>
+    <details class="panel collapsible">
+      <summary><span class="sum-title">Column transitions seen</span> <span class="hint" id="ph-transCount"></span></summary>
+      <div class="panel-body">
+        <p class="sec-sub" style="margin:0">Every move by the team on these boards, whatever the column filter. Use it to find the column names to filter on.</p>
+        <div class="tbl-scroll"><table class="wide left" id="ph-transTable"></table></div>
+      </div>
+    </details>
   </section>
   <section id="ph-results4" hidden>
-    <div class="sec-head"><div><h2>Matching moves</h2></div></div>
-    <div class="tbl-scroll"><table class="wide left" id="ph-moveTable"></table></div>
+    <details class="panel collapsible">
+      <summary><span class="sum-title">Matching moves</span> <span class="hint" id="ph-moveCount"></span></summary>
+      <div class="panel-body">
+        <div class="tbl-scroll"><table class="wide left" id="ph-moveTable"></table></div>
+      </div>
+    </details>
   </section>
   </div>
 </div>
@@ -2020,6 +2031,7 @@ render();
       trans.set(k, (trans.get(k) || 0) + 1);
     }
     const tRows = [...trans].sort((a, b) => b[1] - a[1]).slice(0, 50);
+    $('transCount').textContent = `${trans.size} transition${trans.size === 1 ? '' : 's'} between columns${trans.size > 50 ? ', top 50 shown' : ''}`;
     $('transTable').innerHTML = '<thead><tr><th>From column</th><th>To column</th><th>Moves</th></tr></thead>' +
       tRows.map(([k, n]) => { const [f, t] = k.split('\u0000'); return `<tr><td>${esc(f)}</td><td>${esc(t)}</td><td>${n}</td></tr>`; }).join('');
 
@@ -2032,6 +2044,7 @@ render();
         from: colName(mv.from), to: colName(mv.to) };
     });
     const shown = lastRows.slice(-500).reverse();
+    $('moveCount').textContent = `${lastRows.length} move${lastRows.length === 1 ? '' : 's'}${lastRows.length > 500 ? ', latest 500 shown' : ''}`;
     $('moveTable').innerHTML = '<thead><tr><th>Date</th><th>Engineer</th><th>Task</th><th>Board</th><th>From</th><th>To</th></tr></thead>' +
       shown.map(r => `<tr><td>${r.date}</td><td>${esc(r.user)}</td><td><a href="${esc(web)}/${r.task}" target="_blank" rel="noopener">${r.task}</a> ${esc(r.title.slice(0, 60))}</td><td>${esc(r.board)}</td><td>${esc(r.from)}</td><td>${esc(r.to)}</td></tr>`).join('') +
       (lastRows.length > 500 ? `<tr><td colspan="6" class="help">Showing latest 500 of ${lastRows.length}; download CSV for all.</td></tr>` : '');
