@@ -1710,7 +1710,8 @@ render();
     const c = await idb.get(CACHE_KEY);
     cache = c && c.version === 1 && c.api === apiKey() ? c
       : { version: 1, api: apiKey(), savedAt: 0, columns: new Map(), tasks: new Map(), moves: new Map(), boardTasks: new Map() };
-    if (!cache.maxPoints) cache.maxPoints = new Map();   // taskPHID -> highest Story/Final Story Points ever set (null if never)
+    if (!cache.maxPoints) cache.maxPoints = new Map();
+    if (!cache.owners) cache.owners = new Map();         // taskPHID -> every user PHID ever assigned, in order   // taskPHID -> highest Story/Final Story Points ever set (null if never)
     return cache;
   }
   const ago = ms => { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? 'just now' : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} days ago`; };
@@ -1722,7 +1723,8 @@ render();
     const tasks = new Map();
     for (const b of boardMap.keys()) for (const phid of cache.boardTasks.get(b)) {
       const t = cache.tasks.get(phid); if (!t) continue;
-      if (!tasks.has(phid)) tasks.set(phid, { ...t, maxPoints: cache.maxPoints ? cache.maxPoints.get(phid) : undefined, boards: new Set() });
+      if (!tasks.has(phid)) tasks.set(phid, { ...t, maxPoints: cache.maxPoints ? cache.maxPoints.get(phid) : undefined,
+        owners: cache.owners ? cache.owners.get(phid) : undefined, boards: new Set() });
       tasks.get(phid).boards.add(b);
     }
     const moves = [];
@@ -1759,7 +1761,7 @@ render();
             status: t.fields.status && (t.fields.status.value ?? t.fields.status), closed: t.fields.dateClosed || null,
             created: t.fields.dateCreated || null, modified,
             points: t.fields.points ?? null, finalPoints: t.fields['custom.points.final'] ?? null });
-          if (!prev || prev.modified !== modified || !cache.moves.has(t.phid) || !cache.maxPoints.has(t.phid)) stale.set(t.phid, t.id);
+          if (!prev || prev.modified !== modified || !cache.moves.has(t.phid) || !cache.maxPoints.has(t.phid) || !cache.owners.has(t.phid)) stale.set(t.phid, t.id);
         }
       }
 
@@ -1779,6 +1781,8 @@ render();
         const got = new Map(ids.map(id => [idToPHID.get(String(id)), []]));
         // highest Story Points ("points") or Final Story Points (custom field "points.final") value in the history
         const best = new Map(ids.map(id => [idToPHID.get(String(id)), null]));
+        const owners = new Map(ids.map(id => [idToPHID.get(String(id)), []]));   // assignment history ("reassign" transactions)
+        const addOwner = (taskPHID, ...vals) => { const l = owners.get(taskPHID); for (const v of vals) if (v && typeof v === 'string' && !l.includes(v)) l.push(v); };
         const bump = (taskPHID, ...vals) => { for (const v of vals) { const n = Number(v); if (v != null && v !== '' && Number.isFinite(n)) best.set(taskPHID, Math.max(best.get(taskPHID) ?? -Infinity, n)); } };
         const record = (taskPHID, author, date, board, from, to) => {
           if (!to || from === to) return; // reorder within a column
@@ -1793,6 +1797,8 @@ render();
                 if (!m) continue;
                 record(taskPHID, tx.authorPHID, tx.dateCreated, m.boardPHID, Object.values(m.fromColumnPHIDs || {})[0], m.columnPHID);
               }
+            } else if (tx.transactionType === 'reassign') {
+              addOwner(taskPHID, ov, nv);
             } else if (tx.transactionType === 'points' ||
                 (tx.transactionType === 'core:customfield' && /(^|:)points\.final$/.test((tx.meta && tx.meta['customfield:key']) || ''))) {
               bump(taskPHID, ov, nv);
@@ -1802,7 +1808,7 @@ render();
             }
           }
         }
-        for (const [phid, list] of got) { cache.moves.set(phid, list); cache.maxPoints.set(phid, best.get(phid)); fetchedMoves += list.length; }
+        for (const [phid, list] of got) { cache.moves.set(phid, list); cache.maxPoints.set(phid, best.get(phid)); cache.owners.set(phid, owners.get(phid)); fetchedMoves += list.length; }
         done += ids.length; progress(done, stale.size);
         status(`Fetching history of new or changed tasks: ${done}/${stale.size} (${seen.size - stale.size} unchanged tasks reused from saved data)`);
       };
@@ -2210,7 +2216,7 @@ render();
     try {
       // assignee usernames: from the saved lookup, plus one user.search per 100 unknown assignees when a token is available
       const nameByPHID = new Map([...userCache.values()].map(u => [u.phid, u.username]));
-      const unknown = [...new Set([...data.tasks.values()].map(t => t.owner).filter(o => o && !nameByPHID.has(o)))];
+      const unknown = [...new Set([...data.tasks.values()].flatMap(t => [t.owner, ...(t.owners || [])]).filter(o => o && !nameByPHID.has(o)))];
       if (unknown.length && $('token').value.trim()) {
         status(`Looking up ${unknown.length} assignee name(s)…`);
         try {
@@ -2235,7 +2241,7 @@ render();
       const when = ts => ts ? new Date(ts * 1000).toISOString().slice(0, 16).replace('T', ' ') : '';
       const num = v => v == null || v === '' ? '' : v;
       const web = $('phabWeb').value.trim().replace(/\/$/, '');
-      const cols = ['task', 'url', 'title', 'status', 'assignee', 'assignee_username', 'boards', 'current_column',
+      const cols = ['task', 'url', 'title', 'status', 'assignee', 'assignee_username', 'previous_assignees', 'boards', 'current_column',
         'story_points', 'final_story_points', 'highest_points_ever', 'created_utc', 'closed_utc',
         'first_start_utc', 'first_end_utc', 'cycle_time_days'];
       const rows = [...data.tasks].sort((a, b) => a[1].id - b[1].id).map(([phid, t]) => {
@@ -2248,6 +2254,7 @@ render();
         return {
           task: 'T' + t.id, url: `${web}/T${t.id}`, title: t.title, status: t.status || '',
           assignee: user ? (display.get(String(user).toLowerCase()) || user) : '', assignee_username: user,
+          previous_assignees: t.owners === undefined ? '(load again to fetch)' : t.owners.filter(o => o !== t.owner).map(o => nameByPHID.get(o) || o).join('; '),
           boards: [...t.boards].map(b => data.boards.get(b)).join('; '),
           current_column: [...t.boards].map(b => lastOn.has(b) ? `${data.boards.get(b)}: ${nameOfCol(lastOn.get(b))}` : null).filter(Boolean).join('; '),
           story_points: num(t.points), final_story_points: num(t.finalPoints), highest_points_ever: pts.length ? Math.max(0, ...pts) : '',
@@ -2263,7 +2270,8 @@ render();
       a.download = `phabricator-tasks-${new Date().toISOString().slice(0, 10)}.csv`;
       document.body.appendChild(a); a.click();
       setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
-      status(`Downloaded ${rows.length} tasks from ${data.boards.size} board(s). Cycle columns: ${outStart} → ${outEnd} (set on the Output tab).`);
+      status(`Downloaded ${rows.length} tasks from ${data.boards.size} board(s). Cycle columns: ${outStart} → ${outEnd} (set on the Output tab).` +
+        ([...data.tasks.values()].some(t => t.owners === undefined) ? ' Previous assignees need one more “Load column moves” to fetch.' : ''));
     } catch (e) { status('Could not build the task list: ' + e.message, true); }
     finally { $('tasksCsv').disabled = false; }
   };
