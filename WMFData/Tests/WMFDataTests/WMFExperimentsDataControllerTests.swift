@@ -125,6 +125,7 @@ final class WMFExperimentsDataControllerTests {
             .donationReminder: 33,
             .semanticSearch: 50,
             .discover: 50,
+            .semanticSearchInterleaved: 50,
             .yirEndCards: 50
         ]
 

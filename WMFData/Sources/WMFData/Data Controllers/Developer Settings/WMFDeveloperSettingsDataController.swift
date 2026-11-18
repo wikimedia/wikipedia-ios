@@ -334,6 +334,59 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    // MARK: - Semantic Search Interleaved
+
+    /// Local flag that turns the semantic search interleaved experiment on while there is no remote config.
+    /// TODO: Replace with a key in the remote feature config (the kill switch), keeping this as a
+    /// developer override, once the key name is agreed with Android.
+    public var enableSemanticSearchInterleaved: Bool {
+        get { loadFlag(.developerSettingsEnableSemanticSearchInterleaved) }
+        set { saveFlag(.developerSettingsEnableSemanticSearchInterleaved, newValue) }
+    }
+
+    public var forceSemanticSearchInterleavedExperimentAssignment: WMFSemanticSearchInterleavedDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchInterleavedExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFSemanticSearchInterleavedDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchInterleavedExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchInterleavedExperimentAssignment.rawValue)
+            }
+        }
+    }
+
+    public var addSemanticSearchInterleavedTargetLanguageCode: String? {
+        get { try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsAddSemanticSearchInterleavedTargetLanguageCode.rawValue) }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsAddSemanticSearchInterleavedTargetLanguageCode.rawValue, value: newValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsAddSemanticSearchInterleavedTargetLanguageCode.rawValue)
+            }
+        }
+    }
+
+    public var forceSemanticSearchInterleavedRetrievalScenario: WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchInterleavedRetrievalScenario.rawValue) else {
+                return nil
+            }
+            return WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchInterleavedRetrievalScenario.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchInterleavedRetrievalScenario.rawValue)
+            }
+        }
+    }
+
     // MARK: - Discover
 
     /// Forces the whole Discover feature on, without the remote feature config. In production the

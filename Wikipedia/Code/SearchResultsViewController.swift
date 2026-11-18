@@ -361,6 +361,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         recentSearchTermPendingInit = nil
         if let languageCode = siteURL.wmf_languageCode {
             enrollInSemanticSearchExperimentIfNeeded(languageCode: languageCode)
+            enrollInSemanticSearchInterleavedExperimentIfNeeded(languageCode: languageCode)
         }
         do {
             let outcome = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
@@ -416,6 +417,27 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             }
         } catch {
             DDLogError("Semantic search experiment assignment failed: \(error)")
+        }
+    }
+
+    /// Semantic search interleaved assigns at the same moment as Dive: when search opens for a reader
+    /// with a target app language.
+    private func enrollInSemanticSearchInterleavedExperimentIfNeeded() {
+        guard takesPartInSemanticSearchExperiment else { return }
+        do {
+            try WMFSemanticSearchInterleavedDataController.shared.enrollIfNeeded()
+        } catch {
+            DDLogError("Semantic search interleaved experiment assignment failed: \(error)")
+        }
+    }
+
+    /// And when a search runs on a target wiki, like Dive.
+    private func enrollInSemanticSearchInterleavedExperimentIfNeeded(languageCode: String) {
+        guard takesPartInSemanticSearchExperiment else { return }
+        do {
+            try WMFSemanticSearchInterleavedDataController.shared.enrollIfNeeded(languageCode: languageCode)
+        } catch {
+            DDLogError("Semantic search interleaved experiment assignment failed: \(error)")
         }
     }
 
@@ -601,6 +623,7 @@ extension SearchResultsViewController: UISearchControllerDelegate {
     /// keeps the funnel. The reader gets a group first, so the impression carries it.
     func willPresentSearchController(_ searchController: UISearchController) {
         enrollInSemanticSearchExperimentIfNeeded()
+        enrollInSemanticSearchInterleavedExperimentIfNeeded()
         instrumentation.logSearchScreenImpression(source: source, project: siteURL.flatMap { SearchResultsMapper.project(for: $0) })
         searchBarIPadCustomizer.willPresentSearchController(searchController)
         parentSearchControllerDelegate?.willPresentSearchController?(searchController)
