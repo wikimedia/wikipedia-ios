@@ -52,7 +52,9 @@ instance). GitHub calls go straight from the browser to api.github.com.
    (no extra queries). *Cycle time* runs from a task's first move into "Doing" to its next move into
    "Signoff" or "Ready for PM Signoff" (both editable). *Throughput by assignee* counts tasks that
    first reached signoff, in tasks or points (the larger of Story Points and Final Story Points).
-   Group by week (starting Monday 00:00 UTC) or by month (UTC).
+   Group by week (starting Monday 00:00 UTC) or by month (UTC). The cycle-time line can be a moving
+   average over N periods; throughput can be stacked bars or lines (per assignee plus team), either
+   as actual values or as an N-period moving average.
 5. **Overview** tab: uses the current data and filters from the other two tabs. When GitHub data
    is loaded, the overview covers the same date range.
 

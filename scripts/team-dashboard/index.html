@@ -208,6 +208,9 @@
   .status-line { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 18px; }
   td.na { color: var(--muted); }
   details.collapsible { margin-bottom: 0; }
+  input.n { font: inherit; font-size: 0.84rem; width: 4.2em; padding: 4px 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--ink); }
+  .nlabel { align-items: center; font-size: 0.84rem; color: var(--ink-2); }
+  .nlabel.off { opacity: .45; }
   details.collapsible > summary .sum-title { font-size: 1.02rem; letter-spacing: -0.01em; }
 </style>
 </head>
@@ -610,15 +613,35 @@
       <div class="tbl-scroll"><table class="wide"><thead><tr><th>Assignee</th><th>Tasks to signoff</th><th>Points</th><th>Unpointed tasks</th><th>Median cycle time</th><th>Average cycle time</th></tr></thead><tbody id="out-summary"></tbody></table></div>
     </section>
     <section id="out-results2" hidden>
-      <div class="sec-head"><div><h2>Cycle time</h2><p class="sec-sub" id="out-cycleSub"></p></div></div>
+      <div class="sec-head">
+        <div><h2>Cycle time</h2><p class="sec-sub" id="out-cycleSub"></p></div>
+        <div class="ctl">
+          <div class="seg" id="out-cycleLine" role="group" aria-label="Line shows">
+            <button type="button" data-line="period" aria-pressed="true">Period average</button>
+            <button type="button" data-line="moving" aria-pressed="false">Moving average</button>
+          </div>
+          <label class="check nlabel">over <input type="number" class="n" id="out-cycleN" min="2" max="52" value="4"> <span class="out-nUnit">weeks</span></label>
+        </div>
+      </div>
       <div class="card"><div class="chartBox"><canvas id="out-cycleChart"></canvas></div></div>
     </section>
     <section id="out-results3" hidden>
       <div class="sec-head">
         <div><h2>Throughput by assignee</h2><p class="sec-sub" id="out-thruSub"></p></div>
-        <div class="seg" id="out-unit" role="group" aria-label="Measure throughput in">
-          <button type="button" data-unit="tasks" aria-pressed="true">Tasks</button>
-          <button type="button" data-unit="points" aria-pressed="false">Points</button>
+        <div class="ctl">
+          <div class="seg" id="out-unit" role="group" aria-label="Measure throughput in">
+            <button type="button" data-unit="tasks" aria-pressed="true">Tasks</button>
+            <button type="button" data-unit="points" aria-pressed="false">Points</button>
+          </div>
+          <div class="seg" id="out-thruView" role="group" aria-label="Chart style">
+            <button type="button" data-view="stacked" aria-pressed="true">Stacked bars</button>
+            <button type="button" data-view="lines" aria-pressed="false">Lines</button>
+          </div>
+          <div class="seg" id="out-thruSmooth" role="group" aria-label="Values">
+            <button type="button" data-smooth="raw" aria-pressed="true">Actual</button>
+            <button type="button" data-smooth="moving" aria-pressed="false">Moving average</button>
+          </div>
+          <label class="check nlabel">over <input type="number" class="n" id="out-thruN" min="2" max="52" value="4"> <span class="out-nUnit">weeks</span></label>
         </div>
       </div>
       <div class="card"><div class="chartBox"><canvas id="out-thruChart"></canvas></div></div>
@@ -2350,6 +2373,18 @@ render();
   };
   const period = segPick("period", "period", "period", "week");
   const unit = segPick("unit", "unit", "unit", "tasks");
+  const cycleLine = segPick("cycleLine", "line", "cycleLine", "period");
+  const thruView = segPick("thruView", "view", "thruView", "stacked");
+  const thruSmooth = segPick("thruSmooth", "smooth", "thruSmooth", "raw");
+  // moving-average window sizes, in periods (weeks or months)
+  const clampN = v => Math.min(52, Math.max(2, Math.round(Number(v)) || 4));
+  for (const k of ["cycleN", "thruN"]) {
+    const sv = store.get(k); if (sv != null) $(k).value = clampN(sv);
+    $(k).addEventListener("input", () => { if ($(k).value === "") return; store.set(k, clampN($(k).value)); schedule(); });
+    $(k).addEventListener("change", () => { $(k).value = clampN($(k).value); });
+  }
+  // trailing moving average over the last n values (fewer at the start)
+  const movingAvg = (arr, n) => arr.map((_, i) => { const w = arr.slice(Math.max(0, i - n + 1), i + 1); return Math.round(w.reduce((a, b) => a + b, 0) / w.length * 10) / 10; });
 
   // UTC buckets: weeks start Monday 00:00 UTC, months are UTC calendar months
   const DAY = 86400;
@@ -2454,33 +2489,59 @@ render();
     const per = buckets.map(() => []);
     withCycle.forEach(r => per[at(r)].push(r.days));
     const counts = per.map(a => a.length);
+    // the line is either each period's average, or a moving average that pools every task in the last N periods
+    const n1 = clampN($("cycleN").value), moving1 = cycleLine() === "moving";
+    document.querySelectorAll(".out-nUnit").forEach(e => { e.textContent = p + "s"; });
+    $("cycleN").disabled = !moving1; $("cycleN").closest("label").classList.toggle("off", !moving1);
+    const windowOf = i => per.slice(Math.max(0, i - n1 + 1), i + 1).flat();
+    const lineData = moving1 ? per.map((_, i) => round1(mean(windowOf(i)))) : per.map(a => round1(mean(a)));
+    const lineLabel = moving1 ? `${n1}-${p} moving average (days)` : "Average cycle time (days)";
     charts.push(new Chart($("cycleChart"), {
       data: { labels, datasets: [
         { type: "bar", label: "Median cycle time (days)", data: per.map(a => round1(median(a))), backgroundColor: v("--accent"), borderRadius: 3, order: 2 },
-        { type: "line", label: "Average cycle time (days)", data: per.map(a => round1(mean(a))), borderColor: v("--auto"), backgroundColor: v("--auto"), pointRadius: 3, spanGaps: true, tension: 0.2, order: 1 },
+        { type: "line", label: lineLabel, data: lineData, borderColor: v("--auto"), backgroundColor: v("--auto"), pointRadius: 3, spanGaps: true, tension: 0.2, order: 1 },
       ] },
       options: { ...base,
-        plugins: { ...base.plugins, tooltip: { callbacks: { footer: items => { const n = items.length ? counts[items[0].dataIndex] : 0; return n ? `${n} task${n === 1 ? "" : "s"}` : "No tasks"; } } } },
+        plugins: { ...base.plugins, tooltip: { callbacks: { footer: items => {
+          if (!items.length) return "";
+          const i = items[0].dataIndex, n = counts[i];
+          return (n ? `${n} task${n === 1 ? "" : "s"} this ${p}` : `No tasks this ${p}`) + (moving1 ? ` · ${windowOf(i).length} in the ${n1}-${p} window` : "");
+        } } } },
         scales: { ...base.scales, y: { ...base.scales.y, title: { display: true, text: "Days", color: v("--ink-2") } } } },
     }));
-    $("cycleSub").textContent = `From first move into ${startText} to the next move into ${endText}, grouped by the ${p} the task reached it. ` +
+    $("cycleSub").textContent = `From first move into ${startText} to the next move into ${endText}, grouped by the ${p} the task reached it.${moving1 ? ` The line averages every task in the last ${n1} ${p}s (fewer for the first ${n1 - 1 === 1 ? p : `${n1 - 1} ${p}s`}).` : ""} ` +
       `Overall: median ${d1(median(withCycle.map(r => r.days)))}, average ${d1(mean(withCycle.map(r => r.days)))} across ${withCycle.length} tasks.`;
 
     const val = r => u === "points" ? r.points : 1;
-    charts.push(new Chart($("thruChart"), {
-      type: "bar",
-      data: { labels, datasets: users.map(x => {
-        const arr = buckets.map(() => 0);
-        rows.filter(r => r.owner === x).forEach(r => { arr[at(r)] += val(r); });
-        return { label: x.name, data: arr, backgroundColor: x.color, borderRadius: 0 };
-      }) },
-      options: { ...base,
-        plugins: { ...base.plugins, tooltip: { callbacks: { footer: items => `Team: ${items.reduce((a, i) => a + (i.raw || 0), 0)} ${u}` } } },
-        scales: { x: { ...base.scales.x, stacked: true },
-          y: { ...base.scales.y, stacked: true, ticks: { ...tick, precision: 0 }, title: { display: true, text: u === "points" ? "Points" : "Tasks", color: v("--ink-2") } } } },
-    }));
+    const view = thruView(), moving2 = thruSmooth() === "moving", n2 = clampN($("thruN").value);
+    $("thruN").disabled = !moving2; $("thruN").closest("label").classList.toggle("off", !moving2);
+    const thru = users.map(x => { const arr = buckets.map(() => 0); rows.filter(r => r.owner === x).forEach(r => { arr[at(r)] += val(r); }); return arr; });
+    const teamRaw = buckets.map((_, i) => thru.reduce((a, arr) => a + arr[i], 0));
+    const shape = arr => moving2 ? movingAvg(arr, n2) : arr;
+    const yTitle = (u === "points" ? "Points" : "Tasks") + (moving2 ? ` (${n2}-${p} moving average)` : "");
+    const thruScales = (stacked) => ({ x: { ...base.scales.x, stacked },
+      y: { ...base.scales.y, stacked, ticks: { ...tick, ...(moving2 ? {} : { precision: 0 }) }, title: { display: true, text: yTitle, color: v("--ink-2") } } });
+    if (view === "lines") {
+      charts.push(new Chart($("thruChart"), {
+        type: "line",
+        data: { labels, datasets: [
+          ...users.map((x, k) => ({ label: x.name, data: shape(thru[k]), borderColor: x.color, backgroundColor: x.color, borderWidth: 1.5, pointRadius: 3, tension: 0.2, order: 1 })),
+          ...(users.length > 1 ? [{ label: "Team", data: shape(teamRaw), borderColor: v("--ink"), backgroundColor: v("--ink"), borderWidth: 3, pointRadius: 4, tension: 0.2, order: 0 }] : []),
+        ] },
+        options: { ...base, scales: thruScales(false) },
+      }));
+    } else {
+      charts.push(new Chart($("thruChart"), {
+        type: "bar",
+        data: { labels, datasets: users.map((x, k) => ({ label: x.name, data: shape(thru[k]), backgroundColor: x.color, borderRadius: 0 })) },
+        options: { ...base,
+          plugins: { ...base.plugins, tooltip: { callbacks: { footer: items => `Team: ${Math.round(items.reduce((a, i) => a + (i.raw || 0), 0) * 10) / 10} ${u}` } } },
+          scales: thruScales(true) },
+      }));
+    }
     const totalPts = rows.reduce((a, r) => a + r.points, 0), unpointed = rows.filter(r => !r.pointed).length;
-    $("thruSub").textContent = `${u === "points" ? "Points (larger of Story Points and Final Story Points)" : "Tasks"} that first reached ${endText}, per ${p}, stacked by assignee. ` +
+    $("thruSub").textContent = `${u === "points" ? "Points (larger of Story Points and Final Story Points)" : "Tasks"} that first reached ${endText}, per ${p}, ${view === "lines" ? "one line per assignee plus the team" : "stacked by assignee"}` +
+      `${moving2 ? `, as a ${n2}-${p} moving average (fewer ${p}s for the first ${n2 - 1 === 1 ? p : `${n2 - 1} ${p}s`})` : ""}. ` +
       `Total: ${rows.length} tasks, ${totalPts} points` + (unpointed ? ` (${unpointed} task${unpointed === 1 ? "" : "s"} without points count as 0).` : ".");
 
     // task list
