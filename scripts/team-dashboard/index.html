@@ -233,6 +233,7 @@
     <button type="button" data-tab="overview" aria-pressed="true">Overview</button>
     <button type="button" data-tab="github" aria-pressed="false">Code review (GitHub)</button>
     <button type="button" data-tab="phab" aria-pressed="false">Column moves (Phabricator)</button>
+    <button type="button" data-tab="output" aria-pressed="false">Output</button>
   </div>
 
   <div id="tab-overview">
@@ -569,6 +570,65 @@
       </div>
     </details>
   </section>
+  </div>
+  <div id="tab-output" hidden>
+    <p class="tab-intro">Cycle time and throughput, from the Phabricator boards loaded on the Column moves tab. Tasks are credited to their assignee, for the engineers ticked on that tab.</p>
+    <div class="status-line"><span class="pill" id="out-source">Phabricator: not loaded</span></div>
+    <section>
+      <div class="card" style="padding:16px">
+        <div class="grid2">
+          <div class="field">
+            <label for="out-startPat">Cycle starts when a task first moves into</label>
+            <input id="out-startPat" type="text" value="Doing" spellcheck="false">
+          </div>
+          <div class="field">
+            <label for="out-endPat">…and ends when it first moves into</label>
+            <input id="out-endPat" type="text" value="Signoff, Ready for PM Signoff" spellcheck="false">
+            <span class="help">Same matching as the Column moves tab: whole column names, ignoring case and punctuation; commas separate alternatives; <code>*</code> is a wildcard.</span>
+          </div>
+          <div class="field">
+            <div class="grid2" style="gap:10px">
+              <div class="field"><label for="out-since">Reached signoff from</label><input id="out-since" type="date"></div>
+              <div class="field"><label for="out-until">to</label><input id="out-until" type="date"></div>
+            </div>
+            <span class="help">Optional, in UTC.</span>
+          </div>
+          <div class="field">
+            <span class="label">Group by</span>
+            <div class="seg" id="out-period" role="group" aria-label="Group by">
+              <button type="button" data-period="week" aria-pressed="true">Week</button>
+              <button type="button" data-period="month" aria-pressed="false">Month</button>
+            </div>
+            <span class="help">Weeks start Monday 00:00 UTC; months are UTC calendar months.</span>
+          </div>
+        </div>
+        <div class="progress" id="out-status" style="margin-top:10px"></div>
+      </div>
+    </section>
+    <section id="out-results" hidden>
+      <div class="sec-head"><div><h2>Per assignee</h2><p class="sec-sub" id="out-summarySub"></p></div></div>
+      <div class="tbl-scroll"><table class="wide"><thead><tr><th>Assignee</th><th>Tasks to signoff</th><th>Points</th><th>Unpointed tasks</th><th>Median cycle time</th><th>Average cycle time</th></tr></thead><tbody id="out-summary"></tbody></table></div>
+    </section>
+    <section id="out-results2" hidden>
+      <div class="sec-head"><div><h2>Cycle time</h2><p class="sec-sub" id="out-cycleSub"></p></div></div>
+      <div class="card"><div class="chartBox"><canvas id="out-cycleChart"></canvas></div></div>
+    </section>
+    <section id="out-results3" hidden>
+      <div class="sec-head">
+        <div><h2>Throughput by assignee</h2><p class="sec-sub" id="out-thruSub"></p></div>
+        <div class="seg" id="out-unit" role="group" aria-label="Measure throughput in">
+          <button type="button" data-unit="tasks" aria-pressed="true">Tasks</button>
+          <button type="button" data-unit="points" aria-pressed="false">Points</button>
+        </div>
+      </div>
+      <div class="card"><div class="chartBox"><canvas id="out-thruChart"></canvas></div></div>
+    </section>
+    <section id="out-results4" hidden>
+      <details class="panel collapsible">
+        <summary><span class="sum-title">Tasks</span> <span class="hint" id="out-taskCount"></span></summary>
+        <div class="panel-body"><div class="tbl-scroll"><table class="wide left" id="out-taskTable"></table></div></div>
+      </details>
+    </section>
   </div>
 </div>
 
@@ -1672,7 +1732,8 @@ render();
           const prev = cache.tasks.get(t.phid), modified = t.fields.dateModified || 0;
           cache.tasks.set(t.phid, { id: t.id, title: t.fields.name, owner: t.fields.ownerPHID,
             status: t.fields.status && (t.fields.status.value ?? t.fields.status), closed: t.fields.dateClosed || null,
-            created: t.fields.dateCreated || null, modified });
+            created: t.fields.dateCreated || null, modified,
+            points: t.fields.points ?? null, finalPoints: t.fields['custom.points.final'] ?? null });
           if (!prev || prev.modified !== modified || !cache.moves.has(t.phid)) stale.set(t.phid, t.id);
         }
       }
@@ -2054,6 +2115,7 @@ render();
     // hand the per-person, per-month numbers to the overview tab
     const perUser = new Map(), totalsOut = new Map();
     for (const u of users) { perUser.set(u.username.toLowerCase(), byMonth.get(u.phid)); totalsOut.set(u.username.toLowerCase(), totals.get(u.phid)); }
+    BUS.phRaw = { data, users, matcher };
     BUS.ph = { metric, label: metricLabel, perUser, totals: totalsOut, boards: data.boards.size,
       desc: `${$('fromPat').value.trim() || 'any column'} → ${$('toPat').value.trim() || 'any column'}`,
       attr: attr === 'author' ? 'by who moved the task' : 'by current assignee' };
@@ -2255,14 +2317,185 @@ render();
   const tabs = document.getElementById("tabs");
   function show(name) {
     tabs.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === name)));
-    for (const t of ["overview", "github", "phab"]) document.getElementById("tab-" + t).hidden = t !== name;
+    for (const t of ["overview", "github", "phab", "output"]) document.getElementById("tab-" + t).hidden = t !== name;
     if (name === "github" && BUS.ghRedraw) BUS.ghRedraw();   // the SVG charts size themselves to the visible width
     try { localStorage.setItem("team.tab.v1", name); } catch (_) {}
   }
   tabs.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show(b.dataset.tab); });
   let start = "overview";
   try { start = localStorage.getItem("team.tab.v1") || start; } catch (_) {}
-  show(["overview", "github", "phab"].includes(start) ? start : "overview");
+  show(["overview", "github", "phab", "output"].includes(start) ? start : "overview");
+})();
+</script>
+<script>
+/* ---------- Output tab: cycle time and throughput ---------- */
+(() => {
+  const $ = id => document.getElementById("out-" + id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const store = {
+    get(k) { try { return localStorage.getItem("out." + k); } catch (_) { return null; } },
+    set(k, v) { try { localStorage.setItem("out." + k, v); } catch (_) {} },
+  };
+  let charts = [], timer = null;
+  function schedule() { clearTimeout(timer); timer = setTimeout(render, 400); }
+  for (const k of ["startPat", "endPat", "since", "until"]) {
+    const v = store.get(k); if (v != null) $(k).value = v;
+    $(k).addEventListener("input", () => { store.set(k, $(k).value); schedule(); });
+  }
+  const segPick = (id, attr, key, def) => {
+    const cur = () => store.get(key) || def;
+    const paint = () => $(id).querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset[attr] === cur())));
+    $(id).addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; store.set(key, b.dataset[attr]); paint(); render(); });
+    paint(); return cur;
+  };
+  const period = segPick("period", "period", "period", "week");
+  const unit = segPick("unit", "unit", "unit", "tasks");
+
+  // UTC buckets: weeks start Monday 00:00 UTC, months are UTC calendar months
+  const DAY = 86400;
+  function bucketStart(ts, p) {
+    const d = new Date(ts * 1000);
+    if (p === "month") return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1) / 1000;
+    return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - (d.getUTCDay() + 6) % 7) / 1000;
+  }
+  function nextBucket(start, p) {
+    const d = new Date(start * 1000);
+    return p === "month" ? Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1) / 1000 : start + 7 * DAY;
+  }
+  const label = (start, p) => new Date(start * 1000).toLocaleDateString("en-GB", p === "month"
+    ? { month: "short", year: "numeric", timeZone: "UTC" } : { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  const median = a => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+  const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+  const round1 = v => v == null ? null : Math.round(v * 10) / 10;
+  const d1 = v => v == null ? "–" : round1(v).toFixed(1) + " d";
+  // points: the larger of Story Points and Final Story Points; tasks with neither count as 0
+  const pointsOf = t => {
+    const a = Number(t.points), b = Number(t.finalPoints);
+    const has = (t.points != null && t.points !== "") || (t.finalPoints != null && t.finalPoints !== "");
+    return { v: Math.max(Number.isFinite(a) ? a : 0, Number.isFinite(b) ? b : 0), has };
+  };
+
+  function render() {
+    const raw = BUS.phRaw;
+    charts.forEach(c => c.destroy()); charts = [];
+    const show = on => ["results", "results2", "results3", "results4"].forEach(id => { $(id).hidden = !on; });
+    if (!raw || !raw.data || !raw.users.length) {
+      $("source").className = "pill"; $("source").textContent = "Phabricator: not loaded";
+      $("status").textContent = "Load column moves on the Column moves (Phabricator) tab first; this tab uses that data and its ticked engineers.";
+      show(false); return;
+    }
+    const { data, users, matcher } = raw;
+    $("source").className = "pill live";
+    $("source").textContent = `Phabricator: ${data.boards.size} boards, ${data.tasks.size} tasks, ${users.length} engineer${users.length === 1 ? "" : "s"} ticked`;
+    const startText = $("startPat").value.trim(), endText = $("endPat").value.trim();
+    if (!startText || !endText) { $("status").textContent = "Enter both start and end columns."; show(false); return; }
+    let isStart, isEnd;
+    try { isStart = matcher(startText); isEnd = matcher(endText); }
+    catch (e) { $("status").textContent = "Invalid column pattern: " + e.message; show(false); return; }
+    const p = period(), u = unit();
+    const since = $("since").value ? Date.parse($("since").value + "T00:00:00Z") / 1000 : -Infinity;
+    const until = $("until").value ? Date.parse($("until").value + "T00:00:00Z") / 1000 + DAY : Infinity;
+    const colName = phid => phid == null ? null : (data.columns.get(phid)?.name ?? phid);
+    const byPHID = new Map(users.map(x => [x.phid, x]));
+    $("status").textContent = "";
+    if ([...data.tasks.values()].every(t => t.points === undefined)) {
+      $("status").textContent = "Click “Load column moves” on the Column moves tab once more to fetch task points.";
+    }
+
+    // per task: first move into a start column, and the first move into an end column after it
+    // (tasks never in a start column still count for throughput, at their first move into an end column)
+    const movesByTask = new Map();
+    for (const mv of data.moves) { if (!movesByTask.has(mv.task)) movesByTask.set(mv.task, []); movesByTask.get(mv.task).push(mv); }
+    const rows = [];
+    for (const [phid, t] of data.tasks) {
+      const owner = byPHID.get(t.owner); if (!owner) continue;
+      const mvs = (movesByTask.get(phid) || []).slice().sort((a, b) => a.date - b.date);
+      const start = mvs.find(mv => isStart(colName(mv.to)));
+      const end = start ? mvs.find(mv => mv.date >= start.date && isEnd(colName(mv.to))) : mvs.find(mv => isEnd(colName(mv.to)));
+      if (!end || end.date < since || end.date >= until) continue;
+      const pts = pointsOf(t);
+      rows.push({ phid, id: t.id, title: t.title, owner, start: start ? start.date : null, end: end.date,
+        days: start ? (end.date - start.date) / DAY : null, points: pts.v, pointed: pts.has });
+    }
+    if (!rows.length) {
+      $("status").textContent = "No tasks reached the end column for the ticked engineers in this range. Check the column names against the “Column transitions seen” table on the Column moves tab.";
+      show(false); return;
+    }
+    rows.sort((a, b) => a.end - b.end);
+
+    // every period from the first to the last signoff
+    const buckets = [];
+    for (let b = bucketStart(rows[0].end, p); b <= rows[rows.length - 1].end; b = nextBucket(b, p)) buckets.push(b);
+    const idx = new Map(buckets.map((b, i) => [b, i]));
+    const at = r => idx.get(bucketStart(r.end, p));
+
+    // summary table
+    const withCycle = rows.filter(r => r.days != null);
+    const sumRow = (name, rs, cls = "") => {
+      const cyc = rs.filter(r => r.days != null).map(r => r.days);
+      return `<tr class="${cls}"><td>${esc(name)}</td><td>${rs.length}</td><td>${rs.reduce((a, r) => a + r.points, 0)}</td>` +
+        `<td>${rs.filter(r => !r.pointed).length}</td><td>${d1(median(cyc))}</td><td>${d1(mean(cyc))}</td></tr>`;
+    };
+    $("summary").innerHTML = users.map(x => sumRow(x.name, rows.filter(r => r.owner === x))).join("") +
+      (users.length > 1 ? sumRow("Team", rows, "current") : "");
+    $("summarySub").textContent = `Tasks that first reached ${endText}${$("since").value || $("until").value ? " in the chosen dates" : ""}, by assignee. ` +
+      `Points are the larger of Story Points and Final Story Points. Cycle time covers the ${withCycle.length} of ${rows.length} tasks that were in ${startText} first.`;
+
+    // charts
+    const css = getComputedStyle(document.documentElement), v = n => css.getPropertyValue(n).trim();
+    const tick = { color: v("--ink-2") };
+    const base = {
+      responsive: true, maintainAspectRatio: false, animation: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: { legend: { labels: { color: v("--ink-2") } } },
+      scales: { x: { ticks: tick, grid: { display: false } }, y: { beginAtZero: true, ticks: tick, grid: { color: v("--grid") } } },
+    };
+    const labels = buckets.map(b => label(b, p));
+    const per = buckets.map(() => []);
+    withCycle.forEach(r => per[at(r)].push(r.days));
+    const counts = per.map(a => a.length);
+    charts.push(new Chart($("cycleChart"), {
+      data: { labels, datasets: [
+        { type: "bar", label: "Median cycle time (days)", data: per.map(a => round1(median(a))), backgroundColor: v("--accent"), borderRadius: 3, order: 2 },
+        { type: "line", label: "Average cycle time (days)", data: per.map(a => round1(mean(a))), borderColor: v("--auto"), backgroundColor: v("--auto"), pointRadius: 3, spanGaps: true, tension: 0.2, order: 1 },
+      ] },
+      options: { ...base,
+        plugins: { ...base.plugins, tooltip: { callbacks: { footer: items => { const n = items.length ? counts[items[0].dataIndex] : 0; return n ? `${n} task${n === 1 ? "" : "s"}` : "No tasks"; } } } },
+        scales: { ...base.scales, y: { ...base.scales.y, title: { display: true, text: "Days", color: v("--ink-2") } } } },
+    }));
+    $("cycleSub").textContent = `From first move into ${startText} to the next move into ${endText}, grouped by the ${p} the task reached it. ` +
+      `Overall: median ${d1(median(withCycle.map(r => r.days)))}, average ${d1(mean(withCycle.map(r => r.days)))} across ${withCycle.length} tasks.`;
+
+    const val = r => u === "points" ? r.points : 1;
+    charts.push(new Chart($("thruChart"), {
+      type: "bar",
+      data: { labels, datasets: users.map(x => {
+        const arr = buckets.map(() => 0);
+        rows.filter(r => r.owner === x).forEach(r => { arr[at(r)] += val(r); });
+        return { label: x.name, data: arr, backgroundColor: x.color, borderRadius: 0 };
+      }) },
+      options: { ...base,
+        plugins: { ...base.plugins, tooltip: { callbacks: { footer: items => `Team: ${items.reduce((a, i) => a + (i.raw || 0), 0)} ${u}` } } },
+        scales: { x: { ...base.scales.x, stacked: true },
+          y: { ...base.scales.y, stacked: true, ticks: { ...tick, precision: 0 }, title: { display: true, text: u === "points" ? "Points" : "Tasks", color: v("--ink-2") } } } },
+    }));
+    const totalPts = rows.reduce((a, r) => a + r.points, 0), unpointed = rows.filter(r => !r.pointed).length;
+    $("thruSub").textContent = `${u === "points" ? "Points (larger of Story Points and Final Story Points)" : "Tasks"} that first reached ${endText}, per ${p}, stacked by assignee. ` +
+      `Total: ${rows.length} tasks, ${totalPts} points` + (unpointed ? ` (${unpointed} task${unpointed === 1 ? "" : "s"} without points count as 0).` : ".");
+
+    // task list
+    const web = (document.getElementById("ph-phabWeb").value || "").trim().replace(/\/$/, "");
+    const iso = ts => ts == null ? "–" : new Date(ts * 1000).toISOString().slice(0, 10);
+    $("taskCount").textContent = `${rows.length} task${rows.length === 1 ? "" : "s"}`;
+    $("taskTable").innerHTML = "<thead><tr><th>Task</th><th>Assignee</th><th>Started</th><th>Reached signoff</th><th>Cycle time</th><th>Points</th></tr></thead>" +
+      rows.slice().reverse().map(r => `<tr><td><a href="${esc(web)}/T${r.id}" target="_blank" rel="noopener">T${r.id}</a> ${esc(String(r.title).slice(0, 70))}</td>` +
+        `<td>${esc(r.owner.name)}</td><td>${iso(r.start)}</td><td>${iso(r.end)}</td><td>${d1(r.days)}</td><td>${r.pointed ? r.points : "–"}</td></tr>`).join("");
+
+    show(true);
+  }
+
+  BUS.on(render);
+  render();
 })();
 </script>
 </body>

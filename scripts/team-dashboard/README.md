@@ -6,6 +6,7 @@ One page that shows, per engineer and per month:
   split between human and automated reviewers.
 - **Column moves (Phabricator):** how often tasks move between similarly named sprint-board
   columns (e.g. "In progress" → "Code review") across sprint boards.
+- **Output:** cycle time and throughput by assignee, by week or month.
 - **Overview:** both side by side: a comparison table and a monthly chart (review comments as
   bars, column moves as a line).
 
@@ -47,7 +48,12 @@ instance). GitHub calls go straight from the browser to api.github.com.
    whole column name, ignoring case, spaces and punctuation (`signoff` matches "Sign-off" but not
    "Design signoff"); `*` is a wildcard (`*code review*`), commas separate alternatives, and
    `/regex/` works.
-4. **Overview** tab: uses the current data and filters from the other two tabs. When GitHub data
+4. **Output** tab: built from the Phabricator data and ticked engineers on the Column moves tab
+   (no extra queries). *Cycle time* runs from a task's first move into "Doing" to its next move into
+   "Signoff" or "Ready for PM Signoff" (both editable). *Throughput by assignee* counts tasks that
+   first reached signoff, in tasks or points (the larger of Story Points and Final Story Points).
+   Group by week (starting Monday 00:00 UTC) or by month (UTC).
+5. **Overview** tab: uses the current data and filters from the other two tabs. When GitHub data
    is loaded, the overview covers the same date range.
 
 Review comments are counted in the month the pull request was opened; column moves in the month
