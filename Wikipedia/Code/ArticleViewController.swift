@@ -283,7 +283,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     /// Shows while the web view is hidden, so the reader sees that the article is loading.
     lazy var loadingIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .large)
+        let indicator = UIActivityIndicatorView(style: .medium)
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.hidesWhenStopped = true
         return indicator
