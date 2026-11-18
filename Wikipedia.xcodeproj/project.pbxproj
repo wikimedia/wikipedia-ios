@@ -2582,8 +2582,20 @@
 		FA71B2C500000001000000AB /* ReadingListImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C500000002000000AB /* ReadingListImporterTests.swift */; };
 		FAC0D3AA00000001000000AA /* CollectionViewUpdaterCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
+		8D6315BE30166377C41D0DC1 /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */; };
+		287A6E1295E6562FD81EDD4A /* ActivityTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */; };
+		BB9CA220C53270CB3EB68698 /* PlacesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */; };
+		09324B6139C18E2B5A9D6AFF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55244B803D722B4903C88286 /* TabBarCoordinator.swift */; };
 		FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
+		614B3D4C8C0BAB5306C9AD7C /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */; };
+		71514AB229352B1680FCA889 /* ActivityTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */; };
+		611912C3CDB33374460F0F04 /* PlacesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */; };
+		C395C492B170BBFDEB58F498 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55244B803D722B4903C88286 /* TabBarCoordinator.swift */; };
 		FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
+		E23BB8E5083394358714D396 /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */; };
+		51002602C22956B9118783AE /* ActivityTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */; };
+		EE1560BA3B719872A33EBD55 /* PlacesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */; };
+		66C70AB494D4BFC752A7E1A8 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55244B803D722B4903C88286 /* TabBarCoordinator.swift */; };
 		FACE0000000000000000FE06 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
 		FACE0000000000000000FE07 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
 		FACE0000000000000000FE08 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
@@ -4250,6 +4262,10 @@
 		FA71B2C500000002000000AB /* ReadingListImporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListImporterTests.swift; sourceTree = "<group>"; };
 		FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdaterCrashTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabCoordinator.swift; sourceTree = "<group>"; };
+		564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabCoordinator.swift; sourceTree = "<group>"; };
+		F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesCoordinator.swift; sourceTree = "<group>"; };
+		55244B803D722B4903C88286 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSettingsCoordinator.swift; sourceTree = "<group>"; };
 		FB91BF0BBD5F478E2BAFDD9C /* SearchFixtureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFixtureService.swift; sourceTree = "<group>"; };
@@ -6165,6 +6181,10 @@
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
 				675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */,
 				FACE0000000000000000FE01 /* HomeCoordinator.swift */,
+				7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */,
+				564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */,
+				F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */,
+				55244B803D722B4903C88286 /* TabBarCoordinator.swift */,
 				FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */,
 				675826772D68D108002B0EE7 /* LinkCoordinator.swift */,
 				205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */,
@@ -9350,6 +9370,10 @@
 				67C6F7AB27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
 				675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */,
+				E23BB8E5083394358714D396 /* SearchTabCoordinator.swift in Sources */,
+				51002602C22956B9118783AE /* ActivityTabCoordinator.swift in Sources */,
+				EE1560BA3B719872A33EBD55 /* PlacesCoordinator.swift in Sources */,
+				66C70AB494D4BFC752A7E1A8 /* TabBarCoordinator.swift in Sources */,
 				FACE0000000000000000FE14 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE08 /* HomeViewController.swift in Sources */,
 				83510B0728F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
@@ -10320,6 +10344,10 @@
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				675826822D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */,
+				8D6315BE30166377C41D0DC1 /* SearchTabCoordinator.swift in Sources */,
+				287A6E1295E6562FD81EDD4A /* ActivityTabCoordinator.swift in Sources */,
+				BB9CA220C53270CB3EB68698 /* PlacesCoordinator.swift in Sources */,
+				09324B6139C18E2B5A9D6AFF /* TabBarCoordinator.swift in Sources */,
 				FACE0000000000000000FE12 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE06 /* HomeViewController.swift in Sources */,
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
@@ -10865,6 +10893,10 @@
 				B0016CC521362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				675826832D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */,
+				614B3D4C8C0BAB5306C9AD7C /* SearchTabCoordinator.swift in Sources */,
+				71514AB229352B1680FCA889 /* ActivityTabCoordinator.swift in Sources */,
+				611912C3CDB33374460F0F04 /* PlacesCoordinator.swift in Sources */,
+				C395C492B170BBFDEB58F498 /* TabBarCoordinator.swift in Sources */,
 				FACE0000000000000000FE13 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE07 /* HomeViewController.swift in Sources */,
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
