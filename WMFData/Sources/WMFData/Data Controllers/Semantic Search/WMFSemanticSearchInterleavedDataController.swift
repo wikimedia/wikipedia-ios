@@ -56,6 +56,10 @@ public final class WMFSemanticSearchInterleavedDataController: Sendable {
     private static let treatmentPercentage = 50
     private static let controlPercentage = 100 - treatmentPercentage
     public static let developerSettingsTargetLanguageCodes = ["fr", "ar", "ja"]
+    /// The wikis whose results show the date of the last update as the second figure of the attribution row. Every
+    /// other wiki shows the reference count. A list never mixes the two, so the figure depends on the wiki, not on
+    /// the article. TODO: Move to the remote feature config with the other experiment settings above.
+    public static let lastUpdatedInPlaceOfReferencesLanguageCodes = ["ar"]
 
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
 
@@ -82,6 +86,12 @@ public final class WMFSemanticSearchInterleavedDataController: Sendable {
 
     public func isEligible(languageCode: String) -> Bool {
         isEnabled && isTargetLanguage(languageCode: languageCode)
+    }
+
+    public func showsLastUpdatedInPlaceOfReferences(languageCode: String?) -> Bool {
+        guard let languageCode else { return false }
+
+        return Self.lastUpdatedInPlaceOfReferencesLanguageCodes.contains(languageCode)
     }
 
     public func shouldInterleave(languageCode: String) -> Bool {

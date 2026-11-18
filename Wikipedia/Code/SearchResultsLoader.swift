@@ -71,10 +71,11 @@ extension SearchResultsLoader {
         let fullText: WMFSearchResults?
     }
 
-    func fetchRawResults(for searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearchThreshold: Int) async throws -> RawOutcome {
+    /// - Parameter includesExtracts: Asks for the lead section of each article, for the rows that show it.
+    func fetchRawResults(for searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearchThreshold: Int, includesExtracts: Bool = false) async throws -> RawOutcome {
         let prefixResults: WMFSearchResults
         do {
-            prefixResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit)
+            prefixResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, includesExtracts: includesExtracts)
         } catch let error as CancellationError {
             throw error
         } catch {
@@ -89,7 +90,7 @@ extension SearchResultsLoader {
         try Task.checkCancellation()
 
         do {
-            let fullTextResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: true, appendToPreviousResults: nil)
+            let fullTextResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: true, appendToPreviousResults: nil, includesExtracts: includesExtracts)
             return RawOutcome(prefix: prefixResults, fullText: fullTextResults)
         } catch let error as CancellationError {
             throw error
@@ -103,12 +104,12 @@ extension SearchResultsLoader {
 }
 
 extension WMFSearchFetcher {
-    func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool = false, appendToPreviousResults previousResults: WMFSearchResults? = nil) async throws -> WMFSearchResults {
+    func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool = false, appendToPreviousResults previousResults: WMFSearchResults? = nil, includesExtracts: Bool = false) async throws -> WMFSearchResults {
         try Task.checkCancellation()
         return try await withTaskCancellationHandler {
             do {
                 return try await withCheckedThrowingContinuation { continuation in
-                    fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: fullTextSearch, appendToPreviousResults: previousResults, failure: { error in
+                    fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearch: fullTextSearch, appendToPreviousResults: previousResults, includesExtracts: includesExtracts, failure: { error in
                         continuation.resume(throwing: error)
                     }, success: { results in
                         continuation.resume(returning: results)
@@ -190,7 +191,8 @@ struct SemanticSearchInterleavedLoader {
                     for: searchTerm,
                     siteURL: siteURL,
                     resultLimit: UInt(WMFSemanticSearchInterleavedConfiguration.lexicalResultsLimit),
-                    fullTextSearchThreshold: WMFSemanticSearchInterleavedConfiguration.fullTextThreshold)
+                    fullTextSearchThreshold: WMFSemanticSearchInterleavedConfiguration.fullTextThreshold,
+                    includesExtracts: true)
             } catch let error as CancellationError {
                 throw error
             } catch {
@@ -261,7 +263,7 @@ struct SemanticSearchInterleavedLoader {
         do {
             let results = try await withThrowingTaskGroup(of: WMFSemanticSearchResults.self) { group in
                 group.addTask {
-                    try await WMFSemanticSearchDataController.shared.fetchResults(query: searchTerm, project: project, limit: WMFSemanticSearchInterleavedConfiguration.semanticResultsLimit)
+                    try await WMFSemanticSearchDataController.shared.fetchResults(query: searchTerm, project: project, limit: WMFSemanticSearchInterleavedConfiguration.semanticResultsLimit, includesDescriptions: true)
                 }
                 group.addTask {
                     try await Task.sleep(for: .seconds(WMFSemanticSearchInterleavedConfiguration.semanticTimeoutSeconds))

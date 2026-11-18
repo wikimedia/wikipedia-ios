@@ -22,17 +22,18 @@ class WMFSearchFetcher {
     }
 
     /// - Parameter previousResults: When present, the new results are merged into this object and the object is returned.
-    func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
+    /// - Parameter includesExtracts: Asks for the lead section of each article. Only the semantic search interleaved treatment shows it.
+    func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, includesExtracts: Bool = false, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
         guard let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
             failure(RequestError.invalidParameters)
             return
         }
-        search(term: searchTerm, project: project, namespace: 0, languageVariantCode: siteURL.wmf_languageVariantCode, resultLimit: resultLimit, fullTextSearch: fullTextSearch, previousResults: previousResults, failure: failure, success: success)
+        search(term: searchTerm, project: project, namespace: 0, languageVariantCode: siteURL.wmf_languageVariantCode, resultLimit: resultLimit, fullTextSearch: fullTextSearch, previousResults: previousResults, includesExtracts: includesExtracts, failure: failure, success: success)
     }
 
     /// Search files on Wikimedia Commons.
     func fetchFiles(forSearchTerm searchTerm: String, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
-        search(term: searchTerm, project: .commons, namespace: 6, languageVariantCode: nil, resultLimit: resultLimit, fullTextSearch: fullTextSearch, previousResults: previousResults, failure: failure, success: success)
+        search(term: searchTerm, project: .commons, namespace: 6, languageVariantCode: nil, resultLimit: resultLimit, fullTextSearch: fullTextSearch, previousResults: previousResults, includesExtracts: false, failure: failure, success: success)
     }
 
     /// Each cancelled request calls its failure block with a cancellation error.
@@ -46,7 +47,7 @@ class WMFSearchFetcher {
 
     // MARK: - Private
 
-    private func search(term: String, project: WMFProject, namespace: Int, languageVariantCode: String?, resultLimit: UInt, fullTextSearch: Bool, previousResults: WMFSearchResults?, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
+    private func search(term: String, project: WMFProject, namespace: Int, languageVariantCode: String?, resultLimit: UInt, fullTextSearch: Bool, previousResults: WMFSearchResults?, includesExtracts: Bool, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
         let limit = Int(min(resultLimit, WMFMaxSearchResultLimit))
         let dataController = self.dataController
         let identifier = UUID()
@@ -56,7 +57,7 @@ class WMFSearchFetcher {
                 self?.forget(identifier)
             }
             do {
-                let response = try await dataController.searchPages(term: term, project: project, namespace: namespace, limit: limit, fullText: fullTextSearch)
+                let response = try await dataController.searchPages(term: term, project: project, namespace: namespace, limit: limit, fullText: fullTextSearch, includesExtracts: includesExtracts)
                 guard !Task.isCancelled else {
                     failure(URLError(.cancelled))
                     return

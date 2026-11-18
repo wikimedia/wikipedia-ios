@@ -103,13 +103,14 @@ extension SearchResultsViewController {
         updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
     }
 
-    /// The list of the treatment arm of the semantic search interleaved experiment. Semantic rows show the title only.
+    /// The list of the treatment arm of the semantic search interleaved experiment. Semantic rows show the passage that matched and its section.
     func displayInterleavedSearchResults(_ outcome: SemanticSearchInterleavedLoader.Outcome, searchTerm: String, siteURL: URL) {
         displayedSearchTerm = searchTerm
         displayedSiteURL = siteURL
         let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.redirectMappings)
 
         var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+        let showsSourceBadge = WMFDeveloperSettingsDataController.shared.showSemanticSearchInterleavedSourceBadge
         let results = outcome.items.compactMap { item -> SearchResult? in
             var searchResult: SearchResult?
             switch item.source {
@@ -128,19 +129,21 @@ extension SearchResultsViewController {
                     pageTitle: semanticResult.title,
                     title: semanticResult.title,
                     titleHTML: semanticResult.title,
-                    description: nil,
+                    description: mapper.capitalizedDescription(semanticResult.description),
+                    extract: WMFSemanticSearchSnippet.plainText(html: semanticResult.snippetHTML),
+                    sectionTitle: semanticResult.sectionTitle,
                     thumbnailURL: semanticResult.thumbnailURL,
                     isArticle: SearchResultsMapper.isArticle(articleURL),
                     isSavable: articleURL.namespace == .main)
             }
-#if DEBUG
-            searchResult?.sourceBadge = Self.sourceBadge(for: item.source, state: outcome.state)
-#endif
+            if showsSourceBadge {
+                searchResult?.sourceBadge = Self.sourceBadge(for: item.source, state: outcome.state)
+            }
             return searchResult
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
 
-        resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project)
+        resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project, rowStyle: .interleaved)
         resultsViewModel.hideSemanticSearchEntryPoint()
 
         guard let project = mapper.project else { return }
@@ -152,7 +155,7 @@ extension SearchResultsViewController {
             listLength: WMFSemanticSearchInterleavedConfiguration.listLength)
     }
 
-    /// Debug builds label each row with the request that gave it and the state the list ended in.
+    /// With the developer setting on, each row shows the request that gave it and the state the list ended in.
     private static func sourceBadge(for source: WMFSemanticSearchInterleavedList.Source, state: WMFSemanticSearchInterleaveState) -> String {
         let name: String
         switch source {

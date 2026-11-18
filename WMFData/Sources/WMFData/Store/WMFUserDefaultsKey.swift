@@ -145,6 +145,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Semantic search interleaved (phase 2, experiment 2)
     case developerSettingsEnableSemanticSearchInterleaved = "dev-settings-enable-semantic-search-interleaved"
+    case developerSettingsShowSemanticSearchInterleavedSourceBadge = "dev-settings-show-semantic-search-interleaved-source-badge"
     case developerSettingsForceSemanticSearchInterleavedExperimentAssignment = "dev-settings-force-semantic-search-interleaved-experiment-assignment"
     case developerSettingsAddSemanticSearchInterleavedTargetLanguageCode = "dev-settings-add-semantic-search-interleaved-target-language-code"
     case developerSettingsForceSemanticSearchInterleavedRetrievalScenario = "dev-settings-force-semantic-search-interleaved-retrieval-scenario"

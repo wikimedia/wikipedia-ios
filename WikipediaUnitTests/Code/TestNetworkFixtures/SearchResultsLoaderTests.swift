@@ -224,7 +224,7 @@ private final class GatedSearchFetcher: WMFSearchFetcher {
     private(set) var requestCount = 0
     private(set) var cancelAllFetchesCount = 0
 
-    override func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
+    override func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, includesExtracts: Bool = false, failure: @escaping (Error) -> Void, success: @escaping (WMFSearchResults) -> Void) {
         lock.lock()
         requestCount += 1
         pendingFailures.append(failure)
