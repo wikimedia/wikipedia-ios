@@ -1499,11 +1499,12 @@ render();
     const parent = p.fields.parent && p.fields.parent.name;
     return p.fields.milestone != null && parent && !p.fields.name.includes(parent) ? `${parent}: ${p.fields.name}` : p.fields.name;
   };
-  function renderBoards() {
+  // ticked: Set of board PHIDs to tick, or null to tick everything (after a new search)
+  function renderBoards(ticked = null) {
     const list = $('boardList'); list.innerHTML = '';
     for (const b of foundBoards) {
       const l = document.createElement('label'); l.className = 'check';
-      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.value = b.phid; cb.checked = true;
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.value = b.phid; cb.checked = !ticked || ticked.has(b.phid);
       cb.addEventListener('change', countBoards);
       l.append(cb, document.createTextNode(' ' + boardName(b) + (b.fields.milestone != null ? '  (milestone)' : '')));
       list.append(l);
@@ -1514,9 +1515,28 @@ render();
     const ids = new Set([...$('boardList').querySelectorAll('input:checked')].map(c => c.value));
     return foundBoards.filter(b => ids.has(b.phid));
   }
-  function countBoards() { $('boardCount').textContent = foundBoards.length ? `${selectedBoards().length} of ${foundBoards.length} selected` : ''; }
+  function countBoards() {
+    $('boardCount').textContent = foundBoards.length ? `${selectedBoards().length} of ${foundBoards.length} selected` : '';
+    store.set('boardSel', JSON.stringify(selectedBoards().map(b => b.phid)));
+  }
+  // Keep the found projects (only the fields this page uses) so the list and ticks survive a reload.
+  function saveBoards() {
+    const slim = foundBoards.map(b => ({ phid: b.phid, fields: {
+      name: b.fields.name, milestone: b.fields.milestone ?? null, dateCreated: b.fields.dateCreated ?? null,
+      parent: b.fields.parent ? { name: b.fields.parent.name } : null, 'custom.sprint:start': b.fields['custom.sprint:start'] ?? null } }));
+    store.set('boards', JSON.stringify(slim));
+  }
   $('selectAll').onclick = () => { $('boardList').querySelectorAll('input').forEach(c => c.checked = true); countBoards(); };
   $('selectNone').onclick = () => { $('boardList').querySelectorAll('input').forEach(c => c.checked = false); countBoards(); };
+  try {
+    const saved = JSON.parse(store.get('boards') || 'null');
+    if (Array.isArray(saved) && saved.length) {
+      foundBoards = saved;
+      const sel = JSON.parse(store.get('boardSel') || 'null');
+      renderBoards(Array.isArray(sel) ? new Set(sel) : null);
+      status(`Restored ${foundBoards.length} project(s) from last time, ${selectedBoards().length} ticked. Click “Load column moves” to fetch their history.`);
+    }
+  } catch (_) {}
 
   $('searchBoards').onclick = async () => {
     const terms = [...new Set($('boardQuery').value.split(/[,;\n]/).map(t => t.trim()).filter(Boolean))];
@@ -1549,6 +1569,7 @@ render();
         .filter(p => !re || re.test(boardName(p)))
         .sort(compareBoards);
       renderBoards();
+      saveBoards();
       status(`Found ${foundBoards.length} project(s).`);
     } catch (e) { status(e.message, true); }
   };
