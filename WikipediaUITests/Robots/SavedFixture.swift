@@ -125,7 +125,7 @@ struct SavedFixture {
         case "de":
             return SavedFixture(
                 openableArticleTitle: "Haushund",
-                labels: Labels(allArticlesScope: "Alle Artikel", readingListsScope: "Sammlungen", sort: "Sortieren", sortByTitle: "Titel", sortByRecentlyAdded: "Kürzlich hinzugefügt", edit: "Bearbeiten", cancel: "Abbrechen", unsave: "Löschen", delete: "Löschen", removeFromSaved: "Von gespeichert entfernen", createNewList: "Eine neue Liste erstellen", importedListDefaultName: "Meine Sammlung"),
+                labels: Labels(allArticlesScope: "Alle Artikel", readingListsScope: "Leselisten", sort: "Sortieren", sortByTitle: "Titel", sortByRecentlyAdded: "Kürzlich hinzugefügt", edit: "Bearbeiten", cancel: "Abbrechen", unsave: "Löschen", delete: "Löschen", removeFromSaved: "Von gespeichert entfernen", createNewList: "Eine neue Liste erstellen", importedListDefaultName: "Meine Leseliste"),
                 allArticlesByTitle: ["apple", "Émile Zola", "Haushund", "Zebra"]
             )
         case "he":

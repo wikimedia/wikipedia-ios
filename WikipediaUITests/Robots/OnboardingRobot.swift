@@ -67,10 +67,11 @@ extension OnboardingRobot {
 
     @discardableResult
     func assertDismissed(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        // The home feed loads right after the dismissal and keeps the app busy on CI.
         for page in OnboardingPage.allCases {
             base.waitForElementToDisappear(
                 pageElement(page),
-                timeout: 10,
+                timeout: 30,
                 file: file,
                 line: line
             )

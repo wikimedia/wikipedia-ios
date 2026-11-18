@@ -1,8 +1,8 @@
 {
-  "batchcomplete": "",
+  "batchcomplete": true,
   "query": {
-    "pages": {
-      "703329": {
+    "pages": [
+      {
         "pageid": 703329,
         "ns": 0,
         "title": "כלב הבית",
@@ -12,13 +12,9 @@
           "width": 330,
           "height": 290
         },
-        "terms": {
-          "description": [
-            "כלב הבית, בעל חיים מבוית ממשפחת הכלביים"
-          ]
-        }
+        "description": "כלב הבית, בעל חיים מבוית ממשפחת הכלביים"
       }
-    }
+    ]
   },
   "limits": {
     "pageimages": 50

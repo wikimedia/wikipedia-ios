@@ -17,6 +17,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
+      "gpssearch": "Einstein",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
@@ -28,6 +29,7 @@
     "queryItems": {
       "action": "query",
       "generator": "search",
+      "ppprop": "mainpage|disambiguation",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
@@ -50,6 +52,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
+      "gpssearch": "Einstein",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
@@ -61,6 +64,7 @@
     "queryItems": {
       "action": "query",
       "generator": "search",
+      "ppprop": "mainpage|disambiguation",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
@@ -83,6 +87,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
+      "gpssearch": "Einstein",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
@@ -94,6 +99,7 @@
     "queryItems": {
       "action": "query",
       "generator": "search",
+      "ppprop": "mainpage|disambiguation",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"
@@ -116,6 +122,7 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
+      "gpssearch": "Einstein",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingPrefixSearch.json"
@@ -127,6 +134,7 @@
     "queryItems": {
       "action": "query",
       "generator": "search",
+      "ppprop": "mainpage|disambiguation",
       "formatversion": "2"
     },
     "bodyResource": "Onboarding/en/OnboardingRandomArticles.json"

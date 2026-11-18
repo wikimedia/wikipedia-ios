@@ -912,6 +912,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         #if UITEST
         // The flags persist in user defaults, so each launch states what it needs: "groupB" shows
         // the onboarding card again, "off" turns Discover off, and no value keeps the previous state.
+        // The developer setting cannot turn the feature off when the remote config turns it on, as
+        // it does against live services, so "off" also forces the control group, which sees nothing.
         switch UserDefaults.standard.string(forKey: wmfUITestDiscoverState) {
         case "groupB":
             WMFDeveloperSettingsDataController.shared.enableDiscover = true
@@ -919,6 +921,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             try? WMFDiscoverDataController.shared.resetAnnouncement()
         case "off":
             WMFDeveloperSettingsDataController.shared.enableDiscover = false
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .control
         default:
             break
         }

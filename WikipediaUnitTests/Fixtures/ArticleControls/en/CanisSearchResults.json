@@ -1,12 +1,12 @@
 {
-  "batchcomplete": "",
+  "batchcomplete": true,
   "continue": {
     "gpsoffset": 1,
     "continue": "gpsoffset||"
   },
   "query": {
-    "pages": {
-      "403300": {
+    "pages": [
+      {
         "pageid": 403300,
         "ns": 0,
         "title": "Canis",
@@ -16,12 +16,8 @@
           "width": 320,
           "height": 448
         },
-        "terms": {
-          "description": [
-            "genus of mammals, including domestic dogs"
-          ]
-        }
+        "description": "genus of mammals, including domestic dogs"
       }
-    }
+    ]
   }
 }
