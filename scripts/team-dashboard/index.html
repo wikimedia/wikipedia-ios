@@ -284,8 +284,9 @@
           <span class="help">Saved in this browser's local storage for this file. Anyone using this browser profile could read it. Leave unticked on shared machines.</span>
         </div>
         <div class="field">
-          <label for="gh-repo">Repository</label>
-          <input type="text" id="gh-repo" spellcheck="false" placeholder="owner/name">
+          <label for="gh-repo">Repositories</label>
+          <input type="text" id="gh-repo" spellcheck="false" placeholder="owner/name, owner/name">
+          <span class="help">One or more, separated by commas, e.g. <code>wikimedia/wikipedia-ios, wikimedia/apps-android-wikipedia</code>.</span>
           <div class="grid2" style="gap:10px; margin-top:6px">
             <div class="field"><label for="gh-since">PRs opened from</label><input type="date" id="gh-since"></div>
             <div class="field"><label for="gh-until">to</label><input type="date" id="gh-until"><span class="help">Leave empty for today.</span></div>
@@ -327,6 +328,10 @@
         <button type="button" data-state="merged" aria-pressed="false">Merged only</button>
       </div>
       <label class="check" style="font-size:0.82rem"><input type="checkbox" id="gh-markOpen" checked> Mark months with open PRs</label>
+    </div>
+    <div class="ctl" role="group" aria-label="Which repositories to count" id="gh-repoCtl" hidden>
+      <span class="label">Repo</span>
+      <div class="seg" id="gh-repoSeg"></div>
     </div>
     <span class="note" id="gh-filterNote" style="margin:0"></span>
   </div>
@@ -618,7 +623,7 @@ const SNAPSHOT = {
 };
 
 const DEFAULT_CONFIG = {
-  repo: "wikimedia/wikipedia-ios",
+  repo: "wikimedia/wikipedia-ios, wikimedia/apps-android-wikipedia",
   since: "2024-08-01",
   until: "",
   engineers: "l-olson1214\nmazevedofs = Marina\ntonisevener = Toni\nealbizzati = Erika",
@@ -685,13 +690,21 @@ function midDate(from, to) {
   return isoDate(new Date(a + Math.floor((b - a) / 86400000 / 2) * 86400000));
 }
 function nextDay(d) { return isoDate(new Date(Date.parse(d + "T00:00:00Z") + 86400000)); }
+function parseRepos(text) {
+  const seen = new Set();
+  return String(text || "").split(/[\s,]+/).map(r => r.trim().replace(/^https?:\/\/github\.com\//i, "").replace(/\/+$/, ""))
+    .filter(r => r && !seen.has(r.toLowerCase()) && seen.add(r.toLowerCase()));
+}
+const repoShort = r => String(r).split("/").pop();
+function datasetRepos() { return dataset ? (dataset.repos || parseRepos(dataset.repo)) : [SNAPSHOT.repo]; }
+function prRepo(p) { return p.repo || datasetRepos()[0]; }
 function prStatus(p) { return p.merged ? "merged" : p.state === "OPEN" ? (p.isDraft ? "draft" : "open") : "closed"; }
 function stateLabel(s) { return { merged: "Merged", open: "Open", draft: "Draft", closed: "Closed" }[s]; }
 
 /* ---------- App state ---------- */
 let config = loadConfig();
 let dataset = loadCachedDataset();          // null → snapshot
-let view = { personId: location.hash.slice(1) || null, metric: "avg", stateFilter: "all", markOpen: true };
+let view = { personId: location.hash.slice(1) || null, metric: "avg", stateFilter: "all", repoFilter: "all", markOpen: true };
 let controller = null;
 let apiCalls = 0;
 let rate = null;
@@ -720,10 +733,13 @@ function automatedMatcher() {
   return login => { const l = normLogin(login); return list.has(l) || (!!config.countAllBots && !!bots[l]); };
 }
 function stateFilterFn() {
-  if (view.stateFilter === "merged") return p => p.merged;
-  if (view.stateFilter === "nodrafts") return p => !p.isDraft;
-  return () => true;
+  const repo = view.repoFilter === "all" ? null : view.repoFilter.toLowerCase();
+  const inRepo = p => !repo || prRepo(p).toLowerCase() === repo;
+  if (view.stateFilter === "merged") return p => p.merged && inRepo(p);
+  if (view.stateFilter === "nodrafts") return p => !p.isDraft && inRepo(p);
+  return inRepo;
 }
+function repoFilterName() { return view.repoFilter === "all" ? (datasetRepos().length > 1 ? "all repositories" : "") : repoShort(view.repoFilter) + " only"; }
 function finalizeRows(rows) {
   return rows.map(r => Object.assign(r, { total: r.human + r.auto, avg: r.prs ? (r.human + r.auto) / r.prs : null }));
 }
@@ -791,7 +807,7 @@ function render() {
   renderTop();
   renderMonthTable();
   renderStale();
-  BUS.gh = { people, live: !!dataset, filter: dataset ? view.stateFilter : "all",
+  BUS.gh = { people, live: !!dataset, filter: dataset ? view.stateFilter : "all", repoLabel: dataset ? repoFilterName() : "",
     source: dataset ? (dataset.source === "import" ? "imported file" : "live data") : "snapshot",
     since: dataset ? dataset.since : SNAPSHOT.since, until: dataset ? dataset.until : SNAPSHOT.until,
     range: dataset ? `${dataset.since} to ${dataset.until}` : `${SNAPSHOT.since} to ${SNAPSHOT.until}` };
@@ -823,6 +839,11 @@ function renderFilters() {
     b.disabled = !live && b.dataset.state !== "all";
     b.setAttribute("aria-pressed", String(b.dataset.state === (live ? view.stateFilter : "all")));
   });
+  const repos = datasetRepos();
+  if (view.repoFilter !== "all" && !repos.some(r => r.toLowerCase() === view.repoFilter.toLowerCase())) view.repoFilter = "all";
+  $("repoCtl").hidden = !live || repos.length < 2;
+  $("repoSeg").innerHTML = ["all", ...repos].map(r =>
+    `<button type="button" data-repo="${esc(r)}" aria-pressed="${r === view.repoFilter}">${r === "all" ? "All" : esc(repoShort(r))}</button>`).join("");
   $("markOpen").disabled = !live;
   $("filterNote").textContent = live ? "" : "Fetch live data to filter by PR state and mark open PRs.";
 }
@@ -836,7 +857,7 @@ function renderCompare() {
   const live = !!dataset;
   const range = dataset ? `${dataset.since} to ${dataset.until}` : `${SNAPSHOT.since} to ${SNAPSHOT.until}`;
   const filterName = { all: "all PRs", nodrafts: "drafts excluded", merged: "merged PRs only" }[live ? view.stateFilter : "all"];
-  $("compareSub").textContent = `PRs each person opened, ${range}, ${filterName}.`;
+  $("compareSub").textContent = `PRs each person opened, ${range}, ${filterName}${live && repoFilterName() ? ", " + repoFilterName() : ""}.`;
   $("compareHead").innerHTML = `<th>Engineer</th><th>PRs</th><th>PRs with comments</th><th>Comments</th><th>Avg / PR</th><th>Automated share</th>${live ? "<th>Still open</th>" : ""}`;
   $("compare").innerHTML = people.map(p =>
     `<tr class="${p === person ? "current" : ""}"><td>${esc(p.name)}${p.name !== p.login ? `<span class="login">${esc(p.login)}</span>` : ""}</td>` +
@@ -991,7 +1012,8 @@ function renderTop() {
   $("hTop").textContent = `${person.name}: most-discussed PRs`;
   $("topBody").innerHTML = person.top.length ? person.top.map(({ pr, h, b }) => {
     const st = prStatus(pr);
-    return `<tr><td class="title"><a href="${esc(pr.url)}" target="_blank" rel="noopener"><span class="num">#${pr.number}</span>${esc(pr.title)}</a></td>` +
+    const repoTag = datasetRepos().length > 1 ? esc(repoShort(prRepo(pr))) : "";
+    return `<tr><td class="title"><a href="${esc(pr.url)}" target="_blank" rel="noopener"><span class="num">${repoTag}#${pr.number}</span>${esc(pr.title)}</a></td>` +
       `<td><span class="badge ${st}">${stateLabel(st)}</span></td><td>${esc(pr.createdAt.slice(0, 10))}</td>` +
       `<td>${h}</td><td>${b}</td><td>${h + b}</td></tr>`;
   }).join("") : `<tr><td colspan="6" class="empty">No inline review comments on these PRs.</td></tr>`;
@@ -1020,7 +1042,8 @@ function renderStale() {
   const f = formConfig();
   const sameEngineers = JSON.stringify(TEAM.github().map(e => e.login.toLowerCase()).sort()) ===
     JSON.stringify(dataset.engineers.map(e => e.login.toLowerCase()).sort());
-  const stale = f.repo.toLowerCase() !== dataset.repo.toLowerCase() || f.since !== dataset.since ||
+  const norm = list => JSON.stringify(list.map(r => r.toLowerCase()).sort());
+  const stale = norm(parseRepos(f.repo)) !== norm(datasetRepos()) || f.since !== dataset.since ||
     (f.until || todayISO()) !== dataset.until || !sameEngineers;
   $("staleNote").hidden = !stale;
 }
@@ -1069,6 +1092,7 @@ function setBusy(busy) {
 /* ---------- GitHub GraphQL ---------- */
 const PR_FIELDS = `
   id number title url createdAt state isDraft mergedAt
+  repository { nameWithOwner }
   reviewThreads(first: 100) {
     pageInfo { hasNextPage endCursor }
     nodes { id comments(first: 100) { pageInfo { hasNextPage endCursor } nodes { author { login __typename } } } }
@@ -1170,17 +1194,17 @@ async function toRecord(token, login, pr, out, signal) {
     threads = d.node.reviewThreads;
   }
   return {
-    author: login, number: pr.number, title: pr.title, url: pr.url, createdAt: pr.createdAt,
+    author: login, repo: pr.repository ? pr.repository.nameWithOwner : "", number: pr.number, title: pr.title, url: pr.url, createdAt: pr.createdAt,
     state: pr.state, isDraft: !!pr.isDraft, merged: !!pr.mergedAt, c: counts,
   };
 }
 
-async function fetchAuthorPRs(token, repo, login, since, until, out, signal) {
+async function fetchAuthorPRs(token, repos, login, since, until, out, signal) {
   const prs = [];
   const queue = [[since, until]];
   while (queue.length) {
     const [from, to] = queue.shift();
-    const q = `repo:${repo} is:pr author:${login} created:${from}..${to} sort:created-asc`;
+    const q = `${repos.map(r => "repo:" + r).join(" ")} is:pr author:${login} created:${from}..${to} sort:created-asc`;
     let after = null, firstPage = true;
     do {
       const data = await gql(token, SEARCH_QUERY, { q, after }, signal);
@@ -1205,10 +1229,11 @@ async function fetchAll() {
   showError("");
   const token = $("token").value.trim();
   config = Object.assign(config, formConfig()); saveConfig();
-  const repo = config.repo, since = config.since, until = config.until || todayISO();
+  const repos = parseRepos(config.repo), repo = repos.join(", "), since = config.since, until = config.until || todayISO();
   const engineers = TEAM.github();
   if (!token) return showError("Add a GitHub token first. GitHub's GraphQL API doesn't accept anonymous requests.");
-  if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) return showError("Enter the repository as owner/name, for example wikimedia/wikipedia-ios.");
+  const badRepo = repos.find(r => !/^[\w.-]+\/[\w.-]+$/.test(r));
+  if (!repos.length || badRepo) return showError(`Enter repositories as owner/name, separated by commas, for example wikimedia/wikipedia-ios, wikimedia/apps-android-wikipedia.${badRepo ? ` "${badRepo}" isn't in that form.` : ""}`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(since)) return showError("Choose a start date.");
   if (since > until) return showError("The start date is after the end date.");
   if (!engineers.length) return showError("Add at least one GitHub login to the Team list at the top of the page.");
@@ -1218,14 +1243,15 @@ async function fetchAll() {
   apiCalls = 0; rate = null;
   $("log").textContent = "";
   setBusy(true);
-  const out = { version: 1, source: "live", repo, since, until, fetchedAt: "", engineers, prs: [], botAccounts: {}, warnings: [] };
+  const out = { version: 1, source: "live", repo, repos, since, until, fetchedAt: "", engineers, prs: [], botAccounts: {}, warnings: [] };
   try {
     log(`Fetching PRs in ${repo} opened ${since} to ${until} for ${engineers.length} engineer(s).`);
     for (const e of engineers) {
-      const prs = await fetchAuthorPRs(token, repo, e.login, since, until, out, controller.signal);
+      const prs = await fetchAuthorPRs(token, repos, e.login, since, until, out, controller.signal);
       out.prs.push(...prs);
       const comments = prs.reduce((a, p) => a + Object.values(p.c).reduce((x, y) => x + y, 0), 0);
-      log(`${e.login}: ${prs.length} PRs, ${comments} inline review comments.`);
+      const perRepo = repos.length > 1 ? " (" + repos.map(r => `${repoShort(r)}: ${prs.filter(p => p.repo.toLowerCase() === r.toLowerCase()).length}`).join(", ") + ")" : "";
+      log(`${e.login}: ${prs.length} PRs${perRepo}, ${comments} inline review comments.`);
     }
     out.fetchedAt = new Date().toISOString();
     out.warnings.forEach(w => log("Note: " + w));
@@ -1254,7 +1280,7 @@ function download(name, type, text) {
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
 }
 function fileStem() {
-  const repo = (dataset ? dataset.repo : SNAPSHOT.repo).replace("/", "-");
+  const repo = datasetRepos().map(r => r.replace("/", "-")).join("+");
   return `review-comments-${repo}-${todayISO()}`;
 }
 $("exportJson").addEventListener("click", () => {
@@ -1264,7 +1290,7 @@ $("exportJson").addEventListener("click", () => {
 $("exportCsv").addEventListener("click", () => {
   const live = !!dataset;
   const lines = [["engineer", "login", "month", "human", "automated", "total", "prs_opened", "avg_per_pr", "still_open", "pr_filter"].join(",")];
-  const filter = live ? view.stateFilter : "all";
+  const filter = live ? view.stateFilter + (view.repoFilter === "all" ? "" : " " + view.repoFilter) : "all";
   for (const p of people) for (const d of p.rows) {
     lines.push([p.name, p.login, d.m, d.human, d.auto, d.total, d.prs, d.avg == null ? "" : d.avg.toFixed(2), live ? d.open : "", filter]
       .map(v => /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : v).join(","));
@@ -1312,6 +1338,10 @@ $("metricSeg").addEventListener("click", e => {
 $("stateSeg").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   view.stateFilter = b.dataset.state; render();
+});
+$("repoSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  view.repoFilter = b.dataset.repo; render();
 });
 $("markOpen").addEventListener("change", () => { view.markOpen = $("markOpen").checked; renderChart1(); renderChart2(); });
 window.addEventListener("hashchange", () => { view.personId = location.hash.slice(1); render(); });
@@ -1805,13 +1835,13 @@ render();
 
     // status pills
     $("ghPill").className = "pill" + (gh && gh.live ? " live" : "");
-    $("ghPill").textContent = gh ? `GitHub: ${gh.source}, PRs opened ${gh.range}` : "GitHub: not loaded";
+    $("ghPill").textContent = gh ? `GitHub: ${gh.source}, PRs opened ${gh.range}${gh.repoLabel ? ", " + gh.repoLabel : ""}` : "GitHub: not loaded";
     $("phPill").className = "pill" + (ph ? " live" : "");
     $("phPill").textContent = ph ? `Phabricator: ${ph.boards} boards, ${ph.desc}, ${ph.attr}` : "Phabricator: not loaded yet (see the Phabricator tab)";
 
     const phLabel = ph ? ph.label : "Column moves";
     const phVal = cell => !cell ? 0 : ph.metric === "moves" ? cell.moves : cell.tasks.size;
-    $("compareSub").textContent = `Review comments on PRs each person opened${gh ? ` (${gh.range}${gh.live && gh.filter !== "all" ? ", " + { nodrafts: "drafts excluded", merged: "merged PRs only" }[gh.filter] : ""})` : ""}, and ${phLabel.toLowerCase()} matching the Phabricator filter${gh ? " in the same date range" : ""}.`;
+    $("compareSub").textContent = `Review comments on PRs each person opened${gh ? ` (${gh.range}${gh.live && gh.filter !== "all" ? ", " + { nodrafts: "drafts excluded", merged: "merged PRs only" }[gh.filter] : ""}${gh.repoLabel ? ", " + gh.repoLabel : ""})` : ""}, and ${phLabel.toLowerCase()} matching the Phabricator filter${gh ? " in the same date range" : ""}.`;
     $("compareHead").innerHTML = `<th>Engineer</th><th>PRs opened</th><th>Review comments</th><th>Avg / PR</th><th>${esc(phLabel)}</th><th>${esc(phLabel)} / PR</th>`;
     const na = (why) => `<td class="na" title="${esc(why)}">–</td>`;
     $("compare").innerHTML = rows.map(({ p, g, pt }) => {
