@@ -302,7 +302,7 @@ final class SearchInstrumentation {
 
     // TODO: Still to be settled. The event name and the `action_context` keys are provisional.
 
-    /// The list that rendered for a reader in the semantic search interleaved experiment, in either arm. It
+    /// The list that rendered for a reader in the semantic search interleaved experiment, in treatment arm.
     /// carries what the backend needs to rebuild the list from the search IDs: the seed, the coin flips, the
     /// versions, the state and the three search IDs. It has no query and no page IDs.
     func logInterleavedList(project: WMFProject, state: WMFSemanticSearchInterleaveState?, merge: WMFInterleaveResult<WMFSemanticSearchInterleavedList.Item>?, searchIDs: WMFSemanticSearchInterleavedIDs, listLength: Int) {
