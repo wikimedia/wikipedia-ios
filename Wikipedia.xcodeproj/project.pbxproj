@@ -350,6 +350,7 @@
 		5EA5C0DE00000000000000A2 /* SearchResultsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000A0 /* SearchResultsLoader.swift */; };
 		5EA5C0DE00000000000000A3 /* SearchResultsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000A0 /* SearchResultsLoader.swift */; };
 		5EA5C0DE00000000000000B1 /* SearchResultsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000B0 /* SearchResultsLoaderTests.swift */; };
+		5EA5C0DE00000000000000F1 /* SemanticSearchInterleavedLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000F0 /* SemanticSearchInterleavedLoaderTests.swift */; };
 		7D8C00212FCF000000000001 /* WMFLocationSearchFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00202FCF000000000001 /* WMFLocationSearchFetcherTests.swift */; };
 		7D8C00232FCF000000000001 /* InsertMediaSearchViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00222FCF000000000001 /* InsertMediaSearchViewControllerTests.swift */; };
 		5EA5C0DE00000000000000C1 /* SearchResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */; };
@@ -3059,6 +3060,7 @@
 		5E6A000100000000000AE001 /* ArticleViewController+SemanticSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+SemanticSearch.swift"; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000A0 /* SearchResultsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsLoader.swift; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000B0 /* SearchResultsLoaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsLoaderTests.swift; sourceTree = "<group>"; };
+		5EA5C0DE00000000000000F0 /* SemanticSearchInterleavedLoaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemanticSearchInterleavedLoaderTests.swift; sourceTree = "<group>"; };
 		7D8C00202FCF000000000001 /* WMFLocationSearchFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFLocationSearchFetcherTests.swift; sourceTree = "<group>"; };
 		7D8C00222FCF000000000001 /* InsertMediaSearchViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchViewControllerTests.swift; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsMapper.swift; sourceTree = "<group>"; };
@@ -6082,6 +6084,7 @@
 			children = (
 				7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */,
 				5EA5C0DE00000000000000B0 /* SearchResultsLoaderTests.swift */,
+				5EA5C0DE00000000000000F0 /* SemanticSearchInterleavedLoaderTests.swift */,
 				7D8C00202FCF000000000001 /* WMFLocationSearchFetcherTests.swift */,
 				FB91BF0BBD5F478E2BAFDD9C /* SearchFixtureService.swift */,
 				7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */,
@@ -9172,6 +9175,7 @@
 				67C6F77527E2E78800B9C864 /* NotificationsCenterCellViewModelGenericTests.swift in Sources */,
 				7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */,
 				5EA5C0DE00000000000000B1 /* SearchResultsLoaderTests.swift in Sources */,
+				5EA5C0DE00000000000000F1 /* SemanticSearchInterleavedLoaderTests.swift in Sources */,
 				7D8C00212FCF000000000001 /* WMFLocationSearchFetcherTests.swift in Sources */,
 				7D8C00232FCF000000000001 /* InsertMediaSearchViewControllerTests.swift in Sources */,
 				D2F1B94F4E35BC2B569588D3 /* SearchFixtureService.swift in Sources */,
