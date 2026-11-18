@@ -11,7 +11,7 @@ protocol ArticleScrolling: AnyObject {
 }
 
 // Must set `webView.scrollView.delegate = self` in `viewDidLoad`, as it is not permitted to override functions in extensions.
-// There is also some related code in ViewController.scrollViewDidEndScrollingAnimation
+// There is also some related code in ArticleViewController.scrollViewDidEndScrollingAnimation
 // It's a tad hacky, but we need to call something on it and the function can't be overridden here.
 extension ArticleScrolling where Self: UIViewController {
 
