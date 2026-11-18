@@ -31,8 +31,10 @@ instance). GitHub calls go straight from the browser to api.github.com.
    applies to the overview. Use *Export JSON* / *Import JSON* to keep or share a fetch.
 3. **Column moves (Phabricator)** tab: paste a Conduit API token, search for the sprint boards
    (comma-separate several searches; open milestones are included and sorted by date), tick the
-   boards, and click *Load column moves*. The project list and ticks are remembered across reloads
-   (the fetched history isn't, so click *Load column moves* again after a reload). Tick or untick engineers to include or exclude them from
+   boards, and click *Load column moves*. The project list, ticks and everything fetched are saved in
+   the browser (IndexedDB), so a reload shows the charts without any queries. *Load column moves*
+   then refreshes incrementally: it lists each board's tasks but only re-fetches the history of tasks
+   that are new or modified. *Clear saved data* forces a full fetch next time. Tick or untick engineers to include or exclude them from
    every chart, total and table (the choice is remembered). The per-month chart can show engineers
    side by side, stacked, or as a single team total.
    *Count* can be moves, tasks closed (tasks on the selected boards closed in the date range,

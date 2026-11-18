@@ -458,7 +458,8 @@
       <div id="ph-boardList" class="boardlist"></div>
       <div class="actions">
         <button class="btn primary" id="ph-load" type="button">Load column moves</button>
-        <span class="help">Fetches every task on the selected boards and its history. Large boards take a while.</span>
+        <button class="btn" id="ph-clearCache" type="button">Clear saved data</button>
+        <span class="help">Fetched tasks and their history are saved in this browser. Loading again lists each board's tasks but only re-fetches the history of tasks that are new or have changed.</span>
       </div>
       <progress id="ph-progress" value="0" max="1" hidden></progress>
       <div class="progress" id="ph-status" role="status"></div>
@@ -1582,54 +1583,109 @@ render();
     } catch (e) { status(e.message, true); }
   };
 
-  // ---- load moves ----
+  // ---- saved data (IndexedDB) ----
+  // Everything fetched is kept so a reload shows the charts with no queries, and "Load" only re-fetches the
+  // history of tasks that are new or changed. Moves are stored for every board a task was on, so other board
+  // selections can be served from the same data.
+  //   cache = { version, api, savedAt, columns: Map, tasks: Map, moves: Map(taskPHID -> [move]), boardTasks: Map(boardPHID -> [taskPHID]) }
+  const CACHE_KEY = 'phab-cache-v1';
+  const idb = {
+    open() {
+      return new Promise((res, rej) => {
+        const r = indexedDB.open('team-dashboard', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('kv');
+        r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+      });
+    },
+    async run(mode, fn) {
+      const db = await this.open();
+      return new Promise((res, rej) => {
+        const t = db.transaction('kv', mode); const req = fn(t.objectStore('kv'));
+        t.oncomplete = () => res(req && req.result); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error);
+      });
+    },
+    get(k) { return this.run('readonly', st => st.get(k)).catch(() => undefined); },
+    set(k, v) { return this.run('readwrite', st => st.put(v, k)).then(() => true, e => { console.warn('Could not save data', e); return false; }); },
+    del(k) { return this.run('readwrite', st => st.delete(k)).catch(() => {}); },
+  };
+  const apiKey = () => { let b = $('apiBase').value.trim(); return b.endsWith('/') ? b : b + '/'; };
+  let cache = null;
+  async function loadCache() {
+    if (cache) return cache;
+    const c = await idb.get(CACHE_KEY);
+    cache = c && c.version === 1 && c.api === apiKey() ? c
+      : { version: 1, api: apiKey(), savedAt: 0, columns: new Map(), tasks: new Map(), moves: new Map(), boardTasks: new Map() };
+    return cache;
+  }
+  const ago = ms => { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? 'just now' : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} days ago`; };
+
+  // Build the in-memory data for the selected boards from the cache. Returns null if a board hasn't been loaded yet.
+  function buildData(boards) {
+    if (!cache || !boards.length || boards.some(b => !cache.boardTasks.has(b.phid))) return null;
+    const boardMap = new Map(boards.map(b => [b.phid, boardName(b)]));
+    const tasks = new Map();
+    for (const b of boardMap.keys()) for (const phid of cache.boardTasks.get(b)) {
+      const t = cache.tasks.get(phid); if (!t) continue;
+      if (!tasks.has(phid)) tasks.set(phid, { ...t, boards: new Set() });
+      tasks.get(phid).boards.add(b);
+    }
+    const moves = [];
+    for (const phid of tasks.keys()) for (const mv of cache.moves.get(phid) || []) if (boardMap.has(mv.board)) moves.push({ task: phid, ...mv });
+    return { boards: boardMap, columns: cache.columns, tasks, moves };
+  }
+
   let data = null; // { boards: Map, columns: Map, tasks: Map, moves: [] }
   $('load').onclick = async () => {
     const boards = selectedBoards();
     if (!boards.length) { status('Select at least one board.', true); return; }
     $('load').disabled = true;
+    let queries = 0;
+    const q = async (method, params, onPage) => { const r = await searchAll(method, params, n => { queries++; onPage && onPage(n); }); return r; };
     try {
-      const boardMap = new Map(boards.map(b => [b.phid, boardName(b)]));
+      await loadCache();
+      const boardIds = boards.map(b => b.phid);
       status('Loading columns…');
-      const columns = new Map();
-      for (const c of chunk([...boardMap.keys()], 50)) {
-        const cols = await searchAll('project.column.search', { constraints: { projects: c } });
-        for (const col of cols) columns.set(col.phid, { name: col.fields.name, board: col.fields.project && col.fields.project.phid });
+      for (const c of chunk(boardIds, 50)) {
+        const cols = await q('project.column.search', { constraints: { projects: c } });
+        for (const col of cols) cache.columns.set(col.phid, { name: col.fields.name, board: col.fields.project && col.fields.project.phid });
       }
 
-      const tasks = new Map();
-      let i = 0;
-      for (const [phid, name] of boardMap) {
+      // list each board's tasks; a task needs its history (re-)fetched if it's new or modified since last time
+      const stale = new Map(), seen = new Set(); let i = 0;
+      for (const b of boards) {
         i++;
-        const list = await searchAll('maniphest.search', { constraints: { projects: [phid] } }, n => status(`Loading tasks: board ${i}/${boardMap.size} (${name}) – ${n} tasks`));
+        const list = await q('maniphest.search', { constraints: { projects: [b.phid] } }, n => status(`Listing tasks: board ${i}/${boards.length} (${boardName(b)}) – ${n} tasks`));
+        cache.boardTasks.set(b.phid, list.map(t => t.phid));
         for (const t of list) {
-          const prev = tasks.get(t.phid);
-          tasks.set(t.phid, { id: t.id, title: t.fields.name, owner: t.fields.ownerPHID,
+          seen.add(t.phid);
+          const prev = cache.tasks.get(t.phid), modified = t.fields.dateModified || 0;
+          cache.tasks.set(t.phid, { id: t.id, title: t.fields.name, owner: t.fields.ownerPHID,
             status: t.fields.status && (t.fields.status.value ?? t.fields.status), closed: t.fields.dateClosed || null,
-            created: t.fields.dateCreated || null,
-            boards: new Set([...(prev ? prev.boards : []), phid]) });
+            created: t.fields.dateCreated || null, modified });
+          if (!prev || prev.modified !== modified || !cache.moves.has(t.phid)) stale.set(t.phid, t.id);
         }
       }
 
-      const moves = []; let done = 0; const taskList = [...tasks.keys()];
-      progress(0, taskList.length);
       // transaction.search does not expose column moves (they come back with a null type), so use
       // maniphest.gettasktransactions, which returns raw transactions and accepts many task IDs per call.
-      const idToPHID = new Map([...tasks].map(([phid, t]) => [String(t.id), phid]));
-      const record = (taskPHID, author, date, board, from, to) => {
-        if (!boardMap.has(board) || !to || from === to) return; // other boards / reorder within a column
-        moves.push({ task: taskPHID, author, board, from: from || null, to, date: Number(date) });
-      };
+      const idToPHID = new Map([...stale].map(([phid, id]) => [String(id), phid]));
+      let done = 0, fetchedMoves = 0;
+      progress(0, stale.size);
       const fetchBatch = async ids => {
         let result;
-        try { result = await conduit('maniphest.gettasktransactions', { ids }); }
+        try { result = await conduit('maniphest.gettasktransactions', { ids }); queries++; }
         catch (e) {
           if (ids.length === 1) throw e;
           const h = Math.ceil(ids.length / 2); // response too large? split and retry
           await fetchBatch(ids.slice(0, h)); await fetchBatch(ids.slice(h)); return;
         }
+        const got = new Map(ids.map(id => [idToPHID.get(String(id)), []]));
+        const record = (taskPHID, author, date, board, from, to) => {
+          if (!to || from === to) return; // reorder within a column
+          got.get(taskPHID).push({ author, board, from: from || null, to, date: Number(date) });
+        };
         for (const [taskId, txs] of Object.entries(result || {})) {
-          const taskPHID = idToPHID.get(String(taskId)); if (!taskPHID) continue;
+          const taskPHID = idToPHID.get(String(taskId)); if (!taskPHID || !got.has(taskPHID)) continue;
           for (const tx of Object.values(txs || {})) {
             const nv = tx.newValue, ov = tx.oldValue;
             if (tx.transactionType === 'core:columns' && nv) {
@@ -1643,17 +1699,47 @@ render();
             }
           }
         }
-        done += ids.length; progress(done, taskList.length);
-        status(`Loading task histories: ${done}/${taskList.length} – ${moves.length} column moves found`);
+        for (const [phid, list] of got) { cache.moves.set(phid, list); fetchedMoves += list.length; }
+        done += ids.length; progress(done, stale.size);
+        status(`Fetching history of new or changed tasks: ${done}/${stale.size} (${seen.size - stale.size} unchanged tasks reused from saved data)`);
       };
-      await pool(chunk(taskList.map(phid => tasks.get(phid).id), 20), 4, fetchBatch);
+      await pool(chunk([...stale.values()], 20), 4, fetchBatch);
       progress(0, 0);
-      data = { boards: boardMap, columns, tasks, moves };
-      status(`Loaded ${moves.length} column moves across ${tasks.size} tasks on ${boardMap.size} boards.`);
+
+      cache.savedAt = Date.now(); cache.api = apiKey();
+      const saved = await idb.set(CACHE_KEY, cache);
+      data = buildData(boards);
+      status(`Loaded ${data.moves.length} column moves across ${data.tasks.size} tasks on ${boards.length} boards. ` +
+        `${stale.size} task histories fetched, ${seen.size - stale.size} reused; ${queries} queries.` +
+        (saved ? '' : ' (Could not save the data in this browser, so it will be fetched in full next time.)'));
       await apply();
     } catch (e) { progress(0, 0); status(e.message, true); }
     finally { $('load').disabled = false; }
   };
+
+  // Show saved data without fetching: on page load and whenever the board ticks change.
+  async function showFromCache(reason) {
+    await loadCache();
+    const boards = selectedBoards();
+    const built = buildData(boards);
+    if (!built) {
+      if (reason === 'ticks' && boards.length) status(`Some ticked boards haven't been loaded yet. Click “Load column moves”.`);
+      return false;
+    }
+    data = built;
+    status(`Showing saved data from ${ago(cache.savedAt)}: ${data.moves.length} column moves across ${data.tasks.size} tasks on ${boards.length} boards. ` +
+      `Click “Load column moves” to update; only new or changed tasks are re-fetched.`);
+    await apply();
+    return true;
+  }
+  let ticksTimer = null;
+  $('boardList').addEventListener('change', () => { clearTimeout(ticksTimer); ticksTimer = setTimeout(() => showFromCache('ticks'), 400); });
+  $('selectAll').addEventListener('click', () => { clearTimeout(ticksTimer); ticksTimer = setTimeout(() => showFromCache('ticks'), 400); });
+  $('clearCache').onclick = async () => {
+    await idb.del(CACHE_KEY); cache = null; store.set('users', null); userCache.clear();
+    status('Saved data cleared. The next “Load column moves” fetches everything again.');
+  };
+  $('apiBase').addEventListener('change', () => { cache = null; });
 
   // ---- matching ----
   const norm = s => (s || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
@@ -1674,12 +1760,14 @@ render();
   }
 
   // ---- users ----
-  const userCache = new Map(); // username(lower) -> {phid, username}
+  // username(lower) -> {phid, username}; kept in this browser so showing saved data needs no queries
+  const userCache = new Map((() => { try { return JSON.parse(store.get('users') || '[]'); } catch { return []; } })());
   async function resolveUsers(names) {
     const missing = names.filter(n => !userCache.has(n.toLowerCase()));
     for (const c of chunk(missing, 100)) {
       const res = await searchAll('user.search', { constraints: { usernames: c } });
       for (const u of res) userCache.set(u.fields.username.toLowerCase(), { phid: u.phid, username: u.fields.username });
+      store.set('users', JSON.stringify([...userCache]));
     }
     const unknown = names.filter(n => !userCache.has(n.toLowerCase()));
     return { users: names.map(n => userCache.get(n.toLowerCase())).filter(Boolean), unknown };
@@ -2018,6 +2106,7 @@ render();
     a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
     a.download = 'column-moves.csv'; a.click(); URL.revokeObjectURL(a.href);
   };
+  showFromCache('startup');
 })();
 </script>
 <script>
