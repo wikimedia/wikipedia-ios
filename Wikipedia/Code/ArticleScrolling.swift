@@ -54,7 +54,8 @@ extension ArticleScrolling where Self: UIViewController {
             case .success:
                 // The actual scroll happens via a callback event from the WebView
                 // When that event is received, the scrollToAnchorCompletion is called
-                let scrollCompletion: ScrollToAnchorCompletion = { (anchor, rect) in
+                let scrollCompletion: ScrollToAnchorCompletion = { [weak self] (anchor, rect) in
+                    guard let self else { return }
                     let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.scrollView.contentOffset.y)
                     self.scroll(to: point, centered: centered, animated: animated) { (success) in
                         completion?(success ? .scrolled : .failed)
