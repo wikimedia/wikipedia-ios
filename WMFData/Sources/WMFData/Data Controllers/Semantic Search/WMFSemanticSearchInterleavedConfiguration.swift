@@ -15,7 +15,7 @@ public enum WMFSemanticSearchInterleavedConfiguration {
     //   The stage 1 lexical list builder (EF-1) uses the same 10 as its default for now.
     // - fullTextThreshold (10): full text only tops up a prefix list that returned fewer results than this.
     //   It equals the request limit, and the stage 1 builder (EF-1) uses 10 as its default for now.
-    // - semanticTimeoutSeconds (1.5): how long the semantic request may take before the reader gets the
+    // - semanticTimeoutSeconds (5.0): how long the semantic request may take before the reader gets the
     //   lexical list. The value is still to be settled (US-4).
     //
     // The backend rebuilds the lexical list from the search IDs, so the lexical limit and the full text
