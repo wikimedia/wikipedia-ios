@@ -31,7 +31,9 @@ instance). GitHub calls go straight from the browser to api.github.com.
    applies to the overview. Use *Export JSON* / *Import JSON* to keep or share a fetch.
 3. **Column moves (Phabricator)** tab: paste a Conduit API token, search for the sprint boards
    (comma-separate several searches; open milestones are included and sorted by date), tick the
-   boards, and click *Load column moves*. Then set the "from"/"to" column names. Matching ignores
+   boards, and click *Load column moves*. Tick or untick engineers to include or exclude them from
+   every chart, total and table (the choice is remembered). The per-month chart can show engineers
+   side by side, stacked, or as a single team total. Then set the "from"/"to" column names. Matching ignores
    case and punctuation, commas separate alternatives, and `/regex/` works.
 4. **Overview** tab: uses the current data and filters from the other two tabs. When GitHub data
    is loaded, the overview covers the same date range.

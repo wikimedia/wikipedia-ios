@@ -468,6 +468,11 @@
   <section>
     <div class="sec-head"><div><h2>What to count</h2><p class="sec-sub">Charts redraw automatically when you change these; no new fetch is needed. Engineers come from the Team list.</p></div></div>
     <div class="card" style="padding:16px">
+      <div class="field" style="margin-bottom:14px">
+        <span class="label">Engineers</span>
+        <div class="actions" id="ph-engineers"></div>
+        <span class="help">Unticked engineers are left out of every chart, total and table on this tab, and out of the overview's Phabricator numbers.</span>
+      </div>
       <div class="grid2">
         <div class="field">
           <label for="ph-fromPat">From column like</label>
@@ -515,7 +520,14 @@
     <div class="card"><div class="chartBox"><canvas id="ph-boardChart"></canvas></div></div>
   </section>
   <section id="ph-resultsMonth" hidden>
-    <div class="sec-head"><div><h2>Per month</h2><p class="sec-sub">By the month the move happened.</p></div></div>
+    <div class="sec-head">
+      <div><h2>Per month</h2><p class="sec-sub" id="ph-monthSub">By the month the move happened.</p></div>
+      <div class="seg" id="ph-monthMode" role="group" aria-label="How to show engineers">
+        <button type="button" data-mode="grouped" aria-pressed="true">Per engineer</button>
+        <button type="button" data-mode="stacked" aria-pressed="false">Stacked</button>
+        <button type="button" data-mode="total" aria-pressed="false">Team total</button>
+      </div>
+    </div>
     <div class="card"><div class="chartBox"><canvas id="ph-monthChart"></canvas></div></div>
   </section>
   <section id="ph-results3" hidden>
@@ -1647,9 +1659,12 @@ render();
   }
   async function applyInner() {
     if (!data) throw new Error('No board data in this page yet. Click “Load column moves” above (loaded data is lost when the page is reloaded).');
-    const team = TEAM.phab();
+    const fullTeam = TEAM.phab();
+    const team = fullTeam.filter(t => !excluded.has(t.username.toLowerCase()));
+    const colorIdx = new Map(fullTeam.map((t, i) => [t.username.toLowerCase(), i]));   // colours stay put when people are unticked
     const names = [...new Set(team.map(t => t.username))];
-    if (!names.length) { BUS.ph = null; BUS.emit(); throw new Error('Add Phabricator usernames to the Team list at the top of the page.'); }
+    if (!fullTeam.length) { BUS.ph = null; BUS.emit(); throw new Error('Add Phabricator usernames to the Team list at the top of the page.'); }
+    if (!names.length) { BUS.ph = null; BUS.emit(); throw new Error('No engineers are ticked. Tick at least one under Engineers.'); }
     const nameFor = new Map(team.map(t => [t.username.toLowerCase(), t.name]));
     let fromM, toM;
     try { fromM = matcher($('fromPat').value); toM = matcher($('toPat').value); }
@@ -1659,7 +1674,8 @@ render();
     try { ({ users, unknown } = await resolveUsers(names)); }
     catch (e) { throw new Error('Looking up users failed: ' + e.message); }
     if (!users.length) throw new Error(`None of the Phabricator usernames in the Team list were found: ${unknown.join(', ')}.`);
-    users = users.map(u => ({ ...u, name: nameFor.get(u.username.toLowerCase()) || u.username }));
+    users = users.map(u => ({ ...u, name: nameFor.get(u.username.toLowerCase()) || u.username,
+      color: PALETTE[(colorIdx.get(u.username.toLowerCase()) ?? 0) % PALETTE.length] }));
 
     const attr = $('attr').value, metric = $('metric').value;
     const since = $('since').value ? Date.parse($('since').value) / 1000 : -Infinity;
@@ -1696,14 +1712,15 @@ render();
       }
     };
     const metricLabel = metric === 'moves' ? 'Moves' : 'Distinct tasks';
-    $('totalTitle').textContent = `${metricLabel} per engineer`;
+    const teamTotal = metric === 'moves' ? matched.length : new Set(matched.map(mv => mv.task)).size;
+    $('totalTitle').textContent = `${metricLabel} per engineer · team total ${teamTotal}`;
 
     charts.push(new Chart($('totalChart'), {
       type: 'bar',
       data: {
         labels: users.map(u => u.name),
         datasets: [{ label: metricLabel, data: users.map(u => metric === 'moves' ? totalMoves.get(u.phid) : totals.get(u.phid).size),
-          backgroundColor: users.map((_, i) => PALETTE[i % PALETTE.length]), borderRadius: 4 }]
+          backgroundColor: users.map(u => u.color), borderRadius: 4 }]
       },
       options: { ...baseOpts, plugins: { legend: { display: false } } }
     }));
@@ -1712,7 +1729,7 @@ render();
       data: {
         labels: boardIds.map(b => data.boards.get(b)),
         datasets: users.map((u, i) => ({ label: u.name, data: boardIds.map(b => val(agg.get(u.phid).get(b))),
-          backgroundColor: PALETTE[i % PALETTE.length], borderRadius: 3 }))
+          backgroundColor: u.color, borderRadius: 3 }))
       },
       options: baseOpts
     }));
@@ -1732,14 +1749,25 @@ render();
       const cell = per.get(k); cell.moves++; cell.tasks.add(mv.task);
     }
     const monthLabel = k => new Date(+k.slice(0, 4), +k.slice(5) - 1, 1).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+    const monthMode = ['grouped', 'stacked', 'total'].includes(store.get('monthMode')) ? store.get('monthMode') : 'grouped';
+    $('monthMode').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === monthMode)));
+    const teamMonth = m => {
+      if (metric === 'moves') return users.reduce((a, u) => a + (byMonth.get(u.phid).get(m)?.moves || 0), 0);
+      const s = new Set(); users.forEach(u => byMonth.get(u.phid).get(m)?.tasks.forEach(t => s.add(t))); return s.size;   // a task counts once for the team
+    };
+    const monthDatasets = monthMode === 'total'
+      ? [{ label: `Team total (${users.length} engineer${users.length === 1 ? '' : 's'})`, data: months.map(teamMonth),
+          backgroundColor: css.getPropertyValue('--accent').trim(), borderRadius: 3 }]
+      : users.map(u => ({ label: u.name, data: months.map(m => val(byMonth.get(u.phid).get(m))),
+          backgroundColor: u.color, borderRadius: monthMode === 'stacked' ? 0 : 3 }));
+    const monthOpts = monthMode === 'stacked'
+      ? { ...baseOpts, scales: { x: { ...baseOpts.scales.x, stacked: true }, y: { ...baseOpts.scales.y, stacked: true } } }
+      : baseOpts;
+    $('monthSub').textContent = `By the month the move happened. Team total: ${teamTotal} ${metricLabel.toLowerCase()} across ${users.length} engineer${users.length === 1 ? '' : 's'}.`;
     charts.push(new Chart($('monthChart'), {
       type: 'bar',
-      data: {
-        labels: months.map(monthLabel),
-        datasets: users.map((u, i) => ({ label: u.name, data: months.map(m => val(byMonth.get(u.phid).get(m))),
-          backgroundColor: PALETTE[i % PALETTE.length], borderRadius: 3 }))
-      },
-      options: baseOpts
+      data: { labels: months.map(monthLabel), datasets: monthDatasets },
+      options: { ...monthOpts, interaction: { mode: 'index', intersect: false } }
     }));
 
     // transitions table (helps discover names)
@@ -1788,6 +1816,37 @@ render();
   }
   TEAM.on(() => { if (data) apply(); });
 
+  // ---- include / exclude engineers (remembered in this browser) ----
+  let excluded = new Set();
+  try { excluded = new Set(JSON.parse(store.get('excluded') || '[]')); } catch {}
+  const saveExcluded = () => store.set('excluded', JSON.stringify([...excluded]));
+  function renderEngineerChecks() {
+    const team = TEAM.phab();
+    $('engineers').innerHTML = team.length
+      ? team.map(t => `<label class="check"><input type="checkbox" data-u="${esc(t.username.toLowerCase())}"${excluded.has(t.username.toLowerCase()) ? '' : ' checked'}> ${esc(t.name)}</label>`).join('') +
+        '<button class="btn" type="button" data-all="1">All</button><button class="btn" type="button" data-all="0">None</button>'
+      : '<span class="help">Add Phabricator usernames to the Team list at the top of the page.</span>';
+  }
+  $('engineers').addEventListener('change', e => {
+    const u = e.target.dataset && e.target.dataset.u; if (!u) return;
+    if (e.target.checked) excluded.delete(u); else excluded.add(u);
+    saveExcluded(); if (data) apply();
+  });
+  $('engineers').addEventListener('click', e => {
+    const b = e.target.closest('button[data-all]'); if (!b) return;
+    for (const t of TEAM.phab()) { const u = t.username.toLowerCase(); if (b.dataset.all === '1') excluded.delete(u); else excluded.add(u); }
+    saveExcluded(); renderEngineerChecks(); if (data) apply();
+  });
+  TEAM.on(renderEngineerChecks);
+  renderEngineerChecks();
+  { const saved = store.get('monthMode'); if (saved) $('monthMode').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.mode === saved))); }
+  $('monthMode').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    store.set('monthMode', b.dataset.mode);
+    $('monthMode').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    if (data) apply();
+  });
+
   function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
   $('csv').onclick = () => {
     const cols = ['date', 'user', 'task', 'title', 'board', 'from', 'to'];
@@ -1828,6 +1887,9 @@ render();
     return { p, g, pm, pt };
   }
 
+  function excludedOnPhab(p) {
+    try { return JSON.parse(localStorage.getItem('pcm.excluded') || '[]').includes(p.phab.toLowerCase()); } catch (_) { return false; }
+  }
   function render() {
     const gh = BUS.gh, ph = BUS.ph;
     const team = TEAM.parse();
@@ -1851,7 +1913,7 @@ render();
       const phN = pt ? (ph.metric === "moves" ? pt.moves : pt.tasks.size) : null;
       const phCells = !p.phab ? na("No Phabricator username in the Team list") + na("")
         : !ph ? na("Load column moves on the Phabricator tab") + na("")
-        : phN == null ? na("Unknown Phabricator username, or no moves") + na("")
+        : phN == null ? na(excludedOnPhab(p) ? "Unticked on the Phabricator tab" : "Unknown Phabricator username, or no moves") + na("")
         : `<td>${phN}</td><td>${g && g.sum.prs ? (phN / g.sum.prs).toFixed(2) : "–"}</td>`;
       return `<tr class="${selected === p.name ? "current" : ""}"><td>${esc(p.name)}</td>${ghCells}${phCells}</tr>`;
     }).join("") || `<tr><td colspan="6" class="empty">Add people to the Team list.</td></tr>`;
