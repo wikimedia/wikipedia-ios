@@ -1709,6 +1709,7 @@ render();
     const c = await idb.get(CACHE_KEY);
     cache = c && c.version === 1 && c.api === apiKey() ? c
       : { version: 1, api: apiKey(), savedAt: 0, columns: new Map(), tasks: new Map(), moves: new Map(), boardTasks: new Map() };
+    if (!cache.maxPoints) cache.maxPoints = new Map();   // taskPHID -> highest Story/Final Story Points ever set (null if never)
     return cache;
   }
   const ago = ms => { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? 'just now' : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} days ago`; };
@@ -1720,7 +1721,7 @@ render();
     const tasks = new Map();
     for (const b of boardMap.keys()) for (const phid of cache.boardTasks.get(b)) {
       const t = cache.tasks.get(phid); if (!t) continue;
-      if (!tasks.has(phid)) tasks.set(phid, { ...t, boards: new Set() });
+      if (!tasks.has(phid)) tasks.set(phid, { ...t, maxPoints: cache.maxPoints ? cache.maxPoints.get(phid) : undefined, boards: new Set() });
       tasks.get(phid).boards.add(b);
     }
     const moves = [];
@@ -1757,7 +1758,7 @@ render();
             status: t.fields.status && (t.fields.status.value ?? t.fields.status), closed: t.fields.dateClosed || null,
             created: t.fields.dateCreated || null, modified,
             points: t.fields.points ?? null, finalPoints: t.fields['custom.points.final'] ?? null });
-          if (!prev || prev.modified !== modified || !cache.moves.has(t.phid)) stale.set(t.phid, t.id);
+          if (!prev || prev.modified !== modified || !cache.moves.has(t.phid) || !cache.maxPoints.has(t.phid)) stale.set(t.phid, t.id);
         }
       }
 
@@ -1775,6 +1776,9 @@ render();
           await fetchBatch(ids.slice(0, h)); await fetchBatch(ids.slice(h)); return;
         }
         const got = new Map(ids.map(id => [idToPHID.get(String(id)), []]));
+        // highest Story Points ("points") or Final Story Points (custom field "points.final") value in the history
+        const best = new Map(ids.map(id => [idToPHID.get(String(id)), null]));
+        const bump = (taskPHID, ...vals) => { for (const v of vals) { const n = Number(v); if (v != null && v !== '' && Number.isFinite(n)) best.set(taskPHID, Math.max(best.get(taskPHID) ?? -Infinity, n)); } };
         const record = (taskPHID, author, date, board, from, to) => {
           if (!to || from === to) return; // reorder within a column
           got.get(taskPHID).push({ author, board, from: from || null, to, date: Number(date) });
@@ -1788,13 +1792,16 @@ render();
                 if (!m) continue;
                 record(taskPHID, tx.authorPHID, tx.dateCreated, m.boardPHID, Object.values(m.fromColumnPHIDs || {})[0], m.columnPHID);
               }
+            } else if (tx.transactionType === 'points' ||
+                (tx.transactionType === 'core:customfield' && /(^|:)points\.final$/.test((tx.meta && tx.meta['customfield:key']) || ''))) {
+              bump(taskPHID, ov, nv);
             } else if (tx.transactionType === 'projectcolumn' && nv) { // pre-2016 format
               const from = ov && ov.columnPHIDs ? Object.values(ov.columnPHIDs)[0] : null;
               record(taskPHID, tx.authorPHID, tx.dateCreated, nv.projectPHID, from, Object.values(nv.columnPHIDs || {})[0]);
             }
           }
         }
-        for (const [phid, list] of got) { cache.moves.set(phid, list); fetchedMoves += list.length; }
+        for (const [phid, list] of got) { cache.moves.set(phid, list); cache.maxPoints.set(phid, best.get(phid)); fetchedMoves += list.length; }
         done += ids.length; progress(done, stale.size);
         status(`Fetching history of new or changed tasks: ${done}/${stale.size} (${seen.size - stale.size} unchanged tasks reused from saved data)`);
       };
@@ -2403,11 +2410,11 @@ render();
   const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
   const round1 = v => v == null ? null : Math.round(v * 10) / 10;
   const d1 = v => v == null ? "–" : round1(v).toFixed(1) + " d";
-  // points: the larger of Story Points and Final Story Points; tasks with neither count as 0
+  // points: the highest Story Points or Final Story Points value the task has ever had (its history plus
+  // its current values); tasks that never had either count as 0
   const pointsOf = t => {
-    const a = Number(t.points), b = Number(t.finalPoints);
-    const has = (t.points != null && t.points !== "") || (t.finalPoints != null && t.finalPoints !== "");
-    return { v: Math.max(Number.isFinite(a) ? a : 0, Number.isFinite(b) ? b : 0), has };
+    const vals = [t.points, t.finalPoints, t.maxPoints].filter(v => v != null && v !== "").map(Number).filter(Number.isFinite);
+    return { v: vals.length ? Math.max(0, ...vals) : 0, has: vals.length > 0 };
   };
 
   function render() {
@@ -2433,8 +2440,8 @@ render();
     const colName = phid => phid == null ? null : (data.columns.get(phid)?.name ?? phid);
     const byPHID = new Map(users.map(x => [x.phid, x]));
     $("status").textContent = "";
-    if ([...data.tasks.values()].every(t => t.points === undefined)) {
-      $("status").textContent = "Click “Load column moves” on the Column moves tab once more to fetch task points.";
+    if ([...data.tasks.values()].some(t => t.points === undefined || t.maxPoints === undefined)) {
+      $("status").textContent = "Click “Load column moves” on the Column moves tab once more to fetch each task’s points history (a one-off full fetch).";
     }
 
     // per task: first move into a start column, and the first move into an end column after it
@@ -2474,7 +2481,7 @@ render();
     $("summary").innerHTML = users.map(x => sumRow(x.name, rows.filter(r => r.owner === x))).join("") +
       (users.length > 1 ? sumRow("Team", rows, "current") : "");
     $("summarySub").textContent = `Tasks that first reached ${endText}${$("since").value || $("until").value ? " in the chosen dates" : ""}, by assignee. ` +
-      `Points are the larger of Story Points and Final Story Points. Cycle time covers the ${withCycle.length} of ${rows.length} tasks that were in ${startText} first.`;
+      `Points are the highest Story Points or Final Story Points value each task has ever had. Cycle time covers the ${withCycle.length} of ${rows.length} tasks that were in ${startText} first.`;
 
     // charts
     const css = getComputedStyle(document.documentElement), v = n => css.getPropertyValue(n).trim();
@@ -2540,7 +2547,7 @@ render();
       }));
     }
     const totalPts = rows.reduce((a, r) => a + r.points, 0), unpointed = rows.filter(r => !r.pointed).length;
-    $("thruSub").textContent = `${u === "points" ? "Points (larger of Story Points and Final Story Points)" : "Tasks"} that first reached ${endText}, per ${p}, ${view === "lines" ? "one line per assignee plus the team" : "stacked by assignee"}` +
+    $("thruSub").textContent = `${u === "points" ? "Points (highest Story Points or Final Story Points ever set)" : "Tasks"} that first reached ${endText}, per ${p}, ${view === "lines" ? "one line per assignee plus the team" : "stacked by assignee"}` +
       `${moving2 ? `, as a ${n2}-${p} moving average (fewer ${p}s for the first ${n2 - 1 === 1 ? p : `${n2 - 1} ${p}s`})` : ""}. ` +
       `Total: ${rows.length} tasks, ${totalPts} points` + (unpointed ? ` (${unpointed} task${unpointed === 1 ? "" : "s"} without points count as 0).` : ".");
 

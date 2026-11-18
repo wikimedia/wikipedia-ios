@@ -51,7 +51,8 @@ instance). GitHub calls go straight from the browser to api.github.com.
 4. **Output** tab: built from the Phabricator data and ticked engineers on the Column moves tab
    (no extra queries). *Cycle time* runs from a task's first move into "Doing" to its next move into
    "Signoff" or "Ready for PM Signoff" (both editable). *Throughput by assignee* counts tasks that
-   first reached signoff, in tasks or points (the larger of Story Points and Final Story Points).
+   first reached signoff, in tasks or points (the highest Story Points or Final Story Points value
+   each task has ever had, from its history).
    Group by week (starting Monday 00:00 UTC) or by month (UTC). The cycle-time line can be a moving
    average over N periods; throughput can be stacked bars or lines (per assignee plus team), either
    as actual values or as an N-period moving average.
