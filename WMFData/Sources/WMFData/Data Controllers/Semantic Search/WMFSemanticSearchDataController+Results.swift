@@ -124,17 +124,24 @@ extension WMFSemanticSearchDataController {
     }
 
     // MARK: - Service
-
     private func performDecodableGET<T: Decodable & Sendable>(request: WMFBasicServiceRequest, service: WMFService) async throws -> WMFServiceResponse<T> {
-        let value: WMFServiceResponse<T> = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
-                switch result {
-                case .success(let value):
-                    continuation.resume(returning: value)
-                case .failure(let error):
-                    continuation.resume(throwing: Self.searchError(from: error))
+        
+        let cancellation = WMFRequestCancellation()
+        
+        let value: WMFServiceResponse<T> = try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
+                    switch result {
+                    case .success(let value):
+                        continuation.resume(returning: value)
+                    case .failure(let error):
+                        continuation.resume(throwing: Self.searchError(from: error))
+                    }
                 }
+                cancellation.setTask(task)
             }
+        } onCancel: {
+            cancellation.cancel()
         }
 
         try Task.checkCancellation()
