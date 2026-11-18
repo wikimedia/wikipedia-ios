@@ -492,15 +492,18 @@
           <label for="ph-metric" style="margin-top:6px">Count</label>
           <select id="ph-metric">
             <option value="moves">Moves</option>
-            <option value="tasks">Distinct tasks</option>
+            <option value="tasks">Tasks closed</option>
+            <option value="ratio">Moves per task</option>
           </select>
+          <span class="help">Tasks closed = tasks on the selected boards closed in the date range, credited to the task's assignee. Moves per task = an engineer's matching moves ÷ their tasks closed.</span>
+          <label class="check" style="margin-top:4px"><input type="checkbox" id="ph-resolvedOnly" checked> Count only Resolved tasks (not Declined, Invalid or Duplicate)</label>
         </div>
         <div class="field">
           <div class="grid2" style="gap:10px">
-            <div class="field"><label for="ph-since">Moves from</label><input id="ph-since" type="date"></div>
+            <div class="field"><label for="ph-since">From</label><input id="ph-since" type="date"></div>
             <div class="field"><label for="ph-until">to</label><input id="ph-until" type="date"></div>
           </div>
-          <span class="help">Optional.</span>
+          <span class="help">Optional. Applies to when a move happened and when a task was closed.</span>
         </div>
       </div>
       <div class="actions" style="margin-top:12px">
@@ -511,6 +514,10 @@
     </div>
   </section>
 
+  <section id="ph-resultsSummary" hidden>
+    <div class="sec-head"><div><h2>Per engineer</h2><p class="sec-sub" id="ph-summarySub"></p></div></div>
+    <div class="tbl-scroll"><table class="wide"><thead><tr><th>Engineer</th><th>Tasks closed</th><th>Moves</th><th>Moves per task</th></tr></thead><tbody id="ph-summary"></tbody></table></div>
+  </section>
   <section id="ph-results" hidden>
     <div class="sec-head"><div><h2 id="ph-totalTitle">Total per engineer</h2></div></div>
     <div class="card"><div class="chartBox" style="height:260px"><canvas id="ph-totalChart"></canvas></div></div>
@@ -525,7 +532,7 @@
       <div class="seg" id="ph-monthMode" role="group" aria-label="How to show engineers">
         <button type="button" data-mode="grouped" aria-pressed="true">Per engineer</button>
         <button type="button" data-mode="stacked" aria-pressed="false">Stacked</button>
-        <button type="button" data-mode="total" aria-pressed="false">Team total</button>
+        <button type="button" data-mode="total" aria-pressed="false">Team</button>
       </div>
     </div>
     <div class="card"><div class="chartBox"><canvas id="ph-monthChart"></canvas></div></div>
@@ -1387,7 +1394,7 @@ render();
     const v = store.get(k); if (v != null) $(k).value = v;
     $(k).addEventListener('change', () => store.set(k, $(k).value));
   }
-  for (const k of ['incMilestones', 'onlyOpen']) {
+  for (const k of ['incMilestones', 'onlyOpen', 'resolvedOnly']) {
     const v = store.get(k); if (v != null) $(k).checked = v === '1';
     $(k).addEventListener('change', () => store.set(k, $(k).checked ? '1' : '0'));
   }
@@ -1562,7 +1569,12 @@ render();
       for (const [phid, name] of boardMap) {
         i++;
         const list = await searchAll('maniphest.search', { constraints: { projects: [phid] } }, n => status(`Loading tasks: board ${i}/${boardMap.size} (${name}) – ${n} tasks`));
-        for (const t of list) tasks.set(t.phid, { id: t.id, title: t.fields.name, owner: t.fields.ownerPHID });
+        for (const t of list) {
+          const prev = tasks.get(t.phid);
+          tasks.set(t.phid, { id: t.id, title: t.fields.name, owner: t.fields.ownerPHID,
+            status: t.fields.status && (t.fields.status.value ?? t.fields.status), closed: t.fields.dateClosed || null,
+            boards: new Set([...(prev ? prev.boards : []), phid]) });
+        }
       }
 
       const moves = []; let done = 0; const taskList = [...tasks.keys()];
@@ -1687,17 +1699,29 @@ render();
     const matched = inScope.filter(mv => fromM(mv.from == null ? null : colName(mv.from)) && toM(colName(mv.to)))
       .sort((a, b) => a.date - b.date);
 
-    // aggregate: user -> board -> Set/count
+    // Tasks closed: tasks on the selected boards closed in the date range, credited to the task's current assignee.
+    const resolvedOnly = $('resolvedOnly').checked;
+    const closedList = [...data.tasks].filter(([, t]) => t.closed && byPHID.has(t.owner) && t.closed >= since && t.closed < until &&
+      (!resolvedOnly || t.status === 'resolved')).map(([phid, t]) => ({ task: phid, owner: t.owner, date: t.closed, boards: t.boards }));
+
+    // cells hold matching moves and the set of tasks closed: per engineer, per engineer+board, per engineer+month
+    const monthKey = ts => { const d = new Date(ts * 1000); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; };
+    const cellOf = (map, key) => { if (!map.has(key)) map.set(key, { moves: 0, tasks: new Set() }); return map.get(key); };
     const agg = new Map(users.map(u => [u.phid, new Map()]));
-    const totals = new Map(users.map(u => [u.phid, new Set()]));
-    const totalMoves = new Map(users.map(u => [u.phid, 0]));
+    const byMonth = new Map(users.map(u => [u.phid, new Map()]));
+    const totals = new Map(users.map(u => [u.phid, { moves: 0, tasks: new Set() }]));
     for (const mv of matched) {
-      const u = who(mv); const per = agg.get(u);
-      if (!per.has(mv.board)) per.set(mv.board, { moves: 0, tasks: new Set() });
-      const cell = per.get(mv.board); cell.moves++; cell.tasks.add(mv.task);
-      totals.get(u).add(mv.task); totalMoves.set(u, totalMoves.get(u) + 1);
+      const u = who(mv);
+      totals.get(u).moves++; cellOf(agg.get(u), mv.board).moves++; cellOf(byMonth.get(u), monthKey(mv.date)).moves++;
     }
-    const val = cell => !cell ? 0 : metric === 'moves' ? cell.moves : cell.tasks.size;
+    for (const c of closedList) {
+      totals.get(c.owner).tasks.add(c.task); cellOf(byMonth.get(c.owner), monthKey(c.date)).tasks.add(c.task);
+      for (const b of c.boards) if (data.boards.has(b)) cellOf(agg.get(c.owner), b).tasks.add(c.task);
+    }
+    const teamClosed = new Set(closedList.map(c => c.task));    // a task counts once for the team
+    const ratio = (moves, tasks) => tasks ? Math.round(moves / tasks * 100) / 100 : null;   // no closed tasks → no ratio
+    const val = cell => metric === 'ratio' ? (cell ? ratio(cell.moves, cell.tasks.size) : null)
+      : !cell ? 0 : metric === 'moves' ? cell.moves : cell.tasks.size;
     const boardIds = [...data.boards.keys()]; // already in chronological order from the board list
 
     charts.forEach(c => c.destroy()); charts = [];
@@ -1708,18 +1732,26 @@ render();
       plugins: { legend: { labels: { color: textColor } } },
       scales: {
         x: { ticks: { color: textColor }, grid: { display: false } },
-        y: { beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor } }
+        y: { beginAtZero: true, ticks: { color: textColor, precision: metric === 'ratio' ? undefined : 0 }, grid: { color: gridColor } }
       }
     };
-    const metricLabel = metric === 'moves' ? 'Moves' : 'Distinct tasks';
-    const teamTotal = metric === 'moves' ? matched.length : new Set(matched.map(mv => mv.task)).size;
-    $('totalTitle').textContent = `${metricLabel} per engineer · team total ${teamTotal}`;
+    const metricLabel = { moves: 'Moves', tasks: 'Tasks closed', ratio: 'Moves per task' }[metric];
+    const teamTotal = val({ moves: matched.length, tasks: teamClosed });
+    const fmt = n => n == null ? '–' : metric === 'ratio' ? n.toFixed(2) : String(n);
+    $('totalTitle').textContent = `${metricLabel} per engineer · team ${fmt(teamTotal)}`;
+
+    // summary table: all three numbers at once, plus the team
+    const sumRow = (name, moves, tasks, cls = '') => `<tr class="${cls}"><td>${esc(name)}</td><td>${tasks}</td><td>${moves}</td><td>${tasks ? (moves / tasks).toFixed(2) : '–'}</td></tr>`;
+    $('summary').innerHTML = users.map(u => sumRow(u.name, totals.get(u.phid).moves, totals.get(u.phid).tasks.size)).join('') +
+      (users.length > 1 ? sumRow('Team', matched.length, teamClosed.size, 'current') : '');
+    $('summarySub').textContent = `Moves matching ${$('fromPat').value.trim() || 'any column'} → ${$('toPat').value.trim() || 'any column'}, ` +
+      `tasks closed${resolvedOnly ? ' as Resolved' : ''} (credited to the assignee), and moves per task closed. The team row is the team's moves ÷ the team's tasks closed.`;
 
     charts.push(new Chart($('totalChart'), {
       type: 'bar',
       data: {
         labels: users.map(u => u.name),
-        datasets: [{ label: metricLabel, data: users.map(u => metric === 'moves' ? totalMoves.get(u.phid) : totals.get(u.phid).size),
+        datasets: [{ label: metricLabel, data: users.map(u => val(totals.get(u.phid))),
           backgroundColor: users.map(u => u.color), borderRadius: 4 }]
       },
       options: { ...baseOpts, plugins: { legend: { display: false } } }
@@ -1734,36 +1766,38 @@ render();
       options: baseOpts
     }));
 
-    // per month: every calendar month between the first and last matching move, gaps shown as zero
-    const monthKey = ts => { const d = new Date(ts * 1000); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; };
+    // per month: every calendar month between the first and last move or closed task, gaps shown as zero
+    const keys = [...byMonth.values()].flatMap(m => [...m.keys()]).sort();
     const months = [];
-    if (matched.length) {
-      const first = new Date(matched[0].date * 1000), last = new Date(matched[matched.length - 1].date * 1000);
-      for (let d = new Date(first.getFullYear(), first.getMonth(), 1); d <= last; d.setMonth(d.getMonth() + 1))
-        months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
-    }
-    const byMonth = new Map(users.map(u => [u.phid, new Map()]));
-    for (const mv of matched) {
-      const per = byMonth.get(who(mv)), k = monthKey(mv.date);
-      if (!per.has(k)) per.set(k, { moves: 0, tasks: new Set() });
-      const cell = per.get(k); cell.moves++; cell.tasks.add(mv.task);
+    if (keys.length) {
+      let [y, mo] = keys[0].split('-').map(Number); const [ey, em] = keys[keys.length - 1].split('-').map(Number);
+      while (y < ey || (y === ey && mo <= em)) { months.push(`${y}-${String(mo).padStart(2, '0')}`); if (++mo === 13) { y++; mo = 1; } }
     }
     const monthLabel = k => new Date(+k.slice(0, 4), +k.slice(5) - 1, 1).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
     const monthMode = ['grouped', 'stacked', 'total'].includes(store.get('monthMode')) ? store.get('monthMode') : 'grouped';
     $('monthMode').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === monthMode)));
+    // moves per task can't be stacked meaningfully, so that combination shows side by side
+    const stackOk = metric !== 'ratio';
+    const monthModeEff = monthMode === 'stacked' && !stackOk ? 'grouped' : monthMode;
+    const stackBtn = $('monthMode').querySelector('[data-mode=stacked]');
+    stackBtn.disabled = !stackOk; stackBtn.title = stackOk ? '' : 'Moves per task can’t be stacked';
     const teamMonth = m => {
-      if (metric === 'moves') return users.reduce((a, u) => a + (byMonth.get(u.phid).get(m)?.moves || 0), 0);
-      const s = new Set(); users.forEach(u => byMonth.get(u.phid).get(m)?.tasks.forEach(t => s.add(t))); return s.size;   // a task counts once for the team
+      let moves = 0; const s = new Set();
+      users.forEach(u => { const c = byMonth.get(u.phid).get(m); if (c) { moves += c.moves; c.tasks.forEach(t => s.add(t)); } });
+      return val({ moves, tasks: s });
     };
-    const monthDatasets = monthMode === 'total'
-      ? [{ label: `Team total (${users.length} engineer${users.length === 1 ? '' : 's'})`, data: months.map(teamMonth),
+    const monthDatasets = monthModeEff === 'total'
+      ? [{ label: `Team (${users.length} engineer${users.length === 1 ? '' : 's'})`, data: months.map(teamMonth),
           backgroundColor: css.getPropertyValue('--accent').trim(), borderRadius: 3 }]
       : users.map(u => ({ label: u.name, data: months.map(m => val(byMonth.get(u.phid).get(m))),
-          backgroundColor: u.color, borderRadius: monthMode === 'stacked' ? 0 : 3 }));
-    const monthOpts = monthMode === 'stacked'
+          backgroundColor: u.color, borderRadius: monthModeEff === 'stacked' ? 0 : 3 }));
+    const monthOpts = monthModeEff === 'stacked'
       ? { ...baseOpts, scales: { x: { ...baseOpts.scales.x, stacked: true }, y: { ...baseOpts.scales.y, stacked: true } } }
       : baseOpts;
-    $('monthSub').textContent = `By the month the move happened. Team total: ${teamTotal} ${metricLabel.toLowerCase()} across ${users.length} engineer${users.length === 1 ? '' : 's'}.`;
+    const across = `${users.length} engineer${users.length === 1 ? '' : 's'}`;
+    $('monthSub').textContent = `Moves by the month they happened; tasks by the month they were closed. ` + (metric === 'ratio'
+      ? `Team: ${matched.length} moves ÷ ${teamClosed.size} tasks closed = ${fmt(teamTotal)} moves per task (${across}).`
+      : `Team total: ${fmt(teamTotal)} ${metricLabel.toLowerCase()} (${across}).`);
     charts.push(new Chart($('monthChart'), {
       type: 'bar',
       data: { labels: months.map(monthLabel), datasets: monthDatasets },
@@ -1793,11 +1827,11 @@ render();
       shown.map(r => `<tr><td>${r.date}</td><td>${esc(r.user)}</td><td><a href="${esc(web)}/${r.task}" target="_blank" rel="noopener">${r.task}</a> ${esc(r.title.slice(0, 60))}</td><td>${esc(r.board)}</td><td>${esc(r.from)}</td><td>${esc(r.to)}</td></tr>`).join('') +
       (lastRows.length > 500 ? `<tr><td colspan="6" class="help">Showing latest 500 of ${lastRows.length}; download CSV for all.</td></tr>` : '');
 
-    ['results', 'results2', 'resultsMonth', 'results3', 'results4'].forEach(id => { $(id).hidden = false; });
+    ['resultsSummary', 'results', 'results2', 'resultsMonth', 'results3', 'results4'].forEach(id => { $(id).hidden = false; });
 
     // hand the per-person, per-month numbers to the overview tab
     const perUser = new Map(), totalsOut = new Map();
-    for (const u of users) { perUser.set(u.username.toLowerCase(), byMonth.get(u.phid)); totalsOut.set(u.username.toLowerCase(), { moves: totalMoves.get(u.phid), tasks: totals.get(u.phid) }); }
+    for (const u of users) { perUser.set(u.username.toLowerCase(), byMonth.get(u.phid)); totalsOut.set(u.username.toLowerCase(), totals.get(u.phid)); }
     BUS.ph = { metric, label: metricLabel, perUser, totals: totalsOut, boards: data.boards.size,
       desc: `${$('fromPat').value.trim() || 'any column'} → ${$('toPat').value.trim() || 'any column'}`,
       attr: attr === 'author' ? 'by who moved the task' : 'by current assignee' };
@@ -1808,7 +1842,7 @@ render();
   $('apply').onclick = () => { apply(); };
   // Redraw automatically when a filter changes (once data is loaded), so the button is optional.
   let filterTimer = null;
-  for (const k of ['fromPat', 'toPat', 'attr', 'metric', 'since', 'until']) {
+  for (const k of ['fromPat', 'toPat', 'attr', 'metric', 'since', 'until', 'resolvedOnly']) {
     $(k).addEventListener(k.endsWith('Pat') ? 'input' : 'change', () => {
       if (!data) return;
       clearTimeout(filterTimer); filterTimer = setTimeout(apply, 500);
@@ -1902,7 +1936,8 @@ render();
     $("phPill").textContent = ph ? `Phabricator: ${ph.boards} boards, ${ph.desc}, ${ph.attr}` : "Phabricator: not loaded yet (see the Phabricator tab)";
 
     const phLabel = ph ? ph.label : "Column moves";
-    const phVal = cell => !cell ? 0 : ph.metric === "moves" ? cell.moves : cell.tasks.size;
+    const phVal = cell => !cell ? (ph.metric === "ratio" ? null : 0) : ph.metric === "moves" ? cell.moves : ph.metric === "tasks" ? cell.tasks.size
+      : (cell.tasks.size ? Math.round(cell.moves / cell.tasks.size * 100) / 100 : null);   // no tasks closed → no ratio
     $("compareSub").textContent = `Review comments on PRs each person opened${gh ? ` (${gh.range}${gh.live && gh.filter !== "all" ? ", " + { nodrafts: "drafts excluded", merged: "merged PRs only" }[gh.filter] : ""}${gh.repoLabel ? ", " + gh.repoLabel : ""})` : ""}, and ${phLabel.toLowerCase()} matching the Phabricator filter${gh ? " in the same date range" : ""}.`;
     $("compareHead").innerHTML = `<th>Engineer</th><th>PRs opened</th><th>Review comments</th><th>Avg / PR</th><th>${esc(phLabel)}</th><th>${esc(phLabel)} / PR</th>`;
     const na = (why) => `<td class="na" title="${esc(why)}">–</td>`;
@@ -1910,10 +1945,11 @@ render();
       const ghCells = !p.github ? na("No GitHub login in the Team list") + na("") + na("")
         : !g ? na("Not in the loaded GitHub data; fetch again") + na("") + na("")
         : `<td>${g.sum.prs}</td><td>${g.sum.total}</td><td>${g.sum.prs ? (g.sum.total / g.sum.prs).toFixed(1) : "–"}</td>`;
-      const phN = pt ? (ph.metric === "moves" ? pt.moves : pt.tasks.size) : null;
+      const phN = pt ? phVal(pt) : undefined;
       const phCells = !p.phab ? na("No Phabricator username in the Team list") + na("")
         : !ph ? na("Load column moves on the Phabricator tab") + na("")
-        : phN == null ? na(excludedOnPhab(p) ? "Unticked on the Phabricator tab" : "Unknown Phabricator username, or no moves") + na("")
+        : phN === undefined ? na(excludedOnPhab(p) ? "Unticked on the Phabricator tab" : "Unknown Phabricator username, or no moves") + na("")
+        : ph.metric === "ratio" ? `<td>${phN == null ? "–" : phN.toFixed(2)}</td>${na("Not meaningful for moves per task")}`
         : `<td>${phN}</td><td>${g && g.sum.prs ? (phN / g.sum.prs).toFixed(2) : "–"}</td>`;
       return `<tr class="${selected === p.name ? "current" : ""}"><td>${esc(p.name)}</td>${ghCells}${phCells}</tr>`;
     }).join("") || `<tr><td colspan="6" class="empty">Add people to the Team list.</td></tr>`;
@@ -1963,7 +1999,7 @@ render();
         scales: {
           x: { stacked: true, ticks: tick, grid: { display: false } },
           y: { stacked: true, beginAtZero: true, ticks: { ...tick, precision: 0 }, grid: { color: v("--grid") }, title: { display: true, text: "Review comments", color: v("--ink-2") } },
-          ...(ph ? { y1: { position: "right", beginAtZero: true, ticks: { ...tick, precision: 0 }, grid: { drawOnChartArea: false }, title: { display: true, text: phLabel, color: v("--ink-2") } } } : {}),
+          ...(ph ? { y1: { position: "right", beginAtZero: true, ticks: { ...tick, precision: ph.metric === "ratio" ? undefined : 0 }, grid: { drawOnChartArea: false }, title: { display: true, text: phLabel, color: v("--ink-2") } } } : {}),
         },
       },
     });
@@ -1972,7 +2008,7 @@ render();
     $("monthHead").innerHTML = `<th>Month</th><th>PRs opened</th><th>Human</th><th>Automated</th><th>Comments</th><th>${esc(phLabel)}</th>`;
     $("tbody").innerHTML = months.length ? months.map(m => {
       const g = ghMonth.get(m) || { human: 0, auto: 0, prs: 0 };
-      return `<tr><td>${monthLabel(m)}</td><td>${g.prs}</td><td>${g.human}</td><td>${g.auto}</td><td>${g.human + g.auto}</td><td>${ph ? phVal(phMonth.get(m)) : "–"}</td></tr>`;
+      return `<tr><td>${monthLabel(m)}</td><td>${g.prs}</td><td>${g.human}</td><td>${g.auto}</td><td>${g.human + g.auto}</td><td>${ph ? (phVal(phMonth.get(m)) ?? "–") : "–"}</td></tr>`;
     }).join("") : `<tr><td colspan="6" class="empty">No data yet.</td></tr>`;
   }
 
