@@ -461,7 +461,7 @@
   </details>
 
   <section>
-    <div class="sec-head"><div><h2>What to count</h2><p class="sec-sub">Changes here redraw the charts without fetching again. Engineers come from the Team list.</p></div></div>
+    <div class="sec-head"><div><h2>What to count</h2><p class="sec-sub">Charts redraw automatically when you change these; no new fetch is needed. Engineers come from the Team list.</p></div></div>
     <div class="card" style="padding:16px">
       <div class="grid2">
         <div class="field">
@@ -1595,19 +1595,40 @@ render();
   const colName = phid => phid == null ? '(added to board)' : (data.columns.get(phid)?.name ?? phid);
   const fmtDate = s => new Date(s * 1000).toISOString().slice(0, 10);
 
+  // Every outcome of an update is shown next to the button: progress, the result with a time, or an error in red.
+  function applyMsg(text, bad = false) { $('applyStatus').textContent = text; $('applyStatus').classList.toggle('bad', bad); }
+  let applying = null, applyAgain = false;
   async function apply() {
-    if (!data) { $('applyStatus').textContent = 'Load column moves first.'; return; }
+    if (applying) { applyAgain = true; return applying; }   // a click while updating re-runs once it finishes
+    $('apply').disabled = true;
+    applyMsg('Updating…');
+    applying = (async () => {
+      try {
+        do { applyAgain = false; await applyInner(); } while (applyAgain);
+      } catch (e) {
+        console.error(e);
+        applyMsg('Could not update the charts: ' + (e && e.message || e), true);
+      } finally {
+        applying = null;
+        $('apply').disabled = false;
+      }
+    })();
+    return applying;
+  }
+  async function applyInner() {
+    if (!data) throw new Error('No board data in this page yet. Click “Load column moves” above (loaded data is lost when the page is reloaded).');
     const team = TEAM.phab();
     const names = [...new Set(team.map(t => t.username))];
-    if (!names.length) { $('applyStatus').textContent = 'Add Phabricator usernames to the Team list at the top of the page.'; BUS.ph = null; BUS.emit(); return; }
+    if (!names.length) { BUS.ph = null; BUS.emit(); throw new Error('Add Phabricator usernames to the Team list at the top of the page.'); }
     const nameFor = new Map(team.map(t => [t.username.toLowerCase(), t.name]));
     let fromM, toM;
     try { fromM = matcher($('fromPat').value); toM = matcher($('toPat').value); }
-    catch (e) { $('applyStatus').textContent = 'Invalid regex: ' + e.message; return; }
-    $('applyStatus').textContent = 'Resolving users…';
+    catch (e) { throw new Error('Invalid column pattern: ' + e.message); }
+    applyMsg('Updating… (looking up users)');
     let users, unknown;
     try { ({ users, unknown } = await resolveUsers(names)); }
-    catch (e) { $('applyStatus').textContent = e.message; return; }
+    catch (e) { throw new Error('Looking up users failed: ' + e.message); }
+    if (!users.length) throw new Error(`None of the Phabricator usernames in the Team list were found: ${unknown.join(', ')}.`);
     users = users.map(u => ({ ...u, name: nameFor.get(u.username.toLowerCase()) || u.username }));
 
     const attr = $('attr').value, metric = $('metric').value;
@@ -1724,9 +1745,17 @@ render();
       attr: attr === 'author' ? 'by who moved the task' : 'by current assignee' };
     BUS.emit();
     $('csv').disabled = !lastRows.length;
-    $('applyStatus').textContent = `${matched.length} matching moves` + (unknown.length ? ` · Unknown users: ${unknown.join(', ')}` : '');
+    applyMsg(`${matched.length} matching moves · updated ${new Date().toLocaleTimeString()}` + (unknown.length ? ` · Phabricator usernames not found: ${unknown.join(', ')}` : ''), unknown.length > 0);
   }
-  $('apply').onclick = apply;
+  $('apply').onclick = () => { apply(); };
+  // Redraw automatically when a filter changes (once data is loaded), so the button is optional.
+  let filterTimer = null;
+  for (const k of ['fromPat', 'toPat', 'attr', 'metric', 'since', 'until']) {
+    $(k).addEventListener(k.endsWith('Pat') ? 'input' : 'change', () => {
+      if (!data) return;
+      clearTimeout(filterTimer); filterTimer = setTimeout(apply, 500);
+    });
+  }
   TEAM.on(() => { if (data) apply(); });
 
   function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
