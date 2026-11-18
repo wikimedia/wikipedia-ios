@@ -35,7 +35,10 @@ instance). GitHub calls go straight from the browser to api.github.com.
    boards, and click *Load column moves*. The project list, ticks and everything fetched are saved in
    the browser (IndexedDB), so a reload shows the charts without any queries. *Load column moves*
    then refreshes incrementally: it lists each board's tasks but only re-fetches the history of tasks
-   that are new or modified. *Clear saved data* forces a full fetch next time. Tick or untick engineers to include or exclude them from
+   that are new or modified. *Clear saved data* forces a full fetch next time.
+   *Download all tasks (CSV)* exports every task on the ticked boards: assignee, boards and current
+   column, Story/Final/highest points, created/closed dates, and first start/end moves with cycle
+   time (using the columns set on the Output tab). Tick or untick engineers to include or exclude them from
    every chart, total and table (the choice is remembered). The per-month chart can show engineers
    side by side, stacked, or as a single team total.
    *Count* can be moves, tasks closed (tasks on the selected boards closed in the date range,

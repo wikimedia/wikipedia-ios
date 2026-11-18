@@ -464,6 +464,7 @@
       <div id="ph-boardList" class="boardlist"></div>
       <div class="actions">
         <button class="btn primary" id="ph-load" type="button">Load column moves</button>
+        <button class="btn" id="ph-tasksCsv" type="button">Download all tasks (CSV)</button>
         <button class="btn" id="ph-clearCache" type="button">Clear saved data</button>
         <span class="help">Fetched tasks and their history are saved in this browser. Loading again lists each board's tasks but only re-fetches the history of tasks that are new or have changed.</span>
       </div>
@@ -2201,6 +2202,71 @@ render();
     $('monthMode').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     if (data) apply();
   });
+
+  // ---- download every task on the ticked boards ----
+  $('tasksCsv').onclick = async () => {
+    if (!data) { status('Load column moves first (or tick boards that have saved data).', true); return; }
+    $('tasksCsv').disabled = true;
+    try {
+      // assignee usernames: from the saved lookup, plus one user.search per 100 unknown assignees when a token is available
+      const nameByPHID = new Map([...userCache.values()].map(u => [u.phid, u.username]));
+      const unknown = [...new Set([...data.tasks.values()].map(t => t.owner).filter(o => o && !nameByPHID.has(o)))];
+      if (unknown.length && $('token').value.trim()) {
+        status(`Looking up ${unknown.length} assignee name(s)…`);
+        try {
+          for (const c of chunk(unknown, 100)) {
+            for (const u of await searchAll('user.search', { constraints: { phids: c } })) {
+              nameByPHID.set(u.phid, u.fields.username);
+              userCache.set(u.fields.username.toLowerCase(), { phid: u.phid, username: u.fields.username });
+            }
+          }
+          store.set('users', JSON.stringify([...userCache]));
+        } catch (e) { console.warn('Assignee lookup failed', e); }
+      }
+      const display = new Map(TEAM.phab().map(t => [t.username.toLowerCase(), t.name]));
+      // cycle columns as set on the Output tab
+      const outStart = (document.getElementById('out-startPat') || {}).value || 'Doing';
+      const outEnd = (document.getElementById('out-endPat') || {}).value || 'Signoff, Ready for PM Signoff';
+      let isStart = () => false, isEnd = () => false;
+      try { isStart = matcher(outStart); isEnd = matcher(outEnd); } catch (_) {}
+      const nameOfCol = phid => phid == null ? '' : (data.columns.get(phid)?.name ?? phid);
+      const movesByTask = new Map();
+      for (const mv of data.moves) { if (!movesByTask.has(mv.task)) movesByTask.set(mv.task, []); movesByTask.get(mv.task).push(mv); }
+      const when = ts => ts ? new Date(ts * 1000).toISOString().slice(0, 16).replace('T', ' ') : '';
+      const num = v => v == null || v === '' ? '' : v;
+      const web = $('phabWeb').value.trim().replace(/\/$/, '');
+      const cols = ['task', 'url', 'title', 'status', 'assignee', 'assignee_username', 'boards', 'current_column',
+        'story_points', 'final_story_points', 'highest_points_ever', 'created_utc', 'closed_utc',
+        'first_start_utc', 'first_end_utc', 'cycle_time_days'];
+      const rows = [...data.tasks].sort((a, b) => a[1].id - b[1].id).map(([phid, t]) => {
+        const mvs = (movesByTask.get(phid) || []).slice().sort((a, b) => a.date - b.date);
+        const lastOn = new Map(); for (const mv of mvs) lastOn.set(mv.board, mv.to);
+        const start = mvs.find(mv => isStart(nameOfCol(mv.to)));
+        const end = start ? mvs.find(mv => mv.date >= start.date && isEnd(nameOfCol(mv.to))) : mvs.find(mv => isEnd(nameOfCol(mv.to)));
+        const user = t.owner ? (nameByPHID.get(t.owner) || t.owner) : '';
+        const pts = [t.points, t.finalPoints, t.maxPoints].filter(v => v != null && v !== '').map(Number).filter(Number.isFinite);
+        return {
+          task: 'T' + t.id, url: `${web}/T${t.id}`, title: t.title, status: t.status || '',
+          assignee: user ? (display.get(String(user).toLowerCase()) || user) : '', assignee_username: user,
+          boards: [...t.boards].map(b => data.boards.get(b)).join('; '),
+          current_column: [...t.boards].map(b => lastOn.has(b) ? `${data.boards.get(b)}: ${nameOfCol(lastOn.get(b))}` : null).filter(Boolean).join('; '),
+          story_points: num(t.points), final_story_points: num(t.finalPoints), highest_points_ever: pts.length ? Math.max(0, ...pts) : '',
+          created_utc: when(t.created), closed_utc: when(t.closed),
+          first_start_utc: when(start && start.date), first_end_utc: when(end && end.date),
+          cycle_time_days: start && end ? ((end.date - start.date) / 86400).toFixed(1) : '',
+        };
+      });
+      const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+      const csv = [cols.join(','), ...rows.map(r => cols.map(c => q(r[c])).join(','))].join('\n') + '\n';
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+      a.download = `phabricator-tasks-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a); a.click();
+      setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      status(`Downloaded ${rows.length} tasks from ${data.boards.size} board(s). Cycle columns: ${outStart} → ${outEnd} (set on the Output tab).`);
+    } catch (e) { status('Could not build the task list: ' + e.message, true); }
+    finally { $('tasksCsv').disabled = false; }
+  };
 
   function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
   $('csv').onclick = () => {
