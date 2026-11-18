@@ -1,8 +1,8 @@
 {
-  "batchcomplete": "",
+  "batchcomplete": true,
   "query": {
-    "pages": {
-      "26366": {
+    "pages": [
+      {
         "pageid": 26366,
         "ns": 0,
         "title": "Wolfs- und Schakalartige",
@@ -12,13 +12,9 @@
           "width": 160,
           "height": 182
         },
-        "terms": {
-          "description": [
-            "Gattung der Familie Hunde (Canidae)"
-          ]
-        }
+        "description": "Gattung der Familie Hunde (Canidae)"
       }
-    }
+    ]
   },
   "limits": {
     "pageimages": 50

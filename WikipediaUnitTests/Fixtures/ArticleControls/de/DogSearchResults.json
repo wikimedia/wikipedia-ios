@@ -1,8 +1,8 @@
 {
-  "batchcomplete": "",
+  "batchcomplete": true,
   "query": {
-    "pages": {
-      "2527125": {
+    "pages": [
+      {
         "pageid": 2527125,
         "ns": 0,
         "title": "Haushund",
@@ -12,13 +12,9 @@
           "width": 330,
           "height": 269
         },
-        "terms": {
-          "description": [
-            "als Heim- und Nutztier gehaltenes Haustier"
-          ]
-        }
+        "description": "als Heim- und Nutztier gehaltenes Haustier"
       }
-    }
+    ]
   },
   "limits": {
     "pageimages": 50
