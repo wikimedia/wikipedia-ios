@@ -46,6 +46,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     @Test
     func selectPersonalizedUpdatesSelection() {
         let viewModel = makeViewModel()
+        viewModel.isPersonalizedLoading = false // as after the load
         viewModel.select(.personalized)
         #expect(viewModel.selection == .personalized)
         viewModel.select(.community)
@@ -55,9 +56,17 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     @Test
     func resetSelectionAppliesDefault() {
         let viewModel = makeViewModel()
+        viewModel.isPersonalizedLoading = false // as after the load
         viewModel.select(.personalized)
         viewModel.resetSelectionToDefault()
         #expect(viewModel.selection == .community)
+    }
+
+    @Test
+    func previewsShowSpinnersBeforeTheFirstLoad() {
+        let viewModel = makeViewModel()
+        #expect(viewModel.isCommunityLoading)
+        #expect(viewModel.isPersonalizedLoading)
     }
 
     @Test
@@ -411,7 +420,8 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
             // The user swipes back to the interests step and changes them.
             viewModel.interestsDidChange(topics: [.biology], selectedArticleTitles: [])
             #expect(viewModel.personalizedCards.isEmpty, "The previews are stale and must not show")
-            #expect(viewModel.isCommunityLoading && viewModel.isPersonalizedLoading, "Spinners, not empty rows, while the user swipes back")
+            #expect(viewModel.isPersonalizedLoading, "A spinner, not an empty row, while the user swipes back")
+            #expect(viewModel.isCommunityLoading == false, "The community previews do not depend on interests, so they stay")
             await viewModel.waitForWarmUp()
 
             viewModel.didShow()
@@ -437,6 +447,37 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
             await viewModel.waitForLoadTasks()
             #expect(box.noInterests == [false, false])
             #expect(service.decodableGETCallCount == 1)
+        }
+    }
+
+    @Test
+    func swipingAwayDuringTheLoadLogsNoImpressionUntilTheStepIsShownAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let box = ImpressionBox()
+            let (viewModel, _, _) = makeCountingViewModel(logImpression: { box.noInterests.append($0) })
+
+            // Shown, then swiped away before the load finishes.
+            viewModel.didShow()
+            viewModel.didSwipeAway()
+            await viewModel.waitForLoadTasks()
+            #expect(box.noInterests.isEmpty, "The step is not on screen when the load finishes")
+
+            viewModel.didShow()
+            #expect(box.noInterests == [false])
+        }
+    }
+
+    @Test
+    func nextFromInterestsThenShowingTheStepLogsOneImpression() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let box = ImpressionBox()
+            let (viewModel, _, _) = makeCountingViewModel(logImpression: { box.noInterests.append($0) })
+
+            // Next on the interests step starts the load before the step is shown.
+            viewModel.loadIfNeeded()
+            viewModel.didShow()
+            await viewModel.waitForLoadTasks()
+            #expect(box.noInterests == [false], "One impression for one view")
         }
     }
 }

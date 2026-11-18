@@ -14,6 +14,7 @@ struct WMFAppOnboardingViewModelTests {
     private final class LogBox {
         var impressions: [WMFAppOnboardingViewModel.Step] = []
         var nexts: [WMFAppOnboardingViewModel.Step] = []
+        var feedPreferenceImpressions = 0
     }
 
     private func makeViewModel(languages: [WMFAppOnboardingViewModel.LanguageItem] = [],
@@ -30,7 +31,7 @@ struct WMFAppOnboardingViewModelTests {
             onThisDayDataController: WMFOnThisDayDataController(basicService: WMFMockBasicService())
         )
         let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
-        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project, logImpression: { _ in }, logDidTapCommunity: {}, logDidTapPersonalized: {})
+        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project, logImpression: { _ in logBox.feedPreferenceImpressions += 1 }, logDidTapCommunity: {}, logDidTapPersonalized: {})
         return WMFAppOnboardingViewModel(
             languages: languages,
             interestsViewModel: interestsViewModel,
@@ -91,6 +92,7 @@ struct WMFAppOnboardingViewModelTests {
     @Test
     func skipResetsFeedPreferenceToDefault() {
         let viewModel = makeViewModel()
+        viewModel.feedPreferenceViewModel.isPersonalizedLoading = false // as after the load
         viewModel.feedPreferenceViewModel.select(.personalized)
         viewModel.skip()
         #expect(viewModel.feedPreferenceViewModel.selection == .community)
@@ -257,5 +259,21 @@ struct WMFAppOnboardingViewModelTests {
 
         viewModel.advance() // loading: logged by its own onAppear
         #expect(logBox.impressions == [.interests, .feedPreference])
+    }
+
+    @Test
+    func swipingAwayFromFeedPreferenceDuringTheLoadLogsNoImpression() async {
+        let logBox = LogBox()
+        let viewModel = makeViewModel(logBox: logBox)
+        advanceToPersonalizationIntro(viewModel)
+        viewModel.advance() // interests
+        viewModel.advance() // feedPreference: the load starts and the impression waits for it
+
+        viewModel.swipe(to: .interests)
+        await viewModel.feedPreferenceViewModel.waitForLoadTasks()
+        #expect(logBox.feedPreferenceImpressions == 0, "The reader is on the interests step when the load finishes")
+
+        viewModel.swipe(to: .feedPreference)
+        #expect(logBox.feedPreferenceImpressions == 1)
     }
 }

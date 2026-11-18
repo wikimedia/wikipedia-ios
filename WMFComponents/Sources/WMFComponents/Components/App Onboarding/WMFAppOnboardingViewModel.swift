@@ -194,6 +194,9 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
               currentStep.isPersonalization,
               swipeableSteps.contains(step),
               let index = steps.firstIndex(of: step) else { return }
+        if currentStep == .feedPreference {
+            feedPreferenceViewModel.didSwipeAway()
+        }
         currentStepIndex = index
         didShowStep(step)
     }
