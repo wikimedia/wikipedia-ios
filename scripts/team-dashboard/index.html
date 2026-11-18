@@ -477,7 +477,7 @@
         <div class="field">
           <label for="ph-fromPat">From column like</label>
           <input id="ph-fromPat" type="text" placeholder="e.g. In progress, Doing" spellcheck="false">
-          <span class="help">Blank = any column, including a task newly added to the board. Commas separate alternatives; <code>/regex/</code> also works. Case and punctuation are ignored.</span>
+          <span class="help">Matches the whole column name, ignoring case, spaces and punctuation: <code>signoff</code> matches “Sign-off” but not “Design signoff”. Use <code>*</code> for partial matches (<code>*signoff</code>, <code>*code review*</code>). Commas separate alternatives; <code>/regex/</code> also works. Blank = any column, including a task newly added to the board.</span>
         </div>
         <div class="field">
           <label for="ph-toPat">To column like</label>
@@ -1628,8 +1628,15 @@ render();
     if (!pat) return () => true;
     const m = pat.match(/^\/(.+)\/([a-z]*)$/);
     if (m) { const re = new RegExp(m[1], m[2] || 'i'); return name => name != null && re.test(name); }
-    const alts = pat.split(/[,|]/).map(norm).filter(Boolean);
-    return name => name != null && alts.some(a => norm(name).includes(a));
+    // Plain text matches the whole column name, ignoring case, spaces and punctuation ("signoff" = "Sign-off",
+    // but not "Design signoff"). "*" is a wildcard for partial matches ("*signoff", "*code review*").
+    const escRe = t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const alts = pat.split(/[,|]/).map(a => a.trim()).filter(Boolean).map(a => {
+      if (!a.includes('*')) { const want = norm(a); return n => n === want; }
+      const re = new RegExp('^' + a.split('*').map(part => escRe(norm(part))).join('.*') + '$');
+      return n => re.test(n);
+    });
+    return name => name != null && alts.some(test => test(norm(name)));
   }
 
   // ---- users ----

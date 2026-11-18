@@ -36,8 +36,10 @@ instance). GitHub calls go straight from the browser to api.github.com.
    side by side, stacked, or as a single team total.
    *Count* can be moves, tasks closed (tasks on the selected boards closed in the date range,
    credited to the assignee; Resolved only by default), or moves per task (an engineer's matching
-   moves ÷ their tasks closed). A per-engineer table shows all three, with a team row. Then set the "from"/"to" column names. Matching ignores
-   case and punctuation, commas separate alternatives, and `/regex/` works.
+   moves ÷ their tasks closed). A per-engineer table shows all three, with a team row. Then set the "from"/"to" column names. A name matches the
+   whole column name, ignoring case, spaces and punctuation (`signoff` matches "Sign-off" but not
+   "Design signoff"); `*` is a wildcard (`*code review*`), commas separate alternatives, and
+   `/regex/` works.
 4. **Overview** tab: uses the current data and filters from the other two tabs. When GitHub data
    is loaded, the overview covers the same date range.
 
