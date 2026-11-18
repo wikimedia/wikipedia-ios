@@ -38,8 +38,10 @@ instance). GitHub calls go straight from the browser to api.github.com.
    *Count* can be moves, tasks closed (tasks on the selected boards closed in the date range,
    credited to the assignee; Resolved only by default), or moves per task (an engineer's matching
    moves ÷ their tasks closed). A per-engineer table shows all three, with a team row. A separate
-   *Moves per task by month* chart always shows that ratio per engineer and for the team; switch it
-   to *Per task moved* to divide each month's moves by the distinct tasks moved that month instead. Then set the "from"/"to" column names. A name matches the
+   *Moves per task by month* chart always shows a monthly rate per engineer and for the team, dividing
+   each month's matching moves by one of: the distinct tasks moved that month, the tasks open at any
+   point that month (credited to the assignee), the tasks closed that month, or all column moves that
+   month (*Share of all moves*, a percentage). Then set the "from"/"to" column names. A name matches the
    whole column name, ignoring case, spaces and punctuation (`signoff` matches "Sign-off" but not
    "Design signoff"); `*` is a wildcard (`*code review*`), commas separate alternatives, and
    `/regex/` works.

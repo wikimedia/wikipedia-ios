@@ -539,10 +539,12 @@
   </section>
   <section id="ph-resultsRatio" hidden>
     <div class="sec-head">
-      <div><h2>Moves per task by month</h2><p class="sec-sub" id="ph-ratioSub"></p></div>
+      <div><h2 id="ph-ratioTitle">Moves per task by month</h2><p class="sec-sub" id="ph-ratioSub"></p></div>
       <div class="seg" id="ph-ratioDen" role="group" aria-label="Divide moves by">
         <button type="button" data-den="moved" aria-pressed="false">Per task moved</button>
+        <button type="button" data-den="open" aria-pressed="false">Per open task</button>
         <button type="button" data-den="closed" aria-pressed="true">Per task closed</button>
+        <button type="button" data-den="share" aria-pressed="false">Share of all moves</button>
       </div>
     </div>
     <div class="card"><div class="chartBox"><canvas id="ph-ratioChart"></canvas></div></div>
@@ -1604,6 +1606,7 @@ render();
           const prev = tasks.get(t.phid);
           tasks.set(t.phid, { id: t.id, title: t.fields.name, owner: t.fields.ownerPHID,
             status: t.fields.status && (t.fields.status.value ?? t.fields.status), closed: t.fields.dateClosed || null,
+            created: t.fields.dateCreated || null,
             boards: new Set([...(prev ? prev.boards : []), phid]) });
         }
       }
@@ -1842,50 +1845,85 @@ render();
       options: { ...monthOpts, interaction: { mode: 'index', intersect: false } }
     }));
 
-    // moves per task by month, whatever "Count" is set to: one line per engineer plus the team
-    // Divide each month's moves by the tasks closed that month, or by the distinct tasks moved that month.
-    const den = store.get('ratioDen') === 'moved' ? 'moved' : 'closed';
+    // Rate by month, whatever "Count" is set to: one line per engineer plus the team. The denominator is
+    //   moved  - distinct tasks with a matching move that month
+    //   open   - tasks on the selected boards open at any point that month, credited to the assignee
+    //   closed - tasks closed that month, credited to the assignee
+    //   share  - all column moves that month (any columns), credited the same way as matching moves
+    const DENS = { moved: 'tasks moved', open: 'open tasks', closed: 'tasks closed', share: 'moves' };
+    const den = DENS[store.get('ratioDen')] ? store.get('ratioDen') : 'closed';
     $('ratioDen').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.den === den)));
-    const denSet = cell => den === 'moved' ? cell.moved : cell.tasks;
-    const monthRatio = cell => cell && denSet(cell).size ? Math.round(cell.moves / denSet(cell).size * 100) / 100 : null;
-    const teamCell = m => {
-      let moves = 0; const t = new Set();
-      const mv = new Set();
-      users.forEach(u => { const c = byMonth.get(u.phid).get(m); if (c) { moves += c.moves; c.tasks.forEach(x => t.add(x)); c.moved.forEach(x => mv.add(x)); } });
-      return { moves, tasks: t, moved: mv };
+    const allByMonth = new Map(users.map(u => [u.phid, new Map()]));
+    for (const mv of inScope) { const per = allByMonth.get(who(mv)), k = monthKey(mv.date); per.set(k, (per.get(k) || 0) + 1); }
+    const rKeys = [...months, ...[...allByMonth.values()].flatMap(m => [...m.keys()])].sort();
+    const rMonths = [];
+    if (rKeys.length) {
+      let [y, mo] = rKeys[0].split('-').map(Number); const [ey, em] = rKeys[rKeys.length - 1].split('-').map(Number);
+      while (y < ey || (y === ey && mo <= em)) { rMonths.push(`${y}-${String(mo).padStart(2, '0')}`); if (++mo === 13) { y++; mo = 1; } }
+    }
+    const bounds = k => { const [y, mo] = k.split('-').map(Number); return [new Date(y, mo - 1, 1) / 1000, new Date(y, mo, 1) / 1000]; };
+    const openIn = (owners, start, end) => {
+      const out = new Set();
+      for (const [phid, t] of data.tasks) if (owners.has(t.owner) && t.created != null && t.created < end && (!t.closed || t.closed >= start)) out.add(phid);
+      return out;
     };
-    const ratioCells = [
-      ...users.map(u => ({ label: u.name, color: u.color, cells: months.map(m => byMonth.get(u.phid).get(m)), team: false })),
-      ...(users.length > 1 ? [{ label: 'Team', color: css.getPropertyValue('--ink').trim(), cells: months.map(teamCell), team: true }] : []),
+    const rate = (moves, d) => !d ? null : den === 'share' ? Math.round(moves / d * 1000) / 10 : Math.round(moves / d * 100) / 100;
+    const point = (owners, m) => {
+      let moves = 0, all = 0; const closed = new Set(), moved = new Set();
+      for (const o of owners) {
+        const c = byMonth.get(o).get(m);
+        if (c) { moves += c.moves; c.tasks.forEach(x => closed.add(x)); c.moved.forEach(x => moved.add(x)); }
+        all += allByMonth.get(o).get(m) || 0;
+      }
+      const d = den === 'share' ? all : den === 'open' ? openIn(owners, ...bounds(m)).size : (den === 'moved' ? moved : closed).size;
+      return { moves, d, value: rate(moves, d) };
+    };
+    const everyone = new Set(users.map(u => u.phid));
+    const series = [
+      ...users.map(u => ({ label: u.name, color: u.color, pts: rMonths.map(m => point(new Set([u.phid]), m)), team: false })),
+      ...(users.length > 1 ? [{ label: 'Team', color: css.getPropertyValue('--ink').trim(), pts: rMonths.map(m => point(everyone, m)), team: true }] : []),
     ];
+    const pct = den === 'share';
     charts.push(new Chart($('ratioChart'), {
       type: 'line',
       data: {
-        labels: months.map(monthLabel),
-        datasets: ratioCells.map(r => ({
-          label: r.label, data: r.cells.map(monthRatio), cells: r.cells,
+        labels: rMonths.map(monthLabel),
+        datasets: series.map(r => ({
+          label: r.label, data: r.pts.map(p => p.value), pts: r.pts,
           borderColor: r.color, backgroundColor: r.color, borderWidth: r.team ? 3 : 1.5,
           pointRadius: r.team ? 4 : 3, spanGaps: false, tension: 0.2, order: r.team ? 0 : 1,
         })),
       },
       options: {
         ...baseOpts,
-        scales: { x: baseOpts.scales.x, y: { ...baseOpts.scales.y, ticks: { color: textColor } } },
+        scales: { x: baseOpts.scales.x, y: { ...baseOpts.scales.y, ticks: { color: textColor, ...(pct ? { callback: v => v + '%' } : {}) } } },
         interaction: { mode: 'index', intersect: false },
         plugins: { ...baseOpts.plugins, tooltip: { callbacks: {
           label: ctx => {
-            const c = ctx.dataset.cells[ctx.dataIndex];
-            return ctx.raw == null ? null : `${ctx.dataset.label}: ${ctx.raw.toFixed(2)} (${c.moves} move${c.moves === 1 ? '' : 's'} ÷ ${denSet(c).size} task${denSet(c).size === 1 ? '' : 's'} ${den})`;
+            const p = ctx.dataset.pts[ctx.dataIndex];
+            if (ctx.raw == null) return null;
+            return pct ? `${ctx.dataset.label}: ${ctx.raw}% (${p.moves} of ${p.d} moves)`
+              : `${ctx.dataset.label}: ${ctx.raw.toFixed(2)} (${p.moves} move${p.moves === 1 ? '' : 's'} ÷ ${p.d} ${p.d === 1 ? { moved: 'task moved', open: 'open task', closed: 'task closed' }[den] : DENS[den]})`;
           },
         } } },
       },
     }));
-    const teamMoved = new Set(matched.map(mv => mv.task));
-    const teamDen = den === 'moved' ? teamMoved : teamClosed;
-    $('ratioSub').textContent = (den === 'moved'
-      ? `Each month's matching moves ÷ the distinct tasks moved that month (how often each task moved). `
-      : `Each month's matching moves ÷ tasks closed that month (credited to the assignee). Gaps are months with no tasks closed. `) +
-      `Overall: team ${teamDen.size ? (matched.length / teamDen.size).toFixed(2) : '–'} (${matched.length} moves ÷ ${teamDen.size} tasks ${den}).`;
+    // whole-period team figure for the subtitle
+    const pStart = Number.isFinite(since) ? since : (rMonths.length ? bounds(rMonths[0])[0] : 0);
+    const pEnd = Number.isFinite(until) ? until : (rMonths.length ? bounds(rMonths[rMonths.length - 1])[1] : 0);
+    const teamD = den === 'share' ? inScope.length : den === 'open' ? openIn(everyone, pStart, pEnd).size
+      : den === 'moved' ? new Set(matched.map(mv => mv.task)).size : teamClosed.size;
+    const overall = rate(matched.length, teamD);
+    const explain = {
+      moved: 'matching moves ÷ the distinct tasks moved that month (how often each task moved).',
+      open: 'matching moves ÷ tasks on these boards open at any point that month, moved or not (credited to the assignee).',
+      closed: 'matching moves ÷ tasks closed that month (credited to the assignee). Gaps are months with no tasks closed.',
+      share: 'matching moves as a percentage of all column moves that month, credited the same way.',
+    }[den];
+    $('ratioTitle').textContent = pct ? 'Share of all moves by month' : 'Moves per task by month';
+    $('ratioSub').textContent = `Each month: ${explain} Overall: team ${overall == null ? '–' : pct ? overall + '%' : overall.toFixed(2)} ` +
+      `(${matched.length} ${pct ? 'of' : 'moves ÷'} ${teamD} ${DENS[den]}).` +
+      (den === 'open' && [...data.tasks.values()].some(t => t.created == null) ? ' Click “Load column moves” again to include task creation dates.' : '');
 
     // transitions table (helps discover names)
     const trans = new Map();
