@@ -537,6 +537,10 @@
     </div>
     <div class="card"><div class="chartBox"><canvas id="ph-monthChart"></canvas></div></div>
   </section>
+  <section id="ph-resultsRatio" hidden>
+    <div class="sec-head"><div><h2>Moves per task by month</h2><p class="sec-sub" id="ph-ratioSub"></p></div></div>
+    <div class="card"><div class="chartBox"><canvas id="ph-ratioChart"></canvas></div></div>
+  </section>
   <section id="ph-results3" hidden>
     <div class="sec-head"><div><h2>Column transitions seen</h2><p class="sec-sub">Every move by the team on these boards, whatever the column filter. Use it to find the column names to filter on.</p></div></div>
     <div class="tbl-scroll"><table class="wide left" id="ph-transTable"></table></div>
@@ -1811,6 +1815,42 @@ render();
       options: { ...monthOpts, interaction: { mode: 'index', intersect: false } }
     }));
 
+    // moves per task by month, whatever "Count" is set to: one line per engineer plus the team
+    const monthRatio = cell => cell && cell.tasks.size ? Math.round(cell.moves / cell.tasks.size * 100) / 100 : null;
+    const teamCell = m => {
+      let moves = 0; const t = new Set();
+      users.forEach(u => { const c = byMonth.get(u.phid).get(m); if (c) { moves += c.moves; c.tasks.forEach(x => t.add(x)); } });
+      return { moves, tasks: t };
+    };
+    const ratioCells = [
+      ...users.map(u => ({ label: u.name, color: u.color, cells: months.map(m => byMonth.get(u.phid).get(m)), team: false })),
+      ...(users.length > 1 ? [{ label: 'Team', color: css.getPropertyValue('--ink').trim(), cells: months.map(teamCell), team: true }] : []),
+    ];
+    charts.push(new Chart($('ratioChart'), {
+      type: 'line',
+      data: {
+        labels: months.map(monthLabel),
+        datasets: ratioCells.map(r => ({
+          label: r.label, data: r.cells.map(monthRatio), cells: r.cells,
+          borderColor: r.color, backgroundColor: r.color, borderWidth: r.team ? 3 : 1.5,
+          pointRadius: r.team ? 4 : 3, spanGaps: false, tension: 0.2, order: r.team ? 0 : 1,
+        })),
+      },
+      options: {
+        ...baseOpts,
+        scales: { x: baseOpts.scales.x, y: { ...baseOpts.scales.y, ticks: { color: textColor } } },
+        interaction: { mode: 'index', intersect: false },
+        plugins: { ...baseOpts.plugins, tooltip: { callbacks: {
+          label: ctx => {
+            const c = ctx.dataset.cells[ctx.dataIndex];
+            return ctx.raw == null ? null : `${ctx.dataset.label}: ${ctx.raw.toFixed(2)} (${c.moves} move${c.moves === 1 ? '' : 's'} ÷ ${c.tasks.size} task${c.tasks.size === 1 ? '' : 's'})`;
+          },
+        } } },
+      },
+    }));
+    $('ratioSub').textContent = `Each month's matching moves ÷ tasks closed that month. Gaps are months with no tasks closed. ` +
+      `Overall: team ${teamClosed.size ? (matched.length / teamClosed.size).toFixed(2) : '–'} (${matched.length} moves ÷ ${teamClosed.size} tasks).`;
+
     // transitions table (helps discover names)
     const trans = new Map();
     for (const mv of inScope) {
@@ -1834,7 +1874,7 @@ render();
       shown.map(r => `<tr><td>${r.date}</td><td>${esc(r.user)}</td><td><a href="${esc(web)}/${r.task}" target="_blank" rel="noopener">${r.task}</a> ${esc(r.title.slice(0, 60))}</td><td>${esc(r.board)}</td><td>${esc(r.from)}</td><td>${esc(r.to)}</td></tr>`).join('') +
       (lastRows.length > 500 ? `<tr><td colspan="6" class="help">Showing latest 500 of ${lastRows.length}; download CSV for all.</td></tr>` : '');
 
-    ['resultsSummary', 'results', 'results2', 'resultsMonth', 'results3', 'results4'].forEach(id => { $(id).hidden = false; });
+    ['resultsSummary', 'results', 'results2', 'resultsMonth', 'resultsRatio', 'results3', 'results4'].forEach(id => { $(id).hidden = false; });
 
     // hand the per-person, per-month numbers to the overview tab
     const perUser = new Map(), totalsOut = new Map();
