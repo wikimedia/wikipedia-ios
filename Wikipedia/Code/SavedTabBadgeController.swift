@@ -1,7 +1,6 @@
 import Combine
 import UIKit
 import WMF
-import WMFComponents
 import WMFData
 
 /// What the badge needs to know about Discover. `WMFDiscoverDataController` is the production
@@ -31,6 +30,8 @@ final class SavedTabBadgeController {
         case syncInProgress
         case discover
 
+        /// The dot is a badge with no text, which the tab bar draws as a plain circle.
+        /// The iPad top tab bar draws no badge for an empty string, so it gets a blank glyph.
         func value(for userInterfaceIdiom: UIUserInterfaceIdiom) -> String? {
             switch self {
             case .none:
@@ -38,12 +39,20 @@ final class SavedTabBadgeController {
             case .syncInProgress:
                 return "\u{2605}"
             case .discover:
-                return userInterfaceIdiom == .pad ? "\u{2800}" : "\u{25CF}"
+                return userInterfaceIdiom == .pad ? "\u{2800}" : ""
             }
         }
     }
 
+    /// The badge colors belong to the tab bar appearance, so every badge on the bar shares them.
+    /// The dot is red while it is the only badge. When another badge shows, all badges use the theme color.
+    enum BadgeStyle: Equatable {
+        case theme
+        case alert
+    }
+
     private(set) var badge: Badge = .none
+    private(set) var badgeStyle: BadgeStyle?
 
     private weak var tabBarItem: UITabBarItem?
     private weak var tabBar: UITabBar?
@@ -54,17 +63,19 @@ final class SavedTabBadgeController {
 
     private var isSyncInProgress = false
     private var showsDiscoverDot = false
+    private var hasOtherBadges = false
 
     private var progressObjectWasSetObservation: NSKeyValueObservation?
     private var progressObservation: NSKeyValueObservation?
     private var showStarTask: Task<Void, Never>?
     private var discoverObservation: AnyCancellable?
 
-    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, discoverDataController: SavedTabDiscoverProviding = WMFDiscoverDataController.shared, logDiscoverExperimentExposure: @escaping @MainActor () -> Void = { DiscoverInstrumentation.shared.logExperimentExposure() }) {
+    init(tabBarItem: UITabBarItem, tabBar: UITabBar?, theme: Theme, userInterfaceIdiom: UIUserInterfaceIdiom, hasOtherBadges: Bool = false, discoverDataController: SavedTabDiscoverProviding = WMFDiscoverDataController.shared, logDiscoverExperimentExposure: @escaping @MainActor () -> Void = { DiscoverInstrumentation.shared.logExperimentExposure() }) {
         self.tabBarItem = tabBarItem
         self.tabBar = tabBar
-        self.userInterfaceIdiom = userInterfaceIdiom
         self.theme = theme
+        self.userInterfaceIdiom = userInterfaceIdiom
+        self.hasOtherBadges = hasOtherBadges
         self.discoverDataController = discoverDataController
         self.logDiscoverExperimentExposure = logDiscoverExperimentExposure
         beginProgressObservations()
@@ -89,6 +100,25 @@ final class SavedTabBadgeController {
         return showsDiscoverDot ? .discover : .none
     }
 
+    static func badgeStyle(for badge: Badge, hasOtherBadges: Bool) -> BadgeStyle {
+        badge == .discover && !hasOtherBadges ? .alert : .theme
+    }
+
+    /// Call this after the tab bar appearance changes. The theme replaces the badge colors.
+    func apply(theme: Theme) {
+        self.theme = theme
+        badgeStyle = nil
+        render(force: true)
+    }
+
+    /// Tell the controller before another tab shows its badge, and after it hides it. The dot color
+    /// depends on it, and a badge takes the colors that the appearance has when it is set.
+    func setHasOtherBadges(_ hasOtherBadges: Bool) {
+        guard self.hasOtherBadges != hasOtherBadges else { return }
+        self.hasOtherBadges = hasOtherBadges
+        render()
+    }
+
     // MARK: - Discover
 
     /// Re-reads the Discover gates. Rolls the experiment bucket on the first call while the feature
@@ -100,14 +130,6 @@ final class SavedTabBadgeController {
         }
         showsDiscoverDot = discoverDataController.shouldShowAnnouncement || discoverDataController.shouldShowUnseenListBadge
         render()
-    }
-
-    // MARK: - Theme
-
-    /// Call after the tab bar takes a new theme, because the theme resets the badge color.
-    func apply(theme: Theme) {
-        self.theme = theme
-        render(force: true)
     }
 
     // MARK: - Sync
@@ -175,50 +197,31 @@ final class SavedTabBadgeController {
 
     private func render(force: Bool = false) {
         let newBadge = Self.badge(isSyncInProgress: isSyncInProgress, showsDiscoverDot: showsDiscoverDot)
-        guard force || newBadge != badge else { return }
+        let newStyle = Self.badgeStyle(for: newBadge, hasOtherBadges: hasOtherBadges)
+        guard force || newBadge != badge || newStyle != badgeStyle else { return }
         badge = newBadge
 
-        // The badge colors come from the tab bar appearance, and a badge that is already on
-        // screen keeps its colors. Clear it, apply the colors, then set the value.
+        // A badge that is on screen keeps its colors. Clear the badge, write the colors, then set the value again.
         tabBarItem?.badgeValue = nil
-        if let tabBar, let style = badgeStyle(for: newBadge) {
-            let appearance = tabBar.standardAppearance.copy()
-            for layout in [appearance.stackedLayoutAppearance, appearance.inlineLayoutAppearance, appearance.compactInlineLayoutAppearance] {
-                for state in [layout.normal, layout.selected] {
-                    state.badgeBackgroundColor = style.background
-                    state.badgeTextAttributes = style.textAttributes
-                    state.badgePositionAdjustment = style.positionAdjustment
-                }
-            }
-            tabBar.standardAppearance = appearance
-            tabBar.scrollEdgeAppearance = appearance
-            tabBar.setNeedsLayout()
-            tabBar.layoutIfNeeded()
+        if newStyle != badgeStyle {
+            badgeStyle = newStyle
+            writeAppearance(for: newStyle)
         }
         tabBarItem?.badgeValue = newBadge.value(for: userInterfaceIdiom)
     }
 
-    private struct BadgeStyle {
-        let background: UIColor
-        let textAttributes: [NSAttributedString.Key: Any]
-        var positionAdjustment: UIOffset = .zero
-    }
-
-    private func badgeStyle(for badge: Badge) -> BadgeStyle? {
-        switch badge {
-        case .none:
-            return nil
-        case .syncInProgress:
-            return BadgeStyle(background: theme.colors.accent, textAttributes: theme.tabBarItemBadgeTextAttributes)
-        case .discover:
-            if userInterfaceIdiom == .pad {
-                return BadgeStyle(background: theme.colors.destructive, textAttributes: theme.tabBarItemBadgeTextAttributes)
-            }
-            return BadgeStyle(
-                background: .clear,
-                textAttributes: [.foregroundColor: theme.colors.destructive],
-                positionAdjustment: UIOffset(horizontal: WMFSpacing.xSmall, vertical: -WMFSpacing.xSmall)
-            )
+    private func writeAppearance(for style: BadgeStyle) {
+        guard let tabBar else { return }
+        let backgroundColor = style == .alert ? theme.colors.destructive : theme.colors.accent
+        let appearance = tabBar.standardAppearance.copy()
+        for layout in [appearance.stackedLayoutAppearance, appearance.inlineLayoutAppearance, appearance.compactInlineLayoutAppearance] {
+            layout.normal.badgeBackgroundColor = backgroundColor
+            layout.normal.badgeTextAttributes = theme.tabBarItemBadgeTextAttributes
         }
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
+        // The bar reads the badge colors from the appearance in its next layout pass. A new appearance
+        // does not request one, so a badge set after the write keeps the old colors without this call.
+        tabBar.setNeedsLayout()
     }
 }

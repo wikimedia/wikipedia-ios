@@ -24,8 +24,18 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         ProgressContainer.shared.articleFetcherProgress = nil
     }
 
-    private func makeController(userInterfaceIdiom: UIUserInterfaceIdiom = .phone) -> SavedTabBadgeController {
-        SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: nil, theme: .light, userInterfaceIdiom: userInterfaceIdiom, discoverDataController: discover, logDiscoverExperimentExposure: { [unowned self] in self.exposures += 1 })
+    private func makeController(tabBar: UITabBar? = nil, userInterfaceIdiom: UIUserInterfaceIdiom = .phone) -> SavedTabBadgeController {
+        SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: tabBar, theme: .light, userInterfaceIdiom: userInterfaceIdiom, discoverDataController: discover, logDiscoverExperimentExposure: { [unowned self] in self.exposures += 1 })
+    }
+
+    private func makeTabBar() -> UITabBar {
+        let tabBar = UITabBar()
+        tabBar.items = [tabBarItem]
+        return tabBar
+    }
+
+    private func badgeBackgroundColor(of tabBar: UITabBar) -> UIColor? {
+        tabBar.standardAppearance.stackedLayoutAppearance.normal.badgeBackgroundColor
     }
 
     private func wait(seconds: Double) async {
@@ -52,7 +62,7 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         discover.shouldShowAnnouncement = true
         controller = makeController()
         XCTAssertEqual(controller.badge, .discover)
-        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
+        XCTAssertEqual(tabBarItem.badgeValue, "")
         XCTAssertEqual(discover.assignments, 1)
         XCTAssertEqual(exposures, 1, "the exposure goes out with the bucket")
 
@@ -68,7 +78,7 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         discover.shouldShowUnseenListBadge = true
         controller = makeController()
         XCTAssertEqual(controller.badge, .discover)
-        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
+        XCTAssertEqual(tabBarItem.badgeValue, "")
 
         discover.shouldShowUnseenListBadge = false
         controller.refreshDiscover()
@@ -101,7 +111,61 @@ final class SavedTabBadgeControllerTests: XCTestCase {
 
         controller.setSyncInProgress(false)
         XCTAssertEqual(controller.badge, .discover)
-        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
+        XCTAssertEqual(tabBarItem.badgeValue, "")
+    }
+
+    func testTheDotIsRedOnlyWhileItIsTheOnlyBadge() {
+        XCTAssertEqual(SavedTabBadgeController.badgeStyle(for: .discover, hasOtherBadges: false), .alert)
+        XCTAssertEqual(SavedTabBadgeController.badgeStyle(for: .discover, hasOtherBadges: true), .theme)
+        XCTAssertEqual(SavedTabBadgeController.badgeStyle(for: .syncInProgress, hasOtherBadges: false), .theme)
+        XCTAssertEqual(SavedTabBadgeController.badgeStyle(for: .none, hasOtherBadges: false), .theme)
+    }
+
+    func testAnotherBadgeTurnsTheDotToTheThemeColor() {
+        let theme = Theme.light
+        let tabBar = makeTabBar()
+        discover.isEnabled = true
+        discover.shouldShowAnnouncement = true
+        controller = makeController(tabBar: tabBar)
+        XCTAssertEqual(controller.badgeStyle, .alert)
+        XCTAssertEqual(badgeBackgroundColor(of: tabBar), theme.colors.destructive)
+
+        controller.setHasOtherBadges(true)
+        XCTAssertEqual(controller.badgeStyle, .theme)
+        XCTAssertEqual(badgeBackgroundColor(of: tabBar), theme.colors.accent)
+        XCTAssertEqual(tabBarItem.badgeValue, "", "the dot stays, in the theme color")
+
+        controller.setHasOtherBadges(false)
+        XCTAssertEqual(controller.badgeStyle, .alert)
+        XCTAssertEqual(badgeBackgroundColor(of: tabBar), theme.colors.destructive)
+    }
+
+    func testTheStarUsesTheThemeColor() {
+        let theme = Theme.light
+        let tabBar = makeTabBar()
+        discover.isEnabled = true
+        discover.shouldShowAnnouncement = true
+        controller = makeController(tabBar: tabBar)
+
+        controller.setSyncInProgress(true)
+        XCTAssertEqual(controller.badgeStyle, .theme)
+        XCTAssertEqual(badgeBackgroundColor(of: tabBar), theme.colors.accent)
+
+        controller.setSyncInProgress(false)
+        XCTAssertEqual(controller.badgeStyle, .alert)
+        XCTAssertEqual(badgeBackgroundColor(of: tabBar), theme.colors.destructive)
+    }
+
+    func testTheThemeKeepsTheDotColor() {
+        let tabBar = makeTabBar()
+        discover.isEnabled = true
+        discover.shouldShowAnnouncement = true
+        controller = makeController(tabBar: tabBar)
+
+        tabBar.standardAppearance = UITabBarAppearance.appearanceForTheme(.dark)
+        controller.apply(theme: .dark)
+        XCTAssertEqual(badgeBackgroundColor(of: tabBar), Theme.dark.colors.destructive)
+        XCTAssertEqual(tabBarItem.badgeValue, "")
     }
 
     func testTheDotIsABlankGlyphOnTheIPad() {
@@ -110,24 +174,6 @@ final class SavedTabBadgeControllerTests: XCTestCase {
         controller = makeController(userInterfaceIdiom: .pad)
         XCTAssertEqual(controller.badge, .discover)
         XCTAssertEqual(tabBarItem.badgeValue, "\u{2800}")
-    }
-
-    func testApplyingTheThemeWritesTheDotStyleBackToTheTabBar() {
-        discover.isEnabled = true
-        discover.shouldShowAnnouncement = true
-        let tabBar = UITabBar()
-        tabBar.apply(theme: .light)
-        controller = SavedTabBadgeController(tabBarItem: tabBarItem, tabBar: tabBar, theme: .light, userInterfaceIdiom: .phone, discoverDataController: discover, logDiscoverExperimentExposure: {})
-        XCTAssertEqual(tabBar.standardAppearance.stackedLayoutAppearance.normal.badgeBackgroundColor, .clear)
-
-        // A theme on the bar alone brings the default badge style back. Home does this below iOS 26.
-        tabBar.apply(theme: .light)
-        XCTAssertEqual(tabBar.standardAppearance.stackedLayoutAppearance.normal.badgeBackgroundColor, Theme.light.colors.accent)
-
-        controller.apply(theme: .light)
-        XCTAssertEqual(tabBar.standardAppearance.stackedLayoutAppearance.normal.badgeBackgroundColor, .clear)
-        XCTAssertEqual(tabBar.scrollEdgeAppearance?.stackedLayoutAppearance.normal.badgeBackgroundColor, .clear)
-        XCTAssertEqual(tabBarItem.badgeValue, "\u{25CF}")
     }
 
     func testTheStarFollowsTheDownloadProgress() async {
