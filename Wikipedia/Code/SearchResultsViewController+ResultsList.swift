@@ -50,16 +50,16 @@ extension SearchResultsViewController {
                     self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
                 }
                 self.saveLastSearch()
-                self.articleTappedAction?(result.articleURL, false)
+                self.openArticle(for: result, needsNewTab: false)
             },
             openAction: { [weak self] result, _ in
                 ArticleTabsFunnel.shared.logLongPressOpen()
-                self?.articleTappedAction?(result.articleURL, false)
+                self?.openArticle(for: result, needsNewTab: false)
             },
             openInNewTabAction: { [weak self] result, _ in
                 WMFArticleTabsDataController.shared.didTapOpenNewTab()
                 ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
-                self?.articleTappedAction?(result.articleURL, true)
+                self?.openArticle(for: result, needsNewTab: true)
             },
             openInBackgroundTabAction: { [weak self] result, _ in
                 self?.openInBackgroundTab(result)
@@ -82,6 +82,18 @@ extension SearchResultsViewController {
             })
     }
 
+    /// A semantic row of the interleaved list opens the article at its passage. Any other row opens
+    /// the article at the top.
+    func openArticle(for result: SearchResult, needsNewTab: NeedsNewTab) {
+        if let semanticResultTappedAction,
+           let semanticResult = semanticResultsByArticleURL[result.id],
+           let project = SearchResultsMapper.project(for: result.articleURL) {
+            semanticResultTappedAction(semanticResult, project, needsNewTab)
+        } else {
+            articleTappedAction?(result.articleURL, needsNewTab)
+        }
+    }
+
     // MARK: - Results
 
     func displaySearchResults(_ searchResults: WMFSearchResults, siteURL: URL) {
@@ -98,6 +110,7 @@ extension SearchResultsViewController {
             return result
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
+        self.semanticResultsByArticleURL = [:]
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
         updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
@@ -110,6 +123,7 @@ extension SearchResultsViewController {
         let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.redirectMappings)
 
         var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+        var semanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
         let showsSourceBadge = WMFDeveloperSettingsDataController.shared.showSemanticSearchInterleavedSourceBadge
         let results = outcome.items.compactMap { item -> SearchResult? in
             var searchResult: SearchResult?
@@ -124,6 +138,7 @@ extension SearchResultsViewController {
                 guard let semanticResult = outcome.semanticResultsByPageID[item.pageID], let articleURL = siteURL.wmf_URL(withTitle: semanticResult.title) else {
                     return nil
                 }
+                semanticResultsByArticleURL[articleURL.absoluteString] = semanticResult
                 searchResult = SearchResult(
                     articleURL: articleURL,
                     pageTitle: semanticResult.title,
@@ -142,6 +157,7 @@ extension SearchResultsViewController {
             return searchResult
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
+        self.semanticResultsByArticleURL = semanticResultsByArticleURL
 
         resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project, rowStyle: .interleaved)
         resultsViewModel.hideSemanticSearchEntryPoint()
@@ -287,6 +303,7 @@ extension SearchResultsViewController {
 
     func displaySearchError(_ error: Error) {
         searchResultsByArticleURL = [:]
+        semanticResultsByArticleURL = [:]
         let error = error as NSError
 
         if error.wmf_isCancelledError() {
