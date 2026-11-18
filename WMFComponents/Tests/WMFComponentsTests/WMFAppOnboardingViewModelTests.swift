@@ -11,8 +11,14 @@ struct WMFAppOnboardingViewModelTests {
         var completed = false
     }
 
+    private final class LogBox {
+        var impressions: [WMFAppOnboardingViewModel.Step] = []
+        var nexts: [WMFAppOnboardingViewModel.Step] = []
+    }
+
     private func makeViewModel(languages: [WMFAppOnboardingViewModel.LanguageItem] = [],
-                               completionBox: CompletionBox = CompletionBox()) -> WMFAppOnboardingViewModel {
+                               completionBox: CompletionBox = CompletionBox(),
+                               logBox: LogBox = LogBox()) -> WMFAppOnboardingViewModel {
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
         // Fully injected so no test in this suite performs real network I/O (the loading-step
         // test in particular races a feed fetch against a timeout and flaked on CI when the
@@ -34,10 +40,16 @@ struct WMFAppOnboardingViewModelTests {
             didTapTermsOfUse: {},
             didTapAddLanguages: {},
             onCompletion: { completionBox.completed = true },
-            logImpression: { _ in },
+            logImpression: { logBox.impressions.append($0) },
             logSkip: { _ in },
-            logNext: {_ in }
+            logNext: { logBox.nexts.append($0) }
         )
+    }
+
+    private func advanceToPersonalizationIntro(_ viewModel: WMFAppOnboardingViewModel) {
+        while viewModel.currentStep != .personalizationIntro {
+            viewModel.advance()
+        }
     }
 
     @Test
@@ -165,5 +177,85 @@ struct WMFAppOnboardingViewModelTests {
         ])
         #expect(viewModel.languages.count == 2)
         #expect(viewModel.languages.last?.isPrimary == false)
+    }
+
+    // MARK: - Swiping (T434325)
+
+    @Test
+    func swipeMovesBackAndForthBetweenPersonalizationSteps() {
+        let viewModel = makeViewModel()
+        advanceToPersonalizationIntro(viewModel)
+
+        viewModel.swipe(to: .interests)
+        #expect(viewModel.currentStep == .interests)
+        viewModel.swipe(to: .feedPreference)
+        #expect(viewModel.currentStep == .feedPreference)
+        viewModel.swipe(to: .interests)
+        #expect(viewModel.currentStep == .interests)
+        viewModel.swipe(to: .personalizationIntro)
+        #expect(viewModel.currentStep == .personalizationIntro)
+    }
+
+    @Test
+    func swipeLogsImpressionsButNoNextClick() {
+        let logBox = LogBox()
+        let viewModel = makeViewModel(logBox: logBox)
+        advanceToPersonalizationIntro(viewModel)
+        let nextCount = logBox.nexts.count
+        logBox.impressions.removeAll()
+
+        viewModel.swipe(to: .interests)
+        viewModel.swipe(to: .personalizationIntro)
+        viewModel.swipe(to: .interests)
+
+        #expect(logBox.impressions == [.interests, .personalizationIntro, .interests])
+        #expect(logBox.nexts.count == nextCount)
+    }
+
+    @Test
+    func swipeCannotLeaveThePersonalizationSteps() {
+        let viewModel = makeViewModel()
+        advanceToPersonalizationIntro(viewModel)
+        viewModel.swipe(to: .languages)
+        #expect(viewModel.currentStep == .personalizationIntro)
+
+        viewModel.swipe(to: .interests)
+        viewModel.swipe(to: .feedPreference)
+        viewModel.swipe(to: .loading)
+        #expect(viewModel.currentStep == .feedPreference)
+    }
+
+    @Test
+    func swipeIsIgnoredBeforeThePersonalizationSteps() {
+        let viewModel = makeViewModel()
+        viewModel.swipe(to: .interests)
+        #expect(viewModel.currentStep == .intro)
+    }
+
+    @Test
+    func condensedFlowCannotSwipeBackToPersonalizationIntro() {
+        let viewModel = makeViewModel()
+        viewModel.jumpToStep(.interests)
+        #expect(viewModel.swipeableSteps == [.interests, .feedPreference])
+
+        viewModel.swipe(to: .personalizationIntro)
+        #expect(viewModel.currentStep == .interests)
+    }
+
+    @Test
+    func advanceInsideThePagerLogsTheImpressionOfTheNewStep() {
+        let logBox = LogBox()
+        let viewModel = makeViewModel(logBox: logBox)
+        viewModel.advance() // dataPrivacy
+        viewModel.advance() // languages
+        viewModel.advance() // personalizationIntro: the pager logs it when it appears
+        #expect(logBox.impressions.isEmpty)
+
+        viewModel.advance() // interests
+        viewModel.advance() // feedPreference
+        #expect(logBox.impressions == [.interests, .feedPreference])
+
+        viewModel.advance() // loading: logged by its own onAppear
+        #expect(logBox.impressions == [.interests, .feedPreference])
     }
 }
