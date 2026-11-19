@@ -108,6 +108,8 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     public struct NewsItem {
         public let story: String
+        /// The article the story is about, opened when the reader taps the story.
+        public let articleTitle: String?
         /// Thumbnail of the article the story is illustrated with, chosen the same way the
         /// explore feed does (see WMFFeedNewsItem.featuredArticle(picturedText:)).
         public let imageURLString: String?
@@ -190,7 +192,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
             .map { item in
                 let story = (try? HtmlUtils.stringFromHTML(item.story ?? "")) ?? item.story ?? ""
                 let featured = item.featuredArticle(picturedText: picturedText)
-                return NewsItem(story: story, imageURLString: featured?.thumbnail?.source)
+                return NewsItem(story: story, articleTitle: featured?.title, imageURLString: featured?.thumbnail?.source)
             }
 
         // A wiki without On this day content answers with no events. The module is hidden then,

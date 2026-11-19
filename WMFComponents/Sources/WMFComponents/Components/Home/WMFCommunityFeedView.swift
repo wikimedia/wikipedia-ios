@@ -28,6 +28,7 @@ struct WMFCommunityFeedView: View {
     let onHideCard: (String) -> Void
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
+    let onTapArticle: (String, WMFProject) -> Void
 
     var scrollToTopRequestID: Int = 0
 
@@ -162,17 +163,22 @@ struct WMFCommunityFeedView: View {
         switch module {
         case .featuredArticle:
             if let article = page.featuredArticle {
-                WMFFeaturedArticleCard(article: article, theme: theme)
-                    .padding(.horizontal, Self.horizontalPadding)
+                articleButton(article.title, page: page) {
+                    WMFFeaturedArticleCard(article: article, theme: theme)
+                }
+                .padding(.horizontal, Self.horizontalPadding)
             }
         case .topRead:
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(Array(page.topReadItems.enumerated()), id: \.offset) { _, item in
+                    // The row has its own tap gesture, which runs `tapAction`, so it is not wrapped
+                    // in a button.
                     WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
                         id: item.title,
                         title: item.displayTitle,
                         projectID: item.projectID,
-                        iconAccessibilityLabel: ""
+                        iconAccessibilityLabel: "",
+                        tapAction: { onTapArticle(item.title, page.project) }
                     ))
                 }
             }
@@ -181,7 +187,9 @@ struct WMFCommunityFeedView: View {
             // The story card brings its own horizontal padding.
             TabView {
                 ForEach(Array(page.newsItems.enumerated()), id: \.offset) { _, item in
-                    WMFNewsStoryCard(story: item.story, imageURLString: item.imageURLString, theme: theme)
+                    articleButton(item.articleTitle, page: page) {
+                        WMFNewsStoryCard(story: item.story, imageURLString: item.imageURLString, theme: theme)
+                    }
                 }
             }
             .tabViewStyle(.page)
@@ -191,7 +199,7 @@ struct WMFCommunityFeedView: View {
         case .onThisDay:
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(Array((page.onThisDayItems ?? []).enumerated()), id: \.offset) { _, item in
-                    onThisDayEvent(item)
+                    onThisDayEvent(item, page: page)
                 }
             }
             .padding(.horizontal, Self.horizontalPadding)
@@ -205,7 +213,7 @@ struct WMFCommunityFeedView: View {
         }
     }
 
-    private func onThisDayEvent(_ item: WMFHomeCommunityViewModel.OnThisDayItem) -> some View {
+    private func onThisDayEvent(_ item: WMFHomeCommunityViewModel.OnThisDayItem, page: WMFHomeCommunityViewModel) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(verbatim: String(item.year))
                 .font(Font(WMFFont.for(.boldTitle3)))
@@ -219,12 +227,13 @@ struct WMFCommunityFeedView: View {
             if !item.pages.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .top, spacing: 12) {
-                        ForEach(Array(item.pages.enumerated()), id: \.offset) { _, page in
+                        ForEach(Array(item.pages.enumerated()), id: \.offset) { _, eventPage in
                             WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
-                                id: page.title,
-                                title: page.title,
+                                id: eventPage.title,
+                                title: eventPage.normalizedTitle ?? eventPage.title,
                                 projectID: item.projectID,
-                                iconAccessibilityLabel: ""
+                                iconAccessibilityLabel: "",
+                                tapAction: { onTapArticle(eventPage.title, page.project) }
                             ))
                             .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
                             .padding(.vertical, 4)
@@ -232,6 +241,23 @@ struct WMFCommunityFeedView: View {
                     }
                 }
             }
+        }
+    }
+
+    /// Opens `title` from the page's wiki when the reader taps `label`. Without a title, the label
+    /// is drawn as it is and does nothing.
+    @ViewBuilder
+    private func articleButton<Label: View>(_ title: String?, page: WMFHomeCommunityViewModel, @ViewBuilder label: () -> Label) -> some View {
+        if let title {
+            Button {
+                onTapArticle(title, page.project)
+            } label: {
+                label()
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+        } else {
+            label()
         }
     }
 

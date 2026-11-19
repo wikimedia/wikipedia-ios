@@ -75,6 +75,11 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         XCTAssertEqual(page.pictureOfDayHideKey, "picture_of_day_https://upload.wikimedia.org/sky.jpg")
     }
 
+    func testANewsStoryKeepsTheArticleItOpens() throws {
+        let page = try page(feedJSON: #"{ "news": [ { "story": "A story", "links": [ { "title": "Black_hole" } ] } ] }"#)
+        XCTAssertEqual(page.newsItems.first?.articleTitle, "Black_hole")
+    }
+
     func testOnThisDayWithNoEventsHasNoItems() throws {
         XCTAssertNil(try page(onThisDayEvents: 0).onThisDayItems)
     }

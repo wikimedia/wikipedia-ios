@@ -387,6 +387,7 @@ public struct WMFHomeView: View {
                 onHideCard: { viewModel.hideCard(key: $0) },
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() },
+                onTapArticle: { viewModel.openCommunityArticle(title: $0, project: $1) },
                 scrollToTopRequestID: viewModel.communityScrollToTopRequestID,
                 topContentInset: communityFeedTopContentInset
             )

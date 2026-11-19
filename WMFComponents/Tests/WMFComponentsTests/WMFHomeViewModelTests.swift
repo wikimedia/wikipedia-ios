@@ -328,6 +328,18 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isCommunityFeedEmpty)
     }
 
+    func testTappingACommunityArticleReachesTheCoordinator() {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "ar", languageVariantCode: nil))
+        var opened: (String, String)?
+        vm.didTapCommunityArticle = { title, project in opened = (title, project.id) }
+
+        vm.openCommunityArticle(title: "Black_hole", project: project)
+
+        XCTAssertEqual(opened?.0, "Black_hole")
+        XCTAssertEqual(opened?.1, project.id)
+    }
+
     func testCommunityFeedIsNotEmptyBeforeItLoads() {
         let (vm, _) = makeViewModel()
         XCTAssertFalse(vm.isCommunityFeedEmpty, "Loading and error states have their own views")

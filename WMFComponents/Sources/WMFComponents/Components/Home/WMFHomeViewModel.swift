@@ -174,6 +174,14 @@ public final class WMFHomeViewModel: ObservableObject {
     /// True when all the Community cards are hidden and the embedded feed has nothing to show.
     @Published public var isEmbeddedCommunityFeedEmpty: Bool = false
 
+    /// Opens an article from a Community feed card: the featured article, a top read row, a news
+    /// story or an On this day page. The title is the database title from the feed response.
+    public var didTapCommunityArticle: (@MainActor @Sendable (_ title: String, _ project: WMFProject) -> Void)?
+
+    func openCommunityArticle(title: String, project: WMFProject) {
+        didTapCommunityArticle?(title, project)
+    }
+
     /// Opens the Community feed settings from that empty state.
     public var didTapCustomizeCommunityFeed: (@MainActor @Sendable () -> Void)?
     // MARK: - For You view model configuration

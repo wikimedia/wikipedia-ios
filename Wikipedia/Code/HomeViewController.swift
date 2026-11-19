@@ -84,6 +84,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapForYouCard = { [weak self] article in
             self?.navigateToForYouArticle(article)
         }
+        viewModel.didTapCommunityArticle = { [weak self] title, project in
+            self?.navigateToCommunityArticle(title: title, project: project)
+        }
         viewModel.didSaveForYouCard = { [weak self] article in
             self?.saveForYouArticle(article)
         }
@@ -206,6 +209,23 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private func unsaveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
         guard let articleURL = Self.articleURL(for: article) else { return }
         dataStore.savedPageList.removeEntry(with: articleURL)
+    }
+
+    /// Opens an article from a card of the native Community feed (Home phase 2).
+    private func navigateToCommunityArticle(title: String, project: WMFProject) {
+        guard let siteURL = project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: title) else { return }
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
+        // TODO: Community cards have no ArticleSource yet. The analytics spec should name one.
+        let coordinator = ArticleCoordinator(
+            navigationController: navigationController ?? UINavigationController(),
+            articleURL: articleURL,
+            dataStore: dataStore,
+            theme: theme,
+            source: .undefined,
+            tabConfig: .appendArticleAndAssignCurrentTab
+        )
+        coordinator.start()
     }
 
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {
