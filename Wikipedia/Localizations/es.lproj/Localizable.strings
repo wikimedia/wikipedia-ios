@@ -46,6 +46,7 @@
 // Author: Juan Cuartas
 // Author: Koavf
 // Author: Laranxa
+// Author: Lilitik22
 // Author: Luigi Nakano
 // Author: Luisangelrg
 // Author: Luzcaru
@@ -1429,6 +1430,7 @@
 "year-in-review-2026-announcement-exit-toast-title" = "Podrás acceder a tu Resumen Anual más tarde en el menú de Actividad.";
 "year-in-review-2026-feedback-email-first-line" = "Tengo comentarios sobre el Resumen Anual:";
 "year-in-review-2026-feedback-email-subject" = "Comentarios sobre el Resumen Anual";
+"year-in-review-2026-intro-subtitle" = "Спасибо, что в 2026 году вы провели {{PLURAL:$1|$1 день|$1 дня|$1 дней}} с вашим надёжным приложением Википедии.";
 "year-in-review-button-title" = "Resumen del año";
 "year-in-review-feature-announcement-title-personalized" = "Consulta tu resumen anual de Wikipedia";
 "year-in-review-feature-explore-footer-v3" = "Tu historial de lectura está protegido. Los datos de lectura se calculan con datos almacenados localmente en tu dispositivo.";

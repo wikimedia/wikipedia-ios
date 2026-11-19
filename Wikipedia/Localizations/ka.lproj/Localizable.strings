@@ -136,7 +136,6 @@
 "places-unknown-distance" = "მანძილი უცნობია";
 "potd-description-prefix" = "დღის სურათი $1-სთვის";
 "potd-empty-error-description" = "შეუძლებელია $1-სთვის დღის სურათის ჩატვირთვა";
-// Fuzzy
 "reference-title" = "სქოლიო $1";
 "saved-pages-image-download-error" = "შეუძლებელია სურათების ჩაწერა ამ შენახული გვერდისთვის.";
 "saved-title" = "შენახულია";
