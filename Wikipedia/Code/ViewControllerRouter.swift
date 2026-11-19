@@ -52,6 +52,7 @@ class ViewControllerRouter: NSObject {
     private func presentLoginViewController(with completion: @escaping () -> Void) -> Bool {
 
         appViewController.wmf_showLoginViewController(category: .unknown, theme: appViewController.theme)
+        completion()
         return true
     }
 
@@ -205,6 +206,7 @@ class ViewControllerRouter: NSObject {
                 goToWatchlist(targetNavigationController: targetNavigationController)
             }
 
+            completion()
             return true
         default:
             completion()
