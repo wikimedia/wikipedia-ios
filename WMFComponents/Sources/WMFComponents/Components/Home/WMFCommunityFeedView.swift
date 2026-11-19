@@ -4,9 +4,16 @@ import WMFNativeLocalizations
 
 // MARK: - Community Feed View
 
+/// The Home tab's Community feed: a disclaimer, then one block per day, newest first, each with its
+/// date and the day's modules. The footer loads the day before the oldest one shown.
+///
+/// The feed is laid out in the direction of its wiki's language, and its headers are in that
+/// language, so an Arabic feed reads right to left in an English app. The Home header around it
+/// stays in the app language.
 struct WMFCommunityFeedView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var theme: WMFTheme { appEnvironment.theme }
 
@@ -14,139 +21,166 @@ struct WMFCommunityFeedView: View {
     let moduleVisibility: WMFCommunityModuleVisibility
     let hiddenCardKeys: Set<String>
     let isLoadingPreviousPage: Bool
+    let previousPageFailed: Bool
+    let previousPageErrorTitle: String
+    let retryTitle: String
     let onHideModule: (WMFCommunityModule) -> Void
     let onHideCard: (String) -> Void
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
 
-    private let seePastContentTitle = WMFLocalizedString("home-community-see-past-content", value: "See past community content", comment: "Button at the bottom of the Community feed that loads content from previous days.")
-
     var scrollToTopRequestID: Int = 0
 
-    private static func dayAnchorID(_ index: Int) -> String { "community-day-\(index)" }
+    /// Space at the top for the Home header that floats over the feed. The feed scrolls under the
+    /// header, so this is a content margin and not a frame inset.
+    var topContentInset: CGFloat = 0
+
+    private static let topAnchorID = "community-feed-top"
+    private static let horizontalPadding: CGFloat = 16
+
+    /// Every page of one feed comes from the same wiki, so the first page speaks for all of them.
+    private var strings: WMFCommunityFeedStrings {
+        pages.first?.strings ?? WMFCommunityFeedStrings(languageCode: nil)
+    }
+
+    private var layoutDirection: LayoutDirection {
+        (pages.first?.isRTL ?? false) ? .rightToLeft : .leftToRight
+    }
+
+    private var usesTwoColumns: Bool {
+        horizontalSizeClass == .regular
+    }
 
     var body: some View {
         ScrollViewReader { proxy in
-            feedList
-                .onChange(of: scrollToTopRequestID) { _, _ in
-                    withAnimation {
-                        proxy.scrollTo(Self.dayAnchorID(0), anchor: .top)
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 24) {
+                    disclaimer
+                        .id(Self.topAnchorID)
+                    ForEach(pages) { page in
+                        // A day whose modules are all off, hidden or missing would be a bare date.
+                        let modules = page.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys)
+                        if !modules.isEmpty {
+                            daySection(page, modules: modules)
+                        }
                     }
+                    footer
                 }
-        }
-    }
-
-    private var feedList: some View {
-        List {
-            ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
-                dateSection(page.date)
-                    .id(Self.dayAnchorID(index))
-                if moduleVisibility.featuredArticle,
-                   let tfa = page.featuredArticle,
-                   !hiddenCardKeys.contains(page.featuredArticleHideKey ?? "") {
-                    featuredArticleSection(tfa, hideKey: page.featuredArticleHideKey)
-                }
-                if moduleVisibility.topRead,
-                   !page.topReadItems.isEmpty,
-                   !hiddenCardKeys.contains(page.topReadHideKey) {
-                    topReadSection(page.topReadItems, hideKey: page.topReadHideKey)
-                }
-                if moduleVisibility.inTheNews,
-                   !page.newsItems.isEmpty,
-                   !hiddenCardKeys.contains(page.inTheNewsHideKey) {
-                    inTheNewsSection(page.newsItems, hideKey: page.inTheNewsHideKey)
-                }
-                if moduleVisibility.onThisDay,
-                   let onThisDayItems = page.onThisDayItems,
-                   !hiddenCardKeys.contains(page.onThisDayHideKey) {
-                    onThisDaySection(onThisDayItems, hideKey: page.onThisDayHideKey)
-                }
-                if moduleVisibility.pictureOfDay,
-                   let pictureOfDay = page.pictureOfDay,
-                   !hiddenCardKeys.contains(page.pictureOfDayHideKey ?? "") {
-                    pictureOfTheDaySection(pictureOfDay, hideKey: page.pictureOfDayHideKey)
-                }
+                .padding(.top, 8)
+                .padding(.bottom, 24)
+                // Without a fixed width, a child that reports a wider ideal size widens the whole
+                // stack, and every module runs past the trailing edge of the screen.
+                .containerRelativeFrame(.horizontal)
             }
-
-            Section {
-                if isLoadingPreviousPage {
-                    ProgressView()
-                        .frame(maxWidth: .infinity)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color(uiColor: theme.paperBackground))
-                } else {
-                    Button(action: onTapSeePastContent) {
-                        Text(seePastContentTitle)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundStyle(Color(uiColor: theme.link))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                    }
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color(uiColor: theme.paperBackground))
+            .contentMargins(.top, topContentInset, for: .scrollContent)
+            .contentMargins(.top, topContentInset, for: .scrollIndicators)
+            .refreshable {
+                await onRefresh()
+            }
+            .onChange(of: scrollToTopRequestID) { _, _ in
+                withAnimation {
+                    proxy.scrollTo(Self.topAnchorID, anchor: .top)
                 }
             }
         }
-        .listStyle(.plain)
         .background(Color(uiColor: theme.paperBackground))
-        .refreshable {
-            await onRefresh()
-        }
+        .environment(\.layoutDirection, layoutDirection)
     }
 
-    // MARK: - Date Callout
+    // MARK: - Disclaimer
 
-    private func dateSection(_ dateString: String) -> some View {
-        Section {
-            Text(dateString)
-                .font(Font(WMFFont.for(.boldTitle1)))
-                .foregroundStyle(Color(uiColor: theme.text))
+    private var disclaimer: some View {
+        HStack(spacing: 12) {
+            Text(strings.disclaimer)
+                .font(Font(WMFFont.for(.caption1)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 12)
-                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color(uiColor: theme.paperBackground))
+                .fixedSize(horizontal: false, vertical: true)
+            Image(uiImage: WMFIcon.wikipediaGlobe ?? UIImage())
+                .resizable()
+                .scaledToFit()
+                .frame(width: 28, height: 28)
+                .accessibilityHidden(true)
         }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(Color(uiColor: theme.midBackground))
+        )
+        .padding(.horizontal, Self.horizontalPadding)
+        .accessibilityElement(children: .combine)
     }
 
-    // MARK: - Featured Article
+    // MARK: - Day
 
-    private func featuredArticleSection(_ article: WMFFeedArticle, hideKey: String?) -> some View {
-        Section {
-            WMFFeaturedArticleCard(article: article, theme: theme)
-                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color(uiColor: theme.paperBackground))
-        } header: {
-            sectionHeader("Featured Article", module: .featuredArticle, hideKey: hideKey)
-        }
-    }
+    @ViewBuilder
+    private func daySection(_ page: WMFHomeCommunityViewModel, modules: [WMFCommunityModule]) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text(page.date)
+                .font(Font(WMFFont.for(.caption1)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Self.horizontalPadding)
+                .accessibilityAddTraits(.isHeader)
 
-    // MARK: - Top Read
-
-    private func topReadSection(_ items: [WMFHomeCommunityViewModel.TopReadItem], hideKey: String) -> some View {
-        Section {
-            ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-                WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
-                    id: item.title,
-                    title: item.displayTitle,
-                    projectID: item.projectID,
-                    iconAccessibilityLabel: ""
-                ))
-                .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                .listRowBackground(Color(uiColor: theme.paperBackground))
+            if usesTwoColumns {
+                // VoiceOver reads the leading column, then the trailing one. Each module pads itself,
+                // so the columns sit edge to edge and their text lines up with the date above.
+                HStack(alignment: .top, spacing: 0) {
+                    moduleColumn(modules.filter(\.isInLeadingColumn), page: page)
+                    moduleColumn(modules.filter { !$0.isInLeadingColumn }, page: page)
+                }
+            } else {
+                moduleColumn(modules, page: page)
             }
-        } header: {
-            sectionHeader("Top read", module: .topRead, hideKey: hideKey)
         }
     }
 
-    // MARK: - In The News
+    private func moduleColumn(_ modules: [WMFCommunityModule], page: WMFHomeCommunityViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            ForEach(modules, id: \.self) { module in
+                moduleView(module, page: page)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .top)
+    }
 
-    private func inTheNewsSection(_ items: [WMFHomeCommunityViewModel.NewsItem], hideKey: String) -> some View {
-        Section {
+    @ViewBuilder
+    private func moduleView(_ module: WMFCommunityModule, page: WMFHomeCommunityViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            moduleHeader(module, page: page)
+            moduleContent(module, page: page)
+        }
+    }
+
+    // MARK: - Module content
+    // Each module's own design is its own task. These keep the content that the feed showed before.
+
+    @ViewBuilder
+    private func moduleContent(_ module: WMFCommunityModule, page: WMFHomeCommunityViewModel) -> some View {
+        switch module {
+        case .featuredArticle:
+            if let article = page.featuredArticle {
+                WMFFeaturedArticleCard(article: article, theme: theme)
+                    .padding(.horizontal, Self.horizontalPadding)
+            }
+        case .topRead:
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(Array(page.topReadItems.enumerated()), id: \.offset) { _, item in
+                    WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
+                        id: item.title,
+                        title: item.displayTitle,
+                        projectID: item.projectID,
+                        iconAccessibilityLabel: ""
+                    ))
+                }
+            }
+            .padding(.horizontal, Self.horizontalPadding)
+        case .inTheNews:
+            // The story card brings its own horizontal padding.
             TabView {
-                ForEach(Array(items.enumerated()), id: \.offset) { _, item in
+                ForEach(Array(page.newsItems.enumerated()), id: \.offset) { _, item in
                     WMFNewsStoryCard(story: item.story, imageURLString: item.imageURLString, theme: theme)
                 }
             }
@@ -154,77 +188,71 @@ struct WMFCommunityFeedView: View {
             .indexViewStyle(.page(backgroundDisplayMode: .always))
             .frame(maxWidth: .infinity)
             .frame(height: 200)
-            .listRowInsets(EdgeInsets())
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color(uiColor: theme.paperBackground))
-        } header: {
-            sectionHeader("In the news", module: .inTheNews, hideKey: hideKey)
+        case .onThisDay:
+            VStack(alignment: .leading, spacing: 16) {
+                ForEach(Array((page.onThisDayItems ?? []).enumerated()), id: \.offset) { _, item in
+                    onThisDayEvent(item)
+                }
+            }
+            .padding(.horizontal, Self.horizontalPadding)
+        case .pictureOfDay:
+            if let pictureOfDay = page.pictureOfDay {
+                // Edge to edge on a phone. In an iPad column it is inset like the other modules.
+                WMFPictureOfTheDayCard(imageSource: pictureOfDay, theme: theme)
+                    .clipShape(RoundedRectangle(cornerRadius: usesTwoColumns ? 8 : 0))
+                    .padding(.horizontal, usesTwoColumns ? Self.horizontalPadding : 0)
+            }
         }
     }
 
-    // MARK: - On This Day
-
-    private func onThisDaySection(_ items: [WMFHomeCommunityViewModel.OnThisDayItem], hideKey: String) -> some View {
-        Section {
-            ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("\(item.year)")
-                        .font(Font(WMFFont.for(.boldTitle3)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                    Text(item.yearsAgo)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    Text(item.text)
-                        .font(Font(WMFFont.for(.callout)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                    if !item.pages.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(alignment: .top, spacing: 12) {
-                                ForEach(Array(item.pages.enumerated()), id: \.offset) { _, page in
-                                    WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
-                                        id: page.title,
-                                        title: page.title,
-                                        projectID: item.projectID,
-                                        iconAccessibilityLabel: ""
-                                    ))
-                                    .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
-                                    .padding(.vertical, 4)
-                                }
-                            }
+    private func onThisDayEvent(_ item: WMFHomeCommunityViewModel.OnThisDayItem) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(verbatim: String(item.year))
+                .font(Font(WMFFont.for(.boldTitle3)))
+                .foregroundStyle(Color(uiColor: theme.text))
+            Text(item.yearsAgo)
+                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Text(item.text)
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundStyle(Color(uiColor: theme.text))
+            if !item.pages.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .top, spacing: 12) {
+                        ForEach(Array(item.pages.enumerated()), id: \.offset) { _, page in
+                            WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
+                                id: page.title,
+                                title: page.title,
+                                projectID: item.projectID,
+                                iconAccessibilityLabel: ""
+                            ))
+                            .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
+                            .padding(.vertical, 4)
                         }
                     }
                 }
-                .padding(.vertical, 8)
-                .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color(uiColor: theme.paperBackground))
             }
-        } header: {
-            sectionHeader("On this day", module: .onThisDay, hideKey: hideKey)
         }
     }
 
-    // MARK: - Picture of the Day
+    // MARK: - Module header
 
-    private func pictureOfTheDaySection(_ imageSource: WMFFeedImageSource, hideKey: String?) -> some View {
-        Section {
-            WMFPictureOfTheDayCard(imageSource: imageSource, theme: theme)
-                .listRowInsets(EdgeInsets())
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color(uiColor: theme.paperBackground))
-        } header: {
-            sectionHeader("Picture of the day", module: .pictureOfDay, hideKey: hideKey)
-        }
-    }
+    private func moduleHeader(_ module: WMFCommunityModule, page: WMFHomeCommunityViewModel) -> some View {
+        let hideKey = page.hideKey(for: module)
+        return HStack(alignment: .top, spacing: 8) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(module.title(languageCode: page.strings.languageCode))
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                    .accessibilityAddTraits(.isHeader)
+                Text(module.subtitle(languageCode: page.strings.languageCode))
+                    .font(Font(WMFFont.for(.footnote)))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
 
-    // MARK: - Section Header
-
-    private func sectionHeader(_ title: String, module: WMFCommunityModule, hideKey: String?) -> some View {
-        HStack {
-            Text(title)
-                .font(Font(WMFFont.for(.boldTitle3)))
-                .foregroundStyle(Color(uiColor: theme.text))
-            Spacer()
+            // The three-dot menu has its own task. It keeps the actions it had.
             Menu {
                 Button(role: .destructive) {
                     if let hideKey { onHideCard(hideKey) }
@@ -248,15 +276,54 @@ struct WMFCommunityFeedView: View {
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .frame(minWidth: 44, minHeight: 44, alignment: .top)
+                    .contentShape(Rectangle())
+            }
+            .accessibilityLabel(WMFHomeLocalizedStrings.moreOptions)
+        }
+        .padding(.horizontal, Self.horizontalPadding)
+    }
+
+    // MARK: - Footer
+
+    @ViewBuilder
+    private var footer: some View {
+        Group {
+            if isLoadingPreviousPage {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+            } else if previousPageFailed {
+                VStack(spacing: 8) {
+                    Text(previousPageErrorTitle)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .multilineTextAlignment(.center)
+                    Button(action: onTapSeePastContent) {
+                        Text(retryTitle)
+                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                            .foregroundStyle(Color(uiColor: theme.link))
+                    }
+                }
+                .frame(maxWidth: .infinity)
+            } else {
+                Button(action: onTapSeePastContent) {
+                    HStack(spacing: 6) {
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .calendar, font: .semiboldSubheadline) ?? UIImage())
+                            .renderingMode(.template)
+                            .accessibilityHidden(true)
+                        Text(strings.seePastContent)
+                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    }
+                    .foregroundStyle(Color(uiColor: theme.paperBackground))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(Capsule().fill(Color(uiColor: theme.link)))
+                }
+                .frame(maxWidth: .infinity)
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 12)
-        .padding(.bottom, 4)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(uiColor: theme.paperBackground))
-        .listRowInsets(EdgeInsets())
-        .textCase(nil)
+        .padding(.horizontal, Self.horizontalPadding)
     }
 }
 
@@ -272,13 +339,18 @@ private struct WMFFeaturedArticleCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let uiImage = imageViewModel.uiImage {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
+                // The image fills a box of the card's width. Sized by the image itself, a wide
+                // aspect fill reports its full width and pushes the whole card off screen.
+                Color.clear
                     .frame(maxWidth: .infinity)
                     .frame(height: 200)
-                    .clipped()
-                    .cornerRadius(8)
+                    .overlay {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .accessibilityHidden(true)
             }
             WMFHtmlText(
                 html: article.displayTitle ?? article.title ?? "",
@@ -402,11 +474,14 @@ private struct WMFPictureOfTheDayCard: View {
     var body: some View {
         Group {
             if let uiImage = imageViewModel.uiImage {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
+                Color.clear
                     .frame(maxWidth: .infinity)
                     .frame(height: 300)
+                    .overlay {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                    }
                     .clipped()
             } else {
                 Color(uiColor: theme.midBackground)

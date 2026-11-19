@@ -248,6 +248,135 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertTrue(vm.communityPages.isEmpty)
     }
 
+    /// Waits on the main actor until `condition` holds. Gives up after about two seconds, so a
+    /// broken test fails instead of hanging the suite.
+    private func waitUntil(_ condition: () -> Bool) async -> Bool {
+        for _ in 0..<200 {
+            if condition() { return true }
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        return condition()
+    }
+
+    private let emptyFeed = WMFFeedAPIResponse(todaysFeaturedArticle: nil, mostRead: nil, image: nil, news: nil)
+
+    /// The English load is still in flight when the reader picks Spanish, and it finishes after the
+    /// Spanish feed is on screen. It belongs to the old language, so it must not replace that feed.
+    func testACommunityLoadFinishingAfterALanguageChangeIsDropped() async {
+        let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
+        let englishProjectID = WMFProject.wikipedia(english).id
+        let feed = WMFMockGatedFeedDataController(response: emptyFeed) { project, _ in
+            project.id == englishProjectID
+        }
+        let vm = WMFHomeViewModel(dataController: WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore()))
+        vm.selectedTab = .community
+
+        vm.selectedLanguage = english
+        let englishIsHeld = await feed.waitUntilHeld()
+        XCTAssertTrue(englishIsHeld)
+
+        vm.selectedLanguage = spanish
+        let spanishLoaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(spanishLoaded)
+
+        await feed.releaseHeld()
+        // Give the English task the time to finish and, without its cancellation checks, write.
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(vm.communityPages.map(\.project.id), [WMFProject.wikipedia(spanish).id])
+        XCTAssertFalse(vm.isLoadingCommunity)
+        XCTAssertNil(vm.communityFeedError)
+    }
+
+    // MARK: - Community empty feed and errors
+
+    func testCommunityFeedIsEmptyWhenEveryModuleIsOff() async {
+        let feed = WMFMockGatedFeedDataController(response: emptyFeed, holdCount: 0) { _, _ in false }
+        let controller = WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore())
+        controller.setCommunityFeaturedArticleIsOn(false)
+        controller.setCommunityTopReadIsOn(false)
+        controller.setCommunityInTheNewsIsOn(false)
+        controller.setCommunityOnThisDayIsOn(false)
+        controller.setCommunityPictureOfTheDayIsOn(false)
+        let vm = WMFHomeViewModel(dataController: controller)
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(loaded)
+
+        XCTAssertTrue(vm.isCommunityFeedEmpty)
+    }
+
+    /// Hiding every card of today from the menu must not trap the reader in the empty state: its
+    /// button opens settings, which cannot unhide cards, and the feed's "See past" would be gone.
+    func testHidingEveryCardKeepsTheFeed() async {
+        let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
+        let vm = WMFHomeViewModel(dataController: WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore()))
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(loaded)
+
+        for page in vm.communityPages {
+            for module in WMFCommunityModule.allCases {
+                if let key = page.hideKey(for: module) { vm.hideCard(key: key) }
+            }
+        }
+
+        XCTAssertFalse(vm.isCommunityFeedEmpty)
+    }
+
+    func testCommunityFeedIsNotEmptyBeforeItLoads() {
+        let (vm, _) = makeViewModel()
+        XCTAssertFalse(vm.isCommunityFeedEmpty, "Loading and error states have their own views")
+    }
+
+    func testOfflineErrorsGetTheOfflineCopy() {
+        let (vm, _) = makeViewModel()
+        let offline = URLError(.notConnectedToInternet)
+        XCTAssertEqual(vm.communityErrorTitle(for: offline), vm.forYouErrorTitle)
+        XCTAssertEqual(vm.communityErrorSubtitle(for: offline), vm.forYouErrorSubtitle)
+    }
+
+    func testAWrappedOfflineErrorGetsTheOfflineCopy() {
+        let (vm, _) = makeViewModel()
+        let wrapped = NSError(domain: "WMFService", code: 1, userInfo: [NSUnderlyingErrorKey: URLError(.networkConnectionLost) as NSError])
+        XCTAssertEqual(vm.communityErrorTitle(for: wrapped), vm.forYouErrorTitle)
+    }
+
+    func testOtherErrorsDoNotTellAnOnlineReaderToConnect() {
+        let (vm, _) = makeViewModel()
+        let serverError = URLError(.badServerResponse)
+        XCTAssertEqual(vm.communityErrorTitle(for: serverError), vm.communityLoadErrorTitle)
+        XCTAssertNotEqual(vm.communityErrorTitle(for: serverError), vm.forYouErrorTitle)
+        XCTAssertEqual(vm.communityErrorTitle(for: DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: ""))), vm.communityLoadErrorTitle)
+    }
+
+    func testChangingLanguageStopsTheForYouLoadInFlight() {
+        let (vm, _) = makeViewModel()
+        vm.selectedTab = .forYou
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        vm.loadForYouFeedIfNeeded()
+        XCTAssertTrue(vm.isLoadingForYou)
+
+        vm.selectedLanguage = WMFLanguage(languageCode: "es", languageVariantCode: nil)
+
+        XCTAssertTrue(vm.isLoadingForYou)
+        XCTAssertNil(vm.forYouViewModel)
+    }
+
+    func testPreviousPageNeedsAFirstPage() {
+        let (vm, _) = makeViewModel()
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+
+        vm.loadCommunityPreviousPage()
+
+        XCTAssertFalse(vm.isLoadingCommunityPreviousPage)
+        XCTAssertNil(vm.communityPreviousPageError)
+    }
+
     func testSettingSameLanguageDoesNotClearForYouFeed() {
         let (vm, _) = makeViewModel()
         let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)

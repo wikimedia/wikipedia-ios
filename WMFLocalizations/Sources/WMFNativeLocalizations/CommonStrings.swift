@@ -59,7 +59,18 @@ public class CommonStrings: NSObject {
     @objc public static let homeFeedTitle = WMFLocalizedString("settings-home-feed-title", value: "Home feed", comment: "Title for the Home feed item in Settings.")
     @objc public static let homeScrollToTopAccessibilityLabel = WMFLocalizedString("home-tab-title-accessibility-label", value: "Wikipedia, scroll to top of Home", comment: "Accessibility label for the 'W' logo in the navigation bar of the Home tab. It tells the user that a tap on the logo scrolls to the top of the feed that is on screen. \"Home\" is the same as {{msg-wikimedia|Wikipedia-ios-home-tab-title}}.")
     @objc public static let homeReturnToHomeAccessibilityLabel = WMFLocalizedString("home-button-home-accessibility-label", value: "Wikipedia, return to Home", comment: "Accessibility label for the 'W' logo in the navigation bar of an article that the user opened from the Home tab. It tells the user that a tap on the logo goes back to the Home tab. \"Home\" is the same as {{msg-wikimedia|Wikipedia-ios-home-tab-title}}.")
-    @objc public static let forYouTabTitle = WMFLocalizedString("home-for-you-tab-title", value: "For You", comment: "Title for the For You segment within the Home tab.")
+    /// "This year", "Last year" or "%1$d years ago", in the language of `languageCode` when the app
+    /// has a translation for it. Format it with that language's locale, so the plural rules match.
+    public static func yearsAgo(languageCode: String?) -> String {
+        WMFLocalizedString("relative-date-years-ago", languageCode: languageCode, value: "{{PLURAL:%1$d|0=This year|1=Last year|%1$d years ago}}", comment: "Relative years ago. 0 = this year, singular = last year. %1$d will be replaced with the number of years ago.")
+    }
+
+    @objc public static let forYouTabTitle = CommonStrings.forYouTabTitle()
+    /// In the language of `languageCode` when the app has a translation for it. The Home header
+    /// passes the feed's wiki language, the way Android does.
+    public static func forYouTabTitle(languageCode: String? = nil) -> String {
+        WMFLocalizedString("home-for-you-tab-title", languageCode: languageCode, value: "For You", comment: "Title for the For You segment within the Home tab.")
+    }
     @objc public static let communityFeedTitle = WMFLocalizedString("settings-community-feed-title", value: "Community", comment: "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")

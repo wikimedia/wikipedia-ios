@@ -781,8 +781,11 @@
 "home-button-home-accessibility-label" = "Wikipedia, return to Home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-card-more-options-accessibility-label" = "More options";
+"home-community-disclaimer" = "Content and resources selected by and about the Wikimedia community.";
+"home-community-error-title" = "Could not load content";
 "home-community-see-past-content" = "See past community content";
 "home-community-tab-title" = "Community";
+"home-community-today-date-header" = "Today - $1";
 "home-edit-languages-title" = "Add or edit languages";
 "home-empty-community-feed-subtitle" = "Turn on $1“Community”$2 modules to start seeing content curated by contributors across the Wikimedia movement.";
 "home-empty-feed-manage-modules-button" = "Manage modules";
