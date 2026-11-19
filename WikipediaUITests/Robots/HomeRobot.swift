@@ -87,10 +87,33 @@ extension HomeRobot {
 // MARK: - Content
 
 extension HomeRobot {
+    /// The Community segment title per test language, from `home-community-tab-title`. Hebrew has
+    /// no translation yet and shows the English title.
+    private static let communitySegmentTitles: [String: String] = [
+        "en": "Community",
+        "de": "Gemeinschaft",
+        "he": "Community",
+        "vi": "Cộng đồng"
+    ]
+
+    /// The Community segment, found by its title. The segment order follows the layout direction,
+    /// so an index would pick "For You" in right-to-left languages; the first segment is only a
+    /// fallback for a title this table does not know.
+    private var communitySegment: XCUIElement {
+        let segments = base.app.segmentedControls.buttons
+        if let title = Self.communitySegmentTitles[configuration.languageCode] {
+            let titledSegment = segments.matching(NSPredicate(format: "label == %@", title)).firstMatch
+            if titledSegment.waitForExistence(timeout: 15) {
+                return titledSegment
+            }
+        }
+        return segments.element(boundBy: 0)
+    }
+
     @discardableResult
     func openFirstArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
-        // Article cells live in the Community segment (the first segment) of the Home tab.
-        let communitySegment = base.app.segmentedControls.buttons.element(boundBy: 0)
+        // Article cells live in the Community segment of the Home tab.
+        let communitySegment = self.communitySegment
         if communitySegment.waitForExistence(timeout: 15), !communitySegment.isSelected {
             communitySegment.tap()
         }
@@ -138,7 +161,8 @@ extension HomeRobot {
     func tapRootTab(_ tab: RootTab, file: StaticString = #filePath, line: UInt = #line) -> Self {
         dismissYearInReviewAnnouncementIfPresent()
         let button = rootTabButton(for: tab)
-        base.assertVisible(button, timeout: 15, description: tab.description, file: file, line: line)
+        // A cold launch on CI takes 40+ seconds and the tab bar settles after that.
+        base.assertVisible(button, timeout: 30, description: tab.description, file: file, line: line)
         base.tapCenter(of: button, file: file, line: line)
 
         switch tab {
