@@ -226,8 +226,9 @@
     <div class="panel-body">
       <div class="field">
         <label for="team-roster">One person per line: <code>Name | GitHub login | Phabricator username</code></label>
-        <textarea id="team-roster" spellcheck="false" rows="6"></textarea>
+        <textarea id="team-roster" spellcheck="false" rows="9"></textarea>
         <span class="help">Leave a column empty if someone isn't on that system. The GitHub tab, the Phabricator tab and the overview all use this list. Changes to GitHub logins need a new GitHub fetch; Phabricator changes apply straight away.</span>
+        <div class="actions"><button class="btn" id="team-reset" type="button">Reset to default team</button></div>
       </div>
     </div>
   </details>
@@ -690,7 +691,16 @@ window.TEAM = (() => {
   const KEY = "team.roster.v1";
   const get = k => { try { return localStorage.getItem(k); } catch (_) { return null; } };
   const set = (k, v) => { try { localStorage.setItem(k, v); } catch (_) {} };
-  const DEFAULT = "l-olson1214 | l-olson1214 |\nMarina | mazevedofs |\nToni | tonisevener |\nErika | ealbizzati |";
+  const DEFAULT = [
+    "Marina | mazevedofs | mazevedo",
+    "Toni | tonisevener | tsevener",
+    "Erika | ealbizzati | EAlbizzati-WMF",
+    "Grey | l-olson1214 | GOlson-WMF",
+    "William | Williamrai | WRai-WMF",
+    "Dmitry | dbrant | Dbrant",
+    "Cooltey | cooltey | cooltey",
+    "Lamar | voyagerfan | LPetty-WMF",
+  ].join("\n");
   function initial() {
     const saved = get(KEY);
     if (saved != null) return saved;
@@ -729,6 +739,10 @@ window.TEAM = (() => {
   if (!T.parse().some(p => p.phab)) document.getElementById("team-panel").open = true;
   let timer = null;
   box.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => T.update(box.value), 400); });
+  document.getElementById("team-reset").addEventListener("click", () => {
+    if (box.value.trim() && box.value.trim() !== DEFAULT && !confirm("Replace the current team list with the default team?")) return;
+    clearTimeout(timer); box.value = DEFAULT; T.update(DEFAULT);
+  });
   return T;
 })();
 </script>

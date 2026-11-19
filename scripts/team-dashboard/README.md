@@ -25,7 +25,8 @@ instance). GitHub calls go straight from the browser to api.github.com.
 ## Use
 
 1. **Team** (top of the page): one person per line, `Name | GitHub login | Phabricator username`.
-   Leave a column blank if someone isn't on that system.
+   Leave a column blank if someone isn't on that system. It starts with the iOS and Android app engineers;
+   *Reset to default team* restores that list.
 2. **Code review (GitHub)** tab: paste a GitHub token, set one or more repositories (comma
    separated, e.g. `wikimedia/wikipedia-ios, wikimedia/apps-android-wikipedia`) and the date range,
    and click *Fetch from GitHub*. With several repositories, a *Repo* filter appears; it also
