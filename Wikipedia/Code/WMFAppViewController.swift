@@ -411,15 +411,28 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                       let image = rootVC.tabBarItem.image else { continue }
                 
                 let identifier = rootVC.tabBarItem.accessibilityIdentifier ?? title
+
+                // SPIKE: on iOS 26 the search tab shows as a separate round button and turns the tab bar into a search field.
+                if #available(iOS 26.0, *), TabBarSpike.isEnabled, nav === nav5 {
+                    let searchTab = UISearchTab { _ in nav }
+                    searchTab.automaticallyActivatesSearch = true
+                    potentialTabs.append(searchTab)
+                    continue
+                }
+
                 let tab = UITab(title: title, image: image, identifier: identifier) { tab in
                     return nav
                 }
-                
+
                 tab.preferredPlacement = .fixed
                 potentialTabs.append(tab)
             }
             self.tabs = potentialTabs
             // Once set, `UITabBarController.viewControllers` and related properties and methods will not be called.
+        }
+
+        if #available(iOS 26.0, *), TabBarSpike.isEnabled {
+            tabBarMinimizeBehavior = .onScrollDown
         }
 
         // This should be called all the time for backward compatibility

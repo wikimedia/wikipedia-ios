@@ -19,6 +19,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     internal var toolbarController: ArticleToolbarController?
+    lazy var toolbarAccessoryView = ArticleToolbarAccessoryView()
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     private lazy var gameInstrument = TestKitchenAdapter.shared.client
@@ -248,6 +249,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         self.theme = theme
         
         configureHidesBottomBarWhenPushed()
+        if TabBarSpike.isEnabled {
+            hidesBottomBarWhenPushed = false
+        }
     }
 
     deinit {
@@ -499,6 +503,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController?.update()
+        installToolbarAccessory()
         loadIfNecessary()
         startSignificantlyViewedTimer()
         configureNavigationBar()
@@ -510,7 +515,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if (toolbarController?.currentItems.count ?? 0) > 0 {
+        if (toolbarController?.currentItems.count ?? 0) > 0 && !TabBarSpike.isEnabled {
             navigationController?.setToolbarHidden(false, animated: false)
         }
         
@@ -695,6 +700,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         } else {
             navigationController?.setToolbarHidden(true, animated: true)
         }
+        removeToolbarAccessory()
         
         NotificationCenter.default.post(name: NSNotification.articleViewControllerDidDisappear, object: nil)
         wTipObservationTask?.cancel()
@@ -1652,7 +1658,9 @@ private extension ArticleViewController {
         toolbarController = ArticleToolbarController(delegate: self)
         toolbarController?.apply(theme: theme)
         toolbarController?.setToolbarButtons(enabled: false)
-        navigationController?.setToolbarHidden(false, animated: false)
+        if !TabBarSpike.isEnabled {
+            navigationController?.setToolbarHidden(false, animated: false)
+        }
     }
 
     var isWidgetCachedFeaturedArticle: Bool {
