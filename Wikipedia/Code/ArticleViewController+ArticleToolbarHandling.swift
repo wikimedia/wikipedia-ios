@@ -160,6 +160,8 @@ enum TabBarSpike {
 final class ArticleToolbarAccessoryView: UIView {
     private let stackView = UIStackView()
     private var inlineViews: [UIView] = []
+    private var minimumSizeConstraints: [NSLayoutConstraint] = []
+    private let minimumTapTargetSize: CGFloat = 44
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -169,8 +171,9 @@ final class ArticleToolbarAccessoryView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            // 8pt, not 16pt: the minimized accessory on iPhone SE is 207pt wide, and 4 items need 4 x 44pt.
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
@@ -186,9 +189,16 @@ final class ArticleToolbarAccessoryView: UIView {
     }
 
     func setItems(_ items: [UIBarButtonItem], inlineItems: [UIBarButtonItem]) {
+        NSLayoutConstraint.deactivate(minimumSizeConstraints)
+        minimumSizeConstraints = []
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let views = items.compactMap(\.customView)
-        views.forEach { stackView.addArrangedSubview($0) }
+        for view in views {
+            stackView.addArrangedSubview(view)
+            minimumSizeConstraints.append(view.widthAnchor.constraint(greaterThanOrEqualToConstant: minimumTapTargetSize))
+            minimumSizeConstraints.append(view.heightAnchor.constraint(greaterThanOrEqualToConstant: minimumTapTargetSize))
+        }
+        NSLayoutConstraint.activate(minimumSizeConstraints)
         inlineViews = inlineItems.compactMap(\.customView)
         updateVisibleItems()
     }
@@ -206,7 +216,8 @@ final class ArticleToolbarAccessoryView: UIView {
         guard #available(iOS 26.0, *) else { return }
         let visible = stackView.arrangedSubviews.filter { !$0.isHidden }
         let widths = visible.map { Int($0.bounds.width) }
+        let heights = visible.map { Int($0.bounds.height) }
         let mode = traitCollection.tabAccessoryEnvironment == .inline ? "inline" : "regular"
-        print("[TabBarSpike] accessory \(mode) width=\(Int(bounds.width)) height=\(Int(bounds.height)) items=\(visible.count) itemWidths=\(widths) spacing=\(Int(stackView.bounds.width) - widths.reduce(0, +))")
+        print("[TabBarSpike] accessory \(mode) width=\(Int(bounds.width)) height=\(Int(bounds.height)) items=\(visible.count) itemWidths=\(widths) itemHeights=\(heights) spacing=\(Int(stackView.bounds.width) - widths.reduce(0, +))")
     }
 }
