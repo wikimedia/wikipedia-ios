@@ -49,7 +49,6 @@
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 amerikonsk miles";
-// Fuzzy
 "saved-title" = "Goymt";
 "search-field-placeholder-text" = "Leita í Wikipedia";
 "search-recent-clear-confirmation-heading" = "Slætta allar seinastu leitingar?";

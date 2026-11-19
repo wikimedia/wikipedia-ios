@@ -950,6 +950,7 @@
 "search-button-accessibility-label" = "Preišči Wikipedijo";
 "search-clear-title" = "Počisti";
 "search-field-placeholder-text" = "Preiščite Wikipedijo";
+"search-interleaved-results-lead-section" = "Uvod";
 "search-recent-clear-confirmation-heading" = "Želite izbrisati vsa nedavna iskanja?";
 "search-recent-clear-confirmation-sub-heading" = "Tega dejanja ni mogoče razveljaviti!";
 "search-recent-clear-delete-all" = "izbriši vse";

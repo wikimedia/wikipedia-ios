@@ -88,6 +88,7 @@
 "about-translators-details" = "Traduite par des bénévoles sur $1";
 "about-wikimedia-foundation" = "Fondation Wikimedia";
 "about-wikipedia" = "Wikipédia";
+"about-year-in-review-illustrations-attribution" = "Illustrations de Sharon Park pour la Fondation Wikimedia, dans le cadre de la rétrospective de l'année.";
 "account-creation-captcha-cannot-see-image" = "Impossible de voir l’image ? $1";
 "account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA…";
 "account-creation-captcha-request-account" = "Demander un compte.";
@@ -424,10 +425,12 @@
 "discover-announcement-no-thanks" = "Non merci";
 "discover-announcement-no-thanks-toast" = "Pour configurer votre liste de lectures recommandées plus tard, allez aux Paramètres.";
 "discover-announcement-title" = "Découvrez des articles choisis pour vous";
+"discover-interests-subtitle" = "Les changements ici n' affectent que ce que vous voyez dans Discover.";
 "discover-list-about" = "À propos de cette fonctionnalité";
 "discover-list-byline" = "Faits pour $1 • $2";
 "discover-list-byline-you" = "vous";
 "discover-list-customize" = "Personnaliser la Découverte";
+"discover-list-description-daily" = "Votre liste de lecture quotidienne. Découvrez de nouveaux sujets, choisis spécifiquement pour vous. Mise à jour chaque jour.";
 "discover-list-error-subtitle" = "Impossible de charger la liste de lecture.";
 "discover-list-error-title" = "Erreur réseau";
 "discover-list-onboarding-toast-daily" = "{{PLURAL:$1| Découverte s'actualisera avec $1 nouvel article chaque jour|Découverte s'actualisera avec $1 nouveaux articles chaque jour}}. Vos recommandations sont stockées localement sur votre appareil.";
