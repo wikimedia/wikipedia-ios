@@ -523,7 +523,7 @@ final class WMFSourceEditorFormatterButtonActionTests: XCTestCase {
         }
         
         mediator.linkFormatter?.removeLink(in: textView, preselectedTextRange: preselectedTextRange)
-        XCTAssertEqual(mediator.textView.attributedText.string, "One Two Three|3 Four")
+        XCTAssertEqual(mediator.textView.attributedText.string, "One Two 3 Four")
     }
     
     func testLinkInsertImage() {
