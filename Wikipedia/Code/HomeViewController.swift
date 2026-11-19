@@ -87,6 +87,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapCommunityArticle = { [weak self] title, project in
             self?.navigateToCommunityArticle(title: title, project: project)
         }
+        viewModel.didTapCommunityPictureOfTheDay = { [weak self] date in
+            self?.presentPictureOfTheDayGallery(date: date)
+        }
         viewModel.didSaveForYouCard = { [weak self] article in
             self?.saveForYouArticle(article)
         }
@@ -209,6 +212,13 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private func unsaveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
         guard let articleURL = Self.articleURL(for: article) else { return }
         dataStore.savedPageList.removeEntry(with: articleURL)
+    }
+
+    /// Opens the Picture of the day gallery from the native Community feed, the same way the legacy
+    /// Explore feed opens it from its card.
+    private func presentPictureOfTheDayGallery(date: Date) {
+        let gallery = WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
+        present(gallery, animated: true)
     }
 
     /// Opens an article from a card of the native Community feed (Home phase 2).

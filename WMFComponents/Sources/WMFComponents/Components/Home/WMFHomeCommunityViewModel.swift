@@ -127,6 +127,8 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     /// The day and the wiki of this page. Two pages of one feed never share it.
     public let id: String
+    /// The day this page is for. Picture of the day opens its gallery for this date.
+    public let feedDate: Date
     /// The header above this day's modules, in the wiki's language: "Today - Mar 23, 2026" for
     /// today, the date alone for an earlier day.
     public let date: String
@@ -160,6 +162,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         let currentYear = Calendar.current.component(.year, from: now)
 
         self.project = project
+        self.feedDate = response.date
         self.strings = WMFCommunityFeedStrings(languageCode: project.languageCode)
 
         let keyDateFormatter = DateFormatter()

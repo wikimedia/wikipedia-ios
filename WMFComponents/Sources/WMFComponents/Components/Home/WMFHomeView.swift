@@ -388,6 +388,7 @@ public struct WMFHomeView: View {
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() },
                 onTapArticle: { viewModel.openCommunityArticle(title: $0, project: $1) },
+                onTapPictureOfTheDay: { viewModel.openCommunityPictureOfTheDay(date: $0) },
                 scrollToTopRequestID: viewModel.communityScrollToTopRequestID,
                 topContentInset: communityFeedTopContentInset
             )

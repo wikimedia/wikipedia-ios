@@ -340,6 +340,17 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertEqual(opened?.1, project.id)
     }
 
+    func testTappingThePictureOfTheDayReachesTheCoordinatorWithItsDate() {
+        let (vm, _) = makeViewModel()
+        let date = Date(timeIntervalSince1970: 1_700_000_000)
+        var opened: Date?
+        vm.didTapCommunityPictureOfTheDay = { opened = $0 }
+
+        vm.openCommunityPictureOfTheDay(date: date)
+
+        XCTAssertEqual(opened, date)
+    }
+
     func testCommunityFeedIsNotEmptyBeforeItLoads() {
         let (vm, _) = makeViewModel()
         XCTAssertFalse(vm.isCommunityFeedEmpty, "Loading and error states have their own views")

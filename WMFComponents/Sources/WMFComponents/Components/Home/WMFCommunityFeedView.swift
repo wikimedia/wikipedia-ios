@@ -29,6 +29,7 @@ struct WMFCommunityFeedView: View {
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
     let onTapArticle: (String, WMFProject) -> Void
+    let onTapPictureOfTheDay: (Date) -> Void
 
     var scrollToTopRequestID: Int = 0
 
@@ -56,16 +57,24 @@ struct WMFCommunityFeedView: View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 24) {
-                    disclaimer
-                        .id(Self.topAnchorID)
+                    // On iPad the disclaimer is drawn inside the first day's leading column, so the
+                    // trailing column starts at the top beside it, as in the Figma.
+                    if !usesTwoColumns || firstVisiblePageID == nil {
+                        disclaimer
+                            .id(Self.topAnchorID)
+                    }
                     ForEach(pages) { page in
                         // A day whose modules are all off, hidden or missing would be a bare date.
                         let modules = page.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys)
                         if !modules.isEmpty {
-                            daySection(page, modules: modules)
+                            daySection(page, modules: modules, isFirstDay: page.id == firstVisiblePageID, isLastDay: page.id == lastVisiblePageID)
                         }
                     }
-                    footer
+                    // On iPad the footer goes under the trailing column of the last day, as in the
+                    // Figma. It is drawn here only when no day can hold it.
+                    if !usesTwoColumns || lastVisiblePageID == nil {
+                        footer
+                    }
                 }
                 .padding(.top, 8)
                 .padding(.bottom, 24)
@@ -116,26 +125,58 @@ struct WMFCommunityFeedView: View {
     // MARK: - Day
 
     @ViewBuilder
-    private func daySection(_ page: WMFHomeCommunityViewModel, modules: [WMFCommunityModule]) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text(page.date)
-                .font(Font(WMFFont.for(.caption1)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, Self.horizontalPadding)
-                .accessibilityAddTraits(.isHeader)
+    /// The first day that shows any module. On iPad it holds the disclaimer.
+    private var firstVisiblePageID: String? {
+        pages.first { !$0.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys).isEmpty }?.id
+    }
 
+    /// The last day that shows any module. On iPad it holds the footer.
+    private var lastVisiblePageID: String? {
+        pages.last { !$0.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys).isEmpty }?.id
+    }
+
+    private func daySection(_ page: WMFHomeCommunityViewModel, modules: [WMFCommunityModule], isFirstDay: Bool, isLastDay: Bool) -> some View {
+        Group {
             if usesTwoColumns {
-                // VoiceOver reads the leading column, then the trailing one. Each module pads itself,
-                // so the columns sit edge to edge and their text lines up with the date above.
+                // The date heads the leading column, so the trailing column starts level with it,
+                // and on the first day level with the disclaimer. VoiceOver reads the leading
+                // column, then the trailing one. Each module pads itself, so the columns sit edge
+                // to edge and their text lines up with the date.
                 HStack(alignment: .top, spacing: 0) {
-                    moduleColumn(modules.filter(\.isInLeadingColumn), page: page)
-                    moduleColumn(modules.filter { !$0.isInLeadingColumn }, page: page)
+                    VStack(alignment: .leading, spacing: 16) {
+                        if isFirstDay {
+                            disclaimer
+                                .id(Self.topAnchorID)
+                                .padding(.bottom, 8)
+                        }
+                        dateHeader(page)
+                        moduleColumn(modules.filter(\.isInLeadingColumn), page: page)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .top)
+                    VStack(alignment: .leading, spacing: 24) {
+                        moduleColumn(modules.filter { !$0.isInLeadingColumn }, page: page)
+                        if isLastDay {
+                            footer
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .top)
                 }
             } else {
-                moduleColumn(modules, page: page)
+                VStack(alignment: .leading, spacing: 16) {
+                    dateHeader(page)
+                    moduleColumn(modules, page: page)
+                }
             }
         }
+    }
+
+    private func dateHeader(_ page: WMFHomeCommunityViewModel) -> some View {
+        Text(page.date)
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundStyle(Color(uiColor: theme.secondaryText))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, Self.horizontalPadding)
+            .accessibilityAddTraits(.isHeader)
     }
 
     private func moduleColumn(_ modules: [WMFCommunityModule], page: WMFHomeCommunityViewModel) -> some View {
@@ -206,9 +247,16 @@ struct WMFCommunityFeedView: View {
         case .pictureOfDay:
             if let pictureOfDay = page.pictureOfDay {
                 // Edge to edge on a phone. In an iPad column it is inset like the other modules.
-                WMFPictureOfTheDayCard(imageSource: pictureOfDay, theme: theme)
-                    .clipShape(RoundedRectangle(cornerRadius: usesTwoColumns ? 8 : 0))
-                    .padding(.horizontal, usesTwoColumns ? Self.horizontalPadding : 0)
+                Button {
+                    onTapPictureOfTheDay(page.feedDate)
+                } label: {
+                    WMFPictureOfTheDayCard(imageSource: pictureOfDay, theme: theme)
+                        .clipShape(RoundedRectangle(cornerRadius: usesTwoColumns ? 8 : 0))
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(module.title(languageCode: page.strings.languageCode))
+                .padding(.horizontal, usesTwoColumns ? Self.horizontalPadding : 0)
             }
         }
     }

@@ -182,6 +182,14 @@ public final class WMFHomeViewModel: ObservableObject {
         didTapCommunityArticle?(title, project)
     }
 
+    /// Opens the Picture of the day gallery for the date of the tapped card, like the legacy Explore
+    /// feed and Android do.
+    public var didTapCommunityPictureOfTheDay: (@MainActor @Sendable (_ date: Date) -> Void)?
+
+    func openCommunityPictureOfTheDay(date: Date) {
+        didTapCommunityPictureOfTheDay?(date)
+    }
+
     /// Opens the Community feed settings from that empty state.
     public var didTapCustomizeCommunityFeed: (@MainActor @Sendable () -> Void)?
     // MARK: - For You view model configuration
