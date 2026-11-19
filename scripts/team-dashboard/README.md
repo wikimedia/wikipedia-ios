@@ -58,7 +58,9 @@ instance). GitHub calls go straight from the browser to api.github.com.
    each task has ever had, from its history).
    Group by week (starting Monday 00:00 UTC) or by month (UTC). The cycle-time line can be a moving
    average over N periods; throughput can be stacked bars or lines (per assignee plus team), either
-   as actual values or as an N-period moving average.
+   as actual values or as an N-period moving average. *Carried forward* counts tasks added to a later sprint board of the
+   same team after being on an earlier one (from each task's tag history), per week or month, with
+   a carry-over rate per sprint. Tick every sprint in the run so tasks that moved on are included.
 5. **Overview** tab: uses the current data and filters from the other two tabs. When GitHub data
    is loaded, the overview covers the same date range.
 

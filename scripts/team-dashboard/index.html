@@ -576,7 +576,7 @@
   </section>
   </div>
   <div id="tab-output" hidden>
-    <p class="tab-intro">Cycle time and throughput, from the Phabricator boards loaded on the Column moves tab. Tasks are credited to their assignee, for the engineers ticked on that tab.</p>
+    <p class="tab-intro">Cycle time, throughput and sprint carry-over, from the Phabricator boards loaded on the Column moves tab. Tasks are credited to their assignee, for the engineers ticked on that tab.</p>
     <div class="status-line"><span class="pill" id="out-source">Phabricator: not loaded</span></div>
     <section>
       <div class="card" style="padding:16px">
@@ -592,10 +592,10 @@
           </div>
           <div class="field">
             <div class="grid2" style="gap:10px">
-              <div class="field"><label for="out-since">Reached signoff from</label><input id="out-since" type="date"></div>
+              <div class="field"><label for="out-since">From</label><input id="out-since" type="date"></div>
               <div class="field"><label for="out-until">to</label><input id="out-until" type="date"></div>
             </div>
-            <span class="help">Optional, in UTC.</span>
+            <span class="help">Optional, in UTC. Applies to when tasks reached signoff and when they were carried forward.</span>
           </div>
           <div class="field">
             <span class="label">Group by</span>
@@ -651,6 +651,28 @@
       <details class="panel collapsible">
         <summary><span class="sum-title">Tasks</span> <span class="hint" id="out-taskCount"></span></summary>
         <div class="panel-body"><div class="tbl-scroll"><table class="wide left" id="out-taskTable"></table></div></div>
+      </details>
+    </section>
+    <section id="out-carry1" hidden>
+      <div class="sec-head">
+        <div><h2>Carried forward</h2><p class="sec-sub" id="out-carrySub"></p></div>
+        <div class="ctl"><label class="check nlabel">Sprint boards <input type="text" class="n" id="out-sprintPat" value="*sprint*" spellcheck="false" style="width:8em"></label></div>
+      </div>
+      <div class="progress" id="out-carryNote" style="margin:-4px 0 10px"></div>
+      <div class="card"><div class="chartBox"><canvas id="out-carryChart"></canvas></div></div>
+    </section>
+    <section id="out-carry2" hidden>
+      <div class="sec-head"><div><h2>Carry-over by sprint</h2><p class="sec-sub">Tasks each sprint held (still on it, or carried out of it), how many were carried on to a later sprint, and how many arrived from an earlier one.</p></div></div>
+      <div class="tbl-scroll"><table class="wide"><thead><tr><th>Sprint</th><th>Tasks</th><th>Carried out</th><th>Carry-over rate</th><th>Carried in</th></tr></thead><tbody id="out-carrySprints"></tbody></table></div>
+    </section>
+    <section id="out-carry3" hidden>
+      <div class="sec-head"><div><h2>Carry-forwards per assignee</h2></div></div>
+      <div class="tbl-scroll"><table class="wide"><thead><tr><th>Assignee</th><th>Carry-forwards</th><th>Tasks carried</th><th>Tasks carried 2+ times</th></tr></thead><tbody id="out-carryPeople"></tbody></table></div>
+    </section>
+    <section id="out-carry4" hidden>
+      <details class="panel collapsible">
+        <summary><span class="sum-title">Carry-forwards</span> <span class="hint" id="out-carryCount"></span></summary>
+        <div class="panel-body"><div class="tbl-scroll"><table class="wide left" id="out-carryTable"></table></div></div>
       </details>
     </section>
   </div>
@@ -1711,7 +1733,8 @@ render();
     cache = c && c.version === 1 && c.api === apiKey() ? c
       : { version: 1, api: apiKey(), savedAt: 0, columns: new Map(), tasks: new Map(), moves: new Map(), boardTasks: new Map() };
     if (!cache.maxPoints) cache.maxPoints = new Map();
-    if (!cache.owners) cache.owners = new Map();         // taskPHID -> every user PHID ever assigned, in order   // taskPHID -> highest Story/Final Story Points ever set (null if never)
+    if (!cache.owners) cache.owners = new Map();
+    if (!cache.tags) cache.tags = new Map();             // taskPHID -> [{ date, added: [projectPHID], removed: [projectPHID] }]         // taskPHID -> every user PHID ever assigned, in order   // taskPHID -> highest Story/Final Story Points ever set (null if never)
     return cache;
   }
   const ago = ms => { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? 'just now' : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} days ago`; };
@@ -1724,7 +1747,7 @@ render();
     for (const b of boardMap.keys()) for (const phid of cache.boardTasks.get(b)) {
       const t = cache.tasks.get(phid); if (!t) continue;
       if (!tasks.has(phid)) tasks.set(phid, { ...t, maxPoints: cache.maxPoints ? cache.maxPoints.get(phid) : undefined,
-        owners: cache.owners ? cache.owners.get(phid) : undefined, boards: new Set() });
+        owners: cache.owners ? cache.owners.get(phid) : undefined, tags: cache.tags ? cache.tags.get(phid) : undefined, boards: new Set() });
       tasks.get(phid).boards.add(b);
     }
     const moves = [];
@@ -1761,7 +1784,7 @@ render();
             status: t.fields.status && (t.fields.status.value ?? t.fields.status), closed: t.fields.dateClosed || null,
             created: t.fields.dateCreated || null, modified,
             points: t.fields.points ?? null, finalPoints: t.fields['custom.points.final'] ?? null });
-          if (!prev || prev.modified !== modified || !cache.moves.has(t.phid) || !cache.maxPoints.has(t.phid) || !cache.owners.has(t.phid)) stale.set(t.phid, t.id);
+          if (!prev || prev.modified !== modified || !cache.moves.has(t.phid) || !cache.maxPoints.has(t.phid) || !cache.owners.has(t.phid) || !cache.tags.has(t.phid)) stale.set(t.phid, t.id);
         }
       }
 
@@ -1782,6 +1805,8 @@ render();
         // highest Story Points ("points") or Final Story Points (custom field "points.final") value in the history
         const best = new Map(ids.map(id => [idToPHID.get(String(id)), null]));
         const owners = new Map(ids.map(id => [idToPHID.get(String(id)), []]));   // assignment history ("reassign" transactions)
+        const tags = new Map(ids.map(id => [idToPHID.get(String(id)), []]));      // project tag changes ("core:edge", edge type 41)
+        const edgeKeys = v => !v ? [] : Array.isArray(v) ? v.filter(x => typeof x === 'string') : Object.keys(v);
         const addOwner = (taskPHID, ...vals) => { const l = owners.get(taskPHID); for (const v of vals) if (v && typeof v === 'string' && !l.includes(v)) l.push(v); };
         const bump = (taskPHID, ...vals) => { for (const v of vals) { const n = Number(v); if (v != null && v !== '' && Number.isFinite(n)) best.set(taskPHID, Math.max(best.get(taskPHID) ?? -Infinity, n)); } };
         const record = (taskPHID, author, date, board, from, to) => {
@@ -1797,6 +1822,10 @@ render();
                 if (!m) continue;
                 record(taskPHID, tx.authorPHID, tx.dateCreated, m.boardPHID, Object.values(m.fromColumnPHIDs || {})[0], m.columnPHID);
               }
+            } else if (tx.transactionType === 'core:edge' && tx.meta && Number(tx.meta['edge:type']) === 41) {
+              const o = new Set(edgeKeys(ov)), n = new Set(edgeKeys(nv));
+              const added = [...n].filter(x => !o.has(x)), removed = [...o].filter(x => !n.has(x));
+              if (added.length || removed.length) tags.get(taskPHID).push({ date: Number(tx.dateCreated), added, removed });
             } else if (tx.transactionType === 'reassign') {
               addOwner(taskPHID, ov, nv);
             } else if (tx.transactionType === 'points' ||
@@ -1808,7 +1837,7 @@ render();
             }
           }
         }
-        for (const [phid, list] of got) { cache.moves.set(phid, list); cache.maxPoints.set(phid, best.get(phid)); cache.owners.set(phid, owners.get(phid)); fetchedMoves += list.length; }
+        for (const [phid, list] of got) { cache.moves.set(phid, list); cache.maxPoints.set(phid, best.get(phid)); cache.owners.set(phid, owners.get(phid)); cache.tags.set(phid, tags.get(phid)); fetchedMoves += list.length; }
         done += ids.length; progress(done, stale.size);
         status(`Fetching history of new or changed tasks: ${done}/${stale.size} (${seen.size - stale.size} unchanged tasks reused from saved data)`);
       };
@@ -2152,7 +2181,8 @@ render();
     // hand the per-person, per-month numbers to the overview tab
     const perUser = new Map(), totalsOut = new Map();
     for (const u of users) { perUser.set(u.username.toLowerCase(), byMonth.get(u.phid)); totalsOut.set(u.username.toLowerCase(), totals.get(u.phid)); }
-    BUS.phRaw = { data, users, matcher };
+    const boardMeta = new Map(selectedBoards().map((b, i) => [b.phid, { name: boardName(b), parent: (b.fields.parent && b.fields.parent.name) || '', order: i }]));
+    BUS.phRaw = { data, users, matcher, boardMeta };
     BUS.ph = { metric, label: metricLabel, perUser, totals: totalsOut, boards: data.boards.size,
       desc: `${$('fromPat').value.trim() || 'any column'} → ${$('toPat').value.trim() || 'any column'}`,
       attr: attr === 'author' ? 'by who moved the task' : 'by current assignee' };
@@ -2442,7 +2472,7 @@ render();
   };
   let charts = [], timer = null;
   function schedule() { clearTimeout(timer); timer = setTimeout(render, 400); }
-  for (const k of ["startPat", "endPat", "since", "until"]) {
+  for (const k of ["startPat", "endPat", "since", "until", "sprintPat"]) {
     const v = store.get(k); if (v != null) $(k).value = v;
     $(k).addEventListener("input", () => { store.set(k, $(k).value); schedule(); });
   }
@@ -2491,6 +2521,99 @@ render();
     return { v: vals.length ? Math.max(0, ...vals) : 0, has: vals.length > 0 };
   };
 
+  // ---- carried forward: a task gets a later sprint board of the same team while it had an earlier one ----
+  const CARRY = ["carry1", "carry2", "carry3", "carry4"];
+  const showCarry = on => CARRY.forEach(id => { $(id).hidden = !on; });
+  function renderCarry(raw, p, since, until) {
+    const { data, users, matcher, boardMeta } = raw;
+    if (!boardMeta) { showCarry(false); return; }
+    let isSprint;
+    try { isSprint = matcher($("sprintPat").value.trim() || "*sprint*"); } catch (e) { $("carryNote").textContent = "Invalid sprint board pattern: " + e.message; showCarry(false); return; }
+    const sprint = new Map([...boardMeta].filter(([, m]) => isSprint(m.name)));
+    $("carry1").hidden = false;
+    if ([...data.tasks.values()].some(t => t.tags === undefined)) {
+      $("carryNote").textContent = "Click “Load column moves” on the Column moves tab once more to fetch each task’s sprint history (a one-off full fetch).";
+      CARRY.slice(1).forEach(id => { $(id).hidden = true; }); clearCarryChart(); return;
+    }
+    if (sprint.size < 2) {
+      $("carryNote").textContent = `Tick at least two sprint boards of the same team on the Column moves tab (boards whose names match “${$("sprintPat").value.trim() || "*sprint*"}”).`;
+      CARRY.slice(1).forEach(id => { $(id).hidden = true; }); clearCarryChart(); return;
+    }
+    $("carryNote").textContent = "";
+
+    // replay each task's tag history; the "last" sprint per team is the most recent one it was added to
+    const byPHID = new Map(users.map(x => [x.phid, x]));
+    const events = [];
+    for (const [phid, t] of data.tasks) {
+      const last = new Map();
+      for (const e of (t.tags || []).slice().sort((a, b) => a.date - b.date)) {
+        for (const b of e.added) {
+          const m = sprint.get(b); if (!m) continue;
+          const prev = last.get(m.parent);
+          if (prev && prev !== b && sprint.get(prev).order < m.order) events.push({ task: phid, t, from: prev, to: b, date: e.date });
+          last.set(m.parent, b);
+        }
+      }
+    }
+    events.sort((a, b) => a.date - b.date);
+    const nth = new Map(); events.forEach(ev => { nth.set(ev.task, (nth.get(ev.task) || 0) + 1); ev.n = nth.get(ev.task); });
+    const inRange = events.filter(ev => ev.date >= since && ev.date < until);
+    const who = ev => byPHID.get(ev.t.owner) || null;   // credited to the current assignee; others grouped together
+    const sprintName = phid => sprint.get(phid).name;
+
+    $("carrySub").textContent = `A carry-forward is a task being added to a later sprint board of the same team after it was on an earlier one, ` +
+      `counted in the ${p} it happened and credited to the task's current assignee. ${inRange.length} carry-forward${inRange.length === 1 ? "" : "s"} of ` +
+      `${new Set(inRange.map(ev => ev.task)).size} task${new Set(inRange.map(ev => ev.task)).size === 1 ? "" : "s"} across ${sprint.size} sprint boards.`;
+    if (!inRange.length) { CARRY.slice(1).forEach(id => { $(id).hidden = true; }); clearCarryChart(); return; }
+
+    // chart: per period, stacked by assignee (ticked engineers), everyone else in grey
+    const buckets = [];
+    for (let b = bucketStart(inRange[0].date, p); b <= inRange[inRange.length - 1].date; b = nextBucket(b, p)) buckets.push(b);
+    const idx = new Map(buckets.map((b, i) => [b, i]));
+    const css = getComputedStyle(document.documentElement), v = n => css.getPropertyValue(n).trim(), tick = { color: v("--ink-2") };
+    const series = [...users.map(x => ({ label: x.name, color: x.color, match: ev => who(ev) === x })),
+      { label: "Others / unassigned", color: v("--muted"), match: ev => !who(ev) }]
+      .map(sr => { const arr = buckets.map(() => 0); inRange.filter(sr.match).forEach(ev => { arr[idx.get(bucketStart(ev.date, p))]++; }); return { ...sr, arr }; })
+      .filter(sr => sr.arr.some(n => n));
+    clearCarryChart();
+    carryChart = new Chart($("carryChart"), {
+      type: "bar",
+      data: { labels: buckets.map(b => label(b, p)), datasets: series.map(sr => ({ label: sr.label, data: sr.arr, backgroundColor: sr.color })) },
+      options: { responsive: true, maintainAspectRatio: false, animation: false, interaction: { mode: "index", intersect: false },
+        plugins: { legend: { labels: { color: v("--ink-2") } }, tooltip: { callbacks: { footer: items => `Team: ${items.reduce((a, i) => a + (i.raw || 0), 0)} carry-forwards` } } },
+        scales: { x: { stacked: true, ticks: tick, grid: { display: false } },
+          y: { stacked: true, beginAtZero: true, ticks: { ...tick, precision: 0 }, grid: { color: v("--grid") }, title: { display: true, text: "Carry-forwards", color: v("--ink-2") } } } },
+    });
+
+    // per sprint: tasks it held (still on it, or carried out of it), carried out, carried in
+    const rows = [...sprint].sort((a, b) => a[1].order - b[1].order).map(([phid, m]) => {
+      const out = new Set(inRange.filter(ev => ev.from === phid).map(ev => ev.task));
+      const into = new Set(inRange.filter(ev => ev.to === phid).map(ev => ev.task));
+      const held = new Set([...data.tasks].filter(([, t]) => t.boards.has(phid)).map(([id]) => id)); out.forEach(x => held.add(x));
+      return `<tr><td>${esc(m.name)}</td><td>${held.size}</td><td>${out.size}</td><td>${held.size ? Math.round(100 * out.size / held.size) + "%" : "–"}</td><td>${into.size}</td></tr>`;
+    });
+    $("carrySprints").innerHTML = rows.join("");
+
+    // per assignee
+    const sumRow = (name, evs, cls = "") => {
+      const per = new Map(); evs.forEach(ev => per.set(ev.task, (per.get(ev.task) || 0) + 1));
+      return `<tr class="${cls}"><td>${esc(name)}</td><td>${evs.length}</td><td>${per.size}</td><td>${[...per.values()].filter(n => n >= 2).length}</td></tr>`;
+    };
+    $("carryPeople").innerHTML = users.map(x => sumRow(x.name, inRange.filter(ev => who(ev) === x))).join("") +
+      sumRow("Others / unassigned", inRange.filter(ev => !who(ev))) + sumRow("Team", inRange, "current");
+
+    // list
+    const web = (document.getElementById("ph-phabWeb").value || "").trim().replace(/\/$/, "");
+    const iso = ts => new Date(ts * 1000).toISOString().slice(0, 10);
+    $("carryCount").textContent = `${inRange.length} carry-forward${inRange.length === 1 ? "" : "s"}`;
+    $("carryTable").innerHTML = "<thead><tr><th>Date</th><th>Task</th><th>Assignee</th><th>From</th><th>To</th><th>Times carried so far</th></tr></thead>" +
+      inRange.slice().reverse().map(ev => `<tr><td>${iso(ev.date)}</td><td><a href="${esc(web)}/T${ev.t.id}" target="_blank" rel="noopener">T${ev.t.id}</a> ${esc(String(ev.t.title).slice(0, 60))}</td>` +
+        `<td>${esc(who(ev) ? who(ev).name : "Others / unassigned")}</td><td>${esc(sprintName(ev.from))}</td><td>${esc(sprintName(ev.to))}</td><td>${ev.n}</td></tr>`).join("");
+    CARRY.forEach(id => { $(id).hidden = false; });
+  }
+  let carryChart = null;
+  function clearCarryChart() { if (carryChart) { carryChart.destroy(); carryChart = null; } }
+
   function render() {
     const raw = BUS.phRaw;
     charts.forEach(c => c.destroy()); charts = [];
@@ -2498,7 +2621,7 @@ render();
     if (!raw || !raw.data || !raw.users.length) {
       $("source").className = "pill"; $("source").textContent = "Phabricator: not loaded";
       $("status").textContent = "Load column moves on the Column moves (Phabricator) tab first; this tab uses that data and its ticked engineers.";
-      show(false); return;
+      show(false); showCarry(false); clearCarryChart(); return;
     }
     const { data, users, matcher } = raw;
     $("source").className = "pill live";
@@ -2511,6 +2634,7 @@ render();
     const p = period(), u = unit();
     const since = $("since").value ? Date.parse($("since").value + "T00:00:00Z") / 1000 : -Infinity;
     const until = $("until").value ? Date.parse($("until").value + "T00:00:00Z") / 1000 + DAY : Infinity;
+    renderCarry(raw, p, since, until);
     const colName = phid => phid == null ? null : (data.columns.get(phid)?.name ?? phid);
     const byPHID = new Map(users.map(x => [x.phid, x]));
     $("status").textContent = "";
