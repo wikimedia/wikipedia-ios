@@ -356,6 +356,7 @@
 		5EA5C0DE00000000000000C2 /* SearchResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */; };
 		5EA5C0DE00000000000000C3 /* SearchResultsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */; };
 		5EA5C0DE00000000000000D1 /* SearchResultsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000D0 /* SearchResultsMapperTests.swift */; };
+		5EA5C0DE00000000000000E1 /* SearchResultsSemanticRowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5C0DE00000000000000E0 /* SearchResultsSemanticRowTests.swift */; };
 		5FC106217159EB610025DA07 /* LocalNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC37815CC7183FC6EC21B47 /* LocalNotificationCoordinator.swift */; };
 		66BD84765EB14C81A40BD5F2 /* ArticleViewController+DonationReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36278A2AC9064C2EAA6EAE8E /* ArticleViewController+DonationReminder.swift */; };
 		67033E142A61B24800896852 /* WatchlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E132A61B24800896852 /* WatchlistController.swift */; };
@@ -3064,6 +3065,7 @@
 		7D8C00222FCF000000000001 /* InsertMediaSearchViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertMediaSearchViewControllerTests.swift; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000C0 /* SearchResultsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsMapper.swift; sourceTree = "<group>"; };
 		5EA5C0DE00000000000000D0 /* SearchResultsMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsMapperTests.swift; sourceTree = "<group>"; };
+		5EA5C0DE00000000000000E0 /* SearchResultsSemanticRowTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsSemanticRowTests.swift; sourceTree = "<group>"; };
 		60A952CD4C29EF4BB953B27E /* WMFReadingListToastManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WMFReadingListToastManager.swift; sourceTree = "<group>"; };
 		67033E132A61B24800896852 /* WatchlistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistController.swift; sourceTree = "<group>"; };
 		67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Watchlist.swift"; sourceTree = "<group>"; };
@@ -7090,6 +7092,7 @@
 				B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */,
 				7D8C00102FCF000000000001 /* TestNetworkFixtures */,
 				5EA5C0DE00000000000000D0 /* SearchResultsMapperTests.swift */,
+				5EA5C0DE00000000000000E0 /* SearchResultsSemanticRowTests.swift */,
 				BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */,
 				B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */,
 				19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */,
@@ -9180,6 +9183,7 @@
 				7D8C00232FCF000000000001 /* InsertMediaSearchViewControllerTests.swift in Sources */,
 				D2F1B94F4E35BC2B569588D3 /* SearchFixtureService.swift in Sources */,
 				5EA5C0DE00000000000000D1 /* SearchResultsMapperTests.swift in Sources */,
+				5EA5C0DE00000000000000E1 /* SearchResultsSemanticRowTests.swift in Sources */,
 				7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */,
 				67C6F77727E2E78800B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift in Sources */,
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
