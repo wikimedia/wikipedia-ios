@@ -43,6 +43,7 @@ class ViewControllerRouter: NSObject {
     @objc let router: Router
     unowned let appViewController: WMFAppViewController
     private var createReadingListCoordinator: CreateReadingListCoordinator?
+    private var watchlistFlowCoordinator: WatchlistFlowCoordinator?
     @objc(initWithAppViewController:router:)
     required init(appViewController: WMFAppViewController, router: Router) {
         self.appViewController = appViewController
@@ -63,7 +64,7 @@ class ViewControllerRouter: NSObject {
         }
 
         let coordinator = CreateReadingListCoordinator(presentingViewController: navigationController, encodedPageIDs: encodedPageIDs, dataStore: appViewController.dataStore)
-        coordinator.delegate = appViewController
+        coordinator.delegate = appViewController.savedCoordinator
         coordinator.didDismiss = { [weak self] in
             self?.createReadingListCoordinator = nil
         }
@@ -196,16 +197,9 @@ class ViewControllerRouter: NSObject {
         case .login:
             return presentLoginViewController(with: completion)
         case .watchlist:
-            let userDefaults = UserDefaults.standard
-
-            let targetNavigationController = watchlistTargetNavigationController()
-            if !userDefaults.wmf_userHasOnboardedToWatchlists {
-                showWatchlistOnboarding(targetNavigationController: targetNavigationController)
-            } else {
-                goToWatchlist(targetNavigationController: targetNavigationController)
+            return MainActor.assumeIsolated {
+                showWatchlist()
             }
-
-            return true
         default:
             completion()
             return false
@@ -233,6 +227,20 @@ class ViewControllerRouter: NSObject {
         return source
     }
 
+    @MainActor
+    private func showWatchlist() -> Bool {
+        guard let targetNavigationController = watchlistTargetNavigationController() else {
+            return true
+        }
+        if let watchlistFlowCoordinator {
+            watchlistFlowCoordinator.navigationController = targetNavigationController
+        } else {
+            watchlistFlowCoordinator = WatchlistFlowCoordinator(navigationController: targetNavigationController, dataStore: appViewController.dataStore, appViewController: appViewController)
+        }
+        watchlistFlowCoordinator?.start()
+        return true
+    }
+
     private func watchlistTargetNavigationController() -> UINavigationController? {
         var targetNavigationController: UINavigationController? = appViewController.currentTabNavigationController
         if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
@@ -240,167 +248,5 @@ class ViewControllerRouter: NSObject {
             targetNavigationController = presentedNavigationController
         }
         return targetNavigationController
-    }
-
-    private var watchlistFilterViewModel: WMFWatchlistFilterViewModel {
-
-        let dataStore = appViewController.dataStore
-        let appLanguages = dataStore.languageLinkController.preferredLanguages
-        var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
-
-            guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController),
-                  let wmfProject = wikimediaProject.wmfProject else {
-                return
-            }
-
-            result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
-        }
-        localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
-        localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
-
-        let localizedStrings = WMFWatchlistFilterViewModel.LocalizedStrings(
-            title: CommonStrings.watchlistFilter,
-            localizedProjectNames: localizedProjectNames,
-            wikimediaProjectsHeader: CommonStrings.wikimediaProjectsHeader,
-            wikipediasHeader: CommonStrings.wikipediasHeader,
-            commonAll: CommonStrings.filterOptionsAll,
-            latestRevisionsHeader: CommonStrings.watchlistFilterLatestRevisionsHeader,
-            latestRevisionsLatestRevision: CommonStrings.watchlistFilterLatestRevisionsOptionLatestRevision,
-            latestRevisionsNotLatestRevision: CommonStrings.watchlistFilterLatestRevisionsOptionNotTheLatestRevision,
-            watchlistActivityHeader: CommonStrings.watchlistFilterActivityHeader,
-            watchlistActivityUnseenChanges: CommonStrings.watchlistFilterActivityOptionUnseenChanges,
-            watchlistActivitySeenChanges: CommonStrings.watchlistFilterActivityOptionSeenChanges,
-            automatedContributionsHeader: CommonStrings.watchlistFilterAutomatedContributionsHeader,
-            automatedContributionsBot: CommonStrings.watchlistFilterAutomatedContributionsOptionBot,
-            automatedContributionsHuman: CommonStrings.watchlistFilterAutomatedContributionsOptionHuman,
-            significanceHeader: CommonStrings.watchlistFilterSignificanceHeader,
-            significanceMinorEdits: CommonStrings.watchlistFilterSignificanceOptionMinorEdits,
-            significanceNonMinorEdits: CommonStrings.watchlistFilterSignificanceOptionNonMinorEdits,
-            userRegistrationHeader: CommonStrings.watchlistFilterUserRegistrationHeader,
-            userRegistrationUnregistered: CommonStrings.watchlistFilterUserRegistrationOptionUnregistered,
-            userRegistrationRegistered: CommonStrings.watchlistFilterUserRegistrationOptionRegistered,
-            typeOfChangeHeader: CommonStrings.watchlistFilterTypeOfChangeHeader,
-            typeOfChangePageEdits: CommonStrings.watchlistFilterTypeOfChangeOptionPageEdits,
-            typeOfChangePageCreations: CommonStrings.watchlistFilterTypeOfChangeOptionPageCreations,
-            typeOfChangeCategoryChanges: CommonStrings.watchlistFilterTypeOfChangeOptionCategoryChanges,
-            typeOfChangeWikidataEdits: CommonStrings.watchlistFilterTypeOfChangeOptionWikidataEdits,
-            typeOfChangeLoggedActions: CommonStrings.watchlistFilterTypeOfChangeOptionLoggedActions,
-            addLanguage: CommonStrings.watchlistFilterAddLanguageButtonTitle
-        )
-
-        var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
-        let themeName = UserDefaults.standard.themeName
-        if !Theme.isDefaultThemeName(themeName) {
-            overrideUserInterfaceStyle = WMFAppEnvironment.current.theme.userInterfaceStyle
-        }
-
-        return WMFWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
-    }
-
-    func showWatchlistOnboarding(targetNavigationController: UINavigationController?) {
-        let trackChanges = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
-        let watchArticles = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
-        let setExpiration = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
-        let viewUpdates = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
-
-        let viewModel = WMFOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
-
-        let viewController = WMFOnboardingViewController(viewModel: viewModel)
-        viewController.hostingController.delegate = self
-
-        WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
-
-        targetNavigationController?.present(viewController, animated: true) {
-            UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
-        }
-    }
-
-    func goToWatchlist(targetNavigationController: UINavigationController?) {
-        let localizedByteChange: (Int) -> String = { bytes in
-            String.localizedStringWithFormat(
-                WMFLocalizedString("watchlist-byte-change", value:"{{PLURAL:%1$d|%1$d byte|%1$d bytes}}", comment: "Amount of bytes changed for a revision displayed in watchlist - %1$@ is replaced with the number of bytes."),
-                bytes
-            )
-        }
-
-        let htmlStripped: (String) -> String = { inputString in
-            let strippedString = inputString.removingHTML
-            return strippedString
-        }
-
-        let attributedFilterString: (Int) -> AttributedString = { filters in
-            let localizedString = String.localizedStringWithFormat(
-                WMFLocalizedString("watchlist-number-filters", value:"Modify [{{PLURAL:%1$d|%1$d filter|%1$d filters}}](wikipedia://watchlist/filter) to see more Watchlist items", comment: "Amount of filters active in watchlist - %1$@ is replaced with the number of filters."),
-                filters
-            )
-
-            let attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
-            return attributedString
-        }
-
-        let localizedStrings = WMFWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
-
-        let viewModel = WMFWatchlistViewModel(localizedStrings: localizedStrings)
-
-        let localizedStringsEmptyView = WMFEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
-
-        let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
-            if reachable {
-                Task { @MainActor in
-                    WMFToastManager.sharedInstance.dismissCurrentToast()
-                }
-            } else {
-                Task { @MainActor in
-                    WMFToastManager.sharedInstance.showToast(CommonStrings.noInternetConnection, sticky: true, dismissPreviousToasts: true)
-                }
-            }
-        }
-
-        let reachabilityHandler: WMFWatchlistViewController.ReachabilityHandler = { state in
-            switch state {
-            case .appearing:
-                reachabilityNotifier.start()
-            case .disappearing:
-                reachabilityNotifier.stop()
-            }
-        }
-
-        let emptyViewModel = WMFEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
-
-        let watchlistViewController = WMFWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
-
-        targetNavigationController?.pushViewController(watchlistViewController, animated: true)
-    }
-}
-
-extension ViewControllerRouter: WMFOnboardingViewDelegate {
-
-    func onboardingViewDidClickPrimaryButton() {
-
-        let targetNavigationController = watchlistTargetNavigationController()
-
-        WatchlistFunnel.shared.logWatchlistOnboardingTapContinue()
-
-        if let presentedViewController = targetNavigationController?.presentedViewController {
-            presentedViewController.dismiss(animated: true) { [weak self] in
-                self?.goToWatchlist(targetNavigationController: targetNavigationController)
-            }
-        }
-    }
-
-    func onboardingViewDidClickSecondaryButton() {
-
-        let targetNavigationController = watchlistTargetNavigationController()
-
-        WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
-
-        if let presentedViewController = targetNavigationController?.presentedViewController {
-            presentedViewController.dismiss(animated: true) { [weak self] in
-                guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Watchlist") else {
-                    return
-                }
-                self?.appViewController.navigate(to: url)
-            }
-        }
     }
 }
