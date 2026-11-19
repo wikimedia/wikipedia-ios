@@ -1,8 +1,8 @@
 {
-  "batchcomplete": "",
+  "batchcomplete": true,
   "query": {
-    "pages": {
-      "4269567": {
+    "pages": [
+      {
         "pageid": 4269567,
         "ns": 0,
         "title": "Dog",
@@ -12,13 +12,9 @@
           "width": 320,
           "height": 281
         },
-        "terms": {
-          "description": [
-            "Domestic animal"
-          ]
-        }
+        "description": "Domestic animal"
       }
-    }
+    ]
   },
   "limits": {
     "pageimages": 50

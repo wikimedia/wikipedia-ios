@@ -1,5 +1,15 @@
 import Foundation
 
+/// The outcome of a scroll to an anchor.
+enum ScrollToAnchorResult {
+    /// The web view is at the anchor.
+    case scrolled
+    /// The page has no element with the anchor as id. A retry can not find it.
+    case anchorNotFound
+    /// The page script is not ready, or the scroll did not land. A retry can succeed.
+    case failed
+}
+
 protocol ArticleScrolling: AnyObject {
     /// Used to wait for the callback that the anchor is ready for scrollin'
     typealias ScrollToAnchorCompletion = (_ anchor: String, _ rect: CGRect) -> Void
@@ -22,28 +32,34 @@ extension ArticleScrolling where Self: UIViewController {
     ///   - centered: If this parameter is true, the element will be centered in the visible area of the article view after scrolling. If this parameter is false, the element will be at the top of the visible area of the article view.
     ///   - animated: Whether or not to animate the scroll change.
     ///   - reportsErrors: Whether an error from the web view shows a toast. Pass `false` when a failed attempt is retried.
-    ///   - completion: A completion that is called when the scroll change is complete. The Boolean passed into the completion is `true` if the point was successfully found and scrolled to or `false` if the point was invalid.
-    func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, reportsErrors: Bool = true, completion: ((Bool) -> Void)? = nil) {
+    ///   - completion: A completion that is called when the scroll change is complete, with the outcome of the scroll.
+    func scroll(to anchor: String, centered: Bool = false, highlighted: Bool = false, animated: Bool, reportsErrors: Bool = true, completion: ((ScrollToAnchorResult) -> Void)? = nil) {
         guard !anchor.isEmpty else {
             webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 1, width: 1, height: 1), animated: animated)
-            completion?(true)
+            completion?(.scrolled)
             return
         }
 
         messagingController.prepareForScroll(to: anchor, highlight: highlighted) { (result) in
             assert(Thread.isMainThread)
             switch result {
+            case .failure(let preparationError as ArticleWebMessagingController.ScrollToAnchorPreparationError):
+                // The web does nothing for an anchor that is not in the page. No error shows.
+                completion?(preparationError == .anchorNotFound ? .anchorNotFound : .failed)
             case .failure(let error):
                 if reportsErrors {
                     self.showError(error)
                 }
-                completion?(false)
+                completion?(.failed)
             case .success:
                 // The actual scroll happens via a callback event from the WebView
                 // When that event is received, the scrollToAnchorCompletion is called
-                let scrollCompletion: ScrollToAnchorCompletion = { (anchor, rect) in
+                let scrollCompletion: ScrollToAnchorCompletion = { [weak self] (anchor, rect) in
+                    guard let self else { return }
                     let point = CGPoint(x: self.webView.scrollView.contentOffset.x, y: rect.origin.y + self.webView.scrollView.contentOffset.y)
-                    self.scroll(to: point, centered: centered, animated: animated, completion: completion)
+                    self.scroll(to: point, centered: centered, animated: animated) { (success) in
+                        completion?(success ? .scrolled : .failed)
+                    }
                 }
                 self.scrollToAnchorCompletions.insert(scrollCompletion, at: 0)
             }

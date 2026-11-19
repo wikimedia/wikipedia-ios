@@ -63,14 +63,15 @@ extension ArticleViewController {
             }
 
             pendingSemanticSearchScroll = nil
-            let completion: (Bool) -> Void = { [weak self] _ in
-                self?.setWebViewHidden(false, animated: true)
-            }
             switch target.target {
             case .anchor(let anchor):
-                scroll(to: anchor, centered: target.centered, animated: false, completion: completion)
+                scroll(to: anchor, centered: target.centered, animated: false) { [weak self] _ in
+                    self?.setWebViewHidden(false, animated: true)
+                }
             case .offset(let y):
-                scroll(to: CGPoint(x: webView.scrollView.contentOffset.x, y: y), centered: target.centered, animated: false, completion: completion)
+                scroll(to: CGPoint(x: webView.scrollView.contentOffset.x, y: y), centered: target.centered, animated: false) { [weak self] _ in
+                    self?.setWebViewHidden(false, animated: true)
+                }
             }
         }
     }

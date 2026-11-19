@@ -376,7 +376,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 tabBarItem: savedTabBarItem,
                 tabBar: tabBar,
                 theme: theme,
-                userInterfaceIdiom: traitCollection.userInterfaceIdiom
+                userInterfaceIdiom: traitCollection.userInterfaceIdiom,
+                hasOtherBadges: yearInReviewBadgeIsNeeded()
             )
         }
 
@@ -912,6 +913,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         #if UITEST
         // The flags persist in user defaults, so each launch states what it needs: "groupB" shows
         // the onboarding card again, "off" turns Discover off, and no value keeps the previous state.
+        // The developer setting cannot turn the feature off when the remote config turns it on, as
+        // it does against live services, so "off" also forces the control group, which sees nothing.
         switch UserDefaults.standard.string(forKey: wmfUITestDiscoverState) {
         case "groupB":
             WMFDeveloperSettingsDataController.shared.enableDiscover = true
@@ -919,6 +922,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             try? WMFDiscoverDataController.shared.resetAnnouncement()
         case "off":
             WMFDeveloperSettingsDataController.shared.enableDiscover = false
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .control
         default:
             break
         }
@@ -1568,12 +1572,21 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         updateActivityTabYearInReviewBadge()
     }
 
+    private func yearInReviewBadgeIsNeeded() -> Bool {
+        guard let dataController = try? WMFYearInReviewDataController() else { return false }
+        return dataController.shouldShowActivityTabBadge(countryCode: Locale.current.region?.identifier)
+    }
+
     private func updateActivityTabYearInReviewBadge() {
         guard uiIsLoaded else { return }
-        guard let dataController = try? WMFYearInReviewDataController() else { return }
 
-        let needsBadge = dataController.shouldShowActivityTabBadge(countryCode: Locale.current.region?.identifier)
+        let needsBadge = yearInReviewBadgeIsNeeded()
 
+        // The Saved tab controller owns the badge colors. Tell it before the star shows, so the star
+        // takes the shared color, and after the star hides, so the Discover dot can go back to red.
+        if needsBadge {
+            savedTabBadgeController?.setHasOtherBadges(true)
+        }
         if #available(iOS 18.0, *) {
             let identifier = AccessibilityIdentifiers.RootTab.activityButton
             tabs.first { $0.identifier == identifier }?.showYearInReviewBadge(needsBadge)
@@ -1581,6 +1594,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // Read the cached controller rather than the lazy getter — badging must never be the thing
         // that constructs the Activity tab.
         _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
+        if !needsBadge {
+            savedTabBadgeController?.setHasOtherBadges(false)
+        }
     }
 
     @objc func handleNotificationsCenterContextDidSave() {
@@ -2043,8 +2059,7 @@ extension WMFAppViewController: Themeable {
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    /// Themes the tab bar and puts the Saved tab badge style back on top of the new appearance.
-    /// `UITabBar.apply(theme:)` alone replaces the appearance that the badge controller wrote.
+    /// Themes the tab bar and puts the badge colors back. `UITabBar.apply(theme:)` replaces the appearance.
     func applyTabBarTheme(_ theme: Theme) {
         tabBar.apply(theme: theme)
         savedTabBadgeController?.apply(theme: theme)

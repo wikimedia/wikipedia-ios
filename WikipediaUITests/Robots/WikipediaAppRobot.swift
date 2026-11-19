@@ -86,6 +86,12 @@ extension XCTestCase {
 fileprivate extension XCUIApplication {
     func configureForUITestLaunch(configuration: UITestConfiguration = UITestConfiguration()) {
         addLaunchArguments(configuration.launchArguments)
+        // On iOS 27 the XCTest automation support inside the app writes every accessibility attribute fetch to os_log,
+        // and the test harness launches the app with OS_ACTIVITY_MODE=info, so all of it lands on the app's stderr:
+        // about 1.5 million lines per CI job. When xcodebuild falls behind draining that pipe, the app's main thread
+        // blocks in writev while answering the query, and element queries stall for 30 to 150 seconds.
+        // Disabling os_log output for the app under test removes that back pressure.
+        launchEnvironment["OS_ACTIVITY_MODE"] = "disable"
     }
 
     private func addLaunchArguments(_ argumentValues: [UITestLaunchArgumentValue]) {
