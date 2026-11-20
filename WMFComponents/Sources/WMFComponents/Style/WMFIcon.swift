@@ -48,6 +48,7 @@ public enum WMFIcon {
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
     static let wikipediaW = UIImage(named: "W", in: .module, with: nil)
+    static let wikipediaGlobe = UIImage(named: "globe_yir", in: .module, with: nil)
 
     // License
     static let ccLicense = UIImage(named: "project-icons/license-cc", in: .module, with: nil)

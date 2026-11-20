@@ -52,8 +52,8 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
         let featuredArticle = SettingsItem(
             image: nil,
             color: nil,
-            title: WMFLocalizedString("home-feed-modules-featured-article-title", value: "Featured article", comment: "Title for the Featured article module toggle."),
-            subtitle: WMFLocalizedString("home-feed-modules-featured-article-subtitle", value: "Featured articles are some of the highest-quality articles on Wikipedia, selected daily by editors", comment: "Subtitle describing the Featured article module."),
+            title: WMFCommunityModule.featuredArticle.title(languageCode: nil),
+            subtitle: WMFCommunityModule.featuredArticle.subtitle(languageCode: nil),
             accessory: .toggle(binding(for: .featuredArticle)),
             action: nil
         )
@@ -61,8 +61,8 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
         let topRead = SettingsItem(
             image: nil,
             color: nil,
-            title: WMFLocalizedString("home-feed-modules-top-read-title", value: "Top read", comment: "Title for the Top read module toggle."),
-            subtitle: WMFLocalizedString("home-feed-modules-top-read-subtitle", value: "What is trending today on Wikipedia", comment: "Subtitle describing the Top read module."),
+            title: WMFCommunityModule.topRead.title(languageCode: nil),
+            subtitle: WMFCommunityModule.topRead.subtitle(languageCode: nil),
             accessory: .toggle(binding(for: .topRead)),
             action: nil
         )
@@ -70,8 +70,8 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
         let inTheNews = SettingsItem(
             image: nil,
             color: nil,
-            title: WMFLocalizedString("home-feed-modules-in-the-news-title", value: "In the news", comment: "Title for the In the news module toggle."),
-            subtitle: WMFLocalizedString("home-feed-modules-in-the-news-subtitle", value: "Articles that have been substantially updated to reflect recent or current events of wide interest", comment: "Subtitle describing the In the news module."),
+            title: WMFCommunityModule.inTheNews.title(languageCode: nil),
+            subtitle: WMFCommunityModule.inTheNews.subtitle(languageCode: nil),
             accessory: .toggle(binding(for: .inTheNews)),
             action: nil
         )
@@ -79,8 +79,8 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
         let onThisDay = SettingsItem(
             image: nil,
             color: nil,
-            title: WMFLocalizedString("home-feed-modules-on-this-day-title", value: "On this day", comment: "Title for the On this day module toggle."),
-            subtitle: WMFLocalizedString("home-feed-modules-on-this-day-subtitle", value: "Discover historical events from this day", comment: "Subtitle describing the On this day module."),
+            title: WMFCommunityModule.onThisDay.title(languageCode: nil),
+            subtitle: WMFCommunityModule.onThisDay.subtitle(languageCode: nil),
             accessory: .toggle(binding(for: .onThisDay)),
             action: nil
         )
@@ -88,8 +88,8 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
         let pictureOfTheDay = SettingsItem(
             image: nil,
             color: nil,
-            title: WMFLocalizedString("home-feed-modules-picture-of-the-day-title", value: "Picture of the day", comment: "Title for the Picture of the day module toggle."),
-            subtitle: WMFLocalizedString("home-feed-modules-picture-of-the-day-subtitle", value: "Daily images on Wikimedia Commons, selected by volunteer contributors", comment: "Subtitle describing the Picture of the day module."),
+            title: WMFCommunityModule.pictureOfDay.title(languageCode: nil),
+            subtitle: WMFCommunityModule.pictureOfDay.subtitle(languageCode: nil),
             accessory: .toggle(binding(for: .pictureOfTheDay)),
             action: nil
         )

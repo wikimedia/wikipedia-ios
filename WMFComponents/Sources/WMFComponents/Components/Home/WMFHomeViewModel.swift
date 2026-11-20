@@ -36,17 +36,54 @@ public final class WMFHomeViewModel: ObservableObject {
         case community
     }
 
-    let forYouTabTitle = CommonStrings.forYouTabTitle
-    let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
-    let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
+    // Like Android, the Home header follows the feed's wiki language: the segment titles and the
+    // language menu's settings row. The date above each day and the card menus follow the app.
+    var feedLanguageCode: String? { selectedLanguage?.languageCode }
+
+    var forYouTabTitle: String { CommonStrings.forYouTabTitle(languageCode: feedLanguageCode) }
+    var communityTabTitle: String {
+        WMFLocalizedString("home-community-tab-title", languageCode: feedLanguageCode, value: "Community", comment: "Title for the Community segment within the Home tab.")
+    }
+    var editLanguagesTitle: String {
+        WMFLocalizedString("home-edit-languages-title", languageCode: feedLanguageCode, value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
+    }
     var communityEmptyFeedSubtitle: String {
-        let format = WMFLocalizedString("home-empty-community-feed-subtitle", value: "Turn on %1$@“Community”%2$@ modules to start seeing content curated by contributors across the Wikimedia movement.", comment: "Message shown on the Home tab's Community segment when the reader has turned off every Community module in settings. “Community” matches the segment name. %1$@ and %2$@ are opening and closing bold.")
+        let format = WMFLocalizedString("home-empty-community-feed-subtitle", languageCode: feedLanguageCode, value: "Turn on %1$@“Community”%2$@ modules to start seeing content curated by contributors across the Wikimedia movement.", comment: "Message shown on the Home tab's Community segment when the reader has turned off every Community module in settings. “Community” matches the segment name. %1$@ and %2$@ are opening and closing bold.")
         return String.localizedStringWithFormat(format, "<b>", "</b>")
     }
 
     let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorRetryTitle = WMFLocalizedString("for-you-error-retry", value: "Try again", comment: "Button on the For You error state that retries loading the feed.")
+    let communityLoadErrorTitle = WMFLocalizedString("home-community-error-title", value: "Could not load content", comment: "Title shown on the Home tab's Community segment, or at the bottom of its feed, when content cannot be loaded for a reason other than a missing internet connection.")
+
+    /// The offline copy only when the reader is offline. Other failures, such as a server error or
+    /// a response that cannot be read, would otherwise tell an online reader to connect.
+    func communityErrorTitle(for error: Error?) -> String {
+        guard let error, !Self.isOfflineError(error) else { return forYouErrorTitle }
+        return communityLoadErrorTitle
+    }
+
+    func communityErrorSubtitle(for error: Error?) -> String {
+        guard let error, !Self.isOfflineError(error) else { return forYouErrorSubtitle }
+        return CommonStrings.genericErrorDescription
+    }
+
+    nonisolated static func isOfflineError(_ error: Error) -> Bool {
+        let offlineCodes: Set<Int> = [
+            URLError.notConnectedToInternet.rawValue,
+            URLError.networkConnectionLost.rawValue,
+            URLError.dataNotAllowed.rawValue
+        ]
+        var nsError: NSError? = error as NSError
+        // Services can wrap the URL error, so follow the underlying errors too.
+        while let current = nsError {
+            if current.domain == NSURLErrorDomain, offlineCodes.contains(current.code) { return true }
+            nsError = current.userInfo[NSUnderlyingErrorKey] as? NSError
+        }
+        return false
+    }
+
     let forYouRefreshingAccessibilityLabel = WMFLocalizedString("for-you-refreshing-accessibility-label", value: "Loading new content", comment: "Accessibility label for the loading indicator shown while the For You feed refreshes after a pull to refresh.")
 
     @Published public var selectedTab: Tab = .community {
@@ -79,11 +116,21 @@ public final class WMFHomeViewModel: ObservableObject {
             if !communityPages.isEmpty {
                 feedDay = Date()
             }
+            refreshCommunitySavedStates()
         }
     }
+    /// Set when the first page fails. The tab then shows the error state instead of the feed.
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
     @Published public var isLoadingCommunityPreviousPage: Bool = false
+    /// Set when "See past community content" fails. The feed stays, and its footer offers a retry.
+    @Published public private(set) var communityPreviousPageError: Error?
+
+    /// The feed loads in flight. A language change or a refresh cancels them, so that a page of the
+    /// previous language or of the previous feed never lands in the new one.
+    private var forYouLoadTask: Task<Void, Never>?
+    private var communityLoadTask: Task<Void, Never>?
+    private var communityPreviousPageTask: Task<Void, Never>?
     @Published public var communityModuleVisibility: WMFCommunityModuleVisibility = WMFCommunityModuleVisibility(
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
@@ -127,6 +174,85 @@ public final class WMFHomeViewModel: ObservableObject {
 
     /// True when all the Community cards are hidden and the embedded feed has nothing to show.
     @Published public var isEmbeddedCommunityFeedEmpty: Bool = false
+
+    /// Acts on an article of a Community feed card: the featured article, a top read row or an On
+    /// this day page. A tap opens it; the long-press menu and the Save button do the rest. The
+    /// title is the database title from the feed response. The module tells the coordinator which
+    /// article source to log, the way Android logs one per card type.
+    public var didTapCommunityArticle: (@MainActor @Sendable (_ title: String, _ project: WMFProject, _ module: WMFCommunityModule, _ action: WMFCommunityArticleAction) -> Void)?
+
+    func performCommunityArticleAction(_ action: WMFCommunityArticleAction, title: String, project: WMFProject, module: WMFCommunityModule) {
+        didTapCommunityArticle?(title, project, module, action)
+        switch action {
+        case .save:
+            savedCommunityArticleKeys.insert(Self.communityArticleKey(title: title, project: project))
+        case .unsave:
+            savedCommunityArticleKeys.remove(Self.communityArticleKey(title: title, project: project))
+        case .open, .openInNewTab, .openInBackgroundTab, .share:
+            break
+        }
+    }
+
+    /// Answers whether the app has an article saved. Set by the coordinator, which owns the saved
+    /// list. The feed asks it again whenever the screen comes back, like For You does.
+    public var isCommunityArticleSaved: (@MainActor @Sendable (_ title: String, _ project: WMFProject) -> Bool)?
+
+    /// The articles of the loaded Community pages that are saved, keyed by project and title.
+    @Published private(set) var savedCommunityArticleKeys: Set<String> = []
+
+    static func communityArticleKey(title: String, project: WMFProject) -> String {
+        "\(project.id)|\(title)"
+    }
+
+    func isCommunityArticleSaved(title: String, project: WMFProject) -> Bool {
+        savedCommunityArticleKeys.contains(Self.communityArticleKey(title: title, project: project))
+    }
+
+    public func refreshCommunitySavedStates() {
+        guard let isCommunityArticleSaved else { return }
+        var saved: Set<String> = []
+        for page in communityPages {
+            let articles = [page.featuredArticleItem].compactMap { $0 }
+                + page.topReadItems
+                + (page.onThisDayItems ?? []).flatMap(\.pages)
+            for article in articles where isCommunityArticleSaved(article.title, page.project) {
+                saved.insert(Self.communityArticleKey(title: article.title, project: page.project))
+            }
+        }
+        if saved != savedCommunityArticleKeys {
+            savedCommunityArticleKeys = saved
+        }
+    }
+
+    /// Opens the day's full Top read list ("More top read").
+    public var didTapCommunityTopReadList: (@MainActor @Sendable (_ titles: [String], _ project: WMFProject, _ date: Date) -> Void)?
+
+    func openCommunityTopReadList(for page: WMFHomeCommunityViewModel) {
+        didTapCommunityTopReadList?(page.allTopReadTitles, page.project, page.feedDate)
+    }
+
+    /// Opens every On this day event of the day ("More on this day"), or, after a tap on an event,
+    /// the same list scrolled to that event. The event is given by its year and text.
+    public var didTapCommunityOnThisDay: (@MainActor @Sendable (_ project: WMFProject, _ date: Date, _ event: (year: Int, text: String)?) -> Void)?
+
+    func openCommunityOnThisDay(for page: WMFHomeCommunityViewModel, event: WMFHomeCommunityViewModel.OnThisDayItem?) {
+        didTapCommunityOnThisDay?(page.project, page.feedDate, event.map { (year: $0.year, text: $0.text) })
+    }
+
+    /// Opens an In the news story with all its linked articles.
+    public var didTapCommunityNewsStory: (@MainActor @Sendable (_ story: WMFFeedNewsItem, _ project: WMFProject) -> Void)?
+
+    func openCommunityNewsStory(_ story: WMFFeedNewsItem, project: WMFProject) {
+        didTapCommunityNewsStory?(story, project)
+    }
+
+    /// Opens the Picture of the day gallery for the date of the tapped card, like the legacy Explore
+    /// feed and Android do.
+    public var didTapCommunityPictureOfTheDay: (@MainActor @Sendable (_ date: Date) -> Void)?
+
+    func openCommunityPictureOfTheDay(date: Date) {
+        didTapCommunityPictureOfTheDay?(date)
+    }
 
     /// Opens the Community feed settings from that empty state.
     public var didTapCustomizeCommunityFeed: (@MainActor @Sendable () -> Void)?
@@ -218,6 +344,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func refreshSavedStates(where matches: (WMFForYouArticleCardViewModel) -> Bool) {
+        refreshCommunitySavedStates()
         guard let isArticleSaved else { return }
         forYouViewModel?.pages.forEach { page in
             for card in page.articleViewModels where matches(card) {
@@ -290,10 +417,26 @@ public final class WMFHomeViewModel: ObservableObject {
 
     private func discardLoadedFeeds() {
         feedDay = nil
+
+        forYouLoadTask?.cancel()
+        forYouLoadTask = nil
+        isLoadingForYou = false
         forYouViewModel = nil
         forYouFeedError = nil
+
+        communityLoadTask?.cancel()
+        communityLoadTask = nil
+        isLoadingCommunity = false
+        cancelCommunityPreviousPageLoad()
         communityPages = []
         communityFeedError = nil
+    }
+
+    private func cancelCommunityPreviousPageLoad() {
+        communityPreviousPageTask?.cancel()
+        communityPreviousPageTask = nil
+        isLoadingCommunityPreviousPage = false
+        communityPreviousPageError = nil
     }
 
     public func loadForYouFeedIfNeeded() {
@@ -307,12 +450,15 @@ public final class WMFHomeViewModel: ObservableObject {
             return
         }
         let project = WMFProject.wikipedia(language)
-        Task {
+        forYouLoadTask = Task { [weak self] in
+            guard let self else { return }
             do {
-                let response = try await dataController.fetchForYou(project: project)
+                let response = try await self.dataController.fetchForYou(project: project)
+                guard !Task.isCancelled else { return }
                 self.forYouViewModel = WMFForYouViewModel(response: response)
                 self.refreshSavedStates()
             } catch {
+                guard !Task.isCancelled else { return }
                 self.forYouFeedError = error
             }
             self.isLoadingForYou = false
@@ -321,14 +467,24 @@ public final class WMFHomeViewModel: ObservableObject {
 
     // MARK: - Community
 
+    /// Pull to refresh. The feed starts over at today: the older days it had loaded are dropped.
+    /// A failure keeps the feed that is on screen.
     public func refreshCommunityFeed() async {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
+        // A day loading for the old feed must not be appended to the new one.
+        cancelCommunityPreviousPageLoad()
         do {
             let response = try await dataController.fetchCommunity(project: project, forceFetch: true)
+            guard selectedLanguage?.id == language.id else { return }
             self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
+            self.communityFeedError = nil
+            loadEarlierDayIfTodayIsEmpty()
         } catch {
-            self.communityFeedError = error
+            guard selectedLanguage?.id == language.id else { return }
+            if communityPages.isEmpty {
+                self.communityFeedError = error
+            }
         }
     }
 
@@ -338,23 +494,32 @@ public final class WMFHomeViewModel: ObservableObject {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         isLoadingCommunity = true
-        communityModuleVisibility = WMFCommunityModuleVisibility(
-            featuredArticle: dataController.communityFeaturedArticleIsOn(),
-            topRead: dataController.communityTopReadIsOn(),
-            inTheNews: dataController.communityInTheNewsIsOn(),
-            onThisDay: dataController.communityOnThisDayIsOn(),
-            pictureOfDay: dataController.communityPictureOfTheDayIsOn()
-        )
+        communityFeedError = nil
+        refreshCommunityModuleVisibility()
         hiddenCardKeys = Set(dataController.hiddenCardKeys())
-        Task {
+        communityLoadTask = Task { [weak self] in
+            guard let self else { return }
             do {
-                let response = try await dataController.fetchCommunity(project: project)
+                let response = try await self.dataController.fetchCommunity(project: project)
+                guard !Task.isCancelled else { return }
                 self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
             } catch {
+                guard !Task.isCancelled else { return }
                 self.communityFeedError = error
             }
             self.isLoadingCommunity = false
+            self.loadEarlierDayIfTodayIsEmpty()
         }
+    }
+
+    /// True when the native feed has loaded but every module is turned off in settings. The tab then
+    /// shows the empty state, whose button opens those settings.
+    ///
+    /// Cards hidden from the menu do not count. A day whose cards are all hidden is left out of the
+    /// feed, but the feed stays, so the reader can still pull to refresh and reach earlier days.
+    /// The settings could not bring those cards back.
+    var isCommunityFeedEmpty: Bool {
+        !communityPages.isEmpty && WMFCommunityModule.allCases.allSatisfy { !communityModuleVisibility.isOn($0) }
     }
 
     public func refreshCommunityModuleVisibility() {
@@ -398,17 +563,51 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
+    /// "See past community content": appends the day before the oldest day in the feed.
+    /// How many days with nothing to show one "See past" tap, or the first load, may skip.
+    static let maxEmptyCommunityDaysSkipped = 3
+
+    /// True when the page has content for at least one module the reader has on. Hidden cards do
+    /// not count: a day the reader emptied by hand stays, so the feed does not jump.
+    func hasCommunityContent(_ page: WMFHomeCommunityViewModel) -> Bool {
+        !page.visibleModules(visibility: communityModuleVisibility, hiddenCardKeys: []).isEmpty
+    }
+
+    /// Today often has nothing in a small wiki until its editors fill the day in. The feed then
+    /// goes back to the latest day that has content instead of showing only a date.
+    private func loadEarlierDayIfTodayIsEmpty() {
+        guard let today = communityPages.first, communityPages.count == 1,
+              !hasCommunityContent(today), !isCommunityFeedEmpty else { return }
+        loadCommunityPreviousPage()
+    }
+
     public func loadCommunityPreviousPage() {
-        guard !isLoadingCommunityPreviousPage else { return }
+        guard !isLoadingCommunityPreviousPage, !communityPages.isEmpty else { return }
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         isLoadingCommunityPreviousPage = true
-        Task {
+        communityPreviousPageError = nil
+        communityPreviousPageTask = Task { [weak self] in
+            guard let self else { return }
             do {
-                let response = try await dataController.fetchCommunityPreviousPage(project: project)
-                self.communityPages.append(WMFHomeCommunityViewModel(response: response, project: project))
+                // A day with no content for any module that is on (a small wiki often has only
+                // some of them) adds nothing to the feed, so the tap would seem to do nothing.
+                // Such days are skipped, up to a limit, so a wiki with no feed content cannot
+                // start an endless run of requests.
+                var emptyDaysSkipped = 0
+                while true {
+                    let response = try await self.dataController.fetchCommunityPreviousPage(project: project)
+                    guard !Task.isCancelled else { return }
+                    let page = WMFHomeCommunityViewModel(response: response, project: project)
+                    if !self.communityPages.contains(where: { $0.id == page.id }) {
+                        self.communityPages.append(page)
+                    }
+                    guard !self.hasCommunityContent(page), emptyDaysSkipped < Self.maxEmptyCommunityDaysSkipped else { break }
+                    emptyDaysSkipped += 1
+                }
             } catch {
-                self.communityFeedError = error
+                guard !Task.isCancelled else { return }
+                self.communityPreviousPageError = error
             }
             self.isLoadingCommunityPreviousPage = false
         }
