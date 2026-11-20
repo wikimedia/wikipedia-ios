@@ -238,22 +238,24 @@ public struct WMFHomeView: View {
             if viewModel.shouldShowLanguagePicker {
                 Menu {
                     ForEach(viewModel.languages) { language in
+                        let isSelected = language.languageCode == viewModel.selectedLanguage?.languageCode
+                        let code = language.languageCode
+                        let title = isSelected ? "[\(code)] \(language.localizedName)" : language.localizedName
+                        
                         Button {
-                            if language.languageCode != viewModel.selectedLanguage?.languageCode {
+                            if !isSelected {
                                 viewModel.logDidTapLanguagePicker?(language.languageCode)
                             }
                             viewModel.didSelectLanguage?(language)
                         } label: {
-                            if language.languageCode == viewModel.selectedLanguage?.languageCode {
+                            if isSelected {
                                 Label {
-                                    Text(language.localizedName)
+                                    Text(title)
                                 } icon: {
                                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .checkmark) ?? UIImage())
                                 }
-                                .minimumScaleFactor(0.25)
                             } else {
-                                Text(language.localizedName)
-                                    .minimumScaleFactor(0.25)
+                                Text(title)
                             }
                         }
                         .tint(.primary)
