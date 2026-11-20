@@ -51,6 +51,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// Called with the search language code when the reader taps the info button of the
     /// semantic search entry point.
     var semanticSearchInfoTappedAction: (@MainActor @Sendable (String) -> Void)?
+    /// Opens the sheet that explains the interleaved list, in the language of the search.
+    var interleavedResultsInfoTappedAction: (@MainActor @Sendable (String) -> Void)?
 
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
