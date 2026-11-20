@@ -3,6 +3,7 @@ import XCTest
 @testable import WMFData
 import WMFNativeLocalizations
 
+@MainActor
 final class WMFHomeCommunityViewModelTests: XCTestCase {
 
     private let english = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
@@ -150,10 +151,37 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
 
     // MARK: - iPad columns
 
-    func testEveryModuleHasAColumnAndBothColumnsAreUsed() {
-        let leading = WMFCommunityModule.allCases.filter(\.isInLeadingColumn)
-        let trailing = WMFCommunityModule.allCases.filter { !$0.isInLeadingColumn }
-        XCTAssertEqual(leading, [.featuredArticle, .topRead, .pictureOfDay])
-        XCTAssertEqual(trailing, [.inTheNews, .onThisDay])
+    func testColumnsKeepEveryModuleOnceInFeedOrder() throws {
+        let page = try page()
+        let modules = page.visibleModules(visibility: allOn, hiddenCardKeys: [])
+        let columns = page.columns(for: modules)
+        XCTAssertEqual(Set(columns.leading + columns.trailing), Set(modules))
+        XCTAssertEqual((columns.leading + columns.trailing).count, modules.count)
+        XCTAssertEqual(columns.leading, modules.filter { columns.leading.contains($0) })
+        XCTAssertEqual(columns.trailing, modules.filter { columns.trailing.contains($0) })
+    }
+
+    func testColumnsAreRoughlyBalanced() throws {
+        let page = try page(onThisDayEvents: 2)
+        let modules = page.visibleModules(visibility: allOn, hiddenCardKeys: [])
+        let columns = page.columns(for: modules)
+        let leading = columns.leading.map(page.estimatedHeight(of:)).reduce(0, +)
+        let trailing = columns.trailing.map(page.estimatedHeight(of:)).reduce(0, +)
+        let tallest = modules.map(page.estimatedHeight(of:)).max() ?? 0
+        XCTAssertLessThanOrEqual(abs(leading - trailing), tallest, "The columns differ by at most one module")
+        XCTAssertFalse(columns.trailing.isEmpty)
+    }
+
+    func testFirstModuleStartsTheLeadingColumn() throws {
+        let page = try page()
+        XCTAssertEqual(page.columns(for: [.featuredArticle, .topRead]).leading.first, .featuredArticle)
+        XCTAssertEqual(page.columns(for: [.featuredArticle, .topRead]).trailing, [.topRead])
+    }
+
+    func testOneModuleStaysInTheLeadingColumn() throws {
+        let page = try page()
+        let columns = page.columns(for: [.inTheNews], leadingOffset: 130)
+        XCTAssertEqual(columns.leading, [.inTheNews], "Even under the disclaimer, the leading column is never empty")
+        XCTAssertTrue(columns.trailing.isEmpty)
     }
 }

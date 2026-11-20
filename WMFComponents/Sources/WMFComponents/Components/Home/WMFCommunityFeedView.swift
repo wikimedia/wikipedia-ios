@@ -37,6 +37,11 @@ struct WMFCommunityFeedView: View {
     /// header, so this is a content margin and not a frame inset.
     var topContentInset: CGFloat = 0
 
+    /// Rough heights of what sits above the leading column's modules on iPad, so the column split
+    /// accounts for them.
+    private static let dateHeaderHeight = 30.0
+    private static let firstDayLeadingOffset = 130.0
+
     private static let topAnchorID = "community-feed-top"
     private static let horizontalPadding: CGFloat = 16
 
@@ -139,9 +144,11 @@ struct WMFCommunityFeedView: View {
         Group {
             if usesTwoColumns {
                 // The date heads the leading column, so the trailing column starts level with it,
-                // and on the first day level with the disclaimer. VoiceOver reads the leading
-                // column, then the trailing one. Each module pads itself, so the columns sit edge
+                // and on the first day level with the disclaimer. The modules are split so that
+                // each column holds about half the day. VoiceOver reads the leading column, then
+                // the trailing one. Each module pads itself, so the columns sit edge
                 // to edge and their text lines up with the date.
+                let columns = page.columns(for: modules, leadingOffset: isFirstDay ? Self.firstDayLeadingOffset : Self.dateHeaderHeight)
                 HStack(alignment: .top, spacing: 0) {
                     VStack(alignment: .leading, spacing: 16) {
                         if isFirstDay {
@@ -150,11 +157,11 @@ struct WMFCommunityFeedView: View {
                                 .padding(.bottom, 8)
                         }
                         dateHeader(page)
-                        moduleColumn(modules.filter(\.isInLeadingColumn), page: page)
+                        moduleColumn(columns.leading, page: page)
                     }
                     .frame(maxWidth: .infinity, alignment: .top)
                     VStack(alignment: .leading, spacing: 24) {
-                        moduleColumn(modules.filter { !$0.isInLeadingColumn }, page: page)
+                        moduleColumn(columns.trailing, page: page)
                         if isLastDay {
                             footer
                         }

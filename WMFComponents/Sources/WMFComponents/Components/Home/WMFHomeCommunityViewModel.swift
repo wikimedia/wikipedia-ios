@@ -11,16 +11,6 @@ public enum WMFCommunityModule: CaseIterable, Sendable {
     case onThisDay
     case pictureOfDay
 
-    /// On a regular width screen the feed has two columns. The leading one holds the modules led by
-    /// a large image, the trailing one the modules of short stories.
-    var isInLeadingColumn: Bool {
-        switch self {
-        case .featuredArticle, .topRead, .pictureOfDay:
-            return true
-        case .inTheNews, .onThisDay:
-            return false
-        }
-    }
 
     /// The module's name, in the language of `languageCode` when the app has a translation for it.
     /// The feed passes the wiki's language, so that the headers match the content below them. The
@@ -249,6 +239,52 @@ public struct WMFHomeCommunityViewModel: Identifiable {
             case .pictureOfDay:
                 return pictureOfDay != nil && !isHidden(pictureOfDayHideKey, in: hiddenCardKeys)
             }
+        }
+    }
+
+    // MARK: - iPad columns
+
+    /// Splits a day's modules into the two iPad columns so that each holds about half the day's
+    /// height. Modules keep their feed order: each one goes to whichever column is shorter so far,
+    /// the leading one on a tie; the first module always starts the leading column. `leadingOffset` is the height already above the leading column's
+    /// first module, such as the disclaimer and the date on the first day.
+    func columns(for modules: [WMFCommunityModule], leadingOffset: Double = 0) -> (leading: [WMFCommunityModule], trailing: [WMFCommunityModule]) {
+        var leading: [WMFCommunityModule] = []
+        var trailing: [WMFCommunityModule] = []
+        var leadingHeight = leadingOffset
+        var trailingHeight = 0.0
+        for module in modules {
+            let height = estimatedHeight(of: module)
+            // The first module always starts the leading column, under the date.
+            if leading.isEmpty || leadingHeight <= trailingHeight {
+                leading.append(module)
+                leadingHeight += height
+            } else {
+                trailing.append(module)
+                trailingHeight += height
+            }
+        }
+        return (leading, trailing)
+    }
+
+    /// A rough height in points of a module at the default text size, header included. It only
+    /// needs to be good enough to balance the columns, not to lay them out.
+    func estimatedHeight(of module: WMFCommunityModule) -> Double {
+        let header = 90.0
+        switch module {
+        case .featuredArticle:
+            return header + 200 + 160
+        case .topRead:
+            return header + Double(topReadItems.count) * 75
+        case .inTheNews:
+            return header + 216
+        case .onThisDay:
+            let events = onThisDayItems ?? []
+            return header + events.reduce(0) { total, event in
+                total + 170 + (event.pages.isEmpty ? 0 : 80)
+            }
+        case .pictureOfDay:
+            return header + 300
         }
     }
 
