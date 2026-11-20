@@ -38,7 +38,7 @@ public final class WMFExperimentsDataController {
     public enum Experiment: CaseIterable, Sendable {
         case moreDynamicTabsV2
         case yirLoginPrompt
-        case donationReminder
+        case donationReminderV4
         case semanticSearch
         case discover
         case semanticSearchInterleaved
@@ -50,8 +50,8 @@ public final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.moreDynamicTabsV2Config
             case .yirLoginPrompt:
                 return WMFExperimentsDataController.yirLoginPromptConfig
-            case .donationReminder:
-                return WMFExperimentsDataController.donationReminderConfig
+            case .donationReminderV4:
+                return WMFExperimentsDataController.donationReminderV4Config
             case .semanticSearch:
                 return WMFExperimentsDataController.semanticSearchConfig
             case .discover:
@@ -67,7 +67,7 @@ public final class WMFExperimentsDataController {
     public enum PercentageFileName: String, Sendable {
         case moreDynamicTabsPercent
         case yirLoginPromptPercent
-        case donationReminderPercent
+        case donationReminderV4Percent
         case semanticSearchPercent
         case discoverPercent
         case semanticSearchInterleavedPercent
@@ -77,7 +77,7 @@ public final class WMFExperimentsDataController {
     enum BucketFileName: String, Sendable {
         case moreDynamicTabsV2Bucket
         case yirLoginPromptBucket
-        case donationReminderBucket
+        case donationReminderV4Bucket
         case semanticSearchBucket
         case discoverBucket
         case semanticSearchInterleavedBucket
@@ -88,9 +88,9 @@ public final class WMFExperimentsDataController {
         case moreDynamicTabsV2GroupC = "MoreDynamicTabsV2_GroupC"
         case yirLoginPromptControl = "YirLoginPrompt_Control"
         case yirLoginPromptGroupB = "YirLoginPrompt_GroupB"
-        case donationReminderControl = "DonationReminder_Control"
-        case donationReminderGroupB = "DonationReminder_GroupB"
-        case donationReminderGroupC = "DonationReminder_GroupC"
+        case donationReminderV4Control = "DonationReminderV4_Control"
+        case donationReminderV4GroupE = "DonationReminderV4_GroupE"
+        case donationReminderV4GroupF = "DonationReminderV4_GroupF"
         case semanticSearchControl = "SemanticSearch_Control"
         case semanticSearchGroupB = "SemanticSearch_GroupB"
         case discoverControl = "Discover_Control"
@@ -110,7 +110,7 @@ public final class WMFExperimentsDataController {
     
     private static let yirLoginPromptConfig = ExperimentConfig(experiment: .yirLoginPrompt, percentageFileName: .yirLoginPromptPercent, bucketFileName: .yirLoginPromptBucket, bucketValueControl: .yirLoginPromptControl, bucketValueTest: .yirLoginPromptGroupB, bucketValueTest2: nil)
 
-    private static let donationReminderConfig = ExperimentConfig(experiment: .donationReminder, percentageFileName: .donationReminderPercent, bucketFileName: .donationReminderBucket, bucketValueControl: .donationReminderControl, bucketValueTest: .donationReminderGroupB, bucketValueTest2: .donationReminderGroupC)
+    private static let donationReminderV4Config = ExperimentConfig(experiment: .donationReminderV4, percentageFileName: .donationReminderV4Percent, bucketFileName: .donationReminderV4Bucket, bucketValueControl: .donationReminderV4Control, bucketValueTest: .donationReminderV4GroupE, bucketValueTest2: .donationReminderV4GroupF)
 
     private static let semanticSearchConfig = ExperimentConfig(experiment: .semanticSearch, percentageFileName: .semanticSearchPercent, bucketFileName: .semanticSearchBucket, bucketValueControl: .semanticSearchControl, bucketValueTest: .semanticSearchGroupB, bucketValueTest2: nil)
 
@@ -178,13 +178,13 @@ public final class WMFExperimentsDataController {
                     bucket = .yirLoginPromptGroupB
                 }
 
-            case .donationReminder:
+            case .donationReminderV4:
                 if randomInt <= percentage {
-                    bucket = .donationReminderControl
+                    bucket = .donationReminderV4Control
                 } else if randomInt <= percentage * 2 {
-                    bucket = .donationReminderGroupB
+                    bucket = .donationReminderV4GroupE
                 } else {
-                    bucket = .donationReminderGroupC
+                    bucket = .donationReminderV4GroupF
                 }
 
             case .semanticSearch:

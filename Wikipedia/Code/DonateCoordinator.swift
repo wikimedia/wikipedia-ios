@@ -131,9 +131,9 @@ class DonateCoordinator: Coordinator {
         guard let assignment = WMFDonationReminderDataController.shared.experimentAssignment else { return nil }
         let suffix: String
         switch assignment {
-        case .control: suffix = "reminderA"
-        case .groupB: suffix = "reminderB"
-        case .groupC: suffix = "reminderC"
+        case .control: suffix = "reminderD"
+        case .groupB: suffix = "reminderE"
+        case .groupC: suffix = "reminderF"
         }
         
         guard let iosRange = originalMetricsID.range(of: "_iOS") else { return nil }

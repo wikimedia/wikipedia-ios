@@ -97,20 +97,26 @@ public final class WMFDonationReminderDataController: Sendable {
 
     public static let shared = WMFDonationReminderDataController()
 
-    public static let experimentCampaignID = "NL_2026_09"
+    // TODO: T445581 - Replace with the ID of the Big English campaign for the US.
+    public static let experimentCampaignID = "BIG_ENGLISH_US_PLACEHOLDER"
+
+    /// The name of the current experiment round. Change this value only to start a new round.
+    /// A new value removes the reminder state of the previous round at launch.
+    /// The campaign ID can change during a round. A change of the campaign ID does not remove the reminder state.
+    static let experimentRoundName = "donationReminderV4"
 
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
 
     // The reminders outlive the remote campaign end date. The experiment plan sets these fixed dates.
-    // Reminders run through November 9. Comparisons use an exclusive upper bound, so this is the day after.
+    // Reminders run through February 3. Comparisons use an exclusive upper bound, so this is the day after.
     public static let reminderEndDate: Date = {
-        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 10)) ?? .distantFuture
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2027, month: 2, day: 4)) ?? .distantFuture
     }()
 
-    // The wrap-up window runs from November 10 through November 15. Comparisons use an exclusive
+    // The wrap-up window runs from February 4 through February 9. Comparisons use an exclusive
     // upper bound, so this is the day after.
     public static let wrapUpEndDate: Date = {
-        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 16)) ?? .distantFuture
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2027, month: 2, day: 10)) ?? .distantFuture
     }()
 
     #if DEBUG
@@ -318,6 +324,29 @@ public final class WMFDonationReminderDataController: Sendable {
         return currentDate >= Self.reminderEndDate && currentDate < Self.wrapUpEndDate
     }
 
+    // MARK: - Experiment Round
+
+    /// Removes the reminder state of a previous experiment round. A round is identified by `experimentRoundName`.
+    /// The data controller keeps the round name of the last cleanup. When the round name changes, the
+    /// reminder, the experiment currency and the wrap-up card state of the old round are removed.
+    /// The old experiment bucket is not removed here. The new round uses a different `Experiment` case,
+    /// and `WMFExperimentsDataController.pruneRetiredExperiments` removes the files of the old case.
+    /// Call this function at launch, before the app shows a fundraising campaign.
+    public func clearPreviousExperimentRoundIfNeeded() {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
+        let lastRoundName: String? = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminderExperimentRound.rawValue)
+        guard lastRoundName != Self.experimentRoundName else {
+            return
+        }
+
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminder.rawValue)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderWrapUpCardSeen.rawValue)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderExperimentRound.rawValue, value: Self.experimentRoundName)
+    }
+
     // MARK: - Experiment Assignment
 
     public func clearExperimentAssignment() {
@@ -328,7 +357,7 @@ public final class WMFDonationReminderDataController: Sendable {
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
-        try? experimentsDataController.resetExperiment(.donationReminder)
+        try? experimentsDataController.resetExperiment(.donationReminderV4)
     }
 
     @discardableResult
@@ -346,7 +375,7 @@ public final class WMFDonationReminderDataController: Sendable {
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.donationReminder, withPercentage: Self.experimentGroupPercentage)
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.donationReminderV4, withPercentage: Self.experimentGroupPercentage)
 
         guard let assignment = ExperimentAssignment(bucketValue: bucketValue) else {
             throw ExperimentError.unexpectedBucketValue
@@ -378,7 +407,7 @@ public final class WMFDonationReminderDataController: Sendable {
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.donationReminder) else {
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.donationReminderV4) else {
             return nil
         }
 
@@ -393,7 +422,7 @@ public final class WMFDonationReminderDataController: Sendable {
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.donationReminder) else {
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.donationReminderV4) else {
             return true
         }
         
@@ -410,11 +439,11 @@ public final class WMFDonationReminderDataController: Sendable {
 private extension WMFDonationReminderDataController.ExperimentAssignment {
     init?(bucketValue: WMFExperimentsDataController.BucketValue) {
         switch bucketValue {
-        case .donationReminderControl:
+        case .donationReminderV4Control:
             self = .control
-        case .donationReminderGroupB:
+        case .donationReminderV4GroupE:
             self = .groupB
-        case .donationReminderGroupC:
+        case .donationReminderV4GroupF:
             self = .groupC
         default:
             return nil
