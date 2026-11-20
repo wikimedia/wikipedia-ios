@@ -190,6 +190,7 @@ public enum AccessibilityIdentifiers {
         public static let semanticSearchInfoView = "Search Semantic Search Info View"
         public static let semanticSearchInfoCloseButton = "Search Semantic Search Info Close Button"
         public static let semanticSearchInfoLearnMoreButton = "Search Semantic Search Info Learn More Button"
+        public static let semanticSearchInfoTurnOffButton = "Search Semantic Search Info Turn Off Button"
         public static let searchBar = "Search Bar"
         public static let tabButton = "Search Tab Button"
         public static let view = "Search View"

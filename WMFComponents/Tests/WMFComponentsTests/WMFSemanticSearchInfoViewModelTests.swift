@@ -44,4 +44,59 @@ final class WMFSemanticSearchInfoViewModelTests: XCTestCase {
 
         XCTAssertEqual(calls, ["learnMore", "close"])
     }
+
+    func testSemanticSearchSheetKeepsItsCardAndHasNoTurnOffButton() {
+        let viewModel = WMFSemanticSearchInfoViewModel(languageCode: "en", learnMoreAction: {}, closeAction: {})
+
+        XCTAssertFalse(viewModel.showsInterleavedResultsContent)
+    }
+
+    func testInterleavedResultsSheetWithoutTurnOffActionKeepsItsContent() {
+        let semanticSearchSheet = WMFSemanticSearchInfoViewModel(languageCode: "en", learnMoreAction: {}, closeAction: {})
+        let viewModel = WMFSemanticSearchInfoViewModel(languageCode: "en", kind: .interleavedResults(turnOffAction: nil), learnMoreAction: {}, closeAction: {})
+
+        XCTAssertTrue(viewModel.showsInterleavedResultsContent)
+        XCTAssertNotEqual(viewModel.summary, semanticSearchSheet.summary)
+        XCTAssertNotEqual(viewModel.sourcesDescription, semanticSearchSheet.sourcesDescription)
+        viewModel.turnOff()
+    }
+
+    func testInterleavedResultsSheetHasItsOwnTextAndATurnOffButton() {
+        var calls: [String] = []
+        let semanticSearchSheet = WMFSemanticSearchInfoViewModel(languageCode: "en", learnMoreAction: {}, closeAction: {})
+        let viewModel = WMFSemanticSearchInfoViewModel(
+            languageCode: "en",
+            kind: .interleavedResults(turnOffAction: { calls.append("turnOff") }),
+            learnMoreAction: { calls.append("learnMore") },
+            closeAction: { calls.append("close") })
+
+        XCTAssertTrue(viewModel.showsInterleavedResultsContent)
+        XCTAssertNotEqual(viewModel.summary, semanticSearchSheet.summary)
+        XCTAssertNotEqual(viewModel.sourcesDescription, semanticSearchSheet.sourcesDescription)
+        XCTAssertEqual(viewModel.title, semanticSearchSheet.title)
+
+        viewModel.turnOff()
+        viewModel.learnMore()
+        viewModel.close()
+
+        XCTAssertEqual(calls, ["turnOff", "learnMore", "close"])
+    }
+
+    func testInterleavedExampleIsTheSameResultWithItsCountsAlreadyLoaded() {
+        for languageCode in ["ar", "fr", "ja", "en"] {
+            let example = WMFSemanticSearchInfoExample.forLanguage(languageCode)
+            let viewModel = WMFSemanticSearchInfoViewModel(languageCode: languageCode, kind: .interleavedResults(turnOffAction: {}), learnMoreAction: {}, closeAction: {})
+            let row = viewModel.exampleInterleavedRow
+
+            XCTAssertEqual(row.result.title, example.result.title)
+            XCTAssertEqual(row.result.sectionTitle, example.result.sectionTitle)
+            XCTAssertNotNil(row.result.description, "\(languageCode): the example card needs the short description.")
+            XCTAssertEqual(row.result.description, example.result.description)
+            XCTAssertEqual(row.result.extract, WMFSemanticSearchSnippet.plainText(html: example.result.snippetHTML))
+            XCTAssertNil(row.result.thumbnailURL, "\(languageCode): the example must not load from the network.")
+            XCTAssertEqual(row.attributionState, .loaded(example.attribution))
+            XCTAssertNotNil(row.contributorsText)
+            XCTAssertTrue(viewModel.exampleThumbnail === example.thumbnail)
+        }
+    }
 }

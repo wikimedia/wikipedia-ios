@@ -7,7 +7,7 @@ public struct WMFSemanticSearchInfoView: View {
     private let fittingHeightDidChange: (CGFloat) -> Void
 
     @State private var scrollContentHeight: CGFloat = 0
-    @State private var learnMoreHeight: CGFloat = 0
+    @State private var buttonsHeight: CGFloat = 0
 
     private var theme: WMFTheme {
         appEnvironment.theme
@@ -20,8 +20,8 @@ public struct WMFSemanticSearchInfoView: View {
         self.fittingHeightDidChange = fittingHeightDidChange
     }
 
-    // The button sits below the scroll view, not in a safe area inset, so VoiceOver reads the
-    // text before the button.
+    // The buttons sit below the scroll view, not in a safe area inset, so VoiceOver reads the
+    // text before the buttons.
     public var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -33,12 +33,17 @@ public struct WMFSemanticSearchInfoView: View {
                 .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { scrollContentHeight = $0 }
             }
             .scrollBounceBehavior(.basedOnSize)
-            learnMoreButton
-                .padding(WMFSpacing.large)
-                .background(Color(theme.paperBackground))
-                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { learnMoreHeight = $0 }
+            VStack(spacing: WMFSpacing.small) {
+                learnMoreButton
+                if viewModel.showsInterleavedResultsContent {
+                    turnOffButton
+                }
+            }
+            .padding(WMFSpacing.large)
+            .background(Color(theme.paperBackground))
+            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { buttonsHeight = $0 }
         }
-        .onChange(of: scrollContentHeight + learnMoreHeight) { _, height in
+        .onChange(of: scrollContentHeight + buttonsHeight) { _, height in
             fittingHeightDidChange(height)
         }
         .environment(\.layoutDirection, viewModel.isRightToLeft ? .rightToLeft : .leftToRight)
@@ -69,8 +74,19 @@ public struct WMFSemanticSearchInfoView: View {
                     .foregroundStyle(Color(theme.text))
             }
             // The example shows a result only. It does not open the article.
-            WMFSemanticSearchResultCardView(viewModel: viewModel.exampleResult)
-                .allowsHitTesting(false)
+            Group {
+                if viewModel.showsInterleavedResultsContent {
+                    WMFSearchResultInterleavedCard(
+                        rowViewModel: viewModel.exampleInterleavedRow,
+                        thumbnail: viewModel.exampleThumbnail,
+                        showsThumbnail: viewModel.exampleThumbnail != nil,
+                        horizontalPadding: WMFSpacing.large,
+                        isRightToLeft: viewModel.isRightToLeft)
+                } else {
+                    WMFSemanticSearchResultCardView(viewModel: viewModel.exampleResult)
+                }
+            }
+            .allowsHitTesting(false)
         }
         // VoiceOver skips the example. Without the visual, it reads like a real result.
         .accessibilityHidden(true)
@@ -87,5 +103,14 @@ public struct WMFSemanticSearchInfoView: View {
         }
         .buttonStyle(CapsuleButtonStyle(kind: .neutral, theme: theme, height: 50))
         .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchInfoLearnMoreButton)
+    }
+
+    private var turnOffButton: some View {
+        Button(action: viewModel.turnOff) {
+            Text(viewModel.turnOffTitle)
+                .font(Font(WMFFont.for(.body)))
+        }
+        .buttonStyle(CapsuleButtonStyle(kind: .neutral, theme: theme, height: 50))
+        .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchInfoTurnOffButton)
     }
 }

@@ -1327,6 +1327,10 @@
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";
+"search-interleaved-info-experiment" = "This is an experiment to help us improve search.";
+"search-interleaved-info-summary" = "Some results include passages drawn from articles that people researched, wrote, and edited, each one backed by cited sources you can check.";
+"search-interleaved-info-turn-off" = "Turn feature off";
+"search-interleaved-results-info-accessibility-label" = "About these results";
 "search-interleaved-results-lead-section" = "Lead";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
