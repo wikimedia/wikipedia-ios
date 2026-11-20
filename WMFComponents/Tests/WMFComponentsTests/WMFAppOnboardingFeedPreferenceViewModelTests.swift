@@ -46,6 +46,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     @Test
     func selectPersonalizedUpdatesSelection() {
         let viewModel = makeViewModel()
+        viewModel.isPersonalizedLoading = false // as after the load
         viewModel.select(.personalized)
         #expect(viewModel.selection == .personalized)
         viewModel.select(.community)
@@ -55,9 +56,17 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     @Test
     func resetSelectionAppliesDefault() {
         let viewModel = makeViewModel()
+        viewModel.isPersonalizedLoading = false // as after the load
         viewModel.select(.personalized)
         viewModel.resetSelectionToDefault()
         #expect(viewModel.selection == .community)
+    }
+
+    @Test
+    func previewsShowSpinnersBeforeTheFirstLoad() {
+        let viewModel = makeViewModel()
+        #expect(viewModel.isCommunityLoading)
+        #expect(viewModel.isPersonalizedLoading)
     }
 
     @Test
@@ -308,7 +317,7 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
     }
 
     /// A view model whose For You fetch runs against mocks, with a service that counts requests.
-    private func makeCountingViewModel() -> (WMFAppOnboardingFeedPreferenceViewModel, CountingBasicService, MockArticleSummaryDataController) {
+    private func makeCountingViewModel(logImpression: @escaping (Bool) -> Void = { _ in }) -> (WMFAppOnboardingFeedPreferenceViewModel, CountingBasicService, MockArticleSummaryDataController) {
         let service = CountingBasicService()
         let homeController = WMFHomeDataController(
             feedDataController: WMFMockFeedDataController(response: WMFFeedAPIResponse(todaysFeaturedArticle: nil, mostRead: nil, image: nil, news: nil)),
@@ -324,7 +333,7 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
             dataController: homeController,
             summaryDataController: summaryController,
             project: project,
-            logImpression: { _ in },
+            logImpression: logImpression,
             logDidTapCommunity: {},
             logDidTapPersonalized: {}
         )
@@ -396,6 +405,86 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
             #expect(viewModel.isPersonalizedAvailable, "One topic is selected, so the option stays available")
         }
     }
+
+    // MARK: - Swiping back to the interests step (T434325)
+
+    @Test
+    func changingInterestsAfterTheLoadReloadsThePreviewsWhenShownAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let (viewModel, _, _) = makeCountingViewModel()
+
+            viewModel.didShow()
+            await viewModel.waitForLoadTasks()
+            #expect(viewModel.personalizedCards.count == 1)
+
+            // The user swipes back to the interests step and changes them.
+            viewModel.interestsDidChange(topics: [.biology], selectedArticleTitles: [])
+            #expect(viewModel.personalizedCards.isEmpty, "The previews are stale and must not show")
+            #expect(viewModel.isPersonalizedLoading, "A spinner, not an empty row, while the user swipes back")
+            #expect(viewModel.isCommunityLoading == false, "The community previews do not depend on interests, so they stay")
+            await viewModel.waitForWarmUp()
+
+            viewModel.didShow()
+            #expect(viewModel.isPersonalizedLoading)
+            await viewModel.waitForLoadTasks()
+            #expect(viewModel.personalizedCards.count == 1)
+            #expect(viewModel.isPersonalizedLoading == false)
+        }
+    }
+
+    @Test
+    func showingTheStepAgainLogsAnotherImpression() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let box = ImpressionBox()
+            let (viewModel, service, _) = makeCountingViewModel(logImpression: { box.noInterests.append($0) })
+
+            viewModel.didShow()
+            await viewModel.waitForLoadTasks()
+            #expect(box.noInterests == [false])
+
+            // Swiped back and forth without changing interests: no new fetch, one more impression.
+            viewModel.didShow()
+            await viewModel.waitForLoadTasks()
+            #expect(box.noInterests == [false, false])
+            #expect(service.decodableGETCallCount == 1)
+        }
+    }
+
+    @Test
+    func swipingAwayDuringTheLoadLogsNoImpressionUntilTheStepIsShownAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let box = ImpressionBox()
+            let (viewModel, _, _) = makeCountingViewModel(logImpression: { box.noInterests.append($0) })
+
+            // Shown, then swiped away before the load finishes.
+            viewModel.didShow()
+            viewModel.didSwipeAway()
+            await viewModel.waitForLoadTasks()
+            #expect(box.noInterests.isEmpty, "The step is not on screen when the load finishes")
+
+            viewModel.didShow()
+            #expect(box.noInterests == [false])
+        }
+    }
+
+    @Test
+    func nextFromInterestsThenShowingTheStepLogsOneImpression() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let box = ImpressionBox()
+            let (viewModel, _, _) = makeCountingViewModel(logImpression: { box.noInterests.append($0) })
+
+            // Next on the interests step starts the load before the step is shown.
+            viewModel.loadIfNeeded()
+            viewModel.didShow()
+            await viewModel.waitForLoadTasks()
+            #expect(box.noInterests == [false], "One impression for one view")
+        }
+    }
+}
+
+@MainActor
+private final class ImpressionBox {
+    var noInterests: [Bool] = []
 }
 
 /// Counts the requests that reach the service. The responses come from the standard mock.

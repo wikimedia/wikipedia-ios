@@ -26,8 +26,10 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     @Published private(set) var communityCards: [WMFAppOnboardingPreviewCardViewModel] = []
     @Published private(set) var personalizedCards: [WMFAppOnboardingPreviewCardViewModel] = []
     @Published public private(set) var isPersonalizedAvailable: Bool = true
-    @Published var isCommunityLoading: Bool = false
-    @Published var isPersonalizedLoading: Bool = false
+    // True until the first load finishes. The pager builds this page before it is shown, so a
+    // reader who swipes to it sees spinners, not empty rows.
+    @Published var isCommunityLoading: Bool = true
+    @Published var isPersonalizedLoading: Bool = true
 
     private let dataController: WMFHomeDataController
     private let summaryDataController: WMFArticleSummaryDataControlling & Sendable
@@ -35,7 +37,10 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     private var communityTask: Task<Void, Never>?
     private var personalizedTask: Task<Void, Never>?
     private var warmUpTask: Task<Void, Never>?
-    private var hasLoaded = false
+    private var hasStartedCommunityLoad = false
+    private var hasStartedPersonalizedLoad = false
+    /// The step is on screen and waits for the personalized load to log its impression.
+    private var isImpressionPending = false
 
     // MARK: - App-side actions
     let logImpression: (Bool) -> Void
@@ -82,7 +87,12 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     }
 
     func interestsDidChange(topics: [WMFArticleTopic], selectedArticleTitles: [String]) {
-        guard !hasLoaded else { return }
+        // The user swiped back from this step and changed their interests: the personalized
+        // previews are stale. Reload them the next time this step is shown. The community
+        // previews do not depend on interests.
+        if hasStartedPersonalizedLoad {
+            resetPersonalizedPreviews()
+        }
         warmUpTask = Task { [weak self] in
             guard let self else { return }
             await dataController.warmForYouArticles(project: project, topics: topics, pageTitles: selectedArticleTitles)
@@ -94,14 +104,27 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     public func updateProject(_ newProject: WMFProject) {
         guard newProject != project else { return }
         project = newProject
-        if hasLoaded {
-            communityTask?.cancel()
-            personalizedTask?.cancel()
-            communityCards = []
-            personalizedCards = []
-            hasLoaded = false
+        if hasStartedCommunityLoad || hasStartedPersonalizedLoad {
+            resetCommunityPreviews()
+            resetPersonalizedPreviews()
             loadIfNeeded()
         }
+    }
+
+    /// The pager shows this page while the user swipes to it, before the reload starts. The
+    /// resets show the spinners, not empty rows.
+    private func resetCommunityPreviews() {
+        communityTask?.cancel()
+        communityCards = []
+        isCommunityLoading = true
+        hasStartedCommunityLoad = false
+    }
+
+    private func resetPersonalizedPreviews() {
+        personalizedTask?.cancel()
+        personalizedCards = []
+        isPersonalizedLoading = true
+        hasStartedPersonalizedLoad = false
     }
 
     /// Warms the feed the user chose, so the Home feed renders immediately after onboarding.
@@ -115,24 +138,63 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         }
     }
 
+    /// Called each time the step is shown. The impression says whether the personalized option
+    /// is available, so it waits for the personalized load. When that load is already done (the
+    /// user swiped back and forth), log it now.
+    func didShow() {
+        if hasStartedPersonalizedLoad && !isPersonalizedLoading {
+            logImpression(!isPersonalizedAvailable)
+        } else {
+            isImpressionPending = true
+            loadIfNeeded()
+        }
+    }
+
+    /// Called when the user swipes away from the step. A load that finishes after this must not
+    /// log an impression for a step that is not on screen.
+    func didSwipeAway() {
+        isImpressionPending = false
+    }
+
+    private func logPendingImpression() {
+        guard isImpressionPending else { return }
+        isImpressionPending = false
+        logImpression(!isPersonalizedAvailable)
+    }
+
     public func loadIfNeeded() {
-        guard !hasLoaded else { return }
-        hasLoaded = true
+        loadCommunityIfNeeded()
+        loadPersonalizedIfNeeded()
+    }
+
+    private func loadCommunityIfNeeded() {
+        guard !hasStartedCommunityLoad else { return }
+        hasStartedCommunityLoad = true
         isCommunityLoading = true
-        isPersonalizedLoading = true
 
         // Day-cached (and prefetched at onboarding start), so the previews match the Home feed
         communityTask = Task { [weak self] in
             guard let self else { return }
-            if let community = try? await dataController.fetchCommunity(project: project) {
+            let community = try? await dataController.fetchCommunity(project: project)
+            // A reset (new interests or language) cancels this task and starts a new load.
+            guard !Task.isCancelled else { return }
+            if let community {
                 self.communityCards = self.buildCommunityCards(from: community)
             }
             self.isCommunityLoading = false
         }
+    }
+
+    private func loadPersonalizedIfNeeded() {
+        guard !hasStartedPersonalizedLoad else { return }
+        hasStartedPersonalizedLoad = true
+        isPersonalizedLoading = true
 
         personalizedTask = Task { [weak self] in
             guard let self else { return }
-            if let forYou = try? await dataController.fetchForYou(project: project, forceFetch: true) {
+            let forYou = try? await dataController.fetchForYou(project: project, forceFetch: true)
+            guard !Task.isCancelled else { return }
+            if let forYou {
                 let cards = Self.buildPersonalizedCards(from: forYou, summaryDataController: summaryDataController)
                 // Hydrate descriptions before revealing the row, so cards appear fully formed
                 await withTaskGroup(of: Void.self) { group in
@@ -140,6 +202,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
                         group.addTask { await card.loadSummaryIfNeeded() }
                     }
                 }
+                guard !Task.isCancelled else { return }
                 self.personalizedCards = cards
                 // Start the image downloads now, not on card appearance. When the speculative
                 // fetch already put the images in the cache, the cards render complete.
@@ -147,17 +210,16 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
                     card.loadImageIfNeeded()
                 }
                 self.isPersonalizedAvailable = Self.personalizedIsAvailable(for: forYou)
-                logImpression(!isPersonalizedAvailable)
             } else {
                 self.personalizedCards = []
                 self.isPersonalizedAvailable = !dataController.interestTopics().isEmpty
-                logImpression(!isPersonalizedAvailable)
             }
 
             if !self.isPersonalizedAvailable && self.selection == .personalized {
                 self.selection = .community
             }
             self.isPersonalizedLoading = false
+            self.logPendingImpression()
         }
     }
 

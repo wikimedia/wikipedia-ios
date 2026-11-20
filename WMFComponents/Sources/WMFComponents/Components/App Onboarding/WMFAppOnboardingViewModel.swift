@@ -5,7 +5,7 @@ import WMFData
 @MainActor
 public final class WMFAppOnboardingViewModel: ObservableObject {
 
-    public enum Step: Equatable {
+    public enum Step: Hashable {
         case intro
         case dataPrivacy
         case languages
@@ -79,6 +79,10 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
     let loadingAnimationLoopDuration: TimeInterval = 1
 
     @Published public private(set) var currentStepIndex: Int = 0
+
+    /// The step the flow started at. The condensed flow starts at the interests step and must
+    /// not be able to swipe back to the steps before it.
+    private var firstStepIndex: Int = 0
     @Published public private(set) var languages: [LanguageItem]
 
     public let interestsViewModel: WMFHomeFeedInterestsSettingsViewModel
@@ -141,6 +145,14 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         return steps.filter { $0.isPersonalization }
     }
 
+    /// The steps the user can swipe between: the personalization steps from the start of the flow.
+    var swipeableSteps: [Step] {
+        return personalizationSteps.filter { step in
+            guard let index = steps.firstIndex(of: step) else { return false }
+            return index >= firstStepIndex
+        }
+    }
+
     var currentDotIndex: Int? {
         return personalizationSteps.firstIndex(of: currentStep)
     }
@@ -157,21 +169,50 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         
         logNext(currentStep)
         // Interests are final once the user leaves the interests step — start fetching the
-        // feed preference previews now for a head start over the step's onAppear.
+        // feed preference previews now, before the step is shown.
         if currentStep == .interests {
             feedPreferenceViewModel.loadIfNeeded()
         }
 
         if currentStepIndex < steps.count - 1 {
+            let previousStep = currentStep
             currentStepIndex += 1
+            // Inside the personalization pager the page view stays on screen, so no onAppear
+            // fires for the new page. The pager reports only its first page (see didShowStep).
+            if previousStep.isPersonalization && currentStep.isPersonalization {
+                didShowStep(currentStep)
+            }
         } else {
             onCompletion()
+        }
+    }
+
+    /// Moves between the personalization steps when the user swipes the pager. Like Android, a
+    /// swipe logs no click event: only the impression of the step that is shown.
+    func swipe(to step: Step) {
+        guard step != currentStep,
+              currentStep.isPersonalization,
+              swipeableSteps.contains(step),
+              let index = steps.firstIndex(of: step) else { return }
+        if currentStep == .feedPreference {
+            feedPreferenceViewModel.didSwipeAway()
+        }
+        currentStepIndex = index
+        didShowStep(step)
+    }
+
+    /// Called each time a step is shown, including when the user swipes back to it.
+    func didShowStep(_ step: Step) {
+        logImpression(step)
+        if step == .feedPreference {
+            feedPreferenceViewModel.didShow()
         }
     }
     
     /// Sets the initial step without side effects. Only valid to call before the view appears.
     public func jumpToStep(_ step: Step) {
         guard let index = steps.firstIndex(of: step) else { return }
+        firstStepIndex = index
         currentStepIndex = index
     }
 
