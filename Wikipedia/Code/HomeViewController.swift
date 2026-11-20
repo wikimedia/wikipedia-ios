@@ -4,6 +4,7 @@ import WMFComponents
 import WMFData
 import WMFNativeLocalizations
 import WMFTestKitchen
+import CocoaLumberjackSwift
 
 final class WMFHomeHostingController: WMFComponentHostingController<WMFHomeView> {}
 
@@ -77,15 +78,30 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             viewModel.makeEmbeddedCommunityViewController = { [weak self] in
                 self?.embeddedExploreViewController() ?? UIViewController()
             }
-            viewModel.didTapCustomizeCommunityFeed = { [weak self] in
-                self?.pushCommunityFeedSettings()
-            }
+        }
+        // Both Community feeds offer "Customize Community feed": the embedded Explore feed from its
+        // empty state, the native feed from each module's menu.
+        viewModel.didTapCustomizeCommunityFeed = { [weak self] in
+            self?.pushCommunityFeedSettings()
         }
         viewModel.didTapForYouCard = { [weak self] article in
             self?.navigateToForYouArticle(article)
         }
-        viewModel.didTapCommunityArticle = { [weak self] title, project in
-            self?.navigateToCommunityArticle(title: title, project: project)
+        viewModel.isCommunityArticleSaved = { [weak self] title, project in
+            guard let self, let articleURL = Self.articleURL(title: title, project: project) else { return false }
+            return dataStore.savedPageList.isAnyVariantSaved(articleURL)
+        }
+        viewModel.didTapCommunityArticle = { [weak self] title, project, module, action in
+            self?.performCommunityArticleAction(action, title: title, project: project, module: module)
+        }
+        viewModel.didTapCommunityTopReadList = { [weak self] titles, project, date in
+            self?.pushCommunityTopReadList(titles: titles, project: project, date: date)
+        }
+        viewModel.didTapCommunityOnThisDay = { [weak self] project, date, event in
+            self?.pushCommunityOnThisDay(project: project, date: date, event: event)
+        }
+        viewModel.didTapCommunityNewsStory = { [weak self] story, project in
+            self?.pushCommunityNewsStory(story, project: project)
         }
         viewModel.didTapCommunityPictureOfTheDay = { [weak self] date in
             self?.presentPictureOfTheDayGallery(date: date)
@@ -221,21 +237,135 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         present(gallery, animated: true)
     }
 
-    /// Opens an article from a card of the native Community feed (Home phase 2).
-    private func navigateToCommunityArticle(title: String, project: WMFProject) {
+    /// Opens an In the news story with its linked articles, the screen the legacy Explore feed
+    /// opens from its news card. Android opens the tapped story too.
+    private func pushCommunityNewsStory(_ newsItem: WMFFeedNewsItem, project: WMFProject) {
+        let story = WMFFeedNewsStory(newsItem: newsItem, languageVariantCode: project.languageVariantCode)
+        let newsViewController = NewsViewController(stories: [story], dataStore: dataStore, contentGroup: nil, theme: theme)
+        navigationController?.pushViewController(newsViewController, animated: true)
+    }
+
+    /// The article URL of a Community card's article. Cards carry a `WMFProject` and a database
+    /// title, so the translation to a legacy article URL happens here on the app side.
+    private static func articleURL(title: String, project: WMFProject) -> URL? {
         guard let siteURL = project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: title) else { return }
+              var articleURL = siteURL.wmf_URL(withTitle: title) else { return nil }
         articleURL.wmf_languageVariantCode = project.languageVariantCode
-        // TODO: Community cards have no ArticleSource yet. The analytics spec should name one.
+        return articleURL
+    }
+
+    /// Acts on an article of the native Community feed (Home phase 2): a tap, the long-press menu
+    /// or the Save button. The actions match the Explore feed's article cards.
+    private func performCommunityArticleAction(_ action: WMFCommunityArticleAction, title: String, project: WMFProject, module: WMFCommunityModule) {
+        guard let articleURL = Self.articleURL(title: title, project: project) else { return }
+        switch action {
+        case .open:
+            openCommunityArticle(articleURL, module: module, tabConfig: .appendArticleAndAssignCurrentTab)
+        case .openInNewTab:
+            WMFArticleTabsDataController.shared.didTapOpenNewTab()
+            ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
+            openCommunityArticle(articleURL, module: module, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        case .openInBackgroundTab:
+            openCommunityArticleInBackgroundTab(articleURL, title: title, project: project)
+        case .save:
+            dataStore.savedPageList.addSavedPage(with: articleURL)
+        case .unsave:
+            dataStore.savedPageList.removeEntry(with: articleURL)
+        case .share:
+            let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                activityVC.popoverPresentationController?.sourceView = view
+                activityVC.popoverPresentationController?.sourceRect = view.bounds
+            }
+            present(activityVC, animated: true)
+        }
+    }
+
+    private func openCommunityArticle(_ articleURL: URL, module: WMFCommunityModule, tabConfig: ArticleTabConfig) {
+        let source: ArticleSource
+        switch module {
+        case .featuredArticle: source = .homeFeedCommunityFeaturedArticleCard
+        case .topRead: source = .homeFeedCommunityTopReadCard
+        case .onThisDay: source = .homeFeedCommunityOnThisDayCard
+        // These two do not open a single article: a story opens its own screen, and the
+        // picture opens the gallery.
+        case .inTheNews, .pictureOfDay: source = .undefined
+        }
         let coordinator = ArticleCoordinator(
             navigationController: navigationController ?? UINavigationController(),
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
-            tabConfig: .appendArticleAndAssignCurrentTab
+            source: source,
+            tabConfig: tabConfig
         )
         coordinator.start()
+    }
+
+    /// "Open in background tab", the same way the Discover reading list does it: a new tab that
+    /// does not become current, or the current tab when the tab limit is reached.
+    private func openCommunityArticleInBackgroundTab(_ articleURL: URL, title: String, project: WMFProject) {
+        Task {
+            do {
+                let articleTabsDataController = WMFArticleTabsDataController.shared
+                articleTabsDataController.didTapOpenNewTab()
+
+                let tabsCount = try await articleTabsDataController.tabsCount()
+                let tabsMax = articleTabsDataController.tabsMax
+                let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: project, articleURL: articleURL)
+                if tabsCount >= tabsMax {
+                    if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {
+                        _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                    } else {
+                        _ = try await articleTabsDataController.createArticleTab(initialArticle: article)
+                    }
+                    try await Task.sleep(for: .seconds(1))
+                    WMFToastManager.sharedInstance.showRichToast(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousToasts: true)
+                } else {
+                    _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                    ArticleTabsFunnel.shared.logLongPressOpenInBackgroundTab()
+                }
+            } catch {
+                DDLogError("Failed to create background tab: \(error)")
+            }
+        }
+    }
+
+    /// "More top read": the day's full most read list, the list the Explore card's footer opens.
+    private func pushCommunityTopReadList(titles: [String], project: WMFProject, date: Date) {
+        let articleURLs = titles.compactMap { Self.articleURL(title: $0, project: project) }
+        guard !articleURLs.isEmpty else { return }
+        let listViewController = ArticleURLListViewController(articleURLs: articleURLs, dataStore: dataStore, theme: theme)
+        let title = WMFCommunityModule.topRead.title(languageCode: project.languageCode)
+        listViewController.title = title
+        listViewController.headerTitle = title
+        listViewController.headerSubtitle = DateFormatter.wmf_long().string(from: date)
+        navigationController?.pushViewController(listViewController, animated: true)
+    }
+
+    /// "More on this day", or a tap on an event: every event of the day, the screen the Explore
+    /// card opens. After a tap on an event the list opens at that event.
+    private func pushCommunityOnThisDay(project: WMFProject, date: Date, event: (year: Int, text: String)?) {
+        let calendar = Calendar.current
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        Task { [weak self] in
+            do {
+                let response = try await WMFOnThisDayDataController.shared.fetchOnThisDay(project: project, month: month, day: day)
+                guard let self else { return }
+                let events = response.events.map { WMFFeedOnThisDayEvent(event: $0, languageVariantCode: project.languageVariantCode) }
+                guard !events.isEmpty else { return }
+                let midnightUTCDate: Date = (date as NSDate).wmf_midnightUTCDateFromLocal
+                let onThisDayViewController = OnThisDayViewController(events: events, dataStore: self.dataStore, midnightUTCDate: midnightUTCDate, contentGroup: nil, theme: self.theme)
+                if let event {
+                    onThisDayViewController.initialEvent = events.first { $0.year?.intValue == event.year && $0.text == event.text }
+                }
+                self.navigationController?.pushViewController(onThisDayViewController, animated: true)
+            } catch {
+                DDLogError("Failed to load On this day events: \(error)")
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
+            }
+        }
     }
 
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {

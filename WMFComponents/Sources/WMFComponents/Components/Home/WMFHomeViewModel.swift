@@ -116,6 +116,7 @@ public final class WMFHomeViewModel: ObservableObject {
             if !communityPages.isEmpty {
                 feedDay = Date()
             }
+            refreshCommunitySavedStates()
         }
     }
     /// Set when the first page fails. The tab then shows the error state instead of the feed.
@@ -174,12 +175,75 @@ public final class WMFHomeViewModel: ObservableObject {
     /// True when all the Community cards are hidden and the embedded feed has nothing to show.
     @Published public var isEmbeddedCommunityFeedEmpty: Bool = false
 
-    /// Opens an article from a Community feed card: the featured article, a top read row, a news
-    /// story or an On this day page. The title is the database title from the feed response.
-    public var didTapCommunityArticle: (@MainActor @Sendable (_ title: String, _ project: WMFProject) -> Void)?
+    /// Acts on an article of a Community feed card: the featured article, a top read row or an On
+    /// this day page. A tap opens it; the long-press menu and the Save button do the rest. The
+    /// title is the database title from the feed response. The module tells the coordinator which
+    /// article source to log, the way Android logs one per card type.
+    public var didTapCommunityArticle: (@MainActor @Sendable (_ title: String, _ project: WMFProject, _ module: WMFCommunityModule, _ action: WMFCommunityArticleAction) -> Void)?
 
-    func openCommunityArticle(title: String, project: WMFProject) {
-        didTapCommunityArticle?(title, project)
+    func performCommunityArticleAction(_ action: WMFCommunityArticleAction, title: String, project: WMFProject, module: WMFCommunityModule) {
+        didTapCommunityArticle?(title, project, module, action)
+        switch action {
+        case .save:
+            savedCommunityArticleKeys.insert(Self.communityArticleKey(title: title, project: project))
+        case .unsave:
+            savedCommunityArticleKeys.remove(Self.communityArticleKey(title: title, project: project))
+        case .open, .openInNewTab, .openInBackgroundTab, .share:
+            break
+        }
+    }
+
+    /// Answers whether the app has an article saved. Set by the coordinator, which owns the saved
+    /// list. The feed asks it again whenever the screen comes back, like For You does.
+    public var isCommunityArticleSaved: ((_ title: String, _ project: WMFProject) -> Bool)?
+
+    /// The articles of the loaded Community pages that are saved, keyed by project and title.
+    @Published private(set) var savedCommunityArticleKeys: Set<String> = []
+
+    static func communityArticleKey(title: String, project: WMFProject) -> String {
+        "\(project.id)|\(title)"
+    }
+
+    func isCommunityArticleSaved(title: String, project: WMFProject) -> Bool {
+        savedCommunityArticleKeys.contains(Self.communityArticleKey(title: title, project: project))
+    }
+
+    public func refreshCommunitySavedStates() {
+        guard let isCommunityArticleSaved else { return }
+        var saved: Set<String> = []
+        for page in communityPages {
+            let articles = [page.featuredArticleItem].compactMap { $0 }
+                + page.topReadItems
+                + (page.onThisDayItems ?? []).flatMap(\.pages)
+            for article in articles where isCommunityArticleSaved(article.title, page.project) {
+                saved.insert(Self.communityArticleKey(title: article.title, project: page.project))
+            }
+        }
+        if saved != savedCommunityArticleKeys {
+            savedCommunityArticleKeys = saved
+        }
+    }
+
+    /// Opens the day's full Top read list ("More top read").
+    public var didTapCommunityTopReadList: (@MainActor @Sendable (_ titles: [String], _ project: WMFProject, _ date: Date) -> Void)?
+
+    func openCommunityTopReadList(for page: WMFHomeCommunityViewModel) {
+        didTapCommunityTopReadList?(page.allTopReadTitles, page.project, page.feedDate)
+    }
+
+    /// Opens every On this day event of the day ("More on this day"), or, after a tap on an event,
+    /// the same list scrolled to that event. The event is given by its year and text.
+    public var didTapCommunityOnThisDay: (@MainActor @Sendable (_ project: WMFProject, _ date: Date, _ event: (year: Int, text: String)?) -> Void)?
+
+    func openCommunityOnThisDay(for page: WMFHomeCommunityViewModel, event: WMFHomeCommunityViewModel.OnThisDayItem?) {
+        didTapCommunityOnThisDay?(page.project, page.feedDate, event.map { (year: $0.year, text: $0.text) })
+    }
+
+    /// Opens an In the news story with all its linked articles.
+    public var didTapCommunityNewsStory: (@MainActor @Sendable (_ story: WMFFeedNewsItem, _ project: WMFProject) -> Void)?
+
+    func openCommunityNewsStory(_ story: WMFFeedNewsItem, project: WMFProject) {
+        didTapCommunityNewsStory?(story, project)
     }
 
     /// Opens the Picture of the day gallery for the date of the tapped card, like the legacy Explore
@@ -280,6 +344,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func refreshSavedStates(where matches: (WMFForYouArticleCardViewModel) -> Bool) {
+        refreshCommunitySavedStates()
         guard let isArticleSaved else { return }
         forYouViewModel?.pages.forEach { page in
             for card in page.articleViewModels where matches(card) {

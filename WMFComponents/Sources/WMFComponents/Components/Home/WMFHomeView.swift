@@ -385,10 +385,15 @@ public struct WMFHomeView: View {
                 retryTitle: viewModel.forYouErrorRetryTitle,
                 onHideModule: { viewModel.hideModule($0) },
                 onHideCard: { viewModel.hideCard(key: $0) },
+                onCustomize: viewModel.didTapCustomizeCommunityFeed.map { customize in { customize() } },
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() },
-                onTapArticle: { viewModel.openCommunityArticle(title: $0, project: $1) },
+                onArticleAction: { viewModel.performCommunityArticleAction($0, title: $1, project: $2, module: $3) },
+                isArticleSaved: { viewModel.isCommunityArticleSaved(title: $0, project: $1) },
+                onTapNewsStory: { viewModel.openCommunityNewsStory($0, project: $1) },
                 onTapPictureOfTheDay: { viewModel.openCommunityPictureOfTheDay(date: $0) },
+                onTapMoreTopRead: { viewModel.openCommunityTopReadList(for: $0) },
+                onTapOnThisDay: { viewModel.openCommunityOnThisDay(for: $0, event: $1) },
                 scrollToTopRequestID: viewModel.communityScrollToTopRequestID,
                 topContentInset: communityFeedTopContentInset
             )

@@ -11,11 +11,20 @@ public enum WMFCommunityModule: CaseIterable, Sendable {
     case onThisDay
     case pictureOfDay
 
+    /// On iPad, the side of the two columns the Figma puts this module on.
+    var isInLeadingColumn: Bool {
+        switch self {
+        case .featuredArticle, .topRead, .pictureOfDay:
+            return true
+        case .inTheNews, .onThisDay:
+            return false
+        }
+    }
 
     /// The module's name, in the language of `languageCode` when the app has a translation for it.
     /// The feed passes the wiki's language, so that the headers match the content below them. The
     /// settings screen passes nil, for the app language.
-    func title(languageCode: String?) -> String {
+    public func title(languageCode: String?) -> String {
         switch self {
         case .featuredArticle:
             return WMFLocalizedString("home-feed-modules-featured-article-title", languageCode: languageCode, value: "Featured article", comment: "Title of the Featured article module, in the Community feed and in its settings.")
@@ -47,6 +56,17 @@ public enum WMFCommunityModule: CaseIterable, Sendable {
     }
 }
 
+/// What the reader asked to do with an article on a Community card, from a tap, the long-press
+/// menu or the Save button. The same actions as the Explore feed's article cards.
+public enum WMFCommunityArticleAction: Sendable, Equatable {
+    case open
+    case openInNewTab
+    case openInBackgroundTab
+    case save
+    case unsave
+    case share
+}
+
 public struct WMFCommunityModuleVisibility: Equatable {
     public var featuredArticle: Bool
     public var topRead: Bool
@@ -74,6 +94,26 @@ struct WMFCommunityFeedStrings {
         WMFLocalizedString("home-community-disclaimer", languageCode: languageCode, value: "Content and resources selected by and about the Wikimedia community.", comment: "Note at the top of the Home tab's Community feed, explaining who chose the content below it.")
     }
 
+    /// Spoken after "Picture of the day" on its image, which is a button.
+    static var pictureOfTheDayHint: String {
+        WMFLocalizedString("home-community-picture-of-the-day-hint", value: "Opens the picture in full screen, with its description and license.", comment: "VoiceOver hint on the Picture of the day image in the Home tab's Community feed. Tapping the image opens it in the image viewer.")
+    }
+
+    /// Top read's subtitle on an earlier day, where "today" would be wrong.
+    var topReadPastSubtitle: String {
+        WMFLocalizedString("home-community-top-read-past-subtitle", languageCode: languageCode, value: "What was trending on Wikipedia that day", comment: "Subtitle of the Top read module in the Home tab's Community feed, for a day before today.")
+    }
+
+    /// The link under Top read that opens the day's full list.
+    var moreTopRead: String {
+        WMFLocalizedString("home-community-more-top-read", languageCode: languageCode, value: "More top read", comment: "Link under the Top read module in the Home tab's Community feed. It opens the full list of the day's most read articles.")
+    }
+
+    /// The link under On this day that opens every event of the day.
+    var moreOnThisDay: String {
+        WMFLocalizedString("home-community-more-on-this-day", languageCode: languageCode, value: "More on this day", comment: "Link under the On this day module in the Home tab's Community feed. It opens the full list of the day's historical events.")
+    }
+
     var seePastContent: String {
         WMFLocalizedString("home-community-see-past-content", languageCode: languageCode, value: "See past community content", comment: "Button at the bottom of the Community feed that loads content from previous days.")
     }
@@ -90,16 +130,11 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     // MARK: - Nested display types
 
-    public struct TopReadItem {
-        public let title: String
-        public let displayTitle: String
-        public let projectID: String
-    }
-
     public struct NewsItem {
         public let story: String
-        /// The article the story is about, opened when the reader taps the story.
-        public let articleTitle: String?
+        /// The story as the feed sent it, with all its linked articles. A tap opens it in the
+        /// news story screen, like Android and the legacy Explore feed.
+        public let newsItem: WMFFeedNewsItem
         /// Thumbnail of the article the story is illustrated with, chosen the same way the
         /// explore feed does (see WMFFeedNewsItem.featuredArticle(picturedText:)).
         public let imageURLString: String?
@@ -109,8 +144,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         public let year: Int
         public let yearsAgo: String
         public let text: String
-        public let pages: [WMFOnThisDayPage]
-        public let projectID: String
+        public let pages: [WMFCommunityArticle]
     }
 
     // MARK: - Properties
@@ -123,11 +157,20 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     /// today, the date alone for an earlier day.
     public let date: String
     let strings: WMFCommunityFeedStrings
+    /// True for today's page. Earlier pages word some subtitles in the past tense.
+    public let isToday: Bool
     public let featuredArticle: WMFFeedArticle?
-    public let topReadItems: [TopReadItem]
+    /// The featured article as a row model, for its long-press menu and its saved state.
+    public let featuredArticleItem: WMFCommunityArticle?
+    /// The first five most read articles, which the module shows.
+    public let topReadItems: [WMFCommunityArticle]
+    /// Every most read article of the day, for "More top read".
+    public let allTopReadTitles: [String]
     public let newsItems: [NewsItem]
     public let onThisDayItems: [OnThisDayItem]?
     public let pictureOfDay: WMFFeedImageSource?
+    /// The picture's description, shown over the image like the Explore feed does.
+    public let pictureOfDayCaption: String?
     public let project: WMFProject
 
     // MARK: - Hide keys
@@ -170,41 +213,55 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         self.pictureOfDayHideKey = pictureOfDayID.map { "picture_of_day_\($0)" }
 
         let formattedDate = DateFormatter.wmfMediumDateFormatter(languageCode: nil).string(from: response.date)
-        self.date = Calendar.current.isDate(response.date, inSameDayAs: now) ? WMFCommunityFeedStrings.todayDateHeader(formattedDate) : formattedDate
+        let isToday = Calendar.current.isDate(response.date, inSameDayAs: now)
+        self.isToday = isToday
+        self.date = isToday ? WMFCommunityFeedStrings.todayDateHeader(formattedDate) : formattedDate
         self.featuredArticle = response.feedResponse.todaysFeaturedArticle
+        self.featuredArticleItem = response.feedResponse.todaysFeaturedArticle.flatMap(WMFCommunityArticle.init(feedArticle:))
 
-        self.topReadItems = (response.feedResponse.mostRead?.articles ?? [])
-            .prefix(5)
-            .compactMap { article in
-                guard let title = article.title ?? article.normalizedTitle else { return nil }
-                let displayTitle = (try? HtmlUtils.stringFromHTML(article.displayTitle ?? title)) ?? title
-                return TopReadItem(title: title, displayTitle: displayTitle, projectID: projectID)
-            }
+        let mostRead = (response.feedResponse.mostRead?.articles ?? []).compactMap(WMFCommunityArticle.init(mostReadArticle:))
+        self.topReadItems = Array(mostRead.prefix(5))
+        self.allTopReadTitles = mostRead.map(\.title)
 
         self.newsItems = (response.feedResponse.news ?? [])
             .map { item in
                 let story = (try? HtmlUtils.stringFromHTML(item.story ?? "")) ?? item.story ?? ""
                 let featured = item.featuredArticle(picturedText: picturedText)
-                return NewsItem(story: story, articleTitle: featured?.title, imageURLString: featured?.thumbnail?.source)
+                return NewsItem(story: story, newsItem: item, imageURLString: featured?.thumbnail?.source)
             }
 
-        // A wiki without On this day content answers with no events. The module is hidden then,
-        // like the modules the feed response leaves out.
-        if let onThisDay = response.onThisDay, !onThisDay.events.isEmpty {
-            self.onThisDayItems = onThisDay.events.prefix(2).map { event in
+        // Like Android, the module shows the first two events the wiki's editors picked for the day.
+        // A wiki whose feed has no picks falls back to the newest events of the full list. A wiki
+        // without On this day content has neither, and the module is hidden.
+        let pickedEvents = response.feedResponse.onThisDay ?? []
+        let events = pickedEvents.isEmpty ? (response.onThisDay?.events ?? []) : pickedEvents
+        if events.isEmpty {
+            self.onThisDayItems = nil
+        } else {
+            self.onThisDayItems = events.prefix(2).map { event in
                 OnThisDayItem(
                     year: event.year,
                     yearsAgo: Self.yearsAgo(currentYear - event.year, languageCode: project.languageCode),
                     text: event.text,
-                    pages: event.pages,
-                    projectID: projectID
+                    pages: event.pages.map(WMFCommunityArticle.init(onThisDayPage:))
                 )
             }
-        } else {
-            self.onThisDayItems = nil
         }
 
         self.pictureOfDay = response.feedResponse.image?.thumbnail
+        let caption = response.feedResponse.image?.description?.text
+            ?? response.feedResponse.image?.description?.html.flatMap { try? HtmlUtils.stringFromHTML($0) }
+        let trimmedCaption = caption?.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.pictureOfDayCaption = (trimmedCaption?.isEmpty ?? true) ? nil : trimmedCaption
+    }
+
+    /// The line under a module's name. Top read says "today" in its subtitle, so an earlier day
+    /// gets its own wording.
+    func subtitle(for module: WMFCommunityModule) -> String {
+        if module == .topRead, !isToday {
+            return strings.topReadPastSubtitle
+        }
+        return module.subtitle(languageCode: strings.languageCode)
     }
 
     /// "This year", "Last year", "6 years ago", in the wiki's language. Uses the app's own plural
@@ -244,48 +301,17 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     // MARK: - iPad columns
 
-    /// Splits a day's modules into the two iPad columns so that each holds about half the day's
-    /// height. Modules keep their feed order: each one goes to whichever column is shorter so far,
-    /// the leading one on a tie; the first module always starts the leading column. `leadingOffset` is the height already above the leading column's
-    /// first module, such as the disclaimer and the date on the first day.
-    func columns(for modules: [WMFCommunityModule], leadingOffset: Double = 0) -> (leading: [WMFCommunityModule], trailing: [WMFCommunityModule]) {
-        var leading: [WMFCommunityModule] = []
-        var trailing: [WMFCommunityModule] = []
-        var leadingHeight = leadingOffset
-        var trailingHeight = 0.0
-        for module in modules {
-            let height = estimatedHeight(of: module)
-            // The first module always starts the leading column, under the date.
-            if leading.isEmpty || leadingHeight <= trailingHeight {
-                leading.append(module)
-                leadingHeight += height
-            } else {
-                trailing.append(module)
-                trailingHeight += height
-            }
+    /// Splits a day's modules into the two iPad columns the way the Figma does: the image-led
+    /// modules on the leading side, the story modules on the trailing side. Each column keeps feed
+    /// order. When one side has nothing, the other side's modules take the leading column, so the
+    /// day never starts with an empty column under its date.
+    static func columns(for modules: [WMFCommunityModule]) -> (leading: [WMFCommunityModule], trailing: [WMFCommunityModule]) {
+        let leading = modules.filter(\.isInLeadingColumn)
+        let trailing = modules.filter { !$0.isInLeadingColumn }
+        if leading.isEmpty {
+            return (trailing, [])
         }
         return (leading, trailing)
-    }
-
-    /// A rough height in points of a module at the default text size, header included. It only
-    /// needs to be good enough to balance the columns, not to lay them out.
-    func estimatedHeight(of module: WMFCommunityModule) -> Double {
-        let header = 90.0
-        switch module {
-        case .featuredArticle:
-            return header + 200 + 160
-        case .topRead:
-            return header + Double(topReadItems.count) * 75
-        case .inTheNews:
-            return header + 216
-        case .onThisDay:
-            let events = onThisDayItems ?? []
-            return header + events.reduce(0) { total, event in
-                total + 170 + (event.pages.isEmpty ? 0 : 80)
-            }
-        case .pictureOfDay:
-            return header + 300
-        }
     }
 
     func hideKey(for module: WMFCommunityModule) -> String? {
@@ -301,5 +327,46 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     private func isHidden(_ key: String?, in hiddenCardKeys: Set<String>) -> Bool {
         guard let key else { return false }
         return hiddenCardKeys.contains(key)
+    }
+}
+
+// MARK: - Article
+
+/// An article that a Community card links to, with what its row, its long-press preview and the
+/// coordinator need. Everything comes from the feed response, so a row needs no extra request.
+public struct WMFCommunityArticle: Sendable, Equatable {
+    /// The database title, which opens the article.
+    public let title: String
+    /// The display title. It can contain HTML, such as `<i>` for a work's title.
+    public let displayTitleHTML: String
+    /// The display title without its HTML, for VoiceOver and the preview.
+    public let plainTitle: String
+    public let description: String?
+    public let extract: String?
+    public let thumbnailURL: URL?
+
+    init(title: String, displayTitleHTML: String?, normalizedTitle: String?, description: String?, extract: String?, thumbnailURL: URL?) {
+        let fallbackTitle = normalizedTitle ?? title.replacingOccurrences(of: "_", with: " ")
+        let html = displayTitleHTML ?? fallbackTitle
+        self.title = title
+        self.displayTitleHTML = html
+        self.plainTitle = (try? HtmlUtils.stringFromHTML(html)) ?? fallbackTitle
+        self.description = description
+        self.extract = extract
+        self.thumbnailURL = thumbnailURL
+    }
+
+    init?(feedArticle: WMFFeedArticle) {
+        guard let title = feedArticle.title ?? feedArticle.normalizedTitle else { return nil }
+        self.init(title: title, displayTitleHTML: feedArticle.displayTitle, normalizedTitle: feedArticle.normalizedTitle, description: feedArticle.description, extract: feedArticle.extract, thumbnailURL: feedArticle.thumbnail?.source.flatMap(URL.init(string:)))
+    }
+
+    init?(mostReadArticle: WMFFeedMostReadArticle) {
+        guard let title = mostReadArticle.title ?? mostReadArticle.normalizedTitle else { return nil }
+        self.init(title: title, displayTitleHTML: mostReadArticle.displayTitle, normalizedTitle: mostReadArticle.normalizedTitle, description: mostReadArticle.description, extract: mostReadArticle.extract, thumbnailURL: mostReadArticle.thumbnail?.source.flatMap(URL.init(string:)))
+    }
+
+    init(onThisDayPage page: WMFOnThisDayPage) {
+        self.init(title: page.title, displayTitleHTML: page.displayTitle, normalizedTitle: page.normalizedTitle, description: page.description, extract: page.extract, thumbnailURL: page.thumbnail?.source)
     }
 }

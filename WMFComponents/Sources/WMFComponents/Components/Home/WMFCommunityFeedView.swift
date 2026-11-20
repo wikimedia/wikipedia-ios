@@ -26,10 +26,17 @@ struct WMFCommunityFeedView: View {
     let retryTitle: String
     let onHideModule: (WMFCommunityModule) -> Void
     let onHideCard: (String) -> Void
+    /// Opens the Community feed settings from a module's menu. Nil hides the menu item.
+    let onCustomize: (() -> Void)?
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
-    let onTapArticle: (String, WMFProject) -> Void
+    let onArticleAction: (WMFCommunityArticleAction, String, WMFProject, WMFCommunityModule) -> Void
+    let isArticleSaved: (String, WMFProject) -> Bool
+    let onTapNewsStory: (WMFFeedNewsItem, WMFProject) -> Void
     let onTapPictureOfTheDay: (Date) -> Void
+    let onTapMoreTopRead: (WMFHomeCommunityViewModel) -> Void
+    /// Opens the day's On this day list, scrolled to the event when one is given.
+    let onTapOnThisDay: (WMFHomeCommunityViewModel, WMFHomeCommunityViewModel.OnThisDayItem?) -> Void
 
     var scrollToTopRequestID: Int = 0
 
@@ -37,13 +44,8 @@ struct WMFCommunityFeedView: View {
     /// header, so this is a content margin and not a frame inset.
     var topContentInset: CGFloat = 0
 
-    /// Rough heights of what sits above the leading column's modules on iPad, so the column split
-    /// accounts for them.
-    private static let dateHeaderHeight = 30.0
-    private static let firstDayLeadingOffset = 130.0
-
     private static let topAnchorID = "community-feed-top"
-    private static let horizontalPadding: CGFloat = 16
+    private static let horizontalPadding = WMFCommunityFeedMetrics.horizontalPadding
 
     /// Every page of one feed comes from the same wiki, so the first page speaks for all of them.
     private var strings: WMFCommunityFeedStrings {
@@ -61,28 +63,34 @@ struct WMFCommunityFeedView: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 24) {
-                    // On iPad the disclaimer is drawn inside the first day's leading column, so the
-                    // trailing column starts at the top beside it, as in the Figma.
-                    if !usesTwoColumns || firstVisiblePageID == nil {
-                        disclaimer
-                            .id(Self.topAnchorID)
-                    }
-                    ForEach(pages) { page in
-                        // A day whose modules are all off, hidden or missing would be a bare date.
-                        let modules = page.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys)
-                        if !modules.isEmpty {
-                            daySection(page, modules: modules, isFirstDay: page.id == firstVisiblePageID, isLastDay: page.id == lastVisiblePageID)
+                VStack(spacing: 0) {
+                    // The anchor sits above the top padding, so a scroll to the top lands where the
+                    // feed first opens.
+                    Color.clear
+                        .frame(height: 0)
+                        .id(Self.topAnchorID)
+                    LazyVStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.moduleSpacing) {
+                        // On iPad the disclaimer is drawn inside the first day's leading column, so
+                        // the trailing column starts at the top beside it, as in the Figma.
+                        if !usesTwoColumns || firstVisiblePageID == nil {
+                            disclaimer
+                        }
+                        ForEach(pages) { page in
+                            // A day whose modules are all off, hidden or missing would be a bare date.
+                            let modules = page.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys)
+                            if !modules.isEmpty {
+                                daySection(page, modules: modules, isFirstDay: page.id == firstVisiblePageID, isLastDay: page.id == lastVisiblePageID)
+                            }
+                        }
+                        // On iPad the footer goes under the trailing column of the last day, as in
+                        // the Figma. It is drawn here only when no day can hold it.
+                        if !usesTwoColumns || lastVisiblePageID == nil {
+                            footer
                         }
                     }
-                    // On iPad the footer goes under the trailing column of the last day, as in the
-                    // Figma. It is drawn here only when no day can hold it.
-                    if !usesTwoColumns || lastVisiblePageID == nil {
-                        footer
-                    }
+                    .padding(.top, 8)
+                    .padding(.bottom, 24)
                 }
-                .padding(.top, 8)
-                .padding(.bottom, 24)
                 // Without a fixed width, a child that reports a wider ideal size widens the whole
                 // stack, and every module runs past the trailing edge of the screen.
                 .containerRelativeFrame(.horizontal)
@@ -107,20 +115,22 @@ struct WMFCommunityFeedView: View {
     private var disclaimer: some View {
         HStack(spacing: 12) {
             Text(strings.disclaimer)
-                .font(Font(WMFFont.for(.caption1)))
+                .font(Font(WMFFont.for(.subheadline)))
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
             Image(uiImage: WMFIcon.wikipediaGlobe ?? UIImage())
                 .resizable()
                 .scaledToFit()
-                .frame(width: 28, height: 28)
+                .frame(width: WMFCommunityFeedMetrics.disclaimerGlobeSize, height: WMFCommunityFeedMetrics.disclaimerGlobeSize)
                 .accessibilityHidden(true)
         }
-        .padding(.vertical, 10)
-        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .padding(.leading, 20)
+        .padding(.trailing, 12)
+        // A full pill, as in the Figma. A tall disclaimer (large text) keeps a rounded rectangle.
         .background(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
+            RoundedRectangle(cornerRadius: 40, style: .continuous)
                 .fill(Color(uiColor: theme.midBackground))
         )
         .padding(.horizontal, Self.horizontalPadding)
@@ -129,7 +139,6 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - Day
 
-    @ViewBuilder
     /// The first day that shows any module. On iPad it holds the disclaimer.
     private var firstVisiblePageID: String? {
         pages.first { !$0.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys).isEmpty }?.id
@@ -140,46 +149,50 @@ struct WMFCommunityFeedView: View {
         pages.last { !$0.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys).isEmpty }?.id
     }
 
+    @ViewBuilder
     private func daySection(_ page: WMFHomeCommunityViewModel, modules: [WMFCommunityModule], isFirstDay: Bool, isLastDay: Bool) -> some View {
-        Group {
-            if usesTwoColumns {
-                // The date heads the leading column, so the trailing column starts level with it,
-                // and on the first day level with the disclaimer. The modules are split so that
-                // each column holds about half the day. VoiceOver reads the leading column, then
-                // the trailing one. Each module pads itself, so the columns sit edge
-                // to edge and their text lines up with the date.
-                let columns = page.columns(for: modules, leadingOffset: isFirstDay ? Self.firstDayLeadingOffset : Self.dateHeaderHeight)
+        if usesTwoColumns {
+            // The date heads the leading column, so the trailing column starts level with it, and
+            // on the first day level with the disclaimer. VoiceOver reads the leading column, then
+            // the trailing one. Each module pads itself, so the columns sit edge to edge and their
+            // text lines up with the date.
+            let columns = WMFHomeCommunityViewModel.columns(for: modules)
+            VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.moduleSpacing) {
                 HStack(alignment: .top, spacing: 0) {
-                    VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.dateToModuleSpacing) {
                         if isFirstDay {
                             disclaimer
-                                .id(Self.topAnchorID)
                                 .padding(.bottom, 8)
                         }
                         dateHeader(page)
                         moduleColumn(columns.leading, page: page)
                     }
                     .frame(maxWidth: .infinity, alignment: .top)
-                    VStack(alignment: .leading, spacing: 24) {
-                        moduleColumn(columns.trailing, page: page)
-                        if isLastDay {
-                            footer
-                        }
+                    moduleColumn(columns.trailing, page: page)
+                }
+                // The footer sits under the trailing column, as in the Figma, but below the end of both
+                // columns, so it never floats beside a longer leading column.
+                if isLastDay {
+                    HStack(spacing: 0) {
+                        Color.clear
+                            .frame(maxWidth: .infinity, maxHeight: 0)
+                            .accessibilityHidden(true)
+                        footer
+                            .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity, alignment: .top)
                 }
-            } else {
-                VStack(alignment: .leading, spacing: 16) {
-                    dateHeader(page)
-                    moduleColumn(modules, page: page)
-                }
+            }
+        } else {
+            VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.dateToModuleSpacing) {
+                dateHeader(page)
+                moduleColumn(modules, page: page)
             }
         }
     }
 
     private func dateHeader(_ page: WMFHomeCommunityViewModel) -> some View {
         Text(page.date)
-            .font(Font(WMFFont.for(.caption1)))
+            .font(Font(WMFFont.for(.subheadline)))
             .foregroundStyle(Color(uiColor: theme.secondaryText))
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, Self.horizontalPadding)
@@ -187,7 +200,7 @@ struct WMFCommunityFeedView: View {
     }
 
     private func moduleColumn(_ modules: [WMFCommunityModule], page: WMFHomeCommunityViewModel) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
+        VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.moduleSpacing) {
             ForEach(modules, id: \.self) { module in
                 moduleView(module, page: page)
             }
@@ -195,39 +208,42 @@ struct WMFCommunityFeedView: View {
         .frame(maxWidth: .infinity, alignment: .top)
     }
 
-    @ViewBuilder
     private func moduleView(_ module: WMFCommunityModule, page: WMFHomeCommunityViewModel) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.headerToContentSpacing) {
             moduleHeader(module, page: page)
             moduleContent(module, page: page)
         }
     }
 
     // MARK: - Module content
-    // Each module's own design is its own task. These keep the content that the feed showed before.
+    // Each module's own design is its own task. These keep the content and the interactions of the
+    // Explore feed's cards.
 
     @ViewBuilder
     private func moduleContent(_ module: WMFCommunityModule, page: WMFHomeCommunityViewModel) -> some View {
         switch module {
         case .featuredArticle:
-            if let article = page.featuredArticle {
-                articleButton(article.title, page: page) {
-                    WMFFeaturedArticleCard(article: article, theme: theme)
+            if let article = page.featuredArticle, let item = page.featuredArticleItem {
+                VStack(alignment: .leading, spacing: 12) {
+                    Button {
+                        onArticleAction(.open, item.title, page.project, .featuredArticle)
+                    } label: {
+                        WMFFeaturedArticleCard(article: article, theme: theme)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .articleContextMenu(item, page: page, module: .featuredArticle, isSaved: isArticleSaved(item.title, page.project), onAction: onArticleAction)
+                    saveButton(item, page: page, module: .featuredArticle)
                 }
                 .padding(.horizontal, Self.horizontalPadding)
             }
         case .topRead:
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 0) {
                 ForEach(Array(page.topReadItems.enumerated()), id: \.offset) { _, item in
-                    // The row has its own tap gesture, which runs `tapAction`, so it is not wrapped
-                    // in a button.
-                    WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
-                        id: item.title,
-                        title: item.displayTitle,
-                        projectID: item.projectID,
-                        iconAccessibilityLabel: "",
-                        tapAction: { onTapArticle(item.title, page.project) }
-                    ))
+                    articleRow(item, page: page, module: .topRead)
+                }
+                moreLink(strings.moreTopRead) {
+                    onTapMoreTopRead(page)
                 }
             }
             .padding(.horizontal, Self.horizontalPadding)
@@ -235,19 +251,26 @@ struct WMFCommunityFeedView: View {
             // The story card brings its own horizontal padding.
             TabView {
                 ForEach(Array(page.newsItems.enumerated()), id: \.offset) { _, item in
-                    articleButton(item.articleTitle, page: page) {
+                    Button {
+                        onTapNewsStory(item.newsItem, page.project)
+                    } label: {
                         WMFNewsStoryCard(story: item.story, imageURLString: item.imageURLString, theme: theme)
+                            .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
                 }
             }
             .tabViewStyle(.page)
             .indexViewStyle(.page(backgroundDisplayMode: .always))
             .frame(maxWidth: .infinity)
-            .frame(height: 200)
+            .frame(height: WMFCommunityFeedMetrics.newsCardHeight)
         case .onThisDay:
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(Array((page.onThisDayItems ?? []).enumerated()), id: \.offset) { _, item in
                     onThisDayEvent(item, page: page)
+                }
+                moreLink(strings.moreOnThisDay) {
+                    onTapOnThisDay(page, nil)
                 }
             }
             .padding(.horizontal, Self.horizontalPadding)
@@ -257,12 +280,13 @@ struct WMFCommunityFeedView: View {
                 Button {
                     onTapPictureOfTheDay(page.feedDate)
                 } label: {
-                    WMFPictureOfTheDayCard(imageSource: pictureOfDay, theme: theme)
+                    WMFPictureOfTheDayCard(imageSource: pictureOfDay, caption: page.pictureOfDayCaption, theme: theme)
                         .clipShape(RoundedRectangle(cornerRadius: usesTwoColumns ? 8 : 0))
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(module.title(languageCode: page.strings.languageCode))
+                .accessibilityLabel(page.pictureOfDayCaption ?? module.title(languageCode: page.strings.languageCode))
+                .accessibilityHint(WMFCommunityFeedStrings.pictureOfTheDayHint)
                 .padding(.horizontal, usesTwoColumns ? Self.horizontalPadding : 0)
             }
         }
@@ -270,28 +294,33 @@ struct WMFCommunityFeedView: View {
 
     private func onThisDayEvent(_ item: WMFHomeCommunityViewModel.OnThisDayItem, page: WMFHomeCommunityViewModel) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(verbatim: String(item.year))
-                .font(Font(WMFFont.for(.boldTitle3)))
-                .foregroundStyle(Color(uiColor: theme.text))
-            Text(item.yearsAgo)
-                .font(Font(WMFFont.for(.semiboldSubheadline)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
-            Text(item.text)
-                .font(Font(WMFFont.for(.callout)))
-                .foregroundStyle(Color(uiColor: theme.text))
+            // Like the Explore card, a tap on the event opens the day's list at that event.
+            Button {
+                onTapOnThisDay(page, item)
+            } label: {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(verbatim: String(item.year))
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                    Text(item.yearsAgo)
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    Text(item.text)
+                        .font(Font(WMFFont.for(.callout)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .multilineTextAlignment(.leading)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .combine)
             if !item.pages.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .top, spacing: 12) {
-                        ForEach(Array(item.pages.enumerated()), id: \.offset) { _, eventPage in
-                            WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
-                                id: eventPage.title,
-                                title: eventPage.normalizedTitle ?? eventPage.title,
-                                projectID: item.projectID,
-                                iconAccessibilityLabel: "",
-                                tapAction: { onTapArticle(eventPage.title, page.project) }
-                            ))
-                            .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
-                            .padding(.vertical, 4)
+                        ForEach(Array(item.pages.enumerated()), id: \.offset) { _, article in
+                            articleRow(article, page: page, module: .onThisDay)
+                                .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
                         }
                     }
                 }
@@ -299,75 +328,134 @@ struct WMFCommunityFeedView: View {
         }
     }
 
-    /// Opens `title` from the page's wiki when the reader taps `label`. Without a title, the label
-    /// is drawn as it is and does nothing.
-    @ViewBuilder
-    private func articleButton<Label: View>(_ title: String?, page: WMFHomeCommunityViewModel, @ViewBuilder label: () -> Label) -> some View {
-        if let title {
-            Button {
-                onTapArticle(title, page.project)
-            } label: {
-                label()
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-        } else {
-            label()
+    // MARK: - Article rows and actions
+
+    /// A row for one article: its title (italics kept), description and thumbnail, all from the
+    /// feed response. A tap opens the article; a long press shows the Explore card's menu.
+    private func articleRow(_ article: WMFCommunityArticle, page: WMFHomeCommunityViewModel, module: WMFCommunityModule) -> some View {
+        Button {
+            onArticleAction(.open, article.title, page.project, module)
+        } label: {
+            WMFCommunityArticleRow(article: article, theme: theme)
+                .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
+        .articleContextMenu(article, page: page, module: module, isSaved: isArticleSaved(article.title, page.project), onAction: onArticleAction)
+    }
+
+    /// "Save for later" under the featured article, as on the Explore card. It turns into "Saved
+    /// for later" once saved, and a second tap unsaves.
+    private func saveButton(_ article: WMFCommunityArticle, page: WMFHomeCommunityViewModel, module: WMFCommunityModule) -> some View {
+        let isSaved = isArticleSaved(article.title, page.project)
+        return Button {
+            onArticleAction(isSaved ? .unsave : .save, article.title, page.project, module)
+        } label: {
+            HStack(spacing: 6) {
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: isSaved ? .bookmarkFill : .bookmark, font: .subheadline) ?? UIImage())
+                    .renderingMode(.template)
+                    .accessibilityHidden(true)
+                Text(isSaved ? CommonStrings.savedTitle(languageCode: page.strings.languageCode) : CommonStrings.saveTitle(languageCode: page.strings.languageCode))
+                    .font(Font(WMFFont.for(.subheadline)))
+            }
+            .foregroundStyle(Color(uiColor: theme.link))
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(isSaved ? CommonStrings.accessibilitySavedTitle : CommonStrings.saveTitle(languageCode: page.strings.languageCode))
+    }
+
+    /// A trailing link with a chevron under a module, such as "More top read".
+    private func moreLink(_ title: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 4) {
+                Text(title)
+                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward, font: .semiboldSubheadline) ?? UIImage())
+                    .renderingMode(.template)
+                    .flipsForRightToLeftLayoutDirection(true)
+                    .accessibilityHidden(true)
+            }
+            .foregroundStyle(Color(uiColor: theme.link))
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity, alignment: .trailing)
     }
 
     // MARK: - Module header
 
     private func moduleHeader(_ module: WMFCommunityModule, page: WMFHomeCommunityViewModel) -> some View {
         let hideKey = page.hideKey(for: module)
-        return HStack(alignment: .top, spacing: 8) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(module.title(languageCode: page.strings.languageCode))
-                    .font(Font(WMFFont.for(.boldHeadline)))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    .accessibilityAddTraits(.isHeader)
-                Text(module.subtitle(languageCode: page.strings.languageCode))
-                    .font(Font(WMFFont.for(.footnote)))
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .fixedSize(horizontal: false, vertical: true)
-
-            // The three-dot menu has its own task. It keeps the actions it had.
-            Menu {
-                Button(role: .destructive) {
-                    if let hideKey { onHideCard(hideKey) }
-                } label: {
-                    Label {
-                        Text(WMFHomeLocalizedStrings.hideCard)
-                    } icon: {
-                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .eyeSlash) ?? UIImage())
-                    }
+        // The title and the "…" button share a row, so the button centers on the title, as in the
+        // Figma. The subtitle runs below under the full width.
+        return VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.titleToSubtitleSpacing) {
+            Text(module.title(languageCode: page.strings.languageCode))
+                .font(Font(WMFFont.for(.boldTitle3)))
+                .foregroundStyle(Color(uiColor: theme.text))
+                .accessibilityAddTraits(.isHeader)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                // Room for the button, which is an overlay so that its 44 pt touch target does
+                // not make the title row taller and push the subtitle down.
+                .padding(.trailing, 44)
+                .overlay(alignment: .trailing) {
+                    moduleMenu(module, hideKey: hideKey)
                 }
-                .disabled(hideKey == nil)
-                Button(role: .destructive) {
-                    onHideModule(module)
-                } label: {
-                    Label {
-                        Text(WMFHomeLocalizedStrings.hideModule)
-                    } icon: {
-                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
-                    }
-                }
-            } label: {
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    .frame(minWidth: 44, minHeight: 44, alignment: .top)
-                    .contentShape(Rectangle())
-            }
-            .accessibilityLabel(WMFHomeLocalizedStrings.moreOptions)
+            Text(page.subtitle(for: module))
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, Self.horizontalPadding)
     }
 
+    /// The Explore card's menu: hide this card, hide every card of the module, and customize the
+    /// feed. The menu's own design has its own task.
+    private func moduleMenu(_ module: WMFCommunityModule, hideKey: String?) -> some View {
+        Menu {
+            Button(role: .destructive) {
+                if let hideKey { onHideCard(hideKey) }
+            } label: {
+                Label {
+                    Text(WMFHomeLocalizedStrings.hideCard)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .eyeSlash) ?? UIImage())
+                }
+            }
+            .disabled(hideKey == nil)
+            Button(role: .destructive) {
+                onHideModule(module)
+            } label: {
+                Label {
+                    Text(WMFHomeLocalizedStrings.hideModule)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
+                }
+            }
+            if let onCustomize {
+                Divider()
+                Button(action: onCustomize) {
+                    Label {
+                        Text(CommonStrings.customizeCommunityFeedTitle)
+                    } icon: {
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .gear) ?? UIImage())
+                    }
+                }
+            }
+        } label: {
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .frame(minWidth: 44, minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel(WMFHomeLocalizedStrings.moreOptions)
+    }
+
     // MARK: - Footer
 
-    @ViewBuilder
     private var footer: some View {
         Group {
             if isLoadingPreviousPage {
@@ -408,6 +496,149 @@ struct WMFCommunityFeedView: View {
     }
 }
 
+// MARK: - Long-press menu
+
+private extension View {
+    /// The Explore feed's long-press menu for an article: open, open in a new or a background tab,
+    /// save or unsave, and share, over a preview of the article.
+    func articleContextMenu(_ article: WMFCommunityArticle, page: WMFHomeCommunityViewModel, module: WMFCommunityModule, isSaved: Bool, onAction: @escaping (WMFCommunityArticleAction, String, WMFProject, WMFCommunityModule) -> Void) -> some View {
+        contextMenu {
+            Button {
+                onAction(.open, article.title, page.project, module)
+            } label: {
+                Label {
+                    Text(CommonStrings.articleTabsOpen)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+                }
+            }
+            Button {
+                onAction(.openInNewTab, article.title, page.project, module)
+            } label: {
+                Label {
+                    Text(CommonStrings.articleTabsOpenInNewTab)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
+                }
+            }
+            Button {
+                onAction(.openInBackgroundTab, article.title, page.project, module)
+            } label: {
+                Label {
+                    Text(CommonStrings.articleTabsOpenInBackgroundTab)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
+                }
+            }
+            Button {
+                onAction(isSaved ? .unsave : .save, article.title, page.project, module)
+            } label: {
+                Label {
+                    Text(isSaved ? CommonStrings.unsaveTitle : CommonStrings.saveTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: isSaved ? .bookmarkFill : .bookmark) ?? UIImage())
+                }
+            }
+            Button {
+                onAction(.share, article.title, page.project, module)
+            } label: {
+                Label {
+                    Text(CommonStrings.shortShareTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+                }
+            }
+        } preview: {
+            WMFArticlePreviewView(viewModel: WMFArticlePreviewViewModel(
+                url: nil,
+                titleHtml: article.plainTitle,
+                description: article.description,
+                imageURL: article.thumbnailURL,
+                isSaved: isSaved,
+                snippet: article.extract
+            ))
+        }
+    }
+}
+
+// MARK: - Article Row
+
+/// One article in Top read or under an On this day event. It shows the feed's display title with
+/// its italics, the description and the thumbnail, without a request of its own.
+private struct WMFCommunityArticleRow: View {
+
+    let article: WMFCommunityArticle
+    let theme: WMFTheme
+
+    @StateObject private var imageViewModel = WMFCommunityThumbnailViewModel()
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                WMFHtmlText(
+                    html: article.displayTitleHTML,
+                    styles: HtmlUtils.Styles(
+                        font: WMFFont.for(.callout),
+                        boldFont: WMFFont.for(.boldCallout),
+                        italicsFont: WMFFont.for(.italicCallout),
+                        boldItalicsFont: WMFFont.for(.boldItalicCallout),
+                        color: theme.text,
+                        linkColor: theme.text,
+                        lineSpacing: 0
+                    ),
+                    lineLimit: 1
+                )
+                if let description = article.description, !description.isEmpty {
+                    Text(description)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .lineLimit(1)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            Group {
+                if let uiImage = imageViewModel.uiImage {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    Color.clear
+                }
+            }
+            .frame(width: 40, height: 40)
+            .clipShape(RoundedRectangle(cornerRadius: 4))
+            .accessibilityHidden(true)
+        }
+        .padding(.vertical, 10)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel([article.plainTitle, article.description].compactMap { $0 }.joined(separator: ", "))
+        .accessibilityAddTraits(.isButton)
+        .onAppear {
+            if let url = article.thumbnailURL {
+                imageViewModel.load(url: url)
+            }
+        }
+    }
+}
+
+@MainActor
+private final class WMFCommunityThumbnailViewModel: ObservableObject {
+    @Published var uiImage: UIImage?
+    private var loadTask: Task<Void, Never>?
+
+    func load(url: URL) {
+        guard uiImage == nil, loadTask == nil else { return }
+        loadTask = Task { [weak self] in
+            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
+            self?.uiImage = UIImage(data: data)
+        }
+    }
+
+    deinit {
+        loadTask?.cancel()
+    }
+}
+
 // MARK: - Featured Article Card
 
 private struct WMFFeaturedArticleCard: View {
@@ -424,7 +655,7 @@ private struct WMFFeaturedArticleCard: View {
                 // aspect fill reports its full width and pushes the whole card off screen.
                 Color.clear
                     .frame(maxWidth: .infinity)
-                    .frame(height: 200)
+                    .frame(height: WMFCommunityFeedMetrics.featuredArticleImageHeight)
                     .overlay {
                         Image(uiImage: uiImage)
                             .resizable()
@@ -548,16 +779,38 @@ private final class WMFNewsStoryImageViewModel: ObservableObject {
 private struct WMFPictureOfTheDayCard: View {
 
     let imageSource: WMFFeedImageSource
+    /// The picture's description, drawn over the bottom of the image as on the Explore card.
+    let caption: String?
     let theme: WMFTheme
 
     @StateObject private var imageViewModel = WMFPictureOfTheDayImageViewModel()
 
     var body: some View {
+        image
+            .overlay(alignment: .bottomLeading) {
+                if let caption, imageViewModel.uiImage != nil {
+                    Text(caption)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundStyle(Color.white)
+                        .lineLimit(3)
+                        .multilineTextAlignment(.leading)
+                        .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        // White text needs a dark base over any picture.
+                        .background(
+                            LinearGradient(colors: [.clear, .black.opacity(0.6)], startPoint: .top, endPoint: .bottom)
+                        )
+                        .accessibilityHidden(true)
+                }
+            }
+    }
+
+    private var image: some View {
         Group {
             if let uiImage = imageViewModel.uiImage {
                 Color.clear
                     .frame(maxWidth: .infinity)
-                    .frame(height: 300)
+                    .frame(height: WMFCommunityFeedMetrics.pictureOfTheDayHeight)
                     .overlay {
                         Image(uiImage: uiImage)
                             .resizable()
@@ -567,7 +820,7 @@ private struct WMFPictureOfTheDayCard: View {
             } else {
                 Color(uiColor: theme.midBackground)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 300)
+                    .frame(height: WMFCommunityFeedMetrics.pictureOfTheDayHeight)
             }
         }
         .onAppear {
@@ -588,4 +841,26 @@ private final class WMFPictureOfTheDayImageViewModel: ObservableObject {
             self.uiImage = UIImage(data: data)
         }
     }
+}
+
+// MARK: - Metrics
+
+/// The Community feed's layout numbers, from the Figma.
+enum WMFCommunityFeedMetrics {
+    static let horizontalPadding: CGFloat = 16
+
+    /// Between two modules in a column, and between a day's last module and the next date.
+    static let moduleSpacing: CGFloat = 34
+    /// Between a module's subtitle and its content.
+    static let headerToContentSpacing: CGFloat = 18
+    /// Between a module's title and its subtitle.
+    static let titleToSubtitleSpacing: CGFloat = 8
+    /// Between the date and the day's first module.
+    static let dateToModuleSpacing: CGFloat = 16
+
+    static let disclaimerGlobeSize: CGFloat = 44
+
+    static let featuredArticleImageHeight: CGFloat = 200
+    static let newsCardHeight: CGFloat = 200
+    static let pictureOfTheDayHeight: CGFloat = 300
 }

@@ -5,13 +5,24 @@ public struct WMFFeedAPIResponse: Codable, Sendable {
     public let mostRead: WMFFeedMostRead?
     public let image: WMFFeedImageNew?
     public let news: [WMFFeedNewsItem]?
-    // onthisday intentionally omitted — see T418486
+    /// The day's On this day events picked by the wiki's editors, as Android and the website show
+    /// them. The full list for a day comes from `WMFOnThisDayDataController`.
+    public let onThisDay: [WMFOnThisDayEvent]?
 
     enum CodingKeys: String, CodingKey {
         case todaysFeaturedArticle = "tfa"
         case mostRead = "mostread"
         case image
         case news
+        case onThisDay = "onthisday"
+    }
+
+    public init(todaysFeaturedArticle: WMFFeedArticle?, mostRead: WMFFeedMostRead?, image: WMFFeedImageNew?, news: [WMFFeedNewsItem]?, onThisDay: [WMFOnThisDayEvent]? = nil) {
+        self.todaysFeaturedArticle = todaysFeaturedArticle
+        self.mostRead = mostRead
+        self.image = image
+        self.news = news
+        self.onThisDay = onThisDay
     }
 }
 

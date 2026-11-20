@@ -76,9 +76,9 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         XCTAssertEqual(page.pictureOfDayHideKey, "picture_of_day_https://upload.wikimedia.org/sky.jpg")
     }
 
-    func testANewsStoryKeepsTheArticleItOpens() throws {
+    func testANewsStoryKeepsItsLinkedArticles() throws {
         let page = try page(feedJSON: #"{ "news": [ { "story": "A story", "links": [ { "title": "Black_hole" } ] } ] }"#)
-        XCTAssertEqual(page.newsItems.first?.articleTitle, "Black_hole")
+        XCTAssertEqual(page.newsItems.first?.newsItem.links?.first?.title, "Black_hole")
     }
 
     func testOnThisDayWithNoEventsHasNoItems() throws {
@@ -151,37 +151,68 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
 
     // MARK: - iPad columns
 
-    func testColumnsKeepEveryModuleOnceInFeedOrder() throws {
-        let page = try page()
-        let modules = page.visibleModules(visibility: allOn, hiddenCardKeys: [])
-        let columns = page.columns(for: modules)
-        XCTAssertEqual(Set(columns.leading + columns.trailing), Set(modules))
-        XCTAssertEqual((columns.leading + columns.trailing).count, modules.count)
-        XCTAssertEqual(columns.leading, modules.filter { columns.leading.contains($0) })
-        XCTAssertEqual(columns.trailing, modules.filter { columns.trailing.contains($0) })
+    /// The Figma puts the image-led modules on the leading side and the story modules on the other.
+    func testColumnsFollowTheFigma() {
+        let columns = WMFHomeCommunityViewModel.columns(for: WMFCommunityModule.allCases)
+        XCTAssertEqual(columns.leading, [.featuredArticle, .topRead, .pictureOfDay])
+        XCTAssertEqual(columns.trailing, [.inTheNews, .onThisDay])
     }
 
-    func testColumnsAreRoughlyBalanced() throws {
-        let page = try page(onThisDayEvents: 2)
-        let modules = page.visibleModules(visibility: allOn, hiddenCardKeys: [])
-        let columns = page.columns(for: modules)
-        let leading = columns.leading.map(page.estimatedHeight(of:)).reduce(0, +)
-        let trailing = columns.trailing.map(page.estimatedHeight(of:)).reduce(0, +)
-        let tallest = modules.map(page.estimatedHeight(of:)).max() ?? 0
-        XCTAssertLessThanOrEqual(abs(leading - trailing), tallest, "The columns differ by at most one module")
-        XCTAssertFalse(columns.trailing.isEmpty)
-    }
-
-    func testFirstModuleStartsTheLeadingColumn() throws {
-        let page = try page()
-        XCTAssertEqual(page.columns(for: [.featuredArticle, .topRead]).leading.first, .featuredArticle)
-        XCTAssertEqual(page.columns(for: [.featuredArticle, .topRead]).trailing, [.topRead])
-    }
-
-    func testOneModuleStaysInTheLeadingColumn() throws {
-        let page = try page()
-        let columns = page.columns(for: [.inTheNews], leadingOffset: 130)
-        XCTAssertEqual(columns.leading, [.inTheNews], "Even under the disclaimer, the leading column is never empty")
+    func testStoryModulesAloneTakeTheLeadingColumn() {
+        let columns = WMFHomeCommunityViewModel.columns(for: [.inTheNews, .onThisDay])
+        XCTAssertEqual(columns.leading, [.inTheNews, .onThisDay], "A day never starts with an empty column under its date")
         XCTAssertTrue(columns.trailing.isEmpty)
+    }
+
+    // MARK: - On this day events
+
+    /// Like Android, the module shows the events the wiki's editors picked, not the newest ones.
+    func testOnThisDayPrefersTheEditorsPicks() throws {
+        let feedJSON = #"{ "onthisday": [ { "text": "Picked", "year": 1945, "pages": [] }, { "text": "Also picked", "year": 1943, "pages": [] }, { "text": "Third pick", "year": 1900, "pages": [] } ] }"#
+        let items = try XCTUnwrap(try page(feedJSON: feedJSON, onThisDayEvents: 3).onThisDayItems)
+        XCTAssertEqual(items.map(\.year), [1945, 1943])
+        XCTAssertEqual(items.map(\.text), ["Picked", "Also picked"])
+    }
+
+    func testOnThisDayFallsBackToTheFullListWithoutPicks() throws {
+        let items = try XCTUnwrap(try page(feedJSON: #"{ }"#, onThisDayEvents: 3).onThisDayItems)
+        XCTAssertEqual(items.count, 2)
+        XCTAssertEqual(items.first?.year, 2013)
+    }
+
+    // MARK: - Articles
+
+    func testRowsKeepTheItalicsOfTheDisplayTitle() throws {
+        let feedJSON = #"{ "mostread": { "articles": [ { "title": "Grand_Theft_Auto_VI", "displaytitle": "<i>Grand Theft Auto VI</i>", "description": "2026 video game", "thumbnail": { "source": "https://upload.wikimedia.org/gta.jpg" } } ] } }"#
+        let item = try XCTUnwrap(try page(feedJSON: feedJSON).topReadItems.first)
+        XCTAssertEqual(item.title, "Grand_Theft_Auto_VI")
+        XCTAssertEqual(item.displayTitleHTML, "<i>Grand Theft Auto VI</i>")
+        XCTAssertEqual(item.plainTitle, "Grand Theft Auto VI")
+        XCTAssertEqual(item.description, "2026 video game")
+        XCTAssertEqual(item.thumbnailURL?.absoluteString, "https://upload.wikimedia.org/gta.jpg")
+    }
+
+    /// The module shows five rows; "More top read" opens every article of the day.
+    func testTopReadShowsFiveButKeepsTheFullList() throws {
+        let articles = (1...8).map { #"{ "title": "Article_\#($0)" }"# }.joined(separator: ",")
+        let page = try page(feedJSON: #"{ "mostread": { "articles": [\#(articles)] } }"#)
+        XCTAssertEqual(page.topReadItems.count, 5)
+        XCTAssertEqual(page.allTopReadTitles.count, 8)
+        XCTAssertEqual(page.allTopReadTitles.last, "Article_8")
+    }
+
+    func testTopReadSaysTodayOnlyOnTodaysPage() throws {
+        let now = Date()
+        let yesterday = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -1, to: now))
+        XCTAssertEqual(try page(date: now, now: now).subtitle(for: .topRead), WMFCommunityModule.topRead.subtitle(languageCode: "en"))
+        let earlier = try page(date: yesterday, now: now)
+        XCTAssertEqual(earlier.subtitle(for: .topRead), earlier.strings.topReadPastSubtitle)
+        XCTAssertNotEqual(earlier.subtitle(for: .topRead), WMFCommunityModule.topRead.subtitle(languageCode: "en"))
+    }
+
+    func testPictureOfTheDayHasItsDescriptionAsCaption() throws {
+        let feedJSON = #"{ "image": { "title": "File:Sky.jpg", "thumbnail": { "source": "https://upload.wikimedia.org/sky.jpg" }, "description": { "html": "Trail from <b>Andiast</b>", "text": "Trail from Andiast" } } }"#
+        XCTAssertEqual(try page(feedJSON: feedJSON).pictureOfDayCaption, "Trail from Andiast")
+        XCTAssertNil(try page().pictureOfDayCaption)
     }
 }

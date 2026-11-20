@@ -328,16 +328,91 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isCommunityFeedEmpty)
     }
 
-    func testTappingACommunityArticleReachesTheCoordinator() {
+    func testTappingACommunityArticleReachesTheCoordinatorWithItsModuleAndAction() {
         let (vm, _) = makeViewModel()
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: "ar", languageVariantCode: nil))
-        var opened: (String, String)?
-        vm.didTapCommunityArticle = { title, project in opened = (title, project.id) }
+        var opened: (String, String, WMFCommunityModule, WMFCommunityArticleAction)?
+        vm.didTapCommunityArticle = { title, project, module, action in opened = (title, project.id, module, action) }
 
-        vm.openCommunityArticle(title: "Black_hole", project: project)
+        vm.performCommunityArticleAction(.openInBackgroundTab, title: "Black_hole", project: project, module: .topRead)
 
         XCTAssertEqual(opened?.0, "Black_hole")
         XCTAssertEqual(opened?.1, project.id)
+        XCTAssertEqual(opened?.2, .topRead)
+        XCTAssertEqual(opened?.3, .openInBackgroundTab)
+    }
+
+    /// The Save button turns into "Saved for later" at once, before the saved list reports back.
+    func testSavingACommunityArticleMarksItSaved() {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        vm.didTapCommunityArticle = { _, _, _, _ in }
+
+        vm.performCommunityArticleAction(.save, title: "Black_hole", project: project, module: .featuredArticle)
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
+
+        vm.performCommunityArticleAction(.unsave, title: "Black_hole", project: project, module: .featuredArticle)
+        XCTAssertFalse(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
+    }
+
+    func testSavedStatesComeFromTheCoordinatorForLoadedArticles() async {
+        let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" }, "mostread": { "articles": [ { "title": "Octopus" } ] } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
+        let vm = WMFHomeViewModel(dataController: WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore()))
+        vm.isCommunityArticleSaved = { title, _ in title == "Octopus" }
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(loaded)
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Octopus", project: project))
+        XCTAssertFalse(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
+    }
+
+    func testMoreTopReadReachesTheCoordinatorWithEveryTitle() throws {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        let feedResponse = try JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "mostread": { "articles": [ { "title": "A" }, { "title": "B" }, { "title": "C" }, { "title": "D" }, { "title": "E" }, { "title": "F" } ] } }"#.utf8))
+        let page = WMFHomeCommunityViewModel(response: WMFCommunityResponse(date: Date(), feedResponse: feedResponse, onThisDay: nil), project: project)
+        var opened: [String]?
+        vm.didTapCommunityTopReadList = { titles, _, _ in opened = titles }
+
+        vm.openCommunityTopReadList(for: page)
+
+        XCTAssertEqual(opened, ["A", "B", "C", "D", "E", "F"])
+    }
+
+    func testTappingAnOnThisDayEventReachesTheCoordinatorWithThatEvent() throws {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        let feedResponse = try JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "onthisday": [ { "text": "Nuremberg trials begin", "year": 1945, "pages": [] } ] }"#.utf8))
+        let page = WMFHomeCommunityViewModel(response: WMFCommunityResponse(date: Date(), feedResponse: feedResponse, onThisDay: nil), project: project)
+        var opened: (year: Int, text: String)?
+        var didOpen = false
+        vm.didTapCommunityOnThisDay = { _, _, event in
+            didOpen = true
+            opened = event
+        }
+
+        vm.openCommunityOnThisDay(for: page, event: page.onThisDayItems?.first)
+        XCTAssertEqual(opened?.year, 1945)
+        XCTAssertEqual(opened?.text, "Nuremberg trials begin")
+
+        vm.openCommunityOnThisDay(for: page, event: nil)
+        XCTAssertTrue(didOpen)
+        XCTAssertNil(opened, "More on this day opens the list at its top")
+    }
+
+    func testTappingANewsStoryReachesTheCoordinatorWithTheWholeStory() throws {
+        let (vm, _) = makeViewModel()
+        let story = try JSONDecoder().decode(WMFFeedNewsItem.self, from: Data(#"{ "story": "A story", "links": [ { "title": "A" }, { "title": "B" } ] }"#.utf8))
+        var opened: WMFFeedNewsItem?
+        vm.didTapCommunityNewsStory = { story, _ in opened = story }
+
+        vm.openCommunityNewsStory(story, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
+
+        XCTAssertEqual(opened?.links?.compactMap(\.title), ["A", "B"])
     }
 
     func testTappingThePictureOfTheDayReachesTheCoordinatorWithItsDate() {
