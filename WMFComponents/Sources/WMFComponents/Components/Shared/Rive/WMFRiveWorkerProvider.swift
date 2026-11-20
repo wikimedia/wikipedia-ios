@@ -35,10 +35,10 @@ enum WMFRiveWorkerProvider {
         "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular)
     ]
 
-    /// EB Garamond Medium, under the SIL Open Font License, for the "SerifFont" of the export. It is
-    /// the static Medium of Google Fonts, the font that the templates file shows since v7.
+    /// EB Garamond Regular, under the SIL Open Font License, for the "SerifFont" of the export. The
+    /// export has Medium, but product wants Regular to match Android.
     private static let bundledFontURLs: [String: URL] = [
-        "SerifFont": Bundle.module.url(forResource: "EBGaramond-Medium", withExtension: "ttf")
+        "SerifFont": Bundle.module.url(forResource: "EBGaramond-Regular", withExtension: "ttf")
     ].compactMapValues { $0 }
 
     static func sharedWorker() async throws -> Worker {
