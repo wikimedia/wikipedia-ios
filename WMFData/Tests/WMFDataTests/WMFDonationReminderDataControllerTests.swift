@@ -534,7 +534,7 @@ final class WMFDonationReminderDataControllerTests {
 
             var seenAssignments = Set<WMFDonationReminderDataController.ExperimentAssignment>()
             for _ in 1...200 {
-                try experimentsDataController.resetExperiment(.donationReminder)
+                try experimentsDataController.resetExperiment(.donationReminderV4)
                 seenAssignments.insert(try assignExperiment())
                 if seenAssignments.count == 3 {
                     break
@@ -705,6 +705,101 @@ final class WMFDonationReminderDataControllerTests {
             _ = donateDataController.saveLocalDonationHistory(type: .oneTime, amount: 1, currencyCode: "EUR", isNative: true)
 
             #expect(controller.isFollowUpReminderWindowClosed)
+        }
+    }
+
+    // MARK: - Group Assigned Logging
+
+    @Test
+    func markGroupAssignedLoggedReturnsTrueOnlyTheFirstTime() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == false)
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == false)
+        }
+    }
+
+    @Test
+    func clearExperimentAssignmentAllowsGroupAssignedToBeLoggedAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+
+            controller.clearExperimentAssignment()
+
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+        }
+    }
+
+    @Test
+    func clearPreviousExperimentRoundAllowsGroupAssignedToBeLoggedAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let userDefaultsStore = try #require(WMFDataEnvironment.current.userDefaultsStore)
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.donationReminderExperimentRound.rawValue, value: "donationReminder")
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.donationReminderGroupAssignedLogged.rawValue, value: true)
+
+            controller.clearPreviousExperimentRoundIfNeeded()
+
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+        }
+    }
+
+    @Test
+    func clearPreviousExperimentRoundKeepsGroupAssignedLoggedInTheCurrentRound() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.clearPreviousExperimentRoundIfNeeded()
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+
+            controller.clearPreviousExperimentRoundIfNeeded()
+
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == false)
+        }
+    }
+
+    // MARK: - Experiment Round
+
+    @Test
+    func clearPreviousExperimentRoundRemovesTheStateOfTheOldRound() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let userDefaultsStore = try #require(WMFDataEnvironment.current.userDefaultsStore)
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.donationReminderExperimentRound.rawValue, value: "donationReminder")
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: Date(), isEnabled: true))
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue, value: "EUR")
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.donationReminderWrapUpCardSeen.rawValue, value: true)
+
+            controller.clearPreviousExperimentRoundIfNeeded()
+
+            #expect(controller.loadReminder() == nil)
+            #expect(controller.experimentCurrencyCode == nil)
+            #expect(controller.hasSeenWrapUpCard == false)
+            let savedRoundName: String? = try userDefaultsStore.load(key: WMFUserDefaultsKey.donationReminderExperimentRound.rawValue)
+            #expect(savedRoundName == WMFDonationReminderDataController.experimentRoundName)
+        }
+    }
+
+    /// A reader who updates from a version without the saved round name has the state of the old round.
+    @Test
+    func clearPreviousExperimentRoundRemovesTheStateWhenNoRoundNameIsSaved() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: Date(), isEnabled: true))
+
+            controller.clearPreviousExperimentRoundIfNeeded()
+
+            #expect(controller.loadReminder() == nil)
+        }
+    }
+
+    @Test
+    func clearPreviousExperimentRoundKeepsTheStateOfTheCurrentRound() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.clearPreviousExperimentRoundIfNeeded()
+            let reminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "USD", createdDate: Date(), isEnabled: true)
+            controller.saveReminder(reminder)
+            try assignExperiment(campaignCurrencyCode: "USD")
+
+            controller.clearPreviousExperimentRoundIfNeeded()
+
+            #expect(controller.loadReminder() == reminder)
+            #expect(controller.experimentAssignment != nil)
         }
     }
 

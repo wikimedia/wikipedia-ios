@@ -38,15 +38,16 @@ extension ArticleViewController {
             // Setup donation reminder experiment if needed
             if activeCampaignAsset.id == WMFDonationReminderDataController.experimentCampaignID {
 
+                #if DEBUG
                 let neededAssignment = WMFDonationReminderDataController.shared.needsExperimentAssignment
+                #endif
 
                 let experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(campaignID: activeCampaignAsset.id, campaignCurrencyCode: activeCampaignAsset.currencyCode)
+                #if DEBUG
                 if let experimentAssignment, neededAssignment {
-                    DonateFunnel.shared.logDonationReminderGroupAssigned(experimentAssignment, project: wikimediaProject)
-                    #if DEBUG
                     showDebugExperimentAssignmentToast(experimentAssignment)
-                    #endif
                 }
+                #endif
 
                 if experimentAssignment != nil {
                     donateSource = .donationReminderCampaignModal(articleURL, activeCampaignAsset.metricsID, donateURL)
@@ -127,6 +128,11 @@ extension ArticleViewController {
 
         }, maybeLaterButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: metricsID)
+            if case .donationReminderCampaignModal = source,
+               let experimentAssignment = WMFDonationReminderDataController.shared.experimentAssignment,
+               WMFDonationReminderDataController.shared.markGroupAssignedLoggedIfNeeded() {
+                DonateFunnel.shared.logDonationReminderGroupAssigned(experimentAssignment, project: project, metricsID: metricsID)
+            }
         }, alreadyDonatedButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: metricsID)
             self.donateAlreadyDonated()

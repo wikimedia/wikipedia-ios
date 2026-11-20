@@ -810,6 +810,9 @@ extension WMFAppViewController {
 
         WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
 
+        // Remove the donation reminder state of the previous experiment round before the app shows a campaign.
+        WMFDonationReminderDataController.shared.clearPreviousExperimentRoundIfNeeded()
+
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
 

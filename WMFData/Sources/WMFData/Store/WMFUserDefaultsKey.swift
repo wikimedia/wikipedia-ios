@@ -69,6 +69,8 @@ public enum WMFUserDefaultsKey: String {
     case donationReminder = "donation-reminder"
     case donationReminderExperimentCurrency = "donation-reminder-experiment-currency"
     case donationReminderWrapUpCardSeen = "donation-reminder-wrap-up-card-seen"
+    case donationReminderExperimentRound = "donation-reminder-experiment-round"
+    case donationReminderGroupAssignedLogged = "donation-reminder-group-assigned-logged"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
     // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)

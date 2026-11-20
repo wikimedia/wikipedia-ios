@@ -9,17 +9,17 @@ final class WMFExperimentsDataControllerTests {
     @Test
     func donationReminderBucketBoundaries() throws {
         let expectations: [(roll: Int, bucket: WMFExperimentsDataController.BucketValue)] = [
-            (1, .donationReminderControl),
-            (33, .donationReminderControl),
-            (34, .donationReminderGroupB),
-            (66, .donationReminderGroupB),
-            (67, .donationReminderGroupC),
-            (100, .donationReminderGroupC)
+            (1, .donationReminderV4Control),
+            (33, .donationReminderV4Control),
+            (34, .donationReminderV4GroupE),
+            (66, .donationReminderV4GroupE),
+            (67, .donationReminderV4GroupF),
+            (100, .donationReminderV4GroupF)
         ]
 
         for expectation in expectations {
             let controller = WMFExperimentsDataController(store: WMFMockKeyValueStore())
-            let bucket = try controller.determineBucketForExperiment(.donationReminder, withPercentage: 33, randomIntProvider: { expectation.roll })
+            let bucket = try controller.determineBucketForExperiment(.donationReminderV4, withPercentage: 33, randomIntProvider: { expectation.roll })
             #expect(bucket == expectation.bucket, "roll \(expectation.roll)")
         }
     }
@@ -29,10 +29,10 @@ final class WMFExperimentsDataControllerTests {
         let store = WMFMockKeyValueStore()
         let controller = WMFExperimentsDataController(store: store)
 
-        let firstBucket = try controller.determineBucketForExperiment(.donationReminder, withPercentage: 33, randomIntProvider: { 34 })
-        let secondBucket = try controller.determineBucketForExperiment(.donationReminder, withPercentage: 33, randomIntProvider: { 100 })
+        let firstBucket = try controller.determineBucketForExperiment(.donationReminderV4, withPercentage: 33, randomIntProvider: { 34 })
+        let secondBucket = try controller.determineBucketForExperiment(.donationReminderV4, withPercentage: 33, randomIntProvider: { 100 })
 
-        #expect(firstBucket == .donationReminderGroupB)
+        #expect(firstBucket == .donationReminderV4GroupE)
         #expect(secondBucket == firstBucket)
     }
 
@@ -84,13 +84,13 @@ final class WMFExperimentsDataControllerTests {
     func resetRemovesEveryFileOfTheExperiment() throws {
         let store = WMFMockKeyValueStore()
         let controller = WMFExperimentsDataController(store: store)
-        _ = try controller.determineBucketForExperiment(.donationReminder, withPercentage: 33)
+        _ = try controller.determineBucketForExperiment(.donationReminderV4, withPercentage: 33)
         #expect(try store.keys(inDirectory: Self.directory).count == 3)
 
-        try controller.resetExperiment(.donationReminder)
+        try controller.resetExperiment(.donationReminderV4)
 
         #expect(try store.keys(inDirectory: Self.directory).isEmpty)
-        #expect(controller.bucketForExperiment(.donationReminder) == nil)
+        #expect(controller.bucketForExperiment(.donationReminderV4) == nil)
     }
 
     @Test
@@ -102,14 +102,17 @@ final class WMFExperimentsDataControllerTests {
         try store.save(key: Self.directory, "homeTabBucket", value: "HomeTab_GroupB")
         try store.save(key: Self.directory, "homeTabPercent", value: 50)
         try store.save(key: Self.directory, "homeTabBucketSignature", value: "homeTabBucket|HomeTab_Control,HomeTab_GroupB")
+        try store.save(key: Self.directory, "donationReminderBucket", value: "DonationReminder_GroupB")
+        try store.save(key: Self.directory, "donationReminderPercent", value: 33)
+        try store.save(key: Self.directory, "donationReminderBucketSignature", value: "donationReminderBucket|DonationReminder_Control,DonationReminder_GroupB,DonationReminder_GroupC")
         let controller = WMFExperimentsDataController(store: store)
-        let activeBucket = try controller.determineBucketForExperiment(.donationReminder, withPercentage: 33)
+        let activeBucket = try controller.determineBucketForExperiment(.donationReminderV4, withPercentage: 33)
         try store.save(key: "Developer Settings", "AppsFeatureConfig", value: "untouched")
 
         WMFExperimentsDataController.pruneRetiredExperiments(store: store)
 
-        #expect(try store.keys(inDirectory: Self.directory) == ["donationReminderBucket", "donationReminderBucketSignature", "donationReminderPercent"])
-        #expect(controller.bucketForExperiment(.donationReminder) == activeBucket)
+        #expect(try store.keys(inDirectory: Self.directory) == ["donationReminderV4Bucket", "donationReminderV4BucketSignature", "donationReminderV4Percent"])
+        #expect(controller.bucketForExperiment(.donationReminderV4) == activeBucket)
         let otherDirectoryValue: String? = try store.load(key: "Developer Settings", "AppsFeatureConfig")
         #expect(otherDirectoryValue == "untouched")
     }
@@ -122,7 +125,7 @@ final class WMFExperimentsDataControllerTests {
         let percentages: [WMFExperimentsDataController.Experiment: Int] = [
             .moreDynamicTabsV2: 50,
             .yirLoginPrompt: 50,
-            .donationReminder: 33,
+            .donationReminderV4: 33,
             .semanticSearch: 50,
             .discover: 50,
             .semanticSearchInterleaved: 50,

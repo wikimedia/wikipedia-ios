@@ -672,14 +672,14 @@ import WMFData
         ], project: project)
     }
 
-    func logDonationReminderGroupAssigned(_ assignment: WMFDonationReminderDataController.ExperimentAssignment, project: WikimediaProject) {
+    func logDonationReminderGroupAssigned(_ assignment: WMFDonationReminderDataController.ExperimentAssignment, project: WikimediaProject, metricsID: String) {
         let group: String
         switch assignment {
-        case .control: group = "ios_remind_a"
-        case .groupB: group = "ios_remind_b"
-        case .groupC: group = "ios_remind_c"
+        case .control: group = "ios_remind_d"
+        case .groupB: group = "ios_remind_e"
+        case .groupC: group = "ios_remind_f"
         }
-        logEvent(activeInterface: .articleBanner, action: .groupAssigned, actionData: ["group": group], project: project)
+        logEvent(activeInterface: .articleBanner, action: .groupAssigned, actionData: ["group": group, "campaign_id": metricsID], project: project)
     }
 
     // MARK: - Donation Reminder Wrap-up
