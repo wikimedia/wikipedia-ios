@@ -109,6 +109,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public typealias SaveAction = @MainActor @Sendable (SearchResult, Int, ActionSource) -> Void
     public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?, ActionSource) -> Void
     public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
+    /// The reader rated a result of the interleaved list. The index is the position of the result in the list.
+    public typealias RatingAction = @MainActor @Sendable (SearchResult, Int, WMFSemanticSearchFeedbackViewModel.Rating) -> Void
     public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
     public typealias AttributionProvider = @Sendable (WMFProject, String) async throws -> WMFSemanticSearchAttribution
 
@@ -151,6 +153,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     private let openOnMapAction: ResultAction
     private let saveOrUnsaveAction: SaveAction
     private let shareAction: ShareAction
+    private let ratingAction: RatingAction
     private let summaryProvider: SummaryProvider
     private let attributionProvider: AttributionProvider
 
@@ -165,6 +168,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         openOnMapAction: @escaping ResultAction,
         saveOrUnsaveAction: @escaping SaveAction,
         shareAction: @escaping ShareAction,
+        ratingAction: @escaping RatingAction = { _, _, _ in },
         summaryProvider: SummaryProvider? = nil,
         attributionProvider: AttributionProvider? = nil
     ) {
@@ -178,6 +182,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.openOnMapAction = openOnMapAction
         self.saveOrUnsaveAction = saveOrUnsaveAction
         self.shareAction = shareAction
+        self.ratingAction = ratingAction
         self.summaryProvider = summaryProvider ?? { project, title in
             try await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title)
         }
@@ -349,7 +354,18 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             result: result,
             project: project,
             showsLastUpdatedInPlaceOfReferences: WMFSemanticSearchInterleavedDataController.shared.showsLastUpdatedInPlaceOfReferences(languageCode: languageCode),
-            attributionProvider: attributionProvider)
+            attributionProvider: attributionProvider,
+            ratingAction: { [weak self] result, rating in
+                self?.rate(result, rating)
+            })
+    }
+
+    /// Thanks the reader and passes the answer on.
+    private func rate(_ result: SearchResult, _ rating: WMFSemanticSearchFeedbackViewModel.Rating) {
+        guard let index = index(of: result) else { return }
+
+        WMFToastPresenter.shared.show(WMFToastConfig(title: WMFSemanticSearchFeedbackViewModel.thanksToastTitle(languageCode: languageCode)))
+        ratingAction(result, index, rating)
     }
 
     func loadImage(url: URL?) async -> UIImage? {

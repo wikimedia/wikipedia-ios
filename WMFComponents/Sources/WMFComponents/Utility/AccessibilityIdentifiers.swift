@@ -187,6 +187,8 @@ public enum AccessibilityIdentifiers {
         public static let semanticSearchFeedbackTextField = "Search Semantic Search Feedback Text Field"
         public static let semanticSearchFeedbackSubmitButton = "Search Semantic Search Feedback Submit Button"
         public static let semanticSearchFeedbackCloseButton = "Search Semantic Search Feedback Close Button"
+        public static let interleavedResultFeedbackThumbsUpButton = "Search Interleaved Result Feedback Thumbs Up Button"
+        public static let interleavedResultFeedbackThumbsDownButton = "Search Interleaved Result Feedback Thumbs Down Button"
         public static let semanticSearchInfoView = "Search Semantic Search Info View"
         public static let semanticSearchInfoCloseButton = "Search Semantic Search Info Close Button"
         public static let semanticSearchInfoLearnMoreButton = "Search Semantic Search Info Learn More Button"

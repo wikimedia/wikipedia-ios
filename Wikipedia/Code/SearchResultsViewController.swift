@@ -120,6 +120,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// the passage as plain text. This keeps the passage with its markup and its section, so that opening
     /// the article from a semantic row can highlight it, as the semantic search sheet does.
     var semanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
+    /// The search IDs of the interleaved list on screen. The feedback of a card carries them.
+    var displayedInterleavedSearchIDs: WMFSemanticSearchInterleavedIDs?
 
     var siteURL: URL? {
         get {
