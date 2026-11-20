@@ -6,7 +6,9 @@ import WMFNativeLocalizations
 import WMFTestKitchen
 
 @MainActor
-final class HomeCoordinator: NSObject, Coordinator {
+final class HomeCoordinator: NSObject, TabRootCoordinator {
+
+    let tab: WMFAppTabType = .main
 
     // The Home tab's navigation controller. Injected via `attach(navigationController:)` once the
     // Home view controller has been wrapped in its tab navigation controller.
@@ -37,6 +39,18 @@ final class HomeCoordinator: NSObject, Coordinator {
     @objc private func handleEnableHomePhase2DidChange() {
         guard tabNavigationController != nil else { return }
         start()
+    }
+
+    var rootViewController: UIViewController {
+        homeViewController ?? makeHomeViewController()
+    }
+
+    func apply(theme: Theme) {
+        self.theme = theme
+    }
+
+    func tabWasReselected() {
+        homeViewController?.scrollSelectedFeedToTop()
     }
 
     func attach(navigationController: UINavigationController) {
