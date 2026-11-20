@@ -12,6 +12,55 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: fixture))
     }
 
+    // MARK: - First section
+
+    func testFetchFirstSectionReturnsTheHeadingAndTheTextOfTheFirstSection() async throws {
+        let section = try await controller(fixture: "article-search-first-section-get").fetchFirstSection(pageID: 12290408, project: enProject)
+
+        XCTAssertEqual(section?.title, "Ernest Scott Prize")
+        XCTAssertTrue(section?.text.hasPrefix("The pre-eminent prize for") == true)
+        XCTAssertFalse(section?.text.contains("A second section") == true, "The text stops at the next heading")
+        XCTAssertFalse(section?.text.contains("==") == true)
+    }
+
+    func testFetchFirstSectionRejectsProjectsItDoesNotSearch() async {
+        do {
+            _ = try await controller(fixture: "article-search-first-section-get").fetchFirstSection(pageID: 1, project: .wikidata)
+            XCTFail("Expected an unsupported project error")
+        } catch {
+            XCTAssertEqual(error as? WMFDataControllerError, .unsupportedProject)
+        }
+    }
+
+    func testFirstSectionTakesTheTextUnderTheFirstHeading() {
+        let section = WMFArticleSearchDataController.firstSection(inExtract: "\n== History ==\nFounded in 1900.\nGrew fast.\n== Later ==\nMore.")
+
+        XCTAssertEqual(section, WMFArticleSearchFirstSection(title: "History", text: "Founded in 1900.\nGrew fast."))
+    }
+
+    func testFirstSectionSkipsAHeadingWithoutTextAndKeepsTheHeadingOfTheText() {
+        let section = WMFArticleSearchDataController.firstSection(inExtract: "\n== Awards ==\n=== Ernest Scott Prize ===\nThe pre-eminent prize.")
+
+        XCTAssertEqual(section, WMFArticleSearchFirstSection(title: "Ernest Scott Prize", text: "The pre-eminent prize."))
+    }
+
+    func testFirstSectionOfALeadHasNoTitle() {
+        let section = WMFArticleSearchDataController.firstSection(inExtract: "A lead before any heading.\n== History ==\nFounded in 1900.")
+
+        XCTAssertEqual(section, WMFArticleSearchFirstSection(title: nil, text: "A lead before any heading."))
+    }
+
+    func testFirstSectionReadsAnyHeadingLevel() {
+        XCTAssertEqual(WMFArticleSearchDataController.firstSection(inExtract: "====== Deep ======\nText.")?.title, "Deep")
+        XCTAssertEqual(WMFArticleSearchDataController.firstSection(inExtract: "==Tight==\nText.")?.title, "Tight")
+    }
+
+    func testFirstSectionIsNilWithoutAnyText() {
+        XCTAssertNil(WMFArticleSearchDataController.firstSection(inExtract: ""))
+        XCTAssertNil(WMFArticleSearchDataController.firstSection(inExtract: "\n  \n"))
+        XCTAssertNil(WMFArticleSearchDataController.firstSection(inExtract: "\n== Empty ==\n"))
+    }
+
     // MARK: - Page search
 
     func testSearchPagesDecodesResultsInIndexOrder() async throws {

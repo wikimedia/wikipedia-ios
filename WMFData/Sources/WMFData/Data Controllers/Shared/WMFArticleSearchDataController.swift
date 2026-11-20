@@ -143,6 +143,79 @@ public actor WMFArticleSearchDataController {
         )
     }
 
+    // MARK: - First section
+
+    /// Fetches the start of the first section that has text, for a page whose lead section is empty.
+    ///
+    /// The lead extracts of `searchPages` ask for the intro only (`exintro`), which is empty for a page that
+    /// starts with a heading. The API returns an extract for one page only when the intro is not asked for, so
+    /// this is one request per page.
+    /// - Parameters:
+    ///   - pageID: The page to fetch.
+    ///   - project: The project of the page. Wikipedia projects and Commons are supported.
+    /// - Returns: The heading and the text of the section, or nil when the page has no text at all.
+    public func fetchFirstSection(pageID: Int, project: WMFProject) async throws -> WMFArticleSearchFirstSection? {
+        switch project {
+        case .wikipedia, .commons:
+            break
+        default:
+            throw WMFDataControllerError.unsupportedProject
+        }
+
+        let parameters: [String: Any] = [
+            "action": "query",
+            "prop": "extracts",
+            "pageids": String(pageID),
+            "explaintext": "",
+            "exsectionformat": "wiki",
+            "exchars": String(Self.pageSearchExtractCharacters),
+            "format": "json",
+            "formatversion": "2"
+        ]
+
+        let response = try await performQuery(project: project, parameters: parameters)
+        guard let extract = response.value.query?.pages?.first?.extract else {
+            return nil
+        }
+        return Self.firstSection(inExtract: extract)
+    }
+
+    /// Finds the first section with text in the plain text extract of a whole page, where each heading is
+    /// a line like `== History ==`. Text before the first heading is the lead and has no title. A section with
+    /// only subsections has no text, so the search goes on to the next heading.
+    static func firstSection(inExtract extract: String) -> WMFArticleSearchFirstSection? {
+        var title: String?
+        var lines: [String] = []
+
+        func section() -> WMFArticleSearchFirstSection? {
+            let text = lines.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
+            return text.isEmpty ? nil : WMFArticleSearchFirstSection(title: title, text: text)
+        }
+
+        for line in extract.components(separatedBy: "\n") {
+            if let heading = headingTitle(inLine: line) {
+                if let found = section() {
+                    return found
+                }
+                title = heading
+                lines = []
+            } else {
+                lines.append(line)
+            }
+        }
+        return section()
+    }
+
+    private static let headingRegex = try? NSRegularExpression(pattern: "^(={2,6})\\s*(.+?)\\s*\\1\\s*$")
+
+    private static func headingTitle(inLine line: String) -> String? {
+        let range = NSRange(location: 0, length: (line as NSString).length)
+        guard let match = headingRegex?.firstMatch(in: line, range: range), match.numberOfRanges > 2 else {
+            return nil
+        }
+        return (line as NSString).substring(with: match.range(at: 2))
+    }
+
     // MARK: - Search near a coordinate
 
     /// Search pages near a coordinate. The result is sorted by distance from the coordinate.
@@ -296,6 +369,18 @@ struct WMFArticleSearchQuery: Decodable, Sendable {
 }
 
 /// The full result of a page search.
+/// The start of a section of a page: the heading and the text under it. The title is nil for the lead
+/// section, which has no heading.
+public struct WMFArticleSearchFirstSection: Sendable, Equatable {
+    public let title: String?
+    public let text: String
+
+    public init(title: String?, text: String) {
+        self.title = title
+        self.text = text
+    }
+}
+
 public struct WMFArticleSearchResponse: Sendable, Equatable {
     public let results: [WMFArticleSearchResult]
     public let redirects: [WMFArticleSearchRedirect]
