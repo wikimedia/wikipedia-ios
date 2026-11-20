@@ -28,19 +28,27 @@ struct SearchResultsMapper {
         return .wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: url.wmf_languageVariantCode))
     }
 
-    func searchResult(from result: MWKSearchResult) -> SearchResult? {
+    /// - Parameter firstSection: What to show when the lead of the article is empty: the first section with text.
+    func searchResult(from result: MWKSearchResult, firstSection: WMFArticleSearchFirstSection? = nil) -> SearchResult? {
         guard let pageTitle = result.title, let articleURL = result.articleURL(forSiteURL: siteURL) else {
             return nil
         }
         
         let title = result.displayTitle ?? pageTitle
+        var extract = result.extract
+        var sectionTitle: String?
+        if (extract ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, let firstSection {
+            extract = (firstSection.text as NSString).wmf_summaryFromText()
+            sectionTitle = firstSection.title
+        }
         return SearchResult(
             articleURL: articleURL,
             pageTitle: pageTitle,
             title: title,
             titleHTML: result.displayTitleHTML ?? title,
             description: description(for: result),
-            extract: result.extract,
+            extract: extract,
+            sectionTitle: sectionTitle,
             thumbnailURL: result.thumbnailURL,
             isArticle: Self.isArticle(articleURL),
             hasLocation: result.location != nil,
