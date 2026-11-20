@@ -97,8 +97,7 @@ public final class WMFDonationReminderDataController: Sendable {
 
     public static let shared = WMFDonationReminderDataController()
 
-    // TODO: T445581 - Replace with the ID of the Big English campaign for the US.
-    public static let experimentCampaignID = "BIG_ENGLISH_US_PLACEHOLDER"
+    public static let experimentCampaignID = "US_2026_11"
 
     /// The name of the current experiment round. Change this value only to start a new round.
     /// A new value removes the reminder state of the previous round at launch.
