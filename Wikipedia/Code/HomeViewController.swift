@@ -357,7 +357,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private func pushCommunityOnThisDay(project: WMFProject, date: Date, event: (year: Int, text: String)?) {
         // A second tap while the list loads is ignored, so the list is pushed once.
         guard onThisDayLoadTask == nil else { return }
-        let calendar = Calendar.current
+        // Gregorian like the data controller, so a device set to another calendar asks for the same day.
+        let calendar = Calendar(identifier: .gregorian)
         let month = calendar.component(.month, from: date)
         let day = calendar.component(.day, from: date)
         onThisDayLoadTask = Task { [weak self] in

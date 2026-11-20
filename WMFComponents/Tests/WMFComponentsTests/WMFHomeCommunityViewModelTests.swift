@@ -91,7 +91,9 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         let now = Date()
         let page = try page(date: now, now: now)
         let formatted = DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: now)
-        XCTAssertEqual(page.date, "Today - \(formatted)")
+        // Built from the app's own string, so the test passes in any simulator language.
+        XCTAssertEqual(page.date, WMFCommunityFeedStrings.todayDateHeader(formatted))
+        XCTAssertNotEqual(page.date, formatted, "Today's header says today, not only the date")
     }
 
     func testAnEarlierPageShowsOnlyItsDate() throws {
@@ -110,16 +112,11 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
 
     // MARK: - Language
 
-    func testARightToLeftWikiLaysTheFeedOutRightToLeft() throws {
-        XCTAssertTrue(try page(project: arabic).isRTL)
-        XCTAssertFalse(try page(project: english).isRTL)
-    }
-
     /// Like Android, the date above each day follows the app language, not the wiki's.
     func testTheDateHeaderFollowsTheAppLanguageInAnotherWiki() throws {
         let now = Date()
         let page = try page(date: now, project: arabic, now: now)
-        XCTAssertEqual(page.date, "Today - \(DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: now))")
+        XCTAssertEqual(page.date, WMFCommunityFeedStrings.todayDateHeader(DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: now)))
     }
 
     // MARK: - Years ago
@@ -162,8 +159,6 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         let columns = WMFHomeCommunityViewModel.columns(for: [.inTheNews])
         XCTAssertEqual(columns.leading, [.inTheNews])
         XCTAssertTrue(columns.trailing.isEmpty)
-        XCTAssertFalse(WMFHomeCommunityViewModel.usesTwoColumns(for: [.inTheNews]), "A single module is drawn at full width")
-        XCTAssertTrue(WMFHomeCommunityViewModel.usesTwoColumns(for: [.topRead, .pictureOfDay]))
     }
 
     /// Small wikis such as Scots or Simple English have only Top read and Picture of the day, both

@@ -22,6 +22,16 @@ final class WMFHomeViewModelTests: XCTestCase {
         return (vm, controller)
     }
 
+    /// A data controller that reads the given feed. On this day fails at once, as if offline, so a
+    /// Community load never waits for the live API.
+    private func makeDataController(feed: any WMFFeedDataControlling) -> WMFHomeDataController {
+        WMFHomeDataController(
+            feedDataController: feed,
+            userDefaultsStore: WMFMockKeyValueStore(),
+            onThisDayDataController: WMFOnThisDayDataController(basicService: WMFMockServiceNoInternetConnection())
+        )
+    }
+
     private func makeForYouCardViewModel() -> WMFForYouArticleCardViewModel {
         let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
@@ -266,10 +276,12 @@ final class WMFHomeViewModelTests: XCTestCase {
         let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
         let englishProjectID = WMFProject.wikipedia(english).id
-        let feed = WMFMockGatedFeedDataController(response: emptyFeed) { project, _ in
+        // A day with content, so that the feed does not go back to earlier days by itself.
+        let withContent = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: withContent ?? emptyFeed) { project, _ in
             project.id == englishProjectID
         }
-        let vm = WMFHomeViewModel(dataController: WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore()))
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
         vm.selectedTab = .community
 
         vm.selectedLanguage = english
@@ -293,7 +305,7 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     func testCommunityFeedIsEmptyWhenEveryModuleIsOff() async {
         let feed = WMFMockGatedFeedDataController(response: emptyFeed, holdCount: 0) { _, _ in false }
-        let controller = WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore())
+        let controller = makeDataController(feed: feed)
         controller.setCommunityFeaturedArticleIsOn(false)
         controller.setCommunityTopReadIsOn(false)
         controller.setCommunityInTheNewsIsOn(false)
@@ -313,7 +325,7 @@ final class WMFHomeViewModelTests: XCTestCase {
     func testHidingEveryCardKeepsTheFeed() async {
         let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
         let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
-        let vm = WMFHomeViewModel(dataController: WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore()))
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
         vm.selectedTab = .community
         vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let loaded = await waitUntil { !vm.communityPages.isEmpty }
@@ -335,7 +347,7 @@ final class WMFHomeViewModelTests: XCTestCase {
     private func makeCommunityViewModel(daysWithContent: Set<Int>) -> (WMFHomeViewModel, WMFDatedFeedDataController) {
         let withContent = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
         let feed = WMFDatedFeedDataController(withContent: withContent ?? emptyFeed, empty: emptyFeed, daysWithContent: daysWithContent)
-        let controller = WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore())
+        let controller = makeDataController(feed: feed)
         controller.setCommunityOnThisDayIsOn(false)
         let vm = WMFHomeViewModel(dataController: controller)
         vm.selectedTab = .community
@@ -433,7 +445,7 @@ final class WMFHomeViewModelTests: XCTestCase {
     func testSavedStatesComeFromTheCoordinatorForLoadedArticles() async {
         let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" }, "mostread": { "articles": [ { "title": "Octopus" } ] } }"#.utf8))
         let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
-        let vm = WMFHomeViewModel(dataController: WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore()))
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
         vm.isCommunityArticleSaved = { title, _ in title == "Octopus" }
         vm.selectedTab = .community
         vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)

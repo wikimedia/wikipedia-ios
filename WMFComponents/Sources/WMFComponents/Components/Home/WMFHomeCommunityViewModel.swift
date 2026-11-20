@@ -285,11 +285,6 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     // MARK: - Layout
 
-    /// Feed content of a right-to-left wiki is laid out right to left, whatever the app language.
-    var isRTL: Bool {
-        project.isRTL
-    }
-
     /// The modules this page shows, in feed order. A module is left out when the reader turned it
     /// off, hid this card, or the wiki has no content for it that day.
     func visibleModules(visibility: WMFCommunityModuleVisibility, hiddenCardKeys: Set<String>) -> [WMFCommunityModule] {
@@ -341,12 +336,6 @@ public struct WMFHomeCommunityViewModel: Identifiable {
             leading.append(moved)
         }
         return (leading, trailing)
-    }
-
-    /// True when a day lays out in two columns on a regular-width screen. A day of one module is
-    /// drawn at full width, like on a phone.
-    static func usesTwoColumns(for modules: [WMFCommunityModule]) -> Bool {
-        modules.count > 1
     }
 
     func hideKey(for module: WMFCommunityModule) -> String? {

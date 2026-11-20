@@ -195,7 +195,7 @@ public final class WMFHomeViewModel: ObservableObject {
 
     /// Answers whether the app has an article saved. Set by the coordinator, which owns the saved
     /// list. The feed asks it again whenever the screen comes back, like For You does.
-    public var isCommunityArticleSaved: ((_ title: String, _ project: WMFProject) -> Bool)?
+    public var isCommunityArticleSaved: (@MainActor @Sendable (_ title: String, _ project: WMFProject) -> Bool)?
 
     /// The articles of the loaded Community pages that are saved, keyed by project and title.
     @Published private(set) var savedCommunityArticleKeys: Set<String> = []

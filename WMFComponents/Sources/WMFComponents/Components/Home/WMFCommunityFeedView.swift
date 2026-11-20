@@ -8,8 +8,9 @@ import WMFNativeLocalizations
 /// date and the day's modules. The footer loads the day before the oldest one shown.
 ///
 /// The feed is laid out in the direction of its wiki's language, and its headers are in that
-/// language, so an Arabic feed reads right to left in an English app. The Home header around it
-/// stays in the app language.
+/// language, so an Arabic feed reads right to left in an English app. The date above each day and
+/// the article menus stay in the app language. The Home header's segment titles follow the wiki
+/// language (see `WMFHomeViewModel.feedLanguageCode`).
 struct WMFCommunityFeedView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -53,11 +54,17 @@ struct WMFCommunityFeedView: View {
     }
 
     private var layoutDirection: LayoutDirection {
-        (pages.first?.isRTL ?? false) ? .rightToLeft : .leftToRight
+        (pages.first?.project.isRTL ?? false) ? .rightToLeft : .leftToRight
     }
 
-    private var usesTwoColumns: Bool {
+    private var isRegularWidth: Bool {
         horizontalSizeClass == .regular
+    }
+
+    /// True when a day is drawn in two columns: a regular-width screen and more than one module.
+    /// A day of one module is drawn at full width, like on a phone.
+    private func usesTwoColumns(_ modules: [WMFCommunityModule]) -> Bool {
+        isRegularWidth && modules.count > 1
     }
 
     var body: some View {
@@ -73,7 +80,7 @@ struct WMFCommunityFeedView: View {
                         // On iPad the disclaimer is drawn inside the first day's leading column, so
                         // the trailing column starts at the top beside it, as in the Figma. A first
                         // day drawn at full width has no leading column, so it goes above it.
-                        if !dayUsesTwoColumns(firstVisiblePage) {
+                        if !usesTwoColumns(firstVisiblePage.map { visibleModules($0) } ?? []) {
                             disclaimer
                         }
                         ForEach(pages) { page in
@@ -154,15 +161,9 @@ struct WMFCommunityFeedView: View {
         pages.last { !visibleModules($0).isEmpty }
     }
 
-    /// True when the day is drawn in two columns: a regular-width screen and more than one module.
-    private func dayUsesTwoColumns(_ page: WMFHomeCommunityViewModel?) -> Bool {
-        guard usesTwoColumns, let page else { return false }
-        return WMFHomeCommunityViewModel.usesTwoColumns(for: visibleModules(page))
-    }
-
     @ViewBuilder
     private func daySection(_ page: WMFHomeCommunityViewModel, modules: [WMFCommunityModule], isFirstDay: Bool, isLastDay: Bool) -> some View {
-        if usesTwoColumns, WMFHomeCommunityViewModel.usesTwoColumns(for: modules) {
+        if usesTwoColumns(modules) {
             // The date heads the leading column, so the trailing column starts level with it, and
             // on the first day level with the disclaimer. VoiceOver reads the leading column, then
             // the trailing one. Each module pads itself, so the columns sit edge to edge and their
@@ -287,13 +288,13 @@ struct WMFCommunityFeedView: View {
                     onTapPictureOfTheDay(page.feedDate)
                 } label: {
                     WMFPictureOfTheDayCard(imageSource: pictureOfDay, caption: page.pictureOfDayCaption, theme: theme)
-                        .clipShape(RoundedRectangle(cornerRadius: usesTwoColumns ? 8 : 0))
+                        .clipShape(RoundedRectangle(cornerRadius: isRegularWidth ? 8 : 0))
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(page.pictureOfDayCaption ?? module.title(languageCode: page.strings.languageCode))
                 .accessibilityHint(WMFCommunityFeedStrings.pictureOfTheDayHint)
-                .padding(.horizontal, usesTwoColumns ? Self.horizontalPadding : 0)
+                .padding(.horizontal, isRegularWidth ? Self.horizontalPadding : 0)
             }
         }
     }
