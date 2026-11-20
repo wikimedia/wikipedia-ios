@@ -33,7 +33,7 @@ struct SearchResultsMapperTests {
     @Test
     func anEmptyLeadShowsTheFirstSectionAndItsHeading() throws {
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
-        let firstSection = WMFArticleSearchFirstSection(title: "Ernest Scott Prize", text: "The pre-eminent prize.")
+        let firstSection = WMFArticleSearchFirstSection(title: "Ernest Scott Prize", snippetHTML: "The pre-eminent prize.")
 
         let result = try #require(mapper.searchResult(from: makeResult(title: "Australian History Awards", extract: ""), firstSection: firstSection))
 
@@ -42,9 +42,19 @@ struct SearchResultsMapperTests {
     }
 
     @Test
+    func theFirstSectionSnippetLosesItsEntitiesAndMarkup() throws {
+        let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
+        let firstSection = WMFArticleSearchFirstSection(title: "Ernest Scott Prize", snippetHTML: "Awarded &quot;since&quot; 1943 &amp; more <span class=\"searchmatch\">here</span>")
+
+        let result = try #require(mapper.searchResult(from: makeResult(title: "Australian History Awards", extract: ""), firstSection: firstSection))
+
+        #expect(result.extract == "Awarded \"since\" 1943 & more here")
+    }
+
+    @Test
     func aMissingLeadShowsTheFirstSectionToo() throws {
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
-        let firstSection = WMFArticleSearchFirstSection(title: "History", text: "Founded in 1900.")
+        let firstSection = WMFArticleSearchFirstSection(title: "History", snippetHTML: "Founded in 1900.")
 
         let result = try #require(mapper.searchResult(from: makeResult(title: "Stub", extract: nil), firstSection: firstSection))
 
@@ -55,7 +65,7 @@ struct SearchResultsMapperTests {
     @Test
     func aLeadIsNeverReplacedByAFirstSection() throws {
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
-        let firstSection = WMFArticleSearchFirstSection(title: "History", text: "Founded in 1900.")
+        let firstSection = WMFArticleSearchFirstSection(title: "History", snippetHTML: "Founded in 1900.")
 
         let result = try #require(mapper.searchResult(from: makeResult(title: "Cat", extract: "The cat is a mammal."), firstSection: firstSection))
 

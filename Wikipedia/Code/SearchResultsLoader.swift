@@ -28,12 +28,12 @@ struct SearchResultsLoader {
 
     static let fullTextSearchThreshold = 12
 
-    /// Fetches the first section with text of a page, for a result whose lead is empty.
-    typealias FirstSectionProvider = @Sendable (_ pageID: Int, _ project: WMFProject) async throws -> WMFArticleSearchFirstSection?
+    /// Fetches the start of the first section of pages whose lead is empty, in one request, by page ID.
+    typealias FirstSectionsProvider = @Sendable (_ pageIDs: [Int], _ project: WMFProject) async throws -> [Int: WMFArticleSearchFirstSection]
 
     let fetcher: WMFSearchFetcher
-    var firstSectionProvider: FirstSectionProvider = { pageID, project in
-        try await WMFArticleSearchDataController.shared.fetchFirstSection(pageID: pageID, project: project)
+    var firstSectionsProvider: FirstSectionsProvider = { pageIDs, project in
+        try await WMFArticleSearchDataController.shared.fetchFirstSections(pageIDs: pageIDs, project: project)
     }
 
     func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = WMFMaxSearchResultLimit) async throws -> Outcome {
@@ -80,7 +80,7 @@ extension SearchResultsLoader {
     }
 
     /// - Parameter includesExtracts: Asks for the lead section of each article, for the rows that show it. A
-    ///   result whose lead is empty gets a follow-up request for its first section with text.
+    ///   result whose lead is empty gets its first section from one follow-up request for all of them.
     func fetchRawResults(for searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearchThreshold: Int, includesExtracts: Bool = false) async throws -> RawOutcome {
         var outcome = try await fetchRawLists(for: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearchThreshold: fullTextSearchThreshold, includesExtracts: includesExtracts)
 
@@ -112,37 +112,25 @@ extension SearchResultsLoader {
         return pageIDs
     }
 
-    /// One request per page, as the API gives an extract for one page only when it is not limited to the intro.
-    /// A request that fails is left out. After `firstSectionTimeoutSeconds` the ones still running are given up,
-    /// so a slow page does not hold back the list.
+    /// One request for all the pages. It is given up after `firstSectionTimeoutSeconds`, so a slow request does not
+    /// hold back the list. A request that fails gives nothing: the results stay as they are.
     private func fetchFirstSections(of pageIDs: [Int], project: WMFProject) async -> [Int: WMFArticleSearchFirstSection] {
-        let provider = firstSectionProvider
+        let provider = firstSectionsProvider
         let timeout = WMFSemanticSearchInterleavedConfiguration.firstSectionTimeoutSeconds
 
-        return await withTaskGroup(of: (pageID: Int, section: WMFArticleSearchFirstSection?)?.self) { group in
-            for pageID in pageIDs {
-                group.addTask {
-                    (pageID, try? await provider(pageID, project))
-                }
+        return await withTaskGroup(of: [Int: WMFArticleSearchFirstSection]?.self) { group in
+            group.addTask {
+                (try? await provider(pageIDs, project)) ?? [:]
             }
             group.addTask {
                 try? await Task.sleep(for: .seconds(timeout))
                 return nil
             }
 
-            var sections: [Int: WMFArticleSearchFirstSection] = [:]
-            var finished = 0
-            for await item in group {
-                // The timeout ends the wait, and so does the last request.
-                guard let item else { break }
-                finished += 1
-                if let section = item.section {
-                    sections[item.pageID] = section
-                }
-                if finished == pageIDs.count { break }
-            }
+            // The first of the two to finish: the answer, or the timeout.
+            let first = await group.next()
             group.cancelAll()
-            return sections
+            return (first ?? nil) ?? [:]
         }
     }
 

@@ -1,0 +1,70 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 12290408,
+        "ns": 0,
+        "title": "Australian History Awards",
+        "index": 1,
+        "snippet": "The pre-eminent prize for &quot;original published research that contributes to the history of Australia or New Zealand or to the history of colonisation in",
+        "cirrusdoc": [
+          {
+            "index": "enwiki_content_1794411016",
+            "type": [],
+            "id": "12290408",
+            "version": [],
+            "source": {
+              "heading": [
+                "Ernest Scott Prize",
+                "The Allan Martin Award",
+                "Notes"
+              ],
+              "title": "Australian History Awards"
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 101,
+        "ns": 0,
+        "title": "A page without headings",
+        "index": 2,
+        "snippet": "Some text with a <span class=\"searchmatch\">match</span> in it",
+        "cirrusdoc": [
+          {
+            "id": "101",
+            "source": {
+              "title": "A page without headings"
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 102,
+        "ns": 0,
+        "title": "A page without an indexed document",
+        "index": 3,
+        "snippet": "Text of a page the search has no document for"
+      },
+      {
+        "pageid": 103,
+        "ns": 0,
+        "title": "A page without text",
+        "index": 4,
+        "snippet": "",
+        "cirrusdoc": [
+          {
+            "id": "103",
+            "source": {
+              "heading": [
+                "Empty"
+              ],
+              "title": "A page without text"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

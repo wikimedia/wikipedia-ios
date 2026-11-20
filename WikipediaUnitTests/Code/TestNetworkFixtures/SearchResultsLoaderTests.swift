@@ -152,25 +152,27 @@ struct SearchResultsLoaderTests {
     // MARK: - First section of a result without a lead
 
     @Test
-    func resultsWithoutALeadOfBothListsGetOneFollowUpEach() async throws {
+    func resultsWithoutALeadOfBothListsAreFetchedInOneFollowUp() async throws {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
         harness.service.responseDataQueue = [
             try fixtureData(named: "ArticleSearchPrefixMany", limitedTo: 5),
             try fixtureData(named: "ArticleSearchPrefixMany")
         ]
-        let requested = RequestedPageIDs()
+        let calls = FollowUpCalls()
         var loader = SearchResultsLoader(fetcher: harness.fetcher)
-        loader.firstSectionProvider = { pageID, _ in
-            await requested.append(pageID)
-            return WMFArticleSearchFirstSection(title: "Section \(pageID)", text: "Text \(pageID)")
+        loader.firstSectionsProvider = { pageIDs, _ in
+            await calls.append(pageIDs)
+            return Dictionary(uniqueKeysWithValues: pageIDs.map { ($0, WMFArticleSearchFirstSection(title: "Section \($0)", snippetHTML: "Text \($0)")) })
         }
 
         let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: SearchResultsLoader.fullTextSearchThreshold, includesExtracts: true)
 
         let allIDs = (outcome.prefix.results + (outcome.fullText?.results ?? [])).map(\.articleID)
         #expect(Set(allIDs).count < allIDs.count, "The two lists share pages, so the test checks that none is asked for twice")
-        #expect(await requested.sorted == Set(allIDs).sorted())
+        let recorded = await calls.all
+        #expect(recorded.count == 1, "One request for all the pages")
+        #expect(recorded.first?.sorted() == Set(allIDs).sorted())
         #expect(Set(outcome.firstSectionsByPageID.keys) == Set(allIDs))
         let anyID = try #require(allIDs.first)
         #expect(outcome.firstSectionsByPageID[anyID]?.title == "Section \(anyID)")
@@ -181,17 +183,34 @@ struct SearchResultsLoaderTests {
         let harness = makeHarness()
         defer { harness.fetcher.cancelAllFetches() }
         harness.service.responseData = try fixtureData(named: "ArticleSearchPrefixMany")
-        let requested = RequestedPageIDs()
+        let calls = FollowUpCalls()
         var loader = SearchResultsLoader(fetcher: harness.fetcher)
-        loader.firstSectionProvider = { pageID, _ in
-            await requested.append(pageID)
-            return nil
+        loader.firstSectionsProvider = { pageIDs, _ in
+            await calls.append(pageIDs)
+            return [:]
         }
 
         let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: 12)
 
-        #expect(await requested.sorted.isEmpty)
+        #expect(await calls.all.isEmpty)
         #expect(outcome.firstSectionsByPageID.isEmpty)
+    }
+
+    @Test
+    func aPageTheFollowUpDoesNotAnswerForIsLeftOut() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseData = try fixtureData(named: "ArticleSearchPrefixMany")
+        var loader = SearchResultsLoader(fetcher: harness.fetcher)
+        loader.firstSectionsProvider = { pageIDs, _ in
+            let answered = pageIDs.prefix(2)
+            return Dictionary(uniqueKeysWithValues: answered.map { ($0, WMFArticleSearchFirstSection(title: nil, snippetHTML: "Text")) })
+        }
+
+        let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: 12, includesExtracts: true)
+
+        #expect(outcome.firstSectionsByPageID.count == 2)
+        #expect(outcome.prefix.results.count == 24)
     }
 
     @Test
@@ -200,7 +219,7 @@ struct SearchResultsLoaderTests {
         defer { harness.fetcher.cancelAllFetches() }
         harness.service.responseData = try fixtureData(named: "ArticleSearchPrefixMany")
         var loader = SearchResultsLoader(fetcher: harness.fetcher)
-        loader.firstSectionProvider = { _, _ in throw URLError(.notConnectedToInternet) }
+        loader.firstSectionsProvider = { _, _ in throw URLError(.notConnectedToInternet) }
 
         let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: 12, includesExtracts: true)
 
@@ -276,15 +295,15 @@ struct SearchResultsLoaderTests {
 
 private final class SearchResultsLoaderTestBundleToken {}
 
-private actor RequestedPageIDs {
-    private var pageIDs: [Int] = []
+private actor FollowUpCalls {
+    private var calls: [[Int]] = []
 
-    func append(_ pageID: Int) {
-        pageIDs.append(pageID)
+    func append(_ pageIDs: [Int]) {
+        calls.append(pageIDs)
     }
 
-    var sorted: [Int] {
-        pageIDs.sorted()
+    var all: [[Int]] {
+        calls
     }
 }
 

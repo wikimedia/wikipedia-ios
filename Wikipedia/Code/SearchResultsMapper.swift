@@ -38,7 +38,7 @@ struct SearchResultsMapper {
         var extract = result.extract
         var sectionTitle: String?
         if (extract ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, let firstSection {
-            extract = (firstSection.text as NSString).wmf_summaryFromText()
+            extract = (WMFSemanticSearchSnippet.plainText(html: firstSection.snippetHTML) as NSString).wmf_summaryFromText()
             sectionTitle = firstSection.title
         }
         return SearchResult(

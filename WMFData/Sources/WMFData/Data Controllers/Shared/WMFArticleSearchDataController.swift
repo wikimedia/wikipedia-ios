@@ -143,18 +143,27 @@ public actor WMFArticleSearchDataController {
         )
     }
 
-    // MARK: - First section
+    // MARK: - First sections
 
-    /// Fetches the start of the first section that has text, for a page whose lead section is empty.
+    /// The most pages one search request can return.
+    private static let maxFirstSectionPages = 50
+
+    /// Fetches the start of the first section of pages whose lead section is empty, in one request.
     ///
-    /// The lead extracts of `searchPages` ask for the intro only (`exintro`), which is empty for a page that
-    /// starts with a heading. The API returns an extract for one page only when the intro is not asked for, so
-    /// this is one request per page.
+    /// It searches for the pages by ID (`pageid:1|2|3`), with no words to search for, so the snippet of each result
+    /// is the start of the page text. For a page with an empty lead that is its first section. The section's title is
+    /// the first heading of the indexed document (`cirrusdoc`). That document is internal to the search backend, so
+    /// the field may change.
+    ///
+    /// The title is wrong for a page whose first section has only subsections: the text then belongs to a
+    /// subsection, and the title is that of its parent. Nothing in the document says which heading the text is under.
+    ///
+    /// The request counts as one more search in the search backend's logs.
     /// - Parameters:
-    ///   - pageID: The page to fetch.
-    ///   - project: The project of the page. Wikipedia projects and Commons are supported.
-    /// - Returns: The heading and the text of the section, or nil when the page has no text at all.
-    public func fetchFirstSection(pageID: Int, project: WMFProject) async throws -> WMFArticleSearchFirstSection? {
+    ///   - pageIDs: The pages. Only pages with an empty lead should be asked for.
+    ///   - project: The project of the pages. Wikipedia projects and Commons are supported.
+    /// - Returns: The first section by page ID. A page with no text, and a page the search did not return, are left out.
+    public func fetchFirstSections(pageIDs: [Int], project: WMFProject) async throws -> [Int: WMFArticleSearchFirstSection] {
         switch project {
         case .wikipedia, .commons:
             break
@@ -162,58 +171,36 @@ public actor WMFArticleSearchDataController {
             throw WMFDataControllerError.unsupportedProject
         }
 
+        let pageIDs = Array(pageIDs.prefix(Self.maxFirstSectionPages))
+        guard !pageIDs.isEmpty else {
+            return [:]
+        }
+
         let parameters: [String: Any] = [
             "action": "query",
-            "prop": "extracts",
-            "pageids": String(pageID),
-            "explaintext": "",
-            "exsectionformat": "wiki",
-            "exchars": String(Self.pageSearchExtractCharacters),
+            "generator": "search",
+            "gsrsearch": "pageid:" + pageIDs.map(String.init).joined(separator: "|"),
+            "gsrnamespace": "0",
+            "gsrlimit": String(pageIDs.count),
+            "gsrprop": "snippet",
+            "prop": "cirrusdoc",
+            "cdincludes": "heading",
             "format": "json",
             "formatversion": "2"
         ]
 
-        let response = try await performQuery(project: project, parameters: parameters)
-        guard let extract = response.value.query?.pages?.first?.extract else {
-            return nil
-        }
-        return Self.firstSection(inExtract: extract)
-    }
-
-    /// Finds the first section with text in the plain text extract of a whole page, where each heading is
-    /// a line like `== History ==`. Text before the first heading is the lead and has no title. A section with
-    /// only subsections has no text, so the search goes on to the next heading.
-    static func firstSection(inExtract extract: String) -> WMFArticleSearchFirstSection? {
-        var title: String?
-        var lines: [String] = []
-
-        func section() -> WMFArticleSearchFirstSection? {
-            let text = lines.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
-            return text.isEmpty ? nil : WMFArticleSearchFirstSection(title: title, text: text)
+        let response: WMFServiceResponse<WMFArticleFirstSectionsAPIResponse> = try await performRequest(project: project, parameters: parameters)
+        if let error = response.value.errors?.first {
+            throw WMFDataControllerError.mediaWikiResponseError(error)
         }
 
-        for line in extract.components(separatedBy: "\n") {
-            if let heading = headingTitle(inLine: line) {
-                if let found = section() {
-                    return found
-                }
-                title = heading
-                lines = []
-            } else {
-                lines.append(line)
-            }
+        var sections: [Int: WMFArticleSearchFirstSection] = [:]
+        for page in response.value.query?.pages ?? [] {
+            guard let snippet = page.snippet, !snippet.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { continue }
+            let title = page.cirrusdoc?.first?.source?.heading?.first
+            sections[page.pageid] = WMFArticleSearchFirstSection(title: title?.isEmpty == false ? title : nil, snippetHTML: snippet)
         }
-        return section()
-    }
-
-    private static let headingRegex = try? NSRegularExpression(pattern: "^(={2,6})\\s*(.+?)\\s*\\1\\s*$")
-
-    private static func headingTitle(inLine line: String) -> String? {
-        let range = NSRange(location: 0, length: (line as NSString).length)
-        guard let match = headingRegex?.firstMatch(in: line, range: range), match.numberOfRanges > 2 else {
-            return nil
-        }
-        return (line as NSString).substring(with: match.range(at: 2))
+        return sections
     }
 
     // MARK: - Search near a coordinate
@@ -323,6 +310,17 @@ public actor WMFArticleSearchDataController {
     private static let maxExtractLimit = 20
 
     private func performQuery(project: WMFProject, parameters: [String: Any]) async throws -> WMFServiceResponse<WMFArticleSearchAPIResponse> {
+        let response: WMFServiceResponse<WMFArticleSearchAPIResponse> = try await performRequest(project: project, parameters: parameters)
+
+        // The API reports its errors in the body of a 200 response. A body with an error is not an empty result.
+        if let error = response.value.errors?.first {
+            throw WMFDataControllerError.mediaWikiResponseError(error)
+        }
+
+        return response
+    }
+
+    private func performRequest<Response: Decodable & Sendable>(project: WMFProject, parameters: [String: Any]) async throws -> WMFServiceResponse<Response> {
         guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -336,9 +334,9 @@ public actor WMFArticleSearchDataController {
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
         let cancellation = WMFRequestCancellation()
 
-        let response: WMFServiceResponse<WMFArticleSearchAPIResponse> = try await withTaskCancellationHandler {
+        return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in
-                let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<WMFArticleSearchAPIResponse>, Error>) in
+                let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<Response>, Error>) in
                     continuation.resume(with: result)
                 }
                 cancellation.setTask(task)
@@ -346,13 +344,6 @@ public actor WMFArticleSearchDataController {
         } onCancel: {
             cancellation.cancel()
         }
-
-        // The API reports its errors in the body of a 200 response. A body with an error is not an empty result.
-        if let error = response.value.errors?.first {
-            throw WMFDataControllerError.mediaWikiResponseError(error)
-        }
-
-        return response
     }
 }
 
@@ -369,15 +360,41 @@ struct WMFArticleSearchQuery: Decodable, Sendable {
 }
 
 /// The full result of a page search.
-/// The start of a section of a page: the heading and the text under it. The title is nil for the lead
-/// section, which has no heading.
+/// The start of a section of a page: its heading and the beginning of its text. The title is nil when the page
+/// has no heading to name it.
 public struct WMFArticleSearchFirstSection: Sendable, Equatable {
     public let title: String?
-    public let text: String
+    /// The start of the text, as the search gives it: with HTML entities (`&quot;`), cut after about 150
+    /// characters, and with no ellipsis.
+    public let snippetHTML: String
 
-    public init(title: String?, text: String) {
+    public init(title: String?, snippetHTML: String) {
         self.title = title
-        self.text = text
+        self.snippetHTML = snippetHTML
+    }
+}
+
+/// The response of the search for pages by ID, with the snippet of each page and its indexed headings.
+struct WMFArticleFirstSectionsAPIResponse: Decodable, Sendable {
+    let query: Query?
+    let errors: [WMFMediaWikiError]?
+
+    struct Query: Decodable, Sendable {
+        let pages: [Page]?
+    }
+
+    struct Page: Decodable, Sendable {
+        let pageid: Int
+        let snippet: String?
+        let cirrusdoc: [CirrusDocument]?
+    }
+
+    struct CirrusDocument: Decodable, Sendable {
+        let source: Source?
+    }
+
+    struct Source: Decodable, Sendable {
+        let heading: [String]?
     }
 }
 
