@@ -40,6 +40,7 @@ struct WMFSearchResultInterleavedRow: View {
         .accessibilityAddTraits(.isButton)
         .accessibilityIdentifier(AccessibilityIdentifiers.Search.result(result.title))
         .accessibilityFocused($focusedElementID, equals: result.id)
+        .searchResultActions(viewModel: viewModel, result: result)
     }
 
     private var card: some View {
