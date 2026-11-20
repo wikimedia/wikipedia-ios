@@ -272,13 +272,20 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         case .unsave:
             dataStore.savedPageList.removeEntry(with: articleURL)
         case .share:
-            let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                activityVC.popoverPresentationController?.sourceView = view
-                activityVC.popoverPresentationController?.sourceRect = view.bounds
-            }
-            present(activityVC, animated: true)
+            presentShareSheet(for: articleURL)
         }
+    }
+
+    /// The share sheet is a popover on iPad. The card menus give no source rect, so it is centered
+    /// with no arrow.
+    private func presentShareSheet(for articleURL: URL) {
+        let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
+        if let popover = activityVC.popoverPresentationController {
+            popover.sourceView = view
+            popover.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+        present(activityVC, animated: true)
     }
 
     private func openCommunityArticle(_ articleURL: URL, module: WMFCommunityModule, tabConfig: ArticleTabConfig) {
@@ -412,12 +419,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func shareForYouArticle(_ article: WMFForYouArticleCardViewModel) {
         guard let articleURL = Self.articleURL(for: article) else { return }
-        let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            activityVC.popoverPresentationController?.sourceView = view
-            activityVC.popoverPresentationController?.sourceRect = view.bounds
-        }
-        present(activityVC, animated: true)
+        presentShareSheet(for: articleURL)
     }
     
     override func viewWillAppear(_ animated: Bool) {

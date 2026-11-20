@@ -61,15 +61,14 @@ public extension DateFormatter {
         return dateFormatter
     }()
 
-    /// Medium date in the language of a wiki, e.g. `Mar 23, 2026` for English or `23 de mar. de 2026`
-    /// for Portuguese. Falls back to the device locale when no language is given.
-    static func wmfMediumDateFormatter(languageCode: String?) -> DateFormatter {
+    /// Short month, day and year: e.g. `Aug 22, 2025`
+    static var wmfShortMonthDayYearDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = languageCode.map { Locale(identifier: $0) } ?? .current
-        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
+        dateFormatter.locale = .current
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMM d yyyy")
         return dateFormatter
-    }
+    }()
 
     /// Smart formatter for "Last Read" dates:
     /// - If the date is today → show time (e.g. `2:48 PM`)

@@ -156,8 +156,8 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     public let id: String
     /// The day this page is for. Picture of the day opens its gallery for this date.
     public let feedDate: Date
-    /// The header above this day's modules, in the wiki's language: "Today - Mar 23, 2026" for
-    /// today, the date alone for an earlier day.
+    /// The header above this day's modules, in the app language as on Android: "Today - Mar 23, 2026"
+    /// for today, the date alone for an earlier day.
     public let date: String
     let strings: WMFCommunityFeedStrings
     /// True for today's page. Earlier pages word some subtitles in the past tense.
@@ -215,7 +215,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         let pictureOfDayID = response.feedResponse.image?.title ?? response.feedResponse.image?.thumbnail?.source
         self.pictureOfDayHideKey = pictureOfDayID.map { "picture_of_day_\($0)" }
 
-        let formattedDate = DateFormatter.wmfMediumDateFormatter(languageCode: nil).string(from: response.date)
+        let formattedDate = DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: response.date)
         let isToday = Calendar.current.isDate(response.date, inSameDayAs: now)
         self.isToday = isToday
         self.date = isToday ? WMFCommunityFeedStrings.todayDateHeader(formattedDate) : formattedDate

@@ -90,7 +90,7 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
     func testTodaysPageSaysToday() throws {
         let now = Date()
         let page = try page(date: now, now: now)
-        let formatted = DateFormatter.wmfMediumDateFormatter(languageCode: nil).string(from: now)
+        let formatted = DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: now)
         XCTAssertEqual(page.date, "Today - \(formatted)")
     }
 
@@ -98,7 +98,7 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         let now = Date()
         let yesterday = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -1, to: now))
         let page = try page(date: yesterday, now: now)
-        XCTAssertEqual(page.date, DateFormatter.wmfMediumDateFormatter(languageCode: nil).string(from: yesterday))
+        XCTAssertEqual(page.date, DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: yesterday))
     }
 
     func testPagesOfDifferentDaysHaveDifferentIDs() throws {
@@ -119,7 +119,7 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
     func testTheDateHeaderFollowsTheAppLanguageInAnotherWiki() throws {
         let now = Date()
         let page = try page(date: now, project: arabic, now: now)
-        XCTAssertEqual(page.date, "Today - \(DateFormatter.wmfMediumDateFormatter(languageCode: nil).string(from: now))")
+        XCTAssertEqual(page.date, "Today - \(DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: now))")
     }
 
     // MARK: - Years ago
