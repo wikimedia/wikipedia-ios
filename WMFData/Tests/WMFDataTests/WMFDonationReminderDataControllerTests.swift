@@ -708,6 +708,53 @@ final class WMFDonationReminderDataControllerTests {
         }
     }
 
+    // MARK: - Group Assigned Logging
+
+    @Test
+    func markGroupAssignedLoggedReturnsTrueOnlyTheFirstTime() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == false)
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == false)
+        }
+    }
+
+    @Test
+    func clearExperimentAssignmentAllowsGroupAssignedToBeLoggedAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+
+            controller.clearExperimentAssignment()
+
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+        }
+    }
+
+    @Test
+    func clearPreviousExperimentRoundAllowsGroupAssignedToBeLoggedAgain() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let userDefaultsStore = try #require(WMFDataEnvironment.current.userDefaultsStore)
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.donationReminderExperimentRound.rawValue, value: "donationReminder")
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.donationReminderGroupAssignedLogged.rawValue, value: true)
+
+            controller.clearPreviousExperimentRoundIfNeeded()
+
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+        }
+    }
+
+    @Test
+    func clearPreviousExperimentRoundKeepsGroupAssignedLoggedInTheCurrentRound() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            controller.clearPreviousExperimentRoundIfNeeded()
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == true)
+
+            controller.clearPreviousExperimentRoundIfNeeded()
+
+            #expect(controller.markGroupAssignedLoggedIfNeeded() == false)
+        }
+    }
+
     // MARK: - Experiment Round
 
     @Test

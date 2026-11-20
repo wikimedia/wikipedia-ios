@@ -343,6 +343,7 @@ public final class WMFDonationReminderDataController: Sendable {
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminder.rawValue)
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderWrapUpCardSeen.rawValue)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderGroupAssignedLogged.rawValue)
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderExperimentRound.rawValue, value: Self.experimentRoundName)
     }
 
@@ -350,6 +351,7 @@ public final class WMFDonationReminderDataController: Sendable {
 
     public func clearExperimentAssignment() {
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderGroupAssignedLogged.rawValue)
 
         guard let experimentStore else {
             return
@@ -426,6 +428,22 @@ public final class WMFDonationReminderDataController: Sendable {
         }
         
         return ExperimentAssignment(bucketValue: bucketValue) == nil
+    }
+
+    /// The group is assigned when the campaign banner is evaluated, because the banner metrics ID carries the group suffix.
+    /// The `group_assigned` event is logged later, on the first Maybe Later tap, once per install and experiment round.
+    /// Returns true only the first time it is called, so the caller logs the event once.
+    public func markGroupAssignedLoggedIfNeeded() -> Bool {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
+        let isAlreadyLogged: Bool = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminderGroupAssignedLogged.rawValue)) ?? false
+        guard !isAlreadyLogged else {
+            return false
+        }
+
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderGroupAssignedLogged.rawValue, value: true)
+        return true
     }
 
     // Overrides assignment at read time only, so the persisted bucket survives
