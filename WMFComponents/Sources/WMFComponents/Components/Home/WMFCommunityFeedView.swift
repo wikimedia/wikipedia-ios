@@ -71,20 +71,21 @@ struct WMFCommunityFeedView: View {
                         .id(Self.topAnchorID)
                     LazyVStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.moduleSpacing) {
                         // On iPad the disclaimer is drawn inside the first day's leading column, so
-                        // the trailing column starts at the top beside it, as in the Figma.
-                        if !usesTwoColumns || firstVisiblePageID == nil {
+                        // the trailing column starts at the top beside it, as in the Figma. A first
+                        // day drawn at full width has no leading column, so it goes above it.
+                        if !dayUsesTwoColumns(firstVisiblePage) {
                             disclaimer
                         }
                         ForEach(pages) { page in
                             // A day whose modules are all off, hidden or missing would be a bare date.
                             let modules = page.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys)
                             if !modules.isEmpty {
-                                daySection(page, modules: modules, isFirstDay: page.id == firstVisiblePageID, isLastDay: page.id == lastVisiblePageID)
+                                daySection(page, modules: modules, isFirstDay: page.id == firstVisiblePage?.id, isLastDay: page.id == lastVisiblePage?.id)
                             }
                         }
-                        // On iPad the footer goes under the trailing column of the last day, as in
-                        // the Figma. It is drawn here only when no day can hold it.
-                        if !usesTwoColumns || lastVisiblePageID == nil {
+                        // The last day draws the footer right under its last module. It is drawn
+                        // here only when no day shows anything.
+                        if lastVisiblePage == nil {
                             footer
                         }
                     }
@@ -139,53 +140,58 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - Day
 
-    /// The first day that shows any module. On iPad it holds the disclaimer.
-    private var firstVisiblePageID: String? {
-        pages.first { !$0.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys).isEmpty }?.id
+    private func visibleModules(_ page: WMFHomeCommunityViewModel) -> [WMFCommunityModule] {
+        page.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys)
     }
 
-    /// The last day that shows any module. On iPad it holds the footer.
-    private var lastVisiblePageID: String? {
-        pages.last { !$0.visibleModules(visibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys).isEmpty }?.id
+    /// The first day that shows any module. On iPad it holds the disclaimer.
+    private var firstVisiblePage: WMFHomeCommunityViewModel? {
+        pages.first { !visibleModules($0).isEmpty }
+    }
+
+    /// The last day that shows any module. It holds the footer.
+    private var lastVisiblePage: WMFHomeCommunityViewModel? {
+        pages.last { !visibleModules($0).isEmpty }
+    }
+
+    /// True when the day is drawn in two columns: a regular-width screen and more than one module.
+    private func dayUsesTwoColumns(_ page: WMFHomeCommunityViewModel?) -> Bool {
+        guard usesTwoColumns, let page else { return false }
+        return WMFHomeCommunityViewModel.usesTwoColumns(for: visibleModules(page))
     }
 
     @ViewBuilder
     private func daySection(_ page: WMFHomeCommunityViewModel, modules: [WMFCommunityModule], isFirstDay: Bool, isLastDay: Bool) -> some View {
-        if usesTwoColumns {
+        if usesTwoColumns, WMFHomeCommunityViewModel.usesTwoColumns(for: modules) {
             // The date heads the leading column, so the trailing column starts level with it, and
             // on the first day level with the disclaimer. VoiceOver reads the leading column, then
             // the trailing one. Each module pads itself, so the columns sit edge to edge and their
             // text lines up with the date.
             let columns = WMFHomeCommunityViewModel.columns(for: modules)
-            VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.moduleSpacing) {
-                HStack(alignment: .top, spacing: 0) {
-                    VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.dateToModuleSpacing) {
-                        if isFirstDay {
-                            disclaimer
-                                .padding(.bottom, 8)
-                        }
-                        dateHeader(page)
-                        moduleColumn(columns.leading, page: page)
+            // The footer goes 16 pt under the trailing column's last module.
+            WMFCommunityColumnsLayout(footerSpacing: WMFCommunityFeedMetrics.footerSpacing) {
+                VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.dateToModuleSpacing) {
+                    if isFirstDay {
+                        disclaimer
+                            .padding(.bottom, 8)
                     }
-                    .frame(maxWidth: .infinity, alignment: .top)
-                    moduleColumn(columns.trailing, page: page)
+                    dateHeader(page)
+                    moduleColumn(columns.leading, page: page)
                 }
-                // The footer sits under the trailing column, as in the Figma, but below the end of both
-                // columns, so it never floats beside a longer leading column.
+                moduleColumn(columns.trailing, page: page)
                 if isLastDay {
-                    HStack(spacing: 0) {
-                        Color.clear
-                            .frame(maxWidth: .infinity, maxHeight: 0)
-                            .accessibilityHidden(true)
-                        footer
-                            .frame(maxWidth: .infinity)
-                    }
+                    footer
                 }
             }
         } else {
             VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.dateToModuleSpacing) {
                 dateHeader(page)
-                moduleColumn(modules, page: page)
+                VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.footerSpacing) {
+                    moduleColumn(modules, page: page)
+                    if isLastDay {
+                        footer
+                    }
+                }
             }
         }
     }
@@ -857,10 +863,75 @@ enum WMFCommunityFeedMetrics {
     static let titleToSubtitleSpacing: CGFloat = 8
     /// Between the date and the day's first module.
     static let dateToModuleSpacing: CGFloat = 16
+    /// Between the last module and "See past community content".
+    static let footerSpacing: CGFloat = 16
 
     static let disclaimerGlobeSize: CGFloat = 44
 
     static let featuredArticleImageHeight: CGFloat = 200
     static let newsCardHeight: CGFloat = 200
     static let pictureOfTheDayHeight: CGFloat = 300
+}
+
+// MARK: - iPad columns layout
+
+/// The two iPad columns of a day, side by side at equal width, and the optional footer. The footer
+/// is centered on the trailing column (the right one in a left-to-right feed), `footerSpacing`
+/// below that column's last module. When the leading column is longer, the footer sits beside it,
+/// so no tall blank space opens above the footer.
+///
+/// Subviews, in order: the leading column, the trailing column, then the footer if there is one.
+private struct WMFCommunityColumnsLayout: Layout {
+    let footerSpacing: CGFloat
+
+    private struct Metrics {
+        let columnWidth: CGFloat
+        let leadingHeight: CGFloat
+        let trailingHeight: CGFloat
+        let footerHeight: CGFloat?
+
+        var footerY: CGFloat { trailingHeight + footerSpacingIfAny }
+        let footerSpacingIfAny: CGFloat
+        var height: CGFloat {
+            guard let footerHeight else { return max(leadingHeight, trailingHeight) }
+            return max(leadingHeight, footerY + footerHeight)
+        }
+    }
+
+    private func metrics(width: CGFloat, subviews: Subviews) -> Metrics {
+        let columnWidth = width / 2
+        let column = ProposedViewSize(width: columnWidth, height: nil)
+        func height(_ index: Int) -> CGFloat {
+            subviews.indices.contains(index) ? subviews[index].sizeThatFits(column).height : 0
+        }
+        return Metrics(
+            columnWidth: columnWidth,
+            leadingHeight: height(0),
+            trailingHeight: height(1),
+            footerHeight: subviews.count > 2 ? height(2) : nil,
+            footerSpacingIfAny: subviews.count > 2 ? footerSpacing : 0
+        )
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let width = proposal.replacingUnspecifiedDimensions().width
+        let metrics = metrics(width: width, subviews: subviews)
+        return CGSize(width: width, height: metrics.height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let metrics = metrics(width: bounds.width, subviews: subviews)
+        let column = ProposedViewSize(width: metrics.columnWidth, height: nil)
+        // Placed left to right. SwiftUI mirrors a custom layout in a right-to-left feed, so the
+        // leading column ends up on the right there.
+        if subviews.indices.contains(0) {
+            subviews[0].place(at: CGPoint(x: bounds.minX, y: bounds.minY), anchor: .topLeading, proposal: column)
+        }
+        if subviews.indices.contains(1) {
+            subviews[1].place(at: CGPoint(x: bounds.minX + metrics.columnWidth, y: bounds.minY), anchor: .topLeading, proposal: column)
+        }
+        if subviews.indices.contains(2) {
+            subviews[2].place(at: CGPoint(x: bounds.minX + metrics.columnWidth, y: bounds.minY + metrics.footerY), anchor: .topLeading, proposal: column)
+        }
+    }
 }

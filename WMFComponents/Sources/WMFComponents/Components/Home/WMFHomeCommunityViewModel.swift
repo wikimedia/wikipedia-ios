@@ -301,17 +301,41 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     // MARK: - iPad columns
 
-    /// Splits a day's modules into the two iPad columns the way the Figma does: the image-led
-    /// modules on the leading side, the story modules on the trailing side. Each column keeps feed
-    /// order. When one side has nothing, the other side's modules take the leading column, so the
-    /// day never starts with an empty column under its date.
+    /// Splits a day's modules into the two iPad columns. A full day follows the Figma: the
+    /// image-led modules on the leading side, the story modules on the trailing side.
+    ///
+    /// Many wikis leave modules out (most have no In the news, and small ones often have only Top
+    /// read and Picture of the day), so the split adapts to what the day has:
+    /// - One module: it gets the leading column alone. The view then draws the day at full width.
+    /// - One side empty: the modules are shared out between both columns in feed order, so half
+    ///   the screen is never blank.
+    /// - Sides two or more modules apart: the longer side gives its last modules to the shorter
+    ///   one until they differ by at most one.
+    /// Each column keeps feed order, and the leading column is never empty.
     static func columns(for modules: [WMFCommunityModule]) -> (leading: [WMFCommunityModule], trailing: [WMFCommunityModule]) {
-        let leading = modules.filter(\.isInLeadingColumn)
-        let trailing = modules.filter { !$0.isInLeadingColumn }
-        if leading.isEmpty {
-            return (trailing, [])
+        guard modules.count > 1 else { return (modules, []) }
+
+        var leading = modules.filter(\.isInLeadingColumn)
+        var trailing = modules.filter { !$0.isInLeadingColumn }
+
+        if leading.isEmpty || trailing.isEmpty {
+            let half = (modules.count + 1) / 2
+            return (Array(modules.prefix(half)), Array(modules.dropFirst(half)))
+        }
+
+        while leading.count - trailing.count >= 2, let moved = leading.popLast() {
+            trailing.append(moved)
+        }
+        while trailing.count - leading.count >= 2, let moved = trailing.popLast() {
+            leading.append(moved)
         }
         return (leading, trailing)
+    }
+
+    /// True when a day lays out in two columns on a regular-width screen. A day of one module is
+    /// drawn at full width, like on a phone.
+    static func usesTwoColumns(for modules: [WMFCommunityModule]) -> Bool {
+        modules.count > 1
     }
 
     func hideKey(for module: WMFCommunityModule) -> String? {

@@ -328,6 +328,81 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isCommunityFeedEmpty)
     }
 
+    // MARK: - Community days without content
+
+    /// Makes a view model whose feed has content only on the days `daysWithContent` (0 is today,
+    /// 1 yesterday). On this day is off, so its own endpoint is never asked.
+    private func makeCommunityViewModel(daysWithContent: Set<Int>) -> (WMFHomeViewModel, WMFDatedFeedDataController) {
+        let withContent = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFDatedFeedDataController(withContent: withContent ?? emptyFeed, empty: emptyFeed, daysWithContent: daysWithContent)
+        let controller = WMFHomeDataController(feedDataController: feed, userDefaultsStore: WMFMockKeyValueStore())
+        controller.setCommunityOnThisDayIsOn(false)
+        let vm = WMFHomeViewModel(dataController: controller)
+        vm.selectedTab = .community
+        return (vm, feed)
+    }
+
+    /// A small wiki often has nothing yet for today. The feed goes back to yesterday by itself.
+    func testAnEmptyTodayLoadsTheDayBefore() async {
+        let (vm, _) = makeCommunityViewModel(daysWithContent: [1])
+        vm.selectedLanguage = WMFLanguage(languageCode: "sco", languageVariantCode: nil)
+
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loaded)
+        XCTAssertFalse(vm.hasCommunityContent(vm.communityPages[0]))
+        XCTAssertTrue(vm.hasCommunityContent(vm.communityPages[1]))
+    }
+
+    /// "See past" skips days with nothing to show, so a tap always adds a day the reader can see.
+    func testSeePastSkipsDaysWithNothingToShow() async {
+        let (vm, feed) = makeCommunityViewModel(daysWithContent: [0, 3])
+        vm.selectedLanguage = WMFLanguage(languageCode: "yo", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+
+        vm.loadCommunityPreviousPage()
+        let skipped = await waitUntil { !vm.isLoadingCommunityPreviousPage && vm.communityPages.count == 4 }
+        XCTAssertTrue(skipped)
+        XCTAssertTrue(vm.hasCommunityContent(vm.communityPages[3]))
+        let calls = await feed.callCount
+        XCTAssertEqual(calls, 4)
+    }
+
+    /// A wiki without feed content must not start an endless run of requests.
+    func testSkippingEmptyDaysStopsAtTheLimit() async {
+        let (vm, feed) = makeCommunityViewModel(daysWithContent: [0])
+        vm.selectedLanguage = WMFLanguage(languageCode: "ast", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+
+        vm.loadCommunityPreviousPage()
+        let stopped = await waitUntil { !vm.isLoadingCommunityPreviousPage && vm.communityPages.count > 1 }
+        XCTAssertTrue(stopped)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(vm.communityPages.count, 1 + 1 + WMFHomeViewModel.maxEmptyCommunityDaysSkipped)
+        let calls = await feed.callCount
+        XCTAssertEqual(calls, 1 + 1 + WMFHomeViewModel.maxEmptyCommunityDaysSkipped)
+    }
+
+    /// With every module off the empty state shows. It must not set off a search for content.
+    func testAnEmptyTodayWithEveryModuleOffLoadsNothingMore() async {
+        let (vm, feed) = makeCommunityViewModel(daysWithContent: [1])
+        let controller = vm.dataController
+        controller.setCommunityFeaturedArticleIsOn(false)
+        controller.setCommunityTopReadIsOn(false)
+        controller.setCommunityInTheNewsIsOn(false)
+        controller.setCommunityPictureOfTheDayIsOn(false)
+        vm.selectedLanguage = WMFLanguage(languageCode: "simple", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(vm.communityPages.count, 1)
+        let calls = await feed.callCount
+        XCTAssertEqual(calls, 1)
+    }
+
     func testTappingACommunityArticleReachesTheCoordinatorWithItsModuleAndAction() {
         let (vm, _) = makeViewModel()
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: "ar", languageVariantCode: nil))
@@ -705,4 +780,25 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertEqual(capturedElementId, "customize_feed")
     }
 
+}
+
+/// A feed that has content only on some days, counted back from today.
+actor WMFDatedFeedDataController: WMFFeedDataControlling {
+    private let withContent: WMFFeedAPIResponse
+    private let empty: WMFFeedAPIResponse
+    private let daysWithContent: Set<Int>
+    private(set) var callCount = 0
+
+    init(withContent: WMFFeedAPIResponse, empty: WMFFeedAPIResponse, daysWithContent: Set<Int>) {
+        self.withContent = withContent
+        self.empty = empty
+        self.daysWithContent = daysWithContent
+    }
+
+    func fetchFeed(project: WMFProject, date: Date) async throws -> WMFFeedAPIResponse {
+        callCount += 1
+        let calendar = Calendar(identifier: .gregorian)
+        let daysAgo = calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
+        return daysWithContent.contains(daysAgo) ? withContent : empty
+    }
 }

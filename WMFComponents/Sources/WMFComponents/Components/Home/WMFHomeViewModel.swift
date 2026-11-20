@@ -479,6 +479,7 @@ public final class WMFHomeViewModel: ObservableObject {
             guard selectedLanguage?.id == language.id else { return }
             self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
             self.communityFeedError = nil
+            loadEarlierDayIfTodayIsEmpty()
         } catch {
             guard selectedLanguage?.id == language.id else { return }
             if communityPages.isEmpty {
@@ -507,6 +508,7 @@ public final class WMFHomeViewModel: ObservableObject {
                 self.communityFeedError = error
             }
             self.isLoadingCommunity = false
+            self.loadEarlierDayIfTodayIsEmpty()
         }
     }
 
@@ -562,6 +564,23 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     /// "See past community content": appends the day before the oldest day in the feed.
+    /// How many days with nothing to show one "See past" tap, or the first load, may skip.
+    static let maxEmptyCommunityDaysSkipped = 3
+
+    /// True when the page has content for at least one module the reader has on. Hidden cards do
+    /// not count: a day the reader emptied by hand stays, so the feed does not jump.
+    func hasCommunityContent(_ page: WMFHomeCommunityViewModel) -> Bool {
+        !page.visibleModules(visibility: communityModuleVisibility, hiddenCardKeys: []).isEmpty
+    }
+
+    /// Today often has nothing in a small wiki until its editors fill the day in. The feed then
+    /// goes back to the latest day that has content instead of showing only a date.
+    private func loadEarlierDayIfTodayIsEmpty() {
+        guard let today = communityPages.first, communityPages.count == 1,
+              !hasCommunityContent(today), !isCommunityFeedEmpty else { return }
+        loadCommunityPreviousPage()
+    }
+
     public func loadCommunityPreviousPage() {
         guard !isLoadingCommunityPreviousPage, !communityPages.isEmpty else { return }
         guard let language = selectedLanguage else { return }
@@ -571,11 +590,20 @@ public final class WMFHomeViewModel: ObservableObject {
         communityPreviousPageTask = Task { [weak self] in
             guard let self else { return }
             do {
-                let response = try await self.dataController.fetchCommunityPreviousPage(project: project)
-                guard !Task.isCancelled else { return }
-                let page = WMFHomeCommunityViewModel(response: response, project: project)
-                if !self.communityPages.contains(where: { $0.id == page.id }) {
-                    self.communityPages.append(page)
+                // A day with no content for any module that is on (a small wiki often has only
+                // some of them) adds nothing to the feed, so the tap would seem to do nothing.
+                // Such days are skipped, up to a limit, so a wiki with no feed content cannot
+                // start an endless run of requests.
+                var emptyDaysSkipped = 0
+                while true {
+                    let response = try await self.dataController.fetchCommunityPreviousPage(project: project)
+                    guard !Task.isCancelled else { return }
+                    let page = WMFHomeCommunityViewModel(response: response, project: project)
+                    if !self.communityPages.contains(where: { $0.id == page.id }) {
+                        self.communityPages.append(page)
+                    }
+                    guard !self.hasCommunityContent(page), emptyDaysSkipped < Self.maxEmptyCommunityDaysSkipped else { break }
+                    emptyDaysSkipped += 1
                 }
             } catch {
                 guard !Task.isCancelled else { return }

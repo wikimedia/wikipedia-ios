@@ -158,10 +158,59 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         XCTAssertEqual(columns.trailing, [.inTheNews, .onThisDay])
     }
 
-    func testStoryModulesAloneTakeTheLeadingColumn() {
-        let columns = WMFHomeCommunityViewModel.columns(for: [.inTheNews, .onThisDay])
-        XCTAssertEqual(columns.leading, [.inTheNews, .onThisDay], "A day never starts with an empty column under its date")
+    func testOneModuleTakesTheLeadingColumnAlone() {
+        let columns = WMFHomeCommunityViewModel.columns(for: [.inTheNews])
+        XCTAssertEqual(columns.leading, [.inTheNews])
         XCTAssertTrue(columns.trailing.isEmpty)
+        XCTAssertFalse(WMFHomeCommunityViewModel.usesTwoColumns(for: [.inTheNews]), "A single module is drawn at full width")
+        XCTAssertTrue(WMFHomeCommunityViewModel.usesTwoColumns(for: [.topRead, .pictureOfDay]))
+    }
+
+    /// Small wikis such as Scots or Simple English have only Top read and Picture of the day, both
+    /// image-led. They share the two columns instead of leaving the trailing one blank.
+    func testImageModulesAloneShareBothColumns() {
+        let columns = WMFHomeCommunityViewModel.columns(for: [.topRead, .pictureOfDay])
+        XCTAssertEqual(columns.leading, [.topRead])
+        XCTAssertEqual(columns.trailing, [.pictureOfDay])
+    }
+
+    func testStoryModulesAloneShareBothColumns() {
+        let columns = WMFHomeCommunityViewModel.columns(for: [.inTheNews, .onThisDay])
+        XCTAssertEqual(columns.leading, [.inTheNews])
+        XCTAssertEqual(columns.trailing, [.onThisDay])
+    }
+
+    func testThreeImageModulesSplitTwoAndOne() {
+        let columns = WMFHomeCommunityViewModel.columns(for: [.featuredArticle, .topRead, .pictureOfDay])
+        XCTAssertEqual(columns.leading, [.featuredArticle, .topRead])
+        XCTAssertEqual(columns.trailing, [.pictureOfDay])
+    }
+
+    /// English on most days: no In the news. Three image modules against one story would leave a
+    /// tall gap, so the last image module moves across.
+    func testUnevenSidesAreBalanced() {
+        let columns = WMFHomeCommunityViewModel.columns(for: [.featuredArticle, .topRead, .onThisDay, .pictureOfDay])
+        XCTAssertEqual(columns.leading, [.featuredArticle, .topRead])
+        XCTAssertEqual(columns.trailing, [.onThisDay, .pictureOfDay])
+    }
+
+    /// Arabic and Portuguese often have no Featured article and no In the news.
+    func testOneModuleOnEachSideKeepsTheFigmaSides() {
+        let columns = WMFHomeCommunityViewModel.columns(for: [.topRead, .onThisDay, .pictureOfDay])
+        XCTAssertEqual(columns.leading, [.topRead, .pictureOfDay])
+        XCTAssertEqual(columns.trailing, [.onThisDay])
+    }
+
+    func testEveryModuleAppearsOnceForAnyMix() {
+        let all = WMFCommunityModule.allCases
+        for mask in 1..<(1 << all.count) {
+            let modules = all.enumerated().filter { mask & (1 << $0.offset) != 0 }.map(\.element)
+            let columns = WMFHomeCommunityViewModel.columns(for: modules)
+            XCTAssertEqual(Set(columns.leading + columns.trailing), Set(modules))
+            XCTAssertEqual(columns.leading.count + columns.trailing.count, modules.count)
+            XCTAssertFalse(columns.leading.isEmpty)
+            XCTAssertLessThanOrEqual(abs(columns.leading.count - columns.trailing.count), 1, "\(modules)")
+        }
     }
 
     // MARK: - On this day events
