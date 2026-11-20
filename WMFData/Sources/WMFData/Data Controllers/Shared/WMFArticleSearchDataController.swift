@@ -151,12 +151,8 @@ public actor WMFArticleSearchDataController {
     /// Fetches the start of the first section of pages whose lead section is empty, in one request.
     ///
     /// It searches for the pages by ID (`pageid:1|2|3`), with no words to search for, so the snippet of each result
-    /// is the start of the page text. For a page with an empty lead that is its first section. The section's title is
-    /// the first heading of the indexed document (`cirrusdoc`). That document is internal to the search backend, so
-    /// the field may change.
-    ///
-    /// The title is wrong for a page whose first section has only subsections: the text then belongs to a
-    /// subsection, and the title is that of its parent. Nothing in the document says which heading the text is under.
+    /// is the start of the page text. For a page with an empty lead that is its first section. The heading of that
+    /// section is not returned: only the search backend's internal document (`cirrusdoc`) has it, and that is meant for debugging.
     ///
     /// The request counts as one more search in the search backend's logs.
     /// - Parameters:
@@ -183,8 +179,6 @@ public actor WMFArticleSearchDataController {
             "gsrnamespace": "0",
             "gsrlimit": String(pageIDs.count),
             "gsrprop": "snippet",
-            "prop": "cirrusdoc",
-            "cdincludes": "heading",
             "format": "json",
             "formatversion": "2"
         ]
@@ -197,8 +191,7 @@ public actor WMFArticleSearchDataController {
         var sections: [Int: WMFArticleSearchFirstSection] = [:]
         for page in response.value.query?.pages ?? [] {
             guard let snippet = page.snippet, !snippet.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { continue }
-            let title = page.cirrusdoc?.first?.source?.heading?.first
-            sections[page.pageid] = WMFArticleSearchFirstSection(title: title?.isEmpty == false ? title : nil, snippetHTML: snippet)
+            sections[page.pageid] = WMFArticleSearchFirstSection(snippetHTML: snippet)
         }
         return sections
     }
@@ -360,21 +353,18 @@ struct WMFArticleSearchQuery: Decodable, Sendable {
 }
 
 /// The full result of a page search.
-/// The start of a section of a page: its heading and the beginning of its text. The title is nil when the page
-/// has no heading to name it.
+/// The start of the first section of a page that has text.
 public struct WMFArticleSearchFirstSection: Sendable, Equatable {
-    public let title: String?
     /// The start of the text, as the search gives it: with HTML entities (`&quot;`), cut after about 150
     /// characters, and with no ellipsis.
     public let snippetHTML: String
 
-    public init(title: String?, snippetHTML: String) {
-        self.title = title
+    public init(snippetHTML: String) {
         self.snippetHTML = snippetHTML
     }
 }
 
-/// The response of the search for pages by ID, with the snippet of each page and its indexed headings.
+/// The response of the search for pages by ID, with the snippet of each page.
 struct WMFArticleFirstSectionsAPIResponse: Decodable, Sendable {
     let query: Query?
     let errors: [WMFMediaWikiError]?
@@ -386,15 +376,6 @@ struct WMFArticleFirstSectionsAPIResponse: Decodable, Sendable {
     struct Page: Decodable, Sendable {
         let pageid: Int
         let snippet: String?
-        let cirrusdoc: [CirrusDocument]?
-    }
-
-    struct CirrusDocument: Decodable, Sendable {
-        let source: Source?
-    }
-
-    struct Source: Decodable, Sendable {
-        let heading: [String]?
     }
 }
 

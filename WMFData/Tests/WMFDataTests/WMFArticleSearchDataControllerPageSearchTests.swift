@@ -14,26 +14,17 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
 
     // MARK: - First sections
 
-    func testFetchFirstSectionsReturnsTheSnippetAndTheFirstHeadingByPageID() async throws {
-        let sections = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [12290408, 101, 102, 103], project: enProject)
+    func testFetchFirstSectionsReturnsTheSnippetByPageID() async throws {
+        let sections = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [12290408, 101, 103], project: enProject)
 
-        XCTAssertEqual(sections[12290408]?.title, "Ernest Scott Prize")
         XCTAssertTrue(sections[12290408]?.snippetHTML.hasPrefix("The pre-eminent prize for &quot;original") == true, "The snippet is kept as the search gives it, with its entities")
-    }
-
-    func testFetchFirstSectionsHasNoTitleWithoutAHeadingOrADocument() async throws {
-        let sections = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [12290408, 101, 102, 103], project: enProject)
-
-        XCTAssertNil(sections[101]?.title, "The document has no headings")
         XCTAssertNotNil(sections[101]?.snippetHTML)
-        XCTAssertNil(sections[102]?.title, "The search has no document for the page")
-        XCTAssertNotNil(sections[102]?.snippetHTML)
     }
 
     func testFetchFirstSectionsLeavesOutAPageWithoutText() async throws {
-        let sections = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [12290408, 101, 102, 103], project: enProject)
+        let sections = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [12290408, 101, 103], project: enProject)
 
-        XCTAssertEqual(Set(sections.keys), [12290408, 101, 102], "Page 103 has an empty snippet")
+        XCTAssertEqual(Set(sections.keys), [12290408, 101], "Page 103 has an empty snippet")
     }
 
     func testFetchFirstSectionsAsksForAllThePagesInOneSearchByPageID() async throws {
@@ -49,8 +40,8 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         XCTAssertEqual(parameters["gsrlimit"] as? String, "3")
         XCTAssertEqual(parameters["gsrnamespace"] as? String, "0")
         XCTAssertEqual(parameters["gsrprop"] as? String, "snippet")
-        XCTAssertEqual(parameters["prop"] as? String, "cirrusdoc")
-        XCTAssertEqual(parameters["cdincludes"] as? String, "heading")
+        XCTAssertNil(parameters["prop"], "The internal search document is not asked for")
+        XCTAssertNil(parameters["cdincludes"])
     }
 
     func testFetchFirstSectionsWithoutPagesSendsNoRequest() async throws {

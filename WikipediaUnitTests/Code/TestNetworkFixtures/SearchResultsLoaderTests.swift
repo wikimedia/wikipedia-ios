@@ -163,7 +163,7 @@ struct SearchResultsLoaderTests {
         var loader = SearchResultsLoader(fetcher: harness.fetcher)
         loader.firstSectionsProvider = { pageIDs, _ in
             await calls.append(pageIDs)
-            return Dictionary(uniqueKeysWithValues: pageIDs.map { ($0, WMFArticleSearchFirstSection(title: "Section \($0)", snippetHTML: "Text \($0)")) })
+            return Dictionary(uniqueKeysWithValues: pageIDs.map { ($0, WMFArticleSearchFirstSection(snippetHTML: "Text \($0)")) })
         }
 
         let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: SearchResultsLoader.fullTextSearchThreshold, includesExtracts: true)
@@ -175,7 +175,7 @@ struct SearchResultsLoaderTests {
         #expect(recorded.first?.sorted() == Set(allIDs).sorted())
         #expect(Set(outcome.firstSectionsByPageID.keys) == Set(allIDs))
         let anyID = try #require(allIDs.first)
-        #expect(outcome.firstSectionsByPageID[anyID]?.title == "Section \(anyID)")
+        #expect(outcome.firstSectionsByPageID[anyID]?.snippetHTML == "Text \(anyID)")
     }
 
     @Test
@@ -204,7 +204,7 @@ struct SearchResultsLoaderTests {
         var loader = SearchResultsLoader(fetcher: harness.fetcher)
         loader.firstSectionsProvider = { pageIDs, _ in
             let answered = pageIDs.prefix(2)
-            return Dictionary(uniqueKeysWithValues: answered.map { ($0, WMFArticleSearchFirstSection(title: nil, snippetHTML: "Text")) })
+            return Dictionary(uniqueKeysWithValues: answered.map { ($0, WMFArticleSearchFirstSection(snippetHTML: "Text")) })
         }
 
         let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: 12, includesExtracts: true)

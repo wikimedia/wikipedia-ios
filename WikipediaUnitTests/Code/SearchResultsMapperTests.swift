@@ -31,20 +31,20 @@ struct SearchResultsMapperTests {
     }
 
     @Test
-    func anEmptyLeadShowsTheFirstSectionAndItsHeading() throws {
+    func anEmptyLeadShowsTheFirstSection() throws {
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
-        let firstSection = WMFArticleSearchFirstSection(title: "Ernest Scott Prize", snippetHTML: "The pre-eminent prize.")
+        let firstSection = WMFArticleSearchFirstSection(snippetHTML: "The pre-eminent prize.")
 
         let result = try #require(mapper.searchResult(from: makeResult(title: "Australian History Awards", extract: ""), firstSection: firstSection))
 
         #expect(result.extract == "The pre-eminent prize.")
-        #expect(result.sectionTitle == "Ernest Scott Prize")
+        #expect(result.sectionTitle == nil)
     }
 
     @Test
     func theFirstSectionSnippetLosesItsEntitiesAndMarkup() throws {
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
-        let firstSection = WMFArticleSearchFirstSection(title: "Ernest Scott Prize", snippetHTML: "Awarded &quot;since&quot; 1943 &amp; more <span class=\"searchmatch\">here</span>")
+        let firstSection = WMFArticleSearchFirstSection(snippetHTML: "Awarded &quot;since&quot; 1943 &amp; more <span class=\"searchmatch\">here</span>")
 
         let result = try #require(mapper.searchResult(from: makeResult(title: "Australian History Awards", extract: ""), firstSection: firstSection))
 
@@ -54,18 +54,17 @@ struct SearchResultsMapperTests {
     @Test
     func aMissingLeadShowsTheFirstSectionToo() throws {
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
-        let firstSection = WMFArticleSearchFirstSection(title: "History", snippetHTML: "Founded in 1900.")
+        let firstSection = WMFArticleSearchFirstSection(snippetHTML: "Founded in 1900.")
 
         let result = try #require(mapper.searchResult(from: makeResult(title: "Stub", extract: nil), firstSection: firstSection))
 
         #expect(result.extract == "Founded in 1900.")
-        #expect(result.sectionTitle == "History")
     }
 
     @Test
     func aLeadIsNeverReplacedByAFirstSection() throws {
         let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
-        let firstSection = WMFArticleSearchFirstSection(title: "History", snippetHTML: "Founded in 1900.")
+        let firstSection = WMFArticleSearchFirstSection(snippetHTML: "Founded in 1900.")
 
         let result = try #require(mapper.searchResult(from: makeResult(title: "Cat", extract: "The cat is a mammal."), firstSection: firstSection))
 

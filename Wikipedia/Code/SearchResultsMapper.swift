@@ -36,10 +36,8 @@ struct SearchResultsMapper {
         
         let title = result.displayTitle ?? pageTitle
         var extract = result.extract
-        var sectionTitle: String?
         if (extract ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, let firstSection {
             extract = (WMFSemanticSearchSnippet.plainText(html: firstSection.snippetHTML) as NSString).wmf_summaryFromText()
-            sectionTitle = firstSection.title
         }
         return SearchResult(
             articleURL: articleURL,
@@ -48,7 +46,7 @@ struct SearchResultsMapper {
             titleHTML: result.displayTitleHTML ?? title,
             description: description(for: result),
             extract: extract,
-            sectionTitle: sectionTitle,
+            sectionTitle: nil,
             thumbnailURL: result.thumbnailURL,
             isArticle: Self.isArticle(articleURL),
             hasLocation: result.location != nil,
