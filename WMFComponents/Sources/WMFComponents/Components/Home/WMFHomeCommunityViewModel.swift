@@ -145,6 +145,9 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         public let yearsAgo: String
         public let text: String
         public let pages: [WMFCommunityArticle]
+
+        /// Stable across a refresh of the same day, for SwiftUI identity.
+        var id: String { "\(year)|\(text)" }
     }
 
     // MARK: - Properties

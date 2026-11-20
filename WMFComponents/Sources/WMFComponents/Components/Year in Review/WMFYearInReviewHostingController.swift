@@ -1,6 +1,8 @@
 import SwiftUI
 import UIKit
 import Combine
+import UIKit.UIGestureRecognizerSubclass
+
 public final class WMFYearInReviewHostingController: WMFComponentHostingController<WMFYearInReviewView>, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFYearInReviewViewModel

@@ -345,14 +345,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     /// "More on this day", or a tap on an event: every event of the day, the screen the Explore
     /// card opens. After a tap on an event the list opens at that event.
+    private var onThisDayLoadTask: Task<Void, Never>?
+
     private func pushCommunityOnThisDay(project: WMFProject, date: Date, event: (year: Int, text: String)?) {
+        // A second tap while the list loads is ignored, so the list is pushed once.
+        guard onThisDayLoadTask == nil else { return }
         let calendar = Calendar.current
         let month = calendar.component(.month, from: date)
         let day = calendar.component(.day, from: date)
-        Task { [weak self] in
+        onThisDayLoadTask = Task { [weak self] in
+            defer { self?.onThisDayLoadTask = nil }
             do {
                 let response = try await WMFOnThisDayDataController.shared.fetchOnThisDay(project: project, month: month, day: day)
-                guard let self else { return }
+                // The reader may have left Home while the list loaded. Then it is not pushed on
+                // top of whatever they opened.
+                guard let self, self.isOnScreenForCommunityOnThisDay else { return }
                 let events = response.events.map { WMFFeedOnThisDayEvent(event: $0, languageVariantCode: project.languageVariantCode) }
                 guard !events.isEmpty else { return }
                 let midnightUTCDate: Date = (date as NSDate).wmf_midnightUTCDateFromLocal
@@ -363,9 +370,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
                 self.navigationController?.pushViewController(onThisDayViewController, animated: true)
             } catch {
                 DDLogError("Failed to load On this day events: \(error)")
+                // Same rule for the error: it is not shown over a screen the reader opened since.
+                guard let self, self.isOnScreenForCommunityOnThisDay else { return }
                 WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
             }
         }
+    }
+
+    /// True while Home is the screen the reader sees: on top of its navigation stack, with nothing
+    /// presented over it.
+    private var isOnScreenForCommunityOnThisDay: Bool {
+        navigationController?.topViewController === self && presentedViewController == nil
     }
 
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {

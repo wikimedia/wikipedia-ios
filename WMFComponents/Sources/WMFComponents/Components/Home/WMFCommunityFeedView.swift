@@ -245,7 +245,7 @@ struct WMFCommunityFeedView: View {
             }
         case .topRead:
             VStack(alignment: .leading, spacing: 0) {
-                ForEach(Array(page.topReadItems.enumerated()), id: \.offset) { _, item in
+                ForEach(page.topReadItems, id: \.title) { item in
                     articleRow(item, page: page, module: .topRead)
                 }
                 moreLink(strings.moreTopRead) {
@@ -256,7 +256,7 @@ struct WMFCommunityFeedView: View {
         case .inTheNews:
             // The story card brings its own horizontal padding.
             TabView {
-                ForEach(Array(page.newsItems.enumerated()), id: \.offset) { _, item in
+                ForEach(page.newsItems, id: \.story) { item in
                     Button {
                         onTapNewsStory(item.newsItem, page.project)
                     } label: {
@@ -272,7 +272,7 @@ struct WMFCommunityFeedView: View {
             .frame(height: WMFCommunityFeedMetrics.newsCardHeight)
         case .onThisDay:
             VStack(alignment: .leading, spacing: 16) {
-                ForEach(Array((page.onThisDayItems ?? []).enumerated()), id: \.offset) { _, item in
+                ForEach(page.onThisDayItems ?? [], id: \.id) { item in
                     onThisDayEvent(item, page: page)
                 }
                 moreLink(strings.moreOnThisDay) {
@@ -324,7 +324,7 @@ struct WMFCommunityFeedView: View {
             if !item.pages.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .top, spacing: 12) {
-                        ForEach(Array(item.pages.enumerated()), id: \.offset) { _, article in
+                        ForEach(item.pages, id: \.title) { article in
                             articleRow(article, page: page, module: .onThisDay)
                                 .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
                         }
@@ -576,7 +576,7 @@ private struct WMFCommunityArticleRow: View {
     let article: WMFCommunityArticle
     let theme: WMFTheme
 
-    @StateObject private var imageViewModel = WMFCommunityThumbnailViewModel()
+    @StateObject private var imageViewModel = WMFCommunityImageLoader()
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
@@ -619,29 +619,29 @@ private struct WMFCommunityArticleRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel([article.plainTitle, article.description].compactMap { $0 }.joined(separator: ", "))
         .accessibilityAddTraits(.isButton)
-        .onAppear {
-            if let url = article.thumbnailURL {
-                imageViewModel.load(url: url)
-            }
+        .task(id: article.thumbnailURL) {
+            await imageViewModel.load(url: article.thumbnailURL)
         }
     }
 }
 
+/// Loads a card's image. Cards are reused when a refresh brings new content for the same day, so a
+/// new URL clears the old image and loads again, and a stale load never lands on the new content.
 @MainActor
-private final class WMFCommunityThumbnailViewModel: ObservableObject {
-    @Published var uiImage: UIImage?
-    private var loadTask: Task<Void, Never>?
+private final class WMFCommunityImageLoader: ObservableObject {
+    @Published private(set) var uiImage: UIImage?
+    private var url: URL?
 
-    func load(url: URL) {
-        guard uiImage == nil, loadTask == nil else { return }
-        loadTask = Task { [weak self] in
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
-            self?.uiImage = UIImage(data: data)
-        }
-    }
-
-    deinit {
-        loadTask?.cancel()
+    func load(url: URL?) async {
+        // A load cut short (the card scrolled off screen) or one that failed left no image, so the
+        // same URL loads again when the card comes back.
+        guard url != self.url || uiImage == nil else { return }
+        self.url = url
+        uiImage = nil
+        guard let url,
+              let data = try? await WMFImageDataController.shared.fetchImageData(url: url),
+              !Task.isCancelled, url == self.url else { return }
+        uiImage = UIImage(data: data)
     }
 }
 
@@ -652,7 +652,7 @@ private struct WMFFeaturedArticleCard: View {
     let article: WMFFeedArticle
     let theme: WMFTheme
 
-    @StateObject private var imageViewModel = WMFFeaturedArticleImageViewModel()
+    @StateObject private var imageViewModel = WMFCommunityImageLoader()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -694,26 +694,16 @@ private struct WMFFeaturedArticleCard: View {
                     .lineLimit(4)
             }
         }
-        .onAppear {
-            if let urlString = article.thumbnail?.source ?? article.originalImage?.source,
-               let url = URL(string: urlString) {
-                imageViewModel.load(url: url)
-            }
+        .task(id: imageURL) {
+            await imageViewModel.load(url: imageURL)
         }
+    }
+
+    private var imageURL: URL? {
+        (article.thumbnail?.source ?? article.originalImage?.source).flatMap(URL.init(string:))
     }
 }
 
-@MainActor
-private final class WMFFeaturedArticleImageViewModel: ObservableObject {
-    @Published var uiImage: UIImage?
-
-    func load(url: URL) {
-        Task {
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
-            self.uiImage = UIImage(data: data)
-        }
-    }
-}
 
 // MARK: - News Story Card
 
@@ -723,7 +713,7 @@ private struct WMFNewsStoryCard: View {
     let imageURLString: String?
     let theme: WMFTheme
 
-    @StateObject private var imageViewModel = WMFNewsStoryImageViewModel()
+    @StateObject private var imageViewModel = WMFCommunityImageLoader()
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -754,31 +744,12 @@ private struct WMFNewsStoryCard: View {
         .cornerRadius(8)
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
-        .onAppear {
-            if let imageURLString, let url = URL(string: imageURLString) {
-                imageViewModel.load(url: url)
-            }
+        .task(id: imageURLString) {
+            await imageViewModel.load(url: imageURLString.flatMap(URL.init(string:)))
         }
     }
 }
 
-@MainActor
-private final class WMFNewsStoryImageViewModel: ObservableObject {
-    @Published var uiImage: UIImage?
-    private var loadTask: Task<Void, Never>?
-
-    func load(url: URL) {
-        loadTask?.cancel()
-        loadTask = Task {
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
-            self.uiImage = UIImage(data: data)
-        }
-    }
-
-    deinit {
-        loadTask?.cancel()
-    }
-}
 
 // MARK: - Picture of the Day Card
 
@@ -789,7 +760,7 @@ private struct WMFPictureOfTheDayCard: View {
     let caption: String?
     let theme: WMFTheme
 
-    @StateObject private var imageViewModel = WMFPictureOfTheDayImageViewModel()
+    @StateObject private var imageViewModel = WMFCommunityImageLoader()
 
     var body: some View {
         image
@@ -829,25 +800,12 @@ private struct WMFPictureOfTheDayCard: View {
                     .frame(height: WMFCommunityFeedMetrics.pictureOfTheDayHeight)
             }
         }
-        .onAppear {
-            if let urlString = imageSource.source, let url = URL(string: urlString) {
-                imageViewModel.load(url: url)
-            }
+        .task(id: imageSource.source) {
+            await imageViewModel.load(url: imageSource.source.flatMap(URL.init(string:)))
         }
     }
 }
 
-@MainActor
-private final class WMFPictureOfTheDayImageViewModel: ObservableObject {
-    @Published var uiImage: UIImage?
-
-    func load(url: URL) {
-        Task {
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
-            self.uiImage = UIImage(data: data)
-        }
-    }
-}
 
 // MARK: - Metrics
 
