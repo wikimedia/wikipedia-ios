@@ -79,6 +79,10 @@ extension SearchResultsViewController {
                     ArticleTabsFunnel.shared.logLongPressShare()
                 }
                 self?.share(result, frame: frame)
+            },
+            interleavedInfoAction: { [weak self] in
+                guard let self, let languageCode = self.displayedSiteURL?.wmf_languageCode else { return }
+                self.interleavedResultsInfoTappedAction?(languageCode)
             })
     }
 

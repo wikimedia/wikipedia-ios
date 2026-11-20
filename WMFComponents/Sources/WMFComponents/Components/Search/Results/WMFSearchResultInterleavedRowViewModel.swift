@@ -50,6 +50,7 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         project: WMFProject?,
         showsLastUpdatedInPlaceOfReferences: Bool,
         attributionProvider: @escaping WMFSearchResultsViewModel.AttributionProvider,
+        attributionState: AttributionLoadState = .loading,
         localizedStrings: LocalizedStrings? = nil
     ) {
         self.result = result
@@ -57,6 +58,7 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         self.languageCode = project?.languageCode
         self.showsLastUpdatedInPlaceOfReferences = showsLastUpdatedInPlaceOfReferences
         self.attributionProvider = attributionProvider
+        self.attributionState = attributionState
         self.localizedStrings = localizedStrings ?? LocalizedStrings.forLanguage(project?.languageCode)
     }
 

@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 @MainActor
 public final class WMFSearchResultsViewModel: ObservableObject {
@@ -111,6 +112,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
     public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
     public typealias AttributionProvider = @Sendable (WMFProject, String) async throws -> WMFSemanticSearchAttribution
+    public typealias InfoAction = @MainActor @Sendable () -> Void
 
     /// How the list draws its results. The semantic search interleaved treatment uses its own rows.
     public enum RowStyle: Equatable, Sendable {
@@ -153,6 +155,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     private let shareAction: ShareAction
     private let summaryProvider: SummaryProvider
     private let attributionProvider: AttributionProvider
+    private let interleavedInfoAction: InfoAction?
 
     public init(
         localizedStrings: LocalizedStrings,
@@ -166,7 +169,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         saveOrUnsaveAction: @escaping SaveAction,
         shareAction: @escaping ShareAction,
         summaryProvider: SummaryProvider? = nil,
-        attributionProvider: AttributionProvider? = nil
+        attributionProvider: AttributionProvider? = nil,
+        interleavedInfoAction: InfoAction? = nil
     ) {
         self.localizedStrings = localizedStrings
         self.noInternetConnectionImage = noInternetConnectionImage
@@ -178,6 +182,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.openOnMapAction = openOnMapAction
         self.saveOrUnsaveAction = saveOrUnsaveAction
         self.shareAction = shareAction
+        self.interleavedInfoAction = interleavedInfoAction
         self.summaryProvider = summaryProvider ?? { project, title in
             try await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title)
         }
@@ -242,6 +247,24 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     /// shows the card alone instead of the no results message.
     var showsSemanticSearchEntryPointInsteadOfEmptyState: Bool {
         emptyState == .noResults && semanticSearchEntryPointViewModel != nil
+    }
+
+    /// The interleaved list starts with a row that says the results are an experiment. It comes with
+    /// the results, so it does not move them after they render.
+    var showsInterleavedHeader: Bool {
+        rowStyle == .interleaved && !results.isEmpty && interleavedInfoAction != nil
+    }
+
+    var betaLabel: String {
+        CommonStrings.betaLabel(languageCode: languageCode)
+    }
+
+    var interleavedInfoAccessibilityLabel: String {
+        WMFLocalizedString("search-interleaved-results-info-accessibility-label", languageCode: languageCode, value: "About these results", comment: "Accessibility label of the info button above the search results that can include passages from inside articles. The button opens a sheet that explains the experiment.")
+    }
+
+    func showInterleavedInfo() {
+        interleavedInfoAction?()
     }
 
     var firstAccessibilityElementID: String? {

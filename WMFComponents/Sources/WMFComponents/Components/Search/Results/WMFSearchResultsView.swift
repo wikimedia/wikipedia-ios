@@ -60,6 +60,12 @@ public struct WMFSearchResultsView: View {
                     .accessibilityIdentifier(AccessibilityIdentifiers.Search.semanticSearchEntryPoint)
                     .accessibilityFocused($focusedElementID, equals: WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
             }
+            if viewModel.showsInterleavedHeader {
+                WMFSearchResultsInterleavedHeader(viewModel: viewModel)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color(theme.paperBackground))
+                    .listRowSeparator(.hidden)
+            }
             ForEach(viewModel.results) { result in
                 switch viewModel.rowStyle {
                 case .standard:
