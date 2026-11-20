@@ -229,6 +229,28 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         XCTAssertEqual(items.first?.year, 2013)
     }
 
+    private let fullList = [
+        WMFOnThisDayEvent(text: "Newest", year: 2022, pages: []),
+        WMFOnThisDayEvent(text: "The Angolan government and UNITA rebels sign the Lusaka Protocol", year: 1994, pages: []),
+        WMFOnThisDayEvent(text: "Another 1994 event", year: 1994, pages: []),
+        WMFOnThisDayEvent(text: "Same words as the card", year: 1945, pages: [])
+    ]
+
+    func testATappedEventOpensAtTheEventWithTheSameText() {
+        XCTAssertEqual(WMFHomeCommunityViewModel.onThisDayEventIndex(year: 1945, text: "Same words as the card", in: fullList), 3)
+        XCTAssertEqual(WMFHomeCommunityViewModel.onThisDayEventIndex(year: 1994, text: "Another 1994 event", in: fullList), 2)
+    }
+
+    /// The editors' picks word an event differently from the full list.
+    func testATappedPickOpensAtTheFirstEventOfItsYear() {
+        let index = WMFHomeCommunityViewModel.onThisDayEventIndex(year: 1994, text: "In accordance with the Lusaka Protocol, the Angolan government signed a ceasefire", in: fullList)
+        XCTAssertEqual(index, 1)
+    }
+
+    func testATappedEventWithoutItsYearInTheListHasNoPosition() {
+        XCTAssertNil(WMFHomeCommunityViewModel.onThisDayEventIndex(year: 1066, text: "Not listed", in: fullList))
+    }
+
     // MARK: - Articles
 
     func testRowsKeepTheItalicsOfTheDisplayTitle() throws {

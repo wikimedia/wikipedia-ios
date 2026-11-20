@@ -364,8 +364,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
                 guard !events.isEmpty else { return }
                 let midnightUTCDate: Date = (date as NSDate).wmf_midnightUTCDateFromLocal
                 let onThisDayViewController = OnThisDayViewController(events: events, dataStore: self.dataStore, midnightUTCDate: midnightUTCDate, contentGroup: nil, theme: self.theme)
-                if let event {
-                    onThisDayViewController.initialEvent = events.first { $0.year?.intValue == event.year && $0.text == event.text }
+                if let event, let index = WMFHomeCommunityViewModel.onThisDayEventIndex(year: event.year, text: event.text, in: response.events) {
+                    onThisDayViewController.initialEvent = events[index]
                 }
                 self.navigationController?.pushViewController(onThisDayViewController, animated: true)
             } catch {

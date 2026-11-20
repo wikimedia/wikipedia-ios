@@ -275,6 +275,14 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         return String(format: CommonStrings.yearsAgo(languageCode: languageCode), locale: locale, years)
     }
 
+    /// The position in the day's full On this day list of an event tapped on the card. The card
+    /// shows the editors' picks, which the full list words differently, so an event without an
+    /// exact match opens at the first event of its year, as Android does.
+    public static func onThisDayEventIndex(year: Int, text: String, in events: [WMFOnThisDayEvent]) -> Int? {
+        events.firstIndex { $0.year == year && $0.text == text }
+            ?? events.firstIndex { $0.year == year }
+    }
+
     // MARK: - Layout
 
     /// Feed content of a right-to-left wiki is laid out right to left, whatever the app language.
