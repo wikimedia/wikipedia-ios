@@ -143,6 +143,59 @@ public actor WMFArticleSearchDataController {
         )
     }
 
+    // MARK: - First sections
+
+    /// The most pages one search request can return.
+    private static let maxFirstSectionPages = 50
+
+    /// Fetches the start of the first section of pages whose lead section is empty, in one request.
+    ///
+    /// It searches for the pages by ID (`pageid:1|2|3`), with no words to search for, so the snippet of each result
+    /// is the start of the page text. For a page with an empty lead that is its first section. The heading of that
+    /// section is not returned: only the search backend's internal document (`cirrusdoc`) has it, and that is meant for debugging.
+    ///
+    /// The request counts as one more search in the search backend's logs.
+    /// - Parameters:
+    ///   - pageIDs: The pages. Only pages with an empty lead should be asked for.
+    ///   - project: The project of the pages. Wikipedia projects and Commons are supported.
+    /// - Returns: The first section by page ID. A page with no text, and a page the search did not return, are left out.
+    public func fetchFirstSections(pageIDs: [Int], project: WMFProject) async throws -> [Int: WMFArticleSearchFirstSection] {
+        switch project {
+        case .wikipedia, .commons:
+            break
+        default:
+            throw WMFDataControllerError.unsupportedProject
+        }
+
+        let pageIDs = Array(pageIDs.prefix(Self.maxFirstSectionPages))
+        guard !pageIDs.isEmpty else {
+            return [:]
+        }
+
+        let parameters: [String: Any] = [
+            "action": "query",
+            "generator": "search",
+            "gsrsearch": "pageid:" + pageIDs.map(String.init).joined(separator: "|"),
+            "gsrnamespace": "0",
+            "gsrlimit": String(pageIDs.count),
+            "gsrprop": "snippet",
+            "format": "json",
+            "formatversion": "2"
+        ]
+
+        let response: WMFServiceResponse<WMFArticleFirstSectionsAPIResponse> = try await performRequest(project: project, parameters: parameters)
+        if let error = response.value.errors?.first {
+            throw WMFDataControllerError.mediaWikiResponseError(error)
+        }
+
+        var sections: [Int: WMFArticleSearchFirstSection] = [:]
+        for page in response.value.query?.pages ?? [] {
+            guard let snippet = page.snippet, !snippet.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { continue }
+            sections[page.pageid] = WMFArticleSearchFirstSection(snippetHTML: snippet)
+        }
+        return sections
+    }
+
     // MARK: - Search near a coordinate
 
     /// Search pages near a coordinate. The result is sorted by distance from the coordinate.
@@ -250,6 +303,17 @@ public actor WMFArticleSearchDataController {
     private static let maxExtractLimit = 20
 
     private func performQuery(project: WMFProject, parameters: [String: Any]) async throws -> WMFServiceResponse<WMFArticleSearchAPIResponse> {
+        let response: WMFServiceResponse<WMFArticleSearchAPIResponse> = try await performRequest(project: project, parameters: parameters)
+
+        // The API reports its errors in the body of a 200 response. A body with an error is not an empty result.
+        if let error = response.value.errors?.first {
+            throw WMFDataControllerError.mediaWikiResponseError(error)
+        }
+
+        return response
+    }
+
+    private func performRequest<Response: Decodable & Sendable>(project: WMFProject, parameters: [String: Any]) async throws -> WMFServiceResponse<Response> {
         guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -263,9 +327,9 @@ public actor WMFArticleSearchDataController {
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
         let cancellation = WMFRequestCancellation()
 
-        let response: WMFServiceResponse<WMFArticleSearchAPIResponse> = try await withTaskCancellationHandler {
+        return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in
-                let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<WMFArticleSearchAPIResponse>, Error>) in
+                let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<Response>, Error>) in
                     continuation.resume(with: result)
                 }
                 cancellation.setTask(task)
@@ -273,13 +337,6 @@ public actor WMFArticleSearchDataController {
         } onCancel: {
             cancellation.cancel()
         }
-
-        // The API reports its errors in the body of a 200 response. A body with an error is not an empty result.
-        if let error = response.value.errors?.first {
-            throw WMFDataControllerError.mediaWikiResponseError(error)
-        }
-
-        return response
     }
 }
 
@@ -296,6 +353,32 @@ struct WMFArticleSearchQuery: Decodable, Sendable {
 }
 
 /// The full result of a page search.
+/// The start of the first section of a page that has text.
+public struct WMFArticleSearchFirstSection: Sendable, Equatable {
+    /// The start of the text, as the search gives it: with HTML entities (`&quot;`), cut after about 150
+    /// characters, and with no ellipsis.
+    public let snippetHTML: String
+
+    public init(snippetHTML: String) {
+        self.snippetHTML = snippetHTML
+    }
+}
+
+/// The response of the search for pages by ID, with the snippet of each page.
+struct WMFArticleFirstSectionsAPIResponse: Decodable, Sendable {
+    let query: Query?
+    let errors: [WMFMediaWikiError]?
+
+    struct Query: Decodable, Sendable {
+        let pages: [Page]?
+    }
+
+    struct Page: Decodable, Sendable {
+        let pageid: Int
+        let snippet: String?
+    }
+}
+
 public struct WMFArticleSearchResponse: Sendable, Equatable {
     public let results: [WMFArticleSearchResult]
     public let redirects: [WMFArticleSearchRedirect]
