@@ -28,7 +28,13 @@ struct SearchResultsLoader {
 
     static let fullTextSearchThreshold = 12
 
+    /// Fetches the first section with text of a page, for a result whose lead is empty.
+    typealias FirstSectionProvider = @Sendable (_ pageID: Int, _ project: WMFProject) async throws -> WMFArticleSearchFirstSection?
+
     let fetcher: WMFSearchFetcher
+    var firstSectionProvider: FirstSectionProvider = { pageID, project in
+        try await WMFArticleSearchDataController.shared.fetchFirstSection(pageID: pageID, project: project)
+    }
 
     func fetchResults(for searchTerm: String, siteURL: URL, resultLimit: UInt = WMFMaxSearchResultLimit) async throws -> Outcome {
         let prefixResults: WMFSearchResults
@@ -69,10 +75,78 @@ extension SearchResultsLoader {
     struct RawOutcome {
         let prefix: WMFSearchResults
         let fullText: WMFSearchResults?
+        /// The first section with text of each result that had an empty lead, by page ID. Only asked for with `includesExtracts`.
+        var firstSectionsByPageID: [Int: WMFArticleSearchFirstSection] = [:]
     }
 
-    /// - Parameter includesExtracts: Asks for the lead section of each article, for the rows that show it.
+    /// - Parameter includesExtracts: Asks for the lead section of each article, for the rows that show it. A
+    ///   result whose lead is empty gets a follow-up request for its first section with text.
     func fetchRawResults(for searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearchThreshold: Int, includesExtracts: Bool = false) async throws -> RawOutcome {
+        var outcome = try await fetchRawLists(for: searchTerm, siteURL: siteURL, resultLimit: resultLimit, fullTextSearchThreshold: fullTextSearchThreshold, includesExtracts: includesExtracts)
+
+        guard includesExtracts, let project = await SearchResultsMapper.project(for: siteURL) else {
+            return outcome
+        }
+        let pageIDs = Self.pageIDsMissingExtract(in: outcome)
+        guard !pageIDs.isEmpty else {
+            return outcome
+        }
+
+        try Task.checkCancellation()
+        outcome.firstSectionsByPageID = await fetchFirstSections(of: pageIDs, project: project)
+        try Task.checkCancellation()
+        return outcome
+    }
+
+    /// The pages of the prefix and the full text lists whose lead extract is empty, once each, in list order.
+    /// A page outside the main namespace has no lead to speak of, so it is left out.
+    static func pageIDsMissingExtract(in outcome: RawOutcome) -> [Int] {
+        var seen = Set<Int>()
+        var pageIDs: [Int] = []
+        for result in outcome.prefix.results + (outcome.fullText?.results ?? []) {
+            let isMainNamespace = (result.titleNamespace?.intValue ?? 0) == 0
+            let hasExtract = !(result.extract ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            guard isMainNamespace, !hasExtract, seen.insert(result.articleID).inserted else { continue }
+            pageIDs.append(result.articleID)
+        }
+        return pageIDs
+    }
+
+    /// One request per page, as the API gives an extract for one page only when it is not limited to the intro.
+    /// A request that fails is left out. After `firstSectionTimeoutSeconds` the ones still running are given up,
+    /// so a slow page does not hold back the list.
+    private func fetchFirstSections(of pageIDs: [Int], project: WMFProject) async -> [Int: WMFArticleSearchFirstSection] {
+        let provider = firstSectionProvider
+        let timeout = WMFSemanticSearchInterleavedConfiguration.firstSectionTimeoutSeconds
+
+        return await withTaskGroup(of: (pageID: Int, section: WMFArticleSearchFirstSection?)?.self) { group in
+            for pageID in pageIDs {
+                group.addTask {
+                    (pageID, try? await provider(pageID, project))
+                }
+            }
+            group.addTask {
+                try? await Task.sleep(for: .seconds(timeout))
+                return nil
+            }
+
+            var sections: [Int: WMFArticleSearchFirstSection] = [:]
+            var finished = 0
+            for await item in group {
+                // The timeout ends the wait, and so does the last request.
+                guard let item else { break }
+                finished += 1
+                if let section = item.section {
+                    sections[item.pageID] = section
+                }
+                if finished == pageIDs.count { break }
+            }
+            group.cancelAll()
+            return sections
+        }
+    }
+
+    private func fetchRawLists(for searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearchThreshold: Int, includesExtracts: Bool) async throws -> RawOutcome {
         let prefixResults: WMFSearchResults
         do {
             prefixResults = try await fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: resultLimit, includesExtracts: includesExtracts)
@@ -141,6 +215,8 @@ struct SemanticSearchInterleavedLoader {
         let searchIDs: WMFSemanticSearchInterleavedIDs
         let lexicalResultsByPageID: [Int: MWKSearchResult]
         let semanticResultsByPageID: [Int: WMFSemanticSearchResult]
+        /// The first section with text of each lexical result whose lead is empty, by page ID.
+        let firstSectionsByPageID: [Int: WMFArticleSearchFirstSection]
         let redirectMappings: [MWKSearchRedirectMapping]
     }
 
@@ -241,6 +317,7 @@ struct SemanticSearchInterleavedLoader {
                 semantic: semanticAnswered?.searchID),
             lexicalResultsByPageID: Dictionary(lexicalResults.map { ($0.articleID, $0) }, uniquingKeysWith: { first, _ in first }),
             semanticResultsByPageID: Dictionary(semanticResults.map { ($0.pageID, $0) }, uniquingKeysWith: { first, _ in first }),
+            firstSectionsByPageID: rawLexical?.firstSectionsByPageID ?? [:],
             redirectMappings: redirectMappings)
     }
 

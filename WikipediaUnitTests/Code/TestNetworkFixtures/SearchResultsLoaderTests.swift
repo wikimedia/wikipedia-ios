@@ -149,6 +149,65 @@ struct SearchResultsLoaderTests {
         #expect(harness.service.capturedRequests.containsFullTextSearchRequest)
     }
 
+    // MARK: - First section of a result without a lead
+
+    @Test
+    func resultsWithoutALeadOfBothListsGetOneFollowUpEach() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseDataQueue = [
+            try fixtureData(named: "ArticleSearchPrefixMany", limitedTo: 5),
+            try fixtureData(named: "ArticleSearchPrefixMany")
+        ]
+        let requested = RequestedPageIDs()
+        var loader = SearchResultsLoader(fetcher: harness.fetcher)
+        loader.firstSectionProvider = { pageID, _ in
+            await requested.append(pageID)
+            return WMFArticleSearchFirstSection(title: "Section \(pageID)", text: "Text \(pageID)")
+        }
+
+        let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: SearchResultsLoader.fullTextSearchThreshold, includesExtracts: true)
+
+        let allIDs = (outcome.prefix.results + (outcome.fullText?.results ?? [])).map(\.articleID)
+        #expect(Set(allIDs).count < allIDs.count, "The two lists share pages, so the test checks that none is asked for twice")
+        #expect(await requested.sorted == Set(allIDs).sorted())
+        #expect(Set(outcome.firstSectionsByPageID.keys) == Set(allIDs))
+        let anyID = try #require(allIDs.first)
+        #expect(outcome.firstSectionsByPageID[anyID]?.title == "Section \(anyID)")
+    }
+
+    @Test
+    func noFollowUpIsAskedForWhenTheExtractsAreNotRequested() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseData = try fixtureData(named: "ArticleSearchPrefixMany")
+        let requested = RequestedPageIDs()
+        var loader = SearchResultsLoader(fetcher: harness.fetcher)
+        loader.firstSectionProvider = { pageID, _ in
+            await requested.append(pageID)
+            return nil
+        }
+
+        let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: 12)
+
+        #expect(await requested.sorted.isEmpty)
+        #expect(outcome.firstSectionsByPageID.isEmpty)
+    }
+
+    @Test
+    func aFailedFollowUpIsLeftOutAndTheResultsStay() async throws {
+        let harness = makeHarness()
+        defer { harness.fetcher.cancelAllFetches() }
+        harness.service.responseData = try fixtureData(named: "ArticleSearchPrefixMany")
+        var loader = SearchResultsLoader(fetcher: harness.fetcher)
+        loader.firstSectionProvider = { _, _ in throw URLError(.notConnectedToInternet) }
+
+        let outcome = try await loader.fetchRawResults(for: "foo", siteURL: siteURL, resultLimit: 24, fullTextSearchThreshold: 12, includesExtracts: true)
+
+        #expect(outcome.prefix.results.count == 24)
+        #expect(outcome.firstSectionsByPageID.isEmpty)
+    }
+
     private func apiErrorBody() throws -> Data {
         try JSONSerialization.data(withJSONObject: [
             "errors": [["code": "cirrussearch-backend-error", "html": "Search is currently too busy.", "module": "query+prefixsearch"]]
@@ -216,6 +275,18 @@ struct SearchResultsLoaderTests {
 }
 
 private final class SearchResultsLoaderTestBundleToken {}
+
+private actor RequestedPageIDs {
+    private var pageIDs: [Int] = []
+
+    func append(_ pageID: Int) {
+        pageIDs.append(pageID)
+    }
+
+    var sorted: [Int] {
+        pageIDs.sorted()
+    }
+}
 
 /// Holds every request until `cancelAllFetches()` fails it with a cancellation error.
 private final class GatedSearchFetcher: WMFSearchFetcher {

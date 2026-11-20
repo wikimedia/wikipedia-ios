@@ -17,6 +17,8 @@ public enum WMFSemanticSearchInterleavedConfiguration {
     //   It equals the request limit, and the stage 1 builder (EF-1) uses 10 as its default for now.
     // - semanticTimeoutSeconds (5.0): how long the semantic request may take before the reader gets the
     //   lexical list. The value is still to be settled (US-4).
+    // - firstSectionTimeoutSeconds (3.0): how long the requests for the first section of the lexical results
+    //   with an empty lead may take altogether. After that the list shows without the ones still missing.
     //
     // The backend rebuilds the lexical list from the search IDs, so the lexical limit and the full text
     // threshold must match the stage 1 spec. They do for now, so `lexicalVersion` stays 1. When the numbers
@@ -28,4 +30,5 @@ public enum WMFSemanticSearchInterleavedConfiguration {
     public static let lexicalResultsLimit = 10
     public static let fullTextThreshold = 10
     public static let semanticTimeoutSeconds = 5.0
+    public static let firstSectionTimeoutSeconds = 3.0
 }

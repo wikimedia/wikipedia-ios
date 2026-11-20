@@ -129,7 +129,7 @@ extension SearchResultsViewController {
             var searchResult: SearchResult?
             switch item.source {
             case .lexicalPrefix, .lexicalFullText:
-                guard let mwkResult = outcome.lexicalResultsByPageID[item.pageID], let result = mapper.searchResult(from: mwkResult) else {
+                guard let mwkResult = outcome.lexicalResultsByPageID[item.pageID], let result = mapper.searchResult(from: mwkResult, firstSection: outcome.firstSectionsByPageID[item.pageID]) else {
                     return nil
                 }
                 searchResultsByArticleURL[result.id] = mwkResult
