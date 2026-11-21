@@ -62,15 +62,33 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
+    NSString *latitudeString = nil;
+    NSString *longitudeString = nil;
+    NSString *placeName = nil;
     for (NSURLQueryItem *item in components.queryItems) {
         if ([item.name isEqualToString:@"WMFArticleURL"]) {
             NSString *articleURLString = item.value;
             articleURL = [NSURL URLWithString:articleURLString];
-            break;
+        } else if ([item.name isEqualToString:@"lat"]) {
+            latitudeString = item.value;
+        } else if ([item.name isEqualToString:@"lon"]) {
+            longitudeString = item.value;
+        } else if ([item.name isEqualToString:@"name"]) {
+            placeName = item.value;
         }
     }
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
     activity.webpageURL = articleURL;
+    // Supports opening the Places tab centered on an arbitrary coordinate (rather than an existing article or the user's current location), e.g. from an external app: wikipedia://places?lat=51.5074&lon=-0.1278&name=London
+    if (latitudeString != nil && longitudeString != nil) {
+        NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary dictionary];
+        userInfo[@"WMFPlacesLatitude"] = latitudeString;
+        userInfo[@"WMFPlacesLongitude"] = longitudeString;
+        if (placeName != nil) {
+            userInfo[@"WMFPlacesName"] = placeName;
+        }
+        activity.userInfo = userInfo;
+    }
     return activity;
 }
 
