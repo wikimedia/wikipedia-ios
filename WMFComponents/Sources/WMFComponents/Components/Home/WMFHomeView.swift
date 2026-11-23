@@ -263,13 +263,13 @@ public struct WMFHomeView: View {
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
                                 Label {
-                                    Text(language.localizedName)
+                                    Text(language.nativeName)
                                 } icon: {
                                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .checkmark) ?? UIImage())
                                 }
                                 .minimumScaleFactor(0.25)
                             } else {
-                                Text(language.localizedName)
+                                Text(language.nativeName)
                                     .minimumScaleFactor(0.25)
                             }
                         }

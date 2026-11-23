@@ -19,4 +19,16 @@ public extension Locale {
         let lookupCode = Self.localeLanguageCodeOverrides[languageCode] ?? languageCode
         return localizedString(forLanguageCode: lookupCode)
     }
+
+    /// The name of a Wikipedia language in that language itself, such as "Español" for "es", with
+    /// the same overrides as `localizedString(forWikipediaLanguageCode:)`. The first letter is
+    /// capitalized with the language's own rules, because `Locale` gives some names in lowercase.
+    static func nativeName(forWikipediaLanguageCode languageCode: String) -> String? {
+        let lookupCode = localeLanguageCodeOverrides[languageCode] ?? languageCode
+        let locale = Locale(identifier: lookupCode)
+        guard let name = locale.localizedString(forLanguageCode: lookupCode), let first = name.first else {
+            return nil
+        }
+        return String(first).uppercased(with: locale) + name.dropFirst()
+    }
 }
