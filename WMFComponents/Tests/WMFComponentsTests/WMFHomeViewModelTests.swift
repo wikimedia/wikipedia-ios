@@ -380,6 +380,78 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertEqual(calls, 4)
     }
 
+    // MARK: - Community refresh and "See past"
+
+    private func makeGatedCommunityViewModel() async -> (WMFHomeViewModel, WMFDayGatedFeedDataController) {
+        let withContent = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFDayGatedFeedDataController(response: withContent ?? emptyFeed)
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+        return (vm, feed)
+    }
+
+    private func daysAgo(_ vm: WMFHomeViewModel) -> [Int] {
+        vm.communityPages.map { WMFDayGatedFeedDataController.daysAgo($0.feedDate) }
+    }
+
+    /// The reader taps "See past" while a pull to refresh runs, and the refresh finishes first. The
+    /// day belongs to the feed the refresh replaced, so it is dropped, and the next tap loads
+    /// yesterday.
+    func testSeePastStartedDuringARefreshIsDroppedWhenTheRefreshFinishesFirst() async {
+        let (vm, feed) = await makeGatedCommunityViewModel()
+
+        await feed.hold(day: 0)
+        let refresh = Task { await vm.refreshCommunityFeed() }
+        let refreshIsHeld = await feed.waitUntilHeld(day: 0)
+        XCTAssertTrue(refreshIsHeld)
+
+        await feed.hold(day: 1)
+        vm.loadCommunityPreviousPage()
+        let seePastIsHeld = await feed.waitUntilHeld(day: 1)
+        XCTAssertTrue(seePastIsHeld)
+
+        await feed.release(day: 0)
+        await refresh.value
+        await feed.release(day: 1)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(daysAgo(vm), [0])
+        XCTAssertFalse(vm.isLoadingCommunityPreviousPage)
+
+        vm.loadCommunityPreviousPage()
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loaded)
+        XCTAssertEqual(daysAgo(vm), [0, 1])
+    }
+
+    /// The reader taps "See past", then pulls to refresh, and the refresh fails. The feed on screen
+    /// stays, so the day it asked for still arrives, and the next tap continues from it.
+    func testSeePastFinishesWhenTheRefreshFails() async {
+        let (vm, feed) = await makeGatedCommunityViewModel()
+
+        await feed.hold(day: 1)
+        vm.loadCommunityPreviousPage()
+        let seePastIsHeld = await feed.waitUntilHeld(day: 1)
+        XCTAssertTrue(seePastIsHeld)
+
+        await feed.fail(day: 0)
+        await vm.refreshCommunityFeed()
+        await feed.release(day: 1)
+
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loaded)
+        XCTAssertEqual(daysAgo(vm), [0, 1])
+        XCTAssertNil(vm.communityFeedError)
+
+        vm.loadCommunityPreviousPage()
+        let loadedMore = await waitUntil { vm.communityPages.count == 3 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loadedMore)
+        XCTAssertEqual(daysAgo(vm), [0, 1, 2])
+    }
+
     /// A wiki without feed content must not start an endless run of requests.
     func testSkippingEmptyDaysStopsAtTheLimit() async {
         let (vm, feed) = makeCommunityViewModel(daysWithContent: [0])
@@ -812,5 +884,51 @@ actor WMFDatedFeedDataController: WMFFeedDataControlling {
         let calendar = Calendar(identifier: .gregorian)
         let daysAgo = calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
         return daysWithContent.contains(daysAgo) ? withContent : empty
+    }
+}
+
+/// A feed with content on every day, whose requests a test can hold or fail one day at a time
+/// (0 is today, 1 yesterday). Thus a test sets the order in which a refresh and "See past" finish.
+actor WMFDayGatedFeedDataController: WMFFeedDataControlling {
+    private let response: WMFFeedAPIResponse
+    private var heldDays: Set<Int> = []
+    private var failingDays: Set<Int> = []
+    private var held: [Int: [CheckedContinuation<Void, Never>]] = [:]
+
+    init(response: WMFFeedAPIResponse) {
+        self.response = response
+    }
+
+    func hold(day: Int) { heldDays.insert(day) }
+    func fail(day: Int) { failingDays.insert(day) }
+
+    func release(day: Int) {
+        heldDays.remove(day)
+        held.removeValue(forKey: day)?.forEach { $0.resume() }
+    }
+
+    /// Gives up after about two seconds, so a broken test fails instead of hanging the suite.
+    func waitUntilHeld(day: Int) async -> Bool {
+        for _ in 0..<200 {
+            if !(held[day] ?? []).isEmpty { return true }
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        return !(held[day] ?? []).isEmpty
+    }
+
+    func fetchFeed(project: WMFProject, date: Date) async throws -> WMFFeedAPIResponse {
+        let day = Self.daysAgo(date)
+        if heldDays.contains(day) {
+            await withCheckedContinuation { held[day, default: []].append($0) }
+        }
+        if failingDays.contains(day) {
+            throw URLError(.badServerResponse)
+        }
+        return response
+    }
+
+    static func daysAgo(_ date: Date) -> Int {
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
     }
 }

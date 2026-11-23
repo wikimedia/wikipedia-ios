@@ -472,11 +472,13 @@ public final class WMFHomeViewModel: ObservableObject {
     public func refreshCommunityFeed() async {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
-        // A day loading for the old feed must not be appended to the new one.
-        cancelCommunityPreviousPageLoad()
         do {
             let response = try await dataController.fetchCommunity(project: project, forceFetch: true)
             guard selectedLanguage?.id == language.id else { return }
+            // Only now does the old feed end. A day still loading for it, including one the reader
+            // asked for during the refresh, must not be appended to the new feed. If the refresh
+            // fails, that day still belongs to the feed on screen, so it is left to finish.
+            cancelCommunityPreviousPageLoad()
             self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
             self.communityFeedError = nil
             loadEarlierDayIfTodayIsEmpty()
