@@ -35,10 +35,11 @@ enum WMFRiveWorkerProvider {
         "SanSerifFont-Regular": .systemFont(ofSize: 17, weight: .regular)
     ]
 
-    /// EB Garamond Regular, under the SIL Open Font License, for the "SerifFont" of the export. The
-    /// export has Medium, but product wants Regular to match Android.
+    /// EB Garamond, under the SIL Open Font License, for the "SerifFont" of the export. It is the
+    /// variable font from the designer (weight 400 to 800). A text style in the .riv can set its
+    /// weight. A text style that does not set a weight gets Regular (400).
     private static let bundledFontURLs: [String: URL] = [
-        "SerifFont": Bundle.module.url(forResource: "EBGaramond-Regular", withExtension: "ttf")
+        "SerifFont": Bundle.module.url(forResource: "EBGaramond-Variable", withExtension: "ttf")
     ].compactMapValues { $0 }
 
     static func sharedWorker() async throws -> Worker {
