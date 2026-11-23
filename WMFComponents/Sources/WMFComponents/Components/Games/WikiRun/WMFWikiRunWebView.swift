@@ -38,6 +38,7 @@ struct WMFWikiRunWebView: UIViewRepresentable {
 
     func updateUIView(_ webView: WKWebView, context: Context) {
         context.coordinator.pushDarkModeIfNeeded(viewModel.isDarkMode)
+        context.coordinator.reloadIfNeeded()
     }
 
     static func dismantleUIView(_ webView: WKWebView, coordinator: Coordinator) {
@@ -59,9 +60,11 @@ struct WMFWikiRunWebView: UIViewRepresentable {
         private let viewModel: WMFWikiRunViewModel
         weak var webView: WKWebView?
         private var lastPushedDarkMode: Bool?
+        private var lastReloadToken: Int
 
         init(viewModel: WMFWikiRunViewModel) {
             self.viewModel = viewModel
+            self.lastReloadToken = viewModel.reloadToken
         }
 
         // MARK: - WKScriptMessageHandler
@@ -129,6 +132,22 @@ struct WMFWikiRunWebView: UIViewRepresentable {
             }
         }
 
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            viewModel.didFinishLoading()
+        }
+
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            reportLoadFailure(error)
+        }
+
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            reportLoadFailure(error)
+        }
+
+        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+            viewModel.didFailToLoad()
+        }
+
         // MARK: - WKUIDelegate
 
         func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -139,6 +158,19 @@ struct WMFWikiRunWebView: UIViewRepresentable {
         }
 
         // MARK: - Bridge helpers
+
+        func reloadIfNeeded() {
+            guard let webView, lastReloadToken != viewModel.reloadToken else { return }
+            lastReloadToken = viewModel.reloadToken
+            webView.load(URLRequest(url: viewModel.gameURL))
+        }
+
+        private func reportLoadFailure(_ error: Error) {
+            // A cancelled navigation is how a superseded or redirected load ends, not a failure.
+            let error = error as NSError
+            guard !(error.domain == NSURLErrorDomain && error.code == NSURLErrorCancelled) else { return }
+            viewModel.didFailToLoad()
+        }
 
         func pushDarkModeIfNeeded(_ isDarkMode: Bool) {
             guard let webView, lastPushedDarkMode != isDarkMode else { return }

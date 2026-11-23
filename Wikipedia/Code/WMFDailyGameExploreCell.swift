@@ -90,6 +90,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         let wikiRunTitle = WMFLocalizedString("wikirun-feed-card-title", value: "WikiRun", comment: "Title for the WikiRun button in the Games card.")
         wikiRunButton.setTitle(wikiRunTitle, for: .normal)
         wikiRunButton.titleLabel?.text = wikiRunTitle
+        wikiRunButton.contentHorizontalAlignment = .leading
         wikiRunButton.addTarget(self, action: #selector(didTapWikiRun), for: .touchUpInside)
         addSubview(wikiRunButton)
 
@@ -402,7 +403,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             y = wikiRunButton.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                minimumSize: NoIntrinsicSize,
+                minimumSize: CGSize(width: availableWidth, height: 44),
                 alignedBy: .forceLeftToRight,
                 apply: apply
             ).maxY

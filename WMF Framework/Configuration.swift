@@ -346,7 +346,7 @@ public class Configuration: NSObject {
            url.host != nil {
             return url
         }
-        return URL(string: "https://wikirun-game.toolforge.org")
+        return URL(string: "https://games-native-wikirun.toolforge.org")
     }
 
     // MARK: Article URLs

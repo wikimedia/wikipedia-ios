@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import UIKit
 import WMFData
+import WMFNativeLocalizations
 
 /// State and behaviour for the WikiRun web game hosted in a WebView.
 @MainActor
@@ -13,20 +14,55 @@ public final class WMFWikiRunViewModel: ObservableObject {
         case failed
     }
 
+    /// Whether the game is loading, loaded or could not load, so the host can offer a way out
+    /// of a blank screen.
+    public enum LoadState {
+        case loading
+        case loaded
+        case failed
+    }
+
+    public struct LocalizedStrings {
+        public let errorTitle: String
+        public let errorMessage: String
+        public let retryButton: String
+        public let closeButton: String
+
+        public init(errorTitle: String, errorMessage: String, retryButton: String, closeButton: String) {
+            self.errorTitle = errorTitle
+            self.errorMessage = errorMessage
+            self.retryButton = retryButton
+            self.closeButton = closeButton
+        }
+    }
+
     /// The game URL, with the embed query parameter applied.
     public let gameURL: URL
 
     /// Set by the presenter: opens a Wikipedia article over the game, so back returns to it.
-    public var onOpenArticle: ((URL) -> Void)?
+    public var onOpenArticle: (@MainActor @Sendable (URL) -> Void)?
 
     /// Set by the presenter: shares the game's result with the system share sheet.
-    public var onShare: ((_ text: String?, _ url: URL?) -> Void)?
+    public var onShare: (@MainActor @Sendable (_ text: String?, _ url: URL?) -> Void)?
 
     /// Set by the presenter: dismisses the game.
-    public var onClose: (() -> Void)?
+    public var onClose: (@MainActor @Sendable () -> Void)?
+
+    public let localizedStrings = LocalizedStrings(
+        errorTitle: WMFLocalizedString("wikirun-error-title", value: "Something went wrong", comment: "Title shown when the WikiRun game cannot load."),
+        errorMessage: WMFLocalizedString("wikirun-error-message", value: "The game could not load. Check your connection and try again.", comment: "Message shown when the WikiRun game cannot load."),
+        retryButton: CommonStrings.retryActionTitle,
+        closeButton: WMFLocalizedString("wikirun-error-close-button", value: "Close", comment: "Button that closes the WikiRun game from its error state.")
+    )
 
     /// The app theme the game should follow.
     @Published public private(set) var isDarkMode: Bool
+
+    /// Whether the game loaded or failed, so the host can offer a way out of a blank screen.
+    @Published public private(set) var loadState: LoadState = .loading
+
+    /// Changes when the game should be loaded again, after a failure.
+    @Published public private(set) var reloadToken = 0
 
     /// The snapshot layout this host understands.
     private static let snapshotVersion = 1
@@ -42,6 +78,24 @@ public final class WMFWikiRunViewModel: ObservableObject {
     /// Re-reads the app theme after `WMFAppEnvironment` changes, so the game can follow it.
     public func updateTheme() {
         isDarkMode = WMFAppEnvironment.current.theme.userInterfaceStyle == .dark
+    }
+
+    // MARK: - Loading
+
+    func didFinishLoading() {
+        loadState = .loaded
+    }
+
+    /// Called when the game could not load or its web content process ended, so the game is gone
+    /// from the screen.
+    func didFailToLoad() {
+        loadState = .failed
+    }
+
+    /// Loads the game again from its URL, replacing the error state.
+    public func retryLoading() {
+        loadState = .loading
+        reloadToken += 1
     }
 
     // MARK: - Bridge
