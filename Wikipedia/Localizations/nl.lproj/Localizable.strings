@@ -1355,7 +1355,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "Nee";
 "semantic-search-feedback-thumbs-up-accessibility" = "Ja";
 "semantic-search-feedback-title" = "Terugkoppeling";
-"semantic-search-passage-not-found" = "Deze passage staat niet meer in het artikel";
 "serbian-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende varianten van Servisch als primaire of secundaire talen in de app, wat het makkelijker maakt pagina's te lezen, zoeken en bewerken in deze varianten:\n\nсрпски ћирилица Servisch, Cyrillisch (sr-ec)\nsrpski latinica Servisch, Latijn (sr-el)";
 "serbian-variants-alert-title" = "Updates voor ondersteuning van Servische varianten";
 "settings-account" = "Account";

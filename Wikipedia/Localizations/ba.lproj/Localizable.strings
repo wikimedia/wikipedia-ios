@@ -499,7 +499,6 @@
 "page-protected-can-not-edit-title" = "Был бит һаҡланған";
 "potd-description-prefix" = " $1 өсөн көн һүрәте";
 "potd-empty-error-description" = "$1 өсөн көн һүрәтен алып булманы";
-// Fuzzy
 "saved-pages-image-download-error" = "Был һаҡланған биттең һүрәтен күсереп булманы";
 "saved-title" = "Һаҡланған";
 "search-field-placeholder-text" = "Википедияла эҙләү";
