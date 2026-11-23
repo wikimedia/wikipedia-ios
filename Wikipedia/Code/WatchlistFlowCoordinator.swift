@@ -6,10 +6,11 @@ import WMFNativeLocalizations
 
 /// Builds the Watchlist screen and answers its callbacks. `ViewControllerRouter` keeps one instance, because
 /// the Watchlist screen holds its delegates weakly. `WatchlistCoordinator` only opens the deep link that leads here.
+/// The navigation controller is weak, so that this long-lived object does not keep a closed modal stack in memory.
 @MainActor
-final class WatchlistFlowCoordinator: NSObject, Coordinator {
+final class WatchlistFlowCoordinator: NSObject {
 
-    var navigationController: UINavigationController
+    private weak var navigationController: UINavigationController?
     private let dataStore: MWKDataStore
     private weak var appViewController: WMFAppViewController?
 
@@ -17,21 +18,19 @@ final class WatchlistFlowCoordinator: NSObject, Coordinator {
         appViewController?.theme ?? .standard
     }
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, appViewController: WMFAppViewController) {
-        self.navigationController = navigationController
+    init(dataStore: MWKDataStore, appViewController: WMFAppViewController) {
         self.dataStore = dataStore
         self.appViewController = appViewController
         super.init()
     }
 
-    @discardableResult
-    func start() -> Bool {
+    func start(on navigationController: UINavigationController) {
+        self.navigationController = navigationController
         if UserDefaults.standard.wmf_userHasOnboardedToWatchlists {
             goToWatchlist()
         } else {
             showWatchlistOnboarding()
         }
-        return true
     }
 
     private var localizedProjectNames: [WMFProject: String] {
@@ -102,7 +101,7 @@ final class WatchlistFlowCoordinator: NSObject, Coordinator {
 
         WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
 
-        navigationController.present(viewController, animated: true) {
+        navigationController?.present(viewController, animated: true) {
             UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
         }
     }
@@ -130,7 +129,7 @@ final class WatchlistFlowCoordinator: NSObject, Coordinator {
             return attributedString
         }
 
-        let localizedStrings = WMFWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
+        let localizedStrings = WMFWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
 
         let viewModel = WMFWatchlistViewModel(localizedStrings: localizedStrings)
 
@@ -161,7 +160,7 @@ final class WatchlistFlowCoordinator: NSObject, Coordinator {
 
         let watchlistViewController = WMFWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: self, loggingDelegate: self, reachabilityHandler: reachabilityHandler)
 
-        navigationController.pushViewController(watchlistViewController, animated: true)
+        navigationController?.pushViewController(watchlistViewController, animated: true)
     }
 }
 
@@ -173,7 +172,7 @@ extension WatchlistFlowCoordinator: WMFOnboardingViewDelegate {
 
         WatchlistFunnel.shared.logWatchlistOnboardingTapContinue()
 
-        if let presentedViewController = navigationController.presentedViewController {
+        if let presentedViewController = navigationController?.presentedViewController {
             presentedViewController.dismiss(animated: true) { [weak self] in
                 self?.goToWatchlist()
             }
@@ -184,12 +183,12 @@ extension WatchlistFlowCoordinator: WMFOnboardingViewDelegate {
 
         WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
 
-        if let presentedViewController = navigationController.presentedViewController {
+        if let presentedViewController = navigationController?.presentedViewController {
             presentedViewController.dismiss(animated: true) { [weak self] in
                 guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Watchlist") else {
                     return
                 }
-                self?.navigationController.navigate(to: url)
+                self?.appViewController?.navigate(to: url)
             }
         }
     }
@@ -217,7 +216,7 @@ extension WatchlistFlowCoordinator: WMFWatchlistDelegate {
 
         let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.watchlist.rawValue]
 
-        navigationController.navigate(to: diffURL, userInfo: userInfo)
+        appViewController?.navigate(to: diffURL, userInfo: userInfo)
     }
 
     public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WMFWatchlistUserButtonAction) {
@@ -228,11 +227,11 @@ extension WatchlistFlowCoordinator: WMFWatchlistDelegate {
 
         switch action {
         case .userPage:
-            navigationController.navigate(to: siteURL.wmf_URL(withPath: "/wiki/User:\(username)"))
+            appViewController?.navigate(to: siteURL.wmf_URL(withPath: "/wiki/User:\(username)"))
         case .userTalkPage:
-            navigationController.navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)"))
+            appViewController?.navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)"))
         case .userContributions:
-            navigationController.navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)"))
+            appViewController?.navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)"))
         case .thank(let revisionID):
             let performThanks = {
                 let diffThanker = DiffThanker()

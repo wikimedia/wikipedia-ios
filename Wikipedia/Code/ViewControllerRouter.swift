@@ -198,11 +198,9 @@ class ViewControllerRouter: NSObject {
         case .login:
             return presentLoginViewController(with: completion)
         case .watchlist:
-            let didShowWatchlist = MainActor.assumeIsolated {
-                showWatchlist()
+            return MainActor.assumeIsolated {
+                showWatchlist(completion: completion)
             }
-            completion()
-            return didShowWatchlist
         default:
             completion()
             return false
@@ -231,16 +229,14 @@ class ViewControllerRouter: NSObject {
     }
 
     @MainActor
-    private func showWatchlist() -> Bool {
+    private func showWatchlist(completion: @escaping () -> Void) -> Bool {
+        defer { completion() }
         guard let targetNavigationController = watchlistTargetNavigationController() else {
             return true
         }
-        if let watchlistFlowCoordinator {
-            watchlistFlowCoordinator.navigationController = targetNavigationController
-        } else {
-            watchlistFlowCoordinator = WatchlistFlowCoordinator(navigationController: targetNavigationController, dataStore: appViewController.dataStore, appViewController: appViewController)
-        }
-        watchlistFlowCoordinator?.start()
+        let coordinator = watchlistFlowCoordinator ?? WatchlistFlowCoordinator(dataStore: appViewController.dataStore, appViewController: appViewController)
+        watchlistFlowCoordinator = coordinator
+        coordinator.start(on: targetNavigationController)
         return true
     }
 
