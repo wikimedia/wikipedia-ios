@@ -369,7 +369,8 @@ struct WMFCommunityFeedView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(isSaved ? CommonStrings.accessibilitySavedTitle : CommonStrings.saveTitle(languageCode: page.strings.languageCode))
+        // No separate accessibility label: the visible "Save for later" or "Saved for later" is
+        // the label, so VoiceOver reads both states in the feed's language.
     }
 
     /// A trailing link with a chevron under a module, such as "More top read".

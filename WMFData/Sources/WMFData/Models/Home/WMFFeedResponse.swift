@@ -24,6 +24,17 @@ public struct WMFFeedAPIResponse: Codable, Sendable {
         self.news = news
         self.onThisDay = onThisDay
     }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        todaysFeaturedArticle = try container.decodeIfPresent(WMFFeedArticle.self, forKey: .todaysFeaturedArticle)
+        mostRead = try container.decodeIfPresent(WMFFeedMostRead.self, forKey: .mostRead)
+        image = try container.decodeIfPresent(WMFFeedImageNew.self, forKey: .image)
+        news = try container.decodeIfPresent([WMFFeedNewsItem].self, forKey: .news)
+        // On this day is optional here: an event this model cannot read must not fail the whole day.
+        // Without it, the Community feed falls back to the full list of the day's events.
+        onThisDay = try? container.decodeIfPresent([WMFOnThisDayEvent].self, forKey: .onThisDay)
+    }
 }
 
 // MARK: - Shared article type (used for TFA, most-read articles, and news links)
