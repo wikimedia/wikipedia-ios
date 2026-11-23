@@ -790,7 +790,6 @@
 "home-community-tab-title" = "Title for the Community segment within the Home tab.";
 "home-community-today-date-header" = "Header above today's modules in the Home tab's Community feed. $1 is replaced with today's date, e.g. \"Today - Mar 23, 2026\".";
 "home-community-top-read-past-subtitle" = "Subtitle of the Top read module in the Home tab's Community feed, for a day before today.";
-"home-edit-languages-title" = "Title for the option at the bottom of the Home language menu that opens the languages settings screen.";
 "home-empty-community-feed-subtitle" = "Message shown on the Home tab's Community segment when the reader has turned off every Community module in settings. “Community” matches the segment name. $1 and $2 are opening and closing bold.";
 "home-empty-feed-manage-modules-button" = "Button on the Home tab's For You or Community empty state. It opens the modules screen of the feed settings.";
 "home-empty-feed-title" = "Title shown on the Home tab's For You or Community segment when the reader has turned off every feed module for it in settings.";
@@ -841,6 +840,7 @@
 "home-for-you-next-module-accessibility-action" = "Accessibility action on a For You card that moves to the next module in the feed. It is the VoiceOver equivalent of swiping up.";
 "home-for-you-previous-module-accessibility-action" = "Accessibility action on a For You card that moves to the previous module in the feed. It is the VoiceOver equivalent of swiping down.";
 "home-for-you-tab-title" = "Title for the For You segment within the Home tab.";
+"home-manage-languages-title" = "Title for the option at the bottom of the Home language menu, on the Community and For You segments. It opens the languages settings screen.";
 "home-menu-hide-module" = "Menu action to hide the whole Home feed module that contains this card.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";

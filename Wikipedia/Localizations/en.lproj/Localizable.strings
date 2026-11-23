@@ -790,7 +790,6 @@
 "home-community-tab-title" = "Community";
 "home-community-today-date-header" = "Today - $1";
 "home-community-top-read-past-subtitle" = "What was trending on Wikipedia that day";
-"home-edit-languages-title" = "Add or edit languages";
 "home-empty-community-feed-subtitle" = "Turn on $1“Community”$2 modules to start seeing content curated by contributors across the Wikimedia movement.";
 "home-empty-feed-manage-modules-button" = "Manage modules";
 "home-empty-feed-title" = "Your feed is empty";
@@ -841,6 +840,7 @@
 "home-for-you-next-module-accessibility-action" = "Next module";
 "home-for-you-previous-module-accessibility-action" = "Previous module";
 "home-for-you-tab-title" = "For You";
+"home-manage-languages-title" = "Manage languages";
 "home-menu-hide-module" = "Hide module";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";

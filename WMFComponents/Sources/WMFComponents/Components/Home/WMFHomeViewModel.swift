@@ -44,8 +44,8 @@ public final class WMFHomeViewModel: ObservableObject {
     var communityTabTitle: String {
         WMFLocalizedString("home-community-tab-title", languageCode: feedLanguageCode, value: "Community", comment: "Title for the Community segment within the Home tab.")
     }
-    var editLanguagesTitle: String {
-        WMFLocalizedString("home-edit-languages-title", languageCode: feedLanguageCode, value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
+    var manageLanguagesTitle: String {
+        WMFLocalizedString("home-manage-languages-title", languageCode: feedLanguageCode, value: "Manage languages", comment: "Title for the option at the bottom of the Home language menu, on the Community and For You segments. It opens the languages settings screen.")
     }
     var communityEmptyFeedSubtitle: String {
         let format = WMFLocalizedString("home-empty-community-feed-subtitle", languageCode: feedLanguageCode, value: "Turn on %1$@“Community”%2$@ modules to start seeing content curated by contributors across the Wikimedia movement.", comment: "Message shown on the Home tab's Community segment when the reader has turned off every Community module in settings. “Community” matches the segment name. %1$@ and %2$@ are opening and closing bold.")

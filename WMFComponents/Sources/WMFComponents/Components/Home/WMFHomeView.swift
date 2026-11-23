@@ -279,11 +279,7 @@ public struct WMFHomeView: View {
                     Button {
                         viewModel.didTapEditLanguages?()
                     } label: {
-                        Label {
-                            Text(viewModel.editLanguagesTitle)
-                        } icon: {
-                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .globe) ?? UIImage())
-                        }
+                        Text(viewModel.manageLanguagesTitle)
                     }
                     .tint(.primary)
                 } label: {

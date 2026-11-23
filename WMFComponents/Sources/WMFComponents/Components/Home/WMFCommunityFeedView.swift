@@ -121,10 +121,10 @@ struct WMFCommunityFeedView: View {
     // MARK: - Disclaimer
 
     private var disclaimer: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             Text(strings.disclaimer)
                 .font(Font(WMFFont.for(.subheadline)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .foregroundStyle(Color(uiColor: theme.text))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
             Image(uiImage: WMFIcon.wikipediaGlobe ?? UIImage())
@@ -133,13 +133,11 @@ struct WMFCommunityFeedView: View {
                 .frame(width: WMFCommunityFeedMetrics.disclaimerGlobeSize, height: WMFCommunityFeedMetrics.disclaimerGlobeSize)
                 .accessibilityHidden(true)
         }
-        .padding(.vertical, 12)
-        .padding(.leading, 20)
-        .padding(.trailing, 12)
+        .padding(16)
         // A full pill, as in the Figma. A tall disclaimer (large text) keeps a rounded rectangle.
         .background(
             RoundedRectangle(cornerRadius: 40, style: .continuous)
-                .fill(Color(uiColor: theme.midBackground))
+                .fill(Color(uiColor: theme.baseBackground))
         )
         .padding(.horizontal, Self.horizontalPadding)
         .accessibilityElement(children: .combine)
@@ -174,7 +172,7 @@ struct WMFCommunityFeedView: View {
                 VStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.dateToModuleSpacing) {
                     if isFirstDay {
                         disclaimer
-                            .padding(.bottom, 8)
+                            .padding(.bottom, 12)
                     }
                     dateHeader(page)
                     moduleColumn(columns.leading, page: page)
@@ -200,7 +198,7 @@ struct WMFCommunityFeedView: View {
     private func dateHeader(_ page: WMFHomeCommunityViewModel) -> some View {
         Text(page.date)
             .font(Font(WMFFont.for(.subheadline)))
-            .foregroundStyle(Color(uiColor: theme.secondaryText))
+            .foregroundStyle(Color(uiColor: theme.text))
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, Self.horizontalPadding)
             .accessibilityAddTraits(.isHeader)
@@ -822,7 +820,7 @@ enum WMFCommunityFeedMetrics {
     /// Between a module's title and its subtitle.
     static let titleToSubtitleSpacing: CGFloat = 8
     /// Between the date and the day's first module.
-    static let dateToModuleSpacing: CGFloat = 16
+    static let dateToModuleSpacing: CGFloat = 12
     /// Between the last module and "See past community content".
     static let footerSpacing: CGFloat = 16
 
