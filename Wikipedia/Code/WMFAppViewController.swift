@@ -377,7 +377,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         tabBarCoordinator.search.viewController.apply(theme: theme)
 
-        if let savedTabBarItem = tabBarCoordinator.saved.rootViewController.tabBarItem {
+        if let savedTabBarItem = tabBarCoordinator.saved.savedViewController?.tabBarItem {
             savedTabBadgeController = SavedTabBadgeController(
                 tabBarItem: savedTabBarItem,
                 tabBar: tabBar,

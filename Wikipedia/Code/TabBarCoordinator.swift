@@ -7,7 +7,7 @@ import WMFComponents
 protocol TabRootCoordinator: Coordinator {
     var tab: WMFAppTabType { get }
 
-    /// Built the first time it is read.
+    /// Builds the view controller if the coordinator does not have one. Home and Saved hold it weakly, so read it again only after a navigation controller holds it.
     var rootViewController: UIViewController { get }
 
     func attach(navigationController: UINavigationController)
